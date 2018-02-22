@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Launch Delay Controller-->
+        <scene sceneID="TDd-vP-iki">
+            <objects>
+                <viewController storyboardIdentifier="launch_delay" id="uQl-dn-cuY" customClass="LaunchDelayController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kom-0B-6bJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_logo" translatesAutoresizingMaskIntoConstraints="NO" id="yx3-cG-U2X">
+                                <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="8vZ-Wz-EeE"/>
+                                    <constraint firstAttribute="height" constant="150" id="dJ1-5x-Ppk"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.10980392156862745" green="0.19215686274509802" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="yx3-cG-U2X" firstAttribute="centerY" secondItem="Kom-0B-6bJ" secondAttribute="centerY" id="eO0-iF-eGs"/>
+                            <constraint firstItem="yx3-cG-U2X" firstAttribute="centerX" secondItem="Kom-0B-6bJ" secondAttribute="centerX" id="uZ1-hl-Hge"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Xrd-rv-VcZ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d0I-hi-P9t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="170" y="-70"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="chatalyze_logo" width="150" height="150"/>
+    </resources>
+</document>
