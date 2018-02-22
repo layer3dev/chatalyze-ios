@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public extension UIViewController {
+extension UIViewController {
     
     func alert(withTitle title : String = AppInfoConfig.appName, message : String = "", successTitle : String = "", rejectTitle : String = "", showCancel : Bool = false, completion : ((_ success : Bool)->())? = nil
         ){

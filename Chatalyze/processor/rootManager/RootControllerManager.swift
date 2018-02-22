@@ -34,21 +34,12 @@ class RootControllerManager{
         UINavigationBar.appearance().barStyle = .black        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
-        let userInfo = SignedUserInfo.sharedInstance
-        let apiInfo = APIVersionInfo.sharedInstance
+        
         //Log.echo(key: "yud", text: "Api info in root Controller\(apiInfo)")
         
-        if apiInfo != nil{
-            
-            let isDepricate = checkForDepricateApp()
-            if isDepricate == true{
-                window?.rootViewController = DeprecatedController.instance()
-                return
-            }
-            //APIVersionControl().showDepricateAlert()
-        }
+       
         
-        guard let controller = ContainerController.instance()
+        /*guard let controller = ContainerController.instance()
             else{
                 return
         }
@@ -63,19 +54,11 @@ class RootControllerManager{
         //window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         initializeAppConnection(rootController: controller)
-        return
+        return*/
     }
     
     
-    private func initializeAppConnection(rootController : UIViewController){
-        guard let controller = rootController as? InterfaceExtendedController
-            else{
-                return
-        }
-        updateAppNotification(rootController: controller)
-        connectUserSocket(rootController : rootController)
-    }
-    
+   
     
     
     

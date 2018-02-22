@@ -27,7 +27,7 @@ class EventTimer: NSObject {
         timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(processData(_:)), userInfo: nil, repeats: true)
     }
     
-    func processData(_ timer : Timer){
+    @objc func processData(_ timer : Timer){
         
         weak var weakSelf = self
         DispatchQueue.main.async(execute: {

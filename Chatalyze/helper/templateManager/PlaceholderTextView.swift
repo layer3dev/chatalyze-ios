@@ -91,7 +91,7 @@ extension PlaceholderTextView : UITextViewDelegate{
 //    }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if self.text.characters.count > 200{
+        if self.text.count > 200{
             return false
         }
         return true

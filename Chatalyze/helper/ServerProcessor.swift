@@ -99,14 +99,16 @@ class ServerProcessor{
     }
     
     fileprivate func getAuthorizationToken()->String{
-        guard let info = SignedUserInfo.sharedInstance
+        //:todo
+        /*guard let info = SignedUserInfo.sharedInstance
             else{
                 return ""
         }
         
         let token = "Bearer " + (info.accessToken ?? "")
         Log.echo(key: "token", text: token)
-        return token
+        return token*/
+        return ""
     }
     
     fileprivate func respond(success : Bool, response : JSON?){
@@ -140,7 +142,7 @@ class ServerProcessor{
         }
         
         if(response.result.isFailure){
-            respond(success: false, response: JSON(data : senddata))
+            respond(success: false, response: try? JSON(data : senddata))
             return
         }
         
@@ -154,31 +156,32 @@ class ServerProcessor{
                 return
         }
         
-        respond(success: response.result.isSuccess, response: JSON(data : data))
+        respond(success: response.result.isSuccess, response: try? JSON(data : data))
         return
     }
     
     fileprivate func signout(){
         
-         RootControllerManager.signOutAction(completion: nil)
+         //RootControllerManager.signOutAction(completion: nil)
          return
         
         
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
         let headerInfo = httpResponse?.allHeaderFields
-        Log.echo(key: "token", text: "headerInfo extracted ==>  \(headerInfo)")
-        guard let accessToken = headerInfo?["x-session-token"] as? String
+        Log.echo(key: "token", text: "headerInfo extracted ==>  \(String(describing: headerInfo))")
+        guard (headerInfo?["x-session-token"] as? String) != nil
             else{
                 Log.echo(key: "token", text: "accessToken not found ")
                 return
         }
-        guard let instance = SignedUserInfo.sharedInstance
+        //:todo
+        /*guard let instance = SignedUserInfo.sharedInstance
             else{
                 Log.echo(key: "token", text: "user instance not found ")
                 return
         }
         Log.echo(key: "token", text: "token extracted ==>  " + accessToken)
-        instance.accessToken = accessToken
+        instance.accessToken = accessToken*/
     }
 }

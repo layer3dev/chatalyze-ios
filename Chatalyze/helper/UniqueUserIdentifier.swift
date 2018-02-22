@@ -78,12 +78,12 @@ class UniqueUserIdentifier{
                 return ""
         }
         
-        let piHash = (userIdDouble * M_PI)
-        let piHashInt = IntMax(piHash) 
+        let piHash = (userIdDouble * Double.pi)
+        let piHashInt = Int64(piHash)
         let zeroFilterHash = (piHashInt | 0)
         let zeroFilteredHash = piHash - (Double(zeroFilterHash))
         
-        let finalHash: IntMax = IntMax(zeroFilteredHash * pow(Double(10),Double(16)))
+        let finalHash: Int64 = Int64(zeroFilteredHash * pow(Double(10),Double(16)))
         var hashString = String(finalHash)
         
         let characters = hashString.characters.map{Int(String($0)) ?? 0}
