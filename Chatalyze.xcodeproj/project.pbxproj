@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA8CE77D2040515000AB52BD /* signin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA8CE77C2040515000AB52BD /* signin.storyboard */; };
+		FA8CE78720405DFB00AB52BD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8CE78420405DFA00AB52BD /* Bolts.framework */; };
+		FA8CE78820405DFB00AB52BD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8CE78520405DFB00AB52BD /* FBSDKLoginKit.framework */; };
+		FA8CE78920405DFB00AB52BD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8CE78620405DFB00AB52BD /* FBSDKCoreKit.framework */; };
 		FAA0016A203ED1E6003C8A74 /* RootControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA00169203ED1E6003C8A74 /* RootControllerManager.swift */; };
 		FAA0016D203ED2A7003C8A74 /* launch_container.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA0016C203ED2A7003C8A74 /* launch_container.storyboard */; };
 		FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA0016F203ED3F1003C8A74 /* LaunchDelayController.swift */; };
@@ -73,6 +77,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA8CE77C2040515000AB52BD /* signin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = signin.storyboard; sourceTree = "<group>"; };
+		FA8CE78420405DFA00AB52BD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		FA8CE78520405DFB00AB52BD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		FA8CE78620405DFB00AB52BD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FAA00169203ED1E6003C8A74 /* RootControllerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootControllerManager.swift; sourceTree = "<group>"; };
 		FAA0016C203ED2A7003C8A74 /* launch_container.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = launch_container.storyboard; sourceTree = "<group>"; };
 		FAA0016F203ED3F1003C8A74 /* LaunchDelayController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchDelayController.swift; sourceTree = "<group>"; };
@@ -132,6 +140,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8CE78720405DFB00AB52BD /* Bolts.framework in Frameworks */,
+				FA8CE78820405DFB00AB52BD /* FBSDKLoginKit.framework in Frameworks */,
+				FA8CE78920405DFB00AB52BD /* FBSDKCoreKit.framework in Frameworks */,
 				FAA001C0203EDFF2003C8A74 /* ImageLoader.framework in Frameworks */,
 				FAA001C1203EDFF2003C8A74 /* SocketIO.framework in Frameworks */,
 				FAA001C2203EDFF2003C8A74 /* SDWebImage.framework in Frameworks */,
@@ -178,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA0016C203ED2A7003C8A74 /* launch_container.storyboard */,
+				FA8CE77C2040515000AB52BD /* signin.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -199,20 +211,12 @@
 				FAA00188203ED471003C8A74 /* Log.swift */,
 				FAA00189203ED471003C8A74 /* ServerProcessor.swift */,
 				FAA00195203ED471003C8A74 /* UniqueUserIdentifier.swift */,
-				FAA00173203ED471003C8A74 /* container */,
 				FAA00176203ED471003C8A74 /* dateHelper */,
 				FAA0017A203ED471003C8A74 /* extension */,
 				FAA00186203ED471003C8A74 /* font */,
 				FAA0018A203ED471003C8A74 /* templateManager */,
 			);
 			path = helper;
-			sourceTree = "<group>";
-		};
-		FAA00173203ED471003C8A74 /* container */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = container;
 			sourceTree = "<group>";
 		};
 		FAA00176203ED471003C8A74 /* dateHelper */ = {
@@ -267,6 +271,9 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA8CE78420405DFA00AB52BD /* Bolts.framework */,
+				FA8CE78620405DFB00AB52BD /* FBSDKCoreKit.framework */,
+				FA8CE78520405DFB00AB52BD /* FBSDKLoginKit.framework */,
 				FAA001BC203EDFF1003C8A74 /* ImageLoader.framework */,
 				FAA001BE203EDFF2003C8A74 /* SDWebImage.framework */,
 				FAA001BD203EDFF2003C8A74 /* SocketIO.framework */,
@@ -460,6 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8CE77D2040515000AB52BD /* signin.storyboard in Resources */,
 				FAFFFEA2203D9C80009B4F96 /* LaunchScreen.storyboard in Resources */,
 				FAFFFE9F203D9C80009B4F96 /* Assets.xcassets in Resources */,
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
@@ -717,7 +725,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -740,7 +748,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
