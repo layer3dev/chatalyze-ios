@@ -10,7 +10,6 @@ import UIKit
 
 class InterfaceExtendedController : ExtendedController {
     
-    var notificationBar : NotificationBar?
     var disableBack : Bool = false
 
     override func viewDidLoad() {
@@ -76,35 +75,10 @@ class InterfaceExtendedController : ExtendedController {
         self.navigationItem.titleView = titleLabel*/
     }
     
-    //:todo
-    /*
-    func paintNotificationLogo(){
-        return;
-        let notificationView = NotificationBar()
-        notificationBar = notificationView
-        let count = SignedUserInfo.sharedInstance?.notificationCount ?? 0
-        Log.echo(key: "notificationCount", text: "count ==> \(count)")
-        notificationBar?.count = count
-        notificationView.delegate = self
-        notificationView.translatesAutoresizingMaskIntoConstraints = false
-        let barItem = UIBarButtonItem(customView: notificationView)
-        var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
-        items.append(barItem)
-        self.navigationItem.rightBarButtonItems = items
-    }*/
     
-    func paintBackButton(){
-        
-        let backBar = BackBar()
-        backBar.delegate = self
-        backBar.translatesAutoresizingMaskIntoConstraints = false
-        let barItem = UIBarButtonItem(customView: backBar)
-        var items = self.navigationItem.leftBarButtonItems ?? [UIBarButtonItem]();
-        items.append(barItem)
-        self.navigationItem.leftBarButtonItems = items
-    }
+    
 
-    
+
 
     
     func emptyNavButtons(){
@@ -113,43 +87,11 @@ class InterfaceExtendedController : ExtendedController {
     }
     
     
-
-    
-    func paintLogoutButton(){
-        
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
-        button.contentVerticalAlignment = .bottom
-        button.setImage(UIImage(named: "setting"), for: .normal)
-        button.imageView?.image = UIImage(named: "setting")
-        button.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
-        let barItem = UIBarButtonItem(customView: button)
-        var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
-        items.append(barItem)
-        self.navigationItem.rightBarButtonItems = items
-    }
-    
     
 }
 
-extension InterfaceExtendedController : NotificationBarInterface{
- 
-    func notificationTapped() {
-        Log.echo(key: "notification", text: "tapped in InterfaceExtendedController" )
-        guard let controller = NotificationController.instantiate()
-            else{
-                return
-        }
-        navigationController?.pushViewController(controller, animated: true)
-    }
-}
-extension InterfaceExtendedController : BackBarInterface{
-    func backTapped(){
-        if(disableBack){
-            return
-        }
-        let _ = self.navigationController?.popViewController(animated: true)
-    }
-}
+
+
 
 
 
@@ -161,17 +103,9 @@ extension InterfaceExtendedController{
         self.view.addGestureRecognizer(tapGesture)
     }
     
-    func hideKeyboard(){
+    @objc func hideKeyboard(){
         self.view.endEditing(true)
     }
 }
 
-extension UIAlertController {
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
-    }
-    open override var shouldAutorotate: Bool {
-        return false
-    }
-}
 
