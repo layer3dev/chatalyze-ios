@@ -28,33 +28,17 @@ class RootControllerManager{
     
     private func showRelevantScreen(){
   
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor
-        UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
-        UINavigationBar.appearance().barStyle = .black        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         
-        //Log.echo(key: "yud", text: "Api info in root Controller\(apiInfo)")
-        
-       
-        
-        /*guard let controller = ContainerController.instance()
+        guard let signinController = SigninController.instance()
             else{
                 return
         }
-        Log.echo(key: "yud", text: "Root is active")
-        //let navigationController = UINavigationController(rootViewController: controller)
-        //navigationController.navigationBar.backgroundColor = UIColor.white
-        let transition = CATransition()
-        transition.type = kCATransitionFade
-        window?.set(rootViewController: controller, withTransition: transition)
-        APIVersionControl().showDepricateAlert()
-        APIVersionControl().showUpdateAlert()
-        //window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
-        initializeAppConnection(rootController: controller)
-        return*/
+        let signinNav : UINavigationController = ExtendedNavigationController()
+        signinNav.viewControllers = [signinController]
+        
+        window?.rootViewController = signinNav
     }
     
     

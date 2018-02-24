@@ -10,47 +10,26 @@ import UIKit
 
 
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-    /*
-     
-     //  AppDelegate.m
-     #import <FBSDKCoreKit/FBSDKCoreKit.h>
-     
-     - (BOOL)application:(UIApplication *)application
-     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-     
-     [[FBSDKApplicationDelegate sharedInstance] application:application
-     didFinishLaunchingWithOptions:launchOptions];
-     // Add any custom logic here.
-     return YES;
-     }
-     
-     - (BOOL)application:(UIApplication *)application
-     openURL:(NSURL *)url
-     options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-     
-     BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
-     openURL:url
-     sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-     annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
-     ];
-     // Add any custom logic here.
-     return handled;
-     }
-     
-     */
+
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        RootControllerManager().setRoot()
+        initialization()
         return true
     }
+    
+    fileprivate func initialization(){
+        _ = NavigationBarCustomizer()
+        RootControllerManager().setRoot()
+    }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
