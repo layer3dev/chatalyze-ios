@@ -92,9 +92,6 @@ class InterfaceExtendedController : ExtendedController {
 
 
 
-
-
-
 extension InterfaceExtendedController{
     
     fileprivate func registerForTapGestureForKeyboardResign(){
