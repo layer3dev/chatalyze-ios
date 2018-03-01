@@ -18,15 +18,12 @@ class FacebookLogin{
         
         let url = AppConnectionConfig.webServiceURL + "/authenticate/oauth/facebook"
         
+        
         var params = [String : Any]()
+        params["clientId"] = "1617857558307283"
+        params["code"] = accessToken
         
         
-        if let deviceInfo = SessionDeviceInfo.sharedInstance{
-            
-            params["deviceId"] = deviceInfo.deviceId
-            params["deviceToken"] = deviceInfo.deviceToken
-            params["deviceType"] = AppInfoConfig.deviceType
-        }
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
