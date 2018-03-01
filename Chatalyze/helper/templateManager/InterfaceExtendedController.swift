@@ -51,28 +51,23 @@ class InterfaceExtendedController : ExtendedController {
     }
     
     
-    func paintNavigationTitle(){
-        /*
-         UILabel *titleLabel= [UILabel new];
-         titleLabel.backgroundColor = [UIColor clearColor];
-         titleLabel.font = [UIFont fontWithName:Font_regular size:16];
-         titleLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-         titleLabel.textAlignment = NSTextAlignmentCenter;
-         titleLabel.textColor = [UIColor whiteColor];
-         titleLabel.text=pageTitle;
-         [titleLabel sizeToFit];
-         [[self navigationItem] setTitleView:titleLabel];
-         */
-        
-        /*let titleLabel = UILabel()
+    func paintNavigationTitle(text : String?){
+    
+        let titleLabel = UILabel()
         titleLabel.backgroundColor = UIColor.clear
-        titleLabel.font = AppInfoConfig
         
-        if let font = UIFont(name: "HelveticaNeue", size:16){
-            mutableInfo.addAttribute(NSFontAttributeName, value: font , range: range)
+        guard let font = UIFont(name: AppThemeConfig.defaultFont, size:16)
+            else{
+                return
         }
-        
-        self.navigationItem.titleView = titleLabel*/
+        titleLabel.font = font
+        titleLabel.textColor = UIColor.white
+        titleLabel.sizeToFit()
+        titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = UIColor.clear
+
+        titleLabel.text = text
+        self.navigationItem.titleView = titleLabel
     }
     
     

@@ -11,6 +11,7 @@ import UIKit
 
 class AppThemeConfig{
     
+    static let defaultFont = "HelveticaNeue"
     static let themeColor = "#88898e"
     static let borderGrayColor = "#DBDBDB"
    //static let themeColor = "#0000FF"

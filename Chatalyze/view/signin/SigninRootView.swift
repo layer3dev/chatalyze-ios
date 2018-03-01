@@ -7,14 +7,23 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
 
 class SigninRootView: ExtendedView {
+    
+    var controller : SigninController?
     
     @IBOutlet fileprivate var emailField : SigninFieldView?
     @IBOutlet fileprivate var passwordField : SigninFieldView?
     
     @IBOutlet fileprivate var scrollView : FieldManagingScrollView?
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
+    
+    @IBAction fileprivate func fbLoginAction(){
+        fbLogin()
+    }
+
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -81,4 +90,24 @@ extension SigninRootView : UITextFieldDelegate{
         }
         return true
     }
+}
+
+
+extension SigninRootView{
+    
+    fileprivate func fbLogin(){
+        let loginManager = LoginManager()
+        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { (loginResult) in
+            switch loginResult {
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("User cancelled login.")
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                
+                break
+            }
+        }
+    }
+        
 }

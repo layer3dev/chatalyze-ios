@@ -9,8 +9,42 @@
 import UIKit
 import FacebookLogin
 
-class SigninController: ExtendedController {
-
+class SigninController: InterfaceExtendedController {
+    
+    @IBAction fileprivate func signinAction(){
+        signin()
+    }
+    
+    fileprivate func signin(){
+        let isValidated = rootView?.validateFields() ?? false
+        if(!isValidated){
+            return
+        }
+        
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        initialization()
+        
+    }
+    
+    fileprivate func initialization(){
+        paintInterface()
+    }
+    
+    fileprivate func paintInterface(){
+        paintNavigationTitle(text: "SIGN IN")
+    }
+    
+    var rootView : SigninRootView?{
+        return self.view as? SigninRootView
+    }
+    
+    
+    
 }
 
 extension SigninController{
