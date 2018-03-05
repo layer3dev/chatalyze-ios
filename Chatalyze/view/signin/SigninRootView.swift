@@ -104,8 +104,8 @@ extension SigninRootView{
             case .cancelled:
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                
-                FacebookLogin().signin(accessToken: accessToken.authenticationToken, completion: { (success, message, info) in
+                print("User loggedin!!")
+                FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
                     
                 })
                 break

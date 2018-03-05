@@ -12,6 +12,6 @@ import Foundation
 class DevFlag{    
     
     static let key = ""
-    static let showAll = false
-    static let debug = false
+    static let showAll = true
+    static let debug = true
 }
