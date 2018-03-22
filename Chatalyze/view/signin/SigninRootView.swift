@@ -120,6 +120,9 @@ extension SigninRootView{
             self.controller?.showLoader()
             FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
                 self.controller?.stopLoader()
+                if(success){
+                    RootControllerManager().updateRoot()
+                }
             })
         })
     }
@@ -135,6 +138,9 @@ extension SigninRootView{
         
         signInRequest(email: email, password: password) { (success) in
             self.controller?.stopLoader()
+            if(success){
+                RootControllerManager().updateRoot()
+            }
         }
         
     }

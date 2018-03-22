@@ -35,7 +35,9 @@ class EmailSigninHandler{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
         
-        Log.echo(key: "token", text: "raw info ==>  \(response)")
+        Log.echo(key: "token", text: "raw Email Signin Handler info ==>  \(response)")
+        
+        Log.echo(key: "token", text: "Email Signin ==>  \(success)")
         guard let rawInfo = response
             else{
                 completion(false, "",  nil)
@@ -48,9 +50,14 @@ class EmailSigninHandler{
             return
         }
         
+        Log.echo(key: "token", text: "parse user info now")
+        
         let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
-        info.accessToken = token        
+        info.accessToken = token
+        
+        Log.echo(key: "token", text: "token ==>  \(token)")
+        info.save()
         completion(true, "", info)
         return
     }

@@ -68,9 +68,12 @@ class FacebookLogin{
             return
         }
         
+        Log.echo(key: "token", text: "parse user info now")
+        
         let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
+        info.save()
         completion(true, "", info)
         return
     }

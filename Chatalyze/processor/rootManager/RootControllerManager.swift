@@ -50,10 +50,10 @@ class RootControllerManager{
             else{
                 return
         }
-        let signinNav : UINavigationController = ExtendedNavigationController()
-        signinNav.viewControllers = [signinController]
+//        let signinNav : UINavigationController = ExtendedNavigationController()
+//        signinNav.viewControllers = [signinController]
         
-        window?.rootViewController = signinNav
+        window?.rootViewController = signinController
     }
     
     private func showHomeScreen(){

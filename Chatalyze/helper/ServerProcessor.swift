@@ -64,7 +64,7 @@ class ServerProcessor{
         }
         requestRef?.cancel()
     }
-
+    
     func request(
         _ method: httpMethod,
         _ URLString: String,
@@ -85,10 +85,10 @@ class ServerProcessor{
         Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
         let request = Alamofire.request(URLString, method : method.libHttpMethod(), parameters: parameters, encoding: encoding.libEncoding(), headers: headers)
         self.requestRef = request
-       
+        
         request
-        .validate()
-        .validate(statusCode: 200 ..< 300)
+            .validate()
+            .validate(statusCode: 200 ..< 300)
             .responseJSON { (response) in
                 DispatchQueue.main.async(execute: {
                     self.handleResponse(response)
@@ -99,16 +99,14 @@ class ServerProcessor{
     }
     
     fileprivate func getAuthorizationToken()->String{
-        //:todo
-        /*guard let info = SignedUserInfo.sharedInstance
+        guard let info = SignedUserInfo.sharedInstance
             else{
                 return ""
         }
         
         let token = "Bearer " + (info.accessToken ?? "")
         Log.echo(key: "token", text: token)
-        return token*/
-        return ""
+        return token
     }
     
     fileprivate func respond(success : Bool, response : JSON?){
@@ -137,7 +135,7 @@ class ServerProcessor{
         }
         
         guard let senddata = response.data
-            else{               
+            else{
                 return
         }
         
@@ -162,26 +160,34 @@ class ServerProcessor{
     
     fileprivate func signout(){
         
-         //RootControllerManager.signOutAction(completion: nil)
-         return
+        //RootControllerManager.signOutAction(completion: nil)
+        return
         
-        
+        /*guard let controller = RootControllerManager.getRootController()
+         else{
+         RootControllerManager.signOutAction(completion: nil)
+         return;
+         }
+         controller.alert(withTitle: "Session Timed out", message: "Your session has timed out. Please signin again to continue!", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
+         RootControllerManager.signOutAction(completion: nil)
+         return;
+         }*/
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
         let headerInfo = httpResponse?.allHeaderFields
-        Log.echo(key: "token", text: "headerInfo extracted ==>  \(String(describing: headerInfo))")
-        guard (headerInfo?["x-session-token"] as? String) != nil
+        Log.echo(key: "token", text: "headerInfo extracted ==>  \(headerInfo)")
+        guard let accessToken = headerInfo?["x-session-token"] as? String
             else{
                 Log.echo(key: "token", text: "accessToken not found ")
                 return
         }
-        //:todo
-        /*guard let instance = SignedUserInfo.sharedInstance
+        guard let instance = SignedUserInfo.sharedInstance
             else{
                 Log.echo(key: "token", text: "user instance not found ")
                 return
         }
         Log.echo(key: "token", text: "token extracted ==>  " + accessToken)
-        instance.accessToken = accessToken*/
+        instance.accessToken = accessToken
     }
 }
+

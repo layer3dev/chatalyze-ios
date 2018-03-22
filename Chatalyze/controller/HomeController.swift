@@ -19,8 +19,14 @@ class HomeController: InterfaceExtendedController {
         // Do any additional setup after loading the view.
         
         initialization()
+        fetchInfo()
     }
 
+    var rootView : HomeRootView?{
+        get{
+            return self.view as?HomeRootView
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,6 +47,15 @@ class HomeController: InterfaceExtendedController {
         paintLogoutButton()
     }
 
+    private func fetchInfo(){
+        self.showLoader()
+        CallBookingsFetch().fetchInfo { (success, response) in
+            self.stopLoader()
+        self.rootView?.jointContainerView?.countdownView?.udpateTimer(eventInfo: response)
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 
