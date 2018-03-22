@@ -23,6 +23,10 @@ class SigninRootView: ExtendedView {
     @IBAction fileprivate func fbLoginAction(){
         fbLogin()
     }
+    
+    @IBAction fileprivate func loginAction(){
+        signIn()
+    }
 
     
     override func viewDidLayout() {
@@ -103,14 +107,44 @@ extension SigninRootView{
                 print(error)
             case .cancelled:
                 print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+            case .success( _,  _, let accessToken):
                 print("User loggedin!!")
-                FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
-                    
-                })
+                self.fetchFBUserInfo(accessToken: accessToken)
                 break
             }
         }
     }
+    
+    fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
+        DispatchQueue.main.async(execute: {
+            self.controller?.showLoader()
+            FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
+                self.controller?.stopLoader()
+            })
+        })
+    }
         
+}
+
+
+extension SigninRootView{
+    fileprivate func signIn(){
+        let email = emailField?.textField?.text ?? ""
+        let password = passwordField?.textField?.text ?? ""
+        self.controller?.showLoader()
+        
+        signInRequest(email: email, password: password) { (success) in
+            self.controller?.stopLoader()
+        }
+        
+    }
+    
+    func signInRequest(email : String, password : String, completion : ((_ success : Bool)->())?){
+        
+        EmailSigninHandler().signin(withEmail: email, password: password) { (success, error, info) in
+            completion?(success)
+        }
+    }
+
+    
 }

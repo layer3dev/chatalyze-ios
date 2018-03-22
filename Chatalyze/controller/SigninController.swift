@@ -20,8 +20,6 @@ class SigninController: InterfaceExtendedController {
         if(!isValidated){
             return
         }
-        
-        
     }
     
     override func viewDidLoad() {
@@ -29,11 +27,20 @@ class SigninController: InterfaceExtendedController {
         
         initialization()
         
+        
+        
     }
     
     fileprivate func initialization(){
+        initializeVariable()
         paintInterface()
     }
+    
+    fileprivate func initializeVariable(){
+        rootView?.controller = self
+    }
+    
+    
     
     fileprivate func paintInterface(){
         paintNavigationTitle(text: "SIGN IN")

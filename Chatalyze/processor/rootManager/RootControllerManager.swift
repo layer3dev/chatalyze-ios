@@ -27,7 +27,22 @@ class RootControllerManager{
     }
     
     private func showRelevantScreen(){
-  
+        
+        updateNavigationBar()
+        
+        let userInfo = SignedUserInfo.sharedInstance
+        
+        if(userInfo == nil){
+            showSigninScreen()
+            return
+        }
+        
+        showHomeScreen()
+        return
+    }
+    
+    private func showSigninScreen(){
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         
@@ -41,7 +56,33 @@ class RootControllerManager{
         window?.rootViewController = signinNav
     }
     
+    private func showHomeScreen(){
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let window = appDelegate?.window
+        
+        let rootNav : UINavigationController = ExtendedNavigationController()
+        
+        guard let controller = HomeController.instance()
+            else{
+                return
+        }
+        Log.echo(key: "yud", text: "Root is active")
+        rootNav.viewControllers = [controller]
+        
+        let transition = CATransition()
+        transition.type = kCATransitionFade
+        window?.set(rootViewController: rootNav, withTransition: transition)
+        
+        //window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
     
+    private func updateNavigationBar(){
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor
+        UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
+        UINavigationBar.appearance().barStyle = .black
+    }
    
     
     

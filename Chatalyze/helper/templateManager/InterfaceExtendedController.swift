@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class InterfaceExtendedController : ExtendedController {
     
@@ -72,6 +73,22 @@ class InterfaceExtendedController : ExtendedController {
     
     
     
+    func paintLogoutButton(){
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+        button.contentVerticalAlignment = .bottom
+        button.setImage(UIImage(named: "setting"), for: .normal)
+        button.imageView?.image = UIImage(named: "setting")
+        button.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        let barItem = UIBarButtonItem(customView: button)
+        var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
+        items.append(barItem)
+        self.navigationItem.rightBarButtonItems = items
+    }
+    
+    @objc func logout(){
+        
+    }
 
 
 
@@ -97,6 +114,25 @@ extension InterfaceExtendedController{
     
     @objc func hideKeyboard(){
         self.view.endEditing(true)
+    }
+}
+
+
+extension InterfaceExtendedController : NVActivityIndicatorViewable{
+    
+    func showLoader(text : String = "Loading..."){
+        let size = CGSize(width: 30, height: 30)
+        
+        self.startAnimating(size, message: text, type: .lineScale)
+        
+    }
+    
+    func updateLoaderMessage(text : String = "Loading..."){
+        NVActivityIndicatorPresenter.sharedInstance.setMessage(text)
+    }
+    
+    func stopLoader(){
+        self.stopAnimating()
     }
 }
 
