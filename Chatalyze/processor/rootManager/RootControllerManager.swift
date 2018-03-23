@@ -101,6 +101,11 @@ class RootControllerManager{
         }
     }
     
+    func signOut(completion : (()->())?){
+        SignedUserInfo.sharedInstance?.clear()
+        RootControllerManager().updateRoot()
+    }
+    
     
     
     

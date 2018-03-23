@@ -8,9 +8,9 @@
 
 import UIKit
 
-class JoinCountdownView: ZeroHeightView {
-
+class WaitCountdownView: ZeroHeightView {
     
+    @IBOutlet private var hourLabel : UILabel?
     @IBOutlet private var minuteLabel : UILabel?
     @IBOutlet private var secondLabel : UILabel?
     
@@ -28,11 +28,10 @@ class JoinCountdownView: ZeroHeightView {
     }
     
     func udpateTimer(eventInfo : EventInfo?){
-        
         self.showView()
         
         self.eventInfo = eventInfo
-        _ = self.refresh()
+        
     }
     
     func refresh()->Bool{
@@ -45,20 +44,18 @@ class JoinCountdownView: ZeroHeightView {
                 return false
         }
         
-        guard let counddownInfo = startDate.countdownMinutesFromNow()
+        
+        guard let counddownInfo = startDate.countdownTimeFromNow()
             else{
                 return false
         }
         
-    
+        hourLabel?.text = counddownInfo.hours
         minuteLabel?.text = counddownInfo.minutes
         secondLabel?.text = counddownInfo.seconds
         
         return true
     }
     
-   
     
-    
-
 }

@@ -1,38 +1,29 @@
-
-
-
 //
-//  HomeController.swift
+//  SettingControllerViewController.swift
 //  Chatalyze
 //
-//  Created by Sumant Handa on 22/03/18.
+//  Created by Sumant Handa on 23/03/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class HomeController: InterfaceExtendedController {
+class SettingController : InterfaceExtendedController {
+    
+    @IBAction private func signoutAction(){
+        RootControllerManager().signOut(completion: nil)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         initialization()
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        fetchInfo()
-    }
-
-    var rootView : HomeRootView?{
-        get{
-            return self.view as?HomeRootView
-        }
-    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,21 +38,13 @@ class HomeController: InterfaceExtendedController {
         edgesForExtendedLayout = UIRectEdge()
     }
     
-    
     private func paintNavigationBar(){
-        paintNavigationTitle(text : "Home")
+        paintNavigationTitle(text : "Settings")
         paintSettingButton()
+        paintBackButton()
     }
 
-    private func fetchInfo(){
-        self.showLoader()
-        CallBookingsFetch().fetchInfo { (success, eventInfo) in
-            self.stopLoader()
-        self.rootView?.queueContainerView?.udpateView(eventInfo: eventInfo)
-        }
-    }
-    
-    
+
     /*
     // MARK: - Navigation
 
@@ -75,12 +58,12 @@ class HomeController: InterfaceExtendedController {
 }
 
 
-extension HomeController{
+extension SettingController{
     
-    class func instance()->HomeController?{
+    class func instance()->SettingController?{
         
-        let storyboard = UIStoryboard(name: "home", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "home") as? HomeController
+        let storyboard = UIStoryboard(name: "setting", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "setting") as? SettingController
         return controller
     }
 }

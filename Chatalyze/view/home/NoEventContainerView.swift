@@ -1,19 +1,16 @@
-
 //
-//  JoinContainerView.swift
+//  NoEventContainerView.swift
 //  Chatalyze
 //
-//  Created by Sumant Handa on 22/03/18.
+//  Created by Sumant Handa on 23/03/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class JoinContainerView: ExtendedView {
+class NoEventContainerView: ZeroHeightView {
     
-    @IBOutlet var countdownView : JoinCountdownView?
-    
-    
+
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -21,12 +18,5 @@ class JoinContainerView: ExtendedView {
         // Drawing code
     }
     */
-    
-    override func viewDidLayout(){
-        super.viewDidLayout()
-    }
-    
-    
-    
 
 }

@@ -1,14 +1,14 @@
 //
-//  NoEventLabel.swift
+//  AppVersionLabel.swift
 //  Chatalyze
 //
-//  Created by Sumant Handa on 22/03/18.
+//  Created by Sumant Handa on 23/03/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class NoEventLabel: ExtendedLabel {
+class AppVersionLabel: ExtendedLabel {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -25,12 +25,9 @@ class NoEventLabel: ExtendedLabel {
     }
     
     private func initialization(){
-        let size = CGFloat(26)
-        let text = NSMutableAttributedString().appendCustom("No", size : size)
-        text.appendCustom(" Event", size : size, color : UIColor(hexString : AppThemeConfig.greenColor))
-        text.appendCustom(" Booked.", size : size)
-        
-        self.attributedText = text
+        self.text = "App Version " + AppInfoConfig.appversion
     }
+    
+    
 
 }

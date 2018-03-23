@@ -1,18 +1,18 @@
 
-
 //
-//  HomeRootView.swift
-//  Chatalyze
+//  RemoteVideoView.swift
+//  Rumpur
 //
-//  Created by Sumant Handa on 22/03/18.
-//  Copyright © 2018 Mansa Infotech. All rights reserved.
+//  Created by Sumant Handa on 13/03/18.
+//  Copyright © 2018 netset. All rights reserved.
 //
 
 import UIKit
 
-class HomeRootView: ExtendedView {
+class RemoteVideoView: RTCMTLVideoView {
     
-    @IBOutlet var queueContainerView : QueueContainerView?
+    
+
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

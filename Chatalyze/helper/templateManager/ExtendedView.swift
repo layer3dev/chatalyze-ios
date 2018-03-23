@@ -1,6 +1,6 @@
 //
 //  ExtendedView.swift
-//  GenGold
+
 //
 //  Created by Sumant Handa on 19/11/16.
 //  Copyright © 2016 Mansa. All rights reserved.
@@ -10,39 +10,25 @@ import UIKit
 
 class ExtendedView: UIView {
     
-     private var isLoaded = false;
-     private var isLayoutCompleted = false
+    private var _isLoaded = false;
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var isLoaded : Bool{
+        get{
+            return _isLoaded
+        }
     }
-    */
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if(!isLoaded){
-            isLoaded = true
+        if(!_isLoaded){
+            _isLoaded = true
             viewDidLayout()
         }
     }
     
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        if(!isLayoutCompleted){
-            isLayoutCompleted = true
-            viewDidLoad()
-        }
-    }
-    
-    func viewDidLoad(){
-    
-    }
     
     func viewDidLayout(){
-        
     }
-
 }
+

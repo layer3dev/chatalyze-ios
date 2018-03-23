@@ -73,21 +73,62 @@ class InterfaceExtendedController : ExtendedController {
     
     
     
-    func paintLogoutButton(){
+    func paintSettingButton(){
         
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 35))
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        
+        let imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 30, height: 30))
+        imageView.image = UIImage(named : "setting_white")
+        imageView.contentMode = .scaleAspectFit
+        containerView.addSubview(imageView)
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 40))
         button.contentVerticalAlignment = .bottom
-        button.setImage(UIImage(named: "setting"), for: .normal)
-        button.imageView?.image = UIImage(named: "setting")
-        button.addTarget(self, action: #selector(logout), for: .touchUpInside)
-        let barItem = UIBarButtonItem(customView: button)
+        button.addTarget(self, action: #selector(settingAction), for: .touchUpInside)
+        containerView.addSubview(button)
+        
+        let barItem = UIBarButtonItem(customView: containerView)
+        
         var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
         items.append(barItem)
         self.navigationItem.rightBarButtonItems = items
     }
     
-    @objc func logout(){
+    
+    func paintBackButton(){
         
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 5, width: 25, height: 25))
+        imageView.image = UIImage(named : "back_white")
+        imageView.contentMode = .scaleAspectFit
+        containerView.addSubview(imageView)
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 40))
+        button.contentVerticalAlignment = .bottom
+        button.addTarget(self, action: #selector(backAction), for: .touchUpInside)
+        containerView.addSubview(button)
+        
+        let barItem = UIBarButtonItem(customView: containerView)
+        
+        var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
+        items.append(barItem)
+        self.navigationItem.leftBarButtonItems = items
+    }
+    
+    
+    
+    @objc func settingAction(){
+        guard let controller = SettingController.instance()
+            else{
+                return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    @objc func backAction(){
+        self.navigationController?.popViewController(animated: true)
     }
 
 
