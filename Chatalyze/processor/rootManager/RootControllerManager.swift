@@ -75,6 +75,7 @@ class RootControllerManager{
         
         //window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        initializeAppConnection()
     }
     
     private func updateNavigationBar(){
@@ -101,10 +102,22 @@ class RootControllerManager{
         }
     }
     
+    
+    private func initializeAppConnection(){
+        _ = UserSocket.sharedInstance
+    }
+    
+    
+    
+
+    
     func signOut(completion : (()->())?){
         SignedUserInfo.sharedInstance?.clear()
         RootControllerManager().updateRoot()
     }
+    
+    
+    
     
     
     

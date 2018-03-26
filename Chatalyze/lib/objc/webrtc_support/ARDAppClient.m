@@ -84,7 +84,7 @@ static int const kKbpsMultiplier = 1000;
   return [self initWithDelegate:nil];
 }
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andDelegate:(id<ARDAppClientDelegate>)delegate
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate
 {
     
     if (self = [super init]) {
@@ -92,6 +92,7 @@ static int const kKbpsMultiplier = 1000;
         NSURL *turnRequestURL = [NSURL URLWithString:kARDIceServerRequestUrl];
         self.userId = userId;
         self.receiverId = receiverId;
+        self.roomId = roomId;
         [self configure];
         [self initialize];
     }
@@ -119,6 +120,7 @@ static int const kKbpsMultiplier = 1000;
     [Log echoWithKey:@"user" text:[NSString stringWithFormat:@"receiverId --->  %@", self.receiverId]];
     _socketChannel.userId = self.userId;
     _socketChannel.receiverId = self.receiverId;
+    _socketChannel.roomId = self.roomId;
 }
 
 - (void)dealloc {

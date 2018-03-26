@@ -1,6 +1,3 @@
-
-
-
 //
 //  HomeController.swift
 //  Chatalyze
@@ -12,6 +9,20 @@
 import UIKit
 
 class HomeController: InterfaceExtendedController {
+    
+    private var slotInfo : EventSlotInfo?
+    
+    
+    @IBAction private func callAction(){
+        guard let controller = VideoCallController.instance()
+            else{
+                return
+        }
+        controller.userInfo = slotInfo?.callschedule?.user
+        controller.slotInfo = self.slotInfo
+        
+        self.present(controller, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +51,18 @@ class HomeController: InterfaceExtendedController {
     
     private func initialization(){
         initializeInterface()
+        initializeListener()
     }
     
     private func initializeInterface(){
         paintNavigationBar()
         edgesForExtendedLayout = UIRectEdge()
+    }
+    
+    private func initializeListener(){
+        UserSocket.sharedInstance?.socket?.on("call_booked_success", callback: { (data, ack) in
+            self.fetchInfo()
+        })
     }
     
     
@@ -55,9 +73,10 @@ class HomeController: InterfaceExtendedController {
 
     private func fetchInfo(){
         self.showLoader()
-        CallBookingsFetch().fetchInfo { (success, eventInfo) in
+        CallBookingsFetch().fetchInfo { (success, slotInfo) in
             self.stopLoader()
-        self.rootView?.queueContainerView?.udpateView(eventInfo: eventInfo)
+            self.slotInfo = slotInfo
+            self.rootView?.queueContainerView?.udpateView(slotInfo: slotInfo)
         }
     }
     

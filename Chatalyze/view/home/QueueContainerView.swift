@@ -10,14 +10,14 @@ import UIKit
 
 class QueueContainerView: ExtendedView {
     
-    @IBOutlet var jointContainerView : JoinCountdownView?
+    @IBOutlet var joinContainerView : JoinCountdownView?
+    @IBOutlet var onGoingContainerView : OngoingEventView?
     @IBOutlet var waitContainerView : WaitCountdownView?
     @IBOutlet var noEventView : NoEventContainerView?
     
     var timer : EventTimer = EventTimer()
     
-    
-    var eventInfo : EventInfo?
+    var slotInfo : EventSlotInfo?
     
 
     /*
@@ -44,8 +44,8 @@ class QueueContainerView: ExtendedView {
     private func refresh(){
         processView()
         
-        if(!(jointContainerView?.isHidden ?? true) ){
-            _ = jointContainerView?.refresh()
+        if(!(joinContainerView?.isHidden ?? true) ){
+            _ = joinContainerView?.refresh()
         }
         
         if(!(waitContainerView?.isHidden ?? true) ){
@@ -60,14 +60,15 @@ class QueueContainerView: ExtendedView {
     }
     
     
-    func udpateView(eventInfo : EventInfo?){
-        self.eventInfo = eventInfo
+    func udpateView(slotInfo : EventSlotInfo?){
+        self.slotInfo = slotInfo
         refresh()
     }
     
     func processView(){
+        
         hideAll()
-        guard let slotInfo = eventInfo?.callschedule
+        guard let slotInfo = slotInfo
             else{
                 self.noEventView?.showView()
                 return
@@ -88,24 +89,33 @@ class QueueContainerView: ExtendedView {
         
         let validator = EventValidator()
         
-        if(validator.isPreConnectEligible(start: startDate, end: endDate)){
-            
-            self.jointContainerView?.udpateTimer(eventInfo: eventInfo)
+        if(validator.isPreConnectFuture(start: startDate, end: endDate)){
+//            Log.echo(key: "timer", text: "isPreConnectFuture")
+            self.joinContainerView?.udpateTimer(slotInfo: slotInfo)
+            return
+        }
+        
+        if(startDate.isPast() && endDate.isFuture()){
+//            Log.echo(key: "timer", text: "onGoingContainerView --> \(DateParser.dateToString(endDate))")
+            self.onGoingContainerView?.showView()
             return
         }
         
         if(validator.isFutureEvent(start: startDate, end: endDate)){
-            self.waitContainerView?.udpateTimer(eventInfo: eventInfo)
+//            Log.echo(key: "timer", text: "isFutureEvent")
+            self.waitContainerView?.udpateTimer(slotInfo: slotInfo)
             return
         }
+        
         self.noEventView?.showView()
         return
     }
     
     func hideAll(){
-        self.jointContainerView?.hideView()
+        self.joinContainerView?.hideView()
         self.waitContainerView?.hideView()
         self.noEventView?.hideView()
+        self.onGoingContainerView?.hideView()
     }
 
 }

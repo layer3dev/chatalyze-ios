@@ -25,11 +25,7 @@ public extension Dictionary {
     func JSONDescription()->String{
         
         let dict = self
-        
-//        guard
-//            else{
-//                return ""
-//        }
+
         
         guard let JSONData: Data = try? JSONSerialization.data(withJSONObject: dict, options: [])
             else{

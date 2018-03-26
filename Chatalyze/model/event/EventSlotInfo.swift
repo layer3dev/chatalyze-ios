@@ -1,4 +1,3 @@
-
 //
 //  EventSlotInfo.swift
 //  Chatalyze
@@ -16,76 +15,56 @@ class EventSlotInfo: NSObject {
     var startDate : Date?
     var endDate : Date?
     var _end : String?
-    var youtubeURL : String?
+    var slotNo : Int?
+    var callscheduleId : Int?
     var userId : Int?
-    var title : String?
-    var eventDescription : String?
-    var duration : Int?
-    var price : Int?
-    var backgroundcolor : String?
+    var isPublic: Bool?
     var bordercolor : String?
+    var backgroundcolor : String?
     var textcolor : String?
-    var cancelled : Bool?
-    var notified : String?
-    var started : String?
-    var groupId : String?
-    var paymentTransferred : Bool?
-    var leadPageUrl : String?
-    var eventBannerUrl : String?
-    var isPrivate : Bool?
-    //    var tag : Tag? //:todo
-    var isFree : Bool?
-    var eventFeedbackInfo : String?
+    var countryCode : String?
+    var mobile : String?
     var createdAt : String?
     var updatedAt : String?
     var deletedAt : String?
-    //    var user : User? //:todo
+    var user : UserInfo?
+    var callschedule : EventInfo?
     var href : String?
     
-    
-    override init(){
-        super.init()
-    }
     
     init(info : JSON?){
         super.init()
         fillInfo(info: info)
     }
     
-     func fillInfo(info : JSON?) {
+    func fillInfo(info : JSON?) {
         guard let json = info
             else{
                 return
         }
+
         id = json["id"].int
         start = json["start"].string
         end = json["end"].string
-        youtubeURL = json["youtubeURL"].string
+        slotNo = json["slotNo"].int
+        callscheduleId = json["callscheduleId"].int
         userId = json["userId"].int
-        title = json["title"].string
-        eventDescription = json["description"].string
-        duration = json["duration"].int
-        price = json["price"].int
-        backgroundcolor = json["backgroundcolor"].string
+        isPublic = json["isPublic"].bool
         bordercolor = json["bordercolor"].string
+        backgroundcolor = json["backgroundcolor"].string
         textcolor = json["textcolor"].string
-        cancelled = json["cancelled"].bool
-        notified = json["notified"].string
-        started = json["started"].string
-        groupId = json["groupId"].string
-        paymentTransferred = json["paymentTransferred"].bool
-        leadPageUrl = json["leadPageUrl"].string
-        eventBannerUrl = json["eventBannerUrl"].string
-        isPrivate = json["isPrivate"].bool
-        //        if (json["tag"] != nil) { tag = Tag(json: json["tag"] as! NSDictionary) } //todo:
-        isFree = json["isFree"].bool
-        eventFeedbackInfo = json["eventFeedbackInfo"].string
+        countryCode = json["countryCode"].string
+        mobile = json["mobile"].string
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
         deletedAt = json["deletedAt"].string
-//        if (json["user"] != nil) { user = User(json: json["user"] as! NSDictionary) } //todo:
+        
+        user = UserInfo(userInfoJSON: json["user"])
+
+        callschedule = EventInfo(info: json["callschedule"])
         href = json["href"].string
     }
+    
     
     var start : String?{
         get{
@@ -114,4 +93,13 @@ class EventSlotInfo: NSObject {
             endDate = DateParser.UTCStringToDate(endLocal)
         }
     }
+    
+    var roomId : String{
+        get{
+            return "call-\(self.callscheduleId ?? 0)"
+        }
+    }
+  
+    
 }
+

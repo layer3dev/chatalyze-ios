@@ -44,5 +44,12 @@ public extension Date {
         
         return (minuteString, secondString)
     }
+    
+    public func removeTimeStamp() -> Date? {
+        guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self)) else {
+            return nil
+        }
+        return date
+    }
 
 }

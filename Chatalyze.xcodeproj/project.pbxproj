@@ -133,8 +133,12 @@
 		FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD992063B5A400A177AC /* NoEventLabel.swift */; };
 		FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */; };
 		FAD9CD9E2063C17100A177AC /* CallBookingsFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9D2063C17100A177AC /* CallBookingsFetch.swift */; };
-		FAD9CDA12063C52400A177AC /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA02063C52400A177AC /* EventSlotInfo.swift */; };
-		FAD9CDA32063C75A00A177AC /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA22063C75A00A177AC /* EventInfo.swift */; };
+		FAD9CDA12063C52400A177AC /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA02063C52400A177AC /* EventInfo.swift */; };
+		FAD9CDA32063C75A00A177AC /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */; };
+		FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */; };
+		FAE865C62068C620006F06B3 /* call.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C52068C61E006F06B3 /* call.xcassets */; };
+		FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C72068CAEF006F06B3 /* UserSocket.swift */; };
+		FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C92068D706006F06B3 /* CallOverlayView.xib */; };
 		FAE8E8172063DE210054ED7D /* JoinCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8E8162063DE210054ED7D /* JoinCountdownView.swift */; };
 		FAE8E8192063E0D10054ED7D /* HomeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8E8182063E0D10054ED7D /* HomeRootView.swift */; };
 		FAFFFE98203D9C80009B4F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */; };
@@ -330,8 +334,12 @@
 		FAD9CD992063B5A400A177AC /* NoEventLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventLabel.swift; sourceTree = "<group>"; };
 		FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCountdownLabel.swift; sourceTree = "<group>"; };
 		FAD9CD9D2063C17100A177AC /* CallBookingsFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallBookingsFetch.swift; sourceTree = "<group>"; };
-		FAD9CDA02063C52400A177AC /* EventSlotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
-		FAD9CDA22063C75A00A177AC /* EventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
+		FAD9CDA02063C52400A177AC /* EventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
+		FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
+		FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingEventView.swift; sourceTree = "<group>"; };
+		FAE865C52068C61E006F06B3 /* call.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = call.xcassets; sourceTree = "<group>"; };
+		FAE865C72068CAEF006F06B3 /* UserSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSocket.swift; sourceTree = "<group>"; };
+		FAE865C92068D706006F06B3 /* CallOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallOverlayView.xib; sourceTree = "<group>"; };
 		FAE8E8162063DE210054ED7D /* JoinCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCountdownView.swift; sourceTree = "<group>"; };
 		FAE8E8182063E0D10054ED7D /* HomeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRootView.swift; sourceTree = "<group>"; };
 		FAFFFE94203D9C80009B4F96 /* Chatalyze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatalyze.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -523,6 +531,7 @@
 		FA74B0EB2063971C00983141 /* xib */ = {
 			isa = PBXGroup;
 			children = (
+				FAE865C92068D706006F06B3 /* CallOverlayView.xib */,
 				FA74B1542063A52800983141 /* no_event.xib */,
 			);
 			path = xib;
@@ -690,6 +699,7 @@
 		FA74B14C2063A04C00983141 /* socket */ = {
 			isa = PBXGroup;
 			children = (
+				FAE865C72068CAEF006F06B3 /* UserSocket.swift */,
 				FA74B14D2063A05B00983141 /* SocketClient.swift */,
 			);
 			path = socket;
@@ -960,6 +970,7 @@
 				FAD6BA372064F6CF00942F27 /* QueueContainerView.swift */,
 				FAD6BA40206502E100942F27 /* NoEventContainerView.swift */,
 				FAD6BA422065031700942F27 /* ZeroHeightView.swift */,
+				FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -975,8 +986,8 @@
 		FAD9CD9F2063C50D00A177AC /* event */ = {
 			isa = PBXGroup;
 			children = (
-				FAD9CDA02063C52400A177AC /* EventSlotInfo.swift */,
-				FAD9CDA22063C75A00A177AC /* EventInfo.swift */,
+				FAD9CDA02063C52400A177AC /* EventInfo.swift */,
+				FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1009,6 +1020,7 @@
 				FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */,
 				FAFFFE99203D9C80009B4F96 /* ViewController.swift */,
 				FAFFFE9B203D9C80009B4F96 /* Main.storyboard */,
+				FAE865C52068C61E006F06B3 /* call.xcassets */,
 				FA912D9920417DD9002891EC /* icon.xcassets */,
 				FAFFFE9E203D9C80009B4F96 /* Assets.xcassets */,
 				FAFFFEA0203D9C80009B4F96 /* LaunchScreen.storyboard */,
@@ -1170,12 +1182,14 @@
 				FAFFFE9F203D9C80009B4F96 /* Assets.xcassets in Resources */,
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
 				FAA001A7203ED472003C8A74 /* xib in Resources */,
+				FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */,
 				FA912D9A20417DD9002891EC /* icon.xcassets in Resources */,
 				FA74B14620639C7300983141 /* LICENSE in Resources */,
 				FAA0016D203ED2A7003C8A74 /* launch_container.storyboard in Resources */,
 				FA9858E620638A3A00989CBB /* home.storyboard in Resources */,
 				FA1B362B2064E0A500F2E6BC /* call_view.storyboard in Resources */,
 				FA74B1552063A52800983141 /* no_event.xib in Resources */,
+				FAE865C62068C620006F06B3 /* call.xcassets in Resources */,
 				FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1386,11 +1400,12 @@
 				FAA0016A203ED1E6003C8A74 /* RootControllerManager.swift in Sources */,
 				FAA001A8203ED472003C8A74 /* Log.swift in Sources */,
 				FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */,
-				FAD9CDA32063C75A00A177AC /* EventInfo.swift in Sources */,
+				FAD9CDA32063C75A00A177AC /* EventSlotInfo.swift in Sources */,
 				FAA001B0203ED472003C8A74 /* ExtendedTextView.swift in Sources */,
 				FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */,
 				FAA001B4203ED472003C8A74 /* UniqueUserIdentifier.swift in Sources */,
 				FA1B363B2064E22F00F2E6BC /* LocalVideoView.swift in Sources */,
+				FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */,
 				FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */,
 				FAA001AD203ED472003C8A74 /* ExtendedNavigationController.swift in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
@@ -1446,10 +1461,11 @@
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
 				FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
-				FAD9CDA12063C52400A177AC /* EventSlotInfo.swift in Sources */,
+				FAD9CDA12063C52400A177AC /* EventInfo.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAD9CD9E2063C17100A177AC /* CallBookingsFetch.swift in Sources */,
 				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,
+				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
 				FA74B13E20639B6400983141 /* RTCSessionDescription+JSON.m in Sources */,
 				FAD6BA3F2064F96600942F27 /* EventValidator.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,

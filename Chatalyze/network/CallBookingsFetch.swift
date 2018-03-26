@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class CallBookingsFetch{
     
-    public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : EventInfo?)->())){
+    public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : EventSlotInfo?)->())){
         
         
         //https://chatitat.incamerasports.com/api/screenshots/?analystId=39&limit=5&offset=0
@@ -23,12 +23,16 @@ class CallBookingsFetch{
                 completion(false, nil)
                 return
         }
-        
+        guard let formattedDate = Date().removeTimeStamp()
+            else{
+                completion(false, nil)
+                return
+        }
         var params = [String : Any]()
         params["limit"] = 1
         params["offset"] = 0
         params["removePrevious"] = true
-        params["start"] = DateParser.dateToStringInServerFormat(Date())
+        params["start"] = DateParser.dateToStringInServerFormat(formattedDate)
         params["userId"] = userId
         
         
@@ -37,7 +41,7 @@ class CallBookingsFetch{
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventInfo?)->())){
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventSlotInfo?)->())){
         
         
         if(!success){
@@ -60,11 +64,11 @@ class CallBookingsFetch{
         
         let info = infos[0]
         
-        let eventInfo = EventInfo(info: info)
+        let eventInfo = EventSlotInfo(info: info)
         
-        Log.echo(key: "event", text: "event info --> \(eventInfo.id)")
+        Log.echo(key: "event", text: "event info --> \(String(describing: eventInfo.id))")
         
-        Log.echo(key: "event", text: "slot info --> \(eventInfo.callschedule?.id)")
+        Log.echo(key: "event", text: "slot info --> \(String(describing: eventInfo.callschedule?.id))")
         
         
 //        guard let callBookingArray = response?.dictionary else{

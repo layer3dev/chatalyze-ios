@@ -35,12 +35,13 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(void)initialize{
     socketClient = [SocketClient sharedInstance];
+    
 }
 
 
 -(void)registerListeners{
     
-    [socketClient onEventSupportWithAction:@"candidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+    [socketClient onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         [self processCandidate : data];
     }];
     
@@ -48,8 +49,11 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
         [self processSDPOffer : data];
     }];
     
-    [socketClient onEventSupportWithAction:@"sdpAnswer" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+    [socketClient onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+        
         [self processSDPAnswer : data];
+        
+        
     }];
 
 }
@@ -60,7 +64,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 
 -(void)emitOffer:(RTCSessionDescription *)sdp{
-    [self emitSDPWithAction:@"sdpOffer" andSDP:sdp];
+    [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
 }
 
 -(void)emitSDPWithAction:(NSString *)action andSDP:(RTCSessionDescription *)sdp{
@@ -68,9 +72,10 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     NSMutableDictionary *data = [NSMutableDictionary new];
     
-    data[@"userId"] = self.userId;
-    data[@"receiverId"] = self.receiverId;
-    data[@"sdp"] = sdpInfo;
+    data[@"sender"] = self.userId;
+    data[@"receiver"] = self.receiverId;
+    data[@"description"] = sdpInfo;
+    data[@"type"] = @"sender";
     
     [self sendMessageWithAction:action andData:data];
 }
@@ -80,8 +85,9 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     NSMutableDictionary *data = [NSMutableDictionary new];
     
-    data[@"userId"] = self.userId;
-    data[@"receiverId"] = self.receiverId;
+    data[@"type"] = @"sender";
+    data[@"sender"] = self.userId;
+    data[@"receiver"] = self.receiverId;
     data[@"candidate"] = candidateInfo;
     
     
@@ -90,7 +96,14 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 
 - (void)sendMessageWithAction:(NSString *)action andData:(NSDictionary *)data {
-    [socketClient emitSupportWithAction:action data:data];
+    
+    
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    params[@"id"] = action;
+    params[@"data"] = data;
+    
+//    [socketClient emit];
+    [socketClient emitSupportWithData:params];
 }
 
 
@@ -111,8 +124,9 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     [self.listener processSDPAnswer:description];
 }
 
+
 -(RTCSessionDescription *)parseSdp:(NSDictionary *)data{
-    NSDictionary *sdp = data[@"sdp"];
+    NSDictionary *sdp = data[@"description"];
     RTCSessionDescription *description =
     [RTCSessionDescription descriptionFromJSONDictionary:sdp];
     return description;

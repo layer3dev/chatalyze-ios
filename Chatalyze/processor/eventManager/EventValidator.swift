@@ -23,6 +23,19 @@ class EventValidator{
         return false
     }
     
+    func isPreConnectFuture(start : Date, end : Date)->Bool{
+        if(start.isPast() || end.isPast()){
+            return false
+        }
+        
+        let startTimeInterval = start.timeIntervalSinceNow
+        if(startTimeInterval <= 30*60 && startTimeInterval > 0){
+            return true
+        }
+        
+        return false
+    }
+    
     func isFutureEvent(start : Date, end : Date)->Bool{
         if(start.isPast() || end.isPast()){
             return false

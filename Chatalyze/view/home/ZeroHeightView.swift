@@ -12,9 +12,12 @@ import UIKit
 class ZeroHeightView: ExtendedView {
     
     @IBOutlet private var zeroHeight : NSLayoutConstraint?
+    @IBOutlet private var bottomConstraint : NSLayoutConstraint?
     
     let highPriority = Float(991)
     let lowPriority = Float(1)
+    
+    let bottomHightPriority = Float(999)
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -26,10 +29,12 @@ class ZeroHeightView: ExtendedView {
     
     func hideView(){
         zeroHeight?.priority = UILayoutPriority(rawValue: highPriority)
+        bottomConstraint?.priority = UILayoutPriority(rawValue : lowPriority)
     }
     
     func showView(){
         zeroHeight?.priority = UILayoutPriority(rawValue: lowPriority)
+        bottomConstraint?.priority = UILayoutPriority(rawValue : bottomHightPriority)
     }
 
 }

@@ -78,7 +78,7 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 // in order to receive remote tracks.
 - (instancetype)initWithDelegate:(id<ARDAppClientDelegate>)delegate;
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andDelegate:(id<ARDAppClientDelegate>)delegate;
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate;
 
 //temp
 - (void)initiateCall;
