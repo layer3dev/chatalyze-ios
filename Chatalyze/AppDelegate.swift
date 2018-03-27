@@ -8,9 +8,6 @@
 
 import UIKit
 
-
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -27,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func initialization(){
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot()
+        _ = RTCConnectionInitializer()
     }
     
 

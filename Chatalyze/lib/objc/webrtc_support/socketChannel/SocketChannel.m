@@ -35,7 +35,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(void)initialize{
     socketClient = [SocketClient sharedInstance];
-    
 }
 
 
@@ -156,6 +155,11 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     [ARDSignalingMessage messageFromJSONString:payload];
     RTCLog(@"WSS->C: %@", payload);
     //[_delegate channel:self didReceiveMessage:signalingMessage];
+}
+
+-(void)disconnect{
+    self.listener = nil;
+    socketClient = nil;
 }
 
 @end

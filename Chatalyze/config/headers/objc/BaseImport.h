@@ -17,6 +17,7 @@
 #import "ARDSettingsModel+Private.h"
 #import "ARDCaptureController.h"
 #import "AudioManager.h"
+#import "RTCConnectionInitializer.h"
 
 
 #endif /* BaseImport_h */

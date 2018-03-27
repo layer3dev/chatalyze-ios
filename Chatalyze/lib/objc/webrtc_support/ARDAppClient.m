@@ -161,14 +161,16 @@ static int const kKbpsMultiplier = 1000;
     // Disconnect from collider.
     _channel = nil;
   }
-  _clientId = nil;
-  _roomId = nil;
-  _isInitiator = NO;
-  _hasReceivedSdp = NO;
-  _localVideoTrack = nil;
+    _clientId = nil;
+    _roomId = nil;
+    _isInitiator = NO;
+    _hasReceivedSdp = NO;
+    _localVideoTrack = nil;
+    [_socketChannel disconnect];
+    _socketChannel = nil;
 
-  [_peerConnection close];
-  _peerConnection = nil;
+    [_peerConnection close];
+    _peerConnection = nil;
 
 }
 
@@ -411,7 +413,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     _isInitiator = true;
     [self createPeerConnection];
     // Send offer.
-    [Log echoWithKey:@"peer" text:[NSString stringWithFormat:@"initiateCall"]];
+    [Log echoWithKey:@"peer" text:[NSString stringWithFormat:@"initiateCall ARDAppClient"]];
     __weak ARDAppClient *weakSelf = self;
     [_peerConnection offerForConstraints:[self defaultOfferConstraints]
                        completionHandler:^(RTCSessionDescription *sdp,

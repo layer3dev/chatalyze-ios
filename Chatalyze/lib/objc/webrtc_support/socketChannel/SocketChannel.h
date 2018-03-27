@@ -20,4 +20,6 @@
 -(void)emitAnswer:(RTCSessionDescription *)sdp;
 -(void)emitCandidate:(RTCIceCandidate *)candidate;
 
+-(void)disconnect;
+
 @end

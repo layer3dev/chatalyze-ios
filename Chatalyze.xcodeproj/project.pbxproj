@@ -14,7 +14,6 @@
 		FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36252064D0ED00F2E6BC /* SettingController.swift */; };
 		FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36282064DE7A00F2E6BC /* AppVersionLabel.swift */; };
 		FA1B362B2064E0A500F2E6BC /* call_view.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1B362A2064E0A500F2E6BC /* call_view.storyboard */; };
-		FA1B362D2064E0C300F2E6BC /* VideoCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B362C2064E0C300F2E6BC /* VideoCallController.swift */; };
 		FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */; };
 		FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36312064E22F00F2E6BC /* HangupContainer.swift */; };
 		FA1B363B2064E22F00F2E6BC /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */; };
@@ -45,6 +44,10 @@
 		FA581943204164BE00D088F1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA581942204164BE00D088F1 /* Bolts.framework */; };
 		FA581945204165CA00D088F1 /* SigninController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581944204165CA00D088F1 /* SigninController.swift */; };
 		FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */; };
+		FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA65F541206A589E006CE665 /* VideoCallController.swift */; };
+		FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA65F543206A58E3006CE665 /* UserCallController.swift */; };
+		FA65F546206A58F2006CE665 /* HostCallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA65F545206A58F2006CE665 /* HostCallController.swift */; };
+		FA65F550206A750E006CE665 /* RTCConnectionInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA65F54F206A750E006CE665 /* RTCConnectionInitializer.m */; };
 		FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0F020639A2C00983141 /* ViewControllerT.m */; };
 		FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0F820639B6300983141 /* ARDAppClient.m */; };
 		FA74B12C20639B6400983141 /* ARDAppEngineClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0FA20639B6300983141 /* ARDAppEngineClient.m */; };
@@ -180,7 +183,6 @@
 		FA1B36252064D0ED00F2E6BC /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		FA1B36282064DE7A00F2E6BC /* AppVersionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionLabel.swift; sourceTree = "<group>"; };
 		FA1B362A2064E0A500F2E6BC /* call_view.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = call_view.storyboard; sourceTree = "<group>"; };
-		FA1B362C2064E0C300F2E6BC /* VideoCallController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallController.swift; sourceTree = "<group>"; };
 		FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallOverlayView.swift; sourceTree = "<group>"; };
 		FA1B36312064E22F00F2E6BC /* HangupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangupContainer.swift; sourceTree = "<group>"; };
 		FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,11 @@
 		FA581942204164BE00D088F1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
 		FA581944204165CA00D088F1 /* SigninController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninController.swift; sourceTree = "<group>"; };
 		FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCustomizer.swift; sourceTree = "<group>"; };
+		FA65F541206A589E006CE665 /* VideoCallController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallController.swift; sourceTree = "<group>"; };
+		FA65F543206A58E3006CE665 /* UserCallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallController.swift; sourceTree = "<group>"; };
+		FA65F545206A58F2006CE665 /* HostCallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallController.swift; sourceTree = "<group>"; };
+		FA65F54E206A750E006CE665 /* RTCConnectionInitializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCConnectionInitializer.h; sourceTree = "<group>"; };
+		FA65F54F206A750E006CE665 /* RTCConnectionInitializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTCConnectionInitializer.m; sourceTree = "<group>"; };
 		FA74B0EF20639A2C00983141 /* ViewControllerT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerT.h; sourceTree = "<group>"; };
 		FA74B0F020639A2C00983141 /* ViewControllerT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerT.m; sourceTree = "<group>"; };
 		FA74B0F420639A6600983141 /* Chatalyze-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chatalyze-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -528,6 +535,25 @@
 			path = deviceInfo;
 			sourceTree = "<group>";
 		};
+		FA65F540206A589E006CE665 /* call */ = {
+			isa = PBXGroup;
+			children = (
+				FA65F541206A589E006CE665 /* VideoCallController.swift */,
+				FA65F543206A58E3006CE665 /* UserCallController.swift */,
+				FA65F545206A58F2006CE665 /* HostCallController.swift */,
+			);
+			path = call;
+			sourceTree = "<group>";
+		};
+		FA65F54B206A746A006CE665 /* initializer */ = {
+			isa = PBXGroup;
+			children = (
+				FA65F54E206A750E006CE665 /* RTCConnectionInitializer.h */,
+				FA65F54F206A750E006CE665 /* RTCConnectionInitializer.m */,
+			);
+			path = initializer;
+			sourceTree = "<group>";
+		};
 		FA74B0EB2063971C00983141 /* xib */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +603,7 @@
 		FA74B0F520639B6300983141 /* webrtc_support */ = {
 			isa = PBXGroup;
 			children = (
+				FA65F54B206A746A006CE665 /* initializer */,
 				FA74B0F620639B6300983141 /* ARDAppClient+Internal.h */,
 				FA74B0F720639B6300983141 /* ARDAppClient.h */,
 				FA74B0F820639B6300983141 /* ARDAppClient.m */,
@@ -813,7 +840,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				FA1B362C2064E0C300F2E6BC /* VideoCallController.swift */,
+				FA65F540206A589E006CE665 /* call */,
 				FAA0016F203ED3F1003C8A74 /* LaunchDelayController.swift */,
 				FA581944204165CA00D088F1 /* SigninController.swift */,
 				FA9858E720638B6D00989CBB /* HomeController.swift */,
@@ -1408,13 +1435,16 @@
 				FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */,
 				FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */,
 				FAA001AD203ED472003C8A74 /* ExtendedNavigationController.swift in Sources */,
+				FA65F550206A750E006CE665 /* RTCConnectionInitializer.m in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
 				FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */,
+				FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				FAA001AB203ED472003C8A74 /* ExtendedController.swift in Sources */,
 				FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
 				FAA001D1203EE2BC003C8A74 /* DevFlag.swift in Sources */,
+				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */,
 				FAA0019A203ED472003C8A74 /* DateParser.swift in Sources */,
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
@@ -1470,7 +1500,6 @@
 				FAD6BA3F2064F96600942F27 /* EventValidator.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,
 				FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */,
-				FA1B362D2064E0C300F2E6BC /* VideoCallController.swift in Sources */,
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
@@ -1493,6 +1522,7 @@
 				FAA001A0203ED472003C8A74 /* Double.swift in Sources */,
 				FAA001A1203ED472003C8A74 /* ImageRequestHelper.swift in Sources */,
 				FA74B13C20639B6400983141 /* RTCIceServer+JSON.m in Sources */,
+				FA65F546206A58F2006CE665 /* HostCallController.swift in Sources */,
 				FA9858E820638B6D00989CBB /* HomeController.swift in Sources */,
 				FAA001A9203ED472003C8A74 /* ServerProcessor.swift in Sources */,
 				FA74B13520639B6400983141 /* ARDTURNClient.m in Sources */,
