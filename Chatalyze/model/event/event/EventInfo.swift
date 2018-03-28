@@ -10,6 +10,7 @@
 import UIKit
 import SwiftyJSON
 
+/*Doesn't include child slot information*/
 class EventInfo: NSObject {
     var id : Int?
     var _start : String?
@@ -114,6 +115,12 @@ class EventInfo: NSObject {
                     return
             }
             endDate = DateParser.UTCStringToDate(endLocal)
+        }
+    }
+    
+    var roomId : String{
+        get{
+            return "call-\(self.id ?? 0)"
         }
     }
 }

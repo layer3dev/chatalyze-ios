@@ -14,13 +14,16 @@ class HomeController: InterfaceExtendedController {
     
     
     @IBAction private func callAction(){
-        guard let controller = VideoCallController.instance()
+        guard let controller = UserCallController.instance()
             else{
                 return
         }
-        controller.userInfo = slotInfo?.callschedule?.user
-        controller.slotInfo = self.slotInfo
         
+        guard let eventId = self.slotInfo?.callschedule?.id
+            else{
+                return
+        }
+        controller.eventId = String(eventId)
         self.present(controller, animated: true, completion: nil)
     }
 
@@ -73,7 +76,7 @@ class HomeController: InterfaceExtendedController {
 
     private func fetchInfo(){
         self.showLoader()
-        CallBookingsFetch().fetchInfo { (success, slotInfo) in
+        CallSlotFetch().fetchInfo { (success, slotInfo) in
             self.stopLoader()
             self.slotInfo = slotInfo
             self.rootView?.queueContainerView?.udpateView(slotInfo: slotInfo)

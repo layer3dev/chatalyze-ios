@@ -1,5 +1,5 @@
 //
-//  EventSlotInfo.swift
+//  SlotInfo.swift
 //  Chatalyze
 //
 //  Created by Sumant Handa on 22/03/18.
@@ -9,7 +9,9 @@
 import UIKit
 import SwiftyJSON
 
-class EventSlotInfo: NSObject {
+
+/* Doesn't include ParentEvent Information*/
+class SlotInfo: NSObject {
     var id : Int?
     var _start : String?
     var startDate : Date?
@@ -28,7 +30,7 @@ class EventSlotInfo: NSObject {
     var updatedAt : String?
     var deletedAt : String?
     var user : UserInfo?
-    var callschedule : EventInfo?
+
     var href : String?
     
     
@@ -42,7 +44,7 @@ class EventSlotInfo: NSObject {
             else{
                 return
         }
-
+        
         id = json["id"].int
         start = json["start"].string
         end = json["end"].string
@@ -60,8 +62,7 @@ class EventSlotInfo: NSObject {
         deletedAt = json["deletedAt"].string
         
         user = UserInfo(userInfoJSON: json["user"])
-
-        callschedule = EventInfo(info: json["callschedule"])
+    
         href = json["href"].string
     }
     
@@ -99,7 +100,8 @@ class EventSlotInfo: NSObject {
             return "call-\(self.callscheduleId ?? 0)"
         }
     }
-  
+    
     
 }
+
 

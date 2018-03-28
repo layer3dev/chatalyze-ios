@@ -1,5 +1,5 @@
 //
-//  CallBookingsFetch.swift
+//  CallSlotFetch.swift
 //  Chatalyze Autography
 //
 //  Created by Mansa on 31/10/17.
@@ -10,7 +10,7 @@
 import Foundation
 import SwiftyJSON
 
-class CallBookingsFetch{
+class CallSlotFetch{
     
     public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : EventSlotInfo?)->())){
         
@@ -71,9 +71,7 @@ class CallBookingsFetch{
         Log.echo(key: "event", text: "slot info --> \(String(describing: eventInfo.callschedule?.id))")
         
         
-//        guard let callBookingArray = response?.dictionary else{
-//            return
-//        }
+
         completion(true, eventInfo)
         return
     }

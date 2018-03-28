@@ -13,22 +13,34 @@ import SwiftyJSON
 
 
 class VideoCallController : InterfaceExtendedController {
-
-    private var connection : ARDAppClient?
-    private var localTrack : RTCVideoTrack?
-    private var remoteTrack : RTCVideoTrack?
+    
+    //public - Need to be access by child
+    var connection : ARDAppClient?
+    
     var socketClient : SocketClient?
+    
+    //used for tracking the call time and auto-connect process
+    var timer : EventTimer = EventTimer()
     
     
     fileprivate var audioManager : AudioManager?
-    
-    private var captureController : ARDCaptureController?
-    
-    var sdpOffer : [String : Any]?
-    var userInfo : UserInfo?
-    var slotInfo : EventSlotInfo?
+
+    var eventId : String? //Expected param
+    var eventInfo : EventScheduleInfo?
     
 
+    /*Strong References*/
+    private var captureController : ARDCaptureController?
+    private var localTrack : RTCVideoTrack?
+    private var remoteTrack : RTCVideoTrack?
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        initialization()
+    }
     
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
@@ -38,7 +50,11 @@ class VideoCallController : InterfaceExtendedController {
         return rootView?.actionContainer
     }
     
-    
+    var roomId : String?{
+        get{
+            return self.eventInfo?.roomId
+        }
+    }
     
     @IBAction private func audioMuteAction(){
        guard let connection = self.connection
@@ -73,16 +89,16 @@ class VideoCallController : InterfaceExtendedController {
     
     
     @IBAction private func hangupAction(){
+        processHangupAction()
+    }
+    
+    func processHangupAction(){
         self.hangup()
         updateUserOfHangup()
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        initialization()
-    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -107,11 +123,24 @@ class VideoCallController : InterfaceExtendedController {
         
         initializeVariable()
         audioManager = AudioManager()
-        
-        socketClient?.connect(roomId: (self.slotInfo?.roomId ?? ""))
-        
         switchToCallRequest()
+        
+        fetchInfo { [weak self] (success) in
+            if(!success){
+                return
+            }
+            self?.processEventInfo()
+        }
+        
+    
     }
+    
+    private func processEventInfo(){
+        socketClient?.connect(roomId: (self.eventInfo?.roomId ?? ""))
+    }
+    
+    
+    
     
     private func updateUserOfHangup(){
         guard let userId = SignedUserInfo.sharedInstance?.id
@@ -119,14 +148,14 @@ class VideoCallController : InterfaceExtendedController {
                 return
         }
         
-        guard let targetId = self.userInfo?.hashedId
+        /*guard let targetId = self.slotInfo?.user?.hashedId
             else{
                 return
-        }
+        }*/
         
         var data = [String : Any]()
         data["userId"] = userId
-        data["receiverId"] = targetId
+//        data["receiverId"] = targetId
         data["message"] = "User hangup the call !"
         
         socketClient?.emit("disconnect", data)
@@ -136,104 +165,8 @@ class VideoCallController : InterfaceExtendedController {
    
     
     
-   
-    
-    private func registerForListeners(){
-        
-//        {"id":"joinedCall","data":{"name":"chedddiicdaibdia"}}
-        socketClient?.confirmConnect(completion: { [weak self] (success)  in
-            if(self?.socketClient == nil){
-                return
-            }
-            guard let selfUserId = SignedUserInfo.sharedInstance?.hashedId
-                else{
-                    return
-            }
-            var param = [String : Any]()
-            param["id"] = "joinedCall"
-            
-            var data = [String : Any]()
-            data["name"] = selfUserId
-            param["data"] = data
-            self?.socketClient?.emit(param)
-        })
-        
-        //call initiation
-        socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
-            if(self?.socketClient == nil){
-                return
-            }
-            self?.processCallInitiation(data : json)
-        })
-        
-        socketClient?.onEvent("startConnecting", completion: { [weak self] (json) in
-            if(self?.socketClient == nil){
-                return
-            }
-            self?.initiateCall()
-        })
-        
-        rootView?.hangupListener(listener: {
-            self.hangupAction()
-            self.rootView?.callOverlayView?.isHidden = true
-        })
-    }
-    
-    //{"id":"startSendingVideo","data":{"receiver":"jgefjedaafbecahc"}}
-    private func processCallInitiation(data : JSON?){
-        
-        guard let json = data
-            else{
-                return
-        }
-        
-        let receiverId = json["receiver"].stringValue
-        
-        guard let targetId = self.userInfo?.hashedId
-            else{
-           return
-        }
-        
-        if(targetId != receiverId){
-            return
-        }
-        
-        
-        var params = [String : Any]()
-        params["id"] = "startReceivingVideo"
-        
-        var data = [String : Any]()
-        data["sender"] = SignedUserInfo.sharedInstance?.hashedId
-        data["receiver"] = self.userInfo?.hashedId
-        
-        params["data"] = data
-        
-        socketClient?.emit(params)
-    }
-    
-    
-    //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
-    private func processHandshakeResponse(data : JSON?){
-        guard let json = data
-            else{
-                return
-        }
-        
-        let receiverId = json["sender"].stringValue
-        
-        guard let targetId = self.userInfo?.hashedId
-            else{
-                return
-        }
-        
-        if(targetId == receiverId){
-            return
-        }
-        
-        
-        //initiateCall()
-    }
-    
+
+
     func switchToCallAccept(){
         self.rootView?.confirmViewLoad(listener: {
             self.rootView?.switchToCallAccept()
@@ -248,7 +181,19 @@ class VideoCallController : InterfaceExtendedController {
     
     private func initializeVariable(){
         socketClient = SocketClient.sharedInstance
-        registerForListeners()
+        startTimer()
+    }
+    
+    private func startTimer(){
+        timer.ping { [weak self] in
+            self?.interval()
+        }
+        
+        timer.startTimer(withInterval: 1.0)
+    }
+    
+    func interval(){
+        
     }
     
 
@@ -256,46 +201,11 @@ class VideoCallController : InterfaceExtendedController {
     private func acceptCall(){
         SocketClient.sharedInstance?.confirmConnect(completion: { [weak self] (success) in
             if(success){
-                self?.startAcceptCall()
+                //self?.startAcceptCall()
             }
         })
     }
     
-    
-    private func startAcceptCall(){
-        guard let userId = SignedUserInfo.sharedInstance?.id
-            else{
-                return
-        }
-        
-        guard let targetId = self.userInfo?.hashedId
-            else{
-                return
-        }
-        
-
-    }
-    
-    private func initiateCall(){
-        guard let userId = SignedUserInfo.sharedInstance?.hashedId
-            else{
-                return
-        }
-        
-        guard let targetId = self.userInfo?.hashedId
-            else{
-                return
-        }
-        
-        guard let roomId = self.slotInfo?.roomId
-            else{
-                return
-        }
-        
-        self.connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
-        connection?.initiateCall()
-        startCallRing()
-    }
     
 }
 
@@ -355,8 +265,15 @@ extension VideoCallController : ARDAppClientDelegate{
         remoteView.renderFrame(nil)
         
         self.remoteTrack = remoteVideoTrack
-        self.remoteTrack?.add(remoteView)
 
+    }
+    
+    func renderRemoteVideo(){
+        guard let remoteView = rootView?.remoteVideoView
+            else{
+                return
+        }
+        self.remoteTrack?.add(remoteView)
     }
     
     func appClient(_ client: ARDAppClient!, didError error: Error!) {
@@ -414,10 +331,33 @@ extension VideoCallController{
 
 //instance
 extension VideoCallController{
-    class func instance()->VideoCallController?{
-        let storyboard = UIStoryboard(name: "call_view", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "video_call") as? VideoCallController
+    
+    fileprivate func fetchInfo(completion : ((_ success : Bool)->())?){
+        guard let eventId = self.eventId
+            else{
+                return
+        }
         
-        return controller
+        self.showLoader()
+        CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+            
+            self?.stopLoader()
+            if(!success){
+                completion?(false)
+                return
+            }
+            
+            guard let localEventInfo = info
+                else{
+                    completion?(false)
+                    return
+            }
+            
+            self?.eventInfo = localEventInfo
+            
+            completion?(true)
+            return
+            
+        }
     }
 }

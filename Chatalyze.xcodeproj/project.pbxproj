@@ -10,6 +10,11 @@
 		22096507D101B7FD4B87223E /* Pods_ChatalyzeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
+		FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C572206B6761009FA707 /* CallEventInfo.swift */; };
+		FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */; };
+		FA15C57C206B6B6C009FA707 /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C579206B6B6C009FA707 /* EventInfo.swift */; };
+		FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C57A206B6B6C009FA707 /* EventScheduleInfo.swift */; };
+		FA15C57F206B6DE4009FA707 /* SlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C57E206B6DE4009FA707 /* SlotInfo.swift */; };
 		FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1B36232064C77D00F2E6BC /* setting.storyboard */; };
 		FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36252064D0ED00F2E6BC /* SettingController.swift */; };
 		FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36282064DE7A00F2E6BC /* AppVersionLabel.swift */; };
@@ -135,9 +140,7 @@
 		FAD9CD982063B54B00A177AC /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD972063B54B00A177AC /* ExtendedLabel.swift */; };
 		FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD992063B5A400A177AC /* NoEventLabel.swift */; };
 		FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */; };
-		FAD9CD9E2063C17100A177AC /* CallBookingsFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9D2063C17100A177AC /* CallBookingsFetch.swift */; };
-		FAD9CDA12063C52400A177AC /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA02063C52400A177AC /* EventInfo.swift */; };
-		FAD9CDA32063C75A00A177AC /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */; };
+		FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9D2063C17100A177AC /* CallSlotFetch.swift */; };
 		FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */; };
 		FAE865C62068C620006F06B3 /* call.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C52068C61E006F06B3 /* call.xcassets */; };
 		FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C72068CAEF006F06B3 /* UserSocket.swift */; };
@@ -179,6 +182,11 @@
 		9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCD2BF6F1B24F42EA58A139 /* Pods-ChatalyzeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.release.xcconfig"; sourceTree = "<group>"; };
 		BA13399E4D58880AC0FC7A4E /* Pods-ChatalyzeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FA15C572206B6761009FA707 /* CallEventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEventInfo.swift; sourceTree = "<group>"; };
+		FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
+		FA15C579206B6B6C009FA707 /* EventInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
+		FA15C57A206B6B6C009FA707 /* EventScheduleInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventScheduleInfo.swift; sourceTree = "<group>"; };
+		FA15C57E206B6DE4009FA707 /* SlotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotInfo.swift; sourceTree = "<group>"; };
 		FA1B36232064C77D00F2E6BC /* setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = setting.storyboard; sourceTree = "<group>"; };
 		FA1B36252064D0ED00F2E6BC /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		FA1B36282064DE7A00F2E6BC /* AppVersionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionLabel.swift; sourceTree = "<group>"; };
@@ -340,9 +348,7 @@
 		FAD9CD972063B54B00A177AC /* ExtendedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		FAD9CD992063B5A400A177AC /* NoEventLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventLabel.swift; sourceTree = "<group>"; };
 		FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCountdownLabel.swift; sourceTree = "<group>"; };
-		FAD9CD9D2063C17100A177AC /* CallBookingsFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallBookingsFetch.swift; sourceTree = "<group>"; };
-		FAD9CDA02063C52400A177AC /* EventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
-		FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
+		FAD9CD9D2063C17100A177AC /* CallSlotFetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallSlotFetch.swift; sourceTree = "<group>"; };
 		FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingEventView.swift; sourceTree = "<group>"; };
 		FAE865C52068C61E006F06B3 /* call.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = call.xcassets; sourceTree = "<group>"; };
 		FAE865C72068CAEF006F06B3 /* UserSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSocket.swift; sourceTree = "<group>"; };
@@ -417,6 +423,24 @@
 				BA13399E4D58880AC0FC7A4E /* Pods-ChatalyzeUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA15C576206B6B6B009FA707 /* slot */ = {
+			isa = PBXGroup;
+			children = (
+				FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */,
+				FA15C57E206B6DE4009FA707 /* SlotInfo.swift */,
+			);
+			path = slot;
+			sourceTree = "<group>";
+		};
+		FA15C578206B6B6C009FA707 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				FA15C579206B6B6C009FA707 /* EventInfo.swift */,
+				FA15C57A206B6B6C009FA707 /* EventScheduleInfo.swift */,
+			);
+			path = event;
 			sourceTree = "<group>";
 		};
 		FA1B36272064DDAA00F2E6BC /* setting */ = {
@@ -768,7 +792,8 @@
 		FA85D3B62045B82700E7815A /* network */ = {
 			isa = PBXGroup;
 			children = (
-				FAD9CD9D2063C17100A177AC /* CallBookingsFetch.swift */,
+				FA15C572206B6761009FA707 /* CallEventInfo.swift */,
+				FAD9CD9D2063C17100A177AC /* CallSlotFetch.swift */,
 				FA74B14C2063A04C00983141 /* socket */,
 				FA9858DE20637AED00989CBB /* signinManager */,
 				FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */,
@@ -1013,8 +1038,8 @@
 		FAD9CD9F2063C50D00A177AC /* event */ = {
 			isa = PBXGroup;
 			children = (
-				FAD9CDA02063C52400A177AC /* EventInfo.swift */,
-				FAD9CDA22063C75A00A177AC /* EventSlotInfo.swift */,
+				FA15C578206B6B6C009FA707 /* event */,
+				FA15C576206B6B6B009FA707 /* slot */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1427,7 +1452,6 @@
 				FAA0016A203ED1E6003C8A74 /* RootControllerManager.swift in Sources */,
 				FAA001A8203ED472003C8A74 /* Log.swift in Sources */,
 				FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */,
-				FAD9CDA32063C75A00A177AC /* EventSlotInfo.swift in Sources */,
 				FAA001B0203ED472003C8A74 /* ExtendedTextView.swift in Sources */,
 				FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */,
 				FAA001B4203ED472003C8A74 /* UniqueUserIdentifier.swift in Sources */,
@@ -1448,11 +1472,13 @@
 				FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */,
 				FAA0019A203ED472003C8A74 /* DateParser.swift in Sources */,
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
+				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
 				FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
 				FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */,
+				FA15C57F206B6DE4009FA707 /* SlotInfo.swift in Sources */,
 				FAA001A6203ED472003C8A74 /* FieldValidator.swift in Sources */,
 				FA9858E220637AED00989CBB /* EmailResetPasswordRequest.swift in Sources */,
 				FAA001A2203ED472003C8A74 /* UIColor.swift in Sources */,
@@ -1491,9 +1517,8 @@
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
 				FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
-				FAD9CDA12063C52400A177AC /* EventInfo.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
-				FAD9CD9E2063C17100A177AC /* CallBookingsFetch.swift in Sources */,
+				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
 				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,
 				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
 				FA74B13E20639B6400983141 /* RTCSessionDescription+JSON.m in Sources */,
@@ -1503,10 +1528,12 @@
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
+				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
 				FA3AF1032044376C0084B154 /* SigninRootView.swift in Sources */,
 				FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */,
 				FA74B14720639C7300983141 /* SRWebSocket.m in Sources */,
+				FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */,
 				FAA0019E203ED472003C8A74 /* Date.swift in Sources */,
 				FA1B363E2064E22F00F2E6BC /* VideoActionContainer.swift in Sources */,
 				FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */,
@@ -1527,6 +1554,7 @@
 				FAA001A9203ED472003C8A74 /* ServerProcessor.swift in Sources */,
 				FA74B13520639B6400983141 /* ARDTURNClient.m in Sources */,
 				FA3CC1452046CA2A007438A3 /* UserInfo.swift in Sources */,
+				FA15C57C206B6B6C009FA707 /* EventInfo.swift in Sources */,
 				FA912DA0204196CF002891EC /* InterfaceExtendedController.swift in Sources */,
 				FA74B1512063A0B600983141 /* SocketListenerCallback.swift in Sources */,
 			);
