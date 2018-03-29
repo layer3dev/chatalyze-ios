@@ -413,9 +413,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     _isInitiator = true;
     [self createPeerConnection];
     
-    
-    //todo: //temp //testing sceanrios
-    return;
+
     
     // Send offer.
     [Log echoWithKey:@"peer" text:[NSString stringWithFormat:@"initiateCall ARDAppClient"]];

@@ -16,7 +16,7 @@ class PeerInfo: NSObject {
     var type : String?
     var room : String?
     var data : PeerMetaInfo?
-    var isBroadcasting : Bool?
+    var isBroadcasting : Bool = false
     
     
     override init(){
@@ -37,7 +37,7 @@ class PeerInfo: NSObject {
         name = json["name"].string
         type = json["type"].string
         room = json["room"].string
-        isBroadcasting = json["isBroadcasting"].bool
+        isBroadcasting = json["isBroadcasting"].boolValue
         
         data = PeerMetaInfo(info : json["data"])
     }

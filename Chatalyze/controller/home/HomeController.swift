@@ -9,23 +9,6 @@
 import UIKit
 
 class HomeController: InterfaceExtendedController {
-    
-    private var slotInfo : EventSlotInfo?
-    
-    
-    @IBAction private func callAction(){
-        guard let controller = UserCallController.instance()
-            else{
-                return
-        }
-        
-        guard let eventId = self.slotInfo?.callschedule?.id
-            else{
-                return
-        }
-        controller.eventId = String(eventId)
-        self.present(controller, animated: true, completion: nil)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +22,12 @@ class HomeController: InterfaceExtendedController {
         
         fetchInfo()
     }
-
-    var rootView : HomeRootView?{
-        get{
-            return self.view as?HomeRootView
-        }
+    
+    func fetchInfo(){
+        
     }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,6 +43,12 @@ class HomeController: InterfaceExtendedController {
         edgesForExtendedLayout = UIRectEdge()
     }
     
+    var rootView : HomeRootView?{
+        get{
+            return self.view as?HomeRootView
+        }
+    }
+    
     private func initializeListener(){
         UserSocket.sharedInstance?.socket?.on("call_booked_success", callback: { (data, ack) in
             self.fetchInfo()
@@ -72,14 +61,7 @@ class HomeController: InterfaceExtendedController {
         paintSettingButton()
     }
 
-    private func fetchInfo(){
-        self.showLoader()
-        CallSlotFetch().fetchInfo { (success, slotInfo) in
-            self.stopLoader()
-            self.slotInfo = slotInfo
-            self.rootView?.queueContainerView?.udpateView(slotInfo: slotInfo)
-        }
-    }
+    
     
     
     /*
@@ -97,10 +79,17 @@ class HomeController: InterfaceExtendedController {
 
 extension HomeController{
     
-    class func instance()->HomeController?{
+    class func dynamicInstance()->HomeController?{
+        
+        guard let userInfo = SignedUserInfo.sharedInstance
+        else{
+            return nil
+        }
         
         let storyboard = UIStoryboard(name: "home", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "home") as? HomeController
+        let controllerId = userInfo.role == .analyst ? "host_home" : "user_home"
+        let controller = storyboard.instantiateViewController(withIdentifier: controllerId) as? HomeController
+        
         return controller
     }
 }

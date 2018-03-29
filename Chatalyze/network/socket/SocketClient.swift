@@ -9,6 +9,8 @@
 import UIKit
 import Starscream
 import SwiftyJSON
+
+
 //connected with Ratchet
 class SocketClient : NSObject{
     
@@ -29,6 +31,12 @@ class SocketClient : NSObject{
     override init(){
         super.init()
         initialization()
+    }
+    
+    var isConnected : Bool{
+        get{
+            return isRegistered
+        }
     }
     
     fileprivate func initialization(){

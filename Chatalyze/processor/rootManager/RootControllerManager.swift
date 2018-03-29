@@ -62,7 +62,7 @@ class RootControllerManager{
         
         let rootNav : UINavigationController = ExtendedNavigationController()
         
-        guard let controller = HomeController.instance()
+        guard let controller = HomeController.dynamicInstance()
             else{
                 return
         }

@@ -174,6 +174,7 @@ class SlotInfo: NSObject {
                 else{
                     return false
             }
+            
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
         }
     }

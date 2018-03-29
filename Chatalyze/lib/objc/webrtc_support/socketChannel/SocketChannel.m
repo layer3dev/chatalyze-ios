@@ -6,16 +6,17 @@
 //  Copyright © 2018 netset. All rights reserved.
 //
 
-#import "SocketChannel.h"
 
+#import "SocketChannel.h"
 #import "WebRTC/RTCLogging.h"
 #import "SRWebSocket.h"
-
 #import "ARDSignalingMessage.h"
 #import "ARDUtilities.h"
 
+
 static NSString const *kARDWSSMessageErrorKey = @"error";
 static NSString const *kARDWSSMessagePayloadKey = @"msg";
+
 
 @implementation SocketChannel{
     SocketClient *socketClient;
@@ -38,27 +39,58 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 
+-(NSString *)selfDesignation{
+    SignedUserInfo *userInfo = [SignedUserInfo sharedInstance];
+    if(userInfo.role == roleTypeAnalyst){
+        return @"receiver";
+    }
+    return @"sender";
+}
+
+
+-(NSString *)targetDesignation{
+    SignedUserInfo *userInfo = [SignedUserInfo sharedInstance];
+    if(userInfo.role == roleTypeAnalyst){
+        return @"sender";
+    }
+    return @"receiver";
+}
+
 -(void)registerListeners{
     
     [socketClient onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+        if(socketClient == nil){
+            return;
+        }
         [self processCandidate : data];
     }];
     
-    [socketClient onEventSupportWithAction:@"sdpOffer" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
-        [self processSDPOffer : data];
-    }];
     
     [socketClient onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         
-        [self processSDPAnswer : data];
+        if(socketClient == nil){
+            return;
+        }
         
+        BOOL isSelf = [self verifyIfMessageForSelf:data];
+        if(!isSelf){
+            return;
+        }
         
+        NSDictionary *packedData = data[@"description"];
+        NSString *type = packedData[@"type"];
+        
+        if([type isEqualToString:@"offer"]){
+            [self processSDPOffer : packedData];
+            return;
+        }
+        [self processSDPAnswer : packedData];
     }];
 
 }
 
 -(void)emitAnswer:(RTCSessionDescription *)sdp{
-    [self emitSDPWithAction:@"sdpAnswer" andSDP:sdp];
+    [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
 }
 
 
@@ -71,10 +103,10 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     NSMutableDictionary *data = [NSMutableDictionary new];
     
-    data[@"sender"] = self.userId;
-    data[@"receiver"] = self.receiverId;
+    data[[self selfDesignation]] = self.userId;
+    data[[self targetDesignation]] = self.receiverId;
     data[@"description"] = sdpInfo;
-    data[@"type"] = @"sender";
+    data[@"type"] = [self selfDesignation];
     
     [self sendMessageWithAction:action andData:data];
 }
@@ -84,13 +116,13 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     NSMutableDictionary *data = [NSMutableDictionary new];
     
-    data[@"type"] = @"sender";
-    data[@"sender"] = self.userId;
-    data[@"receiver"] = self.receiverId;
+    data[@"type"] = [self selfDesignation];
+    data[[self selfDesignation]] = self.userId;
+    data[[self targetDesignation]] = self.receiverId;
     data[@"candidate"] = candidateInfo;
     
     
-    [self sendMessageWithAction:@"candidate" andData:data];
+    [self sendMessageWithAction:@"sendIceCandidate" andData:data];
 }
 
 
@@ -98,8 +130,34 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     [socketClient emitWithId:action data:data];
 }
 
+-(BOOL)verifyIfMessageForSelf:(NSDictionary *)data{
+    
+    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"myId --> %@, receiverId => %@", self.userId, self.receiverId]];
+    
+    NSString *targetDesignation = [self targetDesignation];
+     [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"targetDesignation --> %@", targetDesignation]];
+    
+    NSString *receivedSelfHashedId = data[@"sender"];
+    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"receivedSelfHashedId --> %@", receivedSelfHashedId]];
+    
+    
+    if(![self.receiverId isEqualToString:receivedSelfHashedId]){
+        [Log echoWithKey:@"socket_channel" text:@"message NOT FOR me"];
+        return false;
+    }
+    
+    [Log echoWithKey:@"socket_channel" text:@"message for me"];
+    
+    return true;
+}
+
 
 -(void)processCandidate:(NSDictionary *)data{
+
+    BOOL isSelf  = [self verifyIfMessageForSelf:data];
+    if(!isSelf){
+        return;
+    }
     NSDictionary *candidateDict = data[@"candidate"];
     RTCIceCandidate *candidate = [RTCIceCandidate candidateFromJSONDictionary:candidateDict];
      [self.listener processCandidate:candidate];
@@ -107,18 +165,20 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 
 -(void)processSDPOffer:(NSDictionary *)data{
+    
     RTCSessionDescription *description = [self parseSdp:data];
     [self.listener processSDPOffer:description];
 }
 
 -(void)processSDPAnswer:(NSDictionary *)data{
+    
     RTCSessionDescription *description = [self parseSdp:data];
     [self.listener processSDPAnswer:description];
 }
 
 
 -(RTCSessionDescription *)parseSdp:(NSDictionary *)data{
-    NSDictionary *sdp = data[@"description"];
+    NSDictionary *sdp = data;
     RTCSessionDescription *description =
     [RTCSessionDescription descriptionFromJSONDictionary:sdp];
     return description;

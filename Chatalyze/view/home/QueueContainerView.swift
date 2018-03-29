@@ -17,7 +17,7 @@ class QueueContainerView: ExtendedView {
     
     var timer : EventTimer = EventTimer()
     
-    var slotInfo : EventSlotInfo?
+    var slotInfo : EventTimeProtocol?
     
 
     /*
@@ -60,8 +60,8 @@ class QueueContainerView: ExtendedView {
     }
     
     
-    func udpateView(slotInfo : EventSlotInfo?){
-        self.slotInfo = slotInfo
+    func udpateView(callInfo : EventTimeProtocol?){
+        self.slotInfo = callInfo
         refresh()
     }
     

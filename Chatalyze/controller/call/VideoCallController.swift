@@ -14,8 +14,7 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
-    //public - Need to be access by child
-    var connection : ARDAppClient?
+    
     
     var socketClient : SocketClient?
     
@@ -27,11 +26,8 @@ class VideoCallController : InterfaceExtendedController {
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     
-    /*Strong References*/
-    private var captureController : ARDCaptureController?
-    private var localTrack : RTCVideoTrack?
-    private var remoteTrack : RTCVideoTrack?
-    
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,34 +43,41 @@ class VideoCallController : InterfaceExtendedController {
         return rootView?.actionContainer
     }
     
+    //public - Need to be access by child
+    var peerConnection : ARDAppClient?{
+        get{
+            return nil
+        }
+    }
+    
     
     
     @IBAction private func audioMuteAction(){
-       guard let connection = self.connection
+       guard let peerConnection = self.peerConnection
         else{
             return
         }
-        if(connection.isAudioMuted){
-            connection.unmuteAudioIn()
+        if(peerConnection.isAudioMuted){
+            peerConnection.unmuteAudioIn()
             actionContainer?.audioView?.unmute()
         }else{
-            connection.muteAudioIn()
+            peerConnection.muteAudioIn()
             actionContainer?.audioView?.mute()
         }
     }
     
     
     @IBAction private func videoDisableAction(){
-        guard let connection = self.connection
+        guard let peerConnection = self.peerConnection
             else{
                 return
         }
         
-        if(connection.isVideoMuted){
-            connection.unmuteVideoIn()
+        if(peerConnection.isVideoMuted){
+            peerConnection.unmuteVideoIn()
             actionContainer?.videoView?.unmute()
         }else{
-            connection.muteVideoIn()
+            peerConnection.muteVideoIn()
             actionContainer?.videoView?.mute()
         }
     }
@@ -90,6 +93,13 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     
+    func hangup(){
+        
+        self.socketClient = nil
+        self.dismiss(animated: true) {
+            
+        }
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,6 +185,11 @@ class VideoCallController : InterfaceExtendedController {
             param["data"] = data
             self?.socketClient?.emit(param)
         })
+        
+        rootView?.hangupListener(listener: {
+            self.processHangupAction()
+            self.rootView?.callOverlayView?.isHidden = true
+        })
     }
 
 
@@ -230,102 +245,12 @@ class VideoCallController : InterfaceExtendedController {
     
 }
 
-extension VideoCallController : ARDAppClientDelegate{
-    
-    func appClient(_ client: ARDAppClient!, didChange state: ARDAppClientState) {
-        
-    }
-    
-    func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
-        Log.echo(key: "call", text: "call state --> \(state.rawValue)")
-        
-        if(state == .connected){
-            acceptCallUpdate()
-           
-            return
-        }
-        
-        if(state == .failed){
-            stopCall()
-            return
-        }
-    }
-    
-    
-    func appClient(_ client: ARDAppClient!, didCreateLocalCapturer localCapturer: RTCCameraVideoCapturer!) {
-        guard let localView = rootView?.localVideoView
-            else{
-                return
-        }
-        
-        let captureSession = localCapturer.captureSession
-        localView.captureSession = captureSession
-        let settingsModel = ARDSettingsModel()
-        captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-        captureController?.startCapture()
-        
-    }
-    
-    
-
-    func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
-    
-    }
-    
-
-
-    func appClient(_ client: ARDAppClient!, didReceiveRemoteVideoTrack remoteVideoTrack: RTCVideoTrack!) {
-        
-        guard let remoteView = rootView?.remoteVideoView
-            else{
-                return
-        }
-        
-        self.remoteTrack?.remove(remoteView)
-        self.remoteTrack = nil
-        remoteView.renderFrame(nil)
-        
-        self.remoteTrack = remoteVideoTrack
-
-    }
-    
-    func renderRemoteVideo(){
-        guard let remoteView = rootView?.remoteVideoView
-            else{
-                return
-        }
-        self.remoteTrack?.add(remoteView)
-    }
-    
-    func appClient(_ client: ARDAppClient!, didError error: Error!) {
-        
-    }
-    
-    
-    func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
-        
-    }
-    
-}
 
 
 //actionButtons
 extension VideoCallController{
     
-    fileprivate func hangup(){
-        self.remoteTrack = nil
-        self.rootView?.localVideoView?.captureSession = nil
-        self.captureController = nil
-        
-        self.connection?.disconnect()
-        self.socketClient?.disconnect()
-        
-        self.connection = nil
-        self.socketClient = nil
-        self.dismiss(animated: true) {
-            
-        }
-    }
+    
     
 }
 

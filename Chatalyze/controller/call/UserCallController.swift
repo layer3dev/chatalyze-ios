@@ -12,6 +12,15 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    var connection : UserCallConnection?
+    
+    //public - Need to be access by child
+    override var peerConnection : ARDAppClient?{
+        get{
+            return connection?.connection
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,13 +61,10 @@ class UserCallController: VideoCallController {
             if(self?.socketClient == nil){
                 return
             }
-            self?.renderRemoteVideo()
+            self?.connection?.linkCall()
         })
         
-        rootView?.hangupListener(listener: {
-            self.processHangupAction()
-            self.rootView?.callOverlayView?.isHidden = true
-        })
+        
     }
     
     override func processHangupAction(){
@@ -122,32 +128,41 @@ class UserCallController: VideoCallController {
     }
     
     private func initiateCall(){
-        guard let userId = SignedUserInfo.sharedInstance?.hashedId
+        
+        guard let slotInfo = myCurrentUserSlot
             else{
                 return
         }
         
-        guard let targetId = hostHashId
-            else{
-                return
-        }
-        
-        guard let roomId = self.roomId
-            else{
-                return
-        }
-        
-        self.connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
+        self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
         connection?.initiateCall()
         startCallRing()
+    }
+    
+    var myCurrentUserSlot : SlotInfo?{
+        guard let slotInfo = eventInfo?.preConnectSlot
+            else{
+                return nil
+        }
+        return slotInfo
     }
     
 
     override func interval(){
         super.interval()
         
+        confirmCallLinked()
         
-        
+    }
+    
+    private func confirmCallLinked(){
+        guard let slot = myCurrentUserSlot
+            else{
+                return
+        }
+        if(slot.isLIVE){
+            self.connection?.linkCall()
+        }
     }
     
 }

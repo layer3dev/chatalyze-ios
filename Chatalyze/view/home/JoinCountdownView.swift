@@ -14,7 +14,7 @@ class JoinCountdownView: ZeroHeightView {
     @IBOutlet private var minuteLabel : UILabel?
     @IBOutlet private var secondLabel : UILabel?
     
-    var slotInfo : EventSlotInfo?
+    var slotInfo : EventTimeProtocol?
     /*
      // Only override draw() if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
@@ -27,7 +27,7 @@ class JoinCountdownView: ZeroHeightView {
         super.viewDidLayout()
     }
     
-    func udpateTimer(slotInfo : EventSlotInfo?){
+    func udpateTimer(slotInfo : EventTimeProtocol?){
         
         self.showView()
         

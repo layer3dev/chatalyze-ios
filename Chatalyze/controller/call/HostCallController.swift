@@ -12,7 +12,7 @@ import SwiftyJSON
 class HostCallController: VideoCallController {
     
     var peerInfos : [PeerInfo] = [PeerInfo]()
-    var connectionInfo : [String : ARDAppClient] =  [String : ARDAppClient]()
+    var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class HostCallController: VideoCallController {
     
     
     private func initializeVariable(){
-        
+        self.registerForListeners()
     }
     
     override func registerForListeners(){
@@ -43,12 +43,7 @@ class HostCallController: VideoCallController {
         
         
         //{"id":"startReceivingVideo","data":{"sender":"chedddiicdaibdia"}}
-        socketClient?.onEvent("startReceivingVideo", completion: { [weak self] (json) in
-            if(self?.socketClient == nil){
-                return
-            }
-            
-        })
+        
         
     }
     
@@ -71,116 +66,190 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         processEvent()
+        confirmCallLinked()
+    }
+    
+    
+    private func confirmCallLinked(){
+        
+        guard let slot = eventInfo?.currentSlot
+            else{
+                return
+        }
+        
+        guard let connection = getWriteConnection(slotInfo: slot)
+            else{
+                return
+        }
+        
+        if(slot.isLIVE){
+            connection.linkCall()
+        }
     }
     
     private func processEvent(){
-        guard let eventInfo = self.eventInfo
-            else{
-                return
-        }
         
-        if(!eventInfo.isPreconnectEligible){
+        if(!(socketClient?.isConnected ?? false)){
+            Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
             return
         }
+        else{
+            Log.echo(key: "processEvent", text: "processEvent -> socket connected")
+        }
+        guard let eventInfo = self.eventInfo
+            else{
+                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+                return
+        }
+    
+        
+        preconnectUser()
+        connectLiveUser()
+        disconnectStaleConnection()
         
     }
     
+    private func disconnectStaleConnection(){
+        for (_, connection) in connectionInfo {
+            guard let slotInfo = connection.slotInfo
+                else{
+                    return
+            }
+            
+            if(slotInfo.isExpired){
+                connection.disconnect()
+            }
+        }
+    }
     
-    private func preConnectUser(){
+    private func preconnectUser(){
         
         guard let eventInfo = self.eventInfo
             else{
+                Log.echo(key: "processEvent", text: "preConnectUser -> eventInfo is nil")
                 return
         }
         
-        guard let preconnectSlot = eventInfo.preConnectSlot
+        guard let preConnectSlot = eventInfo.preConnectSlot
             else{
+                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         
-        guard let connection = getWriteConnection(slotInfo : preconnectSlot)
+        connectUser(slotInfo: preConnectSlot)
+    }
+    
+    private func connectLiveUser(){
+        
+        guard let eventInfo = self.eventInfo
             else{
+                Log.echo(key: "processEvent", text: "preConnectUser -> eventInfo is nil")
                 return
         }
         
-        initateHandshake(slotInfo : preconnectSlot)
+        guard let slot = eventInfo.currentSlot
+            else{
+                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+                return
+        }
+        
+        connectUser(slotInfo: slot)
+    }
+    
+    private func connectUser(slotInfo : SlotInfo?){
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                Log.echo(key: "processEvent", text: "connectUser -> eventInfo is nil")
+                return
+        }
+        
+        guard let slot = slotInfo
+            else{
+                Log.echo(key: "processEvent", text: "connectUser -> slot is nil")
+                return
+        }
+        
+        
+        
+        guard let connection = getWriteConnection(slotInfo : slot)
+            else{
+                Log.echo(key: "processEvent", text: "connectUser -> getWriteConnection is nil")
+                return
+        }
+        
+        guard let targetHashedId = slot.user?.hashedId
+            else{
+                Log.echo(key: "processEvent", text: "connectUser -> targetHashedId is nil")
+                return
+        }
+        
+        if(!isOnline(hashId: targetHashedId)){
+            Log.echo(key: "processEvent", text: "connectUser -> user is offline")
+            return
+        }
+        if(connection.isInitiated){
+            return
+        }
+        Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
+        connection.initateHandshake()
         
         
     }
     
+    private func isOnline(hashId : String)->Bool{
+        for peerInfo in peerInfos {
+            if(peerInfo.name == hashId && peerInfo.isBroadcasting){
+                return true
+            }
+        }
+        return false
+    }
     
     
-    private func getWriteConnection(slotInfo : SlotInfo?) ->ARDAppClient?{
+    
+    private func getWriteConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
         guard let slotInfo = slotInfo
             else{
                 return nil
         }
         
-        guard let targetId = slotInfo.user?.id
+        guard let targetHashedId = slotInfo.user?.hashedId
             else{
                 return nil
         }
         
-        guard let userId = SignedUserInfo.sharedInstance?.hashedId
-            else{
-                return nil
-        }
         
-        guard let roomId = self.roomId
-            else{
-                return nil
-        }
-        
-        var connection = connectionInfo[targetId]
+        var connection = connectionInfo[targetHashedId]
         if(connection == nil){
-            connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
+            connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
         }
-        
+        connectionInfo[targetHashedId] = connection
         return connection
         
     }
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
     
-    private func initateHandshake(slotInfo : SlotInfo){
-        sendHandshakeMessage(action: "receiveVideoRequest", slotInfo: slotInfo)
+    
+    override func hangup(){
+        super.hangup()
+        
+        for (_, connection) in connectionInfo {
+            connection.disconnect()
+        }
     }
     
-    private func completeHandshake(targetHashedId : String){
-       
-        guard let selfId = SignedUserInfo.sharedInstance?.hashedId
-            else{
-                return
-        }
-        
+    
+}
 
-        var params = [String : Any]()
-        params["sender"] = targetHashedId
-        params["receiver"] = selfId
-        
-        socketClient?.emit(id: "startConnecting", data: params)
-    }
-    
-    private func sendHandshakeMessage(action : String, slotInfo : SlotInfo){
-        
-        guard let targetId = slotInfo.user?.id
-            else{
-                return
-        }
-        
-        guard let selfId = SignedUserInfo.sharedInstance?.hashedId
-            else{
-                return
-        }
-        
-        
-        var params = [String : Any]()
-        params["sender"] = targetId
-        params["receiver"] = selfId
-        
-        socketClient?.emit(id: action, data: params)
-    }
 
-    
-    
+//instance
+extension HostCallController{
+    class func instance()->HostCallController?{
+        let storyboard = UIStoryboard(name: "call_view", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
+        
+        return controller
+    }
 }

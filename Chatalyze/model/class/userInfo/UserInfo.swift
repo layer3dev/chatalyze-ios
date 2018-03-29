@@ -11,12 +11,12 @@ import SwiftyJSON
 
 class UserInfo: NSObject {
     
-    enum genderType : Int {
+    @objc enum genderType : Int {
         case male = 1
         case female = 2
     }
     
-    enum roleType : Int {
+    @objc enum roleType : Int {
         case user = 0
         case analyst = 1
         
@@ -88,7 +88,7 @@ class UserInfo: NSObject {
 
 extension UserInfo{
     
-    var genderType : genderType{
+    @objc var genderType : genderType{
        
         get{
             if(gender == "female"){
@@ -106,7 +106,7 @@ extension UserInfo{
         }
     }
     
-    var fullName : String{
+    @objc var fullName : String{
         get{
             return String(format : "%@ %@", self.firstName ?? "", self.lastName ?? "")
         }
@@ -118,7 +118,7 @@ extension UserInfo{
         return dateInfo.year ?? 0;
     }
     
-    var age : String{
+    @objc var age : String{
         
         get{
             let yob = Int(self.yob ?? "") ?? 0
@@ -140,13 +140,14 @@ extension UserInfo{
         return formattedDate ?? ""
     }
     
-    var role : roleType{
+    @objc var role : roleType{
         
         get{
             return roleType.role(withRoleId: self.roleId)
         }
     }
-    var hashedId : String{
+    
+    @objc var hashedId : String{
         get{
             return UniqueUserIdentifier().generateUniqueIdentifier(userId: id)
         }

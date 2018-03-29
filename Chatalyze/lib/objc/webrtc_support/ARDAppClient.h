@@ -43,6 +43,9 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
     didCreateLocalCapturer:(RTCCameraVideoCapturer *)localCapturer;
 
 - (void)appClient:(ARDAppClient *)client
+didCreateLocalSourceDelegate:(RTCVideoSource *)source;
+
+- (void)appClient:(ARDAppClient *)client
     didReceiveLocalVideoTrack:(RTCVideoTrack *)localVideoTrack;
 
 - (void)appClient:(ARDAppClient *)client

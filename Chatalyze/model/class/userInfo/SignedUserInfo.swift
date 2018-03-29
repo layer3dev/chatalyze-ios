@@ -14,7 +14,8 @@ class SignedUserInfo: UserInfo , NSCoding{
     var accessToken : String?
     var notificationCount : Int = 0
     private static var _sharedInstance : SignedUserInfo?
-    static var sharedInstance : SignedUserInfo?{
+    
+    @objc static var sharedInstance : SignedUserInfo?{
         
         get{
             if(_sharedInstance != nil){

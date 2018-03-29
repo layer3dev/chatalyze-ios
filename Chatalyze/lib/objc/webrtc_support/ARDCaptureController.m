@@ -19,6 +19,17 @@
   BOOL _usingFrontCamera;
 }
 
+
+- (instancetype)initWithSettings:(ARDSettingsModel *)settings {
+    if (self = [super init]) {
+        _capturer =  [[RTCCameraVideoCapturer alloc] initWithDelegate:nil];
+        _settings = settings;
+        _usingFrontCamera = YES;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithCapturer:(RTCCameraVideoCapturer *)capturer
                         settings:(ARDSettingsModel *)settings {
   if (self = [super init]) {
