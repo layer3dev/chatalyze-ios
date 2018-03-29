@@ -123,4 +123,73 @@ class EventInfo: NSObject {
             return "call-\(self.id ?? 0)"
         }
     }
+    
+    
+    var isLIVE : Bool{
+        get{
+            guard let startDate = startDate
+                else{
+                    return false
+            }
+            
+            guard let endDate = endDate
+                else{
+                    return false
+            }
+            
+            if(startDate.isPast() && endDate.isFuture()){
+                return true
+            }
+            
+            return false
+        }
+    }
+    
+    var isFuture : Bool{
+        get{
+            guard let startDate = startDate
+                else{
+                    return false
+            }
+            
+            
+            if(startDate.isFuture()){
+                return true
+            }
+            
+            return false
+        }
+    }
+    
+    var isExpired : Bool{
+        get{
+           
+            
+            guard let endDate = endDate
+                else{
+                    return false
+            }
+            
+            if(endDate.isPast()){
+                return true
+            }
+            
+            return false
+        }
+    }
+    
+    var isPreconnectEligible : Bool{
+        get{
+            guard let startDate = startDate
+                else{
+                    return false
+            }
+            
+            guard let endDate = endDate
+                else{
+                    return false
+            }
+            return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
+        }
+    }
 }

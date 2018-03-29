@@ -18,7 +18,7 @@ class EventScheduleInfo: EventInfo {
     }
     
     override init(info : JSON?){
-        super.init()
+        super.init(info : info)
        
     }
     
@@ -44,6 +44,35 @@ class EventScheduleInfo: EventInfo {
     
     
     
+    var currentSlot : SlotInfo?{
+        
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        for slotInfo in slotInfos {
+            if(slotInfo.isLIVE){
+                return slotInfo
+            }
+        }
+        
+        return nil
+    }
     
+    var preConnectSlot : SlotInfo?{
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        for slotInfo in slotInfos {
+            if(slotInfo.isPreconnectEligible){
+                return slotInfo
+            }
+        }
+        
+        return nil
+    }
     
 }

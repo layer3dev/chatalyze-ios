@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 
+
 class UserCallController: VideoCallController {
     
     override func viewDidLoad() {
@@ -17,35 +18,20 @@ class UserCallController: VideoCallController {
         initialization()
     }
     
+    
     private func initialization(){
         initializeVariable()
     }
+    
     
     private func initializeVariable(){
         registerForListeners()
     }
     
     
-    private func registerForListeners(){
+     override func registerForListeners(){
+        super.registerForListeners()
         
-        //        {"id":"joinedCall","data":{"name":"chedddiicdaibdia"}}
-        socketClient?.confirmConnect(completion: { [weak self] (success)  in
-            if(self?.socketClient == nil){
-                return
-            }
-            
-            guard let selfUserId = SignedUserInfo.sharedInstance?.hashedId
-                else{
-                    return
-            }
-            var param = [String : Any]()
-            param["id"] = "joinedCall"
-            
-            var data = [String : Any]()
-            data["name"] = selfUserId
-            param["data"] = data
-            self?.socketClient?.emit(param)
-        })
         
         //call initiation
         socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
@@ -155,9 +141,12 @@ class UserCallController: VideoCallController {
         connection?.initiateCall()
         startCallRing()
     }
+    
 
     override func interval(){
         super.interval()
+        
+        
         
     }
     

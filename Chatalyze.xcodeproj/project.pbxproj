@@ -147,6 +147,11 @@
 		FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C92068D706006F06B3 /* CallOverlayView.xib */; };
 		FAE8E8172063DE210054ED7D /* JoinCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8E8162063DE210054ED7D /* JoinCountdownView.swift */; };
 		FAE8E8192063E0D10054ED7D /* HomeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8E8182063E0D10054ED7D /* HomeRootView.swift */; };
+		FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9EF67206CB25F00C45F8D /* PeerInfo.swift */; };
+		FAE9EF6A206CB26E00C45F8D /* PeerMetaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9EF69206CB26E00C45F8D /* PeerMetaInfo.swift */; };
+		FAE9EF6D206CD04D00C45F8D /* BroadcastConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9EF6C206CD04D00C45F8D /* BroadcastConnection.swift */; };
+		FAE9EF6F206CD05500C45F8D /* ReceiverConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9EF6E206CD05500C45F8D /* ReceiverConnection.swift */; };
+		FAE9EF71206CD07700C45F8D /* CallConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9EF70206CD07700C45F8D /* CallConnection.swift */; };
 		FAFFFE98203D9C80009B4F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */; };
 		FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFFE99203D9C80009B4F96 /* ViewController.swift */; };
 		FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFFFE9B203D9C80009B4F96 /* Main.storyboard */; };
@@ -355,6 +360,11 @@
 		FAE865C92068D706006F06B3 /* CallOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallOverlayView.xib; sourceTree = "<group>"; };
 		FAE8E8162063DE210054ED7D /* JoinCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCountdownView.swift; sourceTree = "<group>"; };
 		FAE8E8182063E0D10054ED7D /* HomeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRootView.swift; sourceTree = "<group>"; };
+		FAE9EF67206CB25F00C45F8D /* PeerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeerInfo.swift; sourceTree = "<group>"; };
+		FAE9EF69206CB26E00C45F8D /* PeerMetaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerMetaInfo.swift; sourceTree = "<group>"; };
+		FAE9EF6C206CD04D00C45F8D /* BroadcastConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastConnection.swift; sourceTree = "<group>"; };
+		FAE9EF6E206CD05500C45F8D /* ReceiverConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverConnection.swift; sourceTree = "<group>"; };
+		FAE9EF70206CD07700C45F8D /* CallConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallConnection.swift; sourceTree = "<group>"; };
 		FAFFFE94203D9C80009B4F96 /* Chatalyze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatalyze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFFFE99203D9C80009B4F96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1038,10 +1048,31 @@
 		FAD9CD9F2063C50D00A177AC /* event */ = {
 			isa = PBXGroup;
 			children = (
+				FAE9EF6B206CD03D00C45F8D /* connection */,
+				FAE9EF66206CB25F00C45F8D /* peerInfo */,
 				FA15C578206B6B6C009FA707 /* event */,
 				FA15C576206B6B6B009FA707 /* slot */,
 			);
 			path = event;
+			sourceTree = "<group>";
+		};
+		FAE9EF66206CB25F00C45F8D /* peerInfo */ = {
+			isa = PBXGroup;
+			children = (
+				FAE9EF67206CB25F00C45F8D /* PeerInfo.swift */,
+				FAE9EF69206CB26E00C45F8D /* PeerMetaInfo.swift */,
+			);
+			path = peerInfo;
+			sourceTree = "<group>";
+		};
+		FAE9EF6B206CD03D00C45F8D /* connection */ = {
+			isa = PBXGroup;
+			children = (
+				FAE9EF6C206CD04D00C45F8D /* BroadcastConnection.swift */,
+				FAE9EF6E206CD05500C45F8D /* ReceiverConnection.swift */,
+				FAE9EF70206CD07700C45F8D /* CallConnection.swift */,
+			);
+			path = connection;
 			sourceTree = "<group>";
 		};
 		FAFFFE8B203D9C7F009B4F96 = {
@@ -1461,11 +1492,13 @@
 				FAA001AD203ED472003C8A74 /* ExtendedNavigationController.swift in Sources */,
 				FA65F550206A750E006CE665 /* RTCConnectionInitializer.m in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
+				FAE9EF71206CD07700C45F8D /* CallConnection.swift in Sources */,
 				FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */,
 				FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				FAA001AB203ED472003C8A74 /* ExtendedController.swift in Sources */,
 				FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */,
+				FAE9EF6A206CB26E00C45F8D /* PeerMetaInfo.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
 				FAA001D1203EE2BC003C8A74 /* DevFlag.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
@@ -1490,6 +1523,7 @@
 				FA74B12C20639B6400983141 /* ARDAppEngineClient.m in Sources */,
 				FAFFFE98203D9C80009B4F96 /* AppDelegate.swift in Sources */,
 				FAA001D0203EE2BC003C8A74 /* AppThemeConfig.swift in Sources */,
+				FAE9EF6D206CD04D00C45F8D /* BroadcastConnection.swift in Sources */,
 				FA74B13420639B6400983141 /* ARDStatsBuilder.m in Sources */,
 				FAA001B1203ED472003C8A74 /* ExtendedView.swift in Sources */,
 				FAA001AA203ED472003C8A74 /* CircularImageView.swift in Sources */,
@@ -1517,6 +1551,8 @@
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
 				FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
+				FAE9EF6F206CD05500C45F8D /* ReceiverConnection.swift in Sources */,
+				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
 				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,

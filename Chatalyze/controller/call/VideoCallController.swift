@@ -22,18 +22,15 @@ class VideoCallController : InterfaceExtendedController {
     //used for tracking the call time and auto-connect process
     var timer : EventTimer = EventTimer()
     
-    
     fileprivate var audioManager : AudioManager?
 
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     
-
     /*Strong References*/
     private var captureController : ARDCaptureController?
     private var localTrack : RTCVideoTrack?
     private var remoteTrack : RTCVideoTrack?
-    
     
     
     override func viewDidLoad() {
@@ -50,11 +47,7 @@ class VideoCallController : InterfaceExtendedController {
         return rootView?.actionContainer
     }
     
-    var roomId : String?{
-        get{
-            return self.eventInfo?.roomId
-        }
-    }
+    
     
     @IBAction private func audioMuteAction(){
        guard let connection = self.connection
@@ -72,7 +65,6 @@ class VideoCallController : InterfaceExtendedController {
     
     
     @IBAction private func videoDisableAction(){
-        
         guard let connection = self.connection
             else{
                 return
@@ -164,7 +156,26 @@ class VideoCallController : InterfaceExtendedController {
 
    
     
-    
+    func registerForListeners(){
+        //        {"id":"joinedCall","data":{"name":"chedddiicdaibdia"}}
+        socketClient?.confirmConnect(completion: { [weak self] (success)  in
+            if(self?.socketClient == nil){
+                return
+            }
+            
+            guard let selfUserId = SignedUserInfo.sharedInstance?.hashedId
+                else{
+                    return
+            }
+            var param = [String : Any]()
+            param["id"] = "joinedCall"
+            
+            var data = [String : Any]()
+            data["name"] = selfUserId
+            param["data"] = data
+            self?.socketClient?.emit(param)
+        })
+    }
 
 
     func switchToCallAccept(){
@@ -205,6 +216,16 @@ class VideoCallController : InterfaceExtendedController {
             }
         })
     }
+    
+    
+    var roomId : String?{
+        get{
+            return self.eventInfo?.roomId
+        }
+    }
+    
+    
+    
     
     
 }
@@ -354,6 +375,9 @@ extension VideoCallController{
             }
             
             self?.eventInfo = localEventInfo
+            
+            let roomId = localEventInfo.id ?? 0
+            Log.echo(key : "service", text : "eventId - > \(roomId)")
             
             completion?(true)
             return

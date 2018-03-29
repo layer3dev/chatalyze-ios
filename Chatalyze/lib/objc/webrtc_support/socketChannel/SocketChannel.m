@@ -95,14 +95,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 
 - (void)sendMessageWithAction:(NSString *)action andData:(NSDictionary *)data {
-    
-    
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    params[@"id"] = action;
-    params[@"data"] = data;
-    
-//    [socketClient emit];
-    [socketClient emitSupportWithData:params];
+    [socketClient emitWithId:action data:data];
 }
 
 

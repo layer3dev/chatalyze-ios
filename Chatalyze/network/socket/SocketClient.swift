@@ -270,6 +270,15 @@ extension SocketClient{
         sendWrapped(params, waitForConnection: false)
     }
     
+    //supports both Swift and Objective C
+    @objc func emit(id : String?, data : [String : Any]?){
+        var params = [String : Any]()
+        params["id"] = id
+        params["data"] = data
+        
+        self.emit(params)
+    }
+    
     
     //for supporting objective C
     @objc func emitSupport(data : [String : Any]?){

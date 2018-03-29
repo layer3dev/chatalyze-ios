@@ -412,6 +412,11 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 - (void)initiateCall {
     _isInitiator = true;
     [self createPeerConnection];
+    
+    
+    //todo: //temp //testing sceanrios
+    return;
+    
     // Send offer.
     [Log echoWithKey:@"peer" text:[NSString stringWithFormat:@"initiateCall ARDAppClient"]];
     __weak ARDAppClient *weakSelf = self;
@@ -680,6 +685,17 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     [_peerConnection addStream:localStream];
     
     self.isVideoMuted = false;
+}
+
+
+-(BOOL)isIdeal{
+    return false;
+}
+-(BOOL)isConnected{
+    return false;
+}
+-(BOOL)isProcessing{
+    return false;
 }
 
 

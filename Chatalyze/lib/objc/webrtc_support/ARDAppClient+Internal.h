@@ -80,4 +80,9 @@
 - (void)muteVideoIn;
 - (void)unmuteVideoIn;
 
+-(BOOL)isIdeal;
+-(BOOL)isConnected;
+-(BOOL)isProcessing;
+
+
 @end

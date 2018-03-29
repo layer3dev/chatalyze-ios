@@ -10,20 +10,20 @@ import Foundation
 
 class EventValidator{
     
-    func isPreConnectEligible(start : Date, end : Date)->Bool{
+    func isPreconnectEligible(start : Date, end : Date)->Bool{
         if(end.isPast()){
             return false
         }
         
         let startTime = start.timeIntervalSinceNow
-        if(startTime <= 30*60){
+        if(startTime <= 30){
             return true
         }
         
         return false
     }
     
-    func isPreConnectFuture(start : Date, end : Date)->Bool{
+    func isRoomEligible(start : Date, end : Date)->Bool{
         if(start.isPast() || end.isPast()){
             return false
         }

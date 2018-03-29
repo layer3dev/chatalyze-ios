@@ -89,7 +89,7 @@ class QueueContainerView: ExtendedView {
         
         let validator = EventValidator()
         
-        if(validator.isPreConnectFuture(start: startDate, end: endDate)){
+        if(validator.isRoomEligible(start: startDate, end: endDate)){
 //            Log.echo(key: "timer", text: "isPreConnectFuture")
             self.joinContainerView?.udpateTimer(slotInfo: slotInfo)
             return
