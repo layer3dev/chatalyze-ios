@@ -80,6 +80,10 @@ class SocketClient : NSObject{
             return
         }
         
+        if(!connectionFlag){
+            return
+        }
+        
         guard let socket = self.socket
             else{
                 return
@@ -121,7 +125,7 @@ extension SocketClient{
     
     func initializeSocketConnection(){
         socket?.onConnect = {
-            Log.echo(key: "socket_client", text:"socket connected")
+            Log.echo(key: "socket_client", text:"socket connected new")
             DispatchQueue.main.async {
                 self.registerSocket()
             }
@@ -193,9 +197,12 @@ extension SocketClient{
     
     
     func disconnect(){
+        
+        Log.echo(key: "socket_client", text: "disconnect => called")
         connectionFlag = false
         resetListeners()
-        socket?.disconnect()
+        socket?.disconnect() 
+        
     }
     
     private func resetListeners(){

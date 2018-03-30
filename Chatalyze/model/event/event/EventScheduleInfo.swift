@@ -43,7 +43,6 @@ class EventScheduleInfo: EventInfo {
     }
     
     
-    
     var currentSlot : SlotInfo?{
         
         guard let slotInfos = self.slotInfos
@@ -68,6 +67,21 @@ class EventScheduleInfo: EventInfo {
         
         for slotInfo in slotInfos {
             if(slotInfo.isPreconnectEligible){
+                return slotInfo
+            }
+        }
+        
+        return nil
+    }
+    
+    var wholeConnectSlot : SlotInfo?{
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        for slotInfo in slotInfos {
+            if(slotInfo.isWholeConnectEligible){
                 return slotInfo
             }
         }

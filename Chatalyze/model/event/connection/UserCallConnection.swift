@@ -26,6 +26,8 @@ class UserCallConnection: CallConnection {
     }
     
     override func getWriteConnection() ->ARDAppClient?{
+        _ = super.getWriteConnection()
+        
         guard let slotInfo = slotInfo
             else{
                 return nil

@@ -12,6 +12,24 @@ import SwiftyJSON
 
 class ServerProcessor{
     
+    private var sessionManager : SessionManager?
+    
+    init(){
+        let serverTrustPolicies: [String: ServerTrustPolicy] = [
+            "test.example.com": .pinCertificates(
+                certificates: ServerTrustPolicy.certificates(),
+                validateCertificateChain: true,
+                validateHost: true
+            ),
+            "insecure.expired-apis.com": .disableEvaluation
+        ]
+        
+        let sessionManager = SessionManager(
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+        )
+        self.sessionManager = sessionManager
+    }
+    
     enum httpMethod {
         case get
         case post
@@ -83,6 +101,7 @@ class ServerProcessor{
         
         Log.echo(key: "token", text: "param => " + (URLString))
         Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
+        
         let request = Alamofire.request(URLString, method : method.libHttpMethod(), parameters: parameters, encoding: encoding.libEncoding(), headers: headers)
         self.requestRef = request
         

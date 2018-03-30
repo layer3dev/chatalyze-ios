@@ -23,6 +23,19 @@ class EventValidator{
         return false
     }
     
+    func isWholeConnectEligible(start : Date, end : Date)->Bool{
+        if(end.isPast()){
+            return false
+        }
+        
+        let startTime = start.timeIntervalSinceNow
+        if(startTime <= 30){
+            return true
+        }
+        
+        return false
+    }
+    
     func isRoomEligible(start : Date, end : Date)->Bool{
         if(start.isPast() || end.isPast()){
             return false

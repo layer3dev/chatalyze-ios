@@ -19,7 +19,6 @@ class CallConnection: NSObject {
     
     /*flags*/
     var isLinked = false
-
     
     /*Strong References*/
     private var captureController : ARDCaptureController?
@@ -29,7 +28,6 @@ class CallConnection: NSObject {
     var socketClient : SocketClient?
     
     //connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
-    
     
     init(eventInfo : EventInfo?, slotInfo : SlotInfo?, controller : VideoCallController?){
         super.init()
@@ -111,7 +109,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         if(state == .failed){
-            self.controller?.stopCall()
+//            self.controller?.stopCall()
             return
         }
     }
@@ -135,6 +133,8 @@ extension CallConnection : ARDAppClientDelegate{
             localView.captureSession = captureSession
         }else{
             Log.echo(key: "local", text: "already assigned, not setting new one")
+//            localView.add
+//            localView.captureSession = captureSession
         }
         
         
@@ -142,8 +142,6 @@ extension CallConnection : ARDAppClientDelegate{
        
         captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
         captureController?.startCapture()
-        
-
     }
     
     
@@ -151,7 +149,6 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
         
     }
-    
     
     
     func appClient(_ client: ARDAppClient!, didReceiveRemoteVideoTrack remoteVideoTrack: RTCVideoTrack!) {
@@ -203,6 +200,12 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
+    
+    func resetFlagsForReconnect(){
+        isLinked = false
+        
+    }
+    
     
 }
 

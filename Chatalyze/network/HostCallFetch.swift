@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Foundation
 import SwiftyJSON
 
 class HostCallFetch{
@@ -22,6 +21,7 @@ class HostCallFetch{
                 completion(false, nil)
                 return
         }
+        
         guard let formattedDate = Date().removeTimeStamp()
             else{
                 completion(false, nil)
@@ -30,6 +30,7 @@ class HostCallFetch{
         var params = [String : Any]()
         params["start"] = DateParser.dateToStringInServerFormat(formattedDate)
         params["userId"] = userId
+        params["removePrevious"] = true
         
         
         ServerProcessor().request(.get, url, parameters : params, encoding: .queryString, authorize : true) { (success, response) in
@@ -45,7 +46,7 @@ class HostCallFetch{
             return
         }
         
-        Log.echo(key: "yud", text: "Resonse of Fetch CAllSlots \(response)")
+        Log.echo(key: "yud", text: "Resonse of Fetch CallSlots \(response)")
         
         guard let infos = response?.arrayValue
             else{

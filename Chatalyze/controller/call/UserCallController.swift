@@ -28,6 +28,7 @@ class UserCallController: VideoCallController {
     }
     
     
+    
     private func initialization(){
         initializeVariable()
     }
@@ -140,7 +141,7 @@ class UserCallController: VideoCallController {
     }
     
     var myCurrentUserSlot : SlotInfo?{
-        guard let slotInfo = eventInfo?.preConnectSlot
+        guard let slotInfo = eventInfo?.wholeConnectSlot
             else{
                 return nil
         }
@@ -163,6 +164,12 @@ class UserCallController: VideoCallController {
         if(slot.isLIVE){
             self.connection?.linkCall()
         }
+    }
+    
+    override func callFailed(){
+        super.callFailed()
+        
+        
     }
     
 }

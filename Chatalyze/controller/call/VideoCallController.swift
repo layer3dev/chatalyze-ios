@@ -14,8 +14,6 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
-    
-    
     var socketClient : SocketClient?
     
     //used for tracking the call time and auto-connect process
@@ -26,8 +24,6 @@ class VideoCallController : InterfaceExtendedController {
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +31,19 @@ class VideoCallController : InterfaceExtendedController {
         initialization()
     }
     
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        timer.pauseTimer()
+        socketClient?.disconnect()
+        self.socketClient = nil
+    }
+    
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
     }
+    
     
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
@@ -49,7 +55,6 @@ class VideoCallController : InterfaceExtendedController {
             return nil
         }
     }
-    
     
     
     @IBAction private func audioMuteAction(){
@@ -95,7 +100,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func hangup(){
         
-        self.socketClient = nil
+        
         self.dismiss(animated: true) {
             
         }
@@ -107,12 +112,7 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        socketClient?.disconnect()
-    }
+
     
     
     override func didReceiveMemoryWarning() {
@@ -239,7 +239,9 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
+    func callFailed(){
+        
+    }
     
     
     
@@ -261,17 +263,12 @@ extension VideoCallController{
     }
     
     func acceptCallUpdate(){
-        stopCallRequest()
+        self.rootView?.switchToCallAccept()
     }
     
-    func stopCall(){
-        self.hangupAction()
-        stopCallRequest()
-    }
     
-    func stopCallRequest(){
-         self.rootView?.switchToCallAccept()
-    }
+    
+    
 }
 
 
