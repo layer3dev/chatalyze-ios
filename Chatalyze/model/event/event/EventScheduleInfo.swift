@@ -38,10 +38,20 @@ class EventScheduleInfo: EventInfo {
             localSlotInfos.append(slotInfo)
         }
         
+        localSlotInfos = sortSlots(slotInfos: localSlotInfos)
+        
         self.slotInfos = localSlotInfos
         
     }
     
+    private func sortSlots(slotInfos : [SlotInfo])->[SlotInfo]{
+        let infos = slotInfos.sorted { (slotOne, slotTwo) -> Bool in
+            let slotOneNo = slotOne.slotNo ?? 0
+            let slotTwoNo = slotTwo.slotNo ?? 0
+            return slotOneNo < slotTwoNo
+        }
+        return infos
+    }
     
     var currentSlot : SlotInfo?{
         
@@ -87,6 +97,27 @@ class EventScheduleInfo: EventInfo {
         }
         
         return nil
+    }
+    
+    var myValidSlot : (slotNumber : Int, slotInfo : SlotInfo?){
+        guard let slotInfos = self.slotInfos
+            else{
+                return (0, nil)
+        }
+        
+        if(slotInfos.count <= 0){
+            return (0, nil)
+        }
+        
+        for index in 0...slotInfos.count{
+            let slotInfo = slotInfos[index]
+            
+            return (index, slotInfo)
+        }
+        
+       
+        
+        return (0, nil)
     }
     
 }

@@ -17,9 +17,12 @@ public extension Date {
         return DateParser.dateToString(self, requiredFormat : defaultFormat)
     }
     
-    func countdownTimeFromNow()->(hours : String, minutes : String, seconds : String)?{
+    func countdownTimeFromNow()->(isActive : Bool, hours : String, minutes : String, seconds : String)?{
         
         let totalSeconds = Int(self.timeIntervalSinceNow)
+        if(totalSeconds < 0){
+            return (false, "00", "00", "00")
+        }
         let hours = (totalSeconds) / 3600
         let minutes = (totalSeconds % 3600) / 60
         let seconds = (totalSeconds % 3600) % 60
@@ -29,14 +32,19 @@ public extension Date {
         let minuteString = String(format: "%02d", minutes)
         let secondString = String(format: "%02d", seconds)
         
-        return (hourString, minuteString, secondString)
+        return (true, hourString, minuteString, secondString)
     }
     
     func countdownMinutesFromNow()->(minutes : String, seconds : String)?{
         
         let totalSeconds = Int(self.timeIntervalSinceNow)
+        
+        if(totalSeconds < 0){
+            return ("00", "00")
+        }
         let minutes = (totalSeconds) / 60
         let seconds = (totalSeconds % 60) % 60
+        
         
         
         let minuteString = String(format: "%02d", minutes)

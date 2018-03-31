@@ -20,25 +20,23 @@ class EventQueueFlowLayout: UICollectionViewFlowLayout {
         setupLayout()
     }
     
+    
     override var itemSize: CGSize {
         set {
             
         }
         get {
-            let numberOfColumns: CGFloat = 3
-            
-            let itemWidth = (self.collectionView!.frame.width - (64)) / numberOfColumns
             return CGSize(width: 105, height: 81)
         }
     }
     
     func setupLayout() {
-        minimumInteritemSpacing = 16
-        minimumLineSpacing = 16
+        minimumInteritemSpacing = 0
+        minimumLineSpacing = 0
         scrollDirection = .horizontal
-        sectionInset.top = 16
-        sectionInset.bottom = 16
-        sectionInset.left = 16
-        sectionInset.right = 16
+        sectionInset.top = 0
+        sectionInset.bottom = 0
+        sectionInset.left = 0
+        sectionInset.right = 0
     }
 }

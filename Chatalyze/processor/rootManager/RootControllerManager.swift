@@ -62,16 +62,15 @@ class RootControllerManager{
         
         let rootNav : UINavigationController = ExtendedNavigationController()
         
-        /*guard let controller = HomeController.dynamicInstance()
-            else{
-                return
-        }*/
-        
-        
-        guard let controller = EventQueueController.instance()
+        guard let controller = HomeController.dynamicInstance()
             else{
                 return
         }
+        
+        /*guard let controller = EventQueueController.instance()
+            else{
+                return
+        }*/
         
         
         Log.echo(key: "yud", text: "Root is active")
@@ -117,17 +116,9 @@ class RootControllerManager{
     
     
     
-
-    
     func signOut(completion : (()->())?){
         SignedUserInfo.sharedInstance?.clear()
         RootControllerManager().updateRoot()
     }
-    
-    
-    
-    
-    
-    
     
 }

@@ -30,6 +30,14 @@
 		FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36382064E22F00F2E6BC /* VideoView.swift */; };
 		FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36422064E31000F2E6BC /* TemplateView.swift */; };
 		FA1B36452064E70D00F2E6BC /* WaitCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36442064E70D00F2E6BC /* WaitCountdownView.swift */; };
+		FA24BAC8206F6B2C0064F94F /* CountdownProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAC7206F6B2C0064F94F /* CountdownProcessor.swift */; };
+		FA24BACB206FA6780064F94F /* SlotNoInfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BACA206FA6780064F94F /* SlotNoInfoContainer.swift */; };
+		FA24BACD206FA8290064F94F /* EventStartCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BACC206FA8290064F94F /* EventStartCountdownLabel.swift */; };
+		FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD0206FA9490064F94F /* UserEventQueueController.swift */; };
+		FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD2206FA9730064F94F /* HostEventQueueController.swift */; };
+		FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD5206FAA650064F94F /* CallQueueRootView.swift */; };
+		FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD7206FAA790064F94F /* UserCallQueueRootView.swift */; };
+		FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD9206FAA830064F94F /* HostCallQueueRootView.swift */; };
 		FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF0FA20442FEF0084B154 /* FieldManagingScrollView.swift */; };
 		FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF0FC204431810084B154 /* ExtendedScrollView.swift */; };
 		FA3AF1012044334F0084B154 /* FieldManagingScrollViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF1002044334F0084B154 /* FieldManagingScrollViewInterface.swift */; };
@@ -218,6 +226,14 @@
 		FA1B36382064E22F00F2E6BC /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		FA1B36422064E31000F2E6BC /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
 		FA1B36442064E70D00F2E6BC /* WaitCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitCountdownView.swift; sourceTree = "<group>"; };
+		FA24BAC7206F6B2C0064F94F /* CountdownProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownProcessor.swift; sourceTree = "<group>"; };
+		FA24BACA206FA6780064F94F /* SlotNoInfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotNoInfoContainer.swift; sourceTree = "<group>"; };
+		FA24BACC206FA8290064F94F /* EventStartCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStartCountdownLabel.swift; sourceTree = "<group>"; };
+		FA24BAD0206FA9490064F94F /* UserEventQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEventQueueController.swift; sourceTree = "<group>"; };
+		FA24BAD2206FA9730064F94F /* HostEventQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostEventQueueController.swift; sourceTree = "<group>"; };
+		FA24BAD5206FAA650064F94F /* CallQueueRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallQueueRootView.swift; sourceTree = "<group>"; };
+		FA24BAD7206FAA790064F94F /* UserCallQueueRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallQueueRootView.swift; sourceTree = "<group>"; };
+		FA24BAD9206FAA830064F94F /* HostCallQueueRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallQueueRootView.swift; sourceTree = "<group>"; };
 		FA3AF0FA20442FEF0084B154 /* FieldManagingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldManagingScrollView.swift; sourceTree = "<group>"; };
 		FA3AF0FC204431810084B154 /* ExtendedScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedScrollView.swift; sourceTree = "<group>"; };
 		FA3AF1002044334F0084B154 /* FieldManagingScrollViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldManagingScrollViewInterface.swift; sourceTree = "<group>"; };
@@ -505,6 +521,26 @@
 				FA1B36382064E22F00F2E6BC /* VideoView.swift */,
 			);
 			path = video;
+			sourceTree = "<group>";
+		};
+		FA24BAC9206F80B00064F94F /* queue */ = {
+			isa = PBXGroup;
+			children = (
+				FA24BAD4206FAA650064F94F /* rootView */,
+				FA24BACA206FA6780064F94F /* SlotNoInfoContainer.swift */,
+				FA24BACC206FA8290064F94F /* EventStartCountdownLabel.swift */,
+			);
+			path = queue;
+			sourceTree = "<group>";
+		};
+		FA24BAD4206FAA650064F94F /* rootView */ = {
+			isa = PBXGroup;
+			children = (
+				FA24BAD5206FAA650064F94F /* CallQueueRootView.swift */,
+				FA24BAD7206FAA790064F94F /* UserCallQueueRootView.swift */,
+				FA24BAD9206FAA830064F94F /* HostCallQueueRootView.swift */,
+			);
+			path = rootView;
 			sourceTree = "<group>";
 		};
 		FA3AF0F920442FE60084B154 /* view */ = {
@@ -840,6 +876,7 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FA24BAC9206F80B00064F94F /* queue */,
 				FA1B362E2064E22F00F2E6BC /* call */,
 				FA1B36272064DDAA00F2E6BC /* setting */,
 				FAD9CD922063B43100A177AC /* home */,
@@ -914,6 +951,7 @@
 		FAA00171203ED471003C8A74 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				FA24BAC7206F6B2C0064F94F /* CountdownProcessor.swift */,
 				FA3AF0F920442FE60084B154 /* view */,
 				FAA00178203ED471003C8A74 /* DateParser.swift */,
 				FAA00179203ED471003C8A74 /* EventTimer.swift */,
@@ -1166,6 +1204,8 @@
 			isa = PBXGroup;
 			children = (
 				FAFB7C83206E6E3D004804D2 /* EventQueueController.swift */,
+				FA24BAD0206FA9490064F94F /* UserEventQueueController.swift */,
+				FA24BAD2206FA9730064F94F /* HostEventQueueController.swift */,
 			);
 			path = call_queue;
 			sourceTree = "<group>";
@@ -1575,6 +1615,7 @@
 				FA74B13F20639B6400983141 /* SocketChannel.m in Sources */,
 				FA1B36452064E70D00F2E6BC /* WaitCountdownView.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
+				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
@@ -1606,6 +1647,7 @@
 				FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */,
 				FAA0019A203ED472003C8A74 /* DateParser.swift in Sources */,
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
+				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
@@ -1628,6 +1670,7 @@
 				FA74B13420639B6400983141 /* ARDStatsBuilder.m in Sources */,
 				FAA001B1203ED472003C8A74 /* ExtendedView.swift in Sources */,
 				FAA001AA203ED472003C8A74 /* CircularImageView.swift in Sources */,
+				FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */,
 				FAA001CF203EE2BC003C8A74 /* AppInfoConfig.swift in Sources */,
 				FA74B14E2063A05B00983141 /* SocketClient.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
@@ -1652,7 +1695,9 @@
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
 				FAA0019F203ED472003C8A74 /* Dictionary.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
+				FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */,
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
+				FA24BACD206FA8290064F94F /* EventStartCountdownLabel.swift in Sources */,
 				FAFB7C84206E6E3D004804D2 /* EventQueueController.swift in Sources */,
 				FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */,
 				FAE9EF76206CE83D00C45F8D /* UserHomeController.swift in Sources */,
@@ -1674,6 +1719,7 @@
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
 				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
+				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
 				FA3AF1032044376C0084B154 /* SigninRootView.swift in Sources */,
 				FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */,
@@ -1683,7 +1729,9 @@
 				FA1B363E2064E22F00F2E6BC /* VideoActionContainer.swift in Sources */,
 				FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */,
 				FA3AF1012044334F0084B154 /* FieldManagingScrollViewInterface.swift in Sources */,
+				FA24BAC8206F6B2C0064F94F /* CountdownProcessor.swift in Sources */,
 				FA1B363D2064E22F00F2E6BC /* RemoteVideoView.swift in Sources */,
+				FA24BACB206FA6780064F94F /* SlotNoInfoContainer.swift in Sources */,
 				FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */,
 				FA74B13D20639B6400983141 /* RTCMediaConstraints+JSON.m in Sources */,
 				FA74B13B20639B6400983141 /* RTCIceCandidate+JSON.m in Sources */,

@@ -15,15 +15,32 @@ class HostHomeController: HomeController {
     
     
     @IBAction private func callAction(){
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        
+        guard let eventId = eventInfo.id
+            else{
+                return
+        }
+        
+        if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
+            guard let controller = HostEventQueueController.instance()
+                else{
+                    return
+            }
+            controller.eventId = "\(eventId)"
+            self.navigationController?.pushViewController(controller, animated: true)
+            return
+        }
+        
         guard let controller = HostCallController.instance()
             else{
                 return
         }
         
-        guard let eventId = self.eventInfo?.id
-            else{
-                return
-        }
+        
         controller.eventId = String(eventId)
         self.present(controller, animated: true, completion: nil)
     }

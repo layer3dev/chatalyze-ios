@@ -265,10 +265,7 @@ extension VideoCallController{
     func acceptCallUpdate(){
         self.rootView?.switchToCallAccept()
     }
-    
-    
-    
-    
+
 }
 
 

@@ -14,15 +14,34 @@ class UserHomeController: HomeController {
     
     
     @IBAction private func callAction(){
+        
+        guard let slotInfo = slotInfo
+            else{
+                return
+        }
+        
+        guard let eventId = slotInfo.callschedule?.id
+            else{
+                return
+        }
+        
+        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+            guard let controller = HostEventQueueController.instance()
+                else{
+                    return
+            }
+            controller.eventId = "\(eventId)"
+            self.navigationController?.pushViewController(controller, animated: true)
+            return
+        }
+        
+        
+        
         guard let controller = UserCallController.instance()
             else{
                 return
         }
         
-        guard let eventId = self.slotInfo?.callschedule?.id
-            else{
-                return
-        }
         controller.eventId = String(eventId)
         self.present(controller, animated: true, completion: nil)
     }

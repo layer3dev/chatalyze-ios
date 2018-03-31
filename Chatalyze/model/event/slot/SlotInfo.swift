@@ -196,6 +196,8 @@ class SlotInfo: NSObject {
     }
     
     
+    
+    
 }
 
 

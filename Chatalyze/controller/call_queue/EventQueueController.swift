@@ -14,6 +14,13 @@ class EventQueueController: InterfaceExtendedController {
     @IBOutlet fileprivate var collectionView : UICollectionView?
     fileprivate var adapter : EventQueueAdapter?
     
+    var eventId : String? //Expected param
+    var eventInfo : EventScheduleInfo?
+    var timer : EventTimer = EventTimer()
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,12 +29,58 @@ class EventQueueController: InterfaceExtendedController {
         
     }
     
+    var rootView : CallQueueRootView?{
+        get{
+            guard let root = self.view as? CallQueueRootView
+                else{
+                return nil
+            }
+            return root
+        }
+    }
+    
     
     private func intialization(){
         initializeVariable()
         paintInterface()
+        registerForTimer()
         
-        testData()
+        
+        fetchInfo { [weak self] (success) in
+            if(!success){
+                return
+            }
+            self?.processEventInfo()
+        }
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        timer.pauseTimer()
+    }
+    
+    private func registerForTimer(){
+        timer.startTimer()
+        timer.ping { [weak self] in
+            self?.refresh()
+        }
+    }
+    
+    func refresh(){
+        
+    }
+    
+    func processEventInfo(){
+        
+        rootView?.eventInfo = self.eventInfo
+        guard let slotInfos = self.eventInfo?.slotInfos
+            else{
+                return
+        }
+        
+        self.adapter?.infos = slotInfos
+        self.collectionView?.reloadData()
+        
     }
     
     private func paintInterface(){
@@ -38,7 +91,8 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func paintNavigationBar(){
-        paintNavigationLogo()
+        paintNavigationTitle(text: "Event")
+        paintBackButton()
     }
     
     
@@ -76,9 +130,52 @@ class EventQueueController: InterfaceExtendedController {
 
 extension EventQueueController{
     class func instance()->EventQueueController?{
+        
+        guard let role = SignedUserInfo.sharedInstance?.role
+            else{
+                return nil
+        }
         let storyboard = UIStoryboard(name: "call_queue", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "event_queue") as? EventQueueController
+        var controllerName = "user_event_queue"
+        controllerName = role == .analyst ? "host_event_queue" : "user_event_queue"
+        let controller = storyboard.instantiateViewController(withIdentifier: controllerName) as? EventQueueController
         
         return controller
+    }
+}
+
+//instance
+extension EventQueueController{
+    
+    fileprivate func fetchInfo(completion : ((_ success : Bool)->())?){
+        guard let eventId = self.eventId
+            else{
+                return
+        }
+        
+        self.showLoader()
+        CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+            
+            self?.stopLoader()
+            if(!success){
+                completion?(false)
+                return
+            }
+            
+            guard let localEventInfo = info
+                else{
+                    completion?(false)
+                    return
+            }
+            
+            self?.eventInfo = localEventInfo
+            
+            let roomId = localEventInfo.id ?? 0
+            Log.echo(key : "service", text : "eventId - > \(roomId)")
+            
+            completion?(true)
+            return
+            
+        }
     }
 }
