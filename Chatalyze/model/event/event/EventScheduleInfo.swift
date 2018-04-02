@@ -53,6 +53,42 @@ class EventScheduleInfo: EventInfo {
         return infos
     }
     
+    var myNextActiveSlot : (slotNumber : Int, slotInfo : SlotInfo?){
+        guard let slotInfos = self.slotInfos
+            else{
+                Log.echo(key: "myValidSlot", text: "slotinfos is nil")
+                return (0, nil)
+        }
+        
+        if(slotInfos.count <= 0){
+            Log.echo(key: "myValidSlot", text: "slotinfos count is 0")
+            return (0, nil)
+        }
+        guard let selfId = SignedUserInfo.sharedInstance?.id
+            else{
+                return (0, nil)
+        }
+        
+        
+        for index in 0..<slotInfos.count{
+            let slotInfo = slotInfos[index]
+            let slotUserId = slotInfo.user?.id ?? "0"
+            
+            Log.echo(key: "myValidSlot", text: "userId - > \(slotUserId) and selfId -> \(selfId)")
+            
+            if(slotInfo.isFuture && selfId == slotUserId){
+                return (index, slotInfo)
+            }else{
+                Log.echo(key: "myValidSlot", text: "not valid userId - > \(slotUserId) and selfId -> \(selfId)")
+            }
+            
+        }
+        
+        Log.echo(key: "myValidSlot", text: "no valid slot found")
+        
+        return (0, nil)
+    }
+    
     var currentSlot : SlotInfo?{
         
         guard let slotInfos = self.slotInfos
@@ -102,20 +138,30 @@ class EventScheduleInfo: EventInfo {
     var myValidSlot : (slotNumber : Int, slotInfo : SlotInfo?){
         guard let slotInfos = self.slotInfos
             else{
+                Log.echo(key: "myValidSlot", text: "slotinfos is nil")
                 return (0, nil)
         }
         
         if(slotInfos.count <= 0){
+            Log.echo(key: "myValidSlot", text: "slotinfos count is 0")
             return (0, nil)
         }
+        guard let selfId = SignedUserInfo.sharedInstance?.id
+            else{
+                return (0, nil)
+        }
         
-        for index in 0...slotInfos.count{
+        
+        for index in 0..<slotInfos.count{
             let slotInfo = slotInfos[index]
-            if(slotInfo.isWholeConnectEligible){
+            let slotUserId = slotInfo.user?.id ?? "0"
+            if(slotInfo.isWholeConnectEligible && selfId == slotUserId){
                 return (index, slotInfo)
             }
             
         }
+        
+        Log.echo(key: "myValidSlot", text: "no valid slot found")
         
         return (0, nil)
     }

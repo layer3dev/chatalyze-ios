@@ -45,11 +45,18 @@ class UserHomeController: HomeController {
         controller.eventId = String(eventId)
         self.present(controller, animated: true, completion: nil)
     }
-    
-    override func fetchInfo(){
-        self.showLoader()
+  
+    override func fetchInfo(showLoader : Bool){
+        super.fetchInfo(showLoader : showLoader)
+        if(showLoader){
+            self.showLoader()
+        }
+        
         CallSlotFetch().fetchInfo { (success, slotInfo) in
-            self.stopLoader()
+            if(showLoader){
+                self.stopLoader()
+            }
+            
             self.slotInfo = slotInfo
             self.rootView?.queueContainerView?.udpateView(callInfo: slotInfo)
         }

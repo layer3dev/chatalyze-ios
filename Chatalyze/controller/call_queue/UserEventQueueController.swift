@@ -54,8 +54,10 @@ class UserEventQueueController: EventQueueController {
             controller.eventId = "\(eventId)"
             timer.pauseTimer()
             
-            self.navigationController?.popViewController(animated: false)
-            self.navigationController?.present(controller, animated: true, completion: nil)
+            self.navigationController?.present(controller, animated: true, completion: {
+                 self.navigationController?.popViewController(animated: false)
+            })
+                
         }
     }
 

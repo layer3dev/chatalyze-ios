@@ -45,12 +45,17 @@ class HostHomeController: HomeController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    override func fetchInfo(){
-        super.fetchInfo()
+     override func fetchInfo(showLoader : Bool){
+        super.fetchInfo(showLoader : showLoader)
+        if(showLoader){
+            self.showLoader()
+        }
         
-        self.showLoader()
         HostCallFetch().fetchInfo { (success, eventInfo) in
-            self.stopLoader()
+            if(showLoader){
+                self.stopLoader()
+            }
+            
             self.eventInfo = eventInfo
             self.rootView?.queueContainerView?.udpateView(callInfo: eventInfo)
         }

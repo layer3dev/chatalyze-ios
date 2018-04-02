@@ -115,8 +115,6 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
-
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -130,12 +128,13 @@ class VideoCallController : InterfaceExtendedController {
         audioManager = AudioManager()
         switchToCallRequest()
         
-        fetchInfo { [weak self] (success) in
+        fetchInfo(showLoader: true) { [weak self] (success) in
             if(!success){
                 return
             }
             self?.processEventInfo()
         }
+        
         
     
     }
@@ -220,10 +219,19 @@ class VideoCallController : InterfaceExtendedController {
     
     private func initializeVariable(){
         appDelegate?.allowRotate = true
+        registerForEvent()
         
         socketClient = SocketClient.sharedInstance
         startTimer()
         
+    }
+    
+    private func registerForEvent(){
+        UserSocket.sharedInstance?.socket?.onAny({ (event) in
+            self.fetchInfo(showLoader: false, completion: { (success) in
+                
+            })
+        })
     }
     
     private func startTimer(){
@@ -288,16 +296,20 @@ extension VideoCallController{
 //instance
 extension VideoCallController{
     
-    fileprivate func fetchInfo(completion : ((_ success : Bool)->())?){
+    fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
         guard let eventId = self.eventId
             else{
                 return
         }
+        if(showLoader){
+            self.showLoader()
+        }
         
-        self.showLoader()
         CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+            if(showLoader){
+                self?.stopLoader()
+            }
             
-            self?.stopLoader()
             if(!success){
                 completion?(false)
                 return

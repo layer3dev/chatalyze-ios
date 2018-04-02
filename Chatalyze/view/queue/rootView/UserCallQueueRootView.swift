@@ -13,12 +13,19 @@ class UserCallQueueRootView: CallQueueRootView {
     @IBOutlet var slotNumberLabel : EventSlotNumberLabel?
 
     override func refresh(){
-        guard let slotMetaInfo = eventInfo?.myValidSlot
+        super.refresh()
+        
+        guard let slotMetaInfo = eventInfo?.myNextActiveSlot
             else{
                 return
         }
         
-        slotNumberLabel?.slotNumber = slotMetaInfo.slotNumber
+        if(slotMetaInfo.slotInfo != nil){
+            slotNumberLabel?.slotNumber = slotMetaInfo.slotNumber + 1
+        }
+        else{
+            slotNumberLabel?.slotNumber = 0
+        }
         
         guard let slotInfo = slotMetaInfo.slotInfo
             else{

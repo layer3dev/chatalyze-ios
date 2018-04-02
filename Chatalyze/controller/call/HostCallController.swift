@@ -102,7 +102,7 @@ class HostCallController: VideoCallController {
                 return
         }
     
-        
+
         preconnectUser()
         connectLiveUser()
         disconnectStaleConnection()
@@ -121,6 +121,7 @@ class HostCallController: VideoCallController {
             }
         }
     }
+    
     
     private func preconnectUser(){
         

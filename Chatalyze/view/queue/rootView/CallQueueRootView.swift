@@ -36,6 +36,6 @@ class CallQueueRootView: ExtendedView {
     }
     
     func refresh(){
-        
+        Log.echo(key: "CallQueueRootView", text: "base refresh()")
     }
 }

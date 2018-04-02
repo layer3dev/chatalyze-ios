@@ -141,7 +141,7 @@ class UserCallController: VideoCallController {
     }
     
     var myCurrentUserSlot : SlotInfo?{
-        guard let slotInfo = eventInfo?.wholeConnectSlot
+        guard let slotInfo = eventInfo?.myValidSlot.slotInfo
             else{
                 return nil
         }
