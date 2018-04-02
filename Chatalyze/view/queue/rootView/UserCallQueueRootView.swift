@@ -10,7 +10,7 @@ import UIKit
 
 class UserCallQueueRootView: CallQueueRootView {
     
-    @IBOutlet var slotNumberLabel : UILabel?
+    @IBOutlet var slotNumberLabel : EventSlotNumberLabel?
 
     override func refresh(){
         guard let slotMetaInfo = eventInfo?.myValidSlot
@@ -18,7 +18,7 @@ class UserCallQueueRootView: CallQueueRootView {
                 return
         }
         
-        slotNumberLabel?.text = "\(slotMetaInfo.slotNumber)"
+        slotNumberLabel?.slotNumber = slotMetaInfo.slotNumber
         
         guard let slotInfo = slotMetaInfo.slotInfo
             else{

@@ -178,7 +178,7 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "param => \(param)")
         
         //socket?.emit("login", param)
-        socket?.emitWithAck("login", param).timingOut(after: 3) {data in
+        socket?.emitWithAck("login", param).timingOut(after: 8) {data in
             if self.isRegisteredToServer != false{
                 Log.echo(key: "", text: "Yessss I got connect!!")
             }else{

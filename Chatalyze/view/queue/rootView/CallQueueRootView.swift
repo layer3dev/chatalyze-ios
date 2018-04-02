@@ -13,6 +13,7 @@ class CallQueueRootView: ExtendedView {
     
     @IBOutlet var countdownLabel : UILabel?
     
+    
     var eventInfo : EventScheduleInfo?
 
     override func viewDidLayout() {

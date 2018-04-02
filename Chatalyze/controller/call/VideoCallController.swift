@@ -35,6 +35,9 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
+        appDelegate?.allowRotate = false
+    UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        
         timer.pauseTimer()
         socketClient?.disconnect()
         self.socketClient = nil
@@ -205,9 +208,22 @@ class VideoCallController : InterfaceExtendedController {
         })
     }
     
+    var appDelegate : AppDelegate?{
+        get{
+            guard let delegate =  UIApplication.shared.delegate as? AppDelegate
+                else{
+                    return nil
+            }
+            return delegate
+        }
+    }
+    
     private func initializeVariable(){
+        appDelegate?.allowRotate = true
+        
         socketClient = SocketClient.sharedInstance
         startTimer()
+        
     }
     
     private func startTimer(){

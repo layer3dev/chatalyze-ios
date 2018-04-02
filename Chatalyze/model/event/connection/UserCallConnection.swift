@@ -60,7 +60,8 @@ class UserCallConnection: CallConnection {
         super.disconnect()
         
         self.socketClient?.disconnect()
-        self.rootView?.localVideoView?.captureSession = nil
+        
+//        self.rootView?.localVideoView?.captureSession = nil
         
     }
 

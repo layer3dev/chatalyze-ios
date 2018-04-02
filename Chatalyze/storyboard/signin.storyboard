@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,16 +26,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqY-XA-gh3" userLabel="container_view">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="493.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="518.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-3J-vRt" userLabel="fb_login">
-                                                <rect key="frame" x="42.5" y="50" width="290" height="37"/>
+                                                <rect key="frame" x="42.5" y="70" width="290" height="42"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_login" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-y6-30W">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="37"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="42"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="37"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="42"/>
                                                         <connections>
                                                             <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="rxi-Ys-b0f"/>
                                                         </connections>
@@ -46,7 +45,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="XaG-y6-30W" secondAttribute="bottom" id="7Ou-Bs-5WT"/>
                                                     <constraint firstItem="XaG-y6-30W" firstAttribute="top" secondItem="OYC-3J-vRt" secondAttribute="top" id="A4A-FM-2hp"/>
-                                                    <constraint firstAttribute="height" constant="37" id="EcO-5Q-XMc"/>
+                                                    <constraint firstAttribute="height" constant="42" id="EcO-5Q-XMc"/>
                                                     <constraint firstAttribute="bottom" secondItem="U5g-Zp-nz4" secondAttribute="bottom" id="FSn-D2-AxU"/>
                                                     <constraint firstAttribute="width" constant="290" id="K2E-gx-jrB"/>
                                                     <constraint firstItem="XaG-y6-30W" firstAttribute="leading" secondItem="OYC-3J-vRt" secondAttribute="leading" id="M7J-W1-3HP"/>
@@ -57,7 +56,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-Sz-0CY" userLabel="or_label">
-                                                <rect key="frame" x="30" y="137" width="315" height="50"/>
+                                                <rect key="frame" x="30" y="162" width="315" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
                                                         <rect key="frame" x="0.0" y="25.5" width="123.5" height="0.5"/>
@@ -94,7 +93,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXC-fy-Deb" userLabel="field_container">
-                                                <rect key="frame" x="30" y="237" width="315" height="94"/>
+                                                <rect key="frame" x="30" y="262" width="315" height="94"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="32"/>
@@ -217,7 +216,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="42" y="391" width="290" height="40"/>
+                                                <rect key="frame" x="42" y="416" width="290" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
                                                         <rect key="frame" x="116" y="10" width="58.5" height="19"/>
@@ -245,7 +244,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-gj-jhO" userLabel="forgot_password">
-                                                <rect key="frame" x="87.5" y="438.5" width="200" height="30"/>
+                                                <rect key="frame" x="87.5" y="463.5" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-ik-gjO">
                                                         <rect key="frame" x="34" y="0.0" width="131" height="19"/>
@@ -270,7 +269,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-9i-LL8" userLabel="error_label">
-                                                <rect key="frame" x="5" y="471" width="365" height="0.0"/>
+                                                <rect key="frame" x="5" y="468" width="365" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -280,7 +279,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="HXC-fy-Deb" secondAttribute="trailing" constant="30" id="1LE-Iq-9t8"/>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="60" id="4j8-hv-RR4"/>
-                                            <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="2" id="ARp-0G-gcV"/>
+                                            <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" priority="1" constant="2" id="ARp-0G-gcV"/>
                                             <constraint firstAttribute="bottom" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="25" id="JXF-yd-AGi"/>
                                             <constraint firstItem="HXC-fy-Deb" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="MSB-co-Vix"/>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="NYv-C9-FBD"/>
@@ -292,9 +291,10 @@
                                             <constraint firstAttribute="trailing" secondItem="DSF-9i-LL8" secondAttribute="trailing" constant="5" id="njT-TO-vSP"/>
                                             <constraint firstAttribute="trailing" secondItem="MnL-Sz-0CY" secondAttribute="trailing" constant="30" id="oZA-lf-BFj"/>
                                             <constraint firstItem="hPR-gj-jhO" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="oqG-6c-WlX"/>
+                                            <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="a8e-R9-tgU" secondAttribute="bottom" constant="12" id="svs-1D-JpF"/>
                                             <constraint firstItem="MnL-Sz-0CY" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="ubC-dh-Cm0"/>
                                             <constraint firstItem="OYC-3J-vRt" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="uzv-bc-uYa"/>
-                                            <constraint firstItem="OYC-3J-vRt" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="50" id="xye-k6-XVd"/>
+                                            <constraint firstItem="OYC-3J-vRt" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="70" id="xye-k6-XVd"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -317,6 +317,7 @@
                         <viewLayoutGuide key="safeArea" id="2DS-Ex-5f5"/>
                         <connections>
                             <outlet property="emailField" destination="k8i-fD-pYg" id="DNc-vR-hdg"/>
+                            <outlet property="errorLabel" destination="DSF-9i-LL8" id="w9u-Fi-T8I"/>
                             <outlet property="passwordField" destination="AOb-CP-mah" id="XVJ-OA-LOq"/>
                             <outlet property="scrollContentBottomOffset" destination="ssE-i0-Kod" id="Y57-ry-B9M"/>
                             <outlet property="scrollView" destination="Nhn-qQ-gYN" id="kh7-qX-HBg"/>

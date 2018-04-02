@@ -82,6 +82,9 @@ class CallConnection: NSObject {
        return nil
     }
     
+    func callFailed(){
+        self.connection?.disconnect()
+    }
     
     func disconnect(){
         self.connection?.disconnect()
@@ -109,7 +112,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         if(state == .failed){
-//            self.controller?.stopCall()
+            callFailed()
             return
         }
     }
@@ -121,7 +124,7 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didCreateLocalCapturer localCapturer: RTCCameraVideoCapturer!) {
         Log.echo(key: "render", text: "didCreateLocalCapturer")
         
-        guard let localView = controller?.rootView?.localVideoView
+        /*guard let localView = controller?.rootView?.localVideoView
             else{
                 return
         }
@@ -141,13 +144,35 @@ extension CallConnection : ARDAppClientDelegate{
         let settingsModel = ARDSettingsModel()
        
         captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-        captureController?.startCapture()
+        captureController?.startCapture()*/
     }
     
     
     
+    /*
+     if (self.localVideoTrack) {
+     [self.localVideoTrack removeRenderer:self.localView];
+     self.localVideoTrack = nil;
+     [self.localView renderFrame:nil];
+     }
+     self.localVideoTrack = localVideoTrack;
+     [self.localVideoTrack addRenderer:self.localView];
+     */
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
+        guard let localView = controller?.rootView?.localVideoView
+            else{
+                return
+        }
         
+        
+        if let localTrack = self.localTrack{
+            localTrack.remove(localView)
+            self.localTrack = nil
+            localView.renderFrame(nil)
+        }
+        
+        self.localTrack = localVideoTrack
+        self.localTrack?.add(localView)
     }
     
     
@@ -155,17 +180,8 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "render", text: "didReceiveRemoteVideoTrack")
         
-        guard let remoteView = rootView?.remoteVideoView
-            else{
-                return
-        }
-        
-        self.remoteTrack?.remove(remoteView)
-        self.remoteTrack = nil
-        remoteView.renderFrame(nil)
         
         self.remoteTrack = remoteVideoTrack
-        
         if(isLinked){
             renderRemoteVideo()
         }
@@ -183,11 +199,18 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     func renderRemoteVideo(){
-        Log.echo(key: "render", text: "renderRemoteVideo")
+        
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return
         }
+        
+//        self.remoteTrack?.remove(remoteView)
+//        self.remoteTrack = nil
+        remoteView.renderFrame(nil)
+        
+        Log.echo(key: "render", text: "renderRemoteVideo")
+       
         self.remoteTrack?.add(remoteView)
     }
     
@@ -200,6 +223,7 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
+    
     
     func resetFlagsForReconnect(){
         isLinked = false

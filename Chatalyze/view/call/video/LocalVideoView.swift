@@ -32,7 +32,7 @@ class LocalVideoView: VideoView {
     }
     
     private func initialization(){
-        paintInterface()
+        
        
     }
     

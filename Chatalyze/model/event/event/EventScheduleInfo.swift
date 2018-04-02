@@ -111,11 +111,11 @@ class EventScheduleInfo: EventInfo {
         
         for index in 0...slotInfos.count{
             let slotInfo = slotInfos[index]
+            if(slotInfo.isWholeConnectEligible){
+                return (index, slotInfo)
+            }
             
-            return (index, slotInfo)
         }
-        
-       
         
         return (0, nil)
     }

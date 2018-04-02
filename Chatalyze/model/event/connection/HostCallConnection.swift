@@ -12,6 +12,12 @@ class HostCallConnection: CallConnection {
     var isInitiated = false
     
     
+    override func callFailed(){
+        super.callFailed()
+        
+        isInitiated = false
+    }
+    
     override var targetHashId : String?{
         get{
             guard let senderHash = self.slotInfo?.user?.hashedId

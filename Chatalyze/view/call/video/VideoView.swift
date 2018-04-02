@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoView: RTCCameraPreviewView {
+class VideoView: RTCEAGLVideoView {
     
     private var isLoaded = false;
     override func layoutSubviews() {

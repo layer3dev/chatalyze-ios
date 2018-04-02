@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,16 +43,10 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu2-Gv-a3T" userLabel="chat_no_container">
-                                                                <rect key="frame" x="28.5" y="0.0" width="318" height="31"/>
+                                                                <rect key="frame" x="32" y="0.0" width="312.5" height="31"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="210" verticalCompressionResistancePriority="710" text="You have chat number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOn-za-u9q">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="260.5" height="31"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="26"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="50" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMe-ti-fc0">
-                                                                        <rect key="frame" x="268.5" y="0.0" width="29" height="31"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="You have chat number 50" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMe-ti-fc0" customClass="EventSlotNumberLabel" customModule="Chatalyze" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="312.5" height="31"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                                                         <color key="textColor" red="0.4823529411764706" green="0.76862745098039209" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -62,12 +55,9 @@
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="PMe-ti-fc0" firstAttribute="top" secondItem="cu2-Gv-a3T" secondAttribute="top" id="1av-ku-imw"/>
-                                                                    <constraint firstItem="SOn-za-u9q" firstAttribute="leading" secondItem="cu2-Gv-a3T" secondAttribute="leading" id="B8z-E0-eDb"/>
-                                                                    <constraint firstItem="PMe-ti-fc0" firstAttribute="leading" secondItem="SOn-za-u9q" secondAttribute="trailing" constant="8" id="TB5-Nd-1ar"/>
-                                                                    <constraint firstItem="SOn-za-u9q" firstAttribute="top" secondItem="cu2-Gv-a3T" secondAttribute="top" id="TWO-UE-yJW"/>
                                                                     <constraint firstAttribute="height" priority="1" id="TeP-te-axa" userLabel="zero_height"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="PMe-ti-fc0" secondAttribute="trailing" constant="20" id="TnJ-ff-gxd"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="SOn-za-u9q" secondAttribute="bottom" id="aSq-u3-vue"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="PMe-ti-fc0" secondAttribute="trailing" id="TnJ-ff-gxd"/>
+                                                                    <constraint firstItem="PMe-ti-fc0" firstAttribute="leading" secondItem="cu2-Gv-a3T" secondAttribute="leading" id="dkv-TD-Nxq"/>
                                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="PMe-ti-fc0" secondAttribute="bottom" id="u0w-j0-hZ7"/>
                                                                 </constraints>
                                                             </view>
@@ -241,8 +231,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bVd-94-EcT"/>
                         <connections>
-                            <outlet property="countdownLabel" destination="PMe-ti-fc0" id="ebS-iK-6Wh"/>
-                            <outlet property="slotNumberLabel" destination="Pe6-ec-Wvg" id="R92-k6-DjR"/>
+                            <outlet property="countdownLabel" destination="Pe6-ec-Wvg" id="Zcg-tb-wWM"/>
+                            <outlet property="slotNumberLabel" destination="PMe-ti-fc0" id="hu9-hl-xwB"/>
                         </connections>
                     </view>
                     <connections>

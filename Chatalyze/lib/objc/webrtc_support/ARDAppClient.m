@@ -50,7 +50,7 @@ static NSString * const kARDVideoTrackKind = @"video";
 
 // TODO(tkchin): Add these as UI options.
 static int const kKbpsMultiplier = 1000;
-
+static RTCMediaStream *localStream;
 
 
 @implementation ARDAppClient {
@@ -76,6 +76,7 @@ static int const kKbpsMultiplier = 1000;
 @synthesize iceServers = _iceServers;
 @synthesize webSocketURL = _websocketURL;
 @synthesize webSocketRestURL = _websocketRestURL;
+@synthesize isSpeakerEnabled = _isSpeakerEnabled;
 @synthesize defaultPeerConnectionConstraints =
     _defaultPeerConnectionConstraints;
 @synthesize isLoopback = _isLoopback;
@@ -403,9 +404,18 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
                                                     constraints:constraints
                                                        delegate:self];
     // Create AV senders.
-    [self createMediaSenders];
+//    [self createMediaSenders];
+    
+    if(localStream && [localStream isLive]){
+         [_peerConnection addStream:localStream];
+         [_delegate appClient:self didReceiveLocalVideoTrack:[localStream.videoTracks firstObject]];
+        
+    }else{
+        localStream = [self startLocalMedia];
+        [_peerConnection addStream:localStream];
+    }
+    
 }
-
 
 
 
@@ -694,6 +704,210 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 }
 -(BOOL)isProcessing{
     return false;
+}
+
+
+
+
+
+
+- (RTCMediaStream *)startLocalMedia
+{
+    RTCMediaStream *localMediaStream = [_factory mediaStreamWithStreamId:[self localStreamLabel]];
+    
+    //Audio setup
+    BOOL audioEnabled = NO;
+    AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (audioAuthStatus == AVAuthorizationStatusAuthorized || audioAuthStatus == AVAuthorizationStatusNotDetermined) {
+        audioEnabled = YES;
+        [self setupLocalAudio : localMediaStream];
+    }
+    
+    //Video setup
+    BOOL videoEnabled = NO;
+    // The iOS simulator doesn't provide any sort of camera capture
+    // support or emulation (http://goo.gl/rHAnC1) so don't bother
+    // trying to open a local video track.
+#if !TARGET_IPHONE_SIMULATOR
+    AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (videoAuthStatus == AVAuthorizationStatusAuthorized || videoAuthStatus == AVAuthorizationStatusNotDetermined) {
+        videoEnabled = YES;
+        [self setupLocalVideo : localMediaStream];
+    }
+    
+#endif
+    
+    return localMediaStream;
+}
+
+
+- (NSString *)localStreamLabel {
+    return @"ARDAMS";
+}
+
+- (NSString *)audioTrackId {
+    return [[self localStreamLabel] stringByAppendingString:@"a0"];
+}
+
+- (NSString *)videoTrackId {
+    return [[self localStreamLabel] stringByAppendingString:@"v0"];
+}
+
+- (void)setupLocalAudio :(RTCMediaStream *)localStream{
+    RTCAudioTrack *audioTrack = [self.factory audioTrackWithTrackId:[self audioTrackId]];
+    if (localStream && audioTrack) {
+        [localStream addAudioTrack:audioTrack];
+    }
+}
+
+
+- (void)setupLocalVideo : (RTCMediaStream *)localStream{
+    [self setupLocalVideoWithConstraints:nil andLocalStream:localStream];
+}
+
+- (void)setupLocalVideoWithConstraints:(RTCMediaConstraints *)videoConstraints andLocalStream : (RTCMediaStream *)localStream {
+    if(!localStream){
+        return;
+    }
+    RTCVideoTrack *oldVideoTrack = [localStream.videoTracks firstObject];
+    if(oldVideoTrack){
+         //[_delegate appClient:self didReceiveLocalVideoTrack:oldVideoTrack];
+        return;
+    }
+    
+    /*if(oldVideoTrack){
+        [localStream removeVideoTrack:oldVideoTrack];
+    }*/
+    
+
+    RTCVideoTrack *videoTrack = [self localVideoTrackWithConstraints:videoConstraints];
+    [localStream addVideoTrack:videoTrack];
+    if(videoTrack){
+        [_delegate appClient:self didReceiveLocalVideoTrack:videoTrack];
+        return;
+    }
+    /*
+    if (localStream && videoTrack) {
+        RTCVideoTrack *oldVideoTrack = [localStream.videoTracks firstObject];
+        if (oldVideoTrack) {
+//            [localStream removeVideoTrack:oldVideoTrack];
+        }
+        [localStream addVideoTrack:videoTrack];
+        //connect track with videoUI
+        
+        /*[self didReceiveLocalVideoTrack:videoTrack];*/
+       /* [_delegate appClient:self didReceiveLocalVideoTrack:videoTrack];
+    }*/
+}
+
+- (RTCVideoTrack *)localVideoTrackWithConstraints:(RTCMediaConstraints *)videoConstraints {
+    /// NSString *cameraId = [self cameraDevice:self.cameraPosition];
+    
+    // NSAssert(cameraId, @"Unable to get camera id");
+    //TODO: checkout Camera checnage
+    RTCAVFoundationVideoSource* videoSource = [self.factory avFoundationVideoSourceWithConstraints:videoConstraints];
+    //if (self.cameraPosition == AVCaptureDevicePositionBack) {
+    //  [videoSource setUseBackCamera:YES];
+    //}
+    
+    RTCVideoTrack *videoTrack = [self.factory videoTrackWithSource:videoSource trackId:[self videoTrackId]];
+    
+    return videoTrack;
+}
+
+- (NSString *)cameraDevice{
+    //:(NBMCameraPosition)cameraPosition
+    
+    NSString *cameraID = nil;
+    for (AVCaptureDevice *captureDevice in
+         [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if (captureDevice.position == AVCaptureDevicePositionFront) {
+            cameraID = [captureDevice localizedName];
+            break;
+        }
+    }
+    NSAssert(cameraID, @"Unable to get the front camera id");
+    
+    
+    return cameraID;
+}
+
+
+
+- (RTCMediaConstraints *)videoConstraints
+{
+    RTCMediaConstraints *constraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil optionalConstraints:nil];
+    return constraints;
+}
+
+
+
+#pragma mark - swap camera
+
+- (RTCVideoTrack *)createLocalVideoTrackBackCamera {
+    RTCVideoTrack *localVideoTrack = nil;
+#if !TARGET_IPHONE_SIMULATOR && TARGET_OS_IPHONE
+    //AVCaptureDevicePositionFront
+    NSString *cameraID = nil;
+    for (AVCaptureDevice *captureDevice in
+         [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+        if (captureDevice.position == AVCaptureDevicePositionBack) {
+            cameraID = [captureDevice localizedName];
+            break;
+        }
+    }
+    NSAssert(cameraID, @"Unable to get the back camera id");
+    
+    // RTCVideoCapturer *capturer = [RTCVideoCapturer capturerWithDeviceName:cameraID];
+    //  RTCMediaConstraints *mediaConstraints = [self defaultMediaStreamConstraints];
+    //  RTCVideoSource *videoSource = [_factory videoSourceWithCapturer:capturer constraints:mediaConstraints];
+    //localVideoTrack = [_factory videoTrackWithID:@"ARDAMSv0" source:videoSource];
+    localVideoTrack = [self localVideoTrackWithConstraints: [self videoConstraints]];
+#endif
+    return localVideoTrack;
+}
+
+
+- (void)swapCameraToFront{
+    RTCMediaStream *localStream = _peerConnection.localStreams[0];
+    [localStream removeVideoTrack:localStream.videoTracks[0]];
+    
+    RTCVideoTrack *localVideoTrack = [self localVideoTrackWithConstraints: [self videoConstraints]];
+    if (localVideoTrack) {
+        [localStream addVideoTrack:localVideoTrack];
+        [_delegate appClient:self didReceiveLocalVideoTrack:localVideoTrack];
+        /*[self didReceiveLocalVideoTrack:localVideoTrack];*/
+    }
+    
+    [_peerConnection removeStream:localStream];
+    [_peerConnection addStream:localStream];
+}
+- (void)swapCameraToBack{
+    RTCMediaStream *localStream = _peerConnection.localStreams[0];
+    [localStream removeVideoTrack:localStream.videoTracks[0]];
+    
+    RTCVideoTrack *localVideoTrack = [self createLocalVideoTrackBackCamera];
+    if (localVideoTrack) {
+        [localStream addVideoTrack:localVideoTrack];
+        [_delegate appClient:self didReceiveLocalVideoTrack:localVideoTrack];
+        /*[self didReceiveLocalVideoTrack:localVideoTrack];*/
+    }
+    
+    [_peerConnection removeStream:localStream];
+    [_peerConnection addStream:localStream];
+}
+
+
+#pragma mark - enable/disable speaker
+
+- (void)enableSpeaker {
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    _isSpeakerEnabled = YES;
+}
+
+- (void)disableSpeaker {
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+    _isSpeakerEnabled = NO;
 }
 
 

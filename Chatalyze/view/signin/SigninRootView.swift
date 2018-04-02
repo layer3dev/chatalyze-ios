@@ -16,16 +16,22 @@ class SigninRootView: ExtendedView {
     
     @IBOutlet fileprivate var emailField : SigninFieldView?
     @IBOutlet fileprivate var passwordField : SigninFieldView?
+    @IBOutlet fileprivate var errorLabel : UILabel?
     
     @IBOutlet fileprivate var scrollView : FieldManagingScrollView?
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
     
     @IBAction fileprivate func fbLoginAction(){
+        self.resetErrorStatus()
         fbLogin()
     }
     
     @IBAction fileprivate func loginAction(){
-        signIn()
+        if(validateFields()){
+            self.resetErrorStatus()
+            signIn()
+        }
+        
     }
 
     
@@ -52,7 +58,9 @@ class SigninRootView: ExtendedView {
 extension SigninRootView{
     
     func validateFields()->Bool{
-        return validateEmail() && validatePassword()
+        let emailValidated  = validateEmail()
+        let passwordValidated = validatePassword()
+        return emailValidated && passwordValidated
     }
     
     fileprivate func validateEmail()->Bool{
@@ -101,15 +109,14 @@ extension SigninRootView{
     
     fileprivate func fbLogin(){
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { (loginResult) in
+        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
             switch loginResult {
             case .failed(let error):
-                print(error)
+                 self?.showError(text: error.localizedDescription)
             case .cancelled:
-                print("User cancelled login.")
+                self?.showError(text: "Login Cancelled !")
             case .success( _,  _, let accessToken):
-                print("User loggedin!!")
-                self.fetchFBUserInfo(accessToken: accessToken)
+                self?.fetchFBUserInfo(accessToken: accessToken)
                 break
             }
         }
@@ -122,7 +129,9 @@ extension SigninRootView{
                 self.controller?.stopLoader()
                 if(success){
                     RootControllerManager().updateRoot()
+                    return
                 }
+                self.showError(text: message)
             })
         })
     }
@@ -136,20 +145,35 @@ extension SigninRootView{
         let password = passwordField?.textField?.text ?? ""
         self.controller?.showLoader()
         
-        signInRequest(email: email, password: password) { (success) in
-            self.controller?.stopLoader()
+        signInRequest(email: email, password: password) { [weak self] (success, message)  in
+            self?.controller?.stopLoader()
             if(success){
                 RootControllerManager().updateRoot()
+                return
             }
+            
+            self?.showError(text: message)
+            return
         }
         
     }
     
-    func signInRequest(email : String, password : String, completion : ((_ success : Bool)->())?){
+    func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String)->())?){
         
         EmailSigninHandler().signin(withEmail: email, password: password) { (success, error, info) in
-            completion?(success)
+            completion?(success, error)
         }
+    }
+    
+    
+    func showError(text : String?){
+        errorLabel?.text = text
+    }
+    
+    func resetErrorStatus(){
+        errorLabel?.text = ""
+        emailField?.resetErrorStatus()
+        passwordField?.resetErrorStatus()
     }
 
     
