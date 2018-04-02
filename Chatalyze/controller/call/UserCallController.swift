@@ -154,7 +154,19 @@ class UserCallController: VideoCallController {
         
         confirmCallLinked()
         
+        verifyIfExpired()
+        
     }
+    
+    private func verifyIfExpired(){
+        if let _ = myCurrentUserSlot{
+            return
+        }
+        
+        self.processHangupAction()
+        
+    }
+    
     
     private func confirmCallLinked(){
         guard let slot = myCurrentUserSlot

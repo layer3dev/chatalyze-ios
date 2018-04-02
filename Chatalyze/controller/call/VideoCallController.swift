@@ -96,6 +96,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func processHangupAction(){
+        timer.pauseTimer()
         self.hangup()
         updateUserOfHangup()
     }
