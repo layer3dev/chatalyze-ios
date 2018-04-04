@@ -21,12 +21,19 @@ class UserCallController: VideoCallController {
         }
     }
     
+    var userRootView : UserVideoRootView?{
+        return self.view as? UserVideoRootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialization()
     }
     
+    @IBAction private func requestAutograph(){
+        presentAutographAction()
+    }
     
     
     private func initialization(){
@@ -159,6 +166,12 @@ class UserCallController: VideoCallController {
     }
     
     private func verifyIfExpired(){
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
         if let _ = myCurrentUserSlot{
             return
         }
@@ -210,3 +223,95 @@ extension UserCallController{
         return controller
     }
 }
+
+
+extension UserCallController{
+    func presentAutographAction(){
+        
+        let alertController = UIAlertController(title: "Autograph" , message: "What would you like to do ?", preferredStyle: .actionSheet)
+        
+
+        
+        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: .default) { [weak self] (action) in
+            self?.takeScreenshot()
+            return
+        }
+        
+        let requestAutograph = UIAlertAction(title: "Request Autograph", style: .default) { (action) in
+            
+            return
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+            return
+        }
+        
+        alertController.addAction(takeScreenshot)
+        alertController.addAction(requestAutograph)
+        alertController.addAction(cancelAction)
+       
+        
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func takeScreenshot(){
+        let image = userRootView?.getSnapshot()
+        guard let controller = AutographPreviewController.instance()
+            else{
+                return
+        }
+        controller.image = image
+        controller.onResult { [weak self] (image) in
+            self?.uploadImage(image: image)
+        }
+        self.present(controller, animated: true) {
+            
+        }
+        
+        
+    }
+    
+    /*
+     {
+     "file": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAJACAYAAAATlRTVAAAgAElEQVR4XsS9gXYeO66sJ9n3LXLPzLnJ+79hbGcRVV+hSMkzk6ysZO/ZI1vS380mgUKhALI///mRK5CYII=",
+     "userId": 79,
+     "analystId": 28,
+     "callbookingId": 2642,
+     "callScheduleId": 932,
+     "defaultImage": false
+     }
+     */
+    private func uploadImage(image : UIImage?){
+        guard let image = image
+        else{
+            return
+        }
+        guard let data = UIImageJPEGRepresentation(image, 1.0)
+            else{
+                return
+        }
+        var params = [String : Any]()
+        
+        params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
+        params["analystId"] = hostId
+        params["callbookingId"] = eventInfo?.id ?? 0
+        params["callScheduleId"] = myCurrentUserSlot?.id ?? 0
+        params["defaultImage"] = false
+        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        params["file"] = imageBase64
+        
+        userRootView?.requestAutographButton?.showLoader()
+        
+        SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
+            self?.userRootView?.requestAutographButton?.hideLoader()
+        }
+        
+    }
+}
+
+
+

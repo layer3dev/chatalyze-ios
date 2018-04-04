@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +17,7 @@
                         <viewControllerLayoutGuide type="top" id="EuP-R3-z0r"/>
                         <viewControllerLayoutGuide type="bottom" id="W58-xK-9n0"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bRT-ZS-CRs" customClass="VideoRootView" customModule="Chatalyze" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="bRT-ZS-CRs" customClass="UserVideoRootView" customModule="Chatalyze" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -26,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.32584697008132935" green="0.32583719491958618" blue="0.32584273815155029" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logorump" translatesAutoresizingMaskIntoConstraints="NO" id="Me5-0B-bfE">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Me5-0B-bfE">
                                 <rect key="frame" x="152.5" y="15" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="MwJ-Ha-U87"/>
@@ -41,18 +40,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-ZB-2eM" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="283" y="30" width="80" height="100"/>
                                 <color key="backgroundColor" red="0.15056313574314117" green="0.15055863559246063" blue="0.15056121349334717" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="width" priority="900" constant="80" id="71N-vE-b7k"/>
-                                    <constraint firstAttribute="height" priority="900" constant="100" id="dMg-ZG-7mT"/>
+                                    <constraint firstAttribute="width" constant="80" id="71N-vE-b7k"/>
+                                    <constraint firstAttribute="height" constant="100" id="dMg-ZG-7mT"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="leftConstraint" destination="PBM-0T-3fR" id="Thd-P2-f6O"/>
-                                    <outlet property="rightConstraint" destination="oDn-oX-NQc" id="JQ8-hz-KJV"/>
-                                    <outlet property="topConstraint" destination="RDr-jd-jWy" id="lsK-dj-jIb"/>
-                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfp-G1-gCo" userLabel="option_container" customClass="VideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="8" y="265.5" width="40" height="136"/>
@@ -172,22 +166,61 @@
                                     <outlet property="videoView" destination="5sH-T5-4DU" id="6LV-z8-s3h"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4e-l4-rf5" userLabel="signature_container" customClass="RequestAutographContainerView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="290" y="582" width="70" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="request_autograph" translatesAutoresizingMaskIntoConstraints="NO" id="NG8-bT-3xd">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XjD-Jf-dr4" customClass="LoaderView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FM1-3H-QYM">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <connections>
+                                            <action selector="requestAutograph" destination="69S-M1-2Z4" eventType="touchUpInside" id="QbH-M3-CyX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="FM1-3H-QYM" firstAttribute="leading" secondItem="X4e-l4-rf5" secondAttribute="leading" id="3N0-r5-AC3"/>
+                                    <constraint firstItem="XjD-Jf-dr4" firstAttribute="leading" secondItem="X4e-l4-rf5" secondAttribute="leading" id="9Wi-LG-IMS"/>
+                                    <constraint firstItem="FM1-3H-QYM" firstAttribute="top" secondItem="X4e-l4-rf5" secondAttribute="top" id="B4c-Ks-KJQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="XjD-Jf-dr4" secondAttribute="bottom" id="JH8-Fp-8qo"/>
+                                    <constraint firstItem="NG8-bT-3xd" firstAttribute="leading" secondItem="X4e-l4-rf5" secondAttribute="leading" id="MLo-FS-8Y0"/>
+                                    <constraint firstAttribute="trailing" secondItem="XjD-Jf-dr4" secondAttribute="trailing" id="NmT-vB-dtV"/>
+                                    <constraint firstAttribute="bottom" secondItem="FM1-3H-QYM" secondAttribute="bottom" id="Nze-Zk-b1P"/>
+                                    <constraint firstItem="NG8-bT-3xd" firstAttribute="top" secondItem="X4e-l4-rf5" secondAttribute="top" id="OJ5-hi-qpf"/>
+                                    <constraint firstAttribute="height" constant="70" id="SPJ-eb-xmp"/>
+                                    <constraint firstAttribute="bottom" secondItem="NG8-bT-3xd" secondAttribute="bottom" id="fNa-Ic-QVC"/>
+                                    <constraint firstAttribute="trailing" secondItem="NG8-bT-3xd" secondAttribute="trailing" id="oio-0k-tBh"/>
+                                    <constraint firstAttribute="width" constant="70" id="rU9-lf-RwU"/>
+                                    <constraint firstItem="XjD-Jf-dr4" firstAttribute="top" secondItem="X4e-l4-rf5" secondAttribute="top" id="uzi-ac-fF0"/>
+                                    <constraint firstAttribute="trailing" secondItem="FM1-3H-QYM" secondAttribute="trailing" id="z3m-Bf-KUP"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="button" destination="FM1-3H-QYM" id="k7v-qh-fFk"/>
+                                    <outlet property="icon" destination="NG8-bT-3xd" id="HlQ-HL-kQa"/>
+                                    <outlet property="loaderView" destination="XjD-Jf-dr4" id="4ic-0X-xyl"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kfp-G1-gCo" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" constant="8" id="3Rn-h7-v8U" userLabel="container_leading"/>
                             <constraint firstItem="1lh-gd-FgM" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" id="8Rq-Ir-ggy"/>
                             <constraint firstItem="Me5-0B-bfE" firstAttribute="centerX" secondItem="bRT-ZS-CRs" secondAttribute="centerX" id="Aau-Tc-Vq9"/>
-                            <constraint firstItem="Vc8-ZB-2eM" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" priority="999" id="PBM-0T-3fR" userLabel="leading"/>
-                            <constraint firstItem="Vc8-ZB-2eM" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" priority="999" id="RDr-jd-jWy" userLabel="top"/>
-                            <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="Vc8-ZB-2eM" secondAttribute="bottom" id="YTp-RS-n8m"/>
+                            <constraint firstItem="Vc8-ZB-2eM" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" constant="30" id="IuP-yx-Nbw"/>
+                            <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="X4e-l4-rf5" secondAttribute="bottom" constant="15" id="Map-6K-6NV"/>
                             <constraint firstItem="1lh-gd-FgM" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="aBe-ZA-afY"/>
                             <constraint firstItem="Me5-0B-bfE" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" constant="15" id="cu4-lL-4s3"/>
                             <constraint firstItem="kfp-G1-gCo" firstAttribute="centerY" secondItem="bRT-ZS-CRs" secondAttribute="centerY" id="glD-V1-sQQ"/>
-                            <constraint firstItem="Vc8-ZB-2eM" firstAttribute="centerX" secondItem="bRT-ZS-CRs" secondAttribute="centerX" id="lrb-57-OeN"/>
                             <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="1lh-gd-FgM" secondAttribute="bottom" id="nG7-vk-e9o"/>
-                            <constraint firstAttribute="trailing" secondItem="Vc8-ZB-2eM" secondAttribute="trailing" priority="999" id="oDn-oX-NQc" userLabel="trailing"/>
+                            <constraint firstAttribute="trailing" secondItem="Vc8-ZB-2eM" secondAttribute="trailing" constant="12" id="pTg-nC-GPR"/>
                             <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="UzS-Be-PrR" secondAttribute="bottom" id="qN8-nk-4P3"/>
+                            <constraint firstAttribute="trailing" secondItem="X4e-l4-rf5" secondAttribute="trailing" constant="15" id="sAK-xw-88B"/>
                             <constraint firstAttribute="trailing" secondItem="1lh-gd-FgM" secondAttribute="trailing" id="tDM-vV-BJj"/>
                             <constraint firstItem="UzS-Be-PrR" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="wu2-D8-WYv"/>
                             <constraint firstAttribute="trailing" secondItem="UzS-Be-PrR" secondAttribute="trailing" id="z0c-N8-Mrd"/>
@@ -196,12 +229,13 @@
                             <outlet property="actionContainer" destination="kfp-G1-gCo" id="jlU-w5-tGz"/>
                             <outlet property="localVideoView" destination="Vc8-ZB-2eM" id="BJt-sf-xeM"/>
                             <outlet property="remoteVideoView" destination="1lh-gd-FgM" id="OEw-T8-LBI"/>
+                            <outlet property="requestAutographButton" destination="X4e-l4-rf5" id="TWG-tL-Ysm"/>
                         </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="602" y="-35"/>
+            <point key="canvasLocation" x="471" y="-700"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
@@ -394,13 +428,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2K-NB-UUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="602" y="-35"/>
+            <point key="canvasLocation" x="470" y="0.0"/>
         </scene>
     </scenes>
     <resources>
         <image name="hang_up" width="36" height="36"/>
         <image name="logorump" width="339" height="150"/>
         <image name="mic_on" width="36" height="36"/>
+        <image name="request_autograph" width="75" height="75"/>
         <image name="videocam_on" width="24" height="24"/>
     </resources>
 </document>

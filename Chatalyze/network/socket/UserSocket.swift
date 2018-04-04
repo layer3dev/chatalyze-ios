@@ -15,7 +15,6 @@ class UserSocket {
     var socketManager : SocketManager?
     var socket : SocketIOClient?
     var isRegisteredToServer = false    
-    fileprivate var isRegistered = false
     
     init(){
         initialization()
@@ -109,8 +108,6 @@ extension UserSocket{
         
         socket?.on("login") {data, ack in
             Log.echo(key: "user_socket", text:"socket login data => \(data)")
-            Log.echo(key: "user_socket", text:"socket acknowledment is => \(ack.expected)")
-            Log.echo(key: "", text: "login On")
             self.isRegisteredToServer = true
             self.updateConnectionStatus(isConnected: true)
         }
@@ -128,6 +125,8 @@ extension UserSocket{
             self.reconnect()
         }
         
+        
+        
         socket?.on("notification") {data, ack in
             Log.echo(key: "user_socket", text:"socket notification => \(data)")
         }
@@ -135,31 +134,9 @@ extension UserSocket{
         socket?.on("reconnect"){data ,ack in
             self.isRegisteredToServer = false
             Log.echo(key: "", text: "I got recconnected in ON \(data)")
-            //ForceFully making a new Engine Can Solve the Problem
-            //self.socket = SocketIOClient(socketURL: URL(string: AppConnectionConfig.userSocketURL)!, config: [.forceNew(true)])
-//            appMovedToForeground()
+        
         }
         
-       
-        
-        socket?.onAny {
-            
-            if(($0.items?.count ?? 0) <= 0){
-                return
-            }
-            guard let dict = $0.items?[0] as? [String : Any]
-                else{
-                    return
-            }
-            
-            Log.echo(key: "user_socket", text:"Got event: \($0.event), with items: \(dict.JSONDescription())")
-            
-            //print("\($0.event)")
-            if $0.event == "reconnect" {
-                Log.echo(key: "", text: "Oops I got reconnect!!")
-                self.isRegisteredToServer = false
-            }
-        }
         Log.echo(key: "user_socket", text:"connect request in initializeSocketConnection")
         socket?.connect()
     }
@@ -177,15 +154,18 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "info => " + info)
         Log.echo(key: "user_socket", text: "param => \(param)")
         
-        //socket?.emit("login", param)
-        socket?.emitWithAck("login", param).timingOut(after: 8) {data in
+        socket?.emit("login", param)
+        
+        
+        
+        /*socket?.emitWithAck("login", param).timingOut(after: 8) {data in
             if self.isRegisteredToServer != false{
                 Log.echo(key: "", text: "Yessss I got connect!!")
             }else{
                 self.registerSocket()
                 Log.echo(key: "", text: "Oops Could not get connect Trying once again!!")
             }
-         }
+         }*/
         Log.echo(key: "", text:"Connected and emitted")
 //        socket?.emitWithAck("dsfds", param).timingOut(after: 5, callback: { (data) in
 //            print("got ack in new TimeOut  with data: \(data)")
@@ -199,9 +179,7 @@ extension UserSocket{
     }
     
     func reconnect(){
-        //socket?.disconnect()
-        //Log.echo(key: "user_socket", text:"tearup and make new")
-        //socket?.connect()
+        
     }
     
     fileprivate func redColorTransparency(){
