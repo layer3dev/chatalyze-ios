@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class SubmitScreenshot{
     
-    public func submitScreenshot(params : [String : Any], completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
+    public func submitScreenshot(params : [String : Any], completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
         
 
         let url = AppConnectionConfig.webServiceURL + "/screenshots"
@@ -23,7 +23,7 @@ class SubmitScreenshot{
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
         
         
         if(!success){
@@ -41,11 +41,11 @@ class SubmitScreenshot{
         
         
         
-        let eventInfo = EventScheduleInfo(info: info)
+        let screenshotInfo = ScreenshotInfo(info: info)
         
-        Log.echo(key: "event", text: "event info --> \(String(describing: eventInfo.id))")
+        Log.echo(key: "screenshotInfo", text: "screenshotInfo info --> \(String(describing: screenshotInfo.id))")
         
-        completion(true, eventInfo)
+        completion(true, screenshotInfo)
         return
     }
 }

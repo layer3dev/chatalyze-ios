@@ -49,6 +49,10 @@
 		FA3CC1492046CB39007438A3 /* AppConnectioConfigForDev.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC1472046CB39007438A3 /* AppConnectioConfigForDev.swift */; };
 		FA3CC14E2046CD6D007438A3 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC14C2046CD6D007438A3 /* DeviceInfo.swift */; };
 		FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC14D2046CD6D007438A3 /* SessionDeviceInfo.swift */; };
+		FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA052075F5D000CC4AF8 /* ScreenshotInfo.swift */; };
+		FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA072076037B00CC4AF8 /* RequestAutographController.swift */; };
+		FA3FAA0C2076046400CC4AF8 /* RequestAutographRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA0B2076046400CC4AF8 /* RequestAutographRootView.swift */; };
+		FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA0D2076047200CC4AF8 /* AutographPreviewView.swift */; };
 		FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */; };
 		FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA416810207237C000789E22 /* EventSlotNumberLabel.swift */; };
 		FA58193E2041647900D088F1 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193A2041647800D088F1 /* FacebookCore.framework */; };
@@ -255,6 +259,10 @@
 		FA3CC1482046CB39007438A3 /* AppConnectionConfigForProduction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConnectionConfigForProduction.swift; sourceTree = "<group>"; };
 		FA3CC14C2046CD6D007438A3 /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		FA3CC14D2046CD6D007438A3 /* SessionDeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDeviceInfo.swift; sourceTree = "<group>"; };
+		FA3FAA052075F5D000CC4AF8 /* ScreenshotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotInfo.swift; sourceTree = "<group>"; };
+		FA3FAA072076037B00CC4AF8 /* RequestAutographController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAutographController.swift; sourceTree = "<group>"; };
+		FA3FAA0B2076046400CC4AF8 /* RequestAutographRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAutographRootView.swift; sourceTree = "<group>"; };
+		FA3FAA0D2076047200CC4AF8 /* AutographPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographPreviewView.swift; sourceTree = "<group>"; };
 		FA41680C2072238600789E22 /* RTCMediaStream+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCMediaStream+Helper.h"; sourceTree = "<group>"; };
 		FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RTCMediaStream+Helper.m"; sourceTree = "<group>"; };
 		FA416810207237C000789E22 /* EventSlotNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotNumberLabel.swift; sourceTree = "<group>"; };
@@ -597,6 +605,7 @@
 		FA3CC1382046BFFF007438A3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				FA3FAA042075F5C300CC4AF8 /* autograph */,
 				FAD9CD9F2063C50D00A177AC /* event */,
 				FA74B14F2063A0B600983141 /* socket */,
 				FA3CC13A2046C017007438A3 /* struct */,
@@ -648,6 +657,31 @@
 				FA3CC14D2046CD6D007438A3 /* SessionDeviceInfo.swift */,
 			);
 			path = deviceInfo;
+			sourceTree = "<group>";
+		};
+		FA3FAA042075F5C300CC4AF8 /* autograph */ = {
+			isa = PBXGroup;
+			children = (
+				FA3FAA052075F5D000CC4AF8 /* ScreenshotInfo.swift */,
+			);
+			path = autograph;
+			sourceTree = "<group>";
+		};
+		FA3FAA092076044B00CC4AF8 /* autograph */ = {
+			isa = PBXGroup;
+			children = (
+				FA3FAA0A2076044B00CC4AF8 /* request_autograph */,
+			);
+			path = autograph;
+			sourceTree = "<group>";
+		};
+		FA3FAA0A2076044B00CC4AF8 /* request_autograph */ = {
+			isa = PBXGroup;
+			children = (
+				FA3FAA0B2076046400CC4AF8 /* RequestAutographRootView.swift */,
+				FA3FAA0D2076047200CC4AF8 /* AutographPreviewView.swift */,
+			);
+			path = request_autograph;
 			sourceTree = "<group>";
 		};
 		FA41680A207222FE00789E22 /* support */ = {
@@ -918,6 +952,7 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FA3FAA092076044B00CC4AF8 /* autograph */,
 				FA24BAC9206F80B00064F94F /* queue */,
 				FA1B362E2064E22F00F2E6BC /* call */,
 				FA1B36272064DDAA00F2E6BC /* setting */,
@@ -1178,6 +1213,7 @@
 			isa = PBXGroup;
 			children = (
 				FADC84EB2074EDB600AD9D65 /* AutographPreviewController.swift */,
+				FA3FAA072076037B00CC4AF8 /* RequestAutographController.swift */,
 			);
 			path = autograph;
 			sourceTree = "<group>";
@@ -1701,6 +1737,7 @@
 				FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				FAFB7C80206E6B84004804D2 /* EventQueueFlowLayout.swift in Sources */,
+				FA3FAA0C2076046400CC4AF8 /* RequestAutographRootView.swift in Sources */,
 				FAA001AB203ED472003C8A74 /* ExtendedController.swift in Sources */,
 				FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */,
 				FAE9EF6A206CB26E00C45F8D /* PeerMetaInfo.swift in Sources */,
@@ -1759,6 +1796,7 @@
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
+				FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */,
 				FAA0019F203ED472003C8A74 /* Dictionary.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
 				FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */,
@@ -1778,11 +1816,13 @@
 				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
 				FADC84E42074E35600AD9D65 /* UserVideoRootView.swift in Sources */,
 				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,
+				FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */,
 				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
 				FA74B13E20639B6400983141 /* RTCSessionDescription+JSON.m in Sources */,
 				FAD6BA3F2064F96600942F27 /* EventValidator.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,
 				FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */,
+				FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */,
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,
 				FAE9EF80206CF22B00C45F8D /* HostCallFetch.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,

@@ -13,6 +13,7 @@ import SwiftyJSON
 class UserCallController: VideoCallController {
     
     var connection : UserCallConnection?
+    private var screenshotInfo : ScreenshotInfo?
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -275,16 +276,7 @@ extension UserCallController{
         
     }
     
-    /*
-     {
-     "file": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAJACAYAAAATlRTVAAAgAElEQVR4XsS9gXYeO66sJ9n3LXLPzLnJ+79hbGcRVV+hSMkzk6ysZO/ZI1vS380mgUKhALI///mRK5CYII=",
-     "userId": 79,
-     "analystId": 28,
-     "callbookingId": 2642,
-     "callScheduleId": 932,
-     "defaultImage": false
-     }
-     */
+    
     private func uploadImage(image : UIImage?){
         guard let image = image
         else{
@@ -308,8 +300,9 @@ extension UserCallController{
         
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
             self?.userRootView?.requestAutographButton?.hideLoader()
+            self.screenshotInfo = info
+            
         }
-        
     }
 }
 
