@@ -37,16 +37,15 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxg-Ff-FOB" userLabel="container_view" customClass="QueueContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="260" width="375" height="82"/>
+                                                <rect key="frame" x="0.0" y="260" width="375" height="51"/>
                                                 <subviews>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cX2-IE-nTu" userLabel="status_container" customClass="NoEventContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu2-Gv-a3T" userLabel="chat_no_container">
-                                                                <rect key="frame" x="32" y="0.0" width="312.5" height="31"/>
+                                                                <rect key="frame" x="187.5" y="0.0" width="0.0" height="0.0"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="You have chat number 50" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMe-ti-fc0" customClass="EventSlotNumberLabel" customModule="Chatalyze" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="312.5" height="31"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMe-ti-fc0" customClass="EventSlotNumberLabel" customModule="Chatalyze" customModuleProvider="target">
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                                                         <color key="textColor" red="0.4823529411764706" green="0.76862745098039209" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -62,16 +61,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7i-SE-mDp" userLabel="chat_no_container">
-                                                                <rect key="frame" x="13.5" y="51" width="347.5" height="31"/>
+                                                                <rect key="frame" x="156.5" y="20" width="62" height="31"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="210" verticalCompressionResistancePriority="710" text="Your chat will begin in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUW-cS-LjD">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="253.5" height="31"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="26"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="12:39" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pe6-ec-Wvg">
-                                                                        <rect key="frame" x="261.5" y="0.0" width="65.5" height="31"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="220" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="720" text="--" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pe6-ec-Wvg" customClass="EventCountDownLabel" customModule="Chatalyze" customModuleProvider="target">
+                                                                        <rect key="frame" x="20" y="0.0" width="21.5" height="31"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
                                                                         <color key="textColor" red="0.4823529412" green="0.76862745099999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -79,13 +72,10 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="ZUW-cS-LjD" firstAttribute="top" secondItem="l7i-SE-mDp" secondAttribute="top" id="Gtd-qA-oR2"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="ZUW-cS-LjD" secondAttribute="bottom" id="LGh-2B-wqM"/>
-                                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pe6-ec-Wvg" secondAttribute="bottom" id="OdQ-p5-ZRN"/>
-                                                                    <constraint firstItem="ZUW-cS-LjD" firstAttribute="leading" secondItem="l7i-SE-mDp" secondAttribute="leading" id="SVV-dx-HWe"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Pe6-ec-Wvg" secondAttribute="bottom" id="OdQ-p5-ZRN"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Pe6-ec-Wvg" secondAttribute="trailing" constant="20" id="cEd-ZJ-paa"/>
+                                                                    <constraint firstItem="Pe6-ec-Wvg" firstAttribute="leading" secondItem="l7i-SE-mDp" secondAttribute="leading" constant="20" id="ejR-OX-dqz"/>
                                                                     <constraint firstItem="Pe6-ec-Wvg" firstAttribute="top" secondItem="l7i-SE-mDp" secondAttribute="top" id="iBt-aP-Kzj"/>
-                                                                    <constraint firstItem="Pe6-ec-Wvg" firstAttribute="leading" secondItem="ZUW-cS-LjD" secondAttribute="trailing" constant="8" id="lms-9I-WSu"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>

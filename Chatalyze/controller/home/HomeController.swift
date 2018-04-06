@@ -49,14 +49,8 @@ class HomeController: InterfaceExtendedController {
         }
     }
     
-    private func initializeListener(){
-        UserSocket.sharedInstance?.socket?.on("call_booked_success", callback: { (data, ack) in
-            self.fetchInfo(showLoader: true)
-        })
-        
-        UserSocket.sharedInstance?.socket?.onAny({ (event) in
-            self.fetchInfo(showLoader: true)
-        })
+    func initializeListener(){
+        rootView?.queueContainerView?.delegate = self
     }
     
     
@@ -95,5 +89,11 @@ extension HomeController{
         let controller = storyboard.instantiateViewController(withIdentifier: controllerId) as? HomeController
         
         return controller
+    }
+}
+
+extension HomeController : EventRefreshProtocol{
+    func refreshInfo() {
+        self.fetchInfo(showLoader: true)
     }
 }

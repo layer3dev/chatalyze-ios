@@ -14,6 +14,7 @@ class UserCallController: VideoCallController {
     
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
+    private var canvasInfo : CanvasInfo?
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -39,6 +40,7 @@ class UserCallController: VideoCallController {
     
     private func initialization(){
         initializeVariable()
+        registerForAutographListener()
     }
     
     
@@ -198,6 +200,11 @@ class UserCallController: VideoCallController {
         
     }
     
+    
+    override func verifyEventActivated(){
+        
+    }
+    
 }
 
 extension UserCallController{
@@ -238,8 +245,8 @@ extension UserCallController{
             return
         }
         
-        let requestAutograph = UIAlertAction(title: "Request Autograph", style: .default) { (action) in
-            
+        let requestAutograph = UIAlertAction(title: "Request Autograph", style: .default) {  [weak self] (action) in
+            self?.requestAutographProcess()
             return
         }
         
@@ -259,6 +266,103 @@ extension UserCallController{
         
     }
     
+    
+    private func requestAutographProcess(){
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
+        let customScreenshotInfo = self.screenshotInfo
+        
+        let isCustom =  customScreenshotInfo == nil ? false : true
+        var controller : RequestAutographController?
+        
+        if(isCustom){
+            controller = RequestAutographController.customInstance()
+        }else{
+            controller = RequestAutographController.defaultInstance()
+        }
+        
+        guard let processController = controller
+            else{
+                return
+        }
+        
+        processController.defaultScreenshotInfo = defaultScreenshotInfo
+        processController.customScreenshotInfo = customScreenshotInfo
+        
+        
+        
+        processController.setListener { (success, info, isDefault) in
+            
+            self.processRequestAutograph(isDefault : success, info : info)
+            
+        }
+        
+        self.present(processController, animated: true) {
+            
+        }
+        
+    }
+    
+    private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
+        if(!isDefault){
+            self.serviceRequestAutograph(info : info)
+            return
+        }
+        
+        guard let screenshotInfo = info
+        else{
+            return
+        }
+        
+    CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
+            return 0
+        }) { [weak self] (success, image) in
+            if(!success){
+                return
+            }
+            guard let targetImage  = image
+                else{
+                    return
+            }
+            
+            self?.requestDefaultAutograph(image: targetImage)
+            
+        }
+        
+        
+    
+    }
+    
+    
+    private func requestDefaultAutograph(image : UIImage){
+        
+        self.uploadImage(image: image, completion: { [weak self] (success, screenshotInfo) in
+            if(!success){
+                return
+            }
+            
+            self?.serviceRequestAutograph(info: screenshotInfo)
+        })
+        
+        
+    }
+    
+    private func serviceRequestAutograph(info : ScreenshotInfo?){
+        self.showLoader()
+        let screenshotId = "\(info?.id ?? 0)"
+        let hostId = "\(info?.analystId ?? 0)"
+        
+        RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
+            self.stopLoader()
+        }
+    }
+    
+    
     func takeScreenshot(){
         let image = userRootView?.getSnapshot()
         guard let controller = AutographPreviewController.instance()
@@ -267,23 +371,27 @@ extension UserCallController{
         }
         controller.image = image
         controller.onResult { [weak self] (image) in
-            self?.uploadImage(image: image)
+            
+            self?.uploadImage(image: image, completion: { (success, info) in
+                self?.screenshotInfo = info
+            })
+
         }
         self.present(controller, animated: true) {
             
         }
-        
-        
     }
     
     
-    private func uploadImage(image : UIImage?){
+    private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
         guard let image = image
         else{
+            completion?(false, nil)
             return
         }
         guard let data = UIImageJPEGRepresentation(image, 1.0)
             else{
+                completion?(false, nil)
                 return
         }
         var params = [String : Any]()
@@ -300,11 +408,68 @@ extension UserCallController{
         
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
             self?.userRootView?.requestAutographButton?.hideLoader()
-            self.screenshotInfo = info
+            
+            completion?(true, info)
             
         }
     }
 }
 
+
+extension UserCallController{
+    func registerForAutographListener(){
+        
+        socketClient?.onEvent("startedSigning", completion: { (json) in
+            let rawInfo = json?["message"]
+            self.canvasInfo = CanvasInfo(info : rawInfo)
+            self.prepateCanvas(info : self.canvasInfo)
+        })
+        
+        
+        socketClient?.onEvent("stoppedSigning", completion: { (json) in
+            self.userRootView?.hideCanvas()
+        })
+        
+        
+    }
+    
+    private func prepateCanvas(info : CanvasInfo?){
+        
+        userRootView?.showCanvas()
+        let canvas = self.userRootView?.canvas
+        canvas?.canvasInfo = canvasInfo
+         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
+            return 0
+        }) { (success, image) in
+            canvas?.image = image
+            self.updateScreenshotLoaded(info : info)
+        }
+    }
+    
+    private func updateScreenshotLoaded(info : CanvasInfo?){
+        
+        guard let info = info
+            else{
+                return
+        }
+        
+        guard let screenshotInfo = info.screenshot
+            else{
+                return
+        }
+        var params = [String : Any]()
+        params["id"] = "screenshotLoaded"
+        params["name"] = self.eventInfo?.user?.hashedId ?? ""
+        
+        let message = screenshotInfo.toDict()
+        
+        params["message"] = message
+        
+        socketClient?.emit(params)
+        
+    }
+    
+    
+}
 
 

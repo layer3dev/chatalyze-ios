@@ -61,5 +61,20 @@ class ScreenshotInfo : NSObject{
         isImplemented = json["isImplemented"].boolValue
         sharedOn = json["sharedOn"].boolValue
     }
+    
+    func toDict()->[String : Any]{
+        
+        var message = [String : Any]()
+        message["text"] = text
+        message["analystId"] = analystId ?? ""
+        message["screenshot"] = screenshot ?? ""
+        message["userId"] = userId ?? ""
+        message["id"] = id
+        message["signed"] = false
+        message["color"] = color
+        message["paid"] = false
+        
+        return message
+    }
 
 }

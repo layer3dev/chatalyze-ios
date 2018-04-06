@@ -88,6 +88,7 @@ class HostCallController: VideoCallController {
     }
     
     private func processEvent(){
+    
         
         if(!(socketClient?.isConnected ?? false)){
             Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
@@ -100,6 +101,11 @@ class HostCallController: VideoCallController {
             else{
                 Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
                 return
+        }
+        
+        if(eventInfo.started == nil){
+            Log.echo(key: "processEvent", text: "event not activated yet")
+            return
         }
     
 
@@ -241,6 +247,35 @@ class HostCallController: VideoCallController {
         }
     }
     
+    
+    override func verifyEventActivated(){
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        if(eventInfo.started != nil){
+            return
+        }
+        guard let eventId = eventInfo.id
+            else{
+                return
+        }
+        
+        let eventIdString = "\(eventId)"
+        ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+            if(!success){
+                return
+            }
+            
+            guard let info = eventInfo
+                else{
+                    return
+            }
+            
+            self.eventInfo = info
+        }
+    }
     
 }
 

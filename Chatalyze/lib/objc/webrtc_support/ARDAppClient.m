@@ -81,6 +81,11 @@ static RTCMediaStream *localStream;
     _defaultPeerConnectionConstraints;
 @synthesize isLoopback = _isLoopback;
 
+
++(void)releaseLocalStream{
+    localStream = nil;
+}
+
 - (instancetype)init {
   return [self initWithDelegate:nil];
 }

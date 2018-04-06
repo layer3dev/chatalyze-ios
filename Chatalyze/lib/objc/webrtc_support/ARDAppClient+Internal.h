@@ -85,5 +85,7 @@
 -(BOOL)isConnected;
 -(BOOL)isProcessing;
 
++(void)releaseLocalStream;
+
 
 @end

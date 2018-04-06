@@ -80,7 +80,6 @@ extension SigninRootView{
         passwordField?.resetErrorStatus()
         return true
     }
-    
 }
 
 

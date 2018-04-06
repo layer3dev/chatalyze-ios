@@ -24,11 +24,12 @@ class HostCallQueueRootView: CallQueueRootView {
                 return
         }
         if(!countdownInfo.isActive){
-            countdownLabel?.text = "Finished"
+            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
             return
         }
         
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
-        countdownLabel?.text = countdownTime
+        
+        countdownLabel?.updateText(label: "Event will begin in ", countdown: countdownTime)
     }
 }

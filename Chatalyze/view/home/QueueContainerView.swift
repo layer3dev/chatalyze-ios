@@ -15,9 +15,13 @@ class QueueContainerView: ExtendedView {
     @IBOutlet var waitContainerView : WaitCountdownView?
     @IBOutlet var noEventView : NoEventContainerView?
     
+    var delegate : EventRefreshProtocol?
+    
     var timer : EventTimer = EventTimer()
     
     var slotInfo : EventTimeProtocol?
+    
+    private var isQueueActive : Bool = false
     
 
     /*
@@ -68,6 +72,7 @@ class QueueContainerView: ExtendedView {
     func processView(){
         
         hideAll()
+        isQueueActive = false
         guard let slotInfo = slotInfo
             else{
                 self.noEventView?.showView()
@@ -92,20 +97,30 @@ class QueueContainerView: ExtendedView {
         if(validator.isRoomEligible(start: startDate, end: endDate)){
 //            Log.echo(key: "timer", text: "isPreConnectFuture")
             self.joinContainerView?.udpateTimer(slotInfo: slotInfo)
+            isQueueActive = true
             return
         }
         
         if(startDate.isPast() && endDate.isFuture()){
 //            Log.echo(key: "timer", text: "onGoingContainerView --> \(DateParser.dateToString(endDate))")
             self.onGoingContainerView?.showView()
+            isQueueActive = true
             return
         }
         
         if(validator.isFutureEvent(start: startDate, end: endDate)){
 //            Log.echo(key: "timer", text: "isFutureEvent")
             self.waitContainerView?.udpateTimer(slotInfo: slotInfo)
+            isQueueActive = true
             return
         }
+        
+        if(isQueueActive){
+            delegate?.refreshInfo()
+            return
+        }
+        
+        isQueueActive = false
         
         self.noEventView?.showView()
         return

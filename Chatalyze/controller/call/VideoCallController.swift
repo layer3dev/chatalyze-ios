@@ -15,6 +15,7 @@ import SwiftyJSON
 class VideoCallController : InterfaceExtendedController {
     
     var socketClient : SocketClient?
+    private let eventSlotListener = EventSlotListener()
     
     //used for tracking the call time and auto-connect process
     var timer : EventTimer = EventTimer()
@@ -35,7 +36,10 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
+        ARDAppClient.releaseLocalStream()
+        
         appDelegate?.allowRotate = false
+        eventSlotListener.setListener(listener: nil)
     UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         
         timer.pauseTimer()
@@ -160,7 +164,6 @@ class VideoCallController : InterfaceExtendedController {
         
         var data = [String : Any]()
         data["userId"] = userId
-//        data["receiverId"] = targetId
         data["message"] = "User hangup the call !"
         
         socketClient?.emit("disconnect", data)
@@ -170,7 +173,7 @@ class VideoCallController : InterfaceExtendedController {
    
     
     func registerForListeners(){
-        //        {"id":"joinedCall","data":{"name":"chedddiicdaibdia"}}
+
         socketClient?.confirmConnect(completion: { [weak self] (success)  in
             if(self?.socketClient == nil){
                 return
@@ -220,6 +223,8 @@ class VideoCallController : InterfaceExtendedController {
     
     private func initializeVariable(){
         appDelegate?.allowRotate = true
+        
+        eventSlotListener.eventId = self.eventId
         registerForEvent()
         
         socketClient = SocketClient.sharedInstance
@@ -228,11 +233,14 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func registerForEvent(){
-        UserSocket.sharedInstance?.socket?.onAny({ (event) in
+        
+        eventSlotListener.setListener {
             self.fetchInfo(showLoader: false, completion: { (success) in
                 
             })
-        })
+        }
+        
+    
     }
     
     private func startTimer(){
@@ -268,6 +276,11 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
+    
+    //abstract
+    func verifyEventActivated(){
+        
+    }
     
     
 }
@@ -324,6 +337,8 @@ extension VideoCallController{
             
             self?.eventInfo = localEventInfo
             
+            self?.verifyEventActivated()
+            
             let roomId = localEventInfo.id ?? 0
             Log.echo(key : "service", text : "eventId - > \(roomId)")
             
@@ -332,4 +347,6 @@ extension VideoCallController{
             
         }
     }
+    
+    
 }

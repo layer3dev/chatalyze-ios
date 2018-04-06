@@ -8,11 +8,24 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class HostHomeController: HomeController {
     
     private var eventInfo : EventInfo?
+    private let eventSlotListener = EventSlotListener()
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        eventSlotListener.setListener(listener: nil)
+    }
     
     @IBAction private func callAction(){
         guard let eventInfo = eventInfo
@@ -58,6 +71,41 @@ class HostHomeController: HomeController {
             
             self.eventInfo = eventInfo
             self.rootView?.queueContainerView?.udpateView(callInfo: eventInfo)
+            self.eventSlotListener.eventId = String(eventInfo?.id ?? 0)
         }
     }
+    
+    /*
+     SocketService.getSocket().on('notification', function(data){
+     if(!data) return;
+     if(data.meta.activity_type != 'call_booked') return;
+     
+     
+     Log.print("socket notification call_booked", "");
+     //Log.print(JSON.stringify(data), "");
+     
+     var scheduleId = data.meta.callscheduleId;
+     
+     if(!scheduleId){
+     return;
+     }
+     
+     if(booking.id != scheduleId){
+     Log.print("new slot is NOT of current event" + scheduleId, "");
+     return;
+     }
+     */
+    
+    override func initializeListener(){
+        super.initializeListener()
+    
+        eventSlotListener.setListener {
+            self.fetchInfo(showLoader: true)
+        }
+        
+    }
+    
+    
+    
+    
 }

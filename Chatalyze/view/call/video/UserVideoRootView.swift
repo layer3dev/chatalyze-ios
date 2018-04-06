@@ -10,7 +10,10 @@ import UIKit
 
 class UserVideoRootView: VideoRootView {
     
+    @IBOutlet var canvas : AutographyCanvas?
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
+    
+    @IBOutlet var canvasHeightConstraint : NSLayoutConstraint?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -29,5 +32,28 @@ class UserVideoRootView: VideoRootView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    var canvasHeight : CGFloat{
+        let height = 0.4 * self.bounds.size.height
+        return height
+    }
+    
+    func showCanvas(){
+        layoutIfNeeded()
+        canvasHeightConstraint?.constant = canvasHeight
+        UIView.animate(withDuration: 1.0) {
+            self.layoutIfNeeded()
+        }
+        
+    }
+    
+    func hideCanvas(){
+        layoutIfNeeded()
+        canvasHeightConstraint?.constant = 0
+        UIView.animate(withDuration: 1.0) {
+            self.layoutIfNeeded()
+        }
+    }
+    
 
 }

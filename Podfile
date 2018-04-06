@@ -7,6 +7,7 @@ target 'Chatalyze' do
 
   # Pods for Chatalyze
     pod 'GoogleWebRTC'
+    pod 'SDWebImage', '~> 4.0'
 
   target 'ChatalyzeTests' do
     inherit! :search_paths

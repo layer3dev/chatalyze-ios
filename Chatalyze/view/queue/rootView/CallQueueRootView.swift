@@ -11,7 +11,7 @@ import UIKit
 class CallQueueRootView: ExtendedView {
     
     
-    @IBOutlet var countdownLabel : UILabel?
+    @IBOutlet var countdownLabel : EventCountDownLabel?
     
     
     var eventInfo : EventScheduleInfo?

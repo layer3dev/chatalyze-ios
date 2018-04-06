@@ -11,7 +11,9 @@ import UIKit
 
 class RequestAutographRootView: ExtendedView {
 
-    @IBOutlet var previewContainerView : AutographPreviewView?
+    @IBOutlet var defaultScreenshot : AutographPreviewView?
+    @IBOutlet var customScreenshot : AutographPreviewView?
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -19,5 +21,5 @@ class RequestAutographRootView: ExtendedView {
         // Drawing code
     }
     */
-
+    
 }

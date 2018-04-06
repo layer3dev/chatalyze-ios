@@ -20,7 +20,7 @@ class LoaderView: ExtendedView {
     }
     
     private func initialization(){
-        let loader = NVActivityIndicatorView(frame: self.bounds, type: .circleStrokeSpin, color: UIColor.white, padding: 0.0)
+        let loader = NVActivityIndicatorView(frame: self.bounds, type: .circleStrokeSpin, color: UIColor.blue, padding: 0.0)
         self.loader = loader
         self.addSubview(loader)
     }

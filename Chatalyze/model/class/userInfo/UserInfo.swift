@@ -48,6 +48,7 @@ class UserInfo: NSObject {
     var joiningDate : String?
     var profileImage : String?
     var profileThumbnail : String?
+    var defaultImage : HostDefaultScreenshot?
     
     var isOnline = false
     
@@ -83,6 +84,7 @@ class UserInfo: NSObject {
         let avatars = info["avatars"]
         profileImage = avatars?["400X400"].stringValue        
         profileThumbnail = avatars?["200X200"].stringValue
+        defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
     }
 }
 

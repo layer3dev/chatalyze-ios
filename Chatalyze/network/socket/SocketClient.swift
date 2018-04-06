@@ -264,7 +264,10 @@ extension SocketClient{
         let responseAction = json["id"].stringValue
         
         
-        let data = json["data"]
+        var data = json["data"]
+        if(data == nil){
+            data = json
+        }
         updateForEvent(action: responseAction, data: data)
         return
         
