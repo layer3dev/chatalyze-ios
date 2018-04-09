@@ -59,6 +59,7 @@
 		FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA0D2076047200CC4AF8 /* AutographPreviewView.swift */; };
 		FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */; };
 		FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA416810207237C000789E22 /* EventSlotNumberLabel.swift */; };
+		FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA41AC62207BA53C002A7525 /* EventListener.swift */; };
 		FA58193E2041647900D088F1 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193A2041647800D088F1 /* FacebookCore.framework */; };
 		FA58193F2041647900D088F1 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193B2041647900D088F1 /* FacebookLogin.framework */; };
 		FA5819402041647900D088F1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193C2041647900D088F1 /* FBSDKCoreKit.framework */; };
@@ -288,6 +289,7 @@
 		FA41680C2072238600789E22 /* RTCMediaStream+Helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCMediaStream+Helper.h"; sourceTree = "<group>"; };
 		FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RTCMediaStream+Helper.m"; sourceTree = "<group>"; };
 		FA416810207237C000789E22 /* EventSlotNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotNumberLabel.swift; sourceTree = "<group>"; };
+		FA41AC62207BA53C002A7525 /* EventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListener.swift; sourceTree = "<group>"; };
 		FA58193A2041647800D088F1 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
 		FA58193B2041647900D088F1 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
 		FA58193C2041647900D088F1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Carthage/Build/iOS/FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -1206,6 +1208,7 @@
 			children = (
 				FAB71CE420776C3000C24246 /* ActivateEvent.swift */,
 				FAB71CEB2077B13800C24246 /* EventSlotListener.swift */,
+				FA41AC62207BA53C002A7525 /* EventListener.swift */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1900,6 +1903,7 @@
 				FAA0019B203ED472003C8A74 /* EventTimer.swift in Sources */,
 				FAE9EF74206CE82C00C45F8D /* HomeController.swift in Sources */,
 				FA74B13020639B6400983141 /* ARDMessageResponse.m in Sources */,
+				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
@@ -2140,7 +2144,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2154,8 +2158,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
+				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2170,7 +2174,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2184,8 +2188,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
+				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

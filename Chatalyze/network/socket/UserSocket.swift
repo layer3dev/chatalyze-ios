@@ -128,6 +128,7 @@ extension UserSocket{
         
         
         socket?.on("notification") {data, ack in
+            
             Log.echo(key: "user_socket", text:"socket notification => \(data)")
         }
         

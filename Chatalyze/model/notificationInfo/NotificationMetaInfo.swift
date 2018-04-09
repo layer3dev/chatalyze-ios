@@ -17,6 +17,7 @@ class NotificationMetaInfo{
         case signRequest = 2
         case greetingRequest = 3
         case slotBooked = 4
+        case eventCreated = 5
         
     }
 
@@ -25,12 +26,9 @@ class NotificationMetaInfo{
     
     var callScheduleId : Int?
     var title : String?
-    
 
-    
     init(){
     }
-    
     
     
     init(info : JSON?){
@@ -73,6 +71,8 @@ extension NotificationMetaInfo{
                 return .greetingRequest
             case "call_booked":
                 return .slotBooked
+            case "event_created":
+                return .eventCreated
             default:
                 return .undefined
         }
