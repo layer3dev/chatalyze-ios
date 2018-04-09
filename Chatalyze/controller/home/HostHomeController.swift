@@ -100,7 +100,7 @@ class HostHomeController: HomeController {
         super.initializeListener()
     
         eventSlotListener.setListener {
-            self.fetchInfo(showLoader: true)
+            self.fetchInfo(showLoader: false)
         }
         
     }

@@ -163,10 +163,64 @@ class UserCallController: VideoCallController {
         super.interval()
         
         confirmCallLinked()
-        
         verifyIfExpired()
+        updateCallHeaderInfo()
         
     }
+    
+    private func updateCallHeaderInfo(){
+        
+        guard let currentSlot = myCurrentUserSlot
+            else{
+                return
+        }
+        
+        if(currentSlot.isFuture){
+            updateCallHeaderForFuture(slot : currentSlot)
+            return
+        }
+        
+        updateCallHeaderForLiveCall(slot: currentSlot)
+    
+        
+        
+    }
+    
+    
+    private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        guard let startDate = slot.endDate
+            else{
+                return
+        }
+        
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        
+        userRootView?.callInfoContainer?.timer?.text = "Time Remaining : \(counddownInfo.time)"
+    }
+    
+    private func updateCallHeaderForFuture(slot : SlotInfo){
+        guard let startDate = slot.startDate
+            else{
+                return
+        }
+        
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        
+        userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
+    }
+    
+
+    
     
     private func verifyIfExpired(){
         
@@ -318,10 +372,12 @@ extension UserCallController{
         else{
             return
         }
-        
+    userRootView?.requestAutographButton?.showLoader()
     CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in
+            
+            self?.userRootView?.requestAutographButton?.hideLoader()
             if(!success){
                 return
             }
@@ -334,8 +390,7 @@ extension UserCallController{
             
         }
         
-        
-    
+
     }
     
     
@@ -353,12 +408,12 @@ extension UserCallController{
     }
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
-        self.showLoader()
+        //self.showLoader()
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
-            self.stopLoader()
+            //self.stopLoader()
         }
     }
     

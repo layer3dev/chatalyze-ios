@@ -45,5 +45,14 @@ class RequestAutographContainerView: ExtendedView {
         loaderView?.loader?.stopAnimating()
         button?.isEnabled = true
     }
+    
+    func disable(){
+//        self.backgroundColor?.
+        button?.isEnabled = false
+    }
+    
+    func enable(){
+        
+    }
 
 }

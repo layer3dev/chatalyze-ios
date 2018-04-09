@@ -25,6 +25,9 @@ class HostCallController: VideoCallController {
         initializeVariable()
     }
     
+    var hostRootView : HostVideoRootView?{
+        return self.view as? HostVideoRootView
+    }
     
     private func initializeVariable(){
         self.registerForListeners()
@@ -67,12 +70,14 @@ class HostCallController: VideoCallController {
     override func interval(){
         processEvent()
         confirmCallLinked()
+        updateCallHeaderInfo()
     }
+    
     
     
     private func confirmCallLinked(){
         
-        guard let slot = eventInfo?.currentSlot
+        guard let slot = eventInfo?.currentSlotFromMerge
             else{
                 return
         }
@@ -86,6 +91,84 @@ class HostCallController: VideoCallController {
             connection.linkCall()
         }
     }
+    
+    
+    private func updateCallHeaderInfo(){
+        
+        var slot = self.eventInfo?.currentSlotFromMerge
+        if(slot == nil){
+            slot = self.eventInfo?.preConnectSlotFromMerge
+        }
+        
+        
+        guard let slotInfo = slot
+            else{
+                return
+        }
+        
+        
+        
+        if(slotInfo.isFuture){
+            updateCallHeaderForFuture(slot : slotInfo)
+        }else{
+            updateCallHeaderForLiveCall(slot: slotInfo)
+        }
+        
+        
+    
+        hostRootView?.callInfoContainer?.slotUserName?.text = self.eventInfo?.currentSlot?.user?.firstName
+        
+    }
+    
+    
+    private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        guard let startDate = slot.endDate
+            else{
+                return
+        }
+        
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        
+        hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
+        
+        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
+        
+        
+        let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
+        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        
+        hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+    }
+    
+    private func updateCallHeaderForFuture(slot : SlotInfo){
+        guard let startDate = slot.startDate
+            else{
+                return
+        }
+        
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        
+        hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
+        
+        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
+        
+        
+        let currentSlot = (self.eventInfo?.preConnectSlotInfo?.index ?? 0)
+        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        
+        hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+    }
+    
     
     private func processEvent(){
     
@@ -137,7 +220,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let preConnectSlot = eventInfo.preConnectSlot
+        guard let preConnectSlot = eventInfo.preConnectSlotFromMerge
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
@@ -154,7 +237,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let slot = eventInfo.currentSlot
+        guard let slot = eventInfo.currentSlotFromMerge
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
@@ -232,6 +315,7 @@ class HostCallController: VideoCallController {
             connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
         }
         connectionInfo[targetHashedId] = connection
+        connection?.slotInfo = slotInfo
         return connection
         
     }

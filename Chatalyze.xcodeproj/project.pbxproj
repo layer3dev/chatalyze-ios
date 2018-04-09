@@ -10,6 +10,10 @@
 		22096507D101B7FD4B87223E /* Pods_ChatalyzeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
+		FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4F9C2078B44000FF9517 /* CallInfoContainerView.swift */; };
+		FA0A4F9F2078B45100FF9517 /* UserCallInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4F9E2078B45100FF9517 /* UserCallInfoContainerView.swift */; };
+		FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4FA02078B46100FF9517 /* HostCallInfoContainerView.swift */; };
+		FA0A4FA32078B6B700FF9517 /* HostVideoRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */; };
 		FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C572206B6761009FA707 /* CallEventInfo.swift */; };
 		FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */; };
 		FA15C57C206B6B6C009FA707 /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C579206B6B6C009FA707 /* EventInfo.swift */; };
@@ -233,6 +237,10 @@
 		9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BCD2BF6F1B24F42EA58A139 /* Pods-ChatalyzeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.release.xcconfig"; sourceTree = "<group>"; };
 		BA13399E4D58880AC0FC7A4E /* Pods-ChatalyzeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FA0A4F9C2078B44000FF9517 /* CallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallInfoContainerView.swift; sourceTree = "<group>"; };
+		FA0A4F9E2078B45100FF9517 /* UserCallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallInfoContainerView.swift; sourceTree = "<group>"; };
+		FA0A4FA02078B46100FF9517 /* HostCallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallInfoContainerView.swift; sourceTree = "<group>"; };
+		FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVideoRootView.swift; sourceTree = "<group>"; };
 		FA15C572206B6761009FA707 /* CallEventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEventInfo.swift; sourceTree = "<group>"; };
 		FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
 		FA15C579206B6B6C009FA707 /* EventInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
@@ -528,6 +536,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A4F9C2078B44000FF9517 /* CallInfoContainerView.swift */,
+				FA0A4F9E2078B45100FF9517 /* UserCallInfoContainerView.swift */,
+				FA0A4FA02078B46100FF9517 /* HostCallInfoContainerView.swift */,
+			);
+			path = callInfo;
+			sourceTree = "<group>";
+		};
 		FA15C576206B6B6B009FA707 /* slot */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +583,7 @@
 		FA1B362F2064E22F00F2E6BC /* video */ = {
 			isa = PBXGroup;
 			children = (
+				FA0A4F9B2078B41600FF9517 /* callInfo */,
 				FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */,
 				FA1B36312064E22F00F2E6BC /* HangupContainer.swift */,
 				FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */,
@@ -577,6 +596,7 @@
 				FADC84DF2074D99300AD9D65 /* RequestAutographContainerView.swift */,
 				FADC84E12074E16B00AD9D65 /* LoaderView.swift */,
 				FADC84E32074E35600AD9D65 /* UserVideoRootView.swift */,
+				FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -1812,10 +1832,12 @@
 				FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */,
 				FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */,
 				FADC84E72074E9A800AD9D65 /* EFImageViewZoom.swift in Sources */,
+				FA0A4F9F2078B45100FF9517 /* UserCallInfoContainerView.swift in Sources */,
 				FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				FAFB7C80206E6B84004804D2 /* EventQueueFlowLayout.swift in Sources */,
 				FA3FAA0C2076046400CC4AF8 /* RequestAutographRootView.swift in Sources */,
+				FA0A4FA32078B6B700FF9517 /* HostVideoRootView.swift in Sources */,
 				FAB71CEC2077B13800C24246 /* EventSlotListener.swift in Sources */,
 				FAA001AB203ED472003C8A74 /* ExtendedController.swift in Sources */,
 				FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */,
@@ -1858,6 +1880,8 @@
 				FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */,
 				FAA001CF203EE2BC003C8A74 /* AppInfoConfig.swift in Sources */,
 				FA74B14E2063A05B00983141 /* SocketClient.swift in Sources */,
+				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
+				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
 				FAFB7C81206E6B84004804D2 /* EventQueueAdapter.swift in Sources */,
 				FA581945204165CA00D088F1 /* SigninController.swift in Sources */,
@@ -2116,7 +2140,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2130,8 +2154,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
+				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2146,7 +2170,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2160,8 +2184,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
+				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

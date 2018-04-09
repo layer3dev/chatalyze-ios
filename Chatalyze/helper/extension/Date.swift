@@ -17,9 +17,30 @@ public extension Date {
         return DateParser.dateToString(self, requiredFormat : defaultFormat)
     }
     
+    func countdownTimeFromNowAppended()->(isActive : Bool, time : String)?{
+        guard let time = countdownTimeFromNow()
+            else{
+                return (false, "00")
+        }
+        if(!time.isActive){
+            return (false, "00")
+        }
+        
+        var formatted = ""
+        
+        if(time.hours != "00"){
+            formatted = time.hours + " : "
+        }
+        
+        formatted = formatted + "\(time.minutes) : \(time.seconds)"
+        
+        return (true, formatted)
+    }
+    
     func countdownTimeFromNow()->(isActive : Bool, hours : String, minutes : String, seconds : String)?{
         
         let totalSeconds = Int(self.timeIntervalSinceNow)
+        
         if(totalSeconds < 0){
             return (false, "00", "00", "00")
         }

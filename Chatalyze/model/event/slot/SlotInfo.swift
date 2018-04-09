@@ -33,10 +33,13 @@ class SlotInfo: NSObject {
 
     var href : String?
     
+    var json : JSON?
+    
     
     
     init(info : JSON?){
         super.init()
+        self.json = info
         fillInfo(info: info)
     }
     
@@ -198,6 +201,15 @@ class SlotInfo: NSObject {
     
     
     
+    
+    
+}
+
+extension SlotInfo : NSCopying{
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = SlotInfo(info: self.json)
+        return copy
+    }
 }
 
 

@@ -118,6 +118,8 @@ class RootControllerManager{
     
     func signOut(completion : (()->())?){
         SignedUserInfo.sharedInstance?.clear()
+        UserSocket.sharedInstance?.disconnect()
+        SocketClient.sharedInstance?.disconnect()
         RootControllerManager().updateRoot()
     }
     

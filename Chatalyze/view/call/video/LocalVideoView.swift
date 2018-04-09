@@ -26,15 +26,14 @@ class LocalVideoView: VideoView {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-        
         initialization()
-        
     }
     
+    
     private func initialization(){
-        
-       
+        self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
     }
+    
     
     func makeSmall(){
         layoutIfNeeded()
@@ -42,8 +41,8 @@ class LocalVideoView: VideoView {
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
-        
     }
+    
     
     func makeLarge(){
         layoutIfNeeded()

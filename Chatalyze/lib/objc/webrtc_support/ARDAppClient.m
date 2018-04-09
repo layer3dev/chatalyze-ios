@@ -820,6 +820,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     return videoTrack;
 }
 
+
 - (NSString *)cameraDevice{
     //:(NBMCameraPosition)cameraPosition
     
@@ -832,7 +833,6 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
         }
     }
     NSAssert(cameraID, @"Unable to get the front camera id");
-    
     
     return cameraID;
 }

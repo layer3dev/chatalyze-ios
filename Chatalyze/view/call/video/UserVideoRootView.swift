@@ -14,6 +14,7 @@ class UserVideoRootView: VideoRootView {
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     
     @IBOutlet var canvasHeightConstraint : NSLayoutConstraint?
+    @IBOutlet var callInfoContainer : UserCallInfoContainerView?
 
     /*
     // Only override draw() if you perform custom drawing.
