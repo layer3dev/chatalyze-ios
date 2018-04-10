@@ -13,7 +13,7 @@ import SwiftyJSON
 class HostHomeController: HomeController {
     
     private var eventInfo : EventInfo?
-    private let eventSlotListener = EventSlotListener()
+    private let eventListener = EventListener()
     
     
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class HostHomeController: HomeController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
-        eventSlotListener.setListener(listener: nil)
+        eventListener.setListener(listener: nil)
     }
     
     @IBAction private func callAction(){
@@ -71,7 +71,7 @@ class HostHomeController: HomeController {
             
             self.eventInfo = eventInfo
             self.rootView?.queueContainerView?.udpateView(callInfo: eventInfo)
-            self.eventSlotListener.eventId = String(eventInfo?.id ?? 0)
+//            self.eventSlotListener.eventId = String(eventInfo?.id ?? 0)
         }
     }
     
@@ -99,7 +99,8 @@ class HostHomeController: HomeController {
     override func initializeListener(){
         super.initializeListener()
     
-        eventSlotListener.setListener {
+        
+        eventListener.setListener {
             self.fetchInfo(showLoader: false)
         }
         

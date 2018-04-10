@@ -403,7 +403,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     
     RTCMediaConstraints *constraints = [self defaultPeerConnectionConstraints];
     RTCConfiguration *config = [[RTCConfiguration alloc] init];
-    _iceServers = [NSMutableArray arrayWithObject:[self defaultSTUNServer]];
+    _iceServers = [[self defaultSTUNServer] mutableCopy];
     config.iceServers = _iceServers;
     _peerConnection = [_factory peerConnectionWithConfiguration:config
                                                     constraints:constraints
@@ -582,15 +582,17 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 }
 
 
-- (RTCIceServer *)defaultSTUNServer {
+- (NSArray<RTCIceServer *> *)defaultSTUNServer {
     
-    return [[RTCIceServer alloc] initWithURLStrings:@[@"stun:stun.l.google.com:19302",
+    return TurnServerInfo.sharedInstance.infos;
+    
+    /*return [[RTCIceServer alloc] initWithURLStrings:@[@"stun:stun.l.google.com:19302",
                                                       @"stun:stun1.l.google.com:19302",
                                                       @"stun:stun2.l.google.com:19302",
                                                       @"stun:stun3.l.google.com:19302",
                                                       @"stun:stun4.l.google.com:19302"]
                                            username:@""
-                                         credential:@""];
+                                         credential:@""];*/
 }
 
 

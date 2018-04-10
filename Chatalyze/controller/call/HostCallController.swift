@@ -14,10 +14,19 @@ class HostCallController: VideoCallController {
     var peerInfos : [PeerInfo] = [PeerInfo]()
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialization()
+    }
+    
+    
+    //public - Need to be access by child
+    override var peerConnection : ARDAppClient?{
+        get{
+            return getActiveConnection()?.connection
+        }
     }
     
     
@@ -45,9 +54,6 @@ class HostCallController: VideoCallController {
         })
         
         
-        //{"id":"startReceivingVideo","data":{"sender":"chedddiicdaibdia"}}
-        
-        
     }
     
     private func processUpdatePeerList(json : JSON?){
@@ -73,6 +79,21 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
     }
     
+    
+    private func getActiveConnection()->HostCallConnection?{
+        
+        guard let slot = eventInfo?.currentSlotFromMerge
+            else{
+                return nil
+        }
+        
+        guard let connection = getWriteConnection(slotInfo: slot)
+            else{
+                return nil
+        }
+        
+        return connection
+    }
     
     
     private func confirmCallLinked(){
@@ -172,7 +193,6 @@ class HostCallController: VideoCallController {
     
     private func processEvent(){
     
-        
         if(!(socketClient?.isConnected ?? false)){
             Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
             return
@@ -199,7 +219,8 @@ class HostCallController: VideoCallController {
     }
     
     private func disconnectStaleConnection(){
-        for (_, connection) in connectionInfo {
+        for (key, connection) in connectionInfo {
+            
             guard let slotInfo = connection.slotInfo
                 else{
                     return
@@ -207,6 +228,7 @@ class HostCallController: VideoCallController {
             
             if(slotInfo.isExpired){
                 connection.disconnect()
+                connectionInfo[key] = nil
             }
         }
     }
@@ -314,6 +336,9 @@ class HostCallController: VideoCallController {
         if(connection == nil){
             connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
         }
+        connection?.setDisposeListener(disposeListener: { [weak self] in
+            self?.connectionInfo[targetHashedId] = nil
+        })
         connectionInfo[targetHashedId] = connection
         connection?.slotInfo = slotInfo
         return connection
@@ -326,7 +351,7 @@ class HostCallController: VideoCallController {
     override func hangup(){
         super.hangup()
         
-        for (_, connection) in connectionInfo {
+        for (key, connection) in connectionInfo {
             connection.disconnect()
         }
     }

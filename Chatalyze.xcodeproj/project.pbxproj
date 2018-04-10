@@ -60,6 +60,7 @@
 		FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */; };
 		FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA416810207237C000789E22 /* EventSlotNumberLabel.swift */; };
 		FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA41AC62207BA53C002A7525 /* EventListener.swift */; };
+		FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */; };
 		FA58193E2041647900D088F1 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193A2041647800D088F1 /* FacebookCore.framework */; };
 		FA58193F2041647900D088F1 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193B2041647900D088F1 /* FacebookLogin.framework */; };
 		FA5819402041647900D088F1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193C2041647900D088F1 /* FBSDKCoreKit.framework */; };
@@ -290,6 +291,7 @@
 		FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RTCMediaStream+Helper.m"; sourceTree = "<group>"; };
 		FA416810207237C000789E22 /* EventSlotNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotNumberLabel.swift; sourceTree = "<group>"; };
 		FA41AC62207BA53C002A7525 /* EventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListener.swift; sourceTree = "<group>"; };
+		FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnServerInfo.swift; sourceTree = "<group>"; };
 		FA58193A2041647800D088F1 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
 		FA58193B2041647900D088F1 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
 		FA58193C2041647900D088F1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Carthage/Build/iOS/FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -656,6 +658,7 @@
 		FA3CC1382046BFFF007438A3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				FA573C0E207CBE77006447A1 /* call */,
 				FAB71CE62077A57F00C24246 /* notificationInfo */,
 				FAD2017920760AD00004E10E /* user */,
 				FA3FAA042075F5C300CC4AF8 /* autograph */,
@@ -756,6 +759,14 @@
 				FAB71CEF2077C0DE00C24246 /* EventCountDownLabel.swift */,
 			);
 			path = roomText;
+			sourceTree = "<group>";
+		};
+		FA573C0E207CBE77006447A1 /* call */ = {
+			isa = PBXGroup;
+			children = (
+				FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */,
+			);
+			path = call;
 			sourceTree = "<group>";
 		};
 		FA65F540206A589E006CE665 /* call */ = {
@@ -1886,6 +1897,7 @@
 				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
 				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
+				FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */,
 				FAFB7C81206E6B84004804D2 /* EventQueueAdapter.swift in Sources */,
 				FA581945204165CA00D088F1 /* SigninController.swift in Sources */,
 				FAA0019D203ED472003C8A74 /* Array.swift in Sources */,

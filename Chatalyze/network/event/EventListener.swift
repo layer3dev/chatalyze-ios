@@ -62,23 +62,7 @@ class EventListener{
                 return
         }
         
-        if(activityType != .slotBooked){
-            return
-        }
-        
-        guard let eventId = self.eventId
-            else{
-                return
-        }
-        
-        guard let receivedEventId = metaInfo.callScheduleId
-            else{
-                return
-        }
-        
-        let receivedEventIdString = String(receivedEventId)
-        
-        if(receivedEventIdString != eventId){
+        if(activityType != .eventCreated){
             return
         }
         

@@ -66,7 +66,7 @@ class UserHomeController: HomeController {
         super.initializeListener()
         
         UserSocket.sharedInstance?.socket?.on("call_booked_success", callback: { (data, ack) in
-            self.fetchInfo(showLoader: true)
+            self.fetchInfo(showLoader: false)
         })
 
     

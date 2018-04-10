@@ -147,11 +147,20 @@ extension SocketClient{
         
         self.onEvent("registerResponse") {data in
             Log.echo(key: "socket_client", text:"socket connected in registerResponse")
+            
+            let json = data?.rawString() ?? ""
+            Log.echo(key: "registerResponse", text:json)
+            
+            let turnServerInfos = data?["servers"].arrayValue ?? [JSON]()
+            TurnServerInfo.sharedInstance.fillInfos(infos: turnServerInfos)
+            
             DispatchQueue.main.async {
                 self.isRegistered = true
                 //self.testCall()
                 self.updateAllForConnectionActive()
             }
+            
+            
         }
         
         
@@ -176,6 +185,7 @@ extension SocketClient{
             else{
                 return
         }
+        
         var param = [String : Any]()
         param["room"] = self.roomId
         param["name"] = userInfo.hashedId

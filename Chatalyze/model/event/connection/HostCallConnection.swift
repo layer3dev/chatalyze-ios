@@ -11,11 +11,18 @@ import UIKit
 class HostCallConnection: CallConnection {
     var isInitiated = false
     
+    private var disposeListener : (()->())?
+    
     
     override func callFailed(){
         super.callFailed()
         
         isInitiated = false
+        self.disposeListener?()
+    }
+    
+    func setDisposeListener(disposeListener : (()->())?){
+        self.disposeListener = disposeListener
     }
     
     override var targetHashId : String?{
