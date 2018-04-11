@@ -34,7 +34,24 @@ class UserCallController: VideoCallController {
     }
     
     @IBAction private func requestAutograph(){
+        resetPreviousAutograph()
         presentAutographAction()
+    }
+    
+    private func resetPreviousAutograph(){
+        guard let slot = myActiveUserSlot
+            else{
+                return
+        }
+        
+        if(!slot.isScreenshotSaved){
+            self.screenshotInfo = nil
+        }
+        
+        if(!slot.isAutographRequested){
+             self.canvasInfo = nil
+        }
+       
     }
     
     
@@ -80,6 +97,8 @@ class UserCallController: VideoCallController {
     
     override func processHangupAction(){
         super.processHangupAction()
+        
+        connection?.disconnect()
     }
     
 
@@ -150,6 +169,14 @@ class UserCallController: VideoCallController {
         startCallRing()
     }
     
+    var myActiveUserSlot : SlotInfo?{
+        guard let slotInfo = eventInfo?.myCurrentSlotInfo?.slotInfo
+            else{
+                return nil
+        }
+        return slotInfo
+    }
+    
     var myCurrentUserSlot : SlotInfo?{
         guard let slotInfo = eventInfo?.myValidSlot.slotInfo
             else{
@@ -170,7 +197,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        guard let currentSlot = myCurrentUserSlot
+        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
             else{
                 return
         }
@@ -182,8 +209,6 @@ class UserCallController: VideoCallController {
         
         updateCallHeaderForLiveCall(slot: currentSlot)
     
-        
-        
     }
     
     
@@ -233,6 +258,8 @@ class UserCallController: VideoCallController {
             return
         }
         
+        
+        
         self.processHangupAction()
         
     }
@@ -257,6 +284,35 @@ class UserCallController: VideoCallController {
     
     override func verifyEventActivated(){
         
+    }
+    
+    override func verifyScreenshotRequested(){
+        guard let activeSlot = myActiveUserSlot
+            else{
+                return
+        }
+        
+        guard let slotId = activeSlot.id
+            else{
+                return
+        }
+        
+        ScreenshotInfoFetch().fetchInfo(slotId: slotId) {[weak self] (success, infos)  in
+            self?.verifySlot(slotInfo: activeSlot, screenshotInfos: infos)
+        }
+        
+    }
+    
+    private func verifySlot(slotInfo : SlotInfo, screenshotInfos : [ScreenshotInfo]){
+        for screenshotInfo in screenshotInfos {
+            
+            if(screenshotInfo.requestedAutograph ?? false){
+                slotInfo.isAutographRequested = true
+            }
+            if(!(screenshotInfo.defaultImage ?? true)){
+                slotInfo.isScreenshotSaved = true
+            }
+        }
     }
     
 }
@@ -289,6 +345,10 @@ extension UserCallController{
 
 extension UserCallController{
     func presentAutographAction(){
+        guard let activeEvent = self.myActiveUserSlot
+            else{
+                return
+        }
         
         let alertController = UIAlertController(title: "Autograph" , message: "What would you like to do ?", preferredStyle: .actionSheet)
         
@@ -298,15 +358,21 @@ extension UserCallController{
             self?.takeScreenshot()
             return
         }
+        if(activeEvent.isScreenshotSaved){
+            takeScreenshot.isEnabled = false
+        }
         
         let requestAutograph = UIAlertAction(title: "Request Autograph", style: .default) {  [weak self] (action) in
             self?.requestAutographProcess()
             return
         }
         
+        if(activeEvent.isAutographRequested){
+            requestAutograph.isEnabled = false
+        }
+        
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            
             return
         }
         
@@ -363,6 +429,7 @@ extension UserCallController{
     }
     
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
+        
         if(!isDefault){
             self.serviceRequestAutograph(info : info)
             return
@@ -409,6 +476,8 @@ extension UserCallController{
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         //self.showLoader()
+        
+        myActiveUserSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
@@ -426,7 +495,7 @@ extension UserCallController{
         }
         controller.image = image
         controller.onResult { [weak self] (image) in
-            
+            self?.myActiveUserSlot?.isScreenshotSaved = true
             self?.uploadImage(image: image, completion: { (success, info) in
                 self?.screenshotInfo = info
             })
@@ -453,8 +522,8 @@ extension UserCallController{
         
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
-        params["callbookingId"] = eventInfo?.id ?? 0
-        params["callScheduleId"] = myCurrentUserSlot?.id ?? 0
+        params["callbookingId"] = myCurrentUserSlot?.id ?? 0
+        params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = false
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         params["file"] = imageBase64
@@ -480,17 +549,15 @@ extension UserCallController{
             self.prepateCanvas(info : self.canvasInfo)
         })
         
-        
         socketClient?.onEvent("stoppedSigning", completion: { (json) in
-            self.userRootView?.hideCanvas()
+            self.userRootView?.canvas?.image = nil
+            self.userRootView?.canvasContainer?.hide()
         })
-        
-        
+    
     }
     
     private func prepateCanvas(info : CanvasInfo?){
-        
-        userRootView?.showCanvas()
+         userRootView?.canvasContainer?.show()
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
          CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in

@@ -18,7 +18,7 @@ class HostCallConnection: CallConnection {
         super.callFailed()
         
         isInitiated = false
-        self.disposeListener?()
+//        self.disposeListener?()
     }
     
     func setDisposeListener(disposeListener : (()->())?){

@@ -156,7 +156,6 @@ static RTCMediaStream *localStream;
 }
 
 - (void)disconnect {
-  
  
   if (_channel) {
     if (_channel.state == kARDSignalingChannelStateRegistered) {

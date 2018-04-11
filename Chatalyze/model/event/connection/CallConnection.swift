@@ -83,7 +83,7 @@ class CallConnection: NSObject {
     }
     
     func callFailed(){
-        self.connection?.disconnect()
+//        self.connection?.disconnect()
     }
     
     func disconnect(){

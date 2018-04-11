@@ -63,6 +63,35 @@ class HostEventQueueController: EventQueueController {
             })
         }
     }
+    
+    override func verifyEventActivated(){
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        if(eventInfo.started != nil){
+            return
+        }
+        guard let eventId = eventInfo.id
+            else{
+                return
+        }
+        
+        let eventIdString = "\(eventId)"
+        ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+            if(!success){
+                return
+            }
+            
+            guard let info = eventInfo
+                else{
+                    return
+            }
+            
+            self.eventInfo = info
+        }
+    }
 
 
 }

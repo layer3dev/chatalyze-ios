@@ -36,14 +36,38 @@ class EventScheduleInfo: EventInfo {
         var localSlotInfos = [SlotInfo]()
         for bookingInfo in bookingInfos {
             let slotInfo = SlotInfo(info: bookingInfo)
+            if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
+                slotInfo.updateFlags(info: oldSlotInfo)
+            }
+            
             localSlotInfos.append(slotInfo)
+            
         }
         
         localSlotInfos = sortSlots(slotInfos: localSlotInfos)
         
+        
         self.slotInfos = localSlotInfos
         self.updateMergeSlots()
         
+    }
+    
+    private func fetchSlotInfo(id : Int)->SlotInfo?{
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        for slotInfo in slotInfos {
+            guard let slotId = slotInfo.id
+            else{
+                continue
+            }
+            if(slotId == id){
+                return slotInfo
+            }
+        }
+        return nil
     }
     
     private func updateMergeSlots(){
@@ -192,6 +216,20 @@ class EventScheduleInfo: EventInfo {
                 return nil
         }
         
+        return getCurrentSlotInfo(slotInfos : slotInfos)
+    }
+    
+    
+    var currentSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        return getCurrentSlotInfo(slotInfos : slotInfos)
+    }
+    
+    private func getCurrentSlotInfo(slotInfos : [SlotInfo])->(index : Int, slotInfo : SlotInfo?)?{
         for index in 0..<slotInfos.count{
             let slotInfo = slotInfos[index]
             if(slotInfo.isLIVE){
@@ -203,20 +241,25 @@ class EventScheduleInfo: EventInfo {
         return nil
     }
     
-    
-    var currentSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
+    var myCurrentSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
         guard let slotInfos = self.slotInfos
             else{
                 return nil
         }
         
+        guard let selfId = SignedUserInfo.sharedInstance?.id
+            else{
+                return (0, nil)
+        }
+        
         for index in 0..<slotInfos.count{
             let slotInfo = slotInfos[index]
-            if(slotInfo.isLIVE){
+            let slotUserId = slotInfo.user?.id ?? "0"
+            if(slotInfo.isLIVE && selfId == slotUserId){
                 return (index,slotInfo)
             }
         }
-    
+        
         
         return nil
     }
@@ -229,8 +272,15 @@ class EventScheduleInfo: EventInfo {
         }
         
         return info.slotInfo
-   
+        
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     var currentSlotFromMerge : SlotInfo?{
@@ -309,6 +359,16 @@ class EventScheduleInfo: EventInfo {
         return nil
     }
     
+    var myValidSlotMerged : (slotNumber : Int, slotInfo : SlotInfo?){
+        guard let slotInfos = self.mergeSlotInfos
+            else{
+                Log.echo(key: "myValidSlot", text: "slotinfos is nil")
+                return (0, nil)
+        }
+        
+        return getMyValidSlot(slotInfos: slotInfos)
+    }
+    
     var myValidSlot : (slotNumber : Int, slotInfo : SlotInfo?){
         guard let slotInfos = self.slotInfos
             else{
@@ -316,6 +376,10 @@ class EventScheduleInfo: EventInfo {
                 return (0, nil)
         }
         
+        return getMyValidSlot(slotInfos: slotInfos)
+    }
+    
+    private func getMyValidSlot(slotInfos : [SlotInfo])->(slotNumber : Int, slotInfo : SlotInfo?){
         if(slotInfos.count <= 0){
             Log.echo(key: "myValidSlot", text: "slotinfos count is 0")
             return (0, nil)

@@ -9,9 +9,8 @@
 import UIKit
 import SwiftyJSON
 
-
 /* Doesn't include ParentEvent Information*/
-class SlotInfo: NSObject {
+class SlotInfo: SlotFlagInfo {
     var id : Int?
     var _start : String?
     var startDate : Date?
@@ -30,6 +29,8 @@ class SlotInfo: NSObject {
     var updatedAt : String?
     var deletedAt : String?
     var user : UserInfo?
+    
+
 
     var href : String?
     

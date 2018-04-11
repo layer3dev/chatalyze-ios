@@ -351,7 +351,7 @@ class HostCallController: VideoCallController {
     override func hangup(){
         super.hangup()
         
-        for (key, connection) in connectionInfo {
+        for (_, connection) in connectionInfo {
             connection.disconnect()
         }
     }

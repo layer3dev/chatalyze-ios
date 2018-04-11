@@ -125,6 +125,10 @@ class EventQueueController: InterfaceExtendedController {
         super.viewDidLayout()
     }
     
+    
+    func verifyEventActivated(){
+        
+    }
 
 }
 
@@ -172,10 +176,12 @@ extension EventQueueController{
             
             let roomId = localEventInfo.id ?? 0
             Log.echo(key : "service", text : "eventId - > \(roomId)")
-            
+            self?.verifyEventActivated()
             completion?(true)
             return
             
         }
     }
+    
+    
 }

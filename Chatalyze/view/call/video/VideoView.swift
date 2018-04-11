@@ -10,6 +10,12 @@ import UIKit
 
 class VideoView: RTCEAGLVideoView {
     
+    enum orientation : Int{
+        case undefined = 0
+        case portrait = 1
+        case landscape = 2
+    }
+    
     private var isLoaded = false;
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -24,6 +30,7 @@ class VideoView: RTCEAGLVideoView {
     
     private func initialization(){
          //self.delegate = self
+        
     }
 }
 

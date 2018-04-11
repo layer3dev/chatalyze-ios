@@ -282,6 +282,9 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
+    func verifyScreenshotRequested(){
+        
+    }
     
     
     
@@ -341,6 +344,7 @@ extension VideoCallController{
             self?.eventInfo = localEventInfo
             
             self?.verifyEventActivated()
+            self?.verifyScreenshotRequested()
             
             let roomId = localEventInfo.id ?? 0
             Log.echo(key : "service", text : "eventId - > \(roomId)")
