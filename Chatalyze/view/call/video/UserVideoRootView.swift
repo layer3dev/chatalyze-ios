@@ -57,11 +57,10 @@ class UserVideoRootView: UserVideoLayoutView {
     private func mergeImage(remote : UIImage, local : UIImage)->UIImage?{
         let size = remote.size
         let localSize = CGSize(width: size.width/4, height: size.height/4)
-        let targetSize = getTargetSize(remote: remote, local: local)
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         remote.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        local.draw(in: CGRect(x: (size.width - targetSize.width), y: (size.height - targetSize.height), width: targetSize.width, height: targetSize.height))
+        local.draw(in: CGRect(x: (size.width - localSize.width), y: (size.height - localSize.height), width: localSize.width, height: localSize.height))
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

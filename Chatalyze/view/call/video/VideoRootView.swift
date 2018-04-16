@@ -1,5 +1,3 @@
-
-
 //
 //  VideoRootView.swift
 //  Rumpur

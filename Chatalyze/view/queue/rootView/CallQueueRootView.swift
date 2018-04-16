@@ -12,6 +12,7 @@ class CallQueueRootView: ExtendedView {
     
     
     @IBOutlet var countdownLabel : EventCountDownLabel?
+    private let eventSlotListener = EventSlotListener()
     
     
     var eventInfo : EventScheduleInfo?
