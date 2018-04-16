@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class VideoView: RTCEAGLVideoView {
     
     enum orientation : Int{
@@ -26,17 +27,22 @@ class VideoView: RTCEAGLVideoView {
     }
     
     func viewDidLayout(){
+        initialization()
     }
     
     private func initialization(){
-         //self.delegate = self
+         self.delegate = self
+        
+    }
+    
+    func updateSize(size: CGSize){
         
     }
 }
 
 extension VideoView : RTCEAGLVideoViewDelegate{
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
-        
+        self.updateSize(size: size)
     }
     
 

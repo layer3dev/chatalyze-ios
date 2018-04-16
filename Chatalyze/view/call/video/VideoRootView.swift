@@ -76,13 +76,11 @@ class VideoRootView: ExtendedView {
     
     func switchToCallRequest(){
         callOverlayView?.isHidden = false
-        localVideoView?.makeLarge()
         actionContainer?.isHidden = true
     }
     
     func switchToCallAccept(){
         callOverlayView?.isHidden = true
-        localVideoView?.makeSmall()
         actionContainer?.isHidden = false
     }
     

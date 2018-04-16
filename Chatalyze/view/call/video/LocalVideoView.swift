@@ -9,13 +9,12 @@
 
 import UIKit
 
+//AVMakeRectWithAspectRatioInsideRect
 class LocalVideoView: VideoView {
     
-    @IBOutlet private var leftConstraint : NSLayoutConstraint?
-    @IBOutlet private var rightConstraint : NSLayoutConstraint?
-    @IBOutlet private var topConstraint : NSLayoutConstraint?
+    @IBOutlet private var widthConstraint : NSLayoutConstraint?
+    @IBOutlet private var heightConstraint : NSLayoutConstraint?
     
-
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -34,57 +33,30 @@ class LocalVideoView: VideoView {
         self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
     }
     
+    override func updateSize(size: CGSize){
+        let screenSize = UIScreen.main.bounds
+        let containerSize = CGSize(width: screenSize.width/4, height: screenSize.height/4)
+        
+        let aspectSize = AVMakeRect(aspectRatio: size, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        
+        updateViewSize(size : aspectSize.size)
+    }
     
-    func makeSmall(){
-        layoutIfNeeded()
-        updateSizeConstraints(priority : 1.0)
-        UIView.animate(withDuration: 1.0) {
+    private func updateViewSize(size: CGSize){
+        self.layoutIfNeeded()
+        self.widthConstraint?.constant = size.width
+        self.heightConstraint?.constant = size.height
+        
+        UIView.animate(withDuration: 1.0, animations: {
             self.layoutIfNeeded()
+        }) { (success) in
+            
         }
     }
+   
     
+   
     
-    func makeLarge(){
-        layoutIfNeeded()
-        updateSizeConstraints(priority : 999.0)
-        UIView.animate(withDuration: 1.0) {
-            self.layoutIfNeeded()
-        }
-    }
-    
-    private func updateSizeConstraints(priority : Float) {
-        leftConstraint?.priority = UILayoutPriority(rawValue : priority)
-        rightConstraint?.priority = UILayoutPriority(rawValue : priority)
-        topConstraint?.priority = UILayoutPriority(rawValue : priority)
-    }
-    
-    
-    private func paintInterface(){
-        self.clipsToBounds = true
-        
-        let maskLayer = CAShapeLayer()
-        let frame = self.bounds
-        
-        let cornerRadius = CGFloat(5.0)
-        maskLayer.path = UIBezierPath.init(roundedRect: frame, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-        maskLayer.frame = frame
-        
-        self.layer.mask = maskLayer
-    }
-    
-    /*
-     -(void)paintLocalView{
-     
-     [self.localView setClipsToBounds:true];
-     //    [[self layer] setCornerRadius:[self frame].size.height/2];
-     
-     CAShapeLayer * maskLayer = [CAShapeLayer layer];
-     CGRect frame = self.localView.bounds;
-     float cornerRadius = 5.0;
-     maskLayer.path = [UIBezierPath bezierPathWithRoundedRect:frame  byRoundingCorners: UIRectCornerAllCorners cornerRadii: CGSizeMake(cornerRadius, cornerRadius)].CGPath;
-     maskLayer.frame = self.localView.bounds;
-     self.localView.layer.mask = maskLayer;
-     }
-     */
+   
     
 }
