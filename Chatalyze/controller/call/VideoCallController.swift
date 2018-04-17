@@ -18,7 +18,7 @@ class VideoCallController : InterfaceExtendedController {
     private let eventSlotListener = EventSlotListener()
     
     //used for tracking the call time and auto-connect process
-    var timer : EventTimer = EventTimer()
+    var timer : SyncTimer = SyncTimer()
     
     fileprivate var audioManager : AudioManager?
 
@@ -248,7 +248,7 @@ class VideoCallController : InterfaceExtendedController {
             self?.interval()
         }
         
-        timer.startTimer(withInterval: 1.0)
+        timer.startTimer()
     }
     
     func interval(){

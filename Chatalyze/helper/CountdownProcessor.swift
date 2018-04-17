@@ -12,7 +12,8 @@ class CountdownProcessor{
     
     var timer : EventTimer = EventTimer()
     private static var instance : CountdownProcessor?
-//    var timerSync = TimerSync.sharedInstance
+    private var timerSync : TimerSync?
+    private var lastRefresh = Date()
     
   
     fileprivate var callbackList : [()->()] = [()->()]()
@@ -24,9 +25,10 @@ class CountdownProcessor{
         }
         
         let newInstance = CountdownProcessor()
-        newInstance.initializeTimer()
         instance = newInstance
         
+        newInstance.initializeTimer()
+    
         return newInstance
         
     }
@@ -36,8 +38,21 @@ class CountdownProcessor{
     }
     
     private func initializeTimer(){
+        timerSync = TimerSync.sharedInstance
         timer.startTimer(withInterval: 0.1)
         timer.ping { [weak self] in
+            guard let weakSelf = self
+                else{
+                    return
+            }
+            guard let timerSync = weakSelf.timerSync
+                else{
+                    return
+            }
+            let diff = timerSync.getDate().timeIntervalSince(weakSelf.lastRefresh)
+            if(diff <= 0){
+                return
+            }
             
             self?.refresh()
         }

@@ -79,6 +79,7 @@
 		FA72A0B22085F7CF00C3C7AE /* TimerSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72A0B12085F7CF00C3C7AE /* TimerSync.swift */; };
 		FA72A0B5208602F700C3C7AE /* TimeSyncInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72A0B4208602F700C3C7AE /* TimeSyncInfo.swift */; };
 		FA72A0B72086085000C3C7AE /* DateStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72A0B62086085000C3C7AE /* DateStamp.swift */; };
+		FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA72A0B820862ABC00C3C7AE /* SyncTimer.swift */; };
 		FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0F020639A2C00983141 /* ViewControllerT.m */; };
 		FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0F820639B6300983141 /* ARDAppClient.m */; };
 		FA74B12C20639B6400983141 /* ARDAppEngineClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B0FA20639B6300983141 /* ARDAppEngineClient.m */; };
@@ -318,6 +319,7 @@
 		FA72A0B12085F7CF00C3C7AE /* TimerSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSync.swift; sourceTree = "<group>"; };
 		FA72A0B4208602F700C3C7AE /* TimeSyncInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSyncInfo.swift; sourceTree = "<group>"; };
 		FA72A0B62086085000C3C7AE /* DateStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateStamp.swift; sourceTree = "<group>"; };
+		FA72A0B820862ABC00C3C7AE /* SyncTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTimer.swift; sourceTree = "<group>"; };
 		FA74B0EF20639A2C00983141 /* ViewControllerT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerT.h; sourceTree = "<group>"; };
 		FA74B0F020639A2C00983141 /* ViewControllerT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerT.m; sourceTree = "<group>"; };
 		FA74B0F420639A6600983141 /* Chatalyze-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chatalyze-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1141,6 +1143,7 @@
 				FAA0018A203ED471003C8A74 /* templateManager */,
 				FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */,
 				FA72A0B12085F7CF00C3C7AE /* TimerSync.swift */,
+				FA72A0B820862ABC00C3C7AE /* SyncTimer.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -1970,6 +1973,7 @@
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
+				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAB71CEA2077A57F00C24246 /* NotificationMetaInfo.swift in Sources */,
 				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
@@ -2192,7 +2196,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2206,8 +2210,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
+				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2222,7 +2226,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2236,8 +2240,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
+				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

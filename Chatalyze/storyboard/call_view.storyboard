@@ -348,9 +348,17 @@
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8L-eB-LKB" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="544.66666666666663" y="306.33333333333331" width="191.33333333333337" height="107.66666666666669"/>
+                                <rect key="frame" x="656" y="294" width="80" height="120"/>
                                 <color key="backgroundColor" red="0.15056313569999999" green="0.15055863559999999" blue="0.15056121350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="No7-uJ-qpo"/>
+                                    <constraint firstAttribute="height" constant="120" id="mPa-f0-j4Q"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="heightConstraint" destination="mPa-f0-j4Q" id="4Ev-dB-YlZ"/>
+                                    <outlet property="widthConstraint" destination="No7-uJ-qpo" id="jpB-hB-FcL"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Go0-RF-bnS" userLabel="option_container" customClass="VideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="8" y="139" width="40" height="136"/>
@@ -550,20 +558,16 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="W8L-eB-LKB" firstAttribute="height" secondItem="V9R-21-5JQ" secondAttribute="height" multiplier="0.26" id="0Gu-oQ-sDI"/>
                             <constraint firstItem="43M-1x-4vh" firstAttribute="top" secondItem="VDu-Qq-V94" secondAttribute="bottom" id="4hE-fd-J3t"/>
                             <constraint firstItem="VDu-Qq-V94" firstAttribute="top" secondItem="V9R-21-5JQ" secondAttribute="top" id="985-Qc-fxO"/>
-                            <constraint firstItem="W8L-eB-LKB" firstAttribute="width" secondItem="V9R-21-5JQ" secondAttribute="width" multiplier="0.26" id="AFK-hF-2VM"/>
                             <constraint firstItem="Go0-RF-bnS" firstAttribute="centerY" secondItem="V9R-21-5JQ" secondAttribute="centerY" id="COd-4x-jJ4"/>
                             <constraint firstAttribute="trailing" secondItem="W8L-eB-LKB" secondAttribute="trailing" id="F1v-ld-j0r"/>
                             <constraint firstItem="VDu-Qq-V94" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" id="KJf-1N-Oyf"/>
                             <constraint firstItem="Go0-RF-bnS" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" constant="8" id="MUm-Ba-NbQ" userLabel="container_leading"/>
                             <constraint firstItem="43M-1x-4vh" firstAttribute="top" secondItem="lG8-qq-gzL" secondAttribute="bottom" id="NzW-cP-FIU"/>
                             <constraint firstAttribute="trailing" secondItem="43M-1x-4vh" secondAttribute="trailing" id="REb-Xs-kdN"/>
-                            <constraint firstItem="W8L-eB-LKB" firstAttribute="width" secondItem="V9R-21-5JQ" secondAttribute="width" multiplier="0.18" id="ZrZ-rS-h3W"/>
                             <constraint firstItem="LNz-ky-YSt" firstAttribute="top" secondItem="W8L-eB-LKB" secondAttribute="bottom" id="e67-UJ-ke9"/>
                             <constraint firstAttribute="trailing" secondItem="VDu-Qq-V94" secondAttribute="trailing" id="ltD-81-utN"/>
-                            <constraint firstItem="W8L-eB-LKB" firstAttribute="height" secondItem="V9R-21-5JQ" secondAttribute="height" multiplier="0.14" id="qyM-r2-ESf"/>
                             <constraint firstItem="W8L-eB-LKB" firstAttribute="top" secondItem="VDu-Qq-V94" secondAttribute="bottom" id="taz-eO-fhX"/>
                             <constraint firstItem="43M-1x-4vh" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" id="txz-ee-P6p"/>
                             <constraint firstItem="LNz-ky-YSt" firstAttribute="top" secondItem="43M-1x-4vh" secondAttribute="bottom" id="u0s-Rg-8ZY"/>
@@ -572,8 +576,6 @@
                             <mask key="constraints">
                                 <exclude reference="NzW-cP-FIU"/>
                                 <exclude reference="e67-UJ-ke9"/>
-                                <exclude reference="ZrZ-rS-h3W"/>
-                                <exclude reference="qyM-r2-ESf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -582,14 +584,6 @@
                                 <include reference="NzW-cP-FIU"/>
                                 <include reference="e67-UJ-ke9"/>
                                 <exclude reference="taz-eO-fhX"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="0Gu-oQ-sDI"/>
-                                <exclude reference="AFK-hF-2VM"/>
-                                <include reference="ZrZ-rS-h3W"/>
-                                <include reference="qyM-r2-ESf"/>
                             </mask>
                         </variation>
                         <connections>

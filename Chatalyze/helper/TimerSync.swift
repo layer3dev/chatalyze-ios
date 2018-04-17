@@ -9,28 +9,40 @@
 import UIKit
 import SwiftyJSON
 
-class TimerSync: NSObject {
-    private var requestIdentifierCounter = 0;
+class TimerSync {
+    
     
     private var syncTime : Date?
     
     var timeDiff = 0;
-    var resyncTime = 60 * 1000;
+    var resyncTime = 60 * 1000
     var precision = 0
     var maxCountRequest = 3
     
     private var countRequest = 0; //current Request Count status
+    private var requestIdentifierCounter : Int = 0
     
     private var thresholdPrecisionAccuracy = 250; //minimum accuracy required from response
     
     private var requestTime = Date()
     private let countdown = CountdownProcessor.sharedInstance()
     private let socket = SocketClient.sharedInstance
-
-    static let sharedInstance = TimerSync()
     
-    override init() {
-        super.init()
+   static var sharedInstance : TimerSync{
+        get{
+            if let shared = _sharedInstance{
+                return shared
+            }
+            
+            let sharedNew = TimerSync()
+            _sharedInstance = sharedNew
+            return sharedNew
+        }
+    }
+    
+    private static var _sharedInstance : TimerSync?
+    
+    init() {
         
         initialization()
     }
@@ -117,6 +129,8 @@ class TimerSync: NSObject {
     
     private func getTime()->Int{
         let currentDate = Date()
+        return currentDate.millisecondsSince1970
+        
         if(timeDiff == 0){
             return currentDate.millisecondsSince1970
         }
@@ -130,6 +144,11 @@ class TimerSync: NSObject {
         let milliSeconds = self.getTime()
         let seconds = Int(milliSeconds/1000)
         return seconds
+    }
+    
+    func getDate()->Date{
+        let seconds = getSeconds()
+        return Date.init(seconds : seconds)
     }
    
     private func updateTimeDifference(info : TimeSyncInfo)->Bool{
