@@ -13,14 +13,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var allowRotate : Bool = false
+    
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         initialization()
+        test()
         return true
     }
     
+    fileprivate func test(){
+        TimerSync.sharedInstance
+    }
     
     fileprivate func initialization(){
         _ = NavigationBarCustomizer()

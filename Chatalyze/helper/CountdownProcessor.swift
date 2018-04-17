@@ -12,6 +12,8 @@ class CountdownProcessor{
     
     var timer : EventTimer = EventTimer()
     private static var instance : CountdownProcessor?
+//    var timerSync = TimerSync.sharedInstance
+    
   
     fileprivate var callbackList : [()->()] = [()->()]()
     
@@ -33,9 +35,10 @@ class CountdownProcessor{
         
     }
     
-    func initializeTimer(){
-        timer.startTimer(withInterval: 1.0)
+    private func initializeTimer(){
+        timer.startTimer(withInterval: 0.1)
         timer.ping { [weak self] in
+            
             self?.refresh()
         }
     }
@@ -48,7 +51,7 @@ class CountdownProcessor{
 
 
 extension CountdownProcessor{
-    func refresh() {
+    fileprivate func refresh() {
         for callback in callbackList {
             callback()
         }

@@ -55,7 +55,7 @@ class HomeController: InterfaceExtendedController {
     
     
     private func paintNavigationBar(){
-        paintNavigationTitle(text : "Home")
+        paintNavigationTitle(text : "Event")
         paintSettingButton()
     }
 

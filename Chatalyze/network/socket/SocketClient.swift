@@ -26,7 +26,7 @@ class SocketClient : NSObject{
 
     
     fileprivate var isRegistered = false
-    fileprivate var connectionFlag = true
+    fileprivate var connectionFlag = false
     
     override init(){
         super.init()
@@ -117,10 +117,19 @@ extension SocketClient{
 
     @objc func connect(roomId : String){
         
+        Log.echo(key: "SocketClient", text: "connect called")
+        
          self.connectionFlag = true
          self.roomId = roomId
         
+        
          socket?.connect()
+    }
+    
+    var isBridged : Bool{
+        get{
+            return socket?.isConnected ?? false
+        }
     }
     
     func initializeSocketConnection(){

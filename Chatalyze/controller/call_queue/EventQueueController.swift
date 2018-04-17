@@ -17,6 +17,7 @@ class EventQueueController: InterfaceExtendedController {
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     var timer : EventTimer = EventTimer()
+    private let eventSlotListener = EventSlotListener()
     
     
     
@@ -43,10 +44,16 @@ class EventQueueController: InterfaceExtendedController {
     private func intialization(){
         initializeVariable()
         paintInterface()
+        registerForEvent()
         registerForTimer()
         
+        loadInfoFromServer(showLoader : true)
         
-        fetchInfo { [weak self] (success) in
+        
+    }
+    
+    private func loadInfoFromServer(showLoader : Bool){
+        fetchInfo(showLoader: showLoader) { [weak self] (success) in
             if(!success){
                 return
             }
@@ -57,6 +64,7 @@ class EventQueueController: InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
         timer.pauseTimer()
+        eventSlotListener.setListener(listener: nil)
     }
     
     private func registerForTimer(){
@@ -64,6 +72,16 @@ class EventQueueController: InterfaceExtendedController {
         timer.ping { [weak self] in
             self?.refresh()
         }
+    }
+    
+    
+    private func registerForEvent(){
+        
+        eventSlotListener.setListener { [weak self] in
+            self?.loadInfoFromServer(showLoader : false)
+        }
+        
+        
     }
     
     func refresh(){
@@ -97,6 +115,9 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func initializeVariable(){
+        if let eventId = self.eventId{
+            eventSlotListener.eventId = eventId
+        }
         adapter = EventQueueAdapter()
         collectionView?.delegate = adapter
         collectionView?.dataSource = adapter
@@ -151,16 +172,21 @@ extension EventQueueController{
 //instance
 extension EventQueueController{
     
-    fileprivate func fetchInfo(completion : ((_ success : Bool)->())?){
+    fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
         guard let eventId = self.eventId
             else{
                 return
         }
         
-        self.showLoader()
+        if(showLoader){
+            self.showLoader()
+        }
+        
         CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
-            
-            self?.stopLoader()
+            if(showLoader){
+                 self?.stopLoader()
+            }
+           
             if(!success){
                 completion?(false)
                 return
@@ -185,3 +211,5 @@ extension EventQueueController{
     
     
 }
+
+

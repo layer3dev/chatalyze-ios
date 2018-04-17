@@ -14,6 +14,7 @@ class AppThemeConfig{
     static let defaultFont = "HelveticaNeue"
     static let themeColor = "#88898e"
     static let borderGrayColor = "#DBDBDB"
+    static let themeGray = "#DBDBDB"
     static let greenColor = "#7bc47f"
     
     static let userPlaceholderImage = "user_placeholder"
