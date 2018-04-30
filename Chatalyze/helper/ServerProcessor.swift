@@ -179,18 +179,9 @@ class ServerProcessor{
     
     fileprivate func signout(){
         
-        //RootControllerManager.signOutAction(completion: nil)
+        RootControllerManager().signOut(completion: nil)
         return
-        
-        /*guard let controller = RootControllerManager.getRootController()
-         else{
-         RootControllerManager.signOutAction(completion: nil)
-         return;
-         }
-         controller.alert(withTitle: "Session Timed out", message: "Your session has timed out. Please signin again to continue!", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
-         RootControllerManager.signOutAction(completion: nil)
-         return;
-         }*/
+    
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
         let headerInfo = httpResponse?.allHeaderFields

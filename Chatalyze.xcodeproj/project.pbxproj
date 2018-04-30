@@ -45,6 +45,8 @@
 		FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD5206FAA650064F94F /* CallQueueRootView.swift */; };
 		FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD7206FAA790064F94F /* UserCallQueueRootView.swift */; };
 		FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA24BAD9206FAA830064F94F /* HostCallQueueRootView.swift */; };
+		FA34EDA5208E16C90072D8F8 /* RTCSingletonFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA34EDA3208E16C90072D8F8 /* RTCSingletonFactory.m */; };
+		FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */ = {isa = PBXBuildFile; fileRef = FA34EDA7208E1ABE0072D8F8 /* RTCSingletonStream.m */; };
 		FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF0FA20442FEF0084B154 /* FieldManagingScrollView.swift */; };
 		FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF0FC204431810084B154 /* ExtendedScrollView.swift */; };
 		FA3AF1012044334F0084B154 /* FieldManagingScrollViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AF1002044334F0084B154 /* FieldManagingScrollViewInterface.swift */; };
@@ -282,6 +284,10 @@
 		FA24BAD5206FAA650064F94F /* CallQueueRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallQueueRootView.swift; sourceTree = "<group>"; };
 		FA24BAD7206FAA790064F94F /* UserCallQueueRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallQueueRootView.swift; sourceTree = "<group>"; };
 		FA24BAD9206FAA830064F94F /* HostCallQueueRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallQueueRootView.swift; sourceTree = "<group>"; };
+		FA34EDA2208E16C90072D8F8 /* RTCSingletonFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCSingletonFactory.h; sourceTree = "<group>"; };
+		FA34EDA3208E16C90072D8F8 /* RTCSingletonFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTCSingletonFactory.m; sourceTree = "<group>"; };
+		FA34EDA6208E1ABE0072D8F8 /* RTCSingletonStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStream.h; sourceTree = "<group>"; };
+		FA34EDA7208E1ABE0072D8F8 /* RTCSingletonStream.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTCSingletonStream.m; sourceTree = "<group>"; };
 		FA3AF0FA20442FEF0084B154 /* FieldManagingScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldManagingScrollView.swift; sourceTree = "<group>"; };
 		FA3AF0FC204431810084B154 /* ExtendedScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedScrollView.swift; sourceTree = "<group>"; };
 		FA3AF1002044334F0084B154 /* FieldManagingScrollViewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldManagingScrollViewInterface.swift; sourceTree = "<group>"; };
@@ -644,6 +650,33 @@
 			path = rootView;
 			sourceTree = "<group>";
 		};
+		FA34ED9D208E0F330072D8F8 /* singleton */ = {
+			isa = PBXGroup;
+			children = (
+				FA34EDA1208E16C90072D8F8 /* singletonFactory */,
+				FA34EDA4208E16C90072D8F8 /* singletonStream */,
+			);
+			path = singleton;
+			sourceTree = "<group>";
+		};
+		FA34EDA1208E16C90072D8F8 /* singletonFactory */ = {
+			isa = PBXGroup;
+			children = (
+				FA34EDA2208E16C90072D8F8 /* RTCSingletonFactory.h */,
+				FA34EDA3208E16C90072D8F8 /* RTCSingletonFactory.m */,
+			);
+			path = singletonFactory;
+			sourceTree = "<group>";
+		};
+		FA34EDA4208E16C90072D8F8 /* singletonStream */ = {
+			isa = PBXGroup;
+			children = (
+				FA34EDA6208E1ABE0072D8F8 /* RTCSingletonStream.h */,
+				FA34EDA7208E1ABE0072D8F8 /* RTCSingletonStream.m */,
+			);
+			path = singletonStream;
+			sourceTree = "<group>";
+		};
 		FA3AF0F920442FE60084B154 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,6 +799,7 @@
 		FA41680A207222FE00789E22 /* support */ = {
 			isa = PBXGroup;
 			children = (
+				FA34ED9D208E0F330072D8F8 /* singleton */,
 				FA41680C2072238600789E22 /* RTCMediaStream+Helper.h */,
 				FA41680D2072238600789E22 /* RTCMediaStream+Helper.m */,
 			);
@@ -1928,6 +1962,7 @@
 				FAA001CF203EE2BC003C8A74 /* AppInfoConfig.swift in Sources */,
 				FA74B14E2063A05B00983141 /* SocketClient.swift in Sources */,
 				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
+				FA34EDA5208E16C90072D8F8 /* RTCSingletonFactory.m in Sources */,
 				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA72A0B5208602F700C3C7AE /* TimeSyncInfo.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
@@ -1991,6 +2026,7 @@
 				FAE9EF80206CF22B00C45F8D /* HostCallFetch.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
+				FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */,
 				FAD2017D207611F90004E10E /* RequestAutograph.swift in Sources */,
 				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
@@ -2196,7 +2232,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2210,8 +2246,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
+				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -2226,7 +2262,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Jordan Winawer (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -2240,8 +2276,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7f830523-6879-4e62-9656-ef1061a148e8";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.02;
+				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.00;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

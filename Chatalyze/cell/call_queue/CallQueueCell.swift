@@ -141,12 +141,12 @@ class CallQueueCell: ExtendedCollectionCell {
     
     private func markIdeal(){
         self.backgroundColor = UIColor.white
-        self.countdownLabel?.textColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
-        self.queueNumberLabel?.textColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
+        self.countdownLabel?.textColor = UIColor(hexString: AppThemeConfig.idealGray)
+        self.queueNumberLabel?.textColor = UIColor(hexString: AppThemeConfig.idealGray)
     }
     
     private func markSecondaryActive(){
-        self.backgroundColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
+        self.backgroundColor = UIColor(hexString: AppThemeConfig.idealGray)
         self.countdownLabel?.textColor = UIColor.white
         self.queueNumberLabel?.textColor = UIColor.white
     }

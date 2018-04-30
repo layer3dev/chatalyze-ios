@@ -50,7 +50,7 @@ static NSString * const kARDVideoTrackKind = @"video";
 
 // TODO(tkchin): Add these as UI options.
 static int const kKbpsMultiplier = 1000;
-static RTCMediaStream *localStream;
+
 
 
 @implementation ARDAppClient {
@@ -58,6 +58,8 @@ static RTCMediaStream *localStream;
   ARDSettingsModel *_settings;
   RTCVideoTrack *_localVideoTrack;
 }
+
+static RTCMediaStream *localStream;
 
 @synthesize shouldGetStats = _shouldGetStats;
 @synthesize state = _state;
