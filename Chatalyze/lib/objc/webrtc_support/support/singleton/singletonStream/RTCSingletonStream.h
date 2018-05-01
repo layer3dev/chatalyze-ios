@@ -10,4 +10,6 @@
 
 @interface RTCSingletonStream : NSObject
 
++(RTCSingletonStream *)sharedInstance;
+
 @end

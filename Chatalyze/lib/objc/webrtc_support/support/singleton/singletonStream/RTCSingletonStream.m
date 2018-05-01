@@ -12,4 +12,22 @@
 
 @implementation RTCSingletonStream
 
+
++(RTCSingletonStream *)sharedInstance
+{
+    static RTCSingletonStream *myInstance = nil;
+    
+    if(myInstance == nil)
+    {
+        myInstance = [[[self class] alloc] init];
+        [myInstance initialization];
+    }
+    
+    return myInstance;
+}
+
+-(void)initialization{
+    
+}
+
 @end

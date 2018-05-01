@@ -86,7 +86,9 @@ static RTCMediaStream *localStream;
 
 +(void)releaseLocalStream{
     localStream = nil;
+    [RTCSingletonFactory releaseShared];
 }
+
 
 - (instancetype)init {
   return [self initWithDelegate:nil];
@@ -146,14 +148,8 @@ static RTCMediaStream *localStream;
 
 //start
 - (void)initialize{
-    ARDSettingsModel *settings = [[ARDSettingsModel alloc] init];
-  _settings = settings;
-  RTCDefaultVideoDecoderFactory *decoderFactory = [[RTCDefaultVideoDecoderFactory alloc] init];
-  RTCDefaultVideoEncoderFactory *encoderFactory = [[RTCDefaultVideoEncoderFactory alloc] init];
-    encoderFactory.preferredCodec = [settings currentVideoCodecSettingFromStore];
     
-  _factory = [[RTCPeerConnectionFactory alloc] initWithEncoderFactory:encoderFactory
-                                                       decoderFactory:decoderFactory];
+  _factory = [[RTCSingletonFactory sharedInstance] factory];
 
 }
 

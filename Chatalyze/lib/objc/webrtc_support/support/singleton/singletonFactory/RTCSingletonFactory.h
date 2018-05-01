@@ -10,4 +10,9 @@
 
 @interface RTCSingletonFactory : NSObject
 
++(RTCSingletonFactory *)sharedInstance;
++(void)releaseShared;
+@property (strong, nonatomic) RTCPeerConnectionFactory *factory;
+@property (strong, nonatomic) RTCMediaStream *localStream;
+
 @end
