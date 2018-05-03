@@ -55,6 +55,8 @@
 @property(nonatomic, strong) RTCAudioTrack *defaultAudioTrack;
 @property(nonatomic, strong) RTCVideoTrack *defaultVideoTrack;
 @property(nonatomic, assign) BOOL isSpeakerEnabled;
+@property(nonatomic, assign) RTCMediaStream *localStream;
+
 
 @property(nonatomic, strong)
     RTCMediaConstraints *defaultPeerConnectionConstraints;

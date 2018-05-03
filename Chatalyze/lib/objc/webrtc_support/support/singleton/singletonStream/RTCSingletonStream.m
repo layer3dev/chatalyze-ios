@@ -9,25 +9,95 @@
 //
 
 #import "RTCSingletonStream.h"
+#import "RTCSingletonStream+Internal.h"
 
 @implementation RTCSingletonStream
+
+static RTCSingletonStream *myInstance = nil;
+static NSString * const kARDMediaStreamId = @"ARDAMS";
+static NSString * const kARDAudioTrackId = @"ARDAMSa0";
+static NSString * const kARDVideoTrackId = @"ARDAMSv0";
+static NSString * const kARDVideoTrackKind = @"video";
 
 
 +(RTCSingletonStream *)sharedInstance
 {
-    static RTCSingletonStream *myInstance = nil;
-    
     if(myInstance == nil)
     {
         myInstance = [[[self class] alloc] init];
         [myInstance initialization];
     }
-    
+    [myInstance initialization];
     return myInstance;
 }
 
--(void)initialization{
-    
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initialization];
+    }
+    return self;
 }
+
+-(void)initialization{
+    self.factory = [[RTCSingletonFactory sharedInstance] factory];
+    self.settingsModel = [[ARDSettingsModel alloc] init];
+    
+    NSLog(@"%@", self.settingsModel.availableVideoResolutions);
+//    [self.settingsModel set]
+}
+
+-(RTCMediaStream *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block{
+    self.block = block;
+    return [self createMediaSenders];
+}
+
+- (RTCMediaStream *)createMediaSenders {
+    RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
+    
+    RTCAudioSource *source = [self.factory audioSourceWithConstraints:constraints];
+    RTCAudioTrack *track = [self.factory audioTrackWithSource:source trackId:kARDAudioTrackId];
+    
+    RTCMediaStream *stream = [self.factory mediaStreamWithStreamId:kARDMediaStreamId];
+    
+    [stream addAudioTrack:track];
+    
+    self.localVideoTrack = [self createLocalVideoTrack];
+    if (self.localVideoTrack) {
+        [stream addVideoTrack:self.localVideoTrack];
+    }
+    return stream;
+}
+
+
+- (RTCVideoTrack *)createLocalVideoTrack {
+    
+    if ([self.settingsModel currentAudioOnlySettingFromStore]) {
+        return nil;
+    }
+    
+    RTCVideoSource *source = [self.factory videoSource];
+    
+#if !TARGET_IPHONE_SIMULATOR
+    RTCCameraVideoCapturer *capturer = [[RTCCameraVideoCapturer alloc] initWithDelegate:source];
+    self.block(capturer);
+#endif
+    
+    return [self.factory videoTrackWithSource:source trackId:kARDVideoTrackId];
+}
+
+
+- (RTCMediaConstraints *)defaultMediaAudioConstraints {
+    NSString *valueLevelControl = [self.settingsModel currentUseLevelControllerSettingFromStore] ?
+    kRTCMediaConstraintsValueTrue :
+    kRTCMediaConstraintsValueFalse;
+    NSDictionary *mandatoryConstraints = @{ kRTCMediaConstraintsLevelControl : valueLevelControl };
+    RTCMediaConstraints *constraints =
+    [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints
+                                          optionalConstraints:nil];
+    return constraints;
+}
+
+
 
 @end

@@ -335,6 +335,7 @@ class HostCallController: VideoCallController {
         var connection = connectionInfo[targetHashedId]
         if(connection == nil){
             connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
+            connection?.localStream = self.localStream
         }
         connection?.setDisposeListener(disposeListener: { [weak self] in
             self?.connectionInfo[targetHashedId] = nil

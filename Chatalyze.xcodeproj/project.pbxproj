@@ -389,6 +389,8 @@
 		FA74B1522063A1C500983141 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		FA74B1542063A52800983141 /* no_event.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = no_event.xib; sourceTree = "<group>"; };
 		FA74B1592063AEFA00983141 /* BoldAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoldAttribute.swift; sourceTree = "<group>"; };
+		FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCSingletonStream+Internal.h"; sourceTree = "<group>"; };
+		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
 		FA8CE77C2040515000AB52BD /* signin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = signin.storyboard; sourceTree = "<group>"; };
 		FA912D9920417DD9002891EC /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 		FA34EDA4208E16C90072D8F8 /* singletonStream */ = {
 			isa = PBXGroup;
 			children = (
+				FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */,
 				FA34EDA6208E1ABE0072D8F8 /* RTCSingletonStream.h */,
 				FA34EDA7208E1ABE0072D8F8 /* RTCSingletonStream.m */,
 			);
@@ -690,6 +693,7 @@
 		FA3AF0FE204433190084B154 /* interface */ = {
 			isa = PBXGroup;
 			children = (
+				FA7E747D209B072C001C3374 /* objc */,
 				FAE9EF79206CE91600C45F8D /* controller */,
 				FA74B14820639D0100983141 /* lib */,
 				FA3AF0FF2044332F0084B154 /* view */,
@@ -1062,6 +1066,14 @@
 				FA74B1592063AEFA00983141 /* BoldAttribute.swift */,
 			);
 			path = attributedString;
+			sourceTree = "<group>";
+		};
+		FA7E747D209B072C001C3374 /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */,
+			);
+			path = objc;
 			sourceTree = "<group>";
 		};
 		FA85D3B62045B82700E7815A /* network */ = {

@@ -59,7 +59,6 @@ static int const kKbpsMultiplier = 1000;
   RTCVideoTrack *_localVideoTrack;
 }
 
-static RTCMediaStream *localStream;
 
 @synthesize shouldGetStats = _shouldGetStats;
 @synthesize state = _state;
@@ -85,7 +84,6 @@ static RTCMediaStream *localStream;
 
 
 +(void)releaseLocalStream{
-    localStream = nil;
     [RTCSingletonFactory releaseShared];
 }
 
@@ -94,7 +92,7 @@ static RTCMediaStream *localStream;
   return [self initWithDelegate:nil];
 }
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(RTCMediaStream *)stream
 {
     
     if (self = [super init]) {
@@ -103,6 +101,7 @@ static RTCMediaStream *localStream;
         self.userId = userId;
         self.receiverId = receiverId;
         self.roomId = roomId;
+        self.localStream = stream;
         [self configure];
         [self initialize];
     }
@@ -406,17 +405,19 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     _peerConnection = [_factory peerConnectionWithConfiguration:config
                                                     constraints:constraints
                                                        delegate:self];
+    
+    [_peerConnection addStream:self.localStream];
     // Create AV senders.
 //    [self createMediaSenders];
     
-    if(localStream && [localStream isLive]){
+    /*if(localStream && [localStream isLive]){
          [_peerConnection addStream:localStream];
          [_delegate appClient:self didReceiveLocalVideoTrack:[localStream.videoTracks firstObject]];
         
     }else{
         localStream = [self startLocalMedia];
         [_peerConnection addStream:localStream];
-    }
+    }*/
     
 }
 

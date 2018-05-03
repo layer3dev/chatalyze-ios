@@ -15,6 +15,7 @@ class CallConnection: NSObject {
     var eventInfo : EventInfo?
     var slotInfo : SlotInfo?
     var controller : VideoCallController?
+    var localStream : RTCMediaStream?
     
     
     /*flags*/
@@ -121,8 +122,10 @@ extension CallConnection : ARDAppClientDelegate{
         
     }
     
+    
     func appClient(_ client: ARDAppClient!, didCreateLocalCapturer localCapturer: RTCCameraVideoCapturer!) {
         Log.echo(key: "render", text: "didCreateLocalCapturer")
+        
         
         /*guard let localView = controller?.rootView?.localVideoView
             else{
@@ -148,7 +151,6 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     
-    
     /*
      if (self.localVideoTrack) {
      [self.localVideoTrack removeRenderer:self.localView];
@@ -158,8 +160,9 @@ extension CallConnection : ARDAppClientDelegate{
      self.localVideoTrack = localVideoTrack;
      [self.localVideoTrack addRenderer:self.localView];
      */
+    
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
-        guard let localView = controller?.rootView?.localVideoView
+        /*guard let localView = controller?.rootView?.localVideoView
             else{
                 return
         }
@@ -172,7 +175,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         self.localTrack = localVideoTrack
-        self.localTrack?.add(localView)
+        self.localTrack?.add(localView)*/
     }
     
     
@@ -187,7 +190,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
     }
-    
+
     
     
     func linkCall(){

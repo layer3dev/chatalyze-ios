@@ -9,7 +9,7 @@
 import UIKit
 
 
-class VideoView: RTCEAGLVideoView {
+class VideoView: RTCCameraPreviewView {
     
     enum orientation : Int{
         case undefined = 0
@@ -31,7 +31,7 @@ class VideoView: RTCEAGLVideoView {
     }
     
     private func initialization(){
-         self.delegate = self
+//         self.delegate = self
         
     }
     

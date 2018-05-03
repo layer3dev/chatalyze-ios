@@ -48,7 +48,8 @@ class UserCallConnection: CallConnection {
                 return nil
         }
         
-        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
+       
+        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self, andLocalStream:self.localStream)
         
         return connection
         

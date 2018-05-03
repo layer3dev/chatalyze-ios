@@ -14,8 +14,12 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
+
     var socketClient : SocketClient?
     private let eventSlotListener = EventSlotListener()
+    private let streamCapturer = RTCSingletonStream()
+    private var captureController : ARDCaptureController?
+    var localStream : RTCMediaStream?
     
     //used for tracking the call time and auto-connect process
     var timer : SyncTimer = SyncTimer()
@@ -132,6 +136,7 @@ class VideoCallController : InterfaceExtendedController {
         initializeVariable()
         audioManager = AudioManager()
         switchToCallRequest()
+        startLocalStream()
         
         fetchInfo(showLoader: true) { [weak self] (success) in
             if(!success){
@@ -356,4 +361,39 @@ extension VideoCallController{
     }
     
     
+}
+
+
+extension VideoCallController{
+    func startLocalStream(){
+        localStream = streamCapturer.getMediaCapturer {[weak self] (capturer) in
+            
+            guard let localCapturer = capturer
+            else{
+                return
+            }
+            
+            guard let localView = self?.rootView?.localVideoView
+             else{
+             return
+             }
+             
+             
+             let captureSession = localCapturer.captureSession
+             if(localView.captureSession == nil){
+             Log.echo(key: "local", text: "nil earlier, assigning new one")
+             localView.captureSession = captureSession
+             }else{
+             Log.echo(key: "local", text: "already assigned, not setting new one")
+             //            localView.add
+             //            localView.captureSession = captureSession
+             }
+            
+            
+             let settingsModel = ARDSettingsModel()
+             settingsModel.storeVideoResolutionSetting("1280x720")
+             self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
+             self?.captureController?.startCapture()
+        }
+    }
 }

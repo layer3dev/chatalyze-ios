@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
 @class RTCCameraVideoCapturer;
 @class RTCFileVideoCapturer;
 
+
 // The delegate is informed of pertinent events and will be called on the
 // main queue.
 @protocol ARDAppClientDelegate <NSObject>
@@ -58,6 +59,7 @@ didCreateLocalSourceDelegate:(RTCVideoSource *)source;
       didGetStats:(NSArray *)stats;
 
 @optional
+
 - (void)appClient:(ARDAppClient *)client
 didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 
@@ -77,11 +79,13 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 @property(nonatomic, assign) BOOL shouldGetStats;
 @property(nonatomic, readonly) ARDAppClientState state;
 @property(nonatomic, weak) id<ARDAppClientDelegate> delegate;
+
+
 // Convenience constructor since all expected use cases will need a delegate
 // in order to receive remote tracks.
 - (instancetype)initWithDelegate:(id<ARDAppClientDelegate>)delegate;
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate;
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(RTCMediaStream *)stream;
 
 //temp
 - (void)initiateCall;

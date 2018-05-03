@@ -19,6 +19,8 @@
 #import "AudioManager.h"
 #import "RTCConnectionInitializer.h"
 #import "RTCMediaStream+Helper.h"
+#import "RTCSingletonStream.h"
+
 
 
 #endif /* BaseImport_h */

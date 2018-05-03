@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RTCSingletonStreamProtocol.h"
 
 @interface RTCSingletonStream : NSObject
 
 +(RTCSingletonStream *)sharedInstance;
+-(RTCMediaStream *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block;
 
 @end
