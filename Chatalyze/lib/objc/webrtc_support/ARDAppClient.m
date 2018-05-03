@@ -227,9 +227,10 @@ static RTCMediaStream *localStream;
 - (void)peerConnection:(RTCPeerConnection *)peerConnection
           didAddStream:(RTCMediaStream *)stream {
   dispatch_async(dispatch_get_main_queue(), ^{
-    RTCLog(@"Received %lu video tracks and %lu audio tracks",
+    NSLog(@"Received %lu video tracks and %lu audio tracks",
         (unsigned long)stream.videoTracks.count,
         (unsigned long)stream.audioTracks.count);
+    stream.audioTracks.firstObject.source.volume = 0;
     if (stream.videoTracks.count) {
       RTCVideoTrack *videoTrack = stream.videoTracks[0];
       [_delegate appClient:self didReceiveRemoteVideoTrack:videoTrack];

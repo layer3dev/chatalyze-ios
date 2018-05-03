@@ -108,10 +108,10 @@ class VideoCallController : InterfaceExtendedController {
     
     func hangup(){
         
-        viewDidRelease()
-        /*self.dismiss(animated: true) {
+//        viewDidRelease()
+        self.dismiss(animated: true) {
             
-        }*/
+        }
     }
     
     
