@@ -41,7 +41,7 @@ class VideoCallController : InterfaceExtendedController {
         super.viewDidRelease()
         
         ARDAppClient.releaseLocalStream()
-        
+        captureController?.stopCapture()
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
     UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
@@ -112,7 +112,6 @@ class VideoCallController : InterfaceExtendedController {
     
     func hangup(){
         
-//        viewDidRelease()
         self.dismiss(animated: true) {
             
         }
@@ -365,6 +364,7 @@ extension VideoCallController{
 
 
 extension VideoCallController{
+    
     func startLocalStream(){
         localStream = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
@@ -394,6 +394,12 @@ extension VideoCallController{
              settingsModel.storeVideoResolutionSetting("1280x720")
              self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
              self?.captureController?.startCapture()
+        }
+        
+        if(self.localStream == nil){
+            Log.echo(key: "localstream", text: "localstream came up nil on capture")
+        }else{
+            Log.echo(key : "localstream", text : "valid localstream came up on capture")
         }
     }
 }

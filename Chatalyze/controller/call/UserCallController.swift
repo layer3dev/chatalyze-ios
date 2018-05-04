@@ -164,7 +164,7 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, controller: self)
+        self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localStream : localStream, controller: self)
         connection?.initiateCall()
         startCallRing()
     }

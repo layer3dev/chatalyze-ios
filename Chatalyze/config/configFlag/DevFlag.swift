@@ -8,7 +8,7 @@ import Foundation
 
 class DevFlag : NSObject{
     
-    @objc static let key = "registerResponse"
+    @objc static let key = "localstream"
     @objc static let showAll = true
     @objc static let debug = true
 }

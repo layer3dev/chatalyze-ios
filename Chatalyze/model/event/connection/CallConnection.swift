@@ -30,12 +30,12 @@ class CallConnection: NSObject {
     
     //connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
     
-    init(eventInfo : EventInfo?, slotInfo : SlotInfo?, controller : VideoCallController?){
+    init(eventInfo : EventInfo?, slotInfo : SlotInfo?, localStream : RTCMediaStream?, controller : VideoCallController?){
         super.init()
         
         self.eventInfo = eventInfo
         self.slotInfo = slotInfo
-        
+        self.localStream = localStream
         self.controller = controller
         
         initialization()

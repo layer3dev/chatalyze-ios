@@ -229,7 +229,12 @@ static int const kKbpsMultiplier = 1000;
     NSLog(@"Received %lu video tracks and %lu audio tracks",
         (unsigned long)stream.videoTracks.count,
         (unsigned long)stream.audioTracks.count);
-    stream.audioTracks.firstObject.source.volume = 0;
+      
+      RTCAudioTrack *audioTrack = stream.audioTracks[0];
+      audioTrack.source.volume = 0.1;
+//      audioTrack.isEnabled = false;
+//      [stream removeAudioTrack:stream.audioTracks[0]];
+      
     if (stream.videoTracks.count) {
       RTCVideoTrack *videoTrack = stream.videoTracks[0];
       [_delegate appClient:self didReceiveRemoteVideoTrack:videoTrack];
@@ -406,6 +411,9 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
                                                     constraints:constraints
                                                        delegate:self];
     
+    if(self.localStream == nil){
+        NSLog(@"local stream is nil while creating peer connection");
+    }
     [_peerConnection addStream:self.localStream];
     // Create AV senders.
 //    [self createMediaSenders];
@@ -657,6 +665,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
                      didSetSessionDescriptionWithError:error];
                         }];
 }
+
 
 
 

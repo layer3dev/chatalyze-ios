@@ -64,7 +64,7 @@ class TimerSync {
     func sync(){
         
         if(!(socket?.isBridged ?? false)){
-            Log.echo(key: "sync socket", text: "not connected")
+//            Log.echo(key: "sync socket", text: "not connected")
             return
         }
         if let syncTime = self.syncTime{
