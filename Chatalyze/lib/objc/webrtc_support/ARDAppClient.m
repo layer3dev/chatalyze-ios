@@ -91,7 +91,7 @@ static int const kKbpsMultiplier = 1000;
   return [self initWithDelegate:nil];
 }
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalMediaPackage:(CallMediaTrack *)stream
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage
 {
     
     if (self = [super init]) {
@@ -100,7 +100,7 @@ static int const kKbpsMultiplier = 1000;
         self.userId = userId;
         self.receiverId = receiverId;
         self.roomId = roomId;
-        self.localStream = stream;
+        self.localMediaPackage = localMediaPackage;
         [self configure];
         [self initialize];
     }
@@ -425,17 +425,27 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
                                                     constraints:constraints
                                                        delegate:self];
     
-    if(self.localStream == nil){
-        NSLog(@"local stream is nil while creating peer connection");
-    }
-    [_peerConnection addStream:self.localStream];
+    
+    [_peerConnection addTrack:self.localMediaPackage.audioTrack streamIds:@[ kARDMediaStreamId ]];
+    [_peerConnection addTrack:self.localMediaPackage.videoTrack streamIds:@[ kARDMediaStreamId ]];
+    
+    
     
     // We can set up rendering for the remote track right away since the transceiver already has an
     // RTCRtpReceiver with a track. The track will automatically get unmuted and produce frames
     // once RTP is received.
-    RTCVideoTrack *track = (RTCVideoTrack *)([self videoTransceiver].receiver.track);
-    [_delegate appClient:self didReceiveRemoteVideoTrack:track];
+    RTCAudioTrack *receiverAudioTrack = (RTCAudioTrack *)([self audioTransceiver].receiver.track);
+    RTCVideoTrack *receiverVideoTrack = (RTCVideoTrack *)([self videoTransceiver].receiver.track);
     
+    CallMediaTrack *mediaPackage = [CallMediaTrack new];
+    mediaPackage.audioTrack = receiverAudioTrack;
+    mediaPackage.videoTrack = receiverVideoTrack;
+    receiverAudioTrack.isEnabled = false;
+    
+    [_delegate appClient:self didReceiveRemoteMediaTrack:mediaPackage];
+    
+    
+   
     
     // Create AV senders.
 //    [self createMediaSenders];
@@ -561,6 +571,15 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     return nil;
 }
 
+- (RTCRtpTransceiver *)audioTransceiver {
+    for (RTCRtpTransceiver *transceiver in _peerConnection.transceivers) {
+        if (transceiver.mediaType == RTCRtpMediaTypeAudio) {
+            return transceiver;
+        }
+    }
+    return nil;
+}
+
 
 - (CallMediaTrack *)createMediaSenders {
     CallMediaTrack *mediaPackage = [CallMediaTrack new];
@@ -675,6 +694,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 -(void)processSDPOffer:(RTCSessionDescription *)info{
     [self createPeerConnection];
     [Log echoWithKey:@"sdp" text:@"processSDPOffer -- !!"];
+    
     [_peerConnection setRemoteDescription:info
                         completionHandler:^(NSError *error) {
                             [self peerConnection:self.peerConnection
@@ -698,19 +718,14 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 #pragma mark - Audio mute/unmute
 - (void)muteAudioIn {
     NSLog(@"audio muted");
-    RTCMediaStream *localStream = _peerConnection.localStreams[0];
-    self.defaultAudioTrack = localStream.audioTracks[0];
-    [localStream removeAudioTrack:localStream.audioTracks[0]];
-    [_peerConnection removeStream:localStream];
-    [_peerConnection addStream:localStream];
+    RTCAudioTrack *track = (RTCAudioTrack *)([self audioTransceiver].sender.track);
+    track.isEnabled = false;
     self.isAudioMuted = true;
 }
 - (void)unmuteAudioIn {
     NSLog(@"audio unmuted");
-    RTCMediaStream* localStream = _peerConnection.localStreams[0];
-    [localStream addAudioTrack:self.defaultAudioTrack];
-    [_peerConnection removeStream:localStream];
-    [_peerConnection addStream:localStream];
+    RTCAudioTrack *track = (RTCAudioTrack *)([self audioTransceiver].sender.track);
+    track.isEnabled = true;
 //    if (_isSpeakerEnabled) [self enableSpeaker];
     self.isAudioMuted = false;
 }
@@ -768,20 +783,13 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 }
 
 
-
-
 - (RTCMediaConstraints *)videoConstraints
 {
     RTCMediaConstraints *constraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil optionalConstraints:nil];
     return constraints;
 }
 
-
-
 #pragma mark - swap camera
-
-
-
 
 
 #pragma mark - enable/disable speaker

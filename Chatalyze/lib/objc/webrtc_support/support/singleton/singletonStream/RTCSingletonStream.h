@@ -12,6 +12,6 @@
 @interface RTCSingletonStream : NSObject
 
 +(RTCSingletonStream *)sharedInstance;
--(RTCMediaStream *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block;
+-(CallMediaTrack *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block;
 
 @end

@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, ARDAppClientState) {
 };
 
 @class ARDAppClient;
+@class CallMediaTrack;
 @class ARDSettingsModel;
 @class RTCMediaConstraints;
 @class RTCCameraVideoCapturer;
@@ -51,7 +52,7 @@ didCreateLocalSourceDelegate:(RTCVideoSource *)source;
 
 
 - (void)appClient:(ARDAppClient *)client
-    didReceiveRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack;
+    didReceiveRemoteMediaTrack:(nullable CallMediaTrack *)remoteTrack;
 
 - (void)appClient:(ARDAppClient *)client
          didError:(NSError *)error;
@@ -86,7 +87,7 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 // in order to receive remote tracks.
 - (instancetype)initWithDelegate:(id<ARDAppClientDelegate>)delegate;
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(RTCMediaStream *)stream;
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage;
 
 //temp
 - (void)initiateCall;

@@ -19,7 +19,7 @@ class VideoCallController : InterfaceExtendedController {
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
-    var localStream : RTCMediaStream?
+    var localMediaPackage : CallMediaTrack?
     
     //used for tracking the call time and auto-connect process
     var timer : SyncTimer = SyncTimer()
@@ -366,7 +366,7 @@ extension VideoCallController{
 extension VideoCallController{
     
     func startLocalStream(){
-        localStream = streamCapturer.getMediaCapturer {[weak self] (capturer) in
+        localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
             guard let localCapturer = capturer
             else{
@@ -396,10 +396,6 @@ extension VideoCallController{
              self?.captureController?.startCapture()
         }
         
-        if(self.localStream == nil){
-            Log.echo(key: "localstream", text: "localstream came up nil on capture")
-        }else{
-            Log.echo(key : "localstream", text : "valid localstream came up on capture")
-        }
+    
     }
 }

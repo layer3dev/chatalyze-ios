@@ -15,7 +15,7 @@ class CallConnection: NSObject {
     var eventInfo : EventInfo?
     var slotInfo : SlotInfo?
     var controller : VideoCallController?
-    var localStream : RTCMediaStream?
+    var localMediaPackage : CallMediaTrack?
     
     
     /*flags*/
@@ -24,18 +24,18 @@ class CallConnection: NSObject {
     /*Strong References*/
     private var captureController : ARDCaptureController?
     private var localTrack : RTCVideoTrack?
-    private var remoteTrack : RTCVideoTrack?
+    private var remoteTrack : CallMediaTrack?
     
     var socketClient : SocketClient?
     
     //connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
     
-    init(eventInfo : EventInfo?, slotInfo : SlotInfo?, localStream : RTCMediaStream?, controller : VideoCallController?){
+    init(eventInfo : EventInfo?, slotInfo : SlotInfo?, localMediaPackage : CallMediaTrack?, controller : VideoCallController?){
         super.init()
         
         self.eventInfo = eventInfo
         self.slotInfo = slotInfo
-        self.localStream = localStream
+        self.localMediaPackage = localMediaPackage
         self.controller = controller
         
         initialization()
@@ -127,70 +127,26 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "render", text: "didCreateLocalCapturer")
         
         
-        /*guard let localView = controller?.rootView?.localVideoView
-            else{
-                return
-        }
-        
-        
-        let captureSession = localCapturer.captureSession
-        if(localView.captureSession == nil){
-            Log.echo(key: "local", text: "nil earlier, assigning new one")
-            localView.captureSession = captureSession
-        }else{
-            Log.echo(key: "local", text: "already assigned, not setting new one")
-//            localView.add
-//            localView.captureSession = captureSession
-        }
-        
-        
-        let settingsModel = ARDSettingsModel()
-       
-        captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-        captureController?.startCapture()*/
     }
     
     
-    /*
-     if (self.localVideoTrack) {
-     [self.localVideoTrack removeRenderer:self.localView];
-     self.localVideoTrack = nil;
-     [self.localView renderFrame:nil];
-     }
-     self.localVideoTrack = localVideoTrack;
-     [self.localVideoTrack addRenderer:self.localView];
-     */
+    
     
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
-        /*guard let localView = controller?.rootView?.localVideoView
-            else{
-                return
-        }
-        
-        
-        if let localTrack = self.localTrack{
-            localTrack.remove(localView)
-            self.localTrack = nil
-            localView.renderFrame(nil)
-        }
-        
-        self.localTrack = localVideoTrack
-        self.localTrack?.add(localView)*/
+    
     }
     
     
-    func appClient(_ client: ARDAppClient!, didReceiveRemoteVideoTrack remoteVideoTrack: RTCVideoTrack!) {
+    func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
         
         Log.echo(key: "render", text: "didReceiveRemoteVideoTrack")
         
         
-        self.remoteTrack = remoteVideoTrack
+        self.remoteTrack = remoteTrack
         if(isLinked){
-            renderRemoteVideo()
+            renderRemoteTrack()
         }
-        
     }
-
     
     
     func linkCall(){
@@ -198,10 +154,10 @@ extension CallConnection : ARDAppClientDelegate{
             return
         }
         isLinked = true
-        renderRemoteVideo()
+        renderRemoteTrack()
     }
     
-    func renderRemoteVideo(){
+    func renderRemoteTrack(){
         
         guard let remoteView = rootView?.remoteVideoView
             else{
@@ -214,7 +170,8 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "render", text: "renderRemoteVideo")
        
-        self.remoteTrack?.add(remoteView)
+        self.remoteTrack?.videoTrack?.add(remoteView)
+        self.remoteTrack?.audioTrack?.isEnabled = true
     }
     
     

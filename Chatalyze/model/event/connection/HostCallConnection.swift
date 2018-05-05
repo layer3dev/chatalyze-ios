@@ -56,7 +56,7 @@ class HostCallConnection: CallConnection {
                 return nil
         }
         
-        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self, andLocalStream:self.localStream)
+        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self, andLocalStream:self.localMediaPackage)
         
         return connection
         

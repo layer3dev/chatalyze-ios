@@ -194,20 +194,20 @@ class HostCallController: VideoCallController {
     private func processEvent(){
     
         if(!(socketClient?.isConnected ?? false)){
-            Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
+//            Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
             return
         }
         else{
-            Log.echo(key: "processEvent", text: "processEvent -> socket connected")
+//            Log.echo(key: "processEvent", text: "processEvent -> socket connected")
         }
         guard let eventInfo = self.eventInfo
             else{
-                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+//                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
                 return
         }
         
         if(eventInfo.started == nil){
-            Log.echo(key: "processEvent", text: "event not activated yet")
+//            Log.echo(key: "processEvent", text: "event not activated yet")
             return
         }
     
@@ -334,7 +334,7 @@ class HostCallController: VideoCallController {
         
         var connection = connectionInfo[targetHashedId]
         if(connection == nil){
-            connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localStream : localStream, controller: self)
+            connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
         }
         connection?.setDisposeListener(disposeListener: { [weak self] in
             self?.connectionInfo[targetHashedId] = nil

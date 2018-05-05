@@ -14,8 +14,8 @@
 #import <WebRTC/RTCMediaStreamTrack.h>
 #import <WebRTC/RTCRtpParameters.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
+NS_ASSUME_NONNULL_BEGIN
 /** Represents the media type of the RtpReceiver. */
 typedef NS_ENUM(NSInteger, RTCRtpMediaType) {
   RTCRtpMediaTypeAudio,

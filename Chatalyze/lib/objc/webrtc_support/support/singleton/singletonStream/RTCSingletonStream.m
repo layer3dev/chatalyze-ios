@@ -47,7 +47,7 @@ static NSString * const kARDVideoTrackKind = @"video";
 //    [self.settingsModel set]
 }
 
--(RTCMediaStream *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block{
+-(CallMediaTrack *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block{
     self.block = block;
     return [self createMediaSenders];
 }
