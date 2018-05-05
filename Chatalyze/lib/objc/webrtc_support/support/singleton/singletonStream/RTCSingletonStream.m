@@ -52,46 +52,43 @@ static NSString * const kARDVideoTrackKind = @"video";
     return [self createMediaSenders];
 }
 
-- (RTCMediaStream *)createMediaSenders {
+
+- (CallMediaTrack *)createMediaSenders {
+    
+    CallMediaTrack *mediaPackage = [CallMediaTrack new];
     RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
+    RTCAudioSource *source = [_factory audioSourceWithConstraints:constraints];
+    RTCAudioTrack *track = [_factory audioTrackWithSource:source
+                                                  trackId:kARDAudioTrackId];
     
-    RTCAudioSource *source = [self.factory audioSourceWithConstraints:constraints];
-    RTCAudioTrack *track = [self.factory audioTrackWithSource:source trackId:kARDAudioTrackId];
-    
-    RTCMediaStream *stream = [self.factory mediaStreamWithStreamId:kARDMediaStreamId];
-    
-    [stream addAudioTrack:track];
-    
-    self.localVideoTrack = [self createLocalVideoTrack];
-    if (self.localVideoTrack) {
-        [stream addVideoTrack:self.localVideoTrack];
+    mediaPackage.audioTrack = track;
+    _localVideoTrack = [self createLocalVideoTrack];
+    if (_localVideoTrack) {
+        mediaPackage.videoTrack = _localVideoTrack;
     }
-    return stream;
+    return mediaPackage;
 }
 
-
 - (RTCVideoTrack *)createLocalVideoTrack {
-    
     if ([self.settingsModel currentAudioOnlySettingFromStore]) {
         return nil;
     }
     
-    RTCVideoSource *source = [self.factory videoSource];
+    RTCVideoSource *source = [_factory videoSource];
     
 #if !TARGET_IPHONE_SIMULATOR
     RTCCameraVideoCapturer *capturer = [[RTCCameraVideoCapturer alloc] initWithDelegate:source];
     self.block(capturer);
+    
 #endif
     
-    return [self.factory videoTrackWithSource:source trackId:kARDVideoTrackId];
+    return [_factory videoTrackWithSource:source trackId:kARDVideoTrackId];
 }
 
 
+
 - (RTCMediaConstraints *)defaultMediaAudioConstraints {
-    NSString *valueLevelControl = [self.settingsModel currentUseLevelControllerSettingFromStore] ?
-    kRTCMediaConstraintsValueTrue :
-    kRTCMediaConstraintsValueFalse;
-    NSDictionary *mandatoryConstraints = @{ kRTCMediaConstraintsLevelControl : valueLevelControl };
+    NSDictionary *mandatoryConstraints = @{};
     RTCMediaConstraints *constraints =
     [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints
                                           optionalConstraints:nil];

@@ -40,10 +40,11 @@ class VideoView: RTCCameraPreviewView {
     }
 }
 
-extension VideoView : RTCEAGLVideoViewDelegate{
+/*extension VideoView : RTCEAGLVideoViewDelegate{
+    
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
         self.updateSize(size: size)
     }
     
 
-}
+}*/

@@ -20,6 +20,8 @@ RTC_EXPORT extern NSString *const kRTCVideoCodecVp9Name;
 RTC_EXPORT extern NSString *const kRTCVideoCodecH264Name;
 RTC_EXPORT extern NSString *const kRTCLevel31ConstrainedHigh;
 RTC_EXPORT extern NSString *const kRTCLevel31ConstrainedBaseline;
+RTC_EXPORT extern NSString *const kRTCMaxSupportedH264ProfileLevelConstrainedHigh;
+RTC_EXPORT extern NSString *const kRTCMaxSupportedH264ProfileLevelConstrainedBaseline;
 
 /** Represents an encoded frame's type. */
 typedef NS_ENUM(NSUInteger, RTCFrameType) {
@@ -88,7 +90,7 @@ typedef NS_ENUM(NSUInteger, RTCVideoCodecMode) {
   RTCVideoCodecModeScreensharing,
 };
 
-/** Holds information to identify a codec. Corresponds to cricket::VideoCodec. */
+/** Holds information to identify a codec. Corresponds to webrtc::SdpVideoFormat. */
 RTC_EXPORT
 @interface RTCVideoCodecInfo : NSObject <NSCoding>
 
@@ -166,14 +168,27 @@ RTC_EXPORT
 
 - (void)setCallback:(RTCVideoDecoderCallback)callback;
 - (NSInteger)startDecodeWithSettings:(RTCVideoEncoderSettings *)settings
-                       numberOfCores:(int)numberOfCores;
+                       numberOfCores:(int)numberOfCores
+    DEPRECATED_MSG_ATTRIBUTE("use startDecodeWithNumberOfCores: instead");
 - (NSInteger)releaseDecoder;
 - (NSInteger)decode:(RTCEncodedImage *)encodedImage
           missingFrames:(BOOL)missingFrames
     fragmentationHeader:(RTCRtpFragmentationHeader *)fragmentationHeader
       codecSpecificInfo:(nullable id<RTCCodecSpecificInfo>)info
-           renderTimeMs:(int64_t)renderTimeMs;
+           renderTimeMs:(int64_t)renderTimeMs
+    DEPRECATED_MSG_ATTRIBUTE("use decode:missingFrames:codecSpecificInfo:renderTimeMs: instead");
 - (NSString *)implementationName;
+
+// TODO(andersc): Make non-optional when `startDecodeWithSettings:numberOfCores:` is removed.
+@optional
+- (NSInteger)startDecodeWithNumberOfCores:(int)numberOfCores;
+
+// TODO(andersc): Make non-optional when `decode:...fragmentationHeader:...` is removed.
+@optional
+- (NSInteger)decode:(RTCEncodedImage *)encodedImage
+        missingFrames:(BOOL)missingFrames
+    codecSpecificInfo:(nullable id<RTCCodecSpecificInfo>)info
+         renderTimeMs:(int64_t)renderTimeMs;
 
 @end
 

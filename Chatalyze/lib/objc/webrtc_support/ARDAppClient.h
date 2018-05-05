@@ -49,6 +49,7 @@ didCreateLocalSourceDelegate:(RTCVideoSource *)source;
 - (void)appClient:(ARDAppClient *)client
     didReceiveLocalVideoTrack:(RTCVideoTrack *)localVideoTrack;
 
+
 - (void)appClient:(ARDAppClient *)client
     didReceiveRemoteVideoTrack:(RTCVideoTrack *)remoteVideoTrack;
 

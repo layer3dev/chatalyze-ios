@@ -191,6 +191,7 @@
 		FADC84EC2074EDB600AD9D65 /* AutographPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84EB2074EDB600AD9D65 /* AutographPreviewController.swift */; };
 		FADC84EE2074FBE200AD9D65 /* AutographPreviewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84ED2074FBE200AD9D65 /* AutographPreviewInterface.swift */; };
 		FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84EF2074FE1700AD9D65 /* SubmitScreenshot.swift */; };
+		FAE2EC70209C8E930080E92D /* CallMediaTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2EC6F209C8E930080E92D /* CallMediaTrack.swift */; };
 		FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */; };
 		FAE865C62068C620006F06B3 /* call.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C52068C61E006F06B3 /* call.xcassets */; };
 		FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C72068CAEF006F06B3 /* UserSocket.swift */; };
@@ -471,6 +472,7 @@
 		FADC84EB2074EDB600AD9D65 /* AutographPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographPreviewController.swift; sourceTree = "<group>"; };
 		FADC84ED2074FBE200AD9D65 /* AutographPreviewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographPreviewInterface.swift; sourceTree = "<group>"; };
 		FADC84EF2074FE1700AD9D65 /* SubmitScreenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitScreenshot.swift; sourceTree = "<group>"; };
+		FAE2EC6F209C8E930080E92D /* CallMediaTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMediaTrack.swift; sourceTree = "<group>"; };
 		FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingEventView.swift; sourceTree = "<group>"; };
 		FAE865C52068C61E006F06B3 /* call.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = call.xcassets; sourceTree = "<group>"; };
 		FAE865C72068CAEF006F06B3 /* UserSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSocket.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 		FA3CC1382046BFFF007438A3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				FAE2EC6C209C8E4C0080E92D /* lib */,
 				FA72A0B3208602DC00C3C7AE /* helper */,
 				FA573C0E207CBE77006447A1 /* call */,
 				FAB71CE62077A57F00C24246 /* notificationInfo */,
@@ -1404,6 +1407,30 @@
 			path = autograph;
 			sourceTree = "<group>";
 		};
+		FAE2EC6C209C8E4C0080E92D /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2EC6D209C8E5D0080E92D /* objc */,
+				FAE2EC6F209C8E930080E92D /* CallMediaTrack.swift */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		FAE2EC6D209C8E5D0080E92D /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2EC6E209C8E6C0080E92D /* mediaTrack */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
+		FAE2EC6E209C8E6C0080E92D /* mediaTrack */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = mediaTrack;
+			sourceTree = "<group>";
+		};
 		FAE9EF66206CB25F00C45F8D /* peerInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -2036,6 +2063,7 @@
 				FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */,
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,
 				FAE9EF80206CF22B00C45F8D /* HostCallFetch.swift in Sources */,
+				FAE2EC70209C8E930080E92D /* CallMediaTrack.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
 				FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */,
