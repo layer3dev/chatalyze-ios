@@ -30,7 +30,7 @@ class LocalVideoView: VideoView {
     
     
     private func initialization(){
-        self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
+//        self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
     }
     
     override func updateSize(size: CGSize){

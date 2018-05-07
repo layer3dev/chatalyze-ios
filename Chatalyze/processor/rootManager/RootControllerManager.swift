@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class RootControllerManager{
+    
+    init() {
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
 
     func setRoot(){
 
