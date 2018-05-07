@@ -733,20 +733,15 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 #pragma mark - Video mute/unmute
 - (void)muteVideoIn {
     NSLog(@"video muted");
-    RTCMediaStream *localStream = _peerConnection.localStreams[0];
-    self.defaultVideoTrack = localStream.videoTracks[0];
-    [localStream removeVideoTrack:localStream.videoTracks[0]];
-    [_peerConnection removeStream:localStream];
-    [_peerConnection addStream:localStream];
+    RTCAudioTrack *track = (RTCAudioTrack *)([self videoTransceiver].sender.track);
+    track.isEnabled = false;
     
     self.isVideoMuted = true;
 }
 - (void)unmuteVideoIn {
     NSLog(@"video unmuted");
-    RTCMediaStream* localStream = _peerConnection.localStreams[0];
-    [localStream addVideoTrack:self.defaultVideoTrack];
-    [_peerConnection removeStream:localStream];
-    [_peerConnection addStream:localStream];
+    RTCAudioTrack *track = (RTCAudioTrack *)([self videoTransceiver].sender.track);
+    track.isEnabled = true;
     
     self.isVideoMuted = false;
 }
