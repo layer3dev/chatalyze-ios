@@ -12,6 +12,8 @@ import AVFoundation
 
 class FrameExtractor: NSObject {
     
+
+
     
     var captureSession : AVCaptureSession?
     private let sessionQueue = DispatchQueue(label: "session queue")
@@ -19,6 +21,7 @@ class FrameExtractor: NSObject {
     
     var completion : ((_ image : UIImage?)->())?
     var videoOutput : AVCaptureVideoDataOutput?
+    var originalOutput : AVCaptureOutput?
     
     override init() {
         super.init()
@@ -44,22 +47,34 @@ class FrameExtractor: NSObject {
                 respondCompletion(image:nil)
                 return
         }
-        Log.echo(key: "frame", text: "addOutput -> status ")
+        Log.echo(key: "frame", text: "captureSession output count -> \(captureSession.outputs.count) ")
+        
+        guard let originalOutput = captureSession.outputs.first
+            else{
+                Log.echo(key: "frame", text: "original ouput is nil")
+                return
+        }
+        self.originalOutput = originalOutput
+        Log.echo(key: "frame", text: "check if session running ")
         Log.echo(key: "frame", text: captureSession.isRunning)
         
-        captureSession.beginConfiguration()
+
+        captureSession.removeOutput(originalOutput)
+        
+        Log.echo(key: "frame", text: "captureSession empty output count -> \(captureSession.outputs.count) ")
+        
         let videoOutput = AVCaptureVideoDataOutput()
         self.videoOutput = videoOutput
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer"))
         guard captureSession.canAddOutput(videoOutput) else {
             Log.echo(key: "frame", text: "no, you can't add output")
-            captureSession.commitConfiguration()
             respondCompletion(image:nil)
             return
         }
         captureSession.addOutput(videoOutput)
         
-       
+        Log.echo(key: "frame", text: "captureSession after readd output count -> \(captureSession.outputs.count) ")
+        Log.echo(key: "frame", text: "output added")
     }
     
     
@@ -82,6 +97,10 @@ class FrameExtractor: NSObject {
                 return
         }
         captureSession?.removeOutput(videoOutput)
+        if let originalOutput = self.originalOutput{
+            captureSession?.addOutput(originalOutput)
+        }
+        
         captureSession = nil
         return
     }
@@ -91,10 +110,15 @@ class FrameExtractor: NSObject {
 extension FrameExtractor : AVCaptureVideoDataOutputSampleBufferDelegate{
     
     // MARK: AVCaptureVideoDataOutputSampleBufferDelegate
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        Log.echo(key: "frame", text: "recevied frame")
         
         guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else {
-            respondCompletion(image:nil)
+            DispatchQueue.main.async { [unowned self] in
+                 self.respondCompletion(image:nil)
+            }
+           
             return
             
         }
@@ -102,4 +126,5 @@ extension FrameExtractor : AVCaptureVideoDataOutputSampleBufferDelegate{
             self.respondCompletion(image:uiImage)
         }
     }
+    
 }

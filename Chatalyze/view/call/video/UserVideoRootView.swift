@@ -24,21 +24,33 @@ class UserVideoRootView: UserVideoLayoutView {
     
     
     
-    func getSnapshot()->UIImage?{
+    func getSnapshot(completion : ((_ image : UIImage?)->())?){
         
-        guard let remoteView = remoteVideoView
-            else{
-                return nil
-        }
+        
         
         guard let localView = localVideoView
             else{
-                return nil
+                completion?(nil)
+                return
         }
         
-        getFrame(view : localView)
+        getFrame(view: localView) {[weak self] (image) in
+            guard let image = image
+                else{
+                    completion?(nil)
+                    return
+            }
+            let snapshot = self?.drawSnapshot(localImage: image)
+            completion?(snapshot)
+        }
         
-        guard let localImage = getSnapshot(view : localView)
+        return
+    }
+    
+    
+    private func drawSnapshot(localImage : UIImage)->UIImage?{
+        
+        guard let remoteView = remoteVideoView
             else{
                 return nil
         }
@@ -51,12 +63,11 @@ class UserVideoRootView: UserVideoLayoutView {
         
         guard let finalImage = mergeImage(remote: remoteImage, local: localImage)
             else{
-            return nil
+                return nil
         }
         
         return finalImage
     }
-    
     
     private func mergeImage(remote : UIImage, local : UIImage)->UIImage?{
         let size = remote.size
@@ -113,10 +124,12 @@ class UserVideoRootView: UserVideoLayoutView {
         return CGSize.zero
     }
     
-    private func getFrame(view : LocalVideoView?){
+    private func getFrame(view : LocalVideoView?, completion : ((_ image : UIImage?)->())?){
         Log.echo(key: "frame", text: "getFrame")
         extractor = FrameExtractor(captureSession: view?.captureSession) { (image) in
+            Log.echo(key: "frame", text: "frame extractor completed")
             Log.echo(key: "frame", text: image)
+            completion?(image)
         }
         extractor?.getScreenshot()
     }
