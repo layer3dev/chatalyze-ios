@@ -403,6 +403,8 @@ extension VideoCallController{
             localView.renderFrame(nil)
         }
         
+        Log.echo(key: "local stream", text: "got local stream")
+        
         self.localTrack = localMediaPackage?.videoTrack
         self.localTrack?.add(localView)
         

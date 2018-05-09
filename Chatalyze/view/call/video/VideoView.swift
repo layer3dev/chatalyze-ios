@@ -11,6 +11,8 @@ import UIKit
 
 class VideoView: RTCEAGLVideoView {
     
+    
+    
     enum orientation : Int{
         case undefined = 0
         case portrait = 1
