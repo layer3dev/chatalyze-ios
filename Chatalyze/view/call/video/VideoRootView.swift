@@ -11,8 +11,15 @@ import UIKit
 class VideoRootView: ExtendedView {
     
     @IBOutlet var actionContainer : VideoActionContainer?
-    @IBOutlet var localVideoView : LocalVideoView?
+    @IBOutlet var localVideoContainerView : LocalVideoContainerView?
     @IBOutlet var remoteVideoView : RemoteVideoView?
+    
+    
+    var localVideoView : LocalVideoView?{
+        get{
+            return localVideoContainerView?.localVideoView
+        }
+    }
     
     private var hangupListener : (()->())?
     

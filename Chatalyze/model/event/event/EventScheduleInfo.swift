@@ -394,13 +394,13 @@ class EventScheduleInfo: EventInfo {
             let slotInfo = slotInfos[index]
             let slotUserId = slotInfo.user?.id ?? "0"
             if(slotInfo.isWholeConnectEligible && selfId == slotUserId){
-                Log.echo(key: "myValidSlot", text: "Here is your slot and index -> \(index)")
+//                Log.echo(key: "myValidSlot", text: "Here is your slot and index -> \(index)")
                 return (index, slotInfo)
             }
             
         }
         
-        Log.echo(key: "myValidSlot", text: "no valid slot found")
+//        Log.echo(key: "myValidSlot", text: "no valid slot found")
         
         return (0, nil)
     }

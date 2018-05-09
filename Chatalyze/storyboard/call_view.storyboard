@@ -55,15 +55,25 @@
                                     <outlet property="canvasProportionalHeightConstraint" destination="TQ9-ka-dC1" id="bW5-mN-bt9"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-ZB-2eM" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-ZB-2eM" customClass="LocalVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="539" y="303" width="128" height="72"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJ9-Om-5AZ" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="72"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="xJ9-Om-5AZ" firstAttribute="leading" secondItem="Vc8-ZB-2eM" secondAttribute="leading" id="AkT-yI-QIW"/>
                                     <constraint firstAttribute="height" constant="72" id="ClV-ce-5EO"/>
+                                    <constraint firstAttribute="trailing" secondItem="xJ9-Om-5AZ" secondAttribute="trailing" id="HRb-9m-Uq1"/>
                                     <constraint firstAttribute="height" constant="128" id="LWJ-Oh-epR"/>
                                     <constraint firstAttribute="width" constant="72" id="cQG-B4-jId"/>
+                                    <constraint firstItem="xJ9-Om-5AZ" firstAttribute="top" secondItem="Vc8-ZB-2eM" secondAttribute="top" id="cQL-Ie-uRv"/>
                                     <constraint firstAttribute="height" constant="72" id="hfl-FK-YeN"/>
+                                    <constraint firstAttribute="bottom" secondItem="xJ9-Om-5AZ" secondAttribute="bottom" id="rQn-SD-mXo"/>
                                     <constraint firstAttribute="width" constant="128" id="xGT-U2-mTp"/>
                                     <constraint firstAttribute="width" constant="128" id="xKD-WJ-YX4"/>
                                 </constraints>
@@ -100,6 +110,9 @@
                                         <include reference="xGT-U2-mTp"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="localVideoView" destination="xJ9-Om-5AZ" id="Qrh-Sw-Q6o"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfp-G1-gCo" userLabel="option_container" customClass="VideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="8" y="119.5" width="40" height="136"/>
@@ -354,7 +367,7 @@
                             <outlet property="actionContainer" destination="kfp-G1-gCo" id="jlU-w5-tGz"/>
                             <outlet property="callInfoContainer" destination="D8d-bA-Xtx" id="Z9b-eY-f3D"/>
                             <outlet property="canvasContainer" destination="Wmj-9J-V6c" id="RIe-DK-uRW"/>
-                            <outlet property="localVideoView" destination="Vc8-ZB-2eM" id="BJt-sf-xeM"/>
+                            <outlet property="localVideoContainerView" destination="Vc8-ZB-2eM" id="1L1-jg-O1n"/>
                             <outlet property="remoteVideoView" destination="1lh-gd-FgM" id="OEw-T8-LBI"/>
                             <outlet property="requestAutographButton" destination="X4e-l4-rf5" id="TWG-tL-Ysm"/>
                         </connections>

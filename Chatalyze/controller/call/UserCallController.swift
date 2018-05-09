@@ -457,26 +457,22 @@ extension UserCallController{
             
         }
         
-
     }
     
     
+    
     private func requestDefaultAutograph(image : UIImage){
-        
         self.uploadImage(image: image, completion: { [weak self] (success, screenshotInfo) in
             if(!success){
                 return
             }
-            
             self?.serviceRequestAutograph(info: screenshotInfo)
         })
-        
-        
     }
+    
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         //self.showLoader()
-        
         myActiveUserSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"

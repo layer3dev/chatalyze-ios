@@ -215,6 +215,8 @@
 		FAFB7C80206E6B84004804D2 /* EventQueueFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB7C7E206E6B84004804D2 /* EventQueueFlowLayout.swift */; };
 		FAFB7C81206E6B84004804D2 /* EventQueueAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB7C7F206E6B84004804D2 /* EventQueueAdapter.swift */; };
 		FAFB7C84206E6E3D004804D2 /* EventQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB7C83206E6E3D004804D2 /* EventQueueController.swift */; };
+		FAFDE4CF20A19E310098B9B2 /* LocalVideoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDE4CE20A19E310098B9B2 /* LocalVideoContainerView.swift */; };
+		FAFDE4D120A1C9E60098B9B2 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDE4D020A1C9E60098B9B2 /* FrameExtractor.swift */; };
 		FAFFFE98203D9C80009B4F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */; };
 		FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFFFE99203D9C80009B4F96 /* ViewController.swift */; };
 		FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFFFE9B203D9C80009B4F96 /* Main.storyboard */; };
@@ -496,6 +498,8 @@
 		FAFB7C7E206E6B84004804D2 /* EventQueueFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueueFlowLayout.swift; sourceTree = "<group>"; };
 		FAFB7C7F206E6B84004804D2 /* EventQueueAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventQueueAdapter.swift; sourceTree = "<group>"; };
 		FAFB7C83206E6E3D004804D2 /* EventQueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueueController.swift; sourceTree = "<group>"; };
+		FAFDE4CE20A19E310098B9B2 /* LocalVideoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoContainerView.swift; sourceTree = "<group>"; };
+		FAFDE4D020A1C9E60098B9B2 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		FAFFFE94203D9C80009B4F96 /* Chatalyze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatalyze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFFFE97203D9C80009B4F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFFFE99203D9C80009B4F96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -617,17 +621,18 @@
 				FA0A4F9B2078B41600FF9517 /* callInfo */,
 				FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */,
 				FA1B36312064E22F00F2E6BC /* HangupContainer.swift */,
-				FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */,
 				FA1B36332064E22F00F2E6BC /* MicActionView.swift */,
 				FA1B36342064E22F00F2E6BC /* RemoteVideoView.swift */,
 				FA1B36352064E22F00F2E6BC /* VideoActionContainer.swift */,
 				FA1B36362064E22F00F2E6BC /* VideoActionView.swift */,
 				FA1B36372064E22F00F2E6BC /* VideoRootView.swift */,
+				FADC84E32074E35600AD9D65 /* UserVideoRootView.swift */,
+				FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */,
+				FAFDE4CE20A19E310098B9B2 /* LocalVideoContainerView.swift */,
+				FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */,
 				FA1B36382064E22F00F2E6BC /* VideoView.swift */,
 				FADC84DF2074D99300AD9D65 /* RequestAutographContainerView.swift */,
 				FADC84E12074E16B00AD9D65 /* LoaderView.swift */,
-				FADC84E32074E35600AD9D65 /* UserVideoRootView.swift */,
-				FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */,
 				FA00779F207E2B53005F840D /* CanvasContainer.swift */,
 				FA0077A1207E2CF9005F840D /* UserVideoLayoutView.swift */,
 			);
@@ -1135,6 +1140,7 @@
 				FAD201772076071F0004E10E /* CacheImageLoader.swift */,
 				FAD6BA3D2064F95D00942F27 /* eventManager */,
 				FAA00168203ED1E6003C8A74 /* rootManager */,
+				FAFDE4D020A1C9E60098B9B2 /* FrameExtractor.swift */,
 			);
 			path = processor;
 			sourceTree = "<group>";
@@ -2017,6 +2023,7 @@
 				FAD2018620761CC00004E10E /* AspectImageView.swift in Sources */,
 				FAE8E8172063DE210054ED7D /* JoinCountdownView.swift in Sources */,
 				FA74B13620639B6400983141 /* ARDWebSocketChannel.m in Sources */,
+				FAFDE4CF20A19E310098B9B2 /* LocalVideoContainerView.swift in Sources */,
 				FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */,
 				FAD6BA382064F6CF00942F27 /* QueueContainerView.swift in Sources */,
 				FAA001A3203ED472003C8A74 /* UINib.swift in Sources */,
@@ -2027,6 +2034,7 @@
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
+				FAFDE4D120A1C9E60098B9B2 /* FrameExtractor.swift in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,

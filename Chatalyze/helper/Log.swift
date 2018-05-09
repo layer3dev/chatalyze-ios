@@ -23,6 +23,7 @@ import Foundation
         
         guard let textEx = text
             else{
+                print("\(key) -> nil")
                 return
         }
         

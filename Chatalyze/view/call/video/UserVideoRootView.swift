@@ -12,6 +12,7 @@ class UserVideoRootView: UserVideoLayoutView {
     
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
+    var extractor : FrameExtractor?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -35,15 +36,18 @@ class UserVideoRootView: UserVideoLayoutView {
                 return nil
         }
         
-        guard let remoteImage = getSnapshot(view : remoteView)
-            else{
-                return nil
-        }
+        getFrame(view : localView)
         
         guard let localImage = getSnapshot(view : localView)
             else{
                 return nil
         }
+        
+        guard let remoteImage = getSnapshot(view : remoteView)
+            else{
+                return nil
+        }
+        
         
         guard let finalImage = mergeImage(remote: remoteImage, local: localImage)
             else{
@@ -109,11 +113,18 @@ class UserVideoRootView: UserVideoLayoutView {
         return CGSize.zero
     }
     
-    
+    private func getFrame(view : LocalVideoView?){
+        Log.echo(key: "frame", text: "getFrame")
+        extractor = FrameExtractor(captureSession: view?.captureSession) { (image) in
+            Log.echo(key: "frame", text: image)
+        }
+        extractor?.getScreenshot()
+    }
     
     private func getSnapshot(view : UIView)->UIImage?{
         let bounds = view.bounds
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
+        
         view.drawHierarchy(in: bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
