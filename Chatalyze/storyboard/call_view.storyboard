@@ -27,9 +27,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-gd-FgM" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-gd-FgM" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2M-WY-QPb" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="333" y="187" width="0.0" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="8Nr-tg-71j"/>
+                                            <constraint firstAttribute="width" id="UEy-SP-YLV"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="8Nr-tg-71j" id="3Q0-6L-67K"/>
+                                            <outlet property="widthConstraint" destination="UEy-SP-YLV" id="Dxu-hG-shL"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="D2M-WY-QPb" firstAttribute="centerY" secondItem="1lh-gd-FgM" secondAttribute="centerY" id="DcL-RQ-MTb"/>
+                                    <constraint firstItem="D2M-WY-QPb" firstAttribute="centerX" secondItem="1lh-gd-FgM" secondAttribute="centerX" id="YRw-d3-mQx"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="remoteVideoView" destination="D2M-WY-QPb" id="XZv-nx-E4v"/>
+                                </connections>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmj-9J-V6c" customClass="CanvasContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="375" width="667" height="0.0"/>
@@ -355,14 +376,14 @@
                             <outlet property="callInfoContainer" destination="D8d-bA-Xtx" id="Z9b-eY-f3D"/>
                             <outlet property="canvasContainer" destination="Wmj-9J-V6c" id="RIe-DK-uRW"/>
                             <outlet property="localVideoView" destination="Vc8-ZB-2eM" id="8fU-ht-u9I"/>
-                            <outlet property="remoteVideoView" destination="1lh-gd-FgM" id="OEw-T8-LBI"/>
+                            <outlet property="remoteVideoContainerView" destination="1lh-gd-FgM" id="kNo-IE-N0T"/>
                             <outlet property="requestAutographButton" destination="X4e-l4-rf5" id="TWG-tL-Ysm"/>
                         </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="469" y="-1498"/>
+            <point key="canvasLocation" x="467" y="-1636"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
@@ -376,9 +397,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43M-1x-4vh" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43M-1x-4vh" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YP-eL-SsY" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="333" y="187" width="0.0" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" id="1Qd-ai-BdX"/>
+                                            <constraint firstAttribute="height" id="7Aj-Rm-pUG"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="7Aj-Rm-pUG" id="5g7-1G-lRT"/>
+                                            <outlet property="widthConstraint" destination="1Qd-ai-BdX" id="ISc-S7-GsU"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5YP-eL-SsY" firstAttribute="centerX" secondItem="43M-1x-4vh" secondAttribute="centerX" id="BYc-QK-KGv"/>
+                                    <constraint firstItem="5YP-eL-SsY" firstAttribute="centerY" secondItem="43M-1x-4vh" secondAttribute="centerY" id="aRJ-QY-HqM"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="remoteVideoView" destination="5YP-eL-SsY" id="XLm-Lr-66X"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8L-eB-LKB" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="539" y="303" width="128" height="72"/>
@@ -651,7 +693,7 @@
                             <outlet property="actionContainer" destination="Go0-RF-bnS" id="lmx-aV-CeC"/>
                             <outlet property="callInfoContainer" destination="gkw-v1-jGv" id="548-h0-AlE"/>
                             <outlet property="localVideoView" destination="W8L-eB-LKB" id="z4h-fv-n7Y"/>
-                            <outlet property="remoteVideoView" destination="43M-1x-4vh" id="0bg-tu-TSa"/>
+                            <outlet property="remoteVideoContainerView" destination="43M-1x-4vh" id="LPE-bQ-6ad"/>
                         </connections>
                     </view>
                 </viewController>
