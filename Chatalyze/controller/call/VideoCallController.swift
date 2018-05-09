@@ -21,6 +21,8 @@ class VideoCallController : InterfaceExtendedController {
     private var captureController : ARDCaptureController?
     var localMediaPackage : CallMediaTrack?
     
+    private var localTrack : RTCVideoTrack?
+    
     //used for tracking the call time and auto-connect process
     var timer : SyncTimer = SyncTimer()
     
@@ -380,14 +382,7 @@ extension VideoCallController{
              
              
              let captureSession = localCapturer.captureSession
-             if(localView.captureSession == nil){
-             Log.echo(key: "local", text: "nil earlier, assigning new one")
-             localView.captureSession = captureSession
-             }else{
-             Log.echo(key: "local", text: "already assigned, not setting new one")
-             //            localView.add
-             //            localView.captureSession = captureSession
-             }
+//             localView.captureSession = captureSession
             
             
              let settingsModel = ARDSettingsModel()
@@ -395,6 +390,21 @@ extension VideoCallController{
              self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
              self?.captureController?.startCapture()
         }
+        
+        guard let localView = rootView?.localVideoView
+            else{
+                return
+        }
+        
+        
+        if let localTrack = self.localTrack{
+            localTrack.remove(localView)
+            self.localTrack = nil
+            localView.renderFrame(nil)
+        }
+        
+        self.localTrack = localMediaPackage?.videoTrack
+        self.localTrack?.add(localView)
         
     
     }

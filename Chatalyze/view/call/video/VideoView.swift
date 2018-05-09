@@ -9,7 +9,7 @@
 import UIKit
 
 
-class VideoView: RTCCameraPreviewView {
+class VideoView: RTCEAGLVideoView {
     
     enum orientation : Int{
         case undefined = 0
@@ -31,8 +31,7 @@ class VideoView: RTCCameraPreviewView {
     }
     
     private func initialization(){
-//         self.delegate = self
-        
+         self.delegate = self
     }
     
     func updateSize(size: CGSize){
@@ -40,11 +39,15 @@ class VideoView: RTCCameraPreviewView {
     }
 }
 
-/*extension VideoView : RTCEAGLVideoViewDelegate{
+extension VideoView : RTCEAGLVideoViewDelegate{
     
-    func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
-        self.updateSize(size: size)
+    func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
+         self.updateSize(size: size)
     }
     
+    /*func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
+        self.updateSize(size: size)
+    }*/
+    
 
-}*/
+}

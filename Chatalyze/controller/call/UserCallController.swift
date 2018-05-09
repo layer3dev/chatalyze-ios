@@ -484,13 +484,7 @@ extension UserCallController{
     
     
     func takeScreenshot(){
-        userRootView?.getSnapshot(completion: {[weak self] (image) in
-            self?.processScreenshot(image: image)
-        })
-        
-    }
-    
-    func processScreenshot(image : UIImage?){
+        let image = userRootView?.getSnapshot()
         guard let controller = AutographPreviewController.instance()
             else{
                 return
@@ -501,13 +495,12 @@ extension UserCallController{
             self?.uploadImage(image: image, completion: { (success, info) in
                 self?.screenshotInfo = info
             })
-            
+
         }
         self.present(controller, animated: true) {
             
         }
     }
-    
     
     
     private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
