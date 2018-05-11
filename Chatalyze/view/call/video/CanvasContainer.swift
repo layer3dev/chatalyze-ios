@@ -37,6 +37,7 @@ class CanvasContainer: ExtendedView {
         }
     }
     
+    
     private func showInPortrait(){
         canvasHeightZeroConstraint?.priority = UILayoutPriority(1.0)
         canvasProportionalHeightConstraint?.priority = UILayoutPriority(990.0)
