@@ -553,7 +553,8 @@ extension UserCallController{
     }
     
     private func prepateCanvas(info : CanvasInfo?){
-         userRootView?.canvasContainer?.show()
+        userRootView?.canvasContainer?.show()
+        
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
          CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
