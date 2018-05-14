@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         initialization()
+        let view = UIStackView()
         test()
         return true
     }
