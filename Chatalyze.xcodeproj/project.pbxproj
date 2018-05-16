@@ -55,6 +55,9 @@
 		47B6527920AAB5030041496C /* GreetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527420AAB5010041496C /* GreetingCell.swift */; };
 		47B6527A20AAB5030041496C /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527520AAB5020041496C /* EventCell.swift */; };
 		47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527620AAB5020041496C /* GreetingDateCell.swift */; };
+		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
+		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
+		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
@@ -340,6 +343,9 @@
 		47B6527420AAB5010041496C /* GreetingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingCell.swift; sourceTree = "<group>"; };
 		47B6527520AAB5020041496C /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		47B6527620AAB5020041496C /* GreetingDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingDateCell.swift; sourceTree = "<group>"; };
+		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
+		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
 		49DE06EB9A7536210A1FF290 /* Pods-ChatalyzeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -766,6 +772,14 @@
 				47B6527020AAB4A10041496C /* GreetingInfo.swift */,
 			);
 			path = "greeting ";
+			sourceTree = "<group>";
+		};
+		47DF899920AC17D200FEA916 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				47DF899A20AC180000FEA916 /* EditProfileRootview.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
@@ -1312,6 +1326,7 @@
 				47B6522220AAAF710041496C /* greeting */,
 				FA912D9C20418DEC002891EC /* signin */,
 				47B6521D20AAAF500041496C /* calender */,
+				47DF899920AC17D200FEA916 /* EditProfile */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1370,6 +1385,7 @@
 				FAFB7C6F206DFE49004804D2 /* call_queue.storyboard */,
 				FADC84E82074EABD00AD9D65 /* autograph.storyboard */,
 				47B6523F20AAAFB40041496C /* container.storyboard */,
+				47DF899520ABFF0800FEA916 /* EditProfile.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -1389,6 +1405,7 @@
 				FA1B36252064D0ED00F2E6BC /* SettingController.swift */,
 				47B6525620AAB0410041496C /* ForgotPasswordController.swift */,
 				47B6525720AAB0420041496C /* SignUpController.swift */,
+				47DF899720AC16AF00FEA916 /* EditProfileController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1952,6 +1969,7 @@
 				FAD2018420761C7B0004E10E /* AutographyCanvas.xib in Resources */,
 				47B6521820AAADB30041496C /* Greeting.storyboard in Resources */,
 				47B6521920AAADB30041496C /* Signup.storyboard in Resources */,
+				47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */,
 				FA9858E620638A3A00989CBB /* home.storyboard in Resources */,
 				FAFB7C70206DFE49004804D2 /* call_queue.storyboard in Resources */,
 				47B6524020AAAFB40041496C /* container.storyboard in Resources */,
@@ -2004,11 +2022,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CountryPickerSwift/CountryPicker.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountryPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 			);
@@ -2214,6 +2234,7 @@
 				FAE9EF74206CE82C00C45F8D /* HomeController.swift in Sources */,
 				FA74B13020639B6400983141 /* ARDMessageResponse.m in Sources */,
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
+				47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
 				47B6523320AAAF840041496C /* EventRootView.swift in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
@@ -2243,6 +2264,7 @@
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
 				FAE9EF6F206CD05500C45F8D /* UserCallConnection.swift in Sources */,
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
+				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,

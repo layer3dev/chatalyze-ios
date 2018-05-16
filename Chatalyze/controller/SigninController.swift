@@ -16,42 +16,50 @@ class SigninController: InterfaceExtendedController {
     }
     
     fileprivate func signin(){
+        
         let isValidated = rootView?.validateFields() ?? false
         if(!isValidated){
             return
         }
     }
     
+    @IBAction func signupAction(sender:UIButton){
+        
+        guard let controller = SignUpController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialization()
-        
-        
-        
     }
     
+    
+    
     fileprivate func initialization(){
+        
         initializeVariable()
         paintInterface()
     }
     
     fileprivate func initializeVariable(){
+        
         rootView?.controller = self
     }
     
     
-    
     fileprivate func paintInterface(){
+        
         paintNavigationTitle(text: "SIGN IN")
+        //paintBackButton()
     }
     
     var rootView : SigninRootView?{
         return self.view as? SigninRootView
     }
-    
-    
-    
 }
 
 extension SigninController{

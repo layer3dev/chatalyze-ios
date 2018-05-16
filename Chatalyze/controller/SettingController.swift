@@ -43,6 +43,14 @@ class SettingController : InterfaceExtendedController {
         paintSettingButton()
         paintBackButton()
     }
+    
+    @IBAction func settingAction(sender:UIButton){
+                
+        guard let controller = EditProfileController.instance() else {
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 
 
     /*

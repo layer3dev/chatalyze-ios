@@ -15,10 +15,8 @@ class HostHomeController: HomeController {
     private var eventInfo : EventInfo?
     private let eventListener = EventListener()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidRelease() {
@@ -28,6 +26,7 @@ class HostHomeController: HomeController {
     }
     
     @IBAction private func callAction(){
+       
         guard let eventInfo = eventInfo
             else{
                 return
@@ -53,7 +52,6 @@ class HostHomeController: HomeController {
                 return
         }
         
-        
         controller.eventId = String(eventId)
         self.present(controller, animated: true, completion: nil)
     }
@@ -75,11 +73,11 @@ class HostHomeController: HomeController {
         }
     }
     
+    
     /*
      SocketService.getSocket().on('notification', function(data){
      if(!data) return;
      if(data.meta.activity_type != 'call_booked') return;
-     
      
      Log.print("socket notification call_booked", "");
      //Log.print(JSON.stringify(data), "");
@@ -98,15 +96,10 @@ class HostHomeController: HomeController {
     
     override func initializeListener(){
         super.initializeListener()
-    
         
         eventListener.setListener {
             self.fetchInfo(showLoader: false)
         }
-        
     }
-    
-    
-    
     
 }

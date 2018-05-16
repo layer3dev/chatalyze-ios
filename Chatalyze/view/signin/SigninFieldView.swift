@@ -14,6 +14,7 @@ class SigninFieldView: ExtendedView {
     @IBOutlet var textField : UITextField?
     @IBOutlet fileprivate var borderView : UIView?
     @IBOutlet fileprivate var errorLabel : UILabel?
+    @IBOutlet var image:UIImageView?
     
     override func viewDidLayout() {
         super.viewDidLayout()

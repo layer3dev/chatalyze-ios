@@ -26,22 +26,26 @@ class ContainerController: TabChildLoadController {
     }
     
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     private func initialization(){
+        
+        initializeForFirstTab()
         initializeVariable()
+    }
+    
+    func initializeForFirstTab(){
+      
+        initialTabInstance = ContainerController.initialTab
+        tabController?.initialTab = initialTabInstance
+        selectTab(type: initialTabInstance)
     }
     
     override func viewGotLoaded(){
         super.viewGotLoaded()
-        
-        initialTabInstance = ContainerController.initialTab
-        tabController?.initialTab = initialTabInstance
-        selectTab(type: initialTabInstance)
     }
     
     override func viewLayoutCompleted(){
