@@ -33,7 +33,7 @@ class CollectionViewController: UICollectionViewController {
         reloadData()
     }
 
-    @objc func changeContentMode() {
+    func changeContentMode() {
         contentMode = modeMap[contentMode]!
     }
 

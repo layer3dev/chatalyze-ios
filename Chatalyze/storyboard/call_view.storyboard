@@ -14,7 +14,7 @@
         <!--User Call Controller-->
         <scene sceneID="CUH-cP-l1I">
             <objects>
-                <viewController storyboardIdentifier="user_video_call" id="69S-M1-2Z4" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="user_video_call" automaticallyAdjustsScrollViewInsets="NO" id="69S-M1-2Z4" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EuP-R3-z0r"/>
                         <viewControllerLayoutGuide type="bottom" id="W58-xK-9n0"/>
@@ -360,11 +360,11 @@
                             <mask key="constraints">
                                 <exclude reference="J9B-9j-AbZ"/>
                                 <include reference="bJy-WB-zHp"/>
+                                <exclude reference="Vfv-2K-2Qu"/>
                                 <exclude reference="0Ha-NB-uI3"/>
                                 <include reference="Dgv-4Y-hrA"/>
                                 <exclude reference="L3s-GR-Msj"/>
                                 <include reference="0nX-VJ-mJY"/>
-                                <exclude reference="Vfv-2K-2Qu"/>
                             </mask>
                         </variation>
                         <connections>
@@ -376,6 +376,7 @@
                             <outlet property="requestAutographButton" destination="X4e-l4-rf5" id="TWG-tL-Ysm"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -384,7 +385,7 @@
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
             <objects>
-                <viewController storyboardIdentifier="host_video_call" id="yIB-kd-klD" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="host_video_call" automaticallyAdjustsScrollViewInsets="NO" id="yIB-kd-klD" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lG8-qq-gzL"/>
                         <viewControllerLayoutGuide type="bottom" id="LNz-ky-YSt"/>
@@ -681,8 +682,8 @@
                             <mask key="constraints">
                                 <exclude reference="4hE-fd-J3t"/>
                                 <include reference="NzW-cP-FIU"/>
-                                <include reference="e67-UJ-ke9"/>
                                 <exclude reference="taz-eO-fhX"/>
+                                <include reference="e67-UJ-ke9"/>
                             </mask>
                         </variation>
                         <connections>
@@ -692,6 +693,7 @@
                             <outlet property="remoteVideoContainerView" destination="43M-1x-4vh" id="LPE-bQ-6ad"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2K-NB-UUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

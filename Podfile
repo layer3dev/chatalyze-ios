@@ -6,8 +6,9 @@ target 'Chatalyze' do
   use_frameworks!
 
   # Pods for Chatalyze
-    pod 'GoogleWebRTC'
-    pod 'SDWebImage', '~> 4.0'
+
+  pod 'JTAppleCalendar', '~> 7.1.5'
+  pod 'GoogleWebRTC' 
 
   target 'ChatalyzeTests' do
     inherit! :search_paths

@@ -44,8 +44,12 @@ class UIImageViewTests: ImageLoaderTestCase {
     override func setUp() {
         super.setUp()
         Disk().cleanUp()
-        stub()
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    }
+
+    override func tearDown() {
+        sleep(1)
+        super.tearDown()
     }
 
     func testLoadImage() {
@@ -154,7 +158,7 @@ class UIImageViewTests: ImageLoaderTestCase {
 
         let string = "http://testLastestLoadIsAliveWhenTwiceLoadWithSameUrl/white"
 
-        let loader1 = imageView.load.request(with: string, onCompletion: { _,_,_  in
+        let loader1 = imageView.load.request(with: string, onCompletion: { _ in
             XCTFail()
         })
         XCTAssertEqual(loader1?.operative.tasks.count, 1)
@@ -184,7 +188,7 @@ class UIImageViewTests: ImageLoaderTestCase {
             XCTAssertTrue(image!.isEqualTo(self.whiteImage))
             XCTAssertTrue(self.imageView.image!.isEqualTo(self.whiteImage))
 
-            self.imageView.load.request(with: string1, onCompletion: { error,_,_ in
+            self.imageView.load.request(with: string1, onCompletion: { error in
                 XCTAssertNotNil(error)
             })
             self.imageView.load.request(with: string2, onCompletion: { image, error, operation in

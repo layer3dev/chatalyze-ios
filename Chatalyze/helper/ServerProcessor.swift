@@ -36,6 +36,7 @@ class ServerProcessor{
         case put
         case delete
         
+        
         public func libHttpMethod()->Alamofire.HTTPMethod{
             switch self {
             case .get:
@@ -56,6 +57,7 @@ class ServerProcessor{
         case httpBody
         case queryString
         case jsonEncoding
+        case customGETEncoding
         
         public func libEncoding()->Alamofire.ParameterEncoding{
             
@@ -68,6 +70,8 @@ class ServerProcessor{
                 return URLEncoding.queryString
             case .jsonEncoding:
                 return JSONEncoding.default
+            case .customGETEncoding:
+                return CustomGetEncoding()
             }
         }
     }
@@ -179,9 +183,18 @@ class ServerProcessor{
     
     fileprivate func signout(){
         
-        RootControllerManager().signOut(completion: nil)
+        //RootControllerManager.signOutAction(completion: nil)
         return
-    
+        
+        /*guard let controller = RootControllerManager.getRootController()
+         else{
+         RootControllerManager.signOutAction(completion: nil)
+         return;
+         }
+         controller.alert(withTitle: "Session Timed out", message: "Your session has timed out. Please signin again to continue!", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
+         RootControllerManager.signOutAction(completion: nil)
+         return;
+         }*/
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
         let headerInfo = httpResponse?.allHeaderFields
@@ -198,6 +211,16 @@ class ServerProcessor{
         }
         Log.echo(key: "token", text: "token extracted ==>  " + accessToken)
         instance.accessToken = accessToken
+    }
+    
+    struct CustomGetEncoding: ParameterEncoding {
+        
+        func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
+            var request = try URLEncoding().encode(urlRequest, with: parameters)
+            request.url = URL(string: request.url!.absoluteString.replacingOccurrences(of: "%5B%5D=", with: "="))
+            Log.echo(key: "yud", text: "Request is\(request)")
+            return request
+        }
     }
 }
 

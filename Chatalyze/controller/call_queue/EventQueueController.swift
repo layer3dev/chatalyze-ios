@@ -103,11 +103,9 @@ class EventQueueController: InterfaceExtendedController {
     
     private func paintInterface(){
         paintNavigationBar()
-        edgesForExtendedLayout =  [UIRectEdge.bottom]
+        //edgesForExtendedLayout =  [UIRectEdge.bottom]
     }
-    
-    
-    
+        
     private func paintNavigationBar(){
         paintNavigationTitle(text: "Event")
         paintBackButton()

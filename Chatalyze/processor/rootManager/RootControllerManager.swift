@@ -11,17 +11,13 @@ import UIKit
 
 class RootControllerManager{
     
-    init() {
-        UIApplication.shared.isIdleTimerDisabled = true
-    }
-
     func setRoot(){
-
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         _ = appDelegate?.window
         
-
-        delayLaunchScreen { 
+        
+        delayLaunchScreen {
             self.showRelevantScreen()
         }
     }
@@ -45,6 +41,7 @@ class RootControllerManager{
         return
     }
     
+    
     private func showSigninScreen(){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -54,11 +51,15 @@ class RootControllerManager{
             else{
                 return
         }
-//        let signinNav : UINavigationController = ExtendedNavigationController()
-//        signinNav.viewControllers = [signinController]
-        
-        window?.rootViewController = signinController
+        let signinNav : UINavigationController = ExtendedNavigationController()
+        signinNav.viewControllers = [signinController]
+        window?.rootViewController = signinNav
     }
+    
+    
+    
+    
+    
     
     private func showHomeScreen(){
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -72,9 +73,14 @@ class RootControllerManager{
         }
         
         /*guard let controller = EventQueueController.instance()
-            else{
-                return
-        }*/
+         else{
+         return
+         }*/
+        
+        
+        guard let containerController = ContainerController.instance() else {
+            return
+        }
         
         
         Log.echo(key: "yud", text: "Root is active")
@@ -82,7 +88,9 @@ class RootControllerManager{
         
         let transition = CATransition()
         transition.type = kCATransitionFade
-        window?.set(rootViewController: rootNav, withTransition: transition)
+        //        window?.set(rootViewController: rootNav, withTransition: transition)
+        
+        window?.set(rootViewController: containerController, withTransition: transition)
         
         //window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
@@ -95,7 +103,7 @@ class RootControllerManager{
         UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
         UINavigationBar.appearance().barStyle = .black
     }
-   
+    
     
     
     

@@ -23,7 +23,7 @@ class DateParser: NSObject {
         
         return formattedDateString
     }
-
+    
     static func stringToDate(_ dateString : String)->Date?{
         let defaultFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
         return stringToDate(dateString, dateFormat: defaultFormat)
@@ -51,7 +51,7 @@ class DateParser: NSObject {
     }
     
     static func dateToString(_ date : Date?, requiredFormat : String)->String?{
-       let defaultTimeZone = TimeZone.autoupdatingCurrent
+        let defaultTimeZone = TimeZone.autoupdatingCurrent
         return dateToString(date, requiredFormat: requiredFormat, timeZone: defaultTimeZone)
     }
     
@@ -84,7 +84,77 @@ class DateParser: NSObject {
         return (calendar as NSCalendar).components(unitFlags, from: date ?? Date())
     }
     
-
     
+    static func getMidNightDateTimeInString(date:Date?,format:String?)->String?{
+        
+        //For Start Date
+        guard let getDate = date else {
+            return ""
+        }
+        guard let getFormat = format else {
+            return ""
+        }
+        
+        var calendar = Calendar.current
+        let requiredTimeZone = TimeZone(abbreviation: "UTC")!
+        calendar.timeZone = requiredTimeZone
+        calendar.locale = Locale(identifier : "en_US_POSIX")
+        let dateAtMidnight = calendar.startOfDay(for: Date())
+        let dateTime = dateToString(dateAtMidnight, requiredFormat : getFormat, timeZone : requiredTimeZone)
+        
+        return dateTime
+    }
+    
+    
+    static func convertDateToDesiredFormat(date:String?,ItsDateFormat:String?,requiredDateFormat:String?)->String?{
+        
+        guard let dateNeedToModify = date else{
+            return nil
+        }
+        guard let dateFormat = ItsDateFormat else{
+            return nil
+        }
+        guard let requiredFormat =  requiredDateFormat else {
+            return nil
+        }
+        Log.echo(key: "yu", text: "CD is \(dateNeedToModify)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier : "en_US_POSIX")
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = TimeZone(abbreviation:"UTC")
+        if let getDate = dateFormatter.date(from: "\(dateNeedToModify)"){
+            dateFormatter.dateFormat = requiredFormat
+            dateFormatter.timeZone = TimeZone.current
+            return dateFormatter.string(from: getDate)
+        }
+        return nil
+    }
+    
+    static func getCurrentDateInUTC()->Date?{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier : "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXX"
+        dateFormatter.timeZone = TimeZone(abbreviation:"UTC")
+        let str = dateFormatter.string(from: Date())
+        let date = dateFormatter.date(from: str)
+        return date
+    }
+    
+    
+    static func getDateTimeInUTCFromWeb(dateInString:String?,dateFormat:String?)->Date?{
+        
+        guard let currentDate = dateInString else{
+            return nil
+        }
+        guard let dateFormat = dateFormat else{
+            return nil
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier : "en_US_POSIX")
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = TimeZone(abbreviation:"UTC")
+        return dateFormatter.date(from: "\(currentDate)")
+    }
     
 }

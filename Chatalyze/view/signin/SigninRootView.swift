@@ -21,19 +21,29 @@ class SigninRootView: ExtendedView {
     @IBOutlet fileprivate var scrollView : FieldManagingScrollView?
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
     
+    @IBOutlet fileprivate var signUpView:Signupview?
+    
     @IBAction fileprivate func fbLoginAction(){
+        
         self.resetErrorStatus()
         fbLogin()
     }
     
     @IBAction fileprivate func loginAction(){
+        
         if(validateFields()){
             self.resetErrorStatus()
             signIn()
         }
-        
     }
-
+    
+    @IBAction fileprivate func forgotPasswordAction(sender:UIButton){
+        
+        guard let controller = ForgotPasswordController.instance() else {
+            return
+        }
+        self.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -42,28 +52,29 @@ class SigninRootView: ExtendedView {
     }
     
     fileprivate func initialization(){
+        
         initializeVariable()
     }
     
     fileprivate func initializeVariable(){
+        
         emailField?.textField?.delegate = self
         passwordField?.textField?.delegate = self
-        
         scrollView?.bottomContentOffset = scrollContentBottomOffset
     }
-    
-
 }
 
 extension SigninRootView{
     
     func validateFields()->Bool{
+        
         let emailValidated  = validateEmail()
         let passwordValidated = validatePassword()
         return emailValidated && passwordValidated
     }
     
     fileprivate func validateEmail()->Bool{
+        
         if(emailField?.textField?.text == ""){
             emailField?.showError(text: "Email field can't be left empty !")
             return false
@@ -73,6 +84,7 @@ extension SigninRootView{
     }
     
     fileprivate func validatePassword()->Bool{
+        
         if(passwordField?.textField?.text == ""){
             passwordField?.showError(text: "Password field can't be left empty !")
             return false
@@ -81,9 +93,6 @@ extension SigninRootView{
         return true
     }
 }
-
-
-
 
 extension SigninRootView : UITextFieldDelegate{
     
@@ -111,7 +120,7 @@ extension SigninRootView{
         loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
             switch loginResult {
             case .failed(let error):
-                 self?.showError(text: error.localizedDescription)
+                self?.showError(text: error.localizedDescription)
             case .cancelled:
                 self?.showError(text: "Login Cancelled !")
             case .success( _,  _, let accessToken):
@@ -134,12 +143,12 @@ extension SigninRootView{
             })
         })
     }
-        
 }
 
-
 extension SigninRootView{
+    
     fileprivate func signIn(){
+        
         let email = emailField?.textField?.text ?? ""
         let password = passwordField?.textField?.text ?? ""
         self.controller?.showLoader()
@@ -154,7 +163,6 @@ extension SigninRootView{
             self?.showError(text: message)
             return
         }
-        
     }
     
     func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String)->())?){
@@ -166,14 +174,15 @@ extension SigninRootView{
     
     
     func showError(text : String?){
+        
         errorLabel?.text = text
     }
     
     func resetErrorStatus(){
+        
         errorLabel?.text = ""
         emailField?.resetErrorStatus()
         passwordField?.resetErrorStatus()
     }
-
-    
 }
+

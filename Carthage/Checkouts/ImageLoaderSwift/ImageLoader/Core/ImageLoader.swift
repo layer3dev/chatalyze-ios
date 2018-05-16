@@ -12,31 +12,24 @@ import UIKit
 public struct ImageLoader {
 
     @discardableResult
-    public static func request(with url: URLLiteralConvertible, onCompletion: @escaping (UIImage?, Error?, FetchOperation) -> Void) -> Loader? {
-        guard let imageLoaderUrl = url.imageLoaderURL else { return nil }
-
+    public static func request(with url: URLLiteralConvertible, onCompletion: @escaping (UIImage?, Error?, FetchOperation) -> Void) -> Loader {
         let task = Task(nil, onCompletion: onCompletion)
-        let loader = ImageLoader.session.getLoader(with: imageLoaderUrl, task: task)
+        let loader = ImageLoader.loaderManager.getLoader(with: url.imageLoaderURL, task: task)
         loader.resume()
 
         return loader
     }
+}
 
-    static var session: ImageLoader.Session {
-        return Session.shared
-    }
+extension ImageLoader {
 
-    static var manager: ImageLoader.LoaderManager {
-        return Session.manager
-    }
+    static let loaderManager = LoaderManager()
+    static let sessionManager = SessionManager()
 
-    class Session: NSObject, URLSessionDataDelegate {
-
-        static let shared = Session()
-        static let manager = LoaderManager()
+    class SessionManager: NSObject, URLSessionDataDelegate {
 
         func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-            guard let loader = getLoader(with: dataTask) else { return }
+            guard let loader = getLoaderFromLoaderManager(with: dataTask) else { return }
             loader.operative.receiveData.append(data)
         }
 
@@ -45,19 +38,13 @@ public struct ImageLoader {
         }
 
         func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-            guard let loader = getLoader(with: task) else { return }
+            guard let loader = getLoaderFromLoaderManager(with: task) else { return }
             loader.complete(with: error)
         }
 
-        func getLoader(with dataTask: URLSessionTask) -> Loader? {
+        func getLoaderFromLoaderManager(with dataTask: URLSessionTask) -> Loader? {
             guard let url = dataTask.originalRequest?.url else { return nil }
-            return ImageLoader.manager.storage[url]
-        }
-
-        func getLoader(with url: URL, task: Task) -> Loader {
-            let loader = ImageLoader.manager.getLoader(with: url)
-            loader.operative.update(task)
-            return loader
+            return loaderManager.storage[url]
         }
     }
 
@@ -68,7 +55,7 @@ public struct ImageLoader {
         var disk = Disk()
 
         init(configuration: URLSessionConfiguration = .default) {
-            self.session = URLSession(configuration: .default, delegate: ImageLoader.session, delegateQueue: nil)
+            self.session = URLSession(configuration: configuration, delegate: sessionManager, delegateQueue: nil)
         }
 
         func getLoader(with url: URL) -> Loader {

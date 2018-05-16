@@ -11,21 +11,21 @@ import XCTest
 
 class ImageLoaderTests: ImageLoaderTestCase {
 
-    override func setUp() {
-        super.setUp()
-        stub()
+    override func tearDown() {
+        sleep(2)
+        super.tearDown()
     }
 
     func testLoad() {
         let expectation = self.expectation(description: "wait until loader complete")
 
         let url = URL(string: "http://example/test/load")!
-        let onCompletion: (UIImage?, Error?, FetchOperation) -> Void = { _,_,_ -> Void in
+        let onCompletion: (UIImage?, Error?, FetchOperation) -> Void = { _ -> Void in
             expectation.fulfill()
         }
 
         let loader = ImageLoader.request(with: url, onCompletion: onCompletion)
-        XCTAssert(loader!.state == .running)
+        XCTAssert(loader.state == .running)
 
         waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error)
@@ -42,8 +42,8 @@ class ImageLoaderTests: ImageLoaderTestCase {
         }
 
         let loader = ImageLoader.request(with: url, onCompletion: onCompletion)
-        XCTAssert(loader!.state == .running)
-        loader!.cancel()
+        XCTAssert(loader.state == .running)
+        loader.cancel()
         waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error)
         }
@@ -51,23 +51,23 @@ class ImageLoaderTests: ImageLoaderTestCase {
 
     func testLoadUrls() {
         let url1 = URL(string: "http://example/test/load/urls1")!
-        let loader1 = ImageLoader.request(with: url1, onCompletion: { _,_,_ in })
+        let loader1 = ImageLoader.request(with: url1, onCompletion: { _ in })
 
         let url2 = URL(string: "http://example/test/load/urls2")!
-        let loader2 = ImageLoader.request(with: url2, onCompletion: { _,_,_  in })
+        let loader2 = ImageLoader.request(with: url2, onCompletion: { _ in })
 
-        XCTAssert(loader1!.state == .running)
-        XCTAssert(loader2!.state == .running)
+        XCTAssert(loader1.state == .running)
+        XCTAssert(loader2.state == .running)
         XCTAssert(loader1 != loader2)
     }
 
     func testLoadSameUrl() {
         let url = URL(string: "http://example/test/load/same/url")!
-        let loader1 = ImageLoader.request(with: url, onCompletion: { _,_,_ in })
-        let loader2 = ImageLoader.request(with: url, onCompletion: { _,_,_ in })
+        let loader1 = ImageLoader.request(with: url, onCompletion: { _ in })
+        let loader2 = ImageLoader.request(with: url, onCompletion: { _ in })
 
-        XCTAssert(loader1!.state == .running, loader1!.state.toString())
-        XCTAssert(loader2!.state == .running, loader2!.state.toString())
+        XCTAssert(loader1.state == .running, loader1.state.toString())
+        XCTAssert(loader2.state == .running, loader2.state.toString())
          XCTAssert(loader1 == loader2)
     }
 
@@ -88,10 +88,10 @@ class ImageLoaderTests: ImageLoaderTestCase {
 
     func testCancelAfterLoading() {
         let url = URL(string: "http://example/test/cancel/after/loading")!
-        let loader = ImageLoader.request(with: url, onCompletion: { _,_,_ in })
-        loader!.cancel()
+        let loader = ImageLoader.request(with: url, onCompletion: { _ in })
+        loader.cancel()
 
-        let actual = ImageLoader.manager.storage[url]
+        let actual = ImageLoader.loaderManager.storage[url]
         XCTAssertNil(actual)
     }
 
