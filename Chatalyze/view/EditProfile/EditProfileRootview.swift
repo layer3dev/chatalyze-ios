@@ -26,12 +26,25 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var confirmPasswordField:SigninFieldView?
     @IBOutlet var mobileNumberField:SigninFieldView?
     @IBOutlet var errorLabel:UILabel?
+    @IBOutlet var deactivateErrorLabel:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
       
         initializeCountryPicker()
+        fillInfo()
     }
+    
+    func fillInfo() {
+        
+        guard let info =  SignedUserInfo.sharedInstance else {
+            return
+        }
+        nameField?.textField?.text = info.firstName
+        emailField?.textField?.text = info.email
+        mobileNumberField?.textField?.text = info.phone
+    }
+    
     
     func initializeCountryPicker(){
         
@@ -69,21 +82,25 @@ extension EditProfileRootview:CountryPickerDelegate{
 extension EditProfileRootview{
     
     @IBAction func newUpdatesAction(sender:UIButton){
-        
-//        var newUpdates = false
-//        var chatUpdates = false
-//        var isCountryPickerHidden = true
-//        @IBOutlet var newUpadteImage:UIImageView?
-//        @IBOutlet var chatUpdatesImage:UIImageView?
-        
-//        if newUpdates{
-//            newUpdates = false
-//
-//        }
+                
+        if newUpdates{
+            newUpdates = false
+            newUpadteImage?.image = UIImage(named: "untick")
+            return
+        }
+        newUpdates = true
+        newUpadteImage?.image = UIImage(named: "tick")
     }
     
     @IBAction func chatTimeAction(sender:UIButton){
         
+        if chatUpdates{
+            chatUpdates = false
+            chatUpdatesImage?.image = UIImage(named: "untick")
+            return
+        }
+        chatUpdates = true
+        chatUpdatesImage?.image = UIImage(named: "tick")
     }
 }
 
@@ -91,19 +108,66 @@ extension EditProfileRootview{
     
     @IBAction func save(sender:UIButton){
         
-        if !validateFields(){
+        errorLabel?.text = ""
+        if validateFields(){
             save()
         }        
     }
     
     func save(){
+       
+        var param = [String:Any]()
+        param["mobile"] = mobileNumberField?.textField?.text
+        param["oldpassword"] = oldPasswordField?.textField?.text
+        param["password"] = newPasswordField?.textField?.text
+        param["firstname"] = nameField?.textField?.text
+        param["email"] = emailField?.textField?.text
+        param["eventMobReminder"] = chatUpdates
         
+        self.controller?.showLoader()
+        EditProfileProcessor().edit(params: param) { (success, message, response) in
+            print(message)
+            self.controller?.stopLoader()
+            if !success{                
+                self.errorLabel?.text = message
+                return
+            }
+            RootControllerManager().signOut(completion: nil)
+        }
     }
     
     
     @IBAction func deactivateAccount(sender:UIButton){
+        
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure to deactivate your Account", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
+        
+            self.deactivate()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert) in
+        }))
+        
+        self.controller?.present(alert, animated: true, completion: {
+            
+        })
     }
     
+    func deactivate(){
+      
+        deactivateErrorLabel?.text = ""
+        self.controller?.showLoader()
+        DeactivateAccountProcessor().deactivate { (success, message, response) in
+            
+            self.controller?.stopLoader()
+            if !success{
+                self.deactivateErrorLabel?.text = message
+                return
+            }
+            RootControllerManager().signOut(completion: nil)
+        }
+    }
 }
 
 extension EditProfileRootview{
@@ -140,7 +204,6 @@ extension EditProfileRootview{
     }
     
     fileprivate func validateEmail()->Bool{
-        
         
         if(emailField?.textField?.text == ""){
             emailField?.showError(text: "Email field can't be left empty !")
@@ -201,11 +264,11 @@ extension EditProfileRootview{
     fileprivate func validateName()->Bool{
         
         if(nameField?.textField?.text == ""){
-            nameField?.showError(text: "Name field can't be left empty !")
+            nameField?.showError(text: "First name field can't be left empty !")
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(nameField?.textField?.text ?? "")){
-            nameField?.showError(text: "Name looks incorrect !")
+            nameField?.showError(text: "First name looks incorrect !")
             return false
         }
         nameField?.resetErrorStatus()
@@ -226,6 +289,9 @@ extension EditProfileRootview{
         
         if(mobileNumberField?.textField?.text == ""){
             mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
+            return false
+        }else if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
+             mobileNumberField?.showError(text: "Mobile number looks incorrect !")
             return false
         }
         mobileNumberField?.resetErrorStatus()

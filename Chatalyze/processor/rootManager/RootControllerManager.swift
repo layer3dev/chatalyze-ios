@@ -29,7 +29,7 @@ class RootControllerManager{
     private func showRelevantScreen(){
         
         updateNavigationBar()
-        
+
         let userInfo = SignedUserInfo.sharedInstance
         
         if(userInfo == nil){
@@ -55,10 +55,6 @@ class RootControllerManager{
         signinNav.viewControllers = [signinController]
         window?.rootViewController = signinNav
     }
-    
-    
-    
-    
     
     
     private func showHomeScreen(){
@@ -104,10 +100,6 @@ class RootControllerManager{
         UINavigationBar.appearance().barStyle = .black
     }
     
-    
-    
-    
-    
     fileprivate func delayLaunchScreen(completion : @escaping (()->())){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -121,12 +113,9 @@ class RootControllerManager{
         }
     }
     
-    
     private func initializeAppConnection(){
         _ = UserSocket.sharedInstance
     }
-    
-    
     
     func signOut(completion : (()->())?){
         SignedUserInfo.sharedInstance?.clear()

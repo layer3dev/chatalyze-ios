@@ -103,7 +103,7 @@ class ServerProcessor{
             headers["Authorization"] = getAuthorizationToken()
         }
         
-        Log.echo(key: "token", text: "param => " + (URLString))
+        Log.echo(key: "yud", text: "param => " + (URLString))
         Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
         
         let request = Alamofire.request(URLString, method : method.libHttpMethod(), parameters: parameters, encoding: encoding.libEncoding(), headers: headers)

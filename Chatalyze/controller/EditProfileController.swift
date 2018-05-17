@@ -10,7 +10,7 @@ import UIKit
 import CountryPicker
 
 class EditProfileController: InterfaceExtendedController {
-
+    
     
     @IBOutlet var rootView:EditProfileRootview?
     override func viewDidLayout() {
@@ -22,17 +22,18 @@ class EditProfileController: InterfaceExtendedController {
 
     func painInterface(){
         
+        paintNavigationTitle(text: "EDIT PROFILE")
+        paintBackButton()
     }
     
     func initializationVariable(){
-     
+        
         rootView?.controller = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }
 
 extension EditProfileController{

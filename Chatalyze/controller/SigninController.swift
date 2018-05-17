@@ -12,6 +12,7 @@ import FacebookLogin
 class SigninController: InterfaceExtendedController {
     
     @IBAction fileprivate func signinAction(){
+
         signin()
     }
     

@@ -28,6 +28,4 @@ class AppVersionLabel: ExtendedLabel {
         self.text = "App Version " + AppInfoConfig.appversion
     }
     
-    
-
 }
