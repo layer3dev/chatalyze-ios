@@ -6,21 +6,39 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class PaymentListRootView: ExtendedView {
-
-    override func viewDidLayout() {
+class PaymentListRootView:ExtendedView{
+    
+    var controller:PaymentListingController?
+    @IBOutlet fileprivate var adapter:PaymentAdapter?
+    override func viewDidLayout(){
         super.viewDidLayout()
         
+        adapter?.root = self
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func fillInfo(info:[PaymentListingInfo]?){
+        
+        guard let info = info else{
+            return
+        }
+        adapter?.initailizeAdapter(info:info)
     }
-    */
-
+    
+    func insertPageData(info:PaymentListingInfo?){
+        
+        guard let info = info else {
+            return
+        }
+        adapter?.insertPageData(info:info)
+    }
+    
+    func hidePaginationLoader(){
+        
+        adapter?.hidePaginationLoader()
+    }
+    func fetchDataForPagination(){
+       controller?.fetchDataForPagination()
+    }
 }

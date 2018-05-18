@@ -48,7 +48,7 @@ class EditProfileRootview: ExtendedView {
     
     func initializeCountryPicker(){
         
-        let locale = Locale.current
+        let locale = Locale(identifier: "en_US_POSIX")
         picker?.countryPickerDelegate = self
         picker?.showPhoneNumbers = true
         if let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as? String {

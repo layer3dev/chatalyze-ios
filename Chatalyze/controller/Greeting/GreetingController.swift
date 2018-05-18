@@ -109,11 +109,11 @@ class GreetingController: TabChildLoadController {
                         }
                         
                         //*********************************
-                        for info in array{
-                            self.greetingsArray.append(info)
-                        }
-                        self.rootView?.fillInfo(info: self.greetingsArray)
-                        self.nogreetLbl?.isHidden = true
+//                        for info in array{
+//                            self.greetingsArray.append(info)
+//                        }
+//                        self.rootView?.fillInfo(info: self.greetingsArray)
+//                        self.nogreetLbl?.isHidden = true
                         return
                     }
                     return

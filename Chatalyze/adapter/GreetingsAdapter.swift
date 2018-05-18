@@ -40,8 +40,11 @@ extension GreetingsAdapter:UITableViewDataSource{
         //        if indexPath.row == self.greetingArray.count - 1 {
         //            root?.fetchDataForPagination()
         //        }
+        
         return UITableViewCell()
     }
+    
+    
 }
 
 extension GreetingsAdapter:UITableViewDelegate{

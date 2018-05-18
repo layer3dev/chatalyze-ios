@@ -34,6 +34,7 @@ class PaymentHistoryProcessor{
         
         Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
         Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
+        
         if(!success){
             completion(false, nil)
             return
@@ -42,16 +43,16 @@ class PaymentHistoryProcessor{
             completion(false, nil)
             return
         }
-        var greetingArray:[PaymentListingInfo] = [PaymentListingInfo]()
+        var paymentInfoArray:[PaymentListingInfo] = [PaymentListingInfo]()
         if rawInfo.count <= 0 {
-            completion(true, greetingArray)
+            completion(true, paymentInfoArray)
             return
         }
         for info in rawInfo{
-//            let obj = GreetingInfo(info: info)
-//            greetingArray.append(obj)
+            let obj = PaymentListingInfo(info: info)
+            paymentInfoArray.append(obj)
         }
-        completion(true, greetingArray)
+        completion(true, paymentInfoArray)
         return
     }
     

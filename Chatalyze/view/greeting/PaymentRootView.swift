@@ -26,8 +26,7 @@ class PaymentRootView: ExtendedView {
         initializeVariable()
     }
     
-    func paintInterface(){
-        
+    func paintInterface(){        
     }
     
     func initializeVariable(){

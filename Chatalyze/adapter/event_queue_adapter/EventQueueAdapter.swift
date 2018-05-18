@@ -46,10 +46,10 @@ extension EventQueueAdapter : UICollectionViewDataSource{
 extension EventQueueAdapter{
     
     var infos :  [SlotInfo]{
+        
         get{
             return _infos
         }
-        
         set{
             _infos = newValue
         }

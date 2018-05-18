@@ -19,13 +19,13 @@ class SettingController : InterfaceExtendedController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         initialization()
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -39,6 +39,7 @@ class SettingController : InterfaceExtendedController {
     }
     
     private func paintNavigationBar(){
+        
         paintNavigationTitle(text : "Settings")
         paintSettingButton()
         paintBackButton()
@@ -51,8 +52,20 @@ class SettingController : InterfaceExtendedController {
         }
         self.navigationController?.pushViewController(controller, animated: true)
     }
-
-
+    
+    @IBAction func paymentListingAction(sender:UIButton){
+        
+        guard let controller = PaymentListingController.instance() else {
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+//
+//        guard let controller = AccountController.instance() else {
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -62,9 +75,8 @@ class SettingController : InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
-
 
 extension SettingController{
     

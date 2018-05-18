@@ -47,7 +47,7 @@ class TabContainerController: UITabBarController {
         
         eventNav.viewControllers = [eventController]
         
-        guard let accountController = HomeController.dynamicInstance()
+        guard let accountController = AccountController.instance()
             else{
                return
         }

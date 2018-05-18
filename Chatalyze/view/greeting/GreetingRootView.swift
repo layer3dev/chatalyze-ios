@@ -19,6 +19,8 @@ class GreetingRootView:ExtendedView{
         adapter.root = self
     }
     
+    
+    
     func fillInfo(info:[GreetingInfo]?){
         
         guard let info = info else{
