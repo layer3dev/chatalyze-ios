@@ -6,22 +6,30 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+
+protocol getSettingScrollInstet {
+    
+  func getSettingScrollInset(scrollView:UIScrollView)
+}
+
+
 import UIKit
 
 class SettingController : InterfaceExtendedController {
+    
+    @IBOutlet var scroll:UIScrollView?
+    var delegate:getSettingScrollInstet?
     
     @IBAction private func signoutAction(){
         RootControllerManager().signOut(completion: nil)
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         initialization()
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -30,12 +38,20 @@ class SettingController : InterfaceExtendedController {
     }
     
     private func initialization(){
+       
         initializeInterface()
+        initializeVariable()
+    }
+    
+    private func initializeVariable(){
+        
+        self.scroll?.delegate = self
     }
     
     private func initializeInterface(){
+        
         paintNavigationBar()
-        edgesForExtendedLayout = UIRectEdge()
+        //edgesForExtendedLayout = UIRectEdge()
     }
     
     private func paintNavigationBar(){
@@ -59,12 +75,15 @@ class SettingController : InterfaceExtendedController {
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
-//
+
+        //
 //        guard let controller = AccountController.instance() else {
 //            return
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
+        
     }
+    
     
     /*
     // MARK: - Navigation
@@ -87,3 +106,12 @@ extension SettingController{
         return controller
     }
 }
+
+extension SettingController:UIScrollViewDelegate{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.getSettingScrollInset(scrollView: scrollView)
+        Log.echo(key: "yud", text: "scroll content odffset y is \(String(describing: scroll?.contentOffset.y))")
+    }
+}
+

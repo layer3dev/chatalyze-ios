@@ -15,12 +15,21 @@ class AccountRootView: ExtendedView {
    
     @IBOutlet var settingLbl:UILabel?
     @IBOutlet var settingImage:UIImageView?
+    @IBOutlet var settingsBtn:UIButton?
     
     @IBOutlet var myTicketLbl:UILabel?
     @IBOutlet var myTicketImage:UIImageView?
-    
+    @IBOutlet var myTicketBtn:UIButton?
+
     @IBOutlet var memoriesLbl:UILabel?
     @IBOutlet var memoriesImage:UIImageView?
+    @IBOutlet var memoriesBtn:UIButton?
+
+    @IBOutlet var stackContainerView:UIView?
+    
+    @IBOutlet var myTicketView:UIView?
+    @IBOutlet var memoriesView:UIView?
+    @IBOutlet var settingView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -30,8 +39,12 @@ class AccountRootView: ExtendedView {
     }
     
     func paintInterface(){
-      
-        myTicketLbl?.textColor = UIColor(red: 130.0/255.0, green: 197.0/255.0, blue: 126.0/255.0, alpha: 1)
+       
+        myTicketView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
+        stackContainerView?.layer.cornerRadius = 5
+        stackContainerView?.layer.masksToBounds = true
+        stackContainerView?.layer.borderWidth = 1
+        stackContainerView?.layer.borderColor = UIColor(hexString: "#82C57E").cgColor
     }
     
     func fillInfo(){
@@ -50,15 +63,15 @@ class AccountRootView: ExtendedView {
         if controller.isKind(of: SettingController.self){
            
             resetColor()
-            settingLbl?.textColor = UIColor(red: 130.0/255.0, green: 197.0/255.0, blue: 126.0/255.0, alpha: 1)
+            settingView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
         }else if controller.isKind(of: MyTicketsController.self){
        
             resetColor()
-            myTicketLbl?.textColor = UIColor(red: 130.0/255.0, green: 197.0/255.0, blue: 126.0/255.0, alpha: 1)
+            myTicketView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
         }else if controller.isKind(of: MemoriesController.self){
             
             resetColor()
-            memoriesLbl?.textColor = UIColor(red: 130.0/255.0, green: 197.0/255.0, blue: 126.0/255.0, alpha: 1)
+            memoriesView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
         }else{
             
         }
@@ -70,9 +83,27 @@ class AccountRootView: ExtendedView {
     }
     
     func resetColor(){
-     
-        settingLbl?.textColor = UIColor.white
-        myTicketLbl?.textColor = UIColor.white
-        memoriesLbl?.textColor = UIColor.white
+        
+        settingView?.backgroundColor = UIColor(hexString: "#455A64")
+        myTicketView?.backgroundColor = UIColor(hexString: "#455A64")
+        memoriesView?.backgroundColor = UIColor(hexString: "#455A64")
+    }
+}
+
+extension AccountRootView{
+    
+    @IBAction func settingsAction(){
+        
+        self.controller?.settingsAction()
+    }
+    
+    @IBAction func memoryAction(){
+        
+        self.controller?.memoryAction()
+    }
+    
+    @IBAction func myTicketsAction(){
+        
+        self.controller?.ticketAction()
     }
 }

@@ -8,18 +8,26 @@
 //
 
 protocol stateofAccountTabDelegate {
+    
     func currentViewController(currentController:UIViewController?)
+    func contentOffsetForMemory(offset:CGFloat?)
+    func contentOffsetForTickets(scrollView:UIScrollView)
+    func contentOffsetForSeetings(scrollView:UIScrollView)
 }
 
 import UIKit
 
 class AcccountPageViewController: UIPageViewController {
     
+    let ticketController = MyTicketsController.instance()
+    let memoryController = MemoriesController.instance()
+    let settingController = SettingController.instance()
+    
     fileprivate lazy var pages: [UIViewController] = {
         return [
-            MyTicketsController.instance(),
-            MemoriesController.instance(),
-            SettingController.instance()
+            ticketController,
+            memoryController,
+            settingController
         ]
         }() as! [UIViewController]
     
@@ -30,6 +38,10 @@ class AcccountPageViewController: UIPageViewController {
 
         initializeVariable()
         setFirstController()
+        
+        ticketController?.delegate = self
+        memoryController?.delegate = self
+        settingController?.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -57,8 +69,6 @@ class AcccountPageViewController: UIPageViewController {
 extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewControllerDelegate{
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-     
-        
         accountDelegate?.currentViewController(currentController:viewController)
      
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
@@ -69,16 +79,54 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
         return pages[previousIndex]
     }
     
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-         accountDelegate?.currentViewController(currentController:viewController)
+        accountDelegate?.currentViewController(currentController:viewController)
         
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
         let nextIndex = viewControllerIndex + 1
         guard nextIndex < pages.count else { return pages.first }
         guard pages.count > nextIndex else { return nil         }
-        
         return pages[nextIndex]
     }
-   
 }
 
+
+extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInstet,getTicketsScrollInsets {
+    
+    func getMemoryScrollInset(offset: CGFloat?) {
+        guard let offset = offset else {
+            return
+        }
+        accountDelegate?.contentOffsetForMemory(offset: offset)
+    }
+    
+    
+    
+    func getSettingScrollInset(scrollView: UIScrollView) {
+        accountDelegate?.contentOffsetForSeetings(scrollView: scrollView)
+        Log.echo(key: "yud", text: "scroll Inset is \(scrollView.contentOffset.y)")
+    }
+    
+    func getTicketsScrollInset(scrollView: UIScrollView) {
+        
+        Log.echo(key: "yud", text: "scroll Inset is \(scrollView.contentOffset.y)")
+    }
+}
+
+extension AcccountPageViewController{
+    
+    func setSettingTab(){
+        
+        setViewControllers([pages[2]], direction: .forward, animated: false, completion: nil)
+    }
+    func setMemoryTab(){
+        
+        setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+    }
+    func setMyTicketTab(){
+       
+        setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
+    }
+    
+}

@@ -9,13 +9,17 @@
 import UIKit
 
 class AccountController: TabChildLoadController {
-
-    @IBOutlet var rootView:AccountRootView?
+    
+    @IBOutlet var rootView:AccountRootView?    
     var pageViewController:AcccountPageViewController?
+    var memoryContentOffset:CGFloat = 0.0
+    var ticketContentOffset:CGFloat = 0.0
+    var settingContentOffset:CGFloat = 0.0
+    @IBOutlet var topConstraint:NSLayoutConstraint?
     
     override func viewDidLayout(){
         super.viewDidLayout()
-      
+        
         initializeVariable()
         paintInterafce()
     }
@@ -27,7 +31,6 @@ class AccountController: TabChildLoadController {
     func paintInterafce(){
         
         paintNavigationTitle(text: "Account")
-        paintSettingButton()
     }
     
     func initializeVariable(){
@@ -39,12 +42,12 @@ class AccountController: TabChildLoadController {
         super.didReceiveMemoryWarning()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
         let segueIdentifier  = segue.identifier
         if segueIdentifier == "pagination"{
             
-           pageViewController = segue.destination as? AcccountPageViewController
+            pageViewController = segue.destination as? AcccountPageViewController
             pageViewController?.accountDelegate = self
         }
     }
@@ -62,10 +65,89 @@ extension AccountController{
 
 
 extension AccountController:stateofAccountTabDelegate{
-   
+    
+    func contentOffsetForMemory(offset: CGFloat?) {
+        
+        guard let offset = offset else {
+            return
+        }
+        settingContentOffset = offset
+        setOffset()
+    }
+    
+    func contentOffsetForTickets(scrollView: UIScrollView) {
+        
+        ticketContentOffset = scrollView.contentOffset.y
+    }
+    
+    func contentOffsetForSeetings(scrollView: UIScrollView) {
+        
+        settingContentOffset = scrollView.contentOffset.y
+        setOffset()
+    }
+    
     func currentViewController(currentController: UIViewController?) {
         
         guard let controller = currentController else { return  }
         rootView?.setTabInterface(controller:controller)
+        //resetOffset()
     }
+    
+    
+    func  resetOffset(){
+        
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            
+            self.topConstraint?.constant = 0.0
+            self.view.layoutIfNeeded()
+        }) { (success) in
+        }
+    }
+    
+    func setOffset(){
+        
+        if settingContentOffset >= 0.0 && settingContentOffset <= 65.0 {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                
+                self.topConstraint?.constant = -(self.settingContentOffset)
+                self.view.layoutIfNeeded()
+            }) { (success) in
+            }
+        }else if settingContentOffset > 65.0{
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                
+                self.topConstraint?.constant = -65.0
+                self.view.layoutIfNeeded()
+            }) { (success) in
+            }
+        }else if settingContentOffset < 0.0{
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                
+                self.topConstraint?.constant = 0
+                self.view.layoutIfNeeded()
+            }) { (success) in
+            }
+        }
+    }
+}
+
+extension AccountController{
+    
+    func settingsAction(){
+        
+        pageViewController?.setSettingTab()
+        rootView?.setTabInterface(controller: SettingController())
+    }
+    
+    func memoryAction(){
+        
+        pageViewController?.setMemoryTab()
+        rootView?.setTabInterface(controller:MemoriesController())
+    }
+    
+    func ticketAction(){
+        
+        pageViewController?.setMyTicketTab()
+        rootView?.setTabInterface(controller: MyTicketsController())
+    }    
 }
