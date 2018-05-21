@@ -35,10 +35,11 @@ class MemoriesRootView: ExtendedView {
     }
     
     func hidePaginationLoader(){
-        
+             
         adapter?.hidePaginationLoader()
     }
     func fetchDataForPagination(){
+        
         controller?.fetchDataForPagination()
     }
 

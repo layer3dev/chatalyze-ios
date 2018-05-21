@@ -110,19 +110,29 @@ extension EditProfileRootview{
         
         errorLabel?.text = ""
         if validateFields(){
-            save()
+            //save()
         }        
     }
     
     func save(){
        
         var param = [String:Any]()
-        param["mobile"] = mobileNumberField?.textField?.text
-        param["oldpassword"] = oldPasswordField?.textField?.text
-        param["password"] = newPasswordField?.textField?.text
-        param["firstname"] = nameField?.textField?.text
-        param["email"] = emailField?.textField?.text
-        param["eventMobReminder"] = chatUpdates
+        
+        if oldPasswordField?.textField?.text != ""{
+            
+            param["mobile"] = mobileNumberField?.textField?.text
+            param["oldpassword"] = oldPasswordField?.textField?.text
+            param["password"] = newPasswordField?.textField?.text
+            param["firstname"] = nameField?.textField?.text
+            param["email"] = emailField?.textField?.text
+            param["eventMobReminder"] = chatUpdates
+        }else{
+           
+            param["mobile"] = mobileNumberField?.textField?.text
+            param["firstname"] = nameField?.textField?.text
+            param["email"] = emailField?.textField?.text
+            param["eventMobReminder"] = chatUpdates
+        }
         
         self.controller?.showLoader()
         EditProfileProcessor().edit(params: param) { (success, message, response) in
@@ -155,7 +165,7 @@ extension EditProfileRootview{
     }
     
     func deactivate(){
-      
+        
         deactivateErrorLabel?.text = ""
         self.controller?.showLoader()
         DeactivateAccountProcessor().deactivate { (success, message, response) in
@@ -174,15 +184,28 @@ extension EditProfileRootview{
     
     func validateFields()->Bool{
         
-        let nameValidate = validateName()
-        let emailValidated  = validateEmail()
-        let oldPasswordValidate = validateOldPassword()
-        let newPassword = validateNewPassword()
-        let confirmPasswordValidate = valiadteConfirmPassword()
-        let codeValidate = validateCountryCode()
-        let mobileValidate = validateMobileNumber()
-
-        return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate
+        resetErrorStatus()
+        if oldPasswordField?.textField?.text != "" || newPasswordField?.textField?.text != "" || confirmPasswordField?.textField?.text != ""{
+            
+            
+            let nameValidate = validateName()
+            let emailValidated  = validateEmail()
+            let oldPasswordValidate = validateOldPassword()
+            let newPassword = validateNewPassword()
+            let confirmPasswordValidate = valiadteConfirmPassword()
+            let codeValidate = validateCountryCode()
+            let mobileValidate = validateMobileNumber()
+            
+            return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate
+        }else{
+           
+            let nameValidate = validateName()
+            let emailValidated  = validateEmail()
+            let codeValidate = validateCountryCode()
+            let mobileValidate = validateMobileNumber()
+            
+            return nameValidate && emailValidated && codeValidate && mobileValidate
+        }
     }
     
     func resetErrorStatus(){
@@ -195,7 +218,6 @@ extension EditProfileRootview{
         confirmPasswordField?.resetErrorStatus()
         mobileNumberField?.resetErrorStatus()
         countryCodeField?.resetErrorStatus()
-        
     }
     
     func showError(text : String?){
@@ -313,7 +335,7 @@ extension String{
         }
     }
     
-    func containsLowerCaseLetter() -> Bool {
+    func containsLowerCaseLetter() -> Bool{
         
         // check if there's a range for a number
         let range = self.rangeOfCharacter(from: .lowercaseLetters)

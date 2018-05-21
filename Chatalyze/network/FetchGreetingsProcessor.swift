@@ -36,7 +36,8 @@ class FetchGreetingsProcessor{
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [GreetingInfo]?)->())){
         
         Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
-        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
+        Log.echo(key: "yud", text: "Value of the success is \(String(describing: response?.description))")
+        
         if(!success){
             completion(false, nil)
             return

@@ -73,9 +73,10 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
      
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
         let previousIndex = viewControllerIndex - 1
-        guard previousIndex >= 0          else { return pages.last }
+//        guard previousIndex >= 0          else { return pages.last }
+        guard previousIndex >= 0          else { return nil }
         guard pages.count > previousIndex else { return nil }
-        
+        accountDelegate?.contentOffsetForMemory(offset: 0.0)
         return pages[previousIndex]
     }
     
@@ -85,8 +86,10 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
         
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
         let nextIndex = viewControllerIndex + 1
-        guard nextIndex < pages.count else { return pages.first }
+//        guard nextIndex < pages.count else { return pages.first }
+        guard nextIndex < pages.count else { return nil }
         guard pages.count > nextIndex else { return nil         }
+        accountDelegate?.contentOffsetForMemory(offset: 0.0)
         return pages[nextIndex]
     }
 }
@@ -100,8 +103,6 @@ extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInste
         }
         accountDelegate?.contentOffsetForMemory(offset: offset)
     }
-    
-    
     
     func getSettingScrollInset(scrollView: UIScrollView) {
         accountDelegate?.contentOffsetForSeetings(scrollView: scrollView)
@@ -117,16 +118,18 @@ extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInste
 extension AcccountPageViewController{
     
     func setSettingTab(){
-        
+                
         setViewControllers([pages[2]], direction: .forward, animated: false, completion: nil)
+        accountDelegate?.contentOffsetForMemory(offset: 0.0)
     }
     func setMemoryTab(){
         
         setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+        accountDelegate?.contentOffsetForMemory(offset: 0.0)
     }
     func setMyTicketTab(){
-       
+        
         setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
+        accountDelegate?.contentOffsetForMemory(offset: 0.0)
     }
-    
 }

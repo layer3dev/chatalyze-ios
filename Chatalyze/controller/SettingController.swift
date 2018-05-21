@@ -46,6 +46,8 @@ class SettingController : InterfaceExtendedController {
     private func initializeVariable(){
         
         self.scroll?.delegate = self
+        self.scroll?.alwaysBounceVertical = false
+        self.scroll?.bounces = false
     }
     
     private func initializeInterface(){
@@ -111,7 +113,11 @@ extension SettingController:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.getSettingScrollInset(scrollView: scrollView)
-        Log.echo(key: "yud", text: "scroll content odffset y is \(String(describing: scroll?.contentOffset.y))")
+        
+        if ((scroll?.contentOffset.y)! >= (scroll?.contentSize.height)! - (scroll?.frame.size.height)!) {
+
+            scroll?.setContentOffset(CGPoint(x: (scroll?.contentOffset.x)!, y: (scroll?.contentSize.height)! - (scroll?.frame.size.height)!), animated: true)
+        }
     }
 }
 

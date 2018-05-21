@@ -39,8 +39,7 @@ class MemoriesCell: ExtendedTableCell {
         
         guard let info = info else{
             return
-        }
-        
+        }        
         memoryImage?.image = UIImage(named: "base")
         if let imageStr = info.screenShotUrl{
             if let url = URL(string: imageStr){

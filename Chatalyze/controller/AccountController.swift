@@ -16,9 +16,11 @@ class AccountController: TabChildLoadController {
     var ticketContentOffset:CGFloat = 0.0
     var settingContentOffset:CGFloat = 0.0
     @IBOutlet var topConstraint:NSLayoutConstraint?
+    @IBOutlet var containerTopContraint:NSLayoutConstraint?
     
     override func viewDidLayout(){
         super.viewDidLayout()
+        
         
         initializeVariable()
         paintInterafce()
@@ -110,6 +112,8 @@ extension AccountController:stateofAccountTabDelegate{
             UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 
                 self.topConstraint?.constant = -(self.settingContentOffset)
+                self.containerTopContraint?.constant = 155.0 - (self.settingContentOffset)
+                
                 self.view.layoutIfNeeded()
             }) { (success) in
             }
@@ -117,13 +121,15 @@ extension AccountController:stateofAccountTabDelegate{
             UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 
                 self.topConstraint?.constant = -65.0
+                self.containerTopContraint?.constant = 90
                 self.view.layoutIfNeeded()
             }) { (success) in
             }
         }else if settingContentOffset < 0.0{
             UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 
-                self.topConstraint?.constant = 0
+                self.topConstraint?.constant = 0.0
+                self.containerTopContraint?.constant = 155.0
                 self.view.layoutIfNeeded()
             }) { (success) in
             }

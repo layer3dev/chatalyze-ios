@@ -74,7 +74,6 @@ extension MemoriesAdapter:UITableViewDataSource{
         }else{
             
             //we should never hide paginated loader from here as It is good to hide from data Coming Service method.Its not it's work.
-            
             //self.eventInfoTableView?.tableFooterView?.isHidden = true
         }
     }
@@ -101,7 +100,7 @@ extension MemoriesAdapter:UITableViewDataSource{
 extension MemoriesAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 135.0
+        return 352.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -124,6 +123,8 @@ extension MemoriesAdapter:UITableViewDelegate{
 extension MemoriesAdapter:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView){
+       
+        Log.echo(key: "yud", text: "Table scroll contentoffset is \(String(describing: self.memoriesListingTableView?.contentOffset.y))")
         self.root?.updateTableContentOffset(offset:self.memoriesListingTableView?.contentOffset.y)
     }
 }
