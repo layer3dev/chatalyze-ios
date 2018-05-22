@@ -30,7 +30,6 @@ class MemoriesController: InterfaceExtendedController {
         paintInterface()
         initializeVariable()
     }
-
     
     func paintInterface(){
         
@@ -46,10 +45,8 @@ class MemoriesController: InterfaceExtendedController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
     func getPaymentInfo(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {

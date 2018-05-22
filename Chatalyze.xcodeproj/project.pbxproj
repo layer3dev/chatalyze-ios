@@ -74,6 +74,9 @@
 		47B6527920AAB5030041496C /* GreetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527420AAB5010041496C /* GreetingCell.swift */; };
 		47B6527A20AAB5030041496C /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527520AAB5020041496C /* EventCell.swift */; };
 		47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527620AAB5020041496C /* GreetingDateCell.swift */; };
+		47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */; };
+		47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */; };
+		47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */; };
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
 		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
 		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
@@ -381,6 +384,9 @@
 		47B6527420AAB5010041496C /* GreetingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingCell.swift; sourceTree = "<group>"; };
 		47B6527520AAB5020041496C /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		47B6527620AAB5020041496C /* GreetingDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingDateCell.swift; sourceTree = "<group>"; };
+		47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsRootView.swift; sourceTree = "<group>"; };
+		47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketesAdapter.swift; sourceTree = "<group>"; };
+		47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsCell.swift; sourceTree = "<group>"; };
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
@@ -850,6 +856,14 @@
 				47B6527020AAB4A10041496C /* GreetingInfo.swift */,
 			);
 			path = "greeting ";
+			sourceTree = "<group>";
+		};
+		47B80DBA20B3F1D6001F13CA /* My Tickets */ = {
+			isa = PBXGroup;
+			children = (
+				47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */,
+			);
+			path = "My Tickets";
 			sourceTree = "<group>";
 		};
 		47DF899920AC17D200FEA916 /* EditProfile */ = {
@@ -1414,6 +1428,7 @@
 				47AD143920ADAF5E006AF9D6 /* Account */,
 				47DF899920AC17D200FEA916 /* EditProfile */,
 				472780E420B02D1000D5AA1E /* Memories */,
+				47B80DBA20B3F1D6001F13CA /* My Tickets */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1825,6 +1840,7 @@
 				47B6527320AAB5000041496C /* CalendarCell.swift */,
 				473646E820AEA68900D684FE /* PaymentTableCell.swift */,
 				472780EC20B02E2700D5AA1E /* MemoriesCell.swift */,
+				47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */,
 				FAFB7C72206E027D004804D2 /* call_queue */,
 			);
 			path = cell;
@@ -1846,6 +1862,7 @@
 				47B6525A20AAB3C10041496C /* GreetingsAdapter.swift */,
 				47AD143F20ADB013006AF9D6 /* PaymentAdapter.swift */,
 				472780E720B02DA900D5AA1E /* MemoriesAdapter.swift */,
+				47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */,
 				FAFB7C7D206E6B84004804D2 /* event_queue_adapter */,
 			);
 			path = adapter;
@@ -2233,6 +2250,7 @@
 				FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */,
 				47B6526E20AAB43B0041496C /* FetchGreetingsProcessor.swift in Sources */,
 				FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */,
+				47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */,
 				473646E920AEA68900D684FE /* PaymentTableCell.swift in Sources */,
 				FAA001AD203ED472003C8A74 /* ExtendedNavigationController.swift in Sources */,
 				FA65F550206A750E006CE665 /* RTCConnectionInitializer.m in Sources */,
@@ -2384,6 +2402,7 @@
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAB71CEA2077A57F00C24246 /* NotificationMetaInfo.swift in Sources */,
+				47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */,
 				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
 				47B6527720AAB5030041496C /* GreetingTimeCell.swift in Sources */,
 				FAE8B23120A3087000899731 /* AppConnectioConfigForDev.swift in Sources */,
@@ -2391,6 +2410,7 @@
 				47B6525920AAB0420041496C /* SignUpController.swift in Sources */,
 				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,
 				FAB71CEE2077BDD300C24246 /* EventRefreshProtocol.swift in Sources */,
+				47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */,
 				47B6524520AAB0000041496C /* ContainerController.swift in Sources */,
 				FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */,
 				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
@@ -2629,7 +2649,7 @@
 				INFOPLIST_FILE = Chatalyze/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
@@ -2638,7 +2658,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 arm7 arm7s";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -2660,7 +2680,7 @@
 				INFOPLIST_FILE = Chatalyze/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "524d1a0e-7b1f-4ceb-9b91-1c923252a4e4";
@@ -2668,7 +2688,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "arm64 arm7 arm7s";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

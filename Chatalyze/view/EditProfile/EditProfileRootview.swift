@@ -110,7 +110,7 @@ extension EditProfileRootview{
         
         errorLabel?.text = ""
         if validateFields(){
-            //save()
+            save()
         }        
     }
     
