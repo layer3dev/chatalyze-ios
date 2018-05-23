@@ -16,6 +16,7 @@ class MyTicketsCell: ExtendedCollectionCell {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+       
        // painInterface()
     }
     

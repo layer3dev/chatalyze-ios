@@ -19,17 +19,17 @@ import UIKit
 
 class AcccountPageViewController: UIPageViewController {
     
-    let ticketController = MyTicketsController.instance()
+    let ticketController = MyTicketsPageController.instance()
     let memoryController = MemoriesController.instance()
     let settingController = SettingController.instance()
     
-    fileprivate lazy var pages: [UIViewController] = {
+    fileprivate lazy var pages: [UIViewController] = ({
         return [
             ticketController,
             memoryController,
             settingController
         ]
-        }() as! [UIViewController]
+        }() as! [UIViewController] )
     
     var accountDelegate:stateofAccountTabDelegate?
     

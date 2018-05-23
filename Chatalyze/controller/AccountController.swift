@@ -17,13 +17,15 @@ class AccountController: TabChildLoadController {
     var settingContentOffset:CGFloat = 0.0
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var containerTopContraint:NSLayoutConstraint?
+    @IBOutlet var containerView:UIView?
     
     override func viewDidLayout(){
         super.viewDidLayout()
         
-        
         initializeVariable()
         paintInterafce()
+        
+        Log.echo(key: "yud", text: "The container Height is \(containerView?.frame.size.height)")
     }
     
     override func viewGotLoaded() {
@@ -40,6 +42,14 @@ class AccountController: TabChildLoadController {
         rootView?.controller = self
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
+        pageViewController?.ticketController?.initializeCollectionFlowLayout()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -51,6 +61,7 @@ class AccountController: TabChildLoadController {
             
             pageViewController = segue.destination as? AcccountPageViewController
             pageViewController?.accountDelegate = self
+            pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
         }
     }
 }
@@ -94,7 +105,6 @@ extension AccountController:stateofAccountTabDelegate{
         rootView?.setTabInterface(controller:controller)
         //resetOffset()
     }
-    
     
     func  resetOffset(){
         

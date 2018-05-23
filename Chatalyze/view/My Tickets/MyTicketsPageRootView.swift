@@ -1,18 +1,18 @@
 //
-//  MyTicketsRootView.swift
+//  MyTicketsPageRootView.swift
 //  Chatalyze
 //
-//  Created by Mansa on 22/05/18.
+//  Created by Mansa on 23/05/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import Foundation
 
-class MyTicketsRootView:ExtendedView{
-
-    var controller:MyTicketsController?
+class MyTicketsPageRootView:ExtendedView{
+   
     override func viewDidLayout(){
         super.viewDidLayout()
-    }    
+    }
+    
     
 }
