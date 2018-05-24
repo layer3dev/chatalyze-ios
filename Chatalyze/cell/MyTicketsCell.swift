@@ -13,34 +13,34 @@ import SDWebImage
 
 class MyTicketsCell: ExtendedCollectionCell {
 
+    @IBOutlet var mainView: UIView?
+    @IBOutlet var chatnumberLbl:UILabel?
+    @IBOutlet var timeLbl:UILabel?
+    @IBOutlet var startDateLbl:UILabel?
+    @IBOutlet var title:UILabel?
     override func viewDidLayout() {
         super.viewDidLayout()
         
-       
-       // painInterface()
+        painInterface()
     }
     
-//    func painInterface(){
-//
-//        self.selectionStyle = .none
-//        cardView?.layer.cornerRadius = 5
-//        cardView?.layer.masksToBounds = true
-//        cardView?.layer.borderWidth = 1
-//        cardView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
-//    }
+    func painInterface(){
+
+        self.layer.cornerRadius = 3
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 3
+        self.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
+    }
     
-//    func fillInfo(info:MemoriesInfo?){
-//
-//        guard let info = info else{
-//            return
-//        }
-//        memoryImage?.image = UIImage(named: "base")
-//        if let imageStr = info.screenShotUrl{
-//            if let url = URL(string: imageStr){
-//                memoryImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-//                })
-//            }
-//        }
-//    }
-    
+    func fillInfo(info:MyTicketsInfo?){
+
+        guard let info = info else{
+            return
+        }
+        
+        self.chatnumberLbl?.text = info.chatNumber
+        self.timeLbl?.text = info.startTime
+        self.startDateLbl?.text = info.startDate
+        self.title?.text = "Chat with \(info.eventTitle ?? "")"
+    }
 }

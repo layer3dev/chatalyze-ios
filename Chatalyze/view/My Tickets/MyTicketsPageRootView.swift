@@ -8,11 +8,6 @@
 
 import Foundation
 
-class MyTicketsPageRootView:ExtendedView{
-   
-    override func viewDidLayout(){
-        super.viewDidLayout()
-    }
-    
+class MyTicketsPageRootView:MyTicketsRootView{
     
 }

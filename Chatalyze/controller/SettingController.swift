@@ -78,7 +78,12 @@ class SettingController : InterfaceExtendedController {
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)        
         
-        guard let controller = MyTicketsController.instance() else {
+//        guard let controller = MyTicketsController.instance() else {
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
+        
+        guard let controller = ReviewController.instance() else {
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)

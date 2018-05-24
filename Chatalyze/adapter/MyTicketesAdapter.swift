@@ -11,122 +11,76 @@ import UIKit
 
 class MyTicketesAdapter: ExtendedView {
     
-    @IBOutlet var memoriesListingTableView:UICollectionView?
+    @IBOutlet  var myTicketsCollectionView:UICollectionView?
+    var layout = UICollectionViewFlowLayout()
     var root:MyTicketsRootView?
-    var memoriesListingArray = [MemoriesInfo]()
-    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    
+    var ticketsListingArray = [MyTicketsInfo]()
+    var featureHeight:CGFloat = 0.0
     override func viewDidLayout() {
         super.viewDidLayout()
         
-//        self.memoriesListingTableView?.separatorStyle = .none
-//        self.memoriesListingTableView?.colllectionfooter?.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1)
     }
     
-    func initailizeAdapter(info:[MemoriesInfo]?){
+    func initailizeAdapter(info:[MyTicketsInfo]?){
         
         guard let info = info else {
             return
         }
-//        memoriesListingArray = info
-//        memoriesListingTableView?.dataSource = self
-//        memoriesListingTableView?.delegate = self
-//        memoriesListingTableView?.reloadData()
+        ticketsListingArray = info
+        initializeCollectionFlowLayout()
+        myTicketsCollectionView?.dataSource = self
+        myTicketsCollectionView?.delegate = self
+        myTicketsCollectionView?.reloadData()
     }
-}
-extension MyTicketesAdapter:UITableViewDataSource{
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func initializeCollectionFlowLayout(){
+        
+        self.myTicketsCollectionView?.layoutIfNeeded()
+        self.myTicketsCollectionView?.dataSource = self
+        self.myTicketsCollectionView?.delegate = self
+        let width = root?.superview?.frame.size.width ?? 60.0
+        let height:CGFloat = self.myTicketsCollectionView?.bounds.height ?? 0.0
+        Log.echo(key: "yud", text: "The height of the Collection is \(height)")
+        layout.itemSize = CGSize(width: width-60, height: height-15)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
+        //layout.sectionInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 0
+        myTicketsCollectionView?.collectionViewLayout = layout
+        myTicketsCollectionView?.alwaysBounceVertical = false
+    }    
+}
+
+extension MyTicketesAdapter:UICollectionViewDataSource{
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return memoriesListingArray.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ticketsListingArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MemoriesCell", for: indexPath) as? MemoriesCell else {
-            
-            return UITableViewCell()
+        guard let cell = myTicketsCollectionView?.dequeueReusableCell(withReuseIdentifier: "MyTicketsCell", for: indexPath) as? MyTicketsCell else {
+            return UICollectionViewCell()
         }
-        if indexPath.row < self.memoriesListingArray.count{
-            
-            cell.fillInfo(info:self.memoriesListingArray[indexPath.row])
+        if indexPath.row >= ticketsListingArray.count{
             return cell
         }
-        return UITableViewCell()
+        cell.fillInfo(info: ticketsListingArray[indexPath.row])
+        return cell
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        let numberOfRow = tableView.numberOfRows(inSection: 0)
-        //&& dataLimitReached == false
-        if indexPath.row  == numberOfRow - 1 {
-            
-            spinner.startAnimating()
-            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-//            self.memoriesListingTableView?.tableFooterView = spinner
-//            self.memoriesListingTableView?.tableFooterView?.isHidden = false
-//            root?.fetchDataForPagination()
-        }else{
-            
-            //we should never hide paginated loader from here as It is good to hide from data Coming Service method.Its not it's work.
-            //self.eventInfoTableView?.tableFooterView?.isHidden = true
-        }
-    }
-    
-    
-//    func insertPageData(info:MemoriesInfo?){
-//
-//        guard let info = info else {
-//            return
-//        }
-//        self.memoriesListingArray.append(info)
-//        self.memoriesListingTableView?.beginUpdates()
-//        self.memoriesListingTableView?.insertRows(at: [IndexPath(row: self.memoriesListingArray.count-1, section: 0)],with:  UITableViewRowAnimation.automatic)
-//        self.memoriesListingTableView?.endUpdates()
-//    }
-//
-//    func hidePaginationLoader(){
-//
-//        spinner.stopAnimating()
-//        self.memoriesListingTableView?.tableFooterView?.isHidden = true
-//    }
 }
 
-//extension MyTicketesAdapter:UITableViewDelegate{
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 352.0
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableViewAutomaticDimension
-//    }
+extension MyTicketesAdapter:UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+}
 
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        guard let controller = GreetingInfoController.instance() else {
-    //            return
-    //        }
-    //        if indexPath.row < self.PaymentListingArray.count {
-    //
-    //            controller.info = self.PaymentListingArray[indexPath.row]
-    //        }
-    //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-    //    }
-//}
-
-//extension MyTicketesAdapter:UIScrollViewDelegate{
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView){
-//
-//        Log.echo(key: "yud", text: "Table scroll contentoffset is \(String(describing: self.memoriesListingTableView?.contentOffset.y))")
-//        self.root?.updateTableContentOffset(offset:self.memoriesListingTableView?.contentOffset.y)
-//    }
-//}
 
 

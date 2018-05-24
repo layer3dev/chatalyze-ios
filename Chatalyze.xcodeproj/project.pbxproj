@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		22096507D101B7FD4B87223E /* Pods_ChatalyzeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */; };
+		471C232F20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */; };
+		471C233220B6BD8C0040C2A8 /* MyTicketsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C233120B6BD8C0040C2A8 /* MyTicketsInfo.swift */; };
+		471C233420B6C81C0040C2A8 /* MyTicketsPageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C233320B6C81C0040C2A8 /* MyTicketsPageAdapter.swift */; };
+		471C233620B701AB0040C2A8 /* ReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C233520B701AB0040C2A8 /* ReviewController.swift */; };
 		472780E620B02D2B00D5AA1E /* MemoriesRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780E520B02D2B00D5AA1E /* MemoriesRootView.swift */; };
 		472780E820B02DA900D5AA1E /* MemoriesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780E720B02DA900D5AA1E /* MemoriesAdapter.swift */; };
 		472780EB20B02E0100D5AA1E /* MemoriesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780EA20B02E0100D5AA1E /* MemoriesInfo.swift */; };
@@ -320,6 +324,10 @@
 
 /* Begin PBXFileReference section */
 		3D680A10BEEE439F0853167C /* Pods-ChatalyzeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchEventTicketsProcessor .swift"; sourceTree = "<group>"; };
+		471C233120B6BD8C0040C2A8 /* MyTicketsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsInfo.swift; sourceTree = "<group>"; };
+		471C233320B6C81C0040C2A8 /* MyTicketsPageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageAdapter.swift; sourceTree = "<group>"; };
+		471C233520B701AB0040C2A8 /* ReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewController.swift; sourceTree = "<group>"; };
 		472780E520B02D2B00D5AA1E /* MemoriesRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesRootView.swift; sourceTree = "<group>"; };
 		472780E720B02DA900D5AA1E /* MemoriesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesAdapter.swift; sourceTree = "<group>"; };
 		472780EA20B02E0100D5AA1E /* MemoriesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesInfo.swift; sourceTree = "<group>"; };
@@ -719,6 +727,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		471C233020B6BD7D0040C2A8 /* MyTickets */ = {
+			isa = PBXGroup;
+			children = (
+				471C233120B6BD8C0040C2A8 /* MyTicketsInfo.swift */,
+			);
+			path = MyTickets;
+			sourceTree = "<group>";
+		};
 		472780E420B02D1000D5AA1E /* Memories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1045,6 +1061,7 @@
 				FA3CC1392046C00E007438A3 /* class */,
 				47AD144520ADB517006AF9D6 /* paymentListing */,
 				472780E920B02DF300D5AA1E /* MemoriesInfo */,
+				471C233020B6BD7D0040C2A8 /* MyTickets */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1410,6 +1427,7 @@
 				47AD143220AD662C006AF9D6 /* EditProfileProcessor.swift */,
 				47AD144120ADB172006AF9D6 /* PaymentHistoryProcessor.swift */,
 				472780EE20B02FA400D5AA1E /* MemoriesFetchProcessor.swift */,
+				471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -1481,6 +1499,7 @@
 		FAA0016B203ED291003C8A74 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				FAA00167203ED1E6003C8A74 /* processor */,
 				FA1B362A2064E0A500F2E6BC /* call_view.storyboard */,
 				FAA0016C203ED2A7003C8A74 /* launch_container.storyboard */,
 				FA9858E520638A3A00989CBB /* home.storyboard */,
@@ -1520,6 +1539,7 @@
 				473646EE20AF01AB00D684FE /* MyTicketsController.swift */,
 				47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */,
 				473646F020AF01BF00D684FE /* MemoriesController.swift */,
+				471C233520B701AB0040C2A8 /* ReviewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1869,6 +1889,7 @@
 				47AD143F20ADB013006AF9D6 /* PaymentAdapter.swift */,
 				472780E720B02DA900D5AA1E /* MemoriesAdapter.swift */,
 				47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */,
+				471C233320B6C81C0040C2A8 /* MyTicketsPageAdapter.swift */,
 				FAFB7C7D206E6B84004804D2 /* event_queue_adapter */,
 			);
 			path = adapter;
@@ -1936,7 +1957,6 @@
 				FAA001C5203EE2BC003C8A74 /* config */,
 				FAA00171203ED471003C8A74 /* helper */,
 				FAA0016E203ED3E2003C8A74 /* controller */,
-				FAA00167203ED1E6003C8A74 /* processor */,
 				FAA0016B203ED291003C8A74 /* storyboard */,
 				FA912D9B2041899D002891EC /* view */,
 				FA74B0EB2063971C00983141 /* xib */,
@@ -2236,6 +2256,7 @@
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
 				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
+				471C232F20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift in Sources */,
 				47B6527820AAB5030041496C /* CalendarCell.swift in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
@@ -2278,6 +2299,7 @@
 				47AD143320AD662C006AF9D6 /* EditProfileProcessor.swift in Sources */,
 				472780E620B02D2B00D5AA1E /* MemoriesRootView.swift in Sources */,
 				FA0A4FA32078B6B700FF9517 /* HostVideoRootView.swift in Sources */,
+				471C233420B6C81C0040C2A8 /* MyTicketsPageAdapter.swift in Sources */,
 				473646F120AF01BF00D684FE /* MemoriesController.swift in Sources */,
 				FAB71CEC2077B13800C24246 /* EventSlotListener.swift in Sources */,
 				47B6525120AAB0170041496C /* GreetingDateTimeController.swift in Sources */,
@@ -2298,6 +2320,7 @@
 				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
 				47B6525020AAB0170041496C /* GreetingController.swift in Sources */,
 				FADC84E22074E16B00AD9D65 /* LoaderView.swift in Sources */,
+				471C233620B701AB0040C2A8 /* ReviewController.swift in Sources */,
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				47B6522C20AAAF710041496C /* GreetingInfoRootView.swift in Sources */,
@@ -2438,6 +2461,7 @@
 				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
+				471C233220B6BD8C0040C2A8 /* MyTicketsInfo.swift in Sources */,
 				FA3AF1032044376C0084B154 /* SigninRootView.swift in Sources */,
 				FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */,
 				FA74B14720639C7300983141 /* SRWebSocket.m in Sources */,

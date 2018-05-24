@@ -45,9 +45,11 @@ class AccountController: TabChildLoadController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
-        pageViewController?.ticketController?.initializeCollectionFlowLayout()
+               
+        self.view.layoutIfNeeded()
+        self.containerView?.layoutIfNeeded()
+    pageViewController?.ticketController?.rootview?.adapter?.featureHeight = containerView?.bounds.size.height ?? 0.0
+        pageViewController?.ticketController?.rootview?.adapter?.initializeCollectionFlowLayout()
     }
     
     override func didReceiveMemoryWarning() {
