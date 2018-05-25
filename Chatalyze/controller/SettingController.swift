@@ -12,7 +12,6 @@ protocol getSettingScrollInstet {
   func getSettingScrollInset(scrollView:UIScrollView)
 }
 
-
 import UIKit
 
 class SettingController : InterfaceExtendedController {
@@ -26,7 +25,6 @@ class SettingController : InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         initialization()
     }
@@ -83,23 +81,16 @@ class SettingController : InterfaceExtendedController {
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
         
-        guard let controller = ReviewController.instance() else {
+//        guard let controller = ReviewController.instance() else {
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
+        
+        guard let controller = PaymentSuccessController.instance() else {
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
 
 extension SettingController{
@@ -117,9 +108,9 @@ extension SettingController:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.getSettingScrollInset(scrollView: scrollView)
         
-        if ((scroll?.contentOffset.y)! >= (scroll?.contentSize.height)! - (scroll?.frame.size.height)!) {
+        if ((scroll?.contentOffset.y ?? 0.0) >= (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)) {
 
-            scroll?.setContentOffset(CGPoint(x: (scroll?.contentOffset.x)!, y: (scroll?.contentSize.height)! - (scroll?.frame.size.height)!), animated: true)
+            scroll?.setContentOffset(CGPoint(x: (scroll?.contentOffset.x ?? 0.0), y: (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)), animated: true)
         }
     }
 }

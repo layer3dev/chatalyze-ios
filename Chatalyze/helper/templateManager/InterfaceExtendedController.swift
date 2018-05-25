@@ -130,17 +130,11 @@ class InterfaceExtendedController : ExtendedController {
     @objc func backAction(){
         self.navigationController?.popViewController(animated: true)
     }
-
-
-
     
     func emptyNavButtons(){
         self.navigationItem.leftBarButtonItems?.removeAll()
         self.navigationItem.rightBarButtonItems?.removeAll()
     }
-    
-    
-    
 }
 
 

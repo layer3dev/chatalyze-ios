@@ -8,38 +8,40 @@
 
 import UIKit
 
-class ReviewController: InterfaceExtendedController {
+class ReviewController: InterfaceExtendedController{
 
     @IBOutlet var text:UITextView?
+    @IBOutlet var scrollView:FieldManagingScrollView?
+    @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
+    @IBOutlet var hieghtofTextView:NSLayoutConstraint?
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidLayout() {
+        super.viewDidLayout()
         
-        // Do any additional setup after loading the view.
+        initializeVariable()
+        paintInterface()
     }
-
+    
+    func initializeVariable(){
+        
+        scrollView?.bottomContentOffset = scrollContentBottomOffset
+        text?.delegate = self
+        hieghtofTextView?.constant = text?.contentSize.height ?? 36.0
+    }
+    
+    func paintInterface(){
+        
+        paintNavigationTitle(text: "Review")
+        paintBackButton()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    
     @IBAction func submitButton(sender:UIButton){
-      
-        print(text?.contentSize.height)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ReviewController{
@@ -52,3 +54,21 @@ extension ReviewController{
     }
 }
 
+extension ReviewController:UITextViewDelegate{
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    
+        print("I am calling in the textViewShouldBeginEditing")
+        print(textView.contentSize.height)
+        scrollView?.activeField = textView
+        hieghtofTextView?.constant = textView.contentSize.height
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView){
+        
+        print("I am calling in the textViewDidChange")
+        print(textView.contentSize.height)
+        hieghtofTextView?.constant = textView.contentSize.height
+    }
+}

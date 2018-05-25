@@ -86,6 +86,9 @@
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
 		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
 		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
+		47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */; };
+		47E7A04D20B7EDC80049354A /* PaymentSuccessRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */; };
+		47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A05020B826DF0049354A /* SystemTestController.swift */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
@@ -402,6 +405,9 @@
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
+		47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessController.swift; sourceTree = "<group>"; };
+		47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessRootView.swift; sourceTree = "<group>"; };
+		47E7A05020B826DF0049354A /* SystemTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTestController.swift; sourceTree = "<group>"; };
 		49DE06EB9A7536210A1FF290 /* Pods-ChatalyzeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -893,6 +899,14 @@
 				47DF899A20AC180000FEA916 /* EditProfileRootview.swift */,
 			);
 			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		47E7A04B20B7EDAB0049354A /* PaymentSuccess */ = {
+			isa = PBXGroup;
+			children = (
+				47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */,
+			);
+			path = PaymentSuccess;
 			sourceTree = "<group>";
 		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
@@ -1452,6 +1466,7 @@
 				47DF899920AC17D200FEA916 /* EditProfile */,
 				472780E420B02D1000D5AA1E /* Memories */,
 				47B80DBA20B3F1D6001F13CA /* My Tickets */,
+				47E7A04B20B7EDAB0049354A /* PaymentSuccess */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1540,6 +1555,8 @@
 				47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */,
 				473646F020AF01BF00D684FE /* MemoriesController.swift */,
 				471C233520B701AB0040C2A8 /* ReviewController.swift */,
+				47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */,
+				47E7A05020B826DF0049354A /* SystemTestController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2327,10 +2344,12 @@
 				47AD144420ADB3EA006AF9D6 /* PaymentListRootView.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
 				FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */,
+				47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */,
 				FAE8B23220A3087000899731 /* AppConnectionConfigForProduction.swift in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
 				FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */,
 				FA15C57F206B6DE4009FA707 /* SlotInfo.swift in Sources */,
+				47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */,
 				FAA001A6203ED472003C8A74 /* FieldValidator.swift in Sources */,
 				FA9858E220637AED00989CBB /* EmailResetPasswordRequest.swift in Sources */,
 				47B6525820AAB0420041496C /* ForgotPasswordController.swift in Sources */,
@@ -2452,6 +2471,7 @@
 				FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */,
 				FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */,
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,
+				47E7A04D20B7EDC80049354A /* PaymentSuccessRootView.swift in Sources */,
 				FAE9EF80206CF22B00C45F8D /* HostCallFetch.swift in Sources */,
 				FAE2EC70209C8E930080E92D /* CallMediaTrack.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,

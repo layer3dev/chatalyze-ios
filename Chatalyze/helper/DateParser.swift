@@ -156,5 +156,4 @@ class DateParser: NSObject {
         dateFormatter.timeZone = TimeZone(abbreviation:"UTC")
         return dateFormatter.date(from: "\(currentDate)")
     }
-    
 }
