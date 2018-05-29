@@ -8,13 +8,32 @@
 
 import UIKit
 
-class SystemTestController: InterfaceExtendedController {
-
+class SystemTestController:InterfaceExtendedController {
+    
+    @IBOutlet var rootView:SystemRootView?
     override func viewDidLayout(){
         super.viewDidLayout()
+        
+        rootView?.backgroundColor = UIColor.clear
+        rootView?.isOpaque = false
+        initializeVariable()
     }
-
+    
+    func initializeVariable(){
+        self.rootView?.controller = self
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+}
+
+extension SystemTestController{
+    
+    class func instance()->SystemTestController?{
+        
+        let storyboard = UIStoryboard(name: "Account", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "SystemTest") as? SystemTestController
+        return controller
     }
 }

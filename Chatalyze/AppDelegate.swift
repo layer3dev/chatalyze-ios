@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func initialization(){
-      
         
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot()

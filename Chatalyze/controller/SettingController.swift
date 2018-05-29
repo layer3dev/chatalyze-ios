@@ -86,10 +86,18 @@ class SettingController : InterfaceExtendedController {
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
         
-        guard let controller = PaymentSuccessController.instance() else {
+       // guard let controller = PaymentSuccessController.instance() else {
+         //   return
+//        }
+  //      self.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        guard let controller = SystemTestController.instance() else {
             return
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        self.present(controller, animated: true) {
+        }
     }
 }
 

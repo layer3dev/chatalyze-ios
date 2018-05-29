@@ -58,8 +58,7 @@ extension ReviewController:UITextViewDelegate{
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
     
-        print("I am calling in the textViewShouldBeginEditing")
-        print(textView.contentSize.height)
+   
         scrollView?.activeField = textView
         hieghtofTextView?.constant = textView.contentSize.height
         return true
@@ -67,8 +66,7 @@ extension ReviewController:UITextViewDelegate{
     
     func textViewDidChange(_ textView: UITextView){
         
-        print("I am calling in the textViewDidChange")
-        print(textView.contentSize.height)
+       
         hieghtofTextView?.constant = textView.contentSize.height
     }
 }

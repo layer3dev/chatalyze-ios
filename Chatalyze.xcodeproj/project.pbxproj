@@ -17,6 +17,10 @@
 		472780EB20B02E0100D5AA1E /* MemoriesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780EA20B02E0100D5AA1E /* MemoriesInfo.swift */; };
 		472780ED20B02E2700D5AA1E /* MemoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780EC20B02E2700D5AA1E /* MemoriesCell.swift */; };
 		472780EF20B02FA400D5AA1E /* MemoriesFetchProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472780EE20B02FA400D5AA1E /* MemoriesFetchProcessor.swift */; };
+		472D617C20BD4F290016A761 /* SystemRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D617B20BD4F290016A761 /* SystemRootView.swift */; };
+		472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D617D20BD6FC20016A761 /* EventPaymentController.swift */; };
+		472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D618220BD71850016A761 /* EventPaymentRootView.swift */; };
+		472D618520BD76740016A761 /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472D618420BD76740016A761 /* InputMask.framework */; };
 		473646E920AEA68900D684FE /* PaymentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473646E820AEA68900D684FE /* PaymentTableCell.swift */; };
 		473646EB20AEDF8500D684FE /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473646EA20AEDF8500D684FE /* AccountController.swift */; };
 		473646ED20AEE1D400D684FE /* AcccountPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473646EC20AEE1D400D684FE /* AcccountPageViewController.swift */; };
@@ -336,6 +340,10 @@
 		472780EA20B02E0100D5AA1E /* MemoriesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesInfo.swift; sourceTree = "<group>"; };
 		472780EC20B02E2700D5AA1E /* MemoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesCell.swift; sourceTree = "<group>"; };
 		472780EE20B02FA400D5AA1E /* MemoriesFetchProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesFetchProcessor.swift; sourceTree = "<group>"; };
+		472D617B20BD4F290016A761 /* SystemRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemRootView.swift; sourceTree = "<group>"; };
+		472D617D20BD6FC20016A761 /* EventPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentController.swift; sourceTree = "<group>"; };
+		472D618220BD71850016A761 /* EventPaymentRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentRootView.swift; sourceTree = "<group>"; };
+		472D618420BD76740016A761 /* InputMask.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMask.framework; path = Carthage/Build/iOS/InputMask.framework; sourceTree = "<group>"; };
 		473646E820AEA68900D684FE /* PaymentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableCell.swift; sourceTree = "<group>"; };
 		473646EA20AEDF8500D684FE /* AccountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		473646EC20AEE1D400D684FE /* AcccountPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcccountPageViewController.swift; sourceTree = "<group>"; };
@@ -684,6 +692,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				472D618520BD76740016A761 /* InputMask.framework in Frameworks */,
 				FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */,
 				FAC83C7F2061354B005C8130 /* NVActivityIndicatorView.framework in Frameworks */,
 				FA581943204164BE00D088F1 /* Bolts.framework in Frameworks */,
@@ -755,6 +764,22 @@
 				472780EA20B02E0100D5AA1E /* MemoriesInfo.swift */,
 			);
 			path = MemoriesInfo;
+			sourceTree = "<group>";
+		};
+		472D617820BD404D0016A761 /* systemTest */ = {
+			isa = PBXGroup;
+			children = (
+				472D617B20BD4F290016A761 /* SystemRootView.swift */,
+			);
+			path = systemTest;
+			sourceTree = "<group>";
+		};
+		472D617F20BD70350016A761 /* eventpayment */ = {
+			isa = PBXGroup;
+			children = (
+				472D618220BD71850016A761 /* EventPaymentRootView.swift */,
+			);
+			path = eventpayment;
 			sourceTree = "<group>";
 		};
 		47AD143920ADAF5E006AF9D6 /* Account */ = {
@@ -1467,6 +1492,8 @@
 				472780E420B02D1000D5AA1E /* Memories */,
 				47B80DBA20B3F1D6001F13CA /* My Tickets */,
 				47E7A04B20B7EDAB0049354A /* PaymentSuccess */,
+				472D617820BD404D0016A761 /* systemTest */,
+				472D617F20BD70350016A761 /* eventpayment */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1557,6 +1584,7 @@
 				471C233520B701AB0040C2A8 /* ReviewController.swift */,
 				47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */,
 				47E7A05020B826DF0049354A /* SystemTestController.swift */,
+				472D617D20BD6FC20016A761 /* EventPaymentController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1640,6 +1668,7 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				472D618420BD76740016A761 /* InputMask.framework */,
 				FA74B1522063A1C500983141 /* libicucore.tbd */,
 				FAC83C7E2061354B005C8130 /* NVActivityIndicatorView.framework */,
 				FA581942204164BE00D088F1 /* Bolts.framework */,
@@ -2249,6 +2278,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/FacebookLogin.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/InputMask.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
@@ -2300,6 +2330,7 @@
 				FA65F550206A750E006CE665 /* RTCConnectionInitializer.m in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
 				FAE9EF71206CD07700C45F8D /* CallConnection.swift in Sources */,
+				472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */,
 				472780EB20B02E0100D5AA1E /* MemoriesInfo.swift in Sources */,
 				FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */,
 				FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */,
@@ -2447,6 +2478,7 @@
 				47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */,
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
 				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,
+				472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
@@ -2522,6 +2554,7 @@
 				FA72A0B72086085000C3C7AE /* DateStamp.swift in Sources */,
 				FA0077A2207E2CF9005F840D /* UserVideoLayoutView.swift in Sources */,
 				FA74B1512063A0B600983141 /* SocketListenerCallback.swift in Sources */,
+				472D617C20BD4F290016A761 /* SystemRootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
