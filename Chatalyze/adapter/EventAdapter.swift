@@ -11,6 +11,7 @@ import Foundation
 class EventAdapter: NSObject {
     //Take the array of the data model Class
     var eventArray = [EventInfo]()
+    var root:EventRootView?
 }
 
 extension EventAdapter:UITableViewDataSource{
@@ -49,6 +50,14 @@ extension EventAdapter:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        guard let controller = SystemTestController.instance() else {
+            return
+        }
+        controller.info = self.eventArray[indexPath.row]
+        self.root?.controller?.present(controller, animated: true, completion: {
+            
+        })
     }
 }
 

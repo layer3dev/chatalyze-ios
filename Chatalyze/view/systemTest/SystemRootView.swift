@@ -14,6 +14,7 @@ class SystemRootView: ExtendedView {
     @IBOutlet var cancelView:UIView?
     @IBOutlet var dataView:UIView?
     @IBOutlet var beginView:UIView?
+    var info:EventInfo?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -59,6 +60,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         guard let controller = EventPaymentController.instance() else{
             return
         }
+        controller.info = self.info
         self.controller?.present(controller, animated: true, completion: {
         })
     }

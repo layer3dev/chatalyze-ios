@@ -34,8 +34,7 @@ class MyTicketsController: InterfaceExtendedController {
         super.viewWillAppear(animated)
         
         fetchInfo()
-    }
-    
+    }    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -62,7 +61,7 @@ class MyTicketsController: InterfaceExtendedController {
         self.showLoader()
         FetchEventTicketsProcessor().fetchInfo(id: id) {(success, info) in
             
-            self.rootview?.fillInfo(info: self.ticketsArray)
+            //self.rootview?.fillInfo(info: self.ticketsArray)
             self.stopLoader()
             if !success{
                 self.noTicketLbl?.isHidden = false

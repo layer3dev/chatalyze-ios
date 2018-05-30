@@ -11,6 +11,7 @@ import UIKit
 class SystemTestController:InterfaceExtendedController {
     
     @IBOutlet var rootView:SystemRootView?
+    var info:EventInfo?
     override func viewDidLayout(){
         super.viewDidLayout()
         
@@ -20,7 +21,9 @@ class SystemTestController:InterfaceExtendedController {
     }
     
     func initializeVariable(){
+        
         self.rootView?.controller = self
+        self.rootView?.info = self.info
     }
     
     override func didReceiveMemoryWarning() {

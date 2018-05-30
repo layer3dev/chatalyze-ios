@@ -18,6 +18,8 @@ class MyTicketsCell: ExtendedCollectionCell {
     @IBOutlet var timeLbl:UILabel?
     @IBOutlet var startDateLbl:UILabel?
     @IBOutlet var title:UILabel?
+    var delegate:MyTicketCellDelegate?
+    var info:MyTicketsInfo?
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -37,10 +39,14 @@ class MyTicketsCell: ExtendedCollectionCell {
         guard let info = info else{
             return
         }
-        
+        self.info = info
         self.chatnumberLbl?.text = info.chatNumber
         self.timeLbl?.text = info.startTime
         self.startDateLbl?.text = info.startDate
         self.title?.text = "Chat with \(info.eventTitle ?? "")"
+    }
+    
+    @IBAction func jointEvent(send:UIButton){
+        delegate?.jointEvent(info:self.info)
     }
 }

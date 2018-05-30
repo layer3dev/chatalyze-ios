@@ -40,7 +40,7 @@ class HomeController: InterfaceExtendedController {
     
     private func initializeInterface(){
         paintNavigationBar()
-        edgesForExtendedLayout = UIRectEdge()
+        //edgesForExtendedLayout = UIRectEdge()
     }
     
     var rootView : HomeRootView?{

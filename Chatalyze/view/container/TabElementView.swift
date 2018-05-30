@@ -19,6 +19,7 @@ class TabElementView: ExtendedView {
     fileprivate var _isActionPending : Bool = false
     
     @IBAction private func tabAction(){
+        
         guard let type = type
             else{
                 return

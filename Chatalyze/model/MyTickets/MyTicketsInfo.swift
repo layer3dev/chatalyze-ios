@@ -125,6 +125,8 @@ class MyTicketsInfo: NSObject {
     var endTime:String?
     var startDate:String?
     var eventTitle:String?
+    var callScheduleId:String?
+    var price:String?
     
     override init(){
         super.init()
@@ -146,8 +148,11 @@ class MyTicketsInfo: NSObject {
         self.chatNumber = json["slotNo"].stringValue
         self._endTime = json["end"].stringValue
         self._startTime = json["start"].stringValue
+        self.callScheduleId = json["callscheduleId"].stringValue
         if let callScheduleInfo = json["callschedule"].dictionary{
             self.eventTitle = callScheduleInfo["title"]?.stringValue
+            self.price = callScheduleInfo["price"]?.stringValue
+            self.price = callScheduleInfo["price"]?.stringValue
         }
     }
     

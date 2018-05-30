@@ -11,14 +11,14 @@ import UIKit
 
 class MyTicketesAdapter: ExtendedView {
     
-    @IBOutlet  var myTicketsCollectionView:UICollectionView?
+    @IBOutlet var myTicketsCollectionView:UICollectionView?
     var layout = UICollectionViewFlowLayout()
     var root:MyTicketsRootView?
     var ticketsListingArray = [MyTicketsInfo]()
     var featureHeight:CGFloat = 0.0
+    
     override func viewDidLayout() {
         super.viewDidLayout()
-        
     }
     
     func initailizeAdapter(info:[MyTicketsInfo]?){
@@ -60,7 +60,9 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return ticketsListingArray.count
+        //return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -68,6 +70,7 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
         guard let cell = myTicketsCollectionView?.dequeueReusableCell(withReuseIdentifier: "MyTicketsCell", for: indexPath) as? MyTicketsCell else {
             return UICollectionViewCell()
         }
+        cell.delegate = self
         if indexPath.row >= ticketsListingArray.count{
             return cell
         }
@@ -83,4 +86,24 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 }
 
 
+extension MyTicketesAdapter:MyTicketCellDelegate{
+    
+    func jointEvent(info:MyTicketsInfo?) {
+        
+//        guard let info = info else{
+//            return
+//        }
+//
+//        guard let controller = SystemTestController.instance() else {
+//            return
+//        }
+//        controller.info = info
+//        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
+//        self.root?.controller?.present(controller, animated: true) {
+//        }
+    }
+    
+   
+    
+}
 

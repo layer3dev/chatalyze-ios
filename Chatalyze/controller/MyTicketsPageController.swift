@@ -16,5 +16,9 @@ class MyTicketsPageController: MyTicketsController {
         let controller = storyboard.instantiateViewController(withIdentifier: "MyTicketsPage") as? MyTicketsPageController
         return controller
     }
+//   override func initializeVariable(){
+//        
+//        rootview?.controller = self
+//    }
 }
 

@@ -6,17 +6,27 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+
 import UIKit
+import Stripe
 
 class EventPaymentController: InterfaceExtendedController {
 
     @IBOutlet var rootView:EventPaymentRootView?
+    var info:EventInfo?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         rootView?.controller = self
+        rootView?.info = self.info
     }
+    
+    func submitPayment(){
+        
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -93,6 +93,9 @@
 		47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */; };
 		47E7A04D20B7EDC80049354A /* PaymentSuccessRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */; };
 		47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A05020B826DF0049354A /* SystemTestController.swift */; };
+		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
+		47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F5A9AA20BEBBDE00543529 /* Stripe.framework */; };
+		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
@@ -416,6 +419,9 @@
 		47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessController.swift; sourceTree = "<group>"; };
 		47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessRootView.swift; sourceTree = "<group>"; };
 		47E7A05020B826DF0049354A /* SystemTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTestController.swift; sourceTree = "<group>"; };
+		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
+		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
+		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
 		49DE06EB9A7536210A1FF290 /* Pods-ChatalyzeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -692,6 +698,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */,
 				472D618520BD76740016A761 /* InputMask.framework in Frameworks */,
 				FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */,
 				FAC83C7F2061354B005C8130 /* NVActivityIndicatorView.framework in Frameworks */,
@@ -932,6 +939,14 @@
 				47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */,
 			);
 			path = PaymentSuccess;
+			sourceTree = "<group>";
+		};
+		47F5A9A720BEA45D00543529 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
@@ -1467,6 +1482,7 @@
 				47AD144120ADB172006AF9D6 /* PaymentHistoryProcessor.swift */,
 				472780EE20B02FA400D5AA1E /* MemoriesFetchProcessor.swift */,
 				471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */,
+				47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -1668,6 +1684,7 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47F5A9AA20BEBBDE00543529 /* Stripe.framework */,
 				472D618420BD76740016A761 /* InputMask.framework */,
 				FA74B1522063A1C500983141 /* libicucore.tbd */,
 				FAC83C7E2061354B005C8130 /* NVActivityIndicatorView.framework */,
@@ -1994,6 +2011,7 @@
 				FAFFFEA0203D9C80009B4F96 /* LaunchScreen.storyboard */,
 				FAFFFEA3203D9C80009B4F96 /* Info.plist */,
 				FAFB7C71206E026F004804D2 /* cell */,
+				47F5A9A720BEA45D00543529 /* Protocols */,
 				FA74B1562063AEEF00983141 /* extension */,
 				FA74B0EC20639A0D00983141 /* lib */,
 				FA3CC1382046BFFF007438A3 /* model */,
@@ -2279,6 +2297,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/FBSDKLoginKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/InputMask.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Stripe.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
@@ -2444,6 +2463,7 @@
 				FAA0019B203ED472003C8A74 /* EventTimer.swift in Sources */,
 				FAE9EF74206CE82C00C45F8D /* HomeController.swift in Sources */,
 				FA74B13020639B6400983141 /* ARDMessageResponse.m in Sources */,
+				47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */,
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
@@ -2482,6 +2502,7 @@
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
+				47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAB71CEA2077A57F00C24246 /* NotificationMetaInfo.swift in Sources */,
 				47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */,

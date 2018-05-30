@@ -106,6 +106,26 @@ class DateParser: NSObject {
     }
     
     
+    static func getCurrentDateTimeInStringWithWebFormat(date:Date?,format:String?)->String?{
+        
+        //For Start Date
+        guard let getDate = date else {
+            return ""
+        }
+        guard let getFormat = format else {
+            return ""
+        }
+        
+        var calendar = Calendar.current
+        let requiredTimeZone = TimeZone(abbreviation: "UTC")!
+        calendar.timeZone = requiredTimeZone
+        calendar.locale = Locale(identifier : "en_US_POSIX")
+        let dateTime = dateToString(Date(), requiredFormat : getFormat, timeZone : requiredTimeZone)
+        
+        return dateTime
+    }
+    
+    
     static func convertDateToDesiredFormat(date:String?,ItsDateFormat:String?,requiredDateFormat:String?)->String?{
         
         guard let dateNeedToModify = date else{

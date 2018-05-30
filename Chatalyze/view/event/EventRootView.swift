@@ -27,6 +27,7 @@ class EventRootView:ExtendedView {
     func initializeVariable(){
         
         adapter = EventAdapter()
+        adapter?.root = self
         eventTable?.dataSource = adapter
         eventTable?.delegate = adapter
         eventTable?.reloadData()
