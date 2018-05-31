@@ -122,13 +122,14 @@ class ServerProcessor{
     }
     
     fileprivate func getAuthorizationToken()->String{
+        
         guard let info = SignedUserInfo.sharedInstance
             else{
                 return ""
         }
         
         let token = "Bearer " + (info.accessToken ?? "")
-        Log.echo(key: "token", text: token)
+        Log.echo(key: "yud", text: token)
         return token
     }
     
@@ -163,11 +164,13 @@ class ServerProcessor{
         }
         
         if(response.result.isFailure){
+            
             respond(success: false, response: try? JSON(data : senddata))
             return
         }
         
         if(response.result.isSuccess && self.authorize){
+            
             extractToken(httpResponse: response.response)
         }
         

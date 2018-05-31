@@ -207,15 +207,16 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     open func textField(_ textField: UITextField,didFillMandatoryCharacters complete:Bool,didExtractValue value: String){
       
-        scrollView?.activeField = self
+        scrollView?.activeField = textField
     }
 }
 
 extension EventPaymentRootView:UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        scrollView?.activeField = self
+       
+        pickerDoneAction(sender: nil)
+        scrollView?.activeField = textField
         return true
     }
 }
@@ -315,12 +316,10 @@ extension EventPaymentRootView{
         Log.echo(key: "yud", text: "Card param are \(cardParams)")
         
         STPAPIClient.shared().createToken(withCard: cardParams) { (token: STPToken?, error: Error?) in
-            Log.echo(key: "yud", text: "Error is \(error)")
+            
             guard let token = token, error == nil else {
                 return
             }
-            Log.echo(key: "yud", text: "The card token description is \(token.description)")
-            Log.echo(key: "yud", text: "The card token is \(token.description)")
             self.sendPayment(token:token.description)
             
         }
@@ -330,13 +329,15 @@ extension EventPaymentRootView{
     func sendPayment(token:String){
         
         guard let id = SignedUserInfo.sharedInstance?.id else{
+            Log.echo(key: "yud", text: "I am returning as ID did not found")
             return
         }
         
         guard let info = self.info else{
+            Log.echo(key: "yud", text: "I am returning as info did not found")
             return
         }
-        
+
         var param = [String:Any]()
         param["token"] = token
         param["card"] = true
@@ -344,6 +345,7 @@ extension EventPaymentRootView{
         param["serviceFee"] = "1.0"
         param["userId"] = id
         param["callscheduleId"] = info.id
+        
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
         }
     }

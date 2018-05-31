@@ -58,13 +58,9 @@ class PaymentRootView: ExtendedView {
         GreetingBookingProcessor().fetchInfo(param: self.param) { (success, data) in
             
             if success{
-                
-                
             }
         }
     }
-    
-    
 }
 
 extension PaymentRootView{
@@ -125,7 +121,7 @@ extension PaymentRootView:UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        scrollView?.activeField = self
+        scrollView?.activeField = textField
         return true
     }
 }

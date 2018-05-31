@@ -20,15 +20,23 @@ class EventPaymentController: InterfaceExtendedController {
         
         rootView?.controller = self
         rootView?.info = self.info
+        fetchCardDetails()
     }
     
-    func submitPayment(){
+    func fetchCardDetails(){
         
-        
+        guard let id = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        self.showLoader()
+        FetchSavedCardDetails().fetchInfo(id: id) { (success, response) in
+            self.stopLoader()
+            if success{
+            }
+        }
     }
     
-    
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
 }
