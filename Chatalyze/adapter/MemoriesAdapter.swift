@@ -123,7 +123,7 @@ extension MemoriesAdapter:UITableViewDelegate{
 extension MemoriesAdapter:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView){
-       
+        
         Log.echo(key: "yud", text: "Table scroll contentoffset is \(String(describing: self.memoriesListingTableView?.contentOffset.y))")
         self.root?.updateTableContentOffset(offset:self.memoriesListingTableView?.contentOffset.y)
     }

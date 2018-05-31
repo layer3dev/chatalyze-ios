@@ -27,6 +27,8 @@
 		473646EF20AF01AB00D684FE /* MyTicketsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473646EE20AF01AB00D684FE /* MyTicketsController.swift */; };
 		473646F120AF01BF00D684FE /* MemoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473646F020AF01BF00D684FE /* MemoriesController.swift */; };
 		478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */; };
+		478506D020BFFD8500EC4524 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478506CE20BFF71100EC4524 /* FacebookShare.framework */; };
+		478506D220BFFE5500EC4524 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */; };
 		47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */; };
 		47ABE90420B59742002EEEB0 /* MyTicketsPageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ABE90320B59742002EEEB0 /* MyTicketsPageRootView.swift */; };
 		47AD143120AD57D9006AF9D6 /* DeactivateAccountProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD143020AD57D9006AF9D6 /* DeactivateAccountProcessor.swift */; };
@@ -354,6 +356,9 @@
 		473646EE20AF01AB00D684FE /* MyTicketsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsController.swift; sourceTree = "<group>"; };
 		473646F020AF01BF00D684FE /* MemoriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesController.swift; sourceTree = "<group>"; };
 		478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSavedCardDetails.swift; sourceTree = "<group>"; };
+		478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = FacebookShare.framework.dSYM; path = Carthage/Build/iOS/FacebookShare.framework.dSYM; sourceTree = "<group>"; };
+		478506CE20BFF71100EC4524 /* FacebookShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookShare.framework; path = Carthage/Build/iOS/FacebookShare.framework; sourceTree = "<group>"; };
+		478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Carthage/Build/iOS/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageController.swift; sourceTree = "<group>"; };
 		47ABE90320B59742002EEEB0 /* MyTicketsPageRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageRootView.swift; sourceTree = "<group>"; };
 		47AD143020AD57D9006AF9D6 /* DeactivateAccountProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccountProcessor.swift; sourceTree = "<group>"; };
@@ -700,6 +705,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				478506D220BFFE5500EC4524 /* FBSDKShareKit.framework in Frameworks */,
+				478506D020BFFD8500EC4524 /* FacebookShare.framework in Frameworks */,
 				47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */,
 				472D618520BD76740016A761 /* InputMask.framework in Frameworks */,
 				FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */,
@@ -1687,6 +1694,9 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */,
+				478506CE20BFF71100EC4524 /* FacebookShare.framework */,
+				478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */,
 				47F5A9AA20BEBBDE00543529 /* Stripe.framework */,
 				472D618420BD76740016A761 /* InputMask.framework */,
 				FA74B1522063A1C500983141 /* libicucore.tbd */,
@@ -2301,6 +2311,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/InputMask.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Stripe.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FacebookShare.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FBSDKShareKit.framework",
 			);
 			name = "Run Script";
 			outputPaths = (

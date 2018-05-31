@@ -16,6 +16,7 @@ class EventPaymentProcessor{
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
         let newdate = DateParser.getCurrentDateTimeInStringWithWebFormat(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssXXX")
         var params = param
+//        {"userId":50,"callscheduleId":1933,"browserDate":"2018-05-31T10:31:41.384Z","token":"card_1BktQhKTB4KYMcwOpzKNld0t","amount":"15.50","serviceFee":"0.77","card":true}
         params["browserDate"] = newdate
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")

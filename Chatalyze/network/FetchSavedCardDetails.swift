@@ -13,10 +13,10 @@ class FetchSavedCardDetails{
     
     public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
-        let url = AppConnectionConfig.webServiceURL + "/cards"
+        var url = AppConnectionConfig.webServiceURL + "/cards/"
         var param:[String:Any] = [String:Any]()
-        param["id"] = id
-        
+        //param["id"] = id
+        url += id
         Log.echo(key: "yud", text: "Url is \(url)")
         Log.echo(key: "yud", text: "Param are  \(param)")
         

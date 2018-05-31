@@ -22,7 +22,7 @@ class EventInfo: NSObject {
     var title : String?
     var eventDescription : String?
     var duration : Int?
-    var price : Int?
+    var price : String?
     var backgroundcolor : String?
     var bordercolor : String?
     var textcolor : String?
@@ -66,7 +66,7 @@ class EventInfo: NSObject {
         title = json["title"].string
         eventDescription = json["description"].string
         duration = json["duration"].int
-        price = json["price"].int
+        price = json["price"].stringValue
         backgroundcolor = json["backgroundcolor"].string
         bordercolor = json["bordercolor"].string
         textcolor = json["textcolor"].string

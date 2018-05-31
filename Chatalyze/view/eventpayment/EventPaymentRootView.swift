@@ -338,13 +338,20 @@ extension EventPaymentRootView{
             return
         }
 
+        guard let callScheduleId = info.id else{
+            Log.echo(key: "yud", text: "I am returning as info did not found")
+            return
+        }
+        
         var param = [String:Any]()
         param["token"] = token
         param["card"] = true
-        param["amount"] = info.price
-        param["serviceFee"] = "1.0"
-        param["userId"] = id
-        param["callscheduleId"] = info.id
+        //param["amount"] = info.price
+        param["amount"] = "5.0"
+        //param["serviceFee"] = "1.0"
+        param["serviceFee"] = "0.46"
+        param["userId"] = Int(id)
+        param["callscheduleId"] = Int(callScheduleId)
         
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
         }
@@ -377,4 +384,3 @@ extension EventPaymentRootView{
         }
     }
 }
-

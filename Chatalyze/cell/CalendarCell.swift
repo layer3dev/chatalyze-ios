@@ -13,6 +13,5 @@ class CalendarCell:JTAppleCell {
     
 @IBOutlet var selectedView: UIView?
 @IBOutlet var dayLabel: UILabel?
-@IBOutlet var monthLabel: UILabel?
-
+@IBOutlet var monthLabel: UILabel?    
 }

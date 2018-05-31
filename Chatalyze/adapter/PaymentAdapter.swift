@@ -107,7 +107,7 @@ extension PaymentAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
-    }
+    }    
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //
