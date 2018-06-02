@@ -36,6 +36,9 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     var isFirstCardSelected = false
     var isSecondCardSelected = false
     var info:EventInfo?
+    var cardInfoArray = [CardInfo]()
+    var currentcardInfo:CardInfo?
+    @IBOutlet var errorLable:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -66,10 +69,26 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
         isFirstCardSelected = true
         cardOneField?.image?.image = UIImage(named: "tick")
+        setCurrentCardInfo(selectedCard: 0)
         isSecondCardSelected = false
         cardTwoField?.image?.image = UIImage(named: "untick")
         return
     }
+    
+    func setCurrentCardInfo(selectedCard:Int){
+        
+        if selectedCard == 0 {
+            if cardInfoArray.count >= 1{
+                currentcardInfo = cardInfoArray[0]
+            }
+        }
+        else if selectedCard == 1{
+            if cardInfoArray.count >= 2{
+                currentcardInfo = cardInfoArray[1]
+            }
+        }
+    }
+    
     
     @IBAction func selectCardSecondAction(sender:UIButton?){
        
@@ -81,6 +100,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
         isSecondCardSelected = true
         cardTwoField?.image?.image = UIImage(named: "tick")
+        setCurrentCardInfo(selectedCard:1)
         isFirstCardSelected = false
         cardOneField?.image?.image = UIImage(named: "untick")
         return
@@ -127,11 +147,18 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         cardTwoHeightConstraint?.constant = 0
         addOtherCardInfoHeightContraint?.constant  = 0
         CardInfoHeightContraint?.constant  = 220
+        resetSaveCardsDetail()
         self.superview?.updateConstraints()
         self.superview?.layoutIfNeeded()
         return
     }
     
+    func resetSaveCardsDetail(){
+        
+        isFirstCardSelected = false
+        isSecondCardSelected = false
+        currentcardInfo = nil
+    }
     
     @IBAction func cancelAction(sendre:UIButton){
         
@@ -181,8 +208,8 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
     }
     
-    
     func paintInterface(){
+        
         paintInterfaceForSavedCard()
     }
     
@@ -224,6 +251,18 @@ extension EventPaymentRootView:UITextFieldDelegate{
 extension EventPaymentRootView{
     
     @IBAction func submitPayment(sender:UIButton){
+        
+        if isFirstCardSelected{
+            
+            sendPaymentFromSavedCards(info: currentcardInfo)
+            return
+        }
+        if isSecondCardSelected{
+            
+            sendPaymentFromSavedCards(info: currentcardInfo)
+            return
+        }
+        
         
         if(validateFields()){
             self.resetErrorStatus()
@@ -321,10 +360,72 @@ extension EventPaymentRootView{
                 return
             }
             self.sendPayment(token:token.description)
-            
         }
     }
     
+    
+    
+    func sendPaymentFromSavedCards(info:CardInfo?){
+        
+        guard let cardInfo =  info else {
+            return
+        }
+        
+        guard let id = SignedUserInfo.sharedInstance?.id else{
+            Log.echo(key: "yud", text: "I am returning as ID did not found")
+            return
+        }
+        
+        guard let info = self.info else{
+            Log.echo(key: "yud", text: "I am returning as info did not found")
+            return
+        }
+        
+        guard let callScheduleId = info.id else{
+            Log.echo(key: "yud", text: "I am returning as info did not found")
+            return
+        }
+        
+        Log.echo(key: "yud", text: "The amount is \(info.price)")
+        Log.echo(key: "yud", text: "Service fee is \(info.serviceFee)")
+        //{"amount":"5.00","serviceFee":"0.46","card":true}
+        
+        
+        guard let amount = info.price else{
+            return
+        }
+        
+        guard let serviceFee = info.serviceFee else{
+            return
+        }
+        
+        var param = [String:Any]()
+        param["token"] = cardInfo.idToken
+        param["card"] = true
+        param["amount"] = String(amount)
+        param["serviceFee"] = String(serviceFee)
+        param["userId"] = Int(id)
+        param["callscheduleId"] = Int(callScheduleId)
+        
+        EventPaymentProcessor().pay(param: param) { (success, message, response) in
+            Log.echo(key: "yud", text: "the response is \(response)")
+            Log.echo(key: "yud", text: "success  is \(success)")
+            Log.echo(key: "yud", text: "Message is \(message)")
+
+            if !success{
+                
+                self.errorLable?.text = message
+                return
+            }
+            guard let controller = PaymentSuccessController.instance() else{
+                return
+            }
+            self.controller?.present(controller, animated: true, completion: {
+                
+            })
+            return
+        }
+    }
     
     func sendPayment(token:String){
         
@@ -343,17 +444,34 @@ extension EventPaymentRootView{
             return
         }
         
+        guard let amount = info.price else{
+            return
+        }
+        
+        guard let serviceFee = info.serviceFee else{
+            return
+        }
+        
         var param = [String:Any]()
         param["token"] = token
         param["card"] = true
-        //param["amount"] = info.price
-        param["amount"] = "5.0"
-        //param["serviceFee"] = "1.0"
-        param["serviceFee"] = "0.46"
+        param["amount"] = String(amount)
+        param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
         
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
+           
+            if !success{
+                
+                self.errorLable?.text = message
+                return
+            }
+            guard let controller = PaymentSuccessController.instance() else{
+                return
+            }
+            self.controller?.navigationController?.pushViewController(controller, animated: true)
+            return
         }
     }
     

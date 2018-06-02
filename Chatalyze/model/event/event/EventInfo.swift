@@ -21,8 +21,8 @@ class EventInfo: NSObject {
     var userId : Int?
     var title : String?
     var eventDescription : String?
-    var duration : Int?
-    var price : String?
+    var duration : Double?
+    var price : Double?
     var backgroundcolor : String?
     var bordercolor : String?
     var textcolor : String?
@@ -42,6 +42,7 @@ class EventInfo: NSObject {
     var deletedAt : String?
     var user : UserInfo?
     var href : String?
+    var serviceFee:Double?
     
     
     override init(){
@@ -54,6 +55,7 @@ class EventInfo: NSObject {
     }
     
      func fillInfo(info : JSON?) {
+      
         guard let json = info
             else{
                 return
@@ -65,8 +67,8 @@ class EventInfo: NSObject {
         userId = json["userId"].int
         title = json["title"].string
         eventDescription = json["description"].string
-        duration = json["duration"].int
-        price = json["price"].stringValue
+        duration = json["duration"].doubleValue
+        _price = json["price"].doubleValue
         backgroundcolor = json["backgroundcolor"].string
         bordercolor = json["bordercolor"].string
         textcolor = json["textcolor"].string
@@ -88,6 +90,19 @@ class EventInfo: NSObject {
         user = UserInfo(userInfoJSON: json["user"])
 //        if (json["user"] != nil) { user = User(json: json["user"] as! NSDictionary) } //todo:
         href = json["href"].string
+    }
+    
+
+    
+    private var _price:Double?{
+        get{
+            return price
+        }
+        set{
+            let price = newValue ?? 0.0
+            self.price = (price/60.0)*(self.duration ?? 0.0)
+            self.serviceFee = (((self.price ?? 0.0)+0.30)/0.971) - (self.price ?? 0.0)
+        }
     }
     
     var start : String?{

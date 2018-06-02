@@ -2670,7 +2670,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrM-QR-43k">
-                                <rect key="frame" x="20" y="671" width="374" height="45"/>
+                                <rect key="frame" x="20" y="668" width="374" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETE PURCHASE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuQ-Q7-Zl4">
                                         <rect key="frame" x="5" y="12" width="364" height="21"/>
@@ -2698,6 +2698,12 @@
                                     <constraint firstAttribute="height" constant="45" id="zcf-rG-uxU"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlU-vL-hFm">
+                                <rect key="frame" x="20" y="716" width="374" height="0.0"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" red="0.82314800129999999" green="0.13107657410000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYS-uV-mYJ">
                                 <rect key="frame" x="0.0" y="536" width="414" height="200"/>
                                 <subviews>
@@ -2769,12 +2775,15 @@
                             <constraint firstItem="FrM-QR-43k" firstAttribute="leading" secondItem="cvn-VF-NYh" secondAttribute="leading" constant="20" id="0pD-CI-zOu"/>
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="trailing" secondItem="zYS-uV-mYJ" secondAttribute="trailing" id="10V-4n-Vd9"/>
                             <constraint firstItem="76B-A2-NIY" firstAttribute="width" secondItem="KVT-qh-TKn" secondAttribute="width" id="1rD-Te-K8y"/>
-                            <constraint firstItem="cvn-VF-NYh" firstAttribute="bottom" secondItem="FrM-QR-43k" secondAttribute="bottom" constant="20" id="B1X-rr-eBV"/>
+                            <constraint firstItem="DlU-vL-hFm" firstAttribute="leading" secondItem="FrM-QR-43k" secondAttribute="leading" id="4jM-jl-q5w"/>
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="bottom" secondItem="zYS-uV-mYJ" secondAttribute="bottom" id="FOV-9A-vaO"/>
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="bottom" secondItem="jSv-yf-SMM" secondAttribute="bottom" id="P9W-6t-KYi"/>
                             <constraint firstItem="jSv-yf-SMM" firstAttribute="leading" secondItem="cvn-VF-NYh" secondAttribute="leading" id="aRZ-OD-fvw"/>
                             <constraint firstItem="jSv-yf-SMM" firstAttribute="top" secondItem="cvn-VF-NYh" secondAttribute="top" id="cgf-Fp-hra"/>
+                            <constraint firstItem="cvn-VF-NYh" firstAttribute="bottom" secondItem="DlU-vL-hFm" secondAttribute="bottom" constant="20" id="e66-Ed-sBg"/>
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="trailing" secondItem="FrM-QR-43k" secondAttribute="trailing" constant="20" id="lGv-l1-FUr"/>
+                            <constraint firstItem="DlU-vL-hFm" firstAttribute="top" secondItem="FrM-QR-43k" secondAttribute="bottom" constant="3" id="oVU-85-TsS"/>
+                            <constraint firstItem="DlU-vL-hFm" firstAttribute="trailing" secondItem="FrM-QR-43k" secondAttribute="trailing" id="x0n-De-X02"/>
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="trailing" secondItem="jSv-yf-SMM" secondAttribute="trailing" id="xuy-XP-N9d"/>
                             <constraint firstItem="zYS-uV-mYJ" firstAttribute="leading" secondItem="cvn-VF-NYh" secondAttribute="leading" id="yOh-Xz-ZG5"/>
                         </constraints>

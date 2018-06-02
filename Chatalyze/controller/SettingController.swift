@@ -15,6 +15,7 @@ protocol getSettingScrollInstet {
 import UIKit
 import FacebookShare
 import FBSDKShareKit
+import SDWebImage
 
 class SettingController : InterfaceExtendedController {
     
@@ -104,26 +105,36 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-            do {
-//                let imageData = try Data(contentsOf: URL(string: "https://s3-us-west-2.amazonaws.com/chatalyze/defaultimages/1519640038601_.png")!)
-//                let image = UIImage(data: imageData)
+        self.showLoader()
+        SDWebImageManager().loadImage(with: URL(string: "https://dev.chatalyze.com/api/screenshots/2102/url/chatalyze.png"), options: SDWebImageOptions.highPriority, progress: { (recieve, expected, url) in
+            
+        }) { (image, data, error, caceh, success, url) in
+            self.stopLoader()
+           
+            do{
                 let image1 = UIImage(named: "tick")
-                print("image is \(image1)")
-                let photo = Photo(image: image1!, userGenerated: true)
+                let photo = Photo(image: image!, userGenerated: true)
                 var contentImage = PhotoShareContent(photos: [photo])
-                //contentImage.referer = "https://dev.chatalyze.com"
-                //contentImage.url = URL(string:"https://dev.chatalyze.com")
                 let shareDialog = ShareDialog(content: contentImage)
-                do  {
+                //contentImage.url = URL(string: "https://s3-us-west-2.amazonaws.com/chatalyze/defaultimages/1519640038601_.png")
+                contentImage.url = URL(string: "https://dev.chatalyze.com/api/screenshots/2102/url/chatalyze.png")
+                do{
                     try ShareDialog.show(from: self, content: contentImage) { (result) in
-                        print("Result is")
-                        print(result)
                     }
                 } catch{
+                    
+                   let alert = UIAlertController(title: AppInfoConfig.appName, message: "Please install the Facebook app in order to share Signature on facebook", preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+                    }))
+                    
+                    self.present(alert, animated: true, completion: {
+                    })
                 }
-            } catch {
+            }catch{
                 print("Unable to load data: \(error)")
             }
+        }
     }
 }
 
@@ -144,7 +155,7 @@ extension SettingController:UIScrollViewDelegate{
         delegate?.getSettingScrollInset(scrollView: scrollView)
         
         if ((scroll?.contentOffset.y ?? 0.0) >= (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)) {
-
+            
             scroll?.setContentOffset(CGPoint(x: (scroll?.contentOffset.x ?? 0.0), y: (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)), animated: true)
         }
     }

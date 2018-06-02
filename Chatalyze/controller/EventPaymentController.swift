@@ -29,9 +29,25 @@ class EventPaymentController: InterfaceExtendedController {
             return
         }
         self.showLoader()
-        FetchSavedCardDetails().fetchInfo(id: id) { (success, response) in
+        FetchSavedCardDetails().fetchInfo(id: id) { (success, cardInfo) in
             self.stopLoader()
             if success{
+                
+                if let cardinfo = cardInfo{
+                    self.rootView?.cardInfoArray = cardinfo
+                    var count = 0
+                    for info in cardinfo{
+                        count = count + 1
+                    }
+                    if count == 1{
+                        self.rootView?.numberOfSaveCards = 1
+                        self.rootView?.paintInterfaceForSavedCard()
+                    }
+                    if count == 2{
+                        self.rootView?.numberOfSaveCards = 2
+                        self.rootView?.paintInterfaceForSavedCard()
+                    }
+                }
             }
         }
     }

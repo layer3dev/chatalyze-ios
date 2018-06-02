@@ -34,11 +34,12 @@ class EventPaymentProcessor{
                 return
         }
         if(!success){
+            
             let message = rawInfo["message"].stringValue
             completion(false, message, nil)
             return
         }
-        completion(true, "", nil)
+        completion(true, "", response)
         return
     }
 }
