@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		22096507D101B7FD4B87223E /* Pods_ChatalyzeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */; };
+		4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */; };
+		4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */; };
+		4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */; };
+		4718425B20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425A20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift */; };
 		471C232F20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */; };
 		471C233220B6BD8C0040C2A8 /* MyTicketsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C233120B6BD8C0040C2A8 /* MyTicketsInfo.swift */; };
 		471C233420B6C81C0040C2A8 /* MyTicketsPageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471C233320B6C81C0040C2A8 /* MyTicketsPageAdapter.swift */; };
@@ -338,6 +342,10 @@
 
 /* Begin PBXFileReference section */
 		3D680A10BEEE439F0853167C /* Pods-ChatalyzeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessDelegate.swift; sourceTree = "<group>"; };
+		4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentDelegte.swift; sourceTree = "<group>"; };
+		4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessInfo.swift; sourceTree = "<group>"; };
+		4718425A20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMobileForEventReminder.swift; sourceTree = "<group>"; };
 		471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FetchEventTicketsProcessor .swift"; sourceTree = "<group>"; };
 		471C233120B6BD8C0040C2A8 /* MyTicketsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsInfo.swift; sourceTree = "<group>"; };
 		471C233320B6C81C0040C2A8 /* MyTicketsPageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageAdapter.swift; sourceTree = "<group>"; };
@@ -760,6 +768,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4718425720C5386B00C6FFD5 /* PaymentSuccessInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */,
+			);
+			path = PaymentSuccessInfo;
+			sourceTree = "<group>";
+		};
 		471C233020B6BD7D0040C2A8 /* MyTickets */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,6 +980,8 @@
 			isa = PBXGroup;
 			children = (
 				47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */,
+				4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */,
+				4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1136,6 +1154,7 @@
 				472780E920B02DF300D5AA1E /* MemoriesInfo */,
 				471C233020B6BD7D0040C2A8 /* MyTickets */,
 				47AACA4120C1717C000F8D7A /* CardInfo */,
+				4718425720C5386B00C6FFD5 /* PaymentSuccessInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1504,6 +1523,7 @@
 				471C232E20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift */,
 				47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */,
 				478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */,
+				4718425A20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -2444,6 +2464,8 @@
 				FAFFFE98203D9C80009B4F96 /* AppDelegate.swift in Sources */,
 				FAA001D0203EE2BC003C8A74 /* AppThemeConfig.swift in Sources */,
 				FAE9EF6D206CD04D00C45F8D /* HostCallConnection.swift in Sources */,
+				4718425B20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift in Sources */,
+				4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */,
 				47B6526B20AAB43B0041496C /* SignupProcessor.swift in Sources */,
 				FA74B13420639B6400983141 /* ARDStatsBuilder.m in Sources */,
 				FAD2017F207615730004E10E /* CanvasInfo.swift in Sources */,
@@ -2468,6 +2490,7 @@
 				47B6526520AAB4080041496C /* TabContainerViewInterface.swift in Sources */,
 				FAFB7C81206E6B84004804D2 /* EventQueueAdapter.swift in Sources */,
 				FA581945204165CA00D088F1 /* SigninController.swift in Sources */,
+				4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */,
 				472780E820B02DA900D5AA1E /* MemoriesAdapter.swift in Sources */,
 				FAA0019D203ED472003C8A74 /* Array.swift in Sources */,
 				47B6526D20AAB43B0041496C /* ForgotPasswordProcessor.swift in Sources */,
@@ -2495,6 +2518,7 @@
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
+				4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */,
 				47B6523320AAAF840041496C /* EventRootView.swift in Sources */,
 				47ABE90420B59742002EEEB0 /* MyTicketsPageRootView.swift in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,

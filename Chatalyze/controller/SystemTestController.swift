@@ -12,6 +12,9 @@ class SystemTestController:InterfaceExtendedController {
     
     @IBOutlet var rootView:SystemRootView?
     var info:EventInfo?
+    var presentingControllerObj:EventController?
+
+    
     override func viewDidLayout(){
         super.viewDidLayout()
         

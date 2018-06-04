@@ -96,6 +96,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         profileThumbnail = aDecoder.decodeObject(forKey: "profileThumbnail") as? String
         isOnline = aDecoder.decodeBool(forKey: "isOnline")
         accessToken  = aDecoder.decodeObject(forKey: "accessToken") as? String
+        //eventMobReminder = aDecoder.decodeBool(forKey: "eventMobReminder")
     }
     
     
@@ -119,6 +120,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         aCoder.encode(profileThumbnail, forKey: "profileThumbnail")
         aCoder.encode(isOnline, forKey: "isOnline")
         aCoder.encode(accessToken, forKey: "accessToken")
+        //aCoder.encode(eventMobReminder, forKey: "eventMobReminder")
     }
     
     func clear(){

@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class EventPaymentProcessor{
     
-    public func pay(param:[String:Any], completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
+    public func pay(param:[String:Any], completion : @escaping ((_ success : Bool, _ error : String, _ response : PaymentSuccessInfo?)->())){
         
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
         let newdate = DateParser.getCurrentDateTimeInStringWithWebFormat(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssXXX")
@@ -26,7 +26,9 @@ class EventPaymentProcessor{
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : PaymentSuccessInfo?)->())){
+        
+        Log.echo(key: "yud", text: "The response is \(response)")
         
         guard let rawInfo = response
             else{
@@ -39,7 +41,8 @@ class EventPaymentProcessor{
             completion(false, message, nil)
             return
         }
-        completion(true, "", response)
+        let info = PaymentSuccessInfo(info: rawInfo)
+        completion(true, "", info)
         return
     }
 }

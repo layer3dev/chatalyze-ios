@@ -39,6 +39,10 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     var cardInfoArray = [CardInfo]()
     var currentcardInfo:CardInfo?
     @IBOutlet var errorLable:UILabel?
+    @IBOutlet var amountLbl:UILabel?
+    @IBOutlet var serviceFees:UILabel?
+    @IBOutlet var totalAmount:UILabel?
+    var delegate:EventPaymentDelegte?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -120,6 +124,10 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
         if numberOfSaveCards == 1{
             
+            if cardInfoArray.count >= 1{
+                
+                cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+            }
             cardOneHeightConstraint?.constant = 62
             cardTwoHeightConstraint?.constant = 0
             addOtherCardInfoHeightContraint?.constant  = 50
@@ -130,6 +138,11 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
         if numberOfSaveCards == 2{
             
+            if cardInfoArray.count >= 2{
+                
+                cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+                cardTwoField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[1].lastDigitAccount ?? "")
+            }
             cardOneHeightConstraint?.constant = 62
             cardTwoHeightConstraint?.constant = 62
             addOtherCardInfoHeightContraint?.constant  = 0
@@ -162,7 +175,8 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     @IBAction func cancelAction(sendre:UIButton){
         
-        self.controller?.dismiss(animated: true, completion: {
+        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+            
         })
     }
     
@@ -215,9 +229,20 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func initializeVariable(){
         
+        let serviceFeeCharge = String(format: "%.2f", self.info?.serviceFee ?? 0.0)
+        let amountCharge = String(format: "%.2f", self.info?.price ?? 0.0)
+        let total = ((self.info?.price ?? 0.0) + (self.info?.serviceFee ?? 0.0))
+        let totalAmountCharge = String(format: "%.2f", total)
+        
+        
+        serviceFees?.text = "$ "+"\(serviceFeeCharge)"
+        amountLbl?.text = "$ "+"\(amountCharge)"
+        totalAmount?.text = "$ "+"\(totalAmountCharge)"
+        
         scrollView?.bottomContentOffset = scrollViewBottomConstraints
         
         maskedDelegate = MaskedTextFieldDelegate(format: "[0000]-[0000]-[0000]-[0000]")
+        
         maskedDelegate?.listener = self
         cardField?.textField?.delegate = maskedDelegate
         
@@ -262,7 +287,6 @@ extension EventPaymentRootView{
             sendPaymentFromSavedCards(info: currentcardInfo)
             return
         }
-        
         
         if(validateFields()){
             self.resetErrorStatus()
@@ -367,6 +391,15 @@ extension EventPaymentRootView{
     
     func sendPaymentFromSavedCards(info:CardInfo?){
         
+        guard let controller = PaymentSuccessController.instance() else{
+            return
+        }
+        
+        self.controller?.present(controller, animated: true, completion: {
+        })
+       
+        return
+        
         guard let cardInfo =  info else {
             return
         }
@@ -382,12 +415,14 @@ extension EventPaymentRootView{
         }
         
         guard let callScheduleId = info.id else{
+            
             Log.echo(key: "yud", text: "I am returning as info did not found")
             return
         }
         
         Log.echo(key: "yud", text: "The amount is \(info.price)")
         Log.echo(key: "yud", text: "Service fee is \(info.serviceFee)")
+        
         //{"amount":"5.00","serviceFee":"0.46","card":true}
         
         
@@ -406,23 +441,35 @@ extension EventPaymentRootView{
         param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
-        
+        self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
+            
             Log.echo(key: "yud", text: "the response is \(response)")
             Log.echo(key: "yud", text: "success  is \(success)")
             Log.echo(key: "yud", text: "Message is \(message)")
-
+            
+            self.controller?.stopLoader()
             if !success{
                 
                 self.errorLable?.text = message
                 return
             }
+            
+            guard let response = response else{
+                return
+            }
+            
             guard let controller = PaymentSuccessController.instance() else{
                 return
             }
+            
+            controller.presentingControllerObj = self.controller?.presentingControllerObj
+            
+            controller.info = response
+            
             self.controller?.present(controller, animated: true, completion: {
-                
             })
+            
             return
         }
     }
@@ -460,8 +507,11 @@ extension EventPaymentRootView{
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
         
+        
+        self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
-           
+
+            self.controller?.stopLoader()
             if !success{
                 
                 self.errorLable?.text = message
@@ -470,7 +520,9 @@ extension EventPaymentRootView{
             guard let controller = PaymentSuccessController.instance() else{
                 return
             }
-            self.controller?.navigationController?.pushViewController(controller, animated: true)
+            controller.presentingControllerObj = self.controller?.presentingControllerObj
+            self.controller?.present(controller, animated: true, completion: {
+            })
             return
         }
     }

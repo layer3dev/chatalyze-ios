@@ -10,7 +10,12 @@ import UIKit
 
 class PaymentSuccessController: InterfaceExtendedController {
 
+    
     @IBOutlet var rootView:PaymentSuccessRootView?
+    var presentingControllerObj:EventController?
+    var info:PaymentSuccessInfo?
+    @IBOutlet var heightOfMobileField:NSLayoutConstraint?
+    @IBOutlet var heightOfMobileAlertField:NSLayoutConstraint?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -19,16 +24,19 @@ class PaymentSuccessController: InterfaceExtendedController {
         initializationVariable()
     }
     
-    
     func painInterface(){
         
         paintNavigationTitle(text: "PAYMENT SUCCESS")
         paintBackButton()
+        //paintMobileField()
     }
+    
+   
     
     func initializationVariable(){
         
         rootView?.controller = self
+        rootView?.info = self.info
     }
     
     override func didReceiveMemoryWarning() {

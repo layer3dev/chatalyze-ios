@@ -49,6 +49,7 @@ class UserInfo: NSObject {
     var profileImage : String?
     var profileThumbnail : String?
     var defaultImage : HostDefaultScreenshot?
+    var eventMobReminder:Bool?
     
     var isOnline = false
     
@@ -85,6 +86,7 @@ class UserInfo: NSObject {
         profileImage = avatars?["400X400"].stringValue        
         profileThumbnail = avatars?["200X200"].stringValue
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
+        self.eventMobReminder = info["eventMobReminder"]?.boolValue
     }
 }
 

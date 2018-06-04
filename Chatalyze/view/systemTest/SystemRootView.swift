@@ -51,9 +51,11 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     
     @IBAction func cancelAction(){
         
-        self.controller?.dismiss(animated: true, completion: {
+        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+            
         })
     }
+   
     
     @IBAction func skipAction(sender:UIButton){
                 
@@ -61,6 +63,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             return
         }
         controller.info = self.info
+        controller.presentingControllerObj = self.controller?.presentingControllerObj
         self.controller?.present(controller, animated: true, completion: {
         })
     }

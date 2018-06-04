@@ -25,6 +25,9 @@ class PaymentSuccessRootView: ExtendedView {
     @IBOutlet var pickerContainer:UIView?
     @IBOutlet var addtocalendarView:UIView?
     let eventStore = EKEventStore()
+    @IBOutlet var chatDetailLbl:UILabel?
+    var info:PaymentSuccessInfo?
+    @IBOutlet var saveLbl:UILabel?    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -33,7 +36,66 @@ class PaymentSuccessRootView: ExtendedView {
         implementTapGestuePicker()
         paintInterface()
         initializeVariable()
+        initializeChatInfo()
+        paintMobileField()
     }
+    
+    func paintMobileField(){
+        
+        guard let mobileReminderInfo = SignedUserInfo.sharedInstance?.eventMobReminder else{
+            return
+        }
+        if mobileReminderInfo{
+            
+            self.controller?.heightOfMobileField?.constant = 0
+            self.controller?.heightOfMobileAlertField?.constant = 120
+            self.scrollView?.layoutIfNeeded()
+            //self.view.updateConstraints()
+            self.superview?.layoutIfNeeded()
+            return
+        }
+        self.controller?.heightOfMobileField?.constant = 250
+        self.controller?.heightOfMobileAlertField?.constant = 0
+        self.scrollView?.layoutIfNeeded()
+        self.superview?.layoutIfNeeded()
+    }
+    
+    func initializeChatInfo(){
+      
+        //create attributed string
+        let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#999999")]
+        
+        let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E")]
+        
+        let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have Chat ", attributes: grayAttribute)
+        
+        let slotNumber = NSMutableAttributedString(string: "\(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
+        
+        let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
+        
+        let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
+       
+        let fourthStr = NSMutableAttributedString(string: "on ", attributes: grayAttribute)
+        
+        let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
+        
+        let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
+        
+        let requiredString:NSMutableAttributedString = NSMutableAttributedString()
+        
+        requiredString.append(firstStr)
+        requiredString.append(slotNumber)
+        requiredString.append(secondStr)
+        requiredString.append(time)
+        requiredString.append(fourthStr)
+        requiredString.append(fifthStr)
+        requiredString.append(sixthStr)
+        
+        chatDetailLbl?.attributedText = requiredString
+        //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
+   }
+    
+    
     
     func paintInterface(){
         
@@ -66,6 +128,11 @@ class PaymentSuccessRootView: ExtendedView {
         pickerContainer?.addGestureRecognizer(tap)
     }
     
+    @IBAction func skipAction(sender:UIButton){
+        
+        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+        })
+    }
     
     @IBAction func countryAction(sender:UIButton){
         
@@ -107,10 +174,15 @@ class PaymentSuccessRootView: ExtendedView {
     
     func addEvent(){
         
-        let startDate = DateParser.getDateTimeInUTCFromWeb(dateInString: "2018-05-25 09:23:42 +0000", dateFormat: "yyyy-MM-dd hh:mm:ss Z") ?? Date()
-        let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString: "2018-05-25 09:50:42 +0000", dateFormat: "yyyy-MM-dd hh:mm:ss Z") ?? Date()
-        addEventToCalendar(title: "Girlfriend birthday", description: "Remember or die!", startDate: startDate, endDate: endDate) { (success, error) in
+        let startDate = DateParser.getDateTimeInUTCFromWeb(dateInString: self.info?._startDate, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? Date()
+        
+        let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString: self.info?._endDate, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? Date()
+        
+        self.controller?.showLoader()
+        
+        addEventToCalendar(title: "Chatalyze Event", description: "\(chatDetailLbl?.text ?? "")", startDate: startDate, endDate: endDate) { (success, error) in
             
+            self.controller?.stopLoader()
             if success{
                 
                 let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertControllerStyle.alert)
@@ -147,10 +219,11 @@ class PaymentSuccessRootView: ExtendedView {
     }
     
    
-    func noPermission()
-    {
+    func noPermission(){
+        
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
+          
             if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(settingUrl)
@@ -189,7 +262,29 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         
         errorLabel?.text = ""
         if validateFields(){
-            //save()
+            saveMobileNumber()
+        }
+    }
+    
+    func saveMobileNumber(){
+        
+        guard let countryCode = countryCodeField?.textField?.text else{
+            return
+        }
+        guard let mobileNumber  = mobileNumberField?.textField?.text else {
+            return
+        }
+        self.controller?.showLoader()
+        
+        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: countryCode) { (success, message, response) in
+            self.controller?.stopLoader()
+            if !success{
+                self.errorLabel?.text = message
+                return
+            }
+            self.errorLabel?.text = message
+            self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+            })
         }
     }
 }
@@ -200,7 +295,6 @@ extension PaymentSuccessRootView{
         
         resetErrorStatus()
         let codeValidate = validateCountryCode()
-        
         let mobileValidate = validateMobileNumber()
         return codeValidate && mobileValidate
     }

@@ -14,7 +14,8 @@ class EventPaymentController: InterfaceExtendedController {
 
     @IBOutlet var rootView:EventPaymentRootView?
     var info:EventInfo?
-    
+    var presentingControllerObj:EventController?
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -34,9 +35,10 @@ class EventPaymentController: InterfaceExtendedController {
             if success{
                 
                 if let cardinfo = cardInfo{
+                
                     self.rootView?.cardInfoArray = cardinfo
                     var count = 0
-                    for info in cardinfo{
+                    for _ in cardinfo{
                         count = count + 1
                     }
                     if count == 1{

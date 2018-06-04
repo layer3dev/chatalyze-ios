@@ -55,6 +55,7 @@ extension EventAdapter:UITableViewDelegate{
             return
         }
         controller.info = self.eventArray[indexPath.row]
+        controller.presentingControllerObj = root?.controller
         self.root?.controller?.present(controller, animated: true, completion: {
             
         })
