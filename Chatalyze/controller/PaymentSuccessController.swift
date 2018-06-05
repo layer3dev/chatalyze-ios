@@ -9,7 +9,6 @@
 import UIKit
 
 class PaymentSuccessController: InterfaceExtendedController {
-
     
     @IBOutlet var rootView:PaymentSuccessRootView?
     var presentingControllerObj:EventController?

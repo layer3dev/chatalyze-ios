@@ -391,15 +391,6 @@ extension EventPaymentRootView{
     
     func sendPaymentFromSavedCards(info:CardInfo?){
         
-        guard let controller = PaymentSuccessController.instance() else{
-            return
-        }
-        
-        self.controller?.present(controller, animated: true, completion: {
-        })
-       
-        return
-        
         guard let cardInfo =  info else {
             return
         }
@@ -441,6 +432,8 @@ extension EventPaymentRootView{
         param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
+        param["remember"] = isCardSave
+        
         self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
             
@@ -476,6 +469,7 @@ extension EventPaymentRootView{
     
     func sendPayment(token:String){
         
+        
         guard let id = SignedUserInfo.sharedInstance?.id else{
             Log.echo(key: "yud", text: "I am returning as ID did not found")
             return
@@ -501,29 +495,42 @@ extension EventPaymentRootView{
         
         var param = [String:Any]()
         param["token"] = token
-        param["card"] = true
+        param["card"] = false
         param["amount"] = String(amount)
         param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
-        
+        param["remember"] = isCardSave
         
         self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
 
+            Log.echo(key: "yud", text: "the response is \(response)")
+            Log.echo(key: "yud", text: "success  is \(success)")
+            Log.echo(key: "yud", text: "Message is \(message)")
+            
             self.controller?.stopLoader()
             if !success{
                 
                 self.errorLable?.text = message
                 return
             }
+            
+            guard let response = response else{
+                return
+            }
+            
             guard let controller = PaymentSuccessController.instance() else{
                 return
             }
+            
             controller.presentingControllerObj = self.controller?.presentingControllerObj
+            
+            controller.info = response
+            
             self.controller?.present(controller, animated: true, completion: {
             })
-            return
+
         }
     }
     

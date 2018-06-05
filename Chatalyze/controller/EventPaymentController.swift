@@ -42,10 +42,12 @@ class EventPaymentController: InterfaceExtendedController {
                         count = count + 1
                     }
                     if count == 1{
+                        
                         self.rootView?.numberOfSaveCards = 1
                         self.rootView?.paintInterfaceForSavedCard()
                     }
-                    if count == 2{
+                    if count >= 2{
+                        
                         self.rootView?.numberOfSaveCards = 2
                         self.rootView?.paintInterfaceForSavedCard()
                     }

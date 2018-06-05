@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class SaveMobileForEventReminder{
     //https://dev.chatalyze.com/api/users/50
-    public func save(mobilenumber : String, countryCode:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
+    public func save(mobilenumber : String, countryCode:String,saveForFuture : Bool, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
         var url = AppConnectionConfig.webServiceURL + "/users/"
         
@@ -21,13 +21,14 @@ class SaveMobileForEventReminder{
         url = url+id
         
         var params = [String : Any]()
-        params["eventMobReminder"] = true
+        params["eventMobReminder"] = saveForFuture
         params["countryCode"] = countryCode
         params["mobile"] = mobilenumber
         
+        
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
-        ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding) { (success, response) in
+        ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }

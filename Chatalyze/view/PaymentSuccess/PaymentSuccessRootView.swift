@@ -28,7 +28,8 @@ class PaymentSuccessRootView: ExtendedView {
     @IBOutlet var chatDetailLbl:UILabel?
     var info:PaymentSuccessInfo?
     @IBOutlet var saveLbl:UILabel?    
-    
+
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -45,17 +46,20 @@ class PaymentSuccessRootView: ExtendedView {
         guard let mobileReminderInfo = SignedUserInfo.sharedInstance?.eventMobReminder else{
             return
         }
-        if mobileReminderInfo{
+        
+         if mobileReminderInfo{
             
             self.controller?.heightOfMobileField?.constant = 0
-            self.controller?.heightOfMobileAlertField?.constant = 120
+            self.controller?.heightOfMobileAlertField?.constant = 150
+            self.superview?.updateConstraints()
             self.scrollView?.layoutIfNeeded()
             //self.view.updateConstraints()
             self.superview?.layoutIfNeeded()
             return
         }
-        self.controller?.heightOfMobileField?.constant = 250
+        self.controller?.heightOfMobileField?.constant = 340
         self.controller?.heightOfMobileAlertField?.constant = 0
+        self.superview?.updateConstraints()
         self.scrollView?.layoutIfNeeded()
         self.superview?.layoutIfNeeded()
     }
@@ -63,13 +67,14 @@ class PaymentSuccessRootView: ExtendedView {
     func initializeChatInfo(){
       
         //create attributed string
-        let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#999999")]
+        let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7")]
         
-        let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E")]
         
-        let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have Chat ", attributes: grayAttribute)
+        let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
         
-        let slotNumber = NSMutableAttributedString(string: "\(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
+        let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
+        
+        let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
         
         let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
         
@@ -94,8 +99,6 @@ class PaymentSuccessRootView: ExtendedView {
         chatDetailLbl?.attributedText = requiredString
         //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
    }
-    
-    
     
     func paintInterface(){
         
@@ -181,7 +184,7 @@ class PaymentSuccessRootView: ExtendedView {
         self.controller?.showLoader()
         
         addEventToCalendar(title: "Chatalyze Event", description: "\(chatDetailLbl?.text ?? "")", startDate: startDate, endDate: endDate) { (success, error) in
-            
+
             self.controller?.stopLoader()
             if success{
                 
@@ -198,7 +201,7 @@ class PaymentSuccessRootView: ExtendedView {
     }
     
     @IBAction func addToCalendarAction(sender:UIButton){
-      
+        
         generateEvent()
     }
     func generateEvent() {
@@ -268,15 +271,18 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
     
     func saveMobileNumber(){
         
+        
         guard let countryCode = countryCodeField?.textField?.text else{
             return
         }
         guard let mobileNumber  = mobileNumberField?.textField?.text else {
             return
         }
+        let requiredcountryCode = countryCode.replacingOccurrences(of: "+", with: "")
+        
         self.controller?.showLoader()
         
-        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: countryCode) { (success, message, response) in
+        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : chatUpdates) { (success, message, response) in
             self.controller?.stopLoader()
             if !success{
                 self.errorLabel?.text = message
@@ -354,5 +360,4 @@ extension PaymentSuccessRootView:UITextFieldDelegate{
         scrollView?.activeField = textField
         return true
     }
-    
 }

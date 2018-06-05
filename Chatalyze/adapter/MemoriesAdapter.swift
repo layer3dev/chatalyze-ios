@@ -15,6 +15,7 @@ class MemoriesAdapter: ExtendedView {
     var root:MemoriesRootView?
     var memoriesListingArray = [MemoriesInfo]()
     var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var controller:MemoriesController?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -55,6 +56,7 @@ extension MemoriesAdapter:UITableViewDataSource{
         if indexPath.row < self.memoriesListingArray.count{
             
             cell.fillInfo(info:self.memoriesListingArray[indexPath.row])
+            cell.controller = self.controller
             return cell
         }
         return UITableViewCell()

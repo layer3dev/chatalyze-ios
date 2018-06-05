@@ -10,6 +10,8 @@
 import Foundation
 import UIKit
 import SDWebImage
+import FBSDKShareKit
+import FacebookShare
 
 class MemoriesCell: ExtendedTableCell {
     
@@ -19,6 +21,8 @@ class MemoriesCell: ExtendedTableCell {
     @IBOutlet var orderType:UILabel?
     @IBOutlet var cardView:UIView?
     @IBOutlet var memoryImage:UIImageView?
+    var controller:MemoriesController?
+    var info:MemoriesInfo?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -39,13 +43,53 @@ class MemoriesCell: ExtendedTableCell {
         
         guard let info = info else{
             return
-        }        
+        }
+        self.info = info
         memoryImage?.image = UIImage(named: "base")
         if let imageStr = info.screenShotUrl{
             if let url = URL(string: imageStr){
                 memoryImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
             }
+        }
+    }
+    
+    @IBAction func facebookShare(sender:UIButton){
+     
+        guard let id = self.info?.id else{
+            return
+        }
+        
+        var url = "https://dev.chatalyze.com/api/screenshots/"
+        url = url+id
+        url = url+"/url/chatalyze.png"
+        Log.echo(key: "yud", text: "Image url is \(url)")
+        
+            do{
+                guard let image1 = self.memoryImage?.image else{
+                    return
+                }
+                let photo = Photo(image: image1, userGenerated: true)
+                var contentImage = PhotoShareContent(photos: [photo])
+                contentImage.url = URL(string: url)
+                do{
+                    guard let controller = self.controller else {
+                        return
+                    }
+                    try ShareDialog.show(from: controller, content: contentImage) { (result) in
+                    }
+                }catch{
+                    
+                    let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+                    }))
+                    
+                    self.controller?.present(alert, animated: true, completion: {
+                    })
+                }
+            }catch{
+                print("Unable to load data: \(error)")
         }
     }
 }
