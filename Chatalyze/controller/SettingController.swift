@@ -16,6 +16,9 @@ import UIKit
 import FacebookShare
 import FBSDKShareKit
 import SDWebImage
+import TwitterKit
+import TwitterShareExtensionUI
+import TwitterCore
 
 class SettingController : InterfaceExtendedController {
     
@@ -104,6 +107,32 @@ class SettingController : InterfaceExtendedController {
     }
     
     @IBAction func aboutAction(sender:UIButton){
+        
+        let twitter = TWTRComposer()
+        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
+        twitter.show(from: self) { (result) in
+            
+            
+            print("result is \(result)")
+        }
+        
+//        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
+//            // App must have at least one logged-in user to compose a Tweet
+//            let composer = TWTRComposerViewController.emptyComposer()
+//            present(composer, animated: true, completion: nil)
+//        } else {
+//            // Log in, and then check again
+//            TWTRTwitter.sharedInstance().logIn { session, error in
+//
+//                if session != nil { // Log in succeeded
+//                    let composer = TWTRComposerViewController.emptyComposer()
+//                    self.present(composer, animated: true, completion: nil)
+//                } else {
+//                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+//                    self.present(alert, animated: false, completion: nil)
+//                }
+//            }
+//        }
     }
 }
 
@@ -119,7 +148,7 @@ extension SettingController{
 
 extension SettingController:UIScrollViewDelegate{
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView){
         
         delegate?.getSettingScrollInset(scrollView: scrollView)
         

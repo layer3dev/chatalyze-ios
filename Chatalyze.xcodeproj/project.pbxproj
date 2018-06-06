@@ -104,6 +104,11 @@
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F5A9AA20BEBBDE00543529 /* Stripe.framework */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
+		47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF020C7E1E200EAEB43 /* Accounts.framework */; };
+		47F7CDF320C7E1F000EAEB43 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF220C7E1F000EAEB43 /* Social.framework */; };
+		47F7CDF720C7F09F00EAEB43 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF420C7F09F00EAEB43 /* TwitterKit.framework */; };
+		47F7CDF820C7F09F00EAEB43 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF520C7F09F00EAEB43 /* TwitterCore.framework */; };
+		47F7CDF920C7F09F00EAEB43 /* TwitterShareExtensionUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF620C7F09F00EAEB43 /* TwitterShareExtensionUI.framework */; };
 		93827D2CD508A6713FEA7E66 /* Pods_ChatalyzeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
@@ -439,6 +444,11 @@
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
+		47F7CDF020C7E1E200EAEB43 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		47F7CDF220C7E1F000EAEB43 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		47F7CDF420C7F09F00EAEB43 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = Carthage/Build/iOS/TwitterKit.framework; sourceTree = "<group>"; };
+		47F7CDF520C7F09F00EAEB43 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterCore.framework; path = Carthage/Build/iOS/TwitterCore.framework; sourceTree = "<group>"; };
+		47F7CDF620C7F09F00EAEB43 /* TwitterShareExtensionUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterShareExtensionUI.framework; path = Carthage/Build/iOS/TwitterShareExtensionUI.framework; sourceTree = "<group>"; };
 		49DE06EB9A7536210A1FF290 /* Pods-ChatalyzeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -715,6 +725,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F7CDF720C7F09F00EAEB43 /* TwitterKit.framework in Frameworks */,
+				47F7CDF820C7F09F00EAEB43 /* TwitterCore.framework in Frameworks */,
+				47F7CDF920C7F09F00EAEB43 /* TwitterShareExtensionUI.framework in Frameworks */,
+				47F7CDF320C7E1F000EAEB43 /* Social.framework in Frameworks */,
+				47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */,
 				478506D220BFFE5500EC4524 /* FBSDKShareKit.framework in Frameworks */,
 				478506D020BFFD8500EC4524 /* FacebookShare.framework in Frameworks */,
 				47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */,
@@ -1725,6 +1740,11 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47F7CDF520C7F09F00EAEB43 /* TwitterCore.framework */,
+				47F7CDF420C7F09F00EAEB43 /* TwitterKit.framework */,
+				47F7CDF620C7F09F00EAEB43 /* TwitterShareExtensionUI.framework */,
+				47F7CDF220C7E1F000EAEB43 /* Social.framework */,
+				47F7CDF020C7E1E200EAEB43 /* Accounts.framework */,
 				478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */,
 				478506CE20BFF71100EC4524 /* FacebookShare.framework */,
 				478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */,
@@ -2345,6 +2365,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/FacebookShare.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FBSDKShareKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/TwitterCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TwitterKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TwitterShareExtensionUI.framework",
 			);
 			name = "Run Script";
 			outputPaths = (

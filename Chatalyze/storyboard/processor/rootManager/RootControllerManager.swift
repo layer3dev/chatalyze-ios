@@ -124,4 +124,11 @@ class RootControllerManager{
         RootControllerManager().updateRoot()
     }
     
+    func getCurrentController()->ContainerController?{
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let root = appDelegate?.window?.rootViewController as? ContainerController
+        return root
+    }
+    
 }

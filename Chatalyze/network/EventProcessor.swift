@@ -9,6 +9,8 @@
 
 import Foundation
 import SwiftyJSON
+import Social
+import Accounts
 
 class EventProcessor{
     

@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import Stripe
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
+        TWTRTwitter.sharedInstance().start(withConsumerKey:"N7JqWt4Sdhh8v7v2YoSsnFvCA", consumerSecret:"x1qgm8gLfTQpiWTtkwBJ6XQ2tXAs6yB9katZpguYG1LLQuhkRt")        
         STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
         initialization()
         test()

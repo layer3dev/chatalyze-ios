@@ -12,6 +12,9 @@ import UIKit
 import SDWebImage
 import FBSDKShareKit
 import FacebookShare
+import TwitterKit
+import TwitterShareExtensionUI
+import TwitterCore
 
 class MemoriesCell: ExtendedTableCell {
     
@@ -55,7 +58,9 @@ class MemoriesCell: ExtendedTableCell {
     }
     
     @IBAction func facebookShare(sender:UIButton){
-     
+  
+        twitterSharing()
+        return
         guard let id = self.info?.id else{
             return
         }
@@ -92,4 +97,38 @@ class MemoriesCell: ExtendedTableCell {
                 print("Unable to load data: \(error)")
         }
     }
+    func twitterSharing(){
+   
+        let twitter = TWTRComposer()
+        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
+        twitter.setText("shdfjkhajkdsh")
+        twitter.show(from: RootControllerManager().getCurrentController()!) { (result) in
+            RootControllerManager().getCurrentController()
+            print("result is \(result)")
+        }
+        
+        //        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
+        //            // App must have at least one logged-in user to compose a Tweet
+        //            let composer = TWTRComposerViewController.emptyComposer()
+        //            present(composer, animated: true, completion: nil)
+        //        } else {
+        //            // Log in, and then check again
+        //            TWTRTwitter.sharedInstance().logIn { session, error in
+        //
+        //                if session != nil { // Log in succeeded
+        //                    let composer = TWTRComposerViewController.emptyComposer()
+        //                    self.present(composer, animated: true, completion: nil)
+        //                } else {
+        //                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+        //                    self.present(alert, animated: false, completion: nil)
+        //                }
+        //            }
+        //        }
+        
+    }
+}
+
+extension MemoriesCell{
+    
+    
 }
