@@ -101,6 +101,10 @@
 		47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */; };
 		47E7A04D20B7EDC80049354A /* PaymentSuccessRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */; };
 		47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A05020B826DF0049354A /* SystemTestController.swift */; };
+		47EF658A20C90EA2000D9BC3 /* CheckInternetSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658920C90EA2000D9BC3 /* CheckInternetSpeed.swift */; };
+		47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */; };
+		47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */; };
+		47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */; };
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AB20BEBBDE00543529 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F5A9AA20BEBBDE00543529 /* Stripe.framework */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
@@ -441,6 +445,10 @@
 		47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessController.swift; sourceTree = "<group>"; };
 		47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessRootView.swift; sourceTree = "<group>"; };
 		47E7A05020B826DF0049354A /* SystemTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTestController.swift; sourceTree = "<group>"; };
+		47EF658920C90EA2000D9BC3 /* CheckInternetSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetSpeed.swift; sourceTree = "<group>"; };
+		47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSpeedTestController.swift; sourceTree = "<group>"; };
+		47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetReachabilityCheck.swift; sourceTree = "<group>"; };
+		47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestController.swift; sourceTree = "<group>"; };
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
@@ -1657,6 +1665,9 @@
 				47E7A04920B7ED2B0049354A /* PaymentSuccessController.swift */,
 				47E7A05020B826DF0049354A /* SystemTestController.swift */,
 				472D617D20BD6FC20016A761 /* EventPaymentController.swift */,
+				47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */,
+				47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */,
+				47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -1679,6 +1690,7 @@
 				FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */,
 				FA72A0B12085F7CF00C3C7AE /* TimerSync.swift */,
 				FA72A0B820862ABC00C3C7AE /* SyncTimer.swift */,
+				47EF658920C90EA2000D9BC3 /* CheckInternetSpeed.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -2400,6 +2412,7 @@
 				FAD2018320761C7B0004E10E /* AutographyCanvas.swift in Sources */,
 				FAA0016A203ED1E6003C8A74 /* RootControllerManager.swift in Sources */,
 				FAFB7C76206E02D7004804D2 /* ExtendedCollectionCell.swift in Sources */,
+				47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */,
 				47B6523E20AAAFA40041496C /* TabElementView.swift in Sources */,
 				FAA001A8203ED472003C8A74 /* Log.swift in Sources */,
 				FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */,
@@ -2467,6 +2480,7 @@
 				47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */,
 				FAE8B23220A3087000899731 /* AppConnectionConfigForProduction.swift in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
+				47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */,
 				FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */,
 				FA15C57F206B6DE4009FA707 /* SlotInfo.swift in Sources */,
 				47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */,
@@ -2496,6 +2510,7 @@
 				FAA001AA203ED472003C8A74 /* CircularImageView.swift in Sources */,
 				47AACA4320C1718A000F8D7A /* CardInfo.swift in Sources */,
 				FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */,
+				47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */,
 				FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */,
 				472780ED20B02E2700D5AA1E /* MemoriesCell.swift in Sources */,
 				47B6522F20AAAF710041496C /* PaymentRootView.swift in Sources */,
@@ -2559,6 +2574,7 @@
 				FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */,
 				FADC84EC2074EDB600AD9D65 /* AutographPreviewController.swift in Sources */,
 				FAB71CE520776C3000C24246 /* ActivateEvent.swift in Sources */,
+				47EF658A20C90EA2000D9BC3 /* CheckInternetSpeed.swift in Sources */,
 				FADC84EE2074FBE200AD9D65 /* AutographPreviewInterface.swift in Sources */,
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
 				47B6526620AAB4080041496C /* TabElementInterface.swift in Sources */,

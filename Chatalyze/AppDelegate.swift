@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
-        TWTRTwitter.sharedInstance().start(withConsumerKey:"N7JqWt4Sdhh8v7v2YoSsnFvCA", consumerSecret:"x1qgm8gLfTQpiWTtkwBJ6XQ2tXAs6yB9katZpguYG1LLQuhkRt")        
+        TWTRTwitter.sharedInstance().start(withConsumerKey:"5Cbe8RbPoVUiNd7WR2BDISUvX", consumerSecret:"Etzlf2SJE07RaC9KqKl2oSyjTb6STzzPQ0Uy6jcRsicG7dBrmT")
         STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
         initialization()
         test()
@@ -34,11 +34,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func initialization(){
-        
+
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot()
         _ = RTCConnectionInitializer()
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        Log.echo(key: "yud", text: "Url is \(url)")
+        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+    }
+    
     
 
     func applicationWillResignActive(_ application: UIApplication) {

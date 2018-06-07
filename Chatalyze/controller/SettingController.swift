@@ -111,8 +111,6 @@ class SettingController : InterfaceExtendedController {
         let twitter = TWTRComposer()
         //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
         twitter.show(from: self) { (result) in
-            
-            
             print("result is \(result)")
         }
         

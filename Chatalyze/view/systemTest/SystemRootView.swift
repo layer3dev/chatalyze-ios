@@ -67,6 +67,18 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         self.controller?.present(controller, animated: true, completion: {
         })
     }
+    
+    
+    @IBAction func beginTesteAction(sender:UIButton){
+    
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+        controller.rootController = self.controller
+        self.controller?.present(controller, animated: true, completion: {
+        })        
+    }
+    
 }
 
 
