@@ -13,21 +13,26 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
     var startTime: CFAbsoluteTime!
     var stopTime: CFAbsoluteTime!
     var bytesReceived: Int!
+    var isItisFirstByteofData = true
     
     private var speedTestCompletionHandler: ((_ megabytesPerSecond: Double?, _ error: Error?) -> ())!
     
     func testDownloadSpeedWithTimeOut(timeOut:TimeInterval,completionHandler:@escaping ((_ megabytesPerSecond: Double?, _ error: Error?)->())){
+        
        // https://dev.chatalyze.com/api/screenshots/50/url/chatalyze.png
-      //  "https://speed.hetzner.de/10GB.bin"
-        guard let url = URL(string: "https://dev.chatalyze.com/api/screenshots/50/url/chatalyze.png") else{
+        //"https://speed.hetzner.de/10GB.bin"
+        
+        guard let url = URL(string: "https://dev.chatalyze.com/images/small_image.jpg?version=1528457954337") else{
             Log.echo(key: "yud", text: "url is incorrect")
             return
         }
-        startTime = CFAbsoluteTimeGetCurrent()
+        
         stopTime = startTime
         bytesReceived = 0
         speedTestCompletionHandler = completionHandler
+        
         //let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = timeOut
         let seesion = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -36,6 +41,10 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
     
     internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
      
+        if isItisFirstByteofData{
+            startTime = CFAbsoluteTimeGetCurrent()
+            isItisFirstByteofData = false
+        }
         Log.echo(key: "yud", text: "data is \(data)")
         bytesReceived! += data.count
         stopTime = CFAbsoluteTimeGetCurrent()
@@ -53,6 +62,7 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         bcf.countStyle = .file
         let string = bcf.string(fromByteCount: Int64(bytesReceived))
         print("formatted result: \(string)")
+        
 //        if error != nil{
 //            speedTestCompletionHandler(nil, error)
 //            return
@@ -64,6 +74,5 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         }
         let speed = elapsed != 0 ? Double(bytesReceived) / elapsed / 1024.0 / 1024.0 : -1
         speedTestCompletionHandler(speed,nil)
-
     }
 }

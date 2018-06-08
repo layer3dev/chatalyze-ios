@@ -78,13 +78,17 @@ class CameraTestController: InterfaceExtendedController {
                 previewLayer = AVCaptureVideoPreviewLayer(session: sessionStream)
                 previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
                 previewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-                previewLayer?.frame = (cameraPreview?.bounds) ?? CGRect()
-                if let previewLr = previewLayer{
-                    cameraPreview?.layer.addSublayer(previewLr)
-                    session?.startRunning()
-                }else{
-                    self.rootController?.dismiss(animated: true, completion: {
-                    })
+                DispatchQueue.main.async {
+                    
+                    self.previewLayer?.frame = (self.cameraPreview?.bounds) ?? CGRect()
+                    
+                    if let previewLr = self.previewLayer{
+                        self.cameraPreview?.layer.addSublayer(previewLr)
+                        self.session?.startRunning()
+                    }else{
+                        self.rootController?.dismiss(animated: true, completion: {
+                        })
+                    }
                 }
             }
         }
@@ -135,7 +139,7 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     //Get the device (Front or Back)
-    func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+    func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
                 
         let devices: NSArray = AVCaptureDevice.devices() as NSArray
         for de in devices {
@@ -163,6 +167,7 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     func checkForCameraAccess(){
+        
         
         let cameraMediaType = AVMediaType.video
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: cameraMediaType)
@@ -222,16 +227,6 @@ class CameraTestController: InterfaceExtendedController {
         switchDevice()
     }
 }
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
 
 extension CameraTestController{
     
