@@ -77,6 +77,7 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func paymentListingAction(sender:UIButton){
         
+        
         guard let controller = PaymentListingController.instance() else {
             return
         }
@@ -104,15 +105,25 @@ class SettingController : InterfaceExtendedController {
 //        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
 //        self.present(controller, animated: true) {
 //        }
+        
     }
     
     @IBAction func aboutAction(sender:UIButton){
         
-        let twitter = TWTRComposer()
-        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
-        twitter.show(from: self) { (result) in
-            print("result is \(result)")
+        
+        guard let controller = HomeController.dynamicInstance()
+            else{
+                return
         }
+        
+        self.navigationController?.present(controller, animated: true, completion: {
+            
+        })
+//        let twitter = TWTRComposer()
+//        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
+//        twitter.show(from: self) { (result) in
+//            print("result is \(result)")
+//        }
         
 //        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
 //            // App must have at least one logged-in user to compose a Tweet

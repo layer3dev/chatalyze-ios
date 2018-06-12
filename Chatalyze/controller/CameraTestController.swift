@@ -206,6 +206,11 @@ class CameraTestController: InterfaceExtendedController {
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide camera access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
             self.rootController?.dismiss(animated: true, completion: {
+                
+                if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
+                    
+                    UIApplication.shared.openURL(settingUrl)
+                }
             })
         }))
         self.present(alert, animated: true) {
@@ -224,7 +229,14 @@ class CameraTestController: InterfaceExtendedController {
     }
     @IBAction func backCamera(){
         
-        switchDevice()
+       // switchDevice()
+        
+        guard let controller = MicTestController.instance() else{
+            return
+        }
+        controller.rootController = self.rootController
+        self.present(controller, animated: true, completion: {            
+        })
     }
 }
 

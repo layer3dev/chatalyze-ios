@@ -52,13 +52,20 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     @IBAction func cancelAction(){
         
         self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-            
         })
     }
    
     
     @IBAction func skipAction(sender:UIButton){
-                
+        
+   //     guard let controller = MicTestController.instance() else{
+     //       return
+       // }
+
+        //self.controller?.present(controller, animated: true, completion:{
+            //        }).pre
+       // })
+        
         guard let controller = EventPaymentController.instance() else{
             return
         }
@@ -66,6 +73,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         controller.presentingControllerObj = self.controller?.presentingControllerObj
         self.controller?.present(controller, animated: true, completion: {
         })
+        
     }
     
     
