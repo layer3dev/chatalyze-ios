@@ -35,6 +35,7 @@ class EventProcessor{
         
         Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
         Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
+        
         if(!success){
             completion(false, nil)
             return

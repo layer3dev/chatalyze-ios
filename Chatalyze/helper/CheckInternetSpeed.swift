@@ -10,8 +10,8 @@ import Foundation
 
 class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
 
-    var startTime: CFAbsoluteTime!
-    var stopTime: CFAbsoluteTime!
+    var startTime: CFAbsoluteTime?
+    var stopTime: CFAbsoluteTime?
     var bytesReceived: Int!
     var isItisFirstByteofData = true
     
@@ -52,7 +52,11 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
     
     internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
-        let elapsed = stopTime - startTime
+        
+        Log.echo(key: "yud", text: "The start time is \(startTime)")
+        Log.echo(key: "yud", text: "The EndTime is  \(stopTime)")
+
+        let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
         Log.echo(key: "yud", text: "ElapseTime is \(elapsed)")
         Log.echo(key: "yud", text: "Recieved bytes are \(Double(bytesReceived))")
         Log.echo(key: "yud", text: "Speed is \(Double(bytesReceived) / elapsed / 1024.0 / 1024.0)")

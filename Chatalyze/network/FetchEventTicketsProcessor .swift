@@ -14,13 +14,13 @@ import SwiftyJSON
 
 class FetchEventTicketsProcessor{
     
-    public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : [MyTicketsInfo]?)->())){
+    public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : [SlotInfo]?)->())){
         
         let newdate = DateParser.getMidNightDateTimeInString(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssXXX")
         Log.echo(key: "yudh", text: "Date is \(Date())")
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/pagination/"
         var param:[String:Any] = [String:Any]()
-      
+        
         param["start"] = newdate
         param["limit"] = 1000
         param["offset"] = 0
@@ -30,15 +30,17 @@ class FetchEventTicketsProcessor{
         //param["userId"] = id
         Log.echo(key: "yud", text: "Url is \(url)")
         Log.echo(key: "yud", text: "Param are  \(param)")
+
         ServerProcessor().request(.get,url,parameters: param,encoding: .queryString, authorize: true) { (success, response) in
+            
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [MyTicketsInfo]?)->())){
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [SlotInfo]?)->())){
         
-        Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
-        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
+//        Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
+//        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
         
         if(!success){
             completion(false, nil)
@@ -48,16 +50,18 @@ class FetchEventTicketsProcessor{
             completion(false, nil)
             return
         }
-        var eventArray:[MyTicketsInfo] = [MyTicketsInfo]()
+       
+        var slotInfo:[SlotInfo] = [SlotInfo]()
         if rawInfo.count <= 0 {
-            completion(true, eventArray)
+            completion(true,slotInfo)
             return
         }
         for info in rawInfo{
-            let obj = MyTicketsInfo(info: info)
-            eventArray.append(obj)
+            
+            let slotobj = SlotInfo(info: info)
+            slotInfo.append(slotobj)
         }
-        completion(true, eventArray)
+        completion(true,slotInfo)
         return
     }
 }

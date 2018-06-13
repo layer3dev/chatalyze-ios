@@ -10,7 +10,9 @@ import UIKit
 import SwiftyJSON
 
 /* Doesn't include ParentEvent Information*/
+
 class SlotInfo: SlotFlagInfo {
+    
     var id : Int?
     var _start : String?
     var startDate : Date?
@@ -29,22 +31,25 @@ class SlotInfo: SlotFlagInfo {
     var updatedAt : String?
     var deletedAt : String?
     var user : UserInfo?
-    
-
-
     var href : String?
-    
     var json : JSON?
+    var formattedStartTime:String?
+    var formattedEndTime:String?
+    var formattedStartDate:String?
+    var fromattedEndDate:String?
     
-    
+    var price:String?
+    var eventTitle:String?
     
     init(info : JSON?){
         super.init()
+        
         self.json = info
         fillInfo(info: info)
     }
     
     func fillInfo(info : JSON?) {
+    
         guard let json = info
             else{
                 return
@@ -53,6 +58,8 @@ class SlotInfo: SlotFlagInfo {
         id = json["id"].int
         start = json["start"].string
         end = json["end"].string
+        _formattedEndTime = json["end"].string
+        _formattedStartTime = json["start"].string
         slotNo = json["slotNo"].int
         callscheduleId = json["callscheduleId"].int
         userId = json["userId"].int
@@ -65,10 +72,14 @@ class SlotInfo: SlotFlagInfo {
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
         deletedAt = json["deletedAt"].string
-        
         user = UserInfo(userInfoJSON: json["user"])
-    
         href = json["href"].string
+        
+        if let callScheduleInfo = json["callschedule"].dictionary{
+         
+            self.eventTitle = callScheduleInfo["title"]?.stringValue
+            self.price = callScheduleInfo["price"]?.stringValue
+        }
     }
     
     
@@ -87,7 +98,8 @@ class SlotInfo: SlotFlagInfo {
     }
     
     var end : String?{
-        get{
+        
+        get{            
             return _end
         }
         set{
@@ -107,6 +119,7 @@ class SlotInfo: SlotFlagInfo {
     }
     
     var isLIVE : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -127,26 +140,25 @@ class SlotInfo: SlotFlagInfo {
     }
     
     var isFuture : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
                     return false
             }
-            
             guard let endDate = endDate
                 else{
                     return false
             }
-            
             if(startDate.isFuture()){
                 return true
             }
-            
             return false
         }
     }
     
     var isExpired : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -167,6 +179,7 @@ class SlotInfo: SlotFlagInfo {
     }
     
     var isWholeConnectEligible : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -184,6 +197,7 @@ class SlotInfo: SlotFlagInfo {
     
     
     var isPreconnectEligible : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -199,11 +213,36 @@ class SlotInfo: SlotFlagInfo {
         }
     }
     
+    var _formattedStartTime:String?{
+        
+        get{
+            
+            return formattedStartTime ?? ""
+        }
+        set{
+            
+            let date = newValue
+            
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
+            
+            formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
+        }
+    }
     
-    
-    
-    
-    
+    var _formattedEndTime:String?{
+        
+        get{
+            
+            return formattedEndTime ?? ""
+        }
+        set{
+            
+            let date = newValue
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+        }
+    }
 }
 
 extension SlotInfo : NSCopying{

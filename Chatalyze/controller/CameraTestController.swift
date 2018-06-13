@@ -138,6 +138,7 @@ class CameraTestController: InterfaceExtendedController {
         }
     }
     
+    
     //Get the device (Front or Back)
     func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
                 
@@ -150,6 +151,7 @@ class CameraTestController: InterfaceExtendedController {
         }
         return nil
     }
+    
     func switchDevice() {
        
         if front == true{

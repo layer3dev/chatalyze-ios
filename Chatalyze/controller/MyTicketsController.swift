@@ -12,14 +12,14 @@ protocol getTicketsScrollInsets {
 
 import UIKit
 
-class MyTicketsController: InterfaceExtendedController {
+class MyTicketsController: InterfaceExtendedController{
     
     var delegate:getTicketsScrollInsets?
     var featureHeight:CGFloat = 0.0
     @IBOutlet var rootview:MyTicketsRootView?
     @IBOutlet var scroll:UIScrollView?
     @IBOutlet var noTicketLbl:UILabel?
-    var ticketsArray:[MyTicketsInfo] = [MyTicketsInfo]()
+    var ticketsArray:[SlotInfo] = [SlotInfo]()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -30,7 +30,7 @@ class MyTicketsController: InterfaceExtendedController {
         scroll?.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
         fetchInfo()
@@ -58,16 +58,21 @@ class MyTicketsController: InterfaceExtendedController {
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
+        
         self.showLoader()
         FetchEventTicketsProcessor().fetchInfo(id: id) {(success, info) in
             
-            //self.rootview?.fillInfo(info: self.ticketsArray)
+            self.ticketsArray.removeAll()
+            self.rootview?.fillInfo(info: self.ticketsArray)
             self.stopLoader()
             if !success{
+                
                 self.noTicketLbl?.isHidden = false
                 return
             }
+            
             if let info = info{
+                
                 if info.count <= 0{
                     self.noTicketLbl?.isHidden = false
                     self.rootview?.fillInfo(info: self.ticketsArray)
@@ -90,7 +95,6 @@ class MyTicketsController: InterfaceExtendedController {
         let controller = storyboard.instantiateViewController(withIdentifier: "MyTickets") as? MyTicketsController
         return controller
     }
-    
 }
 
 extension MyTicketsController:UIScrollViewDelegate{

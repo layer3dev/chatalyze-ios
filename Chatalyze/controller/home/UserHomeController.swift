@@ -10,8 +10,8 @@
 import UIKit
 
 class UserHomeController: HomeController {
-    private var slotInfo : EventSlotInfo?
     
+    private var slotInfo : EventSlotInfo?
     
     @IBAction private func callAction(){
         
@@ -26,6 +26,7 @@ class UserHomeController: HomeController {
         }
         
         if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+            
             guard let controller = HostEventQueueController.instance()
                 else{
                     return
@@ -34,8 +35,6 @@ class UserHomeController: HomeController {
             self.navigationController?.pushViewController(controller, animated: true)
             return
         }
-        
-        
         
         guard let controller = UserCallController.instance()
             else{
@@ -47,6 +46,7 @@ class UserHomeController: HomeController {
     }
   
     override func fetchInfo(showLoader : Bool){
+        
         super.fetchInfo(showLoader : showLoader)
         if(showLoader){
             self.showLoader()

@@ -25,22 +25,24 @@ class MicTestController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        self.checkForMicrphone()
+        
         switch AVAudioSession.sharedInstance().recordPermission() {
         case AVAudioSessionRecordPermission.granted:
             print("Permission granted")
-            checkForMicrphone()
+           // checkForMicrphone()
         case AVAudioSessionRecordPermission.denied:
             print("Pemission denied")
             alertToProvideMicrophoneAccess()
         case AVAudioSessionRecordPermission.undetermined:
             print("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
-                
+                //self.checkForMicrphone()
                 if !granted{
+                    
                     self.alertToProvideMicrophoneAccess()
                     return
                 }
-                self.checkForMicrphone()
                 //Handle granted
             })
         }
@@ -64,6 +66,7 @@ class MicTestController: InterfaceExtendedController {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
+            
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
             try audioSession.setActive(true)
             try recorder = AVAudioRecorder(url:url, settings: recordSettings)

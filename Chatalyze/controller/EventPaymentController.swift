@@ -11,7 +11,7 @@ import UIKit
 import Stripe
 
 class EventPaymentController: InterfaceExtendedController {
-
+    
     @IBOutlet var rootView:EventPaymentRootView?
     var info:EventInfo?
     var presentingControllerObj:EventController?

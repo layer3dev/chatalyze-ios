@@ -318,6 +318,7 @@ class UserCallController: VideoCallController {
 }
 
 extension UserCallController{
+    
     var hostId : String?{
         get{
             return self.eventInfo?.user?.id
@@ -329,12 +330,13 @@ extension UserCallController{
             return self.eventInfo?.user?.hashedId
         }
     }
-    
 }
 
 //instance
 extension UserCallController{
+    
     class func instance()->UserCallController?{
+        
         let storyboard = UIStoryboard(name: "call_view", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "user_video_call") as? UserCallController
         
@@ -537,6 +539,7 @@ extension UserCallController{
 
 
 extension UserCallController{
+    
     func registerForAutographListener(){
         
         socketClient?.onEvent("startedSigning", completion: { (json) in
@@ -544,20 +547,20 @@ extension UserCallController{
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
         })
-        
+
         socketClient?.onEvent("stoppedSigning", completion: { (json) in
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })
-    
     }
     
     private func prepateCanvas(info : CanvasInfo?){
+        
         userRootView?.canvasContainer?.show()
         
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
-         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
+                CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
             return 0
         }) { (success, image) in
             canvas?.image = image
@@ -585,10 +588,5 @@ extension UserCallController{
         params["message"] = message
         
         socketClient?.emit(params)
-        
     }
-    
-    
 }
-
-

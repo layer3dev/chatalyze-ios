@@ -9,7 +9,7 @@
 import Foundation
 
 class MyTicketsRootView:ExtendedView{
-
+    
     var controller:MyTicketsController?
     @IBOutlet var adapter:MyTicketesAdapter?
     
@@ -19,14 +19,14 @@ class MyTicketsRootView:ExtendedView{
         adapter?.root = self
     }    
     
-    
-    func fillInfo(info:[MyTicketsInfo]?){
+    func fillInfo(info:[SlotInfo]?){
+        
         guard let info = info else {
             return
         }
         adapter?.initailizeAdapter(info:info)
     }
-        
+    
     func initializeLayout(){
     }
     

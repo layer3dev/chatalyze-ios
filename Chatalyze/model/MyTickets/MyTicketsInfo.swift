@@ -9,7 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-
 //{
 //    "callscheduleId" : 1873,
 //    "user" : {
@@ -115,7 +114,6 @@ import SwiftyJSON
 //    "textcolor" : "#000000"
 //}
 
-
 class MyTicketsInfo: NSObject {
    
     var eventTicketId : String?
@@ -138,7 +136,7 @@ class MyTicketsInfo: NSObject {
     }
     
     func fillInfo(info : JSON?) {
-        
+
         guard let json = info
             else{
                 return
@@ -168,6 +166,7 @@ class MyTicketsInfo: NSObject {
             startTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
             
             startDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
+            
             startTime = "\(startTime ?? "")-\(endTime ?? "")"
         }
     }

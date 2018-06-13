@@ -19,8 +19,9 @@ class MyTicketsCell: ExtendedCollectionCell {
     @IBOutlet var startDateLbl:UILabel?
     @IBOutlet var title:UILabel?
     var delegate:MyTicketCellDelegate?
-    var info:MyTicketsInfo?
-    override func viewDidLayout() {
+    var info:SlotInfo?
+    
+        override func viewDidLayout() {
         super.viewDidLayout()
         
         painInterface()
@@ -34,19 +35,20 @@ class MyTicketsCell: ExtendedCollectionCell {
         self.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
     }
     
-    func fillInfo(info:MyTicketsInfo?){
+    func fillInfo(info:SlotInfo?){
 
         guard let info = info else{
             return
         }
         self.info = info
-        self.chatnumberLbl?.text = info.chatNumber
-        self.timeLbl?.text = info.startTime
-        self.startDateLbl?.text = info.startDate
+        self.chatnumberLbl?.text = String(info.slotNo ?? 0)
+        self.timeLbl?.text = info.formattedStartTime
+        self.startDateLbl?.text = info.formattedStartDate
         self.title?.text = "Chat with \(info.eventTitle ?? "")"
     }
     
     @IBAction func jointEvent(send:UIButton){
+        
         delegate?.jointEvent(info:self.info)
     }
 }

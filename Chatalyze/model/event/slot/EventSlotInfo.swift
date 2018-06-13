@@ -9,8 +9,8 @@
 import UIKit
 import SwiftyJSON
 
-
 //includes ParentEvent Information
+
 class EventSlotInfo: SlotInfo {
 
     var callschedule : EventInfo?
@@ -22,9 +22,7 @@ class EventSlotInfo: SlotInfo {
             else{
                 return
         }
-        
         callschedule = EventInfo(info: json["callschedule"])
-        
     }
 }
 
