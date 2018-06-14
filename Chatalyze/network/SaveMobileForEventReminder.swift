@@ -10,6 +10,7 @@ import Foundation
 import SwiftyJSON
 
 class SaveMobileForEventReminder{
+    
     //https://dev.chatalyze.com/api/users/50
     public func save(mobilenumber : String, countryCode:String,saveForFuture : Bool, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
@@ -18,13 +19,13 @@ class SaveMobileForEventReminder{
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
+        
         url = url+id
         
         var params = [String : Any]()
         params["eventMobReminder"] = saveForFuture
         params["countryCode"] = countryCode
         params["mobile"] = mobilenumber
-        
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         

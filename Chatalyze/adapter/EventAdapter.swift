@@ -56,8 +56,8 @@ extension EventAdapter:UITableViewDelegate{
         }
         controller.info = self.eventArray[indexPath.row]
         controller.presentingControllerObj = root?.controller
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.root?.controller?.present(controller, animated: true, completion: {
-            
         })
     }
 }

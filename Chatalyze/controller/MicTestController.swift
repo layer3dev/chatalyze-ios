@@ -20,7 +20,7 @@ class MicTestController: InterfaceExtendedController {
     var powerLevelIndicator = -200.0
     
     @IBOutlet var progressView:UIProgressView?
-    var rootController:SystemTestController?
+    var rootController:EventController?
     
     override func viewDidLayout() {
         super.viewDidLayout()

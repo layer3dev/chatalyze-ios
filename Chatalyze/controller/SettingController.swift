@@ -111,14 +111,14 @@ class SettingController : InterfaceExtendedController {
     @IBAction func aboutAction(sender:UIButton){
         
         
-        guard let controller = HomeController.dynamicInstance()
-            else{
-                return
-        }
-        
-        self.navigationController?.present(controller, animated: true, completion: {
-            
-        })
+//        guard let controller = HomeController.dynamicInstance()
+//            else{
+//                return
+//        }
+//        
+//        self.navigationController?.present(controller, animated: true, completion: {
+//            
+//        })
 //        let twitter = TWTRComposer()
 //        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
 //        twitter.show(from: self) { (result) in

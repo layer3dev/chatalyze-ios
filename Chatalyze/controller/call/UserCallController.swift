@@ -101,7 +101,6 @@ class UserCallController: VideoCallController {
         connection?.disconnect()
     }
     
-
     
     
     //{"id":"startSendingVideo","data":{"receiver":"jgefjedaafbecahc"}}
@@ -136,6 +135,8 @@ class UserCallController: VideoCallController {
     }
     
     
+    
+    
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
     private func processHandshakeResponse(data : JSON?){
         guard let json = data
@@ -153,9 +154,9 @@ class UserCallController: VideoCallController {
         if(targetId == receiverId){
             return
         }
-        
-        
     }
+    
+    
     
     private func initiateCall(){
         
@@ -185,6 +186,7 @@ class UserCallController: VideoCallController {
         return slotInfo
     }
     
+    
 
     override func interval(){
         super.interval()
@@ -194,6 +196,8 @@ class UserCallController: VideoCallController {
         updateCallHeaderInfo()
         
     }
+    
+    
     
     private func updateCallHeaderInfo(){
         
@@ -346,6 +350,7 @@ extension UserCallController{
 
 
 extension UserCallController{
+    
     func presentAutographAction(){
         guard let activeEvent = self.myActiveUserSlot
             else{
@@ -497,10 +502,9 @@ extension UserCallController{
             self?.uploadImage(image: image, completion: { (success, info) in
                 self?.screenshotInfo = info
             })
-
         }
+        
         self.present(controller, animated: true) {
-            
         }
     }
     
@@ -560,8 +564,9 @@ extension UserCallController{
         
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
-                CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
-            return 0
+        CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
+           
+                    return 0
         }) { (success, image) in
             canvas?.image = image
             self.updateScreenshotLoaded(info : info)

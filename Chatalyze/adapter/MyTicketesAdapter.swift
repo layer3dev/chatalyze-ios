@@ -84,41 +84,40 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
 
 extension MyTicketesAdapter:UICollectionViewDelegate{
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if indexPath.row >= ticketsListingArray.count{
-            return
-        }
-        
-        let slotInfo = ticketsListingArray[indexPath.row]
-        
-        Log.echo(key: "yud", text: "The slotinfo is \(slotInfo)")
-        
-        guard let eventId = slotInfo.callscheduleId
-            else{
-                return
-        }
-        
-        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            Log.echo(key: "yud", text: "slot inf id is \(slotInfo)")
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-            return
-        }
-        
-        guard let controller = UserCallController.instance()
-            else{
-                return
-        }
-        
-        controller.eventId = String(eventId)
-        self.root?.controller?.present(controller, animated: true, completion: nil)
+//
+//        if indexPath.row >= ticketsListingArray.count{
+//            return
+//        }
+//
+//        let slotInfo = ticketsListingArray[indexPath.row]
+//
+//        Log.echo(key: "yud", text: "The slotinfo is \(slotInfo)")
+//
+//        guard let eventId = slotInfo.callscheduleId
+//            else{
+//                return
+//        }
+//
+//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//            Log.echo(key: "yud", text: "slot inf id is \(slotInfo)")
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+//            return
+//        }
+//
+//        guard let controller = UserCallController.instance()
+//            else{
+//                return
+//        }
+//
+//        controller.eventId = String(eventId)
+//        self.root?.controller?.present(controller, animated: true, completion: nil)
     }
 }
 
@@ -126,6 +125,8 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 extension MyTicketesAdapter:MyTicketCellDelegate{
     
     func jointEvent(info:SlotInfo?){
+        
+        Log.echo(key: "yud", text: "The event Id id \(info?.callscheduleId)")
         
         guard let slotInfo = info
             else{
@@ -156,17 +157,6 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
         
-//        guard let info = info else{
-//            return
-//        }
-//
-//        guard let controller = SystemTestController.instance() else {
-//            return
-//        }
-//        controller.info = info
-//        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
-//        self.root?.controller?.present(controller, animated: true) {
-//        }
     }
 }
 

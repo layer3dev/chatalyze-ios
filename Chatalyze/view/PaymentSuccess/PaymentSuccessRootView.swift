@@ -202,6 +202,7 @@ class PaymentSuccessRootView: ExtendedView {
     
     @IBAction func addToCalendarAction(sender:UIButton){
         
+        sender.isUserInteractionEnabled = false
         generateEvent()
     }
     func generateEvent() {

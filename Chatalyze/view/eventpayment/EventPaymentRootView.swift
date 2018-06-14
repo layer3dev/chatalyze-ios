@@ -525,7 +525,7 @@ extension EventPaymentRootView{
             }
             
             controller.presentingControllerObj = self.controller?.presentingControllerObj
-            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             controller.info = response
             
             self.controller?.present(controller, animated: true, completion: {

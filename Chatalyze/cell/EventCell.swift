@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class EventCell: ExtendedTableCell {
 
@@ -33,6 +34,15 @@ class EventCell: ExtendedTableCell {
         guard let info = info else {
             return
         }
+       
+        eventImage?.image = UIImage(named: "base")
+        if let url = URL(string: info.eventBannerUrl ?? ""){
+            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
+            }) { (image, data, error, chache, status, url) in
+                self.eventImage?.image = image
+            }
+        }
+        
         eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
         evnetnameLbl?.text = info.title
         eventtimeLbl?.text = info.start

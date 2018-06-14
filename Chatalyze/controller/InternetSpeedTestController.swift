@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 class InternetSpeedTestController: InterfaceExtendedController {
 
     @IBOutlet var speedLbl:UILabel?
-    var rootController:SystemTestController?
+    var rootController:EventController?
     @IBOutlet var loaderImage:UIView?
     
     
@@ -35,6 +35,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             return
         }
         controller.rootController = self.rootController
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(controller, animated: true) {
         }
     }
@@ -106,7 +107,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
             DispatchQueue.main.async {
-            self.loaderImage?.isHidden = true
+            //self.loaderImage?.isHidden = true
                 self.stopLoader()
                 if error == nil{
                     if speed != nil{

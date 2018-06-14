@@ -17,7 +17,7 @@ class SystemTestController:InterfaceExtendedController {
     override func viewDidLayout(){
         super.viewDidLayout()
         
-        rootView?.backgroundColor = UIColor.clear
+        //rootView?.backgroundColor = UIColor.clear
         rootView?.isOpaque = false
         initializeVariable()
     }
