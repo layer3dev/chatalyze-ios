@@ -123,29 +123,49 @@ extension EditProfileRootview{
             param["mobile"] = mobileNumberField?.textField?.text
             param["oldpassword"] = oldPasswordField?.textField?.text
             param["password"] = newPasswordField?.textField?.text
-            param["firstname"] = nameField?.textField?.text
+            param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
             param["eventMobReminder"] = chatUpdates
+            
+            self.controller?.showLoader()
+            EditProfileProcessor().edit(params: param) { (success, message, response) in
+                print(message)
+                self.controller?.stopLoader()
+                if !success{
+                    self.errorLabel?.text = message
+                    return
+                }
+                RootControllerManager().signOut(completion: nil)
+            }
         }else{
            
             param["mobile"] = mobileNumberField?.textField?.text
-            param["firstname"] = nameField?.textField?.text
+            param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
             param["eventMobReminder"] = chatUpdates
-        }
-        
-        self.controller?.showLoader()
-        EditProfileProcessor().edit(params: param) { (success, message, response) in
-            print(message)
-            self.controller?.stopLoader()
-            if !success{                
-                self.errorLabel?.text = message
-                return
+            
+            self.controller?.showLoader()
+            EditProfileProcessor().edit(params: param) { (success, message, response) in
+                print(message)
+                //self.controller?.stopLoader()
+                Log.echo(key: "yud", text: "he velue of th8e success is \(success)")
+                if !success{
+                    self.errorLabel?.text = message
+                    return
+                }
+                self.fetchProfile()
             }
-            RootControllerManager().signOut(completion: nil)
         }
     }
     
+    func fetchProfile(){
+       
+        self.controller?.showLoader()
+        FetchProfileProcessor().fetch { (success, message, response) in
+            self.controller?.stopLoader()
+            self.controller?.navigationController?.popViewController(animated: true)
+        }
+    }    
     
     @IBAction func deactivateAccount(sender:UIButton){
         
@@ -290,7 +310,7 @@ extension EditProfileRootview{
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(nameField?.textField?.text ?? "")){
-            nameField?.showError(text: "First name looks incorrect !")
+            nameField?.showError(text: "First name can not have space !")
             return false
         }
         nameField?.resetErrorStatus()

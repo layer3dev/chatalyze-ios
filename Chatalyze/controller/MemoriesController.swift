@@ -40,7 +40,12 @@ class MemoriesController: InterfaceExtendedController {
     func initializeVariable(){
         
         self.rootView?.controller = self
-        getPaymentInfo()
+       
+    }
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        
+         getPaymentInfo()
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,6 +57,7 @@ class MemoriesController: InterfaceExtendedController {
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
+        
         self.showLoader()
         
         MemoriesFetchProcessor().fetchInfo(id: id, offset: 0) { (success, info) in

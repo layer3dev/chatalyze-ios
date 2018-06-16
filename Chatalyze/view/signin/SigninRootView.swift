@@ -97,6 +97,7 @@ extension SigninRootView{
 extension SigninRootView : UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+       
         scrollView?.activeField = textField
         return true
     }

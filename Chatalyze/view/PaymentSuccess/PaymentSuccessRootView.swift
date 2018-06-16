@@ -57,7 +57,7 @@ class PaymentSuccessRootView: ExtendedView {
             self.superview?.layoutIfNeeded()
             return
         }
-        self.controller?.heightOfMobileField?.constant = 340
+        self.controller?.heightOfMobileField?.constant = 300
         self.controller?.heightOfMobileAlertField?.constant = 0
         self.superview?.updateConstraints()
         self.scrollView?.layoutIfNeeded()
@@ -264,6 +264,14 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
     
     @IBAction func save(sender:UIButton){
         
+        if let eventReminder = SignedUserInfo.sharedInstance?.eventMobReminder{
+            
+            if eventReminder == true {
+                self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
+                })
+                return
+            }
+        }
         errorLabel?.text = ""
         if validateFields(){
             saveMobileNumber()
@@ -284,14 +292,30 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         self.controller?.showLoader()
         
         SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : chatUpdates) { (success, message, response) in
-            self.controller?.stopLoader()
-            if !success{
+            
+            DispatchQueue.main.async {
+                
+                self.controller?.stopLoader()
+                if !success{
+                    
+                    self.errorLabel?.text = message
+                    
+                    Log.echo(key: "yud", text: "Controller valuse is \(self.controller?.presentingControllerObj)")
+                    self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
+                    })
+                    return
+                }
+                if let instance = SignedUserInfo.sharedInstance{
+                    
+                    instance.eventMobReminder = true
+                    instance.save()
+                }
+                Log.echo(key: "yud", text: "Controller valuse below \(self.controller?.presentingControllerObj)")
+                
                 self.errorLabel?.text = message
-                return
+                self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
+                })
             }
-            self.errorLabel?.text = message
-            self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-            })
         }
     }
 }

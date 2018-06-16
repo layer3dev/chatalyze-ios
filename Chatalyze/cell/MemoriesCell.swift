@@ -100,8 +100,13 @@ class MemoriesCell: ExtendedTableCell {
             print("Unable to load data: \(error)")
         }
     }
-    func twitterSharing(){
+    
+    @IBAction func saveImageInGallery(sender:UIButton){
         
+        self.saveImage()
+    }
+    
+    func twitterSharing(){
         
         if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
             
@@ -116,16 +121,15 @@ class MemoriesCell: ExtendedTableCell {
             // Log in, and then check again
             TWTRTwitter.sharedInstance().logIn { session, error in
                 
-                if session != nil { // Log in succeeded
+                if session != nil {
                     
+                    // Log in succeeded
                     let composer = TWTRComposerViewController(initialText: "Hey this is my new tweet ", image: UIImage(named: "base"), videoData: nil)
-                    
-                    RootControllerManager().getCurrentController()?.present(composer, animated: true, completion: nil)
+                    RootControllerManager().getCurrentController()?.present(composer, animated: true, completion: nil)                    
                 } else {
                     
-                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
-                    
-                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
+//                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+//                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
                 }
             }
         }
@@ -133,4 +137,31 @@ class MemoriesCell: ExtendedTableCell {
 }
 
 extension MemoriesCell{
+    
+    @objc func checkforSave(){
+        
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.controller?.present(ac, animated: true)
+            
+        } else {
+            
+            let ac = UIAlertController(title: "Chatalyze", message: "Your memory has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.controller?.present(ac, animated: true)
+        }
+    }
+    func saveImage(){
+     
+        if let image = self.memoryImage?.image{
+            
+            UIImageWriteToSavedPhotosAlbum((image), self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
 }
