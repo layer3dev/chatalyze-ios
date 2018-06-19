@@ -102,6 +102,7 @@ class EventController: TabChildLoadController {
                         self.noeventLbl?.isHidden = true
                         return
                     }else if array.count <= 0{
+                        
                         self.noeventLbl?.isHidden = false
                         self.rootView?.fillInfo(info: self.eventArray)
                     }

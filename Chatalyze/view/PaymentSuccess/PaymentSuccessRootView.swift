@@ -29,7 +29,6 @@ class PaymentSuccessRootView: ExtendedView {
     var info:PaymentSuccessInfo?
     @IBOutlet var saveLbl:UILabel?    
 
-
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -57,7 +56,7 @@ class PaymentSuccessRootView: ExtendedView {
             self.superview?.layoutIfNeeded()
             return
         }
-        self.controller?.heightOfMobileField?.constant = 300
+        self.controller?.heightOfMobileField?.constant = 280
         self.controller?.heightOfMobileAlertField?.constant = 0
         self.superview?.updateConstraints()
         self.scrollView?.layoutIfNeeded()
@@ -267,7 +266,7 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         if let eventReminder = SignedUserInfo.sharedInstance?.eventMobReminder{
             
             if eventReminder == true {
-                self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
+                self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
                 })
                 return
             }
@@ -280,7 +279,6 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
     
     func saveMobileNumber(){
         
-        
         guard let countryCode = countryCodeField?.textField?.text else{
             return
         }
@@ -290,18 +288,20 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         let requiredcountryCode = countryCode.replacingOccurrences(of: "+", with: "")
         
         self.controller?.showLoader()
-        
-        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : chatUpdates) { (success, message, response) in
+      
+        //chatUpdates
+        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : false) { (success, message, response) in
             
-            DispatchQueue.main.async {
-                
+            Log.echo(key: "yud", text: "The value of the success is \(success)")
+            
                 self.controller?.stopLoader()
                 if !success{
                     
                     self.errorLabel?.text = message
                     
-                    Log.echo(key: "yud", text: "Controller valuse is \(self.controller?.presentingControllerObj)")
-                    self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
+                    Log.echo(key: "yud", text: "Controller valuse is \(String(describing: self.controller?.presentingControllerObj))")
+                    
+                    self.controller?.dismiss(animated: true, completion:{
                     })
                     return
                 }
@@ -310,15 +310,16 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
                     instance.eventMobReminder = true
                     instance.save()
                 }
+            
                 Log.echo(key: "yud", text: "Controller valuse below \(self.controller?.presentingControllerObj)")
-                
+            
                 self.errorLabel?.text = message
-                self.controller?.presentingControllerObj?.dismiss(animated: false, completion: {
-                })
+            
+            self.controller?.dismiss(animated: true, completion:{
+            })
             }
         }
     }
-}
 
 extension PaymentSuccessRootView{
     

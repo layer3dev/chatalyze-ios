@@ -37,6 +37,9 @@ class SlotInfo: SlotFlagInfo {
     var formattedEndTime:String?
     var formattedStartDate:String?
     var fromattedEndDate:String?
+    var started:String?
+    var notified:String?
+    
     
     var price:String?
     var eventTitle:String?
@@ -54,7 +57,6 @@ class SlotInfo: SlotFlagInfo {
             else{
                 return
         }
-        
         id = json["id"].int
         start = json["start"].string
         end = json["end"].string
@@ -79,6 +81,8 @@ class SlotInfo: SlotFlagInfo {
          
             self.eventTitle = callScheduleInfo["title"]?.stringValue
             self.price = callScheduleInfo["price"]?.stringValue
+            self.started = callScheduleInfo["started"]?.stringValue
+            self.notified = callScheduleInfo["notified"]?.stringValue
         }
     }
     

@@ -58,7 +58,9 @@ class MemoriesCell: ExtendedTableCell {
     }
     
     @IBAction func twitterShareAction(sender:UIButton){
-       
+        login()
+        return
+            return
         twitterSharing()
     }
     
@@ -128,12 +130,38 @@ class MemoriesCell: ExtendedTableCell {
                     RootControllerManager().getCurrentController()?.present(composer, animated: true, completion: nil)                    
                 } else {
                     
-//                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
-//                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
+                    //                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+                    //                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
                 }
             }
         }
     }
+    
+    func login() {
+        
+        TWTRTwitter.sharedInstance().logIn { [weak self] (session, error) in
+            
+            if let error = error, let weakSelf = self {
+                
+                let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
+                    RootControllerManager().getCurrentController()?.dismiss(animated: true, completion: {
+                        
+                    })
+                })
+                alert.addAction(okAction)
+                RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
+                
+            } else if let session = session, let weakSelf = self {
+                weakSelf.self.controller?.dismiss(animated: true) {
+                    Log.echo(key: "yud", text: "The session is \(session)")
+                    
+                    //weakSelf.self.controller?.delegate?.loginViewController(viewController: weakSelf, didAuthWith: session)
+                }
+            }
+        }
+    }
+    
 }
 
 extension MemoriesCell{
@@ -158,7 +186,7 @@ extension MemoriesCell{
         }
     }
     func saveImage(){
-     
+        
         if let image = self.memoryImage?.image{
             
             UIImageWriteToSavedPhotosAlbum((image), self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)

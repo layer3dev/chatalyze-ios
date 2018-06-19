@@ -11,8 +11,8 @@ import CountryPicker
 
 class EditProfileController: InterfaceExtendedController {
     
-    
     @IBOutlet var rootView:EditProfileRootview?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         

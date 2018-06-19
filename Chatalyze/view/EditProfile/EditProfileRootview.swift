@@ -10,7 +10,7 @@ import UIKit
 import CountryPicker
 
 class EditProfileRootview: ExtendedView {
-
+    
     var controller:EditProfileController?
     @IBOutlet var picker:CountryPicker?
     @IBOutlet var countryCodeField:SigninFieldView?
@@ -43,6 +43,13 @@ class EditProfileRootview: ExtendedView {
         nameField?.textField?.text = info.firstName
         emailField?.textField?.text = info.email
         mobileNumberField?.textField?.text = info.phone
+    
+        if info.eventMobReminder == true{
+          
+            chatUpdates = true
+            chatUpdatesImage?.image = UIImage(named: "tick")
+        }
+        
     }
     
     
@@ -84,6 +91,7 @@ extension EditProfileRootview{
     @IBAction func newUpdatesAction(sender:UIButton){
                 
         if newUpdates{
+            
             newUpdates = false
             newUpadteImage?.image = UIImage(named: "untick")
             return
@@ -146,6 +154,7 @@ extension EditProfileRootview{
             
             self.controller?.showLoader()
             EditProfileProcessor().edit(params: param) { (success, message, response) in
+                
                 print(message)
                 //self.controller?.stopLoader()
                 Log.echo(key: "yud", text: "he velue of th8e success is \(success)")

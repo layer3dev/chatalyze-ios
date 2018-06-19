@@ -42,6 +42,8 @@ class FetchEventTicketsProcessor{
 //        Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
 //        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
         
+        Log.echo(key: "yud", text: "Response in mY tickets is \(response)")
+        
         if(!success){
             completion(false, nil)
             return

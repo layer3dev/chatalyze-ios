@@ -13,7 +13,7 @@ import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     var allowRotate : Bool = false
     
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
-        TWTRTwitter.sharedInstance().start(withConsumerKey:"5Cbe8RbPoVUiNd7WR2BDISUvX", consumerSecret:"Etzlf2SJE07RaC9KqKl2oSyjTb6STzzPQ0Uy6jcRsicG7dBrmT")
+        TWTRTwitter.sharedInstance().start(withConsumerKey:"qyS3kX2FcXkD5WkS9yVW7Oh79", consumerSecret:"TR9r4CLeCy7hvEOjhXCNv2oD9Sw2fEh0Bl8wK2a7hvCMpmuJbc")
         STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
         initialization()
         test()

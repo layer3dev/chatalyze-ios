@@ -127,6 +127,8 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
     func jointEvent(info:SlotInfo?){
         
         Log.echo(key: "yud", text: "The event Id id \(info?.callscheduleId)")
+        Log.echo(key: "yud", text: "The value of the notified is\(info?.notified)")
+        Log.echo(key: "yud", text: "The value of the started is\(info?.started)")
         
         guard let slotInfo = info
             else{
@@ -137,6 +139,31 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             else{
                 return
         }
+        
+        
+        //Verifying that event is delayed or not started yet
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+        
+            let alert = UIAlertController(title: "Chatalyze", message: "Event is not started yet!!", preferredStyle: UIAlertControllerStyle.alert)
+            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
+            }
+            alert.addAction(ok)
+            self.root?.controller?.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+            
+            let alert = UIAlertController(title: "Chatalyze", message: "This event has been delayed. Please stay tuned for an updated start time.", preferredStyle: UIAlertControllerStyle.alert)
+            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
+            }
+            alert.addAction(ok)
+            self.root?.controller?.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        //End
         
         if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
             
@@ -156,7 +183,6 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
-        
     }
 }
 

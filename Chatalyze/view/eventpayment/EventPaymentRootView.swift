@@ -67,6 +67,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBAction func selectCardOneAction(sender:UIButton?){
         
         if isFirstCardSelected{
+            
             isFirstCardSelected = false
             cardOneField?.image?.image = UIImage(named: "untick")
             return
@@ -435,6 +436,7 @@ extension EventPaymentRootView{
         param["remember"] = isCardSave
         
         self.controller?.showLoader()
+    
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
             
             Log.echo(key: "yud", text: "the response is \(response)")
@@ -442,6 +444,7 @@ extension EventPaymentRootView{
             Log.echo(key: "yud", text: "Message is \(message)")
             
             self.controller?.stopLoader()
+            
             if !success{
                 
                 self.errorLable?.text = message
@@ -457,18 +460,14 @@ extension EventPaymentRootView{
             }
             
             controller.presentingControllerObj = self.controller?.presentingControllerObj
-            
-            controller.info = response
-            
+            controller.info = response            
             self.controller?.present(controller, animated: true, completion: {
             })
-            
             return
         }
     }
     
     func sendPayment(token:String){
-        
         
         guard let id = SignedUserInfo.sharedInstance?.id else{
             Log.echo(key: "yud", text: "I am returning as ID did not found")
@@ -523,14 +522,11 @@ extension EventPaymentRootView{
             guard let controller = PaymentSuccessController.instance() else{
                 return
             }
-            
             controller.presentingControllerObj = self.controller?.presentingControllerObj
-            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             controller.info = response
-            
             self.controller?.present(controller, animated: true, completion: {
             })
-
         }
     }
     

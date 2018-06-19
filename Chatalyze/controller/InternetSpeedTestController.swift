@@ -21,6 +21,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         //self.speedLbl?.text = "Checking your system. This will just take a moment."
         //rotateImage(breakMethod:true)
+        
         testInternet()
     }
     override func viewDidAppear(_ animated: Bool){
@@ -46,7 +47,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { () -> Void in
             
             self.loaderImage?.transform = (self.loaderImage?.transform.rotated(by: CGFloat(Double.pi/4)))!
-        
+            
         }) { (finished) -> Void in
             
             self.rotateImage(sender: nil)

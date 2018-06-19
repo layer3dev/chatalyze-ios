@@ -24,9 +24,10 @@ class SaveMobileForEventReminder{
         url = url+id
         
         var params = [String : Any]()
-        params["eventMobReminder"] = saveForFuture
-        params["countryCode"] = countryCode
-        params["mobile"] = mobilenumber
+        
+      //params["eventMobReminder"] = saveForFuture
+      //params["countryCode"] = countryCode
+      //params["mobile"] = mobilenumber
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         

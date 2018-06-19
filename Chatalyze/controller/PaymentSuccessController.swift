@@ -28,10 +28,8 @@ class PaymentSuccessController: InterfaceExtendedController {
         paintNavigationTitle(text: "PAYMENT SUCCESS")
         paintBackButton()
         //paintMobileField()
-    }
-    
+    }    
    
-    
     func initializationVariable(){
         
         rootView?.controller = self
