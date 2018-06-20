@@ -14,6 +14,7 @@ class ReviewController: InterfaceExtendedController{
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
     @IBOutlet var hieghtofTextView:NSLayoutConstraint?
+    @IBOutlet var rootView:ReviewRootView?
     
     override func viewDidLayout() {
         super.viewDidLayout()

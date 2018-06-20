@@ -110,6 +110,10 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
+        guard let controller = ReviewController.instance() else {
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
         
 //        guard let controller = HomeController.dynamicInstance()
 //            else{

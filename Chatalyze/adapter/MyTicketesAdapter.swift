@@ -140,12 +140,12 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 return
         }
         
-        
         //Verifying that event is delayed or not started yet
         
         if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-        
+            
             let alert = UIAlertController(title: "Chatalyze", message: "Event is not started yet!!", preferredStyle: UIAlertControllerStyle.alert)
+            
             let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
             }
             alert.addAction(ok)
