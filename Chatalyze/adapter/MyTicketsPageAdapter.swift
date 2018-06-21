@@ -29,5 +29,4 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
         self.myTicketsCollectionView?.alwaysBounceVertical = false
         self.myTicketsCollectionView?.reloadData()
     }
-    
 }

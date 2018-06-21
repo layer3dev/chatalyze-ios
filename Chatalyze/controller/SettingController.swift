@@ -26,6 +26,7 @@ class SettingController : InterfaceExtendedController {
     var delegate:getSettingScrollInstet?
     
     @IBAction private func signoutAction(){
+        
         RootControllerManager().signOut(completion: nil)
     }
     
@@ -113,7 +114,9 @@ class SettingController : InterfaceExtendedController {
         guard let controller = ReviewController.instance() else {
             return
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.present(controller, animated: true, completion: {
+            
+        })
         
 //        guard let controller = HomeController.dynamicInstance()
 //            else{

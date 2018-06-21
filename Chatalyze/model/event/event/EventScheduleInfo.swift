@@ -11,6 +11,7 @@ import SwiftyJSON
 
 /*Includes child slot information*/
 class EventScheduleInfo: EventInfo {
+    
     var slotInfos : [SlotInfo]?
     var mergeSlotInfos : [SlotInfo]?
     

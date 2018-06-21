@@ -73,6 +73,14 @@ class HostCallController: VideoCallController {
         self.peerInfos = peerInfos
     }
     
+    override func isExpired()->Bool{
+        
+        if(eventInfo?.isExpired ?? true){
+            return true
+        }
+        return false
+    }
+    
     override func interval(){
         processEvent()
         confirmCallLinked()

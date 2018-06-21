@@ -12,6 +12,7 @@ import SwiftyJSON
 
 /*Doesn't include child slot information*/
 class EventInfo: NSObject {
+  
     var id : Int?
     var _start : String?
     var startDate : Date?

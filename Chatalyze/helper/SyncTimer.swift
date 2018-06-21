@@ -38,21 +38,19 @@ class SyncTimer: NSObject {
             guard let weak = weakSelf
                 else{
                     return
-            }
-            
+            }            
             let diff = weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh)
             if(diff <= 0){
                 return
             }
-            
             weak.closure?()
         })
-        
     }
     
     
     
     func pauseTimer(){
+        
         guard let timerUW = timer
             else{
                 return

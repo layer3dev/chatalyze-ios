@@ -16,6 +16,7 @@ class UserCallController: VideoCallController {
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     
+    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -32,6 +33,18 @@ class UserCallController: VideoCallController {
         
         initialization()
     }
+    
+    override func isExpired()->Bool{
+        
+        Log.echo(key: "yud", text: "Valid Slot is \(eventInfo?.myValidSlot)")
+        
+        guard let myValidSlot = eventInfo?.myValidSlot
+        else{
+            return true
+        }
+        return false
+    }
+    
     
     @IBAction private func requestAutograph(){
         resetPreviousAutograph()

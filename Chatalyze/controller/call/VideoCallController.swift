@@ -14,7 +14,6 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
-
     var socketClient : SocketClient?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
@@ -30,14 +29,12 @@ class VideoCallController : InterfaceExtendedController {
 
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
-    
-    
+    var eventExpiredHandler:((Bool,EventScheduleInfo?)->())?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initialization()
     }
-    
     
     override func viewDidRelease() {
         super.viewDidRelease()
@@ -82,10 +79,10 @@ class VideoCallController : InterfaceExtendedController {
             peerConnection.muteAudioIn()
             actionContainer?.audioView?.mute()
         }
-    }
-    
+    }    
     
     @IBAction private func videoDisableAction(){
+      
         guard let peerConnection = self.peerConnection
             else{
                 return
@@ -100,37 +97,47 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
     @IBAction private func hangupAction(){
+        
         processHangupAction()
     }
     
     func processHangupAction(){
+        
         timer.pauseTimer()
         self.hangup()
         updateUserOfHangup()
     }
     
     
+    
     func hangup(){
         
-        self.dismiss(animated: true) {
-            
+        self.eventExpiredHandler?(isExpired(),self.eventInfo)
+        self.dismiss(animated: false) {
+            Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
+            //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    
+    func isExpired()->Bool{
+        return false
     }
     
+    
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     private func initialization(){
         
@@ -140,22 +147,18 @@ class VideoCallController : InterfaceExtendedController {
         startLocalStream()
         
         fetchInfo(showLoader: true) { [weak self] (success) in
+            
             if(!success){
                 return
             }
             self?.processEventInfo()
         }
-        
-        
-    
     }
     
     private func processEventInfo(){
+    
         socketClient?.connect(roomId: (self.eventInfo?.roomId ?? ""))
     }
-    
-    
-    
     
     private func updateUserOfHangup(){
         guard let userId = SignedUserInfo.sharedInstance?.id
@@ -280,8 +283,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func callFailed(){
         
-    }
-    
+    }    
     
     //abstract
     func verifyEventActivated(){
@@ -291,10 +293,6 @@ class VideoCallController : InterfaceExtendedController {
     func verifyScreenshotRequested(){
         
     }
-    
-    
-    
-    
 }
 
 

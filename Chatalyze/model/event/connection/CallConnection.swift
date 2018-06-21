@@ -129,25 +129,19 @@ extension CallConnection : ARDAppClientDelegate{
         
     }
     
-    
-    
-    
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
     
     }
     
-    
     func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
         
         Log.echo(key: "render", text: "didReceiveRemoteVideoTrack")
-        
         
         self.remoteTrack = remoteTrack
         if(isLinked){
             renderRemoteTrack()
         }
     }
-    
     
     func linkCall(){
         if(isLinked){
@@ -174,22 +168,17 @@ extension CallConnection : ARDAppClientDelegate{
         self.remoteTrack?.audioTrack?.isEnabled = true
     }
     
-    
     func appClient(_ client: ARDAppClient!, didError error: Error!) {
         
     }
-    
     
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
     
-    
     func resetFlagsForReconnect(){
         isLinked = false
         
     }
-    
-    
 }
 

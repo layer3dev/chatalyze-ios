@@ -173,6 +173,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             controller.eventId = "\(eventId)"
             self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+            
             return
         }
         
@@ -180,7 +181,18 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             else{
                 return
         }
-        
+ 
+        controller.eventExpiredHandler = {(success,eventInfo) in
+           
+            Log.echo(key: "yud", text: ("yes I got handler with success\(success)"))
+            guard let controller = ReviewController.instance() else{
+                return
+            }
+            
+            controller.eventInfo = eventInfo
+            self.root?.controller?.present(controller, animated: true, completion:{
+            })
+        }
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
     }
