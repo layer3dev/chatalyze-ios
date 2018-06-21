@@ -113,9 +113,14 @@ class VideoCallController : InterfaceExtendedController {
     
     func hangup(){
         
-        self.eventExpiredHandler?(isExpired(),self.eventInfo)
+       
         self.dismiss(animated: false) {
+        
             Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
+        
+            DispatchQueue.main.async {
+                self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
+            }
             //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }

@@ -36,7 +36,7 @@ class UserCallController: VideoCallController {
     
     override func isExpired()->Bool{
         
-        Log.echo(key: "yud", text: "Valid Slot is \(eventInfo?.myValidSlot)")
+        Log.echo(key: "yud", text: "Valid Slot is \(eventInfo?.myValidSlot.slotInfo)")
         
         guard let myValidSlot = eventInfo?.myValidSlot
         else{
