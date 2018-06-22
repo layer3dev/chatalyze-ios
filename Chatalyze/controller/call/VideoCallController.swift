@@ -115,25 +115,20 @@ class VideoCallController : InterfaceExtendedController {
         
        
         self.dismiss(animated: false) {
-        
+            
             Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
-        
+            
             DispatchQueue.main.async {
+                
                 self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
             }
             //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }
     
-    
-    
     func isExpired()->Bool{
         return false
     }
-    
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -166,6 +161,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func updateUserOfHangup(){
+       
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
                 return
@@ -178,13 +174,9 @@ class VideoCallController : InterfaceExtendedController {
         
         var data = [String : Any]()
         data["userId"] = userId
-        data["message"] = "User hangup the call !"
-        
+        data["message"] = "User hangup the call!"
         socketClient?.emit("disconnect", data)
-        
     }
-
-   
     
     func registerForListeners(){
 
@@ -220,6 +212,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func switchToCallRequest(){
+        
         self.rootView?.confirmViewLoad(listener: {
             self.rootView?.switchToCallRequest()
         })

@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Event Controller-->
         <scene sceneID="DEq-9Q-g9Y">
@@ -56,15 +51,23 @@
                                                             <color key="textColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOLD OUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ve3-BC-F0x">
+                                                            <rect key="frame" x="269" y="62" width="81" height="20"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                                            <color key="textColor" red="0.79495161800000003" green="0.037182142869999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="Csw-MW-867" firstAttribute="top" secondItem="CXb-DV-HT5" secondAttribute="bottom" constant="5" id="89t-3N-1dK"/>
                                                         <constraint firstItem="CXb-DV-HT5" firstAttribute="top" secondItem="Uxq-tc-u7t" secondAttribute="top" constant="10" id="BU8-rd-kX4"/>
                                                         <constraint firstAttribute="trailing" secondItem="Csw-MW-867" secondAttribute="trailing" constant="10" id="Kfy-kL-lAZ"/>
+                                                        <constraint firstItem="Ve3-BC-F0x" firstAttribute="top" secondItem="Csw-MW-867" secondAttribute="bottom" id="Uy9-T3-lTS"/>
                                                         <constraint firstItem="Csw-MW-867" firstAttribute="leading" secondItem="Uxq-tc-u7t" secondAttribute="leading" constant="10" id="Zx6-9u-Hv9"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Csw-MW-867" secondAttribute="bottom" constant="10" id="be4-PP-Tzp"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ve3-BC-F0x" secondAttribute="trailing" constant="5" id="bQ5-zC-fnk"/>
                                                         <constraint firstAttribute="trailing" secondItem="CXb-DV-HT5" secondAttribute="trailing" constant="10" id="cGW-QG-gbv"/>
+                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ve3-BC-F0x" secondAttribute="bottom" constant="2" id="rmH-Jt-HyC"/>
                                                         <constraint firstItem="CXb-DV-HT5" firstAttribute="leading" secondItem="Uxq-tc-u7t" secondAttribute="leading" constant="10" id="wP0-bY-QFZ"/>
                                                     </constraints>
                                                 </view>
@@ -86,6 +89,7 @@
                                             <outlet property="eventImage" destination="tkd-TC-hi1" id="3co-WK-LmK"/>
                                             <outlet property="eventtimeLbl" destination="Csw-MW-867" id="CBi-fT-6GO"/>
                                             <outlet property="evnetnameLbl" destination="CXb-DV-HT5" id="Fxo-sy-cS7"/>
+                                            <outlet property="soldOutLabel" destination="Ve3-BC-F0x" id="TKI-6a-l8n"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -121,10 +125,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B8J-Kt-ZUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15" y="44"/>
+            <point key="canvasLocation" x="58" y="45"/>
         </scene>
     </scenes>
     <resources>
-        <image name="base" width="3600" height="2400"/>
+        <image name="base" width="259" height="194"/>
     </resources>
 </document>
