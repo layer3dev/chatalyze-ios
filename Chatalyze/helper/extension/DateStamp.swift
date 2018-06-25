@@ -12,14 +12,12 @@ import UIKit
 public extension Date {
 
     var millisecondsSince1970:Int {
-        //TODO: Remove this
-    
-        return 0        
+        
         let interval = Int64((self.timeIntervalSince1970 * 1000.0).rounded())
         return Int(interval)
         //RESOLVED CRASH HERE
     }
-
+    
     init(milliseconds:Int){
         
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds / 1000))
@@ -28,5 +26,4 @@ public extension Date {
     init(seconds:Int) {
         self = Date(timeIntervalSince1970: TimeInterval(seconds))
     }
-
 }
