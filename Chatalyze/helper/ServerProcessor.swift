@@ -15,6 +15,7 @@ class ServerProcessor{
     private var sessionManager : SessionManager?
     
     init(){
+        
         let serverTrustPolicies: [String: ServerTrustPolicy] = [
             "test.example.com": .pinCertificates(
                 certificates: ServerTrustPolicy.certificates(),
@@ -35,7 +36,6 @@ class ServerProcessor{
         case post
         case put
         case delete
-        
         
         public func libHttpMethod()->Alamofire.HTTPMethod{
             switch self {
