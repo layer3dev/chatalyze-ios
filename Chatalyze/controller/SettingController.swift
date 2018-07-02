@@ -79,20 +79,21 @@ class SettingController : InterfaceExtendedController {
     @IBAction func paymentListingAction(sender:UIButton){
         
         
-        guard let controller = PaymentListingController.instance() else {
-            return
-        }
-        self.navigationController?.pushViewController(controller, animated: true)
+//        guard let controller = PaymentListingController.instance() else {
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
         
 //        guard let controller = MyTicketsController.instance() else {
 //            return
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
         
-//        guard let controller = ReviewController.instance() else {
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
+        guard let controller = ReviewController.instance() else {
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+        
         
        // guard let controller = PaymentSuccessController.instance() else {
          //   return

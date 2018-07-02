@@ -63,8 +63,8 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        //return ticketsListingArray.count
-        return 10
+    return ticketsListingArray.count
+        //return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
