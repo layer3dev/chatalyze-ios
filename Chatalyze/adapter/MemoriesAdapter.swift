@@ -19,7 +19,7 @@ class MemoriesAdapter: ExtendedView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-
+        
         self.memoriesListingTableView?.separatorStyle = .none
         self.memoriesListingTableView?.tableFooterView?.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1)
     }
@@ -130,5 +130,4 @@ extension MemoriesAdapter:UIScrollViewDelegate{
         self.root?.updateTableContentOffset(offset:self.memoriesListingTableView?.contentOffset.y)
     }
 }
-
 
