@@ -12,42 +12,44 @@ import UIKit
 class VideoView: RTCEAGLVideoView {
 
     enum orientation : Int{
+        
         case undefined = 0
         case portrait = 1
         case landscape = 2
     }
     
     private var isLoaded = false;
-    override func layoutSubviews() {
+    override func layoutSubviews(){
         super.layoutSubviews()
+        
         if(!isLoaded){
+            
             isLoaded = true
             viewDidLayout()
         }
     }
-    
+
     func viewDidLayout(){
+        
         initialization()
     }
-    
+
     private func initialization(){
+        
          self.delegate = self
     }
     
     func updateSize(size: CGSize){
-        
     }
 }
 
 extension VideoView : RTCEAGLVideoViewDelegate{
     
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
-         self.updateSize(size: size)
+        
+        self.updateSize(size: size)
     }
-    
     /*func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
         self.updateSize(size: size)
     }*/
-    
-
 }
