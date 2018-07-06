@@ -113,6 +113,8 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func paintInterfaceForSavedCard(){
         
+        //numberOfSaveCards = 2
+        
         if numberOfSaveCards == 0 {
             
             cardOneHeightConstraint?.constant = 0

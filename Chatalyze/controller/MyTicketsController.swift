@@ -74,6 +74,7 @@ class MyTicketsController: InterfaceExtendedController{
             if let info = info{
                 
                 if info.count <= 0{
+                  
                     self.noTicketLbl?.isHidden = false
                     self.rootview?.fillInfo(info: self.ticketsArray)
                     return
