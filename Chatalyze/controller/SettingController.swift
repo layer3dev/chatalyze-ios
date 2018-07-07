@@ -79,20 +79,20 @@ class SettingController : InterfaceExtendedController {
     @IBAction func paymentListingAction(sender:UIButton){
         
         
-//        guard let controller = PaymentListingController.instance() else {
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
+        guard let controller = PaymentListingController.instance() else {
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
         
 //        guard let controller = MyTicketsController.instance() else {
 //            return
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
         
-        guard let controller = ReviewController.instance() else {
-            return
-        }
-        self.navigationController?.pushViewController(controller, animated: true)
+//        guard let controller = ReviewController.instance() else {
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
         
         
        // guard let controller = PaymentSuccessController.instance() else {
@@ -112,12 +112,12 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-        guard let controller = ReviewController.instance() else {
-            return
-        }
-        self.navigationController?.present(controller, animated: true, completion: {
-            
-        })
+//        guard let controller = ReviewController.instance() else {
+//            return
+//        }
+//        self.navigationController?.present(controller, animated: true, completion: {
+//            
+//        })
         
 //        guard let controller = HomeController.dynamicInstance()
 //            else{

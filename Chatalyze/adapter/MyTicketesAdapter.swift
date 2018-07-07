@@ -27,7 +27,7 @@ class MyTicketesAdapter: ExtendedView {
             return
         }
         ticketsListingArray = info
-        initializeCollectionFlowLayout()
+        //initializeCollectionFlowLayout()
         myTicketsCollectionView?.dataSource = self
         myTicketsCollectionView?.delegate = self
         myTicketsCollectionView?.reloadData()
@@ -40,9 +40,7 @@ class MyTicketesAdapter: ExtendedView {
         self.myTicketsCollectionView?.delegate = self
         let width = root?.superview?.frame.size.width ?? 60.0
         let height:CGFloat = self.myTicketsCollectionView?.bounds.height ?? 0.0
-        
         Log.echo(key: "yud", text: "The height of the Collection is \(height)")
-        
         layout.itemSize = CGSize(width: width-60, height: height-15)
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
@@ -64,7 +62,7 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
     return ticketsListingArray.count
-        //return 10
+    //    return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

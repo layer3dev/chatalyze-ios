@@ -105,8 +105,10 @@ extension SigninRootView : UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if(textField == emailField?.textField){
+            
             passwordField?.textField?.becomeFirstResponder()
         }else{
+            
             passwordField?.textField?.resignFirstResponder()
         }
         return true
@@ -117,7 +119,11 @@ extension SigninRootView : UITextFieldDelegate{
 extension SigninRootView{
     
     fileprivate func fbLogin(){
+        
         let loginManager = LoginManager()
+        
+        loginManager.logOut() 
+        
         loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
             switch loginResult {
             case .failed(let error):

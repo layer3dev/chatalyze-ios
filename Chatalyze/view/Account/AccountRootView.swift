@@ -58,28 +58,25 @@ class AccountRootView: ExtendedView {
     
     func setTabInterface(controller:UIViewController?){
         
-        guard let controller = controller else { return  }
+        guard let controller = controller else { return }
     
         if controller.isKind(of: SettingController.self){
            
             resetColor()
             settingView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
+            
         }else if controller.isKind(of: MyTicketsController.self){
        
             resetColor()
             myTicketView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
+            
         }else if controller.isKind(of: MemoriesController.self){
             
             resetColor()
             memoriesView?.backgroundColor = UIColor(red: 101.0/255.0, green: 188.0/255.0, blue: 106.0/255.0, alpha: 1)
-        }else{
             
+        }else{
         }
-            //else if{
-//
-//        }
-   
-    
     }
     
     func resetColor(){

@@ -113,7 +113,52 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func paintInterfaceForSavedCard(){
         
-        //numberOfSaveCards = 2
+        numberOfSaveCards = 0
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            if numberOfSaveCards == 0 {
+                
+                cardOneHeightConstraint?.constant = 0
+                cardTwoHeightConstraint?.constant = 0
+                addOtherCardInfoHeightContraint?.constant  = 0
+                CardInfoHeightContraint?.constant  = 280
+                self.superview?.updateConstraints()
+                self.superview?.layoutIfNeeded()
+                return
+            }
+            if numberOfSaveCards == 1{
+                
+                if cardInfoArray.count >= 1{
+                    
+                    cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+                }
+                cardOneHeightConstraint?.constant = 62
+                cardTwoHeightConstraint?.constant = 0
+                addOtherCardInfoHeightContraint?.constant  = 50
+                CardInfoHeightContraint?.constant  = 0
+                self.superview?.updateConstraints()
+                self.superview?.layoutIfNeeded()
+                return
+            }
+            if numberOfSaveCards == 2{
+                
+                if cardInfoArray.count >= 2{
+                    
+                    cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+                    cardTwoField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[1].lastDigitAccount ?? "")
+                }
+                cardOneHeightConstraint?.constant = 62
+                cardTwoHeightConstraint?.constant = 62
+                addOtherCardInfoHeightContraint?.constant  = 0
+                CardInfoHeightContraint?.constant  = 0
+                self.superview?.updateConstraints()
+                self.superview?.layoutIfNeeded()
+                return
+            }
+            
+         return
+        }
         
         if numberOfSaveCards == 0 {
             
@@ -158,6 +203,18 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     
     @IBAction func addAnotherCardInfo(sender:UIButton?){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+          
+            cardOneHeightConstraint?.constant = 0
+            cardTwoHeightConstraint?.constant = 0
+            addOtherCardInfoHeightContraint?.constant  = 0
+            CardInfoHeightContraint?.constant  = 280
+            resetSaveCardsDetail()
+            self.superview?.updateConstraints()
+            self.superview?.layoutIfNeeded()
+            return
+        }
         
         cardOneHeightConstraint?.constant = 0
         cardTwoHeightConstraint?.constant = 0
@@ -559,3 +616,4 @@ extension EventPaymentRootView{
         }
     }
 }
+

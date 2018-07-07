@@ -9,10 +9,10 @@
 import Foundation
 
 class MyTicketsRootView:ExtendedView{
-        
+
     var controller:MyTicketsController?
     @IBOutlet var adapter:MyTicketesAdapter?
-    
+
     override func viewDidLayout(){
         super.viewDidLayout()
         

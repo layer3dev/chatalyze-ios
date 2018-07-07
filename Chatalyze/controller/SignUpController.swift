@@ -10,27 +10,22 @@ import UIKit
 
 class SignUpController: InterfaceExtendedController {
     
-    @IBOutlet var rootView:SignupRootView?
+    @IBOutlet var rootView:SignupRootView?    
     @IBAction func signinAction(sender:UIButton){
-        
         self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidLayout() {
         super.viewDidLayout()
-       
         paintInterface()
         initialization()
     }
     
     func initialization(){
-        
         rootView?.controller = self
-        
     }
     
     func paintInterface(){
-        
         paintNavigationTitle(text: "SIGN UP")
         paintBackButton()
     }
@@ -38,7 +33,7 @@ class SignUpController: InterfaceExtendedController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 protocol getTicketsScrollInsets {
+    
     func getTicketsScrollInset(scrollView:UIScrollView)
 }
 

@@ -19,6 +19,7 @@ class LaunchDelayController: ExtendedController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     /*
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -27,6 +28,7 @@ class LaunchDelayController: ExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
+    
 }
 
 extension LaunchDelayController{
