@@ -11,16 +11,17 @@ import Foundation
 public extension Date {
     
     func isPast()->Bool{
+      
         return !isFuture()
     }
     
     func isFuture()->Bool{
+             
         let timeInterval = self.timeIntervalSinceNow
         if(timeInterval > 0){
             return true
         }
         return false
     }
-    
 }
 

@@ -13,6 +13,8 @@ public extension Date {
 
     var millisecondsSince1970:Int {
         
+        //TODO:- Remove this
+        return 0
         let interval = Int64((self.timeIntervalSince1970 * 1000.0).rounded())
         return Int(interval)
     }

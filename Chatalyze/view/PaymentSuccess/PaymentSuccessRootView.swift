@@ -66,36 +66,76 @@ class PaymentSuccessRootView: ExtendedView {
     func initializeChatInfo(){
       
         //create attributed string
-        let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7")]
         
         
-        let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
+        if UIDevice.current.userInterfaceIdiom == .pad{
+         
+            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
+            
+            let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 24)]
+            
+            let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
+            
+            let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
+            
+            let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
+            
+            let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
+            
+            let fourthStr = NSMutableAttributedString(string: "on ", attributes: grayAttribute)
+            
+            let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
+            
+            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
+            
+            let requiredString:NSMutableAttributedString = NSMutableAttributedString()
+            
+            requiredString.append(firstStr)
+            requiredString.append(slotNumber)
+            requiredString.append(secondStr)
+            requiredString.append(time)
+            requiredString.append(fourthStr)
+            requiredString.append(fifthStr)
+            requiredString.append(sixthStr)
+            
+            chatDetailLbl?.attributedText = requiredString
+            
+        }else{
+            
+            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#82C57E"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
+            
+            let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 18)]
+            
+            let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
+            
+            let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
+            
+            let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
+            
+            let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
+            
+            let fourthStr = NSMutableAttributedString(string: "on ", attributes: grayAttribute)
+            
+            let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
+            
+            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
+            
+            let requiredString:NSMutableAttributedString = NSMutableAttributedString()
+            
+            requiredString.append(firstStr)
+            requiredString.append(slotNumber)
+            requiredString.append(secondStr)
+            requiredString.append(time)
+            requiredString.append(fourthStr)
+            requiredString.append(fifthStr)
+            requiredString.append(sixthStr)
+            
+            chatDetailLbl?.attributedText = requiredString
+            
+        }
         
-        let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
         
-        let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
         
-        let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
-        
-        let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
-       
-        let fourthStr = NSMutableAttributedString(string: "on ", attributes: grayAttribute)
-        
-        let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
-        
-        let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
-        
-        let requiredString:NSMutableAttributedString = NSMutableAttributedString()
-        
-        requiredString.append(firstStr)
-        requiredString.append(slotNumber)
-        requiredString.append(secondStr)
-        requiredString.append(time)
-        requiredString.append(fourthStr)
-        requiredString.append(fifthStr)
-        requiredString.append(sixthStr)
-        
-        chatDetailLbl?.attributedText = requiredString
         //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
    }
     
