@@ -27,7 +27,7 @@ class FetchSavedCardDetails{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [CardInfo]?)->())){
         
-        Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
+        Log.echo(key: "yud", text: "Resonse of Fetch Info in saved cards\(String(describing: response))")
         Log.echo(key: "yud", text: "Value of the success is \(String(describing: response?.description))")
         
         guard let array = response?.arrayValue else{

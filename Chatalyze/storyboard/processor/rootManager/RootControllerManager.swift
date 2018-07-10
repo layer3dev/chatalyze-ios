@@ -23,6 +23,7 @@ class RootControllerManager{
     }
     
     func updateRoot(){
+        
         self.showRelevantScreen()
     }
     

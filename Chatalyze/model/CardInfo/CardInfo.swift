@@ -20,7 +20,7 @@ class CardInfo: NSObject {
     var expiryMonth:String?
     var fingerPrint:String?
     var country:String?
-    
+    var number:String?
     
     override init(){
         super.init()
@@ -66,7 +66,7 @@ class CardInfo: NSObject {
                 return
         }
         
-        self.lastDigitAccount = json["last4"].stringValue
+        self.lastDigitAccount = json["number"].stringValue
         self.customerToken = json["customer"].stringValue
         self.idToken = json["id"].stringValue
         self.expiryYear = json["exp_year"].stringValue

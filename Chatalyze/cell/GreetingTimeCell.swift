@@ -14,7 +14,7 @@ class GreetingTimeCell: ExtendedTableCell {
     @IBOutlet var timePicker:UIDatePicker?
     @IBOutlet var timeLable:UILabel?
     
-    override func viewDidLayout() {
+    override func viewDidLayout(){
         super.viewDidLayout()
         
         self.selectionStyle = .none
@@ -27,7 +27,9 @@ class GreetingTimeCell: ExtendedTableCell {
     }
     
     var selectedTime:String{
+        
         get{
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent

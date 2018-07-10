@@ -21,9 +21,10 @@ class NavigationBarCustomizer{
     }
     
     func updateTint(){
+        
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.tintColor = UIColor(hexString: "#1c313a")
-        navigationBarAppearace.barTintColor = UIColor(hexString: "#1c313a")
+        navigationBarAppearace.tintColor = AppThemeConfig.navigationBarColor
+        navigationBarAppearace.barTintColor = AppThemeConfig.navigationBarColor
         navigationBarAppearace.isTranslucent = false
         
         // change navigation item title color

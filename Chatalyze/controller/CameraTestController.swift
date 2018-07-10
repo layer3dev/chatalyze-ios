@@ -12,7 +12,7 @@ import AVFoundation
 class CameraTestController: InterfaceExtendedController {
     
     @IBOutlet var progressView:UIProgressView?
-    var recorder: AVAudioRecorder!
+    var recorder: AVAudioRecorder?
     var levelTimer = Timer()
     
     let LEVEL_THRESHOLD: Float = -160.0
@@ -37,14 +37,20 @@ class CameraTestController: InterfaceExtendedController {
     
     @objc func levelTimerCallback() {
         
-        recorder.updateMeters()
-        let peakPower = recorder.peakPower(forChannel: 0)
-        let level = recorder.averagePower(forChannel: 0)
+        recorder?.updateMeters()
+        let peakPower = recorder?.peakPower(forChannel: 0)
+        let level = recorder?.averagePower(forChannel: 0)
         Log.echo(key: "yud", text: "LEVEL IS \(level)")
-        updateUI(level:Double(level))
-        let isLoud = level > LEVEL_THRESHOLD
+        updateUI(level:Double(level ?? 0.0))
+        let isLoud = level ?? 0.0 > LEVEL_THRESHOLD
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.levelTimer.invalidate()
+        }
+    }
     
     func updateUI(level:Double){
         
@@ -83,9 +89,9 @@ class CameraTestController: InterfaceExtendedController {
             return
         }
         
-        recorder.prepareToRecord()
-        recorder.isMeteringEnabled = true
-        recorder.record()
+        recorder?.prepareToRecord()
+        recorder?.isMeteringEnabled = true
+        recorder?.record()
         
         levelTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(levelTimerCallback), userInfo: nil, repeats: true)
     }
@@ -338,6 +344,7 @@ class CameraTestController: InterfaceExtendedController {
     func alertToProvideMicrophoneAccess(){
         
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
+     
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
             self.rootController?.dismiss(animated: true, completion: {
                 

@@ -24,8 +24,6 @@ class AccountController: TabChildLoadController {
         
         initializeVariable()
         paintInterafce()
-        
-        Log.echo(key: "yud", text: "The container Height is \(containerView?.frame.size.height)")
     }
     
     override func viewGotLoaded() {
@@ -34,7 +32,7 @@ class AccountController: TabChildLoadController {
     
     func paintInterafce(){
         
-        paintNavigationTitle(text: "Account")
+        paintNavigationTitle(text: "ACCOUNT")
     }
     
     func initializeVariable(){
@@ -45,13 +43,11 @@ class AccountController: TabChildLoadController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-               
+        
         
         self.view.layoutIfNeeded()
-       
         self.containerView?.layoutIfNeeded()
-    
-        pageViewController?.ticketController?.rootview?.adapter?.featureHeight = containerView?.bounds.size.height ?? 0.0
+            pageViewController?.ticketController?.rootview?.adapter?.featureHeight = containerView?.bounds.size.height ?? 0.0
         pageViewController?.ticketController?.rootview?.adapter?.initializeCollectionFlowLayout()
     }
     

@@ -48,6 +48,13 @@ class MicTestController: InterfaceExtendedController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+      
+        DispatchQueue.main.async {
+            self.levelTimer.invalidate()
+        }
+    }
+    
     func checkForMicrphone(){
       
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])

@@ -17,8 +17,7 @@ class AppThemeConfig{
     static let themeGray = "#DBDBDB"
     static let idealGray = "#808080"
     static let greenColor = "#7bc47f"
-    
     static let userPlaceholderImage = "user_placeholder"
-    static let navigationBarColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 51/255.0)
-    
+    //static let navigationBarColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 51/255.0)
+    static let navigationBarColor = UIColor(hexString: "#27B879")
 }

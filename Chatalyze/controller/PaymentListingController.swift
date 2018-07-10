@@ -41,7 +41,7 @@ class PaymentListingController: InterfaceExtendedController {
         self.showLoader()
         
         PaymentHistoryProcessor().fetchInfo(id: id, offset: 0) { (success, info) in
-          
+                        
             self.stopLoader()
             self.paymentListingArray.removeAll()
             self.nogreetLbl?.isHidden = true
@@ -116,7 +116,6 @@ class PaymentListingController: InterfaceExtendedController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 

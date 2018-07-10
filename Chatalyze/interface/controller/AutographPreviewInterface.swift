@@ -10,5 +10,6 @@
 import Foundation
 
 protocol AutographPreviewInterface{
+  
     func saveImage()
 }

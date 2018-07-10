@@ -113,7 +113,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func paintInterfaceForSavedCard(){
         
-        numberOfSaveCards = 0
+        //numberOfSaveCards = 0
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
@@ -145,8 +145,8 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
                 
                 if cardInfoArray.count >= 2{
                     
-                    cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
-                    cardTwoField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[1].lastDigitAccount ?? "")
+                    cardOneField?.textField?.placeholder =  (cardInfoArray[0].lastDigitAccount ?? "")
+                    cardTwoField?.textField?.placeholder =  (cardInfoArray[1].lastDigitAccount ?? "")
                 }
                 cardOneHeightConstraint?.constant = 62
                 cardTwoHeightConstraint?.constant = 62
@@ -174,7 +174,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             
             if cardInfoArray.count >= 1{
                 
-                cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+                cardOneField?.textField?.placeholder =  (cardInfoArray[0].lastDigitAccount ?? "")
             }
             cardOneHeightConstraint?.constant = 62
             cardTwoHeightConstraint?.constant = 0
@@ -188,8 +188,8 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             
             if cardInfoArray.count >= 2{
                 
-                cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
-                cardTwoField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[1].lastDigitAccount ?? "")
+                cardOneField?.textField?.placeholder =  (cardInfoArray[0].lastDigitAccount ?? "")
+                cardTwoField?.textField?.placeholder =  (cardInfoArray[1].lastDigitAccount ?? "")
             }
             cardOneHeightConstraint?.constant = 62
             cardTwoHeightConstraint?.constant = 62

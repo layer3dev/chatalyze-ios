@@ -54,6 +54,11 @@ class InterfaceExtendedController : ExtendedController {
     
     func paintNavigationTitle(text : String?){
     
+        guard let title = text else {
+            return
+        }
+        self.title = title
+        return
         let titleLabel = UILabel()
         titleLabel.backgroundColor = UIColor.clear
         
@@ -70,8 +75,6 @@ class InterfaceExtendedController : ExtendedController {
         titleLabel.text = text
         self.navigationItem.titleView = titleLabel
     }
-    
-    
     
     func paintSettingButton(){
         
