@@ -17,13 +17,13 @@ class EventCell: ExtendedTableCell {
     @IBOutlet var borderView:UIView?
     var info:EventInfo?
     @IBOutlet var soldOutLabel:UILabel?
-    
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
         paintInterface()
     }
-    
+
     func paintInterface(){
         
         self.selectionStyle = .none

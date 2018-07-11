@@ -56,25 +56,19 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     }
    
     
-    @IBAction func skipAction(sender:UIButton){
-        
-   //     guard let controller = MicTestController.instance() else{
-     //       return
-       // }
-
-        //self.controller?.present(controller, animated: true, completion:{
-            //        }).pre
-       // })
+    @IBAction func skipAction(sender:UIButton?){
         
         guard let controller = EventPaymentController.instance() else{
             return
         }
-        controller.info = self.info
-        controller.presentingControllerObj = self.controller?.presentingControllerObj
         
+        controller.info = self.info
+//        if self.info?.isFree ?? false{
+//            return
+//        }
+        controller.presentingControllerObj = self.controller?.presentingControllerObj
         self.controller?.present(controller, animated: true, completion: {
         })
-        
     }
     
     @IBAction func beginTesteAction(sender:UIButton){
@@ -83,11 +77,13 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             return
         }
          controller.rootController = self.controller?.presentingControllerObj
+        controller.onSuccessTest = {(success) in
+            self.skipAction(sender: nil)
+        }
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.controller?.present(controller, animated: true, completion: {
         })        
     }
-    
 }
 
 

@@ -9,8 +9,6 @@ import Foundation
 import SystemConfiguration
 class InternetReachabilityCheck {
     
-    
-    
     func isInternetAvailable() -> Bool
     {
         var zeroAddress = sockaddr_in()
@@ -30,6 +28,5 @@ class InternetReachabilityCheck {
         let isReachable = flags.contains(.reachable)
         let needsConnection = flags.contains(.connectionRequired)
         return (isReachable && !needsConnection)
-    }
-    
+    }    
 }

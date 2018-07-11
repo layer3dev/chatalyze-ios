@@ -24,7 +24,7 @@ class EventController: TabChildLoadController {
     
     override func viewGotLoaded() {
         super.viewGotLoaded()
-        
+
         fetchEvents()
     }
     
@@ -40,9 +40,8 @@ class EventController: TabChildLoadController {
     
     private func paintNavigationBar(){
         
-        //paintNavigationTitle(text : "Upcoming Events")
         paintSettingButton()
-        self.title = "UPCOMING EVENTS"
+        paintNavigationTitle(text: "UPCOMING EVENTS")      
     }
     
     func fetchEvents(){
@@ -53,7 +52,7 @@ class EventController: TabChildLoadController {
         }
         self.showLoader()
         EventProcessor().fetchInfo(id: userId) { (success, info) in
-            
+
             self.stopLoader()
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true

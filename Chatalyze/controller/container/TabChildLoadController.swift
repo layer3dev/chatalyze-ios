@@ -10,8 +10,8 @@ import UIKit
 
 class TabChildLoadController: InterfaceExtendedController {
     
-    private var isLoaded = false;
-    private var isLayoutCompleted = false;
+    private var isLoaded = false
+    private var isLayoutCompleted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()

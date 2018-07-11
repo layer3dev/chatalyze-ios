@@ -17,7 +17,7 @@ class ContainerController: TabChildLoadController {
     var initialTabInstance : TabContainerView.tabType =  TabContainerView.tabType.event
     var selectedTab:TabContainerView.tabType =  TabContainerView.tabType.event
     private let CONTAINER_SEGUE = "CONTAINER_SEGUE"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,11 +55,13 @@ class ContainerController: TabChildLoadController {
     }
     
     private func initializeVariable(){
+        
         tabContainerView?.delegate = self
     }
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segueIdentifier = segue.identifier ?? ""
@@ -76,10 +78,12 @@ class ContainerController: TabChildLoadController {
     }
     
     func setActionPending(isPending : Bool, type : TabContainerView.tabType){
+  
         tabContainerView?.setActionPending(isPending: isPending, type: type)
     }
     
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+   
         if let selected = tabController {
             return selected.supportedInterfaceOrientations
         }
@@ -87,6 +91,7 @@ class ContainerController: TabChildLoadController {
     }
     
     open override var shouldAutorotate: Bool {
+       
         if let selected = tabController {
             return selected.shouldAutorotate
         }

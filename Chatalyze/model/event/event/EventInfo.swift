@@ -83,7 +83,7 @@ class EventInfo: NSObject {
         eventBannerUrl = json["eventBannerUrl"].string
         isPrivate = json["isPrivate"].bool
         //        if (json["tag"] != nil) { tag = Tag(json: json["tag"] as! NSDictionary) } //todo:
-        isFree = json["isFree"].bool
+        isFree = json["isFree"].boolValue
         eventFeedbackInfo = json["eventFeedbackInfo"].string
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string

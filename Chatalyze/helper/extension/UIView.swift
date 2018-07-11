@@ -18,6 +18,7 @@ public extension UIView {
     
     
     func addConstraints(childView : UIView){
+        
         let metrics = [String : Int]()
         let viewInfos = ["childView" : childView]
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[childView]-0-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
@@ -27,6 +28,7 @@ public extension UIView {
     }
     
     func addBottomConstraint(bottom : CGFloat = 0, childView : UIView)->NSLayoutConstraint?{
+        
         var metrics = [String : CGFloat]()
         metrics["bottom"] = bottom
         let viewInfos = ["childView" : childView]
@@ -39,11 +41,13 @@ public extension UIView {
     
     
     func addCenterConstraints(childView : UIView) {
+        
         addCenterHorizontalConstraint(childView: childView)
         addCenterVerticalConstraint(childView: childView)
     }
     
     func addCenterHorizontalConstraint(childView : UIView){
+        
         let metrics = [String : Int]()
         childView.translatesAutoresizingMaskIntoConstraints = false
         let viewInfos = ["childView" : childView, "superview" : self]
@@ -53,11 +57,11 @@ public extension UIView {
             options: NSLayoutFormatOptions.alignAllCenterX,
             metrics: metrics,
             views: viewInfos)
-        
         self.addConstraints(constraints)
     }
     
     func addCenterVerticalConstraint(childView : UIView){
+        
         let metrics = [String : Int]()
         childView.translatesAutoresizingMaskIntoConstraints = false
         let viewInfos = ["childView" : childView, "superview" : self]
@@ -81,14 +85,11 @@ public extension UIView {
     }
     
     func addHeightConstraint(height : CGFloat){
+        
         let metrics = [String : Int]()
         let viewInfos = ["self" : self]
-        
         let constraint = String(format : "V:[self(%f)]", height)
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: constraint, options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
-        
     }
-
-    
     
 }

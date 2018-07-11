@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class CameraTestController: InterfaceExtendedController {
-    
+        
     @IBOutlet var progressView:UIProgressView?
     var recorder: AVAudioRecorder?
     var levelTimer = Timer()
@@ -24,8 +24,10 @@ class CameraTestController: InterfaceExtendedController {
     var input: AVCaptureDeviceInput?
     var output: AVCaptureStillImageOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
-    var rootController:EventController?
+    var rootController:InternetSpeedTestController?
     var front = true
+    var onSuccessTest:((Bool)->())?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -97,21 +99,21 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     func checkforMicrophoneAccess(){
-      
+        
         switch AVAudioSession.sharedInstance().recordPermission() {
         case AVAudioSessionRecordPermission.granted:
             print("Permission granted")
         // checkForMicrphone()
         case AVAudioSessionRecordPermission.denied:
             print("Pemission denied")
-            //alertToProvideMicrophoneAccess()
+        //alertToProvideMicrophoneAccess()
         case AVAudioSessionRecordPermission.undetermined:
             print("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
                 //self.checkForMicrphone()
                 if !granted{
                     
-                 //   self.alertToProvideMicrophoneAccess()
+                    //   self.alertToProvideMicrophoneAccess()
                     return
                 }
                 //Handle granted
@@ -121,6 +123,7 @@ class CameraTestController: InterfaceExtendedController {
     func errorInCamera(){
         
         let alert = UIAlertController(title: "Chatalyze", message: "Oops some unexpected error in the camera!!", preferredStyle: UIAlertControllerStyle.alert)
+        
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
             self.rootController?.dismiss(animated: true, completion: {
             })
@@ -236,7 +239,7 @@ class CameraTestController: InterfaceExtendedController {
     
     //Get the device (Front or Back)
     func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
-                
+        
         let devices: NSArray = AVCaptureDevice.devices() as NSArray
         for de in devices {
             let deviceConverted = de as? AVCaptureDevice
@@ -248,15 +251,15 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     func switchDevice() {
-       
-        if front == true{
         
+        if front == true{
+            
             front = false
             session?.stopRunning()
             startCameraTestBack()
             return
         }
-
+        
         front = true
         session?.stopRunning()
         startCameraTestFront()
@@ -318,38 +321,41 @@ class CameraTestController: InterfaceExtendedController {
     
     @IBAction func dismissAction(){
         
-        self.rootController?.dismiss(animated: true, completion: {
-        })
+        DispatchQueue.main.async {
+            
+            self.rootController?.dismiss(animated: true, completion: {
+                
+                if let handler = self.onSuccessTest{
+                    handler(true)
+                }
+            })
+        }
     }
     
     @IBAction func frontCamera(){
         
-       switchDevice()
+        switchDevice()
     }
     @IBAction func backCamera(){
         
-       // switchDevice()
+        // switchDevice()
         
-//        guard let controller = MicTestController.instance() else{
-//            return
-//        }
-//        controller.rootController = self.rootController
-//        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-//        self.present(controller, animated: true, completion: {            
-//        })
+        //        guard let controller = MicTestController.instance() else{
+        //            return
+        //        }
+        //        controller.rootController = self.rootController
+        //        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        //        self.present(controller, animated: true, completion: {
+        //        })
     }
-    
-    
     
     func alertToProvideMicrophoneAccess(){
         
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
-     
+        
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
             self.rootController?.dismiss(animated: true, completion: {
-                
                 if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
-                    
                     UIApplication.shared.openURL(settingUrl)
                 }
             })

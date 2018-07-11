@@ -12,9 +12,7 @@ import UIKit
 import SDWebImage
 import FBSDKShareKit
 import FacebookShare
-import TwitterKit
-import TwitterShareExtensionUI
-import TwitterCore
+
 
 class MemoriesCell: ExtendedTableCell {
     
@@ -58,10 +56,7 @@ class MemoriesCell: ExtendedTableCell {
     }
     
     @IBAction func twitterShareAction(sender:UIButton){
-        login()
-        return
-            return
-        twitterSharing()
+       
     }
     
     @IBAction func facebookShare(sender:UIButton){        
@@ -107,61 +102,6 @@ class MemoriesCell: ExtendedTableCell {
         
         self.saveImage()
     }
-    
-    func twitterSharing(){
-        
-        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
-            
-            //Image must have less than five mb.
-            // App must have at least one logged-in user to compose a Tweet
-            
-            let composer = TWTRComposerViewController(initialText: "Hey this is my new tweet", image: UIImage(named: "base"), videoData: nil)
-            
-            RootControllerManager().getCurrentController()?.present(composer, animated: true, completion: nil)
-        } else {
-            
-            // Log in, and then check again
-            TWTRTwitter.sharedInstance().logIn { session, error in
-                
-                if session != nil {
-                    
-                    // Log in succeeded
-                    let composer = TWTRComposerViewController(initialText: "Hey this is my new tweet ", image: UIImage(named: "base"), videoData: nil)
-                    RootControllerManager().getCurrentController()?.present(composer, animated: true, completion: nil)                    
-                } else {
-                    
-                    //                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
-                    //                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
-                }
-            }
-        }
-    }
-    
-    func login() {
-        
-        TWTRTwitter.sharedInstance().logIn { [weak self] (session, error) in
-            
-            if let error = error, let weakSelf = self {
-                
-                let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
-                    RootControllerManager().getCurrentController()?.dismiss(animated: true, completion: {
-                        
-                    })
-                })
-                alert.addAction(okAction)
-                RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: nil)
-                
-            } else if let session = session, let weakSelf = self {
-                weakSelf.self.controller?.dismiss(animated: true) {
-                    Log.echo(key: "yud", text: "The session is \(session)")
-                    
-                    //weakSelf.self.controller?.delegate?.loginViewController(viewController: weakSelf, didAuthWith: session)
-                }
-            }
-        }
-    }
-    
 }
 
 extension MemoriesCell{

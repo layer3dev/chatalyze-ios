@@ -22,7 +22,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollViewBottomConstraints:NSLayoutConstraint?
     var isPickerHidden = true
-    @IBOutlet var  pickerContainer:UIView?
+    @IBOutlet var pickerContainer:UIView?
     var isCardSave = false
     @IBOutlet var timePicker:UIDatePicker?
     @IBOutlet var tickImage:UIImageView?
@@ -131,7 +131,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
                 
                 if cardInfoArray.count >= 1{
                     
-                    cardOneField?.textField?.placeholder = "XXXX-XXXX-XXXX-" + (cardInfoArray[0].lastDigitAccount ?? "")
+                    cardOneField?.textField?.placeholder =  (cardInfoArray[0].lastDigitAccount ?? "")
                 }
                 cardOneHeightConstraint?.constant = 62
                 cardTwoHeightConstraint?.constant = 0
@@ -349,6 +349,7 @@ extension EventPaymentRootView{
         }
         
         if(validateFields()){
+            
             self.resetErrorStatus()
             
             guard let accountNumber = cardField?.textField?.text?.replacingOccurrences(of: "-", with: "")  else{
@@ -430,21 +431,13 @@ extension EventPaymentRootView{
     
     func pay(accountNumber:String,expMonth:String,expiryYear:String,cvc:String){
         
-        let cardParams = STPCardParams()
-        cardParams.number = accountNumber
-        cardParams.expMonth = UInt(expMonth) ?? 0
-        cardParams.expYear = UInt(expiryYear) ?? 0
-        cardParams.cvc = cvc
+     
+        Log.echo(key: "yud", text: "Account Number is \(accountNumber)")
+        Log.echo(key: "yud", text: "Expired Month is \(expMonth)")
+        Log.echo(key: "yud", text: "Expired Year is \(expiryYear)")
+        Log.echo(key: "yud", text: "Cvv number is \(cvc)")     
+        self.sendPayment(accountNumber:accountNumber,expMonth:expMonth,expiryYear:expiryYear,cvc:cvc)
         
-        Log.echo(key: "yud", text: "Card param are \(cardParams)")
-        
-        STPAPIClient.shared().createToken(withCard: cardParams) { (token: STPToken?, error: Error?) in
-            
-            guard let token = token, error == nil else {
-                return
-            }
-            self.sendPayment(token:token.description)
-        }
     }
     
     
@@ -471,11 +464,7 @@ extension EventPaymentRootView{
             return
         }
         
-        Log.echo(key: "yud", text: "The amount is \(info.price)")
-        Log.echo(key: "yud", text: "Service fee is \(info.serviceFee)")
-        
         //{"amount":"5.00","serviceFee":"0.46","card":true}
-        
         
         guard let amount = info.price else{
             return
@@ -485,15 +474,42 @@ extension EventPaymentRootView{
             return
         }
         
+//        1) browserDate
+//        2) userId
+//        3) callscheduleId
+//        4) freeEvent
+//        5) countryCode
+//        6) zip
+//        7) state
+//        8) city
+//        9) street
+//        10) amount
+//        11) remember (true/false) to store the credit card
+//        12) serviceFee
+//        13) card (true/false) will be true if paying using saved card
+//
+//        //New card
+//
+//        14) creditCard
+//        15) expiryDate (MMYYYY)
+//        16) cvv
+//
+//        //Saved card
+//
+//        17) cardId
+        
+        
         var param = [String:Any]()
-        param["token"] = cardInfo.idToken
+        param["cardId"] = cardInfo.idToken
         param["card"] = true
         param["amount"] = String(amount)
         param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
         param["remember"] = isCardSave
-        
+        param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+        param["freeEvent"] = self.info?.isFree ?? false
+             
         self.controller?.showLoader()
     
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
@@ -526,7 +542,7 @@ extension EventPaymentRootView{
         }
     }
     
-    func sendPayment(token:String){
+    func sendPayment(accountNumber:String,expMonth:String,expiryYear:String,cvc:String){
         
         guard let id = SignedUserInfo.sharedInstance?.id else{
             Log.echo(key: "yud", text: "I am returning as ID did not found")
@@ -552,13 +568,18 @@ extension EventPaymentRootView{
         }
         
         var param = [String:Any]()
-        param["token"] = token
+        //param["token"] = token
         param["card"] = false
         param["amount"] = String(amount)
         param["serviceFee"] = String(serviceFee)
         param["userId"] = Int(id)
         param["callscheduleId"] = Int(callScheduleId)
         param["remember"] = isCardSave
+        param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+        param["freeEvent"] = self.info?.isFree ?? false
+        param["creditCard"] = accountNumber
+        param["expiryDate"] = expMonth+expiryYear
+        param["cvv"] = cvc
         
         self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in

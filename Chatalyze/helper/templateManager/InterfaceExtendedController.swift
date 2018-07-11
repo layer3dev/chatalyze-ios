@@ -71,7 +71,6 @@ class InterfaceExtendedController : ExtendedController {
         titleLabel.sizeToFit()
         titleLabel.textAlignment = .center
         titleLabel.backgroundColor = UIColor.clear
-
         titleLabel.text = text
         self.navigationItem.titleView = titleLabel
     }

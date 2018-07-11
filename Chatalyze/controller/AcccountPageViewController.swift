@@ -82,8 +82,7 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
-        accountDelegate?.currentViewController(currentController:viewController)
+         accountDelegate?.currentViewController(currentController:viewController)
         guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
         let nextIndex = viewControllerIndex + 1
         //guard nextIndex < pages.count else { return pages.first }
@@ -95,10 +94,8 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        
         guard let controller = pageViewController.viewControllers?.last
             else{
-                
                 return
         }
         accountDelegate?.currentViewController(currentController:controller)
@@ -106,8 +103,7 @@ extension AcccountPageViewController:UIPageViewControllerDataSource,UIPageViewCo
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
-        print("pending controller is")
-        print(pendingViewControllers)
+        
         
         guard let controller = pendingViewControllers.last
             else{

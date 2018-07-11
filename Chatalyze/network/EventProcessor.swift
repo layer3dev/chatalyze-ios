@@ -33,7 +33,7 @@ class EventProcessor{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [EventInfo]?)->())){
         
-        Log.echo(key: "yud", text: "Resonse of Fetch Info in Login Page\(String(describing: response))")
+        Log.echo(key: "yud", text: "Response of Fetch Info in the event Infos \(String(describing: response))")
         Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
         
         if(!success){

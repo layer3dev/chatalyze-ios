@@ -22,10 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
-        TWTRTwitter.sharedInstance().start(withConsumerKey:"qyS3kX2FcXkD5WkS9yVW7Oh79", consumerSecret:"TR9r4CLeCy7hvEOjhXCNv2oD9Sw2fEh0Bl8wK2a7hvCMpmuJbc")
-       
+        
         STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
-
         initialization()
         test()
         return true
@@ -43,14 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = RTCConnectionInitializer()
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        Log.echo(key: "yud", text: "Url is \(url)")
-        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
-    }
-    
-    
-
     func applicationWillResignActive(_ application: UIApplication) {
         
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -68,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         
-
+        
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -80,15 +70,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        
         //Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
         UIInterfaceOrientationMask {
 
+            
             if(allowRotate){
-            return .allButUpsideDown;
+            
+                return .allButUpsideDown;
         }
         //Only allow portrait (standard behaviour)
         return .portrait;
