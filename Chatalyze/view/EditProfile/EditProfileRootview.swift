@@ -40,16 +40,16 @@ class EditProfileRootview: ExtendedView {
         guard let info =  SignedUserInfo.sharedInstance else {
             return
         }
+        
         nameField?.textField?.text = info.firstName
         emailField?.textField?.text = info.email
         mobileNumberField?.textField?.text = info.phone
-    
+        
         if info.eventMobReminder == true{
           
             chatUpdates = true
             chatUpdatesImage?.image = UIImage(named: "tick")
         }
-        
     }
     
     
@@ -122,13 +122,25 @@ extension EditProfileRootview{
         }        
     }
     
+    func isMobileNumberActive()->Bool{
+        if let count = mobileNumberField?.textField?.text?.count{
+            if count != 0 {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+    
     func save(){
        
         var param = [String:Any]()
         
         if oldPasswordField?.textField?.text != ""{
             
-            param["mobile"] = mobileNumberField?.textField?.text
+            if isMobileNumberActive(){
+                param["mobile"] = mobileNumberField?.textField?.text
+            }
             param["oldpassword"] = oldPasswordField?.textField?.text
             param["password"] = newPasswordField?.textField?.text
             param["firstName"] = nameField?.textField?.text
@@ -146,8 +158,10 @@ extension EditProfileRootview{
                 RootControllerManager().signOut(completion: nil)
             }
         }else{
-           
-            param["mobile"] = mobileNumberField?.textField?.text
+         
+            if isMobileNumberActive(){
+                param["mobile"] = mobileNumberField?.textField?.text
+            }            
             param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
             param["eventMobReminder"] = chatUpdates
@@ -155,10 +169,10 @@ extension EditProfileRootview{
             self.controller?.showLoader()
             EditProfileProcessor().edit(params: param) { (success, message, response) in
                 
-                print(message)
                 //self.controller?.stopLoader()
-                Log.echo(key: "yud", text: "he velue of th8e success is \(success)")
+                Log.echo(key: "yud", text: "he velue of the success is \(success)")
                 if !success{
+                    self.controller?.stopLoader()
                     self.errorLabel?.text = message
                     return
                 }
@@ -315,11 +329,11 @@ extension EditProfileRootview{
     fileprivate func validateName()->Bool{
         
         if(nameField?.textField?.text == ""){
-            nameField?.showError(text: "First name field can't be left empty !")
+            nameField?.showError(text: "Name field can't be left empty !")
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(nameField?.textField?.text ?? "")){
-            nameField?.showError(text: "First name can not have space !")
+            nameField?.showError(text: "Name looks incorrect !")
             return false
         }
         nameField?.resetErrorStatus()
@@ -338,14 +352,18 @@ extension EditProfileRootview{
     
     fileprivate func validateMobileNumber()->Bool{
         
-        if(mobileNumberField?.textField?.text == ""){
-            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
-            return false
-        }else if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
-             mobileNumberField?.showError(text: "Mobile number looks incorrect !")
-            return false
+//        if(mobileNumberField?.textField?.text == ""){
+//            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
+//            return false
+//        }else
+        if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
+           
+            if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
+                mobileNumberField?.showError(text: "Mobile number looks incorrect !")
+                return false
+            }
+            mobileNumberField?.resetErrorStatus()
         }
-        mobileNumberField?.resetErrorStatus()
         return true
     }
 }

@@ -37,12 +37,16 @@ class PaymentTableCell: ExtendedTableCell {
             return
         }
         if let id = info.eventId{
-           
+            
             self.orderIdLbl?.text = "\(id)"
         }
         if let orderType = info.eventType{
-           
-            self.orderType?.text = "\(orderType)"
+            
+            if orderType == "callbooking"{
+                self.orderType?.text = "Ticket"
+            }else{
+                self.orderType?.text = "Greeting"
+            }
         }
         if let amount = info.amount{
             

@@ -113,7 +113,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func paintInterfaceForSavedCard(){
         
-        //numberOfSaveCards = 0
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
@@ -200,7 +199,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             return
         }
     }
-    
     
     @IBAction func addAnotherCardInfo(sender:UIButton?){
         
@@ -440,8 +438,6 @@ extension EventPaymentRootView{
         
     }
     
-    
-    
     func sendPaymentFromSavedCards(info:CardInfo?){
         
         guard let cardInfo =  info else {
@@ -464,8 +460,6 @@ extension EventPaymentRootView{
             return
         }
         
-        //{"amount":"5.00","serviceFee":"0.46","card":true}
-        
         guard let amount = info.price else{
             return
         }
@@ -474,41 +468,29 @@ extension EventPaymentRootView{
             return
         }
         
-//        1) browserDate
-//        2) userId
-//        3) callscheduleId
-//        4) freeEvent
-//        5) countryCode
-//        6) zip
-//        7) state
-//        8) city
-//        9) street
-//        10) amount
-//        11) remember (true/false) to store the credit card
-//        12) serviceFee
-//        13) card (true/false) will be true if paying using saved card
-//
-//        //New card
-//
-//        14) creditCard
-//        15) expiryDate (MMYYYY)
-//        16) cvv
-//
-//        //Saved card
-//
-//        17) cardId
-        
-        
         var param = [String:Any]()
-        param["cardId"] = cardInfo.idToken
-        param["card"] = true
-        param["amount"] = String(amount)
-        param["serviceFee"] = String(serviceFee)
-        param["userId"] = Int(id)
-        param["callscheduleId"] = Int(callScheduleId)
-        param["remember"] = isCardSave
-        param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
-        param["freeEvent"] = self.info?.isFree ?? false
+        if let isFree = info.isFree{
+            if isFree{
+               
+                param["userId"] = Int(id)
+                param["callscheduleId"] = Int(callScheduleId)
+                param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+                param["freeEvent"] = true
+            }
+            else{
+                
+                param["cardId"] = cardInfo.idToken
+                param["token"] = cardInfo.idToken
+                param["card"] = true
+                param["amount"] = String(amount)
+                param["serviceFee"] = String(serviceFee)
+                param["userId"] = Int(id)
+                param["callscheduleId"] = Int(callScheduleId)
+                param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+            }
+        }
+        
+//        param["freeEvent"] = self.info?.isFree ?? false
              
         self.controller?.showLoader()
     
@@ -569,24 +551,32 @@ extension EventPaymentRootView{
         
         var param = [String:Any]()
         //param["token"] = token
-        param["card"] = false
-        param["amount"] = String(amount)
-        param["serviceFee"] = String(serviceFee)
-        param["userId"] = Int(id)
-        param["callscheduleId"] = Int(callScheduleId)
-        param["remember"] = isCardSave
-        param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
-        param["freeEvent"] = self.info?.isFree ?? false
-        param["creditCard"] = accountNumber
-        param["expiryDate"] = expMonth+expiryYear
-        param["cvv"] = cvc
+        
+        if let isFree = info.isFree{
+            if isFree{
+                
+                param["userId"] = Int(id)
+                param["callscheduleId"] = Int(callScheduleId)
+                param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+                param["freeEvent"] = true
+            }else{
+                
+                param["card"] = false
+                param["amount"] = String(amount)
+                param["serviceFee"] = String(serviceFee)
+                param["userId"] = Int(id)
+                param["callscheduleId"] = Int(callScheduleId)
+                param["remember"] = isCardSave
+                param["browserDate"] = "\(DateParser.getCurrentDateInUTC())"
+                param["freeEvent"] = self.info?.isFree ?? false
+                param["creditCard"] = accountNumber
+                param["expiryDate"] = expMonth+expiryYear
+                param["cvv"] = cvc
+            }
+        }
         
         self.controller?.showLoader()
         EventPaymentProcessor().pay(param: param) { (success, message, response) in
-
-            Log.echo(key: "yud", text: "the response is \(response)")
-            Log.echo(key: "yud", text: "success  is \(success)")
-            Log.echo(key: "yud", text: "Message is \(message)")
             
             self.controller?.stopLoader()
             if !success{

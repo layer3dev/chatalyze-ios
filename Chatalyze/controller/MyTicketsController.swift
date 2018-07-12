@@ -54,6 +54,11 @@ class MyTicketsController: InterfaceExtendedController{
         rootview?.controller = self
     }
     
+    func refreshData(){
+        
+        fetchInfo()
+    }
+    
     func fetchInfo(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {

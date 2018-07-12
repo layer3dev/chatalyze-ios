@@ -17,6 +17,7 @@ class ReviewController: InterfaceExtendedController{
     @IBOutlet var rootView:ReviewRootView?
     @IBOutlet var reasonLable:UILabel?
     var eventInfo : EventScheduleInfo?
+    var dismissListner:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -71,21 +72,23 @@ class ReviewController: InterfaceExtendedController{
         
         SubmitCallReviewProcessor().submit(comments: comment, rating:rating , callscheduleId: callScheduleId, analystId: analystId, userId: userId) { (success, message, response) in
             
-//            Log.echo(key: "yud", text: "The value of the response is \(response)")
+            //            Log.echo(key: "yud", text: "The value of the response is \(response)")
             
             self.stopLoader()
-            self.dismiss(animated: true, completion:{
-            })
+            self.dismiss()
         }
     }
     
     @IBAction func dismiss(){
-        self.dismiss(animated: true) {
-            
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                if let listner = self.dismissListner{
+                    listner()
+                }
+            }
         }
     }
-    
-    
 }
 
 extension ReviewController{

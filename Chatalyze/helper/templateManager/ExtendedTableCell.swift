@@ -10,26 +10,19 @@ import UIKit
 
 class ExtendedTableCell: UITableViewCell {
 
-    private var isLoaded = false;
-
-    
+    private var isLoaded = false
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        //Initialization code
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        //Configure the view for the selected state
     }
-
-    
-    
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()
+       
         if(!isLoaded){
             isLoaded = true
             viewDidLayout()
@@ -37,6 +30,5 @@ class ExtendedTableCell: UITableViewCell {
     }
     
     func viewDidLayout(){
-        
     }
 }

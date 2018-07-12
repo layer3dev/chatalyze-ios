@@ -242,7 +242,7 @@ class UserCallController: VideoCallController {
         }
         
         
-        userRootView?.callInfoContainer?.timer?.text = "Time Remaining : \(counddownInfo.time)"
+        userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){

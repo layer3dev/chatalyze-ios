@@ -34,7 +34,7 @@ class MyTicketesAdapter: ExtendedView {
     }
     
     func initializeCollectionFlowLayout(){
-      
+        
         self.myTicketsCollectionView?.layoutIfNeeded()
         self.myTicketsCollectionView?.dataSource = self
         self.myTicketsCollectionView?.delegate = self
@@ -61,8 +61,8 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-    return ticketsListingArray.count
-    //    return 10
+        return ticketsListingArray.count
+        //    return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,39 +83,6 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
 extension MyTicketesAdapter:UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        if indexPath.row >= ticketsListingArray.count{
-//            return
-//        }
-//
-//        let slotInfo = ticketsListingArray[indexPath.row]
-//
-//        Log.echo(key: "yud", text: "The slotinfo is \(slotInfo)")
-//
-//        guard let eventId = slotInfo.callscheduleId
-//            else{
-//                return
-//        }
-//
-//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//            Log.echo(key: "yud", text: "slot inf id is \(slotInfo)")
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-//            return
-//        }
-//
-//        guard let controller = UserCallController.instance()
-//            else{
-//                return
-//        }
-//
-//        controller.eventId = String(eventId)
-//        self.root?.controller?.present(controller, animated: true, completion: nil)
     }
 }
 
@@ -145,6 +112,8 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             let alert = UIAlertController(title: "Chatalyze", message: "Event is not started yet!!", preferredStyle: UIAlertControllerStyle.alert)
             
             let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
+                
+                self.refreshData()
             }
             alert.addAction(ok)
             self.root?.controller?.present(alert, animated: true, completion: nil)
@@ -155,6 +124,8 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             
             let alert = UIAlertController(title: "Chatalyze", message: "This event has been delayed. Please stay tuned for an updated start time.", preferredStyle: UIAlertControllerStyle.alert)
             let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
+                
+                self.refreshData()
             }
             alert.addAction(ok)
             self.root?.controller?.present(alert, animated: true, completion: nil)
@@ -179,20 +150,26 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             else{
                 return
         }
- 
+        
         controller.eventExpiredHandler = {(success,eventInfo) in
-           
-            Log.echo(key: "yud", text: ("yes I got handler with success\(success)"))
+            
             guard let controller = ReviewController.instance() else{
                 return
             }
-            
             controller.eventInfo = eventInfo
+            controller.dismissListner = {
+                self.root?.refreshData()
+            }
             self.root?.controller?.present(controller, animated: true, completion:{
             })
         }
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
+    }
+    
+    func refreshData(){
+        
+        root?.refreshData()
     }
 }
 
