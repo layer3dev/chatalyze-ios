@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CountryPicker
 
 class EditProfileRootview: ExtendedView {
     
@@ -31,7 +30,7 @@ class EditProfileRootview: ExtendedView {
     override func viewDidLayout() {
         super.viewDidLayout()
       
-        //initializeCountryPicker()
+        initializeCountryPicker()
         fillInfo()
     }
     
@@ -61,12 +60,7 @@ class EditProfileRootview: ExtendedView {
     
     func initializeCountryPicker(){
         
-        let locale = Locale(identifier: "en_US_POSIX")
-        picker?.countryPickerDelegate = self
-        picker?.showPhoneNumbers = true
-        if let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as? String {
-            picker?.setCountry(code)
-        }
+        picker?.delegate = self
     }
     
     @IBAction func countryAction(sender:UIButton){
@@ -84,11 +78,26 @@ class EditProfileRootview: ExtendedView {
 }
 
 extension EditProfileRootview:CountryPickerDelegate{
-  
-    func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+    
+    func countryPicker(_ picker: CountryPicker!, didSelectCountryWithName name: String!, code: String!) {
+      
+        countryCodeField?.textField?.text = picker.selectedCountryCode
+        countryCodeField?.image?.image = picker.selectedImage
         
-        countryCodeField?.textField?.text = phoneCode
-        countryCodeField?.image?.image = flag
+        print(picker.selectedLocale)
+        print(picker.selectedCountryCode)
+        if let countryCode = (picker.selectedLocale as NSLocale).object(forKey: .countryCode) as? String {
+            print(countryCode)
+        }
+        
+        for info in IsoCountries.allCountries{
+            if info.alpha2 == code{
+                
+                countryCodeField?.textField?.text = info.calling
+                print("Calling code is \(info.calling)")
+            }
+        }
+
     }
 }
 

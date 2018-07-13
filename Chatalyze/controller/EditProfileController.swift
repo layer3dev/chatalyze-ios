@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CountryPicker
 
 class EditProfileController: InterfaceExtendedController {
     
@@ -18,12 +17,6 @@ class EditProfileController: InterfaceExtendedController {
         
         painInterface()
         initializationVariable()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        rootView?.initializeCountryPickerNew()
     }
     
     func painInterface(){

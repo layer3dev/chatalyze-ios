@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CountryPicker
 import EventKit
 
 class PaymentSuccessRootView: ExtendedView {
@@ -65,8 +64,7 @@ class PaymentSuccessRootView: ExtendedView {
     
     func initializeChatInfo(){
       
-        //create attributed string
-        
+        //create attributed string        
         if UIDevice.current.userInterfaceIdiom == .pad{
          
             let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
@@ -130,7 +128,6 @@ class PaymentSuccessRootView: ExtendedView {
             requiredString.append(sixthStr)
             
             chatDetailLbl?.attributedText = requiredString
-            
         }
         
         
@@ -153,13 +150,8 @@ class PaymentSuccessRootView: ExtendedView {
     }
     
     func initializeCountryPicker(){
-        
-        let locale = Locale(identifier: "en_US_POSIX")
-        picker?.countryPickerDelegate = self
-        picker?.showPhoneNumbers = true
-        if let code = (locale as NSLocale).object(forKey: NSLocale.Key.countryCode) as? String {
-            picker?.setCountry(code)
-        }
+    
+        picker?.delegate = self
     }
     
     func implementTapGestuePicker(){
@@ -281,11 +273,25 @@ class PaymentSuccessRootView: ExtendedView {
 
 
 extension PaymentSuccessRootView:CountryPickerDelegate{
-    
-    func countryPhoneCodePicker(_ picker: CountryPicker, didSelectCountryWithName name: String, countryCode: String, phoneCode: String, flag: UIImage) {
+    func countryPicker(_ picker: CountryPicker!, didSelectCountryWithName name: String!, code: String!) {
         
-        countryCodeField?.textField?.text = phoneCode
-        countryCodeField?.image?.image = flag
+        //self.countryCodeField?.image =
+        countryCodeField?.textField?.text = picker.selectedCountryCode
+        countryCodeField?.image?.image = picker.selectedImage
+        
+        print(picker.selectedLocale)
+        print(picker.selectedCountryCode)
+        if let countryCode = (picker.selectedLocale as NSLocale).object(forKey: .countryCode) as? String {
+            print(countryCode)
+        }
+        
+        for info in IsoCountries.allCountries{
+            if info.alpha2 == code{
+                
+                countryCodeField?.textField?.text = info.calling
+                print("Calling code is \(info.calling)")
+            }
+        }
     }
     
     
@@ -411,9 +417,11 @@ extension PaymentSuccessRootView:UIGestureRecognizerDelegate{
 }
 
 extension UIAlertController {
+    
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.portrait
     }
+    
     open override var shouldAutorotate: Bool {
         return false
     }

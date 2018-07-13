@@ -37,17 +37,15 @@
 
 #import <UIKit/UIKit.h>
 
-
 @class CountryPicker;
-
 
 @protocol CountryPickerDelegate <UIPickerViewDelegate>
 
 /// This method is called whenever a country is selected in the picker.
+
 - (void)countryPicker:(CountryPicker *)picker didSelectCountryWithName:(NSString *)name code:(NSString *)code;
 
 @end
-
 
 @interface CountryPicker : UIPickerView
 
@@ -79,6 +77,8 @@
 /// can be used to set the picker value. Setting the picker to a country code
 /// that does not appear in the `countryCodes` array has no effect.
 @property (nonatomic, copy) NSString *selectedCountryCode;
+
+@property (nonatomic, copy) UIImage *selectedImage;
 
 /// This is a convenience property to set/get the selected country using a
 /// locale. The picker will automatically select the correct country based on

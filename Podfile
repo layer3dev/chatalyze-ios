@@ -10,7 +10,6 @@ target 'Chatalyze' do
   pod 'JTAppleCalendar', '~> 7.1.5'
   pod 'GoogleWebRTC' 
 
-pod 'CountryPickerSwift', '1.7.1'
 
   target 'ChatalyzeTests' do
     inherit! :search_paths

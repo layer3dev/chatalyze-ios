@@ -86,13 +86,13 @@
         for (NSString *code in [NSLocale ISOCountryCodes])
         {
             NSString *countryName = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:code];
-
+            
             //workaround for simulator bug
             if (!countryName)
             {
                 countryName = [[NSLocale localeWithLocaleIdentifier:@"en_US"] displayNameForKey:NSLocaleCountryCode value:code];
             }
- 
+            
             namesByCode[code] = countryName ?: code;
         }
         _countryNamesByCode = [namesByCode copy];
@@ -246,7 +246,7 @@
         flagView.tag = 2;
         [view addSubview:flagView];
     }
-
+    
     ((UILabel *)[view viewWithTag:1]).text = [[self class] countryNames][(NSUInteger)row];
     NSString *imagePath = [NSString stringWithFormat:@"CountryPicker.bundle/%@", [[self class] countryCodes][(NSUInteger) row]];
     UIImage *image;
@@ -259,6 +259,7 @@
         image = [UIImage imageNamed:imagePath];
     }
     ((UIImageView *)[view viewWithTag:2]).image = image;
+    //self.selectedImage = image;
     return view;
 }
 
@@ -266,6 +267,19 @@
       didSelectRow:(__unused NSInteger)row
        inComponent:(__unused NSInteger)component
 {
+    NSString *imagePath = [NSString stringWithFormat:@"CountryPicker.bundle/%@", [[self class] countryCodes][(NSUInteger) row]];
+    UIImage *image;
+    if ([[UIImage class] respondsToSelector:@selector(imageNamed:inBundle:compatibleWithTraitCollection:)])
+    {
+        image = [UIImage imageNamed:imagePath inBundle:[NSBundle bundleForClass:[CountryPicker class]] compatibleWithTraitCollection:nil];
+        self.selectedImage = image;
+    }
+    else
+    {
+        image = [UIImage imageNamed:imagePath];
+        self.selectedImage = image;
+    }
+    
     __strong id<CountryPickerDelegate> strongDelegate = delegate;
     [strongDelegate countryPicker:self didSelectCountryWithName:self.selectedCountryName code:self.selectedCountryCode];
 }
