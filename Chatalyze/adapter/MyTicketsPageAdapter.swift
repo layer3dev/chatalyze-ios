@@ -27,7 +27,7 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
         }
         
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
+        layout.sectionInset = UIEdgeInsetsMake(5, ((width-280)/4), 5, 0)
         //layout.sectionInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 0

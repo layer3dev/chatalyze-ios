@@ -15,26 +15,21 @@ class CountdownProcessor{
     private var timerSync : TimerSync?
     private var lastRefresh = Date()
     
-  
     fileprivate var callbackList : [()->()] = [()->()]()
-    
+
     static func sharedInstance()->CountdownProcessor{
         
         if let oldInstance = instance{
             return oldInstance
         }
-        
         let newInstance = CountdownProcessor()
         instance = newInstance
-        
         newInstance.initializeTimer()
-    
         return newInstance
         
     }
     
-    init() {
-        
+    init(){
     }
     
     private func initializeTimer(){

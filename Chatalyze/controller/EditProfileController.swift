@@ -20,6 +20,12 @@ class EditProfileController: InterfaceExtendedController {
         initializationVariable()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        rootView?.initializeCountryPickerNew()
+    }
+    
     func painInterface(){
         
         paintNavigationTitle(text: "EDIT PROFILE")

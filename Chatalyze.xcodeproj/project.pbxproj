@@ -116,6 +116,8 @@
 		47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */; };
 		47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */; };
 		47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */; };
+		47F0D71420F8B52A00A689FA /* CountryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F0D71320F8B52A00A689FA /* CountryPicker.m */; };
+		47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 47F0D71520F8B53300A689FA /* CountryPicker.bundle */; };
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
 		47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF020C7E1E200EAEB43 /* Accounts.framework */; };
@@ -459,6 +461,9 @@
 		47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSpeedTestController.swift; sourceTree = "<group>"; };
 		47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetReachabilityCheck.swift; sourceTree = "<group>"; };
 		47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestController.swift; sourceTree = "<group>"; };
+		47F0D71220F8B52400A689FA /* CountryPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
+		47F0D71320F8B52A00A689FA /* CountryPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountryPicker.m; sourceTree = "<group>"; };
+		47F0D71520F8B53300A689FA /* CountryPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CountryPicker.bundle; sourceTree = "<group>"; };
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
@@ -1020,6 +1025,16 @@
 				47E7A04C20B7EDC80049354A /* PaymentSuccessRootView.swift */,
 			);
 			path = PaymentSuccess;
+			sourceTree = "<group>";
+		};
+		47F0D71120F8B51200A689FA /* countrypicker */ = {
+			isa = PBXGroup;
+			children = (
+				47F0D71220F8B52400A689FA /* CountryPicker.h */,
+				47F0D71320F8B52A00A689FA /* CountryPicker.m */,
+				47F0D71520F8B53300A689FA /* CountryPicker.bundle */,
+			);
+			path = countrypicker;
 			sourceTree = "<group>";
 		};
 		47F5A9A720BEA45D00543529 /* Protocols */ = {
@@ -1705,6 +1720,7 @@
 			isa = PBXGroup;
 			children = (
 				FA24BAC7206F6B2C0064F94F /* CountdownProcessor.swift */,
+				47F0D71120F8B51200A689FA /* countrypicker */,
 				FA3AF0F920442FE60084B154 /* view */,
 				FAA00178203ED471003C8A74 /* DateParser.swift */,
 				FAA00179203ED471003C8A74 /* EventTimer.swift */,
@@ -2289,6 +2305,7 @@
 				FA74B1552063A52800983141 /* no_event.xib in Resources */,
 				FAE865C62068C620006F06B3 /* call.xcassets in Resources */,
 				47AD143520ADAED1006AF9D6 /* Account.storyboard in Resources */,
+				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
 				FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2503,6 +2520,7 @@
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
 				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
 				47B6525020AAB0170041496C /* GreetingController.swift in Sources */,
+				47F0D71420F8B52A00A689FA /* CountryPicker.m in Sources */,
 				FADC84E22074E16B00AD9D65 /* LoaderView.swift in Sources */,
 				471C233620B701AB0040C2A8 /* ReviewController.swift in Sources */,
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,

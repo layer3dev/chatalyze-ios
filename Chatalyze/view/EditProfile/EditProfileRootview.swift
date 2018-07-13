@@ -31,9 +31,15 @@ class EditProfileRootview: ExtendedView {
     override func viewDidLayout() {
         super.viewDidLayout()
       
-        initializeCountryPicker()
+        //initializeCountryPicker()
         fillInfo()
     }
+    
+    func initializeCountryPickerNew(){
+      
+        initializeCountryPicker()
+    }
+    
     
     func fillInfo() {
         
