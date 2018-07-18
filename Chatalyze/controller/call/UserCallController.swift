@@ -66,12 +66,14 @@ class UserCallController: VideoCallController {
     }
     
     private func initialization(){
+        
         initializeVariable()
         registerForAutographListener()
     }
     
     
     private func initializeVariable(){
+        
         registerForListeners()
     }
     
@@ -133,15 +135,14 @@ class UserCallController: VideoCallController {
         var data = [String : Any]()
         data["sender"] = SignedUserInfo.sharedInstance?.hashedId
         data["receiver"] = hostHashId
-        
         params["data"] = data
-        
         socketClient?.emit(params)
     }
     
     
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
     private func processHandshakeResponse(data : JSON?){
+        
         guard let json = data
             else{
                 return
@@ -159,8 +160,6 @@ class UserCallController: VideoCallController {
         }
     }
     
-    
-    
     private func initiateCall(){
         
         guard let slotInfo = myCurrentUserSlot
@@ -174,6 +173,7 @@ class UserCallController: VideoCallController {
     }
     
     var myActiveUserSlot : SlotInfo?{
+        
         guard let slotInfo = eventInfo?.myCurrentSlotInfo?.slotInfo
             else{
                 return nil
@@ -182,6 +182,7 @@ class UserCallController: VideoCallController {
     }
     
     var myCurrentUserSlot : SlotInfo?{
+        
         guard let slotInfo = eventInfo?.myValidSlot.slotInfo
             else{
                 return nil
@@ -199,6 +200,7 @@ class UserCallController: VideoCallController {
     }
     
     private func processAutograph(){
+        
         guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
             else{
                 return
@@ -222,17 +224,16 @@ class UserCallController: VideoCallController {
     
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        
         guard let startDate = slot.endDate
             else{
                 return
         }
         
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
-        
         
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
     }
@@ -243,12 +244,10 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
-        
         
         userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
     }
@@ -267,14 +266,12 @@ class UserCallController: VideoCallController {
             return
         }
         
-        
-        
         self.processHangupAction()
-        
     }
     
     
     private func confirmCallLinked(){
+        
         guard let slot = myCurrentUserSlot
             else{
                 return
@@ -286,16 +283,13 @@ class UserCallController: VideoCallController {
     
     override func callFailed(){
         super.callFailed()
-        
-        
     }
     
-    
     override func verifyEventActivated(){
-        
     }
     
     override func verifyScreenshotRequested(){
+        
         guard let activeSlot = myActiveUserSlot
             else{
                 return
@@ -450,7 +444,7 @@ extension UserCallController{
         }
         
         userRootView?.requestAutographButton?.showLoader()
-    CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
+        CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in
             
@@ -464,7 +458,6 @@ extension UserCallController{
             }
             
             self?.requestDefaultAutograph(image: targetImage)
-            
         }
     }
     

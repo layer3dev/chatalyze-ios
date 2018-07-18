@@ -24,6 +24,7 @@ class EventValidator{
     }
     
     func isWholeConnectEligible(start : Date, end : Date)->Bool{
+       
         if(end.isPast()){
             return false
         }

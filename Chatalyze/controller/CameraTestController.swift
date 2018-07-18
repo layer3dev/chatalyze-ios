@@ -14,6 +14,7 @@ class CameraTestController: InterfaceExtendedController {
     @IBOutlet var progressView:UIProgressView?
     var recorder: AVAudioRecorder?
     var levelTimer = Timer()
+    var dismissListner:(()->())?
     
     let LEVEL_THRESHOLD: Float = -160.0
     var powerLevelIndicator = -200.0
@@ -323,7 +324,7 @@ class CameraTestController: InterfaceExtendedController {
         
         DispatchQueue.main.async {
             
-            self.rootController?.dismiss(animated: true, completion: {
+            self.rootController?.dismiss(animated: false, completion: {
                 
                 if let handler = self.onSuccessTest{
                     handler(true)

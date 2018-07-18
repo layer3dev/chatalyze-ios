@@ -34,7 +34,6 @@ class SystemRootView: ExtendedView {
         
         dataView?.layer.cornerRadius = 3
         dataView?.layer.masksToBounds = true
-        
         beginView?.layer.cornerRadius = 3
         beginView?.layer.masksToBounds = true
     }
@@ -50,28 +49,32 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     
     @IBAction func cancelAction(){
         
-        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-        })
-    }
-   
+        DispatchQueue.main.async {
+            self.controller?.dismiss(animated: false, completion: {
+                if let listner = self.controller?.dismissListner{
+                    listner()
+                }
+            })
+        }
+    }   
     
     @IBAction func skipAction(sender:UIButton?){
         
         guard let controller = EventPaymentController.instance() else{
             return
         }
-        
         controller.info = self.info
 //        if self.info?.isFree ?? false{
 //            return
 //        }
         controller.dismissListner = {
-            
-            print("I got dispatch")            
-            DispatchQueue.main.async {
-                self.controller?.presentingControllerObj?.dismiss(animated: false,completion: {
-                })
-            }
+            self.controller?.dismiss(animated: false, completion: {
+                DispatchQueue.main.async {
+                    if let listner = self.controller?.dismissListner{
+                        listner()
+                    }
+                }
+            })
         }
         controller.presentingControllerObj = self.controller?.presentingControllerObj
         self.controller?.present(controller, animated: false, completion: {
@@ -83,10 +86,18 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
-       
         controller.rootController = self.controller?.presentingControllerObj
         controller.onSuccessTest = {(success) in
             self.skipAction(sender: nil)
+        }
+        controller.dismissListner = {
+            self.controller?.dismiss(animated: false, completion: {
+                DispatchQueue.main.async {
+                    if let listner = self.controller?.dismissListner{
+                        listner()
+                    }
+                }
+            })
         }
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.controller?.present(controller, animated: true, completion: {

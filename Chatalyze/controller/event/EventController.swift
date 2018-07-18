@@ -9,11 +9,10 @@
 import UIKit
 
 class EventController: TabChildLoadController {
-
+    
     @IBOutlet var rootView:EventRootView?
     var eventArray = [EventInfo]()
     @IBOutlet var noeventLbl:UILabel?
-
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -118,7 +117,6 @@ class EventController: TabChildLoadController {
         super.didReceiveMemoryWarning()
     }
 }
-
 
 extension EventController{
     

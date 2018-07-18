@@ -55,8 +55,7 @@ class EventPaymentController: InterfaceExtendedController {
                 }
             }
         }
-    }
-    
+    }    
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }

@@ -15,6 +15,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var rootController:EventController?
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
+    var dismissListner:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -36,6 +37,15 @@ class InternetSpeedTestController: InterfaceExtendedController {
         }
         controller.rootController = self
         controller.onSuccessTest = self.onSuccessTest
+        controller.dismissListner = {
+            DispatchQueue.main.async {
+                self.dismiss(animated: false, completion: {
+                    if let listner = self.dismissListner{
+                        listner()
+                    }
+                })
+            }
+        }
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(controller, animated: true) {
         }
@@ -62,7 +72,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             
             alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
                 
-                self.rootController?.dismiss(animated: true, completion: {
+                self.rootController?.dismiss(animated: false, completion: {
                 })
             }))
             self.present(alert, animated: true) {
@@ -83,8 +93,12 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         let speedStr = String(format: "%.2f", speed ?? 0.0)
                         if (speed ?? 0.0) < 0.03125 {
                             
-                            self.speedLbl?.text = "Your internet connection speed is not good \(speedStr) MBPS"
                             
+                            self.speedLbl?.textColor = UIColor.red
+                            self.speedLbl?.text = "Your internet connection speed is not good \(speedStr) MBPS"
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                self.dismissAction()
+                            }
                             return
                         }
                         
@@ -97,15 +111,21 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 }else{
                     
                     self.speedLbl?.text = "some error occured plz try again"
+                    
                 }
             }
         }
     }
     
     @IBAction func dismissAction(){
-        
-        self.rootController?.dismiss(animated: true, completion: {
-        })
+  
+        DispatchQueue.main.async {
+            self.dismiss(animated: false, completion: {
+                if let listner = self.dismissListner{
+                    listner()
+                }
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {

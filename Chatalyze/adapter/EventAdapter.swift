@@ -57,6 +57,13 @@ extension EventAdapter:UITableViewDelegate{
         controller.info = self.eventArray[indexPath.row]
         controller.presentingControllerObj = root?.controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.dismissListner = {
+            DispatchQueue.main.async {
+                Log.echo(key: "yud", text: "I got dismiss call")
+                self.root?.controller?.dismiss(animated: false, completion: {
+                })
+            }
+        }
         self.root?.controller?.present(controller, animated: true, completion: {
         })
     }

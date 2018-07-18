@@ -44,6 +44,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var totalAmount:UILabel?
     var delegate:EventPaymentDelegte?
     
+    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -112,8 +113,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     }
     
     func paintInterfaceForSavedCard(){
-        
-        
+                
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             if numberOfSaveCards == 0 {
@@ -233,9 +233,13 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     @IBAction func cancelAction(sendre:UIButton){
         
-        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-            
-        })
+        DispatchQueue.main.async {
+            self.controller?.dismiss(animated: false, completion: {
+                if let listner = self.controller?.dismissListner{
+                    listner()
+                }
+            })
+        }
     }
     
     @IBAction func pickerDoneAction(sender:UIButton?){
@@ -245,12 +249,11 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             isPickerHidden = true
             pickerContainer?.isHidden = true
         }
-    }
-    
+    }    
     
     @IBAction func datePickerAction(_ sender: Any) {
      
-        dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField)!)
+        dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
     
     @IBAction func dateAction(){
@@ -338,12 +341,20 @@ extension EventPaymentRootView{
         guard let controller = PaymentSuccessController.instance() else{
             return
         }
-        controller.dismissListner = self.controller?.dismissListner
         controller.presentingControllerObj = self.controller?.presentingControllerObj
-        //controller.info = response
+        //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+       //controller.info = response
+        controller.dismissListner = {
+            DispatchQueue.main.async {
+                self.controller?.dismiss(animated: false, completion: {
+                    if let listner = self.controller?.dismissListner{
+                        listner()
+                    }
+                })
+            }
+        }
         self.controller?.present(controller, animated: true, completion: {
         })
-        
         return
         
         if isFirstCardSelected{
@@ -528,8 +539,18 @@ extension EventPaymentRootView{
             }
             controller.dismissListner = self.controller?.dismissListner
             controller.presentingControllerObj = self.controller?.presentingControllerObj
-            controller.info = response            
-            self.controller?.presentingControllerObj?.present(controller, animated: true, completion: {
+            controller.info = response
+            
+            controller.dismissListner = {
+                DispatchQueue.main.async {
+                    self.controller?.dismiss(animated: false, completion: {
+                        if let listner = self.controller?.dismissListner{
+                            listner()
+                        }
+                    })
+                }
+            }
+            self.controller?.present(controller, animated: true, completion: {
             })
             return
         }
@@ -606,8 +627,16 @@ extension EventPaymentRootView{
             controller.presentingControllerObj = self.controller?.presentingControllerObj
             //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             controller.info = response
-            controller.dismissListner = self.controller?.dismissListner
-            self.controller?.presentingControllerObj?.present(controller, animated: true, completion: {
+            controller.dismissListner = {
+                DispatchQueue.main.async {
+                    self.controller?.dismiss(animated: false, completion: {
+                        if let listner = self.controller?.dismissListner{
+                            listner()
+                        }
+                    })
+                }
+            }
+            self.controller?.present(controller, animated: true, completion: {
             })
         }
     }

@@ -36,8 +36,7 @@ class CallConnection: NSObject {
         self.eventInfo = eventInfo
         self.slotInfo = slotInfo
         self.localMediaPackage = localMediaPackage
-        self.controller = controller
-        
+        self.controller = controller        
         initialization()
     }
     

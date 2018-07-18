@@ -161,20 +161,15 @@ class PaymentSuccessRootView: ExtendedView {
         pickerContainer?.addGestureRecognizer(tap)
     }
     
-    @IBAction func skipAction(sender:UIButton){
-        
-        print("Parent Controller is \(self.controller?.parent)")
+    @IBAction func skipAction(sender:UIButton?){
         
         DispatchQueue.main.async {
-            
-            if let listener = self.controller?.dismissListner{
-                listener()
-            }
+            self.controller?.dismiss(animated: false, completion: {
+                if let listener = self.controller?.dismissListner{
+                    listener()
+                }
+            })
         }
-        
-        
-        //        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-        //        })
     }
     
     @IBAction func countryAction(sender:UIButton){
@@ -320,13 +315,7 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         if let eventReminder = SignedUserInfo.sharedInstance?.eventMobReminder{
             
             if eventReminder == true {
-                DispatchQueue.main.async {
-                    if let listener = self.controller?.dismissListner{
-                        listener()
-                    }
-                }
-                //self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-                //                })
+                self.skipAction(sender: nil)
                 return
             }
         }
@@ -351,20 +340,12 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         //chatUpdates
         SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : false) { (success, message, response) in
             
-            Log.echo(key: "yud", text: "The value of the success is \(success)")
-            
             self.controller?.stopLoader()
             if !success{
                 
                 self.errorLabel?.text = message
-                Log.echo(key: "yud", text: "Controller valuse is \(String(describing: self.controller?.presentingControllerObj))")
                 
-                DispatchQueue.main.async {
-                    
-                    if let listener = self.controller?.dismissListner{
-                        listener()
-                    }
-                }
+                self.skipAction(sender: nil)
                 return
             }
             if let instance = SignedUserInfo.sharedInstance{
@@ -372,14 +353,8 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
                 instance.eventMobReminder = true
                 instance.save()
             }
-            Log.echo(key: "yud", text: "Controller valuse below \(self.controller?.presentingControllerObj)")            
             self.errorLabel?.text = message
-            DispatchQueue.main.async {
-                
-                if let listener = self.controller?.dismissListner{
-                    listener()
-                }
-            }
+            self.skipAction(sender: nil)
         }
     }
 }
