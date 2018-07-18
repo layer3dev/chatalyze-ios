@@ -16,7 +16,6 @@ class UserCallController: VideoCallController {
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -64,9 +63,7 @@ class UserCallController: VideoCallController {
         if(!slot.isAutographRequested){
              self.canvasInfo = nil
         }
-       
     }
-    
     
     private func initialization(){
         initializeVariable()
@@ -81,7 +78,6 @@ class UserCallController: VideoCallController {
     
      override func registerForListeners(){
         super.registerForListeners()
-        
         
         //call initiation
         socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
@@ -104,8 +100,6 @@ class UserCallController: VideoCallController {
             }
             self?.connection?.linkCall()
         })
-        
-        
     }
     
     override func processHangupAction(){
@@ -113,8 +107,6 @@ class UserCallController: VideoCallController {
         
         connection?.disconnect()
     }
-    
-    
     
     //{"id":"startSendingVideo","data":{"receiver":"jgefjedaafbecahc"}}
     private func processCallInitiation(data : JSON?){
@@ -146,8 +138,6 @@ class UserCallController: VideoCallController {
         
         socketClient?.emit(params)
     }
-    
-    
     
     
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
@@ -198,8 +188,6 @@ class UserCallController: VideoCallController {
         }
         return slotInfo
     }
-    
-    
 
     override func interval(){
         super.interval()
@@ -207,10 +195,15 @@ class UserCallController: VideoCallController {
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
-        
+        processAutograph()
     }
     
-    
+    private func processAutograph(){
+        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
+            else{
+                return
+        }        
+    }
     
     private func updateCallHeaderInfo(){
         
@@ -225,7 +218,6 @@ class UserCallController: VideoCallController {
         }
         
         updateCallHeaderForLiveCall(slot: currentSlot)
-    
     }
     
     
@@ -374,7 +366,7 @@ extension UserCallController{
         
 
         
-        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: .default) { [weak self] (action) in
+        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertActionStyle.default) { [weak self] (action) in
             self?.takeScreenshot()
             return
         }
@@ -382,7 +374,7 @@ extension UserCallController{
             takeScreenshot.isEnabled = false
         }
         
-        let requestAutograph = UIAlertAction(title: "Request Autograph", style: .default) {  [weak self] (action) in
+        let requestAutograph = UIAlertAction(title: "Request Autograph", style: UIAlertActionStyle.default) {  [weak self] (action) in
             self?.requestAutographProcess()
             return
         }
@@ -392,18 +384,21 @@ extension UserCallController{
         }
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) in
             return
         }
         
         alertController.addAction(takeScreenshot)
         alertController.addAction(requestAutograph)
         alertController.addAction(cancelAction)
-       
         
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            alertController.popoverPresentationController?.sourceView = self.view
+            
+           alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY-200, width: 0, height: 0)
+        }
         
         present(alertController, animated: true, completion: nil)
-        
     }
     
     
@@ -434,18 +429,12 @@ extension UserCallController{
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
         
-        
-        
         processController.setListener { (success, info, isDefault) in
             
             self.processRequestAutograph(isDefault : success, info : info)
-            
         }
-        
         self.present(processController, animated: true) {
-            
         }
-        
     }
     
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
@@ -459,7 +448,8 @@ extension UserCallController{
         else{
             return
         }
-    userRootView?.requestAutographButton?.showLoader()
+        
+        userRootView?.requestAutographButton?.showLoader()
     CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in
@@ -476,9 +466,7 @@ extension UserCallController{
             self?.requestDefaultAutograph(image: targetImage)
             
         }
-        
     }
-    
     
     
     private func requestDefaultAutograph(image : UIImage){
@@ -489,7 +477,6 @@ extension UserCallController{
             self?.serviceRequestAutograph(info: screenshotInfo)
         })
     }
-    
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         //self.showLoader()
@@ -554,7 +541,6 @@ extension UserCallController{
     }
 }
 
-
 extension UserCallController{
     
     func registerForAutographListener(){
@@ -578,9 +564,10 @@ extension UserCallController{
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
-           
-                    return 0
+            
+            return 0
         }) { (success, image) in
+            
             canvas?.image = image
             self.updateScreenshotLoaded(info : info)
         }
@@ -602,9 +589,7 @@ extension UserCallController{
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
         
         let message = screenshotInfo.toDict()
-        
         params["message"] = message
-        
         socketClient?.emit(params)
     }
 }

@@ -15,6 +15,7 @@ class PaymentSuccessController: InterfaceExtendedController {
     var info:PaymentSuccessInfo?
     @IBOutlet var heightOfMobileField:NSLayoutConstraint?
     @IBOutlet var heightOfMobileAlertField:NSLayoutConstraint?
+    var dismissListner:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()

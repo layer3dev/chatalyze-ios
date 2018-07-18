@@ -30,7 +30,6 @@ class SystemRootView: ExtendedView {
         cancelView?.addGestureRecognizer(tap)
     }
     
-    
     func paintInterface(){
         
         dataView?.layer.cornerRadius = 3
@@ -66,8 +65,16 @@ extension SystemRootView:UIGestureRecognizerDelegate{
 //        if self.info?.isFree ?? false{
 //            return
 //        }
+        controller.dismissListner = {
+            
+            print("I got dispatch")            
+            DispatchQueue.main.async {
+                self.controller?.presentingControllerObj?.dismiss(animated: false,completion: {
+                })
+            }
+        }
         controller.presentingControllerObj = self.controller?.presentingControllerObj
-        self.controller?.present(controller, animated: true, completion: {
+        self.controller?.present(controller, animated: false, completion: {
         })
     }
     
@@ -76,7 +83,8 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
-         controller.rootController = self.controller?.presentingControllerObj
+       
+        controller.rootController = self.controller?.presentingControllerObj
         controller.onSuccessTest = {(success) in
             self.skipAction(sender: nil)
         }
@@ -85,5 +93,3 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         })        
     }
 }
-
-

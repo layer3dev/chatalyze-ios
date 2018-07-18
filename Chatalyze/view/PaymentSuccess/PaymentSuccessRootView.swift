@@ -27,7 +27,7 @@ class PaymentSuccessRootView: ExtendedView {
     @IBOutlet var chatDetailLbl:UILabel?
     var info:PaymentSuccessInfo?
     @IBOutlet var saveLbl:UILabel?    
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -45,7 +45,7 @@ class PaymentSuccessRootView: ExtendedView {
             return
         }
         
-         if mobileReminderInfo{
+        if mobileReminderInfo{
             
             self.controller?.heightOfMobileField?.constant = 0
             self.controller?.heightOfMobileAlertField?.constant = 150
@@ -63,10 +63,10 @@ class PaymentSuccessRootView: ExtendedView {
     }
     
     func initializeChatInfo(){
-      
+        
         //create attributed string        
         if UIDevice.current.userInterfaceIdiom == .pad{
-         
+            
             let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
             
             let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 24)]
@@ -133,7 +133,7 @@ class PaymentSuccessRootView: ExtendedView {
         
         
         //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
-   }
+    }
     
     func paintInterface(){
         
@@ -144,13 +144,13 @@ class PaymentSuccessRootView: ExtendedView {
     }
     
     func initializeVariable(){
-    
+        
         scrollView?.bottomContentOffset = scrollContentBottomOffset
         mobileNumberField?.textField?.delegate = self
     }
     
     func initializeCountryPicker(){
-    
+        
         picker?.delegate = self
     }
     
@@ -163,8 +163,18 @@ class PaymentSuccessRootView: ExtendedView {
     
     @IBAction func skipAction(sender:UIButton){
         
-        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-        })
+        print("Parent Controller is \(self.controller?.parent)")
+        
+        DispatchQueue.main.async {
+            
+            if let listener = self.controller?.dismissListner{
+                listener()
+            }
+        }
+        
+        
+        //        self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+        //        })
     }
     
     @IBAction func countryAction(sender:UIButton){
@@ -214,7 +224,7 @@ class PaymentSuccessRootView: ExtendedView {
         self.controller?.showLoader()
         
         addEventToCalendar(title: "Chatalyze Event", description: "\(chatDetailLbl?.text ?? "")", startDate: startDate, endDate: endDate) { (success, error) in
-
+            
             self.controller?.stopLoader()
             if success{
                 
@@ -252,17 +262,18 @@ class PaymentSuccessRootView: ExtendedView {
         }
     }
     
-   
+    
     func noPermission(){
         
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertControllerStyle.alert)
+        
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
-          
+            
             if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(settingUrl)
                 } else {
-                    // Fallback on earlier versions
+                    //Fallback on earlier versions
                 }
             }
         }))
@@ -279,8 +290,7 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         countryCodeField?.textField?.text = picker.selectedCountryCode
         countryCodeField?.image?.image = picker.selectedImage
         
-        print(picker.selectedLocale)
-        print(picker.selectedCountryCode)
+        
         if let countryCode = (picker.selectedLocale as NSLocale).object(forKey: .countryCode) as? String {
             print(countryCode)
         }
@@ -289,7 +299,6 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
             if info.alpha2 == code{
                 
                 countryCodeField?.textField?.text = info.calling
-                print("Calling code is \(info.calling)")
             }
         }
     }
@@ -311,8 +320,13 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         if let eventReminder = SignedUserInfo.sharedInstance?.eventMobReminder{
             
             if eventReminder == true {
-                self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
-                })
+                DispatchQueue.main.async {
+                    if let listener = self.controller?.dismissListner{
+                        listener()
+                    }
+                }
+                //self.controller?.presentingControllerObj?.dismiss(animated: true, completion: {
+                //                })
                 return
             }
         }
@@ -333,38 +347,42 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         let requiredcountryCode = countryCode.replacingOccurrences(of: "+", with: "")
         
         self.controller?.showLoader()
-      
+        
         //chatUpdates
         SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : false) { (success, message, response) in
             
             Log.echo(key: "yud", text: "The value of the success is \(success)")
             
-                self.controller?.stopLoader()
-                if !success{
-                    
-                    self.errorLabel?.text = message
-                    
-                    Log.echo(key: "yud", text: "Controller valuse is \(String(describing: self.controller?.presentingControllerObj))")
-                    
-                    self.controller?.dismiss(animated: true, completion:{
-                    })
-                    return
-                }
-                if let instance = SignedUserInfo.sharedInstance{
-                    
-                    instance.eventMobReminder = true
-                    instance.save()
-                }
-            
-                Log.echo(key: "yud", text: "Controller valuse below \(self.controller?.presentingControllerObj)")
-            
+            self.controller?.stopLoader()
+            if !success{
+                
                 self.errorLabel?.text = message
-            
-            self.controller?.dismiss(animated: true, completion:{
-            })
+                Log.echo(key: "yud", text: "Controller valuse is \(String(describing: self.controller?.presentingControllerObj))")
+                
+                DispatchQueue.main.async {
+                    
+                    if let listener = self.controller?.dismissListner{
+                        listener()
+                    }
+                }
+                return
+            }
+            if let instance = SignedUserInfo.sharedInstance{
+                
+                instance.eventMobReminder = true
+                instance.save()
+            }
+            Log.echo(key: "yud", text: "Controller valuse below \(self.controller?.presentingControllerObj)")            
+            self.errorLabel?.text = message
+            DispatchQueue.main.async {
+                
+                if let listener = self.controller?.dismissListner{
+                    listener()
+                }
             }
         }
     }
+}
 
 extension PaymentSuccessRootView{
     

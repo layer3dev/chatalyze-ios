@@ -335,6 +335,17 @@ extension EventPaymentRootView{
     
     @IBAction func submitPayment(sender:UIButton){
         
+        guard let controller = PaymentSuccessController.instance() else{
+            return
+        }
+        controller.dismissListner = self.controller?.dismissListner
+        controller.presentingControllerObj = self.controller?.presentingControllerObj
+        //controller.info = response
+        self.controller?.present(controller, animated: true, completion: {
+        })
+        
+        return
+        
         if isFirstCardSelected{
             
             sendPaymentFromSavedCards(info: currentcardInfo)
@@ -429,7 +440,7 @@ extension EventPaymentRootView{
     
     func pay(accountNumber:String,expMonth:String,expiryYear:String,cvc:String){
         
-     
+       
         Log.echo(key: "yud", text: "Account Number is \(accountNumber)")
         Log.echo(key: "yud", text: "Expired Month is \(expMonth)")
         Log.echo(key: "yud", text: "Expired Year is \(expiryYear)")
@@ -515,10 +526,10 @@ extension EventPaymentRootView{
             guard let controller = PaymentSuccessController.instance() else{
                 return
             }
-            
+            controller.dismissListner = self.controller?.dismissListner
             controller.presentingControllerObj = self.controller?.presentingControllerObj
             controller.info = response            
-            self.controller?.present(controller, animated: true, completion: {
+            self.controller?.presentingControllerObj?.present(controller, animated: true, completion: {
             })
             return
         }
@@ -595,11 +606,11 @@ extension EventPaymentRootView{
             controller.presentingControllerObj = self.controller?.presentingControllerObj
             //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             controller.info = response
-            self.controller?.present(controller, animated: true, completion: {
+            controller.dismissListner = self.controller?.dismissListner
+            self.controller?.presentingControllerObj?.present(controller, animated: true, completion: {
             })
         }
     }
-    
     
     var selectedYear:String{
         get{

@@ -48,9 +48,11 @@ class TimerSync {
     }
     
     private func initialization(){
-        syncListener()
-        setServerListener()
-        sync()
+        
+        //todo: commented temporarily to support 32bit patch
+//        syncListener()
+//        setServerListener()
+//        sync()
         
     }
     
@@ -83,8 +85,6 @@ class TimerSync {
     }
     
     
-    
-    
     /*var message = {
      id : 'getTimestamp',
      requestIdentifier : requestIdentifierCounter
@@ -92,6 +92,8 @@ class TimerSync {
      
      requestTime = Date.now();
      sendMessage(message);*/
+    
+    
     private func executeSync(){
         requestTime = Date()
         requestIdentifierCounter = requestIdentifierCounter + 1
@@ -139,7 +141,8 @@ class TimerSync {
         
         
     }
-   
+    
+    
     func getSeconds()->Int{
         let milliSeconds = self.getTime()
         let seconds = Int(milliSeconds/1000)
