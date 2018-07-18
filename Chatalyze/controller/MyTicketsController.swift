@@ -20,7 +20,10 @@ class MyTicketsController: InterfaceExtendedController{
     @IBOutlet var rootview:MyTicketsRootView?
     @IBOutlet var scroll:UIScrollView?
     @IBOutlet var noTicketLbl:UILabel?
-    var ticketsArray:[SlotInfo] = [SlotInfo]()
+    var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
+    var callTimerTest = Timer()
+    
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -28,18 +31,16 @@ class MyTicketsController: InterfaceExtendedController{
         fetchInfo()
         paintInterface()
         initializeVariable()
-        scroll?.delegate = self
+        scroll?.delegate = self       
     }
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-        
         fetchInfo()
     }    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         self.rootview?.initializeLayout()
     }
     
@@ -66,7 +67,7 @@ class MyTicketsController: InterfaceExtendedController{
         }
         
         self.showLoader()
-        FetchEventTicketsProcessor().fetchInfo(id: id) {(success, info) in
+        CallSlotFetch().fetchInfos() {(success, info) in
             
             self.ticketsArray.removeAll()
             self.rootview?.fillInfo(info: self.ticketsArray)

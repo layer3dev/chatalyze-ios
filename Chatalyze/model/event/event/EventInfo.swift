@@ -35,7 +35,7 @@ class EventInfo: NSObject {
     var leadPageUrl : String?
     var eventBannerUrl : String?
     var isPrivate : Bool?
-    //    var tag : Tag? //:todo
+    //var tag : Tag? //:todo    
     var isFree : Bool?
     var eventFeedbackInfo : String?
     var createdAt : String?

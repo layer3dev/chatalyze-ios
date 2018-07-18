@@ -11,7 +11,6 @@ import UIKit
 class UserCallQueueRootView: CallQueueRootView {
     
     @IBOutlet var slotNumberLabel : EventSlotNumberLabel?
-
     override func refresh(){
         super.refresh()
         

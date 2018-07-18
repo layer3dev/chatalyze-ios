@@ -5,18 +5,43 @@
 //  Created by Mansa on 31/10/17.
 //  Copyright © 2017 Chatalyze. All rights reserved.
 //
-
-
 import Foundation
 import SwiftyJSON
+
 
 class CallSlotFetch{
     
     public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : EventSlotInfo?)->())){
+        fetchInfos { (success, slotInfos) in
+            if(!success){
+                completion(false, nil)
+                return
+            }
+            
+            guard let infos = slotInfos
+                else{
+                    completion(false, nil)
+                    return
+            }
+            
+            if(infos.count == 0){
+                completion(false, nil)
+                return
+            }
+            
+            completion(true, infos[0])
+            return
+        }
+    }
+    
+    
+    
+    public func fetchInfos(completion : @escaping ((_ success : Bool, _ response : [EventSlotInfo]?)->())){
+        
         
         //https://chatitat.incamerasports.com/api/screenshots/?analystId=39&limit=5&offset=0
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/pagination"
-      //  https://dev.chatalyze.com/api/bookings/calls/pagination?limit=4&offset=0&removePrevious=true&start=2018-03-22T00:00:00%2B05:30&userId=9
+        //  https://dev.chatalyze.com/api/bookings/calls/pagination?limit=4&offset=0&removePrevious=true&start=2018-03-22T00:00:00%2B05:30&userId=9
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
                 completion(false, nil)
@@ -40,7 +65,7 @@ class CallSlotFetch{
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventSlotInfo?)->())){
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [EventSlotInfo]?)->())){
         
         
         if(!success){
@@ -60,18 +85,18 @@ class CallSlotFetch{
             completion(false, nil)
             return
         }
+        var slotInfos = [EventSlotInfo]()
         
-        let info = infos[0]
-        
-        let eventInfo = EventSlotInfo(info: info)
-        
-        Log.echo(key: "event", text: "event info --> \(String(describing: eventInfo.id))")
-        
-        Log.echo(key: "event", text: "slot info --> \(String(describing: eventInfo.callschedule?.id))")
+        for rawInfo in infos {
+            let eventInfo = EventSlotInfo(info: rawInfo)
+            slotInfos.append(eventInfo)
+        }
         
         
-
-        completion(true, eventInfo)
+        
+        
+        
+        completion(true, slotInfos)
         return
     }
 }

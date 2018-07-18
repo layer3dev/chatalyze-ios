@@ -12,9 +12,18 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+
+    //Test Timer Starts
+    
+    var autographTime = 0
+    var testTimer = Timer()
+    
+    //Test Timer Ends
+    
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
+    
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -29,28 +38,29 @@ class UserCallController: VideoCallController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
+//        runTimer()
         initialization()
     }
     
     override func isExpired()->Bool{
         
-        Log.echo(key: "yud", text: "Valid Slot is \(eventInfo?.myValidSlot.slotInfo)")
-        
         guard let myValidSlot = eventInfo?.myValidSlot
-        else{
-            return true
+            else{
+                return true
         }
         return false
     }
     
     
     @IBAction private func requestAutograph(){
+        
         resetPreviousAutograph()
         presentAutographAction()
     }
     
     private func resetPreviousAutograph(){
+       
         guard let slot = myActiveUserSlot
             else{
                 return
@@ -69,8 +79,7 @@ class UserCallController: VideoCallController {
         
         initializeVariable()
         registerForAutographListener()
-    }
-    
+    }    
     
     private func initializeVariable(){
         
@@ -109,8 +118,7 @@ class UserCallController: VideoCallController {
         
         connection?.disconnect()
     }
-    
-    //{"id":"startSendingVideo","data":{"receiver":"jgefjedaafbecahc"}}
+
     private func processCallInitiation(data : JSON?){
         
         guard let json = data
@@ -199,8 +207,28 @@ class UserCallController: VideoCallController {
         processAutograph()
     }
     
+   private func runTimer() {
+    
+    testTimer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer(){
+      
+        autographTime = autographTime + 1
+        Log.echo(key: "yud", text: "The autograpgh time is \(autographTime)")
+        print("The autograph time is \(autographTime)")
+        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
+            else{
+                return
+        }
+    }
+    
+    
     private func processAutograph(){
         
+        autographTime = autographTime + 1
+        Log.echo(key: "yud", text: "The autograpgh time is \(autographTime)")
+        print("The autograph time is \(autographTime)")
         guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
             else{
                 return
@@ -218,7 +246,6 @@ class UserCallController: VideoCallController {
             updateCallHeaderForFuture(slot : currentSlot)
             return
         }
-        
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
@@ -229,16 +256,15 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
-        
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
+        
         guard let startDate = slot.startDate
             else{
                 return
@@ -252,8 +278,6 @@ class UserCallController: VideoCallController {
         userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
     }
     
-
-    
     
     private func verifyIfExpired(){
         
@@ -261,14 +285,11 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
         if let _ = myCurrentUserSlot{
             return
         }
-        
         self.processHangupAction()
     }
-    
     
     private func confirmCallLinked(){
         
@@ -317,7 +338,6 @@ class UserCallController: VideoCallController {
             }
         }
     }
-    
 }
 
 extension UserCallController{
@@ -447,8 +467,8 @@ extension UserCallController{
         CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in
-            
             self?.userRootView?.requestAutographButton?.hideLoader()
+           
             if(!success){
                 return
             }

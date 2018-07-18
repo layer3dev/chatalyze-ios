@@ -49,11 +49,9 @@ class TimerSync {
     
     private func initialization(){
         
-        //todo: commented temporarily to support 32bit patch
-//        syncListener()
-//        setServerListener()
-//        sync()
-        
+        syncListener()
+        setServerListener()
+        sync()        
     }
     
     private func syncListener(){

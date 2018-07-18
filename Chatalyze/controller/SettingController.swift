@@ -117,6 +117,11 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
+        guard let controller = AnimationTestController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+        
 //        guard let controller = PaymentSuccessController.instance() else {
 //
 //            return

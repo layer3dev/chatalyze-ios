@@ -4156,6 +4156,48 @@
             </objects>
             <point key="canvasLocation" x="7323" y="33"/>
         </scene>
+        <!--Animation Test Controller-->
+        <scene sceneID="MJx-ad-mIb">
+            <objects>
+                <viewController storyboardIdentifier="AnimationTestController" id="KGD-hr-6DX" customClass="AnimationTestController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JRm-xp-Nd5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaw-kg-fF0">
+                                <rect key="frame" x="0.0" y="20" width="414" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91V-52-11t">
+                                        <rect key="frame" x="186.33333333333334" y="64" width="41.666666666666657" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="91V-52-11t" firstAttribute="centerY" secondItem="qaw-kg-fF0" secondAttribute="centerY" id="1wG-ht-v5r"/>
+                                    <constraint firstItem="91V-52-11t" firstAttribute="centerX" secondItem="qaw-kg-fF0" secondAttribute="centerX" id="KeA-Oc-sVP"/>
+                                    <constraint firstAttribute="height" constant="150" id="xDI-eU-Lfe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.59611656030000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cNi-QF-q93" firstAttribute="trailing" secondItem="qaw-kg-fF0" secondAttribute="trailing" id="8KQ-aE-01f"/>
+                            <constraint firstItem="qaw-kg-fF0" firstAttribute="leading" secondItem="cNi-QF-q93" secondAttribute="leading" id="QFw-aj-1ew"/>
+                            <constraint firstItem="qaw-kg-fF0" firstAttribute="top" secondItem="cNi-QF-q93" secondAttribute="top" id="rxA-iO-bGA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cNi-QF-q93"/>
+                    </view>
+                    <connections>
+                        <outlet property="selfieTimeLbl" destination="91V-52-11t" id="bcL-bn-04l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mi9-Qy-pLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8052" y="29"/>
+        </scene>
     </scenes>
     <resources>
         <image name="USA" width="40" height="30"/>

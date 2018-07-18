@@ -14,14 +14,14 @@ class MyTicketesAdapter: ExtendedView {
     @IBOutlet var myTicketsCollectionView:UICollectionView?
     var layout = UICollectionViewFlowLayout()
     var root:MyTicketsRootView?
-    var ticketsListingArray = [SlotInfo]()
+    var ticketsListingArray = [EventSlotInfo]()
     var featureHeight:CGFloat = 0.0
     
     override func viewDidLayout() {
         super.viewDidLayout()
     }
     
-    func initailizeAdapter(info:[SlotInfo]?){
+    func initailizeAdapter(info:[EventSlotInfo]?){
         
         guard let info = info else {
             return

@@ -19,7 +19,7 @@ class MyTicketsCell: ExtendedCollectionCell {
     @IBOutlet var startDateLbl:UILabel?
     @IBOutlet var title:UILabel?
     var delegate:MyTicketCellDelegate?
-    var info:SlotInfo?
+    var info:EventSlotInfo?
     
         override func viewDidLayout() {
         super.viewDidLayout()
@@ -35,7 +35,7 @@ class MyTicketsCell: ExtendedCollectionCell {
         self.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
     }
     
-    func fillInfo(info:SlotInfo?){
+    func fillInfo(info:EventSlotInfo?){
 
         guard let info = info else{
             return

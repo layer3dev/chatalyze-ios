@@ -262,8 +262,6 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
-
-    
     private func acceptCall(){
         SocketClient.sharedInstance?.confirmConnect(completion: { [weak self] (success) in
             if(success){
