@@ -73,10 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
         UIInterfaceOrientationMask {
-
-            
-            if(allowRotate){
-            
+            if(allowRotate){             
                 return .allButUpsideDown;
         }
         //Only allow portrait (standard behaviour)

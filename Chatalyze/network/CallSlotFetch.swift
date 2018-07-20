@@ -53,7 +53,7 @@ class CallSlotFetch{
                 return
         }
         var params = [String : Any]()
-        params["limit"] = 1
+        params["limit"] = 100
         params["offset"] = 0
         params["removePrevious"] = true
         params["start"] = DateParser.dateToStringInServerFormat(formattedDate)

@@ -9,21 +9,19 @@
 import UIKit
 import SwiftyJSON
 
-
 class UserCallController: VideoCallController {
     
-
-    //Test Timer Starts
+    //variable and outlet responsible for the SelfieTimer
+    var isSelfieTimerInitiated = false
+    @IBOutlet var selfieTimerView:SelfieTimerView?
+    //Ends
     
-    var autographTime = 0
-    var testTimer = Timer()
-    
-    //Test Timer Ends
-    
+    //This is webRTC connection responsible for signalling and handling the reconnect
     var connection : UserCallConnection?
+    
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
-    
+    var isScreenshotPromptPage = false
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -38,9 +36,18 @@ class UserCallController: VideoCallController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-//        runTimer()
+        
         initialization()
+    }
+    
+    override func interval(){
+        super.interval()
+        
+        confirmCallLinked()
+        verifyIfExpired()
+        updateCallHeaderInfo()
+        processAutograph()
+        
     }
     
     override func isExpired()->Bool{
@@ -60,7 +67,7 @@ class UserCallController: VideoCallController {
     }
     
     private func resetPreviousAutograph(){
-       
+        
         guard let slot = myActiveUserSlot
             else{
                 return
@@ -71,7 +78,7 @@ class UserCallController: VideoCallController {
         }
         
         if(!slot.isAutographRequested){
-             self.canvasInfo = nil
+            self.canvasInfo = nil
         }
     }
     
@@ -82,12 +89,12 @@ class UserCallController: VideoCallController {
     }    
     
     private func initializeVariable(){
-        
+       
+        initializeGetCommondForTakeScreenShot()
         registerForListeners()
     }
     
-    
-     override func registerForListeners(){
+    override func registerForListeners(){
         super.registerForListeners()
         
         //call initiation
@@ -118,7 +125,7 @@ class UserCallController: VideoCallController {
         
         connection?.disconnect()
     }
-
+    
     private func processCallInitiation(data : JSON?){
         
         guard let json = data
@@ -127,7 +134,6 @@ class UserCallController: VideoCallController {
         }
         
         let receiverId = json["receiver"].stringValue
-        
         guard let targetId = hostHashId
             else{
                 return
@@ -146,8 +152,7 @@ class UserCallController: VideoCallController {
         params["data"] = data
         socketClient?.emit(params)
     }
-    
-    
+
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
     private func processHandshakeResponse(data : JSON?){
         
@@ -197,42 +202,71 @@ class UserCallController: VideoCallController {
         }
         return slotInfo
     }
-
-    override func interval(){
-        super.interval()
+    
+    func getTimeStampAfterEightSecond()->Date?{
         
-        confirmCallLinked()
-        verifyIfExpired()
-        updateCallHeaderInfo()
-        processAutograph()
-    }
-    
-   private func runTimer() {
-    
-    testTimer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateTimer(){
-      
-        autographTime = autographTime + 1
-        Log.echo(key: "yud", text: "The autograpgh time is \(autographTime)")
-        print("The autograph time is \(autographTime)")
-        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
-            else{
-                return
+        let date = Date()
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
+        let requiredDate = calendar.date(byAdding: .second, value: 8, to: calendar.date(from: components) ?? date)
+        Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
+        Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
+        if let verifiedDate = requiredDate{
+            return verifiedDate
         }
+        return nil
     }
-    
     
     private func processAutograph(){
         
-        autographTime = autographTime + 1
-        Log.echo(key: "yud", text: "The autograpgh time is \(autographTime)")
-        print("The autograph time is \(autographTime)")
-        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
-            else{
-                return
-        }        
+        
+        //Once the  selfie timer has been come
+        if isSelfieTimerInitiated{
+            return
+        }
+        
+        //return if call is not connected means video stream is not coming.
+        if !(connection?.isConnected ?? false){
+            return
+        }
+        
+        //return if screenshot is already sent.
+        if self.myActiveUserSlot?.isScreenshotSaved ?? true{
+            return
+        }
+        
+        //here it is need to send the ping to host for the screenshot
+        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
+            
+            var data:[String:Any] = [String:Any]()
+            var messageData:[String:Any] = [String:Any]()
+            messageData = ["timerStartsAt":"\(requiredTimeStamp)"]
+            //name : callServerId($scope.currentBooking.user.id)
+            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+            socketClient?.emit(data)
+            Log.echo(key: "yud", text: "sent time stamp data is \(data)")
+            //selfie timer will be initiated after giving command to selfie view for the animation.
+            isSelfieTimerInitiated = true
+            selfieTimerView?.startAnimation()
+            Log.echo(key: "yud", text: "Yes I am sending the animation request")
+
+        }
+    }
+    
+    private func initializeGetCommondForTakeScreenShot(){
+        
+        
+        selfieTimerView?.screenShotListner = {
+            
+            let image = self.userRootView?.getSnapshot()
+            self.myActiveUserSlot?.isScreenshotSaved = true
+            self.uploadImage(image: image, completion: { (success, info) in
+                self.screenshotInfo = info
+            })
+            
+        }
     }
     
     private func updateCallHeaderInfo(){
@@ -269,12 +303,10 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
-        
         userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
     }
     
@@ -324,10 +356,10 @@ class UserCallController: VideoCallController {
         ScreenshotInfoFetch().fetchInfo(slotId: slotId) {[weak self] (success, infos)  in
             self?.verifySlot(slotInfo: activeSlot, screenshotInfos: infos)
         }
-        
     }
     
     private func verifySlot(slotInfo : SlotInfo, screenshotInfos : [ScreenshotInfo]){
+        
         for screenshotInfo in screenshotInfos {
             
             if(screenshotInfo.requestedAutograph ?? false){
@@ -371,6 +403,7 @@ extension UserCallController{
 extension UserCallController{
     
     func presentAutographAction(){
+        
         guard let activeEvent = self.myActiveUserSlot
             else{
                 return
@@ -378,12 +411,11 @@ extension UserCallController{
         
         let alertController = UIAlertController(title: "Autograph" , message: "What would you like to do ?", preferredStyle: .actionSheet)
         
-
-        
         let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertActionStyle.default) { [weak self] (action) in
             self?.takeScreenshot()
             return
         }
+        
         if(activeEvent.isScreenshotSaved){
             takeScreenshot.isEnabled = false
         }
@@ -397,7 +429,6 @@ extension UserCallController{
             requestAutograph.isEnabled = false
         }
         
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) in
             return
         }
@@ -408,8 +439,7 @@ extension UserCallController{
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             alertController.popoverPresentationController?.sourceView = self.view
-            
-           alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY-200, width: 0, height: 0)
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY-200, width: 0, height: 0)
         }
         
         present(alertController, animated: true, completion: nil)
@@ -442,7 +472,6 @@ extension UserCallController{
         
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
-        
         processController.setListener { (success, info, isDefault) in
             
             self.processRequestAutograph(isDefault : success, info : info)
@@ -459,8 +488,8 @@ extension UserCallController{
         }
         
         guard let screenshotInfo = info
-        else{
-            return
+            else{
+                return
         }
         
         userRootView?.requestAutographButton?.showLoader()
@@ -468,7 +497,7 @@ extension UserCallController{
             return 0
         }) { [weak self] (success, image) in
             self?.userRootView?.requestAutographButton?.hideLoader()
-           
+            
             if(!success){
                 return
             }
@@ -483,6 +512,7 @@ extension UserCallController{
     
     
     private func requestDefaultAutograph(image : UIImage){
+        
         self.uploadImage(image: image, completion: { [weak self] (success, screenshotInfo) in
             if(!success){
                 return
@@ -492,6 +522,7 @@ extension UserCallController{
     }
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
+        
         //self.showLoader()
         myActiveUserSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
@@ -504,6 +535,7 @@ extension UserCallController{
     
     
     func takeScreenshot(){
+        
         let image = userRootView?.getSnapshot()
         guard let controller = AutographPreviewController.instance()
             else{
@@ -511,22 +543,23 @@ extension UserCallController{
         }
         controller.image = image
         controller.onResult { [weak self] (image) in
+            
             self?.myActiveUserSlot?.isScreenshotSaved = true
             self?.uploadImage(image: image, completion: { (success, info) in
                 self?.screenshotInfo = info
             })
         }
-        
         self.present(controller, animated: true) {
         }
     }
     
     
     private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+        
         guard let image = image
-        else{
-            completion?(false, nil)
-            return
+            else{
+                completion?(false, nil)
+                return
         }
         guard let data = UIImageJPEGRepresentation(image, 1.0)
             else{
@@ -534,7 +567,6 @@ extension UserCallController{
                 return
         }
         var params = [String : Any]()
-        
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
         params["callbookingId"] = myCurrentUserSlot?.id ?? 0
@@ -542,14 +574,11 @@ extension UserCallController{
         params["defaultImage"] = false
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         params["file"] = imageBase64
-        
         userRootView?.requestAutographButton?.showLoader()
-        
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
             self?.userRootView?.requestAutographButton?.hideLoader()
             
             completion?(true, info)
-            
         }
     }
 }
@@ -563,11 +592,15 @@ extension UserCallController{
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
         })
-
+        
         socketClient?.onEvent("stoppedSigning", completion: { (json) in
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })
+    }
+    
+    private func registerForSelfieTimer(){
+        
     }
     
     private func prepateCanvas(info : CanvasInfo?){
@@ -579,6 +612,7 @@ extension UserCallController{
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0
+            
         }) { (success, image) in
             
             canvas?.image = image
@@ -592,7 +626,6 @@ extension UserCallController{
             else{
                 return
         }
-        
         guard let screenshotInfo = info.screenshot
             else{
                 return
@@ -606,3 +639,5 @@ extension UserCallController{
         socketClient?.emit(params)
     }
 }
+
+

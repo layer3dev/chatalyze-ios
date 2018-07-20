@@ -13,7 +13,7 @@ import SwiftyJSON
 
 
 class VideoCallController : InterfaceExtendedController {
-    
+        
     var socketClient : SocketClient?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
@@ -26,10 +26,13 @@ class VideoCallController : InterfaceExtendedController {
     var timer : SyncTimer = SyncTimer()
     
     fileprivate var audioManager : AudioManager?
-
+    
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     var eventExpiredHandler:((Bool,EventScheduleInfo?)->())?
+    
+    var peerInfos : [PeerInfo] = [PeerInfo]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -202,8 +205,44 @@ class VideoCallController : InterfaceExtendedController {
             self.processHangupAction()
             self.rootView?.callOverlayView?.isHidden = true
         })
+        
+        socketClient?.onEvent("updatePeerList", completion: { [weak self] (json) in
+            if(self?.socketClient == nil){
+                return
+            }
+            
+            self?.processUpdatePeerList(json: json)
+        })
     }
 
+    
+    
+    private func processUpdatePeerList(json : JSON?){
+        guard let json = json
+            else{
+                return
+        }
+        
+        var peerInfos = [PeerInfo]()
+        let rawPeerInfos = json.arrayValue
+        
+        for rawPeerInfo in rawPeerInfos {
+            let peerInfo = PeerInfo(info : rawPeerInfo)
+            peerInfos.append(peerInfo)
+        }
+        
+        self.peerInfos = peerInfos
+    }
+    
+    
+    func isOnline(hashId : String)->Bool{
+        for peerInfo in peerInfos {
+            if(peerInfo.name == hashId && peerInfo.isBroadcasting){
+                return true
+            }
+        }
+        return false
+    }
 
     func switchToCallAccept(){
         self.rootView?.confirmViewLoad(listener: {
@@ -270,7 +309,6 @@ class VideoCallController : InterfaceExtendedController {
         })
     }
     
-    
     var roomId : String?{
         get{
             return self.eventInfo?.roomId
@@ -278,7 +316,6 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func callFailed(){
-        
     }    
     
     //abstract
@@ -295,9 +332,6 @@ class VideoCallController : InterfaceExtendedController {
 
 //actionButtons
 extension VideoCallController{
-    
-    
-    
 }
 
 

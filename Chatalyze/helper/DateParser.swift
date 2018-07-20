@@ -57,6 +57,7 @@ class DateParser: NSObject {
     
     
     static func stringToDate(_ dateString : String, dateFormat : String, timeZone : TimeZone)->Date?{
+        
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier : "en_US_POSIX")
         dateFormatter.dateFormat = dateFormat
@@ -65,6 +66,7 @@ class DateParser: NSObject {
     }
     
     static func UTCStringToDate(_ dateString : String)->Date?{
+        
         let defaultFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
         let UTCTimeZone = TimeZone(abbreviation : "UTC") ?? TimeZone.current
         return stringToDate(dateString, dateFormat: defaultFormat, timeZone: UTCTimeZone)

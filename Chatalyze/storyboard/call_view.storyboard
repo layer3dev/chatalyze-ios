@@ -322,12 +322,33 @@
                                     <constraint firstAttribute="trailing" secondItem="D8d-bA-Xtx" secondAttribute="trailing" id="pK5-2S-HCt"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxQ-nW-h9Q" customClass="SelfieTimerView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hi7-Pg-KPh">
+                                        <rect key="frame" x="188" y="50.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.59814096719999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="0bK-TE-MOl"/>
+                                    <constraint firstItem="Hi7-Pg-KPh" firstAttribute="centerY" secondItem="uxQ-nW-h9Q" secondAttribute="centerY" id="AYp-xS-isY"/>
+                                    <constraint firstItem="Hi7-Pg-KPh" firstAttribute="centerX" secondItem="uxQ-nW-h9Q" secondAttribute="centerX" id="d4H-Ui-Kfs"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="selfieTimeLbl" destination="Hi7-Pg-KPh" id="Slv-Y6-6yo"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="X4e-l4-rf5" firstAttribute="centerX" secondItem="bRT-ZS-CRs" secondAttribute="centerX" id="0Ha-NB-uI3"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="top" secondItem="Vc8-ZB-2eM" secondAttribute="bottom" id="0nX-VJ-mJY"/>
                             <constraint firstItem="kfp-G1-gCo" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" constant="8" id="3Rn-h7-v8U" userLabel="container_leading"/>
+                            <constraint firstItem="uxQ-nW-h9Q" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="4Qm-aC-MzY"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="4XK-s6-Tsw"/>
                             <constraint firstItem="X4e-l4-rf5" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" constant="15" id="Dgv-4Y-hrA"/>
                             <constraint firstItem="X4e-l4-rf5" firstAttribute="top" secondItem="Wmj-9J-V6c" secondAttribute="bottom" priority="1" constant="12" id="GzG-6v-bdn" userLabel="canvas_bottom_sign"/>
@@ -335,6 +356,7 @@
                             <constraint firstAttribute="trailing" secondItem="X4e-l4-rf5" secondAttribute="trailing" constant="15" id="L3s-GR-Msj"/>
                             <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="X4e-l4-rf5" secondAttribute="bottom" constant="12" id="Map-6K-6NV"/>
                             <constraint firstAttribute="trailing" secondItem="Wmj-9J-V6c" secondAttribute="trailing" id="OmG-UM-vc0"/>
+                            <constraint firstAttribute="trailing" secondItem="uxQ-nW-h9Q" secondAttribute="trailing" id="Rsz-sC-3CG"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="height" secondItem="bRT-ZS-CRs" secondAttribute="height" multiplier="0.4" priority="1" id="TQ9-ka-dC1" userLabel="canvas_proportional_height"/>
                             <constraint firstItem="Vc8-ZB-2eM" firstAttribute="top" secondItem="ZdG-IW-8dq" secondAttribute="bottom" id="Vfv-2K-2Qu"/>
                             <constraint firstAttribute="trailing" secondItem="ZdG-IW-8dq" secondAttribute="trailing" id="Xr1-OE-KVd"/>
@@ -347,6 +369,7 @@
                             <constraint firstItem="ZdG-IW-8dq" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="pYY-k6-yEs"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="top" secondItem="1lh-gd-FgM" secondAttribute="bottom" id="skD-KZ-t55"/>
                             <constraint firstAttribute="trailing" secondItem="1lh-gd-FgM" secondAttribute="trailing" id="tDM-vV-BJj"/>
+                            <constraint firstItem="uxQ-nW-h9Q" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" id="wgc-lc-2Bb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -377,10 +400,13 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <connections>
+                        <outlet property="selfieTimerView" destination="uxQ-nW-h9Q" id="Ruj-RC-GhT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="467" y="-1636"/>
+            <point key="canvasLocation" x="393" y="-1648"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">

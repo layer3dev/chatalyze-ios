@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class HostCallController: VideoCallController {
     
-    var peerInfos : [PeerInfo] = [PeerInfo]()
+    
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
     
@@ -45,34 +45,7 @@ class HostCallController: VideoCallController {
     override func registerForListeners(){
         super.registerForListeners()
         
-        socketClient?.onEvent("updatePeerList", completion: { [weak self] (json) in
-            if(self?.socketClient == nil){
-                return
-            }
-            
-            self?.processUpdatePeerList(json: json)
-        })
-        
-        
     }
-    
-    private func processUpdatePeerList(json : JSON?){
-        guard let json = json
-            else{
-                return
-        }
-        
-        var peerInfos = [PeerInfo]()
-        let rawPeerInfos = json.arrayValue
-        
-        for rawPeerInfo in rawPeerInfos {
-            let peerInfo = PeerInfo(info : rawPeerInfo)
-            peerInfos.append(peerInfo)
-        }
-        
-        self.peerInfos = peerInfos
-    }
-    
     override func isExpired()->Bool{
         
         if(eventInfo?.isExpired ?? true){
@@ -82,6 +55,7 @@ class HostCallController: VideoCallController {
     }
     
     override func interval(){
+     
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -317,14 +291,7 @@ class HostCallController: VideoCallController {
         
     }
     
-    private func isOnline(hashId : String)->Bool{
-        for peerInfo in peerInfos {
-            if(peerInfo.name == hashId && peerInfo.isBroadcasting){
-                return true
-            }
-        }
-        return false
-    }
+    
     
     
     

@@ -58,11 +58,11 @@ class UniqueUserIdentifier{
     
     
     func generateUniqueIdentifier(userId userIdW : String?)->String{
+        
         guard let userId = userIdW
             else{
                 return ""
             }
-        
         
         guard var userIdDouble = Double(userId)
             else{
@@ -82,20 +82,13 @@ class UniqueUserIdentifier{
         let array = characters.map { (token) -> String in
             
             let tokenInt = Int(String(token)) ?? 0
-            
             let c = Character(UnicodeScalar(97 + tokenInt) ?? "0")
             let resultToken = String(c)
             return resultToken
         }
         
         hashString = array.joined(separator: "")
-        
         return hashString
-        
-        
-        
-        
-        
     }
     
     fileprivate func roundOff(token : String)->String{

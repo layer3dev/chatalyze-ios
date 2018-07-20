@@ -1,83 +1,102 @@
 //
-//  AnimationTestController.swift
+//  SelfieTimerView.swift
 //  Chatalyze
 //
-//  Created by Mansa on 18/07/18.
+//  Created by Mansa on 20/07/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class AnimationTestController: InterfaceExtendedController {
-
+class SelfieTimerView:ExtendedView {
     
-    var animationTimer = Timer()
     var autographTime = 0
-    @IBOutlet var selfieTimeLbl:UILabel?
+    var testTimer = Timer()
     var selfieAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
     var whiteAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
+    var screenShotListner:(()->())?
+    @IBOutlet var selfieTimeLbl:UILabel?
+    var isScreenShotTaken = false
     
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        runTimer()
+    }
+    override func willRemoveSubview(_ subview: UIView) {
+        super.willRemoveSubview(subview)
+        invalidateTimer()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.animationTimer.invalidate()
+    func startAnimation(){
+        
+        self.runTimer()
     }
     
-    private func runTimer() {
+    private func invalidateTimer(){
+        autographTime = 0
+        self.testTimer.invalidate()
+    }
+    
+    private func runTimer(){
         
-        animationTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer(){
         
-        autographTime = autographTime + 1
-        Log.echo(key: "yud", text: "The autograpgh time is \(autographTime)")
-        print("The autograph time is \(autographTime)")
         
-        if autographTime >= 6 && autographTime  <= 13{
+        if autographTime >= 10 && autographTime  < 11{
             
             DispatchQueue.main.async {
                 
-                self.view.layoutIfNeeded()
-                UIView.animate(withDuration: 0.1, animations: {
+                self.isHidden = false
+                self.layoutIfNeeded()
+                UIView.animate(withDuration: 0.8, animations: {
+                    
                     if self.autographTime%2 == 0 {
-                      self.graySelfieTime()
+                        self.graySelfieTime()
                     }else{
                         self.greenSelfieTime()
                     }
                 })
             }
-        }else if autographTime >= 14 && autographTime  < 15{
+        }else if autographTime >= 11 && autographTime  < 12{
             self.greenOne()
-        }else if autographTime >= 16 && autographTime  < 17{
+        }else if autographTime >= 12 && autographTime  < 13{
             self.greenTwo()
-        }else if autographTime >= 18 && autographTime  < 19{
+        }else if autographTime >= 13 && autographTime  < 14{
             self.greenThird()
-        }else if autographTime >= 20 && autographTime  < 22{
+        }else if autographTime >= 14 && autographTime  < 15{
             self.smile()
-        }else{
+        }else if autographTime >= 16{
+            
+            if !(self.isScreenShotTaken){
+                
+                self.isHidden = true
+                self.isScreenShotTaken = true
+                if let listner = screenShotListner{
+                    listner()
+                }
+            }else{
+                self.isHidden = true
+            }
+            invalidateTimer()
         }
+        autographTime = autographTime + 1
     }
+}
 
-    func greenOne(){
+
+extension SelfieTimerView{
+    
+     private func greenOne(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
-        
         let second = NSMutableAttributedString(string: " 1", attributes: oneAttribute)
         let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
@@ -87,23 +106,19 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
+        self.layoutIfNeeded()
     }
     
-    func greenTwo(){
-        
+   private func greenTwo(){
+    
+    
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
-        
         let second = NSMutableAttributedString(string: " 1", attributes: self.whiteAttribute)
         let secondTwo = NSMutableAttributedString(string: " 2", attributes: oneAttribute)
         let secondStr = NSMutableAttributedString(string: " 3", attributes: self.whiteAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
@@ -114,23 +129,18 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
+        self.layoutIfNeeded()
     }
     
-    func greenThird(){
+   private func greenThird(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
         
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
-        
         let second = NSMutableAttributedString(string: " 1 2", attributes: self.whiteAttribute)
-       
         let secondStr = NSMutableAttributedString(string: " 3", attributes: oneAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
@@ -140,23 +150,18 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
+        self.layoutIfNeeded()
     }
     
-    func smile(){
+    private func smile(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
         
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
-        
         let second = NSMutableAttributedString(string: " 1 2 3", attributes: self.whiteAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: oneAttribute)
-        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)
@@ -164,21 +169,15 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
+        self.layoutIfNeeded()
     }
     
-    
-    
-    func greenSelfieTime(){
-     
+     private func greenSelfieTime(){
+        
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
-        
         let secondStr = NSMutableAttributedString(string: ": 1 2 3", attributes: self.whiteAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
@@ -187,21 +186,16 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
+        self.layoutIfNeeded()
     }
     
-    func graySelfieTime(){
-       
+   private func graySelfieTime(){
+        
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 28)]
-        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
-        
         let secondStr = NSMutableAttributedString(string: ": 1 2 3", attributes: self.whiteAttribute)
-        
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
-        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)
@@ -209,30 +203,6 @@ class AnimationTestController: InterfaceExtendedController {
         requiredString.append(thirdStr)
         
         self.selfieTimeLbl?.attributedText = requiredString
-        self.view.layoutIfNeeded()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-}
-
-extension AnimationTestController{
-    
-    class func instance()->AnimationTestController?{
-        
-        let storyboard = UIStoryboard(name: "Account", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "AnimationTestController") as? AnimationTestController
-        return controller
+        self.layoutIfNeeded()
     }
 }

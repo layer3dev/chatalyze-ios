@@ -11,13 +11,14 @@ import UIKit
 
 public extension Date {
     
-    
     func toString()->String?{
+    
         let defaultFormat = "MMM d, yyyy"
         return DateParser.dateToString(self, requiredFormat : defaultFormat)
     }
     
     func countdownTimeFromNowAppended()->(isActive : Bool, time : String)?{
+   
         guard let time = countdownTimeFromNow()
             else{
                 return (false, "00")
@@ -38,7 +39,6 @@ public extension Date {
     }
     
     func countdownTimeFromNow()->(isActive : Bool, hours : String, minutes : String, seconds : String)?{
-        
         
         let totalSeconds = Int(self.timeIntervalSinceNow + 1)
         
@@ -66,9 +66,7 @@ public extension Date {
         }
         let minutes = (totalSeconds) / 60
         let seconds = (totalSeconds % 60) % 60
-        
-        
-        
+                
         let minuteString = String(format: "%02d", minutes)
         let secondString = String(format: "%02d", seconds)
         

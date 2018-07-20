@@ -9,6 +9,8 @@
 
 import UIKit
 
+//This is root class meant to be overriden by Host Connection and User Connection
+//abstract:
 class CallConnection: NSObject {
     var connection : ARDAppClient?
     
@@ -16,6 +18,9 @@ class CallConnection: NSObject {
     var slotInfo : SlotInfo?
     var controller : VideoCallController?
     var localMediaPackage : CallMediaTrack?
+    
+    //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
+    var isConnected : Bool = false
     
     
     /*flags*/
@@ -25,7 +30,6 @@ class CallConnection: NSObject {
     private var captureController : ARDCaptureController?
     private var localTrack : RTCVideoTrack?
     private var remoteTrack : CallMediaTrack?
-    
     var socketClient : SocketClient?
     
     //connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
@@ -41,12 +45,14 @@ class CallConnection: NSObject {
     }
     
     var targetHashId : String?{
+        
         get{
             return nil
         }
     }
     
     var roomId : String?{
+        
         get{
             return self.eventInfo?.roomId
         }
@@ -107,12 +113,13 @@ extension CallConnection : ARDAppClientDelegate{
         
         if(state == .connected){
             self.controller?.acceptCallUpdate()
-            
+            isConnected = true
             return
         }
         
         if(state == .failed){
             callFailed()
+            isConnected = false
             return
         }
     }

@@ -40,7 +40,6 @@ class SlotInfo: SlotFlagInfo {
     var started:String?
     var notified:String?
     
-    
     var price:String?
     var eventTitle:String?
     
@@ -207,12 +206,10 @@ class SlotInfo: SlotFlagInfo {
                 else{
                     return false
             }
-            
             guard let endDate = endDate
                 else{
                     return false
             }
-            
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
         }
     }

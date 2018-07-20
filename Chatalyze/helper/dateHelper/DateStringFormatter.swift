@@ -76,7 +76,6 @@ class DateStringFormatter: NSObject {
             return String(timeInterval) + " hours"
         }
         
-        
         timeInterval = timeInterval/24
         
         if(timeInterval <= 1){
@@ -86,11 +85,6 @@ class DateStringFormatter: NSObject {
         if(timeInterval < 60){
             return String(timeInterval) + " days"
         }
-        
         return "month"
     }
-    
-    
-
-    
 }
