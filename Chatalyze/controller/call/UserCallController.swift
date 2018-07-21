@@ -46,8 +46,7 @@ class UserCallController: VideoCallController {
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
-        processAutograph()
-        
+        processAutograph()        
     }
     
     override func isExpired()->Bool{

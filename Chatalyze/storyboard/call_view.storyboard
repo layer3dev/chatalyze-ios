@@ -118,7 +118,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4e-l4-rf5" userLabel="signature_container" customClass="RequestAutographContainerView" customModule="Chatalyze" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4e-l4-rf5" userLabel="signature_container" customClass="RequestAutographContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="152" y="585" width="70" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="request_autograph" translatesAutoresizingMaskIntoConstraints="NO" id="NG8-bT-3xd">
@@ -332,7 +332,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.59814096719999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.74597969900000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="0bK-TE-MOl"/>
                                     <constraint firstItem="Hi7-Pg-KPh" firstAttribute="centerY" secondItem="uxQ-nW-h9Q" secondAttribute="centerY" id="AYp-xS-isY"/>
@@ -406,7 +406,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393" y="-1648"/>
+            <point key="canvasLocation" x="606" y="-1704"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
@@ -681,6 +681,26 @@
                                     <constraint firstItem="gkw-v1-jGv" firstAttribute="leading" secondItem="VDu-Qq-V94" secondAttribute="leading" id="yzy-oK-gcK"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m59-4D-xzj" customClass="SelfieTimerView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU3-Ox-thL">
+                                        <rect key="frame" x="188" y="50.5" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.74597969900000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="gU3-Ox-thL" firstAttribute="centerY" secondItem="m59-4D-xzj" secondAttribute="centerY" id="63k-rM-g9J"/>
+                                    <constraint firstAttribute="height" constant="100" id="ocd-u3-QFK"/>
+                                    <constraint firstItem="gU3-Ox-thL" firstAttribute="centerX" secondItem="m59-4D-xzj" secondAttribute="centerX" id="sio-EY-6Rw"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="selfieTimeLbl" destination="gU3-Ox-thL" id="mGl-mE-idg"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -691,8 +711,11 @@
                             <constraint firstItem="VDu-Qq-V94" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" id="KJf-1N-Oyf"/>
                             <constraint firstItem="Go0-RF-bnS" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" constant="8" id="MUm-Ba-NbQ" userLabel="container_leading"/>
                             <constraint firstItem="43M-1x-4vh" firstAttribute="top" secondItem="lG8-qq-gzL" secondAttribute="bottom" id="NzW-cP-FIU"/>
+                            <constraint firstAttribute="trailing" secondItem="m59-4D-xzj" secondAttribute="trailing" id="PwB-KV-1eT"/>
                             <constraint firstAttribute="trailing" secondItem="43M-1x-4vh" secondAttribute="trailing" id="REb-Xs-kdN"/>
+                            <constraint firstItem="m59-4D-xzj" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" id="W5B-7M-4MY"/>
                             <constraint firstItem="LNz-ky-YSt" firstAttribute="top" secondItem="W8L-eB-LKB" secondAttribute="bottom" id="e67-UJ-ke9"/>
+                            <constraint firstItem="m59-4D-xzj" firstAttribute="top" secondItem="lG8-qq-gzL" secondAttribute="bottom" id="ieK-cG-7nW"/>
                             <constraint firstAttribute="trailing" secondItem="VDu-Qq-V94" secondAttribute="trailing" id="ltD-81-utN"/>
                             <constraint firstItem="W8L-eB-LKB" firstAttribute="top" secondItem="VDu-Qq-V94" secondAttribute="bottom" id="taz-eO-fhX"/>
                             <constraint firstItem="43M-1x-4vh" firstAttribute="leading" secondItem="V9R-21-5JQ" secondAttribute="leading" id="txz-ee-P6p"/>
@@ -720,6 +743,9 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <connections>
+                        <outlet property="selfieTimerView" destination="m59-4D-xzj" id="2K0-Dc-IQS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2K-NB-UUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -25,11 +25,11 @@ class SaveMobileForEventReminder{
         
         var params = [String : Any]()
         
-      //params["eventMobReminder"] = saveForFuture
-      //params["countryCode"] = countryCode
-      //params["mobile"] = mobilenumber
+        params["eventMobReminder"] = saveForFuture
+        params["countryCode"] = countryCode
+        params["mobile"] = mobilenumber
         
-        Log.echo(key: "yud", text: "My sended Dict is\(params)")
+        Log.echo(key: "yud", text: "My sended Dict  new is\(params)")
         
         ServerProcessor().request(.put, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)

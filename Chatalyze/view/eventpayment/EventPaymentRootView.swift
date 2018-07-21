@@ -44,7 +44,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var totalAmount:UILabel?
     var delegate:EventPaymentDelegte?
     
-    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -82,6 +81,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     }
     
     func setCurrentCardInfo(selectedCard:Int){
+        
         
         if selectedCard == 0 {
             if cardInfoArray.count >= 1{
@@ -251,7 +251,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
     }    
     
-    @IBAction func datePickerAction(_ sender: Any) {
+    @IBAction func datePickerAction(_ sender: Any){
      
         dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
@@ -301,7 +301,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         totalAmount?.text = "$ "+"\(totalAmountCharge)"
         
         scrollView?.bottomContentOffset = scrollViewBottomConstraints
-        
         maskedDelegate = MaskedTextFieldDelegate(format: "[0000]-[0000]-[0000]-[0000]")
         
         maskedDelegate?.listener = self
@@ -314,7 +313,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         cvcMask = MaskedTextFieldDelegate(format: "[000]")
         cvcMask?.listener = self
         cvcField?.textField?.delegate = cvcMask
-        
         //cardMask.put(text: "", into: (cardField?.textField)!)
     }
     
@@ -338,25 +336,6 @@ extension EventPaymentRootView{
     
     @IBAction func submitPayment(sender:UIButton){
         
-        guard let controller = PaymentSuccessController.instance() else{
-            return
-        }
-        controller.presentingControllerObj = self.controller?.presentingControllerObj
-        //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-       //controller.info = response
-        controller.dismissListner = {
-            DispatchQueue.main.async {
-                self.controller?.dismiss(animated: false, completion: {
-                    if let listner = self.controller?.dismissListner{
-                        listner()
-                    }
-                })
-            }
-        }
-        self.controller?.present(controller, animated: true, completion: {
-        })
-        return
-        
         if isFirstCardSelected{
             
             sendPaymentFromSavedCards(info: currentcardInfo)
@@ -375,12 +354,11 @@ extension EventPaymentRootView{
             guard let accountNumber = cardField?.textField?.text?.replacingOccurrences(of: "-", with: "")  else{
                 return
             }
+            
             guard let cvcNumber = cvcField?.textField?.text else{
                 return
             }
             pay(accountNumber:accountNumber,expMonth:selectedMonth,expiryYear:selectedYear,cvc:cvcNumber)
-            
-            Log.echo(key: "yud", text: "Account Number is \(accountNumber) Expiry Month is \(selectedMonth) Expiry year is \(selectedYear) cvc number is \(cvcNumber)")
         }
     }
 }

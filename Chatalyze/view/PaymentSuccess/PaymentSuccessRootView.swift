@@ -338,20 +338,21 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         self.controller?.showLoader()
         
         //chatUpdates
-        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : false) { (success, message, response) in
+        SaveMobileForEventReminder().save(mobilenumber: mobileNumber, countryCode: requiredcountryCode,saveForFuture : chatUpdates) { (success, message, response) in
             
             self.controller?.stopLoader()
             if !success{
                 
                 self.errorLabel?.text = message
-                
                 self.skipAction(sender: nil)
                 return
             }
             if let instance = SignedUserInfo.sharedInstance{
+                if self.chatUpdates{
                 
-                instance.eventMobReminder = true
-                instance.save()
+                    instance.eventMobReminder = true
+                    instance.save()
+                }
             }
             self.errorLabel?.text = message
             self.skipAction(sender: nil)
@@ -384,6 +385,7 @@ extension PaymentSuccessRootView{
     fileprivate func validateCountryCode()->Bool{
         
         if(countryCodeField?.textField?.text == ""){
+            
             countryCodeField?.showError(text: "CountryCode field can't be left empty !")
             return false
         }
@@ -394,9 +396,11 @@ extension PaymentSuccessRootView{
     fileprivate func validateMobileNumber()->Bool{
         
         if(mobileNumberField?.textField?.text == ""){
+            
             mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
             return false
         }else if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
+            
             mobileNumberField?.showError(text: "Mobile number looks incorrect !")
             return false
         }

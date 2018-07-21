@@ -15,29 +15,23 @@ class RootControllerManager{
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         _ = appDelegate?.window
-        
-        
         delayLaunchScreen {
             self.showRelevantScreen()
         }
     }
     
     func updateRoot(){
-        
         self.showRelevantScreen()
     }
     
     private func showRelevantScreen(){
         
         updateNavigationBar()
-
         let userInfo = SignedUserInfo.sharedInstance
-        
         if(userInfo == nil){
             showSigninScreen()
             return
         }
-        
         showHomeScreen()
         return
     }
@@ -59,39 +53,44 @@ class RootControllerManager{
     
     
     private func showHomeScreen(){
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
-        
         let rootNav : UINavigationController = ExtendedNavigationController()
         
-        guard let controller = HomeController.dynamicInstance()
-            else{
-                return
-        }
         
         /*guard let controller = EventQueueController.instance()
          else{
          return
          }*/
         
-        
-        guard let containerController = ContainerController.instance() else {
-            return
-        }
-        
-        
         Log.echo(key: "yud", text: "Root is active")
-        rootNav.viewControllers = [controller]
         
         let transition = CATransition()
         transition.type = kCATransitionFade
-        //        window?.set(rootViewController: rootNav, withTransition: transition)
-        
-        window?.set(rootViewController: containerController, withTransition: transition)
-        
-        //window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
-        initializeAppConnection()
+        //window?.set(rootViewController: rootNav, withTransition: transition)
+        if let userInfo = SignedUserInfo.sharedInstance{
+            if userInfo.role == .analyst{
+                
+                guard let controller = HomeController.dynamicInstance()
+                    else{
+                        return
+                }
+                rootNav.viewControllers = [controller]
+                window?.set(rootViewController: rootNav, withTransition: transition)
+                window?.makeKeyAndVisible()
+                initializeAppConnection()
+            }else{
+                
+                guard let containerController = ContainerController.instance() else {
+                    return
+                }
+                window?.set(rootViewController: containerController, withTransition: transition)
+                //window?.rootViewController = navigationController
+                window?.makeKeyAndVisible()
+                initializeAppConnection()
+            }
+        }
     }
     
     private func updateNavigationBar(){

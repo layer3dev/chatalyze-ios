@@ -10,10 +10,9 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
-    
-    
+        
+    @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +20,26 @@ class HostCallController: VideoCallController {
         initialization()
     }
     
+    func checkDateFormat(date:String){
+
+        //Sat, 21 Jul 2018 11:11:19 GMT
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+        let requiredDate = dateFormatter.date(from: "Sat, 21 Jul 2018 11:11:19 GMT")
+        
+        Log.echo(key: "yud", text: "Required date is \(requiredDate)")
+
+        let currentDate = Date()
+        let difference = currentDate.timeIntervalSince(requiredDate ?? Date())
+        
+        Log.echo(key: "yud", text: "Time Diffrence of the date is\(difference)")
+        
+        let newDateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        
+    }
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -28,7 +47,6 @@ class HostCallController: VideoCallController {
             return getActiveConnection()?.connection
         }
     }
-    
     
     private func initialization(){
         initializeVariable()
@@ -39,12 +57,42 @@ class HostCallController: VideoCallController {
     }
     
     private func initializeVariable(){
+        self.registerForTimerNotification()
         self.registerForListeners()
+    }
+    
+    private func registerForTimerNotification(){
+        
+        socketClient?.onEvent("screenshotCountDown", completion: { (response) in
+            
+            Log.echo(key: "yud", text: "Response in screenshotCountDown is \(response)")
+            if let responseDict:[String:JSON] = response?.dictionary{
+                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    if let date = dateDict["timerStartsAt"]?.stringValue{
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+                        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+                        let requiredDate = dateFormatter.date(from: date)
+                        guard let connection = self.getActiveConnection() else{
+                            return
+                        }
+                        if connection.isConnected{
+                            
+                            self.selfieTimerView?.startAnimationForHost(date: requiredDate)
+                            self.selfieTimerView?.screenShotListner = {
+                            }
+                        }                       
+                    }
+                }
+            }
+            
+            
+        })
     }
     
     override func registerForListeners(){
         super.registerForListeners()
-        
     }
     override func isExpired()->Bool{
         
@@ -61,19 +109,16 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
     }
     
-    
     private func getActiveConnection()->HostCallConnection?{
         
         guard let slot = eventInfo?.currentSlotFromMerge
             else{
                 return nil
         }
-        
         guard let connection = getWriteConnection(slotInfo: slot)
             else{
                 return nil
         }
-        
         return connection
     }
     
@@ -84,17 +129,14 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-        
         guard let connection = getWriteConnection(slotInfo: slot)
             else{
                 return
         }
-        
         if(slot.isLIVE){
             connection.linkCall()
         }
     }
-    
     
     private func updateCallHeaderInfo(){
         
@@ -102,27 +144,17 @@ class HostCallController: VideoCallController {
         if(slot == nil){
             slot = self.eventInfo?.preConnectSlotFromMerge
         }
-        
-        
         guard let slotInfo = slot
             else{
                 return
         }
-        
-        
-        
         if(slotInfo.isFuture){
             updateCallHeaderForFuture(slot : slotInfo)
         }else{
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
-        
-        
-    
         hostRootView?.callInfoContainer?.slotUserName?.text = self.eventInfo?.currentSlot?.user?.firstName
-        
     }
-    
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
         guard let startDate = slot.endDate
@@ -130,17 +162,14 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
         
-        
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        
         
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
@@ -264,8 +293,6 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        
-        
         guard let connection = getWriteConnection(slotInfo : slot)
             else{
                 Log.echo(key: "processEvent", text: "connectUser -> getWriteConnection is nil")
@@ -287,15 +314,11 @@ class HostCallController: VideoCallController {
         }
         Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
         connection.initateHandshake()
-        
-        
     }
     
     
-    
-    
-    
     private func getWriteConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
+     
         guard let slotInfo = slotInfo
             else{
                 return nil
@@ -305,7 +328,6 @@ class HostCallController: VideoCallController {
             else{
                 return nil
         }
-        
         
         var connection = connectionInfo[targetHashedId]
         if(connection == nil){

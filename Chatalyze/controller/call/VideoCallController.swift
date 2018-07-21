@@ -13,7 +13,7 @@ import SwiftyJSON
 
 
 class VideoCallController : InterfaceExtendedController {
-        
+   
     var socketClient : SocketClient?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
@@ -57,7 +57,6 @@ class VideoCallController : InterfaceExtendedController {
         return self.view as? VideoRootView
     }
     
-    
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
     }
@@ -68,7 +67,6 @@ class VideoCallController : InterfaceExtendedController {
             return nil
         }
     }
-    
     
     @IBAction private func audioMuteAction(){
        guard let peerConnection = self.peerConnection
