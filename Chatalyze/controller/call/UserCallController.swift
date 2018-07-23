@@ -261,10 +261,10 @@ class UserCallController: VideoCallController {
             
             let image = self.userRootView?.getSnapshot()
             self.myActiveUserSlot?.isScreenshotSaved = true
+            self.mimicScreenShotFlash()
             self.uploadImage(image: image, completion: { (success, info) in
                 self.screenshotInfo = info
             })
-            
         }
     }
     

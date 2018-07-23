@@ -68,6 +68,9 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    
+    
+    
     @IBAction private func audioMuteAction(){
        guard let peerConnection = self.peerConnection
         else{
@@ -422,7 +425,6 @@ extension VideoCallController{
                 return
         }
         
-        
         if let localTrack = self.localTrack{
             localTrack.remove(localView)
             self.localTrack = nil
@@ -430,10 +432,28 @@ extension VideoCallController{
         }
         
         Log.echo(key: "local stream", text: "got local stream")
-        
         self.localTrack = localMediaPackage?.videoTrack
         self.localTrack?.add(localView)
         
     
+    }
+}
+
+extension VideoCallController{
+
+    func mimicScreenShotFlash(){
+        
+        let flashView = UIView(frame: self.view.frame)
+        flashView.backgroundColor = UIColor.white
+        self.view.addSubview(flashView)
+        self.view.layoutIfNeeded()
+
+        UIView.animate(withDuration: 0.75, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {() -> Void in
+           
+            flashView.alpha = 0.0
+        }, completion: { (done) -> Void in
+            
+            flashView.removeFromSuperview()
+        })
     }
 }

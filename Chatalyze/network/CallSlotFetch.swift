@@ -88,13 +88,13 @@ class CallSlotFetch{
         var slotInfos = [EventSlotInfo]()
         
         for rawInfo in infos {
+            
             let eventInfo = EventSlotInfo(info: rawInfo)
-            slotInfos.append(eventInfo)
+            if eventInfo.slotNo == nil || eventInfo.slotNo == 0{                
+            }else{
+              slotInfos.append(eventInfo)
+            }
         }
-        
-        
-        
-        
         
         completion(true, slotInfos)
         return

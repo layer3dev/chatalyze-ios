@@ -79,11 +79,9 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     
     private func getTargetSize(remote : UIImage, local : UIImage)->CGSize{
-        
+                
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
         var localInfo = (size : local.size, orientation : VideoView.orientation.undefined)
-        
-
         
         let targetSize = CGSize(width: remoteInfo.size.width/4, height: remoteInfo.size.height/4)
         
@@ -100,8 +98,9 @@ class UserVideoRootView: UserVideoLayoutView {
         }
         
         let localHeightAspect = localInfo.size.height/localInfo.size.width
-        
+
         if(localInfo.orientation == .landscape){
+            
             let width =  targetSize.width
             let height = localHeightAspect*width
             return CGSize(width: width, height: height)
@@ -109,25 +108,22 @@ class UserVideoRootView: UserVideoLayoutView {
         
         let localWidthAspect = localInfo.size.width/localInfo.size.height
         if(localInfo.orientation == .portrait){
+            
             let height = targetSize.height
             let width = localWidthAspect*height
-            
             return CGSize(width: width, height: height)
         }
-    
         return CGSize.zero
     }
 
     
     private func getSnapshot(view : UIView)->UIImage?{
+
         let bounds = view.bounds
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
-        
         view.drawHierarchy(in: bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
-    
-
 }

@@ -18,26 +18,46 @@ class HostCallController: VideoCallController {
         super.viewDidLoad()
         
         initialization()
+        checkDateFormat(date:"xfg")
     }
     
     func checkDateFormat(date:String){
-
+        
+        /// <#Description#>
+//        let date = Date()
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+//        Log.echo(key: "yud", text: "Date is string\(dateFormatter.string(from: date))")
+//        Log.echo(key: "yud", text:"Date in date is \(dateFormatter.date(from: dateFormatter.string(from: date)))")
+//
+//        //Finding the current Date in GMT time zone.
+//        print("Date in the Gmt format is")
+//        let date = Date()
+//        print(date)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+//        //2018-07-23 06:06:54 +0000
+//        //dateFormatter.date(from: )
+//        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss Z"
+//        print("Required date is \(dateFormatter.date(from: "\(date)"))")
+//        return
         //Sat, 21 Jul 2018 11:11:19 GMT
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-        let requiredDate = dateFormatter.date(from: "Sat, 21 Jul 2018 11:11:19 GMT")
-        
-        Log.echo(key: "yud", text: "Required date is \(requiredDate)")
-
-        let currentDate = Date()
-        let difference = currentDate.timeIntervalSince(requiredDate ?? Date())
-        
-        Log.echo(key: "yud", text: "Time Diffrence of the date is\(difference)")
-        
-        let newDateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+//        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+//        let requiredDate = dateFormatter.date(from: "Sat, 21 Jul 2018 11:11:19 GMT")
+//
+//        Log.echo(key: "yud", text: "Required date is \(requiredDate)")
+//
+//        let currentDate = Date()
+//        let difference = currentDate.timeIntervalSince(requiredDate ?? Date())
+//
+//        Log.echo(key: "yud", text: "Time Diffrence of the date is\(difference)")
+//
+//        let newDateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         
     }
     
@@ -65,7 +85,7 @@ class HostCallController: VideoCallController {
         
         socketClient?.onEvent("screenshotCountDown", completion: { (response) in
             
-            Log.echo(key: "yud", text: "Response in screenshotCountDown is \(response)")
+            Log.echo(key: "yud", text: "Response in screenshotCountDown is \(String(describing: response))")
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     if let date = dateDict["timerStartsAt"]?.stringValue{
@@ -73,23 +93,26 @@ class HostCallController: VideoCallController {
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-                        let requiredDate = dateFormatter.date(from: date)
+                        let requiredDate = dateFormatter.date(from: date)                        
+                        
                         guard let connection = self.getActiveConnection() else{
                             return
                         }
                         if connection.isConnected{
-                            
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
+                            
                             self.selfieTimerView?.screenShotListner = {
+                                self.mimicScreenShotFlash()
                             }
                         }                       
                     }
                 }
             }
-            
-            
         })
     }
+    
+
+    
     
     override func registerForListeners(){
         super.registerForListeners()
@@ -157,6 +180,7 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        
         guard let startDate = slot.endDate
             else{
                 return
@@ -168,16 +192,14 @@ class HostCallController: VideoCallController {
         }
         
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
-        
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
-        
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
+        
         guard let startDate = slot.startDate
             else{
                 return
@@ -189,15 +211,10 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
-        
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        
-        
         let currentSlot = (self.eventInfo?.preConnectSlotInfo?.index ?? 0)
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
-        
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
@@ -343,7 +360,6 @@ class HostCallController: VideoCallController {
     }
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
-    
     
     override func hangup(){
         super.hangup()

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class SelfieTimerView:ExtendedView {
     
+    var player : AVAudioPlayer?
     var autographTime = 0
     var testTimer = Timer()
     var selfieAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
@@ -50,18 +52,28 @@ class SelfieTimerView:ExtendedView {
         hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
     }
     
+    func currentDateTimeGMT()->Date{
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        return dateFormatter.date(from: "\(date))") ?? Date()
+    }
+    
+    
     @objc private func updateAnlalyst(){
         
         if let date = requiredDate {
-            let difference = Date().timeIntervalSince(date)
+            
+            Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
+            let difference = currentDateTimeGMT().timeIntervalSince(date)
+            Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
             if difference >= 0 {
                 updateTimer()
             }
-            if autographTime >= 20{
-                invalidateTimerForHost()
-            }
         }else{            
             invalidateTimerForHost()
+            invalidateTimer()
         }
     }
     
@@ -103,10 +115,13 @@ class SelfieTimerView:ExtendedView {
                 })
             }
         }else if autographTime >= 15 && autographTime  < 16{
+            self.playSound()
             self.greenOne()
         }else if autographTime >= 16 && autographTime  < 17{
+            self.playSound()
             self.greenTwo()
         }else if autographTime >= 17 && autographTime  < 18{
+            self.playSound()
             self.greenThird()
         }else if autographTime >= 18 && autographTime  < 19{
             self.smile()
@@ -123,6 +138,7 @@ class SelfieTimerView:ExtendedView {
                 self.isHidden = true
             }
             invalidateTimer()
+            invalidateTimerForHost()
         }
         autographTime = autographTime + 1
     }
@@ -216,7 +232,9 @@ extension SelfieTimerView{
     private func greenSelfieTime(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
@@ -233,6 +251,7 @@ extension SelfieTimerView{
     private func graySelfieTime(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
@@ -246,5 +265,41 @@ extension SelfieTimerView{
         
         self.selfieTimeLbl?.attributedText = requiredString
         self.layoutIfNeeded()
+    }
+}
+
+extension SelfieTimerView{
+    
+    
+    func playSound() {
+        
+        /*
+         NSURL *audioURL = [[NSBundle mainBundle] URLForResource:YourSound.stringByDeletingPathExtension withExtension:YourSound.pathExtension];
+         NSData *audioData = [NSData dataWithContentsOfURL:audioURL];
+         */
+        
+        guard let soundUrl = Bundle.main.url(forResource:"countDown_original" , withExtension: "mp3")
+            else{
+                return
+        }
+        guard let sound = try? Data(contentsOf: soundUrl)
+            else {
+                return
+        }
+        /*guard let sound = NSDataAsset(name: "e-memorabilia_notification") else {
+         Log.echo(key: "", text:"asset not found")
+         return
+         }*/
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
+            self.player = player
+            
+            player.play()
+        } catch let error as NSError {
+            Log.echo(key: "", text:"error: \(error.localizedDescription)")
+        }
     }
 }
