@@ -14,6 +14,7 @@ class ReviewRootView:ExtendedView{
     @IBOutlet var ratingView:HCSStarRatingView?
     var controller:ReviewController?
     var eventInfo : EventScheduleInfo?
+    
     override func viewDidLayout(){
         super.viewDidLayout()
         

@@ -58,6 +58,27 @@ class UserCallController: VideoCallController {
         return false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Log.echo(key: "yud", text: "The UserCallController is dismissing")
+        
+        Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myActiveUserSlot?.isSelfieTimerInitiated))")
+        
+        DispatchQueue.main.async {
+           
+            self.selfieTimerView?.reset()
+            guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
+                return
+            }
+            if isScreenshotSaved == true{
+                self.myActiveUserSlot?.isSelfieTimerInitiated = true
+            }else{
+                self.myActiveUserSlot?.isSelfieTimerInitiated = false
+            }
+        }
+    }
+    
     
     @IBAction private func requestAutograph(){
         
@@ -153,6 +174,7 @@ class UserCallController: VideoCallController {
     }
 
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
+    
     private func processHandshakeResponse(data : JSON?){
         
         guard let json = data
@@ -221,20 +243,31 @@ class UserCallController: VideoCallController {
     private func processAutograph(){
         
         
+        
         //Once the  selfie timer has been come
+        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
+        
+        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
+        
+        guard let isConnectionConnected = self.connection?.isConnected else { return  }
+        
         if isSelfieTimerInitiated{
             return
         }
         
         //return if call is not connected means video stream is not coming.
-        if !(connection?.isConnected ?? false){
+        if !(isConnectionConnected){
             return
         }
         
         //return if screenshot is already sent.
-        if self.myActiveUserSlot?.isScreenshotSaved ?? true{
+        if isScreenshotSaved{
             return
         }
+        
+        Log.echo(key: "yud", text: "Processs Autograph isSelfieTimerInitiated \(isSelfieTimerInitiated)")
+        Log.echo(key: "yud", text: "Processs Autograph isScreenShotSaved \(isScreenshotSaved)")
+        Log.echo(key: "yud", text: "Processs Autograph isConnection Connected \(isConnectionConnected)")
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -247,15 +280,14 @@ class UserCallController: VideoCallController {
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "sent time stamp data is \(data)")
             //selfie timer will be initiated after giving command to selfie view for the animation.
-            isSelfieTimerInitiated = true
+            //isSelfieTimerInitiated = true
+            self.myActiveUserSlot?.isSelfieTimerInitiated = true
             selfieTimerView?.startAnimation()
             Log.echo(key: "yud", text: "Yes I am sending the animation request")
-
         }
     }
     
     private func initializeGetCommondForTakeScreenShot(){
-        
         
         selfieTimerView?.screenShotListner = {
             
@@ -279,6 +311,7 @@ class UserCallController: VideoCallController {
             updateCallHeaderForFuture(slot : currentSlot)
             return
         }
+        
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
@@ -393,7 +426,6 @@ extension UserCallController{
         
         let storyboard = UIStoryboard(name: "call_view", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "user_video_call") as? UserCallController
-        
         return controller
     }
 }
@@ -509,7 +541,6 @@ extension UserCallController{
         }
     }
     
-    
     private func requestDefaultAutograph(image : UIImage){
         
         self.uploadImage(image: image, completion: { [weak self] (success, screenshotInfo) in
@@ -575,8 +606,8 @@ extension UserCallController{
         params["file"] = imageBase64
         userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
+
             self?.userRootView?.requestAutographButton?.hideLoader()
-            
             completion?(true, info)
         }
     }
@@ -599,7 +630,6 @@ extension UserCallController{
     }
     
     private func registerForSelfieTimer(){
-        
     }
     
     private func prepateCanvas(info : CanvasInfo?){
@@ -611,7 +641,6 @@ extension UserCallController{
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0
-            
         }) { (success, image) in
             
             canvas?.image = image
@@ -632,11 +661,8 @@ extension UserCallController{
         var params = [String : Any]()
         params["id"] = "screenshotLoaded"
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
-        
         let message = screenshotInfo.toDict()
         params["message"] = message
         socketClient?.emit(params)
     }
 }
-
-

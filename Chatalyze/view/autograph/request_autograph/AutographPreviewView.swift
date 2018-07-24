@@ -16,7 +16,6 @@ class AutographPreviewView: ExtendedView {
     private var screenshotInfo : ScreenshotInfo?
     private var imageLoader = CacheImageLoader.sharedInstance
     
-
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -31,6 +30,7 @@ class AutographPreviewView: ExtendedView {
     }
     
     func fillInfo(info : ScreenshotInfo?){
+     
         self.screenshotInfo = info
         loader?.loader?.startAnimating()
         imageLoader.loadImage(screenshotInfo?.screenshot, token: { () -> (Int) in

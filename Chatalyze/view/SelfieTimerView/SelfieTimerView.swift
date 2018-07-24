@@ -27,14 +27,24 @@ class SelfieTimerView:ExtendedView {
         
         graySelfieTime()
     }
+    
+    func reset(){
+        
+        invalidateTimer()
+        invalidateTimerForHost()
+    }
+    
+    
     override func willRemoveSubview(_ subview: UIView) {
         super.willRemoveSubview(subview)
         
+        Log.echo(key: "yud", text: "The selfie view is removing from the subview")
         invalidateTimerForHost()
         invalidateTimer()
     }
     
     func startAnimation(){
+        
         
         self.invalidateTimer()
         self.runTimer()
@@ -68,7 +78,7 @@ class SelfieTimerView:ExtendedView {
             Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
             let difference = currentDateTimeGMT().timeIntervalSince(date)
             Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
-            if difference >= 0 {
+            if difference >= 3 {
                 updateTimer()
             }
         }else{            

@@ -17,8 +17,8 @@ class SubmitScreenshot{
 
         let url = AppConnectionConfig.webServiceURL + "/screenshots"
         
-        
         ServerProcessor().request(.post, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in
+            
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }
@@ -38,8 +38,6 @@ class SubmitScreenshot{
                 completion(false, nil)
                 return
         }
-        
-        
         
         let screenshotInfo = ScreenshotInfo(info: info)
         
