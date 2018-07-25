@@ -41,7 +41,7 @@ extension EventAdapter:UITableViewDataSource{
 
 extension EventAdapter:UITableViewDelegate{
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {       
         return 378.0
     }
     
@@ -51,21 +51,28 @@ extension EventAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        guard let controller = SystemTestController.instance() else {
+        guard let controller = EventLandingController.instance() else {
             return
         }
         controller.info = self.eventArray[indexPath.row]
-        controller.presentingControllerObj = root?.controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.dismissListner = {
-            DispatchQueue.main.async {
-                Log.echo(key: "yud", text: "I got dismiss call")
-                self.root?.controller?.dismiss(animated: false, completion: {
-                })
-            }
-        }
-        self.root?.controller?.present(controller, animated: true, completion: {
-        })
+        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+        
+//        guard let controller = SystemTestController.instance() else {
+//            return
+//        }
+//        controller.info = self.eventArray[indexPath.row]
+//        controller.presentingControllerObj = root?.controller
+//        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//        controller.dismissListner = {
+//            DispatchQueue.main.async {
+//                Log.echo(key: "yud", text: "I got dismiss call")
+//                self.root?.controller?.dismiss(animated: false, completion: {
+//                })
+//            }
+//        }
+//        self.root?.controller?.present(controller, animated: true, completion: {
+//        })
     }
 }
 

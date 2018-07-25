@@ -56,7 +56,7 @@ class EventInfo: NSObject {
         fillInfo(info: info)
     }
     
-     func fillInfo(info : JSON?) {
+     func fillInfo(info : JSON?){
       
         guard let json = info
             else{

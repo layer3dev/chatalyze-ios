@@ -128,27 +128,46 @@ class SelfieTimerView:ExtendedView {
             self.playSound()
             self.greenOne()
         }else if autographTime >= 16 && autographTime  < 17{
-            self.playSound()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.20) {
+                self.playSound()
+            }
             self.greenTwo()
         }else if autographTime >= 17 && autographTime  < 18{
-            self.playSound()
-            self.greenThird()
-        }else if autographTime >= 18 && autographTime  < 19{
-            self.smile()
-        }else if autographTime >= 19{
-            
-            if !(self.isScreenShotTaken){
-                
-                self.isHidden = true
-                self.isScreenShotTaken = true
-                if let listner = screenShotListner{
-                    listner()
-                }
-            }else{
-                self.isHidden = true
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.20) {
+                self.playSound()
             }
-            invalidateTimer()
-            invalidateTimerForHost()
+//            self.playSound()
+            self.greenThird()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.88) {
+                if !(self.isScreenShotTaken){
+                    
+                    self.isHidden = true
+                    self.isScreenShotTaken = true
+                    if let listner = self.screenShotListner{
+                        listner()
+                    }
+                }else{
+                    self.isHidden = true
+                }
+                self.invalidateTimer()
+                self.invalidateTimerForHost()
+            }
+        }else if autographTime >= 18 && autographTime  < 19 {
+            
+//                if !(self.isScreenShotTaken){
+            
+//                    self.isHidden = true
+//                    self.isScreenShotTaken = true
+//                    if let listner = self.screenShotListner{
+//                        listner()
+//                    }
+//                }else{
+//                    self.isHidden = true
+//                }
+//                self.invalidateTimer()
+//                self.invalidateTimerForHost()
+            //self.smile()
+        }else if autographTime >= 19{
         }
         autographTime = autographTime + 1
     }

@@ -28,7 +28,7 @@ class EventController: TabChildLoadController {
     }
     
     func paintInterface(){
-       
+        
         paintNavigationBar()
     }
     
@@ -51,7 +51,7 @@ class EventController: TabChildLoadController {
         }
         self.showLoader()
         EventProcessor().fetchInfo(id: userId) { (success, info) in
-
+            
             self.stopLoader()
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true

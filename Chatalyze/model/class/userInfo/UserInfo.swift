@@ -50,7 +50,6 @@ class UserInfo: NSObject {
     var profileThumbnail : String?
     var defaultImage : HostDefaultScreenshot?
     var eventMobReminder:Bool = false
-    
     var isOnline = false
     
     override init(){

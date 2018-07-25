@@ -86,13 +86,13 @@ class EventCell: ExtendedTableCell {
     func eventisSoldOut(status:Bool){
     
         if status == true{
-            
+
             soldOutLabel?.isHidden = false
-            self.isUserInteractionEnabled = false
+            //self.isUserInteractionEnabled = false
         }else{
             
             soldOutLabel?.isHidden = true
-            self.isUserInteractionEnabled = true
+            //self.isUserInteractionEnabled = true
         }
     }
 }

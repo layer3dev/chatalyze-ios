@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		22096507D101B7FD4B87223E /* Pods_ChatalyzeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */; };
 		470DA1B120FF5E3C00F41F62 /* AnimationTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470DA1B020FF5E3C00F41F62 /* AnimationTestController.swift */; };
+		4713662421084FEA00B945BB /* EventLandingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713662321084FEA00B945BB /* EventLandingRootView.swift */; };
+		471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */; };
 		4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */; };
 		4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */; };
 		4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */; };
@@ -363,6 +365,8 @@
 /* Begin PBXFileReference section */
 		3D680A10BEEE439F0853167C /* Pods-ChatalyzeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatalyzeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		470DA1B020FF5E3C00F41F62 /* AnimationTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTestController.swift; sourceTree = "<group>"; };
+		4713662321084FEA00B945BB /* EventLandingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLandingRootView.swift; sourceTree = "<group>"; };
+		471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRequestForNextEventNotification.swift; sourceTree = "<group>"; };
 		4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessDelegate.swift; sourceTree = "<group>"; };
 		4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentDelegte.swift; sourceTree = "<group>"; };
 		4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessInfo.swift; sourceTree = "<group>"; };
@@ -815,6 +819,14 @@
 				BA13399E4D58880AC0FC7A4E /* Pods-ChatalyzeUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		4713662221084FD400B945BB /* EventLandingRootView */ = {
+			isa = PBXGroup;
+			children = (
+				4713662321084FEA00B945BB /* EventLandingRootView.swift */,
+			);
+			path = EventLandingRootView;
 			sourceTree = "<group>";
 		};
 		4718425720C5386B00C6FFD5 /* PaymentSuccessInfo */ = {
@@ -1611,6 +1623,7 @@
 				4718425A20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift */,
 				47C3372F20D516B30078580E /* FetchProfileProcessor.swift */,
 				47E2F02920DBC1DD006BD93B /* SubmitCallReviewProcessor.swift */,
+				471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -1641,6 +1654,7 @@
 				47C3373120D526750078580E /* saveImageinGallery */,
 				473328BF2101FCA500AB732D /* SelfieTimerView */,
 				47E3A76C20DA8A26009347B6 /* review */,
+				4713662221084FD400B945BB /* EventLandingRootView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2503,6 +2517,7 @@
 				FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */,
 				47B6526E20AAB43B0041496C /* FetchGreetingsProcessor.swift in Sources */,
 				FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */,
+				4713662421084FEA00B945BB /* EventLandingRootView.swift in Sources */,
 				47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */,
 				4769692720CFA14E0040AB0F /* MicTestController.swift in Sources */,
 				473646E920AEA68900D684FE /* PaymentTableCell.swift in Sources */,
@@ -2667,6 +2682,7 @@
 				47B6525520AAB0170041496C /* EventController.swift in Sources */,
 				FAE9EF76206CE83D00C45F8D /* UserHomeController.swift in Sources */,
 				FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */,
+				471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
 				FAE9EF6F206CD05500C45F8D /* UserCallConnection.swift in Sources */,
 				47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */,

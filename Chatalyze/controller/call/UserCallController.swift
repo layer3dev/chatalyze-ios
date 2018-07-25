@@ -242,8 +242,6 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        
-        
         //Once the  selfie timer has been come
         guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         
