@@ -13,13 +13,7 @@ class SubmitRequestForNextEventNotification{
     
     public func save(analystId:String,email:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        var url = AppConnectionConfig.webServiceURL + "/emailForEventNotification"        
-        guard let id = SignedUserInfo.sharedInstance?.id else {
-            completion(false, "",  nil)
-            return
-        }
-        
-        url = url+id
+        let url = AppConnectionConfig.webServiceURL + "/emailForEventNotification"
         
         var params = [String : Any]()
         
@@ -29,7 +23,7 @@ class SubmitRequestForNextEventNotification{
         
         Log.echo(key: "yud", text: "My sended Dict  new is\(params)")
         
-        ServerProcessor().request(.put, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
+        ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }

@@ -15,7 +15,6 @@ class TimeSyncInfo{
     var timestamp : Int = 0
     var identifier : Int = 0
     
-    
     init(){
     }
     
@@ -31,19 +30,16 @@ class TimeSyncInfo{
             else{
                 return
         }
-        
         timestamp = info["timestamp"]?.intValue ?? 0
         identifier = info["requestIdentifier"]?.intValue ?? 0
-
     }
     
+    
     func isValid()->Bool{
+      
         if(timestamp == 0 || identifier == 0){
             return false
         }
         return true
     }
-    
 }
-
-

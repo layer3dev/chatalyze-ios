@@ -128,12 +128,12 @@ class SelfieTimerView:ExtendedView {
             self.playSound()
             self.greenOne()
         }else if autographTime >= 16 && autographTime  < 17{
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.20) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
             self.greenTwo()
         }else if autographTime >= 17 && autographTime  < 18{
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.20) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
 //            self.playSound()

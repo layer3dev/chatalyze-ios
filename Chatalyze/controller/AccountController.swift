@@ -18,6 +18,7 @@ class AccountController: TabChildLoadController {
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var containerTopContraint:NSLayoutConstraint?
     @IBOutlet var containerView:UIView?
+    var pageViewHostController:AccountPageViewHostController?
     
     override func viewDidLayout(){
         super.viewDidLayout()
@@ -63,11 +64,13 @@ class AccountController: TabChildLoadController {
             pageViewController = segue.destination as? AcccountPageViewController
             pageViewController?.accountDelegate = self
             pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
+        }else if segueIdentifier == "paginationHost"{
+            
+            pageViewHostController = segue.destination as? AccountPageViewHostController
+            pageViewHostController?.accountDelegate = self
+            pageViewHostController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
         }
     }
-}
-
-extension AccountController{
     
     class func instance()->AccountController?{
         
@@ -75,6 +78,29 @@ extension AccountController{
         let controller = storyboard.instantiateViewController(withIdentifier: "Account") as? AccountController
         return controller
     }
+    
+    func settingsAction(){
+        
+        pageViewController?.setSettingTab()
+        rootView?.setTabInterface(controller: SettingController())
+    }
+    
+    func memoryAction(){
+        
+        pageViewController?.setMemoryTab()
+        rootView?.setTabInterface(controller:MemoriesController())
+    }
+    
+    func ticketAction(){
+        
+        pageViewController?.setMyTicketTab()
+        rootView?.setTabInterface(controller: MyTicketsController())
+    }
+}
+
+extension AccountController{
+    
+    
 }
 
 
@@ -150,21 +176,5 @@ extension AccountController:stateofAccountTabDelegate{
 
 extension AccountController{
     
-    func settingsAction(){
-        
-        pageViewController?.setSettingTab()
-        rootView?.setTabInterface(controller: SettingController())
-    }
     
-    func memoryAction(){
-        
-        pageViewController?.setMemoryTab()
-        rootView?.setTabInterface(controller:MemoriesController())
-    }
-    
-    func ticketAction(){
-        
-        pageViewController?.setMyTicketTab()
-        rootView?.setTabInterface(controller: MyTicketsController())
-    }    
 }

@@ -54,11 +54,27 @@ class TabContainerController: UITabBarController {
         
         let accountNav : UINavigationController = ExtendedNavigationController()
         accountNav.viewControllers = [accountController]
+   
+        //----
         
-        self.viewControllers = [eventNav, greetingNav , accountNav]
+        guard let accountHostController = AccountHostController.instance()
+            else{
+                return
+        }
+        
+        let accountHostNav : UINavigationController = ExtendedNavigationController()        
+        accountHostNav.viewControllers = [accountHostController]
+        if let role = SignedUserInfo.sharedInstance?.role{
+            if role == .analyst  {
+                self.viewControllers = [eventNav, greetingNav , accountHostNav]
+            }else{
+                self.viewControllers = [eventNav, greetingNav , accountNav]
+            }
+        }else{
+            self.viewControllers = [eventNav, greetingNav , accountNav]
+        }
         self.viewControllers?.forEach { _ = $0.view }
         selectedIndex = initialTab.rawValue
-        
     }
     
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

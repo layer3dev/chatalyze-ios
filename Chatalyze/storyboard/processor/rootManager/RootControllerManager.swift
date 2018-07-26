@@ -21,6 +21,7 @@ class RootControllerManager{
     }
     
     func updateRoot(){
+        
         self.showRelevantScreen()
     }
     
@@ -58,28 +59,34 @@ class RootControllerManager{
         let window = appDelegate?.window
         let rootNav : UINavigationController = ExtendedNavigationController()
         
-        
         /*guard let controller = EventQueueController.instance()
          else{
          return
          }*/
         
         Log.echo(key: "yud", text: "Root is active")
-        
         let transition = CATransition()
         transition.type = kCATransitionFade
         //window?.set(rootViewController: rootNav, withTransition: transition)
         if let userInfo = SignedUserInfo.sharedInstance{
             if userInfo.role == .analyst{
                 
-                guard let controller = HomeController.dynamicInstance()
-                    else{
-                        return
+                guard let containerController = ContainerController.instance() else {
+                    return
                 }
-                rootNav.viewControllers = [controller]
-                window?.set(rootViewController: rootNav, withTransition: transition)
+                window?.set(rootViewController: containerController, withTransition: transition)
+                //window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
+                //**
+//                guard let controller = HomeController.dynamicInstance()
+//                    else{
+//                        return
+//                }
+//                rootNav.viewControllers = [controller]
+//                window?.set(rootViewController: rootNav, withTransition: transition)
+//                window?.makeKeyAndVisible()
+//                initializeAppConnection()
             }else{
                 
                 guard let containerController = ContainerController.instance() else {
@@ -118,6 +125,7 @@ class RootControllerManager{
     }
     
     func signOut(completion : (()->())?){
+        
         SignedUserInfo.sharedInstance?.clear()
         UserSocket.sharedInstance?.disconnect()
         SocketClient.sharedInstance?.disconnect()

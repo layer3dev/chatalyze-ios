@@ -42,7 +42,7 @@ class EventLandingController: InterfaceExtendedController {
     
     @IBAction func purchaseTicketAction(sender:UIButton?){
         
-        if (true){
+        if  rootView?.iseventsold ?? false{
             
             UIView.animate(withDuration: 0.3) {
                 
@@ -53,12 +53,11 @@ class EventLandingController: InterfaceExtendedController {
         }else{
             
             UIView.animate(withDuration: 0.3) {
+                
                 self.eventSoldOutView?.alpha = 0
                 self.view.layoutIfNeeded()
             }
         }
-        
-        
         
         guard let controller = SystemTestController.instance() else {
             return
@@ -90,7 +89,7 @@ class EventLandingController: InterfaceExtendedController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         //segue.identifier
         let controller = segue.destination as? EventSoldOutController
         controller?.dismissListner = {
@@ -102,18 +101,6 @@ class EventLandingController: InterfaceExtendedController {
         }
         controller?.info = self.info
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 extension EventLandingController{
@@ -125,4 +112,3 @@ extension EventLandingController{
         return controller
     }
 }
-

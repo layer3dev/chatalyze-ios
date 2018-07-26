@@ -45,6 +45,10 @@
 		474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474BF8A420D912580074EBBC /* SafariServices.framework */; };
 		4769692720CFA14E0040AB0F /* MicTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4769692620CFA14E0040AB0F /* MicTestController.swift */; };
 		478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */; };
+		47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */; };
+		47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF22109E8A600F41630 /* AccountHostController.swift */; };
+		47931AF52109E8BA00F41630 /* AccountHostRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF42109E8BA00F41630 /* AccountHostRootView.swift */; };
+		47931AF82109EB9200F41630 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF72109EB9200F41630 /* SessionController.swift */; };
 		47AACA4320C1718A000F8D7A /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AACA4220C1718A000F8D7A /* CardInfo.swift */; };
 		47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */; };
 		47ABE90420B59742002EEEB0 /* MyTicketsPageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ABE90320B59742002EEEB0 /* MyTicketsPageRootView.swift */; };
@@ -400,6 +404,10 @@
 		478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = FacebookShare.framework.dSYM; path = Carthage/Build/iOS/FacebookShare.framework.dSYM; sourceTree = "<group>"; };
 		478506CE20BFF71100EC4524 /* FacebookShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookShare.framework; path = Carthage/Build/iOS/FacebookShare.framework; sourceTree = "<group>"; };
 		478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Carthage/Build/iOS/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageViewHostController.swift; sourceTree = "<group>"; };
+		47931AF22109E8A600F41630 /* AccountHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHostController.swift; sourceTree = "<group>"; };
+		47931AF42109E8BA00F41630 /* AccountHostRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHostRootView.swift; sourceTree = "<group>"; };
+		47931AF72109EB9200F41630 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		47AACA4220C1718A000F8D7A /* CardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
 		47ABE90120B59054002EEEB0 /* MyTicketsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageController.swift; sourceTree = "<group>"; };
 		47ABE90320B59742002EEEB0 /* MyTicketsPageRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsPageRootView.swift; sourceTree = "<group>"; };
@@ -883,6 +891,31 @@
 				473328C02101FCCD00AB732D /* SelfieTimerView.swift */,
 			);
 			path = SelfieTimerView;
+			sourceTree = "<group>";
+		};
+		47931AEE2109E0CF00F41630 /* AccountHostPageController */ = {
+			isa = PBXGroup;
+			children = (
+				47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */,
+			);
+			path = AccountHostPageController;
+			sourceTree = "<group>";
+		};
+		47931AF12109E88C00F41630 /* AccountHostController  */ = {
+			isa = PBXGroup;
+			children = (
+				47931AF22109E8A600F41630 /* AccountHostController.swift */,
+				47931AF42109E8BA00F41630 /* AccountHostRootView.swift */,
+			);
+			path = "AccountHostController ";
+			sourceTree = "<group>";
+		};
+		47931AF62109EB7C00F41630 /* SessionController */ = {
+			isa = PBXGroup;
+			children = (
+				47931AF72109EB9200F41630 /* SessionController.swift */,
+			);
+			path = SessionController;
 			sourceTree = "<group>";
 		};
 		47AACA4120C1717C000F8D7A /* CardInfo */ = {
@@ -1730,6 +1763,9 @@
 				47B6524E20AAB0170041496C /* event */,
 				47B6524820AAB0160041496C /* Greeting */,
 				FA65F540206A589E006CE665 /* call */,
+				47931AEE2109E0CF00F41630 /* AccountHostPageController */,
+				47931AF12109E88C00F41630 /* AccountHostController  */,
+				47931AF62109EB7C00F41630 /* SessionController */,
 				FAA0016F203ED3F1003C8A74 /* LaunchDelayController.swift */,
 				FA581944204165CA00D088F1 /* SigninController.swift */,
 				FA1B36252064D0ED00F2E6BC /* SettingController.swift */,
@@ -2510,6 +2546,7 @@
 				FAA001B0203ED472003C8A74 /* ExtendedTextView.swift in Sources */,
 				FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */,
 				473646EB20AEDF8500D684FE /* AccountController.swift in Sources */,
+				47931AF52109E8BA00F41630 /* AccountHostRootView.swift in Sources */,
 				FAA001B4203ED472003C8A74 /* UniqueUserIdentifier.swift in Sources */,
 				FA1B363B2064E22F00F2E6BC /* LocalVideoView.swift in Sources */,
 				FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */,
@@ -2577,6 +2614,7 @@
 				FAE8B23220A3087000899731 /* AppConnectionConfigForProduction.swift in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
 				47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */,
+				47931AF82109EB9200F41630 /* SessionController.swift in Sources */,
 				FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */,
 				FA15C57F206B6DE4009FA707 /* SlotInfo.swift in Sources */,
 				47E7A04A20B7ED2B0049354A /* PaymentSuccessController.swift in Sources */,
@@ -2675,6 +2713,7 @@
 				47EF658A20C90EA2000D9BC3 /* CheckInternetSpeed.swift in Sources */,
 				FADC84EE2074FBE200AD9D65 /* AutographPreviewInterface.swift in Sources */,
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
+				47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */,
 				47B6526620AAB4080041496C /* TabElementInterface.swift in Sources */,
 				FAFB7C84206E6E3D004804D2 /* EventQueueController.swift in Sources */,
 				47B6523020AAAF710041496C /* SignInTextViewField.swift in Sources */,
@@ -2712,6 +2751,7 @@
 				FA74B13E20639B6400983141 /* RTCSessionDescription+JSON.m in Sources */,
 				47B6524620AAB0000041496C /* TabChildLoadController.swift in Sources */,
 				FAD6BA3F2064F96600942F27 /* EventValidator.swift in Sources */,
+				47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,
 				FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */,
 				FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */,
