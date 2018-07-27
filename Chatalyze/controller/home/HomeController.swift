@@ -59,8 +59,7 @@ class HomeController: InterfaceExtendedController {
         paintSettingButton()
     }
 
-    
-    
+
     
     /*
     // MARK: - Navigation

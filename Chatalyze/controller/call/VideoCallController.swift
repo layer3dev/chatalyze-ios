@@ -53,6 +53,8 @@ class VideoCallController : InterfaceExtendedController {
         self.socketClient = nil
     }
     
+    
+    
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
     }
@@ -60,6 +62,8 @@ class VideoCallController : InterfaceExtendedController {
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
     }
+    
+    
     
     //public - Need to be access by child
     var peerConnection : ARDAppClient?{
@@ -69,55 +73,53 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     
-    
-    
     @IBAction private func audioMuteAction(){
-       guard let peerConnection = self.peerConnection
+       guard let localMediaPackage = self.localMediaPackage
         else{
             return
         }
-        if(peerConnection.isAudioMuted){
-            peerConnection.unmuteAudioIn()
+        if(localMediaPackage.muteAudio){
+            localMediaPackage.muteAudio = false
             actionContainer?.audioView?.unmute()
         }else{
-            peerConnection.muteAudioIn()
+            localMediaPackage.muteAudio = true
             actionContainer?.audioView?.mute()
         }
     }    
     
+    
     @IBAction private func videoDisableAction(){
       
-        guard let peerConnection = self.peerConnection
+        guard let localMediaPackage = self.localMediaPackage
             else{
                 return
         }
-        
-        if(peerConnection.isVideoMuted){
-            peerConnection.unmuteVideoIn()
+        if(localMediaPackage.muteVideo){
+            localMediaPackage.muteVideo = false
             actionContainer?.videoView?.unmute()
         }else{
-            peerConnection.muteVideoIn()
+            localMediaPackage.muteVideo = true
             actionContainer?.videoView?.mute()
         }
     }
     
-    @IBAction private func hangupAction(){
+    
+    @IBAction private func exitAction(){
         
-        processHangupAction()
+        processExitAction()
     }
     
-    func processHangupAction(){
+    func processExitAction(){
         
         timer.pauseTimer()
-        self.hangup()
-        updateUserOfHangup()
+        self.exit()
+        updateUserOfExit()
     }
     
     
     
-    func hangup(){
+    func exit(){
         
-       
         self.dismiss(animated: false) {
             
             Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
@@ -164,7 +166,7 @@ class VideoCallController : InterfaceExtendedController {
         socketClient?.connect(roomId: (self.eventInfo?.roomId ?? ""))
     }
     
-    private func updateUserOfHangup(){
+    private func updateUserOfExit(){
        
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
@@ -203,7 +205,7 @@ class VideoCallController : InterfaceExtendedController {
         })
         
         rootView?.hangupListener(listener: {
-            self.processHangupAction()
+            self.processExitAction()
             self.rootView?.callOverlayView?.isHidden = true
         })
         

@@ -27,6 +27,8 @@ class SyncTimer: NSObject {
     
     func startTimer(){
         pauseTimer()
+        
+        //Although frequency is of 0.1, but it will only ping after 1 second
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(processData(_:)), userInfo: nil, repeats: true)
     }
     
@@ -38,7 +40,9 @@ class SyncTimer: NSObject {
             guard let weak = weakSelf
                 else{
                     return
-            }            
+            }
+            
+            
             let diff = weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh)
             if(diff <= 0){
                 return
