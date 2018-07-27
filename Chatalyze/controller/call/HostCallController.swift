@@ -32,7 +32,7 @@ class HostCallController: VideoCallController {
     }
     
     private func toggleHangup(){
-        guard let slot = self.eventInfo?.currentSlotFromMerge
+        guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return
         }
@@ -51,7 +51,7 @@ class HostCallController: VideoCallController {
    
     
     private func refreshStreamLock(){
-        guard let slot = self.eventInfo?.currentSlotFromMerge
+        guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 localMediaPackage?.isDisabled = false
                 return
@@ -153,7 +153,7 @@ class HostCallController: VideoCallController {
     
     private func getActiveConnection()->HostCallConnection?{
         
-        guard let slot = eventInfo?.currentSlotFromMerge
+        guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return nil
         }
@@ -167,7 +167,7 @@ class HostCallController: VideoCallController {
     
     private func confirmCallLinked(){
         
-        guard let slot = eventInfo?.currentSlotFromMerge
+        guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return
         }
@@ -182,20 +182,24 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        var slot = self.eventInfo?.currentSlotFromMerge
-        if(slot == nil){
-            slot = self.eventInfo?.preConnectSlotFromMerge
-        }
-        guard let slotInfo = slot
+        guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
+                updateCallHeaderForEmptySlot()
                 return
         }
+        hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         if(slotInfo.isFuture){
             updateCallHeaderForFuture(slot : slotInfo)
         }else{
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
-        hostRootView?.callInfoContainer?.slotUserName?.text = self.eventInfo?.currentSlot?.user?.firstName
+    }
+    
+    private func updateCallHeaderForEmptySlot(){
+        
+        hostRootView?.callInfoContainer?.slotUserName?.text = ""
+        hostRootView?.callInfoContainer?.timer?.text = ""
+        hostRootView?.callInfoContainer?.slotCount?.text = ""
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
@@ -232,7 +236,7 @@ class HostCallController: VideoCallController {
         
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.preConnectSlotInfo?.index ?? 0)
+        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
@@ -289,7 +293,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let preConnectSlot = eventInfo.preConnectSlotFromMerge
+        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
@@ -306,7 +310,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let slot = eventInfo.currentSlotFromMerge
+        guard let slot = eventInfo.mergeSlotInfo?.currentSlot
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return

@@ -335,7 +335,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return
         }
