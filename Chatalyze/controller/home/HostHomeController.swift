@@ -17,6 +17,7 @@ class HostHomeController: HomeController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Log.echo(key: "yud", text: "I am host ")
     }
     
     override func viewDidRelease() {

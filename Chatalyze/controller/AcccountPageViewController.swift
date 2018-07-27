@@ -24,6 +24,8 @@ class AcccountPageViewController: UIPageViewController {
     let settingController = SettingController.instance()
     let sessionController = SessionController.instance()
     
+    
+    
     lazy var pages: [UIViewController] = ({
         return [
             ticketController,

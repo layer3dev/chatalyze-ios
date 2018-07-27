@@ -45,6 +45,7 @@ class EventSoldOutController: InterfaceExtendedController {
         return true
     }
     
+    
     @IBAction func cancelAction(sender:UIButton){
         
         if let listner = self.dismissListner{

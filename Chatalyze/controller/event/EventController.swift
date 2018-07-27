@@ -16,7 +16,8 @@ class EventController: TabChildLoadController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-           
+        
+       
         paintInterface()
         initializeVariable()
     }

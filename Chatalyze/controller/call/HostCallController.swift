@@ -103,6 +103,7 @@ class HostCallController: VideoCallController {
                             
                             self.selfieTimerView?.screenShotListner = {
                                 self.mimicScreenShotFlash()
+                                self.selfieTimerView?.reset()
                             }
                         }                       
                     }
@@ -110,9 +111,6 @@ class HostCallController: VideoCallController {
             }
         })
     }
-    
-
-    
     
     override func registerForListeners(){
         super.registerForListeners()
@@ -205,7 +203,6 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
@@ -238,12 +235,10 @@ class HostCallController: VideoCallController {
 //            Log.echo(key: "processEvent", text: "event not activated yet")
             return
         }
-    
 
         preconnectUser()
         connectLiveUser()
         disconnectStaleConnection()
-        
     }
     
     private func disconnectStaleConnection(){
@@ -335,7 +330,7 @@ class HostCallController: VideoCallController {
     
     
     private func getWriteConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
-     
+        
         guard let slotInfo = slotInfo
             else{
                 return nil
@@ -356,7 +351,6 @@ class HostCallController: VideoCallController {
         connectionInfo[targetHashedId] = connection
         connection?.slotInfo = slotInfo
         return connection
-        
     }
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
@@ -393,14 +387,11 @@ class HostCallController: VideoCallController {
             guard let info = eventInfo
                 else{
                     return
-            }
-            
+            }            
             self.eventInfo = info
         }
     }
-    
 }
-
 
 //instance
 extension HostCallController{

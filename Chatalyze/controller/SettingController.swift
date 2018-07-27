@@ -9,7 +9,7 @@
 
 protocol getSettingScrollInstet {
     
-  func getSettingScrollInset(scrollView:UIScrollView)
+    func getSettingScrollInset(scrollView:UIScrollView)
 }
 
 import UIKit
@@ -43,7 +43,7 @@ class SettingController : InterfaceExtendedController {
     }
     
     private func initialization(){
-       
+        
         initializeInterface()
         initializeVariable()
     }
@@ -69,105 +69,123 @@ class SettingController : InterfaceExtendedController {
     }
     
     @IBAction func settingAction(sender:UIButton){
-                
-        guard let controller = EditProfileController.instance() else {
+        
+        guard let roleType = SignedUserInfo.sharedInstance?.role else {
             return
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        if roleType == .analyst{
+            
+            guard let controller = EditProfileHostController.instance() else {
+                return
+            }
+            self.navigationController?.pushViewController(controller, animated: true)
+        }else{
+            
+            guard let controller = EditProfileController.instance() else {
+                return
+            }
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        
+        
     }
     
     @IBAction func paymentListingAction(sender:UIButton){
         
-        guard let controller = PaymentSuccessController.instance() else {
+        guard let roleType = SignedUserInfo.sharedInstance?.role else {
             return
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        if roleType == .analyst{        
+            
+            guard let controller = PaymentSetupPaypalController.instance() else {
+                return
+            }
+            self.navigationController?.pushViewController(controller, animated: true)
+        }else{
+         
+            
+            guard let controller = PaymentListingController.instance() else {
+                return
+            }
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        
+       
+        
+        //        guard let controller = MyTicketsController.instance() else {
+        //            return
+        //        }
+        //        self.navigationController?.pushViewController(controller, animated: true)
+        
+        //        guard let controller = ReviewController.instance() else {
+        //            return
+        //        }
+        //        self.navigationController?.pushViewController(controller, animated: true)
         
         
-      //  guard let controller = PaymentListingController.instance() else {
-      //      return
-        //}
-        //self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = MyTicketsController.instance() else {
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = ReviewController.instance() else {
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
+        // guard let controller = PaymentSuccessController.instance() else {
+        //   return
+        //        }
+        //      self.navigationController?.pushViewController(controller, animated: true)
         
         
-       // guard let controller = PaymentSuccessController.instance() else {
-         //   return
-//        }
-  //      self.navigationController?.pushViewController(controller, animated: true)
-        
-        
-//        guard let controller = SystemTestController.instance() else {
-//            return
-//        }
-//        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
-//        self.present(controller, animated: true) {
-//        }
+        //        guard let controller = SystemTestController.instance() else {
+        //            return
+        //        }
+        //        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        //        self.present(controller, animated: true) {
+        //        }
         
     }
     
     @IBAction func aboutAction(sender:UIButton){
         
-        guard let controller = AnimationTestController.instance() else{
-            return
-        }
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = PaymentSuccessController.instance() else {
-//
-//            return
-//        }
-//
-//        self.navigationController?.pushViewController(controller, animated: true)
+        //        guard let controller = PaymentSuccessController.instance() else {
+        //
+        //            return
+        //        }
+        //
+        //        self.navigationController?.pushViewController(controller, animated: true)
         
         
-//        guard let controller = ReviewController.instance() else {
-//            return
-//        }
-//        self.navigationController?.present(controller, animated: true, completion: {
-//            
-//        })
+        //        guard let controller = ReviewController.instance() else {
+        //            return
+        //        }
+        //        self.navigationController?.present(controller, animated: true, completion: {
+        //
+        //        })
         
-//        guard let controller = HomeController.dynamicInstance()
-//            else{
-//                return
-//        }
-//        
-//        self.navigationController?.present(controller, animated: true, completion: {
-//            
-//        })
-//        let twitter = TWTRComposer()
-//        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
-//        twitter.show(from: self) { (result) in
-//            print("result is \(result)")
-//        }
+        //        guard let controller = HomeController.dynamicInstance()
+        //            else{
+        //                return
+        //        }
+        //
+        //        self.navigationController?.present(controller, animated: true, completion: {
+        //
+        //        })
+        //        let twitter = TWTRComposer()
+        //        //twitter.setURL(URL(string: "https://dev.chatalyze.com/"))
+        //        twitter.show(from: self) { (result) in
+        //            print("result is \(result)")
+        //        }
         
-//        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
-//            // App must have at least one logged-in user to compose a Tweet
-//            let composer = TWTRComposerViewController.emptyComposer()
-//            present(composer, animated: true, completion: nil)
-//        } else {
-//            // Log in, and then check again
-//            TWTRTwitter.sharedInstance().logIn { session, error in
-//
-//                if session != nil { // Log in succeeded
-//                    let composer = TWTRComposerViewController.emptyComposer()
-//                    self.present(composer, animated: true, completion: nil)
-//                } else {
-//                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
-//                    self.present(alert, animated: false, completion: nil)
-//                }
-//            }
-//        }
+        //        if (TWTRTwitter.sharedInstance().sessionStore.hasLoggedInUsers()) {
+        //            // App must have at least one logged-in user to compose a Tweet
+        //            let composer = TWTRComposerViewController.emptyComposer()
+        //            present(composer, animated: true, completion: nil)
+        //        } else {
+        //            // Log in, and then check again
+        //            TWTRTwitter.sharedInstance().logIn { session, error in
+        //
+        //                if session != nil { // Log in succeeded
+        //                    let composer = TWTRComposerViewController.emptyComposer()
+        //                    self.present(composer, animated: true, completion: nil)
+        //                } else {
+        //                    let alert = UIAlertController(title: "No Twitter Accounts Available", message: "You must log in before presenting a composer.", preferredStyle: .alert)
+        //                    self.present(alert, animated: false, completion: nil)
+        //                }
+        //            }
+        //        }
     }
 }
 

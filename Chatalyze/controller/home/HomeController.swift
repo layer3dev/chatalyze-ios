@@ -58,20 +58,18 @@ class HomeController: InterfaceExtendedController {
         paintNavigationTitle(text : "Event")
         paintSettingButton()
     }
-
-    
     
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //MARK: - Navigation
+     
+    //In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     
         // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 
@@ -87,7 +85,6 @@ extension HomeController{
         let storyboard = UIStoryboard(name: "home", bundle: nil)
         let controllerId = userInfo.role == .analyst ? "host_home" : "user_home"
         let controller = storyboard.instantiateViewController(withIdentifier: controllerId) as? HomeController
-        
         return controller
     }
 }

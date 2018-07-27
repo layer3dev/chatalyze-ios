@@ -78,6 +78,7 @@ class RootControllerManager{
                 //window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
+
                 //**
 //                guard let controller = HomeController.dynamicInstance()
 //                    else{

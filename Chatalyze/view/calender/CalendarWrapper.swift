@@ -14,7 +14,7 @@ class CalendarWrapper: ExtendedView {
     var root:GreetingDateTimeRootView?
     @IBOutlet var calendarView:JTAppleCalendarView?
     @IBOutlet weak var monthLabel: UILabel?
-    var cc = Calendar(identifier: .gregorian)
+    var cc = Calendar(identifier: .persian)
     var prePostVisibility: ((CellState, CalendarCell?)->())?
     var layout = UICollectionViewFlowLayout()
     override func viewDidLayout() {
@@ -29,7 +29,7 @@ class CalendarWrapper: ExtendedView {
     
     func setupancalender(){
         
-        var cc = Calendar(identifier: .gregorian)
+        var cc = Calendar(identifier: .persian)
         cc.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.autoupdatingCurrent
         cc.locale = Locale(identifier: "en_US_POSIX")
     }
@@ -39,8 +39,6 @@ class CalendarWrapper: ExtendedView {
         self.calendarView?.minimumInteritemSpacing = 1
         self.calendarView?.minimumLineSpacing = 1
     }
-    
-    
     
     func setupViewsOfCalendar(from visibleDates: DateSegmentInfo) {
         
@@ -96,6 +94,7 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
     func handleCellSelection(view: JTAppleCell?, cellState: CellState) {
         
         guard let myCustomCell = view as? CalendarCell else {return }
+        
         //        switch cellState.selectedPosition() {
         //        case .full:
         //            myCustomCell.backgroundColor = .green
@@ -124,7 +123,41 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
             return
         }
         
+        let date = cellState.date
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
+        
+        if components.day == 1 {
+            myCustomCell.dayLabel?.textColor = UIColor.white
+            myCustomCell.selectedView?.backgroundColor = UIColor.red
+            return
+            Log.echo(key: "yud", text: "Current day is \(components.day)")
+        }
+        
+        
+        
+        
         if cellState.isSelected && cellState.dateBelongsTo == .thisMonth{
+            
+           
+            
+//            let requiredDate = calendar.date(byAdding: .second, value: 8, to: calendar.date(from: components) ?? date)
+//            Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
+//            Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
+            
+            
+            
+            //
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "yyyy MM dd"
+//            let date = formatter.date(from: "2018 07 27")!
+//            //calendarView?.selectDates([date])
+//            if cellState.date == date{
+//                Log.echo(key: "yud", text: "Yes I got this date ")
+//            }
+            
             
             myCustomCell.dayLabel?.textColor = UIColor.white
             myCustomCell.selectedView?.backgroundColor = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1)
@@ -165,11 +198,9 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
         }
     }
     
-    
-    
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         
-        var cc = Calendar(identifier: .gregorian)
+        var cc = Calendar(identifier: .persian)
         cc.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.autoupdatingCurrent
         cc.locale = Locale(identifier: "en_US_POSIX")
         
@@ -189,8 +220,8 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
     
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
-        let myCustomCell = calendar.dequeueReusableCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         
+        let myCustomCell = calendar.dequeueReusableCell(withReuseIdentifier: "CalendarCell", for: indexPath) as! CalendarCell
         configureVisibleCell(myCustomCell: myCustomCell, cellState: cellState, date: date)
         myCustomCell.dayLabel?.text = cellState.text
         return myCustomCell
@@ -199,15 +230,18 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         
-        //print("I called")
-        //print(cellState.date)
-        //print(date)
-        //E, d MMM yyyy
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.date(from: formatter.string(from: cellState.date))
-        print(Date())
-        print(formatter.date(from: formatter.string(from: cellState.date)))
+        
+//        let seconds = dateInRegion.region.timeZone.secondsFromGMT(for: date)
+//        let localDate = Date(timeInterval: TimeInterval(seconds), since: date)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy MM dd"
+//        let date = formatter.date(from: "2017 01 03")!
+//        calendarView?.selectDates([date])
+        
+        Log.echo(key: "yud", text: "Date provided by the calendar \(cellState.date)")
+        Log.echo(key: "yud", text: "Current Time in the UTC is \(Date())")
+        Log.echo(key: "yud", text: "Time Diffrence is \(Date().timeIntervalSince(cellState.date))")
+        
         if cellState.dateBelongsTo == .thisMonth {
             handleCellConfiguration(cell: cell, cellState: cellState)
             return
@@ -225,5 +259,3 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
         self.setupViewsOfCalendar(from: visibleDates)
     }
 }
-
-

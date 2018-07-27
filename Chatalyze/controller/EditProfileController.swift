@@ -11,7 +11,7 @@ import UIKit
 class EditProfileController: InterfaceExtendedController {
     
     @IBOutlet var rootView:EditProfileRootview?
-    
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -30,18 +30,18 @@ class EditProfileController: InterfaceExtendedController {
         rootView?.controller = self
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-}
-
-extension EditProfileController{
-    
     class func instance()->EditProfileController?{
         
         let storyboard = UIStoryboard(name: "EditProfile", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "EditProfile") as? EditProfileController
         return controller
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+}
+
+extension EditProfileController{
 }
 

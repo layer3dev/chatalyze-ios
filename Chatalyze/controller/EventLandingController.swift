@@ -12,6 +12,7 @@ class EventLandingController: InterfaceExtendedController {
     
     var info:EventInfo?
     @IBOutlet var eventSoldOutView:UIView?
+
     override func viewDidLayout() {
         super.viewDidLayout()
         

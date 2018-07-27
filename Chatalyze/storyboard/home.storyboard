@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -983,6 +983,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ccr-1F-E27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="621.60000000000002" y="-556.37181409295351"/>
+        </scene>
+        <!--Session Controller-->
+        <scene sceneID="tTv-cf-Amh">
+            <objects>
+                <viewController storyboardIdentifier="SessionController" id="ovk-o0-8De" customClass="SessionController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hI1-3z-Zae">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3z-3q-vjp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <segue destination="OGY-KA-5Wl" kind="embed" id="Xtk-ui-kjX"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SG8-FX-oIE" firstAttribute="trailing" secondItem="H3z-3q-vjp" secondAttribute="trailing" id="BII-vd-lyR"/>
+                            <constraint firstItem="SG8-FX-oIE" firstAttribute="bottom" secondItem="H3z-3q-vjp" secondAttribute="bottom" id="Ejq-ji-ol7"/>
+                            <constraint firstItem="H3z-3q-vjp" firstAttribute="leading" secondItem="SG8-FX-oIE" secondAttribute="leading" id="c18-wN-6a2"/>
+                            <constraint firstItem="SG8-FX-oIE" firstAttribute="top" secondItem="H3z-3q-vjp" secondAttribute="top" constant="20" id="xPk-eS-FNZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SG8-FX-oIE"/>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="H3z-3q-vjp" id="nCi-zp-Tl5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="735-0J-gh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1438" y="-554"/>
         </scene>
     </scenes>
     <resources>
