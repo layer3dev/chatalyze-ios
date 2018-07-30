@@ -9,14 +9,14 @@
 import UIKit
 
 class EventSoldOutController: InterfaceExtendedController {
-
+    
     var dismissListner:(()->())?
     var info:EventInfo?
     @IBOutlet var messageLbl:UILabel?
     @IBOutlet var emailField:SigninFieldView?
     override func viewDidLayout() {
         super.viewDidLayout()
-       
+        
         paintInterface()
     }
     
@@ -70,15 +70,15 @@ class EventSoldOutController: InterfaceExtendedController {
     }
     
     
-   @IBAction func submitAction(sender:UIButton){
-  
-    if(validateFields()){
-        //self.resetErrorStatus()
-        submit()
-    }
+    @IBAction func submitAction(sender:UIButton){
+        
+        if(validateFields()){
+            //self.resetErrorStatus()
+            submit()
+        }
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

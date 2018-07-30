@@ -38,7 +38,7 @@ class EventCell: ExtendedTableCell {
         }
         
         self.info = info
-        eventImage?.image = UIImage(named: "base")
+        eventImage?.image = UIImage(named: "chatalyze_logo")
         if let url = URL(string: info.eventBannerUrl ?? ""){
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in
@@ -46,7 +46,7 @@ class EventCell: ExtendedTableCell {
             }
         }
         
-        eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
+       //eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
         evnetnameLbl?.text = info.title
         eventtimeLbl?.text = info.start
         

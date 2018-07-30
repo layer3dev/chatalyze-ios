@@ -6,9 +6,11 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+import SDWebImage
 
 class EventLandingRootView:ExtendedView{
-
+    
+    @IBOutlet var eventImage:UIImageView?
     @IBOutlet var hostnameLbl:UILabel?
     @IBOutlet var eventNameLbl:UILabel?
     @IBOutlet var costofEventLbl:UILabel?
@@ -31,10 +33,18 @@ class EventLandingRootView:ExtendedView{
         guard let info = info else {
             return
         }
-        isEventSoldOut()
         self.info = info
+        isEventSoldOut()
         hostnameLbl?.text = info.user?.firstName
         eventNameLbl?.text = info.title
+        
+        eventImage?.image = UIImage(named: "chatalyze_logo")
+        if let url = URL(string: info.eventBannerUrl ?? ""){
+            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
+            }) { (image, data, error, chache, status, url) in
+                self.eventImage?.image = image
+            }
+        }
         if let price = info.price{
             
             let firstStr = NSMutableAttributedString(string: "$\(price)", attributes: self.priceAttribute)

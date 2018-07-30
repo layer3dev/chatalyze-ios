@@ -68,8 +68,9 @@ class EventLandingController: InterfaceExtendedController {
         controller.dismissListner = {
             DispatchQueue.main.async {
                 Log.echo(key: "yud", text: "I got dismiss call")
-                self.dismiss(animated: false, completion: {
-                })
+//                self.dismiss(animated: false, completion: {                    
+//                })
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
         self.present(controller, animated: true, completion: {

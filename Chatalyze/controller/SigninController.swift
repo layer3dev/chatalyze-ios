@@ -38,8 +38,6 @@ class SigninController: InterfaceExtendedController {
         initialization()
     }
     
-    
-    
     fileprivate func initialization(){
         
         initializeVariable()
@@ -50,7 +48,6 @@ class SigninController: InterfaceExtendedController {
         
         rootView?.controller = self
     }
-    
     
     fileprivate func paintInterface(){
         
