@@ -14,7 +14,7 @@ class TimerSync {
     
     private var syncTime : Date?
     
-    var timeDiff = 0;
+    var timeDiff : Int64 = Int64(0);
     var resyncTime = 60 * 1000
     var precision = 0
     var maxCountRequest = 3
@@ -127,7 +127,7 @@ class TimerSync {
     }
     
     
-    private func getTime()->Int{
+    private func getTime()->Int64{
         let currentDate = Date()
         return currentDate.millisecondsSince1970
         
@@ -135,7 +135,7 @@ class TimerSync {
             return currentDate.millisecondsSince1970
         }
         
-        return currentDate.millisecondsSince1970 + self.timeDiff
+        return currentDate.millisecondsSince1970 + Int64(self.timeDiff)
         
         
     }
@@ -166,7 +166,7 @@ class TimerSync {
         
         let precision = Int((responseTime.millisecondsSince1970 - requestTime.millisecondsSince1970)/2)
         let timeDiff =
-        info.timestamp + precision - responseTime.millisecondsSince1970
+        Int64(info.timestamp) + Int64(precision) - responseTime.millisecondsSince1970
         if(self.precision == 0){
             self.precision = precision
             self.timeDiff = timeDiff

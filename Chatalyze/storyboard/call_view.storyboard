@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,14 +20,14 @@
                         <viewControllerLayoutGuide type="bottom" id="W58-xK-9n0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bRT-ZS-CRs" customClass="UserVideoRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-gd-FgM" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="30" width="1024" height="738"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2M-WY-QPb" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="187" y="308" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="512" y="368.5" width="0.0" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="8Nr-tg-71j"/>
@@ -49,10 +49,10 @@
                                 </connections>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmj-9J-V6c" customClass="CanvasContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="768" width="1024" height="0.0"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJV-7w-7W8" customClass="AutographyCanvas" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -73,24 +73,24 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-ZB-2eM" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="312" y="50" width="63" height="112"/>
+                                <rect key="frame" x="898" y="30" width="126" height="224"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="72" id="ClV-ce-5EO"/>
+                                    <constraint firstAttribute="height" constant="224" id="LFh-KJ-guc"/>
                                     <constraint firstAttribute="height" constant="112" id="LWJ-Oh-epR"/>
                                     <constraint firstAttribute="width" constant="63" id="cQG-B4-jId"/>
                                     <constraint firstAttribute="height" constant="72" id="hfl-FK-YeN"/>
-                                    <constraint firstAttribute="width" constant="128" id="xGT-U2-mTp"/>
+                                    <constraint firstAttribute="width" constant="126" id="opZ-Ab-D8g"/>
                                     <constraint firstAttribute="width" constant="128" id="xKD-WJ-YX4"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="ClV-ce-5EO"/>
+                                        <exclude reference="LFh-KJ-guc"/>
                                         <exclude reference="LWJ-Oh-epR"/>
                                         <exclude reference="cQG-B4-jId"/>
                                         <exclude reference="hfl-FK-YeN"/>
-                                        <exclude reference="xGT-U2-mTp"/>
+                                        <exclude reference="opZ-Ab-D8g"/>
                                         <exclude reference="xKD-WJ-YX4"/>
                                     </mask>
                                 </variation>
@@ -100,26 +100,23 @@
                                         <include reference="cQG-B4-jId"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="ClV-ce-5EO"/>
-                                        <include reference="xGT-U2-mTp"/>
-                                    </mask>
-                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="hfl-FK-YeN"/>
                                         <include reference="xKD-WJ-YX4"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact-widthClass=regular">
+                                <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="xGT-U2-mTp"/>
+                                        <include reference="LFh-KJ-guc"/>
+                                        <exclude reference="LWJ-Oh-epR"/>
+                                        <exclude reference="cQG-B4-jId"/>
+                                        <include reference="opZ-Ab-D8g"/>
                                     </mask>
                                 </variation>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4e-l4-rf5" userLabel="signature_container" customClass="RequestAutographContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="152" y="585" width="70" height="70"/>
+                                <rect key="frame" x="477" y="686" width="70" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="request_autograph" translatesAutoresizingMaskIntoConstraints="NO" id="NG8-bT-3xd">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -159,7 +156,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfp-G1-gCo" userLabel="option_container" customClass="VideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="8" y="265.5" width="40" height="136"/>
+                                <rect key="frame" x="8" y="316" width="40" height="136"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9Z-82-fd9" userLabel="audio_option_container" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -273,13 +270,13 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdG-IW-8dq">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8d-bA-Xtx" customClass="UserCallInfoContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="20" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="30"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y22-uc-8Wp">
-                                                <rect key="frame" x="188" y="0.0" width="0.0" height="30"/>
+                                                <rect key="frame" x="512" y="0.0" width="0.0" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbw-G3-Hbv">
                                                         <rect key="frame" x="0.0" y="15" width="0.0" height="0.0"/>
@@ -319,10 +316,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uxQ-nW-h9Q" customClass="SelfieTimerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hi7-Pg-KPh">
-                                        <rect key="frame" x="188" y="50.5" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="512" y="50.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -413,14 +410,14 @@
                         <viewControllerLayoutGuide type="bottom" id="LNz-ky-YSt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="V9R-21-5JQ" customClass="HostVideoRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43M-1x-4vh" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="40" width="375" height="627"/>
+                                <rect key="frame" x="0.0" y="40" width="1024" height="728"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YP-eL-SsY" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="187" y="313" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="512" y="363.5" width="0.0" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" id="1Qd-ai-BdX"/>
@@ -442,37 +439,27 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8L-eB-LKB" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="312" y="40" width="63" height="112"/>
+                                <rect key="frame" x="961" y="40" width="63" height="112"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="3Iu-Og-126"/>
                                     <constraint firstAttribute="width" constant="63" id="H2I-jT-7ft"/>
                                     <constraint firstAttribute="height" constant="72" id="NBJ-PC-VW3"/>
-                                    <constraint firstAttribute="width" constant="128" id="Ugi-7t-s4S"/>
                                     <constraint firstAttribute="width" constant="128" id="mYS-E2-9nn"/>
-                                    <constraint firstAttribute="height" constant="72" id="wJJ-aV-pbg"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="3Iu-Og-126"/>
                                         <exclude reference="H2I-jT-7ft"/>
                                         <exclude reference="NBJ-PC-VW3"/>
-                                        <exclude reference="Ugi-7t-s4S"/>
                                         <exclude reference="mYS-E2-9nn"/>
-                                        <exclude reference="wJJ-aV-pbg"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
                                         <include reference="3Iu-Og-126"/>
                                         <include reference="H2I-jT-7ft"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="Ugi-7t-s4S"/>
-                                        <include reference="wJJ-aV-pbg"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
@@ -483,7 +470,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Go0-RF-bnS" userLabel="option_container" customClass="HostVideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="8" y="242" width="40" height="183.5"/>
+                                <rect key="frame" x="8" y="292" width="40" height="184"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IF5-tF-3GQ" userLabel="audio_option_container" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -548,7 +535,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwm-MA-Knk" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="95.5" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="96" width="40" height="40"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activate_hangup" translatesAutoresizingMaskIntoConstraints="NO" id="Fuq-8h-bNh">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
@@ -579,7 +566,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL8-lF-kdQ">
-                                        <rect key="frame" x="0.0" y="143.5" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="144" width="40" height="40"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exit_call" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-4F-mxi">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
@@ -633,16 +620,16 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VDu-Qq-V94">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkw-v1-jGv" customClass="HostCallInfoContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="20" width="375" height="20"/>
+                                        <rect key="frame" x="0.0" y="20" width="1024" height="20"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VmX-a6-cFW">
-                                                <rect key="frame" x="0.0" y="0.0" width="188" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="512" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zA3-jf-5KY">
-                                                        <rect key="frame" x="15" y="9.5" width="168" height="0.0"/>
+                                                        <rect key="frame" x="15" y="9.5" width="492" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -656,16 +643,16 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qfk-fg-KYu">
-                                                <rect key="frame" x="188" y="10" width="0.0" height="0.0"/>
+                                                <rect key="frame" x="512" y="10" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vC-O8-OeT">
-                                                <rect key="frame" x="188" y="0.0" width="186.5" height="20"/>
+                                                <rect key="frame" x="512" y="0.0" width="511.5" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SOh-YX-W8V">
-                                                        <rect key="frame" x="171.5" y="9.5" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="496.5" y="9.5" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -710,10 +697,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m59-4D-xzj" customClass="SelfieTimerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="20" width="1024" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gU3-Ox-thL">
-                                        <rect key="frame" x="188" y="50.5" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="512" y="50.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>

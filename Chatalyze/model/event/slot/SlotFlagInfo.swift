@@ -12,6 +12,7 @@ class SlotFlagInfo: NSObject {
     
     var isAutographRequested = false //local model info
     var isScreenshotSaved = false //local model info
+    
     var isSelfieTimerInitiated = false // local model info
     var isHangedUp = false //when host hangup call on user
         
@@ -19,5 +20,8 @@ class SlotFlagInfo: NSObject {
         
         self.isAutographRequested = info.isAutographRequested
         self.isScreenshotSaved = info.isScreenshotSaved
+        
+        self.isSelfieTimerInitiated = info.isSelfieTimerInitiated
+        self.isHangedUp = info.isHangedUp
     }
 }
