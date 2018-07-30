@@ -290,7 +290,7 @@ class HostCallController: VideoCallController {
         
         guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
-                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+//                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         
@@ -307,7 +307,7 @@ class HostCallController: VideoCallController {
         
         guard let slot = eventInfo.mergeSlotInfo?.currentSlot
             else{
-                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+//                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         
@@ -341,7 +341,7 @@ class HostCallController: VideoCallController {
         }
         
         if(!isOnline(hashId: targetHashedId)){
-            Log.echo(key: "processEvent", text: "connectUser -> user is offline")
+//            Log.echo(key: "processEvent", text: "connectUser -> user is offline")
             return
         }
         if(connection.isInitiated){

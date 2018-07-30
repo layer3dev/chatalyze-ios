@@ -19,6 +19,7 @@ class VideoView: RTCEAGLVideoView {
     }
     
     private var isLoaded = false;
+    
     override func layoutSubviews(){
         super.layoutSubviews()
         
