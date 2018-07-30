@@ -270,6 +270,22 @@ class HostCallController: VideoCallController {
         preconnectUser()
         connectLiveUser()
         disconnectStaleConnection()
+        verifyIfExpired()
+    }
+    
+    private func verifyIfExpired(){
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        if(!eventInfo.isExpired){
+            return
+        }
+        
+        self.processExitAction()
+        eventCompleted()
     }
     
     private func disconnectStaleConnection(){
