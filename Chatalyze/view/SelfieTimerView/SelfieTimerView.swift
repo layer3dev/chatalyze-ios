@@ -45,7 +45,6 @@ class SelfieTimerView:ExtendedView {
     
     func startAnimation(){
         
-        
         self.invalidateTimer()
         self.runTimer()
     }
@@ -164,10 +163,12 @@ class SelfieTimerView:ExtendedView {
 //                }else{
 //                    self.isHidden = true
 //                }
-//                self.invalidateTimer()
-//                self.invalidateTimerForHost()
+                self.invalidateTimer()
+                self.invalidateTimerForHost()
             //self.smile()
         }else if autographTime >= 19{
+            self.invalidateTimer()
+            self.invalidateTimerForHost()
         }
         autographTime = autographTime + 1
     }

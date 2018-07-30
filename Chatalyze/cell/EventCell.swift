@@ -38,7 +38,7 @@ class EventCell: ExtendedTableCell {
         }
         
         self.info = info
-        eventImage?.image = UIImage(named: "chatalyze_logo")
+        eventImage?.image = UIImage(named: "base")
         if let url = URL(string: info.eventBannerUrl ?? ""){
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in

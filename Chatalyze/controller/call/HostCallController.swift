@@ -95,6 +95,13 @@ class HostCallController: VideoCallController {
         self.registerForListeners()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        selfieTimerView?.reset()
+    }
+    
+    
     private func registerForTimerNotification(){
         
         socketClient?.onEvent("screenshotCountDown", completion: { (response) in
@@ -113,6 +120,7 @@ class HostCallController: VideoCallController {
                             return
                         }
                         if connection.isConnected{
+                            
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {
@@ -388,9 +396,9 @@ class HostCallController: VideoCallController {
             connection.disconnect()
         }
     }
-    
-    
+        
     override func verifyEventActivated(){
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -399,6 +407,7 @@ class HostCallController: VideoCallController {
         if(eventInfo.started != nil){
             return
         }
+        
         guard let eventId = eventInfo.id
             else{
                 return
@@ -406,10 +415,10 @@ class HostCallController: VideoCallController {
         
         let eventIdString = "\(eventId)"
         ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+
             if(!success){
                 return
             }
-            
             guard let info = eventInfo
                 else{
                     return

@@ -10,7 +10,6 @@ target 'Chatalyze' do
   pod 'JTAppleCalendar', '~> 7.1.5'
   pod 'GoogleWebRTC' 
 
-
   target 'ChatalyzeTests' do
     inherit! :search_paths
     # Pods for testing
