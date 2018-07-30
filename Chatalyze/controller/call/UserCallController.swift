@@ -11,17 +11,22 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
+    //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
+    var isScreenshotStatusLoaded = false
+    
     //Ends
-    
     //This is webRTC connection responsible for signalling and handling the reconnect
-    var connection : UserCallConnection?
     
+    var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     var isScreenshotPromptPage = false
+    
+    
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -266,6 +271,10 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
+        if !isScreenshotStatusLoaded{
+            return
+        }
+        
         //don't take screenshot if don't have local stream
         guard let localMedia = localMediaPackage
             else{
@@ -425,6 +434,11 @@ class UserCallController: VideoCallController {
     
     private func verifySlot(slotInfo : SlotInfo, screenshotInfos : [ScreenshotInfo]){
         
+        Log.echo(key: "yud", text: "I AM VERIFYING")
+        
+        
+        
+        
         for screenshotInfo in screenshotInfos {
             
             if(screenshotInfo.requestedAutograph ?? false){
@@ -434,6 +448,10 @@ class UserCallController: VideoCallController {
                 slotInfo.isScreenshotSaved = true
             }
         }
+        isScreenshotStatusLoaded = true
+        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isScreenshotSaved)")
+        
+        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
     }
 }
 

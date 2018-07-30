@@ -60,9 +60,21 @@ class MemoriesCell: ExtendedTableCell {
         guard let memoryImage = self.memoryImage?.image else{
             return
         }
-        let activityItem: [AnyObject] = [memoryImage]
-        let avc = UIActivityViewController(activityItems: activityItem as [AnyObject], applicationActivities: nil)
-        self.controller?.present(avc, animated: true, completion: nil)
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            let activityItem: [AnyObject] = [memoryImage]
+            let avc = UIActivityViewController(activityItems: activityItem as [AnyObject], applicationActivities: nil)
+            avc.popoverPresentationController?.sourceView = self
+            avc.popoverPresentationController?.sourceRect = sender.frame
+            self.controller?.present(avc, animated: true, completion: nil)
+            
+        }else{
+            let activityItem: [AnyObject] = [memoryImage]
+            let avc = UIActivityViewController(activityItems: activityItem as [AnyObject], applicationActivities: nil)
+            self.controller?.present(avc, animated: true, completion: nil)
+        }
+       
     }
     
     @IBAction func facebookShare(sender:UIButton){        
