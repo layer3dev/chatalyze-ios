@@ -92,7 +92,6 @@ class HostCallConnection: CallConnection {
                 Log.echo(key: "startReceivingVideo", text: "For me -> \(sender)")
             }
             
-    
             self?.completeHandshake(targetHashedId: sender)
             
         })

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -223,10 +223,10 @@
                                             <outlet property="actionImage" destination="9oi-oe-AIN" id="tsf-Qk-qcL"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jP0-3n-mBH" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jP0-3n-mBH">
                                         <rect key="frame" x="0.0" y="96" width="40" height="40"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hang_up" translatesAutoresizingMaskIntoConstraints="NO" id="TEc-yi-mhm">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exit_call" translatesAutoresizingMaskIntoConstraints="NO" id="TEc-yi-mhm">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="ATE-y3-wJe"/>
@@ -236,7 +236,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiQ-6i-Sd1">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <connections>
-                                                    <action selector="hangupAction" destination="69S-M1-2Z4" eventType="touchUpInside" id="1pk-H6-rcl"/>
+                                                    <action selector="exitAction" destination="69S-M1-2Z4" eventType="touchUpInside" id="bys-cD-ENE"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -250,9 +250,6 @@
                                             <constraint firstItem="TEc-yi-mhm" firstAttribute="centerY" secondItem="jP0-3n-mBH" secondAttribute="centerY" id="qBb-M4-eV1"/>
                                             <constraint firstAttribute="width" secondItem="jP0-3n-mBH" secondAttribute="height" multiplier="1:1" id="tP3-uO-C98"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="actionImage" destination="TEc-yi-mhm" id="ioy-aL-5Sl"/>
-                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -271,7 +268,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="audioView" destination="W9Z-82-fd9" id="9ol-T3-0S2"/>
-                                    <outlet property="hangupView" destination="jP0-3n-mBH" id="VWi-TF-1zh"/>
                                     <outlet property="leadingSpace" destination="3Rn-h7-v8U" id="GNt-9Y-VQJ"/>
                                     <outlet property="videoView" destination="5sH-T5-4DU" id="6LV-z8-s3h"/>
                                 </connections>
@@ -406,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nce-NI-oY6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="606" y="-1704"/>
+            <point key="canvasLocation" x="76" y="-1744"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
@@ -486,8 +482,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Go0-RF-bnS" userLabel="option_container" customClass="VideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="8" y="265.5" width="40" height="136"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Go0-RF-bnS" userLabel="option_container" customClass="HostVideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="8" y="242" width="40" height="183.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IF5-tF-3GQ" userLabel="audio_option_container" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -533,7 +529,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbb-tD-jRq">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <connections>
-                                                    <action selector="videoDisableAction" destination="yIB-kd-klD" eventType="touchUpInside" id="avA-jf-ReF"/>
+                                                    <action selector="videoDisableAction" destination="yIB-kd-klD" eventType="touchUpInside" id="0ME-s5-fWk"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -551,10 +547,41 @@
                                             <outlet property="actionImage" destination="h1h-4B-m7o" id="Z8r-Lv-YQe"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL8-lF-kdQ" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="96" width="40" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwm-MA-Knk" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="95.5" width="40" height="40"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hang_up" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-4F-mxi">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activate_hangup" translatesAutoresizingMaskIntoConstraints="NO" id="Fuq-8h-bNh">
+                                                <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="LD6-Lk-fIh"/>
+                                                    <constraint firstAttribute="height" constant="20" id="tQT-h0-aKo"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQm-Yy-m3j">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <connections>
+                                                    <action selector="hangupAction" destination="yIB-kd-klD" eventType="touchUpInside" id="DAb-qz-yaW"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="EQm-Yy-m3j" secondAttribute="bottom" id="1Ks-T4-J5C"/>
+                                            <constraint firstItem="Fuq-8h-bNh" firstAttribute="centerX" secondItem="nwm-MA-Knk" secondAttribute="centerX" id="9EY-9N-oXj"/>
+                                            <constraint firstAttribute="width" secondItem="nwm-MA-Knk" secondAttribute="height" multiplier="1:1" id="SL5-Bv-gQ3"/>
+                                            <constraint firstItem="Fuq-8h-bNh" firstAttribute="centerY" secondItem="nwm-MA-Knk" secondAttribute="centerY" id="Zr1-V8-hay"/>
+                                            <constraint firstAttribute="trailing" secondItem="EQm-Yy-m3j" secondAttribute="trailing" id="dZY-bV-g2E"/>
+                                            <constraint firstItem="EQm-Yy-m3j" firstAttribute="leading" secondItem="nwm-MA-Knk" secondAttribute="leading" id="dzD-71-TEb"/>
+                                            <constraint firstItem="EQm-Yy-m3j" firstAttribute="top" secondItem="nwm-MA-Knk" secondAttribute="top" id="fhm-Sy-Sq1"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="actionImage" destination="Fuq-8h-bNh" id="99F-YF-oyX"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL8-lF-kdQ">
+                                        <rect key="frame" x="0.0" y="143.5" width="40" height="40"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exit_call" translatesAutoresizingMaskIntoConstraints="NO" id="4ii-4F-mxi">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="3DF-KO-jbE"/>
@@ -564,7 +591,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qD3-ln-9An">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <connections>
-                                                    <action selector="hangupAction" destination="yIB-kd-klD" eventType="touchUpInside" id="GJR-f0-hy6"/>
+                                                    <action selector="exitAction" destination="yIB-kd-klD" eventType="touchUpInside" id="7ew-b0-rK6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -578,28 +605,29 @@
                                             <constraint firstItem="4ii-4F-mxi" firstAttribute="centerY" secondItem="JL8-lF-kdQ" secondAttribute="centerY" id="q9d-bh-Ryf"/>
                                             <constraint firstItem="qD3-ln-9An" firstAttribute="leading" secondItem="JL8-lF-kdQ" secondAttribute="leading" id="u8I-et-KiV"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="actionImage" destination="4ii-4F-mxi" id="b03-DO-zH5"/>
-                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="nwm-MA-Knk" firstAttribute="top" secondItem="Mc4-85-v28" secondAttribute="bottom" constant="8" id="1Ay-Nx-SPM"/>
                                     <constraint firstAttribute="bottom" secondItem="JL8-lF-kdQ" secondAttribute="bottom" id="ByA-FQ-Rql"/>
                                     <constraint firstItem="IF5-tF-3GQ" firstAttribute="top" secondItem="Go0-RF-bnS" secondAttribute="top" id="DPC-Sn-huY"/>
+                                    <constraint firstItem="nwm-MA-Knk" firstAttribute="width" secondItem="nwm-MA-Knk" secondAttribute="height" multiplier="1:1" id="HTT-J4-VhD"/>
                                     <constraint firstItem="JL8-lF-kdQ" firstAttribute="leading" secondItem="Go0-RF-bnS" secondAttribute="leading" id="KKa-LX-iLz"/>
                                     <constraint firstAttribute="trailing" secondItem="JL8-lF-kdQ" secondAttribute="trailing" id="Kuu-bk-Eqt"/>
                                     <constraint firstAttribute="trailing" secondItem="IF5-tF-3GQ" secondAttribute="trailing" id="RPb-12-SLm"/>
-                                    <constraint firstItem="JL8-lF-kdQ" firstAttribute="top" secondItem="Mc4-85-v28" secondAttribute="bottom" constant="8" id="WUc-xc-2jO"/>
                                     <constraint firstItem="Mc4-85-v28" firstAttribute="top" secondItem="IF5-tF-3GQ" secondAttribute="bottom" constant="8" id="Zrw-qc-mR6"/>
+                                    <constraint firstItem="nwm-MA-Knk" firstAttribute="leading" secondItem="Go0-RF-bnS" secondAttribute="leading" id="ae0-gu-uWb"/>
                                     <constraint firstItem="Mc4-85-v28" firstAttribute="leading" secondItem="Go0-RF-bnS" secondAttribute="leading" id="gRx-dL-tCj"/>
                                     <constraint firstAttribute="trailing" secondItem="Mc4-85-v28" secondAttribute="trailing" id="hAB-kk-ShF"/>
+                                    <constraint firstItem="JL8-lF-kdQ" firstAttribute="top" secondItem="nwm-MA-Knk" secondAttribute="bottom" constant="8" id="oDW-1t-gtm"/>
                                     <constraint firstItem="IF5-tF-3GQ" firstAttribute="leading" secondItem="Go0-RF-bnS" secondAttribute="leading" id="rGx-QO-PrO"/>
                                     <constraint firstAttribute="width" constant="40" id="tEx-Xv-1Lq"/>
+                                    <constraint firstAttribute="trailing" secondItem="nwm-MA-Knk" secondAttribute="trailing" id="xaw-iT-PsU"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="audioView" destination="IF5-tF-3GQ" id="xoX-ws-3Qt"/>
-                                    <outlet property="hangupView" destination="JL8-lF-kdQ" id="Vsj-cJ-EAF"/>
+                                    <outlet property="hangupView" destination="nwm-MA-Knk" id="4Mr-Tw-hSW"/>
                                     <outlet property="leadingSpace" destination="MUm-Ba-NbQ" id="xmX-DD-p7x"/>
                                     <outlet property="videoView" destination="Mc4-85-v28" id="r6J-Vx-BFp"/>
                                 </connections>
@@ -749,11 +777,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2K-NB-UUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="-622"/>
+            <point key="canvasLocation" x="881" y="-1745"/>
         </scene>
     </scenes>
     <resources>
-        <image name="hang_up" width="36" height="36"/>
+        <image name="activate_hangup" width="42" height="42"/>
+        <image name="exit_call" width="32" height="32"/>
         <image name="mic_on" width="36" height="36"/>
         <image name="request_autograph" width="75" height="75"/>
         <image name="videocam_on" width="24" height="24"/>

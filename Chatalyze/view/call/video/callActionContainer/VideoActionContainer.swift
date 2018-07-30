@@ -12,7 +12,6 @@ class VideoActionContainer: ExtendedView {
     
     @IBOutlet var audioView : MicActionView?
     @IBOutlet var videoView : VideoActionView?
-    @IBOutlet var hangupView : VideoActionView?
     
     @IBOutlet var leadingSpace : NSLayoutConstraint?
     

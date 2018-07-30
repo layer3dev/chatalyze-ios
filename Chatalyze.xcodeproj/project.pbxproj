@@ -161,10 +161,7 @@
 		FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */; };
 		FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36312064E22F00F2E6BC /* HangupContainer.swift */; };
 		FA1B363B2064E22F00F2E6BC /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */; };
-		FA1B363C2064E22F00F2E6BC /* MicActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36332064E22F00F2E6BC /* MicActionView.swift */; };
 		FA1B363D2064E22F00F2E6BC /* RemoteVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36342064E22F00F2E6BC /* RemoteVideoView.swift */; };
-		FA1B363E2064E22F00F2E6BC /* VideoActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36352064E22F00F2E6BC /* VideoActionContainer.swift */; };
-		FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36362064E22F00F2E6BC /* VideoActionView.swift */; };
 		FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36372064E22F00F2E6BC /* VideoRootView.swift */; };
 		FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36382064E22F00F2E6BC /* VideoView.swift */; };
 		FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1B36422064E31000F2E6BC /* TemplateView.swift */; };
@@ -237,6 +234,11 @@
 		FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA74B1522063A1C500983141 /* libicucore.tbd */; };
 		FA74B1552063A52800983141 /* no_event.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA74B1542063A52800983141 /* no_event.xib */; };
 		FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74B1592063AEFA00983141 /* BoldAttribute.swift */; };
+		FA79F101210A032B00D16F13 /* VideoActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F100210A032A00D16F13 /* VideoActionContainer.swift */; };
+		FA79F103210A039600D16F13 /* HostVideoActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F102210A039600D16F13 /* HostVideoActionContainer.swift */; };
+		FA79F106210A042600D16F13 /* VideoActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F104210A042500D16F13 /* VideoActionView.swift */; };
+		FA79F107210A042600D16F13 /* MicActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F105210A042500D16F13 /* MicActionView.swift */; };
+		FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F108210A044900D16F13 /* HangupActionView.swift */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
 		FA912D9A20417DD9002891EC /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA912D9920417DD9002891EC /* icon.xcassets */; };
 		FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */; };
@@ -316,6 +318,7 @@
 		FADC84EC2074EDB600AD9D65 /* AutographPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84EB2074EDB600AD9D65 /* AutographPreviewController.swift */; };
 		FADC84EE2074FBE200AD9D65 /* AutographPreviewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84ED2074FBE200AD9D65 /* AutographPreviewInterface.swift */; };
 		FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC84EF2074FE1700AD9D65 /* SubmitScreenshot.swift */; };
+		FAE2D14C210B8A4D00CED3FA /* EventScheduleCoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2D14B210B8A4D00CED3FA /* EventScheduleCoreInfo.swift */; };
 		FAE2EC70209C8E930080E92D /* CallMediaTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2EC6F209C8E930080E92D /* CallMediaTrack.swift */; };
 		FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */; };
 		FAE865C62068C620006F06B3 /* call.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE865C52068C61E006F06B3 /* call.xcassets */; };
@@ -535,10 +538,7 @@
 		FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallOverlayView.swift; sourceTree = "<group>"; };
 		FA1B36312064E22F00F2E6BC /* HangupContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangupContainer.swift; sourceTree = "<group>"; };
 		FA1B36322064E22F00F2E6BC /* LocalVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
-		FA1B36332064E22F00F2E6BC /* MicActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicActionView.swift; sourceTree = "<group>"; };
 		FA1B36342064E22F00F2E6BC /* RemoteVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteVideoView.swift; sourceTree = "<group>"; };
-		FA1B36352064E22F00F2E6BC /* VideoActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionContainer.swift; sourceTree = "<group>"; };
-		FA1B36362064E22F00F2E6BC /* VideoActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionView.swift; sourceTree = "<group>"; };
 		FA1B36372064E22F00F2E6BC /* VideoRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRootView.swift; sourceTree = "<group>"; };
 		FA1B36382064E22F00F2E6BC /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		FA1B36422064E31000F2E6BC /* TemplateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateView.swift; sourceTree = "<group>"; };
@@ -653,6 +653,11 @@
 		FA74B1522063A1C500983141 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		FA74B1542063A52800983141 /* no_event.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = no_event.xib; sourceTree = "<group>"; };
 		FA74B1592063AEFA00983141 /* BoldAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoldAttribute.swift; sourceTree = "<group>"; };
+		FA79F100210A032A00D16F13 /* VideoActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionContainer.swift; sourceTree = "<group>"; };
+		FA79F102210A039600D16F13 /* HostVideoActionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVideoActionContainer.swift; sourceTree = "<group>"; };
+		FA79F104210A042500D16F13 /* VideoActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionView.swift; sourceTree = "<group>"; };
+		FA79F105210A042500D16F13 /* MicActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicActionView.swift; sourceTree = "<group>"; };
+		FA79F108210A044900D16F13 /* HangupActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangupActionView.swift; sourceTree = "<group>"; };
 		FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCSingletonStream+Internal.h"; sourceTree = "<group>"; };
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
@@ -734,6 +739,7 @@
 		FADC84EB2074EDB600AD9D65 /* AutographPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographPreviewController.swift; sourceTree = "<group>"; };
 		FADC84ED2074FBE200AD9D65 /* AutographPreviewInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographPreviewInterface.swift; sourceTree = "<group>"; };
 		FADC84EF2074FE1700AD9D65 /* SubmitScreenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitScreenshot.swift; sourceTree = "<group>"; };
+		FAE2D14B210B8A4D00CED3FA /* EventScheduleCoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventScheduleCoreInfo.swift; sourceTree = "<group>"; };
 		FAE2EC6F209C8E930080E92D /* CallMediaTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallMediaTrack.swift; sourceTree = "<group>"; };
 		FAE865C32068B9C6006F06B3 /* OngoingEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingEventView.swift; sourceTree = "<group>"; };
 		FAE865C52068C61E006F06B3 /* call.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = call.xcassets; sourceTree = "<group>"; };
@@ -1174,6 +1180,7 @@
 			children = (
 				FA15C579206B6B6C009FA707 /* EventInfo.swift */,
 				FA15C57A206B6B6C009FA707 /* EventScheduleInfo.swift */,
+				FAE2D14B210B8A4D00CED3FA /* EventScheduleCoreInfo.swift */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1197,13 +1204,11 @@
 		FA1B362F2064E22F00F2E6BC /* video */ = {
 			isa = PBXGroup;
 			children = (
+				FA79F0FF210A032A00D16F13 /* callActionContainer */,
 				FA0A4F9B2078B41600FF9517 /* callInfo */,
 				FA1B36302064E22F00F2E6BC /* CallOverlayView.swift */,
 				FA1B36312064E22F00F2E6BC /* HangupContainer.swift */,
-				FA1B36332064E22F00F2E6BC /* MicActionView.swift */,
 				FA1B36342064E22F00F2E6BC /* RemoteVideoView.swift */,
-				FA1B36352064E22F00F2E6BC /* VideoActionContainer.swift */,
-				FA1B36362064E22F00F2E6BC /* VideoActionView.swift */,
 				FA1B36372064E22F00F2E6BC /* VideoRootView.swift */,
 				FADC84E32074E35600AD9D65 /* UserVideoRootView.swift */,
 				FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */,
@@ -1652,6 +1657,18 @@
 				FA74B1592063AEFA00983141 /* BoldAttribute.swift */,
 			);
 			path = attributedString;
+			sourceTree = "<group>";
+		};
+		FA79F0FF210A032A00D16F13 /* callActionContainer */ = {
+			isa = PBXGroup;
+			children = (
+				FA79F105210A042500D16F13 /* MicActionView.swift */,
+				FA79F104210A042500D16F13 /* VideoActionView.swift */,
+				FA79F100210A032A00D16F13 /* VideoActionContainer.swift */,
+				FA79F102210A039600D16F13 /* HostVideoActionContainer.swift */,
+				FA79F108210A044900D16F13 /* HangupActionView.swift */,
+			);
+			path = callActionContainer;
 			sourceTree = "<group>";
 		};
 		FA7E747D209B072C001C3374 /* objc */ = {
@@ -2301,6 +2318,7 @@
 				FAFFFE92203D9C7F009B4F96 /* Resources */,
 				FAA001C4203EE0E4003C8A74 /* Run Script */,
 				AEB1E68B1FA013612321247D /* [CP] Embed Pods Frameworks */,
+				F075AD94B6F8ECF04968A900 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2319,6 +2337,8 @@
 				FAFFFEA4203D9C80009B4F96 /* Sources */,
 				FAFFFEA5203D9C80009B4F96 /* Frameworks */,
 				FAFFFEA6203D9C80009B4F96 /* Resources */,
+				2472BB65C5210135822D1AF1 /* [CP] Embed Pods Frameworks */,
+				19A0420A1F407F847C0AAA7C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2338,6 +2358,8 @@
 				FAFFFEAF203D9C80009B4F96 /* Sources */,
 				FAFFFEB0203D9C80009B4F96 /* Frameworks */,
 				FAFFFEB1203D9C80009B4F96 /* Resources */,
+				DD234605342711B7D2ECB1A7 /* [CP] Embed Pods Frameworks */,
+				C787CD07C37AF5DC0D96E1AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2447,6 +2469,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		19A0420A1F407F847C0AAA7C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2472BB65C5210135822D1AF1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A2F22B4B751664C77AF8D35C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2485,6 +2537,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C787CD07C37AF5DC0D96E1AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DAACD6CB5C09EDDE5F3279CC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2503,6 +2570,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DD234605342711B7D2ECB1A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E6E69AF435E8012489ED050F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2519,6 +2601,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F075AD94B6F8ECF04968A900 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FAA001C4203EE0E4003C8A74 /* Run Script */ = {
@@ -2561,7 +2658,6 @@
 			files = (
 				47AD144020ADB013006AF9D6 /* PaymentAdapter.swift in Sources */,
 				47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */,
-				FA1B363C2064E22F00F2E6BC /* MicActionView.swift in Sources */,
 				FA74B13F20639B6400983141 /* SocketChannel.m in Sources */,
 				FA1B36452064E70D00F2E6BC /* WaitCountdownView.swift in Sources */,
 				475B111A210B2C9C00DADD39 /* PaymentSetupPaypalController.swift in Sources */,
@@ -2613,6 +2709,7 @@
 				473646EF20AF01AB00D684FE /* MyTicketsController.swift in Sources */,
 				FA0A4F9F2078B45100FF9517 /* UserCallInfoContainerView.swift in Sources */,
 				47B6523D20AAAFA40041496C /* TabContainerView.swift in Sources */,
+				FA79F103210A039600D16F13 /* HostVideoActionContainer.swift in Sources */,
 				47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */,
 				FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
@@ -2772,6 +2869,7 @@
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
 				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,
 				472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */,
+				FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
@@ -2786,7 +2884,6 @@
 				FAE8B23120A3087000899731 /* AppConnectioConfigForDev.swift in Sources */,
 				FADC84E42074E35600AD9D65 /* UserVideoRootView.swift in Sources */,
 				47B6525920AAB0420041496C /* SignUpController.swift in Sources */,
-				FA1B363F2064E22F00F2E6BC /* VideoActionView.swift in Sources */,
 				FAB71CEE2077BDD300C24246 /* EventRefreshProtocol.swift in Sources */,
 				47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */,
 				47B6524520AAB0000041496C /* ContainerController.swift in Sources */,
@@ -2810,18 +2907,20 @@
 				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
+				FAE2D14C210B8A4D00CED3FA /* EventScheduleCoreInfo.swift in Sources */,
 				471C233220B6BD8C0040C2A8 /* MyTicketsInfo.swift in Sources */,
 				FA3AF1032044376C0084B154 /* SigninRootView.swift in Sources */,
 				FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */,
+				FA79F106210A042600D16F13 /* VideoActionView.swift in Sources */,
 				FA74B14720639C7300983141 /* SRWebSocket.m in Sources */,
 				47B6523920AAAF960041496C /* SignupRootView.swift in Sources */,
 				FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */,
 				FAD201782076071F0004E10E /* CacheImageLoader.swift in Sources */,
 				FA72A0B22085F7CF00C3C7AE /* TimerSync.swift in Sources */,
 				FAA0019E203ED472003C8A74 /* Date.swift in Sources */,
-				FA1B363E2064E22F00F2E6BC /* VideoActionContainer.swift in Sources */,
 				47AD143120AD57D9006AF9D6 /* DeactivateAccountProcessor.swift in Sources */,
 				FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */,
+				FA79F101210A032B00D16F13 /* VideoActionContainer.swift in Sources */,
 				FA3AF1012044334F0084B154 /* FieldManagingScrollViewInterface.swift in Sources */,
 				472780EF20B02FA400D5AA1E /* MemoriesFetchProcessor.swift in Sources */,
 				FA24BAC8206F6B2C0064F94F /* CountdownProcessor.swift in Sources */,
@@ -2846,6 +2945,7 @@
 				FA65F546206A58F2006CE665 /* HostCallController.swift in Sources */,
 				FAA001A9203ED472003C8A74 /* ServerProcessor.swift in Sources */,
 				47B6523620AAAF8C0041496C /* ForgotRootView.swift in Sources */,
+				FA79F107210A042600D16F13 /* MicActionView.swift in Sources */,
 				FA74B13520639B6400983141 /* ARDTURNClient.m in Sources */,
 				FA3CC1452046CA2A007438A3 /* UserInfo.swift in Sources */,
 				FA15C57C206B6B6C009FA707 /* EventInfo.swift in Sources */,

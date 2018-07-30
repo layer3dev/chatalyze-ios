@@ -21,43 +21,57 @@ class HostCallController: VideoCallController {
         checkDateFormat(date:"xfg")
     }
     
-    func checkDateFormat(date:String){
+    var hostActionContainer : HostVideoActionContainer?{
+        get{
+            return actionContainer as? HostVideoActionContainer
+        }
+    }
+    
+    @IBAction private func hangupAction(){
+        toggleHangup()
+    }
+    
+    private func toggleHangup(){
+        guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return
+        }
         
-        /// <#Description#>
-//        let date = Date()
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-//        Log.echo(key: "yud", text: "Date is string\(dateFormatter.string(from: date))")
-//        Log.echo(key: "yud", text:"Date in date is \(dateFormatter.date(from: dateFormatter.string(from: date)))")
-//
-//        //Finding the current Date in GMT time zone.
-//        print("Date in the Gmt format is")
-//        let date = Date()
-//        print(date)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-//        //2018-07-23 06:06:54 +0000
-//        //dateFormatter.date(from: )
-//        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss Z"
-//        print("Required date is \(dateFormatter.date(from: "\(date)"))")
-//        return
-        //Sat, 21 Jul 2018 11:11:19 GMT
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-//        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-//        let requiredDate = dateFormatter.date(from: "Sat, 21 Jul 2018 11:11:19 GMT")
-//
-//        Log.echo(key: "yud", text: "Required date is \(requiredDate)")
-//
-//        let currentDate = Date()
-//        let difference = currentDate.timeIntervalSince(requiredDate ?? Date())
-//
-//        Log.echo(key: "yud", text: "Time Diffrence of the date is\(difference)")
-//
-//        let newDateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        let isHangedUp = !slot.isHangedUp
+        slot.isHangedUp = isHangedUp
+        
+        isHangedUp ? hostActionContainer?.hangupView?.deactivate() : hostActionContainer?.hangupView?.activate()
+        
+        refreshStreamLock()
+        
+        let hashedUserId = slot.user?.hashedId ?? ""
+        updateUserOfHangup(hashedUserId : hashedUserId, hangup : isHangedUp)
+    }
+    
+   
+    
+    private func refreshStreamLock(){
+        guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                localMediaPackage?.isDisabled = false
+                return
+        }
+        localMediaPackage?.isDisabled = slot.isHangedUp
+        
+    }
+    
+    private func updateUserOfHangup(hashedUserId : String, hangup : Bool){
+        //{"id":"hangUp","value":true,"name":"chedddiicdaibdia"}
+        var param = [String : Any]()
+        param["id"] = "hangUp"
+        param["value"] = hangup
+        param["name"] = hashedUserId
+        socketClient?.emit(param)
+    }
+    
+    
+    
+    func checkDateFormat(date:String){
         
     }
     
@@ -128,11 +142,16 @@ class HostCallController: VideoCallController {
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
+        refresh()
+    }
+    
+    private func refresh(){
+        refreshStreamLock()
     }
     
     private func getActiveConnection()->HostCallConnection?{
         
-        guard let slot = eventInfo?.currentSlotFromMerge
+        guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return nil
         }
@@ -146,7 +165,7 @@ class HostCallController: VideoCallController {
     
     private func confirmCallLinked(){
         
-        guard let slot = eventInfo?.currentSlotFromMerge
+        guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return
         }
@@ -161,20 +180,24 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        var slot = self.eventInfo?.currentSlotFromMerge
-        if(slot == nil){
-            slot = self.eventInfo?.preConnectSlotFromMerge
-        }
-        guard let slotInfo = slot
+        guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
+                updateCallHeaderForEmptySlot()
                 return
         }
+        hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         if(slotInfo.isFuture){
             updateCallHeaderForFuture(slot : slotInfo)
         }else{
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
-        hostRootView?.callInfoContainer?.slotUserName?.text = self.eventInfo?.currentSlot?.user?.firstName
+    }
+    
+    private func updateCallHeaderForEmptySlot(){
+        
+        hostRootView?.callInfoContainer?.slotUserName?.text = ""
+        hostRootView?.callInfoContainer?.timer?.text = ""
+        hostRootView?.callInfoContainer?.slotCount?.text = ""
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
@@ -210,7 +233,7 @@ class HostCallController: VideoCallController {
         
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.preConnectSlotInfo?.index ?? 0)
+        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
@@ -265,7 +288,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let preConnectSlot = eventInfo.preConnectSlotFromMerge
+        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
@@ -282,7 +305,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let slot = eventInfo.currentSlotFromMerge
+        guard let slot = eventInfo.mergeSlotInfo?.currentSlot
             else{
                 Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
@@ -325,6 +348,9 @@ class HostCallController: VideoCallController {
             return
         }
         Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
+        if(slot.isHangedUp){
+            return
+        }
         connection.initateHandshake()
     }
     
@@ -355,8 +381,8 @@ class HostCallController: VideoCallController {
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
     
-    override func hangup(){
-        super.hangup()
+    override func exit(){
+        super.exit()
         
         for (_, connection) in connectionInfo {
             connection.disconnect()

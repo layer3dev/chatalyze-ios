@@ -103,7 +103,7 @@ class SelfieTimerView:ExtendedView {
     
     
     private func runTimer(){
-        
+        //to balance the time taken by animation
         testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
     }
     

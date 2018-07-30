@@ -12,8 +12,7 @@ import UIKit
 public extension Date {
 
     var millisecondsSince1970:Int {
-                
-        
+
         let interval = Int64((self.timeIntervalSince1970 * 1000.0).rounded())
         return Int(interval)
         //return Int(self.timeIntervalSince1970)

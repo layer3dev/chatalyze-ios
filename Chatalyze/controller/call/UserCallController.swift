@@ -138,12 +138,36 @@ class UserCallController: VideoCallController {
             }
             self?.connection?.linkCall()
         })
+        
+        //call initiation
+        socketClient?.onEvent("hangUp", completion: { [weak self] (json) in
+            if(self?.socketClient == nil){
+                return
+            }
+            self?.processHangupEvent(data : json)
+            
+        })
     }
     
-    override func processHangupAction(){
-        super.processHangupAction()
+    private func processHangupEvent(data : JSON?){
+        guard let json = data
+            else{
+                return
+        }
+        
+        let value = json["value"].boolValue
+        hangup(hangup: value)
+    }
+    
+    override func processExitAction(){
+        super.processExitAction()
         
         connection?.disconnect()
+    }
+    
+    
+    func hangup(hangup : Bool){
+        localMediaPackage?.isDisabled = hangup
     }
     
     private func processCallInitiation(data : JSON?){
@@ -242,6 +266,17 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
+        //don't take screenshot if don't have local stream
+        guard let localMedia = localMediaPackage
+            else{
+                return
+        }
+        
+        //don't take screenshot if hangedup
+        if(localMedia.isDisabled){
+            return
+        }
+        
         //Once the  selfie timer has been come
         guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         
@@ -300,7 +335,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        guard let currentSlot = eventInfo?.myValidSlotMerged.slotInfo
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return
         }
@@ -350,7 +385,7 @@ class UserCallController: VideoCallController {
         if let _ = myCurrentUserSlot{
             return
         }
-        self.processHangupAction()
+        self.processExitAction()
     }
     
     private func confirmCallLinked(){

@@ -58,8 +58,7 @@ class HomeController: InterfaceExtendedController {
         paintNavigationTitle(text : "Event")
         paintSettingButton()
     }
-    
-    
+
     /*
     //MARK: - Navigation
      
