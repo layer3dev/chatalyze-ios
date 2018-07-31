@@ -153,7 +153,7 @@ class VideoCallController : InterfaceExtendedController {
         
         initializeVariable()
         audioManager = AudioManager()
-        switchToCallRequest()
+//        switchToCallRequest()
         startLocalStream()
         
         fetchInfo(showLoader: true) { [weak self] (success) in

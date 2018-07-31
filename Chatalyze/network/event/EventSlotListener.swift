@@ -25,6 +25,9 @@ class EventSlotListener{
     func initializeListener(){
         
         UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
+            
+            Log.echo(key : "test", text : data)
+            
             if(data.count <= 0){
                 return
             }

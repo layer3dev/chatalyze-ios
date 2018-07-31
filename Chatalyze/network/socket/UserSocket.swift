@@ -138,6 +138,10 @@ extension UserSocket{
         
         }
         
+        socket?.onAny({ (data) in
+            Log.echo(key: "user_socket", text: "onAny \(data)")
+        })
+        
         Log.echo(key: "user_socket", text:"connect request in initializeSocketConnection")
         socket?.connect()
     }
