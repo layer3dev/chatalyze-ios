@@ -124,11 +124,15 @@ class VideoCallController : InterfaceExtendedController {
             
             Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
             
-            DispatchQueue.main.async {
-                
-                self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
-            }
+            
             //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
+        }
+    }
+    
+    func eventCompleted(){
+        DispatchQueue.main.async {
+            
+            self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }
     

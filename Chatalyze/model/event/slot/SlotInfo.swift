@@ -33,6 +33,7 @@ class SlotInfo: SlotFlagInfo {
     var user : UserInfo?
     var href : String?
     var json : JSON?
+    
     var formattedStartTime:String?
     var formattedEndTime:String?
     var formattedStartDate:String?

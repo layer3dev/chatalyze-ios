@@ -10,6 +10,8 @@ import UIKit
 
 class VideoRootView: ExtendedView {
     
+
+    
     @IBOutlet var actionContainer : VideoActionContainer?
     @IBOutlet var localVideoView : LocalVideoView?
     
@@ -104,5 +106,9 @@ class VideoRootView: ExtendedView {
     @objc func toggleContainer(gesture: UITapGestureRecognizer){
         actionContainer?.toggleContainer()
     }
+    
+   
+    
+    
 
 }

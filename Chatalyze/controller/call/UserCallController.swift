@@ -67,11 +67,9 @@ class UserCallController: VideoCallController {
         super.viewWillDisappear(animated)
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
-        
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myActiveUserSlot?.isSelfieTimerInitiated))")
         
         DispatchQueue.main.async {
-           
             self.selfieTimerView?.reset()
             guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
                 return
@@ -395,6 +393,7 @@ class UserCallController: VideoCallController {
             return
         }
         self.processExitAction()
+        eventCompleted()
     }
     
     private func confirmCallLinked(){
