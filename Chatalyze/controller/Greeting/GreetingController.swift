@@ -108,6 +108,7 @@ class GreetingController: TabChildLoadController {
                             }
                         }
                         
+                        
                         //*********************************
 //                        for info in array{
 //                            self.greetingsArray.append(info)

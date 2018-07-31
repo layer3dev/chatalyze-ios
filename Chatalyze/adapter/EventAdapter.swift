@@ -51,6 +51,21 @@ extension EventAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        guard let role = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        if role == .analyst{
+            
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Analyst can not purchase ticket!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
+            }))
+            self.root?.controller?.present(alert, animated: true, completion: {
+            })            
+            return
+        }
+        
+        
         guard let controller = EventLandingController.instance() else {
             return
         }
