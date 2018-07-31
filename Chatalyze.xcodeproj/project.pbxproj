@@ -28,6 +28,8 @@
 		472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D617D20BD6FC20016A761 /* EventPaymentController.swift */; };
 		472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D618220BD71850016A761 /* EventPaymentRootView.swift */; };
 		472D618520BD76740016A761 /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472D618420BD76740016A761 /* InputMask.framework */; };
+		472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D932110772D00C7BAEF /* TicketSlotListener.swift */; };
+		472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */; };
 		4731E5CC20F6102000CB9D47 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193A2041647800D088F1 /* FacebookCore.framework */; };
 		4731E5CD20F6102000CB9D47 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193B2041647900D088F1 /* FacebookLogin.framework */; };
 		4731E5CE20F610F600CB9D47 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478506CE20BFF71100EC4524 /* FacebookShare.framework */; };
@@ -397,6 +399,8 @@
 		472D617D20BD6FC20016A761 /* EventPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentController.swift; sourceTree = "<group>"; };
 		472D618220BD71850016A761 /* EventPaymentRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentRootView.swift; sourceTree = "<group>"; };
 		472D618420BD76740016A761 /* InputMask.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMask.framework; path = Carthage/Build/iOS/InputMask.framework; sourceTree = "<group>"; };
+		472F2D932110772D00C7BAEF /* TicketSlotListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSlotListener.swift; sourceTree = "<group>"; };
+		472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPaypalEmailHost.swift; sourceTree = "<group>"; };
 		4731E5CA20F60B1100CB9D47 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../FacebookSDKs-iOS-obj_c/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		473328C02101FCCD00AB732D /* SelfieTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieTimerView.swift; sourceTree = "<group>"; };
 		473566BE2107217700F62C97 /* EventSoldOutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSoldOutController.swift; sourceTree = "<group>"; };
@@ -1711,6 +1715,7 @@
 				47E2F02920DBC1DD006BD93B /* SubmitCallReviewProcessor.swift */,
 				471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */,
 				475B1120210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift */,
+				472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -1993,6 +1998,7 @@
 				FAB71CEB2077B13800C24246 /* EventSlotListener.swift */,
 				FA41AC62207BA53C002A7525 /* EventListener.swift */,
 				FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */,
+				472F2D932110772D00C7BAEF /* TicketSlotListener.swift */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -2321,7 +2327,6 @@
 				FAFFFE92203D9C7F009B4F96 /* Resources */,
 				FAA001C4203EE0E4003C8A74 /* Run Script */,
 				AEB1E68B1FA013612321247D /* [CP] Embed Pods Frameworks */,
-				DD165149DAC46F8109C06C51 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2340,8 +2345,6 @@
 				FAFFFEA4203D9C80009B4F96 /* Sources */,
 				FAFFFEA5203D9C80009B4F96 /* Frameworks */,
 				FAFFFEA6203D9C80009B4F96 /* Resources */,
-				C4476BD60A842A52BCA16538 /* [CP] Embed Pods Frameworks */,
-				5EC23F43D05E2A370F2C1DE6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2361,8 +2364,6 @@
 				FAFFFEAF203D9C80009B4F96 /* Sources */,
 				FAFFFEB0203D9C80009B4F96 /* Frameworks */,
 				FAFFFEB1203D9C80009B4F96 /* Resources */,
-				140B5B868A00BC4FBFDE9E4B /* [CP] Embed Pods Frameworks */,
-				F9394554ADF53EEA0AFA927C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2472,36 +2473,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		140B5B868A00BC4FBFDE9E4B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5EC23F43D05E2A370F2C1DE6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A2F22B4B751664C77AF8D35C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2540,21 +2511,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C4476BD60A842A52BCA16538 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		DAACD6CB5C09EDDE5F3279CC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2573,21 +2529,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DD165149DAC46F8109C06C51 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E6E69AF435E8012489ED050F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2604,21 +2545,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9394554ADF53EEA0AFA927C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FAA001C4203EE0E4003C8A74 /* Run Script */ = {
@@ -2666,6 +2592,7 @@
 				475B111A210B2C9C00DADD39 /* PaymentSetupPaypalController.swift in Sources */,
 				47B6526420AAB4080041496C /* NotificationRoundView.swift in Sources */,
 				47AD143B20ADAF70006AF9D6 /* AccountRootView.swift in Sources */,
+				472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
 				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
@@ -2800,6 +2727,7 @@
 				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA72A0B5208602F700C3C7AE /* TimeSyncInfo.swift in Sources */,
 				47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */,
+				472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
 				FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */,
 				47B6522B20AAAF710041496C /* GreetingInfoButtonContainer.swift in Sources */,
@@ -3127,7 +3055,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -3142,8 +3070,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "642d28da-0e3e-42d5-8ccb-cb03537c2c87";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -3158,7 +3086,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -3173,8 +3101,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "642d28da-0e3e-42d5-8ccb-cb03537c2c87";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

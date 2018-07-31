@@ -59,13 +59,27 @@ extension GreetingsAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let role = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        if role == .analyst{
+            
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only user can purchase greeting!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
+            }))
+            self.root?.controller?.present(alert, animated: true, completion: {
+            })
+            return
+        }
+        
         guard let controller = GreetingInfoController.instance() else {
             return
         }
         if indexPath.row < self.greetingArray.count {
             
             controller.info = self.greetingArray[indexPath.row]
-        }
+        } 
         self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
 }

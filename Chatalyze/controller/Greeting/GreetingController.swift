@@ -106,9 +106,7 @@ class GreetingController: TabChildLoadController {
                                 self.rootView?.insertPageData(info: array[i])
                                 self.greetingsArray.append(array[i])
                             }
-                        }
-                        
-                        
+                        }                        
                         //*********************************
 //                        for info in array{
 //                            self.greetingsArray.append(info)

@@ -20,11 +20,12 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //maketextLinkable()
         setUpGestureOnLabel()
         paintInterface()
+        fetchPaypalInfo()
     }
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "Payment")
+        paintNavigationTitle(text: "PAYMENT")
         paintBackButton()
     }
     
@@ -62,6 +63,32 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
+    
+    
+    func fetchPaypalInfo(){
+    
+        
+        self.showLoader()
+        FetchPaypalEmailHost().fetchInfo { (success, response) in
+            
+            self.stopLoader()
+            
+            if success{
+                
+                guard let res = response else{
+                    return
+                }
+                
+                if let dict = res.dictionary{
+                    if let email = dict["email"]?.stringValue{
+                 
+                        self.emailField?.textField?.text = email
+                    }
+                }
+            }
+        }
+    }
+    
     
     
     @IBAction func submitAction(sender:UIButton){

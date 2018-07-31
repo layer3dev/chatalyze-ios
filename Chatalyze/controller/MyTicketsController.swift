@@ -22,8 +22,7 @@ class MyTicketsController: InterfaceExtendedController{
     @IBOutlet var noTicketLbl:UILabel?
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
-    
-    
+    let eventSlotListiner = TicketSlotListener()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -31,8 +30,27 @@ class MyTicketsController: InterfaceExtendedController{
         fetchInfo()
         paintInterface()
         initializeVariable()
-        scroll?.delegate = self       
+        scroll?.delegate = self
+        registerEventSlotListner()
     }
+    
+    func registerEventSlotListner(){
+        
+        guard let id = SignedUserInfo.sharedInstance?.id else {
+            return
+        }        
+        eventSlotListiner.userId = id
+        eventSlotListiner.setListener {
+            Log.echo(key: "yud", text:"New slot is booked")
+            self.fetchInfo()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        eventSlotListiner.setListener(listener: nil)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)

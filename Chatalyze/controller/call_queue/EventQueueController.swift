@@ -81,7 +81,6 @@ class EventQueueController: InterfaceExtendedController {
             self?.loadInfoFromServer(showLoader : false)
         }
         
-        
     }
     
     func refresh(){

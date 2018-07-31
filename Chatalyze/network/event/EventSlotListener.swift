@@ -40,7 +40,9 @@ class EventSlotListener{
     
     private func processNotificationForNewSlot(info : [String : Any]){
         let rawInfosString = info.JSONDescription()
+       
         Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
+       
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
@@ -64,6 +66,8 @@ class EventSlotListener{
                 return
         }
         
+        Log.echo(key: "notification", text: "meta is  ==> \(activityType)")
+        
         if(activityType != .slotBooked){
             return
         }
@@ -83,8 +87,6 @@ class EventSlotListener{
         if(receivedEventIdString != eventId){
             return
         }
-        
         listener?()
-        
     }
 }

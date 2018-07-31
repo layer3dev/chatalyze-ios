@@ -31,7 +31,7 @@ class EventLandingController: InterfaceExtendedController {
     func paintInterface(){
         
         paintBackButton()
-        paintNavigationTitle(text: "Purchase Ticket")
+        paintNavigationTitle(text: "PURCHASE TICKET")
     }
     
     var rootView:EventLandingRootView?{
@@ -67,6 +67,7 @@ class EventLandingController: InterfaceExtendedController {
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.dismissListner = {
             DispatchQueue.main.async {
+                
                 Log.echo(key: "yud", text: "I got dismiss call")
 //                self.dismiss(animated: false, completion: {                    
 //                })

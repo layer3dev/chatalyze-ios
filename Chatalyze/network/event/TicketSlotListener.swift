@@ -1,15 +1,17 @@
 //
-//  EventListener.swift
+//  TicketSlotListener.swift
 //  Chatalyze
 //
-//  Created by Sumant Handa on 09/04/18.
+//  Created by Mansa on 31/07/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+import Foundation
 import SwiftyJSON
 
-class EventListener{
+class TicketSlotListener{
     
+    var userId : String?
     private var listener : (()->())?
     
     init(){
@@ -32,14 +34,15 @@ class EventListener{
             }
             
             self?.processNotificationForNewSlot(info: info)
-        })
-        
+        })        
     }
     
     private func processNotificationForNewSlot(info : [String : Any]){
-       
+        
         let rawInfosString = info.JSONDescription()
+        
         Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
+        
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
@@ -63,11 +66,39 @@ class EventListener{
                 return
         }
         
-        if(activityType != .eventCreated){
+        Log.echo(key: "notification", text: "userId is \(userId) ToId id  is \(info.toId)")
+        
+        guard let toId = info.toId else{
             return
         }
         
-        listener?()
+        guard let id = userId else{
+            return
+        }
         
+        
+        if toId != id{
+            return
+        }
+        
+        Log.echo(key: "notification", text: "meta is  ==> \(activityType)")
+        
+        if(activityType != .slotBooked){
+            return
+        }
+        
+//        guard let receivedEventId = metaInfo.callScheduleId
+//            else{
+//                return
+//        }
+//
+//        let receivedEventIdString = String(receivedEventId)
+//
+//        if(receivedEventIdString != eventId){
+//            return
+//        }
+
+
+        listener?()
     }
 }
