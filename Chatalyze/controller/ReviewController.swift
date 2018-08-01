@@ -72,8 +72,7 @@ class ReviewController: InterfaceExtendedController{
         
         SubmitCallReviewProcessor().submit(comments: comment, rating:rating , callscheduleId: callScheduleId, analystId: analystId, userId: userId) { (success, message, response) in
             
-            //            Log.echo(key: "yud", text: "The value of the response is \(response)")
-            
+            //Log.echo(key: "yud", text: "The value of the response is \(response)")
             self.stopLoader()
             self.dismiss()
         }
@@ -102,6 +101,7 @@ extension ReviewController{
 }
 
 extension ReviewController:UITextViewDelegate{
+
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         

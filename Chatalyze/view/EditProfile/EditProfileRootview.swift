@@ -26,19 +26,20 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var mobileNumberField:SigninFieldView?
     @IBOutlet var errorLabel:UILabel?
     @IBOutlet var deactivateErrorLabel:UILabel?
+    var countryCode = "+1"
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
         initializeCountryPicker()
         fillInfo()
     }
     
     func initializeCountryPickerNew(){
-      
+        
         initializeCountryPicker()
     }
-    
     
     func fillInfo() {
         
@@ -51,12 +52,23 @@ class EditProfileRootview: ExtendedView {
         mobileNumberField?.textField?.text = info.phone
         
         if info.eventMobReminder == true{
-          
+            
             chatUpdates = true
             chatUpdatesImage?.image = UIImage(named: "tick")
         }
+        
+        var code = info.countryCode
+        code = code.replacingOccurrences(of: "+", with: "")
+        code = "+"+code
+        for info in IsoCountries.allCountries{
+            if info.calling == code{
+                picker?.setSelectedCountryCode(info.alpha2, animated: true)
+                countryCodeField?.image?.image = picker?.selectedImage
+                countryCode = info.calling
+                countryCodeField?.textField?.text = countryCode
+            }
+        }
     }
-    
     
     func initializeCountryPicker(){
         
@@ -66,11 +78,11 @@ class EditProfileRootview: ExtendedView {
     @IBAction func countryAction(sender:UIButton){
         
         if isCountryPickerHidden{
-            
+    
             isCountryPickerHidden = false
             picker?.isHidden = false
         }else{
-
+            
             isCountryPickerHidden = true
             picker?.isHidden = true
         }
@@ -80,31 +92,30 @@ class EditProfileRootview: ExtendedView {
 extension EditProfileRootview:CountryPickerDelegate{
     
     func countryPicker(_ picker: CountryPicker!, didSelectCountryWithName name: String!, code: String!) {
-      
+        
+        Log.echo(key: "yud", text: "code is \(code)")
         countryCodeField?.textField?.text = picker.selectedCountryCode
         countryCodeField?.image?.image = picker.selectedImage
         
-        print(picker.selectedLocale)
-        print(picker.selectedCountryCode)
         if let countryCode = (picker.selectedLocale as NSLocale).object(forKey: .countryCode) as? String {
-            print(countryCode)
         }
         
         for info in IsoCountries.allCountries{
             if info.alpha2 == code{
                 
                 countryCodeField?.textField?.text = info.calling
-                print("Calling code is \(info.calling)")
+                countryCode = info.calling
+                Log.echo(key: "yud", text: "country code is \(countryCode)")
+                countryCode = countryCode.replacingOccurrences(of: "+", with: "")
             }
         }
-
     }
 }
 
 extension EditProfileRootview{
     
     @IBAction func newUpdatesAction(sender:UIButton){
-                
+        
         if newUpdates{
             
             newUpdates = false
@@ -148,13 +159,14 @@ extension EditProfileRootview{
     }
     
     func save(){
-       
+        
         var param = [String:Any]()
         
         if oldPasswordField?.textField?.text != ""{
             
             if isMobileNumberActive(){
                 param["mobile"] = mobileNumberField?.textField?.text
+                param["countryCode"] = countryCode
             }
             param["oldpassword"] = oldPasswordField?.textField?.text
             param["password"] = newPasswordField?.textField?.text
@@ -173,9 +185,10 @@ extension EditProfileRootview{
                 RootControllerManager().signOut(completion: nil)
             }
         }else{
-         
+            
             if isMobileNumberActive(){
                 param["mobile"] = mobileNumberField?.textField?.text
+                param["countryCode"] = countryCode
             }            
             param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
@@ -197,7 +210,7 @@ extension EditProfileRootview{
     }
     
     func fetchProfile(){
-       
+        
         self.controller?.showLoader()
         FetchProfileProcessor().fetch { (success, message, response) in
             self.controller?.stopLoader()
@@ -210,7 +223,7 @@ extension EditProfileRootview{
         let alert = UIAlertController(title: "Chatalyze", message: "Are you sure to deactivate your Account", preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
-        
+            
             self.deactivate()
         }))
         
@@ -256,7 +269,7 @@ extension EditProfileRootview{
             
             return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate
         }else{
-           
+            
             let nameValidate = validateName()
             let emailValidated  = validateEmail()
             let codeValidate = validateCountryCode()
@@ -367,12 +380,12 @@ extension EditProfileRootview{
     
     fileprivate func validateMobileNumber()->Bool{
         
-//        if(mobileNumberField?.textField?.text == ""){
-//            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
-//            return false
-//        }else
+        //        if(mobileNumberField?.textField?.text == ""){
+        //            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
+        //            return false
+        //        }else
         if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
-           
+            
             if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
                 mobileNumberField?.showError(text: "Mobile number looks incorrect !")
                 return false

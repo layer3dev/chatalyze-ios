@@ -52,7 +52,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     func submit(){
         
        
-      //  https://dev.chatalyze.com/api/paymentEmail/
+        //https://dev.chatalyze.com/api/paymentEmail/
         guard let analystID = SignedUserInfo.sharedInstance?.id else{
             return
         }
@@ -66,19 +66,16 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     
     
     func fetchPaypalInfo(){
-    
         
         self.showLoader()
         FetchPaypalEmailHost().fetchInfo { (success, response) in
             
             self.stopLoader()
-            
             if success{
                 
                 guard let res = response else{
                     return
                 }
-                
                 if let dict = res.dictionary{
                     if let email = dict["email"]?.stringValue{
                  

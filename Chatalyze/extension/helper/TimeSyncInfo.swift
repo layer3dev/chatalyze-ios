@@ -18,11 +18,9 @@ class TimeSyncInfo{
     init(){
     }
     
-    
     init(info : JSON?){
         fillInfo(info: info)
     }
-    
     
     func fillInfo(info : JSON?){
         
@@ -33,7 +31,6 @@ class TimeSyncInfo{
         timestamp = info["timestamp"]?.intValue ?? 0
         identifier = info["requestIdentifier"]?.intValue ?? 0
     }
-    
     
     func isValid()->Bool{
       

@@ -97,8 +97,7 @@ class TicketSlotListener{
 //        if(receivedEventIdString != eventId){
 //            return
 //        }
-
-
+        
         listener?()
     }
 }

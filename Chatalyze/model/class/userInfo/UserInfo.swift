@@ -51,6 +51,7 @@ class UserInfo: NSObject {
     var defaultImage : HostDefaultScreenshot?
     var eventMobReminder:Bool = false
     var isOnline = false
+    var countryCode:String = ""
     
     override init(){
         super.init()
@@ -76,7 +77,7 @@ class UserInfo: NSObject {
         gender = info["gender"]?.stringValue
         address = info["address"]?.stringValue
         mobile = info["mobile"]?.stringValue
-        phone = info["phone"]?.stringValue
+        phone = info["mobile"]?.stringValue
         zipCode = info["zipCode"]?.stringValue
         joiningDate = info["createdAt"]?.stringValue
         email = info["email"]?.stringValue
@@ -86,6 +87,7 @@ class UserInfo: NSObject {
         profileThumbnail = avatars?["200X200"].stringValue
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
+        self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
     }
 }
 

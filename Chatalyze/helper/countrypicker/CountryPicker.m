@@ -151,6 +151,18 @@
     if (index != NSNotFound)
     {
         [self selectRow:(NSInteger)index inComponent:0 animated:animated];
+        NSString *imagePath = [NSString stringWithFormat:@"CountryPicker.bundle/%@", [[self class] countryCodes][(NSUInteger) index]];
+        UIImage *image;
+        if ([[UIImage class] respondsToSelector:@selector(imageNamed:inBundle:compatibleWithTraitCollection:)])
+        {
+            image = [UIImage imageNamed:imagePath inBundle:[NSBundle bundleForClass:[CountryPicker class]] compatibleWithTraitCollection:nil];
+            self.selectedImage = image;
+        }
+        else
+        {
+            image = [UIImage imageNamed:imagePath];
+            self.selectedImage = image;
+        }
     }
 }
 

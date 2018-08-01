@@ -32,6 +32,16 @@ class MyTicketsController: InterfaceExtendedController{
         initializeVariable()
         scroll?.delegate = self
         registerEventSlotListner()
+        anlaystJoinEventAlert()
+    }
+    
+    func anlaystJoinEventAlert(){
+        
+        UserSocket.sharedInstance?.socket?.on("updated_callschedule", callback: { (data,emitter) in
+        
+            Log.echo(key: "yud", text: "data in updated schedule is \(data)")
+            Log.echo(key: "yud", text: "Analyst just joined the event")
+        })
     }
     
     func registerEventSlotListner(){
@@ -48,17 +58,20 @@ class MyTicketsController: InterfaceExtendedController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
+        
         eventSlotListiner.setListener(listener: nil)
     }
     
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
+        
         fetchInfo()
     }    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         self.rootview?.initializeLayout()
     }
     

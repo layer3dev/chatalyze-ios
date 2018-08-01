@@ -28,9 +28,9 @@ class EditProfileProcessor{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "raw Email Signin Handler info ==>  \(response)")
+        Log.echo(key: "yud", text: "Response in the Edit Profile  \(response)")
         
-        Log.echo(key: "token", text: "Email Signin ==>  \(success)")
+        Log.echo(key: "yud", text: "Email Signin ==>  \(success)")
         guard let rawInfo = response
             else{
                 completion(false, "",  nil)
