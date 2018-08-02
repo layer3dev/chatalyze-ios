@@ -9,23 +9,30 @@
 import UIKit
 
 class HostEventQueueController: EventQueueController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    let updatedEventScheduleListner = UpdateEventListener()
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        eventScheduleUpdatedAlert()
     }
-
+    
+    func eventScheduleUpdatedAlert(){
+        
+        updatedEventScheduleListner.setListener {
+            self.loadInfoFromServer(showLoader : false)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     private func initialization(){
-        
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -38,6 +45,7 @@ class HostEventQueueController: EventQueueController {
     
     override func refresh(){
         super.refresh()
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -92,6 +100,4 @@ class HostEventQueueController: EventQueueController {
             self.eventInfo = info
         }
     }
-
-
 }

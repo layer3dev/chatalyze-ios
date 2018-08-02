@@ -14,6 +14,7 @@ class EventSoldOutController: InterfaceExtendedController {
     var info:EventInfo?
     @IBOutlet var messageLbl:UILabel?
     @IBOutlet var emailField:SigninFieldView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         

@@ -27,7 +27,6 @@ class UserCallController: VideoCallController {
     var isScreenshotPromptPage = false
     
     
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -81,7 +80,6 @@ class UserCallController: VideoCallController {
             }
         }
     }
-    
     
     @IBAction private func requestAutograph(){
         

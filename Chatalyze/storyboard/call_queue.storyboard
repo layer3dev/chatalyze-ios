@@ -18,6 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1d-vf-25j">
+                                <rect key="frame" x="20" y="333" width="335" height="0.0"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" red="0.1529411765" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="26"/>
+                                </variation>
+                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMq-cF-KEC">
                                 <rect key="frame" x="0.0" y="20" width="375" height="567"/>
                                 <subviews>
@@ -213,10 +222,14 @@
                             <constraint firstItem="lvr-0Y-ugc" firstAttribute="leading" secondItem="bVd-94-EcT" secondAttribute="leading" id="2AR-cY-wGZ"/>
                             <constraint firstItem="bVd-94-EcT" firstAttribute="bottom" secondItem="lvr-0Y-ugc" secondAttribute="bottom" id="7Mr-gd-g8i"/>
                             <constraint firstItem="HMq-cF-KEC" firstAttribute="top" secondItem="bVd-94-EcT" secondAttribute="top" id="GIR-qR-rx0"/>
+                            <constraint firstItem="t1d-vf-25j" firstAttribute="leading" secondItem="bVd-94-EcT" secondAttribute="leading" constant="20" id="Wku-eH-fhY"/>
+                            <constraint firstItem="t1d-vf-25j" firstAttribute="centerY" secondItem="X9M-1A-Ghg" secondAttribute="centerY" id="XgV-tD-6eU"/>
                             <constraint firstItem="lvr-0Y-ugc" firstAttribute="trailing" secondItem="bVd-94-EcT" secondAttribute="trailing" id="jXs-oP-mIR"/>
+                            <constraint firstItem="bVd-94-EcT" firstAttribute="trailing" secondItem="t1d-vf-25j" secondAttribute="trailing" constant="20" id="kgv-tj-InL"/>
                             <constraint firstItem="HMq-cF-KEC" firstAttribute="leading" secondItem="bVd-94-EcT" secondAttribute="leading" id="mG4-4I-KrA"/>
                             <constraint firstItem="HMq-cF-KEC" firstAttribute="trailing" secondItem="bVd-94-EcT" secondAttribute="trailing" id="u2W-30-kWz"/>
                             <constraint firstItem="lvr-0Y-ugc" firstAttribute="top" secondItem="HMq-cF-KEC" secondAttribute="bottom" id="uiq-NH-9Wk"/>
+                            <constraint firstItem="t1d-vf-25j" firstAttribute="centerX" secondItem="X9M-1A-Ghg" secondAttribute="centerX" id="xFp-8l-sTH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bVd-94-EcT"/>
                         <connections>
@@ -227,11 +240,14 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="collectionView" destination="5XI-ED-bEB" id="coC-vw-CTG"/>
+                        <outlet property="eventQueueView" destination="lvr-0Y-ugc" id="BXh-6d-LAJ"/>
+                        <outlet property="scrollView" destination="HMq-cF-KEC" id="n6o-5Y-OFy"/>
+                        <outlet property="statusLbl" destination="t1d-vf-25j" id="DZs-lQ-Zaf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CV9-e0-mqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="297" y="-994"/>
+            <point key="canvasLocation" x="287" y="-1094"/>
         </scene>
         <!--Host Event Queue Controller-->
         <scene sceneID="nxk-5C-y0a">

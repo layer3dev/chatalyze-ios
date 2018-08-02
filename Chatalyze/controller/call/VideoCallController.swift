@@ -54,7 +54,6 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     
-    
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
     }

@@ -10,18 +10,84 @@ import UIKit
 
 class UserEventQueueController: EventQueueController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBOutlet var statusLbl:UILabel?
+    @IBOutlet var scrollView:UIScrollView?
+    let updatedEventScheduleListner = UpdateEventListener()
+    let eventDelayListener = EventDelayListener()
+    @IBOutlet var eventQueueView:UIView?
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        verifyForEventDelay()
+        eventScheduleUpdatedAlert()
+        delayAlert()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func showAlertMessage(){
+        
+        scrollView?.isHidden = true
+        eventQueueView?.isHidden = true
+        statusLbl?.isHidden = false
+    }
+    func hideAlertMessage(){
+        
+        scrollView?.isHidden = false
+        eventQueueView?.isHidden = false
+        statusLbl?.isHidden = true
+    }
+    
+    private func verifyForEventDelay(){
+        
+        guard let slotInfo = slotInfo else{
+            return
+        }
+        
+        //Verifying that event is delayed or not started yet
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+            
+            showAlertMessage()
+            statusLbl?.text = "Session has not started yet."
+            return
+        }
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+            
+            showAlertMessage()
+            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+            return
+        }
+    }
 
+    func eventScheduleUpdatedAlert(){
+        
+        updatedEventScheduleListner.callScheduleId = String(slotInfo?.callscheduleId ?? 0)
+        
+        updatedEventScheduleListner.setListener {
+        
+            self.hideAlertMessage()
+            self.loadInfoFromServer(showLoader : false)
+        }
+    }
+    
+    
+    func delayAlert(){
+                
+        eventDelayListener.callScheduleId = String(slotInfo?.callscheduleId ?? 0)
+        
+        eventDelayListener.setListener {
+          
+            self.showAlertMessage()
+            self.statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -40,6 +106,23 @@ class UserEventQueueController: EventQueueController {
                 return
         }
         
+        //Verifying that event is delayed or not started yet
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+            
+            showAlertMessage()
+            statusLbl?.text = "Session has not started yet."
+            return
+        }
+        
+        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+            
+            showAlertMessage()
+            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+            return
+        }
+        
+        
         if(slotInfo.isWholeConnectEligible){
             guard let controller = UserCallController.instance()
                 else{
@@ -57,8 +140,6 @@ class UserEventQueueController: EventQueueController {
             self.navigationController?.present(controller, animated: true, completion: {
                  self.navigationController?.popViewController(animated: false)
             })
-                
         }
     }
-
 }

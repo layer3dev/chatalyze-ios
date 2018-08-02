@@ -17,6 +17,7 @@ class CallQueueCell: ExtendedCollectionCell {
     @IBOutlet private var countdownLabel : UILabel?
     
     public func fillInfo(index : Int, slotInfo : SlotInfo?){
+      
         self.slotInfo = slotInfo
         self.index = index
         fillInterface()
@@ -32,11 +33,11 @@ class CallQueueCell: ExtendedCollectionCell {
     private func fillInterface(){
         
         queueNumberLabel?.text = "\((index ?? 0) + 1)"
-        
         updateCountdownTime()
     }
     
     private func updateCountdownTime(){
+        
         guard let slotInfo = slotInfo
             else{
                 return
@@ -51,10 +52,8 @@ class CallQueueCell: ExtendedCollectionCell {
                 return
         }
         
-        
         updateBackgroundColor()
         
-    
         let targetDate = startDate.isFuture() ? startDate : endDate
         
         guard let countdownInfo = targetDate.countdownTimeFromNow()

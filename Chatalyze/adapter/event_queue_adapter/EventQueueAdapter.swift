@@ -32,6 +32,7 @@ extension EventQueueAdapter : UICollectionViewDataSource{
     }
     
     fileprivate func fillValues(cell : CallQueueCell, indexPath : IndexPath){
+      
         let index = (indexPath as NSIndexPath).row
         let info = infos[index]
         cell.fillInfo(index: index, slotInfo: info)

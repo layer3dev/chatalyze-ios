@@ -23,6 +23,7 @@ class MyTicketsController: InterfaceExtendedController{
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
+   
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -31,19 +32,10 @@ class MyTicketsController: InterfaceExtendedController{
         paintInterface()
         initializeVariable()
         scroll?.delegate = self
-        registerEventSlotListner()
-        anlaystJoinEventAlert()
+        registerEventSlotListner()       
     }
     
-    func anlaystJoinEventAlert(){
-        
-        UserSocket.sharedInstance?.socket?.on("updated_callschedule", callback: { (data,emitter) in
-        
-            Log.echo(key: "yud", text: "data in updated schedule is \(data)")
-            Log.echo(key: "yud", text: "Analyst just joined the event")
-        })
-    }
-    
+
     func registerEventSlotListner(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {

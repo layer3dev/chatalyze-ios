@@ -22,9 +22,9 @@ class ContactUsController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        Log.echo(key: "yud", text: "Text count is \(text.count)")
         painteInterface()
     }
+   
     
     func painteInterface(){
         
@@ -38,7 +38,6 @@ class ContactUsController: InterfaceExtendedController {
         
         subjectView?.layer.borderWidth = 1
         subjectView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
-        
         messageView?.layer.borderWidth = 1
         messageView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
     }
@@ -95,7 +94,6 @@ class ContactUsController: InterfaceExtendedController {
                 self.contactTextView?.text = ""
                 self.contactPlaceholderLbl?.text = "Enter Message";
                 DispatchQueue.main.async {
-                    
                     self.navigationController?.popToRootViewController(animated: true)
                 }
             })
@@ -129,7 +127,7 @@ extension ContactUsController:UITextViewDelegate{
         return true
     }
     
-    func textViewDidChange(_ textView: UITextView){
+    func textViewDidChange(_ textView: UITextView){        
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -142,7 +140,6 @@ extension ContactUsController:UITextViewDelegate{
         
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-       
         if (text.count+textView.text.count) > 10{
             return false
         }

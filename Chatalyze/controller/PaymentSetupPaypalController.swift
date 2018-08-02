@@ -51,7 +51,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     
     func submit(){
         
-       
+        
         //https://dev.chatalyze.com/api/paymentEmail/
         guard let analystID = SignedUserInfo.sharedInstance?.id else{
             return
@@ -85,9 +85,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             }
         }
     }
-    
-    
-    
+        
     @IBAction func submitAction(sender:UIButton){
         
         if(validateFields()){

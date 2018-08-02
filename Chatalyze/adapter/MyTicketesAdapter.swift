@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class MyTicketesAdapter: ExtendedView {
-    
+        
     @IBOutlet var myTicketsCollectionView:UICollectionView?
     var layout = UICollectionViewFlowLayout()
     var root:MyTicketsRootView?
@@ -89,11 +89,30 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 
 extension MyTicketesAdapter:MyTicketCellDelegate{
     
+//    private func verifyForEventDelay(){
+//
+//        guard let slotInfo = slotInfo else{
+//            return
+//        }
+//
+        //Verifying that event is delayed or not started yet
+    
+    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "Session has not started yet."
+//            return
+//        }
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+//            return
+//        }
+//    }
+//
     func jointEvent(info:SlotInfo?){
-        
-        Log.echo(key: "yud", text: "The event Id id \(info?.callscheduleId)")
-        Log.echo(key: "yud", text: "The value of the notified is\(info?.notified)")
-        Log.echo(key: "yud", text: "The value of the started is\(info?.started)")
         
         guard let slotInfo = info
             else{
@@ -105,34 +124,34 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 return
         }
         
-        //Verifying that event is delayed or not started yet
+        //Verify for delay and not started
         
         if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
             
-            let alert = UIAlertController(title: "Chatalyze", message: "Event is not started yet!!", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
-                
-                self.refreshData()
+            guard let controller = HostEventQueueController.instance()
+                else{
+                    return
             }
-            alert.addAction(ok)
-            self.root?.controller?.present(alert, animated: true, completion: nil)
+            
+            controller.eventId = "\(eventId)"
+            controller.slotInfo = slotInfo
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }
         
         if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
             
-            let alert = UIAlertController(title: "Chatalyze", message: "This event has been delayed. Please stay tuned for an updated start time.", preferredStyle: UIAlertControllerStyle.alert)
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (alert) in
-                
-                self.refreshData()
+            guard let controller = HostEventQueueController.instance()
+                else{
+                    return
             }
-            alert.addAction(ok)
-            self.root?.controller?.present(alert, animated: true, completion: nil)
+            
+            controller.eventId = "\(eventId)"
+            controller.slotInfo = slotInfo
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }
-        
-        //End
+        //End        
         
         if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
             
@@ -140,9 +159,10 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 else{
                     return
             }
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             
+            controller.eventId = "\(eventId)"
+            controller.slotInfo = slotInfo
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }
         
@@ -166,10 +186,9 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
     }
-    
+        
     func refreshData(){
         
         root?.refreshData()
     }
 }
-

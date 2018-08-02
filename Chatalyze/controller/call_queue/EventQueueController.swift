@@ -11,16 +11,13 @@ import UIKit
 
 class EventQueueController: InterfaceExtendedController {
     
+    var slotInfo:SlotInfo?
     @IBOutlet fileprivate var collectionView : UICollectionView?
     fileprivate var adapter : EventQueueAdapter?
-    
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,17 +39,16 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func intialization(){
+ 
         initializeVariable()
         paintInterface()
         registerForEvent()
         registerForTimer()
-        
         loadInfoFromServer(showLoader : true)
-        
-        
     }
     
-    private func loadInfoFromServer(showLoader : Bool){
+    func loadInfoFromServer(showLoader : Bool){
+      
         fetchInfo(showLoader: showLoader) { [weak self] (success) in
             if(!success){
                 return
@@ -112,6 +108,7 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func initializeVariable(){
+        
         if let eventId = self.eventId{
             eventSlotListener.eventId = eventId
         }
@@ -123,13 +120,13 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func testData(){
+    
         var infos = [SlotInfo]()
         for i in 0 ... 10{
             let info = SlotInfo(info : nil)
             info.slotNo = i
             infos.append(info)
         }
-        
         self.adapter?.infos = infos
         self.collectionView?.reloadData()
     }
@@ -143,9 +140,7 @@ class EventQueueController: InterfaceExtendedController {
         super.viewDidLayout()
     }
     
-    
-    func verifyEventActivated(){
-        
+    func verifyEventActivated(){        
     }
 
 }
@@ -180,11 +175,14 @@ extension EventQueueController{
         }
         
         CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+          
             if(showLoader){
-                 self?.stopLoader()
+            
+                self?.stopLoader()
             }
            
             if(!success){
+            
                 completion?(false)
                 return
             }
@@ -196,17 +194,13 @@ extension EventQueueController{
             }
             
             self?.eventInfo = localEventInfo
-            
             let roomId = localEventInfo.id ?? 0
             Log.echo(key : "service", text : "eventId - > \(roomId)")
             self?.verifyEventActivated()
             completion?(true)
             return
-            
         }
     }
-    
-    
 }
 
 

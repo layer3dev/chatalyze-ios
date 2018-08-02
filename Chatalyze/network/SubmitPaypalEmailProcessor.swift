@@ -19,8 +19,7 @@ class SubmitPaypalEmailProcessor{
         
         params["email"] = email
         params["userId"] = analystId
-        
-        
+                
         Log.echo(key: "yud", text: "My sended Dict  new is\(params)")
         
         ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in

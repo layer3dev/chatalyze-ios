@@ -34,14 +34,13 @@ class FetchPaypalEmailHost{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
+        Log.echo(key: "yud", text: "Resonse of Fetch payment is  \(response)")
         
         if(!success){
             completion(false, nil)
             return
         }
-        
-        Log.echo(key: "yud", text: "Resonse of Fetch payment is  \(response)")
-        
+                
         guard let res = response
             else{
                 completion(false, nil)
