@@ -12,7 +12,7 @@ class EventLandingController: InterfaceExtendedController {
     
     var info:EventInfo?
     @IBOutlet var eventSoldOutView:UIView?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -38,6 +38,41 @@ class EventLandingController: InterfaceExtendedController {
         
         get{
             return self.view as? EventLandingRootView
+        }
+    }
+    
+    @IBAction func share(sender:UIButton){
+        
+        guard let id = self.info?.id else{
+            return
+        }
+        
+        var str = "https://dev.chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.info?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        
+        if let url = URL(string: str) {
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url,shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self.view
+                activityVC.popoverPresentationController?.sourceRect = sender.frame
+               
+                self.present(activityVC, animated: true, completion: nil)
+                
+            }else{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url, shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                self.present(activityVC, animated: true, completion: nil)
+            }
         }
     }
     
@@ -69,8 +104,7 @@ class EventLandingController: InterfaceExtendedController {
             DispatchQueue.main.async {
                 
                 Log.echo(key: "yud", text: "I got dismiss call")
-//                self.dismiss(animated: false, completion: {                    
-//                })
+                
                 self.navigationController?.popToRootViewController(animated: true)
             }
         }
@@ -92,7 +126,7 @@ class EventLandingController: InterfaceExtendedController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         //segue.identifier
         let controller = segue.destination as? EventSoldOutController
         controller?.dismissListner = {

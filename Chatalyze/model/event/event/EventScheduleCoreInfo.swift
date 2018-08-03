@@ -47,10 +47,7 @@ class EventScheduleCoreInfo: EventInfo {
             
         }
         
-        
-        
         localSlotInfos = sortSlots(slotInfos: localSlotInfos)
-        
         
         self.slotInfos = localSlotInfos
         slotsUpdated()

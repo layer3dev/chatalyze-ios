@@ -18,7 +18,6 @@ class SlotFlagInfo: NSObject {
         
         self.isAutographRequested = info.isAutographRequested
         self.isScreenshotSaved = info.isScreenshotSaved
-        
         self.isSelfieTimerInitiated = info.isSelfieTimerInitiated
         self.isHangedUp = info.isHangedUp
     }

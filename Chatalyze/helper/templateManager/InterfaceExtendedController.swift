@@ -20,6 +20,7 @@ class InterfaceExtendedController : ExtendedController {
     }
     
     private func initialization(){
+        
         registerForTapGestureForKeyboardResign()
     }
     
@@ -61,7 +62,6 @@ class InterfaceExtendedController : ExtendedController {
         return
         let titleLabel = UILabel()
         titleLabel.backgroundColor = UIColor.clear
-        
         guard let font = UIFont(name: AppThemeConfig.defaultFont, size:16)
             else{
                 return
@@ -121,6 +121,7 @@ class InterfaceExtendedController : ExtendedController {
     
     
     @objc func settingAction(){
+        
         guard let controller = SettingController.instance()
             else{
                 return
@@ -130,10 +131,12 @@ class InterfaceExtendedController : ExtendedController {
     }
 
     @objc func backAction(){
+        
         self.navigationController?.popViewController(animated: true)
     }
     
     func emptyNavButtons(){
+        
         self.navigationItem.leftBarButtonItems?.removeAll()
         self.navigationItem.rightBarButtonItems?.removeAll()
     }
@@ -144,12 +147,14 @@ class InterfaceExtendedController : ExtendedController {
 extension InterfaceExtendedController{
     
     fileprivate func registerForTapGestureForKeyboardResign(){
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
     }
     
     @objc func hideKeyboard(){
+        
         self.view.endEditing(true)
     }
 }
@@ -158,17 +163,18 @@ extension InterfaceExtendedController{
 extension InterfaceExtendedController : NVActivityIndicatorViewable{
     
     func showLoader(text : String = "Loading..."){
+        
         let size = CGSize(width: 30, height: 30)
-        
         self.startAnimating(size, message: text, type: .lineScale)
-        
     }
     
     func updateLoaderMessage(text : String = "Loading..."){
+        
         NVActivityIndicatorPresenter.sharedInstance.setMessage(text)
     }
     
     func stopLoader(){
+        
         self.stopAnimating()
     }
 }

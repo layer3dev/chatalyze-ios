@@ -73,16 +73,17 @@ class UpdateEventListener{
             return
         }
         
-        guard let receivedEventId = metaInfo.callScheduleId
-            else{
-                return
-        }
+//        guard let receivedEventId = metaInfo.callScheduleId
+//            else{
+//                return
+//        }
+//
+//        let receivedEventIdString = String(receivedEventId)
+//
+//        if(receivedEventIdString != callScheduleId){
+//            return
+//        }
         
-        let receivedEventIdString = String(receivedEventId)
-        
-        if(receivedEventIdString != callScheduleId){
-            return
-        }
         listener?()
     }
 }

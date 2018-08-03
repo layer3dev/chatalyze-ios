@@ -10,8 +10,7 @@ import UIKit
 
 class ContactUsController: InterfaceExtendedController {
     
-    var text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjdskghjfgadhjsgfhjsadhjgfhjdsghfdsghjghjghjdsaghjfgdhjsgdhsjghjkdgshghjsdghjgdshjgfhjdshjsadghjgfsdhgfhjgsadhjgdghsgdhjsaghjadgshjkgdshjgfhadjsgfhjadgshjkgfasdhjgfhjadsghjfg"
-    
+       
     @IBOutlet var subjectView:UIView?
     @IBOutlet var messageView:UIView?
     @IBOutlet var contactTextView:UITextView?

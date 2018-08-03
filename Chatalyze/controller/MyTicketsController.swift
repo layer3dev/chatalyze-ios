@@ -23,7 +23,7 @@ class MyTicketsController: InterfaceExtendedController{
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
-   
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -58,6 +58,7 @@ class MyTicketsController: InterfaceExtendedController{
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
+        initializeVariable()
         fetchInfo()
     }    
     
@@ -90,7 +91,7 @@ class MyTicketsController: InterfaceExtendedController{
         }
         
         self.showLoader()
-        CallSlotFetch().fetchInfos() {(success, info) in
+        CallSlotFetch().fetchInfos() { (success, info) in
             
             self.ticketsArray.removeAll()
             self.rootview?.fillInfo(info: self.ticketsArray)

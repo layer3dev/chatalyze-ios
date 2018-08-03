@@ -26,6 +26,7 @@ extension NSMutableAttributedString {
 
     
     @discardableResult func normal(_ text:String)->NSMutableAttributedString {
+        
         let normal =  NSAttributedString(string: text)
         self.append(normal)
         return self

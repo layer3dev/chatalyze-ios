@@ -816,21 +816,33 @@
                                     <constraint firstAttribute="bottom" secondItem="ee1-b0-rG4" secondAttribute="bottom" id="tX9-0h-tTZ"/>
                                 </constraints>
                             </scrollView>
-                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NE-XF-Yyx" customClass="CountryPicker">
-                                <rect key="frame" x="0.0" y="784" width="375" height="216"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </pickerView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aif-Ll-zJo">
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxE-6d-fXh" customClass="CountryPicker">
+                                        <rect key="frame" x="0.0" y="764" width="375" height="216"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bxE-6d-fXh" secondAttribute="trailing" id="G00-jK-aN9"/>
+                                    <constraint firstItem="bxE-6d-fXh" firstAttribute="leading" secondItem="aif-Ll-zJo" secondAttribute="leading" id="aXP-gk-2yy"/>
+                                    <constraint firstAttribute="bottom" secondItem="bxE-6d-fXh" secondAttribute="bottom" id="k7F-NT-QYm"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gfw-l8-OzE" firstAttribute="bottom" secondItem="4NE-XF-Yyx" secondAttribute="bottom" id="Et6-7G-G8g"/>
                             <constraint firstItem="2N1-gT-bmd" firstAttribute="leading" secondItem="gfw-l8-OzE" secondAttribute="leading" id="G3j-GL-60i"/>
                             <constraint firstItem="gfw-l8-OzE" firstAttribute="trailing" secondItem="2N1-gT-bmd" secondAttribute="trailing" id="dYR-1A-PFc"/>
-                            <constraint firstItem="gfw-l8-OzE" firstAttribute="trailing" secondItem="4NE-XF-Yyx" secondAttribute="trailing" id="gTK-w2-5Pk"/>
+                            <constraint firstItem="gfw-l8-OzE" firstAttribute="bottom" secondItem="aif-Ll-zJo" secondAttribute="bottom" id="eO2-N1-SGV"/>
                             <constraint firstItem="ee1-b0-rG4" firstAttribute="width" secondItem="Pp2-jo-jce" secondAttribute="width" id="ict-77-lL9"/>
+                            <constraint firstItem="gfw-l8-OzE" firstAttribute="trailing" secondItem="aif-Ll-zJo" secondAttribute="trailing" id="l8L-od-zDB"/>
                             <constraint firstItem="gfw-l8-OzE" firstAttribute="bottom" secondItem="2N1-gT-bmd" secondAttribute="bottom" id="pnW-7q-rXZ"/>
                             <constraint firstItem="2N1-gT-bmd" firstAttribute="top" secondItem="gfw-l8-OzE" secondAttribute="top" id="rmR-SH-muG"/>
-                            <constraint firstItem="4NE-XF-Yyx" firstAttribute="leading" secondItem="gfw-l8-OzE" secondAttribute="leading" id="xDs-GZ-qnl"/>
+                            <constraint firstItem="gfw-l8-OzE" firstAttribute="top" secondItem="aif-Ll-zJo" secondAttribute="top" id="ryG-eF-cbZ"/>
+                            <constraint firstItem="aif-Ll-zJo" firstAttribute="leading" secondItem="gfw-l8-OzE" secondAttribute="leading" id="zbj-qG-2EU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gfw-l8-OzE"/>
                         <connections>
@@ -845,7 +857,8 @@
                             <outlet property="newPasswordField" destination="YUP-sD-yRz" id="BQL-xz-hPh"/>
                             <outlet property="newUpadteImage" destination="Wex-ga-2C9" id="S5R-AY-fj6"/>
                             <outlet property="oldPasswordField" destination="e0x-dT-Txq" id="dVu-S0-gbL"/>
-                            <outlet property="picker" destination="4NE-XF-Yyx" id="jp9-WT-kvh"/>
+                            <outlet property="picker" destination="bxE-6d-fXh" id="7NI-D2-5RI"/>
+                            <outlet property="pickerContainer" destination="aif-Ll-zJo" id="lFp-Zz-jVW"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -1604,20 +1617,32 @@
                                     <constraint firstItem="4P2-Rq-uUc" firstAttribute="leading" secondItem="Eoa-DO-RFK" secondAttribute="leading" id="jGQ-8g-G3h"/>
                                 </constraints>
                             </scrollView>
-                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4I-hV-gnG" customClass="CountryPicker">
-                                <rect key="frame" x="0.0" y="784" width="375" height="216"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </pickerView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iAM-We-QEk">
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-kc-o4l" customClass="CountryPicker">
+                                        <rect key="frame" x="0.0" y="764" width="375" height="216"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="zHS-kc-o4l" secondAttribute="trailing" id="3zZ-cb-b6Q"/>
+                                    <constraint firstItem="zHS-kc-o4l" firstAttribute="leading" secondItem="iAM-We-QEk" secondAttribute="leading" id="IsC-ZH-y4l"/>
+                                    <constraint firstAttribute="bottom" secondItem="zHS-kc-o4l" secondAttribute="bottom" id="PHI-gx-Dsz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fDB-5X-Xnz" firstAttribute="bottom" secondItem="iAM-We-QEk" secondAttribute="bottom" id="Dkb-EL-kNR"/>
                             <constraint firstItem="4P2-Rq-uUc" firstAttribute="width" secondItem="Zbn-Mn-huY" secondAttribute="width" id="IhB-zY-8eF"/>
-                            <constraint firstItem="fDB-5X-Xnz" firstAttribute="bottom" secondItem="v4I-hV-gnG" secondAttribute="bottom" id="KwR-W1-k4D"/>
-                            <constraint firstItem="v4I-hV-gnG" firstAttribute="leading" secondItem="fDB-5X-Xnz" secondAttribute="leading" id="ULz-Em-LFN"/>
                             <constraint firstItem="fDB-5X-Xnz" firstAttribute="trailing" secondItem="Eoa-DO-RFK" secondAttribute="trailing" id="Ug0-cO-jdX"/>
+                            <constraint firstItem="iAM-We-QEk" firstAttribute="trailing" secondItem="fDB-5X-Xnz" secondAttribute="trailing" id="WYL-MG-TZv"/>
                             <constraint firstItem="Eoa-DO-RFK" firstAttribute="top" secondItem="fDB-5X-Xnz" secondAttribute="top" id="eHK-bx-OYN"/>
-                            <constraint firstItem="fDB-5X-Xnz" firstAttribute="trailing" secondItem="v4I-hV-gnG" secondAttribute="trailing" id="i5v-3S-chQ"/>
                             <constraint firstItem="Eoa-DO-RFK" firstAttribute="leading" secondItem="fDB-5X-Xnz" secondAttribute="leading" id="jiZ-hH-Ei0"/>
+                            <constraint firstItem="fDB-5X-Xnz" firstAttribute="leading" secondItem="iAM-We-QEk" secondAttribute="leading" id="mvE-yN-V5n"/>
+                            <constraint firstItem="iAM-We-QEk" firstAttribute="top" secondItem="fDB-5X-Xnz" secondAttribute="top" id="wtR-RI-Maa"/>
                             <constraint firstItem="fDB-5X-Xnz" firstAttribute="bottom" secondItem="Eoa-DO-RFK" secondAttribute="bottom" id="y8g-xB-9Q4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fDB-5X-Xnz"/>
@@ -1632,7 +1657,8 @@
                             <outlet property="nameField" destination="WFc-gG-Dkf" id="G5x-OE-5IK"/>
                             <outlet property="newPasswordField" destination="uJ7-LC-KYe" id="mjz-Zb-TB8"/>
                             <outlet property="oldPasswordField" destination="Ep7-uD-mg6" id="zev-ea-wPM"/>
-                            <outlet property="picker" destination="v4I-hV-gnG" id="lzk-3y-Wu6"/>
+                            <outlet property="picker" destination="zHS-kc-o4l" id="gcU-AL-iAm"/>
+                            <outlet property="pickerContainer" destination="iAM-We-QEk" id="HQr-Jw-Tgb"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -1643,7 +1669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srt-u2-nFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9" y="-397"/>
+            <point key="canvasLocation" x="-39" y="-387"/>
         </scene>
     </scenes>
     <resources>

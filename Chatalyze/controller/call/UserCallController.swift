@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
-    
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -434,8 +433,6 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "I AM VERIFYING")
         
         
-        
-        
         for screenshotInfo in screenshotInfos {
             
             if(screenshotInfo.requestedAutograph ?? false){
@@ -446,6 +443,7 @@ class UserCallController: VideoCallController {
             }
         }
         isScreenshotStatusLoaded = true
+       
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isScreenshotSaved)")
         
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isSelfieTimerInitiated)")

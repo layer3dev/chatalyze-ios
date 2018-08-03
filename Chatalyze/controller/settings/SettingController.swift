@@ -32,14 +32,15 @@ class SettingController : InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        //Do any additional setup after loading the view.
         initialization()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
     private func initialization(){
@@ -128,15 +129,15 @@ class SettingController : InterfaceExtendedController {
         //        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
         //        self.present(controller, animated: true) {
         //        }
-        
     }
     
     @IBAction func aboutAction(sender:UIButton){
-      
-        guard let controller = ContactUsController.instance() else{
-            return
-        }
         
+        
+        guard let controller = ContactUsController.instance() else{
+           return
+        }
+
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

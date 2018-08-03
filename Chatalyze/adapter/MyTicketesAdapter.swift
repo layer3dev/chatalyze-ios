@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class MyTicketesAdapter: ExtendedView {
-        
+    
     @IBOutlet var myTicketsCollectionView:UICollectionView?
     var layout = UICollectionViewFlowLayout()
     var root:MyTicketsRootView?
@@ -27,7 +27,7 @@ class MyTicketesAdapter: ExtendedView {
             return
         }
         ticketsListingArray = info
-        //initializeCollectionFlowLayout()
+        initializeCollectionFlowLayout()
         myTicketsCollectionView?.dataSource = self
         myTicketsCollectionView?.delegate = self
         myTicketsCollectionView?.reloadData()
@@ -61,6 +61,7 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        
         return ticketsListingArray.count
         //return 5
     }
@@ -89,29 +90,30 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 
 extension MyTicketesAdapter:MyTicketCellDelegate{
     
-//    private func verifyForEventDelay(){
-//
-//        guard let slotInfo = slotInfo else{
-//            return
-//        }
-//
-        //Verifying that event is delayed or not started yet
+    //    private func verifyForEventDelay(){
+    //
+    //        guard let slotInfo = slotInfo else{
+    //            return
+    //        }
+    //
+    //Verifying that event is delayed or not started yet
     
     //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-//
-//            showAlertMessage()
-//            statusLbl?.text = "Session has not started yet."
-//            return
-//        }
-//
-//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-//
-//            showAlertMessage()
-//            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-//            return
-//        }
-//    }
-//
+    //
+    //            showAlertMessage()
+    //            statusLbl?.text = "Session has not started yet."
+    //            return
+    //        }
+    //
+    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+    //
+    //            showAlertMessage()
+    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+    //            return
+    //        }
+    //    }
+    //
+    
     func jointEvent(info:SlotInfo?){
         
         guard let slotInfo = info
@@ -186,7 +188,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: true, completion: nil)
     }
-        
+    
     func refreshData(){
         
         root?.refreshData()

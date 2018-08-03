@@ -169,29 +169,23 @@ class EventInfo: NSObject {
                 else{
                     return false
             }
-            
-            
             if(startDate.isFuture()){
                 return true
             }
-            
             return false
         }
     }
     
     var isExpired : Bool{
+        
         get{
-           
-            
             guard let endDate = endDate
                 else{
                     return false
             }
-            
             if(endDate.isPast()){
                 return true
             }
-            
             return false
         }
     }
@@ -207,6 +201,7 @@ class EventInfo: NSObject {
                 else{
                     return false
             }
+            
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
         }
     }

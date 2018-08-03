@@ -27,13 +27,21 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var errorLabel:UILabel?
     @IBOutlet var deactivateErrorLabel:UILabel?
     var countryCode = "+1"
-    
+    @IBOutlet var pickerContainer:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initializeCountryPicker()
+        implementTapGestuePicker()
         fillInfo()
+    }
+    
+    func implementTapGestuePicker(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.countryAction(sender:)))
+        tap.delegate = self
+        pickerContainer?.addGestureRecognizer(tap)
     }
     
     func initializeCountryPickerNew(){
@@ -78,13 +86,13 @@ class EditProfileRootview: ExtendedView {
     @IBAction func countryAction(sender:UIButton){
         
         if isCountryPickerHidden{
-    
+            
             isCountryPickerHidden = false
-            picker?.isHidden = false
+            pickerContainer?.isHidden = false
         }else{
             
             isCountryPickerHidden = true
-            picker?.isHidden = true
+            pickerContainer?.isHidden = true
         }
     }
 }
@@ -435,3 +443,7 @@ extension String{
     }
 }
 
+
+
+extension EditProfileRootview:UIGestureRecognizerDelegate{
+}

@@ -36,8 +36,7 @@ class EventQueueController: InterfaceExtendedController {
             return root
         }
     }
-    
-    
+        
     private func intialization(){
  
         initializeVariable()
@@ -56,20 +55,33 @@ class EventQueueController: InterfaceExtendedController {
             self?.processEventInfo()
         }
     }
+    func loadInfoFromServerAfterScheduleUpdate(showLoader : Bool, completion : @escaping ((Bool)->())){
+        
+        fetchInfo(showLoader: showLoader) { [weak self] (success) in
+            
+            if(!success){
+                completion(false)
+                return
+            }
+            self?.processEventInfo()
+            completion(true)
+        }
+    }
     
     override func viewDidRelease() {
         super.viewDidRelease()
+      
         timer.pauseTimer()
         eventSlotListener.setListener(listener: nil)
     }
     
     private func registerForTimer(){
+        
         timer.startTimer()
         timer.ping { [weak self] in
             self?.refresh()
         }
     }
-    
     
     private func registerForEvent(){
         
@@ -80,7 +92,6 @@ class EventQueueController: InterfaceExtendedController {
     }
     
     func refresh(){
-        
     }
     
     func processEventInfo(){
@@ -90,10 +101,8 @@ class EventQueueController: InterfaceExtendedController {
             else{
                 return
         }
-        
         self.adapter?.infos = slotInfos
         self.collectionView?.reloadData()
-        
     }
     
     private func paintInterface(){
@@ -102,10 +111,10 @@ class EventQueueController: InterfaceExtendedController {
     }
         
     private func paintNavigationBar(){
+        
         paintNavigationTitle(text: "Event")
         paintBackButton()
     }
-    
     
     private func initializeVariable(){
         
@@ -146,6 +155,7 @@ class EventQueueController: InterfaceExtendedController {
 }
 
 extension EventQueueController{
+    
     class func instance()->EventQueueController?{
         
         guard let role = SignedUserInfo.sharedInstance?.role

@@ -149,7 +149,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
                 }
                 cardOneHeightConstraint?.constant = 62
                 cardTwoHeightConstraint?.constant = 62
-                addOtherCardInfoHeightContraint?.constant  = 0
+                addOtherCardInfoHeightContraint?.constant  = 50
                 CardInfoHeightContraint?.constant  = 0
                 self.superview?.updateConstraints()
                 self.superview?.layoutIfNeeded()
@@ -192,7 +192,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             }
             cardOneHeightConstraint?.constant = 62
             cardTwoHeightConstraint?.constant = 62
-            addOtherCardInfoHeightContraint?.constant  = 0
+            addOtherCardInfoHeightContraint?.constant  = 50
             CardInfoHeightContraint?.constant  = 0
             self.superview?.updateConstraints()
             self.superview?.layoutIfNeeded()

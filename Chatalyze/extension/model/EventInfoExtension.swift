@@ -9,9 +9,7 @@
 import Foundation
 
 extension EventInfo : EventTimeProtocol{
-    
 }
 
-extension SlotInfo : EventTimeProtocol{
-    
+extension SlotInfo : EventTimeProtocol{    
 }
