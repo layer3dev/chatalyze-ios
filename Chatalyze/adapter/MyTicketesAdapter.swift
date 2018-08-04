@@ -136,7 +136,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            controller.slotInfo = slotInfo
+            
             self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }
@@ -149,12 +149,11 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            controller.slotInfo = slotInfo
             self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }
-        //End        
         
+        //End
         if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
             
             guard let controller = HostEventQueueController.instance()
@@ -163,7 +162,6 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            controller.slotInfo = slotInfo
             self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
             return
         }

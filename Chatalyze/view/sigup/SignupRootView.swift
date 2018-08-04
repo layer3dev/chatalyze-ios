@@ -96,6 +96,20 @@ extension SignupRootView:UITextFieldDelegate{
         scrollView?.activeField = textField
         return true
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        if textField == firstName?.textField{
+            emailField?.textField?.becomeFirstResponder()
+        }else if textField == emailField?.textField{
+            passwordField?.textField?.returnKeyType = UIReturnKeyType.done
+            passwordField?.textField?.becomeFirstResponder()            
+        }else  if textField == passwordField?.textField{
+            //textField.resignFirstResponder()
+        }
+        return true
+    }
 }
 
 extension SignupRootView{

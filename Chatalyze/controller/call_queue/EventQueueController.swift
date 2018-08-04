@@ -11,7 +11,6 @@ import UIKit
 
 class EventQueueController: InterfaceExtendedController {
     
-    var slotInfo:SlotInfo?
     @IBOutlet fileprivate var collectionView : UICollectionView?
     fileprivate var adapter : EventQueueAdapter?
     var eventId : String? //Expected param
@@ -88,7 +87,6 @@ class EventQueueController: InterfaceExtendedController {
         eventSlotListener.setListener { [weak self] in
             self?.loadInfoFromServer(showLoader : false)
         }
-        
     }
     
     func refresh(){

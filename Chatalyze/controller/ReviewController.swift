@@ -9,7 +9,7 @@
 import UIKit
 
 class ReviewController: InterfaceExtendedController{
-    
+   
     @IBOutlet var text:UITextView?
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
@@ -19,7 +19,7 @@ class ReviewController: InterfaceExtendedController{
     var eventInfo : EventScheduleInfo?
     var dismissListner:(()->())?
     
-    override func viewDidLayout() {
+    override func viewDidLayout(){
         super.viewDidLayout()
         
         initializeVariable()
@@ -41,9 +41,9 @@ class ReviewController: InterfaceExtendedController{
         paintBackButton()
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
     @IBAction func submitButton(sender:UIButton){

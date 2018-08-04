@@ -13,7 +13,7 @@ class SystemTestController:InterfaceExtendedController {
     @IBOutlet var rootView:SystemRootView?
     var info:EventInfo?
     var presentingControllerObj:EventController?
-    var dismissListner:(()->())?
+    var dismissListner:((Bool)->())?
         
     override func viewDidLayout(){
         super.viewDidLayout()

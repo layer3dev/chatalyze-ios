@@ -10,6 +10,8 @@ import UIKit
 
 class EditProfileRootview: ExtendedView {
     
+    @IBOutlet var scrollView:FieldManagingScrollView?
+    @IBOutlet var scrollContentBottomOffset:NSLayoutConstraint?
     var controller:EditProfileController?
     @IBOutlet var picker:CountryPicker?
     @IBOutlet var countryCodeField:SigninFieldView?
@@ -34,7 +36,18 @@ class EditProfileRootview: ExtendedView {
         
         initializeCountryPicker()
         implementTapGestuePicker()
+        initializeVariable()
         fillInfo()
+    }
+    
+    func initializeVariable(){
+        
+        nameField?.textField?.delegate = self
+        emailField?.textField?.delegate = self
+        mobileNumberField?.textField?.delegate = self
+        oldPasswordField?.textField?.delegate = self
+        newPasswordField?.textField?.delegate = self
+        confirmPasswordField?.textField?.delegate = self
     }
     
     func implementTapGestuePicker(){
@@ -392,6 +405,7 @@ extension EditProfileRootview{
         //            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
         //            return false
         //        }else
+        
         if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
             
             if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
@@ -443,7 +457,33 @@ extension String{
     }
 }
 
-
-
 extension EditProfileRootview:UIGestureRecognizerDelegate{
 }
+
+extension EditProfileRootview:UITextFieldDelegate{
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        scrollView?.activeField = textField
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        if textField == nameField?.textField{
+            emailField?.textField?.becomeFirstResponder()
+        }else if textField == emailField?.textField{
+            oldPasswordField?.textField?.becomeFirstResponder()
+        }else  if textField == oldPasswordField?.textField{
+            newPasswordField?.textField?.becomeFirstResponder()
+        }else  if textField == newPasswordField?.textField{
+            confirmPasswordField?.textField?.becomeFirstResponder()
+        }else if textField == confirmPasswordField?.textField{
+            mobileNumberField?.textField?.returnKeyType = UIReturnKeyType.done
+            mobileNumberField?.textField?.becomeFirstResponder()
+        }else{
+        }
+        return true
+    }
+}
+

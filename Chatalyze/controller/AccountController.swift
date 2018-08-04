@@ -99,8 +99,6 @@ class AccountController: TabChildLoadController {
 }
 
 extension AccountController{
-    
-    
 }
 
 

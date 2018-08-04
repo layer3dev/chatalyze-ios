@@ -18,7 +18,6 @@ class SigninFieldView: ExtendedView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
         initialization()
     }
     
@@ -39,5 +38,4 @@ class SigninFieldView: ExtendedView {
         borderView?.backgroundColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
         errorLabel?.text = ""
     }
-
 }

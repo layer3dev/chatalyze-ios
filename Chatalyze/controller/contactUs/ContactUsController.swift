@@ -83,7 +83,6 @@ class ContactUsController: InterfaceExtendedController {
                     self.contactTextView?.text = ""
                     self.contactPlaceholderLbl?.text = "Enter Message"
                     DispatchQueue.main.async {
-                        
                         self.navigationController?.popToRootViewController(animated: true)
                     }
                 })

@@ -129,9 +129,6 @@ class PaymentSuccessRootView: ExtendedView {
             
             chatDetailLbl?.attributedText = requiredString
         }
-        
-        
-        
         //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
     }
     
@@ -166,7 +163,7 @@ class PaymentSuccessRootView: ExtendedView {
         DispatchQueue.main.async {
             self.controller?.dismiss(animated: false, completion: {
                 if let listener = self.controller?.dismissListner{
-                    listener()
+                    listener(true)
                 }
             })
         }
@@ -279,6 +276,7 @@ class PaymentSuccessRootView: ExtendedView {
 
 
 extension PaymentSuccessRootView:CountryPickerDelegate{
+    
     func countryPicker(_ picker: CountryPicker!, didSelectCountryWithName name: String!, code: String!) {
         
         //self.countryCodeField?.image =
@@ -315,6 +313,7 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
         if let eventReminder = SignedUserInfo.sharedInstance?.eventMobReminder{
             
             if eventReminder == true {
+                //Implement here for the navigation at the UItickets.
                 self.skipAction(sender: nil)
                 return
             }

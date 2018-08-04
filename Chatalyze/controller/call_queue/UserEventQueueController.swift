@@ -19,14 +19,14 @@ class UserEventQueueController: EventQueueController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        verifyForEventDelay()
-        eventScheduleUpdatedAlert()
-        delayAlert()
+        //verifyForEventDelay()
+        eventNotificationListener()
+        delayNotificationListener()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
     func showAlertMessage(){
@@ -42,54 +42,46 @@ class UserEventQueueController: EventQueueController {
         statusLbl?.isHidden = true
     }
     
-    private func verifyForEventDelay(){
-        
-        guard let slotInfo = slotInfo else{
-            return
-        }
-        
-        //Verifying that event is delayed or not started yet
-        
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-            
-            showAlertMessage()
-            statusLbl?.text = "Session has not started yet."
-            return
-        }
-        
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-            
-            showAlertMessage()
-            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-            return
-        }
-    }
+//    private func verifyForEventDelay(){
+//
+//        guard let slotInfo = slotInfo else{
+//            return
+//        }
+//
+//        //Verifying that event is delayed or not started yet
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "Session has not started yet."
+//            return
+//        }
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+//            return
+//        }
+//    }
     
-    func eventScheduleUpdatedAlert(){
-        
-        updatedEventScheduleListner.callScheduleId = String(slotInfo?.callscheduleId ?? 0)
+    func eventNotificationListener(){
+
         updatedEventScheduleListner.setListener {
+            
             self.hideAlertMessage()
-            //self.loadInfoFromServer(showLoader : false)
-            self.loadInfoFromServerAfterScheduleUpdate(showLoader: true, completion: {(success) in
-                if success{
-                    Log.echo(key: "yud", text: "I am refreshing successfully")
-                    self.refresh()
-                }
-            })
+            self.loadInfoFromServer(showLoader: true)
         }
     }
     
     
-    func delayAlert(){
-        
-        eventDelayListener.callScheduleId = String(slotInfo?.callscheduleId ?? 0)
+    func delayNotificationListener(){
         
         eventDelayListener.setListener {
-            
-            Log.echo(key: "yud", text: "Yes the event is delayed")
-            self.showAlertMessage()
-            self.statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+       
+            self.loadInfoFromServer(showLoader: true)
+//            Log.echo(key: "yud", text: "Yes the event is delayed")
+//            self.showAlertMessage()
+//            self.statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
         }
     }
     
@@ -106,36 +98,44 @@ class UserEventQueueController: EventQueueController {
     override func refresh(){
         super.refresh()
         
-        guard let evInfo = eventInfo
+        //Verifying that event is delayed or not started yet
+        
+        Log.echo(key: "yud", text: "valid slot started in refresh \(eventInfo?.started)")
+        Log.echo(key: "yud", text: "valid slot notified in refresh \(eventInfo?.notified)")
+        
+        guard let eventInfo = eventInfo
             else{
                 return
         }
         
-        //Verifying that event is delayed or not started yet
-        Log.echo(key: "yud", text: "valid slot started is \(evInfo.started)")
-        Log.echo(key: "yud", text: "valid slot notified is \(evInfo.notified)")
         
         
-        if ((evInfo.started ?? "") == "") && ((evInfo.notified ?? "" ) == ""){
+        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
             
             showAlertMessage()
             statusLbl?.text = "Session has not started yet."
             return
         }
         
-        if ((evInfo.started ?? "") == "") && ((evInfo.notified ?? "") == "delayed"){
+        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
             
             showAlertMessage()
             statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
             return
         }
         
-        guard let slotInfo = eventInfo?.myValidSlot.slotInfo
+        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
+            
+            self.hideAlertMessage()
+        }
+        
+        guard let slotInfo = eventInfo.myValidSlot.slotInfo
             else{
                 return
         }
         
         if(slotInfo.isWholeConnectEligible){
+         
             guard let controller = UserCallController.instance()
                 else{
                     return

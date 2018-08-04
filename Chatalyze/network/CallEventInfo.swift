@@ -15,8 +15,8 @@ class CallEventInfo{
     public func fetchInfo(eventId : String, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
         
         //https://dev.chatalyze.com/api/schedules/calls/845
+        
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/\(eventId)"
-
         
         ServerProcessor().request(.get, url, encoding: .defaultEncoding, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
@@ -25,13 +25,12 @@ class CallEventInfo{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
         
+        Log.echo(key: "yud", text: "Resonse of Fetching call is \(response)")
         
         if(!success){
             completion(false, nil)
             return
         }
-        
-        Log.echo(key: "response", text: "Resonse of Fetch CAllSlots \(response)")
         
         guard let info = response
             else{

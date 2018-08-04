@@ -15,7 +15,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var rootController:EventController?
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
-    var dismissListner:(()->())?
+    var dismissListner:((Bool)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -41,7 +41,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             DispatchQueue.main.async {
                 self.dismiss(animated: false, completion: {
                     if let listner = self.dismissListner{
-                        listner()
+                        listner(false)
                     }
                 })
             }
@@ -122,7 +122,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
                 if let listner = self.dismissListner{
-                    listner()
+                    listner(false)
                 }
             })
         }

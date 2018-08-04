@@ -12,7 +12,6 @@ import SwiftyJSON
 class EventScheduleInfo : EventScheduleCoreInfo{
     var mergeSlotInfo : EventScheduleCoreInfo?
     
-    
     override init(info : JSON?){
         super.init(info : info)
     }
@@ -24,6 +23,7 @@ class EventScheduleInfo : EventScheduleCoreInfo{
     }
     
     private func updateMergeSlots(){
+        
         guard let slotInfos = slotInfos
             else{
                 return

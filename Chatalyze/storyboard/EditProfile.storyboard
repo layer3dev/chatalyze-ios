@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2N1-gT-bmd">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2N1-gT-bmd" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ee1-b0-rG4">
@@ -859,6 +859,8 @@
                             <outlet property="oldPasswordField" destination="e0x-dT-Txq" id="dVu-S0-gbL"/>
                             <outlet property="picker" destination="bxE-6d-fXh" id="7NI-D2-5RI"/>
                             <outlet property="pickerContainer" destination="aif-Ll-zJo" id="lFp-Zz-jVW"/>
+                            <outlet property="scrollContentBottomOffset" destination="tX9-0h-tTZ" id="hR9-5T-n9C"/>
+                            <outlet property="scrollView" destination="2N1-gT-bmd" id="SDK-9b-1pH"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -1669,7 +1671,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srt-u2-nFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-39" y="-387"/>
+            <point key="canvasLocation" x="55" y="-572"/>
         </scene>
     </scenes>
     <resources>

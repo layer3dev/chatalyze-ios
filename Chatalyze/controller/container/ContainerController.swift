@@ -119,6 +119,26 @@ extension ContainerController : TabContainerViewInterface{
         selectedTab = type
     }
     
+    func selectAccountTabWithTicketScreen(){
+    
+        tabContainerView?.selectTab(type : TabContainerView.tabType.account)
+        tabController?.popToRootView(type :selectedTab)
+        selectedTab = TabContainerView.tabType.account
+        tabController?.selectedIndex = TabContainerView.tabType.account.rawValue
+        
+          //Above code is responsible for the changing the tabs
+          //Below code is responsible foe changing the controller to the tickets Controller
+        
+        if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
+            
+            accountControllerNav.popToRootViewController(animated: true)
+            if let accountController = accountControllerNav.topViewController as? AccountController{
+                accountController.ticketAction()
+            }
+        }
+    }
+    
+    
     class func instance()->ContainerController?{
         
         let storyboard = UIStoryboard(name: "container", bundle: nil)

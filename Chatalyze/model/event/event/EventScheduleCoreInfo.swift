@@ -14,8 +14,6 @@ class EventScheduleCoreInfo: EventInfo {
     
     var slotInfos : [SlotInfo]?
     
-    
-    
     override init(){
         super.init()
     }

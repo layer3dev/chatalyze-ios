@@ -52,7 +52,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         DispatchQueue.main.async {
             self.controller?.dismiss(animated: false, completion: {
                 if let listner = self.controller?.dismissListner{
-                    listner()
+                    listner(false)
                 }
             })
         }
@@ -67,11 +67,11 @@ extension SystemRootView:UIGestureRecognizerDelegate{
 //        if self.info?.isFree ?? false{
 //            return
 //        }
-        controller.dismissListner = {
+        controller.dismissListner = {(success) in
             self.controller?.dismiss(animated: false, completion: {
                 DispatchQueue.main.async {
                     if let listner = self.controller?.dismissListner{
-                        listner()
+                        listner(success)
                     }
                 }
             })
@@ -90,11 +90,11 @@ extension SystemRootView:UIGestureRecognizerDelegate{
         controller.onSuccessTest = {(success) in
             self.skipAction(sender: nil)
         }
-        controller.dismissListner = {
+        controller.dismissListner = {(success) in
             self.controller?.dismiss(animated: false, completion: {
                 DispatchQueue.main.async {
                     if let listner = self.controller?.dismissListner{
-                        listner()
+                        listner(success)
                     }
                 }
             })

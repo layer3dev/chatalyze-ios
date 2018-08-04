@@ -107,7 +107,6 @@ class SettingController : InterfaceExtendedController {
             }
             self.navigationController?.pushViewController(controller, animated: true)
         }
-        
         //        guard let controller = MyTicketsController.instance() else {
         //            return
         //        }
@@ -132,12 +131,10 @@ class SettingController : InterfaceExtendedController {
     }
     
     @IBAction func aboutAction(sender:UIButton){
-        
-        
+   
         guard let controller = ContactUsController.instance() else{
            return
         }
-
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
@@ -157,7 +154,6 @@ extension SettingController:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView){
         
         delegate?.getSettingScrollInset(scrollView: scrollView)
-        
         if ((scroll?.contentOffset.y ?? 0.0) >= (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)) {
             
             scroll?.setContentOffset(CGPoint(x: (scroll?.contentOffset.x ?? 0.0), y: (scroll?.contentSize.height ?? 0.0) - (scroll?.frame.size.height ?? 0.0)), animated: true)

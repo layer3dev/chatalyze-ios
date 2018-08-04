@@ -10,12 +10,15 @@ import UIKit
 
 class PaymentSuccessController: InterfaceExtendedController {
     
+    
+    
     @IBOutlet var rootView:PaymentSuccessRootView?
     var presentingControllerObj:EventController?
     var info:PaymentSuccessInfo?
     @IBOutlet var heightOfMobileField:NSLayoutConstraint?
     @IBOutlet var heightOfMobileAlertField:NSLayoutConstraint?
-    var dismissListner:(()->())?
+    
+    var dismissListner:((Bool)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()

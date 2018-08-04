@@ -236,7 +236,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         DispatchQueue.main.async {
             self.controller?.dismiss(animated: false, completion: {
                 if let listner = self.controller?.dismissListner{
-                    listner()
+                    listner(false)
                 }
             })
         }
@@ -519,11 +519,11 @@ extension EventPaymentRootView{
             controller.presentingControllerObj = self.controller?.presentingControllerObj
             controller.info = response
             
-            controller.dismissListner = {
+            controller.dismissListner = { (success) in
                 DispatchQueue.main.async {
                     self.controller?.dismiss(animated: false, completion: {
                         if let listner = self.controller?.dismissListner{
-                            listner()
+                            listner(success)
                         }
                     })
                 }
@@ -605,11 +605,11 @@ extension EventPaymentRootView{
             controller.presentingControllerObj = self.controller?.presentingControllerObj
             //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             controller.info = response
-            controller.dismissListner = {
+            controller.dismissListner = {(success) in
                 DispatchQueue.main.async {
                     self.controller?.dismiss(animated: false, completion: {
                         if let listner = self.controller?.dismissListner{
-                            listner()
+                            listner(success)
                         }
                     })
                 }
