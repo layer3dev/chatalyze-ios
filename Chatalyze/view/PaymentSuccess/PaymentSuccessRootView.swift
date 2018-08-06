@@ -162,11 +162,11 @@ class PaymentSuccessRootView: ExtendedView {
         
         DispatchQueue.main.async {
             self.controller?.dismiss(animated: false, completion: {
-                if let listener = self.controller?.dismissListner{
-                    listener(true)
-                }
+                RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
             })
         }
+        
+        
     }
     
     @IBAction func countryAction(sender:UIButton){

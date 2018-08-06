@@ -512,25 +512,28 @@ extension EventPaymentRootView{
                 return
             }
             
-            guard let controller = PaymentSuccessController.instance() else{
-                return
-            }
-            controller.dismissListner = self.controller?.dismissListner
-            controller.presentingControllerObj = self.controller?.presentingControllerObj
-            controller.info = response
-            
-            controller.dismissListner = { (success) in
-                DispatchQueue.main.async {
-                    self.controller?.dismiss(animated: false, completion: {
-                        if let listner = self.controller?.dismissListner{
-                            listner(success)
-                        }
-                    })
+            self.controller?.dismiss(animated: true, completion: {
+                guard let controller = PaymentSuccessController.instance() else{
+                    return
                 }
-            }
-            self.controller?.present(controller, animated: true, completion: {
+                controller.dismissListner = self.controller?.dismissListner
+                controller.presentingControllerObj = self.controller?.presentingControllerObj
+                controller.info = response
+                
+                controller.dismissListner = { (success) in
+                    DispatchQueue.main.async {
+                        self.controller?.dismiss(animated: false, completion: {
+                            if let listner = self.controller?.dismissListner{
+                                listner(success)
+                            }
+                        })
+                    }
+                }
+                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+                })
+                return
             })
-            return
+            
         }
     }
     
@@ -599,22 +602,25 @@ extension EventPaymentRootView{
                 return
             }
             
-            guard let controller = PaymentSuccessController.instance() else{
-                return
-            }
-            controller.presentingControllerObj = self.controller?.presentingControllerObj
-            //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            controller.info = response
-            controller.dismissListner = {(success) in
-                DispatchQueue.main.async {
-                    self.controller?.dismiss(animated: false, completion: {
-                        if let listner = self.controller?.dismissListner{
-                            listner(success)
-                        }
-                    })
+            self.controller?.dismiss(animated: true, completion: {
+              
+                guard let controller = PaymentSuccessController.instance() else{
+                    return
                 }
-            }
-            self.controller?.present(controller, animated: true, completion: {
+                controller.presentingControllerObj = self.controller?.presentingControllerObj
+                //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                controller.info = response
+                controller.dismissListner = {(success) in
+                    DispatchQueue.main.async {
+                        self.controller?.dismiss(animated: false, completion: {
+                            if let listner = self.controller?.dismissListner{
+                                listner(success)
+                            }
+                        })
+                    }
+                }
+                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+                })
             })
         }
     }

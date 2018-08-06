@@ -60,47 +60,55 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     
     @IBAction func skipAction(sender:UIButton?){
         
-        guard let controller = EventPaymentController.instance() else{
-            return
-        }
-        controller.info = self.info
-//        if self.info?.isFree ?? false{
-//            return
-//        }
-        controller.dismissListner = {(success) in
-            self.controller?.dismiss(animated: false, completion: {
-                DispatchQueue.main.async {
-                    if let listner = self.controller?.dismissListner{
-                        listner(success)
+        self.controller?.dismiss(animated: true, completion: {
+            
+            guard let controller = EventPaymentController.instance() else{
+                return
+            }
+            controller.info = self.info
+            //        if self.info?.isFree ?? false{
+            //            return
+            //        }
+            controller.dismissListner = {(success) in
+                self.controller?.dismiss(animated: false, completion: {
+                    DispatchQueue.main.async {
+                        if let listner = self.controller?.dismissListner{
+                            listner(success)
+                        }
                     }
-                }
+                })
+            }
+            controller.presentingControllerObj = self.controller?.presentingControllerObj
+            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
-        }
-        controller.presentingControllerObj = self.controller?.presentingControllerObj
-        self.controller?.present(controller, animated: false, completion: {
         })
     }
     
     @IBAction func beginTesteAction(sender:UIButton){
     
-        guard let controller = InternetSpeedTestController.instance() else{
-            return
-        }
-        controller.rootController = self.controller?.presentingControllerObj
-        controller.onSuccessTest = {(success) in
-            self.skipAction(sender: nil)
-        }
-        controller.dismissListner = {(success) in
-            self.controller?.dismiss(animated: false, completion: {
-                DispatchQueue.main.async {
-                    if let listner = self.controller?.dismissListner{
-                        listner(success)
+        self.controller?.dismiss(animated: true, completion: {
+            
+            guard let controller = InternetSpeedTestController.instance() else{
+                return
+            }
+            controller.info = self.info
+            controller.rootController = self.controller?.presentingControllerObj
+            controller.onSuccessTest = {(success) in
+                self.skipAction(sender: nil)
+            }
+            controller.dismissListner = {(success) in
+                self.controller?.dismiss(animated: false, completion: {
+                    DispatchQueue.main.async {
+                        if let listner = self.controller?.dismissListner{
+                            listner(success)
+                        }
                     }
-                }
+                })
+            }
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
             })
-        }
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.controller?.present(controller, animated: true, completion: {
-        })        
+        })
     }
 }

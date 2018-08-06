@@ -14,7 +14,7 @@ import Foundation
 class MicTestController: InterfaceExtendedController {
 
     var recorder: AVAudioRecorder!
-    var levelTimer = Timer()
+    private static var levelTimer = Timer()
     
     let LEVEL_THRESHOLD: Float = -160.0
     var powerLevelIndicator = -200.0
@@ -51,7 +51,7 @@ class MicTestController: InterfaceExtendedController {
     override func viewWillDisappear(_ animated: Bool) {
       
         DispatchQueue.main.async {
-            self.levelTimer.invalidate()
+            MicTestController.levelTimer.invalidate()
         }
     }
     
@@ -86,7 +86,7 @@ class MicTestController: InterfaceExtendedController {
         recorder.isMeteringEnabled = true
         recorder.record()
         
-        levelTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(levelTimerCallback), userInfo: nil, repeats: true)
+        MicTestController.levelTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(levelTimerCallback), userInfo: nil, repeats: true)
     }
     
     
@@ -113,7 +113,7 @@ class MicTestController: InterfaceExtendedController {
     
     @IBAction func dismissAction(){
 
-        self.rootController?.dismiss(animated: true, completion: {
+        self.dismiss(animated: true, completion: {
         })
     }
     

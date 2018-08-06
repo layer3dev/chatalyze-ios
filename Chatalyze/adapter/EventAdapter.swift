@@ -74,7 +74,7 @@ extension EventAdapter:UITableViewDelegate{
             Log.echo(key: "yud", text: "result payment is \(success)")
             
             if success {
-                RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
+//                RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
             }
         }
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext

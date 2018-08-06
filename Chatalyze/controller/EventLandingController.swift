@@ -9,7 +9,7 @@
 import UIKit
 
 class EventLandingController: InterfaceExtendedController {
-    
+
     var info:EventInfo?
     @IBOutlet var eventSoldOutView:UIView?
     var dismissListener:((Bool)->())?
@@ -104,14 +104,14 @@ class EventLandingController: InterfaceExtendedController {
         controller.dismissListner = {(success) in
             DispatchQueue.main.async {
                 
-                Log.echo(key: "yud", text: "I got dismiss call in the Event Landing Page \(success) ")
+                Log.echo(key: "yud", text: "I got dismiss call in the Event Landing Page \(success)")
                 self.navigationController?.popToRootViewController(animated: true)
                 if let listener = self.dismissListener{
                     listener(success)
                 }
             }
         }
-        self.present(controller, animated: true, completion: {
+        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
         })
     }
     

@@ -16,6 +16,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
     var dismissListner:((Bool)->())?
+    var info:EventInfo?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -32,23 +33,27 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     @IBAction func cameraTest(sender:UIButton?){
         
-        guard let controller = CameraTestController.instance() else {
-            return
-        }
-        controller.rootController = self
-        controller.onSuccessTest = self.onSuccessTest
-        controller.dismissListner = {
-            DispatchQueue.main.async {
-                self.dismiss(animated: false, completion: {
-                    if let listner = self.dismissListner{
-                        listner(false)
-                    }
-                })
+        self.dismiss(animated: true) {
+            
+            guard let controller = CameraTestController.instance() else {
+                return
             }
-        }
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.present(controller, animated: true) {
-        }
+            controller.info = self.info
+            controller.rootController = self
+            controller.onSuccessTest = self.onSuccessTest
+            controller.dismissListner = {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: {
+                        if let listner = self.dismissListner{
+                            listner(false)
+                        }
+                    })
+                }
+            }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            RootControllerManager().getCurrentController()?.present(controller, animated: true){
+            }
+        }       
     }
     
     @IBAction func rotateImage(sender:UIButton?){
@@ -75,7 +80,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 self.rootController?.dismiss(animated: false, completion: {
                 })
             }))
-            self.present(alert, animated: true) {
+            RootControllerManager().getCurrentController()?.present(alert, animated: true) {
             }
             return
         }
