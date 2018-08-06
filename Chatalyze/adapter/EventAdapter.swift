@@ -56,7 +56,7 @@ extension EventAdapter:UITableViewDelegate{
         }
         if role == .analyst{
             
-            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only user can book for the session!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can book for the session!", preferredStyle: UIAlertControllerStyle.alert)
             
             alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
             }))

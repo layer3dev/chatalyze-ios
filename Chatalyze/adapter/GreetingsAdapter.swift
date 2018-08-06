@@ -64,7 +64,7 @@ extension GreetingsAdapter:UITableViewDelegate{
         }
         if role == .analyst{
             
-            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only user can purchase greeting!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can purchase greeting!", preferredStyle: UIAlertControllerStyle.alert)
             
             alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
             }))
