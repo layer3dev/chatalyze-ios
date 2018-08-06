@@ -58,16 +58,11 @@ class RootControllerManager{
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         let rootNav : UINavigationController = ExtendedNavigationController()
-        
-        /*guard let controller = EventQueueController.instance()
-         else{
-         return
-         }*/
+    
         
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
         transition.type = kCATransitionFade
-        //window?.set(rootViewController: rootNav, withTransition: transition)
         if let userInfo = SignedUserInfo.sharedInstance{
             if userInfo.role == .analyst{
                 
@@ -75,26 +70,15 @@ class RootControllerManager{
                     return
                 }
                 window?.set(rootViewController: containerController, withTransition: transition)
-                //window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
 
-                //**
-//                guard let controller = HomeController.dynamicInstance()
-//                    else{
-//                        return
-//                }
-//                rootNav.viewControllers = [controller]
-//                window?.set(rootViewController: rootNav, withTransition: transition)
-//                window?.makeKeyAndVisible()
-//                initializeAppConnection()
             }else{
                 
                 guard let containerController = ContainerController.instance() else {
                     return
                 }
                 window?.set(rootViewController: containerController, withTransition: transition)
-                //window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
             }
@@ -133,8 +117,8 @@ class RootControllerManager{
         RootControllerManager().updateRoot()
     }
     
+    
     func getCurrentController()->ContainerController?{
-        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let root = appDelegate?.window?.rootViewController as? ContainerController
         return root

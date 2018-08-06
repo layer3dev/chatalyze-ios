@@ -43,7 +43,7 @@ class EventValidator{
         }
         
         let startTimeInterval = start.timeIntervalSinceNow
-        if(startTimeInterval <= 30*60 && startTimeInterval > 0){
+        if(startTimeInterval <= 120*60 && startTimeInterval > 0){
             return true
         }
         

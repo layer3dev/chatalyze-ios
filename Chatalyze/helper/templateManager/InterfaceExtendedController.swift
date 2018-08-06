@@ -90,7 +90,6 @@ class InterfaceExtendedController : ExtendedController {
         containerView.addSubview(button)
         
         let barItem = UIBarButtonItem(customView: containerView)
-        
         var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
         items.append(barItem)
         self.navigationItem.rightBarButtonItems = items
