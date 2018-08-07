@@ -12,11 +12,29 @@ import NVActivityIndicatorView
 class InterfaceExtendedController : ExtendedController {
     
     var disableBack : Bool = false
+    
+    var viewDidAppear : Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initialization()
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if(viewDidAppear){
+            return
+        }
+        
+        viewDidAppear = true
+        viewAppeared()
+    }
+    
+    //singular execution of viewDidAppear
+    func viewAppeared(){
+        
     }
     
     private func initialization(){

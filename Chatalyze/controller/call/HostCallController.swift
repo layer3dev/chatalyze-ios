@@ -119,8 +119,7 @@ class HostCallController: VideoCallController {
                         guard let connection = self.getActiveConnection() else{
                             return
                         }
-                        if connection.isConnected{
-                            
+                        if connection.isConnected{                            
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {
@@ -226,6 +225,7 @@ class HostCallController: VideoCallController {
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
+    
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
         

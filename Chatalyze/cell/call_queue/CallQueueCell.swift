@@ -32,16 +32,32 @@ class CallQueueCell: ExtendedCollectionCell {
     
     private func fillInterface(){
         
-        queueNumberLabel?.text = "\((index ?? 0) + 1)"
+        guard let slotInfo = slotInfo
+            else{
+                return
+        }
+        
+        if let slotNo = slotInfo.slotNo{
+            queueNumberLabel?.text = "\(slotNo)"
+        }
+        
+        
         updateCountdownTime()
     }
     
     private func updateCountdownTime(){
         
+    
         guard let slotInfo = slotInfo
             else{
                 return
         }
+        
+        if(slotInfo.isBreak){
+            countdownLabel?.text = "Break"
+            return
+        }
+        
         guard let startDate = slotInfo.startDate
             else{
                 return

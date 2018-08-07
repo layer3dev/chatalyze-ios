@@ -20,6 +20,8 @@ class VideoCallController : InterfaceExtendedController {
     private var captureController : ARDCaptureController?
     var localMediaPackage : CallMediaTrack?
     
+    private var accessManager : MediaPermissionAccess?
+    
     private var localTrack : RTCVideoTrack?
     
     //used for tracking the call time and auto-connect process
@@ -39,7 +41,6 @@ class VideoCallController : InterfaceExtendedController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initialization()
         
     }
     
@@ -50,6 +51,13 @@ class VideoCallController : InterfaceExtendedController {
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
+       
+    }
+    
+    override func viewAppeared(){
+        super.viewAppeared()
+        
+         initialization()
     }
     
     override func viewDidRelease() {
@@ -161,6 +169,20 @@ class VideoCallController : InterfaceExtendedController {
     
     private func initialization(){
         
+        let accessManager = MediaPermissionAccess(controller: self)
+        self.accessManager = accessManager
+        accessManager.verifyMediaAccess { (success) in
+            if(!success){
+                self.processExitAction()
+                return
+            }
+            self.initializeAfterAccess()
+        }
+        
+    }
+    
+    
+    private func initializeAfterAccess(){
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()
@@ -173,6 +195,7 @@ class VideoCallController : InterfaceExtendedController {
             self?.processEventInfo()
         }
     }
+    
     
     private func processEventInfo(){
     

@@ -117,9 +117,14 @@ extension CallConnection : ARDAppClientDelegate{
             return
         }
         
+        if(state == .disconnected){
+            resetRemoteFrame()
+        }
+        
         if(state == .failed){
             callFailed()
             isConnected = false
+            resetRemoteFrame()
             return
         }
     }
@@ -163,15 +168,25 @@ extension CallConnection : ARDAppClientDelegate{
             else{
                 return
         }
-        
+        resetRemoteFrame()
 //        self.remoteTrack?.remove(remoteView)
 //        self.remoteTrack = nil
-        remoteView.renderFrame(nil)
+        
         
         Log.echo(key: "render", text: "renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)
         self.remoteTrack?.audioTrack?.isEnabled = true
+    }
+    
+    
+    private func resetRemoteFrame(){
+        guard let remoteView = rootView?.remoteVideoView
+            else{
+                return
+        }
+        remoteView.renderFrame(nil)
+        remoteView.setSize(CGSize.zero)
     }
     
     func appClient(_ client: ARDAppClient!, didError error: Error!) {

@@ -11,13 +11,9 @@ import SwiftyJSON
 
 /* Doesn't include ParentEvent Information*/
 
-class SlotInfo: SlotFlagInfo {
+class SlotInfo: SlotTimeInfo {
     
     var id : Int?
-    var _start : String?
-    var startDate : Date?
-    var endDate : Date?
-    var _end : String?
     var slotNo : Int?
     var callscheduleId : Int?
     var userId : Int?
@@ -44,8 +40,8 @@ class SlotInfo: SlotFlagInfo {
     var price:String?
     var eventTitle:String?
     
-    init(info : JSON?){
-        super.init()
+    override init(info : JSON?){
+        super.init(info : info)
         
         self.json = info
         fillInfo(info: info)
@@ -58,8 +54,6 @@ class SlotInfo: SlotFlagInfo {
                 return
         }
         id = json["id"].int
-        start = json["start"].string
-        end = json["end"].string
         _formattedEndTime = json["end"].string
         _formattedStartTime = json["start"].string
         slotNo = json["slotNo"].int
@@ -87,34 +81,7 @@ class SlotInfo: SlotFlagInfo {
     }
     
     
-    var start : String?{
-        get{
-            return _start
-        }
-        set{
-            _start = newValue
-            guard let startLocal = _start
-                else{
-                    return
-            }
-            startDate = DateParser.UTCStringToDate(startLocal)
-        }
-    }
     
-    var end : String?{
-        
-        get{            
-            return _end
-        }
-        set{
-            _end = newValue
-            guard let endLocal = _end
-                else{
-                    return
-            }
-            endDate = DateParser.UTCStringToDate(endLocal)
-        }
-    }
     
     var roomId : String{
         get{

@@ -54,6 +54,7 @@ class EventScheduleInfo : EventScheduleCoreInfo{
         printMerge()
     }
     
+    
     private func printMerge(){
         guard let slotInfos = self.mergeSlotInfo?.slotInfos
             else{

@@ -140,6 +140,8 @@ class CameraTestController: InterfaceExtendedController {
             })
         }
     }
+    
+    
     func errorInCamera(){
         
         let alert = UIAlertController(title: "Chatalyze", message: "Oops some unexpected error in the camera!!", preferredStyle: UIAlertControllerStyle.alert)
