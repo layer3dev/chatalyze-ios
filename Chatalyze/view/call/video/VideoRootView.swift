@@ -65,8 +65,8 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintInterface(){
-        paintOverlay()
-        self.actionContainer?.isHidden = true
+//        paintOverlay()
+//        self.actionContainer?.isHidden = true
     }
     
     private func paintOverlay(){

@@ -49,7 +49,7 @@
 
   if (format == nil) {
     RTCLogError(@"No valid formats for device %@", device);
-    NSAssert(NO, @"");
+//    NSAssert(NO, @"");
 
     return;
   }
@@ -66,6 +66,16 @@
 - (void)switchCamera {
   _usingFrontCamera = !_usingFrontCamera;
   [self startCapture];
+}
+
++(Boolean)isFrontCameraAccessible{
+    NSArray<AVCaptureDevice *> *captureDevices = [RTCCameraVideoCapturer captureDevices];
+    for (AVCaptureDevice *device in captureDevices) {
+        if (device.position == AVCaptureDevicePositionFront) {
+            return true;
+        }
+    }
+    return false;
 }
 
 #pragma mark - Private

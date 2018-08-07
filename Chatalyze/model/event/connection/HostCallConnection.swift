@@ -77,7 +77,6 @@ class HostCallConnection: CallConnection {
                     return
             }
             
-            
             let sender = json["sender"].stringValue
             
             guard let targetHashId = self?.targetHashId

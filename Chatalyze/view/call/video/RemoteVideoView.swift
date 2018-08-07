@@ -59,8 +59,9 @@ class RemoteVideoView: VideoView {
     
     private func updateViewSize(size: CGSize){
         self.layoutIfNeeded()
-        self.widthConstraint?.constant = size.width
-        self.heightConstraint?.constant = size.height
+        
+        self.widthConstraint?.constant = !size.width.isNaN ? size.width : 0
+        self.heightConstraint?.constant = !size.height.isNaN ? size.height : 0
         
         UIView.animate(withDuration: 1.0, animations: {
             self.layoutIfNeeded()

@@ -34,7 +34,25 @@ class EventScheduleCoreInfo: EventInfo {
         let bookingInfos = json["callbookings"].arrayValue
         let emptySlotInfos = json["emptySlots"].arrayValue
         
+        var localSlotInfos = parseCallSlot(bookingInfos : bookingInfos)
+        let localEmptySlotInfos = parseEmptySlot(bookingInfos : emptySlotInfos)
+        
+        
+        localSlotInfos.append(contentsOf: localEmptySlotInfos)
+        localSlotInfos = sortSlots(slotInfos: localSlotInfos)
+        
+        self.slotInfos = localSlotInfos
+        slotsUpdated()
+    }
+    
+    
+    private func parseCallSlot(bookingInfos : [JSON]?) -> [SlotInfo]{
         var localSlotInfos = [SlotInfo]()
+        guard let bookingInfos = bookingInfos
+            else{
+                return localSlotInfos
+        }
+        
         for bookingInfo in bookingInfos {
             let slotInfo = SlotInfo(info: bookingInfo)
             if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
@@ -42,14 +60,27 @@ class EventScheduleCoreInfo: EventInfo {
             }
             
             localSlotInfos.append(slotInfo)
-            
+        }
+        return localSlotInfos
+    }
+    
+    private func parseEmptySlot(bookingInfos : [JSON]?) -> [SlotInfo]{
+        var localSlotInfos = [SlotInfo]()
+        guard let bookingInfos = bookingInfos
+            else{
+                return localSlotInfos
         }
         
-        localSlotInfos = sortSlots(slotInfos: localSlotInfos)
-        
-        self.slotInfos = localSlotInfos
-        slotsUpdated()
-        
+        for bookingInfo in bookingInfos {
+            let slotInfo = SlotInfo(info: bookingInfo)
+            if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
+                slotInfo.updateFlags(info: oldSlotInfo)
+            }
+            slotInfo.isBreak = true
+            
+            localSlotInfos.append(slotInfo)
+        }
+        return localSlotInfos
     }
     
     
@@ -148,6 +179,24 @@ class EventScheduleCoreInfo: EventInfo {
         
         
         return nil
+    }
+    
+    //this will return active slots while ignoring break slots
+    var activeSlotCount : Int{
+        var count = 0
+        guard let slotInfos = slotInfos
+            else{
+                return count
+        }
+        
+        for slotInfo in slotInfos {
+            if(slotInfo.isBreak){
+               continue
+            }
+            count = count + 1
+        }
+        
+        return count
     }
     
     var myCurrentSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
