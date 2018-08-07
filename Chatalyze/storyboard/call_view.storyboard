@@ -23,20 +23,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9a7-Pd-LZY" userLabel="background_container">
-                                <rect key="frame" x="0.0" y="50" width="414" height="686"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="call_background_logo" translatesAutoresizingMaskIntoConstraints="NO" id="pAp-HD-Gyh">
-                                        <rect key="frame" x="40" y="271.66666666666669" width="334" height="143"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="pAp-HD-Gyh" secondAttribute="trailing" constant="40" id="Rhx-q6-hGx"/>
-                                    <constraint firstItem="pAp-HD-Gyh" firstAttribute="leading" secondItem="9a7-Pd-LZY" secondAttribute="leading" constant="40" id="UyB-GU-fkl"/>
-                                    <constraint firstItem="pAp-HD-Gyh" firstAttribute="centerY" secondItem="9a7-Pd-LZY" secondAttribute="centerY" id="WWq-Cn-2kk"/>
-                                </constraints>
-                            </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-gd-FgM" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="414" height="686"/>
                                 <subviews>
@@ -329,7 +315,6 @@
                             <constraint firstItem="kfp-G1-gCo" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" constant="8" id="3Rn-h7-v8U" userLabel="container_leading"/>
                             <constraint firstItem="uxQ-nW-h9Q" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="4Qm-aC-MzY"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="4XK-s6-Tsw"/>
-                            <constraint firstItem="Wmj-9J-V6c" firstAttribute="top" secondItem="9a7-Pd-LZY" secondAttribute="bottom" id="6kF-9e-UXb"/>
                             <constraint firstItem="X4e-l4-rf5" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" constant="15" id="Dgv-4Y-hrA"/>
                             <constraint firstItem="X4e-l4-rf5" firstAttribute="top" secondItem="Wmj-9J-V6c" secondAttribute="bottom" priority="1" constant="12" id="GzG-6v-bdn" userLabel="canvas_bottom_sign"/>
                             <constraint firstItem="1lh-gd-FgM" firstAttribute="top" secondItem="ZdG-IW-8dq" secondAttribute="bottom" id="J9B-9j-AbZ"/>
@@ -345,11 +330,8 @@
                             <constraint firstItem="1lh-gd-FgM" firstAttribute="top" secondItem="EuP-R3-z0r" secondAttribute="bottom" id="bJy-WB-zHp"/>
                             <constraint firstItem="W58-xK-9n0" firstAttribute="top" secondItem="Wmj-9J-V6c" secondAttribute="bottom" priority="999" id="gJN-rT-SjX" userLabel="canvas_bottom_root"/>
                             <constraint firstItem="kfp-G1-gCo" firstAttribute="centerY" secondItem="bRT-ZS-CRs" secondAttribute="centerY" id="glD-V1-sQQ"/>
-                            <constraint firstItem="9a7-Pd-LZY" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="hgB-Sf-0Vh"/>
-                            <constraint firstItem="9a7-Pd-LZY" firstAttribute="top" secondItem="ZdG-IW-8dq" secondAttribute="bottom" id="oWt-Wo-tis"/>
                             <constraint firstAttribute="trailing" secondItem="Vc8-ZB-2eM" secondAttribute="trailing" id="pTg-nC-GPR"/>
                             <constraint firstItem="ZdG-IW-8dq" firstAttribute="leading" secondItem="bRT-ZS-CRs" secondAttribute="leading" id="pYY-k6-yEs"/>
-                            <constraint firstAttribute="trailing" secondItem="9a7-Pd-LZY" secondAttribute="trailing" id="sXj-SO-g3g"/>
                             <constraint firstItem="Wmj-9J-V6c" firstAttribute="top" secondItem="1lh-gd-FgM" secondAttribute="bottom" id="skD-KZ-t55"/>
                             <constraint firstAttribute="trailing" secondItem="1lh-gd-FgM" secondAttribute="trailing" id="tDM-vV-BJj"/>
                             <constraint firstItem="uxQ-nW-h9Q" firstAttribute="top" secondItem="bRT-ZS-CRs" secondAttribute="top" id="wgc-lc-2Bb"/>
@@ -738,12 +720,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2K-NB-UUA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="881" y="-1745"/>
+            <point key="canvasLocation" x="543" y="-1772"/>
         </scene>
     </scenes>
     <resources>
         <image name="activate_hangup" width="42" height="42"/>
-        <image name="call_background_logo" width="569" height="143"/>
         <image name="exit_call" width="32" height="32"/>
         <image name="mic_on" width="36" height="36"/>
         <image name="request_autograph" width="75" height="75"/>

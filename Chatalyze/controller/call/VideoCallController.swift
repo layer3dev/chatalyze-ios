@@ -33,10 +33,23 @@ class VideoCallController : InterfaceExtendedController {
     
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
+    let updatedEventScheduleListner = UpdateEventListener()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         initialization()
+        
+    }
+    
+    func eventScheduleUpdatedAlert(){
+        
+        updatedEventScheduleListner.setListener {
+            
+            self.fetchInfo(showLoader: false, completion: { (success) in
+            })
+        }
     }
     
     override func viewDidRelease() {
@@ -122,8 +135,6 @@ class VideoCallController : InterfaceExtendedController {
         self.dismiss(animated: false) {
             
             Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
-            
-            
             //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }
@@ -281,6 +292,7 @@ class VideoCallController : InterfaceExtendedController {
         socketClient = SocketClient.sharedInstance
         startTimer()
         
+        eventScheduleUpdatedAlert()
     }
     
     private func registerForEvent(){
@@ -290,7 +302,6 @@ class VideoCallController : InterfaceExtendedController {
                 
             })
         }
-        
     
     }
     
@@ -356,6 +367,7 @@ extension VideoCallController{
 extension VideoCallController{
     
     fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
+   
         guard let eventId = self.eventId
             else{
                 return
@@ -365,6 +377,7 @@ extension VideoCallController{
         }
         
         CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+            
             if(showLoader){
                 self?.stopLoader()
             }
@@ -390,17 +403,15 @@ extension VideoCallController{
             
             completion?(true)
             return
-            
         }
     }
-    
-    
 }
 
 
 extension VideoCallController{
     
     func startLocalStream(){
+        
         localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
             guard let localCapturer = capturer

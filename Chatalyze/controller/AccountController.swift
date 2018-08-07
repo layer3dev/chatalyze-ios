@@ -173,6 +173,4 @@ extension AccountController:stateofAccountTabDelegate{
 }
 
 extension AccountController{
-    
-    
 }

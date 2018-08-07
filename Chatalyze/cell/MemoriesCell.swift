@@ -56,7 +56,7 @@ class MemoriesCell: ExtendedTableCell {
     }
     
     @IBAction func twitterShareAction(sender:UIButton){
-      
+        
         guard let memoryImage = self.memoryImage?.image else{
             return
         }
@@ -74,7 +74,7 @@ class MemoriesCell: ExtendedTableCell {
             let avc = UIActivityViewController(activityItems: activityItem as [AnyObject], applicationActivities: nil)
             self.controller?.present(avc, animated: true, completion: nil)
         }
-       
+        
     }
     
     @IBAction func facebookShare(sender:UIButton){        

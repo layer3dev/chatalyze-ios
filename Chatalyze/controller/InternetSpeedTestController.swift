@@ -33,7 +33,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     @IBAction func cameraTest(sender:UIButton?){
         
-        self.dismiss(animated: true) {
+        self.dismiss(animated: false) {
             
             guard let controller = CameraTestController.instance() else {
                 return
@@ -51,7 +51,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 }
             }
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            RootControllerManager().getCurrentController()?.present(controller, animated: true){
+            RootControllerManager().getCurrentController()?.present(controller, animated: false){
             }
         }       
     }
@@ -80,7 +80,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 self.rootController?.dismiss(animated: false, completion: {
                 })
             }))
-            RootControllerManager().getCurrentController()?.present(alert, animated: true) {
+            RootControllerManager().getCurrentController()?.present(alert, animated: false) {
             }
             return
         }

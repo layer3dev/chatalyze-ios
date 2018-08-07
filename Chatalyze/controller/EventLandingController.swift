@@ -65,14 +65,14 @@ class EventLandingController: InterfaceExtendedController {
                 activityVC.popoverPresentationController?.sourceView = self.view
                 activityVC.popoverPresentationController?.sourceRect = sender.frame
                
-                self.present(activityVC, animated: true, completion: nil)
+                self.present(activityVC, animated: false, completion: nil)
                 
             }else{
                 
                 let shareText = "Chatalyze"
                 let shareItems: [Any] = [url, shareText]
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
-                self.present(activityVC, animated: true, completion: nil)
+                self.present(activityVC, animated: false, completion: nil)
             }
         }
     }
@@ -105,13 +105,13 @@ class EventLandingController: InterfaceExtendedController {
             DispatchQueue.main.async {
                 
                 Log.echo(key: "yud", text: "I got dismiss call in the Event Landing Page \(success)")
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popToRootViewController(animated: false)
                 if let listener = self.dismissListener{
                     listener(success)
                 }
             }
         }
-        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
     

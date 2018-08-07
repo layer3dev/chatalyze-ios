@@ -60,7 +60,7 @@ extension EventAdapter:UITableViewDelegate{
             
             alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
             }))
-            self.root?.controller?.present(alert, animated: true, completion: {
+            self.root?.controller?.present(alert, animated: false, completion: {
             })            
             return
         }
@@ -78,7 +78,7 @@ extension EventAdapter:UITableViewDelegate{
             }
         }
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+        self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
         
 //        guard let controller = SystemTestController.instance() else {
 //            return

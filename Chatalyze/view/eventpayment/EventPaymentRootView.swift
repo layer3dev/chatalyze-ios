@@ -512,7 +512,7 @@ extension EventPaymentRootView{
                 return
             }
             
-            self.controller?.dismiss(animated: true, completion: {
+            self.controller?.dismiss(animated: false, completion: {
                 guard let controller = PaymentSuccessController.instance() else{
                     return
                 }
@@ -529,7 +529,7 @@ extension EventPaymentRootView{
                         })
                     }
                 }
-                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+                RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
                 return
             })
@@ -602,7 +602,7 @@ extension EventPaymentRootView{
                 return
             }
             
-            self.controller?.dismiss(animated: true, completion: {
+            self.controller?.dismiss(animated: false, completion: {
               
                 guard let controller = PaymentSuccessController.instance() else{
                     return
@@ -619,7 +619,7 @@ extension EventPaymentRootView{
                         })
                     }
                 }
-                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+                RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
             })
         }

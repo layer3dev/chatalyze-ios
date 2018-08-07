@@ -137,7 +137,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             
             controller.eventId = "\(eventId)"
             
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
             return
         }
         
@@ -149,7 +149,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
             return
         }
         
@@ -162,7 +162,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
             return
         }
         
@@ -180,11 +180,11 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             controller.dismissListner = {
                 self.root?.refreshData()
             }
-            self.root?.controller?.present(controller, animated: true, completion:{
+            self.root?.controller?.present(controller, animated: false, completion:{
             })
         }
         controller.eventId = String(eventId)
-        self.root?.controller?.present(controller, animated: true, completion: nil)
+        self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
     func refreshData(){

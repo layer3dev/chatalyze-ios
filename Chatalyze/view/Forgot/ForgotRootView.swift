@@ -36,6 +36,7 @@ class ForgotRootView:ExtendedView{
         
         ForgotPasswordProcessor().sendPassword(withEmail: email) { (success, message, response) in
             self.controller?.stopLoader()
+          
             if success{
                 
                 self.showError(text: "Password reset link sent. Please check your email \(email)")
@@ -54,7 +55,7 @@ class ForgotRootView:ExtendedView{
         guard let controller = SignUpController.instance() else {
             return
         }
-        self.controller?.navigationController?.pushViewController(controller, animated: true)
+        self.controller?.navigationController?.pushViewController(controller, animated: false)
     }
     
     override func viewDidLayout() {

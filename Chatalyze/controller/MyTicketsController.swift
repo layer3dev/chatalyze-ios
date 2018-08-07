@@ -28,7 +28,7 @@ class MyTicketsController: InterfaceExtendedController{
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        fetchInfo()
+        //fetchInfo()
         paintInterface()
         initializeVariable()
         scroll?.delegate = self

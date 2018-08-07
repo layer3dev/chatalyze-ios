@@ -79,6 +79,7 @@ class UserEventQueueController: EventQueueController {
         eventDelayListener.setListener {
        
             self.loadInfoFromServer(showLoader: true)
+
 //            Log.echo(key: "yud", text: "Yes the event is delayed")
 //            self.showAlertMessage()
 //            self.statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
@@ -99,7 +100,6 @@ class UserEventQueueController: EventQueueController {
         super.refresh()
         
         //Verifying that event is delayed or not started yet
-        
         Log.echo(key: "yud", text: "valid slot started in refresh \(eventInfo?.started)")
         Log.echo(key: "yud", text: "valid slot notified in refresh \(eventInfo?.notified)")
         

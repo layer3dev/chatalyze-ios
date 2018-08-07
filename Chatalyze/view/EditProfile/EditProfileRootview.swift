@@ -37,7 +37,7 @@ class EditProfileRootview: ExtendedView {
         initializeCountryPicker()
         implementTapGestuePicker()
         initializeVariable()
-        fillInfo()
+        //fillInfo()
     }
     
     func initializeVariable(){
@@ -287,16 +287,19 @@ extension EditProfileRootview{
             let confirmPasswordValidate = valiadteConfirmPassword()
             let codeValidate = validateCountryCode()
             let mobileValidate = validateMobileNumber()
+            let recieveEventValidate = validateRecieveEvent()
             
-            return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate
+            return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate && recieveEventValidate
         }else{
             
             let nameValidate = validateName()
             let emailValidated  = validateEmail()
             let codeValidate = validateCountryCode()
             let mobileValidate = validateMobileNumber()
+            let recieveEventValidate = validateRecieveEvent()
             
-            return nameValidate && emailValidated && codeValidate && mobileValidate
+            return nameValidate && emailValidated && codeValidate && mobileValidate && recieveEventValidate
+
         }
     }
     
@@ -414,6 +417,18 @@ extension EditProfileRootview{
             }
             mobileNumberField?.resetErrorStatus()
         }
+        return true
+    }
+    
+    
+    fileprivate func validateRecieveEvent()->Bool{
+        
+        if (mobileNumberField?.textField?.text?.count ?? 0) == 0 && chatUpdates{
+        
+            mobileNumberField?.showError(text: "Please fill mobile number")
+            return false
+        }
+        mobileNumberField?.resetErrorStatus()
         return true
     }
 }

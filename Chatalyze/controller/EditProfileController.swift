@@ -11,12 +11,32 @@ import UIKit
 class EditProfileController: InterfaceExtendedController {
     
     @IBOutlet var rootView:EditProfileRootview?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         painInterface()
         initializationVariable()
+        fetchInfo()
+    }
+    
+    func fetchInfo(){
+        
+        self.showLoader()
+        
+        FetchProfileProcessor().fetch { (success, message, response) in
+            
+            self.stopLoader()
+            if success{
+                self.rootView?.fillInfo()
+            }else{
+                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
+            
+            
+        }
     }
     
     func painInterface(){

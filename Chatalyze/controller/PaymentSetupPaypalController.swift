@@ -60,7 +60,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         self.showLoader()
         SubmitPaypalEmailProcessor().save(analystId: analystID, email: email) { (success, message, response) in
             self.stopLoader()
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: false)
         }
     }
     

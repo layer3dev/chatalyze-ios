@@ -54,18 +54,7 @@ class EventQueueController: InterfaceExtendedController {
             self?.processEventInfo()
         }
     }
-    func loadInfoFromServerAfterScheduleUpdate(showLoader : Bool, completion : @escaping ((Bool)->())){
-        
-        fetchInfo(showLoader: showLoader) { [weak self] (success) in
-            
-            if(!success){
-                completion(false)
-                return
-            }
-            self?.processEventInfo()
-            completion(true)
-        }
-    }
+
     
     override func viewDidRelease() {
         super.viewDidRelease()

@@ -24,7 +24,7 @@ class SystemRootView: ExtendedView {
     }
     
     func implementTapGesture(){
-       
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(sender:)))
         tap.delegate = self
         cancelView?.addGestureRecognizer(tap)
@@ -42,51 +42,59 @@ class SystemRootView: ExtendedView {
 extension SystemRootView:UIGestureRecognizerDelegate{
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
-      
-        self.controller?.dismiss(animated: true, completion: {
+        
+        self.controller?.dismiss(animated: false, completion: {
         })
     }
     
     @IBAction func cancelAction(){
         
         DispatchQueue.main.async {
-            self.controller?.dismiss(animated: false, completion: {
-                if let listner = self.controller?.dismissListner{
-                    listner(false)
-                }
+            self.controller?.dismiss(animated: false, completion: {                
+                //                if let listner = self.controller?.dismissListner{
+                //                    listner(false)
+                //                }
             })
         }
     }   
     
     @IBAction func skipAction(sender:UIButton?){
         
-        self.controller?.dismiss(animated: true, completion: {
+        self.controller?.dismiss(animated: false, completion: {
+            
+            if self.info?.isFree ?? false{
+                
+                guard let controller = FreeEventPaymentController.instance() else{
+                    return
+                }
+                controller.info = self.info
+                
+               
+                    DispatchQueue.main.async {
+                        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+                        })
+                    }
+               
+                
+                return
+            }
             
             guard let controller = EventPaymentController.instance() else{
                 return
             }
             controller.info = self.info
-            //        if self.info?.isFree ?? false{
-            //            return
-            //        }
-            controller.dismissListner = {(success) in
-                self.controller?.dismiss(animated: false, completion: {
-                    DispatchQueue.main.async {
-                        if let listner = self.controller?.dismissListner{
-                            listner(success)
-                        }
-                    }
-                })
-            }
-            controller.presentingControllerObj = self.controller?.presentingControllerObj
-            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-            })
+            
+                DispatchQueue.main.async {
+                    RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+                    })
+                }
+            
         })
     }
     
     @IBAction func beginTesteAction(sender:UIButton){
-    
-        self.controller?.dismiss(animated: true, completion: {
+        
+        self.controller?.dismiss(animated: false, completion: {
             
             guard let controller = InternetSpeedTestController.instance() else{
                 return
@@ -107,7 +115,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             }
             
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })
     }

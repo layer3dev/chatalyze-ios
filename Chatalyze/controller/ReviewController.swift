@@ -81,7 +81,7 @@ class ReviewController: InterfaceExtendedController{
     @IBAction func dismiss(){
         
         DispatchQueue.main.async {
-            self.dismiss(animated: true) {
+            self.dismiss(animated: false) {
                 if let listner = self.dismissListner{
                     listner()
                 }

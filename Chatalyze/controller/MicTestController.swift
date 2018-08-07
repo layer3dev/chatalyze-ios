@@ -113,7 +113,7 @@ class MicTestController: InterfaceExtendedController {
     
     @IBAction func dismissAction(){
 
-        self.dismiss(animated: true, completion: {
+        self.dismiss(animated: false, completion: {
         })
     }
     
@@ -122,7 +122,7 @@ class MicTestController: InterfaceExtendedController {
         
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
-            self.rootController?.dismiss(animated: true, completion: {
+            self.rootController?.dismiss(animated: false, completion: {
                 
                 if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
                     
@@ -130,7 +130,7 @@ class MicTestController: InterfaceExtendedController {
                 }
             })
         }))
-        self.present(alert, animated: true) {
+        self.present(alert, animated: false) {
         }
     }
     

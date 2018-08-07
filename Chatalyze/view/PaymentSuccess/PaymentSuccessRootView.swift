@@ -223,7 +223,7 @@ class PaymentSuccessRootView: ExtendedView {
                 let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
                 }))
-                self.controller?.present(alert, animated: true, completion: {
+                self.controller?.present(alert, animated: false, completion: {
                 })
                 return
             }
@@ -269,7 +269,7 @@ class PaymentSuccessRootView: ExtendedView {
                 }
             }
         }))
-        self.controller?.present(alert, animated: true, completion: {
+        self.controller?.present(alert, animated: false, completion: {
         })
     }
 }

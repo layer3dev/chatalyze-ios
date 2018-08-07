@@ -145,26 +145,26 @@ class CameraTestController: InterfaceExtendedController {
         let alert = UIAlertController(title: "Chatalyze", message: "Oops some unexpected error in the camera!!", preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
-            self.dismiss(animated: true, completion: {
+            self.dismiss(animated: false, completion: {
                 if let listner = self.dismissListner{
                     listner()
                 }
             })
         }))
-        RootControllerManager().getCurrentController()?.present(alert, animated: true) {
+        RootControllerManager().getCurrentController()?.present(alert, animated: false) {
         }
     }
     func errorInCapturing(error:Error?){
         
         let alert = UIAlertController(title: "Chatalyze", message: error?.localizedDescription ?? "Oops some unexpected error during streaming!!", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
-            self.dismiss(animated: true, completion: {
+            self.dismiss(animated: false, completion: {
                 if let listener = self.dismissListner{
                     listener()
                 }
             })
         }))
-        self.present(alert, animated: true) {
+        self.present(alert, animated: false) {
         }
     }
     
@@ -209,7 +209,7 @@ class CameraTestController: InterfaceExtendedController {
                         self.cameraPreview?.layer.addSublayer(previewLr)
                         self.session?.startRunning()
                     }else{
-                        self.dismiss(animated: true, completion: {
+                        self.dismiss(animated: false, completion: {
                             if let listener = self.dismissListner{
                                 listener()
                             }
@@ -258,7 +258,7 @@ class CameraTestController: InterfaceExtendedController {
                     cameraPreview?.layer.addSublayer(previewLr)
                     session?.startRunning()
                 }else{
-                    self.dismiss(animated: true, completion: {
+                    self.dismiss(animated: false, completion: {
                         if let listener = self.dismissListner{
                             listener()
                         }
@@ -353,13 +353,13 @@ class CameraTestController: InterfaceExtendedController {
             exit(0)
 //            })
         }))
-        self.present(alert, animated: true) {
+        self.present(alert, animated: false) {
         }
     }
         
     @IBAction func procceds(sender:UIButton){
         
-        self.dismiss(animated: true, completion: {
+        self.dismiss(animated: false, completion: {
             
             guard let controller = EventPaymentController.instance() else{
                 return
@@ -423,7 +423,7 @@ class CameraTestController: InterfaceExtendedController {
             exit(0)
 //            })
         }))
-        self.present(alert, animated: true) {
+        self.present(alert, animated: false) {
         }
     }
 }

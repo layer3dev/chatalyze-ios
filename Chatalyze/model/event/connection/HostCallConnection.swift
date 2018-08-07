@@ -13,7 +13,6 @@ class HostCallConnection: CallConnection {
     
     private var disposeListener : (()->())?
     
-    
     override func callFailed(){
         super.callFailed()
         
@@ -136,7 +135,6 @@ class HostCallConnection: CallConnection {
                 return
         }
         
-        
         var params = [String : Any]()
         params["sender"] = targetId
         params["receiver"] = selfId
@@ -147,7 +145,4 @@ class HostCallConnection: CallConnection {
     override func disconnect(){
         super.disconnect()
     }
-
-
-    
 }
