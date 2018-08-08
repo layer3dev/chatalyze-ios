@@ -53,9 +53,7 @@ class SlotInfo: SlotTimeInfo {
             else{
                 return
         }
-        id = json["id"].int
-        _formattedEndTime = json["end"].string
-        _formattedStartTime = json["start"].string
+        id = json["id"].int        
         slotNo = json["slotNo"].int
         callscheduleId = json["callscheduleId"].int
         userId = json["userId"].int
@@ -79,9 +77,6 @@ class SlotInfo: SlotTimeInfo {
             self.notified = callScheduleInfo["notified"]?.stringValue
         }
     }
-    
-    
-    
     
     var roomId : String{
         get{
@@ -179,37 +174,6 @@ class SlotInfo: SlotTimeInfo {
                     return false
             }
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
-        }
-    }
-    
-    var _formattedStartTime:String?{
-        
-        get{
-            
-            return formattedStartTime ?? ""
-        }
-        set{
-            
-            let date = newValue
-            
-            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
-            
-            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
-            
-            formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
-        }
-    }
-    
-    var _formattedEndTime:String?{
-        
-        get{
-            
-            return formattedEndTime ?? ""
-        }
-        set{
-            
-            let date = newValue
-            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
         }
     }
 }

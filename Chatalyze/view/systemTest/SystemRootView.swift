@@ -15,6 +15,8 @@ class SystemRootView: ExtendedView {
     @IBOutlet var dataView:UIView?
     @IBOutlet var beginView:UIView?
     var info:EventInfo?
+    @IBOutlet var skipHieght:NSLayoutConstraint?
+    @IBOutlet var skipView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -31,6 +33,8 @@ class SystemRootView: ExtendedView {
     }
     
     func paintInterface(){
+        
+        
         
         dataView?.layer.cornerRadius = 3
         dataView?.layer.masksToBounds = true
@@ -100,6 +104,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
                 return
             }
             controller.info = self.info
+            controller.isOnlySystemTest = self.controller?.isOnlySystemTest ?? false
             controller.rootController = self.controller?.presentingControllerObj
             controller.onSuccessTest = {(success) in
                 self.skipAction(sender: nil)

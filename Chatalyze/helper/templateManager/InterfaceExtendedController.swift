@@ -161,14 +161,20 @@ class InterfaceExtendedController : ExtendedController {
 
 
 
-extension InterfaceExtendedController{
+extension InterfaceExtendedController:UIGestureRecognizerDelegate{
     
     fileprivate func registerForTapGestureForKeyboardResign(){
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.delegate = self
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
     }
+    
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+//        return true
+//    }
+    
     
     @objc func hideKeyboard(){
         

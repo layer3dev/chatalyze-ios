@@ -14,13 +14,25 @@ class SystemTestController:InterfaceExtendedController {
     var info:EventInfo?
     var presentingControllerObj:EventController?
     var dismissListner:((Bool)->())?
-        
+    var isOnlySystemTest = false
+    
+    
     override func viewDidLayout(){
         super.viewDidLayout()
         
         //rootView?.backgroundColor = UIColor.clear
         rootView?.isOpaque = false
         initializeVariable()
+        paintInterface()
+    }
+    
+    func paintInterface(){
+        
+        if isOnlySystemTest{
+            
+            self.rootView?.skipView?.isHidden = true
+            self.rootView?.skipHieght?.constant = 0
+        }
     }
     
     func initializeVariable(){

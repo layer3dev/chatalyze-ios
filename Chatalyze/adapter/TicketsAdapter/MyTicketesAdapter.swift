@@ -187,6 +187,16 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
+    func systemTest(){
+        
+        guard let controller = SystemTestController.instance() else { return }
+        
+        controller.isOnlySystemTest = true
+        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+        })
+        
+    }
+    
     func refreshData(){
         
         root?.refreshData()

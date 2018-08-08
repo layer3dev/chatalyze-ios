@@ -43,6 +43,9 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var serviceFees:UILabel?
     @IBOutlet var totalAmount:UILabel?
     var delegate:EventPaymentDelegte?
+    @IBOutlet var selectDateMonthBtn:UIButton?
+    
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -256,7 +259,9 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
     
-    @IBAction func dateAction(){
+    @IBAction func dateAction(sender:UIButton?){
+        
+        Log.echo(key: "yud", text: "I am calling date Action")        
         
         if isPickerHidden == true {
             
@@ -268,7 +273,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
             pickerContainer?.isHidden = true
         }
     }
-    
     
     var selectedTime:String{
         get{
@@ -429,13 +433,11 @@ extension EventPaymentRootView{
     
     func pay(accountNumber:String,expMonth:String,expiryYear:String,cvc:String){
         
-       
         Log.echo(key: "yud", text: "Account Number is \(accountNumber)")
         Log.echo(key: "yud", text: "Expired Month is \(expMonth)")
         Log.echo(key: "yud", text: "Expired Year is \(expiryYear)")
         Log.echo(key: "yud", text: "Cvv number is \(cvc)")     
         self.sendPayment(accountNumber:accountNumber,expMonth:expMonth,expiryYear:expiryYear,cvc:cvc)
-        
     }
     
     func sendPaymentFromSavedCards(info:CardInfo?){
@@ -518,8 +520,7 @@ extension EventPaymentRootView{
                 }
                 controller.dismissListner = self.controller?.dismissListner
                 controller.presentingControllerObj = self.controller?.presentingControllerObj
-                controller.info = response
-                
+                controller.info = response                
                 controller.dismissListner = { (success) in
                     DispatchQueue.main.async {
                         self.controller?.dismiss(animated: false, completion: {
@@ -652,3 +653,5 @@ extension EventPaymentRootView{
     }
 }
 
+extension EventPaymentRootView:UIGestureRecognizerDelegate{ 
+}

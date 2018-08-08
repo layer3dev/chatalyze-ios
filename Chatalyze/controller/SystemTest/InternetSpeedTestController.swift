@@ -17,6 +17,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var onSuccessTest:((Bool)->())?
     var dismissListner:((Bool)->())?
     var info:EventInfo?
+    var isOnlySystemTest = false
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -41,6 +42,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             controller.info = self.info
             controller.rootController = self
             controller.onSuccessTest = self.onSuccessTest
+            controller.isOnlySystemTest = self.isOnlySystemTest
             controller.dismissListner = {
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: {
@@ -100,14 +102,14 @@ class InternetSpeedTestController: InterfaceExtendedController {
                             
                             
                             self.speedLbl?.textColor = UIColor.red
-                            self.speedLbl?.text = "Your internet connection speed is not good \(speedStr) MBPS"
+                            self.speedLbl?.text = "Your internet connection speed is not good"
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 self.dismissAction()
                             }
                             return
                         }
                         
-                        self.speedLbl?.text = "Your internet connection speed is good \(speedStr) MBPS"
+                        self.speedLbl?.text = "Your internet connection speed is good"
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             self.cameraTest(sender: nil)
                         }

@@ -36,7 +36,7 @@ class EventPaymentController: InterfaceExtendedController {
             if success{
                 
                 if let cardinfo = cardInfo{
-                
+                    
                     self.rootView?.cardInfoArray = cardinfo
                     var count = 0
                     for _ in cardinfo{
@@ -55,7 +55,26 @@ class EventPaymentController: InterfaceExtendedController {
                 }
             }
         }
-    }    
+    }
+    
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        Log.echo(key: "yud", text: "Touch is \(touch.view)")
+        
+        if touch.view == self.rootView?.selectDateMonthBtn{
+            Log.echo(key: "yud", text: "Button is called")
+
+            self.rootView?.dateAction(sender: nil)
+            return false
+        }
+        return true
+    }
+    
+    //    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        return false
+    //    }
+    
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }

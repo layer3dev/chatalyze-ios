@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 
 class CameraTestController: InterfaceExtendedController {
-        
+    
+    
+    
     @IBOutlet var progressView:UIProgressView?
     var recorder: AVAudioRecorder?
     private static var levelTimer = Timer()
@@ -29,6 +31,7 @@ class CameraTestController: InterfaceExtendedController {
     var front = true
     var onSuccessTest:((Bool)->())?
     var info:EventInfo?
+    var isOnlySystemTest = false
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -57,12 +60,14 @@ class CameraTestController: InterfaceExtendedController {
     
     @objc func levelTimerCallback() {
         
-        recorder?.updateMeters()
-        let peakPower = recorder?.peakPower(forChannel: 0)
-        let level = recorder?.averagePower(forChannel: 0)
+        
+        self.recorder?.updateMeters()
+        let peakPower = self.recorder?.peakPower(forChannel: 0)
+        let level = self.recorder?.averagePower(forChannel: 0)
         Log.echo(key: "yud", text: "LEVEL IS \(level)")
-        updateUI(level:Double(level ?? 0.0))
-        let isLoud = level ?? 0.0 > LEVEL_THRESHOLD
+        self.updateUI(level:Double(level ?? 0.0))
+        let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -70,7 +75,7 @@ class CameraTestController: InterfaceExtendedController {
         Log.echo(key: "yud", text: "I am dissapearing")
         
         DispatchQueue.main.async {
-          CameraTestController.levelTimer.invalidate()
+            CameraTestController.levelTimer.invalidate()
         }
     }
     
@@ -126,7 +131,7 @@ class CameraTestController: InterfaceExtendedController {
         // checkForMicrphone()
         case AVAudioSessionRecordPermission.denied:
             print("Pemission denied")
-        alertToProvideMicrophoneAccess()
+            alertToProvideMicrophoneAccess()
         case AVAudioSessionRecordPermission.undetermined:
             print("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
@@ -344,41 +349,46 @@ class CameraTestController: InterfaceExtendedController {
         
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide camera access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
-//            self.rootController?.dismiss(animated: true, completion: {
-//                if let listener = self.dismissListner{
-//                    listener()
-//                }
-                if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
-                    
-                    UIApplication.shared.openURL(settingUrl)
-                }
+            //            self.rootController?.dismiss(animated: true, completion: {
+            //                if let listener = self.dismissListner{
+            //                    listener()
+            //                }
+            if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
+                
+                UIApplication.shared.openURL(settingUrl)
+            }
             exit(0)
-//            })
+            //            })
         }))
         self.present(alert, animated: false) {
         }
     }
-        
+    
     @IBAction func procceds(sender:UIButton){
         
         self.dismiss(animated: false, completion: {
             
+            if self.isOnlySystemTest{
+                return
+            }
+            
             guard let controller = EventPaymentController.instance() else{
                 return
             }
+            
             controller.info = self.info
             //        if self.info?.isFree ?? false{
             //            return
             //        }
-//            controller.dismissListner = {(success) in
-//                self.dismiss(animated: false, completion: {
-//                    DispatchQueue.main.async {
-//                        if let listner = self.dismissListner{
-//                            listner(success)
-//                        }
-//                    }
-//                })
-//            }
+            //            controller.dismissListner = {(success) in
+            //                self.dismiss(animated: false, completion: {
+            //                    DispatchQueue.main.async {
+            //                        if let listner = self.dismissListner{
+            //                            listner(success)
+            //                        }
+            //                    }
+            //                })
+            //            }
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })
@@ -418,12 +428,12 @@ class CameraTestController: InterfaceExtendedController {
         let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings", preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
-//            self.rootController?.dismiss(animated: true, completion: {
-                if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
-                    UIApplication.shared.openURL(settingUrl)
-                }
+            //            self.rootController?.dismiss(animated: true, completion: {
+            if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
+                UIApplication.shared.openURL(settingUrl)
+            }
             exit(0)
-//            })
+            //            })
         }))
         self.present(alert, animated: false) {
         }

@@ -8,5 +8,7 @@
 
 import Foundation
 protocol MyTicketCellDelegate {
+    
     func jointEvent(info:SlotInfo?)
+    func systemTest()
 }

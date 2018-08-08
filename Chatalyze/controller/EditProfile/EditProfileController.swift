@@ -26,7 +26,7 @@ class EditProfileController: InterfaceExtendedController {
         
         FetchProfileProcessor().fetch { (success, message, response) in
             
-            self.stopLoader()
+            self.stopLoader()            
             if success{
                 self.rootView?.fillInfo()
             }else{
@@ -34,8 +34,6 @@ class EditProfileController: InterfaceExtendedController {
                     self.navigationController?.popViewController(animated: true)
                 })
             }
-            
-            
         }
     }
     

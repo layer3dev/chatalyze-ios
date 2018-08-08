@@ -11,7 +11,6 @@ import CallKit
 import Foundation
 import SwiftyJSON
 
-
 class VideoCallController : InterfaceExtendedController {
    
     var socketClient : SocketClient?
@@ -40,18 +39,14 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
     }
     
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-            
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
-       
     }
     
     override func viewAppeared(){
@@ -67,13 +62,12 @@ class VideoCallController : InterfaceExtendedController {
         captureController?.stopCapture()
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
-    UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         
         timer.pauseTimer()
         socketClient?.disconnect()
         self.socketClient = nil
     }
-    
     
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
@@ -83,15 +77,12 @@ class VideoCallController : InterfaceExtendedController {
         return rootView?.actionContainer
     }
     
-    
-    
     //public - Need to be access by child
     var peerConnection : ARDAppClient?{
         get{
             return nil
         }
     }
-    
     
     @IBAction private func audioMuteAction(){
        guard let localMediaPackage = self.localMediaPackage
@@ -106,7 +97,6 @@ class VideoCallController : InterfaceExtendedController {
             actionContainer?.audioView?.mute()
         }
     }    
-    
     
     @IBAction private func videoDisableAction(){
       
@@ -123,7 +113,6 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
     @IBAction private func exitAction(){
         
         processExitAction()
@@ -136,13 +125,11 @@ class VideoCallController : InterfaceExtendedController {
         updateUserOfExit()
     }
     
-    
-    
     func exit(){
         
         self.dismiss(animated: false) {
             
-            Log.echo(key: "yud", text: "Schedule iD is\(self.eventInfo?.id)")
+            Log.echo(key: "yud", text: "Schedule iD is\(String(describing: self.eventInfo?.id))")
             //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
         }
     }
@@ -178,9 +165,7 @@ class VideoCallController : InterfaceExtendedController {
             }
             self.initializeAfterAccess()
         }
-        
     }
-    
     
     private func initializeAfterAccess(){
         initializeVariable()
@@ -196,9 +181,8 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
     private func processEventInfo(){
-    
+        
         socketClient?.connect(roomId: (self.eventInfo?.roomId ?? ""))
     }
     
@@ -208,7 +192,6 @@ class VideoCallController : InterfaceExtendedController {
             else{
                 return
         }
-        
         /*guard let targetId = self.slotInfo?.user?.hashedId
             else{
                 return
@@ -297,6 +280,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     var appDelegate : AppDelegate?{
+        
         get{
             guard let delegate =  UIApplication.shared.delegate as? AppDelegate
                 else{

@@ -195,14 +195,16 @@ extension SocketClient{
                 return
         }
         
+        let userType = userInfo.role == .analyst ? "analyst" : "participant"
+        
         var param = [String : Any]()
         param["room"] = self.roomId
         param["name"] = userInfo.hashedId
-        param["type"] = "participant"
+        param["type"] = userType
         
         var data = [String : Any]()
         data["uid"] = Int(userInfo.id ?? "")
-        data["name"] = "guest user"
+        data["name"] = userInfo.fullName
         
         param["id"] = "register"
         param["data"] = data
