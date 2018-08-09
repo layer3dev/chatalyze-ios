@@ -73,6 +73,13 @@
 		47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD144620ADB52C006AF9D6 /* PaymentListingInfo.swift */; };
 		47B226A420AAF461001DD204 /* GreetingBookingProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B226A320AAF461001DD204 /* GreetingBookingProcessor.swift */; };
 		47B3D9662119C59E0099FA05 /* FreeEventPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3D9652119C59E0099FA05 /* FreeEventPaymentController.swift */; };
+		47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */; };
+		47B4F4AE211C593500299686 /* SessionTitleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4AD211C593500299686 /* SessionTitleController.swift */; };
+		47B4F4B1211C59D400299686 /* SessionTitleRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4B0211C59D400299686 /* SessionTitleRootView.swift */; };
+		47B4F4B3211C5A5A00299686 /* SessionTimeDateRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4B2211C5A5A00299686 /* SessionTimeDateRootView.swift */; };
+		47B4F4B5211C5A6D00299686 /* SessionChatInfoRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4B4211C5A6D00299686 /* SessionChatInfoRootView.swift */; };
+		47B4F4B7211C5ACF00299686 /* SessionTimeDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4B6211C5ACF00299686 /* SessionTimeDateController.swift */; };
+		47B4F4B9211C5B0400299686 /* SessionChatInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4F4B8211C5B0400299686 /* SessionChatInfoController.swift */; };
 		47B6521820AAADB30041496C /* Greeting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B6521520AAADB10041496C /* Greeting.storyboard */; };
 		47B6521920AAADB30041496C /* Signup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B6521620AAADB20041496C /* Signup.storyboard */; };
 		47B6521A20AAADB30041496C /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B6521720AAADB20041496C /* Event.storyboard */; };
@@ -450,6 +457,13 @@
 		47AD144620ADB52C006AF9D6 /* PaymentListingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListingInfo.swift; sourceTree = "<group>"; };
 		47B226A320AAF461001DD204 /* GreetingBookingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingBookingProcessor.swift; sourceTree = "<group>"; };
 		47B3D9652119C59E0099FA05 /* FreeEventPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeEventPaymentController.swift; sourceTree = "<group>"; };
+		47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScheduleSession.storyboard; sourceTree = "<group>"; };
+		47B4F4AD211C593500299686 /* SessionTitleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTitleController.swift; sourceTree = "<group>"; };
+		47B4F4B0211C59D400299686 /* SessionTitleRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTitleRootView.swift; sourceTree = "<group>"; };
+		47B4F4B2211C5A5A00299686 /* SessionTimeDateRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimeDateRootView.swift; sourceTree = "<group>"; };
+		47B4F4B4211C5A6D00299686 /* SessionChatInfoRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChatInfoRootView.swift; sourceTree = "<group>"; };
+		47B4F4B6211C5ACF00299686 /* SessionTimeDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTimeDateController.swift; sourceTree = "<group>"; };
+		47B4F4B8211C5B0400299686 /* SessionChatInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChatInfoController.swift; sourceTree = "<group>"; };
 		47B6521520AAADB10041496C /* Greeting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Greeting.storyboard; sourceTree = "<group>"; };
 		47B6521620AAADB20041496C /* Signup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signup.storyboard; sourceTree = "<group>"; };
 		47B6521720AAADB20041496C /* Event.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
@@ -1562,6 +1576,33 @@
 			path = FreeEventPayment;
 			sourceTree = "<group>";
 		};
+		47B4F4AB211C428900299686 /* ScheduleSessionHost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ScheduleSessionHost;
+			sourceTree = "<group>";
+		};
+		47B4F4AC211C58ED00299686 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				47B4F4AD211C593500299686 /* SessionTitleController.swift */,
+				47B4F4B6211C5ACF00299686 /* SessionTimeDateController.swift */,
+				47B4F4B8211C5B0400299686 /* SessionChatInfoController.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		47B4F4AF211C59BC00299686 /* SessionView */ = {
+			isa = PBXGroup;
+			children = (
+				47B4F4B0211C59D400299686 /* SessionTitleRootView.swift */,
+				47B4F4B2211C5A5A00299686 /* SessionTimeDateRootView.swift */,
+				47B4F4B4211C5A6D00299686 /* SessionChatInfoRootView.swift */,
+			);
+			path = SessionView;
+			sourceTree = "<group>";
+		};
 		47B6521D20AAAF500041496C /* calender */ = {
 			isa = PBXGroup;
 			children = (
@@ -2325,6 +2366,7 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				47B4F4AF211C59BC00299686 /* SessionView */,
 				47B6523A20AAAFA30041496C /* container */,
 				FA3FAA092076044B00CC4AF8 /* autograph */,
 				FA24BAC9206F80B00064F94F /* queue */,
@@ -2393,6 +2435,7 @@
 				47DF899520ABFF0800FEA916 /* EditProfile.storyboard */,
 				47AD143420ADAED1006AF9D6 /* Account.storyboard */,
 				470A3ACF2111BA3300988F1D /* ContactUs.storyboard */,
+				47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -2400,6 +2443,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				47B4F4AC211C58ED00299686 /* Session */,
 				FADC84EA2074ED8F00AD9D65 /* autograph */,
 				FAFB7C82206E6E23004804D2 /* call_queue */,
 				FAE9EF72206CE82C00C45F8D /* home */,
@@ -2430,6 +2474,7 @@
 				473E3B49211B155500DC60BC /* SystemTest */,
 				473E3B4A211B158900DC60BC /* EventsoldOut */,
 				473E3B4C211B15D000DC60BC /* EventLanding */,
+				47B4F4AB211C428900299686 /* ScheduleSessionHost */,
 				473E3B4B211B15A900DC60BC /* PaymentEmailSetupPaypalForHost */,
 			);
 			path = controller;
@@ -3000,6 +3045,7 @@
 				FAFFFE9F203D9C80009B4F96 /* Assets.xcassets in Resources */,
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
 				FAA001A7203ED472003C8A74 /* xib in Resources */,
+				47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */,
 				47E233652105F40300468412 /* beep.aiff in Resources */,
 				FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */,
 				FADC84E92074EABD00AD9D65 /* autograph.storyboard in Resources */,
@@ -3284,6 +3330,7 @@
 				FAA001B1203ED472003C8A74 /* ExtendedView.swift in Sources */,
 				FAA001AA203ED472003C8A74 /* CircularImageView.swift in Sources */,
 				47AACA4320C1718A000F8D7A /* CardInfo.swift in Sources */,
+				47B4F4B9211C5B0400299686 /* SessionChatInfoController.swift in Sources */,
 				FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */,
 				47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */,
 				FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */,
@@ -3294,11 +3341,13 @@
 				FA74B14E2063A05B00983141 /* SocketClient.swift in Sources */,
 				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
 				47B6527920AAB5030041496C /* GreetingCell.swift in Sources */,
+				47B4F4AE211C593500299686 /* SessionTitleController.swift in Sources */,
 				FA34EDA5208E16C90072D8F8 /* RTCSingletonFactory.m in Sources */,
 				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA72A0B5208602F700C3C7AE /* TimeSyncInfo.swift in Sources */,
 				47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */,
 				472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */,
+				47B4F4B1211C59D400299686 /* SessionTitleRootView.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
 				FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */,
 				47B6522B20AAAF710041496C /* GreetingInfoButtonContainer.swift in Sources */,
@@ -3308,7 +3357,9 @@
 				4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */,
 				472780E820B02DA900D5AA1E /* MemoriesAdapter.swift in Sources */,
 				47B3D9662119C59E0099FA05 /* FreeEventPaymentController.swift in Sources */,
+				47B4F4B5211C5A6D00299686 /* SessionChatInfoRootView.swift in Sources */,
 				FAA0019D203ED472003C8A74 /* Array.swift in Sources */,
+				47B4F4B7211C5ACF00299686 /* SessionTimeDateController.swift in Sources */,
 				47B6526D20AAB43B0041496C /* ForgotPasswordProcessor.swift in Sources */,
 				FAD2017B20760ADB0004E10E /* HostDefaultScreenshot.swift in Sources */,
 				FAE8E8192063E0D10054ED7D /* HomeRootView.swift in Sources */,
@@ -3395,6 +3446,7 @@
 				FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */,
 				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
 				FA74B13E20639B6400983141 /* RTCSessionDescription+JSON.m in Sources */,
+				47B4F4B3211C5A5A00299686 /* SessionTimeDateRootView.swift in Sources */,
 				47B6524620AAB0000041496C /* TabChildLoadController.swift in Sources */,
 				47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,
