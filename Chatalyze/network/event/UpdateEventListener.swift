@@ -19,6 +19,7 @@ class UpdateEventListener{
     }
     
     func setListener(listener : (()->())?){
+        
         self.listener = listener
     }
     

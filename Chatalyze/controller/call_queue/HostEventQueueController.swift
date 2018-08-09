@@ -21,7 +21,7 @@ class HostEventQueueController: EventQueueController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-            self.loadInfoFromServer(showLoader : false)
+            self.loadInfoFromServer(showLoader : true)
         }
     }
     
@@ -35,7 +35,7 @@ class HostEventQueueController: EventQueueController {
     
     /*
     // MARK: - Navigation
-
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.

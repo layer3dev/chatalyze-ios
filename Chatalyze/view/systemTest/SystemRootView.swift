@@ -15,6 +15,8 @@ class SystemRootView: ExtendedView {
     @IBOutlet var dataView:UIView?
     @IBOutlet var beginView:UIView?
     var info:EventInfo?
+    @IBOutlet var skipHieght:NSLayoutConstraint?
+    @IBOutlet var skipView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -24,13 +26,15 @@ class SystemRootView: ExtendedView {
     }
     
     func implementTapGesture(){
-       
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(sender:)))
         tap.delegate = self
         cancelView?.addGestureRecognizer(tap)
     }
     
     func paintInterface(){
+        
+        
         
         dataView?.layer.cornerRadius = 3
         dataView?.layer.masksToBounds = true
@@ -42,65 +46,82 @@ class SystemRootView: ExtendedView {
 extension SystemRootView:UIGestureRecognizerDelegate{
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
-      
-        self.controller?.dismiss(animated: true, completion: {
+        
+        self.controller?.dismiss(animated: false, completion: {
         })
     }
     
     @IBAction func cancelAction(){
         
         DispatchQueue.main.async {
-            self.controller?.dismiss(animated: false, completion: {
-                if let listner = self.controller?.dismissListner{
-                    listner(false)
-                }
+            self.controller?.dismiss(animated: false, completion: {                
+                //                if let listner = self.controller?.dismissListner{
+                //                    listner(false)
+                //                }
             })
         }
     }   
     
     @IBAction func skipAction(sender:UIButton?){
         
-        guard let controller = EventPaymentController.instance() else{
-            return
-        }
-        controller.info = self.info
-//        if self.info?.isFree ?? false{
-//            return
-//        }
-        controller.dismissListner = {(success) in
-            self.controller?.dismiss(animated: false, completion: {
-                DispatchQueue.main.async {
-                    if let listner = self.controller?.dismissListner{
-                        listner(success)
-                    }
+        self.controller?.dismiss(animated: false, completion: {
+            
+            if self.info?.isFree ?? false{
+                
+                guard let controller = FreeEventPaymentController.instance() else{
+                    return
                 }
-            })
-        }
-        controller.presentingControllerObj = self.controller?.presentingControllerObj
-        self.controller?.present(controller, animated: false, completion: {
+                controller.info = self.info
+                
+               
+                    DispatchQueue.main.async {
+                        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+                        })
+                    }
+               
+                
+                return
+            }
+            
+            guard let controller = EventPaymentController.instance() else{
+                return
+            }
+            controller.info = self.info
+            
+                DispatchQueue.main.async {
+                    RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+                    })
+                }
+            
         })
     }
     
     @IBAction func beginTesteAction(sender:UIButton){
-    
-        guard let controller = InternetSpeedTestController.instance() else{
-            return
-        }
-        controller.rootController = self.controller?.presentingControllerObj
-        controller.onSuccessTest = {(success) in
-            self.skipAction(sender: nil)
-        }
-        controller.dismissListner = {(success) in
-            self.controller?.dismiss(animated: false, completion: {
-                DispatchQueue.main.async {
-                    if let listner = self.controller?.dismissListner{
-                        listner(success)
+        
+        self.controller?.dismiss(animated: false, completion: {
+            
+            guard let controller = InternetSpeedTestController.instance() else{
+                return
+            }
+            controller.info = self.info
+            controller.isOnlySystemTest = self.controller?.isOnlySystemTest ?? false
+            controller.rootController = self.controller?.presentingControllerObj
+            controller.onSuccessTest = {(success) in
+                self.skipAction(sender: nil)
+            }
+            controller.dismissListner = {(success) in
+                self.controller?.dismiss(animated: false, completion: {
+                    DispatchQueue.main.async {
+                        if let listner = self.controller?.dismissListner{
+                            listner(success)
+                        }
                     }
-                }
+                })
+            }
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
-        }
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.controller?.present(controller, animated: true, completion: {
-        })        
+        })
     }
 }

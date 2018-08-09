@@ -41,7 +41,7 @@ class EventController: TabChildLoadController {
     private func paintNavigationBar(){
         
         paintSettingButton()
-        paintNavigationTitle(text: "UPCOMING EVENTS")      
+        paintNavigationTitle(text: "UPCOMING SESSIONS")      
     }
     
     func fetchEvents(){

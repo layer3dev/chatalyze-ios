@@ -13,13 +13,13 @@ class SelfieTimerView:ExtendedView {
     
     var player : AVAudioPlayer?
     var autographTime = 0
-    var testTimer = Timer()
+    static var testTimer = Timer()
     var selfieAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
     var whiteAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
     var screenShotListner:(()->())?
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
-    var hostTimer = Timer()
+    static var hostTimer = Timer()
     var requiredDate:Date?
     
     override func viewDidLayout() {
@@ -58,7 +58,7 @@ class SelfieTimerView:ExtendedView {
         }
         requiredDate = startDate
         //(#selector(self.updateAnlalyst(requiredDate:startDate)))
-        hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
+        SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
     }
     
     func currentDateTimeGMT()->Date{
@@ -88,14 +88,14 @@ class SelfieTimerView:ExtendedView {
     
     private func invalidateTimer(){
         
-        self.testTimer.invalidate()
+        SelfieTimerView.testTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
     }
     
     private func invalidateTimerForHost(){
         
-        self.hostTimer.invalidate()
+        SelfieTimerView.hostTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
     }
@@ -103,7 +103,7 @@ class SelfieTimerView:ExtendedView {
     
     private func runTimer(){
         //to balance the time taken by animation
-        testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer(){
@@ -138,6 +138,7 @@ class SelfieTimerView:ExtendedView {
 //            self.playSound()
             self.greenThird()
             DispatchQueue.main.asyncAfter(deadline: .now()+0.88) {
+                
                 if !(self.isScreenShotTaken){
                     
                     self.isHidden = true
@@ -200,8 +201,11 @@ extension SelfieTimerView{
     private func greenTwo(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+      
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3", attributes: self.whiteAttribute)
         let secondTwo = NSMutableAttributedString(string: " 2", attributes: oneAttribute)
@@ -222,6 +226,7 @@ extension SelfieTimerView{
     private func greenThird(){
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+    
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
         let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
@@ -329,6 +334,7 @@ extension SelfieTimerView{
             
             player.play()
         } catch let error as NSError {
+            
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
     }

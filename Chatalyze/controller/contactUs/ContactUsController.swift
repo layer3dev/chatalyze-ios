@@ -48,7 +48,9 @@ class ContactUsController: InterfaceExtendedController {
     
     @IBAction private func submitAction(){
         
-        if contactTextView?.text == ""{
+        let text  = contactTextView?.text.replacingOccurrences(of: " ", with: "")
+        
+        if text == ""{
             
             self.alert(withTitle: AppInfoConfig.appName, message: "Message field cannot be blank", showCancel: false, completion: { (success) in
             })

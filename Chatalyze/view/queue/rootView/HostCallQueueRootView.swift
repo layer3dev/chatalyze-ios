@@ -12,8 +12,6 @@ class HostCallQueueRootView: CallQueueRootView {
     
     override func refresh(){
         
-        
-
         guard let startDate = eventInfo?.startDate
             else{
                 return
