@@ -18,7 +18,6 @@ class QueueContainerView: ExtendedView {
     var delegate : EventRefreshProtocol?
     
     var timer : EventTimer = EventTimer()
-    
     var slotInfo : EventTimeProtocol?
     
     private var isQueueActive : Bool = false
@@ -45,6 +44,7 @@ class QueueContainerView: ExtendedView {
         }
     }
     
+    
     private func refresh(){
         processView()
         
@@ -59,8 +59,6 @@ class QueueContainerView: ExtendedView {
         if(!(noEventView?.isHidden ?? true) ){
             
         }
-        
-        
     }
     
     
