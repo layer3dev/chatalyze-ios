@@ -21,11 +21,11 @@ class MediaPermissionAccess{
         self.callback = callback
         checkForMediaAccess { (success) in
             if(success){
-                callback?(success)
+                self.invokeCallback(success : success)
                 return
             }
             self.alertToProvideMediaAccess(callback : {
-                 callback?(success)
+                 self.invokeCallback(success : success)
             })
            
         }
@@ -95,6 +95,12 @@ class MediaPermissionAccess{
                 callback?(true)
                 return
             })
+        }
+    }
+    
+    private func invokeCallback(success : Bool){
+        DispatchQueue.main.async {
+            self.callback?(success)
         }
     }
     

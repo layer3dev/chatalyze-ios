@@ -35,16 +35,17 @@ class VideoCallController : InterfaceExtendedController {
     
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-       
+        
     }
     
     override func viewAppeared(){
         super.viewAppeared()
         
-         initialization()
+         processPermission()
     }
     
     override func viewDidRelease() {
@@ -156,7 +157,7 @@ class VideoCallController : InterfaceExtendedController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func initialization(){
+    private func processPermission(){
         
         let accessManager = MediaPermissionAccess(controller: self)
         self.accessManager = accessManager
@@ -165,13 +166,13 @@ class VideoCallController : InterfaceExtendedController {
                 self.processExitAction()
                 return
             }
-            self.initializeAfterAccess()
+            self.initialization()
         }
         
     }
     
     
-    private func initializeAfterAccess(){
+     func initialization(){
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()

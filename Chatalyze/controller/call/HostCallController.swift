@@ -14,12 +14,15 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func initialization(){
+        super.initialization()
         
-        initialization()
+        initializeVariable()
         checkDateFormat(date:"xfg")
     }
+    
+    
     
     var hostActionContainer : HostVideoActionContainer?{
         get{
@@ -82,9 +85,7 @@ class HostCallController: VideoCallController {
         }
     }
     
-    private func initialization(){
-        initializeVariable()
-    }
+  
     
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView

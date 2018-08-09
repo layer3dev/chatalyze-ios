@@ -37,11 +37,16 @@ class UserCallController: VideoCallController {
         return self.view as? UserVideoRootView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    
+    override func initialization(){
+        super.initialization()
         
-        initialization()
+        initializeVariable()
+        registerForAutographListener()
     }
+    
+   
     
     override func interval(){
         super.interval()
@@ -102,11 +107,7 @@ class UserCallController: VideoCallController {
         }
     }
     
-    private func initialization(){
-        
-        initializeVariable()
-        registerForAutographListener()
-    }    
+    
     
     private func initializeVariable(){
        
