@@ -136,6 +136,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         // Center the text (optional)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
+       
         //        text.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
         
         //Explicit
@@ -151,6 +152,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        msgLbl?.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:UIColor.green, NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue", size: 20)] as? [String : Any]
         
         //Set the text view to contain the attributed text
+        
         msgLbl?.attributedText = text
         msgLbl?.isUserInteractionEnabled = true
     }
@@ -208,7 +210,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
 
 extension PaymentSetupPaypalController:UITextViewDelegate {
@@ -242,7 +243,7 @@ extension PaymentSetupPaypalController:UITextViewDelegate {
 extension PaymentSetupPaypalController{
     
     class func instance()->PaymentSetupPaypalController?{
-        
+                
         let storyboard = UIStoryboard(name: "Account", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PaymentSetupPaypal") as? PaymentSetupPaypalController
         return controller

@@ -44,9 +44,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var totalAmount:UILabel?
     var delegate:EventPaymentDelegte?
     @IBOutlet var selectDateMonthBtn:UIButton?
-    
-    
-    
+        
     override func viewDidLayout() {
         super.viewDidLayout()
       
