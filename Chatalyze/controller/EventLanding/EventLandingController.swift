@@ -64,7 +64,6 @@ class EventLandingController: InterfaceExtendedController {
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = self.view
                 activityVC.popoverPresentationController?.sourceRect = sender.frame
-               
                 self.present(activityVC, animated: false, completion: nil)
                 
             }else{

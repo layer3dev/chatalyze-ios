@@ -136,6 +136,7 @@ class SettingController : InterfaceExtendedController {
            return
         }
         self.navigationController?.pushViewController(controller, animated: true)
+        
     }
 }
 

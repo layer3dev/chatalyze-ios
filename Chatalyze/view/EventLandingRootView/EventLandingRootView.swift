@@ -5,7 +5,7 @@
 //  Created by Mansa on 25/07/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
-
+import SwiftyJSON
 import SDWebImage
 
 class EventLandingRootView:ExtendedView{
@@ -80,27 +80,58 @@ class EventLandingRootView:ExtendedView{
     
     func isEventSoldOut(){
         
-        Log.echo(key: "yud", text: "Yes I am calling")
-        if let startDate = self.info?.startDate{
-            if let endDate = self.info?.endDate{
-                let timeDiffrence = endDate.timeIntervalSince(startDate)
-                Log.echo(key: "yud", text: "The total time of the event is \(timeDiffrence)")
-                if let durate  = self.info?.duration{
-                    let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    Log.echo(key: "yud", text: "The total time of slots are  \(totalnumberofslots)")
-                    Log.echo(key: "yud", text: "The number of the total callbookings are\(String(describing: self.info?.callBookings.count))")
-                    if let slotBooked = self.info?.callBookings.count{
-                        if slotBooked >= totalnumberofslots{
-                            //eventisSoldOut(status:true)
-                            self.iseventsold = true
+        if let callbooking = self.info?.callBookings{
+            for info in callbooking{
+                if let endDate = info["end"].string{
+                    if let eventEndDate = self.info?.endDate{
+                        
+                        let requiredEndDate = DateParser.UTCStringToDate(endDate)
+                        let differIs = requiredEndDate?.timeIntervalSince((eventEndDate))
+                        if differIs == 0.0{
+                             self.iseventsold = true
                         }else{
-                            //eventisSoldOut(status: false)
                             self.iseventsold = false
                         }
                     }
+                    
+//
+//                    Log.echo(key: "yud", text: "Differ is \(differIs)")
+//                    Log.echo(key: "yud", text: "End Date is slot \(endDate)")
+//                    Log.echo(key: "yud", text: "End Date of event is  \(self.info?.endDate)")
                 }
             }
         }
+        
+        return
+//        if let startDate = self.info?.startDate{
+//            if let endDate = self.info?.endDate{
+//                let timeDiffrence = endDate.timeIntervalSince(startDate)
+//                Log.echo(key: "yud", text: "The total time of the event is \(timeDiffrence)")
+//                if let durate  = self.info?.duration{
+//                    let totalnumberofslots = Int(timeDiffrence/(durate*60))
+//                    Log.echo(key: "yud", text: "The total time of slots are \(totalnumberofslots)")
+//                    Log.echo(key: "yud", text: "The number of the total callbookings are\(String(describing: self.info?.callBookings.count))")
+//                    if let slotBooked = self.info?.callBookings.count{
+//                        if slotBooked >= (totalnumberofslots){
+//                            self.iseventsold = true
+//                            return
+//                        }else{
+//
+//                            //Verifying the earlySlotBooked Scenario
+//                            let currenToEndtimeDiffrence = endDate.timeIntervalSince(Date())
+//                            let totalnumberofEarlyslots = Int(currenToEndtimeDiffrence/(durate*60))
+//                            Log.echo(key: "yud", text: "Slot booked is \(slotBooked)")
+//                            Log.echo(key: "yud", text: "Early Slots are \(totalnumberofEarlyslots)")
+//                            if !(slotBooked <= (totalnumberofEarlyslots+slotBooked)){
+//                                self.iseventsold = true
+//                                return
+//                            }
+//                            self.iseventsold = false
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 //    func eventisSoldOut(status:Bool){
 //

@@ -11,8 +11,6 @@ import AVFoundation
 
 class CameraTestController: InterfaceExtendedController {
     
-    
-    
     @IBOutlet var progressView:UIProgressView?
     var recorder: AVAudioRecorder?
     private static var levelTimer = Timer()
@@ -60,14 +58,12 @@ class CameraTestController: InterfaceExtendedController {
     
     @objc func levelTimerCallback() {
         
-        
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
         Log.echo(key: "yud", text: "LEVEL IS \(level)")
         self.updateUI(level:Double(level ?? 0.0))
-        let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
-        
+        let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -128,19 +124,20 @@ class CameraTestController: InterfaceExtendedController {
         switch AVAudioSession.sharedInstance().recordPermission() {
         case AVAudioSessionRecordPermission.granted:
             print("Permission granted")
-        // checkForMicrphone()
+            checkForMicrphone()
         case AVAudioSessionRecordPermission.denied:
             print("Pemission denied")
             alertToProvideMicrophoneAccess()
         case AVAudioSessionRecordPermission.undetermined:
             print("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
-                //self.checkForMicrphone()
+                
                 if !granted{
                     
                     self.alertToProvideMicrophoneAccess()
                     return
                 }
+                self.checkForMicrphone()
                 //Handle granted
             })
         }

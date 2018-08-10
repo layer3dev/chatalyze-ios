@@ -95,6 +95,9 @@ class EventInfo: NSObject {
         if let  callBokingArray = json["callbookings"].array {
             self.callBookings = callBokingArray            
         }
+        
+        Log.echo(key: "yud", text: "callbooking is test\(self.callBookings)")
+        
     }
     
     private var _price:Double?{

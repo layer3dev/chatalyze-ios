@@ -40,13 +40,14 @@ class EventCell: ExtendedTableCell {
         self.info = info
         eventImage?.image = UIImage(named: "event_placeholder")
         if let url = URL(string: info.eventBannerUrl ?? ""){
+         
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in
                 self.eventImage?.image = image
             }
         }
         
-       //eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
+        //eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
         evnetnameLbl?.text = info.title
         eventtimeLbl?.text = info.start
         
@@ -62,25 +63,54 @@ class EventCell: ExtendedTableCell {
     
     func isEventSoldOut(){
     
-        Log.echo(key: "yud", text: "Yes I am calling")
-        if let startDate = self.info?.startDate{
-            if let endDate = self.info?.endDate{
-                let timeDiffrence = endDate.timeIntervalSince(startDate)
-                Log.echo(key: "yud", text: "The total time of the event is \(timeDiffrence)")
-                if let durate  = self.info?.duration{
-                    let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    Log.echo(key: "yud", text: "The total time of slots are  \(totalnumberofslots)")
-                    Log.echo(key: "yud", text: "The number of the total callbookings are\(String(describing: self.info?.callBookings.count))")
-                    if let slotBooked = self.info?.callBookings.count{
-                        if slotBooked >= totalnumberofslots{
+        if let callbooking = self.info?.callBookings{
+            for info in callbooking{
+                if let endDate = info["end"].string{
+                    if let eventEndDate = self.info?.endDate{
+                        let requiredEndDate = DateParser.UTCStringToDate(endDate)
+                        let differIs = requiredEndDate?.timeIntervalSince((eventEndDate))
+                        if differIs == 0.0{
                             eventisSoldOut(status:true)
                         }else{
-                            eventisSoldOut(status: false)
+                            eventisSoldOut(status:false)
                         }
                     }
+                    //
+                    //                    Log.echo(key: "yud", text: "Differ is \(differIs)")
+                    //                    Log.echo(key: "yud", text: "End Date is slot \(endDate)")
+                    //                    Log.echo(key: "yud", text: "End Date of event is  \(self.info?.endDate)")
                 }
             }
         }
+        
+//        Log.echo(key: "yud", text: "Current Date is \(Date())")
+//        if let startDate = self.info?.startDate{
+//            if let endDate = self.info?.endDate{
+//                let timeDiffrence = endDate.timeIntervalSince(startDate)
+//                Log.echo(key: "yud", text: "The total time of the event is \(timeDiffrence)")
+//                if let durate  = self.info?.duration{
+//                    let totalnumberofslots = Int(timeDiffrence/(durate*60))
+//                    Log.echo(key: "yud", text: "The total time of slots are  \(totalnumberofslots)")
+//                    Log.echo(key: "yud", text: "The number of the total callbookings are\(String(describing: self.info?.callBookings.count))")
+//                    if let slotBooked = self.info?.callBookings.count{
+//                        if slotBooked >= (totalnumberofslots+slotBooked){
+//                            eventisSoldOut(status:true)
+//                        }else{
+//
+//                            //Verifying the earlySlotBooked Scenario
+//                            let currenToEndtimeDiffrence = endDate.timeIntervalSince(Date())
+//                            let totalnumberofslots = Int(currenToEndtimeDiffrence/(durate*60))
+//
+//                            if !(slotBooked <= totalnumberofslots+slotBooked) {
+//                                eventisSoldOut(status:true)
+//                                return
+//                            }
+//                            eventisSoldOut(status: false)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     func eventisSoldOut(status:Bool){

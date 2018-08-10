@@ -15,8 +15,7 @@ class SystemTestController:InterfaceExtendedController {
     var presentingControllerObj:EventController?
     var dismissListner:((Bool)->())?
     var isOnlySystemTest = false
-    
-    
+        
     override func viewDidLayout(){
         super.viewDidLayout()
         
