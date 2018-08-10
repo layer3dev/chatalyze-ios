@@ -7,6 +7,7 @@
 //
 
 import Foundation
-protocol EventPaymentDelegte {
+
+protocol EventPaymentDelegte {  
     func dismiss()
 }

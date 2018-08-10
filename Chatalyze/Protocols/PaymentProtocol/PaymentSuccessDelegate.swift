@@ -7,6 +7,7 @@
 //
 
 import Foundation
-protocol PaymentSuccessDelegate {
+
+protocol PaymentSuccessDelegate {   
     func dismiss()
 }

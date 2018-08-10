@@ -22,7 +22,7 @@ class GreetingTimeCell: ExtendedTableCell {
     }
     
     @IBAction func timePickerAction(_ sender: Any) {
-      
+
         self.timeLable?.text = selectedTime
     }
     
