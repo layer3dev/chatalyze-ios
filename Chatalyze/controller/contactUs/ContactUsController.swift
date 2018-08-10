@@ -140,7 +140,7 @@ extension ContactUsController:UITextViewDelegate{
         
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
-        if (text.count+textView.text.count) > 10{
+        if (text.count+textView.text.count) > 255{
             return false
         }
         return true

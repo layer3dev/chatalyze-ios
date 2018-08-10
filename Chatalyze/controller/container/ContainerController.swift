@@ -115,7 +115,10 @@ extension ContainerController : TabContainerViewInterface{
             selectedTab = type
             return
         }
+        Log.echo(key: "yud", text: "the raw value is \(type.rawValue)")
         tabController?.selectedIndex = type.rawValue
+        //tabController?.selectedIndex = 2
+        Log.echo(key: "yud", text: "index do not set \(type.rawValue)")
         selectedTab = type
     }
     

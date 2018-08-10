@@ -32,6 +32,7 @@ class EventPaymentController: InterfaceExtendedController {
         }
         self.showLoader()
         FetchSavedCardDetails().fetchInfo(id: id) { (success, cardInfo) in
+            
             self.stopLoader()
             if success{
                 
@@ -40,6 +41,7 @@ class EventPaymentController: InterfaceExtendedController {
                     self.rootView?.cardInfoArray = cardinfo
                     var count = 0
                     for _ in cardinfo{
+                        
                         count = count + 1
                     }
                     if count == 1{
@@ -56,18 +58,18 @@ class EventPaymentController: InterfaceExtendedController {
             }
         }
     }
-    
+
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
-        Log.echo(key: "yud", text: "Touch is \(touch.view)")
+        Log.echo(key: "yud", text: "Touch is \(String(describing: touch.view))")
         
-        if touch.view == self.rootView?.selectDateMonthBtn{
-            Log.echo(key: "yud", text: "Button is called")
-
-            self.rootView?.dateAction(sender: nil)
-            return false
-        }
+//        if touch.view == self.rootView?.selectDateMonthBtn{
+//            Log.echo(key: "yud", text: "Button is called")
+//
+//            self.rootView?.dateAction(sender: nil)
+//            return false
+//        }
         return true
     }
     
