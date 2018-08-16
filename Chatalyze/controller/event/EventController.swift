@@ -20,7 +20,7 @@ class EventController: TabChildLoadController {
         
         paintInterface()
         initializeVariable()
-    }
+    }   
     
     override func viewGotLoaded() {
         super.viewGotLoaded()

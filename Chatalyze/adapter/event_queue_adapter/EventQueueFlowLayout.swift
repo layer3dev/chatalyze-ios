@@ -22,8 +22,8 @@ class EventQueueFlowLayout: UICollectionViewFlowLayout {
     
     
     override var itemSize: CGSize {
-        set {
-            
+        
+        set {            
         }
         get {
             return CGSize(width: 105, height: 81)

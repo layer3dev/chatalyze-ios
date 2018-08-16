@@ -12,9 +12,12 @@ import SwiftyJSON
 class UserCallController: VideoCallController {
     
     //variable and outlet responsible for the SelfieTimer
+    
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
+    
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
+    
     var isScreenshotStatusLoaded = false
     
     //Ends
@@ -24,7 +27,6 @@ class UserCallController: VideoCallController {
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     var isScreenshotPromptPage = false
-    
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -37,16 +39,12 @@ class UserCallController: VideoCallController {
         return self.view as? UserVideoRootView
     }
     
-    
-    
     override func initialization(){
         super.initialization()
         
         initializeVariable()
         registerForAutographListener()
     }
-    
-   
     
     override func interval(){
         super.interval()
@@ -334,13 +332,14 @@ class UserCallController: VideoCallController {
             self.myActiveUserSlot?.isScreenshotSaved = true
             self.mimicScreenShotFlash()
             self.uploadImage(image: image, completion: { (success, info) in
+                
                 self.screenshotInfo = info
             })
         }
     }
     
     private func updateCallHeaderInfo(){
-        
+                
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return
@@ -438,6 +437,7 @@ class UserCallController: VideoCallController {
         for screenshotInfo in screenshotInfos {
             
             if(screenshotInfo.requestedAutograph ?? false){
+                
                 slotInfo.isAutographRequested = true
             }
             if(!(screenshotInfo.defaultImage ?? true)){

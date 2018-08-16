@@ -46,6 +46,7 @@ class SelfieTimerView:ExtendedView {
     func startAnimation(){
         
         self.invalidateTimer()
+        self.invalidateTimerForHost()
         self.runTimer()
     }
     
@@ -82,7 +83,8 @@ class SelfieTimerView:ExtendedView {
             if difference >= 3 {
                 updateTimer()
             }
-        }else{            
+        }else{
+            
             invalidateTimerForHost()
             invalidateTimer()
         }
@@ -309,7 +311,6 @@ extension SelfieTimerView{
 }
 
 extension SelfieTimerView{
-    
     
     func playSound() {
         
