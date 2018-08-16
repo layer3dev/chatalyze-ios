@@ -139,7 +139,7 @@ class DateParser: NSObject {
         guard let requiredFormat =  requiredDateFormat else {
             return nil
         }
-        Log.echo(key: "yu", text: "CD is \(dateNeedToModify)")
+        Log.echo(key: "yud", text: "CD is \(dateNeedToModify)")
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier : "en_US_POSIX")
         dateFormatter.dateFormat = dateFormat

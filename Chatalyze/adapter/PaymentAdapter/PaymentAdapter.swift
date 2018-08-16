@@ -54,7 +54,6 @@ extension PaymentAdapter:UITableViewDataSource{
             return UITableViewCell()
         }
         if indexPath.row < self.PaymentListingArray.count{
-            
             cell.fillInfo(info:self.PaymentListingArray[indexPath.row])
             return cell
         }        

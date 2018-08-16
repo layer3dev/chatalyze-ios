@@ -71,6 +71,7 @@ class EventCell: ExtendedTableCell {
                         let differIs = requiredEndDate?.timeIntervalSince((eventEndDate))
                         if differIs == 0.0{
                             eventisSoldOut(status:true)
+                            return
                         }else{
                             eventisSoldOut(status:false)
                         }
@@ -82,6 +83,8 @@ class EventCell: ExtendedTableCell {
                 }
             }
         }
+        eventisSoldOut(status:false)
+        return
         
 //        Log.echo(key: "yud", text: "Current Date is \(Date())")
 //        if let startDate = self.info?.startDate{

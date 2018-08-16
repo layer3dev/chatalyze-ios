@@ -195,12 +195,23 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
     
     func systemTest(){
         
-        guard let controller = SystemTestController.instance() else { return }
+//        guard let controller = SystemTestController.instance() else { return }
+//
+//        controller.isOnlySystemTest = true
+//        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+//        })
         
-        controller.isOnlySystemTest = true
-        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
-        })
+            guard let controller = InternetSpeedTestController.instance() else{
+                return
+            }
         
+            controller.isOnlySystemTest = true
+        
+           
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+            })
     }
     
     func refreshData(){

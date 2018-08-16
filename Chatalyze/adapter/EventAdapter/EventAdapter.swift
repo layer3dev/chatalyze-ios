@@ -65,18 +65,19 @@ extension EventAdapter:UITableViewDelegate{
             return
         }
         
-        
         guard let controller = EventLandingController.instance() else {
             return
         }
         controller.info = self.eventArray[indexPath.row]
         controller.dismissListener = {(success) in
+            
             Log.echo(key: "yud", text: "result payment is \(success)")
             
             if success {
 //                RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
             }
         }
+        
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
         

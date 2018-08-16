@@ -34,8 +34,6 @@ class SystemRootView: ExtendedView {
     
     func paintInterface(){
         
-        
-        
         dataView?.layer.cornerRadius = 3
         dataView?.layer.masksToBounds = true
         beginView?.layer.cornerRadius = 3
@@ -104,7 +102,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
                 return
             }
             controller.info = self.info
-            controller.isOnlySystemTest = self.controller?.isOnlySystemTest ?? false
+            controller.isOnlySystemTest = self.info?.isFree ?? false
             controller.rootController = self.controller?.presentingControllerObj
             controller.onSuccessTest = {(success) in
                 self.skipAction(sender: nil)

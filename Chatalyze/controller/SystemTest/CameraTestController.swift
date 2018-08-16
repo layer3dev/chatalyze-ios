@@ -63,7 +63,8 @@ class CameraTestController: InterfaceExtendedController {
         let level = self.recorder?.averagePower(forChannel: 0)
         Log.echo(key: "yud", text: "LEVEL IS \(level)")
         self.updateUI(level:Double(level ?? 0.0))
-        let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD        
+        let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -87,6 +88,8 @@ class CameraTestController: InterfaceExtendedController {
     
     func checkForMicrphone(){
         
+        CameraTestController.levelTimer.invalidate()
+        Log.echo(key: "yud", text: "Checking for the microphone access")
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
         
         let url = documents.appendingPathComponent("record.caf")
@@ -125,9 +128,11 @@ class CameraTestController: InterfaceExtendedController {
         case AVAudioSessionRecordPermission.granted:
             print("Permission granted")
             checkForMicrphone()
+            return
         case AVAudioSessionRecordPermission.denied:
             print("Pemission denied")
             alertToProvideMicrophoneAccess()
+            return
         case AVAudioSessionRecordPermission.undetermined:
             print("Request permission here")
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
@@ -312,17 +317,17 @@ class CameraTestController: InterfaceExtendedController {
             
             Log.echo(key: "yud", text: "Your Authorisation is denied")
             alertToProvideCameraAccess()
-            break
+            return
         case .authorized:
             
             startCameraTestFront()
             checkforMicrophoneAccess()
             Log.echo(key: "yud", text: "Your Authorisation is authorized")
-            break
+            return
         case .restricted:            
             Log.echo(key: "yud", text: "Your Authorisation is restricted")
             alertToProvideCameraAccess()
-            break
+            return
         case .notDetermined:
             
             // Prompting user for the permission to use the camera.
@@ -337,7 +342,7 @@ class CameraTestController: InterfaceExtendedController {
                     print("Denied access to \(cameraMediaType)")
                 }
             }
-            break
+            return
         }
     }
     
@@ -374,6 +379,7 @@ class CameraTestController: InterfaceExtendedController {
             }
             
             controller.info = self.info
+         
             //        if self.info?.isFree ?? false{
             //            return
             //        }
