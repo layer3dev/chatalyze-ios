@@ -13,11 +13,11 @@ class EventController: TabChildLoadController {
     @IBOutlet var rootView:EventRootView?
     var eventArray = [EventInfo]()
     @IBOutlet var noeventLbl:UILabel?
+    var count = 0
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
-       
         paintInterface()
         initializeVariable()
     }

@@ -73,6 +73,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myActiveUserSlot?.isSelfieTimerInitiated))")
         
         DispatchQueue.main.async {
+            
             self.selfieTimerView?.reset()
             guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
                 return

@@ -58,6 +58,8 @@ class SelfieTimerView:ExtendedView {
         }
         requiredDate = startDate
         //(#selector(self.updateAnlalyst(requiredDate:startDate)))
+        SelfieTimerView.testTimer.invalidate()
+        SelfieTimerView.hostTimer.invalidate()
         SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
     }
     
@@ -102,7 +104,10 @@ class SelfieTimerView:ExtendedView {
     
     
     private func runTimer(){
+        
         //to balance the time taken by animation
+        SelfieTimerView.testTimer.invalidate()
+        SelfieTimerView.hostTimer.invalidate()
         SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
     }
     
