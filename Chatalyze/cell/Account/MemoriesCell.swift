@@ -129,16 +129,28 @@ extension MemoriesCell{
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
+        if error != nil {
             
-            // we got back an error!
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            //We got back an error!
+            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Please provide the access to save the photos in the Gallery.", preferredStyle: .alert)
+          
+            ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
+                
+                if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
+                    if #available(iOS 10.0, *) {
+                        
+                        UIApplication.shared.open(settingUrl)
+                    } else {
+                        //Fallback on earlier versions
+                        UIApplication.shared.openURL(settingUrl)
+                    }
+                }
+            }))
             self.controller?.present(ac, animated: true)
             
         } else {
             
-            let ac = UIAlertController(title: "Chatalyze", message: "Your memory has been saved to your photos.", preferredStyle: .alert)
+            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Your memory has been saved to your photos.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             self.controller?.present(ac, animated: true)
         }

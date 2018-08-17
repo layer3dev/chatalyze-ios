@@ -37,9 +37,7 @@ class CallEventInfo{
                 completion(false, nil)
                 return
         }
-        
-    
-        
+                
         let eventInfo = EventScheduleInfo(info: info)
         
         Log.echo(key: "event", text: "event info --> \(String(describing: eventInfo.id))")

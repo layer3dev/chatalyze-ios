@@ -93,8 +93,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         }
     }
     
-
-    
     func maketextLinkable(){
         
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).

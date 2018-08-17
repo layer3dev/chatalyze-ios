@@ -133,7 +133,6 @@ extension ContactUsController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         
         if (contactTextView?.text ?? ""  == ""){
-            
             contactPlaceholderLbl?.text = "Enter Message"
         }
     }

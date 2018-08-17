@@ -22,6 +22,7 @@ extension EventQueueAdapter : UICollectionViewDelegate{
 extension EventQueueAdapter : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "queue_cell", for: indexPath) as? CallQueueCell
             else{
                 return CallQueueCell()

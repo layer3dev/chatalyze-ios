@@ -76,6 +76,7 @@ extension SigninRootView{
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
+            
             emailField?.showError(text: "Email field can't be left empty !")
             return false
         }
@@ -86,6 +87,7 @@ extension SigninRootView{
     fileprivate func validatePassword()->Bool{
         
         if(passwordField?.textField?.text == ""){
+            
             passwordField?.showError(text: "Password field can't be left empty !")
             return false
         }
@@ -161,6 +163,7 @@ extension SigninRootView{
         self.controller?.showLoader()
         
         signInRequest(email: email, password: password) { [weak self] (success, message)  in
+            
             self?.controller?.stopLoader()
             if(success){
                 RootControllerManager().updateRoot()
