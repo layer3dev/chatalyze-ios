@@ -9,7 +9,37 @@
 
 class SessionTitleRootView:ExtendedView{
     
+    @IBOutlet var titleField:SigninFieldView?
     override func viewDidLayout(){
         super.viewDidLayout()    
+    }
+   
+    func validateFields()->Bool{
+        
+        let titleValidated  = validateTitle()
+        return titleValidated
+    }
+    
+    fileprivate func validateTitle()->Bool{
+        
+        if(titleField?.textField?.text == ""){
+            
+            titleField?.showError(text: "Title field can't be left empty !")
+            return false
+        }
+        titleField?.resetErrorStatus()
+        return true
+    }
+
+    @IBAction fileprivate func nextAction(){
+        
+        if(validateFields()){
+            next()
+        }
+    }
+    
+    func next(){
+        
+        //guard let controller = Sessio
     }
 }

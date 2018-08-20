@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class EventScheduleInfo : EventScheduleCoreInfo{
+    
     var mergeSlotInfo : EventScheduleCoreInfo?
     
     override init(info : JSON?){

@@ -50,6 +50,7 @@ class SignupRootView:ExtendedView{
                 self.signin(email:email,password:password)
                 return
             }
+            self.controller?.stopLoader()
             self.showError(text: message)
             return
         }

@@ -27,6 +27,13 @@ class SessionTitleController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    var rootView:SessionTitleRootView?{
+     
+        get {
+            return self.view as? SessionTitleRootView
+        }
+    }
 }
 
 

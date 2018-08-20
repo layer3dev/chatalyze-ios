@@ -253,7 +253,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     }    
     
     @IBAction func datePickerAction(_ sender: Any){
-     
+             
         dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
     

@@ -362,6 +362,10 @@ class CameraTestController: InterfaceExtendedController {
             exit(0)
             //            })
         }))
+        
+        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
+            
+        }))
         self.present(alert, animated: false) {
         }
     }
@@ -438,6 +442,10 @@ class CameraTestController: InterfaceExtendedController {
             exit(0)
             //            })
         }))
+        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
+           
+        }))
+        
         self.present(alert, animated: false) {
         }
     }
