@@ -33,6 +33,7 @@ class FieldManagingScrollView: ExtendedScrollView {
 extension FieldManagingScrollView{
     
     fileprivate func registerForTapGestureForKeyboardResign(){
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tapGesture.cancelsTouchesInView = false
         self.addGestureRecognizer(tapGesture)

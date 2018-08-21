@@ -30,7 +30,7 @@ class SigninFieldView: ExtendedView {
     }
     
     func showError(text : String?){
-        borderView?.backgroundColor = UIColor.red
+       // borderView?.backgroundColor = UIColor.red
         errorLabel?.text = text
     }
     

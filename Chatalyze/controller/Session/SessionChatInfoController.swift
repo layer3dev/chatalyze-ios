@@ -10,9 +10,30 @@ import UIKit
 
 class SessionChatInfoController: InterfaceExtendedController {
 
+    //priceField?.textField?.keyboardType =
+    @IBOutlet var textfiels:UITextField?
+    
+    
     override func viewDidLayout(){
         super.viewDidLayout()
+    
+        textfiels?.keyboardType = UIKeyboardType.numberPad
+        initializeVariable()
     }
+    
+    func initializeVariable(){
+
+        rootView?.controller = self        
+    }
+    
+    var rootView:SessionChatInfoRootView?{
+        get{
+            return self.view as? SessionChatInfoRootView
+        }
+    }
+    
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

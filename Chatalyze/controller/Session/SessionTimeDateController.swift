@@ -12,12 +12,19 @@ class SessionTimeDateController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        initialization()
+    }
+    
+    func initialization(){
+        
+        rootView?.controller = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
     /*
@@ -29,6 +36,7 @@ class SessionTimeDateController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
+    
     var rootView:SessionTimeDateRootView?{
         get{
          

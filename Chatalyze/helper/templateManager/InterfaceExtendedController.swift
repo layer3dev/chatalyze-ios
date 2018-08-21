@@ -12,7 +12,6 @@ import NVActivityIndicatorView
 class InterfaceExtendedController : ExtendedController {
     
     var disableBack : Bool = false
-    
     var viewDidAppear : Bool = false
 
     override func viewDidLoad() {
@@ -39,7 +38,7 @@ class InterfaceExtendedController : ExtendedController {
     
     private func initialization(){
         
-        registerForTapGestureForKeyboardResign()
+        //registerForTapGestureForKeyboardResign()
     }
     
     override func didReceiveMemoryWarning() {
