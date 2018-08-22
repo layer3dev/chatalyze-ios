@@ -46,6 +46,7 @@ class SessionTimeDateController: InterfaceExtendedController {
 }
 
 extension SessionTimeDateController{
+    
     class func instance()->SessionTimeDateController?{
         
         let storyboard = UIStoryboard(name: "ScheduleSession", bundle: nil)

@@ -136,12 +136,11 @@ class SettingController : InterfaceExtendedController {
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = ContactUsController.instance() else{
-//           return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
-        
+        /*
+        guard let controller = ContactUsController.instance() else{
+           return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)*/
     }
 }
 

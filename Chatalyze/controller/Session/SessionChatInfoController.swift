@@ -13,10 +13,10 @@ class SessionChatInfoController: InterfaceExtendedController {
     //priceField?.textField?.keyboardType =
     @IBOutlet var textfiels:UITextField?
     
-    
     override func viewDidLayout(){
         super.viewDidLayout()
     
+        
         textfiels?.keyboardType = UIKeyboardType.numberPad
         initializeVariable()
     }
