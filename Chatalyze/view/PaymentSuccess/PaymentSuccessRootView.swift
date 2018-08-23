@@ -126,7 +126,6 @@ class PaymentSuccessRootView: ExtendedView {
             requiredString.append(fourthStr)
             requiredString.append(fifthStr)
             requiredString.append(sixthStr)
-            
             chatDetailLbl?.attributedText = requiredString
         }
         //NSMutableAttribte String after appending do not produce the new string but only modilfy itself.
@@ -165,8 +164,6 @@ class PaymentSuccessRootView: ExtendedView {
                 RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
             })
         }
-        
-        
     }
     
     @IBAction func countryAction(sender:UIButton){

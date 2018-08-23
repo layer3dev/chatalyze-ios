@@ -9,15 +9,10 @@
 import UIKit
 
 class SessionChatInfoController: InterfaceExtendedController {
-
-    //priceField?.textField?.keyboardType =
-    @IBOutlet var textfiels:UITextField?
     
     override func viewDidLayout(){
         super.viewDidLayout()
-    
         
-        textfiels?.keyboardType = UIKeyboardType.numberPad
         initializeVariable()
     }
     
@@ -27,29 +22,26 @@ class SessionChatInfoController: InterfaceExtendedController {
     }
     
     var rootView:SessionChatInfoRootView?{
+        
         get{
             return self.view as? SessionChatInfoRootView
         }
     }
     
-    
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        // Dispose of any resources that can be recreated.
+        //Dispose of any resources that can be recreated.
     }
     
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     */
+    
 }
 
 extension SessionChatInfoController{

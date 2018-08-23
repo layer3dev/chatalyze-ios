@@ -70,15 +70,17 @@ class SessionTimeDateRootView:ExtendedView{
         selectedPickerType = .date
         timePicker?.datePickerMode = .date
         dateField?.textField?.text = selectedTime
-        if isPickerHidden == true {
-            
-            isPickerHidden = false
-            pickerContainer?.isHidden = false
-        }else{
-            
-            isPickerHidden = true
-            pickerContainer?.isHidden = true
-        }
+        isPickerHidden = false
+        pickerContainer?.isHidden = false
+//        if isPickerHidden == true {
+//
+//            isPickerHidden = false
+//            pickerContainer?.isHidden = false
+//        }else{
+//
+//            isPickerHidden = true
+//            pickerContainer?.isHidden = true
+//        }
     }
     
     @IBAction func startTimeAction(sender:UIButton?){
@@ -86,15 +88,18 @@ class SessionTimeDateRootView:ExtendedView{
         selectedPickerType = .time
         timePicker?.datePickerMode = .time
         startTimeField?.textField?.text = startTime
-        if isPickerHidden == true {
-            
-            isPickerHidden = false
-            pickerContainer?.isHidden = false
-        }else{
-            
-            isPickerHidden = true
-            pickerContainer?.isHidden = true
-        }
+        isPickerHidden = false
+        pickerContainer?.isHidden = false
+
+//        if isPickerHidden == true {
+//
+//            isPickerHidden = false
+//            pickerContainer?.isHidden = false
+//        }else{
+//
+//            isPickerHidden = true
+//            pickerContainer?.isHidden = true
+//        }
     }
     
     

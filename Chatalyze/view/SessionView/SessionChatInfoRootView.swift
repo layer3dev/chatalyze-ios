@@ -61,9 +61,7 @@ class SessionChatInfoRootView:ExtendedView{
         scrollView?.bottomContentOffset = scrollContentBottonOffset
         priceField?.textField?.delegate = self
         priceField?.textField?.keyboardType = UIKeyboardType.numberPad
-        
     }
-    
     
     func resetDurationSelection(){
         
@@ -80,7 +78,6 @@ class SessionChatInfoRootView:ExtendedView{
         isSocialYesBtn?.backgroundColor = UIColor(hexString: "#F1F4F5")
         isSocialNoBtn?.backgroundColor = UIColor(hexString: "#F1F4F5")
     }
-    
 
     @IBAction func chatSlotDurationAction(sender:UIButton){
        
@@ -148,10 +145,11 @@ class SessionChatInfoRootView:ExtendedView{
     
     func next(){
         
-        Log.echo(key: "yud", text: "You are eligible ")
-        
+        guard let controller = SessionReviewController.instance() else{
+            return
+        }
+        self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
-    
     
     func resetErrorStatus(){
         
@@ -220,7 +218,6 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        print("String is \(string)")
         return true
     }
 }
