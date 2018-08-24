@@ -10,6 +10,9 @@ import UIKit
 
 class SessionChatInfoController: InterfaceExtendedController {
     
+    var param = [String:Any]()
+    var selectedDurationType:SessionTimeDateRootView.DurationLength? = SessionTimeDateRootView.DurationLength.none
+    
     override func viewDidLayout(){
         super.viewDidLayout()
         
@@ -18,7 +21,8 @@ class SessionChatInfoController: InterfaceExtendedController {
     
     func initializeVariable(){
 
-        rootView?.controller = self        
+        rootView?.controller = self
+        rootView?.param  = self.param
     }
     
     var rootView:SessionChatInfoRootView?{

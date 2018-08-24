@@ -10,14 +10,39 @@ import UIKit
 
 class SessionReviewController: InterfaceExtendedController {
 
+    var param = [String:Any]()
+   
+    var selectedDurationType:SessionTimeDateRootView.DurationLength? = SessionTimeDateRootView.DurationLength.none
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+    
+        initalializeVariable()
     }
+    
+    func initalializeVariable(){
+        
+        rootView?.controller = self
+        rootView?.param  = self.param
+        rootView?.fillInfo()        
+    }
+    
+    
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    var rootView:SessionReviewRootView?{
+        
+        get{
+            return self.view as? SessionReviewRootView
+        }
+    }
+    
     
     /*
     // MARK: - Navigation

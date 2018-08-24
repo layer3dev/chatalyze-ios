@@ -14,8 +14,10 @@ class SessionTitleController: InterfaceExtendedController {
         super.viewDidLayout()
         
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+     
         // Dispose of any resources that can be recreated.
     }
     
@@ -38,6 +40,7 @@ class SessionTitleController: InterfaceExtendedController {
 
 
 extension SessionTitleController{
+    
     class func instance()->SessionTitleController?{
         
         let storyboard = UIStoryboard(name: "ScheduleSession", bundle: nil)
