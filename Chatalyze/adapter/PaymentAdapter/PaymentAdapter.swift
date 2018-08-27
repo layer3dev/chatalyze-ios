@@ -32,7 +32,6 @@ class PaymentAdapter: ExtendedView {
         paymentListingTableView?.dataSource = self
         paymentListingTableView?.delegate = self
         paymentListingTableView?.reloadData()
-    
     }    
 }
 extension PaymentAdapter:UITableViewDataSource{
@@ -79,7 +78,6 @@ extension PaymentAdapter:UITableViewDataSource{
         }
     }
     
-    
     func insertPageData(info:PaymentListingInfo?){
         
         guard let info = info else {
@@ -101,10 +99,12 @@ extension PaymentAdapter:UITableViewDataSource{
 extension PaymentAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 135.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableViewAutomaticDimension
     }    
     
@@ -120,6 +120,3 @@ extension PaymentAdapter:UITableViewDelegate{
 //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
 //    }
 }
-
-
-

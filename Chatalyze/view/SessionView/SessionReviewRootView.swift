@@ -17,6 +17,7 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var slotDurationLbl:UILabel?
     @IBOutlet var priceLbl:UILabel?
     @IBOutlet var isSelfieLbl:UILabel?
+    @IBOutlet var errorLabel:UILabel?
     
     var param = [String:Any]()
     var controller:SessionReviewController?
@@ -95,5 +96,43 @@ class SessionReviewRootView:ExtendedView{
             return ""
         }
         return ""
+    }
+    
+    @IBAction func scheduleAction(sender:UIButton?){
+        
+        Log.echo(key: "yud", text: "The parameteres that I am sending is \(param)")
+        scheduleAction()
+    }
+    
+    func resetErrorlabel(){
+        
+        self.errorLabel?.text = ""
+    }
+    
+    func showError(message:String = ""){
+     
+        self.errorLabel?.text = message
+    }
+    
+    func scheduleAction(){
+        
+        self.controller?.showLoader()
+        resetErrorlabel()
+      
+        ScheduleSessionRequest().save(params: param) { (success, message, response) in
+         
+            self.controller?.stopLoader()
+            
+            if !success{
+                self.showError(message:message)
+                return
+            }
+            
+            guard let controller = SessionDoneController.instance() else{
+                return
+            }
+            
+            self.controller?.navigationController?.pushViewController(controller, animated:true)
+        }
     }
 }

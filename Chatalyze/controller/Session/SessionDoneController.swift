@@ -16,6 +16,13 @@ class SessionDoneController: InterfaceExtendedController {
         // Do any additional setup after loading the view.
     }
 
+    var rootView:SessionDoneRootView?{
+        
+        get{
+            return self.view as? SessionDoneRootView
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
