@@ -24,7 +24,13 @@ class SessionReviewController: InterfaceExtendedController {
         
         rootView?.controller = self
         rootView?.param  = self.param
-        rootView?.fillInfo()        
+        rootView?.fillInfo()
+    }
+    
+    func updateRootInfo(){
+        
+        rootView?.param  = self.param
+        rootView?.fillInfo()
     }
     
     override func didReceiveMemoryWarning() {

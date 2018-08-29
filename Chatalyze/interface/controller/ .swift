@@ -7,3 +7,10 @@
 //
 
 import Foundation
+protocol  ScheduleSessionPageInterface{
+    
+    func updateTimeDateTabUI()
+    func updateChatTabUI()
+    func updateReviewTabUI()
+    func successFullyCreatedEvent()
+}

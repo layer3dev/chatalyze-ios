@@ -25,6 +25,11 @@ class SessionChatInfoController: InterfaceExtendedController {
         rootView?.param  = self.param
     }
     
+    func updateRootInfo(){
+        
+        rootView?.param  = self.param
+    }
+    
     var rootView:SessionChatInfoRootView?{
         
         get{

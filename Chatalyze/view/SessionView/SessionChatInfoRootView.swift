@@ -52,6 +52,7 @@ class SessionChatInfoRootView:ExtendedView{
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
     
     var param = [String:Any]()
+    var successHandler:(()->())?
     
     override func viewDidLayout(){
         super.viewDidLayout()
@@ -138,14 +139,27 @@ class SessionChatInfoRootView:ExtendedView{
         }
     }
     
-    @IBAction func nextAction(sender:UIButton){
+    @IBAction func nextAction(sender:UIButton?){
     
         if(validateFields()){
-            self.resetErrorStatus()
+            self.resetErrorStatus()            
+            if let handler = self.successHandler{
+                handler()
+            }
             next()
         }
     }
     
+    
+    func switchTab(){
+       
+        if(validateFields()){
+            self.resetErrorStatus()
+            if let handler = self.successHandler{
+                handler()
+            }
+        }
+    }
     
     func getParameter()->[String:Any]{
         
@@ -189,7 +203,6 @@ class SessionChatInfoRootView:ExtendedView{
     
     func next(){
         
- 
         Log.echo(key: "yud", text: "Appended param are \(getParameter())")
         
         guard let controller = SessionReviewController.instance() else{
@@ -197,7 +210,18 @@ class SessionChatInfoRootView:ExtendedView{
         }
         controller.param = getParameter()
         controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
-        self.controller?.navigationController?.pushViewController(controller, animated: true)
+        ///self.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
+    func fillInfo(controller:SessionReviewController?){
+       
+        guard let controller = controller else{
+            return
+        }
+        controller.param = getParameter()
+        Log.echo(key: "yud", text: "Params are \(getParameter())")
+        controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
     }
     
     func resetErrorStatus(){

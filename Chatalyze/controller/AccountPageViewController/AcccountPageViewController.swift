@@ -108,5 +108,4 @@ extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInste
 
 extension AcccountPageViewController{
     
-
 }

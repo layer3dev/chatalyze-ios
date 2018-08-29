@@ -8,19 +8,125 @@
 
 import UIKit
 
-class ScheduleSessionPageViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class ScheduleSessionPageViewController: UIPageViewController {
+    
+        let timeDateController = SessionTimeDateController.instance()
+        let chatController = SessionChatInfoController.instance()
+        let reviewController = SessionReviewController.instance()
+        
+    var timeSuccessHandler:(()->())?
+    var chatSuccessHandler:(()->())?
+    var reviewSuccessHandler:(()->())?
+    
+    var sessionPageDelegate:ScheduleSessionPageInterface?
+    
+        lazy var pages: [UIViewController] = ({
+            return [
+                timeDateController,
+                chatController,
+                reviewController
+            ]
+            }() as! [UIViewController])
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            initializeVariable()
+            setFirstController()
+            //Do any additional setup after loading the view.
+        }
+        
+        func initializeVariable(){
+            
+            timeDateController?.rootView?.successHandler = {
+               
+                self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
+                self.chatController?.updateRootInfo()
+                
+                self.sessionPageDelegate?.updateChatTabUI()
+                self.setChatInternalTab()
+            }
+            chatController?.rootView?.successHandler = {
+               
+                self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
+                self.chatController?.updateRootInfo()
+                
+                self.chatController?.rootView?.fillInfo(controller:self.reviewController)                
+                self.reviewController?.updateRootInfo()
+                self.reviewController?.rootView?.fillInfo()
+                
+                self.sessionPageDelegate?.updateReviewTabUI()
+                self.setReviewLaunchInternalTab()
+            }
+            reviewController?.rootView?.successHandler = {
+                self.sessionPageDelegate?.successFullyCreatedEvent()
+            }
+        }
+        
+       private func setFirstController(){
+            
+            if let firstVC = pages.first
+            {
+                setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+            }
+        }
+        
+        private func setReviewLaunchInternalTab(){
+            
+            setViewControllers([pages[2]], direction: .forward, animated: false, completion: nil)
+            //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+        }
+        
+       private func setChatInternalTab(){
+            
+            setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+            //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+        }
+    
+    private func setDateTimeInternalTab(){
+        
+        setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
+        //accountDelegate?.contentOffsetForMemory(offset: 0.0)
     }
     
+    func setDateTab(){
+        
+        //should be call from the Session Controller
+        sessionPageDelegate?.updateTimeDateTabUI()
+        setDateTimeInternalTab()
+    }
+    
+    func setChatTab(){
+        
+        timeDateController?.rootView?.switchTab()
+    }
+    
+    func setReviewLaunchTab(){
+        
+        chatController?.rootView?.switchTab()
+        //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+    }
+    
+//    func timeDateNextAction(){
+//
+//        timeDateController?.rootView?.switchTab()
+//    }
+//
+//    func chatNextAction(){
+//
+//        chatController?.rootView?.nextAction(sender: nil)
+//    }
+//
+//    func reviewNextAction(){
+//
+//        reviewController?.rootView?.scheduleAction()
+//    }
+    
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+            // Dispose of any resources that can be recreated.
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -32,4 +138,3 @@ class ScheduleSessionPageViewController: UIViewController {
     }
     */
 
-}

@@ -23,6 +23,7 @@ class SessionTimeDateRootView:ExtendedView{
     var startDate = ""
     var endDate = ""
     var actualStartDate:Date?
+    var successHandler:(()->())?
     
     enum activePicker:Int{
         
@@ -256,9 +257,23 @@ class SessionTimeDateRootView:ExtendedView{
         
         if(validateFields()){
             self.resetErrorStatus()
+            if let handler = successHandler{
+                handler()
+            }
             next()
         }
     }
+    
+    func switchTab(){
+        
+        if(validateFields()){
+            self.resetErrorStatus()
+            if let handler = successHandler{
+                handler()
+            }
+        }
+    }
+    
     
     func resetErrorStatus(){
         
@@ -337,7 +352,17 @@ class SessionTimeDateRootView:ExtendedView{
         controller.param  = getParam()
         controller.selectedDurationType = self.selectedDurationType
         //getParam()
-        self.controller?.navigationController?.pushViewController(controller, animated: true)
+        //self.controller?.navigationController?.pushViewController(controller, animated: true)
         Log.echo(key: "yud", text: "Eligible for navigation")
     }
+    
+    func fillInfo(controller:SessionChatInfoController?){
+        
+        guard let controller = controller else{
+            return
+        }
+        controller.param  = getParam()
+        controller.selectedDurationType = self.selectedDurationType
+    }
+    
 }

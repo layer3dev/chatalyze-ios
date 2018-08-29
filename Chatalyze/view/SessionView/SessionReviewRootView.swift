@@ -21,6 +21,7 @@ class SessionReviewRootView:ExtendedView{
     
     var param = [String:Any]()
     var controller:SessionReviewController?
+    var successHandler:(()->())?
 
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -73,7 +74,8 @@ class SessionReviewRootView:ExtendedView{
             dateFormatter.timeZone = TimeZone(identifier: "UTC")
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            if let newdate = dateFormatter.date(from: date) {               
+            if let newdate = dateFormatter.date(from: date) {
+                dateFormatter.timeZone = TimeZone.current
                 dateFormatter.dateFormat = "EEEE-MMM-dd , yyyy"
                 return dateFormatter.string(from: newdate)
             }
@@ -90,6 +92,7 @@ class SessionReviewRootView:ExtendedView{
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             if let newdate = dateFormatter.date(from: date) {
+                dateFormatter.timeZone = TimeZone.current
                 dateFormatter.dateFormat = "hh:mm a"
                 return dateFormatter.string(from: newdate)
             }
@@ -101,6 +104,7 @@ class SessionReviewRootView:ExtendedView{
     @IBAction func scheduleAction(sender:UIButton?){
         
         Log.echo(key: "yud", text: "The parameteres that I am sending is \(param)")
+        
         scheduleAction()
     }
     
@@ -128,11 +132,14 @@ class SessionReviewRootView:ExtendedView{
                 return
             }
             
-            guard let controller = SessionDoneController.instance() else{
-                return
+            if let handler = self.successHandler{
+                handler()
             }
             
-            self.controller?.navigationController?.pushViewController(controller, animated:true)
+//            guard let controller = SessionDoneController.instance() else{
+//                return
+//            }
+//            self.controller?.navigationController?.pushViewController(controller, animated:true)
         }
     }
 }
