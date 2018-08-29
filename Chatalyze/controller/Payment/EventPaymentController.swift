@@ -8,7 +8,7 @@
 
 
 import UIKit
-import Stripe
+//import Stripe
 
 class EventPaymentController: InterfaceExtendedController {
     

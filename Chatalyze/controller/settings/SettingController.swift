@@ -16,9 +16,9 @@ import UIKit
 import FacebookShare
 import FBSDKShareKit
 import SDWebImage
-import TwitterKit
-import TwitterShareExtensionUI
-import TwitterCore
+//import TwitterKit
+//import TwitterShareExtensionUI
+//import TwitterCore
 
 class SettingController : InterfaceExtendedController {
     

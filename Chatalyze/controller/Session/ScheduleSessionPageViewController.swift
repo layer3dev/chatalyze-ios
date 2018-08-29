@@ -10,78 +10,81 @@ import UIKit
 
 class ScheduleSessionPageViewController: UIPageViewController {
     
-        let timeDateController = SessionTimeDateController.instance()
-        let chatController = SessionChatInfoController.instance()
-        let reviewController = SessionReviewController.instance()
-        
+    let timeDateController = SessionTimeDateController.instance()
+    let chatController = SessionChatInfoController.instance()
+    let reviewController = SessionReviewController.instance()
+    let doneController = SessionDoneController.instance()
+    
     var timeSuccessHandler:(()->())?
     var chatSuccessHandler:(()->())?
     var reviewSuccessHandler:(()->())?
     
     var sessionPageDelegate:ScheduleSessionPageInterface?
     
-        lazy var pages: [UIViewController] = ({
-            return [
-                timeDateController,
-                chatController,
-                reviewController
-            ]
-            }() as! [UIViewController])
+    lazy var pages: [UIViewController] = ({
+        return [
+            timeDateController,
+            chatController,
+            reviewController,
+            doneController
+        ]
+        }() as! [UIViewController])
     
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            initializeVariable()
-            setFirstController()
-            //Do any additional setup after loading the view.
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        func initializeVariable(){
-            
-            timeDateController?.rootView?.successHandler = {
-               
-                self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
-                self.chatController?.updateRootInfo()
-                
-                self.sessionPageDelegate?.updateChatTabUI()
-                self.setChatInternalTab()
-            }
-            chatController?.rootView?.successHandler = {
-               
-                self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
-                self.chatController?.updateRootInfo()
-                
-                self.chatController?.rootView?.fillInfo(controller:self.reviewController)                
-                self.reviewController?.updateRootInfo()
-                self.reviewController?.rootView?.fillInfo()
-                
-                self.sessionPageDelegate?.updateReviewTabUI()
-                self.setReviewLaunchInternalTab()
-            }
-            reviewController?.rootView?.successHandler = {
-                self.sessionPageDelegate?.successFullyCreatedEvent()
-            }
-        }
+        initializeVariable()
+        setFirstController()
+        //Do any additional setup after loading the view.
+    }
+    
+    func initializeVariable(){
         
-       private func setFirstController(){
+        timeDateController?.rootView?.successHandler = {
             
-            if let firstVC = pages.first
-            {
-                setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-            }
+            self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
+            self.chatController?.updateRootInfo()
+            
+            self.sessionPageDelegate?.updateChatTabUI()
+            self.setChatInternalTab()
         }
+        chatController?.rootView?.successHandler = {
+            
+            self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
+            self.chatController?.updateRootInfo()
+            
+            self.chatController?.rootView?.fillInfo(controller:self.reviewController)
+            
+            self.reviewController?.updateRootInfo()
+            self.reviewController?.rootView?.fillInfo()
+            
+            self.sessionPageDelegate?.updateReviewTabUI()
+            self.setReviewLaunchInternalTab()
+        }
+        reviewController?.rootView?.successHandler = {
+            self.sessionPageDelegate?.successFullyCreatedEvent()
+        }
+    }
+    
+    private func setFirstController(){
         
-        private func setReviewLaunchInternalTab(){
-            
-            setViewControllers([pages[2]], direction: .forward, animated: false, completion: nil)
-            //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+        if let firstVC = pages.first
+        {
+            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
+    }
+    
+    private func setReviewLaunchInternalTab(){
         
-       private func setChatInternalTab(){
-            
-            setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
-            //accountDelegate?.contentOffsetForMemory(offset: 0.0)
-        }
+        setViewControllers([pages[2]], direction: .forward, animated: false, completion: nil)
+        //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+    }
+    
+    private func setChatInternalTab(){
+        
+        setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+        //accountDelegate?.contentOffsetForMemory(offset: 0.0)
+    }
     
     private func setDateTimeInternalTab(){
         
@@ -103,38 +106,44 @@ class ScheduleSessionPageViewController: UIPageViewController {
     
     func setReviewLaunchTab(){
         
+        let _ = timeDateController?.rootView?.validateFields()
         chatController?.rootView?.switchTab()
         //accountDelegate?.contentOffsetForMemory(offset: 0.0)
     }
     
-//    func timeDateNextAction(){
-//
-//        timeDateController?.rootView?.switchTab()
-//    }
-//
-//    func chatNextAction(){
-//
-//        chatController?.rootView?.nextAction(sender: nil)
-//    }
-//
-//    func reviewNextAction(){
-//
-//        reviewController?.rootView?.scheduleAction()
-//    }
+    func setDoneTab(){
+        
+        setViewControllers([pages[3]], direction: .forward, animated: false, completion: nil)
+    }
     
-        override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-            // Dispose of any resources that can be recreated.
-        }
+    //    func timeDateNextAction(){
+    //
+    //        timeDateController?.rootView?.switchTab()
+    //    }
+    //
+    //    func chatNextAction(){
+    //
+    //        chatController?.rootView?.nextAction(sender: nil)
+    //    }
+    //
+    //    func reviewNextAction(){
+    //
+    //        reviewController?.rootView?.scheduleAction()
+    //    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destinationViewController.
+ // Pass the selected object to the new view controller.
+ }
+ */
 

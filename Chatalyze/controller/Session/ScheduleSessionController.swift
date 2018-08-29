@@ -26,9 +26,8 @@ class ScheduleSessionController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -151,6 +150,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         
         //self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
+            
             self.progressBar?.progress = 0.0
             self.view.layoutIfNeeded()
         }){ (success) in
@@ -161,7 +161,8 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
        
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 1, animations: {
-            self.progressBar?.progress = 0.5
+            
+            self.progressBar?.progress = 0.33
             self.view.layoutIfNeeded()
         }){ (success) in
             
@@ -170,12 +171,27 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
     func updateReviewTabUI(){
       
         UIView.animate(withDuration: 1, animations: {
-            self.progressBar?.progress = 1
+            
+            self.progressBar?.progress = 0.66
             self.view.layoutIfNeeded()
         }){ (success) in
             
         }
     }
+    
+    func updateDoneTabUI(){
+        
+        UIView.animate(withDuration: 1, animations: {
+            
+            self.progressBar?.progress = 1.0
+            self.view.layoutIfNeeded()
+        }){ (success) in
+        
+        }
+    }
+    
+    
+    
     func successFullyCreatedEvent(){
         
         Log.echo(key: "yud", text: "Event has been successfully created!!")
