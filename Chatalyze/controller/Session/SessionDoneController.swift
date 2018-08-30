@@ -10,10 +10,36 @@ import UIKit
 
 class SessionDoneController: InterfaceExtendedController {
 
+    var delegate:SessionDoneControllerProtocol?
+    var param = [String:Any]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+     
+        paintInterFace()
+        initializeVariable()
         // Do any additional setup after loading the view.
+    }
+    
+    func initializeVariable(){
+        
+        rootView?.controller = self
+        rootView?.param = self.param
+    }
+    
+    func fillParam(param:[String:Any]){
+       
+        self.param = param
+        rootView?.param = self.param
+    }
+    
+    func paintInterFace(){
+        
+        paintHideBackButton()
+    }
+    
+    @IBAction func backToMyAccountAction(sender:UIButton?){
+        
+        delegate?.backToAccount()
     }
 
     var rootView:SessionDoneRootView?{

@@ -112,6 +112,16 @@ class InterfaceExtendedController : ExtendedController {
         self.navigationItem.rightBarButtonItems = items
     }
     
+    func paintHideBackButton(){
+        
+        self.navigationItem.setHidesBackButton(true, animated:true)
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
+        self.navigationController?.navigationBar.backItem?.title = ""
+        self.navigationController?.navigationBar.backItem?.hidesBackButton = true
+        
+    }
+    
     
     func paintBackButton(){
         

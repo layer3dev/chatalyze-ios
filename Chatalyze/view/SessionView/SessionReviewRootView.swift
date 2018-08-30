@@ -141,5 +141,15 @@ class SessionReviewRootView:ExtendedView{
 //            }
 //            self.controller?.navigationController?.pushViewController(controller, animated:true)
         }
+        
+   
+    }
+    
+    func passInfoToDoneController(controller:SessionDoneController?){
+        
+        guard let controller = SessionDoneController.instance() else{
+            return
+        }
+        controller.fillParam(param:self.param)
     }
 }

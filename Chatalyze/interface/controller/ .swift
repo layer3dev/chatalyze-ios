@@ -13,4 +13,5 @@ protocol  ScheduleSessionPageInterface{
     func updateChatTabUI()
     func updateReviewTabUI()
     func successFullyCreatedEvent()
+    func backToMyAccount()
 }

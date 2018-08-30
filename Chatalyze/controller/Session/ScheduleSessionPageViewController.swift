@@ -41,18 +41,19 @@ class ScheduleSessionPageViewController: UIPageViewController {
     func initializeVariable(){
         
         timeDateController?.rootView?.successHandler = {
-            
+
             self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
+            
             self.chatController?.updateRootInfo()
             
             self.sessionPageDelegate?.updateChatTabUI()
             self.setChatInternalTab()
         }
+       
         chatController?.rootView?.successHandler = {
             
             self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
             self.chatController?.updateRootInfo()
-            
             self.chatController?.rootView?.fillInfo(controller:self.reviewController)
             
             self.reviewController?.updateRootInfo()
@@ -61,9 +62,14 @@ class ScheduleSessionPageViewController: UIPageViewController {
             self.sessionPageDelegate?.updateReviewTabUI()
             self.setReviewLaunchInternalTab()
         }
+        
         reviewController?.rootView?.successHandler = {
+          
+            self.reviewController?.rootView?.passInfoToDoneController(controller:self.doneController)
             self.sessionPageDelegate?.successFullyCreatedEvent()
         }
+       
+        self.doneController?.delegate = self
     }
     
     private func setFirstController(){
@@ -113,6 +119,8 @@ class ScheduleSessionPageViewController: UIPageViewController {
     
     func setDoneTab(){
         
+        let _ = timeDateController?.rootView?.validateFields()
+        let _ = chatController?.rootView?.validateFields()
         setViewControllers([pages[3]], direction: .forward, animated: false, completion: nil)
     }
     
@@ -147,3 +155,10 @@ class ScheduleSessionPageViewController: UIPageViewController {
  }
  */
 
+extension ScheduleSessionPageViewController:SessionDoneControllerProtocol{
+    
+    func backToAccount() {
+        
+        self.sessionPageDelegate?.backToMyAccount()
+    }
+}

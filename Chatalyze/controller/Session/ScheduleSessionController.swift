@@ -24,6 +24,10 @@ class ScheduleSessionController: InterfaceExtendedController {
     @IBOutlet var internalView:UIView?
     @IBOutlet var progressBar: UIProgressView?
     
+    @IBOutlet var doneImg:UIImageView?
+
+    
+    
     override func viewDidLayout() {
         super.viewDidLayout()
     }
@@ -63,9 +67,6 @@ class ScheduleSessionController: InterfaceExtendedController {
 //
 //        }
 //    }
-    
-    
-    
     
     
     func initializeTapGesture(){
@@ -145,6 +146,11 @@ extension ScheduleSessionController{
 }
 
 extension ScheduleSessionController:ScheduleSessionPageInterface{
+   
+    func backToMyAccount() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     
     func updateTimeDateTabUI(){
         
@@ -163,6 +169,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         UIView.animate(withDuration: 1, animations: {
             
             self.progressBar?.progress = 0.33
+            self.chatImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
             
@@ -173,6 +180,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         UIView.animate(withDuration: 1, animations: {
             
             self.progressBar?.progress = 0.66
+            self.reviewImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
             
@@ -184,16 +192,18 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         UIView.animate(withDuration: 1, animations: {
             
             self.progressBar?.progress = 1.0
+            self.doneImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
         
         }
     }
     
-    
-    
     func successFullyCreatedEvent(){
         
+        self.internalView?.isUserInteractionEnabled = false
         Log.echo(key: "yud", text: "Event has been successfully created!!")
+        pageViewController?.setDoneTab()
+        updateDoneTabUI()
     }
 }
