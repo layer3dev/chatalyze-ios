@@ -38,7 +38,7 @@ class InterfaceExtendedController : ExtendedController {
     
     private func initialization(){
         
-        //registerForTapGestureForKeyboardResign()
+        registerForTapGestureForKeyboardResign()
     }
     
     override func didReceiveMemoryWarning() {

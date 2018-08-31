@@ -9,22 +9,36 @@
 import UIKit
 
 class EditScheduledSessionController: InterfaceExtendedController {
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        rootView?.controller = self
+        paintIntreface()
     }
+    
+    func paintIntreface(){
+        
+        paintNavigationTitle(text: "Edit Schedule Session")
+        paintBackButton()
+    }
+ 
+    func fillInfo(param:[String:Any],totalDurationofEvent:Int){
+        
+        rootView?.fillInfo(info: param,totalDurationofEvent:totalDurationofEvent)
+    }
+    
     var rootView:EditScheduledSessionRootView?{
         
         get{
             return self.view as? EditScheduledSessionRootView
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        //Dispose of any resources that can be recreated.
     }
     
 

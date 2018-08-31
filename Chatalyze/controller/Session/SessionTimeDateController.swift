@@ -21,6 +21,11 @@ class SessionTimeDateController: InterfaceExtendedController {
         rootView?.controller = self
     }
     
+    func updateEditedInfo(info:[String:Any]){
+        
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         

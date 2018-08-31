@@ -22,14 +22,29 @@ class SessionReviewRootView:ExtendedView{
     var param = [String:Any]()
     var controller:SessionReviewController?
     var successHandler:(()->())?
-
+    var totalDurationOfEvent:Int = 0
+    
+    var editedParam = [String:Any]()
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+    }
+    
+    func mergeEditedtoRealParam(){
+        
+        //Param meters edited in the editScheduleController is merging
+        
+        for (key,value) in editedParam{
+            self.param[key] = value
+        }
     }
     
     func fillInfo(){
         
         Log.echo(key: "yud", text: "param is \(param)")
+        
+        mergeEditedtoRealParam()
+        titleLbl?.text = param["title"] as? String
         
         if let duration = param["duration"] as? Int{
             
@@ -38,18 +53,22 @@ class SessionReviewRootView:ExtendedView{
         if self.controller?.selectedDurationType == SessionTimeDateRootView.DurationLength.thirtyMin{
             
             self.durationLbl?.text = "30 mins"
+            totalDurationOfEvent = 30
         }
         if self.controller?.selectedDurationType == SessionTimeDateRootView.DurationLength.oneHour{
            
             self.durationLbl?.text = "1 hour"
+            totalDurationOfEvent = 60
         }
         if self.controller?.selectedDurationType == SessionTimeDateRootView.DurationLength.twohour{
             
             self.durationLbl?.text = "2 hours"
+            totalDurationOfEvent = 120
         }
         if self.controller?.selectedDurationType == SessionTimeDateRootView.DurationLength.oneAndhour{
            
             self.durationLbl?.text = "1.3 hours"
+            totalDurationOfEvent = 90
         }
         if let price = param["price"] as? String{
             
@@ -122,6 +141,9 @@ class SessionReviewRootView:ExtendedView{
         
         self.controller?.showLoader()
         resetErrorlabel()
+        
+        Log.echo(key: "yud", text: "Param sending to web \(param)")
+        
       
         ScheduleSessionRequest().save(params: param) { (success, message, response) in
          

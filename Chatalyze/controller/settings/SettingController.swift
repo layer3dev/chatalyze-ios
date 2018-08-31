@@ -25,6 +25,8 @@ class SettingController : InterfaceExtendedController {
     @IBOutlet var scroll:UIScrollView?
     var delegate:getSettingScrollInstet?
     
+    @IBOutlet var ScheduleHeightPriority:NSLayoutConstraint?
+    
     @IBAction private func signoutAction(){
         
         RootControllerManager().signOut(completion: nil)
@@ -57,6 +59,19 @@ class SettingController : InterfaceExtendedController {
     }
     
     private func initializeInterface(){
+        
+        if let roleId = SignedUserInfo.sharedInstance?.role{
+            
+            if roleId == .analyst{
+              
+                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
+                
+            }else{
+             
+                ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
+            }
+            
+        }
         
         paintNavigationBar()
         //edgesForExtendedLayout = UIRectEdge()
@@ -104,65 +119,26 @@ class SettingController : InterfaceExtendedController {
             
             guard let controller = PaymentListingController.instance() else {
                 return
-            }
+            }            
             self.navigationController?.pushViewController(controller, animated: true)
         }
-        //        guard let controller = MyTicketsController.instance() else {
-        //            return
-        //        }
-        //        self.navigationController?.pushViewController(controller, animated: true)
-        
-        //        guard let controller = ReviewController.instance() else {
-        //            return
-        //        }
-        //        self.navigationController?.pushViewController(controller, animated: true)
-        
-        // guard let controller = PaymentSuccessController.instance() else {
-        //   return
-        //        }
-        //      self.navigationController?.pushViewController(controller, animated: true)
-        
-        //        guard let controller = SystemTestController.instance() else {
-        //            return
-        //        }
-        //        controller.modalPresentationStyle = UIModalPresentationStyle.currentContext
-        //        self.present(controller, animated: true) {
-        //        }
     }
+    
+    @IBAction func scheduleAction(sender:UIButton?){
+        
+        guard let controller = ScheduleSessionController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     
     @IBAction func aboutAction(sender:UIButton){
         
-        guard  let controller = EditScheduledSessionController.instance() else {
+        guard let controller = ContactUsController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
-        
-        
-        //guard let controller = ScheduleSessionController.instance() else{
-          //  return
-        //}
-        //self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = SessionDoneController.instance() else{
-//            return
-//        }
-//
-//        self.navigationController?.pushViewController(controller, animated:true)
-
-    
-//        guard let controller = SessionTimeDateController.instance() else{
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
-
- 
- /*
-
-        guard let controller = ContactUsController.instance() else{
-           return
-        }
-        self.navigationController?.pushViewController(controller, animated: true)*/
     }
 }
 

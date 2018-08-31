@@ -38,7 +38,11 @@ class ScheduleSessionPageViewController: UIPageViewController {
         //Do any additional setup after loading the view.
     }
     
+    
+    
     func initializeVariable(){
+        
+    
         
         timeDateController?.rootView?.successHandler = {
 
@@ -162,3 +166,5 @@ extension ScheduleSessionPageViewController:SessionDoneControllerProtocol{
         self.sessionPageDelegate?.backToMyAccount()
     }
 }
+
+
