@@ -132,10 +132,17 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-        guard let controller = ScheduleSessionController.instance() else{
+        guard  let controller = EditScheduledSessionController.instance() else {
             return
         }
+        
         self.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        //guard let controller = ScheduleSessionController.instance() else{
+          //  return
+        //}
+        //self.navigationController?.pushViewController(controller, animated: true)
         
 //        guard let controller = SessionDoneController.instance() else{
 //            return
