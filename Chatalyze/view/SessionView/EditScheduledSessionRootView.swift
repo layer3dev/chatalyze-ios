@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import QuartzCore
 
 class EditScheduledSessionRootView:ExtendedView{
+    
+    let imagePicker = UIImagePickerController()
     
     var controller:EditScheduledSessionController?
     
@@ -56,10 +59,18 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var contentBottomOffsetConstraints:NSLayoutConstraint?
     
     var delegate:UpdateForEditScheduleSessionDelgete?
-    
     var totalTimeDuration = 0
-    
     var editedParam = [String:Any]()
+    
+    @IBOutlet var imageUploadingView:UIView?
+    @IBOutlet var uploadedImage:UIImageView?
+    
+   
+    @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
+    @IBOutlet var heightOfuploadedImageConstraint:NSLayoutConstraint?
+    
+    @IBOutlet var editImageLbl:UILabel?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -68,7 +79,27 @@ class EditScheduledSessionRootView:ExtendedView{
         paintInerface()
     }
     
+
+    
+    func paintImageUploadBorder(){
+        
+//        imageUploadingView?.layer.borderWidth = 2.0
+//        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
+        
+        let yourViewBorder = CAShapeLayer()
+        yourViewBorder.strokeColor = UIColor(hexString: "#27B879").cgColor
+        yourViewBorder.lineDashPattern = [8, 4]
+        yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
+        yourViewBorder.fillColor = nil
+        yourViewBorder.path = UIBezierPath(rect: (imageUploadingView?.bounds) ?? CGRect.zero).cgPath
+        
+        imageUploadingView?.layer.addSublayer(yourViewBorder)
+    }
+    
+    
     func paintInerface(){
+    
+        //paintImageUploadBorder()
         
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
@@ -153,8 +184,7 @@ class EditScheduledSessionRootView:ExtendedView{
                 self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
                 
                 eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
-                
-                
+            
                 
                // 3-minute video chats available from 07:00 - 07:30 PM IST
             }
@@ -175,13 +205,31 @@ class EditScheduledSessionRootView:ExtendedView{
             descriptionTextView?.text = param["description"] as? String
         }
         
-        
-        
 //        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd"){
 //
 //            self.eventDetailInfo?.text = "\(self.eventDetailInfo?.text ?? "") \(startTime)! Here's how:"
 //        }
     }
+    
+    @IBAction func uploadImage(sender:UIButton?){
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        imagePicker.modalPresentationStyle = .popover
+        self.controller?.present(imagePicker, animated: true, completion: nil)
+        //imagePicker.popoverPresentationController?. = sender
+        
+        heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+        heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+    }
+    
+    @objc func changeImage(sender:UIButton?){
+        
+        heightOfUploadImageConstraint?.priority = UILayoutPriority(250.0)
+        heightOfuploadedImageConstraint?.priority = UILayoutPriority(999.0)
+    }
+    
     
     @IBAction func saveTitleAction(sender:UIButton?){
         
@@ -229,6 +277,11 @@ class EditScheduledSessionRootView:ExtendedView{
         self.descriptionBackLbl?.isEnabled = true
         descriptionBackLbl?.addGestureRecognizer(tapGestureOnDisbleEditDescription)
         
+        
+        let tapGestureEditImage = UITapGestureRecognizer(target: self, action: #selector(self.changeImage(sender:)))
+        self.editImageLbl?.isUserInteractionEnabled = true
+        self.editImageLbl?.isEnabled = true
+        editImageLbl?.addGestureRecognizer(tapGestureEditImage)
     }
     
     func hideNamePriceInfoView(){
@@ -313,5 +366,9 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
         scrollView?.activeField = descriptionTextView
         return true
     }
+    
+}
+
+extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
 }
