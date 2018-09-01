@@ -14,7 +14,6 @@ class SubmitScreenshot{
     
     public func submitScreenshot(params : [String : Any], completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
         
-
         let url = AppConnectionConfig.webServiceURL + "/screenshots"
         
         ServerProcessor().request(.post, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in

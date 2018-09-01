@@ -401,6 +401,7 @@ class UserCallController: VideoCallController {
                 return
         }
         if(slot.isLIVE){
+         
             self.connection?.linkCall()
         }
     }
@@ -433,7 +434,6 @@ class UserCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "I AM VERIFYING")
         
-        
         for screenshotInfo in screenshotInfos {
             
             if(screenshotInfo.requestedAutograph ?? false){
@@ -441,6 +441,7 @@ class UserCallController: VideoCallController {
                 slotInfo.isAutographRequested = true
             }
             if(!(screenshotInfo.defaultImage ?? true)){
+                
                 slotInfo.isScreenshotSaved = true
             }
         }

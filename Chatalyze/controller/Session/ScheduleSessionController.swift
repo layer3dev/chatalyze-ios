@@ -86,9 +86,7 @@ class ScheduleSessionController: InterfaceExtendedController {
         setReviewLaunchGesture.delegate = self
         reviewLbl?.addGestureRecognizer(setReviewLaunchGesture)
         reviewImg?.addGestureRecognizer(setReviewLaunchGesture)
-        
     }
-    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
@@ -96,8 +94,9 @@ class ScheduleSessionController: InterfaceExtendedController {
         if segueIdentifier == "session"{
             
             pageViewController = segue.destination as? ScheduleSessionPageViewController
-           // pageViewController?.accountDelegate = self
-           // pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
+           
+            //pageViewController?.accountDelegate = self
+            //pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
         }
     }
     
@@ -151,7 +150,6 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    
     func updateTimeDateTabUI(){
         
         //self.view.layoutIfNeeded()
@@ -161,6 +159,8 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
             self.view.layoutIfNeeded()
         }){ (success) in
             
+            self.chatImg?.image = UIImage(named: "whiteCircle")
+            self.reviewImg?.image = UIImage(named: "whiteCircle")
         }
     }
     func updateChatTabUI(){
@@ -172,7 +172,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
             self.chatImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
-            
+            self.reviewImg?.image = UIImage(named: "whiteCircle")
         }
     }
     func updateReviewTabUI(){
@@ -180,10 +180,10 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         UIView.animate(withDuration: 1, animations: {
             
             self.progressBar?.progress = 0.66
+            self.chatImg?.image = UIImage(named: "circle")
             self.reviewImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
-            
         }
     }
     

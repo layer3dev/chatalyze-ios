@@ -50,7 +50,6 @@ class SessionTimeDateRootView:ExtendedView{
     }
     
     
-    
     @IBAction func pickerDoneAction(sender:UIButton?){
         
         if isPickerHidden == false {
@@ -74,10 +73,10 @@ class SessionTimeDateRootView:ExtendedView{
         
         selectedPickerType = .date
         timePicker?.datePickerMode = .date
+        timePicker?.minimumDate = Date()
         dateField?.textField?.text = selectedTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
-        
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -93,6 +92,7 @@ class SessionTimeDateRootView:ExtendedView{
         
         selectedPickerType = .time
         timePicker?.datePickerMode = .time
+        timePicker?.minimumDate = nil
         startTimeField?.textField?.text = startTime
         isPickerHidden = false
         pickerContainer?.isHidden = false

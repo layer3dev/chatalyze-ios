@@ -61,6 +61,13 @@
 		475B111F210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B111E210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift */; };
 		475B1121210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1120210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift */; };
 		475E0E74212DBA24009BAA04 /* SessionDoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E0E73212DBA24009BAA04 /* SessionDoneController.swift */; };
+		47614F72213A919C00CC9702 /* SessionRequestWithImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F71213A919C00CC9702 /* SessionRequestWithImageProcessor.swift */; };
+		47614F74213AB47E00CC9702 /* MySessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47614F73213AB47E00CC9702 /* MySessions.storyboard */; };
+		47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F76213AB9B500CC9702 /* MyScheduledSessionsController.swift */; };
+		47614F7A213ABAA100CC9702 /* MySessionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F79213ABAA100CC9702 /* MySessionAdapter.swift */; };
+		47614F7D213ABBAB00CC9702 /* MySessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F7C213ABBAB00CC9702 /* MySessionRootView.swift */; };
+		47614F81213ABE4A00CC9702 /* MySessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F80213ABE4A00CC9702 /* MySessionTableViewCell.swift */; };
+		47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F83213ABFC000CC9702 /* MySessionsInfo.swift */; };
 		478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */; };
 		47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */; };
 		47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF22109E8A600F41630 /* AccountHostController.swift */; };
@@ -453,6 +460,13 @@
 		475B111E210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSetupPaypalRootView.swift; sourceTree = "<group>"; };
 		475B1120210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitPaypalEmailProcessor.swift; sourceTree = "<group>"; };
 		475E0E73212DBA24009BAA04 /* SessionDoneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneController.swift; sourceTree = "<group>"; };
+		47614F71213A919C00CC9702 /* SessionRequestWithImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRequestWithImageProcessor.swift; sourceTree = "<group>"; };
+		47614F73213AB47E00CC9702 /* MySessions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MySessions.storyboard; sourceTree = "<group>"; };
+		47614F76213AB9B500CC9702 /* MyScheduledSessionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScheduledSessionsController.swift; sourceTree = "<group>"; };
+		47614F79213ABAA100CC9702 /* MySessionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionAdapter.swift; sourceTree = "<group>"; };
+		47614F7C213ABBAB00CC9702 /* MySessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionRootView.swift; sourceTree = "<group>"; };
+		47614F80213ABE4A00CC9702 /* MySessionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionTableViewCell.swift; sourceTree = "<group>"; };
+		47614F83213ABFC000CC9702 /* MySessionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionsInfo.swift; sourceTree = "<group>"; };
 		4780A5B620F8E852001C68AB /* CountryPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
 		478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSavedCardDetails.swift; sourceTree = "<group>"; };
 		478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = FacebookShare.framework.dSYM; path = Carthage/Build/iOS/FacebookShare.framework.dSYM; sourceTree = "<group>"; };
@@ -993,6 +1007,7 @@
 			isa = PBXGroup;
 			children = (
 				4730C76321304B49002EFAC9 /* ScheduleSessionRequest.swift */,
+				47614F71213A919C00CC9702 /* SessionRequestWithImageProcessor.swift */,
 			);
 			path = SessionRequest;
 			sourceTree = "<group>";
@@ -1541,6 +1556,46 @@
 			path = PaymentSetupPaypal;
 			sourceTree = "<group>";
 		};
+		47614F75213AB99600CC9702 /* MySession */ = {
+			isa = PBXGroup;
+			children = (
+				47614F76213AB9B500CC9702 /* MyScheduledSessionsController.swift */,
+			);
+			path = MySession;
+			sourceTree = "<group>";
+		};
+		47614F78213ABA8A00CC9702 /* MySessionAdaptor */ = {
+			isa = PBXGroup;
+			children = (
+				47614F79213ABAA100CC9702 /* MySessionAdapter.swift */,
+			);
+			path = MySessionAdaptor;
+			sourceTree = "<group>";
+		};
+		47614F7B213ABB9800CC9702 /* MySessionView */ = {
+			isa = PBXGroup;
+			children = (
+				47614F7C213ABBAB00CC9702 /* MySessionRootView.swift */,
+			);
+			path = MySessionView;
+			sourceTree = "<group>";
+		};
+		47614F7F213ABE2D00CC9702 /* MySession */ = {
+			isa = PBXGroup;
+			children = (
+				47614F80213ABE4A00CC9702 /* MySessionTableViewCell.swift */,
+			);
+			path = MySession;
+			sourceTree = "<group>";
+		};
+		47614F82213ABFAE00CC9702 /* MySessionInfo */ = {
+			isa = PBXGroup;
+			children = (
+				47614F83213ABFC000CC9702 /* MySessionsInfo.swift */,
+			);
+			path = MySessionInfo;
+			sourceTree = "<group>";
+		};
 		47931AEE2109E0CF00F41630 /* AccountHostPageController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1995,6 +2050,7 @@
 				471C233020B6BD7D0040C2A8 /* MyTickets */,
 				47AACA4120C1717C000F8D7A /* CardInfo */,
 				4718425720C5386B00C6FFD5 /* PaymentSuccessInfo */,
+				47614F82213ABFAE00CC9702 /* MySessionInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2398,6 +2454,7 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				47614F7B213ABB9800CC9702 /* MySessionView */,
 				47B4F4AF211C59BC00299686 /* SessionView */,
 				47B6523A20AAAFA30041496C /* container */,
 				FA3FAA092076044B00CC4AF8 /* autograph */,
@@ -2468,6 +2525,7 @@
 				47AD143420ADAED1006AF9D6 /* Account.storyboard */,
 				470A3ACF2111BA3300988F1D /* ContactUs.storyboard */,
 				47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */,
+				47614F73213AB47E00CC9702 /* MySessions.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -2475,6 +2533,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				47614F75213AB99600CC9702 /* MySession */,
 				47B4F4AC211C58ED00299686 /* Session */,
 				FADC84EA2074ED8F00AD9D65 /* autograph */,
 				FAFB7C82206E6E23004804D2 /* call_queue */,
@@ -2843,6 +2902,7 @@
 				473E3B77211B207B00DC60BC /* Greeting */,
 				473E3B76211B206C00DC60BC /* EventCell */,
 				473E3B78211B20A000DC60BC /* Account */,
+				47614F7F213ABE2D00CC9702 /* MySession */,
 				FAFB7C72206E027D004804D2 /* call_queue */,
 			);
 			path = cell;
@@ -2865,6 +2925,7 @@
 				473E3B5A211B1CA300DC60BC /* MemoriesAdapter */,
 				473E3B5B211B1CB700DC60BC /* TicketsAdapter */,
 				FAFB7C7D206E6B84004804D2 /* event_queue_adapter */,
+				47614F78213ABA8A00CC9702 /* MySessionAdaptor */,
 			);
 			path = adapter;
 			sourceTree = "<group>";
@@ -3098,6 +3159,7 @@
 				FA74B1552063A52800983141 /* no_event.xib in Resources */,
 				470A3AD02111BA3300988F1D /* ContactUs.storyboard in Resources */,
 				FAE865C62068C620006F06B3 /* call.xcassets in Resources */,
+				47614F74213AB47E00CC9702 /* MySessions.storyboard in Resources */,
 				47AD143520ADAED1006AF9D6 /* Account.storyboard in Resources */,
 				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
 				FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */,
@@ -3238,6 +3300,7 @@
 				FA1B36452064E70D00F2E6BC /* WaitCountdownView.swift in Sources */,
 				475B111A210B2C9C00DADD39 /* PaymentSetupPaypalController.swift in Sources */,
 				47B6526420AAB4080041496C /* NotificationRoundView.swift in Sources */,
+				47614F81213ABE4A00CC9702 /* MySessionTableViewCell.swift in Sources */,
 				47AD143B20ADAF70006AF9D6 /* AccountRootView.swift in Sources */,
 				472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
@@ -3313,6 +3376,7 @@
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
 				FAA001D1203EE2BC003C8A74 /* DevFlag.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
+				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
 				FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */,
 				FAA0019A203ED472003C8A74 /* DateParser.swift in Sources */,
 				FA3B46A621104D19007EA72D /* EventValidator.swift in Sources */,
@@ -3321,12 +3385,14 @@
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
 				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
 				47B6525020AAB0170041496C /* GreetingController.swift in Sources */,
+				47614F72213A919C00CC9702 /* SessionRequestWithImageProcessor.swift in Sources */,
 				FADC84E22074E16B00AD9D65 /* LoaderView.swift in Sources */,
 				471C233620B701AB0040C2A8 /* ReviewController.swift in Sources */,
 				475E0E74212DBA24009BAA04 /* SessionDoneController.swift in Sources */,
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				47B6522C20AAAF710041496C /* GreetingInfoRootView.swift in Sources */,
+				47614F7D213ABBAB00CC9702 /* MySessionRootView.swift in Sources */,
 				47AD144420ADB3EA006AF9D6 /* PaymentListRootView.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
 				FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */,
@@ -3437,6 +3503,7 @@
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
+				47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */,
 				FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */,
 				FAA0019F203ED472003C8A74 /* Dictionary.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
@@ -3514,6 +3581,7 @@
 				FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */,
 				FA79F106210A042600D16F13 /* VideoActionView.swift in Sources */,
 				FA74B14720639C7300983141 /* SRWebSocket.m in Sources */,
+				47614F7A213ABAA100CC9702 /* MySessionAdapter.swift in Sources */,
 				47B6523920AAAF960041496C /* SignupRootView.swift in Sources */,
 				FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */,
 				FA72A0B22085F7CF00C3C7AE /* TimerSync.swift in Sources */,

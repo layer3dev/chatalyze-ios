@@ -71,6 +71,7 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBOutlet var editImageLbl:UILabel?
     
+    var selectedImage:UIImage?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -79,9 +80,9 @@ class EditScheduledSessionRootView:ExtendedView{
         paintInerface()
     }
     
-
-    
     func paintImageUploadBorder(){
+        
+        imagePicker.delegate = self
         
 //        imageUploadingView?.layer.borderWidth = 2.0
 //        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
@@ -101,11 +102,13 @@ class EditScheduledSessionRootView:ExtendedView{
     
         //paintImageUploadBorder()
         
+        imagePicker.navigationBar.barTintColor = UIColor.black
+        
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
     }
     
-    func fillInfo(info:[String:Any]?,totalDurationofEvent:Int){
+    func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
         
         Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
         
@@ -115,6 +118,13 @@ class EditScheduledSessionRootView:ExtendedView{
         
         self.param = info
         self.totalTimeDuration = totalDurationofEvent
+        self.selectedImage = selectedImage
+        if selectedImage != nil{
+            
+            uploadedImage?.image = selectedImage
+            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        }
         
         
         if let userInfo = SignedUserInfo.sharedInstance{
@@ -137,16 +147,7 @@ class EditScheduledSessionRootView:ExtendedView{
             Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
             eventNameLbl?.attributedText = requiredStr
         }
-       
         
-        //eventImage?.image = UIImage(named: "chatalyze_logo")
-        
-        //        if let url = URL(string: info.eventBannerUrl ?? ""){
-        //            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
-        //            }) { (image, data, error, chache, status, url) in
-        //                self.eventImage?.image = image
-        //            }
-        //        }
         if let price = info["price"]{
             
             costofEventLbl?.isHidden = false
@@ -164,16 +165,10 @@ class EditScheduledSessionRootView:ExtendedView{
             costofEventLbl?.attributedText = requiredStr
         }
         
-        //        else{
-        //            Log.echo(key: "yud", text: "price is requiered String false")
-        //            costofEventLbl?.isHidden = true
-        //        }
-        
         if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){
             
             self.dateTimeLbl?.text = startTime
         }
-        
         
         if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "hh:mm"){
             
@@ -184,7 +179,6 @@ class EditScheduledSessionRootView:ExtendedView{
                 self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
                 
                 eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
-            
                 
                // 3-minute video chats available from 07:00 - 07:30 PM IST
             }
@@ -217,15 +211,20 @@ class EditScheduledSessionRootView:ExtendedView{
         imagePicker.sourceType = .photoLibrary
         imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         imagePicker.modalPresentationStyle = .popover
-        self.controller?.present(imagePicker, animated: true, completion: nil)
-        //imagePicker.popoverPresentationController?. = sender
         
-        heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
-        heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        self.controller?.present(imagePicker, animated: true, completion: {
+            
+            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        })
+        //imagePicker.popoverPresentationController?. = sender
     }
     
     @objc func changeImage(sender:UIButton?){
-        
+       
+        delegate?.selectedImage(image:nil)
+        uploadedImage?.image = UIImage(named:"base")
+        selectedImage = nil
         heightOfUploadImageConstraint?.priority = UILayoutPriority(250.0)
         heightOfuploadedImageConstraint?.priority = UILayoutPriority(999.0)
     }
@@ -235,7 +234,7 @@ class EditScheduledSessionRootView:ExtendedView{
         
         self.param["title"] = sessionNameField?.textField?.text
         self.editedParam["title"] = sessionNameField?.textField?.text
-        self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration)
+        self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
         delegate?.updatedEditedParams(info:self.editedParam)
         hideNamePriceEditInfoView()
         showNamePriceInfoView()
@@ -245,7 +244,7 @@ class EditScheduledSessionRootView:ExtendedView{
         
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
-        self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration)
+        self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
         delegate?.updatedEditedParams(info:self.editedParam)
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
@@ -363,6 +362,7 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        
         scrollView?.activeField = descriptionTextView
         return true
     }
@@ -371,4 +371,21 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
 
 extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            uploadedImage?.contentMode = .scaleAspectFit
+            uploadedImage?.image = chosenImage
+            selectedImage = chosenImage
+            delegate?.selectedImage(image:selectedImage)
+            self.controller?.dismiss(animated:true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.controller?.dismiss(animated: true, completion: {
+        })
+    }
 }

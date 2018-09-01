@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class SessionReviewRootView:ExtendedView{
+    
     
     @IBOutlet var titleLbl:UILabel?
     @IBOutlet var dateLbl:UILabel?
@@ -19,12 +21,13 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var isSelfieLbl:UILabel?
     @IBOutlet var errorLabel:UILabel?
     
+    
     var param = [String:Any]()
     var controller:SessionReviewController?
     var successHandler:(()->())?
     var totalDurationOfEvent:Int = 0
-    
     var editedParam = [String:Any]()
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -122,10 +125,60 @@ class SessionReviewRootView:ExtendedView{
     
     @IBAction func scheduleAction(sender:UIButton?){
         
-        Log.echo(key: "yud", text: "The parameteres that I am sending is \(param)")
+        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(param)")
+        
+        if controller?.selectedImage != nil{
+            scheduleActionWithImage()
+            return
+        }
         
         scheduleAction()
     }
+    
+    
+    private func uploadImage(completion : ((_ success : Bool, _ info : JSON?)->())?){
+        
+        guard let image = self.controller?.selectedImage else{
+            return
+        }
+        guard let data = UIImageJPEGRepresentation(image, 1.0)
+            else{
+                completion?(false, nil)
+                return
+        }
+        
+        self.param["eventBannerInfo"] = true
+        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(param)")
+        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        self.param["eventBanner"] = imageBase64
+        self.controller?.showLoader()
+        resetErrorlabel()
+        SessionRequestWithImageProcessor().schedule(params: param) { [weak self] (success, info) in
+            
+            self?.controller?.stopLoader()
+            completion!(success,info)
+            if !success{
+                return
+            }
+        }
+    }
+    
+    func scheduleActionWithImage(){
+        
+        uploadImage { (success, reposnse) in
+            
+            if !success{
+                return
+            }
+            
+            Log.echo(key: "imageUploading", text: "Image uploading result is \(success) and the response is \(self.param)")
+            
+            if let handler = self.successHandler{
+                handler()
+            }
+        }
+    }
+    
     
     func resetErrorlabel(){
         
@@ -139,12 +192,10 @@ class SessionReviewRootView:ExtendedView{
     
     func scheduleAction(){
         
+        self.param["eventBannerInfo"] = false
         self.controller?.showLoader()
         resetErrorlabel()
-        
         Log.echo(key: "yud", text: "Param sending to web \(param)")
-        
-      
         ScheduleSessionRequest().save(params: param) { (success, message, response) in
          
             self.controller?.stopLoader()
@@ -164,7 +215,6 @@ class SessionReviewRootView:ExtendedView{
 //            self.controller?.navigationController?.pushViewController(controller, animated:true)
         }
         
-   
     }
     
     func passInfoToDoneController(controller:SessionDoneController?){

@@ -11,4 +11,5 @@ import Foundation
 protocol UpdateForEditScheduleSessionDelgete {
     
     func updatedEditedParams(info:[String:Any])
+    func selectedImage(image:UIImage?)
 }

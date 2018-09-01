@@ -29,9 +29,9 @@ class EditScheduledSessionController: InterfaceExtendedController {
         paintBackButton()
     }
  
-    func fillInfo(param:[String:Any],totalDurationofEvent:Int){
+    func fillInfo(param:[String:Any],totalDurationofEvent:Int,selectedImage:UIImage?){
         
-        rootView?.fillInfo(info: param,totalDurationofEvent:totalDurationofEvent)
+        rootView?.fillInfo(info: param,totalDurationofEvent:totalDurationofEvent,selectedImage:selectedImage)
     }
     
     var rootView:EditScheduledSessionRootView?{

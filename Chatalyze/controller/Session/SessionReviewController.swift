@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class SessionReviewController: InterfaceExtendedController {
 
@@ -14,6 +15,7 @@ class SessionReviewController: InterfaceExtendedController {
     var selectedDurationType:SessionTimeDateRootView.DurationLength? = SessionTimeDateRootView.DurationLength.none
     var delegate:UpdateForEditScheduleSessionDelgete?
     var editedParam = [String:Any]()
+    var selectedImage:UIImage? = nil
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -60,7 +62,7 @@ class SessionReviewController: InterfaceExtendedController {
         }
         //Merging are doing in  order to get the updated param
         mergeEditedtoRealParam()
-        controller.fillInfo(param:self.param,totalDurationofEvent:(rootView?.totalDurationOfEvent) ?? 0)
+        controller.fillInfo(param:self.param,totalDurationofEvent:(rootView?.totalDurationOfEvent) ?? 0,selectedImage:selectedImage)
         
         controller.rootView?.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
@@ -103,10 +105,27 @@ extension SessionReviewController{
 
 extension SessionReviewController:UpdateForEditScheduleSessionDelgete{
     
+    func selectedImage(image: UIImage?) {
+        
+        selectedImage = image
+//        eventBanner
+//        :
+//        "data:image/png;base64/
+//        eventBannerInfo
+//        :
+//        true
+    }
+    
+    
     func updatedEditedParams(info: [String : Any]) {
         
         editedParam = info
         mergeEditedtoRealParam()
         updateRootInfo()
     }
+}
+
+
+extension SessionReviewController{
+    
 }

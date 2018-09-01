@@ -26,6 +26,8 @@ class SettingController : InterfaceExtendedController {
     var delegate:getSettingScrollInstet?
     
     @IBOutlet var ScheduleHeightPriority:NSLayoutConstraint?
+    @IBOutlet var MySessionHeightConstraint:NSLayoutConstraint?
+    
     
     @IBAction private func signoutAction(){
         
@@ -65,12 +67,13 @@ class SettingController : InterfaceExtendedController {
             if roleId == .analyst{
               
                 ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
-                
+                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
+      
             }else{
-             
+                
                 ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
+                MySessionHeightConstraint?.priority = UILayoutPriority(999.0)
             }
-            
         }
         
         paintNavigationBar()
@@ -132,6 +135,14 @@ class SettingController : InterfaceExtendedController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @IBAction func myScheduleSessions(sender:UIButton?){
+        
+        guard let controller = MyScheduledSessionsController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     
     @IBAction func aboutAction(sender:UIButton){
         
@@ -163,4 +174,6 @@ extension SettingController:UIScrollViewDelegate{
         }
     }
 }
+
+
 
