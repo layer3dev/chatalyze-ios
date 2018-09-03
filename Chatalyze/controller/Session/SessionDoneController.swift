@@ -12,6 +12,7 @@ class SessionDoneController: InterfaceExtendedController {
 
     var delegate:SessionDoneControllerProtocol?
     var param = [String:Any]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
      

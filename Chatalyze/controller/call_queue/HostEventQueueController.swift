@@ -14,7 +14,7 @@ class HostEventQueueController: EventQueueController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+
         eventScheduleUpdatedAlert()
     }
     
@@ -61,6 +61,7 @@ class HostEventQueueController: EventQueueController {
                 else{
                     return
             }
+            
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
             
@@ -73,6 +74,7 @@ class HostEventQueueController: EventQueueController {
     }
     
     override func verifyEventActivated(){
+      
         guard let eventInfo = self.eventInfo
             else{
                 return

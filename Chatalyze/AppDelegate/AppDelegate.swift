@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import UserNotifications
 //import Stripe
 //import TwitterKit
 
@@ -24,8 +25,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
         initialization()
         test()
+        registerForPushNotifications()
         return true
     }
+    
+    
+    func registerForPushNotifications() {
+        
+        if #available(iOS 10.0, *) {
+            
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+             
+                guard granted else{
+                    return
+                }
+                self.getNotificationSettings()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+    }
+
+    
+    func getNotificationSettings() {
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                print("Notification settings: \(settings)")
+                guard settings.authorizationStatus == .authorized else { return }
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    
     
     fileprivate func test(){
         

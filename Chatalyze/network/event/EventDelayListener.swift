@@ -67,7 +67,7 @@ class EventDelayListener{
                 return
         }
         
-        Log.echo(key: "notification", text: "meta is  ==>\(activityType)")
+        Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
         if (activityType != .eventDelay){
             return

@@ -10,18 +10,21 @@
 class MySessionRootView:ExtendedView{
     
     let adapter = MySessionAdapter()
+    var controller:MyScheduledSessionsController?
     
     override func viewDidLayout(){
         super.viewDidLayout()
     }
     
     func initializeAdapter(table:UITableView?){
-        adapter
+        adapter.initializeAdapter(table: table)
     }
     
-    func updateAdapter(info:[MySessionsInfo]?){
+    func fillInfo(info: [EventInfo]?){
         
+        guard let info = info else{
+            return
+        }
+        adapter.updatedInfo(info:info)
     }
-    
-
 }

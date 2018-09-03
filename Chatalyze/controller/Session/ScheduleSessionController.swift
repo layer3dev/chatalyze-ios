@@ -25,8 +25,8 @@ class ScheduleSessionController: InterfaceExtendedController {
     @IBOutlet var progressBar: UIProgressView?
     
     @IBOutlet var doneImg:UIImageView?
-
     
+    var delegate:ScheduleSessionDelegate?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -148,6 +148,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
    
     func backToMyAccount() {
         self.navigationController?.popToRootViewController(animated: true)
+        delegate?.navigateToMySession()
     }
     
     func updateTimeDateTabUI(){
@@ -207,3 +208,4 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         updateDoneTabUI()
     }
 }
+

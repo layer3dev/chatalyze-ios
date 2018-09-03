@@ -42,14 +42,14 @@ class UpdateEventListener{
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
+        Log.echo(key: "yud", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
         
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
+        Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -68,9 +68,10 @@ class UpdateEventListener{
                 return
         }
         
-        Log.echo(key: "notification", text: "meta is  ==>\(activityType)")
+        Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
         if !(activityType == .schedule_updated || activityType == .updatedCallSchedule){
+            
             return
         }
         

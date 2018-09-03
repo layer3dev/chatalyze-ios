@@ -43,7 +43,20 @@ class EventQueueController: InterfaceExtendedController {
         registerForEvent()
         registerForTimer()
         loadInfoFromServer(showLoader : true)
+        listenOnSocketConnect()
     }
+    func listenOnSocketConnect(){
+        
+        UserSocket.sharedInstance?.socket?.on("connect") {data, ack in
+            
+            Log.echo(key: "yud", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
+            DispatchQueue.main.async {
+                
+                self.loadInfoFromServer(showLoader : true)
+            }
+        }
+    }
+    
     
     func loadInfoFromServer(showLoader : Bool){
       

@@ -14,6 +14,8 @@
 		470A3ACE2111B99A00988F1D /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A3ACD2111B99A00988F1D /* ContactUsController.swift */; };
 		470A3AD02111BA3300988F1D /* ContactUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 470A3ACF2111BA3300988F1D /* ContactUs.storyboard */; };
 		470A3AD22111E35B00988F1D /* submitContactUsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */; };
+		47117478213D087B00253AB8 /* FetchMySessionsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47117477213D087B00253AB8 /* FetchMySessionsProcessor.swift */; };
+		4711747A213D30A000253AB8 /* ScheduleSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47117479213D30A000253AB8 /* ScheduleSessionDelegate.swift */; };
 		4713662421084FEA00B945BB /* EventLandingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713662321084FEA00B945BB /* EventLandingRootView.swift */; };
 		471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */; };
 		4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */; };
@@ -417,6 +419,9 @@
 		470A3ACD2111B99A00988F1D /* ContactUsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsController.swift; sourceTree = "<group>"; };
 		470A3ACF2111BA3300988F1D /* ContactUs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContactUs.storyboard; sourceTree = "<group>"; };
 		470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = submitContactUsRequest.swift; sourceTree = "<group>"; };
+		47117477213D087B00253AB8 /* FetchMySessionsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMySessionsProcessor.swift; sourceTree = "<group>"; };
+		47117479213D30A000253AB8 /* ScheduleSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionDelegate.swift; sourceTree = "<group>"; };
+		4711747B213D480D00253AB8 /* Chatalyze.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chatalyze.entitlements; sourceTree = "<group>"; };
 		4713662321084FEA00B945BB /* EventLandingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLandingRootView.swift; sourceTree = "<group>"; };
 		471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRequestForNextEventNotification.swift; sourceTree = "<group>"; };
 		4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessDelegate.swift; sourceTree = "<group>"; };
@@ -1008,6 +1013,7 @@
 			children = (
 				4730C76321304B49002EFAC9 /* ScheduleSessionRequest.swift */,
 				47614F71213A919C00CC9702 /* SessionRequestWithImageProcessor.swift */,
+				47117477213D087B00253AB8 /* FetchMySessionsProcessor.swift */,
 			);
 			path = SessionRequest;
 			sourceTree = "<group>";
@@ -2884,6 +2890,7 @@
 				6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */,
 				4702A3FE2136BE820046EA21 /* ScheduleSessionPageInterface.swift */,
 				47F9514521395E750024F3A2 /* UpdateForEditScheduleSessionDelgete.swift */,
+				47117479213D30A000253AB8 /* ScheduleSessionDelegate.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2974,6 +2981,7 @@
 		FAFFFE96203D9C80009B4F96 /* Chatalyze */ = {
 			isa = PBXGroup;
 			children = (
+				4711747B213D480D00253AB8 /* Chatalyze.entitlements */,
 				473E3B3D211B13DC00DC60BC /* AppDelegate */,
 				FAFFFE99203D9C80009B4F96 /* ViewController.swift */,
 				47E2336621060C9300468412 /* countDown_original.mp3 */,
@@ -3096,6 +3104,11 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					FAFFFEA7203D9C80009B4F96 = {
 						CreatedOnToolsVersion = 9.2;
@@ -3342,6 +3355,7 @@
 				473566BF2107217700F62C97 /* EventSoldOutController.swift in Sources */,
 				47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
+				4711747A213D30A000253AB8 /* ScheduleSessionDelegate.swift in Sources */,
 				FAE9EF71206CD07700C45F8D /* CallConnection.swift in Sources */,
 				472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */,
 				472780EB20B02E0100D5AA1E /* MemoriesInfo.swift in Sources */,
@@ -3354,6 +3368,7 @@
 				FA79F103210A039600D16F13 /* HostVideoActionContainer.swift in Sources */,
 				47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */,
 				FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */,
+				47117478213D087B00253AB8 /* FetchMySessionsProcessor.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				47B226A420AAF461001DD204 /* GreetingBookingProcessor.swift in Sources */,
 				FAFB7C80206E6B84004804D2 /* EventQueueFlowLayout.swift in Sources */,
@@ -3794,6 +3809,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
@@ -3804,7 +3820,7 @@
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
@@ -3825,6 +3841,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
@@ -3835,7 +3852,7 @@
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;

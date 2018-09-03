@@ -36,14 +36,12 @@ class SettingController : InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Do any additional setup after loading the view.
         initialization()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         //Dispose of any resources that can be recreated.
     }
     
@@ -92,6 +90,7 @@ class SettingController : InterfaceExtendedController {
         guard let roleType = SignedUserInfo.sharedInstance?.role else {
             return
         }
+        
         if roleType == .analyst{
             
             guard let controller = EditProfileHostController.instance() else {
@@ -132,7 +131,10 @@ class SettingController : InterfaceExtendedController {
         guard let controller = ScheduleSessionController.instance() else{
             return
         }
+        controller.delegate = self
+        
         self.navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     @IBAction func myScheduleSessions(sender:UIButton?){
@@ -176,4 +178,14 @@ extension SettingController:UIScrollViewDelegate{
 }
 
 
+extension SettingController:ScheduleSessionDelegate{
+    
+    func navigateToMySession(){
+        
+        guard let controller = MyScheduledSessionsController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
 

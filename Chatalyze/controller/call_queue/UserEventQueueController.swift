@@ -109,7 +109,6 @@ class UserEventQueueController: EventQueueController {
         }
         
         
-        
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
             
             showAlertMessage()
@@ -150,6 +149,7 @@ class UserEventQueueController: EventQueueController {
             timer.pauseTimer()
             
             self.navigationController?.present(controller, animated: true, completion: {
+                
                 self.navigationController?.popViewController(animated: false)
             })
         }
