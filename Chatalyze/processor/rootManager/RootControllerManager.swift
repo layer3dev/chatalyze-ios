@@ -11,21 +11,22 @@ import UIKit
 
 class RootControllerManager{
     
-    func setRoot(){
+    func setRoot(didLoadWindow:(()->())?){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         _ = appDelegate?.window
         delayLaunchScreen {
-            self.showRelevantScreen()
+            self.showRelevantScreen(didLoadWindow: didLoadWindow)
         }
     }
     
     func updateRoot(){
         
-        self.showRelevantScreen()
+        self.showRelevantScreen {
+        }
     }
     
-    private func showRelevantScreen(){
+    private func showRelevantScreen(didLoadWindow:(()->())?){
         
         updateNavigationBar()
         let userInfo = SignedUserInfo.sharedInstance
@@ -33,7 +34,7 @@ class RootControllerManager{
             showSigninScreen()
             return
         }
-        showHomeScreen()
+        showHomeScreen(didLoadWindow: didLoadWindow)
         return
     }
     
@@ -53,7 +54,7 @@ class RootControllerManager{
     }
     
     
-    private func showHomeScreen(){
+    private func showHomeScreen(didLoadWindow:(()->())?){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
@@ -69,6 +70,7 @@ class RootControllerManager{
                 guard let containerController = ContainerController.instance() else {
                     return
                 }
+                containerController.didLoad = didLoadWindow
                 window?.set(rootViewController: containerController, withTransition: transition)
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
@@ -78,6 +80,7 @@ class RootControllerManager{
                 guard let containerController = ContainerController.instance() else {
                     return
                 }
+                containerController.didLoad = didLoadWindow
                 window?.set(rootViewController: containerController, withTransition: transition)
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
@@ -86,6 +89,7 @@ class RootControllerManager{
     }
     
     private func updateNavigationBar(){
+        
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor
         UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
@@ -115,6 +119,7 @@ class RootControllerManager{
         UserSocket.sharedInstance?.disconnect()
         SocketClient.sharedInstance?.disconnect()
         RootControllerManager().updateRoot()
+        SessionDeviceInfo().clear()
     }
     
     
@@ -123,5 +128,7 @@ class RootControllerManager{
         let root = appDelegate?.window?.rootViewController as? ContainerController
         return root
     }
+    
+    
     
 }

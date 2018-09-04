@@ -13,4 +13,5 @@ class AppInfoConfig {
     static var appName = "Chatalyze"
     static var deviceType = "ios"
     static var appversion = "1.0"
+    static var appType = "featured"
 }

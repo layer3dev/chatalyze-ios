@@ -71,12 +71,11 @@ extension SystemRootView:UIGestureRecognizerDelegate{
                 }
                 controller.info = self.info
                 
-               
                     DispatchQueue.main.async {
                         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                         })
+                        
                     }
-               
                 
                 return
             }

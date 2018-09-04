@@ -167,6 +167,8 @@
 		47F0D72220F8E55400A689FA /* CountryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F0D72120F8E55400A689FA /* CountryPicker.m */; };
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
+		47F6CE41213E910A00BF79B2 /* RefreshDeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6CE40213E910A00BF79B2 /* RefreshDeviceToken.swift */; };
+		47F6CE46213EA45200BF79B2 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */; };
 		47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF020C7E1E200EAEB43 /* Accounts.framework */; };
 		47F9514621395E750024F3A2 /* UpdateForEditScheduleSessionDelgete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9514521395E750024F3A2 /* UpdateForEditScheduleSessionDelgete.swift */; };
 		6B99FD3A213786DC000A0421 /* SessionDoneControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */; };
@@ -574,6 +576,8 @@
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
+		47F6CE40213E910A00BF79B2 /* RefreshDeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshDeviceToken.swift; sourceTree = "<group>"; };
+		47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		47F7CDF020C7E1E200EAEB43 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		47F7CDF220C7E1F000EAEB43 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		47F7CDF420C7F09F00EAEB43 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = Carthage/Build/iOS/TwitterKit.framework; sourceTree = "<group>"; };
@@ -1859,6 +1863,22 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		47F6CE3F213E90F800BF79B2 /* RefreshService */ = {
+			isa = PBXGroup;
+			children = (
+				47F6CE40213E910A00BF79B2 /* RefreshDeviceToken.swift */,
+			);
+			path = RefreshService;
+			sourceTree = "<group>";
+		};
+		47F6CE42213EA40F00BF79B2 /* NotificationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */,
+			);
+			path = NotificationHelper;
+			sourceTree = "<group>";
+		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -2453,6 +2473,7 @@
 				473E3B74211B201A00DC60BC /* FetchPaypalEmailHost */,
 				473E3B75211B203700DC60BC /* SubmitContactUsRequest */,
 				4730C76221304B2F002EFAC9 /* SessionRequest */,
+				47F6CE3F213E90F800BF79B2 /* RefreshService */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -2593,6 +2614,7 @@
 				FAA0018A203ED471003C8A74 /* templateManager */,
 				473E3B4D211B1AB500DC60BC /* InternetSpeedTest */,
 				473E3B4E211B1B2400DC60BC /* TimerSynch */,
+				47F6CE42213EA40F00BF79B2 /* NotificationHelper */,
 				473E3B4F211B1B4D00DC60BC /* NavigationbarCustomization */,
 			);
 			path = helper;
@@ -3344,6 +3366,7 @@
 				FA1B363B2064E22F00F2E6BC /* LocalVideoView.swift in Sources */,
 				FAE865C42068B9C6006F06B3 /* OngoingEventView.swift in Sources */,
 				478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */,
+				47F6CE41213E910A00BF79B2 /* RefreshDeviceToken.swift in Sources */,
 				FA1B36432064E31000F2E6BC /* TemplateView.swift in Sources */,
 				47B6526E20AAB43B0041496C /* FetchGreetingsProcessor.swift in Sources */,
 				FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */,
@@ -3638,6 +3661,7 @@
 				FA912DA0204196CF002891EC /* InterfaceExtendedController.swift in Sources */,
 				FA72A0B72086085000C3C7AE /* DateStamp.swift in Sources */,
 				FA0077A2207E2CF9005F840D /* UserVideoLayoutView.swift in Sources */,
+				47F6CE46213EA45200BF79B2 /* PushNotificationHandler.swift in Sources */,
 				FA74B1512063A0B600983141 /* SocketListenerCallback.swift in Sources */,
 				472D617C20BD4F290016A761 /* SystemRootView.swift in Sources */,
 			);
@@ -3820,7 +3844,7 @@
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
@@ -3852,7 +3876,7 @@
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;

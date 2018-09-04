@@ -17,11 +17,15 @@ class ContainerController: TabChildLoadController {
     var initialTabInstance : TabContainerView.tabType =  TabContainerView.tabType.event
     var selectedTab:TabContainerView.tabType =  TabContainerView.tabType.event
     private let CONTAINER_SEGUE = "CONTAINER_SEGUE"
+    var didLoad:(()->())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        if let didLoaded = self.didLoad{
+            didLoaded()
+        }
         initialization()
     }
     

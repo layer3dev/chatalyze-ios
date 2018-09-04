@@ -188,6 +188,7 @@ extension UserSocket{
     }
     
     fileprivate func redColorTransparency(){
+        
         UINavigationBar.appearance().barStyle = .default
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().backgroundColor = UIColor.red
@@ -196,6 +197,7 @@ extension UserSocket{
     }
     
     fileprivate func grayColorTransparency(){
+        
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor

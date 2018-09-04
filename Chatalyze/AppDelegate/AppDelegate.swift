@@ -19,50 +19,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var allowRotate : Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-                
+        
+        //Calling the delgate methods to the local notifications
+        UNUserNotificationCenter.current().delegate = self
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
         initialization()
         test()
         registerForPushNotifications()
+        handlePushNotification(launch:launchOptions)
         return true
     }
-    
-    
-    func registerForPushNotifications() {
-        
-        if #available(iOS 10.0, *) {
-            
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
-             
-                guard granted else{
-                    return
-                }
-                self.getNotificationSettings()
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        
-    }
-
-    
-    func getNotificationSettings() {
-        
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-                print("Notification settings: \(settings)")
-                guard settings.authorizationStatus == .authorized else { return }
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-    
-    
     
     fileprivate func test(){
         
@@ -72,7 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func initialization(){
 
         _ = NavigationBarCustomizer()
-        RootControllerManager().setRoot()
+        RootControllerManager().setRoot {
+            Log.echo(key: "yud", text: "I have setted the RootController Successfully")
+        }
         _ = RTCConnectionInitializer()
     }
     
@@ -113,6 +83,88 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //Only allow portrait (standard behaviour)
         return .portrait;
+    }
+}
+
+extension AppDelegate:UNUserNotificationCenterDelegate{
+    
+    func registerForPushNotifications() {
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+                
+                guard granted else{
+                    return
+                }
+                self.getNotificationSettings()
+            }
+        } else {
+            //Fallback on earlier versions
+        }
+    }
+    
+    
+    func getNotificationSettings() {
+        
+        if #available(iOS 10.0, *) {
+            
+            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                print("Notification settings: \(settings)")
+                guard settings.authorizationStatus == .authorized else { return }
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        } else {
+            
+            //Fallback on earlier versions
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        if UIApplication.shared.applicationState == .active{
+            return
+        }
+        let userInfo = response.notification.request.content.userInfo
+        let aps = userInfo["aps"] as! [String: AnyObject]
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        
+        //This method save the device token if shared intance alraedy exists else create new one with the data
+        _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
+        //call function for the token Update
+        self.updateToken()
+        print("Device Token is : \(token)")
+    }
+    
+    func updateToken(){
+        
+        RefreshDeviceToken().update { (success, message, response) in
+            
+            if !success{
+                return
+            }
+            Log.echo(key: "yud", text: "Device token is updated successfully")
+        }
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
+    func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
+    
+        if let notification = launch?[.remoteNotification] as? [String: AnyObject] {
+            if let aps = notification["aps"] as? [String: AnyObject]{
+                Log.echo(key: "yud", text: "APS is \(aps)")
+            }
+        }
     }
 }
 

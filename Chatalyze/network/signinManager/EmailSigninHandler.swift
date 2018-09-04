@@ -24,6 +24,7 @@ class EmailSigninHandler{
             params["deviceId"] = deviceInfo.deviceId
             params["deviceToken"] = deviceInfo.deviceToken
             params["deviceType"] = AppInfoConfig.deviceType
+            params["appType"] = AppInfoConfig.appType
         }
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
@@ -35,9 +36,8 @@ class EmailSigninHandler{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
         
-        Log.echo(key: "token", text: "raw Email Signin Handler info ==>  \(response)")
+        Log.echo(key: "yud", text: "Response from the login is \(response)")
         
-        Log.echo(key: "token", text: "Email Signin ==>  \(success)")
         guard let rawInfo = response
             else{
                 completion(false, "",  nil)
@@ -45,6 +45,7 @@ class EmailSigninHandler{
         }
         
         if(!success){
+            
             let message = rawInfo["message"].stringValue
             completion(false, message, nil)
             return

@@ -9,8 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-
-
 class SignOutManager{
     
     public func signOut(completion : @escaping ((_ success : Bool)->())){
@@ -51,6 +49,7 @@ class SignOutManager{
             return
         }
         completion(true)
+        SessionDeviceInfo.sharedInstance?.clear()
         return
     }
 }

@@ -29,6 +29,7 @@ class SessionDeviceInfo: DeviceInfo , NSCoding{
     static let encodingKey = "deviceInfo"
     
     static func getSharedIstance(deviceToken : String)->SessionDeviceInfo{
+        
         if let instance = sharedInstance{
             instance.deviceToken = deviceToken
             instance.save()
@@ -39,7 +40,7 @@ class SessionDeviceInfo: DeviceInfo , NSCoding{
         return instance
     }
     
-    static func initSharedInstance(deviceToken : String)->SessionDeviceInfo{
+   private static func initSharedInstance(deviceToken : String)->SessionDeviceInfo{
         
         let info = SessionDeviceInfo()
         info.deviceToken = deviceToken
@@ -54,6 +55,7 @@ class SessionDeviceInfo: DeviceInfo , NSCoding{
     }
     
     func save(){
+        
         let ud = UserDefaults.standard
         let instance = self
         let data = NSKeyedArchiver.archivedData(withRootObject: instance)
@@ -61,6 +63,7 @@ class SessionDeviceInfo: DeviceInfo , NSCoding{
     }
     
     private static func retreiveInstance()->SessionDeviceInfo?{
+        
         let ud = UserDefaults.standard
         guard let data = ud.object(forKey: encodingKey) as? Data
             else{
