@@ -15,6 +15,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var title:UILabel?
     @IBOutlet var ticketsBooked:UILabel?
     var info:EventInfo?
+    var enterSession:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -73,6 +74,18 @@ class MySessionTableViewCell: ExtendedTableCell {
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.timeLbl?.text = dateFormatter.string(from: date)
+        }
+    }
+    
+    
+    @IBAction func enterSessionAction(sender:UIButton?){
+        
+        if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
+            Log.echo(key: "yud", text: "you can join the event only before the 30 minutes of the event")
+            return
+        }
+        if let session = enterSession{
+            session()
         }
     }
 }

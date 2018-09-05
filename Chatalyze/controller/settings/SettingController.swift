@@ -97,6 +97,7 @@ class SettingController : InterfaceExtendedController {
                 return
             }
             self.navigationController?.pushViewController(controller, animated: true)
+            
         }else{
             
             guard let controller = EditProfileController.instance() else {
@@ -107,6 +108,7 @@ class SettingController : InterfaceExtendedController {
     }
     
     @IBAction func paymentListingAction(sender:UIButton){
+        
         
         guard let roleType = SignedUserInfo.sharedInstance?.role else {
             return
@@ -128,16 +130,17 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func scheduleAction(sender:UIButton?){
         
+        
         guard let controller = ScheduleSessionController.instance() else{
             return
         }
         controller.delegate = self
         
         self.navigationController?.pushViewController(controller, animated: true)
-        
     }
     
     @IBAction func myScheduleSessions(sender:UIButton?){
+        
         
         guard let controller = MyScheduledSessionsController.instance() else{
             return

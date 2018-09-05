@@ -35,6 +35,7 @@
 		472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D617D20BD6FC20016A761 /* EventPaymentController.swift */; };
 		472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D618220BD71850016A761 /* EventPaymentRootView.swift */; };
 		472D618520BD76740016A761 /* InputMask.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472D618420BD76740016A761 /* InputMask.framework */; };
+		472D6A33213FC2C000D8FF03 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472D6A32213FC2C000D8FF03 /* UserNotifications.framework */; };
 		472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D932110772D00C7BAEF /* TicketSlotListener.swift */; };
 		472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */; };
 		4730C76121302F3C002EFAC9 /* SessionReviewRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730C76021302F3C002EFAC9 /* SessionReviewRootView.swift */; };
@@ -443,6 +444,7 @@
 		472D617D20BD6FC20016A761 /* EventPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentController.swift; sourceTree = "<group>"; };
 		472D618220BD71850016A761 /* EventPaymentRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentRootView.swift; sourceTree = "<group>"; };
 		472D618420BD76740016A761 /* InputMask.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMask.framework; path = Carthage/Build/iOS/InputMask.framework; sourceTree = "<group>"; };
+		472D6A32213FC2C000D8FF03 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		472F2D932110772D00C7BAEF /* TicketSlotListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSlotListener.swift; sourceTree = "<group>"; };
 		472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPaypalEmailHost.swift; sourceTree = "<group>"; };
 		4730C76021302F3C002EFAC9 /* SessionReviewRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionReviewRootView.swift; sourceTree = "<group>"; };
@@ -870,6 +872,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				472D6A33213FC2C000D8FF03 /* UserNotifications.framework in Frameworks */,
 				4731E5CE20F610F600CB9D47 /* FacebookShare.framework in Frameworks */,
 				4731E5D020F6125C00CB9D47 /* FBSDKCoreKit.framework in Frameworks */,
 				4731E5D120F6125C00CB9D47 /* FBSDKLoginKit.framework in Frameworks */,
@@ -2679,6 +2682,7 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				472D6A32213FC2C000D8FF03 /* UserNotifications.framework */,
 				4731E5CA20F60B1100CB9D47 /* FBSDKCoreKit.framework */,
 				47E2F02720DBA9F2006BD93B /* HCSStarRatingView.framework */,
 				474BF8A420D912580074EBBC /* SafariServices.framework */,
@@ -3127,6 +3131,9 @@
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -3748,7 +3755,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3806,7 +3813,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

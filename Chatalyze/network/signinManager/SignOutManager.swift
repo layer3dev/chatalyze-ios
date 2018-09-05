@@ -49,7 +49,7 @@ class SignOutManager{
             return
         }
         completion(true)
-        SessionDeviceInfo.sharedInstance?.clear()
+        
         return
     }
 }

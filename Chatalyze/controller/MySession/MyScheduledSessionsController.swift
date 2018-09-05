@@ -24,6 +24,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     
     func initializeVariable(){        
         
+        rootView?.controller = self        
         fetchInfo()
         rootView?.initializeAdapter(table:self.sessionListingTableView)
     }

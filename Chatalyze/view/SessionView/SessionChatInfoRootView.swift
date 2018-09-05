@@ -251,6 +251,11 @@ class SessionChatInfoRootView:ExtendedView{
             priceField?.showError(text: "Minimum price is $1")
             return false
         }
+        else if isExceedsMaximumPrice(text: priceField?.textField?.text){
+            
+            priceField?.showError(text: "Price can't be more than 9999.")
+            return false
+        }
         priceField?.resetErrorStatus()
         return true
     }
@@ -301,11 +306,15 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        return true
+        textField.resignFirstResponder()
+        return false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-       
+        
+        if (((textField.text?.count) ?? 0)+(string.count)) > 7{
+            return false
+        }
         if string == ""{
             //Approving the backspace
             return true
@@ -323,6 +332,17 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
             guard priceStr.count > 0 else { return true }
             let nums: Set<Character> = ["0"]
             return Set(priceStr).isSubset(of: nums)
+        }
+        return false
+    }
+    func isExceedsMaximumPrice(text:String?)->Bool{
+        
+        if let priceStr = text{
+            if let price = Int64(priceStr){
+                if price > 9999{
+                    return true
+                }
+            }
         }
         return false
     }

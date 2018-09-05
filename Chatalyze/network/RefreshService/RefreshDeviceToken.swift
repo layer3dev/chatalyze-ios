@@ -14,7 +14,7 @@ class RefreshDeviceToken{
     
     public func update( completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        let url = AppConnectionConfig.webServiceURL + "/refresh"
+        let url = AppConnectionConfig.webServiceURL + "v1/authenticate/refresh"
         
         var params = [String : Any]()
                
@@ -28,7 +28,7 @@ class RefreshDeviceToken{
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
-        ServerProcessor().request(.post, url, parameters: params, encoding: .defaultEncoding , authorize : true) { (success, response) in
+        ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding , authorize : true) { (success, response) in
             
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }

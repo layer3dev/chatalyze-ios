@@ -28,15 +28,15 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MySessionTableViewCell" rowHeight="181" id="FnE-al-0Pj" customClass="MySessionTableViewCell" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="375" height="181"/>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MySessionTableViewCell" rowHeight="222" id="FnE-al-0Pj" customClass="MySessionTableViewCell" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="375" height="222"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FnE-al-0Pj" id="RQ3-bd-kme">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="181"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H2p-Ln-Sh5">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="180.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxq-cT-8Nu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="34.5"/>
@@ -191,25 +191,42 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5if-dA-2b0">
-                                                                            <rect key="frame" x="0.0" y="179.5" width="375" height="1"/>
+                                                                            <rect key="frame" x="0.0" y="221" width="375" height="1"/>
                                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="yrl-7S-iMO"/>
                                                                             </constraints>
                                                                         </view>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pdz-IG-JXX">
+                                                                            <rect key="frame" x="235" y="153" width="120" height="35"/>
+                                                                            <color key="backgroundColor" red="0.1529411765" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="35" id="DsD-w3-gkS"/>
+                                                                                <constraint firstAttribute="width" constant="120" id="y71-ed-M0v"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                                                            <state key="normal" title="Enter Session">
+                                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </state>
+                                                                            <connections>
+                                                                                <action selector="enterSessionActionWithSender:" destination="FnE-al-0Pj" eventType="touchUpInside" id="P12-SR-eOK"/>
+                                                                            </connections>
+                                                                        </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstItem="5if-dA-2b0" firstAttribute="leading" secondItem="H2p-Ln-Sh5" secondAttribute="leading" id="2aX-dz-Qbr"/>
                                                                         <constraint firstItem="4XB-ZD-81Z" firstAttribute="top" secondItem="3Az-pf-Cdt" secondAttribute="bottom" id="3xP-dm-hXD"/>
                                                                         <constraint firstItem="lxq-cT-8Nu" firstAttribute="top" secondItem="H2p-Ln-Sh5" secondAttribute="top" id="47u-UX-xtr"/>
-                                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5g7-rS-jTA" secondAttribute="bottom" constant="10" id="6GT-m1-pTC"/>
                                                                         <constraint firstAttribute="bottom" secondItem="5if-dA-2b0" secondAttribute="bottom" id="Avh-Kd-UfQ"/>
+                                                                        <constraint firstItem="Pdz-IG-JXX" firstAttribute="top" secondItem="5g7-rS-jTA" secondAttribute="bottom" constant="15" id="BkF-a4-nCu"/>
                                                                         <constraint firstItem="3Az-pf-Cdt" firstAttribute="top" secondItem="lxq-cT-8Nu" secondAttribute="bottom" id="D9M-hI-Wxg"/>
                                                                         <constraint firstItem="3Az-pf-Cdt" firstAttribute="leading" secondItem="H2p-Ln-Sh5" secondAttribute="leading" id="JNf-aT-DKN"/>
                                                                         <constraint firstItem="4XB-ZD-81Z" firstAttribute="leading" secondItem="H2p-Ln-Sh5" secondAttribute="leading" id="TNt-gY-4rV"/>
                                                                         <constraint firstAttribute="trailing" secondItem="5g7-rS-jTA" secondAttribute="trailing" id="Vjc-q0-XwK"/>
                                                                         <constraint firstItem="5g7-rS-jTA" firstAttribute="top" secondItem="4XB-ZD-81Z" secondAttribute="bottom" id="WBR-ue-xRP"/>
+                                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Pdz-IG-JXX" secondAttribute="bottom" constant="10" id="Yih-D8-42i"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="Pdz-IG-JXX" secondAttribute="trailing" constant="20" id="ZEP-8g-PtH"/>
                                                                         <constraint firstAttribute="trailing" secondItem="lxq-cT-8Nu" secondAttribute="trailing" id="cSW-3C-Ijn"/>
                                                                         <constraint firstAttribute="trailing" secondItem="5if-dA-2b0" secondAttribute="trailing" id="gwQ-d4-sZl"/>
                                                                         <constraint firstAttribute="trailing" secondItem="3Az-pf-Cdt" secondAttribute="trailing" id="mu6-Kp-dzz"/>
@@ -288,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FeO-dI-3Bi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-327" y="-283"/>
+            <point key="canvasLocation" x="-327.19999999999999" y="-283.80809595202402"/>
         </scene>
     </scenes>
 </document>

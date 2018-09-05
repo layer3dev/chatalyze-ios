@@ -18,6 +18,7 @@ class SessionController: InterfaceExtendedController {
         super.viewDidLayout()
         
         //embedHostHomeController()
+        
     }
 
     func embedHostHomeController(){

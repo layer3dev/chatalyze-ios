@@ -17,7 +17,7 @@ class AccountController: TabChildLoadController {
     var settingContentOffset:CGFloat = 0.0
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var containerTopContraint:NSLayoutConstraint?
-    @IBOutlet var containerView:UIView?
+    @IBOutlet var containerView:UIView?    
     var pageViewHostController:AccountPageViewHostController?
     
     override func viewDidLayout(){

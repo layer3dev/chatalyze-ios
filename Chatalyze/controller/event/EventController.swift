@@ -18,6 +18,10 @@ class EventController: TabChildLoadController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+//        self.alert(withTitle: "DeviceToken", message: (SessionDeviceInfo.sharedInstance?.deviceToken) ?? "", successTitle: "ok", rejectTitle: "cancel", showCancel: true, completion: { (success) in
+//
+//        })
+        
         paintInterface()
         initializeVariable()
     }   

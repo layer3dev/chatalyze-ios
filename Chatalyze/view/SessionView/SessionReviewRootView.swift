@@ -70,7 +70,7 @@ class SessionReviewRootView:ExtendedView{
         }
         if self.controller?.selectedDurationType == SessionTimeDateRootView.DurationLength.oneAndhour{
            
-            self.durationLbl?.text = "1.3 hours"
+            self.durationLbl?.text = "1.5 hours"
             totalDurationOfEvent = 90
         }
         if let price = param["price"] as? String{

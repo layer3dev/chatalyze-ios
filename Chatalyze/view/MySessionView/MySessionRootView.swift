@@ -14,9 +14,25 @@ class MySessionRootView:ExtendedView{
     
     override func viewDidLayout(){
         super.viewDidLayout()
+        
+        initializeVariiable()
+    }
+    
+    func initializeVariiable(){
+        
+        adapter.enterSession = {
+            
+            guard let controller = SessionController.instance() else{
+                return
+            }
+            controller.paintBackButton()
+            controller.paintNavigationTitle(text: "Session")
+            self.controller?.navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
     func initializeAdapter(table:UITableView?){
+        
         adapter.initializeAdapter(table: table)
     }
     

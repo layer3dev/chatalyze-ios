@@ -13,7 +13,7 @@ class SessionDoneController: InterfaceExtendedController {
     var delegate:SessionDoneControllerProtocol?
     var param = [String:Any]()
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
      
         paintInterFace()
@@ -52,7 +52,6 @@ class SessionDoneController: InterfaceExtendedController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 

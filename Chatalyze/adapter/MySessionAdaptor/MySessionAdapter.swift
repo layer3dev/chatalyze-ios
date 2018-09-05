@@ -17,6 +17,8 @@ class MySessionAdapter: ExtendedView {
     var controller:MyScheduledSessionsController?
     var sessionTableView:UITableView?
     
+    var enterSession:(()->())?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -65,6 +67,7 @@ extension MySessionAdapter:UITableViewDataSource{
         if indexPath.row < self.sessionListingArray.count{
 
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
+            cell.enterSession = self.enterSession
             //cell.controller = self.controller
             return cell
         }

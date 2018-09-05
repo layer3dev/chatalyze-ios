@@ -411,7 +411,6 @@ class CameraTestController: InterfaceExtendedController {
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })
-        
     }
     
     @IBAction func dismissAction(){

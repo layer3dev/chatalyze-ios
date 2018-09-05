@@ -12,8 +12,7 @@ class SessionTitleRootView:ExtendedView{
     @IBOutlet var titleField:SigninFieldView?
     
     override func viewDidLayout(){
-        super.viewDidLayout()
-        
+        super.viewDidLayout()        
     }
    
     func validateFields()->Bool{

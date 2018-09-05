@@ -15,11 +15,22 @@ class SessionDoneRootView:ExtendedView{
     var controller:SessionDoneController?
     let eventStore = EKEventStore()
     var param = [String:Any]()
+    @IBOutlet var addToCalenderView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
        
         underLineLable()
+        paintCalenderView()
+    }
+    
+    func paintCalenderView(){
+        
+        addToCalenderView?.layer.borderWidth = 1
+        addToCalenderView?.layer.masksToBounds = true
+        addToCalenderView?.layer.cornerRadius = 5
+        addToCalenderView?.layer.borderColor = UIColor(hexString: "#999999").cgColor
+        
     }
     
     
