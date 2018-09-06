@@ -185,6 +185,9 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
             self.reviewImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
+            
+            self.chatImg?.image = UIImage(named: "circle")
+            self.reviewImg?.image = UIImage(named: "circle")
         }
     }
     
@@ -194,9 +197,9 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
             
             self.progressBar?.progress = 1.0
             self.doneImg?.image = UIImage(named: "circle")
+            self.reviewImg?.image = UIImage(named: "circle")
             self.view.layoutIfNeeded()
         }){ (success) in
-        
         }
     }
     
@@ -204,8 +207,8 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         
         self.internalView?.isUserInteractionEnabled = false
         Log.echo(key: "yud", text: "Event has been successfully created!!")
-        pageViewController?.setDoneTab()
         updateDoneTabUI()
+        pageViewController?.setDoneTab()
     }
 }
 

@@ -16,6 +16,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var ticketsBooked:UILabel?
     var info:EventInfo?
     var enterSession:(()->())?
+    @IBOutlet var sessionEventButton:UIButton?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -50,6 +51,19 @@ class MySessionTableViewCell: ExtendedTableCell {
             }
         }
         setDate()
+        paintEnterSession()
+    }
+    func paintEnterSession(){
+        
+        if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
+            
+            //Event is not started yet
+            self.sessionEventButton?.backgroundColor = UIColor(red: 241.0/255.0, green: 244.0/255.0, blue: 245.0/255.0, alpha: 1)
+           self.sessionEventButton?.setTitleColor(UIColor(hexString: "#333333"), for: .normal)
+            return
+        }
+        self.sessionEventButton?.backgroundColor = UIColor(hexString: "#27B879")
+        self.sessionEventButton?.setTitleColor(UIColor.white, for: .normal)
     }
     
     
@@ -81,7 +95,12 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBAction func enterSessionAction(sender:UIButton?){
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
-            Log.echo(key: "yud", text: "you can join the event only before the 30 minutes of the event")
+         
+            Log.echo(key: "yud", text: "You 'll be able to enter your session 30 minutes before it starts")
+         
+            RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "You 'll be able to enter your session 30 minutes before it starts", successTitle: "OK", rejectTitle: "Cencel", showCancel: false, completion: { (success) in
+                
+            })
             return
         }
         if let session = enterSession{

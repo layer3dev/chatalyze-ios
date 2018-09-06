@@ -44,9 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RootControllerManager().setRoot {
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
-        
-        
-        
         _ = RTCConnectionInitializer()
     }
     
@@ -71,12 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
                 
-        //Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         
-        //Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
@@ -85,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if(allowRotate){             
                 return .allButUpsideDown;
         }
-        //Only allow portrait (standard behaviour)
+        // Only allow portrait (standard behaviour)
         return .portrait;
     }
 }
@@ -97,16 +94,14 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
-                Log.echo(key: "yud", text: " 10.0 \(granted)")
+                Log.echo(key: "yud", text: "10.0 \(granted)")
                 guard granted else{
                     return
                 }
                 self.getNotificationSettings()
             }
-        } else {
-            
+        } else{
             Log.echo(key: "yud", text: "Fallback version")
-            
             //Fallback on earlier versions
         }
     }
@@ -136,8 +131,12 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if UIApplication.shared.applicationState == .active{
             return
         }
+        
+        PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo
-        let aps = userInfo["aps"] as! [String: AnyObject]
+        Log.echo(key: "yud", text: "remoteNotificatio userInfo is \(userInfo)")
+        let aps = userInfo["aps"] as? [String: AnyObject]
+        Log.echo(key: "yud", text: "remoteNotificatio aps data  \(aps)")
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -172,8 +171,13 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     
     func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
     
-        if let notification = launch?[.remoteNotification] as? [String: AnyObject] {
-            if let aps = notification["aps"] as? [String: AnyObject]{
+        if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
+            
+            PushNotificationHandler().handleNavigation(info: notification)
+            
+            if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
+                
+//                PushNotificationHandler().handleNavigation(info: notification)
                 Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }

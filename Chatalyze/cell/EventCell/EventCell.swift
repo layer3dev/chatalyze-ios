@@ -67,6 +67,7 @@ class EventCell: ExtendedTableCell {
             for info in callbooking{
                 if let endDate = info["end"].string{
                     if let eventEndDate = self.info?.endDate{
+                     
                         let requiredEndDate = DateParser.UTCStringToDate(endDate)
                         let differIs = requiredEndDate?.timeIntervalSince((eventEndDate))
                         if differIs == 0.0{

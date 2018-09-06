@@ -115,6 +115,7 @@ extension ContainerController : TabContainerViewInterface{
     func elementSelected(type : TabContainerView.tabType){
        
         if selectedTab == type{
+            
             tabController?.popToRootView(type :selectedTab)
             selectedTab = type
             return
@@ -143,6 +144,26 @@ extension ContainerController : TabContainerViewInterface{
                 accountController.ticketAction()
             }
         }
+    }
+    
+    func selectEventTabWithEventScreen(){
+        
+        tabContainerView?.selectTab(type : TabContainerView.tabType.event)
+        //tabController?.popToRootView(type :selectedTab)
+        selectedTab = TabContainerView.tabType.event
+        tabController?.popToRootView(type :selectedTab)
+        tabController?.selectedIndex = TabContainerView.tabType.event.rawValue
+        
+        //Above code is responsible for the changing the tabs
+        //Below code is responsible foe changing the controller to the tickets Controller
+        
+//        if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
+//
+//            accountControllerNav.popToRootViewController(animated: true)
+//            if let accountController = accountControllerNav.topViewController as? AccountController{
+//                accountController.ticketAction()
+//            }
+//        }
     }
     
     

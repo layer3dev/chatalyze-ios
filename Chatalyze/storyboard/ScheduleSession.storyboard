@@ -172,21 +172,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2B-cb-R7Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="746" y="-18"/>
+            <point key="canvasLocation" x="724" y="-16"/>
         </scene>
         <!--Session Time Date Controller-->
         <scene sceneID="CeY-L6-NPb">
             <objects>
                 <viewController storyboardIdentifier="SessionTimeDate" automaticallyAdjustsScrollViewInsets="NO" id="T7S-0c-GzD" customClass="SessionTimeDateController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j0T-f7-mcO" customClass="SessionTimeDateRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-oT-QUP">
-                                <rect key="frame" x="0.0" y="20" width="375" height="587"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="1420"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRl-RV-SmI">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="508"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Tm-XM-Kc7">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
@@ -361,7 +361,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzd-D4-jWb">
-                                                <rect key="frame" x="0.0" y="214" width="375" height="274"/>
+                                                <rect key="frame" x="0.0" y="214" width="375" height="266"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How long do you want your session to be?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBw-zz-2KO">
                                                         <rect key="frame" x="20" y="40" width="335" height="43"/>
@@ -502,6 +502,15 @@
                                                             </stackView>
                                                         </subviews>
                                                     </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTR-1k-PfB">
+                                                        <rect key="frame" x="20" y="246" width="335" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <color key="textColor" red="0.65098039220000004" green="0.035294117649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                                        </variation>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -509,13 +518,16 @@
                                                     <constraint firstItem="Bbd-sV-mib" firstAttribute="top" secondItem="XBw-zz-2KO" secondAttribute="bottom" constant="40" id="84N-bj-5Oz">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                     </constraint>
+                                                    <constraint firstItem="lTR-1k-PfB" firstAttribute="top" secondItem="Bbd-sV-mib" secondAttribute="bottom" constant="3" id="8KV-x2-rHz"/>
+                                                    <constraint firstItem="lTR-1k-PfB" firstAttribute="leading" secondItem="Bbd-sV-mib" secondAttribute="leading" id="LMl-7b-Sze"/>
                                                     <constraint firstAttribute="trailing" secondItem="XBw-zz-2KO" secondAttribute="trailing" constant="20" id="LND-s9-J2g"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lTR-1k-PfB" secondAttribute="bottom" constant="20" id="ZKP-gQ-5JV"/>
                                                     <constraint firstItem="Bbd-sV-mib" firstAttribute="leading" secondItem="Vzd-D4-jWb" secondAttribute="leading" constant="20" id="f7F-OF-Bru"/>
+                                                    <constraint firstItem="lTR-1k-PfB" firstAttribute="trailing" secondItem="Bbd-sV-mib" secondAttribute="trailing" id="fhi-nM-6P5"/>
                                                     <constraint firstItem="XBw-zz-2KO" firstAttribute="top" secondItem="Vzd-D4-jWb" secondAttribute="top" constant="40" id="ma3-NO-hbn">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="Bbd-sV-mib" secondAttribute="trailing" constant="20" id="oeX-rz-fmh"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Bbd-sV-mib" secondAttribute="bottom" constant="31" id="sr1-c6-cql"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -547,7 +559,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWI-VR-9z9">
-                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="1440" width="375" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdC-1u-TCH" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="20" y="0.0" width="335" height="40"/>
@@ -581,23 +593,11 @@
                                             <constraint firstItem="h0d-Fd-VNF" firstAttribute="centerX" secondItem="kdC-1u-TCH" secondAttribute="centerX" id="reM-Uu-zQ1"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlQ-Yu-Tag">
-                                        <rect key="frame" x="20" y="40" width="335" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" red="0.65098039220000004" green="0.035294117649999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        </variation>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="WlQ-Yu-Tag" secondAttribute="bottom" constant="20" id="IDv-HD-s2K"/>
-                                    <constraint firstItem="WlQ-Yu-Tag" firstAttribute="top" secondItem="kdC-1u-TCH" secondAttribute="bottom" id="UhP-1T-3Sk"/>
+                                    <constraint firstAttribute="bottom" secondItem="kdC-1u-TCH" secondAttribute="bottom" constant="20" id="Fik-Xy-zu8"/>
                                     <constraint firstItem="kdC-1u-TCH" firstAttribute="top" secondItem="rWI-VR-9z9" secondAttribute="top" id="Vp2-en-HoY"/>
-                                    <constraint firstItem="WlQ-Yu-Tag" firstAttribute="trailing" secondItem="kdC-1u-TCH" secondAttribute="trailing" id="Xh5-kH-yVb"/>
-                                    <constraint firstItem="WlQ-Yu-Tag" firstAttribute="leading" secondItem="kdC-1u-TCH" secondAttribute="leading" id="bTV-tH-bep"/>
                                     <constraint firstItem="kdC-1u-TCH" firstAttribute="leading" secondItem="rWI-VR-9z9" secondAttribute="leading" constant="20" id="mvu-MQ-HvO">
                                         <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
@@ -607,7 +607,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LyT-Ch-CYu">
-                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="1300" width="375" height="200"/>
                                 <subviews>
                                     <datePicker contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eYt-I1-QY5">
                                         <rect key="frame" x="0.0" y="35" width="375" height="165"/>
@@ -694,7 +694,7 @@
                         <viewLayoutGuide key="safeArea" id="bJQ-5m-gLJ"/>
                         <connections>
                             <outlet property="dateField" destination="Mfu-xy-fjr" id="DPZ-Po-SdN"/>
-                            <outlet property="errorLbl" destination="WlQ-Yu-Tag" id="RZX-pC-Q7y"/>
+                            <outlet property="errorLbl" destination="lTR-1k-PfB" id="Pgd-Lp-XO6"/>
                             <outlet property="oneAndHalfBtn" destination="XWJ-c5-wsT" id="SwP-sg-GLc"/>
                             <outlet property="oneHourBtn" destination="wVM-9u-Qcd" id="Rym-Yl-mo9"/>
                             <outlet property="pickerContainer" destination="LyT-Ch-CYu" id="9Uu-4y-aoO"/>
@@ -705,10 +705,11 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <size key="freeformSize" width="375" height="1500"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBK-mS-A1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-535" y="-18"/>
+            <point key="canvasLocation" x="-530" y="359"/>
         </scene>
         <!--Session Chat Info Controller-->
         <scene sceneID="hOs-8H-Btc">
@@ -1290,7 +1291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYG-Uj-rxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1378" y="-18"/>
+            <point key="canvasLocation" x="1354" y="-18"/>
         </scene>
         <!--Session Review Controller-->
         <scene sceneID="yyj-ic-9zh">
@@ -1570,7 +1571,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UcU-C7-OBM">
                                                                 <rect key="frame" x="0.0" y="189" width="375" height="26.5"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELFIE:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qW4-SF-FNC">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELFIES:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qW4-SF-FNC">
                                                                         <rect key="frame" x="0.0" y="0.0" width="169" height="17"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                                         <nil key="textColor"/>
@@ -1773,7 +1774,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5sm-7X-NuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="103.2" y="-17.541229385307346"/>
+            <point key="canvasLocation" x="98" y="-15"/>
         </scene>
         <!--Session Done Controller-->
         <scene sceneID="gvg-KK-fDx">
@@ -1974,7 +1975,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWV-MW-RqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2064.8000000000002" y="-18.440779610194905"/>
+            <point key="canvasLocation" x="1978" y="-18"/>
         </scene>
         <!--Schedule Session Controller-->
         <scene sceneID="GeC-i6-vfd">
@@ -1994,10 +1995,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="100"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRX-R7-joJ">
-                                        <rect key="frame" x="20" y="45.5" width="335" height="8"/>
+                                        <rect key="frame" x="30" y="45.5" width="315" height="8"/>
                                         <subviews>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BjD-l2-jTd">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="8"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="315" height="8"/>
                                                 <color key="progressTintColor" red="0.1529411765" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </progressView>
@@ -2012,7 +2013,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="jUn-tk-xiZ">
-                                        <rect key="frame" x="20" y="36.5" width="335" height="25"/>
+                                        <rect key="frame" x="30" y="36.5" width="315" height="25"/>
                                         <subviews>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="dEN-ho-zuZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -2022,21 +2023,21 @@
                                                 </constraints>
                                             </imageView>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteCircle" translatesAutoresizingMaskIntoConstraints="NO" id="0Ii-Bx-rfh">
-                                                <rect key="frame" x="103.5" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="96.5" y="0.0" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="7S9-Nj-beI"/>
                                                     <constraint firstAttribute="width" constant="25" id="naz-wh-c6F"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteCircle" translatesAutoresizingMaskIntoConstraints="NO" id="SHp-op-Wwj">
-                                                <rect key="frame" x="206.5" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="193.5" y="0.0" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="8QM-KV-cwK"/>
                                                     <constraint firstAttribute="height" constant="25" id="i9g-vr-JTd"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whiteCircle" translatesAutoresizingMaskIntoConstraints="NO" id="woa-ik-Jhm">
-                                                <rect key="frame" x="310" y="0.0" width="25" height="25"/>
+                                                <rect key="frame" x="290" y="0.0" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="lCA-VK-0wP"/>
                                                     <constraint firstAttribute="height" constant="25" id="zVH-RW-XpC"/>
@@ -2049,25 +2050,25 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date &amp; Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1z-PK-URd">
-                                        <rect key="frame" x="2" y="67" width="71.5" height="15.5"/>
+                                        <rect key="frame" x="12" y="67" width="71.5" height="15.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rT-02-uqa">
-                                        <rect key="frame" x="117.5" y="67" width="37" height="16.5"/>
+                                        <rect key="frame" x="120.5" y="67" width="37" height="16.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review &amp; Launch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWN-Jb-EgT">
-                                        <rect key="frame" x="184.5" y="67" width="108.5" height="16.5"/>
+                                        <rect key="frame" x="181.5" y="67" width="108.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZF-Z8-KyK">
-                                        <rect key="frame" x="326" y="67" width="33.5" height="16.5"/>
+                                        <rect key="frame" x="316" y="67" width="33.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2076,9 +2077,9 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="VRX-R7-joJ" firstAttribute="centerY" secondItem="PzF-iB-miA" secondAttribute="centerY" id="0Km-7v-hOq"/>
-                                    <constraint firstItem="VRX-R7-joJ" firstAttribute="leading" secondItem="PzF-iB-miA" secondAttribute="leading" constant="20" id="8uP-vU-FxB"/>
+                                    <constraint firstItem="VRX-R7-joJ" firstAttribute="leading" secondItem="PzF-iB-miA" secondAttribute="leading" constant="30" id="8uP-vU-FxB"/>
                                     <constraint firstItem="hWN-Jb-EgT" firstAttribute="centerX" secondItem="SHp-op-Wwj" secondAttribute="centerX" id="AIb-gb-P9R"/>
-                                    <constraint firstAttribute="trailing" secondItem="VRX-R7-joJ" secondAttribute="trailing" constant="20" id="AmA-bF-gIg"/>
+                                    <constraint firstAttribute="trailing" secondItem="VRX-R7-joJ" secondAttribute="trailing" constant="30" id="AmA-bF-gIg"/>
                                     <constraint firstItem="hWN-Jb-EgT" firstAttribute="top" secondItem="SHp-op-Wwj" secondAttribute="bottom" constant="5.5" id="GyJ-il-skg"/>
                                     <constraint firstItem="sZF-Z8-KyK" firstAttribute="top" secondItem="woa-ik-Jhm" secondAttribute="bottom" constant="5.5" id="P6R-6y-5fB"/>
                                     <constraint firstItem="sZF-Z8-KyK" firstAttribute="centerX" secondItem="woa-ik-Jhm" secondAttribute="centerX" id="R5x-5x-GIh"/>
@@ -2120,7 +2121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGa-rM-2Hs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2754" y="-18"/>
+            <point key="canvasLocation" x="2606" y="-19"/>
         </scene>
         <!--Schedule Session Page View Controller-->
         <scene sceneID="VAY-7P-4pk">
@@ -2128,7 +2129,7 @@
                 <pageViewController storyboardIdentifier="ScheduleSessionPage" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Qc3-Yf-nLu" customClass="ScheduleSessionPageViewController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWi-yQ-cmk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3409" y="-72"/>
+            <point key="canvasLocation" x="3231" y="-73"/>
         </scene>
         <!--Edit Scheduled Session Controller-->
         <scene sceneID="XF2-I8-v6d">
@@ -2939,7 +2940,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2M-6q-USy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4066" y="-18"/>
+            <point key="canvasLocation" x="3860" y="-20"/>
         </scene>
     </scenes>
     <resources>

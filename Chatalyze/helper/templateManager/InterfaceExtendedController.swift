@@ -151,8 +151,7 @@ class InterfaceExtendedController : ExtendedController {
         guard let controller = SettingController.instance()
             else{
                 return
-        }
-        
+        }        
         self.navigationController?.pushViewController(controller, animated: true)
     }
 

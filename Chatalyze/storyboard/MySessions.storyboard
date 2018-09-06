@@ -201,13 +201,20 @@
                                                                             <rect key="frame" x="235" y="153" width="120" height="35"/>
                                                                             <color key="backgroundColor" red="0.1529411765" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="35" id="DsD-w3-gkS"/>
-                                                                                <constraint firstAttribute="width" constant="120" id="y71-ed-M0v"/>
+                                                                                <constraint firstAttribute="height" constant="35" id="DsD-w3-gkS">
+                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                                                                </constraint>
+                                                                                <constraint firstAttribute="width" constant="120" id="y71-ed-M0v">
+                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                                                                </constraint>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                             <state key="normal" title="Enter Session">
                                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </state>
+                                                                            <variation key="heightClass=regular-widthClass=regular">
+                                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                                                            </variation>
                                                                             <connections>
                                                                                 <action selector="enterSessionActionWithSender:" destination="FnE-al-0Pj" eventType="touchUpInside" id="P12-SR-eOK"/>
                                                                             </connections>
@@ -245,6 +252,7 @@
                                                         </tableViewCellContentView>
                                                         <connections>
                                                             <outlet property="dateLbl" destination="5GJ-Fg-qjH" id="lP4-mB-xZk"/>
+                                                            <outlet property="sessionEventButton" destination="Pdz-IG-JXX" id="MtV-Hv-Nrg"/>
                                                             <outlet property="ticketsBooked" destination="60p-NS-Wwz" id="5yC-E2-Tx7"/>
                                                             <outlet property="timeLbl" destination="sBD-wD-yZh" id="XNW-iG-fIc"/>
                                                             <outlet property="title" destination="FA9-BY-sOF" id="uFj-tk-U0X"/>
@@ -305,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FeO-dI-3Bi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-327.19999999999999" y="-283.80809595202402"/>
+            <point key="canvasLocation" x="-295" y="-373"/>
         </scene>
     </scenes>
 </document>

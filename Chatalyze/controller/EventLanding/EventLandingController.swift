@@ -44,6 +44,10 @@ class EventLandingController: InterfaceExtendedController {
     
     @IBAction func share(sender:UIButton){
         
+        Log.echo(key: "yud", text: "info are \(self.info?.id) and the url is \(self.info?.title)")
+        
+        
+        
         guard let id = self.info?.id else{
             return
         }
@@ -54,8 +58,10 @@ class EventLandingController: InterfaceExtendedController {
         str = str + "/"
         str = str + "\(id)"
         Log.echo(key: "yud", text: "url id is \(str)")
-        
+        str  = str.replacingOccurrences(of: " ", with: "")
         if let url = URL(string: str) {
+            
+            Log.echo(key: "yud", text: "Successfully converted url \(str)")
             
             if UIDevice.current.userInterfaceIdiom == .pad{
                 

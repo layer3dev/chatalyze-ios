@@ -8,7 +8,6 @@
 
 import Foundation
 
-protocol ScheduleSessionDelegate{
-    
+protocol ScheduleSessionDelegate{    
     func navigateToMySession()
 }

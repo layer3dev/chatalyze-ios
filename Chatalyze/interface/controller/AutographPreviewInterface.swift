@@ -9,7 +9,6 @@
 
 import Foundation
 
-protocol AutographPreviewInterface{
-  
+protocol AutographPreviewInterface{  
     func saveImage()
 }
