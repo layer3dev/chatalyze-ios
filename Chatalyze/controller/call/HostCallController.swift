@@ -22,7 +22,7 @@ class HostCallController: VideoCallController {
         checkDateFormat(date:"xfg")
     }
     
-    
+
     
     var hostActionContainer : HostVideoActionContainer?{
         get{
