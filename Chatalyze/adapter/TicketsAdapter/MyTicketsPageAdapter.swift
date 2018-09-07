@@ -15,7 +15,7 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
     override func initializeCollectionFlowLayout(){
         
         Log.echo(key: "yud", text: "feature Height is\(featureHeight)")        
-        self.myTicketsCollectionView?.layoutIfNeeded()
+        //self.myTicketsCollectionView?.layoutIfNeeded()
         self.myTicketsCollectionView?.dataSource = self
         self.myTicketsCollectionView?.delegate = self
         let width = root?.superview?.frame.size.width ?? 60.0

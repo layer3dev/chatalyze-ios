@@ -32,7 +32,7 @@ class PaymentSuccessRootView: ExtendedView {
         super.viewDidLayout()
         
         initializeCountryPicker()
-        implementTapGestuePicker()
+        //implementTapGestuePicker()
         paintInterface()
         initializeVariable()
         initializeChatInfo()

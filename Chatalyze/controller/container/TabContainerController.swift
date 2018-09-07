@@ -73,6 +73,7 @@ class TabContainerController: UITabBarController {
         }else{
             self.viewControllers = [eventNav, greetingNav , accountNav]
         }
+        //self.viewControllers = [eventNav, greetingNav , accountNav]
         self.viewControllers?.forEach { _ = $0.view }
         selectedIndex = initialTab.rawValue
     }
@@ -97,6 +98,7 @@ class TabContainerController: UITabBarController {
         containerController?.setActionPending(isPending: isPending, type: type)
     }
     func popToRootView(type : TabContainerView.tabType){
+        
         guard let navigationArray = self.viewControllers else {
             return
         }

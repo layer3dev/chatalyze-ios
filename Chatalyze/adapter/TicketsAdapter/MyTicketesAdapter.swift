@@ -19,6 +19,8 @@ class MyTicketesAdapter: ExtendedView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        initializeCollectionFlowLayout()
     }
     
     func initailizeAdapter(info:[EventSlotInfo]?){
@@ -27,7 +29,7 @@ class MyTicketesAdapter: ExtendedView {
             return
         }
         ticketsListingArray = info
-        initializeCollectionFlowLayout()
+        //initializeCollectionFlowLayout()
         myTicketsCollectionView?.dataSource = self
         myTicketsCollectionView?.delegate = self
         myTicketsCollectionView?.reloadData()
@@ -35,12 +37,14 @@ class MyTicketesAdapter: ExtendedView {
     
     func initializeCollectionFlowLayout(){
         
-        self.myTicketsCollectionView?.layoutIfNeeded()
-        self.myTicketsCollectionView?.dataSource = self
-        self.myTicketsCollectionView?.delegate = self
+        //self.myTicketsCollectionView?.layoutIfNeeded()
         let width = root?.superview?.frame.size.width ?? 60.0
         let height:CGFloat = self.myTicketsCollectionView?.bounds.height ?? 0.0
         Log.echo(key: "yud", text: "The height of the Collection is \(height)")
+        if width <= 60.0 || height <= 15.0{
+            return
+        }
+        
         layout.itemSize = CGSize(width: width-60, height: height-15)
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
@@ -49,6 +53,8 @@ class MyTicketesAdapter: ExtendedView {
         layout.minimumInteritemSpacing = 0
         myTicketsCollectionView?.collectionViewLayout = layout
         myTicketsCollectionView?.alwaysBounceVertical = false
+        self.myTicketsCollectionView?.dataSource = self
+        self.myTicketsCollectionView?.delegate = self
     }    
 }
 
