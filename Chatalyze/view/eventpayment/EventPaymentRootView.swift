@@ -44,6 +44,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     @IBOutlet var totalAmount:UILabel?
     var delegate:EventPaymentDelegte?
     @IBOutlet var selectDateMonthBtn:UIButton?
+    var isCardSelected = false
         
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -113,9 +114,30 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         return
     }
     
+    
     func paintInterfaceForSavedCard(){
-                
+        
+        if cardInfoArray.count > 0 {
+            
+            isCardSelected = true
+            addOtherCardInfoHeightContraint?.constant  = 50
+            CardInfoHeightContraint?.constant  = 0
+            self.superview?.updateConstraints()
+            self.superview?.layoutIfNeeded()
+        }else{
+            
+            isCardSelected = false
+            addOtherCardInfoHeightContraint?.constant  = 0
+            //CardInfoHeightContraint?.constant  = 0
+            self.superview?.updateConstraints()
+            self.superview?.layoutIfNeeded()
+        }
+        
+        return
+        
         if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            
             
             if numberOfSaveCards == 0 {
                 
@@ -201,13 +223,16 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         }
     }
     
+    
     @IBAction func addAnotherCardInfo(sender:UIButton?){
         
+        isCardSelected = false
         if UIDevice.current.userInterfaceIdiom == .pad{
           
             cardOneHeightConstraint?.constant = 0
             cardTwoHeightConstraint?.constant = 0
             addOtherCardInfoHeightContraint?.constant  = 0
+            //self.controller?.heightOfSavedCardContainer?.constant = 0
             CardInfoHeightContraint?.constant  = 280
             resetSaveCardsDetail()
             self.superview?.updateConstraints()
@@ -218,6 +243,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         cardOneHeightConstraint?.constant = 0
         cardTwoHeightConstraint?.constant = 0
         addOtherCardInfoHeightContraint?.constant  = 0
+        //self.controller?.heightOfSavedCardContainer?.constant = 0
         CardInfoHeightContraint?.constant  = 220
         resetSaveCardsDetail()
         self.superview?.updateConstraints()
@@ -225,8 +251,14 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         return
     }
     
+    
+    
+    
     func resetSaveCardsDetail(){
         
+        self.controller?.cardInfoArray.removeAll()
+        self.cardInfoArray.removeAll()
+        self.controller?.savedCardsTable?.reloadData()
         isFirstCardSelected = false
         isSecondCardSelected = false
         currentcardInfo = nil

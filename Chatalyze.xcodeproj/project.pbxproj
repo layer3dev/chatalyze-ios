@@ -146,6 +146,9 @@
 		47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */; };
 		47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */; };
 		47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */; };
+		47B90E7821466D39004BA7A0 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B90E7721466D39004BA7A0 /* TestController.swift */; };
+		47B90E7A21466DDA004BA7A0 /* SavedCardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B90E7921466DDA004BA7A0 /* SavedCardsCell.swift */; };
+		47B90E7C21466E11004BA7A0 /* SavedCardsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */; };
 		47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3372F20D516B30078580E /* FetchProfileProcessor.swift */; };
 		47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */; };
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
@@ -555,6 +558,9 @@
 		47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsRootView.swift; sourceTree = "<group>"; };
 		47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketesAdapter.swift; sourceTree = "<group>"; };
 		47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsCell.swift; sourceTree = "<group>"; };
+		47B90E7721466D39004BA7A0 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
+		47B90E7921466DDA004BA7A0 /* SavedCardsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCardsCell.swift; sourceTree = "<group>"; };
+		47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCardsAdapter.swift; sourceTree = "<group>"; };
 		47C3372F20D516B30078580E /* FetchProfileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileProcessor.swift; sourceTree = "<group>"; };
 		47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadGalleryManager.swift; sourceTree = "<group>"; };
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
@@ -1814,6 +1820,48 @@
 			path = "My Tickets";
 			sourceTree = "<group>";
 		};
+		47B90E7221466CA3004BA7A0 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				47B90E7321466CD3004BA7A0 /* Adapter */,
+				47B90E7421466CE6004BA7A0 /* Cell */,
+				47B90E7521466CED004BA7A0 /* Controller */,
+				47B90E7621466CF7004BA7A0 /* View */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		47B90E7321466CD3004BA7A0 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */,
+			);
+			path = Adapter;
+			sourceTree = "<group>";
+		};
+		47B90E7421466CE6004BA7A0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				47B90E7921466DDA004BA7A0 /* SavedCardsCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		47B90E7521466CED004BA7A0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				47B90E7721466D39004BA7A0 /* TestController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		47B90E7621466CF7004BA7A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		47C3373120D526750078580E /* saveImageinGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -2596,6 +2644,7 @@
 				473E3B4A211B158900DC60BC /* EventsoldOut */,
 				473E3B4C211B15D000DC60BC /* EventLanding */,
 				473E3B4B211B15A900DC60BC /* PaymentEmailSetupPaypalForHost */,
+				47B90E7221466CA3004BA7A0 /* Test */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3496,6 +3545,7 @@
 				FA34EDA5208E16C90072D8F8 /* RTCSingletonFactory.m in Sources */,
 				FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */,
 				FA72A0B5208602F700C3C7AE /* TimeSyncInfo.swift in Sources */,
+				47B90E7A21466DDA004BA7A0 /* SavedCardsCell.swift in Sources */,
 				47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */,
 				472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */,
 				47B4F4B1211C59D400299686 /* SessionTitleRootView.swift in Sources */,
@@ -3531,6 +3581,7 @@
 				47B6522E20AAAF710041496C /* GreetingRootView.swift in Sources */,
 				FAA001A3203ED472003C8A74 /* UINib.swift in Sources */,
 				FAB71CF02077C0DE00C24246 /* EventCountDownLabel.swift in Sources */,
+				47B90E7821466D39004BA7A0 /* TestController.swift in Sources */,
 				FAA0019B203ED472003C8A74 /* EventTimer.swift in Sources */,
 				FAE9EF74206CE82C00C45F8D /* HomeController.swift in Sources */,
 				FA74B13020639B6400983141 /* ARDMessageResponse.m in Sources */,
@@ -3543,6 +3594,7 @@
 				47B6523320AAAF840041496C /* EventRootView.swift in Sources */,
 				47ABE90420B59742002EEEB0 /* MyTicketsPageRootView.swift in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
+				47B90E7C21466E11004BA7A0 /* SavedCardsAdapter.swift in Sources */,
 				47B6522120AAAF680041496C /* Signupview.swift in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,

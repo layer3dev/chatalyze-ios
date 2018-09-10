@@ -35,24 +35,47 @@ import UIKit
             return nil
         }
         if notificationTypeString == "event_delayed"{
+            //user:-My Tickets
+            //Analyst:- My Session
+            
             return notificationType.eventDelay
         }
         if notificationTypeString == "event_started"{
+            //user:-My Tickets
+            //Analyst:- My Session
+
+
             return notificationType.eventStarted
         }
         if notificationTypeString == "event_updated"{
+        
+            //user:-My Tickets
+            //Analyst:- My Session
+
             return notificationType.eventUpdatedStartTime
         }
         if notificationTypeString == "event_canceled"{
+            
+            //user:-My Tickets
+            //Analyst:- My Session
             return notificationType.eventCancelled
         }
         if notificationTypeString == "private_event_ticket"{
+            
+            //user:-My Tickets
+            //Analyst:- My Session
             return notificationType.privateEventTicket
         }
         if notificationTypeString == "tickets_availble_again"{
+            
+            //user:- Session
+            //same
             return notificationType.eventScheduledAgainForAnalyst
         }
         if notificationTypeString == "event_start_in_24_hours" || notificationTypeString == "event_start_in_30_mins" || notificationTypeString == "event_start_in_15_min"{
+         
+            //user:-My Tickets
+            //Analyst:- My Session
             return notificationType.remindForEvent
         }
         return nil
@@ -61,14 +84,17 @@ import UIKit
     
     @objc func handleNavigation(info : [AnyHashable : Any]?){
         
+        
         guard let userInfo = SignedUserInfo.sharedInstance?.id
             else{
                 return
-        }        
+        }
+        
         guard let info = info
             else{
                 return
         }
+        
         navigate(info: info)
     }
     
