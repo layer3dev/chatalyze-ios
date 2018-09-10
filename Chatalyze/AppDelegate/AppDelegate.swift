@@ -121,7 +121,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 print("Notification settings Registered: \(settings)")
             }
         } else {
-            
             //Fallback on earlier versions
         }
     }
@@ -174,10 +173,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
-            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
-                
-//                PushNotificationHandler().handleNavigation(info: notification)
+                //PushNotificationHandler().handleNavigation(info: notification)
                 Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }

@@ -27,6 +27,7 @@ import UIKit
     func getNotificationType(info:[AnyHashable:Any]?)->(notificationType)?{
         
         //return notificationType.eventStarted
+        
         guard let info = info else {
             return nil
         }
@@ -98,7 +99,6 @@ import UIKit
 //                return
 //        }
         
-
         guard let notification = getNotificationType(info: info) else{
             return
         }
