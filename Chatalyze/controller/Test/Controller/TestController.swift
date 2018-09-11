@@ -25,6 +25,17 @@ class TestController: InterfaceExtendedController{
         savedCardsTable?.reloadData()
     }
 
+    @IBAction func ticketsAction(){
+        
+        //RootControllerManager().setMyTicketsScreenForNavigation()
+    }
+    
+    
+    @IBAction func sessionAction(){
+        
+        //RootControllerManager().selectEventTabWithEventScreen()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -69,5 +80,4 @@ extension TestController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
-    
 }

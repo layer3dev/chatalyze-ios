@@ -59,7 +59,6 @@ class RootControllerManager{
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         let rootNav : UINavigationController = ExtendedNavigationController()
-    
         
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
@@ -119,9 +118,8 @@ class RootControllerManager{
         UserSocket.sharedInstance?.disconnect()
         SocketClient.sharedInstance?.disconnect()
         RootControllerManager().updateRoot()
-        SessionDeviceInfo().clear()
+        //SessionDeviceInfo().clear()
     }
-    
     
     func getCurrentController()->ContainerController?{
         
@@ -130,6 +128,24 @@ class RootControllerManager{
         return root
     }
     
+    func setMyTicketsScreenForNavigation(){
+        
+        if let rootController = getCurrentController(){
+            rootController.selectAccountTabWithTicketScreen()
+        }
+    }
     
+    func selectAccountTabWithScheduledSessionScreen(){
+        
+        if let rootController = getCurrentController(){
+            rootController.setAccountTabwithMySessionScreen()
+        }
+    }
     
+    func selectEventTabWithSessions(){
+        
+        if let rootController = getCurrentController(){
+            rootController.selectEventTabWithSessions()
+        }
+    }
 }

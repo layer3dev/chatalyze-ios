@@ -94,8 +94,10 @@ class MyTicketsController: InterfaceExtendedController{
         CallSlotFetch().fetchInfos() { (success, info) in
             
             self.ticketsArray.removeAll()
+            self.rootview?.adapter?.initializeCollectionFlowLayout()
             self.rootview?.fillInfo(info: self.ticketsArray)
             self.stopLoader()
+            
             if !success{
                 
                 self.noTicketLbl?.isHidden = false

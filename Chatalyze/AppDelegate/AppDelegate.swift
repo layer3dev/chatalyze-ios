@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func initialization(){
 
-        _ = NavigationBarCustomizer()
+        _ = NavigationBarCustomizer()        
         RootControllerManager().setRoot {
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
@@ -135,7 +135,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         let userInfo = response.notification.request.content.userInfo
         Log.echo(key: "yud", text: "remoteNotificatio userInfo is \(userInfo)")
         let aps = userInfo["aps"] as? [String: AnyObject]
-        Log.echo(key: "yud", text: "remoteNotificatio aps data  \(aps)")
+        Log.echo(key: "yud", text: "remoteNotification aps data \(String(describing: aps))")
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

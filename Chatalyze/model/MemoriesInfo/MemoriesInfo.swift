@@ -41,5 +41,4 @@ class MemoriesInfo: NSObject {
         self.screenShotUrl = json["screenshot"].stringValue
     }
     
-    
 }

@@ -186,14 +186,21 @@ extension EditProfileRootview{
         if oldPasswordField?.textField?.text != ""{
             
             if isMobileNumberActive(){
+                
                 param["mobile"] = mobileNumberField?.textField?.text
                 param["countryCode"] = countryCode
+            }else{
+                
+                param["mobile"] = NSNull()
+                param["countryCode"] = NSNull()
             }
             param["oldpassword"] = oldPasswordField?.textField?.text
             param["password"] = newPasswordField?.textField?.text
             param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
             param["eventMobReminder"] = chatUpdates
+            
+            Log.echo(key: "yud", text: "params are \(param)")
             
             self.controller?.showLoader()
             EditProfileProcessor().edit(params: param) { (success, message, response) in
@@ -208,18 +215,25 @@ extension EditProfileRootview{
         }else{
             
             if isMobileNumberActive(){
+                
                 param["mobile"] = mobileNumberField?.textField?.text
                 param["countryCode"] = countryCode
-            }            
+            }else{
+                
+                param["mobile"] = NSNull()
+                param["countryCode"] = NSNull()
+            }
             param["firstName"] = nameField?.textField?.text
             param["email"] = emailField?.textField?.text
             param["eventMobReminder"] = chatUpdates
+            
+            Log.echo(key: "yud", text: "params are \(param)")
             
             self.controller?.showLoader()
             EditProfileProcessor().edit(params: param) { (success, message, response) in
                 
                 //self.controller?.stopLoader()
-                Log.echo(key: "yud", text: "he velue of the success is \(success)")
+                Log.echo(key: "yud", text: "the velue of the success is \(success)")
                 if !success{
                     self.controller?.stopLoader()
                     self.errorLabel?.text = message

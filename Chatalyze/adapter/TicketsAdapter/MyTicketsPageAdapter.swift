@@ -14,7 +14,8 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
 
     override func initializeCollectionFlowLayout(){
         
-        Log.echo(key: "yud", text: "feature Height is\(featureHeight)")        
+        Log.echo(key: "ticket", text: "feature Height is\(featureHeight)")
+        
         //self.myTicketsCollectionView?.layoutIfNeeded()
         self.myTicketsCollectionView?.dataSource = self
         self.myTicketsCollectionView?.delegate = self

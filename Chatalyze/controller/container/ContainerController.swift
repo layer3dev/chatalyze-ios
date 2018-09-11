@@ -18,7 +18,7 @@ class ContainerController: TabChildLoadController {
     var selectedTab:TabContainerView.tabType =  TabContainerView.tabType.event
     private let CONTAINER_SEGUE = "CONTAINER_SEGUE"
     var didLoad:(()->())?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +42,7 @@ class ContainerController: TabChildLoadController {
     }
     
     func initializeForFirstTab(){
-      
+        
         initialTabInstance = ContainerController.initialTab
         tabController?.initialTab = initialTabInstance
         selectTab(type: initialTabInstance)
@@ -65,7 +65,7 @@ class ContainerController: TabChildLoadController {
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segueIdentifier = segue.identifier ?? ""
@@ -82,12 +82,12 @@ class ContainerController: TabChildLoadController {
     }
     
     func setActionPending(isPending : Bool, type : TabContainerView.tabType){
-  
+        
         tabContainerView?.setActionPending(isPending: isPending, type: type)
     }
     
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-   
+        
         if let selected = tabController {
             return selected.supportedInterfaceOrientations
         }
@@ -95,7 +95,7 @@ class ContainerController: TabChildLoadController {
     }
     
     open override var shouldAutorotate: Bool {
-       
+        
         if let selected = tabController {
             return selected.shouldAutorotate
         }
@@ -113,7 +113,7 @@ class ContainerController: TabChildLoadController {
 extension ContainerController : TabContainerViewInterface{
     
     func elementSelected(type : TabContainerView.tabType){
-       
+        
         if selectedTab == type{
             
             tabController?.popToRootView(type :selectedTab)
@@ -128,14 +128,14 @@ extension ContainerController : TabContainerViewInterface{
     }
     
     func selectAccountTabWithTicketScreen(){
-    
+        
         tabContainerView?.selectTab(type : TabContainerView.tabType.account)
         tabController?.popToRootView(type :selectedTab)
         selectedTab = TabContainerView.tabType.account
         tabController?.selectedIndex = TabContainerView.tabType.account.rawValue
-        
-          //Above code is responsible for the changing the tabs
-          //Below code is responsible foe changing the controller to the tickets Controller
+
+        //Above code is responsible for the changing the tabs
+        //Below code is responsible for changing the controller to the tickets Controller
         
         if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
             
@@ -146,24 +146,51 @@ extension ContainerController : TabContainerViewInterface{
         }
     }
     
-    func selectEventTabWithEventScreen(){
+    func setAccountTabwithMySessionScreen(){
         
-        tabContainerView?.selectTab(type : TabContainerView.tabType.event)
-        //tabController?.popToRootView(type :selectedTab)
-        selectedTab = TabContainerView.tabType.event
+        tabContainerView?.selectTab(type : TabContainerView.tabType.account)
         tabController?.popToRootView(type :selectedTab)
-        tabController?.selectedIndex = TabContainerView.tabType.event.rawValue
-        
+        selectedTab = TabContainerView.tabType.account
+        tabController?.selectedIndex = TabContainerView.tabType.account.rawValue
+
         //Above code is responsible for the changing the tabs
         //Below code is responsible foe changing the controller to the tickets Controller
         
-//        if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
-//
-//            accountControllerNav.popToRootViewController(animated: true)
-//            if let accountController = accountControllerNav.topViewController as? AccountController{
-//                accountController.ticketAction()
-//            }
-//        }
+        if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
+            accountControllerNav.popToRootViewController(animated: true)
+            
+            if let accountController = accountControllerNav.topViewController as? AccountHostController{
+                accountController.memoryAction()
+                if let pageController = accountController.pageViewHostController {
+                    if pageController.pagesHost.count >= 2 {
+                       
+                        if let settingController = pageController.pagesHost[1] as? SettingController {
+                         
+                            guard let controller = MyScheduledSessionsController.instance() else{
+                                return
+                            }
+                            settingController.navigationController?.pushViewController(controller, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func selectEventTabWithSessions(){
+        
+        tabContainerView?.selectTab(type : TabContainerView.tabType.event)
+        tabController?.popToRootView(type :selectedTab)
+        selectedTab = TabContainerView.tabType.event
+        tabController?.selectedIndex = TabContainerView.tabType.event.rawValue
+        
+        //Above code is responsible for the changing the tabs
+        //Below code is responsible for changing the controller to the tickets Controller
+        
+        if let eventControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
+            
+            eventControllerNav.popToRootViewController(animated: true)
+        }
     }
     
     

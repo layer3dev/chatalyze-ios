@@ -84,7 +84,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func setCurrentCardInfo(selectedCard:Int){
         
-        
         if selectedCard == 0 {
             if cardInfoArray.count >= 1{
                 currentcardInfo = cardInfoArray[0]
@@ -136,8 +135,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         return
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            
-            
             
             if numberOfSaveCards == 0 {
                 
@@ -252,8 +249,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     }
     
     
-    
-    
     func resetSaveCardsDetail(){
         
         self.controller?.cardInfoArray.removeAll()
@@ -285,7 +280,9 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     }    
     
     @IBAction func datePickerAction(_ sender: Any){
-             
+        
+    
+        
         dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
     
@@ -324,6 +321,7 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     func initializeVariable(){
         
+        timePicker?.minimumDate = Date()
         let serviceFeeCharge = String(format: "%.2f", self.info?.serviceFee ?? 0.0)
         let amountCharge = String(format: "%.2f", self.info?.price ?? 0.0)
         let total = ((self.info?.price ?? 0.0) + (self.info?.serviceFee ?? 0.0))
@@ -370,12 +368,10 @@ extension EventPaymentRootView{
     
     @IBAction func submitPayment(sender:UIButton){
         
-        if isFirstCardSelected{
-            
-            sendPaymentFromSavedCards(info: currentcardInfo)
-            return
-        }
-        if isSecondCardSelected{
+        Log.echo(key: "yud", text: "is Card Selecetd is \(isCardSelected) and the card last Digit is \(self.currentcardInfo?.lastDigitAccount)")
+        
+        
+        if isCardSelected{
             
             sendPaymentFromSavedCards(info: currentcardInfo)
             return

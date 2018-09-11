@@ -70,6 +70,7 @@ class MemoriesController: InterfaceExtendedController {
                 if let array  = info{
                     if array.count > 0{
                         for info in array{
+                            
                             self.memoriesListingArray.append(info)
                         }
                         self.rootView?.fillInfo(info: self.memoriesListingArray)

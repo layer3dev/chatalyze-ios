@@ -35,23 +35,21 @@ import UIKit
             return nil
         }
         if notificationTypeString == "event_delayed"{
+            
             //user:-My Tickets
             //Analyst:- My Session
-            
             return notificationType.eventDelay
         }
         if notificationTypeString == "event_started"{
+            
             //user:-My Tickets
             //Analyst:- My Session
-
-
             return notificationType.eventStarted
         }
         if notificationTypeString == "event_updated"{
         
             //user:-My Tickets
             //Analyst:- My Session
-
             return notificationType.eventUpdatedStartTime
         }
         if notificationTypeString == "event_canceled"{
@@ -84,9 +82,7 @@ import UIKit
     
     @objc func handleNavigation(info : [AnyHashable : Any]?){
         
-        
-        guard let userInfo = SignedUserInfo.sharedInstance?.id
-            else{
+        guard let userInfo = SignedUserInfo.sharedInstance?.id else{
                 return
         }
         
@@ -120,18 +116,74 @@ import UIKit
             return
         }
         
-//        guard let navigationController = controller.getHomeNavigationController()
-//            else{
-//                return
-//        }
-        
-        guard let notification = getNotificationType(info: info) else{
+        guard let type = getNotificationType(info: info) else{
             return
         }
         
-        if notification == .eventDelay || notification == .eventStarted || notification == .eventUpdatedStartTime || notification == .eventCancelled || notification == .privateEventTicket || notification == .eventScheduledAgainForAnalyst || notification == .remindForEvent{
+        if let role = SignedUserInfo.sharedInstance?.role{
             
-            controller?.selectEventTabWithEventScreen()
+            if role == .analyst{
+                
+                if type == .eventDelay {
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                if type == .eventStarted {
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                if type == .eventUpdatedStartTime {
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                if type == .eventCancelled{
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                if type == .privateEventTicket{
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                if type == .eventScheduledAgainForAnalyst{
+                    
+                    RootControllerManager().selectEventTabWithSessions()
+                }
+                if type == .remindForEvent{
+                    
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
+                }
+                return
+            }
+            
+            //If the user role is USER
+            if type == .eventDelay {
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
+            if type == .eventStarted {
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
+            if type == .eventUpdatedStartTime {
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
+            if type == .eventCancelled{
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
+            if type == .privateEventTicket{
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
+            if type == .eventScheduledAgainForAnalyst{
+                
+                RootControllerManager().selectEventTabWithSessions()
+            }
+            if type == .remindForEvent{
+                
+                RootControllerManager().setMyTicketsScreenForNavigation()
+            }
             return
         }
     }

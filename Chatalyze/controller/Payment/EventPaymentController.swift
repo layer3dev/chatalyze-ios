@@ -21,6 +21,7 @@ class EventPaymentController: InterfaceExtendedController {
     @IBOutlet var heightOfSavedCardContainer:NSLayoutConstraint?
     var cardInfoArray = [CardInfo]()
     var selectedPreviousCell:SavedCardsCell?
+    var selectedArray:[Int] = [Int]()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -54,7 +55,6 @@ class EventPaymentController: InterfaceExtendedController {
         self.updateViewConstraints()
         self.view.layoutIfNeeded()
     }
-    
    /*
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         tableView.layer.removeAllAnimations()
@@ -63,9 +63,7 @@ class EventPaymentController: InterfaceExtendedController {
             self.updateConstraints()
             self.layoutIfNeeded()
         }
-        
     }
- 
  */
     func fetchCardDetails(){
         
@@ -82,15 +80,17 @@ class EventPaymentController: InterfaceExtendedController {
                     
                     self.cardInfoArray = cardinfo
                     self.rootView?.cardInfoArray = cardinfo
-                    self.savedCardsTable?.reloadData()
-                    self.rootView?.paintInterfaceForSavedCard()
                     
                     var count = 0
+                    var arrayofSelection:[Int] = [Int]()
                     
                     for _ in cardinfo{
-                        
+                        arrayofSelection.append(0)
                         count = count + 1
                     }
+                    self.selectedArray = arrayofSelection
+                    self.savedCardsTable?.reloadData()
+                    self.rootView?.paintInterfaceForSavedCard()
 //                    if count == 1{
 //
 //                        self.rootView?.numberOfSaveCards = 1
@@ -101,6 +101,7 @@ class EventPaymentController: InterfaceExtendedController {
 //                        self.rootView?.numberOfSaveCards = 2
 //                        self.rootView?.paintInterfaceForSavedCard()
 //                    }
+                    
                 }
             }
         }
@@ -152,10 +153,11 @@ extension EventPaymentController:UITableViewDataSource{
         guard let cell = savedCardsTable?.dequeueReusableCell(withIdentifier: "SavedCardsCell", for: indexPath) as? SavedCardsCell else{
             return UITableViewCell()
         }
-        
+        if cardInfoArray.count > indexPath.row && self.selectedArray.count > indexPath.row{
+            cell.fillInfo(info:cardInfoArray[indexPath.row],isSelected:self.selectedArray[indexPath.row])
+        }
         cell.saveCard?.addTarget(self, action: #selector(saveCardAction(sender:)), for: UIControlEvents.touchUpInside)
         cell.saveCard?.tag = indexPath.row
-        
         return cell
     }
 }
@@ -173,20 +175,27 @@ extension EventPaymentController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selectedPreviousCell?.selectionImage?.image = UIImage(named: "untick")
-        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow{
-            if let cell = tableView.cellForRow(at: indexPathForSelectedRow) as? SavedCardsCell {
-                cell.selectionImage?.image = UIImage(named: "tick")
-                selectedPreviousCell = cell
-                if indexPath.row < self.cardInfoArray.count{
-                    self.rootView?.currentcardInfo = cardInfoArray[indexPath.row]
-                }
+        if selectedArray.count > indexPath.row{
+            
+            for i in 0..<selectedArray.count{
+                selectedArray[i] = 0
             }
+            selectedArray[indexPath.row] = 1
+            self.rootView?.currentcardInfo = self.cardInfoArray[indexPath.row]
         }
+        savedCardsTable?.reloadData()
     }
     
     @objc func saveCardAction(sender:UIButton){
         
-        
+        if selectedArray.count > sender.tag{
+            
+            for i in 0..<selectedArray.count{
+                selectedArray[i] = 0
+            }
+            selectedArray[sender.tag] = 1
+            self.rootView?.currentcardInfo = self.cardInfoArray[sender.tag]
+        }
+        savedCardsTable?.reloadData()
     }
 }

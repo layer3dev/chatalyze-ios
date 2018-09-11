@@ -26,10 +26,12 @@ class EditProfileController: InterfaceExtendedController {
         
         FetchProfileProcessor().fetch { (success, message, response) in
             
-            self.stopLoader()            
+            self.stopLoader()
             if success{
+                
                 self.rootView?.fillInfo()
-            }else{
+            }
+            else{
                 self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                     self.navigationController?.popViewController(animated: true)
                 })
