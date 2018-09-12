@@ -22,9 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Calling the delgate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
+        
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
+        
         initialization()
         test()
         registerForPushNotifications()
@@ -125,6 +127,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert,.sound,.badge])
+    }
+        
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         if UIApplication.shared.applicationState == .active{

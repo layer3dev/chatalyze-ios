@@ -21,7 +21,6 @@ class SignedUserInfo: UserInfo , NSCoding{
             if(_sharedInstance != nil){
                 return _sharedInstance
             }
-            
             let instance = retreiveInstance()
             _sharedInstance = instance
             return instance

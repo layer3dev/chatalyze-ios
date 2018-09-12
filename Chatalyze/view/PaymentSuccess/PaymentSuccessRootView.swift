@@ -75,7 +75,7 @@ class PaymentSuccessRootView: ExtendedView {
             
             let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
             
-            let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
+            let secondStr = NSMutableAttributedString(string: "during the session, scheduled from ", attributes: grayAttribute)
             
             let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
             
@@ -83,7 +83,7 @@ class PaymentSuccessRootView: ExtendedView {
             
             let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
             
-            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
+            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the session is now in the Event Tickets Section of your account", attributes: grayAttribute)
             
             let requiredString:NSMutableAttributedString = NSMutableAttributedString()
             
@@ -107,7 +107,7 @@ class PaymentSuccessRootView: ExtendedView {
             
             let slotNumber = NSMutableAttributedString(string: "Chat \(self.info?.slotNumber ?? "") ", attributes: greenAttribute)
             
-            let secondStr = NSMutableAttributedString(string: "during the event, scheduled from ", attributes: grayAttribute)
+            let secondStr = NSMutableAttributedString(string: "during the session, scheduled from ", attributes: grayAttribute)
             
             let time = NSMutableAttributedString(string: "\(self.info?.startTime ?? "") - \(self.info?.endTime ?? "") ", attributes: greenAttribute)
             
@@ -115,7 +115,7 @@ class PaymentSuccessRootView: ExtendedView {
             
             let fifthStr = NSMutableAttributedString(string: "\(self.info?.startDate ?? "")", attributes: greenAttribute)
             
-            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the event is now in the Event Tickets Section of your account", attributes: grayAttribute)
+            let sixthStr = NSMutableAttributedString(string: ". Your ticket to joint the session is now in the Event Tickets Section of your account", attributes: grayAttribute)
             
             let requiredString:NSMutableAttributedString = NSMutableAttributedString()
             

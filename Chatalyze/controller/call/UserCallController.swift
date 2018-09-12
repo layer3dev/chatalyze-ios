@@ -17,7 +17,6 @@ class UserCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
-    
     var isScreenshotStatusLoaded = false
     
     //Ends
@@ -70,9 +69,8 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myActiveUserSlot?.isSelfieTimerInitiated))")
         
+        self.selfieTimerView?.reset()
         DispatchQueue.main.async {
-            
-            self.selfieTimerView?.reset()
             guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
                 return
             }
@@ -81,6 +79,14 @@ class UserCallController: VideoCallController {
             }else{
                 self.myActiveUserSlot?.isSelfieTimerInitiated = false
             }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.viewDidDisappear(animated)
+        
+        DispatchQueue.main.async {
+            self.selfieTimerView?.reset()
         }
     }
     
@@ -281,7 +287,7 @@ class UserCallController: VideoCallController {
             return
         }
         
-        //Once the  selfie timer has been come
+        //Once the selfie timer has been come
         guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         
         guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
@@ -684,7 +690,6 @@ extension UserCallController{
     private func prepateCanvas(info : CanvasInfo?){
         
         userRootView?.canvasContainer?.show()
-        
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in

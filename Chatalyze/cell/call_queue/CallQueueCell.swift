@@ -119,6 +119,7 @@ class CallQueueCell: ExtendedCollectionCell {
     }
     
     private func updateBackgroundForUser(){
+        
         guard let selfId = SignedUserInfo.sharedInstance?.id
             else{
                 return

@@ -18,6 +18,7 @@ class SocketClient : NSObject{
     var socket : WebSocket?
     
     fileprivate var connectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
+  
     fileprivate var eventListenerList : [Int : SocketListenerCallback] = [Int : SocketListenerCallback]()
     
     fileprivate var connectionCounter = 0

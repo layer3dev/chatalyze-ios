@@ -118,6 +118,7 @@ extension UserInfo{
     }
     
     fileprivate func getCurrentYear()->Int{
+        
         let date  = Date()
         let dateInfo = DateParser.getDateComponentsFromDate(date)
         return dateInfo.year ?? 0;

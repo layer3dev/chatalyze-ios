@@ -73,7 +73,6 @@ class SettingController : InterfaceExtendedController {
                 MySessionHeightConstraint?.priority = UILayoutPriority(999.0)
             }
         }
-        
         paintNavigationBar()
         //edgesForExtendedLayout = UIRectEdge()
     }
@@ -109,7 +108,6 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func paymentListingAction(sender:UIButton){
         
-        
         guard let roleType = SignedUserInfo.sharedInstance?.role else {
             return
         }
@@ -135,7 +133,6 @@ class SettingController : InterfaceExtendedController {
             return
         }
         controller.delegate = self
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -151,15 +148,15 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-        guard let controller = TestController.instance() else{
-            return
-        }
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-//        guard let controller = ContactUsController.instance() else{
+//        guard let controller = TestController.instance() else{
 //            return
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
+        
+        guard let controller = ContactUsController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

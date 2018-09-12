@@ -119,7 +119,7 @@ class UserEventQueueController: EventQueueController {
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
             
             showAlertMessage()
-            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+            statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
             return
         }
         

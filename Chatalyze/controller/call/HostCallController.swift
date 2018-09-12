@@ -14,14 +14,11 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
-    
     override func initialization(){
         super.initialization()
         
         initializeVariable()
-        checkDateFormat(date:"xfg")
     }
-    
     
     
     var hostActionContainer : HostVideoActionContainer?{
@@ -51,19 +48,19 @@ class HostCallController: VideoCallController {
         updateUserOfHangup(hashedUserId : hashedUserId, hangup : isHangedUp)
     }
     
-   
     
     private func refreshStreamLock(){
+        
         guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 localMediaPackage?.isDisabled = false
                 return
         }
         localMediaPackage?.isDisabled = slot.isHangedUp
-        
     }
     
     private func updateUserOfHangup(hashedUserId : String, hangup : Bool){
+        
         //{"id":"hangUp","value":true,"name":"chedddiicdaibdia"}
         var param = [String : Any]()
         param["id"] = "hangUp"
@@ -74,10 +71,6 @@ class HostCallController: VideoCallController {
     
     
     
-    func checkDateFormat(date:String){
-        
-    }
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -85,13 +78,12 @@ class HostCallController: VideoCallController {
         }
     }
     
-  
-    
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
     }
     
     private func initializeVariable(){
+        
         self.registerForTimerNotification()
         self.registerForListeners()
     }
@@ -99,6 +91,7 @@ class HostCallController: VideoCallController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        Log.echo(key: "yud", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
     }
     
@@ -120,7 +113,9 @@ class HostCallController: VideoCallController {
                         guard let connection = self.getActiveConnection() else{
                             return
                         }
-                        if connection.isConnected{                            
+                        if connection.isConnected{
+                            
+                            self.selfieTimerView?.reset()
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {

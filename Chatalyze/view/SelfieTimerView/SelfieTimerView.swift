@@ -80,7 +80,7 @@ class SelfieTimerView:ExtendedView {
             Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
             let difference = currentDateTimeGMT().timeIntervalSince(date)
             Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
-            if difference >= 3 {
+            if difference >= 3 {                
                 updateTimer()
             }
         }else{
