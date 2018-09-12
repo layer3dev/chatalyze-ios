@@ -287,6 +287,26 @@ class UserCallController: VideoCallController {
             return
         }
         
+        
+        //if current slot id is nil then return
+        if self.myActiveUserSlot?.id == nil{
+            return
+        }
+        
+        //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
+        
+        if let slotId = self.myActiveUserSlot?.id{
+            if let savedId =  UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId") as? Int {
+                if savedId == slotId && (self.myActiveUserSlot?.isScreenshotSaved ?? true){
+                    return
+                }
+            }
+        }
+        
+        
+        
+        
+        
         //Once the selfie timer has been come
         guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         
@@ -325,6 +345,9 @@ class UserCallController: VideoCallController {
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
             self.myActiveUserSlot?.isSelfieTimerInitiated = true
+            if let id = self.myActiveUserSlot?.id {
+                UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
+            }
             selfieTimerView?.startAnimation()
             Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
