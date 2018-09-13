@@ -59,13 +59,18 @@ import UIKit
     }
     
     private func enableMedia(){
-        if(!muteAudio){
+        
+        audioTrack?.isEnabled = true
+        videoTrack?.isEnabled = true
+        
+        //Client wanted to activate both video and audio, when host recovers from hangup state, even if video/audio would had been muted earlier
+        /*if(!muteAudio){
             audioTrack?.isEnabled = true
         }
         
         if(!muteVideo){
             videoTrack?.isEnabled = true
-        }
+        }*/
     }
     
     private func disableMedia(){

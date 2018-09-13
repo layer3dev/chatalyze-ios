@@ -277,7 +277,7 @@ class UserCallController: VideoCallController {
         
 //        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
         
-        Log.echo(key: "yud", text: "Current Id with the time is \(self.myActiveUserSlot?.id) , Date:-\(Date()) and the saved screenShotInfo  is \(self.myActiveUserSlot?.isScreenshotSaved)")
+//        Log.echo(key: "yud", text: "Current Id with the time is \(self.myActiveUserSlot?.id) , Date:-\(Date()) and the saved screenShotInfo  is \(self.myActiveUserSlot?.isScreenshotSaved)")
         
         
         
