@@ -35,7 +35,7 @@ class MyTicketsController: InterfaceExtendedController{
         registerEventSlotListner()       
     }
     
-
+    
     func registerEventSlotListner(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -59,7 +59,9 @@ class MyTicketsController: InterfaceExtendedController{
         super.viewWillAppear(animated)
         
         initializeVariable()
+        registerEventSlotListner()
         fetchInfo()
+        
     }    
     
     override func viewDidAppear(_ animated: Bool) {

@@ -17,6 +17,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
+    
     var isScreenshotStatusLoaded = false
     
     //Ends
@@ -26,6 +27,8 @@ class UserCallController: VideoCallController {
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     var isScreenshotPromptPage = false
+    
+    var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -71,6 +74,7 @@ class UserCallController: VideoCallController {
         
         self.selfieTimerView?.reset()
         DispatchQueue.main.async {
+            
             guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
                 return
             }
@@ -83,7 +87,7 @@ class UserCallController: VideoCallController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.viewDidDisappear(animated)
+        super.viewDidDisappear(animated)
         
         DispatchQueue.main.async {
             self.selfieTimerView?.reset()
@@ -112,8 +116,6 @@ class UserCallController: VideoCallController {
         }
     }
     
-    
-    
     private func initializeVariable(){
        
         initializeGetCommondForTakeScreenShot()
@@ -124,6 +126,7 @@ class UserCallController: VideoCallController {
         super.registerForListeners()
         
         //call initiation
+        
         socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
@@ -272,6 +275,12 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
+//        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
+        
+        Log.echo(key: "yud", text: "Current Id with the time is \(self.myActiveUserSlot?.id) , Date:-\(Date()) and the saved screenShotInfo  is \(self.myActiveUserSlot?.isScreenshotSaved)")
+        
+        
+        
         if !isScreenshotStatusLoaded{
             return
         }
@@ -287,7 +296,6 @@ class UserCallController: VideoCallController {
             return
         }
         
-        
         //if current slot id is nil then return
         if self.myActiveUserSlot?.id == nil{
             return
@@ -302,9 +310,6 @@ class UserCallController: VideoCallController {
                 }
             }
         }
-        
-        
-        
         
         
         //Once the selfie timer has been come
@@ -373,17 +378,16 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
         if(currentSlot.isFuture){
             updateCallHeaderForFuture(slot : currentSlot)
             return
         }
-        
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        
         
         guard let startDate = slot.endDate
             else{
@@ -397,6 +401,7 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
+        
         
         guard let startDate = slot.startDate
             else{
@@ -412,6 +417,7 @@ class UserCallController: VideoCallController {
     
     private func verifyIfExpired(){
         
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -424,6 +430,7 @@ class UserCallController: VideoCallController {
     }
     
     private func confirmCallLinked(){
+        
         
         guard let slot = myCurrentUserSlot
             else{
@@ -444,18 +451,24 @@ class UserCallController: VideoCallController {
     
     override func verifyScreenshotRequested(){
         
+        Log.echo(key: "yud", text: "cross Verify ScreenShot Requested is activeSlot\(myActiveUserSlot) and the slotId is \(myActiveUserSlot?.id)")
+        
         guard let activeSlot = myActiveUserSlot
             else{
+                isScreenshotStatusLoaded = true
                 return
         }
         
         guard let slotId = activeSlot.id
             else{
+                isScreenshotStatusLoaded = true
                 return
         }
         
         ScreenshotInfoFetch().fetchInfo(slotId: slotId) {[weak self] (success, infos)  in
+            Log.echo(key: "yud", text: "Finally I am veryfying slot")
             self?.verifySlot(slotInfo: activeSlot, screenshotInfos: infos)
+            self?.isScreenshotStatusLoaded = true
         }
     }
     
@@ -474,7 +487,7 @@ class UserCallController: VideoCallController {
                 slotInfo.isScreenshotSaved = true
             }
         }
-        isScreenshotStatusLoaded = true
+        
        
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isScreenshotSaved)")
         

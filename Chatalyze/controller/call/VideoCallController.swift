@@ -410,6 +410,7 @@ extension VideoCallController{
             self?.eventInfo = localEventInfo
             
             self?.verifyEventActivated()
+            Log.echo(key: "yud", text: "Verification of the ScreenshotRequested id working!!")
             self?.verifyScreenshotRequested()
             
             let roomId = localEventInfo.id ?? 0
