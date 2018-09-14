@@ -58,13 +58,13 @@ class EventScheduleCoreInfo: EventInfo {
             if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
                 slotInfo.updateFlags(info: oldSlotInfo)
             }
-            
             localSlotInfos.append(slotInfo)
         }
         return localSlotInfos
     }
     
     private func parseEmptySlot(bookingInfos : [JSON]?) -> [SlotInfo]{
+        
         var localSlotInfos = [SlotInfo]()
         guard let bookingInfos = bookingInfos
             else{
@@ -72,25 +72,23 @@ class EventScheduleCoreInfo: EventInfo {
         }
         
         for bookingInfo in bookingInfos {
+            
             let slotInfo = SlotInfo(info: bookingInfo)
             if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
                 slotInfo.updateFlags(info: oldSlotInfo)
             }
             slotInfo.isBreak = true
-            
             localSlotInfos.append(slotInfo)
         }
         return localSlotInfos
     }
     
-    
-    
     //to be overridden by child class
     func slotsUpdated(){
-    
     }
     
     private func fetchSlotInfo(id : Int)->SlotInfo?{
+        
         guard let slotInfos = self.slotInfos
             else{
                 return nil
@@ -107,10 +105,6 @@ class EventScheduleCoreInfo: EventInfo {
         }
         return nil
     }
-    
-    
-    
-    
     
     private func sortSlots(slotInfos : [SlotInfo])->[SlotInfo]{
         let infos = slotInfos.sorted { (slotOne, slotTwo) -> Bool in
@@ -137,7 +131,6 @@ class EventScheduleCoreInfo: EventInfo {
                 return (0, nil)
         }
         
-        
         for index in 0..<slotInfos.count{
             let slotInfo = slotInfos[index]
             let slotUserId = slotInfo.user?.id ?? "0"
@@ -149,7 +142,6 @@ class EventScheduleCoreInfo: EventInfo {
             }else{
                 Log.echo(key: "myValidSlot", text: "not valid userId - > \(slotUserId) and selfId -> \(selfId)")
             }
-            
         }
         
         Log.echo(key: "myValidSlot", text: "no valid slot found")

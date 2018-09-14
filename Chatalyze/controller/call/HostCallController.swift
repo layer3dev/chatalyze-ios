@@ -20,6 +20,11 @@ class HostCallController: VideoCallController {
         initializeVariable()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.registerForTimerNotification()
+    }
     
     var hostActionContainer : HostVideoActionContainer?{
         get{
@@ -32,6 +37,7 @@ class HostCallController: VideoCallController {
     }
     
     private func toggleHangup(){
+        
         guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return
@@ -47,7 +53,6 @@ class HostCallController: VideoCallController {
         let hashedUserId = slot.user?.hashedId ?? ""
         updateUserOfHangup(hashedUserId : hashedUserId, hangup : isHangedUp)
     }
-    
     
     private func refreshStreamLock(){
         
@@ -107,8 +112,22 @@ class HostCallController: VideoCallController {
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-                        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-                        let requiredDate = dateFormatter.date(from: date)                        
+                       
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                        var requiredDate:Date?
+                        
+                        if let newdate = dateFormatter.date(from: date){
+                            
+                            requiredDate = newdate
+                        }else{
+                            
+                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+                            requiredDate = dateFormatter.date(from: date)
+                        }
+                        
+                        Log.echo(key: "yud", text: "Date of the CountDown is \(requiredDate)")
+                        
+                        Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
                         
                         guard let connection = self.getActiveConnection() else{
                             return

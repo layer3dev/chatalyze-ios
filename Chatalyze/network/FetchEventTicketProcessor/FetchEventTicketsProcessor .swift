@@ -61,7 +61,9 @@ class FetchEventTicketsProcessor{
         for info in rawInfo{
             
             let slotobj = SlotInfo(info: info)
-            slotInfo.append(slotobj)
+            if slotobj.slotNo != nil{
+                slotInfo.append(slotobj)
+            }
         }
         completion(true,slotInfo)
         return

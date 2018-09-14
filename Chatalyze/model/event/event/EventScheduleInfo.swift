@@ -57,12 +57,14 @@ class EventScheduleInfo : EventScheduleCoreInfo{
     
     
     private func printMerge(){
+        
         guard let slotInfos = self.mergeSlotInfo?.slotInfos
             else{
                 return
         }
         
         for slot in slotInfos {
+            
             Log.echo(key: "merge", text: "slot \(slot.slotNo)")
             Log.echo(key: "merge", text: "slot \(slot.start)")
             Log.echo(key: "merge", text: "slot \(slot.end)")
@@ -114,6 +116,5 @@ class EventScheduleInfo : EventScheduleCoreInfo{
         
         lastSlot.end = currentSlot.end
         return true
-        
     }
 }

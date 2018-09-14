@@ -25,9 +25,7 @@ class AccountRootView: ExtendedView {
     @IBOutlet var memoriesLbl:UILabel?
     @IBOutlet var memoriesImage:UIImageView?
     @IBOutlet var memoriesBtn:UIButton?
-
     @IBOutlet var stackContainerView:UIView?
-    
     @IBOutlet var myTicketView:UIView?
     @IBOutlet var memoriesView:UIView?
     @IBOutlet var settingView:UIView?

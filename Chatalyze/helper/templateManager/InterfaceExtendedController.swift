@@ -33,12 +33,11 @@ class InterfaceExtendedController : ExtendedController {
     
     //singular execution of viewDidAppear
     func viewAppeared(){
-        
     }
     
     private func initialization(){
         
-        //registerForTapGestureForKeyboardResign()
+        registerForTapGestureForKeyboardResign()
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,10 +50,10 @@ class InterfaceExtendedController : ExtendedController {
         
         //:todo
         /*self.notificationBar?.count = SignedUserInfo.sharedInstance?.notificationCount ?? 0*/
-    }    
-    
+    }
     
     func paintNavigationLogo(){
+        
         //
         let image = UIImage(named: "login_screen_logo")
         let frame = CGRect(x: 0 , y: 0, width: 194, height: 41)
@@ -119,9 +118,7 @@ class InterfaceExtendedController : ExtendedController {
         navigationItem.leftBarButtonItem = backButton
         self.navigationController?.navigationBar.backItem?.title = ""
         self.navigationController?.navigationBar.backItem?.hidesBackButton = true
-        
     }
-    
     
     func paintBackButton(){
         
@@ -143,7 +140,6 @@ class InterfaceExtendedController : ExtendedController {
         items.append(barItem)
         self.navigationItem.leftBarButtonItems = items
     }
-    
     
     
     @objc func settingAction(){
@@ -168,7 +164,6 @@ class InterfaceExtendedController : ExtendedController {
 }
 
 
-
 extension InterfaceExtendedController:UIGestureRecognizerDelegate{
     
     fileprivate func registerForTapGestureForKeyboardResign(){
@@ -182,7 +177,6 @@ extension InterfaceExtendedController:UIGestureRecognizerDelegate{
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 //        return true
 //    }
-    
     
     @objc func hideKeyboard(){
         

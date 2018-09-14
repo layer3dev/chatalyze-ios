@@ -75,6 +75,9 @@ class UserCallController: VideoCallController {
         self.selfieTimerView?.reset()
         DispatchQueue.main.async {
             
+            if !SlotFlagInfo.staticScreenShotSaved{
+                SlotFlagInfo.staticIsTimerInitiated = false
+            }
             guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
                 return
             }
@@ -277,9 +280,17 @@ class UserCallController: VideoCallController {
         
 //        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
         
-        Log.echo(key: "yud", text: "Current Id with the time is \(self.myActiveUserSlot?.id) , Date:-\(Date()) and the saved screenShotInfo  is \(self.myActiveUserSlot?.isScreenshotSaved)")
+    
+        if let endtimeOfSlot = myActiveUserSlot?.endDate{
+            Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
+            if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
+                return
+            }
+        }
         
+        Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
         
+        //isScreenshotStatusLoaded is updated from the Call Slot Fetch webService , either active slot is available or not isScreenshotStatusLoaded will be updated with true.
         
         if !isScreenshotStatusLoaded{
             return
@@ -301,40 +312,41 @@ class UserCallController: VideoCallController {
             return
         }
         
-        //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
-        
-        if let slotId = self.myActiveUserSlot?.id{
-            if let savedId =  UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId") as? Int {
-                if savedId == slotId && (self.myActiveUserSlot?.isScreenshotSaved ?? true){
-                    return
-                }
+        //Server response for screenShot saved
+        if let isScreenShotSaved = self.myActiveUserSlot?.isScreenshotSaved{
+            if isScreenShotSaved{                
+                return
             }
         }
         
+        //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
+        if let slotId = self.myActiveUserSlot?.id{
+            if slotId == SlotFlagInfo.staticSlotId && SlotFlagInfo.staticIsTimerInitiated{
+                return
+            }
+        }
         
-        //Once the selfie timer has been come
-        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
-        
-        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
+//        //Once the selfie timer has been come
+//        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
+//        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
         guard let isConnectionConnected = self.connection?.isConnected else { return  }
         
-        if isSelfieTimerInitiated{
-            return
-        }
+//        if isSelfieTimerInitiated{
+//            return
+//        }
         
         //return if call is not connected means video stream is not coming.
         if !(isConnectionConnected){
             return
         }
         
-        //return if screenshot is already sent.
-        if isScreenshotSaved{
-            return
-        }
+//        //return if screenshot is already sent.
+//        if isScreenshotSaved{
+//            return
+//        }
         
         Log.echo(key: "yud", text: "Processs Autograph isSelfieTimerInitiated \(isSelfieTimerInitiated)")
-        Log.echo(key: "yud", text: "Processs Autograph isScreenShotSaved \(isScreenshotSaved)")
         Log.echo(key: "yud", text: "Processs Autograph isConnection Connected \(isConnectionConnected)")
         
         //here it is need to send the ping to host for the screenshot
@@ -351,8 +363,12 @@ class UserCallController: VideoCallController {
             //isSelfieTimerInitiated = true
             self.myActiveUserSlot?.isSelfieTimerInitiated = true
             if let id = self.myActiveUserSlot?.id {
-                UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
+                
+                //UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
+                SlotFlagInfo.staticSlotId = id
+                SlotFlagInfo.staticIsTimerInitiated = true
             }
+            
             selfieTimerView?.startAnimation()
             Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
@@ -363,10 +379,12 @@ class UserCallController: VideoCallController {
         selfieTimerView?.screenShotListner = {
             
             let image = self.userRootView?.getSnapshot()
-            self.myActiveUserSlot?.isScreenshotSaved = true
             self.mimicScreenShotFlash()
+            self.myActiveUserSlot?.isScreenshotSaved = true
+            SlotFlagInfo.staticScreenShotSaved = true
             self.uploadImage(image: image, completion: { (success, info) in
-                
+                if success{
+                }
                 self.screenshotInfo = info
             })
         }
@@ -488,7 +506,6 @@ class UserCallController: VideoCallController {
             }
         }
         
-       
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isScreenshotSaved)")
         
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isSelfieTimerInitiated)")

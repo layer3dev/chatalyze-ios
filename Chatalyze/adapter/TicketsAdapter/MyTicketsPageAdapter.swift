@@ -14,7 +14,8 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
 
     override func initializeCollectionFlowLayout(){
         
-        Log.echo(key: "ticket", text: "feature Height is\(featureHeight)")
+        Log.echo(key: "yud", text: "feature Height is\(featureHeight)")
+        Log.echo(key: "yud", text: "static page Height is \(AppThemeConfig.ticketHeight)")
         
         //self.myTicketsCollectionView?.layoutIfNeeded()
         self.myTicketsCollectionView?.dataSource = self
@@ -22,9 +23,12 @@ class MyTicketsPageAdapter: MyTicketesAdapter {
         let width = root?.superview?.frame.size.width ?? 60.0
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            layout.itemSize = CGSize(width:width-280, height: featureHeight-90.0)
+            //layout.itemSize = CGSize(width:width-280, height: featureHeight-90.0)
+            layout.itemSize = CGSize(width:width-280, height: AppThemeConfig.ticketHeight-90.0)
+            
+            
         }else{            
-            layout.itemSize = CGSize(width: width-60, height: featureHeight-15)
+            layout.itemSize = CGSize(width: width-60, height: AppThemeConfig.ticketHeight-15)
         }
         
         layout.scrollDirection = .horizontal

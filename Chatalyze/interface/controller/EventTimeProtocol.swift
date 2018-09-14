@@ -16,5 +16,4 @@ protocol EventTimeProtocol {
     var endDate : Date?{
         get
     }
-    
 }

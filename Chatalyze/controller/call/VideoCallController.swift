@@ -407,6 +407,21 @@ extension VideoCallController{
                     return
             }
             
+            //new event is updated with the old event local Parameters
+            if let newSlotInfo = localEventInfo.slotInfos{
+                for newinfo in newSlotInfo{
+                    if let oldSlotInfo = self?.eventInfo?.slotInfos{
+                        for oldInfo in oldSlotInfo{
+                            if oldInfo.id == newinfo.id{
+                                
+                                //newinfo.isScreenshotSaved = oldInfo.isScreenshotSaved
+                                newinfo.isSelfieTimerInitiated = oldInfo.isSelfieTimerInitiated
+                            }
+                        }
+                    }
+                }
+            }
+            
             self?.eventInfo = localEventInfo
             
             self?.verifyEventActivated()

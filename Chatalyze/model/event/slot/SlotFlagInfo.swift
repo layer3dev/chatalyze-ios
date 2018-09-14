@@ -14,6 +14,13 @@ class SlotFlagInfo: NSObject {
     var isSelfieTimerInitiated = false // local model info
     var isHangedUp = false //when host hangup call on user
     
+    
+    //static var's
+    
+    static var staticSlotId = -1
+    static var staticIsTimerInitiated = false
+    static var staticScreenShotSaved = false
+    
     func updateFlags(info : SlotFlagInfo){
         
         self.isAutographRequested = info.isAutographRequested

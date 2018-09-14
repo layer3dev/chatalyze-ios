@@ -736,7 +736,7 @@
                                     <constraint firstAttribute="trailing" secondItem="n6Y-zA-z92" secondAttribute="trailing" id="i0A-4I-Mja"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQj-Ay-KDh">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQj-Ay-KDh" customClass="AccountContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="175" width="375" height="492"/>
                                 <connections>
                                     <segue destination="dla-aT-iJU" kind="embed" identifier="pagination" id="BE2-sQ-XrN"/>
@@ -768,7 +768,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="containerTopContraint" destination="vgW-e0-fNO" id="nNm-8j-H7N"/>
-                        <outlet property="containerView" destination="oQj-Ay-KDh" id="59B-jR-BqW"/>
+                        <outlet property="containerView" destination="oQj-Ay-KDh" id="rfW-c9-bdd"/>
                         <outlet property="rootView" destination="T2J-KV-zeK" id="uQS-3K-fKp"/>
                         <outlet property="topConstraint" destination="8LV-BO-cVT" id="9mO-Za-f9V"/>
                     </connections>
@@ -1357,7 +1357,7 @@
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="26"/>
                                                 </variation>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
                                                 <rect key="frame" x="61.5" y="425" width="252" height="55"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

@@ -162,7 +162,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func updateToken(){
         
         RefreshDeviceToken().update { (success, message, response) in
-            
+
             if !success{
                 return
             }
