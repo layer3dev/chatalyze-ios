@@ -43,17 +43,11 @@ class MyTicketsController: InterfaceExtendedController{
         }        
         eventSlotListiner.userId = id
         eventSlotListiner.setListener {
+            
             Log.echo(key: "yud", text:"New slot is booked")
             self.fetchInfo()
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-        eventSlotListiner.setListener(listener: nil)
-    }
-    
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
@@ -61,7 +55,6 @@ class MyTicketsController: InterfaceExtendedController{
         initializeVariable()
         registerEventSlotListner()
         fetchInfo()
-        
     }    
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,7 +86,7 @@ class MyTicketsController: InterfaceExtendedController{
         }
         
         self.showLoader()
-        CallSlotFetch().fetchInfos() { (success, info) in
+        CallSlotFetch().fetchInfos() {(success, info) in
             
             self.ticketsArray.removeAll()
             self.rootview?.adapter?.initializeCollectionFlowLayout()

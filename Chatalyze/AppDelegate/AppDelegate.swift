@@ -134,9 +134,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        if UIApplication.shared.applicationState == .active{
-            return
-        }
+        //if UIApplication.shared.applicationState == .active{
+          //  return
+        //}
         
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo

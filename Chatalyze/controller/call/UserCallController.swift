@@ -278,9 +278,14 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-//        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
+        //Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
         
-    
+        Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
+        
+        if self.eventInfo?.isScreenShotAllowed == nil{
+            return
+        }
+        
         if let endtimeOfSlot = myActiveUserSlot?.endDate{
             Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
             if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
@@ -420,7 +425,6 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
         
-        
         guard let startDate = slot.startDate
             else{
                 return
@@ -434,7 +438,6 @@ class UserCallController: VideoCallController {
     
     
     private func verifyIfExpired(){
-        
         
         guard let eventInfo = self.eventInfo
             else{

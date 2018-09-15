@@ -41,6 +41,7 @@ class SocketClient : NSObject{
     }
     
     fileprivate func initialization(){
+        
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -48,6 +49,7 @@ class SocketClient : NSObject{
     
     
     fileprivate func initializeVariable(){
+        
         Log.echo(key: "socket_client", text:"initializeVariable WebSocket")
         
         guard let url = URL(string: AppConnectionConfig.socketURL)
@@ -120,11 +122,9 @@ extension SocketClient{
         
         Log.echo(key: "SocketClient", text: "connect called")
         
-         self.connectionFlag = true
-         self.roomId = roomId
-        
-        
-         socket?.connect()
+        self.connectionFlag = true
+        self.roomId = roomId
+        socket?.connect()
     }
     
     var isBridged : Bool{
@@ -170,7 +170,6 @@ extension SocketClient{
                 self.updateAllForConnectionActive()
             }
             
-            
         }
         
         
@@ -182,7 +181,6 @@ extension SocketClient{
         self.onEvent("notification") {data in
             Log.echo(key: "socket_client", text:"socket notification => \(String(describing: data))")
         }
-
         
     }
 
@@ -223,17 +221,18 @@ extension SocketClient{
         Log.echo(key: "socket_client", text: "disconnect => called")
         connectionFlag = false
         resetListeners()
-        socket?.disconnect() 
-        
+        socket?.disconnect()
     }
     
     private func resetListeners(){
-//        connectionCallbackList = [Int : (Bool)->()]()
-//        eventListenerList = [Int : SocketListenerCallback]()
+
+        //        connectionCallbackList = [Int : (Bool)->()]()
+        //        eventListenerList = [Int : SocketListenerCallback]()
     }
     
     
     func reconnect(){
+       
         //socket?.disconnect()
         //Log.echo(key: "socket_client", text:"tearup and make new")
         //socket?.connect()
@@ -390,6 +389,7 @@ extension SocketClient{
     
     
     fileprivate func updateAllForConnectionActive() {
+        
         Log.echo(key: "socket", text: "the the world that you are connected now")
         for (connectionCounter,callback) in connectionCallbackList {
             Log.echo(key: "socket", text: "Hey i'm connected")

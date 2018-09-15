@@ -11,6 +11,8 @@ import UIKit
 
 class ContainerController: TabChildLoadController {
     
+    
+    @IBOutlet var socketVerifierView:UIView?
     var tabController : TabContainerController?
     @IBOutlet fileprivate var tabContainerView : TabContainerView?
     static var initialTab : TabContainerView.tabType =  TabContainerView.tabType.event

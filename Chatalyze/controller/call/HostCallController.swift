@@ -13,6 +13,8 @@ class HostCallController: VideoCallController {
         
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
+        
+    
     
     override func initialization(){
         super.initialization()
@@ -151,6 +153,7 @@ class HostCallController: VideoCallController {
     override func registerForListeners(){
         super.registerForListeners()
     }
+    
     override func isExpired()->Bool{
         
         if(eventInfo?.isExpired ?? true){
@@ -455,6 +458,8 @@ class HostCallController: VideoCallController {
                     return
             }            
             self.eventInfo = info
+            Log.echo(key: "yud", text: "First activates startDate is \(self.eventInfo?.started)")
+            self.fetchInfoAfterActivatIngEvent()
         }
     }
 }

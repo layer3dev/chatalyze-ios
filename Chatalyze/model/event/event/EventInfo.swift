@@ -11,6 +11,7 @@ import UIKit
 import SwiftyJSON
 
 /*Doesn't include child slot information*/
+
 class EventInfo: NSObject {
   
     var id : Int?
@@ -45,7 +46,7 @@ class EventInfo: NSObject {
     var href : String?
     var serviceFee:Double?
     var callBookings:[JSON] = [JSON]()
-    
+    var isScreenShotAllowed:String?
     
     override init(){
         super.init()
@@ -88,7 +89,9 @@ class EventInfo: NSObject {
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
         deletedAt = json["deletedAt"].string
+        isScreenShotAllowed = json["screenshotAllow"].string
         
+        //autographAllow
         user = UserInfo(userInfoJSON: json["user"])
 //        if (json["user"] != nil) { user = User(json: json["user"] as! NSDictionary) } //todo:
         href = json["href"].string

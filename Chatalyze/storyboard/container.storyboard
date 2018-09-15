@@ -96,10 +96,10 @@
                                         <rect key="frame" x="256" y="0.0" width="256" height="65"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="118-zR-1y9" userLabel="content_view">
-                                                <rect key="frame" x="88.5" y="0.0" width="79.5" height="65"/>
+                                                <rect key="frame" x="89" y="0.0" width="79.5" height="65"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tab_greeting_unselect" translatesAutoresizingMaskIntoConstraints="NO" id="Yqp-5E-QgR">
-                                                        <rect key="frame" x="22" y="5" width="35" height="35"/>
+                                                        <rect key="frame" x="21.5" y="5" width="35" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="10t-EM-hIV">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="35"/>
@@ -247,20 +247,31 @@
                                     <outlet property="greetingTab" destination="Gjp-md-shq" id="qPg-3a-CEa"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wM6-fS-sOG">
+                                <rect key="frame" x="0.0" y="1023" width="768" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="jic-0w-Ial"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YXy-2Z-R9c" secondAttribute="trailing" id="0Yx-Ry-gpi"/>
                             <constraint firstItem="jrX-Jl-8x2" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="CfV-lG-M8B"/>
+                            <constraint firstAttribute="trailing" secondItem="wM6-fS-sOG" secondAttribute="trailing" id="FAF-1T-kZ7"/>
                             <constraint firstItem="YXy-2Z-R9c" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" id="K16-n4-BnI"/>
+                            <constraint firstItem="wM6-fS-sOG" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="Nnc-FN-eK8"/>
                             <constraint firstItem="YXy-2Z-R9c" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="T0u-29-D05"/>
                             <constraint firstAttribute="trailing" secondItem="jrX-Jl-8x2" secondAttribute="trailing" id="TJb-lh-TVC"/>
+                            <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="wM6-fS-sOG" secondAttribute="bottom" id="Ukh-1E-ZSu"/>
                             <constraint firstItem="jrX-Jl-8x2" firstAttribute="top" secondItem="YXy-2Z-R9c" secondAttribute="bottom" constant="-49" id="VnO-vl-3lO"/>
                             <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="jrX-Jl-8x2" secondAttribute="bottom" id="vbH-nq-4Qi"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="socketVerifierView" destination="wM6-fS-sOG" id="Nit-zI-zPl"/>
                         <outlet property="tabContainerView" destination="jrX-Jl-8x2" id="vBG-sk-xil"/>
                     </connections>
                 </viewController>
@@ -283,7 +294,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDc-P3-qfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1167" y="-432"/>
+            <point key="canvasLocation" x="-1245" y="-439"/>
         </scene>
     </scenes>
     <resources>

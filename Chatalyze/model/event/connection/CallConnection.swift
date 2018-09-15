@@ -181,6 +181,7 @@ extension CallConnection : ARDAppClientDelegate{
     
     
     private func resetRemoteFrame(){
+        
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return

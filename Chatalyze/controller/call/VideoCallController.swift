@@ -151,6 +151,8 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+        //multipleVideoTabListner()
     }
     
     override func didReceiveMemoryWarning() {
@@ -304,6 +306,7 @@ class VideoCallController : InterfaceExtendedController {
         registerForEvent()
         
         socketClient = SocketClient.sharedInstance
+        multipleVideoTabListner()
         startTimer()
         
         eventScheduleUpdatedAlert()
@@ -379,6 +382,12 @@ extension VideoCallController{
 
 //instance
 extension VideoCallController{
+    
+    func fetchInfoAfterActivatIngEvent(){
+        
+        self.fetchInfo(showLoader: true, completion: { (success) in
+        })
+    }
     
     fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
    
@@ -480,7 +489,6 @@ extension VideoCallController{
         self.localTrack = localMediaPackage?.videoTrack
         self.localTrack?.add(localView)
         
-    
     }
 }
 
@@ -501,4 +509,43 @@ extension VideoCallController{
             flashView.removeFromSuperview()
         })
     }
+}
+
+extension VideoCallController{
+   
+    func multipleVideoTabListner(){
+        
+        socketClient?.socket?.onText = { (text:String) in
+            
+            Log.echo(key : "socket_client", text : "Multiplexing Error: \(text)")
+            //{"id":"multipleTabRequest"}
+            
+            guard let data = text.data(using: .utf8) else{
+                return
+            }
+            let json = try? JSON(data : data)
+            if let dataDict = json?.dictionary{
+                if let str = dataDict["id"]?.string{
+                    if str == "multipleTabRequest"{
+                        Log.echo(key: "socket_client", text: "Multiplexing Request accepted")
+                    }
+                }
+            }
+        }
+    }
+    
+//    So.socket?.onText = { (text: String) in
+//    DispatchQueue.main.async {
+//    Log.echo(key : "socket_client", text : "Received text: \(text)")
+//    guard let data = text.data(using: .utf8)
+//    else{
+//    return
+//    }
+//
+//    let json = try? JSON(data : data)
+//    self.handleEventResponse(json: json)
+//    return
+//    }
+//    }
+    
 }

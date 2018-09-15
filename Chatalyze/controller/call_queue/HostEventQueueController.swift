@@ -11,6 +11,7 @@ import UIKit
 class HostEventQueueController: EventQueueController {
     
     let updatedEventScheduleListner = UpdateEventListener()
+    var isEventActivated = false
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -46,12 +47,17 @@ class HostEventQueueController: EventQueueController {
     override func refresh(){
         super.refresh()
         
+        Log.echo(key: "yud", text: "Refresh in the HostEventQueue is running")
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
         }
-        
-        if(eventInfo.isPreconnectEligible || eventInfo.isLIVE){
+      
+        //&& isEventActivated
+       
+        if((eventInfo.isPreconnectEligible || eventInfo.isLIVE) ){
+            
             guard let controller = HostCallController.instance()
                 else{
                     return
@@ -90,6 +96,7 @@ class HostEventQueueController: EventQueueController {
         
         let eventIdString = "\(eventId)"
         ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+          
             if(!success){
                 return
             }
@@ -98,8 +105,8 @@ class HostEventQueueController: EventQueueController {
                 else{
                     return
             }
-            
             self.eventInfo = info
+            self.isEventActivated = true
         }
     }
 }
