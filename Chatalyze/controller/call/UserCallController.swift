@@ -513,6 +513,24 @@ class UserCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
     }
+    
+    override func handleMultipleTabOpening(){
+        
+        DispatchQueue.main.async {
+            
+            guard let controller = OpenCallAlertController.instance() else{
+                    return
+            }
+            controller.dismissHandler = {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: {
+                    })
+                }
+            }
+            self.present(controller, animated: false, completion: {
+            })
+        }
+    }
 }
 
 extension UserCallController{

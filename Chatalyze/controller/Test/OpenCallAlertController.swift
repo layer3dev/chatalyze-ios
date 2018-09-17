@@ -10,11 +10,22 @@ import UIKit
 
 class OpenCallAlertController: InterfaceExtendedController {
    
+    var dismissHandler:(()->())?
     override func viewDidLayout() {
         super.viewDidLayout()
         
     }
-
+    
+    @IBAction func dissmissAction(sender:UIButton){
+        
+        self.dismiss(animated: true) {
+            if let dismissSelf = self.dismissHandler{
+                dismissSelf()
+            }
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -32,3 +43,14 @@ class OpenCallAlertController: InterfaceExtendedController {
     */
 
 }
+
+extension OpenCallAlertController{
+    
+    class func instance()->OpenCallAlertController?{
+        
+        let storyboard = UIStoryboard(name: "call_view", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "OpenCallAlertController") as? OpenCallAlertController
+        return controller
+    }
+}
+

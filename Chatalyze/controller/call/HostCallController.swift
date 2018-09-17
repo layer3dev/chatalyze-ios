@@ -462,6 +462,25 @@ class HostCallController: VideoCallController {
             self.fetchInfoAfterActivatIngEvent()
         }
     }
+   
+    
+    override func handleMultipleTabOpening(){
+     
+        DispatchQueue.main.async {
+            
+            guard let controller = OpenCallAlertController.instance() else{
+                return
+            }
+            controller.dismissHandler = {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false, completion: {
+                    })
+                }
+            }
+            self.present(controller, animated: false, completion: {
+            })
+        }
+    }
 }
 
 //instance

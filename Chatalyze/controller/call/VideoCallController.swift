@@ -355,6 +355,10 @@ class VideoCallController : InterfaceExtendedController {
     func verifyEventActivated(){
         
     }
+    //abstract
+    func handleMultipleTabOpening(){
+        
+    }
     
     func verifyScreenshotRequested(){
         
@@ -528,11 +532,15 @@ extension VideoCallController{
                 if let str = dataDict["id"]?.string{
                     if str == "multipleTabRequest"{
                         Log.echo(key: "socket_client", text: "Multiplexing Request accepted")
+                        self.handleMultipleTabOpening()
                     }
                 }
             }
         }
     }
+    
+   
+    
     
 //    So.socket?.onText = { (text: String) in
 //    DispatchQueue.main.async {
