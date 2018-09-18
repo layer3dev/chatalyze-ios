@@ -1,67 +1,21 @@
 //
-//  TestController.swift
+//  AnimateLable.swift
 //  Chatalyze
 //
-//  Created by Mansa on 10/09/18.
+//  Created by Mansa on 18/09/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class TestController: InterfaceExtendedController{
-
-    @IBOutlet var savedCardsTable:UITableView?
+class AnimateLable :ExtendedView{
     
+    var label = UILabel()
     var crossFading: Bool  = false
     let duration = 1.0
     let fontSizeSmall: CGFloat = 30
     let fontSizeBig: CGFloat = 120
     var isSmall: Bool = true
-    
-    @IBOutlet weak var label: UILabel!
-    
-    override func viewDidLayout() {
-        super.viewDidLayout()
-        
-        initializeVariable()
-        reset(self)
-    }
-    
-    func initializeVariable(){
-        
-        savedCardsTable?.dataSource = self
-        savedCardsTable?.delegate = self
-        savedCardsTable?.reloadData()
-    }
-
-    @IBAction func ticketsAction(){
-        
-        enlarge()
-//        crossFading = true
-//        animateFont(self)
-        //RootControllerManager().setMyTicketsScreenForNavigation()
-    }
-    
-    
-    @IBAction func sessionAction(){
-
-        shrink()
-//        crossFading = false
-//        animateFont(self)
-        //RootControllerManager().selectEventTabWithEventScreen()
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
     
     @IBAction func reset(_ sender: Any) {
         
@@ -99,15 +53,16 @@ class TestController: InterfaceExtendedController{
         label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
         label.bounds = biggerBounds
         
-//        UIView.animate(withDuration: duration) {
-//            self.label.transform = .identity
-//        }
-//
+        //        UIView.animate(withDuration: duration) {
+        //            self.label.transform = .identity
+        //        }
+        //
+        
         //Animated
         
         UIView.animate(withDuration: duration, animations: {
             self.label.transform = .identity
-
+            
         }) { (success) in
             self.shrink()
         }
@@ -116,7 +71,7 @@ class TestController: InterfaceExtendedController{
     func enlargeWithCrossFade() {
         
         let labelCopy = label.copyLabel()
-        view.addSubview(labelCopy)
+       // view.addSubview(labelCopy)
         
         var biggerBounds = label.bounds
         label.font = label.font.withSize(fontSizeBig)
@@ -135,7 +90,6 @@ class TestController: InterfaceExtendedController{
         })
         
         UIView.animate(withDuration: duration / 2) {
-           
             self.label.alpha = 1.0
             labelCopy.alpha = 0.0
         }
@@ -163,7 +117,7 @@ class TestController: InterfaceExtendedController{
     func shrinkWithCrossFade() {
         
         let labelCopy = label.copyLabel()
-        view.addSubview(labelCopy)
+        //view.addSubview(labelCopy)
         
         var smallerBounds = label.bounds
         label.font = label.font.withSize(fontSizeSmall)
@@ -199,39 +153,14 @@ class TestController: InterfaceExtendedController{
     }
 }
 
-
-extension TestController{
+extension UILabel {
     
-    class func instance()->TestController?{
+    func copyLabel() -> UILabel {
         
-        let storyboard = UIStoryboard(name: "Account", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "Test") as? TestController
-        return controller
+        let label = UILabel()
+        label.font = self.font
+        label.frame = self.frame
+        label.text = self.text
+        return label
     }
 }
-
-
-extension TestController:UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = savedCardsTable?.dequeueReusableCell(withIdentifier: "SavedCardsCell", for: indexPath) as? SavedCardsCell else{
-            return UITableViewCell()
-        }
-        return cell
-    }
-}
-
-extension TestController:UITableViewDelegate{
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-}
-
-
-

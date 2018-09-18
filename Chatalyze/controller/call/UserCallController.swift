@@ -11,18 +11,22 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    //Animation Responsible
+    var isAnimating = false
+
+    
     //variable and outlet responsible for the SelfieTimer
     
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
-    
     var isScreenshotStatusLoaded = false
-    
+
     //Ends
     //This is webRTC connection responsible for signalling and handling the reconnect
     
+
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
@@ -54,7 +58,8 @@ class UserCallController: VideoCallController {
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
-        processAutograph()        
+        processAutograph()
+        updateLableAnimation()
     }
     
     override func isExpired()->Bool{
@@ -409,9 +414,44 @@ class UserCallController: VideoCallController {
     }
     
     
+    func updateLableAnimation(){
+       
+        
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                
+                Log.echo(key: "animation", text: "stopAnimation")
+                isAnimating = false
+                stopLableAnimation()
+                return
+        }
+        
+        if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
+            
+            if endDate < 50.0 && endDate >= 1.0 && isAnimating == false {
+               
+                isAnimating = true
+                startLableAnimating(label: userRootView?.callInfoContainer?.timer)
+                return
+            }
+            if endDate < 0.0{
+
+                isAnimating = false
+                stopLableAnimation()
+                return
+            }
+            if endDate > 50.0{
+                
+                isAnimating = false
+                stopLableAnimation()
+                return
+            }
+            Log.echo(key: "animation", text: "StartAnimation and the time is \(endDate)")
+        }
+    }
+    
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
-        
-        
+                
         guard let startDate = slot.endDate
             else{
                 return

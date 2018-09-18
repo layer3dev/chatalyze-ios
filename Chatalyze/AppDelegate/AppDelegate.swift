@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //Calling the delgate methods to the local notifications
-        UNUserNotificationCenter.current().delegate = self
-        
+        UNUserNotificationCenter.current().delegate = self        
         //Override point for customization after application launch.
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
         //STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"

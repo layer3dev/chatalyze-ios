@@ -8,7 +8,7 @@ import Foundation
 
 class DevFlag : NSObject{
     
-    @objc static let key = "socket_client"
+    @objc static let key = "animation"
     @objc static let showAll = false
     @objc static let debug = true
 }

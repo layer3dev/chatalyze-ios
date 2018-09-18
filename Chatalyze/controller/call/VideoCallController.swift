@@ -13,6 +13,15 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
    
+    //user for animatingLable
+    var label = UILabel()
+    var isAnimate: Bool  = false
+    let duration = 1.0
+    let fontSizeSmall: CGFloat = 18
+    let fontSizeBig: CGFloat = 45
+    var isSmall: Bool = true
+    //End
+    
     var socketClient : SocketClient?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
@@ -50,7 +59,6 @@ class VideoCallController : InterfaceExtendedController {
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
-
     }
     
     override func viewAppeared(){
@@ -67,7 +75,6 @@ class VideoCallController : InterfaceExtendedController {
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
-        
         timer.pauseTimer()
         socketClient?.disconnect()
         self.socketClient = nil
@@ -89,7 +96,8 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     @IBAction private func audioMuteAction(){
-       guard let localMediaPackage = self.localMediaPackage
+     
+        guard let localMediaPackage = self.localMediaPackage
         else{
             return
         }
@@ -556,4 +564,81 @@ extension VideoCallController{
 //    }
 //    }
     
+}
+extension VideoCallController{
+    
+    func startLableAnimating(label:UILabel?){
+        
+        guard let lable = label else{
+            return
+        }
+        self.label = lable
+        self.isAnimate = true
+        self.label.textColor = UIColor.red
+        enlarge()
+    }
+    
+    func stopLableAnimation(){
+        
+        
+        shrink()
+        self.label.textColor = UIColor.white
+        self.isAnimate = false
+    }
+    
+    private func enlarge(){
+        
+        if !isAnimate{
+            return
+        }
+        
+        var biggerBounds = label.bounds
+        label.font = label.font.withSize(fontSizeBig)
+        biggerBounds.size = label.intrinsicContentSize
+        label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
+        label.bounds = biggerBounds
+        
+        //        UIView.animate(withDuration: duration) {
+        //            self.label.transform = .identity
+        //        }
+        //
+        //Animated
+        
+        UIView.animate(withDuration: duration, animations: {
+            self.label.transform = .identity
+            
+        }) { (success) in
+            self.shrink()
+        }
+    }
+    
+    private func shrink(){
+        
+        if !isAnimate{
+            return
+        }
+        
+        let labelCopy = label.copyLabel()
+        var smallerBounds = labelCopy.bounds
+        labelCopy.font = label.font.withSize(fontSizeSmall)
+        smallerBounds.size = labelCopy.intrinsicContentSize
+        
+        let shrinkTransform = scaleTransform(from: label.bounds.size, to: smallerBounds.size)
+        
+        UIView.animate(withDuration: duration, animations: {
+            self.label.transform = shrinkTransform
+        }, completion: { done in
+            self.label.font = labelCopy.font
+            self.label.transform = .identity
+            self.label.bounds = smallerBounds
+            self.enlarge()
+        })
+    }
+    
+    private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
+        let scaleX = to.width / from.width
+        let scaleY = to.height / from.height
+        
+        return CGAffineTransform(scaleX: scaleX, y: scaleY)
+    }
 }

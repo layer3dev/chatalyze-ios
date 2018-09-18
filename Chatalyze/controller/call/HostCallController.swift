@@ -10,7 +10,10 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
-        
+    
+    //For animation
+    var isAnimating = false
+    
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
         
@@ -168,9 +171,11 @@ class HostCallController: VideoCallController {
         confirmCallLinked()
         updateCallHeaderInfo()
         refresh()
+        updateLableAnimation()
     }
     
     private func refresh(){
+       
         refreshStreamLock()
     }
     
@@ -186,7 +191,6 @@ class HostCallController: VideoCallController {
         }
         return connection
     }
-    
     
     private func confirmCallLinked(){
         
@@ -263,6 +267,57 @@ class HostCallController: VideoCallController {
         let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
+    
+    
+    func updateLableAnimation(){
+        
+        guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                
+                Log.echo(key: "animation", text: "stopAnimation")
+                isAnimating = false
+                stopLableAnimation()
+                return
+        }
+        
+        if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
+            
+            if endDate < 50.0 && endDate >= 1.0 && isAnimating == false {
+                
+                isAnimating = true
+                startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
+                return
+            }
+            if endDate <= 0.0{
+                
+                isAnimating = false
+                stopLableAnimation()
+                return
+            }
+            if endDate > 50.0{
+                
+                isAnimating = false
+                stopLableAnimation()
+                return
+            }
+            Log.echo(key: "animation", text: "StartAnimation and the time is \(endDate)")
+        }
+    }
+    
+//    func animateUIlabel(){
+//
+//        var bounds = (hostRootView?.callInfoContainer?.timer?.bounds) ?? CGRect()
+//        bounds.size = (hostRootView?.callInfoContainer?.timer?.intrinsicContentSize) ?? CGSize()
+//        let scaleX = bounds.size.width / ((hostRootView?.callInfoContainer?.timer?.frame.size.width) ?? 0.0)
+//        let scaleY = bounds.size.height / ((hostRootView?.callInfoContainer?.timer?.frame.size.height) ?? 0.0)
+//        UIView.animate(withDuration: 1.0, animations: {
+//            self.hostRootView?.callInfoContainer?.timer?.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+//        }, completion: { done in
+//            self.hostRootView?.callInfoContainer?.timer?.font = labelCopy.font
+//            self.hostRootView?.callInfoContainer?.timer?.transform = .identity
+//            self.hostRootView?.callInfoContainer?.timer?.bounds = bounds
+//        })
+//    }
     
     
     private func processEvent(){
@@ -456,7 +511,7 @@ class HostCallController: VideoCallController {
             guard let info = eventInfo
                 else{
                     return
-            }            
+            }
             self.eventInfo = info
             Log.echo(key: "yud", text: "First activates startDate is \(self.eventInfo?.started)")
             self.fetchInfoAfterActivatIngEvent()
