@@ -54,6 +54,7 @@ class CallQueueCell: ExtendedCollectionCell {
         }
         
         if(slotInfo.isBreak){
+            
             countdownLabel?.text = "Break"
             return
         }
@@ -150,18 +151,21 @@ class CallQueueCell: ExtendedCollectionCell {
     }
     
     private func markActive(){
-        self.backgroundColor = UIColor(hexString: AppThemeConfig.greenColor)
+        
+        self.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
         self.countdownLabel?.textColor = UIColor.white
         self.queueNumberLabel?.textColor = UIColor.white
     }
     
     private func markIdeal(){
+        
         self.backgroundColor = UIColor.white
         self.countdownLabel?.textColor = UIColor(hexString: AppThemeConfig.idealGray)
         self.queueNumberLabel?.textColor = UIColor(hexString: AppThemeConfig.idealGray)
     }
     
     private func markSecondaryActive(){
+        
         self.backgroundColor = UIColor(hexString: AppThemeConfig.idealGray)
         self.countdownLabel?.textColor = UIColor.white
         self.queueNumberLabel?.textColor = UIColor.white

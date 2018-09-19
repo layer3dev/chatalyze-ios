@@ -45,7 +45,7 @@ class EventSlotNumberLabel: ExtendedLabel {
         }
         let size = CGFloat(26)
         let text = NSMutableAttributedString().appendCustom("You have Chat Number ", size : size)
-        text.appendCustom("\(slotNumber)", size : size, color : UIColor(hexString : AppThemeConfig.greenColor))
+        text.appendCustom("\(slotNumber)", size : size, color : UIColor(hexString : AppThemeConfig.themeColor))
         self.attributedText = text
     }
 

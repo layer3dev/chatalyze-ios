@@ -28,7 +28,7 @@ class EventCountDownLabel: ExtendedLabel {
     func updateText(label : String, countdown : String){
         let size = CGFloat(26)
         let text = NSMutableAttributedString().appendCustom(label, size : size)
-        text.appendCustom("\(countdown)", size : size, color : UIColor(hexString : AppThemeConfig.greenColor))
+        text.appendCustom("\(countdown)", size : size, color : UIColor(hexString : AppThemeConfig.themeColor))
         self.attributedText = text
     }
 

@@ -415,7 +415,6 @@ class UserCallController: VideoCallController {
     
     
     func updateLableAnimation(){
-       
         
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
@@ -428,13 +427,13 @@ class UserCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
             
-            if endDate < 50.0 && endDate >= 1.0 && isAnimating == false {
-               
+            if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
+                
                 isAnimating = true
                 startLableAnimating(label: userRootView?.callInfoContainer?.timer)
                 return
             }
-            if endDate < 0.0{
+            if endDate <= 0.0{
 
                 isAnimating = false
                 stopLableAnimation()
@@ -491,8 +490,7 @@ class UserCallController: VideoCallController {
     }
     
     private func confirmCallLinked(){
-        
-        
+                
         guard let slot = myCurrentUserSlot
             else{
                 return

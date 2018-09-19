@@ -9,15 +9,14 @@
 import UIKit
 
 class TabElementView: ExtendedView {
-    
+
     @IBOutlet private var tabIcon : UIImageView?
     @IBOutlet private var tabText : UILabel?
     @IBOutlet private var notificationStatusView : NotificationRoundView?
-    
     var type : TabContainerView.tabType?
     var delegate : TabElementInterface?
     fileprivate var _isActionPending : Bool = false
-    
+        
     @IBAction private func tabAction(){
         
         guard let type = type
@@ -42,6 +41,7 @@ class TabElementView: ExtendedView {
     }
     
     private func initialization(){
+        
         notificationStatusView?.isHidden = true
     }
     
@@ -59,7 +59,7 @@ class TabElementView: ExtendedView {
     public func setTab(){
         
         self.backgroundColor = UIColor.white
-        tabText?.textColor = UIColor(hexString: AppThemeConfig.greenColor)
+        tabText?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
         guard let imageName = getSelectImageName()
             else{
                 return
@@ -75,6 +75,7 @@ class TabElementView: ExtendedView {
         }
         
         switch type {
+        
         case .event:
             return "tab_event_unselect";
         case .greeting:
@@ -93,6 +94,7 @@ class TabElementView: ExtendedView {
         }
         
         switch type {
+            
         case .event:
             return "tab_event_select";
         case .greeting:
@@ -106,6 +108,7 @@ class TabElementView: ExtendedView {
     }
     
     var isActionPending : Bool{
+        
         get{
             return _isActionPending
         }
@@ -114,6 +117,5 @@ class TabElementView: ExtendedView {
             notificationStatusView?.isHidden = !newValue
         }
     }
-    
 }
 

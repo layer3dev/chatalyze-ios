@@ -17,15 +17,18 @@ class SignUpController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
+       
         paintInterface()
         initialization()
     }
     
     func initialization(){
+        
         rootView?.controller = self
     }
     
     func paintInterface(){
+        
         paintNavigationTitle(text: "SIGN UP")
         paintBackButton()
     }

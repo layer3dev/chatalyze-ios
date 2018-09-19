@@ -23,10 +23,10 @@ class ForgotRootView:ExtendedView{
         self.errorLabel?.textColor = UIColor.red
         self.errorLabel?.text = ""
         if(validateFields()){
+            
             self.resetErrorStatus()
             sendResetPassword()
         }
-        
     }
     
     func sendResetPassword(){
@@ -40,7 +40,7 @@ class ForgotRootView:ExtendedView{
             if success{
                 
                 self.showError(text: "Password reset link sent. Please check your email \(email)")
-                self.errorLabel?.textColor = UIColor(hexString: AppThemeConfig.greenColor)
+                self.errorLabel?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
                 self.emailField?.textField?.text = ""
                 return
             }
@@ -51,11 +51,8 @@ class ForgotRootView:ExtendedView{
     }
     
     @IBAction func signupAction(sender:UIButton){
-        
-        guard let controller = SignUpController.instance() else {
-            return
-        }
-        self.controller?.navigationController?.pushViewController(controller, animated: false)
+
+        self.controller?.navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidLayout() {

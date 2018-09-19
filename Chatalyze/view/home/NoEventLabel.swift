@@ -27,7 +27,7 @@ class NoEventLabel: ExtendedLabel {
     private func initialization(){
         let size = CGFloat(26)
         let text = NSMutableAttributedString().appendCustom("No", size : size)
-        text.appendCustom(" Event", size : size, color : UIColor(hexString : AppThemeConfig.greenColor))
+        text.appendCustom(" Event", size : size, color : UIColor(hexString : AppThemeConfig.themeColor))
         text.appendCustom(" Booked.", size : size)
         
         self.attributedText = text

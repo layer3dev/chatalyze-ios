@@ -22,57 +22,150 @@
                                 <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqY-XA-gh3" userLabel="container_view">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="732"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="577"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-3J-vRt" userLabel="fb_login">
-                                                <rect key="frame" x="30" y="80" width="708" height="55"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-V4-VB2">
+                                                <rect key="frame" x="244" y="60" width="280" height="70"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_login" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-y6-30W">
-                                                        <rect key="frame" x="0.0" y="0.0" width="708" height="55"/>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="708" height="55"/>
-                                                        <connections>
-                                                            <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="rxi-Ys-b0f"/>
-                                                        </connections>
-                                                    </button>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-3J-vRt" userLabel="fb_login">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_new" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-y6-30W">
+                                                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="5Nc-AX-MtH"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="H3I-Cv-MsY"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <connections>
+                                                                    <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="rxi-Ys-b0f"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="XaG-y6-30W" firstAttribute="centerX" secondItem="OYC-3J-vRt" secondAttribute="centerX" id="8Sz-m4-cve"/>
+                                                            <constraint firstAttribute="height" constant="70" id="EcO-5Q-XMc"/>
+                                                            <constraint firstAttribute="bottom" secondItem="U5g-Zp-nz4" secondAttribute="bottom" id="FSn-D2-AxU"/>
+                                                            <constraint firstItem="XaG-y6-30W" firstAttribute="centerY" secondItem="OYC-3J-vRt" secondAttribute="centerY" id="Plj-ls-Mc1"/>
+                                                            <constraint firstItem="U5g-Zp-nz4" firstAttribute="top" secondItem="OYC-3J-vRt" secondAttribute="top" id="RK9-X4-MuV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="U5g-Zp-nz4" secondAttribute="trailing" id="Ytf-Qb-Szz"/>
+                                                            <constraint firstItem="U5g-Zp-nz4" firstAttribute="leading" secondItem="OYC-3J-vRt" secondAttribute="leading" id="Z4J-Xj-NGs"/>
+                                                            <constraint firstAttribute="width" constant="70" id="nhB-72-zkv"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tgT-lc-OJG" userLabel="fb_login">
+                                                        <rect key="frame" x="70" y="0.0" width="70" height="70"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google_new" translatesAutoresizingMaskIntoConstraints="NO" id="87x-Jr-YEE">
+                                                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="40" id="0re-1h-rQF"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="NP8-e8-S5Y"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBy-ho-b3o">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <connections>
+                                                                    <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="Ocj-pG-Ute"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="jBy-ho-b3o" secondAttribute="bottom" id="QXd-QO-g67"/>
+                                                            <constraint firstAttribute="trailing" secondItem="jBy-ho-b3o" secondAttribute="trailing" id="Yfx-3U-YDB"/>
+                                                            <constraint firstAttribute="width" constant="70" id="YxS-vY-uga"/>
+                                                            <constraint firstItem="87x-Jr-YEE" firstAttribute="centerX" secondItem="tgT-lc-OJG" secondAttribute="centerX" id="ZTY-4B-HQN"/>
+                                                            <constraint firstItem="jBy-ho-b3o" firstAttribute="leading" secondItem="tgT-lc-OJG" secondAttribute="leading" id="c7t-55-zxs"/>
+                                                            <constraint firstItem="87x-Jr-YEE" firstAttribute="centerY" secondItem="tgT-lc-OJG" secondAttribute="centerY" id="hGC-Uf-baJ"/>
+                                                            <constraint firstAttribute="height" constant="70" id="y57-a8-6wI"/>
+                                                            <constraint firstItem="jBy-ho-b3o" firstAttribute="top" secondItem="tgT-lc-OJG" secondAttribute="top" id="zEg-n0-U8L"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZaW-7J-uec" userLabel="fb_login">
+                                                        <rect key="frame" x="140" y="0.0" width="70" height="70"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_new" translatesAutoresizingMaskIntoConstraints="NO" id="MTS-FU-RZT">
+                                                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="4BL-yo-lGp"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="4QO-np-UMv"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-7E-GMK">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <connections>
+                                                                    <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="QkJ-MT-P6V"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="QQD-7E-GMK" firstAttribute="top" secondItem="ZaW-7J-uec" secondAttribute="top" id="90b-ll-rPn"/>
+                                                            <constraint firstAttribute="width" constant="70" id="Jcy-eX-jPo"/>
+                                                            <constraint firstAttribute="height" constant="70" id="Nzy-Yc-Zh7"/>
+                                                            <constraint firstItem="MTS-FU-RZT" firstAttribute="centerY" secondItem="ZaW-7J-uec" secondAttribute="centerY" id="egh-Of-VKA"/>
+                                                            <constraint firstAttribute="bottom" secondItem="QQD-7E-GMK" secondAttribute="bottom" id="oaN-qN-e3o"/>
+                                                            <constraint firstAttribute="trailing" secondItem="QQD-7E-GMK" secondAttribute="trailing" id="obK-ZD-eCg"/>
+                                                            <constraint firstItem="QQD-7E-GMK" firstAttribute="leading" secondItem="ZaW-7J-uec" secondAttribute="leading" id="teQ-rl-WAb"/>
+                                                            <constraint firstItem="MTS-FU-RZT" firstAttribute="centerX" secondItem="ZaW-7J-uec" secondAttribute="centerX" id="uns-tB-5ba"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oid-Js-iui" userLabel="fb_login">
+                                                        <rect key="frame" x="210" y="0.0" width="70" height="70"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pateron" translatesAutoresizingMaskIntoConstraints="NO" id="7t6-Zo-Dtq">
+                                                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="9dy-qr-N3R"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="kU6-9Q-1At"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPr-FT-UTl">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <connections>
+                                                                    <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="aKd-g6-zcT"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="tPr-FT-UTl" secondAttribute="bottom" id="1tr-A8-Zs6"/>
+                                                            <constraint firstItem="tPr-FT-UTl" firstAttribute="top" secondItem="Oid-Js-iui" secondAttribute="top" id="3HT-qh-YrK"/>
+                                                            <constraint firstAttribute="width" constant="70" id="M0Y-gA-R5w"/>
+                                                            <constraint firstItem="tPr-FT-UTl" firstAttribute="leading" secondItem="Oid-Js-iui" secondAttribute="leading" id="clw-l0-0QF"/>
+                                                            <constraint firstAttribute="trailing" secondItem="tPr-FT-UTl" secondAttribute="trailing" id="jVa-Ya-3r3"/>
+                                                            <constraint firstItem="7t6-Zo-Dtq" firstAttribute="centerY" secondItem="Oid-Js-iui" secondAttribute="centerY" id="snQ-1o-LOD"/>
+                                                            <constraint firstAttribute="height" constant="70" id="tWD-L9-loG"/>
+                                                            <constraint firstItem="7t6-Zo-Dtq" firstAttribute="centerX" secondItem="Oid-Js-iui" secondAttribute="centerX" id="vKH-4s-TFs"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="XaG-y6-30W" secondAttribute="bottom" id="7Ou-Bs-5WT"/>
-                                                    <constraint firstItem="XaG-y6-30W" firstAttribute="top" secondItem="OYC-3J-vRt" secondAttribute="top" id="A4A-FM-2hp"/>
-                                                    <constraint firstAttribute="height" constant="40" id="EcO-5Q-XMc">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="55"/>
-                                                    </constraint>
-                                                    <constraint firstAttribute="bottom" secondItem="U5g-Zp-nz4" secondAttribute="bottom" id="FSn-D2-AxU"/>
-                                                    <constraint firstItem="XaG-y6-30W" firstAttribute="leading" secondItem="OYC-3J-vRt" secondAttribute="leading" id="M7J-W1-3HP"/>
-                                                    <constraint firstItem="U5g-Zp-nz4" firstAttribute="top" secondItem="OYC-3J-vRt" secondAttribute="top" id="RK9-X4-MuV"/>
-                                                    <constraint firstAttribute="trailing" secondItem="XaG-y6-30W" secondAttribute="trailing" id="Ug6-3B-NmP"/>
-                                                    <constraint firstAttribute="trailing" secondItem="U5g-Zp-nz4" secondAttribute="trailing" id="Ytf-Qb-Szz"/>
-                                                    <constraint firstItem="U5g-Zp-nz4" firstAttribute="leading" secondItem="OYC-3J-vRt" secondAttribute="leading" id="Z4J-Xj-NGs"/>
-                                                </constraints>
-                                            </view>
+                                            </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-Sz-0CY" userLabel="or_label">
-                                                <rect key="frame" x="70" y="185" width="628" height="28"/>
+                                                <rect key="frame" x="70" y="190" width="628" height="28"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
-                                                        <rect key="frame" x="0.0" y="14" width="277" height="0.5"/>
+                                                        <rect key="frame" x="0.0" y="14" width="186" height="0.5"/>
                                                         <color key="backgroundColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="Dkr-Kn-uhM"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-gD-cWI">
-                                                        <rect key="frame" x="297" y="0.0" width="35" height="28"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-gD-cWI">
+                                                        <rect key="frame" x="206" y="0.0" width="217.5" height="28"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                        <color key="textColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBU-ma-Uyn" userLabel="line_right">
-                                                        <rect key="frame" x="352" y="14" width="276" height="0.5"/>
+                                                        <rect key="frame" x="443.5" y="14" width="184.5" height="0.5"/>
                                                         <color key="backgroundColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="tjE-VA-Uqk"/>
@@ -93,7 +186,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXC-fy-Deb" userLabel="field_container">
-                                                <rect key="frame" x="70" y="253" width="628" height="127"/>
+                                                <rect key="frame" x="70" y="258" width="628" height="127"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="628" height="36"/>
@@ -242,7 +335,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="70" y="450" width="628" height="65"/>
+                                                <rect key="frame" x="70" y="455" width="628" height="65"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
                                                         <rect key="frame" x="270" y="18.5" width="88" height="28"/>
@@ -260,21 +353,21 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.72156862749999995" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="OQK-eI-kBI" firstAttribute="centerX" secondItem="a8e-R9-tgU" secondAttribute="centerX" id="NTp-9i-CcC"/>
                                                     <constraint firstAttribute="trailing" secondItem="hDF-0P-hEx" secondAttribute="trailing" id="chl-7p-MMt"/>
                                                     <constraint firstItem="OQK-eI-kBI" firstAttribute="centerY" secondItem="a8e-R9-tgU" secondAttribute="centerY" id="cmX-FN-P1j"/>
                                                     <constraint firstItem="hDF-0P-hEx" firstAttribute="top" secondItem="a8e-R9-tgU" secondAttribute="top" id="izC-l2-RSC"/>
                                                     <constraint firstItem="hDF-0P-hEx" firstAttribute="leading" secondItem="a8e-R9-tgU" secondAttribute="leading" id="pKP-Te-sSL"/>
-                                                    <constraint firstAttribute="height" constant="40" id="yKn-T9-9a7">
+                                                    <constraint firstAttribute="height" constant="45" id="yKn-T9-9a7">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
                                                     </constraint>
                                                     <constraint firstAttribute="bottom" secondItem="hDF-0P-hEx" secondAttribute="bottom" id="zIA-c8-stc"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-9i-LL8" userLabel="error_label">
-                                                <rect key="frame" x="70" y="520" width="628" height="0.0"/>
+                                                <rect key="frame" x="70" y="525" width="628" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -283,7 +376,7 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-gj-jhO" userLabel="forgot_password">
-                                                <rect key="frame" x="258.5" y="522" width="250" height="30"/>
+                                                <rect key="frame" x="258.5" y="527" width="250" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-ik-gjO">
                                                         <rect key="frame" x="27.5" y="0.0" width="196.5" height="28"/>
@@ -316,8 +409,8 @@
                                                     </constraint>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXt-2N-n7m" userLabel="forgot_password">
-                                                <rect key="frame" x="233.5" y="612" width="300" height="30"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXt-2N-n7m" userLabel="forgot_password">
+                                                <rect key="frame" x="233.5" y="617" width="300" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C34-r8-ptv">
                                                         <rect key="frame" x="22.5" y="2" width="255.5" height="28"/>
@@ -346,8 +439,8 @@
                                                     <constraint firstItem="C34-r8-ptv" firstAttribute="centerX" secondItem="jXt-2N-n7m" secondAttribute="centerX" id="zbT-N1-i8M"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yub-cQ-D52" userLabel="signin_button" customClass="Signupview" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="70" y="647" width="628" height="65"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yub-cQ-D52" userLabel="signin_button" customClass="Signupview" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="70" y="652" width="628" height="65"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-Vw-eRN">
                                                         <rect key="frame" x="266" y="18.5" width="97" height="28"/>
@@ -383,40 +476,44 @@
                                             <constraint firstAttribute="trailing" secondItem="HXC-fy-Deb" secondAttribute="trailing" constant="30" id="1LE-Iq-9t8">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="30" id="4j8-hv-RR4">
+                                            <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="40" id="4j8-hv-RR4">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="OYC-3J-vRt" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="5vw-hz-tpg"/>
                                             <constraint firstAttribute="trailing" secondItem="a8e-R9-tgU" secondAttribute="trailing" constant="30" id="6Co-u5-jsQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" priority="1" constant="2" id="ARp-0G-gcV"/>
+                                            <constraint firstItem="JPB-V4-VB2" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="Bwn-DV-mwV">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
+                                            <constraint firstItem="JPB-V4-VB2" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="FFa-4c-D38"/>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="GEy-XH-yMg">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="jXt-2N-n7m" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="L3C-xG-Can"/>
+                                            <constraint firstItem="jXt-2N-n7m" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="60" id="M4w-Zh-XvU"/>
                                             <constraint firstItem="HXC-fy-Deb" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="MSB-co-Vix">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="NYv-C9-FBD"/>
-                                            <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="OYC-3J-vRt" secondAttribute="bottom" constant="50" id="Wdi-fd-TDO"/>
                                             <constraint firstAttribute="trailing" secondItem="Yub-cQ-D52" secondAttribute="trailing" constant="30" id="bSk-Ei-KNB">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="eNd-GY-FnF"/>
+                                            <constraint firstAttribute="bottom" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="20" id="eif-Zf-b1H"/>
                                             <constraint firstItem="hPR-gj-jhO" firstAttribute="top" secondItem="DSF-9i-LL8" secondAttribute="bottom" id="fg9-qC-TX9">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="2"/>
                                             </constraint>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="g4n-zN-FO2">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="HXC-fy-Deb" firstAttribute="top" secondItem="MnL-Sz-0CY" secondAttribute="bottom" constant="40" id="h4S-Xf-Bb8"/>
+                                            <constraint firstItem="HXC-fy-Deb" firstAttribute="top" secondItem="MnL-Sz-0CY" secondAttribute="bottom" constant="20" id="h4S-Xf-Bb8">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
                                             <constraint firstItem="DSF-9i-LL8" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="5" id="hY6-cs-I3r">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="top" secondItem="jXt-2N-n7m" secondAttribute="bottom" constant="5" id="iAH-G7-7I6"/>
-                                            <constraint firstAttribute="trailing" secondItem="OYC-3J-vRt" secondAttribute="trailing" constant="30" id="jEG-CP-mqr"/>
-                                            <constraint firstAttribute="bottom" secondItem="Yub-cQ-D52" secondAttribute="bottom" constant="20" id="lg6-OI-cFh"/>
                                             <constraint firstAttribute="trailing" secondItem="DSF-9i-LL8" secondAttribute="trailing" constant="5" id="njT-TO-vSP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -425,15 +522,11 @@
                                             </constraint>
                                             <constraint firstItem="hPR-gj-jhO" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="oqG-6c-WlX"/>
                                             <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="a8e-R9-tgU" secondAttribute="bottom" constant="5" id="svs-1D-JpF"/>
+                                            <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="JPB-V4-VB2" secondAttribute="bottom" constant="30" id="tq9-7V-03v">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
                                             <constraint firstItem="MnL-Sz-0CY" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="ubC-dh-Cm0">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                            </constraint>
-                                            <constraint firstItem="OYC-3J-vRt" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="uzv-bc-uYa"/>
-                                            <constraint firstItem="OYC-3J-vRt" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="xye-k6-XVd">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
-                                            </constraint>
-                                            <constraint firstItem="jXt-2N-n7m" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="30" id="zLt-kD-ShD">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                             </constraint>
                                         </constraints>
                                     </view>
@@ -472,7 +565,10 @@
     </scenes>
     <resources>
         <image name="email_field" width="30" height="30"/>
-        <image name="facebook_login" width="300" height="47"/>
+        <image name="facebook_new" width="50" height="50"/>
+        <image name="google_new" width="50" height="50"/>
         <image name="password_field" width="30" height="30"/>
+        <image name="pateron" width="50" height="50"/>
+        <image name="twitter_new" width="50" height="50"/>
     </resources>
 </document>

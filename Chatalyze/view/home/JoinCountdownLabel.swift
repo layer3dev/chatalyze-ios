@@ -30,7 +30,7 @@ class JoinCountdownLabel: ExtendedLabel {
     private func initialization(){
         let size = CGFloat(26)
         let text = NSMutableAttributedString().appendCustom("The", size : size)
-        text.appendCustom(" Event", size : size, color : UIColor(hexString : AppThemeConfig.greenColor))
+        text.appendCustom(" Event", size : size, color : UIColor(hexString : AppThemeConfig.themeColor))
         text.appendCustom(" about to start in", size : size)
         
         self.attributedText = text

@@ -28,6 +28,7 @@ class AcccountPageViewController: UIPageViewController {
     
     lazy var pages: [UIViewController] = ({
         return [
+            
             ticketController,
             memoryController,
             settingController
