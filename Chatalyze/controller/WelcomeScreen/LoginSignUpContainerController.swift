@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleSignIn
+import TwitterKit
+
 
 class LoginSignUpContainerController: InterfaceExtendedController {
 
@@ -60,9 +62,21 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     
     func googleSignIn(){
         
-        pageController?.signinController?.googleSignInAction = {
-            GIDSignIn.sharedInstance().signIn()
-        }
+        // Swift
+        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+            if (session != nil) {
+                print("signed in as \(session?.userName)");
+            }else{                
+                print("error: \(error?.localizedDescription)");
+            }
+        })
+        
+        
+
+        
+//        pageController?.signinController?.googleSignInAction = {
+//            GIDSignIn.sharedInstance().signIn()
+//        }
     }
     
 

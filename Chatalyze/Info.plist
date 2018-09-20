@@ -20,7 +20,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>https://dev.chatalyze.com/</string>
+			<string>https://dev.chatalyzes.com/</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb1617857558307283</string>
@@ -32,6 +32,26 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.176675554062-sb97so193rf01hvlvgghf9ia0ma4idib</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>https://dev.chatalyze.com/</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twitterkit-N7JqWt4Sdhh8v7v2YoSsnFvCA</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>http://dev.chatalyze.com/</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twitterkit-5Cbe8RbPoVUiNd7WR2BDISUvX</string>
 			</array>
 		</dict>
 	</array>
@@ -47,15 +67,17 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
+		<string>twitter</string>
+		<string>twitterauth</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>App uses calendar permission in order to add the session reminders for the users</string>
 	<key>NSCameraUsageDescription</key>
-	<string>You'll need this for your chat.</string>
+	<string>You&apos;ll need this for your chat.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>You'll need this for your chat.</string>
+	<string>You&apos;ll need this for your chat.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Chatalyze needs this to store the memory in your Photo Gallery.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -78,6 +100,16 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>api.twitter.com</key>
+			<dict/>
+		</dict>
+	</dict>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -9,7 +9,11 @@ target 'Chatalyze' do
 
   pod 'JTAppleCalendar', '~> 7.1.5'
   pod 'GoogleWebRTC' 
+
 pod 'GoogleSignIn'
+pod 'TwitterKit', '3.4.0'
+pod 'TwitterCore', '3.1.0'
+
 
 
   target 'ChatalyzeTests' do

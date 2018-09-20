@@ -10,9 +10,8 @@ import UIKit
 import Foundation
 import UserNotifications
 import GoogleSignIn
-
 //import Stripe
-//import TwitterKit
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,8 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         test()
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
+        initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
         return true
+    }
+    
+    func initializeTwitterKit(){
+        
+        TWTRTwitter.sharedInstance().start(withConsumerKey: "N7JqWt4Sdhh8v7v2YoSsnFvCA", consumerSecret: "x1qgm8gLfTQpiWTtkwBJ6XQ2tXAs6yB9katZpguYG1LLQuhkRt")
     }
     
     fileprivate func test(){
@@ -39,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func initialization(){
 
-        _ = NavigationBarCustomizer()        
+        _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
@@ -109,6 +114,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
+            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
@@ -158,7 +164,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func updateToken(){
         
         RefreshDeviceToken().update { (success, message, response) in
-
+            
             if !success{
                 return
             }
@@ -168,15 +174,15 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
         print("Failed to register: \(error)")
     }
     
     func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
-    
+        
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
-            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
                 //PushNotificationHandler().handleNavigation(info: notification)
@@ -187,7 +193,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        return GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        //(app, open: url, options: options)
+        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options))
     }
     
 }
