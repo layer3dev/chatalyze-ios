@@ -9,6 +9,8 @@
 import UIKit
 import Foundation
 import UserNotifications
+import GoogleSignIn
+
 //import Stripe
 //import TwitterKit
 
@@ -22,11 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Calling the delgate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
-        
-        //Override point for customization after application launch.
-        //STPPaymentConfiguration.shared().publishableKey = "pk_test_WKtCusyr2xIZn58XGM4kSZFE"
-        //STPPaymentConfiguration.shared().publishableKey = "pk_test_PdakYC6J38pZYTjy6UXKdhtN"
-        
         initialization()
         test()
         registerForPushNotifications()
@@ -80,8 +77,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
      
-        UIInterfaceOrientationMask {            
-            if(allowRotate){             
+        UIInterfaceOrientationMask {           
+            if(allowRotate){
                 return .allButUpsideDown;
         }
         // Only allow portrait (standard behaviour)
@@ -102,7 +99,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 }
                 self.getNotificationSettings()
             }
-        } else{
+        }else{
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -112,7 +109,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
@@ -180,11 +176,19 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
+            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
+                
                 //PushNotificationHandler().handleNavigation(info: notification)
                 Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+    }
+    
 }
 

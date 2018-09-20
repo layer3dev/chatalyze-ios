@@ -158,6 +158,7 @@
 		47B90E7C21466E11004BA7A0 /* SavedCardsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */; };
 		47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3372F20D516B30078580E /* FetchProfileProcessor.swift */; };
 		47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */; };
+		47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6951121539BE500BB13BF /* GoogleSignIn.swift */; };
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
 		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
 		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
@@ -580,6 +581,7 @@
 		47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCardsAdapter.swift; sourceTree = "<group>"; };
 		47C3372F20D516B30078580E /* FetchProfileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileProcessor.swift; sourceTree = "<group>"; };
 		47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadGalleryManager.swift; sourceTree = "<group>"; };
+		47C6951121539BE500BB13BF /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
@@ -1912,6 +1914,15 @@
 			path = saveImageinGallery;
 			sourceTree = "<group>";
 		};
+		47C6951021539BC800BB13BF /* GoogleSignIn */ = {
+			isa = PBXGroup;
+			children = (
+				47C6951121539BE500BB13BF /* GoogleSignIn.swift */,
+			);
+			name = GoogleSignIn;
+			path = Chatalyze/network/GoogleSignIn;
+			sourceTree = SOURCE_ROOT;
+		};
 		47DF899920AC17D200FEA916 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2575,6 +2586,7 @@
 				473E3B75211B203700DC60BC /* SubmitContactUsRequest */,
 				4730C76221304B2F002EFAC9 /* SessionRequest */,
 				47F6CE3F213E90F800BF79B2 /* RefreshService */,
+				47C6951021539BC800BB13BF /* GoogleSignIn */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -3723,6 +3735,7 @@
 				470A3ACE2111B99A00988F1D /* ContactUsController.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
+				47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */,
 				47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */,
@@ -3896,7 +3909,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Clark Computer Consulting, Inc. (KYCF884242)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3954,7 +3967,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Clark Computer Consulting, Inc. (KYCF884242)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3982,7 +3995,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -3997,8 +4010,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -4014,7 +4027,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4029,8 +4042,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

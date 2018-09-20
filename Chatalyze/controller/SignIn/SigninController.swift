@@ -11,8 +11,8 @@ import FacebookLogin
 
 class SigninController: InterfaceExtendedController {
     
+    var googleSignInAction:(()->())?
     @IBAction fileprivate func signinAction(){
-        
         signin()
     }
     
@@ -31,6 +31,14 @@ class SigninController: InterfaceExtendedController {
         }
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    @IBAction func googleSignIn(){
+        
+        if let action = googleSignInAction{
+            action()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

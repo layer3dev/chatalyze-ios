@@ -7,23 +7,32 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class LoginSignUpContainerController: InterfaceExtendedController {
 
     var pageController:WelcomePageController?
     @IBOutlet var signInTab:LoginSignUpTabView?
     @IBOutlet var signUpTab:LoginSignUpTabView?
+    var googleSignInAction:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
      
         initializeVariable()
+        paintInterface()
+    }
+    
+    func paintInterface(){
+       
+        paintNavigationTitle(text: "ACCOUNT")
+        paintBackButton()
     }
     
     func initializeVariable(){
         
-        paintNavigationTitle(text: "ACCOUNT")
-        paintBackButton()
+        initializeGoogleSignIn()
+        googleSignIn()
         
         signInTab?.tabAction(action: { (tab) in
             
@@ -46,6 +55,14 @@ class LoginSignUpContainerController: InterfaceExtendedController {
             })
             self.view.layoutIfNeeded()
         })
+    }
+    
+    
+    func googleSignIn(){
+        
+        pageController?.signinController?.googleSignInAction = {
+            GIDSignIn.sharedInstance().signIn()
+        }
     }
     
 
@@ -79,4 +96,73 @@ extension LoginSignUpContainerController{
         return controller
     }
 }
+
+extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate{
+    
+    fileprivate func initializeGoogleSignIn(){
+        
+        GIDSignIn.sharedInstance().clientID = "176675554062-sb97so193rf01hvlvgghf9ia0ma4idib.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        
+        if (error == nil) {
+            
+            // Perform any operations on signed in user here.
+            let userId = user.userID                  // For client-side use only!
+            let idToken = user.authentication.idToken // Safe to send to the server
+            let fullName = user.profile.name
+            let givenName = user.profile.givenName
+            let familyName = user.profile.familyName
+            let email = user.profile.email
+            
+            print(userId)
+            print(idToken)
+            print(fullName)
+            print(givenName)
+            print(familyName)
+            print(email)
+            
+           // loginWithGoogle(data:user)
+            guard let token = idToken else{
+                return
+            }
+            googleSignProcessor(accessToken:token)
+            GIDSignIn.sharedInstance().signOut()
+            // ...
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+        
+        self.present(viewController, animated: true) {
+        }
+    }
+    
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        
+        self.dismiss(animated: true) {
+            GIDSignIn.sharedInstance().signOut()
+        }
+    }    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        
+    }
+    
+    func googleSignProcessor(accessToken:String){
+        
+        GoogleSignIn().signin(accessToken: accessToken) { (success, message, info) in
+            
+            Log.echo(key: "yud", text: "response ")
+            
+        }
+    }
+}
+
 
