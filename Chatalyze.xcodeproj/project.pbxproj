@@ -159,6 +159,11 @@
 		47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3372F20D516B30078580E /* FetchProfileProcessor.swift */; };
 		47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */; };
 		47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6951121539BE500BB13BF /* GoogleSignIn.swift */; };
+		47C9EF5E215509FA00478D85 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF5D215509FA00478D85 /* MenuController.swift */; };
+		47C9EF6021550D1700478D85 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF5F21550D1700478D85 /* MenuCell.swift */; };
+		47C9EF6221550D2300478D85 /* MenuAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6121550D2300478D85 /* MenuAdapter.swift */; };
+		47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6321550D3900478D85 /* MenuInfo.swift */; };
+		47C9EF6621550D4F00478D85 /* MenuRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6521550D4F00478D85 /* MenuRootView.swift */; };
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
 		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
 		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
@@ -582,6 +587,11 @@
 		47C3372F20D516B30078580E /* FetchProfileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileProcessor.swift; sourceTree = "<group>"; };
 		47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadGalleryManager.swift; sourceTree = "<group>"; };
 		47C6951121539BE500BB13BF /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
+		47C9EF5D215509FA00478D85 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		47C9EF5F21550D1700478D85 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		47C9EF6121550D2300478D85 /* MenuAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAdapter.swift; sourceTree = "<group>"; };
+		47C9EF6321550D3900478D85 /* MenuInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInfo.swift; sourceTree = "<group>"; };
+		47C9EF6521550D4F00478D85 /* MenuRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRootView.swift; sourceTree = "<group>"; };
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
@@ -1923,6 +1933,18 @@
 			path = Chatalyze/network/GoogleSignIn;
 			sourceTree = SOURCE_ROOT;
 		};
+		47C9EF5C215509E400478D85 /* MenuController */ = {
+			isa = PBXGroup;
+			children = (
+				47C9EF5D215509FA00478D85 /* MenuController.swift */,
+				47C9EF5F21550D1700478D85 /* MenuCell.swift */,
+				47C9EF6121550D2300478D85 /* MenuAdapter.swift */,
+				47C9EF6321550D3900478D85 /* MenuInfo.swift */,
+				47C9EF6521550D4F00478D85 /* MenuRootView.swift */,
+			);
+			path = MenuController;
+			sourceTree = "<group>";
+		};
 		47DF899920AC17D200FEA916 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2709,6 +2731,7 @@
 				473E3B4B211B15A900DC60BC /* PaymentEmailSetupPaypalForHost */,
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
 				47B90E7221466CA3004BA7A0 /* Test */,
+				47C9EF5C215509E400478D85 /* MenuController */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3493,6 +3516,7 @@
 				47AD143B20ADAF70006AF9D6 /* AccountRootView.swift in Sources */,
 				472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
+				47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */,
 				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
 				471C232F20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift in Sources */,
@@ -3631,6 +3655,7 @@
 				FA24BAD8206FAA790064F94F /* UserCallQueueRootView.swift in Sources */,
 				47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */,
 				FADC84F02074FE1700AD9D65 /* SubmitScreenshot.swift in Sources */,
+				47C9EF6221550D2300478D85 /* MenuAdapter.swift in Sources */,
 				472780ED20B02E2700D5AA1E /* MemoriesCell.swift in Sources */,
 				47F0D71A20F8E0C500A689FA /* IsoCountries.swift in Sources */,
 				47B6522F20AAAF710041496C /* PaymentRootView.swift in Sources */,
@@ -3679,6 +3704,7 @@
 				FA74B13620639B6400983141 /* ARDWebSocketChannel.m in Sources */,
 				FAFDE4CF20A19E310098B9B2 /* LocalVideoContainerView.swift in Sources */,
 				FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */,
+				47C9EF6021550D1700478D85 /* MenuCell.swift in Sources */,
 				FAD6BA382064F6CF00942F27 /* QueueContainerView.swift in Sources */,
 				473566C1210722E100F62C97 /* EventLandingController.swift in Sources */,
 				47B6522E20AAAF710041496C /* GreetingRootView.swift in Sources */,
@@ -3731,6 +3757,7 @@
 				471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
 				FAE9EF6F206CD05500C45F8D /* UserCallConnection.swift in Sources */,
+				47C9EF5E215509FA00478D85 /* MenuController.swift in Sources */,
 				FAB68ADF211883AD00190442 /* SlotTimeInfo.swift in Sources */,
 				47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */,
 				4702A3FF2136BE820046EA21 /* ScheduleSessionPageInterface.swift in Sources */,
@@ -3771,6 +3798,7 @@
 				47E7A04D20B7EDC80049354A /* PaymentSuccessRootView.swift in Sources */,
 				FAE9EF80206CF22B00C45F8D /* HostCallFetch.swift in Sources */,
 				FAE2EC70209C8E930080E92D /* CallMediaTrack.swift in Sources */,
+				47C9EF6621550D4F00478D85 /* MenuRootView.swift in Sources */,
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
 				FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */,

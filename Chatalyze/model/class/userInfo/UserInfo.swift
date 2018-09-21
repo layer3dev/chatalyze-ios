@@ -88,7 +88,11 @@ class UserInfo: NSObject {
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
+        updateSideMenuInfo()
     }
+    
+    
+    
 }
 
 extension UserInfo{
@@ -157,5 +161,13 @@ extension UserInfo{
         get{
             return UniqueUserIdentifier().generateUniqueIdentifier(userId: id)
         }
+    }
+}
+
+
+extension UserInfo{
+    
+    func updateSideMenuInfo(){
+        RootControllerManager().getCurrentController()?.menuController?.updateMenuInfo()
     }
 }

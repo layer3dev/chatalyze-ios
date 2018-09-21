@@ -14,12 +14,19 @@ class ContainerController: TabChildLoadController {
     
     @IBOutlet var socketVerifierView:UIView?
     var tabController : TabContainerController?
+    var menuController:MenuController?
     @IBOutlet fileprivate var tabContainerView : TabContainerView?
     static var initialTab : TabContainerView.tabType =  TabContainerView.tabType.event
     var initialTabInstance : TabContainerView.tabType =  TabContainerView.tabType.event
     var selectedTab:TabContainerView.tabType =  TabContainerView.tabType.event
     private let CONTAINER_SEGUE = "CONTAINER_SEGUE"
+    private let MENUBAR_SEGUE = "MENUBAR_SEGUE"
     var didLoad:(()->())?
+    
+    var isOpen = false
+    
+    @IBOutlet var toggleView:UIView?
+    @IBOutlet var toggleLeading:NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +38,79 @@ class ContainerController: TabChildLoadController {
         initialization()
     }
     
+     func toggleAnimation(){
+       
+        Log.echo(key: "yud", text: "Toogle is calling")
+        
+        if isOpen{
+            
+            isOpen = false
+            UIView.animate(withDuration: 0.7) {
+                
+                self.toggleLeading?.constant = (self.view.frame.size.width)
+            }
+            self.view.layoutIfNeeded()
+            return
+        }
+        isOpen = true
+        UIView.animate(withDuration: 0.7) {
+            
+            self.toggleLeading?.constant = 0
+        }
+        self.view.layoutIfNeeded()
+
+    }
+    
+    func closeToggle(){
+     
+        isOpen = false
+        UIView.animate(withDuration: 0.7) {
+            
+            self.toggleLeading?.constant = (self.view.frame.size.width)
+        }
+        self.view.layoutIfNeeded()
+        return
+    }
+    
+    func implementPanGesture(){
+        
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+        edgePan.edges = .right
+        view.addGestureRecognizer(edgePan)
+    }
+    
+    @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .recognized {
+            print("Screen edge swiped!")
+            toggleAnimation()
+        }
+    }
+    
+    
+    func implementSwipeGesture(){
+       
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        self.toggleView?.addGestureRecognizer(swipeRight)
+    }
+    
+   @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+                closeToggle()
+            case UISwipeGestureRecognizerDirection.down:
+                print("Swiped down")
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            case UISwipeGestureRecognizerDirection.up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,6 +142,9 @@ class ContainerController: TabChildLoadController {
     
     private func initializeVariable(){
         
+        self.toggleLeading?.constant = (self.view.frame.size.width)
+        implementSwipeGesture()
+        implementPanGesture()
         tabContainerView?.delegate = self
     }
     
@@ -71,16 +154,22 @@ class ContainerController: TabChildLoadController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let segueIdentifier = segue.identifier ?? ""
-        if(segueIdentifier != CONTAINER_SEGUE){
+        if(segueIdentifier == CONTAINER_SEGUE){
+            
+            tabController = segue.destination as? TabContainerController
+            initialTabInstance = ContainerController.initialTab
+            tabController?.initialTab = initialTabInstance
+            if(ContainerController.initialTab != .event){
+                //ContainerController.initialTab = .profile
+            }
             return
         }
         
-        tabController = segue.destination as? TabContainerController
-        initialTabInstance = ContainerController.initialTab
-        tabController?.initialTab = initialTabInstance
-        if(ContainerController.initialTab != .event){
-            //ContainerController.initialTab = .profile
-        }
+        if segueIdentifier == MENUBAR_SEGUE{
+            
+            menuController = segue.destination as? MenuController
+            return
+        }        
     }
     
     func setActionPending(isPending : Bool, type : TabContainerView.tabType){

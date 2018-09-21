@@ -70,10 +70,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
                 print("error: \(error?.localizedDescription)");
             }
         })
-        
-        
-
-        
 //        pageController?.signinController?.googleSignInAction = {
 //            GIDSignIn.sharedInstance().signIn()
 //        }

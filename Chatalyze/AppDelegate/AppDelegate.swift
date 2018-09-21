@@ -130,7 +130,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
         completionHandler([.alert,.sound,.badge])
     }
         
@@ -174,13 +173,13 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        
         print("Failed to register: \(error)")
     }
     
     func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
         
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
+            
             
             PushNotificationHandler().handleNavigation(info: notification)
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
@@ -192,6 +191,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
         
         //(app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options))

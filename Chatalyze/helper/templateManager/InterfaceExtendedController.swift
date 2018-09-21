@@ -26,7 +26,6 @@ class InterfaceExtendedController : ExtendedController {
         if(viewDidAppear){
             return
         }
-        
         viewDidAppear = true
         viewAppeared()
     }
@@ -102,7 +101,7 @@ class InterfaceExtendedController : ExtendedController {
         
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 35, height: 40))
         button.contentVerticalAlignment = .bottom
-        button.addTarget(self, action: #selector(settingAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(toggle), for: .touchUpInside)
         containerView.addSubview(button)
         
         let barItem = UIBarButtonItem(customView: containerView)
@@ -110,6 +109,14 @@ class InterfaceExtendedController : ExtendedController {
         items.append(barItem)
         self.navigationItem.rightBarButtonItems = items
     }
+    
+    @objc func toggle(){
+       
+        
+       Log.echo(key: "yud", text: "Toogle is callimng")
+        RootControllerManager().getCurrentController()?.toggleAnimation()
+    }
+    
     
     func paintHideBackButton(){
         

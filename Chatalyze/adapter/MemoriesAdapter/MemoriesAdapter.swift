@@ -35,6 +35,7 @@ class MemoriesAdapter: ExtendedView {
         memoriesListingTableView?.reloadData()
     }
 }
+
 extension MemoriesAdapter:UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
