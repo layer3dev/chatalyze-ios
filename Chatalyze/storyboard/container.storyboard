@@ -9,6 +9,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Container Navigation Controller-->
+        <scene sceneID="eOe-Jm-sgp">
+            <objects>
+                <navigationController id="Lsu-Jw-Q5G" customClass="ContainerNavigationController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bBc-dB-6HR">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MgO-Uh-W1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-752" y="-439"/>
+        </scene>
         <!--Container Controller-->
         <scene sceneID="89L-IM-lTq">
             <objects>
@@ -21,14 +34,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXy-2Z-R9c">
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXy-2Z-R9c">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1008"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Wh4-up-qAB" kind="embed" identifier="CONTAINER_SEGUE" id="8Wy-w4-MBu"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrX-Jl-8x2" customClass="TabContainerView" customModule="Chatalyze" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrX-Jl-8x2" customClass="TabContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="959" width="768" height="65"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQ4-Hv-YFA" userLabel="profile_tab" customClass="TabElementView" customModule="Chatalyze" customModuleProvider="target">
@@ -247,6 +260,12 @@
                                     <outlet property="greetingTab" destination="Gjp-md-shq" id="qPg-3a-CEa"/>
                                 </connections>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRe-9z-ExW">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <connections>
+                                    <segue destination="Lsu-Jw-Q5G" kind="embed" identifier="navigation_Segue" id="3jV-tD-5r8"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wM6-fS-sOG">
                                 <rect key="frame" x="0.0" y="1023" width="768" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -265,7 +284,7 @@
                                             </constraint>
                                         </constraints>
                                         <connections>
-                                            <segue destination="3EV-fe-T8z" kind="embed" id="Yx3-Gu-0qB"/>
+                                            <segue destination="3EV-fe-T8z" kind="embed" identifier="MENUBAR_SEGUE" id="Yx3-Gu-0qB"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
@@ -289,9 +308,13 @@
                             <constraint firstAttribute="trailing" secondItem="jrX-Jl-8x2" secondAttribute="trailing" id="TJb-lh-TVC"/>
                             <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="wM6-fS-sOG" secondAttribute="bottom" id="Ukh-1E-ZSu"/>
                             <constraint firstItem="jrX-Jl-8x2" firstAttribute="top" secondItem="YXy-2Z-R9c" secondAttribute="bottom" constant="-49" id="VnO-vl-3lO"/>
+                            <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="wRe-9z-ExW" secondAttribute="bottom" id="aco-9M-YSg"/>
+                            <constraint firstAttribute="trailing" secondItem="wRe-9z-ExW" secondAttribute="trailing" id="gFA-VQ-Xe0"/>
                             <constraint firstAttribute="trailing" secondItem="Smb-Qk-55z" secondAttribute="trailing" id="hCm-gc-vkg"/>
+                            <constraint firstItem="wRe-9z-ExW" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" id="hxn-8O-ATV"/>
                             <constraint firstItem="Smb-Qk-55z" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="jzJ-nl-oNl"/>
                             <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="jrX-Jl-8x2" secondAttribute="bottom" id="vbH-nq-4Qi"/>
+                            <constraint firstItem="wRe-9z-ExW" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="vzZ-Co-8AZ"/>
                             <constraint firstItem="Smb-Qk-55z" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" constant="64" id="y7o-bW-hYU"/>
                         </constraints>
                     </view>
@@ -305,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D91-RD-vEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2016" y="-449"/>
+            <point key="canvasLocation" x="-2054" y="-442"/>
         </scene>
         <!--Tab Container Controller-->
         <scene sceneID="xnq-GR-xDn">
@@ -322,7 +345,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDc-P3-qfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1318" y="-449"/>
+            <point key="canvasLocation" x="-1392" y="-443"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="c9X-fd-ydS">
@@ -387,10 +410,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnC-yQ-Es2" customClass="MenuAdapter" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="146.5" width="420" height="760"/>
+                                <rect key="frame" x="0.0" y="146.5" width="420" height="759.5"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-0B-S4l">
-                                        <rect key="frame" x="0.0" y="0.0" width="420" height="760"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="420" height="759.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="72" id="W2u-vn-ZG2" customClass="MenuCell" customModule="Chatalyze" customModuleProvider="target">
@@ -419,16 +442,26 @@
                                                                         <constraint firstAttribute="height" constant="0.5" id="AKI-Yc-Dgl"/>
                                                                     </constraints>
                                                                 </view>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nwt-tV-4Bl">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="420" height="71.5"/>
+                                                                    <connections>
+                                                                        <action selector="tabActionWithSender:" destination="W2u-vn-ZG2" eventType="touchUpInside" id="2DV-2d-sSd"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="Nwt-tV-4Bl" secondAttribute="trailing" id="1tD-K1-zhg"/>
                                                                 <constraint firstItem="chT-ly-xK5" firstAttribute="leading" secondItem="VCf-TT-08A" secondAttribute="leading" id="HnS-Nx-xFa"/>
+                                                                <constraint firstItem="Nwt-tV-4Bl" firstAttribute="top" secondItem="VCf-TT-08A" secondAttribute="top" id="KTa-tc-kCz"/>
                                                                 <constraint firstAttribute="trailing" secondItem="sxn-0r-ogy" secondAttribute="trailing" constant="20" id="Uk0-jE-Dvy"/>
                                                                 <constraint firstItem="sxn-0r-ogy" firstAttribute="leading" secondItem="VCf-TT-08A" secondAttribute="leading" constant="20" id="Wmf-Ar-YjZ"/>
                                                                 <constraint firstAttribute="bottom" secondItem="chT-ly-xK5" secondAttribute="bottom" id="ZAJ-yI-uM5"/>
                                                                 <constraint firstAttribute="trailing" secondItem="chT-ly-xK5" secondAttribute="trailing" id="l9Z-GS-yoS"/>
+                                                                <constraint firstItem="Nwt-tV-4Bl" firstAttribute="leading" secondItem="VCf-TT-08A" secondAttribute="leading" id="nWn-De-4is"/>
                                                                 <constraint firstItem="sxn-0r-ogy" firstAttribute="top" secondItem="VCf-TT-08A" secondAttribute="top" constant="20" id="neZ-fA-KMl"/>
                                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sxn-0r-ogy" secondAttribute="bottom" constant="20" id="tjF-JI-Fo9"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Nwt-tV-4Bl" secondAttribute="bottom" id="wUA-F5-5iV"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -458,7 +491,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7c-eO-aZP">
-                                <rect key="frame" x="0.0" y="906.5" width="420" height="53.5"/>
+                                <rect key="frame" x="0.0" y="906" width="420" height="54"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHR-r0-Sxi">
                                         <rect key="frame" x="0.0" y="0.0" width="420" height="1"/>
@@ -468,23 +501,33 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blf-w7-GKk">
-                                        <rect key="frame" x="20" y="15" width="380" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <rect key="frame" x="20" y="15" width="380" height="24"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4O-oK-lMx">
+                                        <rect key="frame" x="0.0" y="0.0" width="420" height="54"/>
+                                        <connections>
+                                            <action selector="signOut" destination="3EV-fe-T8z" eventType="touchUpInside" id="beA-gv-HR7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KHR-r0-Sxi" firstAttribute="top" secondItem="C7c-eO-aZP" secondAttribute="top" id="JSl-Om-rro"/>
+                                    <constraint firstAttribute="trailing" secondItem="F4O-oK-lMx" secondAttribute="trailing" id="OyQ-lr-gzs"/>
                                     <constraint firstItem="KHR-r0-Sxi" firstAttribute="leading" secondItem="C7c-eO-aZP" secondAttribute="leading" id="P63-ha-c53"/>
                                     <constraint firstItem="blf-w7-GKk" firstAttribute="top" secondItem="C7c-eO-aZP" secondAttribute="top" constant="15" id="WdY-Mr-2Hh"/>
                                     <constraint firstItem="blf-w7-GKk" firstAttribute="leading" secondItem="C7c-eO-aZP" secondAttribute="leading" constant="20" id="X8Z-cO-796"/>
+                                    <constraint firstAttribute="bottom" secondItem="F4O-oK-lMx" secondAttribute="bottom" id="fXe-UT-2VP"/>
                                     <constraint firstAttribute="trailing" secondItem="KHR-r0-Sxi" secondAttribute="trailing" id="jwW-zv-fCA"/>
+                                    <constraint firstItem="F4O-oK-lMx" firstAttribute="top" secondItem="C7c-eO-aZP" secondAttribute="top" id="kMb-x6-GIu"/>
                                     <constraint firstAttribute="bottom" secondItem="blf-w7-GKk" secondAttribute="bottom" constant="15" id="nJO-Ej-pmg"/>
+                                    <constraint firstItem="F4O-oK-lMx" firstAttribute="leading" secondItem="C7c-eO-aZP" secondAttribute="leading" id="zU1-WS-vrJ"/>
                                     <constraint firstAttribute="trailing" secondItem="blf-w7-GKk" secondAttribute="trailing" constant="20" id="zdU-RJ-buv"/>
                                 </constraints>
                             </view>
@@ -502,6 +545,9 @@
                             <constraint firstAttribute="trailing" secondItem="XnC-yQ-Es2" secondAttribute="trailing" id="uFq-Zy-NJt"/>
                             <constraint firstAttribute="trailing" secondItem="QXJ-Gq-PtO" secondAttribute="trailing" id="ulm-X6-bbm"/>
                         </constraints>
+                        <connections>
+                            <outlet property="adapter" destination="XnC-yQ-Es2" id="9Md-0V-wFA"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="userImage" destination="wwX-NA-Ssb" id="YJA-Ta-noV"/>
@@ -510,7 +556,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ns4-0P-cmR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2016" y="209"/>
+            <point key="canvasLocation" x="-2055" y="258"/>
         </scene>
     </scenes>
     <resources>

@@ -12,8 +12,9 @@ class MenuCell: ExtendedTableCell {
     
     @IBOutlet var userImage:UIImageView?
     var info:MenuInfo?
-   @IBOutlet var optionName:UILabel?
-    
+    @IBOutlet var optionName:UILabel?
+    var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
+        
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -38,6 +39,61 @@ class MenuCell: ExtendedTableCell {
 //                })
 //            }
 //        }
+    }
+    
+    @IBAction func tabAction(sender:UIButton){
+        
+        Log.echo(key: "yud", text: "Action is calling")
+        if let sideTabAction = self.selectedSlideBarTab{
+            sideTabAction(getSelectedTab())
+        }
+    }
+    
+    func getSelectedTab()->MenuRootView.MenuType{
+        
+        guard let selectedIndexName = self.optionName?.text else{
+            return MenuRootView.MenuType.none
+        }
+        
+        if let role = SignedUserInfo.sharedInstance?.role{
+            if role == .analyst  {
+                if selectedIndexName == "My Sessions"{
+                    return MenuRootView.MenuType.mySessionAnalyst
+                }
+                else if selectedIndexName == "Payments"{
+                    return MenuRootView.MenuType.paymentAnalyst
+                }
+                else if selectedIndexName == "Schedule Session"{
+                    return MenuRootView.MenuType.scheduledSessionAnalyst
+                }
+                else if selectedIndexName == "Edit Profile"{
+                    return MenuRootView.MenuType.editProfileAnalyst
+                }
+                else if selectedIndexName == "Contact Us"{
+                    return MenuRootView.MenuType.contactUsAnalyst
+                }
+                return MenuRootView.MenuType.none
+            }
+            
+            //Implement For the user            
+            if selectedIndexName == "Contact Us"{
+                return MenuRootView.MenuType.contactUsUser
+            }
+            else if selectedIndexName == "Edit Profile"{
+                return MenuRootView.MenuType.editProfileUser
+            }
+            else if selectedIndexName == "Payments"{
+                return MenuRootView.MenuType.paymentUser
+            }
+            return MenuRootView.MenuType.none
+        }
+        return MenuRootView.MenuType.none
+
+        
+//        
+//        ["My Sessions","Payments","Schedule Session","Edit Profile","Contact Us"]
+//        var userArray = ["Payments","Edit Profile","Contact Us"]
+    
     }
 }
 

@@ -10,13 +10,13 @@ import UIKit
 import SDWebImage
 
 class MenuController: InterfaceExtendedController {
-
+        
     @IBOutlet var userImage:UIImageView?
     @IBOutlet var userName:UILabel?
-    
+    var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
         initialize()
         paintInterface()
     }
@@ -28,8 +28,9 @@ class MenuController: InterfaceExtendedController {
         self.userImage?.clipsToBounds = true
     }
     
-   private func initialize(){
+    private func initialize(){
         
+        rootView?.selectedSlideBarTab = self.selectedSlideBarTab
         guard let useInfo = SignedUserInfo.sharedInstance else{
             return
         }
@@ -48,6 +49,11 @@ class MenuController: InterfaceExtendedController {
         initialize()
     }
     
+    @IBAction func signOut(){
+                
+        RootControllerManager().signOut(completion: nil)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -57,16 +63,16 @@ class MenuController: InterfaceExtendedController {
     var rootView:MenuRootView?{
         return self.view as? MenuRootView
     }
-
+    
     /*
-    // MARK: - Navigation     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension MenuController{

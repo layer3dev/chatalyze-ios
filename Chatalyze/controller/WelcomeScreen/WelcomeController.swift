@@ -23,6 +23,8 @@ class WelcomeController: InterfaceExtendedController {
     
     @IBAction func hostAction(sender:UIButton){
         
+        LoginSignUpContainerController.roleId = 2
+        
         guard let controller = LoginSignUpContainerController.instance() else{
             return
         }
@@ -31,6 +33,8 @@ class WelcomeController: InterfaceExtendedController {
     }
     
     @IBAction func userAction(sender:UIButton){
+       
+        LoginSignUpContainerController.roleId = 3
         
         guard let controller = LoginSignUpContainerController.instance() else{
             return

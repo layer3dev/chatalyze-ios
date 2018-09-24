@@ -95,7 +95,7 @@ class InterfaceExtendedController : ExtendedController {
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         
         let imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 30, height: 30))
-        imageView.image = UIImage(named : "setting_white")
+        imageView.image = UIImage(named : "menuBar")
         imageView.contentMode = .scaleAspectFit
         containerView.addSubview(imageView)
         
@@ -111,7 +111,6 @@ class InterfaceExtendedController : ExtendedController {
     }
     
     @objc func toggle(){
-       
         
        Log.echo(key: "yud", text: "Toogle is callimng")
         RootControllerManager().getCurrentController()?.toggleAnimation()

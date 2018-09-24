@@ -19,9 +19,13 @@ class SignupProcessor{
         params["email"] = email
         params["password"] = password
         params["token"] = false
-        params["roleId"] = 3
+        params["roleId"] = LoginSignUpContainerController.roleId
         params["firstName"] = name
-                
+        
+        if LoginSignUpContainerController.roleId == 0{
+            completion(false, "invalid role Id",  nil)
+        }
+        
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
         ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding) { (success, response) in

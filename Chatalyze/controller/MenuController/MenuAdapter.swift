@@ -16,6 +16,8 @@ class MenuAdapter: ExtendedView {
     var currentArray = [String]()
     var analystArray = ["My Sessions","Payments","Schedule Session","Edit Profile","Contact Us"]
     var userArray = ["Payments","Edit Profile","Contact Us"]
+    var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -67,10 +69,10 @@ extension MenuAdapter:UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as? MenuCell else {
-            
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as? MenuCell else {            
             return UITableViewCell()
         }
+        cell.selectedSlideBarTab = self.selectedSlideBarTab
         if indexPath.row < currentArray.count{
             cell.optionName?.text = currentArray[indexPath.row]
         }
@@ -81,10 +83,12 @@ extension MenuAdapter:UITableViewDataSource{
 extension MenuAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 145.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableViewAutomaticDimension
     }
     

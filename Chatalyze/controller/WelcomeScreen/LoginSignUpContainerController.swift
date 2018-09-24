@@ -17,13 +17,35 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     @IBOutlet var signInTab:LoginSignUpTabView?
     @IBOutlet var signUpTab:LoginSignUpTabView?
     var googleSignInAction:(()->())?
-    
+    static var roleId = 0
     override func viewDidLayout() {
         super.viewDidLayout()
      
         initializeVariable()
         paintInterface()
+        verifyRoleId()
     }
+    
+    func verifyRoleId(){
+        
+        if LoginSignUpContainerController.roleId == 0 {
+            
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: false)
+            }
+        }
+        else if LoginSignUpContainerController.roleId == 2{
+            Log.echo(key: "yud", text: "It is the Analyst \(LoginSignUpContainerController.roleId)")
+        }
+        else if LoginSignUpContainerController.roleId == 3{
+            
+            Log.echo(key: "yud", text: "It is the user \(LoginSignUpContainerController.roleId)")
+        }
+        else{
+            Log.echo(key: "yud", text: "Unauthorised access")
+        }
+    }
+    
     
     func paintInterface(){
        

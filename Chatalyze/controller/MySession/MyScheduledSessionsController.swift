@@ -32,7 +32,9 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     func paintInterface(){
         
         paintNavigationTitle(text: "My Sessions")
-        paintBackButton()
+        paintSettingButton()
+        
+        
     }
     
     func fetchInfo(){

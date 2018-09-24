@@ -16,6 +16,11 @@
 		470A3AD22111E35B00988F1D /* submitContactUsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */; };
 		470F0B6A21521D1F003F8EE7 /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 470F0B6921521D1F003F8EE7 /* Welcome.storyboard */; };
 		470F0B6D21522118003F8EE7 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B6C21522118003F8EE7 /* WelcomeController.swift */; };
+		47111CE62158BB3700DFBC08 /* HostDashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CE52158BB3700DFBC08 /* HostDashboardController.swift */; };
+		47111CE82158BBBA00DFBC08 /* HostDashboardRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */; };
+		47111CEA2158BC3700DFBC08 /* HostDashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47111CE92158BC3700DFBC08 /* HostDashBoard.storyboard */; };
+		47111CEF2158E3A900DFBC08 /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CEE2158E3A900DFBC08 /* ContainerNavigationController.swift */; };
+		47111CF12158FCBF00DFBC08 /* NavChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CF02158FCBF00DFBC08 /* NavChildController.swift */; };
 		47117478213D087B00253AB8 /* FetchMySessionsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47117477213D087B00253AB8 /* FetchMySessionsProcessor.swift */; };
 		4711747A213D30A000253AB8 /* ScheduleSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47117479213D30A000253AB8 /* ScheduleSessionDelegate.swift */; };
 		47127B1221524C6000E1250B /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47127B1121524C6000E1250B /* WelcomePageController.swift */; };
@@ -443,6 +448,11 @@
 		470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = submitContactUsRequest.swift; sourceTree = "<group>"; };
 		470F0B6921521D1F003F8EE7 /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
 		470F0B6C21522118003F8EE7 /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
+		47111CE52158BB3700DFBC08 /* HostDashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostDashboardController.swift; sourceTree = "<group>"; };
+		47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostDashboardRootView.swift; sourceTree = "<group>"; };
+		47111CE92158BC3700DFBC08 /* HostDashBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HostDashBoard.storyboard; sourceTree = "<group>"; };
+		47111CEE2158E3A900DFBC08 /* ContainerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
+		47111CF02158FCBF00DFBC08 /* NavChildController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavChildController.swift; sourceTree = "<group>"; };
 		47117477213D087B00253AB8 /* FetchMySessionsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMySessionsProcessor.swift; sourceTree = "<group>"; };
 		47117479213D30A000253AB8 /* ScheduleSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionDelegate.swift; sourceTree = "<group>"; };
 		4711747B213D480D00253AB8 /* Chatalyze.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chatalyze.entitlements; sourceTree = "<group>"; };
@@ -982,6 +992,24 @@
 				47127B152152532C00E1250B /* LoginSignUpTabView.swift */,
 			);
 			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
+		47111CE42158BB1800DFBC08 /* HostDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				47111CE52158BB3700DFBC08 /* HostDashboardController.swift */,
+				47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */,
+			);
+			path = HostDashboard;
+			sourceTree = "<group>";
+		};
+		47111CEB2158E2B500DFBC08 /* ContainerNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				47111CEE2158E3A900DFBC08 /* ContainerNavigationController.swift */,
+				47111CF02158FCBF00DFBC08 /* NavChildController.swift */,
+			);
+			path = ContainerNavigation;
 			sourceTree = "<group>";
 		};
 		4713662221084FD400B945BB /* EventLandingRootView */ = {
@@ -2689,6 +2717,7 @@
 				47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */,
 				47614F73213AB47E00CC9702 /* MySessions.storyboard */,
 				470F0B6921521D1F003F8EE7 /* Welcome.storyboard */,
+				47111CE92158BC3700DFBC08 /* HostDashBoard.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -2702,6 +2731,7 @@
 				FAFB7C82206E6E23004804D2 /* call_queue */,
 				FAE9EF72206CE82C00C45F8D /* home */,
 				47B6524120AAB0000041496C /* container */,
+				47111CEB2158E2B500DFBC08 /* ContainerNavigation */,
 				47B6524E20AAB0170041496C /* event */,
 				47B6524820AAB0160041496C /* Greeting */,
 				FA65F540206A589E006CE665 /* call */,
@@ -2732,6 +2762,7 @@
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
 				47B90E7221466CA3004BA7A0 /* Test */,
 				47C9EF5C215509E400478D85 /* MenuController */,
+				47111CE42158BB1800DFBC08 /* HostDashboard */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3335,6 +3366,7 @@
 				47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */,
 				FA9858E620638A3A00989CBB /* home.storyboard in Resources */,
 				FAFB7C70206DFE49004804D2 /* call_queue.storyboard in Resources */,
+				47111CEA2158BC3700DFBC08 /* HostDashBoard.storyboard in Resources */,
 				47B6524020AAAFB40041496C /* container.storyboard in Resources */,
 				47E2336721060C9400468412 /* countDown_original.mp3 in Resources */,
 				FA1B362B2064E0A500F2E6BC /* call_view.storyboard in Resources */,
@@ -3516,6 +3548,7 @@
 				47AD143B20ADAF70006AF9D6 /* AccountRootView.swift in Sources */,
 				472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
+				47111CE82158BBBA00DFBC08 /* HostDashboardRootView.swift in Sources */,
 				47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */,
 				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
@@ -3615,6 +3648,7 @@
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
 				FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */,
 				FA3B46A821104D19007EA72D /* RootControllerManager.swift in Sources */,
+				47111CF12158FCBF00DFBC08 /* NavChildController.swift in Sources */,
 				47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */,
 				FAE8B23220A3087000899731 /* AppConnectionConfigForProduction.swift in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
@@ -3728,6 +3762,7 @@
 				47B6522120AAAF680041496C /* Signupview.swift in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,
+				47111CEF2158E3A900DFBC08 /* ContainerNavigationController.swift in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
 				47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */,
@@ -3744,6 +3779,7 @@
 				47EF658A20C90EA2000D9BC3 /* CheckInternetSpeed.swift in Sources */,
 				FADC84EE2074FBE200AD9D65 /* AutographPreviewInterface.swift in Sources */,
 				FA1B36262064D0ED00F2E6BC /* SettingController.swift in Sources */,
+				47111CE62158BB3700DFBC08 /* HostDashboardController.swift in Sources */,
 				47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */,
 				47B6526620AAB4080041496C /* TabElementInterface.swift in Sources */,
 				475B111F210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift in Sources */,

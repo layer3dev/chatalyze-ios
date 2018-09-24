@@ -79,6 +79,7 @@ class TabContainerController: UITabBarController {
     }
     
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        
         if let selected = selectedViewController {
             return selected.supportedInterfaceOrientations
         }
@@ -86,6 +87,7 @@ class TabContainerController: UITabBarController {
     }
     
     open override var shouldAutorotate: Bool {
+        
         if let selected = selectedViewController {
             return selected.shouldAutorotate
         }
