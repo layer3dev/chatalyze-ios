@@ -15,7 +15,7 @@ class MenuAdapter: ExtendedView {
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
     var analystArray = ["My Sessions","Payments","Schedule Session","Edit Profile","Contact Us"]
-    var userArray = ["Payments","Edit Profile","Contact Us"]
+    var userArray = ["My Tickets","Autographs","Payments","Edit Profile","Contact Us"]
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     
     
@@ -33,7 +33,6 @@ class MenuAdapter: ExtendedView {
         if roleId == .analyst{
             
             currentArray = analystArray
-            
         }else{
             
             currentArray = userArray

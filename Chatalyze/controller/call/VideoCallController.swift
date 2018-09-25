@@ -18,7 +18,7 @@ class VideoCallController : InterfaceExtendedController {
     var isAnimate: Bool  = false
     let duration = 1.0
     let fontSizeSmall: CGFloat = 18
-    let fontSizeBig: CGFloat = 45
+    var fontSizeBig: CGFloat = 45
     var isSmall: Bool = true
     //End
     
@@ -49,8 +49,13 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            self.fontSizeBig = 45
+        }else{
+            self.fontSizeBig = 28
+        }
         // Do any additional setup after loading the view.
-
     }
     
     func eventScheduleUpdatedAlert(){
@@ -249,7 +254,6 @@ class VideoCallController : InterfaceExtendedController {
             if(self?.socketClient == nil){
                 return
             }
-            
             self?.processUpdatePeerList(json: json)
         })
     }
@@ -527,15 +531,10 @@ extension VideoCallController{
    
     func multipleVideoTabListner(){
         
-        socketClient?.socket?.onText = { (text:String) in
+        socketClient?.onEvent("multipleTabRequest", completion: { (json) in
             
-            Log.echo(key : "socket_client", text : "Multiplexing Error: \(text)")
-            //{"id":"multipleTabRequest"}
+            Log.echo(key : "socket_client", text : "Multiplexing Error: \(json)")
             
-            guard let data = text.data(using: .utf8) else{
-                return
-            }
-            let json = try? JSON(data : data)
             if let dataDict = json?.dictionary{
                 if let str = dataDict["id"]?.string{
                     if str == "multipleTabRequest"{
@@ -544,7 +543,7 @@ extension VideoCallController{
                     }
                 }
             }
-        }
+        })
     }
     
    

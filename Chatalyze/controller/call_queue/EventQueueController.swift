@@ -165,8 +165,7 @@ extension EventQueueController{
         let storyboard = UIStoryboard(name: "call_queue", bundle: nil)
         var controllerName = "user_event_queue"
         controllerName = role == .analyst ? "host_event_queue" : "user_event_queue"
-        let controller = storyboard.instantiateViewController(withIdentifier: controllerName) as? EventQueueController
-        
+        let controller = storyboard.instantiateViewController(withIdentifier: controllerName) as? EventQueueController        
         return controller
     }
 }

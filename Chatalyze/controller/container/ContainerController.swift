@@ -25,7 +25,8 @@ class ContainerController: NavChildController {
     var didLoad:(()->())?
     var isOpen = false
     @IBOutlet var toggleView:UIView?
-    @IBOutlet var toggleLeading:NSLayoutConstraint?
+    @IBOutlet var toggleTrailing:NSLayoutConstraint?
+    var toggleWidth:CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,16 @@ class ContainerController: NavChildController {
             didLoaded()
         }
         initialization()
+        initializeToggleWidth()
+    }
+    
+    func initializeToggleWidth(){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            toggleWidth = 420.0
+        }else{
+            toggleWidth = 256.0
+        }
     }
     
     func toggleAnimation(){
@@ -46,7 +57,7 @@ class ContainerController: NavChildController {
             isOpen = false
             UIView.animate(withDuration: 0.7) {
                 
-                self.toggleLeading?.constant = (self.view.frame.size.width)
+                self.toggleTrailing?.constant = -(self.toggleWidth-2)
             }
             self.view.layoutIfNeeded()
             return
@@ -54,7 +65,7 @@ class ContainerController: NavChildController {
         isOpen = true
         UIView.animate(withDuration: 0.7) {
             
-            self.toggleLeading?.constant = 0
+            self.toggleTrailing?.constant = 0
         }
         self.view.layoutIfNeeded()
         
@@ -65,13 +76,24 @@ class ContainerController: NavChildController {
         isOpen = false
         UIView.animate(withDuration: 0.7) {
             
-            self.toggleLeading?.constant = (self.view.frame.size.width)
+            self.toggleTrailing?.constant = -(self.toggleWidth-2)
         }
         self.view.layoutIfNeeded()
         return
     }
     
-    func implementPanGesture(){
+    func openToggle(){
+       
+        isOpen = true
+        UIView.animate(withDuration: 0.7) {
+            
+            self.toggleTrailing?.constant = 0
+        }
+        self.view.layoutIfNeeded()
+        return
+    }
+    
+    func implementEdgePanGesture(){
         
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         edgePan.edges = .right
@@ -90,7 +112,11 @@ class ContainerController: NavChildController {
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
-        self.toggleView?.addGestureRecognizer(swipeRight)
+        self.view.addGestureRecognizer(swipeRight)
+        
+//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+//        swipeRight.direction = UISwipeGestureRecognizerDirection.left
+//        self.toggleView?.addGestureRecognizer(swipeLeft)
     }
     
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -141,9 +167,10 @@ class ContainerController: NavChildController {
     
     private func initializeVariable(){
         
-        self.toggleLeading?.constant = (self.view.frame.size.width)
+        self.toggleTrailing?.constant = -(toggleWidth-2)
         implementSwipeGesture()
-        implementPanGesture()
+        implementEdgePanGesture()
+        initializePanGesture()
         tabContainerView?.delegate = self
     }
     
@@ -297,6 +324,59 @@ class ContainerController: NavChildController {
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)
+            
+            //navController?.viewControllers = [controller]
+            return
+        }
+        else if typeOfAction == .autograph{
+            
+            guard let rootController = EventController.instance() else{
+                return
+            }
+            
+            guard let controller = MemoriesController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            //navController?.viewControllers = [controller]
+            return
+        }
+        else if typeOfAction == .tickets{
+            
+            guard let rootController = EventController.instance() else{
+                return
+            }
+            
+            guard let controller = AccountController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            //navController?.viewControllers = [controller]
+            return
+        }
+        else if typeOfAction == .userAccount{
+            
+            guard let rootController = EventController.instance() else{
+                return
+            }
+            
+            guard let controller = AccountController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            //navController?.viewControllers = [controller]
+            return
+        }
+        else if typeOfAction == .analystAccount{
+            
+            guard let rootController = MyScheduledSessionsController.instance() else{
+                return
+            }
+            
+            guard let controller = AccountHostController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
             //navController?.viewControllers = [controller]
             return
         }
@@ -375,19 +455,17 @@ extension ContainerController : TabContainerViewInterface{
         selectedTab = TabContainerView.tabType.account
         tabController?.selectedIndex = TabContainerView.tabType.account.rawValue
         
-        //Above code is responsible for the changing the tabs
-        //Below code is responsible foe changing the controller to the tickets Controller
+        //Above code is responsible for the changing the tabs.
+        //Below code is responsible for changing the controller to the tickets Controller.
         
         if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
-            accountControllerNav.popToRootViewController(animated: true)
             
+            accountControllerNav.popToRootViewController(animated: true)
             if let accountController = accountControllerNav.topViewController as? AccountHostController{
                 accountController.memoryAction()
                 if let pageController = accountController.pageViewHostController {
                     if pageController.pagesHost.count >= 2 {
-                        
                         if let settingController = pageController.pagesHost[1] as? SettingController {
-                            
                             guard let controller = MyScheduledSessionsController.instance() else{
                                 return
                             }
@@ -719,3 +797,59 @@ extension ContainerController : TabContainerViewInterface{
 }
 */
 
+
+extension ContainerController{
+    
+    func initializePanGesture(){
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        self.toggleView?.addGestureRecognizer(panGestureRecognizer)
+        
+    }
+   
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        
+        let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
+        let gestureIsDraggingFromRightToLeft = (recognizer.velocity(in: view).x < 0)
+        
+        guard let rview = recognizer.view else{
+            return
+        }
+        
+        Log.echo(key: "yud", text: "PanGesture is calling\(recognizer.translation(in: view).x)")
+        
+        let state = recognizer.state
+        if state == .began {
+            
+            if gestureIsDraggingFromRightToLeft{
+                //openToggle()
+            }
+            Log.echo(key: "yud", text: "just begun")
+        }
+        if state == .changed{
+            
+            Log.echo(key: "yud", text: "change\(rview.center.x) and the view width is \(self.view.frame.size.width) toggle width is \(self.toggleView?.frame.size.width) and the toggleTrailing is \(toggleTrailing?.constant) and the test is \((self.view.frame.size.width-toggleWidth/2))")
+            
+            if rview.center.x + recognizer.translation(in: view).x < (self.view.frame.size.width-toggleWidth/2){
+                return
+            }
+            rview.center.x = rview.center.x + recognizer.translation(in: view).x
+            recognizer.setTranslation(CGPoint.zero, in: view)
+        }
+        if state == .ended{
+            
+            Log.echo(key: "yud", text: "ended\(rview.center.x) and the view width is \(self.view.frame.size.width) toggle width is \(self.toggleView?.frame.size.width) and the toggleTrailing is \(toggleTrailing?.constant)")
+            
+            if rview.center.x > (self.view.frame.size.width){
+               
+                rview.center.x = ((self.view.frame.size.width+(toggleWidth/2))-2)
+                recognizer.setTranslation(CGPoint.zero, in: view)
+                //closeToggle()
+            }else{
+                rview.center.x = (self.view.frame.size.width-toggleWidth/2)
+                recognizer.setTranslation(CGPoint.zero, in: view)
+                //openToggle()
+            }
+        }
+    }
+}

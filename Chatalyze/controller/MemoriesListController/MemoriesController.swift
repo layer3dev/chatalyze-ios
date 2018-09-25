@@ -33,7 +33,7 @@ class MemoriesController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "PAYMENT HISTORY")
+        paintNavigationTitle(text: "MEMORIES")
         paintBackButton()
     }
     

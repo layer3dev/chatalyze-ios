@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
+            
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
         _ = RTCConnectionInitializer()

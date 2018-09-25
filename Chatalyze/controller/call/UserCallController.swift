@@ -13,7 +13,6 @@ class UserCallController: VideoCallController {
     
     //Animation Responsible
     var isAnimating = false
-
     
     //variable and outlet responsible for the SelfieTimer
     
@@ -285,20 +284,20 @@ class UserCallController: VideoCallController {
         
         //Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
         
-        Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
+        //Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
         if self.eventInfo?.isScreenShotAllowed == nil{
             return
         }
         
         if let endtimeOfSlot = myActiveUserSlot?.endDate{
-            Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
+            //Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
             if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
                 return
             }
         }
         
-        Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
+        //Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
         
         //isScreenshotStatusLoaded is updated from the Call Slot Fetch webService , either active slot is available or not isScreenshotStatusLoaded will be updated with true.
         
@@ -356,8 +355,8 @@ class UserCallController: VideoCallController {
 //            return
 //        }
         
-        Log.echo(key: "yud", text: "Processs Autograph isSelfieTimerInitiated \(isSelfieTimerInitiated)")
-        Log.echo(key: "yud", text: "Processs Autograph isConnection Connected \(isConnectionConnected)")
+//        Log.echo(key: "yud", text: "Processs Autograph isSelfieTimerInitiated \(isSelfieTimerInitiated)")
+//        Log.echo(key: "yud", text: "Processs Autograph isConnection Connected \(isConnectionConnected)")
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -380,7 +379,7 @@ class UserCallController: VideoCallController {
             }
             
             selfieTimerView?.startAnimation()
-            Log.echo(key: "yud", text: "Yes I am sending the animation request")
+            //Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 class MenuController: InterfaceExtendedController {
-        
+    
     @IBOutlet var userImage:UIImageView?
     @IBOutlet var userName:UILabel?
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
@@ -50,8 +50,27 @@ class MenuController: InterfaceExtendedController {
     }
     
     @IBAction func signOut(){
-                
+        
         RootControllerManager().signOut(completion: nil)
+    }
+    
+    @IBAction func accountAction(sender:UIButton){
+        
+        if let selecetTabAction = selectedSlideBarTab{
+            
+            guard let role = SignedUserInfo.sharedInstance?.role
+                else{
+                    return
+            }
+            
+            if(role == .analyst){
+                selecetTabAction(MenuRootView.MenuType.analystAccount)
+                return
+            }else{
+                selecetTabAction(MenuRootView.MenuType.userAccount)
+                return
+            }
+        }
     }
     
     

@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgO-Uh-W1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-752" y="-439"/>
+            <point key="canvasLocation" x="-691" y="-436"/>
         </scene>
         <!--Container Controller-->
         <scene sceneID="89L-IM-lTq">
@@ -274,10 +274,10 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smb-Qk-55z">
-                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                                <rect key="frame" x="348" y="64" width="420" height="960"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oaN-nJ-xcA">
-                                        <rect key="frame" x="348" y="0.0" width="420" height="960"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="420" height="960"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="256" id="ayT-qr-Doq">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="420"/>
@@ -291,14 +291,18 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.34613120720000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="oaN-nJ-xcA" firstAttribute="top" secondItem="Smb-Qk-55z" secondAttribute="top" id="9Mc-yY-jLU"/>
-                                    <constraint firstAttribute="trailing" secondItem="oaN-nJ-xcA" secondAttribute="trailing" id="K1o-EJ-io1"/>
                                     <constraint firstAttribute="bottom" secondItem="oaN-nJ-xcA" secondAttribute="bottom" id="g5h-pK-y32"/>
+                                    <constraint firstItem="oaN-nJ-xcA" firstAttribute="leading" secondItem="Smb-Qk-55z" secondAttribute="leading" id="hqw-QY-2R1"/>
+                                    <constraint firstAttribute="width" constant="256" id="okf-Xz-l2c">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="420"/>
+                                    </constraint>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YXy-2Z-R9c" secondAttribute="trailing" id="0Yx-Ry-gpi"/>
+                            <constraint firstAttribute="trailing" secondItem="Smb-Qk-55z" secondAttribute="trailing" id="3nb-rr-Sux"/>
                             <constraint firstItem="jrX-Jl-8x2" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="CfV-lG-M8B"/>
                             <constraint firstAttribute="trailing" secondItem="wM6-fS-sOG" secondAttribute="trailing" id="FAF-1T-kZ7"/>
                             <constraint firstItem="YXy-2Z-R9c" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" id="K16-n4-BnI"/>
@@ -310,9 +314,7 @@
                             <constraint firstItem="jrX-Jl-8x2" firstAttribute="top" secondItem="YXy-2Z-R9c" secondAttribute="bottom" constant="-49" id="VnO-vl-3lO"/>
                             <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="wRe-9z-ExW" secondAttribute="bottom" id="aco-9M-YSg"/>
                             <constraint firstAttribute="trailing" secondItem="wRe-9z-ExW" secondAttribute="trailing" id="gFA-VQ-Xe0"/>
-                            <constraint firstAttribute="trailing" secondItem="Smb-Qk-55z" secondAttribute="trailing" id="hCm-gc-vkg"/>
                             <constraint firstItem="wRe-9z-ExW" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" id="hxn-8O-ATV"/>
-                            <constraint firstItem="Smb-Qk-55z" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="jzJ-nl-oNl"/>
                             <constraint firstItem="lHo-d8-oSu" firstAttribute="top" secondItem="jrX-Jl-8x2" secondAttribute="bottom" id="vbH-nq-4Qi"/>
                             <constraint firstItem="wRe-9z-ExW" firstAttribute="leading" secondItem="Bt7-R9-C0F" secondAttribute="leading" id="vzZ-Co-8AZ"/>
                             <constraint firstItem="Smb-Qk-55z" firstAttribute="top" secondItem="Bt7-R9-C0F" secondAttribute="top" constant="64" id="y7o-bW-hYU"/>
@@ -322,13 +324,13 @@
                     <connections>
                         <outlet property="socketVerifierView" destination="wM6-fS-sOG" id="Nit-zI-zPl"/>
                         <outlet property="tabContainerView" destination="jrX-Jl-8x2" id="vBG-sk-xil"/>
-                        <outlet property="toggleLeading" destination="jzJ-nl-oNl" id="i3m-ZB-9lm"/>
+                        <outlet property="toggleTrailing" destination="3nb-rr-Sux" id="R1W-ow-ECv"/>
                         <outlet property="toggleView" destination="Smb-Qk-55z" id="nEy-Tb-TZ1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D91-RD-vEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2054" y="-442"/>
+            <point key="canvasLocation" x="-1991" y="-434"/>
         </scene>
         <!--Tab Container Controller-->
         <scene sceneID="xnq-GR-xDn">
@@ -345,7 +347,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDc-P3-qfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1392" y="-443"/>
+            <point key="canvasLocation" x="-1341" y="-441"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="c9X-fd-ydS">
@@ -389,17 +391,27 @@
                                             <constraint firstAttribute="height" constant="1" id="J9I-JZ-Qwv"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08I-sl-A15">
+                                        <rect key="frame" x="0.0" y="0.0" width="420" height="146.5"/>
+                                        <connections>
+                                            <action selector="accountActionWithSender:" destination="3EV-fe-T8z" eventType="touchUpInside" id="gB0-Vb-Nrn"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="wwX-NA-Ssb" firstAttribute="centerX" secondItem="QXJ-Gq-PtO" secondAttribute="centerX" id="9Mz-vH-dcw"/>
                                     <constraint firstItem="yNr-BD-pnW" firstAttribute="leading" secondItem="QXJ-Gq-PtO" secondAttribute="leading" constant="20" id="Mo6-PZ-8r5"/>
                                     <constraint firstAttribute="trailing" secondItem="aVL-DN-9Fk" secondAttribute="trailing" id="NSv-2Z-m9d"/>
+                                    <constraint firstAttribute="trailing" secondItem="08I-sl-A15" secondAttribute="trailing" id="Rbw-ol-J3U"/>
                                     <constraint firstAttribute="bottom" secondItem="aVL-DN-9Fk" secondAttribute="bottom" constant="1" id="TO6-Xu-BqM"/>
                                     <constraint firstItem="wwX-NA-Ssb" firstAttribute="top" secondItem="QXJ-Gq-PtO" secondAttribute="top" constant="20" id="cT1-Zc-LO1">
                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                     </constraint>
+                                    <constraint firstItem="08I-sl-A15" firstAttribute="top" secondItem="QXJ-Gq-PtO" secondAttribute="top" id="cbA-CA-caz"/>
                                     <constraint firstAttribute="trailing" secondItem="yNr-BD-pnW" secondAttribute="trailing" constant="20" id="jDe-lw-2oh"/>
+                                    <constraint firstAttribute="bottom" secondItem="08I-sl-A15" secondAttribute="bottom" id="jed-jm-nEY"/>
+                                    <constraint firstItem="08I-sl-A15" firstAttribute="leading" secondItem="QXJ-Gq-PtO" secondAttribute="leading" id="lCG-4W-k8m"/>
                                     <constraint firstAttribute="bottom" secondItem="yNr-BD-pnW" secondAttribute="bottom" constant="40" id="q9c-Vd-VKP">
                                         <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
@@ -556,7 +568,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ns4-0P-cmR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2055" y="258"/>
+            <point key="canvasLocation" x="-1991" y="240"/>
         </scene>
     </scenes>
     <resources>

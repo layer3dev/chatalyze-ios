@@ -85,6 +85,12 @@ class MenuCell: ExtendedTableCell {
             else if selectedIndexName == "Payments"{
                 return MenuRootView.MenuType.paymentUser
             }
+            else if selectedIndexName == "Autographs"{
+                return MenuRootView.MenuType.autograph
+            }
+            else if selectedIndexName == "My Tickets"{
+                return MenuRootView.MenuType.tickets
+            }
             return MenuRootView.MenuType.none
         }
         return MenuRootView.MenuType.none

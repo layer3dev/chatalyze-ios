@@ -20,6 +20,10 @@ class MenuRootView:ExtendedView{
         case editProfileUser = 6
         case paymentUser = 7
         case contactUsAnalyst = 8
+        case autograph = 9
+        case tickets = 10
+        case userAccount = 11
+        case analystAccount = 12
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?

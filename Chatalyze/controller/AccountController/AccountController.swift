@@ -37,6 +37,7 @@ class AccountController: TabChildLoadController {
     func paintInterafce(){
         
         paintNavigationTitle(text: "ACCOUNT")
+        paintBackButton()
     }
     
     func initializeVariable(){
