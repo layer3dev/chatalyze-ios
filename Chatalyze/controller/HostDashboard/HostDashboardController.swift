@@ -8,15 +8,7 @@
 
 import UIKit
 
-class HostDashboardController: InterfaceExtendedController {
-    
-    override func viewDidLayout() {
-        super.viewDidLayout()
-    }
-    
-    var rootView:HostDashboardRootView?{
-        return self.view as? HostDashboardRootView
-    }
+class HostDashboardController: MyScheduledSessionsController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -33,5 +25,12 @@ class HostDashboardController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+   
+    override class func instance()->HostDashboardController?{
+        
+        let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
+        return controller
+    }
 }

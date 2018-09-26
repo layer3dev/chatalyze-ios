@@ -32,7 +32,6 @@ class ScheduleSessionController: InterfaceExtendedController {
         super.viewDidLayout()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -68,7 +67,6 @@ class ScheduleSessionController: InterfaceExtendedController {
 //        }
 //    }
     
-    
     func initializeTapGesture(){
         
         let setDateTimeGesture = UITapGestureRecognizer(target: self, action: #selector(self.setDateTimeTab))
@@ -93,8 +91,7 @@ class ScheduleSessionController: InterfaceExtendedController {
         let segueIdentifier  = segue.identifier
         if segueIdentifier == "session"{
             
-            pageViewController = segue.destination as? ScheduleSessionPageViewController
-           
+            pageViewController = segue.destination as? ScheduleSessionPageViewController           
             //pageViewController?.accountDelegate = self
             //pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
         }
@@ -114,8 +111,7 @@ class ScheduleSessionController: InterfaceExtendedController {
     @objc func setDateTimeTab(){
         
         Log.echo(key: "yud", text: "I am callling setDateTimeTab")
-        pageViewController?.setDateTab()        
-        
+        pageViewController?.setDateTab()
     }
     
     override func didReceiveMemoryWarning() {
@@ -147,8 +143,9 @@ extension ScheduleSessionController{
 extension ScheduleSessionController:ScheduleSessionPageInterface{
    
     func backToMyAccount() {
+        
         self.navigationController?.popToRootViewController(animated: true)
-        delegate?.navigateToMySession()
+        //delegate?.navigateToMySession()
     }
     
     func updateTimeDateTabUI(){

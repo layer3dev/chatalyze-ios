@@ -9,6 +9,7 @@
 import Foundation
 
 class EventAdapter: NSObject {
+    
     //Take the array of the data model Class
     var eventArray = [EventInfo]()
     var root:EventRootView?
@@ -41,11 +42,13 @@ extension EventAdapter:UITableViewDataSource{
 
 extension EventAdapter:UITableViewDelegate{
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {       
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 378.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableViewAutomaticDimension
     }
     
@@ -54,6 +57,7 @@ extension EventAdapter:UITableViewDelegate{
         guard let role = SignedUserInfo.sharedInstance?.role else{
             return
         }
+        
         if role == .analyst{
             
             let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can book for the session!", preferredStyle: UIAlertControllerStyle.alert)
@@ -72,6 +76,7 @@ extension EventAdapter:UITableViewDelegate{
         controller.dismissListener = {(success) in
             
             Log.echo(key: "yud", text: "result payment is \(success)")
+            self.root?.controller?.navigationController?.popViewController(animated: true)
             
             if success {
 //                RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
@@ -79,7 +84,7 @@ extension EventAdapter:UITableViewDelegate{
         }
         
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+         self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
         
 //        guard let controller = SystemTestController.instance() else {
 //            return

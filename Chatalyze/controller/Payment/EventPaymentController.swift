@@ -91,6 +91,7 @@ class EventPaymentController: InterfaceExtendedController {
                     self.selectedArray = arrayofSelection
                     self.savedCardsTable?.reloadData()
                     self.rootView?.paintInterfaceForSavedCard()
+                    
 //                    if count == 1{
 //
 //                        self.rootView?.numberOfSaveCards = 1

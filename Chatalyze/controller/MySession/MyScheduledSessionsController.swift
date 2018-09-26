@@ -81,9 +81,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         
         //Dispose of any resources that can be recreated.
     }
-}
-
-extension MyScheduledSessionsController{
     
     class func instance()->MyScheduledSessionsController?{
         
@@ -91,5 +88,9 @@ extension MyScheduledSessionsController{
         let controller = storyboard.instantiateViewController(withIdentifier: "MyScheduledSessions") as? MyScheduledSessionsController
         return controller
     }
+}
+
+extension MyScheduledSessionsController{
+    
 }
 

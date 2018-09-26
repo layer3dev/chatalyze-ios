@@ -160,7 +160,9 @@ class PaymentSuccessRootView: ExtendedView {
     @IBAction func skipAction(sender:UIButton?){
         
         DispatchQueue.main.async {
+            
             self.controller?.dismiss(animated: false, completion: {
+                
                 RootControllerManager().getCurrentController()?.selectAccountTabWithTicketScreen()
             })
         }
@@ -297,6 +299,7 @@ extension PaymentSuccessRootView:CountryPickerDelegate{
     @IBAction func chatTimeAction(sender:UIButton){
         
         if chatUpdates{
+            
             chatUpdates = false
             chatUpdatesImage?.image = UIImage(named: "untick")
             return

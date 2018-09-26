@@ -637,15 +637,16 @@ extension EventPaymentRootView{
                 controller.presentingControllerObj = self.controller?.presentingControllerObj
                 //controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 controller.info = response
-                controller.dismissListner = {(success) in
-                    DispatchQueue.main.async {
-                        self.controller?.dismiss(animated: false, completion: {
-                            if let listner = self.controller?.dismissListner{
-                                listner(success)
-                            }
-                        })
-                    }
-                }
+//                controller.dismissListner = {(success) in
+//                    DispatchQueue.main.async {
+//                        self.controller?.dismiss(animated: false, completion: {
+//                            if let listner = self.controller?.dismissListner{
+//                                listner(success)
+//                            }
+//                        })
+//                    }
+//                }
+                controller.dismissListner = self.controller?.dismissListner
                 RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
             })

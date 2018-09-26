@@ -144,7 +144,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         let userInfo = response.notification.request.content.userInfo
         Log.echo(key: "yud", text: "remoteNotificatio userInfo is \(userInfo)")
         let aps = userInfo["aps"] as? [String: AnyObject]
-        Log.echo(key: "yud", text: "remoteNotification aps data \(String(describing: aps))")
+        Log.echo(key: "yud", text: "RemoteNotification aps data \(String(describing: aps))")
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -192,7 +192,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        
         
         //(app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options))

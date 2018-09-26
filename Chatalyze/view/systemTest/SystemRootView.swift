@@ -69,6 +69,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
                 guard let controller = FreeEventPaymentController.instance() else{
                     return
                 }
+//                controller.dismissListner = self.controller?.dismissListner
                 controller.info = self.info
                 
                     DispatchQueue.main.async {
@@ -83,6 +84,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             guard let controller = EventPaymentController.instance() else{
                 return
             }
+            controller.dismissListner = self.controller?.dismissListner
             controller.info = self.info
             
                 DispatchQueue.main.async {

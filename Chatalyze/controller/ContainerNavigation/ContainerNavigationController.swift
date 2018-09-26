@@ -30,10 +30,8 @@ class ContainerNavigationController: UINavigationController {
         }
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
-              
-                self.viewControllers = [eventController]
-//                self.viewControllers = [scheduledSessionController]
-            }else{
+                self.viewControllers = [scheduledSessionController]
+            }else{                
                 self.viewControllers = [eventController]
             }
         }

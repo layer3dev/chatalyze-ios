@@ -106,16 +106,20 @@ class EventLandingController: InterfaceExtendedController {
         }
         controller.info = self.info
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.dismissListner = {(success) in
-            DispatchQueue.main.async {
-                
-                Log.echo(key: "yud", text: "I got dismiss call in the Event Landing Page \(success)")
-                self.navigationController?.popToRootViewController(animated: false)
-                if let listener = self.dismissListener{
-                    listener(success)
-                }
-            }
-        }
+//        controller.dismissListner = {(success) in
+//            DispatchQueue.main.async {
+//
+//                Log.echo(key: "yud", text: "I got dismiss call in the Event Landing Page \(success)")
+//                self.navigationController?.popToRootViewController(animated: false)
+//                if let listener = self.dismissListener{
+//                    listener(success)
+//                }
+//            }
+//        }
+        
+        
+        controller.dismissListner = self.dismissListener
+        
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }

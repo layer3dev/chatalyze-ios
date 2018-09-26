@@ -148,16 +148,16 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-//       guard let controller = TestController.instance() else{
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
+       guard let controller = HostDashboardController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
         
-    
+    /*
         guard let controller = ContactUsController.instance() else{
             return
         }        
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)*/
         
         
 //        guard let controller = WelcomeController.instance() else{

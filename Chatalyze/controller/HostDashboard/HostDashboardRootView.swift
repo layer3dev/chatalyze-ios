@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HostDashboardRootView: ExtendedView {
+class HostDashboardRootView: MySessionRootView {
     
     @IBOutlet var underLineLbl:UILabel?
     
@@ -21,7 +21,7 @@ class HostDashboardRootView: ExtendedView {
     func underLineLable(){
         
         let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
-        let underlineAttributedString = NSAttributedString(string: "https://dev.chatalyze.com/sessions/Chat-Session/3459", attributes: underlineAttribute as [NSAttributedStringKey : Any])
+        let underlineAttributedString = NSAttributedString(string: "+TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
         underLineLbl?.attributedText = underlineAttributedString
     }
 }
