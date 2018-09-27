@@ -14,7 +14,8 @@ class SystemTestController:InterfaceExtendedController {
     var info:EventInfo?
     var presentingControllerObj:EventController?
     var dismissListner:((Bool)->())?
-    var isOnlySystemTest = false
+    //Below is using for the free events
+    var isOnlySystemTestForTicket = false
         
     override func viewDidLayout(){
         super.viewDidLayout()
@@ -27,7 +28,7 @@ class SystemTestController:InterfaceExtendedController {
     
     func paintInterface(){
         
-        if isOnlySystemTest{
+        if isOnlySystemTestForTicket{
             
             self.rootView?.skipView?.isHidden = true
             self.rootView?.skipHieght?.constant = 0

@@ -17,7 +17,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        
         initializeVariable()
         paintInterface()
     }

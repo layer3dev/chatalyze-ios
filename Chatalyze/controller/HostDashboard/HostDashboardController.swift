@@ -15,7 +15,43 @@ class HostDashboardController: MyScheduledSessionsController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func scheduleSessionAction(sender:UIButton){
 
+        guard let controller = ScheduleSessionController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func systemTestAction(sender:UIButton){
+      
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+//        controller.info = self.info
+       // controller.isOnlySystemTest = true
+       // controller.rootController = self.controller?.presentingControllerObj
+//        controller.onSuccessTest = {(success) in
+//            self.skipAction(sender: nil)
+//        }
+//        controller.dismissListner = {(success) in
+//            self.controller?.dismiss(animated: false, completion: {
+//                DispatchQueue.main.async {
+//                    if let listner = self.controller?.dismissListner{
+//                        listner(success)
+//                    }
+//                }
+//            })
+//        }
+        
+        controller.onlySystemTest = true
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
+    }
+    
+    
     /*
     // MARK: - Navigation
 

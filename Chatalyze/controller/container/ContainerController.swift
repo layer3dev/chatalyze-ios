@@ -266,7 +266,7 @@ class ContainerController: NavChildController {
         
         else if typeOfAction == .mySessionAnalyst{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController], animated: true)
@@ -276,11 +276,11 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .paymentAnalyst{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             
-            guard let controller = PaymentSetupPaypalController.instance() else{
+            guard let controller = HostDashboardController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)
@@ -290,7 +290,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .scheduledSessionAnalyst{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             
@@ -304,7 +304,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .editProfileAnalyst{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             
@@ -332,7 +332,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .contactUsAnalyst{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             
@@ -416,7 +416,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .analystAccount{
             
-            guard let rootController = MyScheduledSessionsController.instance() else{
+            guard let rootController = HostDashboardController.instance() else{
                 return
             }
             

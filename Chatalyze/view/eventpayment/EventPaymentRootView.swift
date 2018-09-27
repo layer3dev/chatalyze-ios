@@ -281,8 +281,6 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
     
     @IBAction func datePickerAction(_ sender: Any){
         
-    
-        
         dateMonthMask?.put(text: selectedTime, into: (dateMonthField?.textField) ?? UITextField())
     }
     
@@ -333,16 +331,16 @@ class EventPaymentRootView:ExtendedView,MaskedTextFieldDelegateListener{
         totalAmount?.text = "$ "+"\(totalAmountCharge)"
         
         scrollView?.bottomContentOffset = scrollViewBottomConstraints
-        maskedDelegate = MaskedTextFieldDelegate(format: "[0000]-[0000]-[0000]-[0000]")
+        maskedDelegate = MaskedTextFieldDelegate(primaryFormat: "[0000]-[0000]-[0000]-[0000]")
         
         maskedDelegate?.listener = self
         cardField?.textField?.delegate = maskedDelegate
         
-        dateMonthMask = MaskedTextFieldDelegate(format: "[00]/[00]")
+        dateMonthMask = MaskedTextFieldDelegate(primaryFormat: "[00]/[00]")
         dateMonthMask?.listener = self
         dateMonthField?.textField?.delegate = dateMonthMask
         
-        cvcMask = MaskedTextFieldDelegate(format: "[000]")
+        cvcMask = MaskedTextFieldDelegate(primaryFormat: "[000]")
         cvcMask?.listener = self
         cvcField?.textField?.delegate = cvcMask
         //cardMask.put(text: "", into: (cardField?.textField)!)

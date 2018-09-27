@@ -201,15 +201,12 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
 //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
 //        })
         
-            guard let controller = InternetSpeedTestController.instance() else{
+        
+        guard let controller = InternetSpeedTestController.instance() else{
                 return
             }
-        
-            controller.isOnlySystemTest = true
-        
-           
-            
-            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.onlySystemTest = true
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
     }

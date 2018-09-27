@@ -58,11 +58,12 @@ class MySessionTableViewCell: ExtendedTableCell {
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
             
             //Event is not started yet
-            self.sessionEventButton?.backgroundColor = UIColor(red: 241.0/255.0, green: 244.0/255.0, blue: 245.0/255.0, alpha: 1)
+            self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
            self.sessionEventButton?.setTitleColor(UIColor(hexString: "#333333"), for: .normal)
             return
         }
-        self.sessionEventButton?.backgroundColor = UIColor(hexString: "#27B879")
+        self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor) 
+       
         self.sessionEventButton?.setTitleColor(UIColor.white, for: .normal)
     }
     
@@ -88,6 +89,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.timeLbl?.text = dateFormatter.string(from: date)
+            //self.timeLbl?.text = "dfhiadshfjkhdjksfhjkadhsfjkhadjkshfjkadhsjkfhjkasdhfjkhasdjkfhjkadshjkfhadsjkhfjadhsjkfhjkadshfjkdhsjkfhdjkshf"
         }
     }
     

@@ -98,7 +98,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
         //
         
-        let attributeForStringHere = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size:18),NSAttributedStringKey.underlineColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.link:" HERE ",NSAttributedStringKey.strokeColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879")] as [NSAttributedStringKey : Any]
+        let attributeForStringHere = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size:18),NSAttributedStringKey.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.link:" HERE ",NSAttributedStringKey.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedStringKey : Any]
         
         //        let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
         

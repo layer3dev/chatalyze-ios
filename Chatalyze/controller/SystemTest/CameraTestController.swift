@@ -29,8 +29,8 @@ class CameraTestController: InterfaceExtendedController {
     var front = true
     var onSuccessTest:((Bool)->())?
     var info:EventInfo?
-    var isOnlySystemTest = false
-    
+    var isOnlySystemTestForTicket = false
+    var onlySystemTest = false
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -374,7 +374,11 @@ class CameraTestController: InterfaceExtendedController {
         
         self.dismiss(animated: false, completion: {
             
-            if self.isOnlySystemTest{
+            if self.onlySystemTest{
+                return
+            }
+            
+            if self.isOnlySystemTestForTicket{
                 
                 guard let controller = FreeEventPaymentController.instance() else{
                     return
@@ -385,7 +389,6 @@ class CameraTestController: InterfaceExtendedController {
                 DispatchQueue.main.async {
                     RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                     })
-                    
                 }
                 return
             }
@@ -393,7 +396,6 @@ class CameraTestController: InterfaceExtendedController {
             guard let controller = EventPaymentController.instance() else{
                 return
             }
-            
             controller.info = self.info
          
             //        if self.info?.isFree ?? false{

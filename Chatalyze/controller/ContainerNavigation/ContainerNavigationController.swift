@@ -24,14 +24,14 @@ class ContainerNavigationController: UINavigationController {
             return
         }
         
-        guard let scheduledSessionController = MyScheduledSessionsController.instance()
+        guard let hostDashBoardController = HostDashboardController.instance()
             else{
                 return
         }
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
-                self.viewControllers = [scheduledSessionController]
-            }else{                
+                self.viewControllers = [hostDashBoardController]
+            }else{                              
                 self.viewControllers = [eventController]
             }
         }

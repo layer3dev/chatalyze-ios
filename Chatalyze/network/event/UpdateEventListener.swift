@@ -70,7 +70,7 @@ class UpdateEventListener{
         
         Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
-        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule){
+        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .analystJoined){
             
             return
         }

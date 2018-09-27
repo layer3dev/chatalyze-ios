@@ -17,7 +17,9 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var onSuccessTest:((Bool)->())?
     var dismissListner:((Bool)->())?
     var info:EventInfo?
-    var isOnlySystemTest = false
+    var isOnlySystemTestForTicket = false
+    var onlySystemTest = false
+
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -42,7 +44,8 @@ class InternetSpeedTestController: InterfaceExtendedController {
             controller.info = self.info
             controller.rootController = self
             controller.onSuccessTest = self.onSuccessTest
-            controller.isOnlySystemTest = self.isOnlySystemTest
+            controller.isOnlySystemTestForTicket = self.isOnlySystemTestForTicket
+            controller.onlySystemTest = self.onlySystemTest
             controller.dismissListner = {
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: {

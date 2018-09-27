@@ -22,6 +22,7 @@ class NotificationMetaInfo{
         case schedule_updated = 6
         case eventDelay = 7
         case updatedCallSchedule = 8
+        case analystJoined = 9
     }
     
     var activityId : String?
@@ -85,6 +86,8 @@ extension NotificationMetaInfo{
             return .eventDelay
         case "updated_callschedule":
             return .updatedCallSchedule
+        case "analyst_joined":
+            return .analystJoined            
         default:
             return .undefined
         }

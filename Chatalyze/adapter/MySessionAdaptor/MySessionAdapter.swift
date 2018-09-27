@@ -6,7 +6,6 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class MySessionAdapter: ExtendedView {
@@ -79,7 +78,7 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 181.0
+        return 286.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
