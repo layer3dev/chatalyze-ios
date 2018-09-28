@@ -26,10 +26,13 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var newPasswordField:SigninFieldView?
     @IBOutlet var confirmPasswordField:SigninFieldView?
     @IBOutlet var mobileNumberField:SigninFieldView?
+    @IBOutlet var pinCodeField:SigninFieldView?
     @IBOutlet var errorLabel:UILabel?
     @IBOutlet var deactivateErrorLabel:UILabel?
     var countryCode = "+1"
     @IBOutlet var pickerContainer:UIView?
+    
+    @IBOutlet var saveMainInfoBtn:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -38,7 +41,27 @@ class EditProfileRootview: ExtendedView {
         implementTapGestuePicker()
         initializeVariable()
         //fillInfo()
+        paintInterface()
     }
+    
+    func paintInterface(){
+        
+        paintButton()
+        nameField?.isCompleteBorderAllow = true
+        emailField?.isCompleteBorderAllow = true
+        oldPasswordField?.isCompleteBorderAllow = true
+        newPasswordField?.isCompleteBorderAllow = true
+        confirmPasswordField?.isCompleteBorderAllow = true
+        mobileNumberField?.isCompleteBorderAllow = true
+        countryCodeField?.isCompleteBorderAllow = true
+    }
+    
+    func paintButton(){
+        
+        saveMainInfoBtn?.layer.cornerRadius = 5
+        saveMainInfoBtn?.layer.masksToBounds = true
+    }
+    
     
     func initializeVariable(){
         

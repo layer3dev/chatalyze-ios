@@ -41,6 +41,8 @@ class EditProfileController: InterfaceExtendedController {
     
     func painInterface(){
         
+        
+        
         paintNavigationTitle(text: "EDIT PROFILE")
         paintBackButton()
     }

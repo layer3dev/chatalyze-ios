@@ -18,11 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQF-bM-dNp">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQF-bM-dNp">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ldn-Y7-7lz">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="527"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRs-98-gNh">
                                                 <rect key="frame" x="20" y="30" width="335" height="45"/>
@@ -123,11 +123,14 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GRO-y7-cBp" customClass="MySessionAdapter" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="217" width="375" height="450"/>
+                                                <rect key="frame" x="0.0" y="217" width="375" height="310"/>
                                                 <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="It8-ZX-GO6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="It8-ZX-GO6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="290" id="1UG-65-Vac"/>
+                                                        </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MySessionTableViewCell" rowHeight="286" id="sFl-yK-cTR" customClass="MySessionTableViewCell" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28" width="375" height="286"/>
@@ -378,7 +381,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No scheduled sessions available!!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRe-wc-jXI">
-                                                        <rect key="frame" x="20" y="215.5" width="335" height="19"/>
+                                                        <rect key="frame" x="20" y="145.5" width="335" height="19"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -390,10 +393,10 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="It8-ZX-GO6" secondAttribute="trailing" id="0Up-n5-Wiw"/>
-                                                    <constraint firstAttribute="bottom" secondItem="It8-ZX-GO6" secondAttribute="bottom" id="6kn-sO-aKu"/>
                                                     <constraint firstItem="It8-ZX-GO6" firstAttribute="leading" secondItem="GRO-y7-cBp" secondAttribute="leading" id="C3g-Zj-JAi"/>
                                                     <constraint firstAttribute="trailing" secondItem="VRe-wc-jXI" secondAttribute="trailing" constant="20" id="PQE-Vo-3F8"/>
                                                     <constraint firstItem="It8-ZX-GO6" firstAttribute="top" secondItem="GRO-y7-cBp" secondAttribute="top" id="ae5-Y9-APt"/>
+                                                    <constraint firstAttribute="bottom" secondItem="It8-ZX-GO6" secondAttribute="bottom" constant="20" id="bdJ-RU-kmB"/>
                                                     <constraint firstItem="VRe-wc-jXI" firstAttribute="leading" secondItem="GRO-y7-cBp" secondAttribute="leading" constant="20" id="gl5-Kt-LtP"/>
                                                     <constraint firstItem="VRe-wc-jXI" firstAttribute="centerY" secondItem="GRO-y7-cBp" secondAttribute="centerY" id="jLD-rp-psg"/>
                                                 </constraints>
@@ -445,7 +448,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ldn-Y7-7lz" firstAttribute="width" secondItem="8PE-5R-hIb" secondAttribute="width" id="HH2-Tt-Zuz"/>
-                            <constraint firstItem="Ldn-Y7-7lz" firstAttribute="height" secondItem="8PE-5R-hIb" secondAttribute="height" id="LUv-Pk-fdt"/>
                             <constraint firstItem="fQF-bM-dNp" firstAttribute="top" secondItem="PKl-GB-acn" secondAttribute="top" id="dc8-SV-fBz"/>
                             <constraint firstItem="PKl-GB-acn" firstAttribute="bottom" secondItem="fQF-bM-dNp" secondAttribute="bottom" id="gSa-Yq-hdf"/>
                             <constraint firstItem="PKl-GB-acn" firstAttribute="trailing" secondItem="fQF-bM-dNp" secondAttribute="trailing" id="leZ-Xy-hxe"/>
@@ -456,9 +458,11 @@
                             <outlet property="underLineLbl" destination="mHd-gU-xTA" id="3fb-c0-ti1"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="noeventLbl" destination="VRe-wc-jXI" id="snG-cM-DwD"/>
                         <outlet property="sessionListingTableView" destination="It8-ZX-GO6" id="pr2-3M-jbv"/>
+                        <outlet property="tableHeight" destination="1UG-65-Vac" id="1lO-3N-ONk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2P-38-k7k" userLabel="First Responder" sceneMemberID="firstResponder"/>

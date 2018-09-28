@@ -17,7 +17,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        initializeVariable()
+        //initializeVariable()
         paintInterface()
     }
     
@@ -28,12 +28,21 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         rootView?.initializeAdapter(table:self.sessionListingTableView)
     }
     
+    func updateScrollViewWithTable(height:CGFloat){
+        Log.echo(key: "yud", text: "The height of the table is calling in inherited class \(height)")
+    }
+    
     func paintInterface(){
         
         paintNavigationTitle(text: "My Sessions")
         paintSettingButton()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        initializeVariable()
     }
     
     func fetchInfo(){

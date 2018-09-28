@@ -15,11 +15,12 @@ class MySessionRootView:ExtendedView{
     override func viewDidLayout(){
         super.viewDidLayout()
         
-        initializeVariiable()
+        initializeVariable()
     }
     
-    func initializeVariiable(){
+    func initializeVariable(){
         
+        adapter.root = self        
         adapter.enterSession = {
             
             guard let controller = SessionController.instance() else{

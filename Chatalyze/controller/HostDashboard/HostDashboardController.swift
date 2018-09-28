@@ -10,6 +10,8 @@ import UIKit
 
 class HostDashboardController: MyScheduledSessionsController {
     
+    @IBOutlet var tableHeight:NSLayoutConstraint?
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,6 +63,15 @@ class HostDashboardController: MyScheduledSessionsController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func updateScrollViewWithTable(height:CGFloat){
+        
+        Log.echo(key: "yud", text: "The height of the table is \(height)")
+        
+        tableHeight?.constant = height
+        self.updateViewConstraints()
+        self.view.layoutIfNeeded()
+    }
     
    
     override class func instance()->HostDashboardController?{

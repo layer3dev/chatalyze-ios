@@ -28,6 +28,7 @@ class MySessionAdapter: ExtendedView {
     func initializeAdapter(table:UITableView?){
         
         sessionTableView = table
+        self.sessionTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         sessionTableView?.dataSource = self
         sessionTableView?.delegate = self
         sessionTableView?.reloadData()
@@ -40,6 +41,17 @@ class MySessionAdapter: ExtendedView {
         }
         sessionListingArray = info
         sessionTableView?.reloadData()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        Log.echo(key: "yud", text: "The height of the table is calling in adapter\(sessionTableView?.contentSize.height) ")
+        
+        
+        sessionTableView?.layer.removeAllAnimations()
+        self.root?.controller?.updateScrollViewWithTable(height: sessionTableView?.contentSize.height ?? 0.0)        
+//        self.updateConstraints()
+//        self.layoutIfNeeded()
     }
 }
 
@@ -64,7 +76,6 @@ extension MySessionAdapter:UITableViewDataSource{
             return UITableViewCell()
         }
         if indexPath.row < self.sessionListingArray.count{
-
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
             cell.enterSession = self.enterSession
             //cell.controller = self.controller

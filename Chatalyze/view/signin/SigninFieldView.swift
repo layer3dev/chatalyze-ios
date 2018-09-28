@@ -16,16 +16,30 @@ class SigninFieldView: ExtendedView {
     @IBOutlet fileprivate var errorLabel : UILabel?
     @IBOutlet var image:UIImageView?
     
+    var isCompleteBorderAllow = false
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+        
         initialization()
     }
     
     fileprivate func initialization(){
+        
         layoutUI()
     }
     
     fileprivate func layoutUI(){
+        
+        if isCompleteBorderAllow{
+           
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor(hexString: AppThemeConfig.borderGrayColor).cgColor
+            self.layer.cornerRadius = 5
+            self.layer.masksToBounds = true
+            borderView?.backgroundColor = UIColor.clear
+            return
+        }        
         borderView?.backgroundColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
     }
     
@@ -35,6 +49,12 @@ class SigninFieldView: ExtendedView {
     }
     
     func resetErrorStatus(){
+        
+        if isCompleteBorderAllow {
+            borderView?.backgroundColor = UIColor.clear
+            errorLabel?.text = ""
+            return
+        }
         borderView?.backgroundColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
         errorLabel?.text = ""
     }
