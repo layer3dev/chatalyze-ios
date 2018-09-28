@@ -25,10 +25,10 @@ class PaymentTableCell: ExtendedTableCell {
     func painInterface(){
         
         self.selectionStyle = .none
-        cardView?.layer.cornerRadius = 5
-        cardView?.layer.masksToBounds = true
-        cardView?.layer.borderWidth = 1
-        cardView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+//        cardView?.layer.cornerRadius = 5
+//        cardView?.layer.masksToBounds = true
+//        cardView?.layer.borderWidth = 1
+//        cardView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
     }
     
     func fillInfo(info:PaymentListingInfo?){
