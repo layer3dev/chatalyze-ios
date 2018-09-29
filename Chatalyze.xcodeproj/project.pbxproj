@@ -169,6 +169,7 @@
 		47C9EF6221550D2300478D85 /* MenuAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6121550D2300478D85 /* MenuAdapter.swift */; };
 		47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6321550D3900478D85 /* MenuInfo.swift */; };
 		47C9EF6621550D4F00478D85 /* MenuRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6521550D4F00478D85 /* MenuRootView.swift */; };
+		47CE2A3F215FA9DB00A4C267 /* UploadUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */; };
 		47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DF899520ABFF0800FEA916 /* EditProfile.storyboard */; };
 		47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899720AC16AF00FEA916 /* EditProfileController.swift */; };
 		47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DF899A20AC180000FEA916 /* EditProfileRootview.swift */; };
@@ -602,6 +603,7 @@
 		47C9EF6121550D2300478D85 /* MenuAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAdapter.swift; sourceTree = "<group>"; };
 		47C9EF6321550D3900478D85 /* MenuInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInfo.swift; sourceTree = "<group>"; };
 		47C9EF6521550D4F00478D85 /* MenuRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRootView.swift; sourceTree = "<group>"; };
+		47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUserImage.swift; sourceTree = "<group>"; };
 		47DF899520ABFF0800FEA916 /* EditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfile.storyboard; sourceTree = "<group>"; };
 		47DF899720AC16AF00FEA916 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		47DF899A20AC180000FEA916 /* EditProfileRootview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRootview.swift; sourceTree = "<group>"; };
@@ -1973,6 +1975,14 @@
 			path = MenuController;
 			sourceTree = "<group>";
 		};
+		47CE2A3D215FA9CA00A4C267 /* UploadUserImage */ = {
+			isa = PBXGroup;
+			children = (
+				47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */,
+			);
+			path = UploadUserImage;
+			sourceTree = "<group>";
+		};
 		47DF899920AC17D200FEA916 /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2637,6 +2647,7 @@
 				4730C76221304B2F002EFAC9 /* SessionRequest */,
 				47F6CE3F213E90F800BF79B2 /* RefreshService */,
 				47C6951021539BC800BB13BF /* GoogleSignIn */,
+				47CE2A3D215FA9CA00A4C267 /* UploadUserImage */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -3867,6 +3878,7 @@
 				FA24BACB206FA6780064F94F /* SlotNoInfoContainer.swift in Sources */,
 				FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */,
 				FA74B13D20639B6400983141 /* RTCMediaConstraints+JSON.m in Sources */,
+				47CE2A3F215FA9DB00A4C267 /* UploadUserImage.swift in Sources */,
 				47B6525F20AAB3C20041496C /* EventAdapter.swift in Sources */,
 				FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */,
 				47F0D72220F8E55400A689FA /* CountryPicker.m in Sources */,
@@ -4065,7 +4077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4081,7 +4093,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4098,7 +4110,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4114,7 +4126,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

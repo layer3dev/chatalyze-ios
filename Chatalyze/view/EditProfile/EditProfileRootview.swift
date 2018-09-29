@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class EditProfileRootview: ExtendedView {
+   
     
+    let imagePicker = UIImagePickerController()
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottomOffset:NSLayoutConstraint?
     var controller:EditProfileController?
@@ -20,19 +23,23 @@ class EditProfileRootview: ExtendedView {
     var isCountryPickerHidden = true
     @IBOutlet var newUpadteImage:UIImageView?
     @IBOutlet var chatUpdatesImage:UIImageView?
+    @IBOutlet var userImage:UIImageView?
     @IBOutlet var nameField:SigninFieldView?
     @IBOutlet var emailField:SigninFieldView?
     @IBOutlet var oldPasswordField:SigninFieldView?
     @IBOutlet var newPasswordField:SigninFieldView?
     @IBOutlet var confirmPasswordField:SigninFieldView?
     @IBOutlet var mobileNumberField:SigninFieldView?
-    @IBOutlet var pinCodeField:SigninFieldView?
     @IBOutlet var errorLabel:UILabel?
+    @IBOutlet var mainInfoError:UILabel?
+    @IBOutlet var passwordInfoError:UILabel?
     @IBOutlet var deactivateErrorLabel:UILabel?
     var countryCode = "+1"
     @IBOutlet var pickerContainer:UIView?
-    
     @IBOutlet var saveMainInfoBtn:UIView?
+    
+    @IBOutlet var uploadImageViewHeightConstant:NSLayoutConstraint?
+    @IBOutlet var changeImageViewHeightConstant:NSLayoutConstraint?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -62,9 +69,22 @@ class EditProfileRootview: ExtendedView {
         saveMainInfoBtn?.layer.masksToBounds = true
     }
     
+    func showUploadImageView(){
+        
+        uploadImageViewHeightConstant?.priority = UILayoutPriority(rawValue: 250)
+        changeImageViewHeightConstant?.priority = UILayoutPriority(rawValue: 999)
+    }
+    
+    func showChangeImageView(){
+        
+        uploadImageViewHeightConstant?.priority = UILayoutPriority(rawValue: 999)
+        changeImageViewHeightConstant?.priority = UILayoutPriority(rawValue: 250)
+    }
+    
     
     func initializeVariable(){
-        
+       
+        imagePicker.delegate = self
         nameField?.textField?.delegate = self
         emailField?.textField?.delegate = self
         mobileNumberField?.textField?.delegate = self
@@ -111,6 +131,20 @@ class EditProfileRootview: ExtendedView {
                 countryCode = info.calling
                 countryCodeField?.textField?.text = countryCode
             }
+        }
+        
+        showUploadImageView()
+        
+        if let imageStr = info.profileImage{
+            
+            userImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"editUploadImagePlaceholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                
+                if image != nil{
+                    
+                    self.userImage?.image = image
+                    self.showChangeImageView()
+                }
+            })
         }
     }
     
@@ -192,7 +226,29 @@ extension EditProfileRootview{
         }        
     }
     
+    
+    @IBAction func saveMainInfo(sender:UIButton){
+      
+        showUploadImageView()
+        
+        mainInfoError?.text = ""
+        if validateMainInfo(){
+            saveMainInfo()
+        }
+    }
+    
+    @IBAction func savePasswordInfo(sender:UIButton){
+        
+        showChangeImageView()
+        
+        passwordInfoError?.text = ""
+        if validateChangePassword(){
+            savePasswordInfo()
+        }
+    }
+    
     func isMobileNumberActive()->Bool{
+        
         if let count = mobileNumberField?.textField?.text?.count{
             if count != 0 {
                 return true
@@ -267,10 +323,69 @@ extension EditProfileRootview{
         }
     }
     
+    
+    func saveMainInfo(){
+        
+        var param = [String:Any]()
+        
+        if isMobileNumberActive(){
+            
+            param["mobile"] = mobileNumberField?.textField?.text
+            param["countryCode"] = countryCode
+        }else{
+            
+            param["mobile"] = NSNull()
+            param["countryCode"] = NSNull()
+        }
+        param["firstName"] = nameField?.textField?.text
+        param["email"] = emailField?.textField?.text
+        param["eventMobReminder"] = chatUpdates
+        
+        Log.echo(key: "yud", text: "params are \(param)")
+        
+        self.controller?.showLoader()
+        EditProfileProcessor().edit(params: param) { (success, message, response) in
+            
+            //self.controller?.stopLoader()
+            Log.echo(key: "yud", text: "the velue of the success is \(success)")
+            if !success{
+                self.controller?.stopLoader()
+                self.mainInfoError?.text = message
+                return
+            }
+            self.fetchProfile()
+        }
+        Log.echo(key: "yud", text: "Please save the mainInfo data acces granted!!")
+        
+    }
+    
+    func savePasswordInfo(){
+      
+        var param = [String:Any]()
+        
+        param["oldpassword"] = oldPasswordField?.textField?.text
+        param["password"] = newPasswordField?.textField?.text
+        
+        Log.echo(key: "yud", text: "params are \(param)")
+        
+        self.controller?.showLoader()
+        EditProfileProcessor().edit(params: param) { (success, message, response) in
+            
+            self.controller?.stopLoader()
+            if !success{
+                self.passwordInfoError?.text = message
+                return
+            }
+            RootControllerManager().signOut(completion: nil)
+        }
+        Log.echo(key: "yud", text: "Please save the password data access granted!!")
+    }
+    
     func fetchProfile(){
         
         self.controller?.showLoader()
         FetchProfileProcessor().fetch { (success, message, response) in
+            
             self.controller?.stopLoader()
             self.controller?.navigationController?.popViewController(animated: true)
         }
@@ -311,12 +426,28 @@ extension EditProfileRootview{
 
 extension EditProfileRootview{
     
+    func validateMainInfo()->Bool{
+        
+        resetMainInfoError()
+        let nameValidate = validateName()
+        let emailValidated  = validateEmail()
+        let mobileValidate = validateMobileNumber()
+        return nameValidate && emailValidated && mobileValidate
+    }
+    
+    func validateChangePassword()->Bool{
+      
+        resetChangePasswordError()
+        let oldPasswordValidate = validateOldPassword()
+        let newPassword = validateNewPassword()
+        return oldPasswordValidate && newPassword
+    }
+    
     func validateFields()->Bool{
         
         resetErrorStatus()
         if oldPasswordField?.textField?.text != "" || newPasswordField?.textField?.text != "" || confirmPasswordField?.textField?.text != ""{
-            
-            
+                        
             let nameValidate = validateName()
             let emailValidated  = validateEmail()
             let oldPasswordValidate = validateOldPassword()
@@ -336,7 +467,6 @@ extension EditProfileRootview{
             let recieveEventValidate = validateRecieveEvent()
             
             return nameValidate && emailValidated && codeValidate && mobileValidate && recieveEventValidate
-
         }
     }
     
@@ -351,6 +481,23 @@ extension EditProfileRootview{
         mobileNumberField?.resetErrorStatus()
         countryCodeField?.resetErrorStatus()
     }
+    
+    func resetMainInfoError(){
+        
+        mainInfoError?.text = ""
+        emailField?.resetErrorStatus()
+        nameField?.resetErrorStatus()
+        mobileNumberField?.resetErrorStatus()
+        countryCodeField?.resetErrorStatus()
+    }
+    
+    func resetChangePasswordError(){
+        
+        passwordInfoError?.text = ""
+        oldPasswordField?.resetErrorStatus()
+        newPasswordField?.resetErrorStatus()
+    }
+    
     
     func showError(text : String?){
         
@@ -449,6 +596,7 @@ extension EditProfileRootview{
         if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
             
             if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
+                
                 mobileNumberField?.showError(text: "Mobile number looks incorrect !")
                 return false
             }
@@ -538,4 +686,74 @@ extension EditProfileRootview:UITextFieldDelegate{
         return true
     }
 }
+
+extension EditProfileRootview{
+    
+    @IBAction func uploadImage(sender:UIButton?){
+        
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        imagePicker.delegate = self
+        imagePicker.navigationBar.tintColor = UIColor.white
+        self.controller?.present(imagePicker, animated: true, completion: {
+        })
+    }
+    
+    
+    @IBAction func removeImage(sender:UIButton?){
+        
+        self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
+        //selectedImage = nil
+        showUploadImageView()
+    }
+}
+
+extension EditProfileRootview:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            userImage?.contentMode = .scaleAspectFit
+            //userImage?.image = chosenImage
+            //selectedImage = chosenImage
+            //delegate?.selectedImage(image:selectedImage)
+            saveUserImageToServer(image:chosenImage)
+            self.controller?.dismiss(animated:true, completion: nil)
+        }
+    }
+    
+    func saveUserImageToServer(image:UIImage){
+//
+//        UploadUserImage().uploadImage(image: image) { (success, response) in
+//
+//            if success{
+//
+//                self.showChangeImageView()
+//                self.userImage?.image = image
+//            }
+//        }
+        
+        UploadUserImage().uploadImageFormatData(image: image, includeToken: true, progress: { (progress) in
+            
+            Log.echo(key: "yud", text:"progress is \(progress)")
+        }) { (success) in
+           Log.echo(key: "yud", text:"Success is \(success)")
+            if success{
+                self.showChangeImageView()
+                self.userImage?.image = image
+            }
+        }
+        
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+
+        self.controller?.dismiss(animated: true, completion: {
+        })
+    }
+}
+
+
+
 

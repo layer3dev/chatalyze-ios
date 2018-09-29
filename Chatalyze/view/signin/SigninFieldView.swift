@@ -15,6 +15,7 @@ class SigninFieldView: ExtendedView {
     @IBOutlet fileprivate var borderView : UIView?
     @IBOutlet fileprivate var errorLabel : UILabel?
     @IBOutlet var image:UIImageView?
+    @IBOutlet var textFieldContainer:UIView?
     
     var isCompleteBorderAllow = false
     
@@ -33,10 +34,10 @@ class SigninFieldView: ExtendedView {
         
         if isCompleteBorderAllow{
            
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor(hexString: AppThemeConfig.borderGrayColor).cgColor
-            self.layer.cornerRadius = 5
-            self.layer.masksToBounds = true
+            self.textFieldContainer?.layer.borderWidth = 1
+            self.textFieldContainer?.layer.borderColor = UIColor(hexString: AppThemeConfig.borderGrayColor).cgColor
+            self.textFieldContainer?.layer.cornerRadius = 5
+            self.textFieldContainer?.layer.masksToBounds = true
             borderView?.backgroundColor = UIColor.clear
             return
         }        

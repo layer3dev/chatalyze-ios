@@ -29,6 +29,8 @@ class ServerProcessor{
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
         )
         self.sessionManager = sessionManager
+        
+        
     }
     
     enum httpMethod {

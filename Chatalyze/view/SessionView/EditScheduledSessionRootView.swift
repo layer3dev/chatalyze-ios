@@ -93,8 +93,7 @@ class EditScheduledSessionRootView:ExtendedView{
         yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
         yourViewBorder.fillColor = nil
         yourViewBorder.path = UIBezierPath(rect: (imageUploadingView?.bounds) ?? CGRect.zero).cgPath
-        
-        imageUploadingView?.layer.addSublayer(yourViewBorder)
+         imageUploadingView?.layer.addSublayer(yourViewBorder)
     }
     
     
@@ -103,7 +102,6 @@ class EditScheduledSessionRootView:ExtendedView{
         //paintImageUploadBorder()
         
         imagePicker.navigationBar.barTintColor = UIColor.black
-        
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
     }
