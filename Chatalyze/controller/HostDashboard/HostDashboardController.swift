@@ -31,6 +31,7 @@ class HostDashboardController: MyScheduledSessionsController {
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
+        
 //        controller.info = self.info
        // controller.isOnlySystemTest = true
        // controller.rootController = self.controller?.presentingControllerObj

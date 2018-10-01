@@ -62,8 +62,6 @@ class UploadUserImage{
         return
     }
     
-    
-    
     func uploadImageFormatData(image : UIImage, includeToken : Bool,  params : [String : String] = [String : String](), progress : @escaping (Double)->(), completion : @escaping (Bool)->()){
         
         guard  let userId = SignedUserInfo.sharedInstance?.id else {
@@ -77,7 +75,7 @@ class UploadUserImage{
         
         Log.echo(key: "yud", text: "uploading image url is \(url)")
         
-        guard let imageData = UIImagePNGRepresentation(image)
+        guard let imageData = UIImageJPEGRepresentation(image, 0.1)
             else{
                 completion(false)
                 return
@@ -90,7 +88,7 @@ class UploadUserImage{
         
         Alamofire.upload(multipartFormData : { multipartFormData in
             multipartFormData.append(imageData, withName: "file",
-                                     fileName: "file", mimeType: "image/png")
+                                     fileName: "blob", mimeType: "image/png")
             
             for (key, value) in params {
                 multipartFormData.append((value.data(using: .utf8))!, withName: key)
