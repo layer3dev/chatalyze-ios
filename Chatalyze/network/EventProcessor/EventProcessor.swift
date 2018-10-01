@@ -24,8 +24,8 @@ class EventProcessor{
         param["include"] = "callbookings"
         param["start"] = newdate
         //param["userId"] = id
-        Log.echo(key: "yud", text: "Url is \(url)")
-        Log.echo(key: "yud", text: "Param are  \(param)")
+//        Log.echo(key: "yud", text: "Url is \(url)")
+//        Log.echo(key: "yud", text: "Param are  \(param)")
         ServerProcessor().request(.get,url,parameters: param,encoding: .queryString, authorize: true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
@@ -33,8 +33,8 @@ class EventProcessor{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : [EventInfo]?)->())){
         
-        Log.echo(key: "yud", text: "Response of Fetch Info in the event Infos \(String(describing: response))")
-        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
+//        Log.echo(key: "yud", text: "Response of Fetch Info in the event Infos \(String(describing: response))")
+//        Log.echo(key: "yud", text: "Value of the success is \(response?.description)")
         
         if(!success){
             completion(false, nil)

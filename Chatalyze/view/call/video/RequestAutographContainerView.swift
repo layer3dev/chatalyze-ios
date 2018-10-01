@@ -37,6 +37,7 @@ class RequestAutographContainerView: ExtendedView {
     }
     
     func showLoader(){
+        
         loaderView?.loader?.startAnimating()
         button?.isEnabled = false
     }

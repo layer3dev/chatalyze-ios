@@ -466,26 +466,43 @@
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                         </variation>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editUploadImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="kzb-E4-RlO">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgi-HE-Gkq">
                                                         <rect key="frame" x="30" y="137" width="120" height="120"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editUploadImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="kzb-E4-RlO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0Z-0T-udQ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="120" id="GZa-xj-Htf">
+                                                            <constraint firstAttribute="trailing" secondItem="C0Z-0T-udQ" secondAttribute="trailing" id="4PJ-sa-Ed8"/>
+                                                            <constraint firstItem="kzb-E4-RlO" firstAttribute="top" secondItem="sgi-HE-Gkq" secondAttribute="top" id="9fH-cG-Doe"/>
+                                                            <constraint firstItem="kzb-E4-RlO" firstAttribute="leading" secondItem="sgi-HE-Gkq" secondAttribute="leading" id="Apk-j2-Wg7"/>
+                                                            <constraint firstAttribute="width" constant="120" id="Esm-s0-jAY">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                                             </constraint>
-                                                            <constraint firstAttribute="width" constant="120" id="rxx-cT-Jjy">
+                                                            <constraint firstAttribute="bottom" secondItem="kzb-E4-RlO" secondAttribute="bottom" id="Jmn-p2-p4X"/>
+                                                            <constraint firstAttribute="bottom" secondItem="C0Z-0T-udQ" secondAttribute="bottom" id="Sth-la-blP"/>
+                                                            <constraint firstItem="C0Z-0T-udQ" firstAttribute="top" secondItem="sgi-HE-Gkq" secondAttribute="top" id="YJG-kz-F81"/>
+                                                            <constraint firstAttribute="height" constant="120" id="lfJ-C2-Dzd">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                                             </constraint>
+                                                            <constraint firstAttribute="trailing" secondItem="kzb-E4-RlO" secondAttribute="trailing" id="nML-XE-QTy"/>
+                                                            <constraint firstItem="C0Z-0T-udQ" firstAttribute="leading" secondItem="sgi-HE-Gkq" secondAttribute="leading" id="rRf-hV-IVh"/>
                                                         </constraints>
-                                                    </imageView>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="sgi-HE-Gkq" firstAttribute="leading" secondItem="yO0-Da-YJG" secondAttribute="leading" constant="30" id="0hD-Qm-sEc"/>
                                                     <constraint firstItem="icV-lX-KEG" firstAttribute="leading" secondItem="yO0-Da-YJG" secondAttribute="leading" constant="20" id="2Kd-49-eJm"/>
-                                                    <constraint firstItem="kzb-E4-RlO" firstAttribute="top" secondItem="3Sv-Kc-jDQ" secondAttribute="bottom" constant="20" id="7v9-fH-VQR"/>
+                                                    <constraint firstAttribute="bottom" secondItem="sgi-HE-Gkq" secondAttribute="bottom" priority="750" constant="41" id="3pg-X0-uYX"/>
                                                     <constraint firstItem="6yF-B4-bxy" firstAttribute="top" secondItem="S09-ga-QuX" secondAttribute="bottom" constant="29.5" id="Jrl-wD-Jah"/>
-                                                    <constraint firstAttribute="bottom" secondItem="kzb-E4-RlO" secondAttribute="bottom" priority="750" constant="41" id="Ohr-uU-Gt4"/>
                                                     <constraint firstItem="S09-ga-QuX" firstAttribute="leading" secondItem="yO0-Da-YJG" secondAttribute="leading" constant="15" id="Qfb-a6-Sxw"/>
-                                                    <constraint firstItem="kzb-E4-RlO" firstAttribute="leading" secondItem="yO0-Da-YJG" secondAttribute="leading" constant="30" id="QoP-T0-VdT"/>
+                                                    <constraint firstItem="sgi-HE-Gkq" firstAttribute="top" secondItem="3Sv-Kc-jDQ" secondAttribute="bottom" constant="20" id="Tse-qO-Dl8"/>
                                                     <constraint firstItem="3Sv-Kc-jDQ" firstAttribute="top" secondItem="6yF-B4-bxy" secondAttribute="bottom" id="Udv-Ya-dlG"/>
                                                     <constraint firstAttribute="height" priority="250" id="e0J-Tg-mIO"/>
                                                     <constraint firstAttribute="trailing" secondItem="S09-ga-QuX" secondAttribute="trailing" constant="15" id="eJC-Gs-hX9"/>
@@ -1126,6 +1143,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gfw-l8-OzE"/>
                         <connections>
+                            <outlet property="accountPhotoView" destination="yO0-Da-YJG" id="Rg6-I2-SX4"/>
                             <outlet property="changeImageViewHeightConstant" destination="aLp-Ps-76s" id="4YJ-9S-uEN"/>
                             <outlet property="chatUpdatesImage" destination="Etu-gO-WJE" id="WlW-uz-WGm"/>
                             <outlet property="countryCodeField" destination="5Ha-KS-lit" id="yes-dk-aD5"/>
@@ -1155,7 +1173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oC4-u0-rjm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1094" y="-58"/>
+            <point key="canvasLocation" x="-705" y="-42"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="1Wb-8D-4Fx">
@@ -2952,7 +2970,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="98r-U8-G9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="692" y="-47"/>
+            <point key="canvasLocation" x="671" y="-40"/>
         </scene>
     </scenes>
     <resources>

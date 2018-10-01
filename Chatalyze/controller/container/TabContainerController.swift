@@ -64,7 +64,9 @@ class TabContainerController: UITabBarController {
         
         let accountHostNav : UINavigationController = ExtendedNavigationController()        
         accountHostNav.viewControllers = [accountHostController]
+        
         if let role = SignedUserInfo.sharedInstance?.role{
+            
             if role == .analyst  {
                 self.viewControllers = [eventNav, greetingNav , accountHostNav]
             }else{

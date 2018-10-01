@@ -1,27 +1,29 @@
 //
-//  MyTicketesAdapter.swift
+//  MyTicketesVerticalAdapter.swift
 //  Chatalyze
 //
-//  Created by Mansa on 22/05/18.
+//  Created by Mansa on 01/10/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
-class MyTicketesAdapter: ExtendedView {
+class MyTicketesVerticalAdapter: ExtendedView {
     
-    @IBOutlet var myTicketsCollectionView:UICollectionView?
-    var layout = UICollectionViewFlowLayout()
-    var root:MyTicketsRootView?
+   
+    var root:MyTicketsVerticalRootView?
     var ticketsListingArray = [EventSlotInfo]()
-    var featureHeight:CGFloat = 0.0
+   
     var myTicketsVerticalTableView:UITableView?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        initializeCollectionFlowLayout()
+        myTicketsVerticalTableView?.separatorStyle = .none
+        myTicketsVerticalTableView?.dataSource = self
+        myTicketsVerticalTableView?.delegate = self
+        myTicketsVerticalTableView?.reloadData()
     }
     
     func initailizeAdapter(info:[EventSlotInfo]?){
@@ -29,73 +31,69 @@ class MyTicketesAdapter: ExtendedView {
         guard let info = info else {
             return
         }
+        Log.echo(key: "yud", text: "tickets listing is \(info.count)")
         ticketsListingArray = info
         //initializeCollectionFlowLayout()
-        myTicketsCollectionView?.dataSource = self
-        myTicketsCollectionView?.delegate = self
-        myTicketsCollectionView?.reloadData()
+        
+        myTicketsVerticalTableView?.reloadData()
     }
-    
-    func initializeCollectionFlowLayout(){
-        
-        //self.myTicketsCollectionView?.layoutIfNeeded()
-        let width = root?.superview?.frame.size.width ?? 60.0
-        let height:CGFloat = self.myTicketsCollectionView?.bounds.height ?? 0.0
-        Log.echo(key: "yud", text: "The height of the Collection is \(height)")
-        if width <= 60.0 || height <= 15.0{
-            return
-        }
-        
-        layout.itemSize = CGSize(width: width-60, height: height-15)
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
-        //layout.sectionInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 0
-        myTicketsCollectionView?.collectionViewLayout = layout
-        myTicketsCollectionView?.alwaysBounceVertical = false
-        self.myTicketsCollectionView?.dataSource = self
-        self.myTicketsCollectionView?.delegate = self
-    }    
+
 }
 
-extension MyTicketesAdapter:UICollectionViewDataSource{
+extension MyTicketesVerticalAdapter:UITableViewDataSource{
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
+        return 10
         return ticketsListingArray.count
-        //return 5
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = myTicketsCollectionView?.dequeueReusableCell(withReuseIdentifier: "MyTicketsCell", for: indexPath) as? MyTicketsCell else {
-            return UICollectionViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTicketsVerticalCell", for: indexPath) as? MyTicketsVerticalCell else {
+            
+            return UITableViewCell()
         }
-        
-        cell.delegate = self
-        if indexPath.row >= ticketsListingArray.count{
-            return cell
-        }
-        cell.fillInfo(info: ticketsListingArray[indexPath.row])
+//        if indexPath.row < self.memoriesListingArray.count{
+//
+//            cell.fillInfo(info:self.memoriesListingArray[indexPath.row])
+//            cell.controller = self.controller
+//            return cell
+//        }
         return cell
     }
 }
 
-extension MyTicketesAdapter:UICollectionViewDelegate{
+extension MyTicketesVerticalAdapter:UITableViewDelegate{
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 502.0
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //
+    //        guard let controller = GreetingInfoController.instance() else {
+    //            return
+    //        }
+    //        if indexPath.row < self.PaymentListingArray.count {
+    //
+    //            controller.info = self.PaymentListingArray[indexPath.row]
+    //        }
+    //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+    //    }
 }
 
 
-extension MyTicketesAdapter:MyTicketCellDelegate{
+extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
     //    private func verifyForEventDelay(){
     //
@@ -196,20 +194,20 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
     
     func systemTest(){
         
-//        guard let controller = SystemTestController.instance() else { return }
-//
-//        controller.isOnlySystemTest = true
-//        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
-//        })
+        //        guard let controller = SystemTestController.instance() else { return }
+        //
+        //        controller.isOnlySystemTest = true
+        //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+        //        })
         
         
         guard let controller = InternetSpeedTestController.instance() else{
-                return
-            }
+            return
+        }
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-            })
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
     }
     
     func refreshData(){

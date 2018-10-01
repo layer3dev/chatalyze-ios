@@ -26,11 +26,12 @@ class EventController: TabChildLoadController {
         initializeVariable()
     }
    
-    override func viewGotLoaded() {
-        super.viewGotLoaded()
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         fetchEvents()
     }
+    
     
     func paintInterface(){
         

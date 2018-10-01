@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func initialization(){
 
         _ = NavigationBarCustomizer()
+        
         RootControllerManager().setRoot {
             
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
@@ -180,7 +181,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
         
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
-            
             
             PushNotificationHandler().handleNavigation(info: notification)
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{

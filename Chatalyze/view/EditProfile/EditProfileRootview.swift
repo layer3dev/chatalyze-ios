@@ -11,8 +11,7 @@ import SDWebImage
 
 class EditProfileRootview: ExtendedView {
    
-    
-    let imagePicker = UIImagePickerController()
+    let imageCropper = ImageCropper()
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottomOffset:NSLayoutConstraint?
     var controller:EditProfileController?
@@ -41,6 +40,7 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var uploadImageViewHeightConstant:NSLayoutConstraint?
     @IBOutlet var changeImageViewHeightConstant:NSLayoutConstraint?
     
+    @IBOutlet var accountPhotoView:UIView?
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -49,7 +49,19 @@ class EditProfileRootview: ExtendedView {
         initializeVariable()
         //fillInfo()
         paintInterface()
+        initializeImageCropper()
     }
+    
+    func initializeImageCropper(){
+       
+        imageCropper.getCroppedImage = { (croppedImage) in
+            
+            self.userImage?.image = croppedImage
+            self.saveUserImageToServer(image:croppedImage)
+            Log.echo(key: "yud", text: "Cropped image is \(croppedImage)")
+        }
+    }
+    
     
     func paintInterface(){
         
@@ -84,7 +96,6 @@ class EditProfileRootview: ExtendedView {
     
     func initializeVariable(){
        
-        imagePicker.delegate = self
         nameField?.textField?.delegate = self
         emailField?.textField?.delegate = self
         mobileNumberField?.textField?.delegate = self
@@ -133,11 +144,13 @@ class EditProfileRootview: ExtendedView {
             }
         }
         
-        showUploadImageView()
-        
+        //showUploadImageView()
+        accountPhotoView?.isUserInteractionEnabled = false
         if let imageStr = info.profileImage{
             
             userImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"editUploadImagePlaceholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                
+                self.accountPhotoView?.isUserInteractionEnabled = true
                 
                 if image != nil{
                     
@@ -207,6 +220,7 @@ extension EditProfileRootview{
     @IBAction func chatTimeAction(sender:UIButton){
         
         if chatUpdates{
+            
             chatUpdates = false
             chatUpdatesImage?.image = UIImage(named: "untick")
             return
@@ -228,8 +242,6 @@ extension EditProfileRootview{
     
     
     @IBAction func saveMainInfo(sender:UIButton){
-      
-        showUploadImageView()
         
         mainInfoError?.text = ""
         if validateMainInfo(){
@@ -240,7 +252,6 @@ extension EditProfileRootview{
     @IBAction func savePasswordInfo(sender:UIButton){
         
         showChangeImageView()
-        
         passwordInfoError?.text = ""
         if validateChangePassword(){
             savePasswordInfo()
@@ -691,69 +702,39 @@ extension EditProfileRootview{
     
     @IBAction func uploadImage(sender:UIButton?){
         
-        imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
-        imagePicker.delegate = self
-        imagePicker.navigationBar.tintColor = UIColor.white
-        self.controller?.present(imagePicker, animated: true, completion: {
-        })
+        imageCropper.show(controller:self.controller)
     }
     
     
     @IBAction func removeImage(sender:UIButton?){
         
         self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
-        //selectedImage = nil
-        showUploadImageView()
-    }
-}
-
-extension EditProfileRootview:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            
-            userImage?.contentMode = .scaleAspectFit
-            //userImage?.image = chosenImage
-            //selectedImage = chosenImage
-            //delegate?.selectedImage(image:selectedImage)
-            saveUserImageToServer(image:chosenImage)
-            self.controller?.dismiss(animated:true, completion: nil)
+        self.controller?.showLoader()
+        UploadUserImage().deleteUploadedImage { (success, response) in            
+            self.controller?.stopLoader()
+            if success{
+                
+                self.controller?.fetchInfo()
+                self.showUploadImageView()
+            }
         }
     }
     
+    
     func saveUserImageToServer(image:UIImage){
-//
-//        UploadUserImage().uploadImage(image: image) { (success, response) in
-//
-//            if success{
-//
-//                self.showChangeImageView()
-//                self.userImage?.image = image
-//            }
-//        }
+        
+        self.controller?.showLoader()
         
         UploadUserImage().uploadImageFormatData(image: image, includeToken: true, progress: { (progress) in
             
-            Log.echo(key: "yud", text:"progress is \(progress)")
-        }) { (success) in
-           Log.echo(key: "yud", text:"Success is \(success)")
+            self.controller?.stopLoader()
+        }) {(success) in
             if success{
-                self.showChangeImageView()
+                
+                self.controller?.fetchInfo()
                 self.userImage?.image = image
+                self.showChangeImageView()
             }
         }
-        
-    }
-    
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-
-        self.controller?.dismiss(animated: true, completion: {
-        })
     }
 }
-
-
-
-

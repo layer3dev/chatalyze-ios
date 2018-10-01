@@ -43,6 +43,23 @@ class UploadUserImage{
         }
     }
     
+    
+    func deleteUploadedImage(completion : @escaping ((_ success : Bool, _ info : JSON?)->())){
+        
+        var url = "https://dev.chatalyze.com/api/users/"
+        url = url + "\(SignedUserInfo.sharedInstance?.id ?? "0")"+"/uploads/"
+        
+        Log.echo(key: "yud", text: "uploading image url is \(url)")
+        
+        var params = [String : Any]()
+        //        params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
+        
+        ServerProcessor().request(.delete, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in
+            
+            self.handleResponse(withSuccess: success, response: response, completion: completion)
+        }
+    }
+    
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : ((_ success : Bool, _ info : JSON?)->())){
         
         if(!success){
@@ -75,7 +92,13 @@ class UploadUserImage{
         
         Log.echo(key: "yud", text: "uploading image url is \(url)")
         
-        guard let imageData = UIImageJPEGRepresentation(image, 0.1)
+//        guard let imageData = UIImageJPEGRepresentation(image, 0.1)
+//            else{
+//                completion(false)
+//                return
+//        }
+        
+        guard let imageData = UIImagePNGRepresentation(image)
             else{
                 completion(false)
                 return
@@ -83,7 +106,6 @@ class UploadUserImage{
         
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60
-        
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
         
         Alamofire.upload(multipartFormData : { multipartFormData in
@@ -91,12 +113,12 @@ class UploadUserImage{
                                      fileName: "blob", mimeType: "image/png")
             
             for (key, value) in params {
-                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                multipartFormData.append((value.data(using: .utf8)) ?? Data(), withName: key)
             }
         },
                          usingThreshold : 0, to : url,
                          method : .put,
-                         headers :  ["Authorization" : (SignedUserInfo.sharedInstance?.accessToken ?? "")],
+                         headers :  ["Authorization" : (getAuthorizationToken())],
                          encodingCompletion : { encodingResult in
                             switch encodingResult {
                             case .success(let upload, _, _):
@@ -119,5 +141,17 @@ class UploadUserImage{
                             }
                             
         })
+    }
+    
+    private func getAuthorizationToken()->String{
+        
+        guard let info = SignedUserInfo.sharedInstance
+            else{
+                return ""
+        }
+        
+        let token = "Bearer " + (info.accessToken ?? "")
+        Log.echo(key: "yud", text: token)
+        return token
     }
 }
