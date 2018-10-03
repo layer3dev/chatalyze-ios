@@ -67,6 +67,12 @@ class InterfaceExtendedController : ExtendedController {
         self.navigationItem.titleView = imageView
     }
     
+    func hideNavigationBar(){
+       
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    
     
     func paintNavigationTitle(text : String?){
     

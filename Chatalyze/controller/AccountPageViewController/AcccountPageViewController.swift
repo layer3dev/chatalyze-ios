@@ -19,7 +19,7 @@ import UIKit
 
 class AcccountPageViewController: UIPageViewController {
     
-    let ticketController = MyTicketsPageController.instance()
+    let ticketController = MyTicketsVerticalController.instance()
     let memoryController = MemoriesController.instance()
     let settingController = SettingController.instance()
     let sessionController = SessionController.instance()
@@ -104,6 +104,7 @@ extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInste
     func getTicketsScrollInset(scrollView: UIScrollView) {
         
         Log.echo(key: "yud", text: "scroll Inset is \(scrollView.contentOffset.y)")
+        accountDelegate?.contentOffsetForSeetings(scrollView: scrollView)
     }
 }
 

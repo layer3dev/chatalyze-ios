@@ -8,17 +8,49 @@
 
 import UIKit
 
-class MyTicketsVerticalController: MyTicketsController {
-   
-    @IBOutlet var myTicketsVerticalTableView:UITableView?
-    @IBOutlet var mainRootView:MyTicketsVerticalRootView?
+class MyTicketsVerticalController: MyTicketsController{
     
+    var fontSize:CGFloat = 16.0
+    @IBOutlet var underLineLbl:UILabel?
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        mainRootView?.table = myTicketsVerticalTableView
+        initializeFontSize()
+        underLineLable()
+    }
+    
+
+    
+    func initializeFontSize(){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 22.0
+        }else{
+            fontSize = 16.0
+        }
+    }
+    
+    func underLineLable(){
+        
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: fontSize)] as? [NSAttributedStringKey : Any]{
+            
+            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
+            underLineLbl?.attributedText = underlineAttributedString
+        }
     }
 
+    
+    @IBAction func systemTest(){
+      
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+        controller.onlySystemTest = true
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
+    }
+    
     /*
     // MARK: - Navigation
 

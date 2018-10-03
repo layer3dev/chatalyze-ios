@@ -22,6 +22,15 @@ class GoogleSignIn{
         
         var params = [String : Any]()
         params["accessToken"] = accessToken
+        params["roleId"] = LoginSignUpContainerController.roleId
+        
+        if let deviceInfo = SessionDeviceInfo.sharedInstance{
+            
+            params["deviceId"] = deviceInfo.deviceId
+            params["deviceToken"] = deviceInfo.deviceToken
+            params["deviceType"] = AppInfoConfig.deviceType
+            params["appType"] = AppInfoConfig.appType
+        }
         
         Log.echo(key: "yud", text: "My sended Dict in Google param is \(params)")
         

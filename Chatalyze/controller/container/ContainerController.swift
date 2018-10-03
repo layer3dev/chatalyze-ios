@@ -392,7 +392,7 @@ class ContainerController: NavChildController {
                 return
             }
             
-            guard let controller = AccountController.instance() else{
+            guard let controller = MyTicketsVerticalController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)

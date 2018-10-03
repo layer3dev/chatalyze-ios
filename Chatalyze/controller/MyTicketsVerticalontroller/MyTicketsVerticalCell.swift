@@ -12,12 +12,21 @@ import SDWebImage
 
 class MyTicketsVerticalCell: ExtendedTableCell {
     
-    @IBOutlet var eventImage:UIImageView?
-    @IBOutlet var evnetnameLbl:UILabel?
-    @IBOutlet var eventtimeLbl:UILabel?
+   
     @IBOutlet var borderView:UIView?
-    var info:EventInfo?
-    @IBOutlet var soldOutLabel:UILabel?
+    @IBOutlet var chatnumberLbl:UILabel?
+    @IBOutlet var timeLbl:UILabel?
+    @IBOutlet var startDateLbl:UILabel?
+    @IBOutlet var title:UILabel?
+    var delegate:MyTicketCellDelegate?
+    var info:EventSlotInfo?
+    
+    var formattedStartTime:String?
+    var formattedEndTime:String?
+    var formattedStartDate:String?
+    var fromattedEndDate:String?
+    
+    @IBOutlet var joinButtonContainer:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,108 +35,77 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     }
     
     func paintInterface(){
-        
+                
+        self.separatorInset.bottom = 20
         self.selectionStyle = .none
-        self.borderView?.layer.borderWidth = 2
-        self.borderView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        self.borderView?.layer.borderWidth = 4
+        self.borderView?.layer.borderColor = UIColor(red: 241.0/255.0, green: 244.0/255.0, blue: 245.0/255.0, alpha: 1).cgColor
+        
+        self.joinButtonContainer?.layer.cornerRadius = 5
+        self.joinButtonContainer?.layer.masksToBounds = true
     }
     
-    func fillInfo(info:EventInfo?){
+    
+    func fillInfo(info:EventSlotInfo?){
         
-        guard let info = info else {
+        guard let info = info else{
             return
         }
-        
         self.info = info
-        eventImage?.image = UIImage(named: "event_placeholder")
-        if let url = URL(string: info.eventBannerUrl ?? ""){
-            
-            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
-            }) { (image, data, error, chache, status, url) in
-                self.eventImage?.image = image
-            }
-        }
-        
-        //eventImage?.load(withURL: info.eventBannerUrl, placeholder: UIImage(named:"base"))
-        evnetnameLbl?.text = info.title
-        eventtimeLbl?.text = info.start
-        
-        if let startTime = DateParser.convertDateToDesiredFormat(date: info.start, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd h:mm"){
-            
-            self.eventtimeLbl?.text = startTime
-            if let lastDate = DateParser.convertDateToDesiredFormat(date: info.end, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a"){
-                self.eventtimeLbl?.text = "\(startTime) - \(lastDate)"
-            }
-        }
-        isEventSoldOut()
+        self.chatnumberLbl?.text = String(info.slotNo ?? 0)
+        initializeDesiredDatesFormat(info:info)
+        self.title?.text = "Chat with \(info.eventTitle ?? "")"
     }
     
-    func isEventSoldOut(){
+    func initializeDesiredDatesFormat(info:EventSlotInfo){
         
-        if let callbooking = self.info?.callBookings{
-            for info in callbooking{
-                if let endDate = info["end"].string{
-                    if let eventEndDate = self.info?.endDate{
-                        
-                        let requiredEndDate = DateParser.UTCStringToDate(endDate)
-                        let differIs = requiredEndDate?.timeIntervalSince((eventEndDate))
-                        if differIs == 0.0{
-                            eventisSoldOut(status:true)
-                            return
-                        }else{
-                            eventisSoldOut(status:false)
-                        }
-                    }
-                    //
-                    //                    Log.echo(key: "yud", text: "Differ is \(differIs)")
-                    //                    Log.echo(key: "yud", text: "End Date is slot \(endDate)")
-                    //                    Log.echo(key: "yud", text: "End Date of event is  \(self.info?.endDate)")
-                }
-            }
-        }
-        eventisSoldOut(status:false)
-        return
-        
-        //        Log.echo(key: "yud", text: "Current Date is \(Date())")
-        //        if let startDate = self.info?.startDate{
-        //            if let endDate = self.info?.endDate{
-        //                let timeDiffrence = endDate.timeIntervalSince(startDate)
-        //                Log.echo(key: "yud", text: "The total time of the event is \(timeDiffrence)")
-        //                if let durate  = self.info?.duration{
-        //                    let totalnumberofslots = Int(timeDiffrence/(durate*60))
-        //                    Log.echo(key: "yud", text: "The total time of slots are  \(totalnumberofslots)")
-        //                    Log.echo(key: "yud", text: "The number of the total callbookings are\(String(describing: self.info?.callBookings.count))")
-        //                    if let slotBooked = self.info?.callBookings.count{
-        //                        if slotBooked >= (totalnumberofslots+slotBooked){
-        //                            eventisSoldOut(status:true)
-        //                        }else{
-        //
-        //                            //Verifying the earlySlotBooked Scenario
-        //                            let currenToEndtimeDiffrence = endDate.timeIntervalSince(Date())
-        //                            let totalnumberofslots = Int(currenToEndtimeDiffrence/(durate*60))
-        //
-        //                            if !(slotBooked <= totalnumberofslots+slotBooked) {
-        //                                eventisSoldOut(status:true)
-        //                                return
-        //                            }
-        //                            eventisSoldOut(status: false)
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
+        _formattedEndTime = info.end
+        _formattedStartTime = info.start
+        self.timeLbl?.text = self.formattedStartTime
+        self.startDateLbl?.text = self.formattedStartDate
     }
     
-    func eventisSoldOut(status:Bool){
+    
+    var _formattedStartTime:String?{
         
-        if status == true{
-            
-            soldOutLabel?.isHidden = false
-            //self.isUserInteractionEnabled = false
-        }else{
-            
-            soldOutLabel?.isHidden = true
-            //self.isUserInteractionEnabled = true
+        get{
+            return formattedStartTime ?? ""
         }
+        set{
+            
+            let date = newValue
+            
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
+            
+            formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
+        }
+    }
+    
+    var _formattedEndTime:String?{
+        
+        get{
+            
+            return formattedEndTime ?? ""
+        }
+        set{
+            
+            let date = newValue
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+        }
+    }
+    
+    
+    
+    @IBAction func jointEvent(send:UIButton?){
+        
+        Log.echo(key: "yud", text: "Joint Event is calling!!")        
+        delegate?.jointEvent(info:self.info)
+    }
+    
+    @IBAction func systemTest(sender:UIButton?){
+        
+        delegate?.systemTest()
     }
 }

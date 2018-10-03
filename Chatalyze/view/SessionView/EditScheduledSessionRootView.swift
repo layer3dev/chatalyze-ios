@@ -34,7 +34,7 @@ class EditScheduledSessionRootView:ExtendedView{
     var titleAttribute = [NSAttributedStringKey.foregroundColor: UIColor.black,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-bold", size: 17)]
     
     var numberOfUnitAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 16)]
-    var editChatattributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 16)]
+    var editChatattributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 16)]
     
     var param = [String:Any]()
     
@@ -88,7 +88,7 @@ class EditScheduledSessionRootView:ExtendedView{
 //        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
         
         let yourViewBorder = CAShapeLayer()
-        yourViewBorder.strokeColor = UIColor(hexString: "#27B879").cgColor
+        yourViewBorder.strokeColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
         yourViewBorder.lineDashPattern = [8, 4]
         yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
         yourViewBorder.fillColor = nil

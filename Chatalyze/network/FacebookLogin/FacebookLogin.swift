@@ -48,6 +48,15 @@ class FacebookLogin{
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
+        params["roleId"] = LoginSignUpContainerController.roleId
+        if let deviceInfo = SessionDeviceInfo.sharedInstance{
+            
+            params["deviceId"] = deviceInfo.deviceId
+            params["deviceToken"] = deviceInfo.deviceToken
+            params["deviceType"] = AppInfoConfig.deviceType
+            params["appType"] = AppInfoConfig.appType
+        }
+        
         ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }

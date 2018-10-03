@@ -67,7 +67,7 @@ class PaymentSuccessRootView: ExtendedView {
         //create attributed string        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
+            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
             
             let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 24)]
             
@@ -99,7 +99,7 @@ class PaymentSuccessRootView: ExtendedView {
             
         }else{
             
-            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
+            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
             
             let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 18)]
             

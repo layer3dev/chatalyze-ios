@@ -130,6 +130,7 @@ class MyTicketsController: InterfaceExtendedController{
 extension MyTicketsController:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       
         delegate?.getTicketsScrollInset(scrollView: scrollView)
     }
 }

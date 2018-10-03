@@ -97,7 +97,7 @@ class AccountController: TabChildLoadController {
     func ticketAction(){
         
         pageViewController?.setMyTicketTab()
-        rootView?.setTabInterface(controller: MyTicketsController())
+        rootView?.setTabInterface(controller: MyTicketsVerticalController())
     }
 }
 

@@ -25,13 +25,13 @@ class AccountHostRootView:AccountRootView{
         if controller.isKind(of: SettingController.self){
             
             resetColor()
-            memoriesView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+            memoriesView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
             memoriesLbl?.textColor = UIColor.white
             
         }else if controller.isKind(of: SessionController.self){
             
             resetColor()
-            myTicketView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+            myTicketView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
             myTicketLbl?.textColor = UIColor.white
             
         }

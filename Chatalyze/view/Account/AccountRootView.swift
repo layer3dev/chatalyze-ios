@@ -39,14 +39,14 @@ class AccountRootView: ExtendedView {
     
     func paintInterface(){
        
-        myTicketView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+        myTicketView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
         myTicketLbl?.textColor = UIColor.white
         memoriesLbl?.textColor = UIColor(red: 140.0/255.0, green: 157.0/255.0, blue: 161.0/255.0, alpha: 1.0)
         settingLbl?.textColor = UIColor(red: 140.0/255.0, green: 157.0/255.0, blue: 161.0/255.0, alpha: 1.0)
         stackContainerView?.layer.cornerRadius = 5
         stackContainerView?.layer.masksToBounds = true
         stackContainerView?.layer.borderWidth = 1
-        stackContainerView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
+        stackContainerView?.layer.borderColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
     }
     
     func fillInfo(){
@@ -65,19 +65,19 @@ class AccountRootView: ExtendedView {
         if controller.isKind(of: SettingController.self){
            
             resetColor()
-            settingView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+            settingView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
             settingLbl?.textColor = UIColor.white
             
-        }else if controller.isKind(of: MyTicketsController.self){
+        }else if controller.isKind(of: MyTicketsVerticalController.self){
        
             resetColor()
-            myTicketView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+            myTicketView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
             myTicketLbl?.textColor = UIColor.white
             
         }else if controller.isKind(of: MemoriesController.self){
             
             resetColor()
-            memoriesView?.backgroundColor = UIColor(red: 39.0/255.0, green: 184.0/255.0, blue: 121.0/255.0, alpha: 1)
+            memoriesView?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
             memoriesLbl?.textColor = UIColor.white
             
         }else{

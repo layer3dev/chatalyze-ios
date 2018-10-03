@@ -44,7 +44,7 @@ class RootControllerManager{
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         
-        guard let signinController = WelcomeController.instance()
+        guard let signinController = LoginSignUpContainerController.instance()
             else{
                 return
         }

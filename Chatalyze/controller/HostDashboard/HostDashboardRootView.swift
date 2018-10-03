@@ -33,7 +33,7 @@ class HostDashboardRootView: MySessionRootView {
         
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: fontSize)] as? [NSAttributedStringKey : Any]{
          
-            let underlineAttributedString = NSAttributedString(string: "+TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
+            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
             underLineLbl?.attributedText = underlineAttributedString
         }
     }

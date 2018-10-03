@@ -23,7 +23,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
      
         initializeVariable()
         paintInterface()
-        verifyRoleId()
+        //verifyRoleId()
     }
     
     func verifyRoleId(){
@@ -49,9 +49,25 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     
     func paintInterface(){
        
-        paintNavigationTitle(text: "ACCOUNT")
-        paintBackButton()
+        //paintNavigationTitle(text: "ACCOUNT")
+        //paintBackButton()
+        //paintHideBackButton()
+        hideNavigationBar()
     }
+    
+    func showWelcomeScreen(response:@escaping (()->())){
+        
+        guard let controller = WelcomeController.instance() else {
+            return
+        }
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.dismiss = {
+            response()
+        }
+        self.present(controller, animated: true, completion: {
+        })
+    }
+    
     
     func initializeVariable(){
         
@@ -59,42 +75,53 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         googleSignIn()
         
         signInTab?.tabAction(action: { (tab) in
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                
-                self.pageController?.setSignInTab()
-                self.signUpTab?.reset()
-                tab.select()
+           
+            self.showWelcomeScreen(response:{
+              
+                UIView.animate(withDuration: 0.2, animations: {
+                    
+                    self.pageController?.setSignInTab()
+                    self.signUpTab?.reset()
+                    tab.select()
+                })
+                self.view.layoutIfNeeded()
             })
-            self.view.layoutIfNeeded()
+            //self.showWelcomeScreen()
+            
         })
         
         signUpTab?.tabAction(action: { (tab) in
-            
-            UIView.animate(withDuration: 0.2, animations: {
-             
-                self.pageController?.setSignUpTab()
-                self.signInTab?.reset()
-                tab.select()
+          
+            //self.showWelcomeScreen()
+            self.showWelcomeScreen(response:{
+                UIView.animate(withDuration: 0.2, animations: {
+                    
+                    self.pageController?.setSignUpTab()
+                    self.signInTab?.reset()
+                    tab.select()
+                })
+                self.view.layoutIfNeeded()
             })
-            self.view.layoutIfNeeded()
         })
     }
     
     
     func googleSignIn(){
         
-        // Swift
-        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
-            if (session != nil) {
-                print("signed in as \(session?.userName)");
-            }else{                
-                print("error: \(error?.localizedDescription)");
+//        // Swift
+//        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
+//            if (session != nil) {
+//                print("signed in as \(session?.userName)");
+//            }else{
+//                print("error: \(error?.localizedDescription)");
+//            }
+//        })
+        
+        showWelcomeScreen (response: {  
+            self.pageController?.signinController?.googleSignInAction = {
+                GIDSignIn.sharedInstance().signIn()
             }
         })
-//        pageController?.signinController?.googleSignInAction = {
-//            GIDSignIn.sharedInstance().signIn()
-//        }
     }
     
 

@@ -10,6 +10,7 @@ import UIKit
 
 class WelcomeController: InterfaceExtendedController {
 
+    var dismiss:(()->())?
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -18,17 +19,25 @@ class WelcomeController: InterfaceExtendedController {
 
     func paintInterface(){
         
-        paintNavigationTitle(text: "CHATALYZE")
+        //paintNavigationTitle(text: "CHATALYZE")
+        hideNavigationBar()
     }
     
     @IBAction func hostAction(sender:UIButton){
         
         LoginSignUpContainerController.roleId = 2
-        
-        guard let controller = LoginSignUpContainerController.instance() else{
-            return
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                if let dismiss = self.dismiss{
+                    dismiss()
+                }
+            }
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        
+//        guard let controller = LoginSignUpContainerController.instance() else{
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
         
     }
     
@@ -36,10 +45,17 @@ class WelcomeController: InterfaceExtendedController {
        
         LoginSignUpContainerController.roleId = 3
         
-        guard let controller = LoginSignUpContainerController.instance() else{
-            return
+//        guard let controller = LoginSignUpContainerController.instance() else{
+//            return
+//        }
+//        self.navigationController?.pushViewController(controller, animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                if let dismiss = self.dismiss{
+                    dismiss()
+                }
+            }
         }
-        self.navigationController?.pushViewController(controller, animated: true)
     }
         
     override func didReceiveMemoryWarning() {

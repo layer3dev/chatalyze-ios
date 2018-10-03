@@ -81,7 +81,7 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
         
         cell.delegate = self
         if indexPath.row >= ticketsListingArray.count{
-            return cell
+            return UICollectionViewCell()
         }
         cell.fillInfo(info: ticketsListingArray[indexPath.row])
         return cell
@@ -217,3 +217,5 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         root?.refreshData()
     }
 }
+
+

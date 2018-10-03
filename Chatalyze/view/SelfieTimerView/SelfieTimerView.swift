@@ -189,7 +189,7 @@ extension SelfieTimerView{
         
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3", attributes: oneAttribute)
         let secondStr = NSMutableAttributedString(string: " 2 1", attributes: self.whiteAttribute)
@@ -211,7 +211,7 @@ extension SelfieTimerView{
       
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3", attributes: self.whiteAttribute)
@@ -236,7 +236,7 @@ extension SelfieTimerView{
     
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2", attributes: self.whiteAttribute)
         let secondStr = NSMutableAttributedString(string: " 1", attributes: oneAttribute)
@@ -257,7 +257,7 @@ extension SelfieTimerView{
         self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: oneAttribute)
@@ -273,7 +273,7 @@ extension SelfieTimerView{
     
     private func greenSelfieTime(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#27B879"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
         self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
         
