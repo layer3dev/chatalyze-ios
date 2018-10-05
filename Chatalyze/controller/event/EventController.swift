@@ -28,10 +28,10 @@ class EventController: TabChildLoadController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+      
         
         fetchEvents()
     }
-    
     
     func paintInterface(){
         
@@ -46,7 +46,8 @@ class EventController: TabChildLoadController {
     private func paintNavigationBar(){
         
         paintSettingButton()
-        paintNavigationTitle(text: "UPCOMING SESSIONS")      
+        paintNavigationTitle(text: "UPCOMING SESSIONS")
+        paintBackButton()
     }
     
     func fetchEvents(){

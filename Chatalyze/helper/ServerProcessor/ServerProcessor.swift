@@ -157,7 +157,7 @@ class ServerProcessor{
             
             self.signout()
             respond(success: false, response: nil)
-            return;
+            return
         }
         
         guard let senddata = response.data
@@ -188,7 +188,8 @@ class ServerProcessor{
     
     fileprivate func signout(){
         
-        //RootControllerManager.signOutAction(completion: nil)
+        RootControllerManager().signOut {            
+        }
         return
         
         /*guard let controller = RootControllerManager.getRootController()
@@ -202,6 +203,7 @@ class ServerProcessor{
          }*/
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
+       
         let headerInfo = httpResponse?.allHeaderFields
         Log.echo(key: "token", text: "headerInfo extracted ==>  \(headerInfo)")
         guard let accessToken = headerInfo?["x-session-token"] as? String

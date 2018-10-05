@@ -19,7 +19,7 @@ class ContainerNavigationController: UINavigationController {
     
     func initialize(){
         
-        guard let eventController = EventController.instance()
+        guard let myTicketsController = MyTicketsVerticalController.instance()
             else{
             return
         }
@@ -32,7 +32,7 @@ class ContainerNavigationController: UINavigationController {
             if role == .analyst  {
                 self.viewControllers = [hostDashBoardController]
             }else{                              
-                self.viewControllers = [eventController]
+                self.viewControllers = [myTicketsController]
             }
         }
     }

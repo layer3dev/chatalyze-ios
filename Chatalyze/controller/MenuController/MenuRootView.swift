@@ -24,6 +24,8 @@ class MenuRootView:ExtendedView{
         case tickets = 10
         case userAccount = 11
         case analystAccount = 12
+        case events = 13
+        case settings = 14
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?

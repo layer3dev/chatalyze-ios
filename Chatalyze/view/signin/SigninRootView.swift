@@ -25,8 +25,24 @@ class SigninRootView: ExtendedView {
     
     @IBAction fileprivate func fbLoginAction(){
         
-        self.resetErrorStatus()
-        fbLogin()
+        showWelcomeScreen(response: {
+           
+            self.resetErrorStatus()
+            self.fbLogin()
+        })
+    }
+    
+    func showWelcomeScreen(response:@escaping (()->())){
+        
+        guard let controller = WelcomeController.instance() else {
+            return
+        }
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.dismiss = {
+            response()
+        }
+        self.controller?.present(controller, animated: true, completion: {
+        })
     }
     
     @IBAction fileprivate func loginAction(){
@@ -127,19 +143,25 @@ extension SigninRootView{
         loginManager.logOut() 
         
         loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
+            Log.echo(key: "yud", text: "loginResult in the facebook is \(loginResult)")
+            
             switch loginResult {
             case .failed(let error):
+                
                 self?.showError(text: error.localizedDescription)
+                Log.echo(key: "yud", text: "Error in the facebook is \(error.localizedDescription)")
             case .cancelled:
                 self?.showError(text: "Login Cancelled !")
             case .success( _,  _, let accessToken):
                 self?.fetchFBUserInfo(accessToken: accessToken)
+                Log.echo(key: "yud", text: "Succes facebook token is \(accessToken)")
                 break
             }
         }
     }
     
     fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
+        
         DispatchQueue.main.async(execute: {
             self.controller?.showLoader()
             FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in

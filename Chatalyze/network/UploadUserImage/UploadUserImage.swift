@@ -90,7 +90,7 @@ class UploadUserImage{
         var url = "https://dev.chatalyze.com/api/users/"
         url = url + "\(userId)"+"/uploads/"
         
-        Log.echo(key: "yud", text: "uploading image url is \(url)")
+       
         
 //        guard let imageData = UIImageJPEGRepresentation(image, 0.1)
 //            else{
@@ -104,6 +104,7 @@ class UploadUserImage{
                 return
         }
         
+        Log.echo(key: "yud", text: "uploading image url is \(url)")
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
@@ -130,18 +131,34 @@ class UploadUserImage{
                                     }
                                 })
                                 
-                                upload.validate()
-                                upload.responseJSON { response in
-                                    Log.echo(key: "yud", text: "Upload image response is \(response)")
-                                    completion(true)
+                                upload.validate(statusCode: 200..<300).responseJSON { response in
+                                 
+                                    if response.error == nil{
+                                        Log.echo(key: "yud", text: "Upload image response is \(response)")
+                                        completion(true)
+                                    }
+                                    
+                                    Log.echo(key: "yud", text: "Error in response is \(String(describing: response.error))")
+                                    completion(false)
                                 }
                             case .failure(let encodingError):
-                                Log.echo(key: "", text:encodingError)
+                                
+                                Log.echo(key: "yud", text:"Encoding error is \(encodingError)")
                                 completion(false)
                             }
                             
         })
     }
+    
+//    validate()
+//    .validate(statusCode: 200 ..< 300)
+//    .responseJSON { (response) in
+//    DispatchQueue.main.async(execute: {
+//    self.handleResponse(response)
+//    return
+//    })
+//    return
+//    }
     
     private func getAuthorizationToken()->String{
         

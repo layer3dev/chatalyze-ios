@@ -12,6 +12,7 @@ import UserNotifications
 import GoogleSignIn
 //import Stripe
 import TwitterKit
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -88,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if(allowRotate){
                 return .allButUpsideDown;
         }
-        // Only allow portrait (standard behaviour)
+        //Only allow portrait (standard behaviour)
         return .portrait;
     }
 }
@@ -194,7 +195,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
         //(app, open: url, options: options)
-        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options))
+        
+        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
+        
     }
-    
 }

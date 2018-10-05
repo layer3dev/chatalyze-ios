@@ -146,10 +146,12 @@ class EditProfileRootview: ExtendedView {
         
         //showUploadImageView()
         accountPhotoView?.isUserInteractionEnabled = false
+        self.controller?.showLoader()
         if let imageStr = info.profileImage{
             
             userImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"editUploadImagePlaceholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-                
+                self.controller?.stopLoader()
+
                 self.accountPhotoView?.isUserInteractionEnabled = true
                 
                 if image != nil{
@@ -727,7 +729,6 @@ extension EditProfileRootview{
         
         UploadUserImage().uploadImageFormatData(image: image, includeToken: true, progress: { (progress) in
             
-            self.controller?.stopLoader()
         }) {(success) in
             if success{
                 

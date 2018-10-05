@@ -11,16 +11,39 @@ import UIKit
 class WelcomeController: InterfaceExtendedController {
 
     var dismiss:(()->())?
+    @IBOutlet var hostButtonContainer:UIView?
+    @IBOutlet var attendButtonContainer:UIView?
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
         paintInterface()
+    }
+    
+    func roundCornerToView(){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            hostButtonContainer?.layer.cornerRadius = 4
+            hostButtonContainer?.layer.masksToBounds = true
+            
+            attendButtonContainer?.layer.cornerRadius = 4
+            attendButtonContainer?.layer.masksToBounds = true
+            return
+        }
+        
+        hostButtonContainer?.layer.cornerRadius = 2
+        hostButtonContainer?.layer.masksToBounds = true
+        
+        attendButtonContainer?.layer.cornerRadius = 2
+        attendButtonContainer?.layer.masksToBounds = true
     }
 
     func paintInterface(){
         
         //paintNavigationTitle(text: "CHATALYZE")
         hideNavigationBar()
+        roundCornerToView()
     }
     
     @IBAction func hostAction(sender:UIButton){
@@ -49,6 +72,7 @@ class WelcomeController: InterfaceExtendedController {
 //            return
 //        }
 //        self.navigationController?.pushViewController(controller, animated: true)
+        
         DispatchQueue.main.async {
             self.dismiss(animated: true) {
                 if let dismiss = self.dismiss{

@@ -68,11 +68,16 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         })
     }
     
+    func setGoogleSignInAction(){
+     
+        //initializing Action in order to get the Google Sign in Action
+        googleSignIn()
+    }
     
     func initializeVariable(){
         
         initializeGoogleSignIn()
-        googleSignIn()
+        setGoogleSignInAction()
         
         signInTab?.tabAction(action: { (tab) in
            
@@ -108,23 +113,22 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     
     func googleSignIn(){
         
-//        // Swift
-//        TWTRTwitter.sharedInstance().logIn(completion: { (session, error) in
-//            if (session != nil) {
-//                print("signed in as \(session?.userName)");
-//            }else{
-//                print("error: \(error?.localizedDescription)");
-//            }
-//        })
-        
-        showWelcomeScreen (response: {  
-            self.pageController?.signinController?.googleSignInAction = {
+        self.pageController?.signinController?.googleSignInAction = {
+            
+            self.showWelcomeScreen(response: {
                 GIDSignIn.sharedInstance().signIn()
-            }
-        })
+            })
+        }
+        
+        
+        self.pageController?.signUpController?.googleSignInAction = {
+            
+            self.showWelcomeScreen(response: {
+                GIDSignIn.sharedInstance().signIn()
+            })
+        }
     }
     
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         //Dispose of any resources that can be recreated.

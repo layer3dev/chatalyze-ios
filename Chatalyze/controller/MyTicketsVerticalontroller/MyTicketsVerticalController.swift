@@ -19,8 +19,6 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
     }
     
-
-    
     func initializeFontSize(){
         
         if UIDevice.current.userInterfaceIdiom == .pad{

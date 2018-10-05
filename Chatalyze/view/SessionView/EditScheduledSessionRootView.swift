@@ -208,12 +208,10 @@ class EditScheduledSessionRootView:ExtendedView{
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        imagePicker.modalPresentationStyle = .popover
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
         self.controller?.present(imagePicker, animated: true, completion: {
-            
-            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
-            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+           
         })
         //imagePicker.popoverPresentationController?. = sender
     }
@@ -377,9 +375,14 @@ extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigat
             uploadedImage?.image = chosenImage
             selectedImage = chosenImage
             delegate?.selectedImage(image:selectedImage)
+            
+            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+            
             self.controller?.dismiss(animated:true, completion: nil)
         }
     }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         

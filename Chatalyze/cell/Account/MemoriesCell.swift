@@ -24,6 +24,8 @@ class MemoriesCell: ExtendedTableCell {
     @IBOutlet var memoryImage:UIImageView?
     var controller:MemoriesController?
     var info:MemoriesInfo?
+    var deleteCell:(()->())?
+    var indexPath:IndexPath?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -70,11 +72,11 @@ class MemoriesCell: ExtendedTableCell {
             self.controller?.present(avc, animated: true, completion: nil)
             
         }else{
+            
             let activityItem: [AnyObject] = [memoryImage]
             let avc = UIActivityViewController(activityItems: activityItem as [AnyObject], applicationActivities: nil)
             self.controller?.present(avc, animated: true, completion: nil)
-        }
-        
+        }        
     }
     
     @IBAction func facebookShare(sender:UIButton){        
@@ -123,6 +125,19 @@ class MemoriesCell: ExtendedTableCell {
 }
 
 extension MemoriesCell{
+    
+    @IBAction func showImage(sender:UIButton){
+        
+        guard let controller = PageScrollerController.instance() else{
+            return
+        }
+        controller.showingImage = self.memoryImage?.image
+        controller.deleteCell = {
+            
+        }
+        self.controller?.present(controller, animated: true)
+    }
+    
     
     @objc func checkforSave(){
         

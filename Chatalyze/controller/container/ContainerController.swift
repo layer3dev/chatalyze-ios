@@ -129,6 +129,7 @@ class ContainerController: NavChildController {
     }
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+     
         if recognizer.state == .recognized {
             print("Screen edge swiped!")
             //toggleAnimation()
@@ -159,7 +160,7 @@ class ContainerController: NavChildController {
     
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
+            switch swipeGesture.direction {          
             case UISwipeGestureRecognizerDirection.right:
                 print("Swiped right")
                 closeToggle()
@@ -280,7 +281,7 @@ class ContainerController: NavChildController {
                 return
             }
             
-            guard let controller = HostDashboardController.instance() else{
+            guard let controller = PaymentSetupPaypalController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)
@@ -318,7 +319,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .contactUsUser{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -346,7 +347,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .editProfileUser{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -360,7 +361,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .paymentUser{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -374,7 +375,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .autograph{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -388,7 +389,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .tickets{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -402,7 +403,7 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .userAccount{
             
-            guard let rootController = EventController.instance() else{
+            guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
@@ -419,7 +420,6 @@ class ContainerController: NavChildController {
             guard let rootController = HostDashboardController.instance() else{
                 return
             }
-            
             guard let controller = AccountHostController.instance() else{
                 return
             }
@@ -428,6 +428,61 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+        else if typeOfAction == .settings{
+            
+            guard let roleId = SignedUserInfo.sharedInstance?.role else{
+                return
+            }
+            
+            if roleId == .analyst{
+                
+                guard let rootController = HostDashboardController.instance() else{
+                    return
+                }
+                guard let controller = AccountHostController.instance() else{
+                    return
+                }
+              
+                navController?.setViewControllers([rootController,controller], animated: true)
+               
+                self.closeToggle()
+                
+            }else{
+               
+                guard let rootController = MyTicketsVerticalController.instance() else{
+                    return
+                }
+                guard let controller = AccountController.instance() else{
+                    return
+                }
+               
+                navController?.setViewControllers([rootController,controller], animated: true)
+                
+                self.closeToggle()
+            }
+            return
+        }else if typeOfAction == .events{
+            
+            guard let rootController = MyTicketsVerticalController.instance() else{
+                return
+            }
+            
+            guard let controller = EventController.instance() else{
+                return
+            }
+            
+            navController?.setViewControllers([rootController,controller], animated: true)
+            
+            self.closeToggle()
+           
+            //navController?.viewControllers = [controller]
+            return
+        }
+        
+        
+        //        var analystArray = ["My Sessions","Payments","Settings","Support"]
+        //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
+        
     }
     
     

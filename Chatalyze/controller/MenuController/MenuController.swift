@@ -23,9 +23,9 @@ class MenuController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        self.userImage?.layer.cornerRadius = ((self.userImage?.frame.size.width ?? 0.0) / 2.0)
-        self.userImage?.layer.masksToBounds = true
-        self.userImage?.clipsToBounds = true
+//        self.userImage?.layer.cornerRadius = ((self.userImage?.frame.size.width ?? 0.0) / 2.0)
+//        self.userImage?.layer.masksToBounds = true
+//        self.userImage?.clipsToBounds = true
     }
     
     private func initialize(){
@@ -34,10 +34,14 @@ class MenuController: InterfaceExtendedController {
         guard let useInfo = SignedUserInfo.sharedInstance else{
             return
         }
-        userName?.text = useInfo.fullName.uppercased()
+        userName?.text = useInfo.fullName
+        userImage?.image = UIImage(named: "user_placeholder")
         if let imageStr = useInfo.profileImage{
             if let url = URL(string: imageStr){
-                userImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                userImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                    if error != nil{
+                       return
+                    }
                     self.userImage?.image = image
                 })
             }
@@ -62,7 +66,6 @@ class MenuController: InterfaceExtendedController {
                 else{
                     return
             }
-            
             if(role == .analyst){
                 selecetTabAction(MenuRootView.MenuType.analystAccount)
                 return
@@ -72,7 +75,6 @@ class MenuController: InterfaceExtendedController {
             }
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

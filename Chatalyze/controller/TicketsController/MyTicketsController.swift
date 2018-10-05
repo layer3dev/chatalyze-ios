@@ -53,6 +53,7 @@ class MyTicketsController: InterfaceExtendedController{
         super.viewWillAppear(animated)
         
         initializeVariable()
+        //paintInterface()
         registerEventSlotListner()
         fetchInfo()
     }    
@@ -65,8 +66,10 @@ class MyTicketsController: InterfaceExtendedController{
     
     func paintInterface(){
         
-        paintBackButton()
+        //paintBackButton()
         paintNavigationTitle(text: "My Tickets")
+        paintHideBackButton()
+        paintSettingButton()
     }
     
     func initializeVariable(){

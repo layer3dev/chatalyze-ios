@@ -9,9 +9,11 @@
 import UIKit
 
 class SignUpController: InterfaceExtendedController {
-    
+  
+    var googleSignInAction:(()->())?
     @IBOutlet var rootView:SignupRootView?    
     @IBAction func signinAction(sender:UIButton){
+        
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -31,6 +33,13 @@ class SignUpController: InterfaceExtendedController {
         
         paintNavigationTitle(text: "SIGN UP")
         paintBackButton()
+    }
+    
+    @IBAction func googleSignIn(){
+        
+        if let action = googleSignInAction{
+            action()
+        }
     }
     
 

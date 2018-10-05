@@ -56,7 +56,9 @@ class FetchProfileProcessor{
             return
         }
         
-        profileInfo.fillInfo(info: rawInfo)        
+        profileInfo.fillInfo(info: rawInfo)
+         RootControllerManager().getCurrentController()?.menuController?.updateMenuInfo()
+        
         completion(true, "", rawInfo)
         return
     }

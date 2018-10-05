@@ -72,8 +72,25 @@ class SignupRootView:ExtendedView{
     
     @IBAction fileprivate func fbLoginAction(){
         
-        self.resetErrorStatus()
-        fbLogin()
+        showWelcomeScreen(response: {
+            
+            self.resetErrorStatus()
+            self.fbLogin()
+        })
+    }
+    
+    
+    func showWelcomeScreen(response:@escaping (()->())){
+        
+        guard let controller = WelcomeController.instance() else {
+            return
+        }
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.dismiss = {
+            response()
+        }
+        self.controller?.present(controller, animated: true, completion: {
+        })
     }
     
     func initializeVariable(){

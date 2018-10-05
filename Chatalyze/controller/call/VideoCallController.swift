@@ -16,7 +16,7 @@ class VideoCallController : InterfaceExtendedController {
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
-    let duration = 1.0
+    let duration = 0.75
     let fontSizeSmall: CGFloat = 18
     var fontSizeBig: CGFloat = 45
     var isSmall: Bool = true

@@ -72,33 +72,45 @@ class MenuCell: ExtendedTableCell {
                 else if selectedIndexName == "Contact Us"{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
+                else if selectedIndexName == "Support"{
+                    return MenuRootView.MenuType.contactUsAnalyst
+                }
+                else if selectedIndexName == "Settings"{
+                    return MenuRootView.MenuType.settings
+                }
                 return MenuRootView.MenuType.none
             }
             
-            //Implement For the user            
+//            var analystArray = ["My Sessions","Payments","Settings","Support"]
+            //Implement For the user
             if selectedIndexName == "Contact Us"{
                 return MenuRootView.MenuType.contactUsUser
             }
             else if selectedIndexName == "Edit Profile"{
                 return MenuRootView.MenuType.editProfileUser
             }
-            else if selectedIndexName == "Payments"{
+            else if selectedIndexName == "History"{
                 return MenuRootView.MenuType.paymentUser
             }
-            else if selectedIndexName == "Autographs"{
+            else if selectedIndexName == "Memories"{
                 return MenuRootView.MenuType.autograph
             }
             else if selectedIndexName == "My Tickets"{
                 return MenuRootView.MenuType.tickets
+            }
+            else if selectedIndexName == "Purchase"{
+                return MenuRootView.MenuType.events
+            }
+            else if selectedIndexName == "Settings"{
+                return MenuRootView.MenuType.settings
             }
             return MenuRootView.MenuType.none
         }
         return MenuRootView.MenuType.none
 
         
-//        
-//        ["My Sessions","Payments","Schedule Session","Edit Profile","Contact Us"]
-//        var userArray = ["Payments","Edit Profile","Contact Us"]
+//        var analystArray = ["My Sessions","Payments","Settings","Support"]
+//        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
     
     }
 }

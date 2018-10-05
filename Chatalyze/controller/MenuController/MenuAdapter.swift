@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MenuAdapter: ExtendedView {
     
@@ -14,12 +15,17 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-    var analystArray = ["My Sessions","Payments","Schedule Session","Edit Profile","Contact Us"]
-    var userArray = ["My Tickets","Autographs","Payments","Edit Profile","Contact Us"]
+    var analystArray = ["My Sessions","Payments","Settings","Support"]
+    var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
+    
+//(a)For the host, the menu options should be My Sessions, Payments, Settings, Support, and Sign Out at the bottom.
+//(b)For the user, the menu options should be My Tickets, Memories, Purchase
+//History, Settings, and Sign Out at the bottom.
+    
+    
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     
-    
-    override func viewDidLayout() {
+    override func viewDidLayout(){
         super.viewDidLayout()
         
         initialize()
@@ -39,7 +45,7 @@ class MenuAdapter: ExtendedView {
         }
         menuTableView?.dataSource = self
         menuTableView?.delegate = self
-        menuTableView?.reloadData()
+        menuTableView?.reloadData()        
     }
     
     func initailizeAdapter(info:[MenuInfo]?){
@@ -66,7 +72,7 @@ extension MenuAdapter:UITableViewDataSource{
         return currentArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as? MenuCell else {            
             return UITableViewCell()
@@ -102,6 +108,7 @@ extension MenuAdapter:UITableViewDelegate{
     //        }
     //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     //    }
+    
 }
 
 

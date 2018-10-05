@@ -9,6 +9,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-SemiBold.otf">
+            <string>Poppins-SemiBold</string>
+        </array>
+        <array key="Questrial-Regular.otf">
+            <string>Questrial-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Welcome Controller-->
         <scene sceneID="Vox-3X-ZwN">
@@ -25,39 +33,39 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZM-df-fvH">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="478.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_logo" translatesAutoresizingMaskIntoConstraints="NO" id="3km-Ye-ZOd">
                                                         <rect key="frame" x="152.5" y="70" width="70" height="70"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="70" id="YxL-Yp-jqX">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                             </constraint>
                                                             <constraint firstAttribute="width" constant="70" id="cwO-ay-Yj1">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKd-85-lv0">
-                                                        <rect key="frame" x="20" y="180" width="335" height="25.5"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                                        <rect key="frame" x="20" y="180" width="335" height="31"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to host or attend Chatalyze sessions?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVa-L7-emc">
-                                                        <rect key="frame" x="20" y="225.5" width="335" height="43"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                        <rect key="frame" x="20" y="231" width="335" height="41.5"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="25"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="27"/>
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6J-F0-BET">
-                                                        <rect key="frame" x="28" y="338.5" width="319" height="50"/>
+                                                        <rect key="frame" x="28" y="342.5" width="319" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfy-qw-16x">
                                                                 <rect key="frame" x="134.5" y="14.5" width="50.5" height="21.5"/>
@@ -70,12 +78,13 @@
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-Ok-J9e">
                                                                 <rect key="frame" x="0.0" y="0.0" width="319" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
                                                                     <action selector="hostActionWithSender:" destination="VAk-oV-gP6" eventType="touchUpInside" id="jK4-kp-hfW"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="qfy-qw-16x" firstAttribute="centerY" secondItem="E6J-F0-BET" secondAttribute="centerY" id="46C-PR-BW0"/>
                                                             <constraint firstAttribute="trailing" secondItem="PjR-Ok-J9e" secondAttribute="trailing" id="571-eL-sgt"/>
@@ -89,7 +98,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgK-Ku-UA7">
-                                                        <rect key="frame" x="28" y="408.5" width="319" height="50"/>
+                                                        <rect key="frame" x="28" y="412.5" width="319" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATTEND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32d-vh-Pp1">
                                                                 <rect key="frame" x="124" y="14.5" width="71.5" height="21.5"/>
@@ -125,31 +134,36 @@
                                                 <constraints>
                                                     <constraint firstItem="3km-Ye-ZOd" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="77s-DR-zuq"/>
                                                     <constraint firstItem="YVa-L7-emc" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" constant="20" id="8K1-e5-b9R">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="bottom" secondItem="lgK-Ku-UA7" secondAttribute="bottom" constant="20" id="Bcm-tQ-z4h"/>
                                                     <constraint firstItem="oKd-85-lv0" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" constant="20" id="Gcn-uK-9dN">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="YVa-L7-emc" secondAttribute="trailing" constant="20" id="HLx-Kz-Uab">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="oKd-85-lv0" secondAttribute="trailing" constant="20" id="I2F-Dq-Bvz">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                     </constraint>
                                                     <constraint firstItem="E6J-F0-BET" firstAttribute="top" secondItem="YVa-L7-emc" secondAttribute="bottom" constant="70" id="MAc-09-qnJ"/>
-                                                    <constraint firstItem="3km-Ye-ZOd" firstAttribute="top" secondItem="yZM-df-fvH" secondAttribute="top" constant="70" id="Nu7-qZ-xXE"/>
-                                                    <constraint firstItem="oKd-85-lv0" firstAttribute="top" secondItem="3km-Ye-ZOd" secondAttribute="bottom" constant="40" id="Wqm-zy-noe"/>
+                                                    <constraint firstItem="3km-Ye-ZOd" firstAttribute="top" secondItem="yZM-df-fvH" secondAttribute="top" constant="70" id="Nu7-qZ-xXE">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                                    </constraint>
+                                                    <constraint firstItem="oKd-85-lv0" firstAttribute="top" secondItem="3km-Ye-ZOd" secondAttribute="bottom" constant="40" id="Wqm-zy-noe">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                                    </constraint>
                                                     <constraint firstItem="lgK-Ku-UA7" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="dri-SG-Xfc"/>
                                                     <constraint firstItem="E6J-F0-BET" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="l50-N3-8UJ"/>
-                                                    <constraint firstItem="lgK-Ku-UA7" firstAttribute="top" secondItem="E6J-F0-BET" secondAttribute="bottom" constant="20" id="uMd-U2-WOf"/>
+                                                    <constraint firstItem="lgK-Ku-UA7" firstAttribute="top" secondItem="E6J-F0-BET" secondAttribute="bottom" constant="20" id="uMd-U2-WOf">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                    </constraint>
                                                     <constraint firstItem="YVa-L7-emc" firstAttribute="top" secondItem="oKd-85-lv0" secondAttribute="bottom" constant="20" id="zF5-5S-c5u">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                                     </constraint>
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="yZM-df-fvH" firstAttribute="leading" secondItem="alf-oO-nRr" secondAttribute="leading" id="Q12-Ay-dHZ"/>
                                             <constraint firstAttribute="trailing" secondItem="yZM-df-fvH" secondAttribute="trailing" id="VEx-9D-Adi"/>
@@ -158,7 +172,7 @@
                                         </constraints>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="alf-oO-nRr" secondAttribute="bottom" id="Dnv-bp-1Aj"/>
                                     <constraint firstAttribute="trailing" secondItem="alf-oO-nRr" secondAttribute="trailing" id="and-ju-YbI"/>
@@ -172,6 +186,7 @@
                         <constraints>
                             <constraint firstItem="M2B-Ic-BG4" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" id="SDW-nu-zkM"/>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="bottom" secondItem="M2B-Ic-BG4" secondAttribute="bottom" id="SyA-rs-KEy"/>
+                            <constraint firstItem="yZM-df-fvH" firstAttribute="height" secondItem="nSq-gc-4jc" secondAttribute="height" id="U4k-XT-la4"/>
                             <constraint firstItem="M2B-Ic-BG4" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="UyQ-nd-5OX"/>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="trailing" secondItem="M2B-Ic-BG4" secondAttribute="trailing" id="cFm-gL-IaL"/>
                             <constraint firstItem="E6J-F0-BET" firstAttribute="width" secondItem="nSq-gc-4jc" secondAttribute="width" multiplier="0.85" id="tfb-cA-O5b"/>
@@ -179,6 +194,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qaL-XR-Eq9"/>
                     </view>
+                    <connections>
+                        <outlet property="attendButtonContainer" destination="lgK-Ku-UA7" id="Lgh-qb-PLY"/>
+                        <outlet property="hostButtonContainer" destination="E6J-F0-BET" id="aO8-VC-paz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcT-jD-WSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -12,6 +12,7 @@ import FacebookLogin
 class SigninController: InterfaceExtendedController {
     
     var googleSignInAction:(()->())?
+    
     @IBAction fileprivate func signinAction(){
         signin()
     }

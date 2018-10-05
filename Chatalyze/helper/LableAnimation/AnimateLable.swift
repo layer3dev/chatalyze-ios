@@ -12,7 +12,7 @@ class AnimateLable :ExtendedView{
     
     var label = UILabel()
     var crossFading: Bool  = false
-    let duration = 1.0
+    let duration = 0.75
     let fontSizeSmall: CGFloat = 30
     let fontSizeBig: CGFloat = 120
     var isSmall: Bool = true
