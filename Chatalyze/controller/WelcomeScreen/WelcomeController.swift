@@ -24,18 +24,18 @@ class WelcomeController: InterfaceExtendedController {
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            hostButtonContainer?.layer.cornerRadius = 4
+            hostButtonContainer?.layer.cornerRadius = 7
             hostButtonContainer?.layer.masksToBounds = true
             
-            attendButtonContainer?.layer.cornerRadius = 4
+            attendButtonContainer?.layer.cornerRadius = 7
             attendButtonContainer?.layer.masksToBounds = true
             return
         }
         
-        hostButtonContainer?.layer.cornerRadius = 2
+        hostButtonContainer?.layer.cornerRadius = 4
         hostButtonContainer?.layer.masksToBounds = true
         
-        attendButtonContainer?.layer.cornerRadius = 2
+        attendButtonContainer?.layer.cornerRadius = 4
         attendButtonContainer?.layer.masksToBounds = true
     }
 

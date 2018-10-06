@@ -710,12 +710,23 @@ extension EditProfileRootview{
     
     @IBAction func removeImage(sender:UIButton?){
         
-        self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
+        self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Are you sure to remove profile picture?", successTitle: "Yes", rejectTitle: "No", showCancel: true, completion: { (success) in
+            
+            if !success{
+                return
+            }
+            self.removeImage()
+        })
+    }
+    
+    func removeImage(){
+       
         self.controller?.showLoader()
-        UploadUserImage().deleteUploadedImage { (success, response) in            
+        UploadUserImage().deleteUploadedImage { (success, response) in
             self.controller?.stopLoader()
             if success{
                 
+                self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
                 self.controller?.fetchInfo()
                 self.showUploadImageView()
             }

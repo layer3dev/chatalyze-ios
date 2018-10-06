@@ -11,6 +11,25 @@ import UIKit
 class HostDashboardController: MyScheduledSessionsController {
     
     @IBOutlet var tableHeight:NSLayoutConstraint?
+    @IBOutlet var scheduleSessionBtnContainer:UIView?
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        roundSessionButton()
+    }
+    
+    func roundSessionButton(){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            scheduleSessionBtnContainer?.layer.cornerRadius = 7
+            scheduleSessionBtnContainer?.layer.masksToBounds = true
+            return
+        }
+        scheduleSessionBtnContainer?.layer.cornerRadius = 4
+        scheduleSessionBtnContainer?.layer.masksToBounds = true
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

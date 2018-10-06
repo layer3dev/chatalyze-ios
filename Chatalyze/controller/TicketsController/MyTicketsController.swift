@@ -51,7 +51,8 @@ class MyTicketsController: InterfaceExtendedController{
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-        
+     
+        paintNavigationTitle(text: "My Tickets")
         initializeVariable()
         //paintInterface()
         registerEventSlotListner()
@@ -67,7 +68,7 @@ class MyTicketsController: InterfaceExtendedController{
     func paintInterface(){
         
         //paintBackButton()
-        paintNavigationTitle(text: "My Tickets")
+        
         paintHideBackButton()
         paintSettingButton()
     }

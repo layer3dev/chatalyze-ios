@@ -16,9 +16,9 @@ class VideoCallController : InterfaceExtendedController {
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
-    let duration = 0.75
-    let fontSizeSmall: CGFloat = 18
-    var fontSizeBig: CGFloat = 45
+    let duration = 0.45
+    let fontSizeSmall: CGFloat = 16
+    var fontSizeBig: CGFloat = 28
     var isSmall: Bool = true
     //End
     
@@ -43,17 +43,15 @@ class VideoCallController : InterfaceExtendedController {
     
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
-
     let updatedEventScheduleListner = UpdateEventListener()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            self.fontSizeBig = 45
-        }else{
             self.fontSizeBig = 28
+        }else{
+            self.fontSizeBig = 24
         }
         // Do any additional setup after loading the view.
     }
@@ -579,7 +577,6 @@ extension VideoCallController{
     
     func stopLableAnimation(){
         
-        
         shrink()
         self.label.textColor = UIColor.white
         self.isAnimate = false
@@ -594,7 +591,9 @@ extension VideoCallController{
         var biggerBounds = label.bounds
         label.font = label.font.withSize(fontSizeBig)
         biggerBounds.size = label.intrinsicContentSize
+
         label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
+        
         label.bounds = biggerBounds
         
         //        UIView.animate(withDuration: duration) {
@@ -602,10 +601,10 @@ extension VideoCallController{
         //        }
         //
         //Animated
-        
+        self.label.textColor = UIColor.red
         UIView.animate(withDuration: duration, animations: {
-            self.label.transform = .identity
             
+            self.label.transform = .identity
         }) { (success) in
             self.shrink()
         }
@@ -621,10 +620,11 @@ extension VideoCallController{
         var smallerBounds = labelCopy.bounds
         labelCopy.font = label.font.withSize(fontSizeSmall)
         smallerBounds.size = labelCopy.intrinsicContentSize
-        
         let shrinkTransform = scaleTransform(from: label.bounds.size, to: smallerBounds.size)
         
+        self.label.textColor = UIColor.white
         UIView.animate(withDuration: duration, animations: {
+            
             self.label.transform = shrinkTransform
         }, completion: { done in
             self.label.font = labelCopy.font
@@ -635,9 +635,9 @@ extension VideoCallController{
     }
     
     private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
+        
         let scaleX = to.width / from.width
         let scaleY = to.height / from.height
-        
         return CGAffineTransform(scaleX: scaleX, y: scaleY)
     }
 }

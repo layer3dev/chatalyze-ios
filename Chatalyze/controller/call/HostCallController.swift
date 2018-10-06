@@ -282,7 +282,7 @@ class HostCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
             
-            if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: hostRootView?.callInfoContainer?.timer)

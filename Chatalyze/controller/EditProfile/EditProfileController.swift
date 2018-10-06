@@ -41,13 +41,18 @@ class EditProfileController: InterfaceExtendedController {
     
     func painInterface(){
         
-        paintNavigationTitle(text: "EDIT PROFILE")
         paintBackButton()
     }
     
     func initializationVariable(){
         
         rootView?.controller = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        paintNavigationTitle(text: "EDIT PROFILE")
     }
     
     class func instance()->EditProfileController?{

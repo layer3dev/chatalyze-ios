@@ -12,7 +12,6 @@ class AccountPageViewHostController: AcccountPageViewController {
 
     lazy var pagesHost: [UIViewController] = ({
         return [
-            sessionController,
             settingController
         ]
         }() as! [UIViewController])

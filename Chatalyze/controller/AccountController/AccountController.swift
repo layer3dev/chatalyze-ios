@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccountController: TabChildLoadController {
+class AccountController: InterfaceExtendedController {
     
     @IBOutlet var rootView:AccountRootView?    
     var pageViewController:AcccountPageViewController?
@@ -27,16 +27,9 @@ class AccountController: TabChildLoadController {
         paintInterafce()
     }
     
-    
-    
-
-    override func viewGotLoaded() {
-        super.viewGotLoaded()
-    }
-    
     func paintInterafce(){
         
-        paintNavigationTitle(text: "ACCOUNT")
+        paintNavigationTitle(text: "Settings")
         paintBackButton()
     }
     
@@ -55,7 +48,7 @@ class AccountController: TabChildLoadController {
         pageViewController?.ticketController?.rootview?.adapter?.initializeCollectionFlowLayout()
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
     }
     

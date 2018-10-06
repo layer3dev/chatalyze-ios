@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventController: TabChildLoadController {
+class EventController: InterfaceExtendedController {
     
     @IBOutlet var rootView:EventRootView?
     var eventArray = [EventInfo]()
@@ -18,10 +18,6 @@ class EventController: TabChildLoadController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-//        self.alert(withTitle: "DeviceToken", message: (SessionDeviceInfo.sharedInstance?.deviceToken) ?? "", successTitle: "ok", rejectTitle: "cancel", showCancel: true, completion: { (success) in
-//
-//        })
-        
         paintInterface()
         initializeVariable()
     }
@@ -29,13 +25,15 @@ class EventController: TabChildLoadController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
       
-        
+        paintNavigationTitle(text: "UPCOMING SESSIONS")
         fetchEvents()
     }
     
     func paintInterface(){
         
-        paintNavigationBar()
+        //paintNavigationBar()
+        //paintSettingButton()
+        paintBackButton()
     }
     
     func initializeVariable(){
@@ -43,15 +41,9 @@ class EventController: TabChildLoadController {
         rootView?.controller = self
     }
     
-    private func paintNavigationBar(){
-        
-        paintSettingButton()
-        paintNavigationTitle(text: "UPCOMING SESSIONS")
-        paintBackButton()
-    }
     
     func fetchEvents(){
-        
+
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
                 return

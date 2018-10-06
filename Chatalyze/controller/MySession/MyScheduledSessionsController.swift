@@ -34,7 +34,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "My Sessions")
+        
         paintSettingButton()
         paintHideBackButton()
     }
@@ -42,6 +42,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        paintNavigationTitle(text: "My Sessions")
         initializeVariable()
         //paintInterface()
     }

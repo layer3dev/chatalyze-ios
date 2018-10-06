@@ -64,8 +64,11 @@ class SettingController : InterfaceExtendedController {
             
             if roleId == .analyst{
               
-                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
-                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
+//                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
+//                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
+                
+                ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
+                MySessionHeightConstraint?.priority = UILayoutPriority(999.0)
       
             }else{
                 
@@ -79,9 +82,9 @@ class SettingController : InterfaceExtendedController {
     
     private func paintNavigationBar(){
         
-        paintNavigationTitle(text : "Settings")
-        paintSettingButton()
         paintBackButton()
+        paintSettingButton()
+        paintNavigationTitle(text : "Settings")
     }
     
     @IBAction func settingAction(sender:UIButton){

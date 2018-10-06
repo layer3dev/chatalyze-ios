@@ -99,7 +99,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
                 Log.echo(key: "yud", text: "10.0 \(granted)")
                 guard granted else{
@@ -127,7 +127,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 }
                 print("Notification settings Registered: \(settings)")
             }
-        } else {
+        }else{
             //Fallback on earlier versions
         }
     }
@@ -197,6 +197,5 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         //(app, open: url, options: options)
         
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
-        
     }
 }

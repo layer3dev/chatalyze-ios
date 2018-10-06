@@ -35,6 +35,7 @@ class ScheduleSessionController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        paintNavigationTitle(text: "Schedule Session")
         initializeTapGesture()
         paintInterface()
     }
@@ -43,7 +44,6 @@ class ScheduleSessionController: InterfaceExtendedController {
     func paintInterface(){
  
         paintBackButton()
-        paintNavigationTitle(text: "Schedule Session")
         handleTransitions()
     }
     

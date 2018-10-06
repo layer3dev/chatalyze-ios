@@ -32,8 +32,15 @@ class EventLandingController: InterfaceExtendedController {
     func paintInterface(){
         
         paintBackButton()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         paintNavigationTitle(text: "PURCHASE TICKET")
     }
+    
     
     var rootView:EventLandingRootView?{
         

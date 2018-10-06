@@ -23,9 +23,14 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         fetchPaypalInfo()
     }
     
-    func paintInterface(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         paintNavigationTitle(text: "PAYMENT")
+    }
+    
+    func paintInterface(){
+        
         paintBackButton()
     }
     

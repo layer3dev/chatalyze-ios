@@ -23,9 +23,14 @@ class EditScheduledSessionController: InterfaceExtendedController {
         rootView?.paintImageUploadBorder()
     }
     
-    func paintIntreface(){
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         paintNavigationTitle(text: "Edit Schedule Session")
+    }
+    
+    func paintIntreface(){
+        
         paintBackButton()
     }
  

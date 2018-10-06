@@ -18,6 +18,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     @IBOutlet var signUpTab:LoginSignUpTabView?
     var googleSignInAction:(()->())?
     static var roleId = 0
+    
     override func viewDidLayout() {
         super.viewDidLayout()
      
@@ -81,8 +82,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         
         signInTab?.tabAction(action: { (tab) in
            
-            self.showWelcomeScreen(response:{
-              
                 UIView.animate(withDuration: 0.2, animations: {
                     
                     self.pageController?.setSignInTab()
@@ -90,7 +89,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
                     tab.select()
                 })
                 self.view.layoutIfNeeded()
-            })
             //self.showWelcomeScreen()
             
         })

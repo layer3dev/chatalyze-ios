@@ -37,8 +37,13 @@ class ReviewController: InterfaceExtendedController{
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "Review")
         paintBackButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        paintNavigationTitle(text: "Review")
     }
     
     override func didReceiveMemoryWarning(){

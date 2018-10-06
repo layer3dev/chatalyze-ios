@@ -33,7 +33,7 @@ class MemoriesController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "MEMORIES")
+        
         paintBackButton()
     }
     
@@ -44,8 +44,9 @@ class MemoriesController: InterfaceExtendedController {
     }
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-        
-         getPaymentInfo()
+    
+        paintNavigationTitle(text: "MEMORIES")
+        getPaymentInfo()
     }
     
     override func didReceiveMemoryWarning() {
