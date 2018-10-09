@@ -46,6 +46,9 @@ class PaymentListingInfo: NSObject {
         _date = json["createdAt"].stringValue
         
         if let refundInfo = json["refund"].dictionary{
+            if let refundedAmount = refundInfo["amount"]?.string{
+                self.refundedAmount =  "$"+refundedAmount+" Refunded"
+            }
 //            Refunded Amount: $
 //            self.refundedAmount = refundInfo["amount"]?.string
         }

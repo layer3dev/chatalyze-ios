@@ -15,6 +15,7 @@ class PaymentTableCell: ExtendedTableCell {
     @IBOutlet var amountLbl:UILabel?
     @IBOutlet var orderType:UILabel?
     @IBOutlet var cardView:UIView?
+    @IBOutlet var redfundedLbl:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -34,6 +35,7 @@ class PaymentTableCell: ExtendedTableCell {
     func fillInfo(info:PaymentListingInfo?){
         
         guard let info = info  else {
+            
             return
         }
         if let id = info.eventId{
@@ -43,8 +45,10 @@ class PaymentTableCell: ExtendedTableCell {
         if let orderType = info.eventType{
             
             if orderType == "callbooking"{
+                
                 self.orderType?.text = "Ticket"
             }else{
+                
                 self.orderType?.text = "Greeting"
             }
         }
@@ -55,6 +59,13 @@ class PaymentTableCell: ExtendedTableCell {
         if let date = info.paymentDate{
             
             self.dateLbl?.text = "\(date)"
+        }
+        if let refundedAmount = info.refundedAmount{
+            
+            redfundedLbl?.text = refundedAmount
+        }else{
+            
+            redfundedLbl?.text = ""
         }
     }
 }

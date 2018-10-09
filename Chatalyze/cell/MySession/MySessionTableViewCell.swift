@@ -17,6 +17,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     var info:EventInfo?
     var enterSession:(()->())?
     @IBOutlet var sessionEventButton:UIButton?
+    @IBOutlet var joinButton:UIButton?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -27,6 +28,15 @@ class MySessionTableViewCell: ExtendedTableCell {
     func painInterface(){
         
         self.selectionStyle = .none
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            joinButton?.layer.cornerRadius = 7
+            joinButton?.layer.masksToBounds = true
+            return
+        }
+        joinButton?.layer.cornerRadius = 4
+        joinButton?.layer.masksToBounds = true
     }
     
     func fillInfo(info:EventInfo?){

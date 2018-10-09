@@ -30,6 +30,9 @@ class ScheduleSessionController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
+      
+        paintBackButton()
+        paintSettingButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,10 +43,8 @@ class ScheduleSessionController: InterfaceExtendedController {
         paintInterface()
     }
     
-    
     func paintInterface(){
  
-        paintBackButton()
         handleTransitions()
     }
     

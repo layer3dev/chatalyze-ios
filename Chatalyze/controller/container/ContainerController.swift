@@ -389,14 +389,12 @@ class ContainerController: NavChildController {
         }
         else if typeOfAction == .tickets{
             
+            //This id the home controller for the user in the User side.            
             guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
             
-            guard let controller = MyTicketsVerticalController.instance() else{
-                return
-            }
-            navController?.setViewControllers([rootController,controller], animated: true)
+            navController?.setViewControllers([rootController], animated: true)
             self.closeToggle()
             //navController?.viewControllers = [controller]
             return

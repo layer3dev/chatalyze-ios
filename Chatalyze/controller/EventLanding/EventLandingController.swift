@@ -32,6 +32,7 @@ class EventLandingController: InterfaceExtendedController {
     func paintInterface(){
         
         paintBackButton()
+        paintSettingButton()
     }
     
     

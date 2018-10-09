@@ -51,22 +51,6 @@ class HostDashboardController: MyScheduledSessionsController {
             return
         }
         
-//        controller.info = self.info
-       // controller.isOnlySystemTest = true
-       // controller.rootController = self.controller?.presentingControllerObj
-//        controller.onSuccessTest = {(success) in
-//            self.skipAction(sender: nil)
-//        }
-//        controller.dismissListner = {(success) in
-//            self.controller?.dismiss(animated: false, completion: {
-//                DispatchQueue.main.async {
-//                    if let listner = self.controller?.dismissListner{
-//                        listner(success)
-//                    }
-//                }
-//            })
-//        }
-        
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {

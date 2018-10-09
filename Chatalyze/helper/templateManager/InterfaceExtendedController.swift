@@ -41,6 +41,7 @@ class InterfaceExtendedController : ExtendedController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -71,7 +72,6 @@ class InterfaceExtendedController : ExtendedController {
        
         self.navigationController?.isNavigationBarHidden = true
     }
-    
     
     
     func paintNavigationTitle(text : String?){
@@ -118,7 +118,7 @@ class InterfaceExtendedController : ExtendedController {
     
     @objc func toggle(){
         
-       Log.echo(key: "yud", text: "Toogle is callimng")
+        Log.echo(key: "yud", text: "Toogle is calling")
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
     
@@ -148,11 +148,10 @@ class InterfaceExtendedController : ExtendedController {
         
         let barItem = UIBarButtonItem(customView: containerView)
         
-        var items = self.navigationItem.rightBarButtonItems ?? [UIBarButtonItem]();
+        var items = self.navigationItem.leftBarButtonItems ?? [UIBarButtonItem]();
         items.append(barItem)
         self.navigationItem.leftBarButtonItems = items
     }
-    
     
     @objc func settingAction(){
         

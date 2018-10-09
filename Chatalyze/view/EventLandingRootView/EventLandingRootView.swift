@@ -36,13 +36,12 @@ class EventLandingRootView:ExtendedView{
         
         Log.echo(key: "yud", text: "Price is \(info.price)")
         
-       
         self.info = info
         isEventSoldOut()
         hostnameLbl?.text = info.user?.firstName
         eventNameLbl?.text = info.title
         
-        eventImage?.image = UIImage(named: "chatalyze_logo")
+        eventImage?.image = UIImage(named: "event_placeholder")
         
         if let url = URL(string: info.user?.profileImage ?? ""){
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in

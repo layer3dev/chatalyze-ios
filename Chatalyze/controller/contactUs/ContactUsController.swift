@@ -30,6 +30,7 @@ class ContactUsController: InterfaceExtendedController {
         initializeVariable()
         paintNavigationTitle(text: "CONTACT US")
         paintBackButton()
+        paintSettingButton()
         paintBorder()
     }
     

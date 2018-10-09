@@ -32,6 +32,7 @@ class EditScheduledSessionController: InterfaceExtendedController {
     func paintIntreface(){
         
         paintBackButton()
+        paintSettingButton()
     }
  
     func fillInfo(param:[String:Any],totalDurationofEvent:Int,selectedImage:UIImage?){

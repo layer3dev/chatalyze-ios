@@ -61,22 +61,22 @@
                                                 <rect key="frame" x="60" y="80" width="255" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHd-gU-xTA">
-                                                        <rect key="frame" x="67.5" y="14" width="120" height="17"/>
+                                                        <rect key="frame" x="70" y="14" width="115.5" height="17"/>
                                                         <attributedString key="attributedText">
-                                                            <fragment content="+TEST MY PHONE">
+                                                            <fragment content="TEST MY PHONE">
                                                                 <attributes>
-                                                                    <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                                    <color key="NSColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                                                 </attributes>
                                                             </fragment>
                                                         </attributedString>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <attributedString key="attributedText">
-                                                                <fragment content="+TEST MY PHONE">
+                                                                <fragment content="TEST MY PHONE">
                                                                     <attributes>
-                                                                        <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" size="20" name="HelveticaNeue"/>
+                                                                        <color key="NSColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="20" name="HelveticaNeue-Bold"/>
                                                                     </attributes>
                                                                 </fragment>
                                                             </attributedString>
@@ -108,7 +108,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My sessions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0Z-1z-llg">
-                                                <rect key="frame" x="24" y="169.5" width="106" height="21.5"/>
+                                                <rect key="frame" x="40" y="169.5" width="106" height="21.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -368,6 +368,7 @@
                                                                 </tableViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="dateLbl" destination="j7C-kc-D1M" id="8nX-JU-EVv"/>
+                                                                    <outlet property="joinButton" destination="MuM-vG-0RO" id="zIZ-rE-zdD"/>
                                                                     <outlet property="sessionEventButton" destination="MuM-vG-0RO" id="WJH-X0-WKu"/>
                                                                     <outlet property="ticketsBooked" destination="qbN-tJ-j2w" id="ykj-u8-aJe"/>
                                                                     <outlet property="timeLbl" destination="Dix-ai-i7b" id="f0z-w0-dAx"/>
@@ -427,12 +428,14 @@
                                             </constraint>
                                             <constraint firstItem="GRO-y7-cBp" firstAttribute="top" secondItem="TMK-u7-MH1" secondAttribute="bottom" constant="20" id="f6O-le-8tn"/>
                                             <constraint firstAttribute="trailing" secondItem="8lo-3j-wuc" secondAttribute="trailing" constant="20" id="iAP-hd-7cy"/>
+                                            <constraint firstItem="g0Z-1z-llg" firstAttribute="leading" secondItem="Ldn-Y7-7lz" secondAttribute="leading" constant="40" id="jbw-9a-Hpx">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                            </constraint>
                                             <constraint firstItem="TMK-u7-MH1" firstAttribute="leading" secondItem="Ldn-Y7-7lz" secondAttribute="leading" constant="20" id="kuM-HO-4h4"/>
                                             <constraint firstItem="GRO-y7-cBp" firstAttribute="leading" secondItem="Ldn-Y7-7lz" secondAttribute="leading" id="lRX-a3-Z3Y"/>
                                             <constraint firstItem="8lo-3j-wuc" firstAttribute="top" secondItem="0nT-Hu-7qT" secondAttribute="bottom" constant="30" id="ubv-dF-Vcf">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
-                                            <constraint firstItem="g0Z-1z-llg" firstAttribute="leading" secondItem="TMK-u7-MH1" secondAttribute="leading" multiplier="1.2" id="xrL-sM-vMK"/>
                                             <constraint firstAttribute="bottom" secondItem="GRO-y7-cBp" secondAttribute="bottom" id="zjU-3C-mbN"/>
                                         </constraints>
                                     </view>
@@ -468,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F2P-38-k7k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="75"/>
+            <point key="canvasLocation" x="50" y="57"/>
         </scene>
     </scenes>
 </document>

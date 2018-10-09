@@ -635,10 +635,10 @@ extension UserCallController{
         alertController.addAction(cancelAction)
         
         if UIDevice.current.userInterfaceIdiom == .pad{
+            
             alertController.popoverPresentationController?.sourceView = self.view
             alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY-200, width: 0, height: 0)
         }
-        
         present(alertController, animated: true, completion: nil)
     }
     

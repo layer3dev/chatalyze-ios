@@ -25,6 +25,7 @@ class PaymentListingController: InterfaceExtendedController {
         
         paintNavigationTitle(text: "PAYMENT HISTORY")
         paintBackButton()
+        paintSettingButton()
     }
     
     func initializeVariable(){

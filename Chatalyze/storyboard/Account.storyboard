@@ -488,12 +488,12 @@
                                                                     </variation>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXv-Ys-JaI">
-                                                                    <rect key="frame" x="365" y="30.5" width="0.0" height="0.0"/>
-                                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                                    <rect key="frame" x="355" y="30.5" width="0.0" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <variation key="heightClass=regular-widthClass=regular">
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                                     </variation>
                                                                 </label>
                                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88f-L2-Nf3">
@@ -517,7 +517,9 @@
                                                                 <constraint firstItem="N1T-u1-lrG" firstAttribute="top" secondItem="wKR-XX-sFT" secondAttribute="bottom" constant="20" id="W9Q-j8-MsU"/>
                                                                 <constraint firstItem="D3P-io-3sG" firstAttribute="leading" secondItem="uXW-L5-aan" secondAttribute="leading" constant="5" id="WSe-P2-6hi"/>
                                                                 <constraint firstItem="88f-L2-Nf3" firstAttribute="leading" secondItem="uXW-L5-aan" secondAttribute="leading" id="Zm9-l0-B10"/>
-                                                                <constraint firstAttribute="trailing" secondItem="KXv-Ys-JaI" secondAttribute="trailing" constant="10" id="a9B-OG-g1Q"/>
+                                                                <constraint firstAttribute="trailing" secondItem="KXv-Ys-JaI" secondAttribute="trailing" constant="20" id="a9B-OG-g1Q">
+                                                                    <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                                </constraint>
                                                                 <constraint firstAttribute="trailing" secondItem="qok-4l-q2O" secondAttribute="trailing" constant="5" id="dy6-sM-kby"/>
                                                                 <constraint firstItem="N1T-u1-lrG" firstAttribute="leading" secondItem="D3P-io-3sG" secondAttribute="trailing" constant="5" id="eR7-Al-zBt"/>
                                                                 <constraint firstItem="u49-YV-dZo" firstAttribute="leading" secondItem="BSX-ty-IB9" secondAttribute="trailing" constant="2" id="fJP-71-Nda"/>
@@ -550,6 +552,7 @@
                                                     <outlet property="dateLbl" destination="qok-4l-q2O" id="fai-7x-Hze"/>
                                                     <outlet property="orderIdLbl" destination="wKR-XX-sFT" id="GNb-Ng-QW6"/>
                                                     <outlet property="orderType" destination="N1T-u1-lrG" id="JSi-b6-DY4"/>
+                                                    <outlet property="redfundedLbl" destination="KXv-Ys-JaI" id="JTQ-tp-LSi"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -604,7 +607,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VeY-Ya-vtq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-306.39999999999998" y="26.53673163418291"/>
+            <point key="canvasLocation" x="-319" y="27"/>
         </scene>
         <!--Acccount Page View Controller-->
         <scene sceneID="jDk-SA-zlY">
@@ -614,7 +617,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5z5-r8-aRQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-46"/>
+            <point key="canvasLocation" x="1718" y="-22"/>
         </scene>
         <!--Account Controller-->
         <scene sceneID="gG6-qD-UFh">
@@ -689,7 +692,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lt1-gP-pHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1074" y="30"/>
+            <point key="canvasLocation" x="1038" y="30"/>
         </scene>
         <!--My Tickets Controller-->
         <scene sceneID="4Zw-Z6-Rd0">
@@ -1014,7 +1017,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFI-kB-kao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="353" y="28"/>
+            <point key="canvasLocation" x="345" y="27"/>
         </scene>
         <!--Memories Controller-->
         <scene sceneID="o5h-7a-oXF">
@@ -1242,7 +1245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSq-AX-MPV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2429.5999999999999" y="31.934032983508249"/>
+            <point key="canvasLocation" x="2380" y="31"/>
         </scene>
         <!--Review Controller-->
         <scene sceneID="Ujt-E9-Ti5">
@@ -1462,11 +1465,6 @@
                                                     </constraint>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cHH-P6-2bL">
-                                                <rect key="frame" x="-74" y="339" width="240" height="128"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1546,7 +1544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AM6-gp-BbO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3089" y="32"/>
+            <point key="canvasLocation" x="3054" y="31"/>
         </scene>
         <!--Payment Success Controller-->
         <scene sceneID="fLh-tG-Xz8">
@@ -2312,7 +2310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEr-LU-Ehd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3760.8000000000002" y="33.733133433283363"/>
+            <point key="canvasLocation" x="3729" y="30"/>
         </scene>
         <!--System Test Controller-->
         <scene sceneID="vHG-aF-er9">
@@ -2541,7 +2539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smi-ta-4Fb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4438" y="35"/>
+            <point key="canvasLocation" x="4398" y="29"/>
         </scene>
         <!--Event Payment Controller-->
         <scene sceneID="gYN-al-xPf">
@@ -3592,7 +3590,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mRg-6m-2I1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5108" y="37"/>
+            <point key="canvasLocation" x="5058" y="29"/>
         </scene>
         <!--Internet Speed Test Controller-->
         <scene sceneID="DL0-BL-fIC">
@@ -3766,7 +3764,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HNh-Zi-PnT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5775" y="35"/>
+            <point key="canvasLocation" x="5724" y="29"/>
         </scene>
         <!--Camera Test Controller-->
         <scene sceneID="pwL-Mb-iaH">
@@ -4094,7 +4092,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guR-Wr-q6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6455" y="34"/>
+            <point key="canvasLocation" x="6386" y="27"/>
         </scene>
         <!--Mic Test Controller-->
         <scene sceneID="g8W-ez-aaF">
@@ -4330,7 +4328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lG2-Bi-7Wl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7126" y="34"/>
+            <point key="canvasLocation" x="7046" y="27"/>
         </scene>
         <!--Event Sold Out Controller-->
         <scene sceneID="lb9-KY-MBE">
@@ -4542,7 +4540,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ooq-5k-zeI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7804" y="23"/>
+            <point key="canvasLocation" x="7713" y="17"/>
         </scene>
         <!--Event Landing Controller-->
         <scene sceneID="Xo0-6D-nQi">
@@ -4623,9 +4621,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="XRR-0Y-glC" secondAttribute="trailing" id="ajw-Nj-ZUf"/>
                                                     <constraint firstItem="cNj-sY-Otp" firstAttribute="top" secondItem="WOu-LA-B8w" secondAttribute="bottom" constant="10" id="atu-R6-aCK"/>
                                                     <constraint firstItem="cNj-sY-Otp" firstAttribute="leading" secondItem="s9W-JH-IYh" secondAttribute="leading" id="bQb-kA-cQU"/>
-                                                    <constraint firstItem="WOu-LA-B8w" firstAttribute="top" secondItem="XRR-0Y-glC" secondAttribute="bottom" constant="10" id="eBo-HJ-Fsf">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="20"/>
-                                                    </constraint>
+                                                    <constraint firstItem="WOu-LA-B8w" firstAttribute="top" secondItem="XRR-0Y-glC" secondAttribute="bottom" constant="10" id="eBo-HJ-Fsf"/>
                                                     <constraint firstAttribute="trailing" secondItem="WOu-LA-B8w" secondAttribute="trailing" id="iMS-Ml-HEv"/>
                                                     <constraint firstAttribute="trailing" secondItem="cNj-sY-Otp" secondAttribute="trailing" id="nL3-fX-344"/>
                                                     <constraint firstItem="vjZ-y1-EFC" firstAttribute="top" secondItem="cNj-sY-Otp" secondAttribute="bottom" constant="10" id="s9T-lE-fke"/>
@@ -4972,7 +4968,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LY5-xf-ADA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8479" y="29"/>
+            <point key="canvasLocation" x="8388" y="25"/>
         </scene>
         <!--Account Page View Host Controller-->
         <scene sceneID="Z9t-7j-fUV">
@@ -4982,7 +4978,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="352-9S-K3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9209" y="-49"/>
+            <point key="canvasLocation" x="9054" y="-28"/>
         </scene>
         <!--Account Host Controller-->
         <scene sceneID="fS2-Pp-pxn">
@@ -5057,7 +5053,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xe3-mc-pYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9926" y="-13"/>
+            <point key="canvasLocation" x="9719" y="21"/>
         </scene>
         <!--Free Event Payment Controller-->
         <scene sceneID="aRv-Xs-QPM">
@@ -5650,7 +5646,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AwL-Bg-gZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13583" y="-67"/>
+            <point key="canvasLocation" x="10399" y="18"/>
         </scene>
         <!--My Tickets Vertical Controller-->
         <scene sceneID="r5Q-Qu-bN2">
@@ -5727,7 +5723,9 @@
                                                     <constraint firstItem="gvJ-Zr-tN1" firstAttribute="leading" secondItem="0jC-9w-ZUV" secondAttribute="leading" id="OAd-mi-yDs"/>
                                                     <constraint firstItem="gvJ-Zr-tN1" firstAttribute="top" secondItem="1IW-Tv-ZKJ" secondAttribute="bottom" constant="15" id="PRy-3Q-qGE"/>
                                                     <constraint firstItem="a0S-ok-KDp" firstAttribute="centerY" secondItem="1IW-Tv-ZKJ" secondAttribute="centerY" id="TZw-vV-zta"/>
-                                                    <constraint firstItem="1IW-Tv-ZKJ" firstAttribute="leading" secondItem="0jC-9w-ZUV" secondAttribute="leading" constant="20" id="ZYU-Sm-r8t"/>
+                                                    <constraint firstItem="1IW-Tv-ZKJ" firstAttribute="leading" secondItem="0jC-9w-ZUV" secondAttribute="leading" constant="20" id="ZYU-Sm-r8t">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    </constraint>
                                                     <constraint firstAttribute="height" constant="75" id="c3f-dH-U3g">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="90"/>
                                                     </constraint>
@@ -5753,6 +5751,13 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMF-28-AJe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="570.5"/>
                                                                             <subviews>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZE-mH-ihq">
+                                                                                    <rect key="frame" x="0.0" y="550.5" width="304" height="20"/>
+                                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="20" id="A9s-pC-ceZ"/>
+                                                                                    </constraints>
+                                                                                </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9FT-AA-Tqp">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="304" height="550.5"/>
                                                                                     <subviews>
@@ -5820,17 +5825,6 @@
                                                                                                 </constraint>
                                                                                             </constraints>
                                                                                         </view>
-                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_black" translatesAutoresizingMaskIntoConstraints="NO" id="kEN-9J-gqk">
-                                                                                            <rect key="frame" x="112" y="77" width="80" height="80"/>
-                                                                                            <constraints>
-                                                                                                <constraint firstAttribute="width" constant="80" id="Eab-Bd-6e8">
-                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="150"/>
-                                                                                                </constraint>
-                                                                                                <constraint firstAttribute="height" constant="80" id="hH4-ze-CD3">
-                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="150"/>
-                                                                                                </constraint>
-                                                                                            </constraints>
-                                                                                        </imageView>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZgL-su-bAC">
                                                                                             <rect key="frame" x="0.0" y="177" width="304" height="0.0"/>
                                                                                             <subviews>
@@ -5954,6 +5948,17 @@
                                                                                                 </constraint>
                                                                                             </constraints>
                                                                                         </view>
+                                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_black" translatesAutoresizingMaskIntoConstraints="NO" id="kEN-9J-gqk">
+                                                                                            <rect key="frame" x="112" y="77" width="80" height="80"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="80" id="Eab-Bd-6e8">
+                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                                                                                </constraint>
+                                                                                                <constraint firstAttribute="height" constant="80" id="hH4-ze-CD3">
+                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                                                                                </constraint>
+                                                                                            </constraints>
+                                                                                        </imageView>
                                                                                     </subviews>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
@@ -5987,13 +5992,6 @@
                                                                                         <constraint firstItem="Nuv-Ic-vYW" firstAttribute="top" secondItem="qpJ-BM-xpS" secondAttribute="bottom" constant="20" id="yQ2-ZR-5ym">
                                                                                             <variation key="heightClass=regular-widthClass=regular" constant="35"/>
                                                                                         </constraint>
-                                                                                    </constraints>
-                                                                                </view>
-                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZE-mH-ihq">
-                                                                                    <rect key="frame" x="0.0" y="550.5" width="304" height="20"/>
-                                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="20" id="A9s-pC-ceZ"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                             </subviews>
@@ -6107,7 +6105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TI1-T4-qNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15583" y="-72"/>
+            <point key="canvasLocation" x="15581.6" y="-72.413793103448285"/>
         </scene>
         <!--Page Scroller Controller-->
         <scene sceneID="fUz-SS-DqU">
@@ -6263,7 +6261,7 @@
         <image name="calender" width="256" height="256"/>
         <image name="calenderEventLanding" width="128" height="128"/>
         <image name="chatalyzeHeader" width="7075" height="1425"/>
-        <image name="chatalyze_black" width="150" height="150"/>
+        <image name="chatalyze_black" width="193" height="216"/>
         <image name="chatalyze_logo" width="75" height="75"/>
         <image name="clockEventLanding" width="128" height="128"/>
         <image name="cross" width="256" height="256"/>

@@ -262,13 +262,14 @@ extension SocketClient{
     fileprivate func registerForEvent(){
         
         self.socket?.onText = { (text: String) in
+            
+            Log.echo(key: "yud", text: "text is \(text)")
              DispatchQueue.main.async {
                 Log.echo(key : "socket_client", text : "Received text: \(text)")
                 guard let data = text.data(using: .utf8)
                     else{
                         return
                 }
-                
                 let json = try? JSON(data : data)
                 self.handleEventResponse(json: json)
                 return
@@ -277,18 +278,21 @@ extension SocketClient{
     }
     
     fileprivate func handleEventResponse(json : JSON?){
+        
+        Log.echo(key: "yud", text: "Respond json is \(json)")
+        
         guard let json = json
             else{
                 return
         }
         
         let responseAction = json["id"].stringValue
-        
-        
         var data = json["data"]
         if(data == nil){
             data = json
         }
+       
+        Log.echo(key: "yud", text: "Respond new json is \(json) and the data is \(data)")
         updateForEvent(action: responseAction, data: data)
         return
         

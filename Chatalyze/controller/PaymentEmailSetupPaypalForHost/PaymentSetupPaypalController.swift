@@ -32,6 +32,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     func paintInterface(){
         
         paintBackButton()
+        paintSettingButton()
     }
     
     func validateFields()->Bool{

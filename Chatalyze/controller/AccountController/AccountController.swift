@@ -24,13 +24,14 @@ class AccountController: InterfaceExtendedController {
         super.viewDidLayout()
         
         initializeVariable()
-        paintInterafce()
+        paintInterfce()
     }
     
-    func paintInterafce(){
+    func paintInterfce(){
         
         paintNavigationTitle(text: "Settings")
         paintBackButton()
+        paintSettingButton()
     }
     
     func initializeVariable(){

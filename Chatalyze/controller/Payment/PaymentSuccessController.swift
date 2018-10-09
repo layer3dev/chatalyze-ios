@@ -29,6 +29,7 @@ class PaymentSuccessController: InterfaceExtendedController {
         
         paintNavigationTitle(text: "PAYMENT SUCCESS")
         paintBackButton()
+        paintSettingButton()
         //paintMobileField()
     }    
    
