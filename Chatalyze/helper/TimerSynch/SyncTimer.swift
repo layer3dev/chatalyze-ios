@@ -6,6 +6,7 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+
 import UIKit
 
 
@@ -32,6 +33,7 @@ class SyncTimer: NSObject {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(processData(_:)), userInfo: nil, repeats: true)
     }
     
+    
     @objc func processData(_ timer : Timer){
         
         weak var weakSelf = self
@@ -42,11 +44,11 @@ class SyncTimer: NSObject {
                     return
             }
             
-            
             let diff = weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh)
             if(diff <= 0){
                 return
             }
+            weak.lastRefresh = weak.timerSync.getDate()
             weak.closure?()
         })
     }

@@ -3,7 +3,7 @@
 //  GGStaff
 //
 //  Created by Sumant Handa on 16/11/17.
-//  Copyright © 2017 GenGold. All rights reserved.
+//  Copyright ©2017 GenGold. All rights reserved.
 //
 
 import Foundation
@@ -40,18 +40,22 @@ class CountdownProcessor{
                 else{
                     return
             }
+            
             guard let timerSync = weakSelf.timerSync
                 else{
                     return
             }
+            
             let diff = timerSync.getDate().timeIntervalSince(weakSelf.lastRefresh)
             if(diff <= 0){
                 return
             }
             
+            weakSelf.lastRefresh = timerSync.getDate()
             self?.refresh()
         }
     }
+    
     
     func add(listener : @escaping ()->()){
         callbackList.append(listener)
@@ -61,10 +65,11 @@ class CountdownProcessor{
 
 
 extension CountdownProcessor{
+    
     fileprivate func refresh() {
         for callback in callbackList {
             callback()
         }
     }
-    
+
 }

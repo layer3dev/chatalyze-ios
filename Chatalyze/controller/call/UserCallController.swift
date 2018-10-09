@@ -290,12 +290,16 @@ class UserCallController: VideoCallController {
             return
         }
         
+
         if let endtimeOfSlot = myActiveUserSlot?.endDate{
             //Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
             if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
                 return
             }
         }
+        
+
+
         
         //Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
         
