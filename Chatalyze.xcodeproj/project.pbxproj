@@ -31,6 +31,8 @@
 		47127B162152532C00E1250B /* LoginSignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47127B152152532C00E1250B /* LoginSignUpTabView.swift */; };
 		4713662421084FEA00B945BB /* EventLandingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713662321084FEA00B945BB /* EventLandingRootView.swift */; };
 		471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */; };
+		47182595216B372500216AEB /* TermsConditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47182594216B372500216AEB /* TermsConditionController.swift */; };
+		47182597216B5A9D00216AEB /* chatalyze_terms_html.html in Resources */ = {isa = PBXBuildFile; fileRef = 47182596216B5A9C00216AEB /* chatalyze_terms_html.html */; };
 		4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */; };
 		4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */; };
 		4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */; };
@@ -473,6 +475,8 @@
 		47127B152152532C00E1250B /* LoginSignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpTabView.swift; sourceTree = "<group>"; };
 		4713662321084FEA00B945BB /* EventLandingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLandingRootView.swift; sourceTree = "<group>"; };
 		471366252108C1E000B945BB /* SubmitRequestForNextEventNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitRequestForNextEventNotification.swift; sourceTree = "<group>"; };
+		47182594216B372500216AEB /* TermsConditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionController.swift; sourceTree = "<group>"; };
+		47182596216B5A9C00216AEB /* chatalyze_terms_html.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = chatalyze_terms_html.html; sourceTree = "<group>"; };
 		4718425320C51ED800C6FFD5 /* PaymentSuccessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessDelegate.swift; sourceTree = "<group>"; };
 		4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentDelegte.swift; sourceTree = "<group>"; };
 		4718425820C538DB00C6FFD5 /* PaymentSuccessInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessInfo.swift; sourceTree = "<group>"; };
@@ -1068,6 +1072,14 @@
 				FA1B36252064D0ED00F2E6BC /* SettingController.swift */,
 			);
 			path = settings;
+			sourceTree = "<group>";
+		};
+		47182593216B370A00216AEB /* TermsCondition */ = {
+			isa = PBXGroup;
+			children = (
+				47182594216B372500216AEB /* TermsConditionController.swift */,
+			);
+			path = TermsCondition;
 			sourceTree = "<group>";
 		};
 		4718425720C5386B00C6FFD5 /* PaymentSuccessInfo */ = {
@@ -2820,6 +2832,7 @@
 				47111CE42158BB1800DFBC08 /* HostDashboard */,
 				471CC869216242F800DB5E8C /* MyTicketsVerticalontroller */,
 				470EEC0E2166200500DB705D /* PinchToZoom */,
+				47182593216B370A00216AEB /* TermsCondition */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3239,6 +3252,7 @@
 				4711747B213D480D00253AB8 /* Chatalyze.entitlements */,
 				473E3B3D211B13DC00DC60BC /* AppDelegate */,
 				FAFFFE99203D9C80009B4F96 /* ViewController.swift */,
+				47182596216B5A9C00216AEB /* chatalyze_terms_html.html */,
 				47E2336621060C9300468412 /* countDown_original.mp3 */,
 				47E233642105F40200468412 /* beep.aiff */,
 				FAFFFE9B203D9C80009B4F96 /* Main.storyboard */,
@@ -3439,6 +3453,7 @@
 				47AD143520ADAED1006AF9D6 /* Account.storyboard in Resources */,
 				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
 				FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */,
+				47182597216B5A9D00216AEB /* chatalyze_terms_html.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3940,6 +3955,7 @@
 				47B6525F20AAB3C20041496C /* EventAdapter.swift in Sources */,
 				FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */,
 				47F0D72220F8E55400A689FA /* CountryPicker.m in Sources */,
+				47182595216B372500216AEB /* TermsConditionController.swift in Sources */,
 				47B6525D20AAB3C20041496C /* GreetingsAdapter.swift in Sources */,
 				FA74B13B20639B6400983141 /* RTCIceCandidate+JSON.m in Sources */,
 				473328C12101FCCD00AB732D /* SelfieTimerView.swift in Sources */,
@@ -4050,7 +4066,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4108,7 +4124,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4136,7 +4152,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4152,7 +4168,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4169,7 +4185,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4185,7 +4201,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

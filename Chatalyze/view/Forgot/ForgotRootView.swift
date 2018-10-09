@@ -50,9 +50,20 @@ class ForgotRootView:ExtendedView{
         }
     }
     
+    @IBAction func  cancelAction(){
+    self.controller?.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
     @IBAction func signupAction(sender:UIButton){
-
         self.controller?.navigationController?.popToRootViewController(animated: true)
+        
+        DispatchQueue.main.async {
+            if let handler = self.controller?.signUpHandler {
+                handler()
+            }
+        }
+        
     }
     
     override func viewDidLayout() {
@@ -79,6 +90,7 @@ class ForgotRootView:ExtendedView{
 extension ForgotRootView:UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
         scrollView?.activeField = textField
         return true
     }

@@ -68,8 +68,7 @@ class MyTicketsController: InterfaceExtendedController{
     func paintInterface(){
         
         //paintBackButton()
-        
-        paintHideBackButton()
+        //paintHideBackButton()
         paintSettingButton()
     }
     
@@ -92,29 +91,33 @@ class MyTicketsController: InterfaceExtendedController{
         self.showLoader()
         CallSlotFetch().fetchInfos() {(success, info) in
             
-            self.ticketsArray.removeAll()
-           self.rootview?.adapter?.initializeCollectionFlowLayout()
             
-            self.rootview?.fillInfo(info: self.ticketsArray)
-            self.stopLoader()
-            
-            if !success{
+            DispatchQueue.main.async {
+               
+                self.ticketsArray.removeAll()
+                self.rootview?.adapter?.initializeCollectionFlowLayout()
                 
-                self.noTicketLbl?.isHidden = false
-                return
-            }
-            
-            if let info = info{
+                self.rootview?.fillInfo(info: self.ticketsArray)
+                self.stopLoader()
                 
-                if info.count <= 0{
-                  
+                if !success{
+                    
                     self.noTicketLbl?.isHidden = false
-                    self.rootview?.fillInfo(info: self.ticketsArray)
                     return
                 }
-                self.ticketsArray = info
-                self.noTicketLbl?.isHidden = true
-                self.rootview?.fillInfo(info: info)
+                
+                if let info = info{
+                    
+                    if info.count <= 0{
+                        
+                        self.noTicketLbl?.isHidden = false
+                        self.rootview?.fillInfo(info: self.ticketsArray)
+                        return
+                    }
+                    self.ticketsArray = info
+                    self.noTicketLbl?.isHidden = true
+                    self.rootview?.fillInfo(info: info)
+                }
             }
         }
     }

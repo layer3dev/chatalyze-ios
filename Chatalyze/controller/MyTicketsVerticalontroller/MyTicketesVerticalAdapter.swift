@@ -41,15 +41,14 @@ class MyTicketesVerticalAdapter: ExtendedView {
     
     func initailizeAdapter(info:[EventSlotInfo]?){
         
-        guard let info = info else {
-            return
+        DispatchQueue.main.async {
+            guard let info = info else {
+                return
+            }
+            self.ticketsListingArray = info
+            self.myTicketsVerticalTableView?.reloadData()
         }
-        Log.echo(key: "yud", text: "tickets listing is \(info.count)")
-        ticketsListingArray = info
-        //initializeCollectionFlowLayout()
-        myTicketsVerticalTableView?.reloadData()
     }
-
 }
 
 extension MyTicketesVerticalAdapter:UITableViewDataSource{

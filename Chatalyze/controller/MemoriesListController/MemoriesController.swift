@@ -33,7 +33,7 @@ class MemoriesController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        
+        paintSettingButton()
         paintBackButton()
     }
     

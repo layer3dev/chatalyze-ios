@@ -24,8 +24,21 @@ class LoginSignUpContainerController: InterfaceExtendedController {
      
         initializeVariable()
         paintInterface()
+        initializeForForGotPasswordNavigation()
         //verifyRoleId()
     }
+    func initializeForForGotPasswordNavigation(){
+     
+        pageController?.signinController?.signUpHandler =  {
+        
+            self.pageController?.setSignUpTab()
+            self.signInTab?.reset()
+            self.signUpTab?.select()
+            self.showWelcomeScreen(response: {
+            })
+        }
+    }
+    
     
     func verifyRoleId(){
         
@@ -36,6 +49,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
             }
         }
         else if LoginSignUpContainerController.roleId == 2{
+            
             Log.echo(key: "yud", text: "It is the Analyst \(LoginSignUpContainerController.roleId)")
         }
         else if LoginSignUpContainerController.roleId == 3{
@@ -43,6 +57,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
             Log.echo(key: "yud", text: "It is the user \(LoginSignUpContainerController.roleId)")
         }
         else{
+            
             Log.echo(key: "yud", text: "Unauthorised access")
         }
     }

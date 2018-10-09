@@ -11,7 +11,8 @@ import UIKit
 class ForgotPasswordController: InterfaceExtendedController {
 
     @IBOutlet var rootView:ForgotRootView?
-    
+    var signUpHandler:(()->())?
+
     override func viewDidLayout(){
         super.viewDidLayout()
  

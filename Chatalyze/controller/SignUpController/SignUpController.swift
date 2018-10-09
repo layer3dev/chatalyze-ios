@@ -11,17 +11,89 @@ import UIKit
 class SignUpController: InterfaceExtendedController {
   
     var googleSignInAction:(()->())?
-    @IBOutlet var rootView:SignupRootView?    
+    @IBOutlet var rootView:SignupRootView?
+    @IBOutlet var termsLbl:UILabel?
+    @IBOutlet var privacyLbl:UILabel?
+    
     @IBAction func signinAction(sender:UIButton){
         
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    func maketextLinkable(){
+        
+        
+        let attributeForFirstString = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
+        
+        let attributeForSecondString = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
+        
+        
+        let text = NSMutableAttributedString(string: "By signing up, you agree to our ")
+        
+        text.addAttributes(attributeForFirstString, range: NSMakeRange(0,text.length))
+        
+        let text1 = NSMutableAttributedString(string: "Terms of Service ")
+        text1.addAttributes(attributeForSecondString, range: NSMakeRange(0, text1.length))
+        
+        
+        let text2 = NSMutableAttributedString(string: "and")
+        text2.addAttributes(attributeForFirstString, range: NSMakeRange(0, text2.length))
+        
+        
+        let text3 = NSMutableAttributedString(string: "Privacy Policy.")
+        text3.addAttributes(attributeForSecondString, range: NSMakeRange(0, text3.length))
+        
+        text.append(text1)
+        text.append(text2)
+        text.append(text3)
+        
+        termsLbl?.attributedText = text
+        termsLbl?.isUserInteractionEnabled = true
+    }
+    
+    func tapActionTermsLbl(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(recognizer:)))
+        tap.delegate = self
+        termsLbl?.isUserInteractionEnabled = true
+        termsLbl?.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapAction(recognizer:UITapGestureRecognizer){
+        
+        guard let controller = TermsConditionController.instance() else {
+            return
+        }
+       controller.url = "https://dev.chatalyze.com/terms-app"
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
+    func tapActionPrivacyLbl(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapActionPrivacyLbl(recognizer:)))
+        tap.delegate = self
+        privacyLbl?.isUserInteractionEnabled = true
+        privacyLbl?.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapActionPrivacyLbl(recognizer:UITapGestureRecognizer){
+        
+        guard let controller = TermsConditionController.instance() else {
+            return
+        }
+        controller.url = "https://dev.chatalyze.com/privacy-app"
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     override func viewDidLayout() {
         super.viewDidLayout()
-       
+     
         paintInterface()
         initialization()
+        tapActionTermsLbl()
+        tapActionPrivacyLbl()
+        
     }
     
     func initialization(){

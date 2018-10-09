@@ -16,22 +16,21 @@ class MyTicketsRootView:ExtendedView{
     override func viewDidLayout(){
         super.viewDidLayout()
         
-        adapter?.root = self
+        //adapter?.root = self
     }    
     
     func fillInfo(info:[EventSlotInfo]?){
         
-        guard let info = info else {
-            return
-        }
-        adapter?.initailizeAdapter(info:info)
+//        guard let info = info else {
+//            return
+//        }
+//        adapter?.initailizeAdapter(info:info)
     }
     
     func initializeLayout(){
     }
     
     func refreshData(){
-        
-        controller?.refreshData()
+        //controller?.refreshData()
     }
 }

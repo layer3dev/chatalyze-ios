@@ -12,6 +12,7 @@ import SwiftyJSON
 class SubmitPaypalEmailProcessor{
     
     public func save(analystId:String,email:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
+        
         //https://dev.chatalyze.com/api/paymentEmail/
         let url = AppConnectionConfig.webServiceURL + "/paymentEmail/"
         
@@ -29,7 +30,7 @@ class SubmitPaypalEmailProcessor{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "response is\(response)")
+        Log.echo(key: "yud", text: "Response in saving the paypal email is \(response)")
         
         
         guard let rawInfo = response

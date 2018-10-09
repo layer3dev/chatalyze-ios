@@ -95,7 +95,12 @@ class EditProfileRootview: ExtendedView {
     
     
     func initializeVariable(){
-       
+        
+        if let roleId = SignedUserInfo.sharedInstance?.role{
+            if roleId == .user{
+                self.emailField?.isUserInteractionEnabled = true
+            }
+        }
         nameField?.textField?.delegate = self
         emailField?.textField?.delegate = self
         mobileNumberField?.textField?.delegate = self
@@ -534,9 +539,10 @@ extension EditProfileRootview{
     fileprivate func validateOldPassword()->Bool{
         
         if(oldPasswordField?.textField?.text == ""){
+       
             oldPasswordField?.showError(text: "Old password field can't be left empty !")
             return false
-        }
+        }        
         oldPasswordField?.resetErrorStatus()
         return true
     }
@@ -545,11 +551,13 @@ extension EditProfileRootview{
     fileprivate func validateNewPassword()->Bool{
         
         if(newPasswordField?.textField?.text == ""){
+        
             newPasswordField?.showError(text: "New password field can't be left empty !")
             return false
         }
         if let text = newPasswordField?.textField?.text {
             if (!text.containsNumbers()) || !(text.containsUpperCaseLetter()) || !(text.containsLowerCaseLetter()){
+              
                 newPasswordField?.showError(text: "Password field should contain an uppercase letter , a numeric and a lowercase letter !")
                 return false
             }
@@ -562,6 +570,7 @@ extension EditProfileRootview{
     fileprivate func valiadteConfirmPassword()->Bool{
         
         if(confirmPasswordField?.textField?.text == ""){
+            
             confirmPasswordField?.showError(text: "Confirm password field can't be left empty !")
             return false
         }
@@ -613,8 +622,17 @@ extension EditProfileRootview{
                 mobileNumberField?.showError(text: "Mobile number looks incorrect !")
                 return false
             }
-            mobileNumberField?.resetErrorStatus()
+            
         }
+       else if mobileNumberField?.textField?.text?.count  ?? 0 == 0{
+           
+            if chatUpdates == true{
+                mobileNumberField?.showError(text: "Please provide the mobile number!!")
+                return false
+            }
+        }
+        
+        mobileNumberField?.resetErrorStatus()
         return true
     }
     
@@ -733,14 +751,14 @@ extension EditProfileRootview{
         }
     }
     
-    
     func saveUserImageToServer(image:UIImage){
         
         self.controller?.showLoader()
         
         UploadUserImage().uploadImageFormatData(image: image, includeToken: true, progress: { (progress) in
-            
+       
         }) {(success) in
+            
             if success{
                 
                 self.controller?.fetchInfo()

@@ -21,7 +21,7 @@ class MyTicketesAdapter: ExtendedView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        initializeCollectionFlowLayout()
+       // initializeCollectionFlowLayout()
     }
     
     func initailizeAdapter(info:[EventSlotInfo]?){

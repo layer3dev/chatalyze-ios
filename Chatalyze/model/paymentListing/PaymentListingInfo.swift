@@ -16,6 +16,7 @@ class PaymentListingInfo: NSObject {
     var eventType:String?
     var amount:String?
     var _date:String?
+    var refundedAmount:String?
     
     override init(){
         super.init()
@@ -43,6 +44,11 @@ class PaymentListingInfo: NSObject {
         
         self.amount = json["amount"].stringValue
         _date = json["createdAt"].stringValue
+        
+        if let refundInfo = json["refund"].dictionary{
+//            Refunded Amount: $
+//            self.refundedAmount = refundInfo["amount"]?.string
+        }
     }
     
     var paymentDate:String?{

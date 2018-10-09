@@ -32,7 +32,7 @@ class EventController: InterfaceExtendedController {
     func paintInterface(){
         
         //paintNavigationBar()
-        //paintSettingButton()
+        paintSettingButton()
         paintBackButton()
     }
     

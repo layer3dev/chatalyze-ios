@@ -72,12 +72,22 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>api.twitter.com</key>
+			<dict/>
+		</dict>
+	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>App uses calendar permission in order to add the session reminders for the users</string>
 	<key>NSCameraUsageDescription</key>
-	<string>You&apos;ll need this for your chat.</string>
+	<string>You'll need this for your chat.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>You&apos;ll need this for your chat.</string>
+	<string>You'll need this for your chat.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Chatalyze needs this to store the memory in your Photo Gallery.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -100,16 +110,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>api.twitter.com</key>
-			<dict/>
-		</dict>
-	</dict>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

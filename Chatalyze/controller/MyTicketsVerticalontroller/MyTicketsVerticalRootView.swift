@@ -20,10 +20,13 @@ class MyTicketsVerticalRootView:MyTicketsRootView {
     
     override func fillInfo(info:[EventSlotInfo]?){
         
-        Log.echo(key: "yud", text: "Override fill info is calling")
-        guard let info = info else {
-            return
+        DispatchQueue.main.async {
+         
+            Log.echo(key: "yud", text: "Override fill info is calling")
+            guard let info = info else {
+                return
+            }
+            self.tableAdapter?.initailizeAdapter(info:info)
         }
-        tableAdapter?.initailizeAdapter(info:info)
     }
 }

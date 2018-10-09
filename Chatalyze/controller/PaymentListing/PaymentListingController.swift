@@ -49,7 +49,7 @@ class PaymentListingController: InterfaceExtendedController {
                 
                 if let array  = info{
                     if array.count > 0{
-                        for info in array{
+                        for info in array{                           
                             self.paymentListingArray.append(info)
                         }
                         self.rootView?.fillInfo(info: self.paymentListingArray)

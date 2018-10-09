@@ -23,7 +23,6 @@ class EditProfileController: InterfaceExtendedController {
     func fetchInfo(){
         
         self.showLoader()
-        
         FetchProfileProcessor().fetch { (success, message, response) in
             
             self.stopLoader()
@@ -42,6 +41,7 @@ class EditProfileController: InterfaceExtendedController {
     func painInterface(){
         
         paintBackButton()
+        paintSettingButton()
     }
     
     func initializationVariable(){

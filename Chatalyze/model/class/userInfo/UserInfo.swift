@@ -89,7 +89,6 @@ class UserInfo: NSObject {
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         updateSideMenuInfo()
-        
     }
 }
 

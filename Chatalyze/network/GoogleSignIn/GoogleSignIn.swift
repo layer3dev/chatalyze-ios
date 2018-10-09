@@ -18,7 +18,7 @@ class GoogleSignIn{
             completion(false,"access Token is empty", nil)
             return
         }
-        let url = AppConnectionConfig.webServiceURL + "/v1/authenticate/oauth/google"
+        let url = AppConnectionConfig.webServiceURL + "/authenticate/oauth/google"
         
         var params = [String : Any]()
         params["accessToken"] = accessToken

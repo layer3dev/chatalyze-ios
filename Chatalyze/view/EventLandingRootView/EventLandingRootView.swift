@@ -44,10 +44,12 @@ class EventLandingRootView:ExtendedView{
         
         eventImage?.image = UIImage(named: "chatalyze_logo")
         
-        if let url = URL(string: info.eventBannerUrl ?? ""){
+        if let url = URL(string: info.user?.profileImage ?? ""){
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in
-                self.eventImage?.image = image
+                if error == nil{
+                    self.eventImage?.image = image
+                }                
             }
         }
         if let price = info.price{

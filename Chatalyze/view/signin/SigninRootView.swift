@@ -58,6 +58,7 @@ class SigninRootView: ExtendedView {
         guard let controller = ForgotPasswordController.instance() else {
             return
         }
+        controller.signUpHandler = self.controller?.signUpHandler
         self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -191,7 +192,6 @@ extension SigninRootView{
                 RootControllerManager().updateRoot()
                 return
             }
-            
             self?.showError(text: message)
             return
         }
