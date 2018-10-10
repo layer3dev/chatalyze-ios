@@ -1784,7 +1784,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fu8-xx-TWO">
-                                <rect key="frame" x="0.0" y="20" width="768" height="834"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="899"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1T6-1Z-drX">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="331"/>
@@ -1792,7 +1792,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3TU-sF-3I2">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="331"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkY-rw-adH">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkY-rw-adH">
                                                         <rect key="frame" x="40" y="80" width="688" height="86"/>
                                                         <string key="text">Great! Your session is officially scheduled. Now add the session to your calendar and share your sign up page with your community! :)</string>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
@@ -1886,38 +1886,6 @@
                                     <constraint firstItem="1T6-1Z-drX" firstAttribute="top" secondItem="fu8-xx-TWO" secondAttribute="top" id="rVO-UE-ypj"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UqJ-gn-jjE" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="20" y="854" width="728" height="65"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GO TO MY SESSIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnJ-on-yln">
-                                        <rect key="frame" x="242" y="18.5" width="244" height="28"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
-                                        </variation>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zcj-cm-pZ0">
-                                        <rect key="frame" x="0.0" y="0.0" width="728" height="65"/>
-                                        <connections>
-                                            <action selector="backToMyAccountActionWithSender:" destination="H8q-RQ-oxt" eventType="touchUpInside" id="yiR-4G-wtP"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Zcj-cm-pZ0" secondAttribute="trailing" id="AK8-Ea-1s8"/>
-                                    <constraint firstAttribute="height" constant="40" id="Can-hg-HhY">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
-                                    </constraint>
-                                    <constraint firstItem="gnJ-on-yln" firstAttribute="centerX" secondItem="UqJ-gn-jjE" secondAttribute="centerX" id="HQH-SA-VJj"/>
-                                    <constraint firstItem="Zcj-cm-pZ0" firstAttribute="leading" secondItem="UqJ-gn-jjE" secondAttribute="leading" id="JiR-Ew-uy3"/>
-                                    <constraint firstItem="Zcj-cm-pZ0" firstAttribute="top" secondItem="UqJ-gn-jjE" secondAttribute="top" id="M5j-md-qIM"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zcj-cm-pZ0" secondAttribute="bottom" id="bKk-ID-HKR"/>
-                                    <constraint firstItem="gnJ-on-yln" firstAttribute="centerY" secondItem="UqJ-gn-jjE" secondAttribute="centerY" id="xDZ-bE-6HT"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JgD-Cw-bXA" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="20" y="939" width="728" height="65"/>
                                 <subviews>
@@ -1953,14 +1921,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="UqJ-gn-jjE" firstAttribute="top" secondItem="fu8-xx-TWO" secondAttribute="bottom" id="0xe-Qe-prY"/>
                             <constraint firstItem="fu8-xx-TWO" firstAttribute="leading" secondItem="Ckp-bo-cXE" secondAttribute="leading" id="1r1-ab-s3J"/>
+                            <constraint firstItem="JgD-Cw-bXA" firstAttribute="top" secondItem="fu8-xx-TWO" secondAttribute="bottom" constant="20" id="3LL-KR-4Pj"/>
                             <constraint firstItem="Ckp-bo-cXE" firstAttribute="trailing" secondItem="JgD-Cw-bXA" secondAttribute="trailing" constant="20" id="745-Bh-dCC"/>
                             <constraint firstItem="fu8-xx-TWO" firstAttribute="top" secondItem="Ckp-bo-cXE" secondAttribute="top" id="Bfd-Re-I2y"/>
-                            <constraint firstItem="Ckp-bo-cXE" firstAttribute="trailing" secondItem="UqJ-gn-jjE" secondAttribute="trailing" constant="20" id="Jo1-Zg-6Yo"/>
                             <constraint firstItem="Ckp-bo-cXE" firstAttribute="trailing" secondItem="fu8-xx-TWO" secondAttribute="trailing" id="XFr-wv-N2h"/>
-                            <constraint firstItem="JgD-Cw-bXA" firstAttribute="top" secondItem="UqJ-gn-jjE" secondAttribute="bottom" constant="20" id="aYA-sk-p6C"/>
-                            <constraint firstItem="UqJ-gn-jjE" firstAttribute="leading" secondItem="Ckp-bo-cXE" secondAttribute="leading" constant="20" id="d1n-gE-azg"/>
                             <constraint firstItem="1T6-1Z-drX" firstAttribute="width" secondItem="klH-Vx-Pnk" secondAttribute="width" id="hQi-lb-tYm"/>
                             <constraint firstItem="JgD-Cw-bXA" firstAttribute="leading" secondItem="Ckp-bo-cXE" secondAttribute="leading" constant="20" id="mh6-xI-OPC"/>
                             <constraint firstItem="Ckp-bo-cXE" firstAttribute="bottom" secondItem="JgD-Cw-bXA" secondAttribute="bottom" constant="20" id="sjl-pX-pD2"/>

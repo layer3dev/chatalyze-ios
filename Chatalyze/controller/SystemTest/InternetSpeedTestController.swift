@@ -105,23 +105,22 @@ class InternetSpeedTestController: InterfaceExtendedController {
                             
                             
                             self.speedLbl?.textColor = UIColor.red
-                            self.speedLbl?.text = "Your internet connection speed is not good"
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            self.speedLbl?.text = "Success"
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 self.dismissAction()
                             }
                             return
                         }
                         
-                        self.speedLbl?.text = "Your internet connection speed is good"
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.speedLbl?.text = "Success"
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.cameraTest(sender: nil)
                         }
                         return
                     }
                 }else{
                     
-                    self.speedLbl?.text = "some error occured plz try again"
-                    
+                    self.speedLbl?.text = "Fail"
                 }
             }
         }

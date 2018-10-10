@@ -193,6 +193,7 @@
 		47E7A05120B826DF0049354A /* SystemTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7A05020B826DF0049354A /* SystemTestController.swift */; };
 		47E97BCE214B83F90046109B /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E97BCD214B83F90046109B /* TestClass.swift */; };
 		47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E97BCF214BCFA90046109B /* OpenCallAlertController.swift */; };
+		47EDCF62216E284300EC16BB /* KeyBoardTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EDCF61216E284300EC16BB /* KeyBoardTool.swift */; };
 		47EF658A20C90EA2000D9BC3 /* CheckInternetSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658920C90EA2000D9BC3 /* CheckInternetSpeed.swift */; };
 		47EF658C20C9396A000D9BC3 /* InternetSpeedTestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */; };
 		47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */; };
@@ -637,6 +638,7 @@
 		47E7A05020B826DF0049354A /* SystemTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTestController.swift; sourceTree = "<group>"; };
 		47E97BCD214B83F90046109B /* TestClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
 		47E97BCF214BCFA90046109B /* OpenCallAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCallAlertController.swift; sourceTree = "<group>"; };
+		47EDCF61216E284300EC16BB /* KeyBoardTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBoardTool.swift; sourceTree = "<group>"; };
 		47EF658920C90EA2000D9BC3 /* CheckInternetSpeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetSpeed.swift; sourceTree = "<group>"; };
 		47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSpeedTestController.swift; sourceTree = "<group>"; };
 		47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetReachabilityCheck.swift; sourceTree = "<group>"; };
@@ -2063,6 +2065,14 @@
 			path = PaymentSuccess;
 			sourceTree = "<group>";
 		};
+		47EDCF60216E282900EC16BB /* KeyBoardExtension */ = {
+			isa = PBXGroup;
+			children = (
+				47EDCF61216E284300EC16BB /* KeyBoardTool.swift */,
+			);
+			path = KeyBoardExtension;
+			sourceTree = "<group>";
+		};
 		47F0D71120F8B51200A689FA /* countrypicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -2859,6 +2869,7 @@
 				47F3357221493D2C006A80D1 /* SelfieTimerDataHelper */,
 				471CC8662161E7FE00DB5E8C /* Cropper */,
 				471964372150E2FE00BD21D1 /* LableAnimation */,
+				47EDCF60216E282900EC16BB /* KeyBoardExtension */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -3330,8 +3341,6 @@
 				FAFFFEA4203D9C80009B4F96 /* Sources */,
 				FAFFFEA5203D9C80009B4F96 /* Frameworks */,
 				FAFFFEA6203D9C80009B4F96 /* Resources */,
-				133958A60B298C3A2AC8B3E2 /* [CP] Embed Pods Frameworks */,
-				F487B07834157E65E1B0A946 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3351,8 +3360,6 @@
 				FAFFFEAF203D9C80009B4F96 /* Sources */,
 				FAFFFEB0203D9C80009B4F96 /* Frameworks */,
 				FAFFFEB1203D9C80009B4F96 /* Resources */,
-				3C05463D57795243BA82506F /* [CP] Embed Pods Frameworks */,
-				F001250E2EFBFC021844830D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3478,36 +3485,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		133958A60B298C3A2AC8B3E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3C05463D57795243BA82506F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A2F22B4B751664C77AF8D35C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3612,36 +3589,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F001250E2EFBFC021844830D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F487B07834157E65E1B0A946 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FAA001C4203EE0E4003C8A74 /* Run Script */ = {
@@ -3911,6 +3858,7 @@
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,
 				47111CEF2158E3A900DFBC08 /* ContainerNavigationController.swift in Sources */,
+				47EDCF62216E284300EC16BB /* KeyBoardTool.swift in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
 				47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */,

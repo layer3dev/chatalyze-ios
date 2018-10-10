@@ -73,6 +73,7 @@ class SessionTimeDateRootView:ExtendedView{
         
         selectedPickerType = .date
         timePicker?.datePickerMode = .date
+        timePicker?.minuteInterval = 30
         timePicker?.minimumDate = Date()
         dateField?.textField?.text = selectedTime
         isPickerHidden = false
@@ -92,6 +93,7 @@ class SessionTimeDateRootView:ExtendedView{
         
         selectedPickerType = .time
         timePicker?.datePickerMode = .time
+        timePicker?.minuteInterval = 30
         timePicker?.minimumDate = nil
         startTimeField?.textField?.text = startTime
         isPickerHidden = false

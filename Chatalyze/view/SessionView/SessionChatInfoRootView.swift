@@ -57,6 +57,7 @@ class SessionChatInfoRootView:ExtendedView{
     override func viewDidLayout(){
         super.viewDidLayout()
        
+        self.priceField?.textField?.doneAccessory = true
         initializeVariable()
     }
     
