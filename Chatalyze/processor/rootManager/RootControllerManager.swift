@@ -118,7 +118,6 @@ class RootControllerManager{
         UserSocket.sharedInstance?.disconnect()
         SocketClient.sharedInstance?.disconnect()
         RootControllerManager().updateRoot()
-        //SessionDeviceInfo().clear()
     }
     
     func getCurrentController()->ContainerController?{

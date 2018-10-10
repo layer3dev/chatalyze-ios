@@ -129,7 +129,6 @@ class TimerSync {
     
     private func getTime()->Int64{
         let currentDate = Date()
-        return currentDate.millisecondsSince1970
         
         if(timeDiff == 0){
             return currentDate.millisecondsSince1970

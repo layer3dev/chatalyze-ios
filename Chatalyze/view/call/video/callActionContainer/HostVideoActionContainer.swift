@@ -20,5 +20,11 @@ class HostVideoActionContainer: VideoActionContainer {
     
     private func initialization(){
     }
+    
+    func activateFromHangup(){
+        hangupView?.activate()
+        audioView?.unmute()
+        videoView?.unmute()
+    }
 
 }
