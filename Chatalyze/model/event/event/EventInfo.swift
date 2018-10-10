@@ -107,7 +107,9 @@ class EventInfo: NSObject {
         set{
             let price = newValue ?? 0.0
             self.price = (price/60.0)*(self.duration ?? 0.0)
+            self.price = ((round((self.price ?? 0.0))*1000))/1000
             self.serviceFee = (((self.price ?? 0.0)+0.30)/0.971) - (self.price ?? 0.0)
+            self.serviceFee = ((round((self.serviceFee ?? 0.0))*1000))/1000
         }
     }
     

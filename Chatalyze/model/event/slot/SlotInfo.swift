@@ -71,8 +71,8 @@ class SlotInfo: SlotTimeInfo {
         
         if let callScheduleInfo = json["callschedule"].dictionary{
          
-            self.eventTitle = callScheduleInfo["title"]?.stringValue
-            self.price = callScheduleInfo["price"]?.stringValue
+            self.eventTitle = callScheduleInfo["title"]?.stringValue            
+            self.price = String(format: "%.2f", callScheduleInfo["price"]?.stringValue ?? "0.0")
             self.started = callScheduleInfo["started"]?.stringValue
             self.notified = callScheduleInfo["notified"]?.stringValue
         }

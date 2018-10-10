@@ -43,14 +43,26 @@ class PaymentListingInfo: NSObject {
         }
         
         self.amount = json["amount"].stringValue
+        
+        if let amount = Double(self.amount ?? "0.0"){
+         
+            let roundedAmount = (round((amount*100))/100)
+            Log.echo(key: "yud", text: "Rounded amount is \(roundedAmount)")
+            self.amount = "\(roundedAmount)"
+        }
+        
         _date = json["createdAt"].stringValue
         
         if let refundInfo = json["refund"].dictionary{
             if let refundedAmount = refundInfo["amount"]?.string{
-                self.refundedAmount =  "$"+refundedAmount+" Refunded"
+
+                if let refundedDoubleAmount = Double(refundedAmount){
+                    
+                    let roundedAmount = (round((refundedDoubleAmount*100))/100)
+                    Log.echo(key: "yud", text: "Rounded amount is \(roundedAmount)")
+                    self.refundedAmount =                     "$ \(roundedAmount) Refunded"
+                }
             }
-//            Refunded Amount: $
-//            self.refundedAmount = refundInfo["amount"]?.string
         }
     }
     
