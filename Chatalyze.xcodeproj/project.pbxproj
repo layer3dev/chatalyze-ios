@@ -3341,6 +3341,8 @@
 				FAFFFEA4203D9C80009B4F96 /* Sources */,
 				FAFFFEA5203D9C80009B4F96 /* Frameworks */,
 				FAFFFEA6203D9C80009B4F96 /* Resources */,
+				067C6C08ED38AE3900D3309F /* [CP] Embed Pods Frameworks */,
+				010E1056FF216B5BE12F6C24 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3360,6 +3362,8 @@
 				FAFFFEAF203D9C80009B4F96 /* Sources */,
 				FAFFFEB0203D9C80009B4F96 /* Frameworks */,
 				FAFFFEB1203D9C80009B4F96 /* Resources */,
+				854957270C3195BF80CD48C6 /* [CP] Embed Pods Frameworks */,
+				F594B73581F72F18DF7F0EC4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3485,6 +3489,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		010E1056FF216B5BE12F6C24 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		067C6C08ED38AE3900D3309F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeTests/Pods-ChatalyzeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		854957270C3195BF80CD48C6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A2F22B4B751664C77AF8D35C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3589,6 +3638,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F594B73581F72F18DF7F0EC4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatalyzeUITests/Pods-ChatalyzeUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FAA001C4203EE0E4003C8A74 /* Run Script */ = {
@@ -4232,6 +4296,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				INFOPLIST_FILE = ChatalyzeTests/Info.plist;
@@ -4250,6 +4315,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				INFOPLIST_FILE = ChatalyzeTests/Info.plist;
@@ -4267,6 +4333,7 @@
 			baseConfigurationReference = 3D680A10BEEE439F0853167C /* Pods-ChatalyzeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				INFOPLIST_FILE = ChatalyzeUITests/Info.plist;
@@ -4284,6 +4351,7 @@
 			baseConfigurationReference = BA13399E4D58880AC0FC7A4E /* Pods-ChatalyzeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				INFOPLIST_FILE = ChatalyzeUITests/Info.plist;
