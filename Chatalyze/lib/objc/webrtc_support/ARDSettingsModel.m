@@ -12,7 +12,6 @@
 #import "ARDSettingsStore.h"
 #import "WebRTC/RTCCameraVideoCapturer.h"
 #import "WebRTC/RTCMediaConstraints.h"
-#import "WebRTC/RTCVideoCodecFactory.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
