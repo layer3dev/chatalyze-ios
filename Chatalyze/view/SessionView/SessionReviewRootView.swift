@@ -20,6 +20,7 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var priceLbl:UILabel?
     @IBOutlet var isSelfieLbl:UILabel?
     @IBOutlet var errorLabel:UILabel?
+    var eventInfo:EventInfo?
     
     
     var param = [String:Any]()
@@ -155,6 +156,8 @@ class SessionReviewRootView:ExtendedView{
         resetErrorlabel()
         SessionRequestWithImageProcessor().schedule(params: param) { [weak self] (success, info) in
             
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(info)")
+            
             self?.controller?.stopLoader()
             completion!(success,info)
             if !success{
@@ -165,10 +168,15 @@ class SessionReviewRootView:ExtendedView{
     
     func scheduleActionWithImage(){
         
-        uploadImage { (success, reposnse) in
+        uploadImage { (success, response) in
             
             if !success{
                 return
+            }
+            
+            if let info = response{
+                let eventInfo = EventInfo(info: info)
+                self.eventInfo = eventInfo
             }
             
             Log.echo(key: "imageUploading", text: "Image uploading result is \(success) and the response is \(self.param)")
@@ -198,11 +206,18 @@ class SessionReviewRootView:ExtendedView{
         Log.echo(key: "yud", text: "Param sending to web \(param)")
         ScheduleSessionRequest().save(params: param) { (success, message, response) in
          
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(response)")
+            
             self.controller?.stopLoader()
             
             if !success{
                 self.showError(message:message)
                 return
+            }
+            
+            if let info = response{
+                let eventInfo = EventInfo(info: info)
+                self.eventInfo = eventInfo
             }
             
             if let handler = self.successHandler{
@@ -222,6 +237,7 @@ class SessionReviewRootView:ExtendedView{
         guard let controller = SessionDoneController.instance() else{
             return
         }
+        controller.eventInfo = self.eventInfo
         controller.fillParam(param:self.param)
     }
 }

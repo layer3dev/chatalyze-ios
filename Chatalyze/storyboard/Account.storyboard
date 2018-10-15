@@ -5916,7 +5916,7 @@
                                                                                             </constraints>
                                                                                         </view>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azT-4K-fUg">
-                                                                                            <rect key="frame" x="0.0" y="292" width="304" height="87.5"/>
+                                                                                            <rect key="frame" x="0.0" y="292" width="304" height="68.5"/>
                                                                                             <subviews>
                                                                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3i-Nb-d6b">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="304" height="2"/>
@@ -5925,8 +5925,8 @@
                                                                                                         <constraint firstAttribute="height" constant="2" id="vTV-tJ-dx5"/>
                                                                                                     </constraints>
                                                                                                 </view>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please join the session atleast 10 minutes before your chat time." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJ1-Uu-giV">
-                                                                                                    <rect key="frame" x="30" y="15" width="244" height="57.5"/>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please join the session at least 10 minutes before your chat time." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJ1-Uu-giV">
+                                                                                                    <rect key="frame" x="20" y="15" width="264" height="38.5"/>
                                                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                                     <nil key="highlightedColor"/>
@@ -5940,8 +5940,8 @@
                                                                                                 <constraint firstAttribute="bottom" secondItem="LJ1-Uu-giV" secondAttribute="bottom" constant="15" id="4FE-Jp-lFm">
                                                                                                     <variation key="heightClass=regular-widthClass=regular" constant="25"/>
                                                                                                 </constraint>
-                                                                                                <constraint firstItem="LJ1-Uu-giV" firstAttribute="leading" secondItem="azT-4K-fUg" secondAttribute="leading" constant="30" id="QVh-MN-mDQ">
-                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                                                                                <constraint firstItem="LJ1-Uu-giV" firstAttribute="leading" secondItem="azT-4K-fUg" secondAttribute="leading" constant="20" id="QVh-MN-mDQ">
+                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                                                                 </constraint>
                                                                                                 <constraint firstItem="LJ1-Uu-giV" firstAttribute="top" secondItem="azT-4K-fUg" secondAttribute="top" constant="15" id="QaG-Ze-q98">
                                                                                                     <variation key="heightClass=regular-widthClass=regular" constant="25"/>
@@ -5949,8 +5949,8 @@
                                                                                                 <constraint firstItem="w3i-Nb-d6b" firstAttribute="leading" secondItem="azT-4K-fUg" secondAttribute="leading" id="WmO-dp-o4R"/>
                                                                                                 <constraint firstAttribute="trailing" secondItem="w3i-Nb-d6b" secondAttribute="trailing" id="h2o-NA-bzS"/>
                                                                                                 <constraint firstItem="w3i-Nb-d6b" firstAttribute="top" secondItem="azT-4K-fUg" secondAttribute="top" id="jTo-dB-cMI"/>
-                                                                                                <constraint firstAttribute="trailing" secondItem="LJ1-Uu-giV" secondAttribute="trailing" constant="30" id="t4I-h9-d8C">
-                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="LJ1-Uu-giV" secondAttribute="trailing" constant="20" id="t4I-h9-d8C">
+                                                                                                    <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                                                                 </constraint>
                                                                                             </constraints>
                                                                                         </view>
@@ -6217,6 +6217,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u9-eO-2lW">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="40"/>
+                                        <connections>
+                                            <action selector="deleteMemoryWithSender:" destination="0Kr-zV-8jn" eventType="touchUpInside" id="JaY-MA-ivq"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

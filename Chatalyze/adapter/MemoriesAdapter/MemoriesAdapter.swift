@@ -58,6 +58,17 @@ extension MemoriesAdapter:UITableViewDataSource{
             
             cell.fillInfo(info:self.memoriesListingArray[indexPath.row])
             cell.controller = self.controller
+            cell.indexPath = indexPath
+            cell.deletingCellInfo = {(deletedIndexPath) in
+               
+                if let deletedIndex = deletedIndexPath{
+                    
+                    self.memoriesListingArray.remove(at: deletedIndex.row)
+                    self.memoriesListingTableView?.beginUpdates()
+                    self.memoriesListingTableView?.deleteRows(at: [deletedIndex], with: .automatic)
+                    self.memoriesListingTableView?.endUpdates()
+                }
+            }
             return cell
         }
         return UITableViewCell()

@@ -1787,10 +1787,10 @@
                                 <rect key="frame" x="0.0" y="20" width="768" height="899"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1T6-1Z-drX">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="531"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3TU-sF-3I2">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="331"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="531"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkY-rw-adH">
                                                         <rect key="frame" x="40" y="80" width="688" height="86"/>
@@ -1852,6 +1852,65 @@
                                                             <constraint firstAttribute="trailing" secondItem="iEq-fx-20L" secondAttribute="trailing" id="wCM-KL-kBJ"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxw-0M-rWh">
+                                                        <rect key="frame" x="0.0" y="281" width="768" height="65"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58T-S8-t9v">
+                                                                <rect key="frame" x="307.5" y="18" width="73" height="29"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                                                </variation>
+                                                            </label>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookShare" translatesAutoresizingMaskIntoConstraints="NO" id="mha-Lu-KxR">
+                                                                <rect key="frame" x="390.5" y="17.5" width="30" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="NNa-RS-AdH">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                                    </constraint>
+                                                                    <constraint firstAttribute="width" constant="20" id="aWk-HJ-bhW">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterSharing" translatesAutoresizingMaskIntoConstraints="NO" id="5Ij-52-wCa">
+                                                                <rect key="frame" x="430.5" y="17.5" width="30" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="42i-KD-3DB">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                                    </constraint>
+                                                                    <constraint firstAttribute="width" constant="20" id="HpX-lM-n1f">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRJ-te-8ej">
+                                                                <rect key="frame" x="0.0" y="0.0" width="768" height="65"/>
+                                                                <connections>
+                                                                    <action selector="shareWithSender:" destination="H8q-RQ-oxt" eventType="touchUpInside" id="fIp-uE-cji"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="5Ij-52-wCa" firstAttribute="leading" secondItem="mha-Lu-KxR" secondAttribute="trailing" constant="10" id="6eg-ui-9ZN"/>
+                                                            <constraint firstAttribute="trailing" secondItem="hRJ-te-8ej" secondAttribute="trailing" id="CRN-B1-7w6"/>
+                                                            <constraint firstAttribute="height" constant="45" id="IPY-Mt-vpY">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                            </constraint>
+                                                            <constraint firstItem="hRJ-te-8ej" firstAttribute="leading" secondItem="gxw-0M-rWh" secondAttribute="leading" id="KPG-Ho-2Go"/>
+                                                            <constraint firstItem="mha-Lu-KxR" firstAttribute="leading" secondItem="58T-S8-t9v" secondAttribute="trailing" constant="10" id="Ls2-rJ-KFn"/>
+                                                            <constraint firstItem="58T-S8-t9v" firstAttribute="centerY" secondItem="gxw-0M-rWh" secondAttribute="centerY" id="MM1-Zq-LyP"/>
+                                                            <constraint firstItem="5Ij-52-wCa" firstAttribute="centerY" secondItem="mha-Lu-KxR" secondAttribute="centerY" id="QVf-iP-azs"/>
+                                                            <constraint firstItem="58T-S8-t9v" firstAttribute="centerX" secondItem="gxw-0M-rWh" secondAttribute="centerX" constant="-20" id="QZc-2L-ywO">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="-40"/>
+                                                            </constraint>
+                                                            <constraint firstItem="hRJ-te-8ej" firstAttribute="top" secondItem="gxw-0M-rWh" secondAttribute="top" id="Tcb-7E-Mka"/>
+                                                            <constraint firstAttribute="bottom" secondItem="hRJ-te-8ej" secondAttribute="bottom" id="YsW-yu-4fh"/>
+                                                            <constraint firstItem="mha-Lu-KxR" firstAttribute="centerY" secondItem="58T-S8-t9v" secondAttribute="centerY" id="b15-3v-r8V"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -1860,10 +1919,13 @@
                                                     <constraint firstAttribute="trailing" secondItem="jkY-rw-adH" secondAttribute="trailing" constant="20" id="SU0-k2-ydj">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="gxw-0M-rWh" secondAttribute="trailing" id="eU0-4Y-Von"/>
                                                     <constraint firstItem="jkY-rw-adH" firstAttribute="leading" secondItem="3TU-sF-3I2" secondAttribute="leading" constant="20" id="nEo-kQ-ceV">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="bottom" secondItem="Ysn-a8-BdU" secondAttribute="bottom" constant="50" id="oNU-cc-wTI"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Ysn-a8-BdU" secondAttribute="bottom" constant="250" id="oNU-cc-wTI"/>
+                                                    <constraint firstItem="gxw-0M-rWh" firstAttribute="leading" secondItem="3TU-sF-3I2" secondAttribute="leading" id="pJu-LI-WU2"/>
+                                                    <constraint firstItem="gxw-0M-rWh" firstAttribute="top" secondItem="Ysn-a8-BdU" secondAttribute="bottom" id="tbs-b0-WZO"/>
                                                     <constraint firstItem="jkY-rw-adH" firstAttribute="top" secondItem="3TU-sF-3I2" secondAttribute="top" constant="40" id="tqD-gi-s02">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                                     </constraint>
@@ -1939,7 +2001,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWV-MW-RqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1978" y="-18"/>
+            <point key="canvasLocation" x="1977.34375" y="-18.1640625"/>
         </scene>
         <!--Schedule Session Controller-->
         <scene sceneID="GeC-i6-vfd">
@@ -2992,6 +3054,8 @@
         <image name="circle" width="128" height="128"/>
         <image name="clockEventLanding" width="128" height="128"/>
         <image name="dragImage" width="35" height="48"/>
+        <image name="facebookShare" width="30" height="30"/>
+        <image name="twitterSharing" width="128" height="128"/>
         <image name="whiteCircle" width="128" height="128"/>
     </resources>
 </document>

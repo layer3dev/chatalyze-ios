@@ -62,7 +62,9 @@ class CameraTestController: InterfaceExtendedController {
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
         Log.echo(key: "yud", text: "LEVEL IS \(level)")
-        self.updateUI(level:Double(level ?? 0.0))
+        DispatchQueue.main.async {         
+            self.updateUI(level:Double(level ?? 0.0))
+        }
         let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
         
     }
@@ -80,8 +82,9 @@ class CameraTestController: InterfaceExtendedController {
         
         if level <= 0{
             
-            powerLevelIndicator = level + 40
-            let percentage = ((powerLevelIndicator/40))
+            //Earlier 45 was 40
+            powerLevelIndicator = level + 45
+            let percentage = ((powerLevelIndicator/45))
             progressView?.progress = Float(percentage)
         }
     }
@@ -163,6 +166,7 @@ class CameraTestController: InterfaceExtendedController {
         RootControllerManager().getCurrentController()?.present(alert, animated: false) {
         }
     }
+    
     func errorInCapturing(error:Error?){
         
         let alert = UIAlertController(title: "Chatalyze", message: error?.localizedDescription ?? "Oops some unexpected error during streaming!!", preferredStyle: UIAlertControllerStyle.alert)

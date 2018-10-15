@@ -108,10 +108,9 @@ class MySessionTableViewCell: ExtendedTableCell {
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
          
-            Log.echo(key: "yud", text: "You 'll be able to enter your session 30 minutes before it starts")
+            Log.echo(key: "yud", text: "You'll be able to enter your session 30 minutes before it starts")
          
-            RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "You 'll be able to enter your session 30 minutes before it starts", successTitle: "OK", rejectTitle: "Cencel", showCancel: false, completion: { (success) in
-                
+            RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "You'll be able to enter your session 30 minutes before it starts", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
             })
             return
         }

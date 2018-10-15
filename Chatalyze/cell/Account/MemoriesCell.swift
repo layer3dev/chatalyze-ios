@@ -24,8 +24,10 @@ class MemoriesCell: ExtendedTableCell {
     @IBOutlet var memoryImage:UIImageView?
     var controller:MemoriesController?
     var info:MemoriesInfo?
-    var deleteCell:(()->())?
+    var deletingCellInfo:((IndexPath?)->())?
     var indexPath:IndexPath?
+    var beginsUpdate:(()->())?
+    var endsUpdate:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -88,6 +90,7 @@ class MemoriesCell: ExtendedTableCell {
         var url = "https://dev.chatalyze.com/api/screenshots/"
         url = url+id
         url = url+"/url/chatalyze.png"
+        
         Log.echo(key: "yud", text: "Image url is \(url)")
         
         do{
@@ -132,8 +135,11 @@ extension MemoriesCell{
             return
         }
         controller.showingImage = self.memoryImage?.image
+        controller.info = self.info
         controller.deleteCell = {
-            
+            if let deletedCell = self.deletingCellInfo{
+                deletedCell(self.indexPath)
+            }
         }
         self.controller?.present(controller, animated: true)
     }

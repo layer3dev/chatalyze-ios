@@ -89,7 +89,7 @@ class MenuCell: ExtendedTableCell {
             else if selectedIndexName == "Edit Profile"{
                 return MenuRootView.MenuType.editProfileUser
             }
-            else if selectedIndexName == "History"{
+            else if selectedIndexName == "Purchase History"{
                 return MenuRootView.MenuType.paymentUser
             }
             else if selectedIndexName == "Memories"{

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        //Calling the delgate methods to the local notifications
+        //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
         test()
@@ -119,6 +119,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if #available(iOS 10.0, *) {
             
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+              
                 print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
                
