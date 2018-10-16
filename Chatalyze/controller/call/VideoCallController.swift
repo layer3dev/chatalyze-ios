@@ -16,9 +16,9 @@ class VideoCallController : InterfaceExtendedController {
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
-    let duration = 0.45
+    let duration = 0.5
     let fontSizeSmall: CGFloat = 16
-    var fontSizeBig: CGFloat = 28
+    var fontSizeBig: CGFloat = 22
     var isSmall: Bool = true
     //End
     
@@ -49,9 +49,9 @@ class VideoCallController : InterfaceExtendedController {
         super.viewDidLoad()
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            self.fontSizeBig = 28
+            self.fontSizeBig = 22
         }else{
-            self.fontSizeBig = 24
+            self.fontSizeBig = 20
         }
         // Do any additional setup after loading the view.
     }
@@ -601,7 +601,7 @@ extension VideoCallController{
         //        }
         //
         //Animated
-        self.label.textColor = UIColor.red
+        //self.label.textColor = UIColor.red
         UIView.animate(withDuration: duration, animations: {
             
             self.label.transform = .identity
@@ -622,7 +622,7 @@ extension VideoCallController{
         smallerBounds.size = labelCopy.intrinsicContentSize
         let shrinkTransform = scaleTransform(from: label.bounds.size, to: smallerBounds.size)
         
-        self.label.textColor = UIColor.white
+        //self.label.textColor = UIColor.white
         UIView.animate(withDuration: duration, animations: {
             
             self.label.transform = shrinkTransform

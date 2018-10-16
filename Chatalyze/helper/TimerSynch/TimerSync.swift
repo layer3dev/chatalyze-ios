@@ -147,6 +147,9 @@ class TimerSync {
     }
     
     func getDate()->Date{
+      
+        //temp
+        return Date()
         let seconds = getSeconds()
         return Date.init(seconds : seconds)
     }
@@ -184,7 +187,5 @@ class TimerSync {
         }
         
         return true
-        
     }
-    
 }

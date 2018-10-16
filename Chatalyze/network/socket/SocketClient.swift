@@ -291,7 +291,7 @@ extension SocketClient{
         if(data.dictionary == nil && data.array == nil){
             data = json
         }
-        Log.echo(key: "yud", text: "Respond new json is \(json) and the data is \(data)")
+        //Log.echo(key: "yud", text: "Respond new json is \(json) and the data is \(data)")
         updateForEvent(action: responseAction, data: data)
         return
         
