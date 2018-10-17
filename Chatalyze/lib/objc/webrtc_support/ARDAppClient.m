@@ -23,7 +23,6 @@
 #import "WebRTC/RTCPeerConnectionFactory.h"
 #import "WebRTC/RTCRtpSender.h"
 #import "WebRTC/RTCTracing.h"
-#import "WebRTC/RTCVideoCodecFactory.h"
 #import "WebRTC/RTCVideoTrack.h"
 
 #import "ARDAppEngineClient.h"

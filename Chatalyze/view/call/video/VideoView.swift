@@ -44,13 +44,13 @@ class VideoView: RTCEAGLVideoView {
     }
 }
 
-extension VideoView : RTCEAGLVideoViewDelegate{
+extension VideoView : RTCVideoViewDelegate{
     
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
         
         self.updateSize(size: size)
     }
-    /*func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
-        self.updateSize(size: size)
-    }*/
+    
+    
+
 }
