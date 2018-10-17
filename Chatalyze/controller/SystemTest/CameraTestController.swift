@@ -31,13 +31,25 @@ class CameraTestController: InterfaceExtendedController {
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
+    @IBOutlet var soundMeterView:UIView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         self.checkForMicrphone()
         checkForCameraAccess()
+        borderSoundMeter()
         return
     }
+    
+    func borderSoundMeter(){
+        
+        soundMeterView?.layer.cornerRadius = 2
+        soundMeterView?.layer.masksToBounds = true
+        soundMeterView?.layer.borderWidth = 2
+        soundMeterView?.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
+    }
+    
     
     @objc func appBecomeActiveAgain() {
         
@@ -83,8 +95,9 @@ class CameraTestController: InterfaceExtendedController {
         if level <= 0{
             
             //Earlier 45 was 40
-            powerLevelIndicator = level + 45
-            let percentage = ((powerLevelIndicator/45))
+            //Earlier 20 was 40
+            powerLevelIndicator = level + 40
+            let percentage = ((powerLevelIndicator/30))
             progressView?.progress = Float(percentage)
         }
     }

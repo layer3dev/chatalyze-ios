@@ -15,7 +15,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var title:UILabel?
     @IBOutlet var ticketsBooked:UILabel?
     var info:EventInfo?
-    var enterSession:(()->())?
+    var enterSession:((EventInfo?)->())?
     @IBOutlet var sessionEventButton:UIButton?
     @IBOutlet var joinButton:UIButton?
     
@@ -115,7 +115,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             return
         }
         if let session = enterSession{
-            session()
+            session(self.info)
         }
     }
 }

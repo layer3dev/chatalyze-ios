@@ -174,6 +174,7 @@ class SessionChatInfoRootView:ExtendedView{
             param["duration"] = 2
         }
         if slotSelected == .three{
+            
             param["duration"] = 3
         }
         if slotSelected == .five{
@@ -188,9 +189,13 @@ class SessionChatInfoRootView:ExtendedView{
         if slotSelected == .thirty{
             param["duration"] = 30
         }
+        
+        //Calculating the price for one hour
+        
         param["price"] = priceField?.textField?.text
         
         if isSocialSelfieAllowed == .yes{
+            
             param["screenshotAllow"] = "automatic"
         }
         
@@ -200,6 +205,11 @@ class SessionChatInfoRootView:ExtendedView{
         }
         return param
     }
+    
+//    func getPrice()->String{
+//
+//
+//    }
     
     
     func next(){

@@ -6,8 +6,9 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import Foundation
 import QuartzCore
+import CoreText
+import UIKit
 
 class EditScheduledSessionRootView:ExtendedView{
     
@@ -42,20 +43,29 @@ class EditScheduledSessionRootView:ExtendedView{
     
     
     @IBOutlet var hostnameLbl:UILabel?
+    
     @IBOutlet var eventNameLbl:UILabel?
+    
     @IBOutlet var costofEventLbl:UILabel?
+    
     @IBOutlet var dateTimeLbl:UILabel?
+    
     @IBOutlet var eventInfoLbl:UILabel?
+    
     @IBOutlet var eventDetailInfo:UILabel?
     
     @IBOutlet var descriptionBackLbl:UILabel?
+  
     @IBOutlet var descriptionEditLbl:UILabel?
     
     @IBOutlet var sessionNameField:SigninFieldView?
+   
     @IBOutlet var descriptionEditTextViewContainer:UIView?
+   
     @IBOutlet var descriptionTextView:UITextView?
     
     @IBOutlet var scrollView:FieldManagingScrollView?
+    
     @IBOutlet var contentBottomOffsetConstraints:NSLayoutConstraint?
     
     var delegate:UpdateForEditScheduleSessionDelgete?
@@ -63,10 +73,12 @@ class EditScheduledSessionRootView:ExtendedView{
     var editedParam = [String:Any]()
     
     @IBOutlet var imageUploadingView:UIView?
+   
     @IBOutlet var uploadedImage:UIImageView?
     
    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
+    
     @IBOutlet var heightOfuploadedImageConstraint:NSLayoutConstraint?
     
     @IBOutlet var editImageLbl:UILabel?
@@ -134,15 +146,15 @@ class EditScheduledSessionRootView:ExtendedView{
             
             sessionNameField?.textField?.text = title
             
-            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute)
+            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedStringKey : Any])
             
-            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes)
+            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedStringKey : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            //Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
             eventNameLbl?.attributedText = requiredStr
         }
         
@@ -150,17 +162,21 @@ class EditScheduledSessionRootView:ExtendedView{
             
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute)
+            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedStringKey : Any])
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes)
+            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedStringKey : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
             
             costofEventLbl?.attributedText = requiredStr
+           
+            //costofEventLbl?.text = "asdasfdsfds"
+            
+            Log.echo(key: "yud", text: "costofEventLbl text is \(costofEventLbl?.text)")
         }
         
         if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){

@@ -171,8 +171,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
-    func application(_ application: UIApplication,
-                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    func application(_ application: UIApplication,                 didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
     }
     

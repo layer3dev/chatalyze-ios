@@ -174,6 +174,17 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
     
     @IBAction func deleteMemory(sender:UIButton){
         
+        self.alert(withTitle: "Delete Image", message: "Are you sure to delete this image?", successTitle: "Ok", rejectTitle: "Cancel", showCancel: true) { (success) in
+            
+            if !success{
+                return
+            }
+            self.deleteImage()
+        }
+    }
+    
+    func deleteImage(){
+        
         guard let memoryId = self.info?.id else{
             return
         }

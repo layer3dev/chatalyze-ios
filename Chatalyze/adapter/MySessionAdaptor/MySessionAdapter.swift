@@ -16,7 +16,7 @@ class MySessionAdapter: ExtendedView {
     var controller:MyScheduledSessionsController?
     var sessionTableView:UITableView?
     
-    var enterSession:(()->())?
+    var enterSession:((EventInfo?)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
