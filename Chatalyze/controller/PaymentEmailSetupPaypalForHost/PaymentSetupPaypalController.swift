@@ -104,17 +104,17 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
         //
         
-        let attributeForStringHere = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size:18),NSAttributedStringKey.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.link:" HERE ",NSAttributedStringKey.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedStringKey : Any]
+        let attributeForStringHere = [NSAttributedStringKey.font:UIFont(name: "Questrial", size:18),NSAttributedStringKey.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.link:" HERE ",NSAttributedStringKey.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedStringKey : Any]
         
         //        let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
         
         let text = NSMutableAttributedString(string: "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one")
         
-        text.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue", size: 16), range: NSMakeRange(0, text.length))
+        text.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text.length))
         
         let text1 = NSMutableAttributedString(string: "(you'll be directed to Paypal's website)")
         
-        text1.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue", size: 16), range: NSMakeRange(0, text1.length))
+        text1.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text1.length))
         
         
         let selectablePart = NSMutableAttributedString(string: " HERE ", attributes: attributeForStringHere)

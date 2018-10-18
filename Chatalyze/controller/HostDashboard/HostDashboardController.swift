@@ -10,6 +10,8 @@ import UIKit
 
 class HostDashboardController: MyScheduledSessionsController {
     
+    @IBOutlet var testingLabel:UILabel?
+    
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     
@@ -17,9 +19,11 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewDidLayout()
         
         roundSessionButton()
+        testingLabel?.font = UIFont(name: "Poppins", size: 15)
     }
     
     func roundSessionButton(){
+        
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             scheduleSessionBtnContainer?.layer.cornerRadius = 7

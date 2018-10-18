@@ -111,6 +111,7 @@
 		47AD144220ADB172006AF9D6 /* PaymentHistoryProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD144120ADB172006AF9D6 /* PaymentHistoryProcessor.swift */; };
 		47AD144420ADB3EA006AF9D6 /* PaymentListRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD144320ADB3EA006AF9D6 /* PaymentListRootView.swift */; };
 		47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD144620ADB52C006AF9D6 /* PaymentListingInfo.swift */; };
+		47AE2ACD2178BDF000DC82A3 /* SoundMeterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AE2ACC2178BDF000DC82A3 /* SoundMeterButton.swift */; };
 		47B226A420AAF461001DD204 /* GreetingBookingProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B226A320AAF461001DD204 /* GreetingBookingProcessor.swift */; };
 		47B3D9662119C59E0099FA05 /* FreeEventPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3D9652119C59E0099FA05 /* FreeEventPaymentController.swift */; };
 		47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */; };
@@ -557,6 +558,7 @@
 		47AD144120ADB172006AF9D6 /* PaymentHistoryProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentHistoryProcessor.swift; sourceTree = "<group>"; };
 		47AD144320ADB3EA006AF9D6 /* PaymentListRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListRootView.swift; sourceTree = "<group>"; };
 		47AD144620ADB52C006AF9D6 /* PaymentListingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentListingInfo.swift; sourceTree = "<group>"; };
+		47AE2ACC2178BDF000DC82A3 /* SoundMeterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundMeterButton.swift; sourceTree = "<group>"; };
 		47B226A320AAF461001DD204 /* GreetingBookingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingBookingProcessor.swift; sourceTree = "<group>"; };
 		47B3D9652119C59E0099FA05 /* FreeEventPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeEventPaymentController.swift; sourceTree = "<group>"; };
 		47B4F4A9211C3C8E00299686 /* ScheduleSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScheduleSession.storyboard; sourceTree = "<group>"; };
@@ -1760,6 +1762,7 @@
 		478C031F21776AAA0064AAFC /* SoundMeter */ = {
 			isa = PBXGroup;
 			children = (
+				47AE2ACC2178BDF000DC82A3 /* SoundMeterButton.swift */,
 			);
 			path = SoundMeter;
 			sourceTree = "<group>";
@@ -3770,6 +3773,7 @@
 				47B6521F20AAAF500041496C /* CalendarWrapper.swift in Sources */,
 				47AD144220ADB172006AF9D6 /* PaymentHistoryProcessor.swift in Sources */,
 				FAA001A5203ED472003C8A74 /* UIWindow.swift in Sources */,
+				47AE2ACD2178BDF000DC82A3 /* SoundMeterButton.swift in Sources */,
 				FAD9CD982063B54B00A177AC /* ExtendedLabel.swift in Sources */,
 				473D059A2112D38500E121C4 /* UpdateEventListener.swift in Sources */,
 				FAA00199203ED472003C8A74 /* DateStringFormatter.swift in Sources */,
@@ -4092,7 +4096,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4152,7 +4156,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4180,7 +4184,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4196,7 +4200,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4213,7 +4217,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4229,7 +4233,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

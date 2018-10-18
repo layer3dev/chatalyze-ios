@@ -9,8 +9,9 @@
 import Foundation
 
 extension NSMutableAttributedString {
+    
     @discardableResult func appendCustom(_ text:String, size : CGFloat = 14, color : UIColor = UIColor.black) -> NSMutableAttributedString {
-        guard let font = UIFont(name: "HelveticaNeue", size: size)
+        guard let font = UIFont(name: "Questrial", size: size)
             else{
                 return NSMutableAttributedString(string : text)
         }

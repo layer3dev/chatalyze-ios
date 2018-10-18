@@ -23,9 +23,9 @@ class SignUpController: InterfaceExtendedController {
     func maketextLinkable(){
         
         
-        let attributeForFirstString = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
+        let attributeForFirstString = [NSAttributedStringKey.font:UIFont(name: "Questrial", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
         
-        let attributeForSecondString = [NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
+        let attributeForSecondString = [NSAttributedStringKey.font:UIFont(name: "Poppins", size:18),NSAttributedStringKey.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedStringKey : Any]
         
         
         let text = NSMutableAttributedString(string: "By signing up, you agree to our ")

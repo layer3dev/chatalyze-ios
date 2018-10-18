@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class SessionReviewRootView:ExtendedView{
     
-    
     @IBOutlet var titleLbl:UILabel?
     @IBOutlet var dateLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?

@@ -30,7 +30,7 @@ class MyTicketsVerticalController: MyTicketsController{
     
     func underLineLable(){
         
-        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: fontSize)] as? [NSAttributedStringKey : Any]{
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,NSAttributedStringKey.font:UIFont(name: "Questrial", size: fontSize)] as? [NSAttributedStringKey : Any]{
             
             let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
             underLineLbl?.attributedText = underlineAttributedString

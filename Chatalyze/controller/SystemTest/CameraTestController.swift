@@ -73,12 +73,11 @@ class CameraTestController: InterfaceExtendedController {
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
-        Log.echo(key: "yud", text: "LEVEL IS \(level)")
+        Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
         DispatchQueue.main.async {         
             self.updateUI(level:Double(level ?? 0.0))
         }
         let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
-        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -90,15 +89,45 @@ class CameraTestController: InterfaceExtendedController {
         }
     }
     
+    
+    
     func updateUI(level:Double){
         
         if level <= 0{
             
             //Earlier 45 was 40
             //Earlier 20 was 40
-            powerLevelIndicator = level + 40
-            let percentage = ((powerLevelIndicator/30))
-            progressView?.progress = Float(percentage)
+            
+//            let newPower = (Float(level) - (LEVEL_THRESHOLD))
+//            let percentage = ((newPower/160))
+//            progressView?.progress = Float(percentage)
+//            let numberOfViewToShown = Int(((percentage*100))*(20/100))
+            
+            let newPowerOne = 50.0+level
+            let percentageOne = ((newPowerOne/50))
+            progressView?.progress = Float(percentageOne)
+            let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
+            
+            Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
+           
+            DispatchQueue.main.async {
+                
+                self.resetSoundMeter()
+                for i in 1..<(numberOfViewToShownOne+1){
+                    
+                    let soundButton = self.view.viewWithTag(i) as? UIButton
+                    soundButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
+                }
+            }
+        }
+    }
+    
+    func resetSoundMeter(){
+       
+        for i in 1..<21{
+            
+            let soundButton = self.view.viewWithTag(i) as? UIButton
+            soundButton?.backgroundColor = UIColor.white
         }
     }
     
@@ -198,6 +227,7 @@ class CameraTestController: InterfaceExtendedController {
         
         session = AVCaptureSession()
         output = AVCaptureStillImageOutput()
+       
         guard let camera = getDevice(position: .front) else {
             errorInCamera()
             return
@@ -296,6 +326,7 @@ class CameraTestController: InterfaceExtendedController {
     
     
     //Get the device (Front or Back)
+    
     func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
         
         let devices: NSArray = AVCaptureDevice.devices() as NSArray
