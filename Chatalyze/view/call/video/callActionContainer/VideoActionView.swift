@@ -25,7 +25,6 @@ class VideoActionView: ExtendedView {
     }
     
     func unmute(){
-        actionImage?.image = UIImage(named : "videocam_on")
+        actionImage?.image = UIImage(named : "newCamera")
     }
-
 }

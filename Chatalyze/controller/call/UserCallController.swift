@@ -345,16 +345,15 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        guard let isConnectionConnected = self.connection?.isConnected else { return  }
+        guard let isConnectionConnected = self.connection?.isConnected else { return }
         
 //        if isSelfieTimerInitiated{
 //            return
 //        }
         
         //return if call is not connected means video stream is not coming.
-        if !(isConnectionConnected){
-            return
-        }
+        if !(isConnectionConnected)
+        { return }
         
 //        //return if screenshot is already sent.
 //        if isScreenshotSaved{

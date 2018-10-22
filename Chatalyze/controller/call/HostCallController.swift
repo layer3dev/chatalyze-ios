@@ -16,8 +16,6 @@ class HostCallController: VideoCallController {
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
-        
-    
     
     override func initialization(){
         super.initialization()
@@ -38,7 +36,28 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction private func hangupAction(){
-        toggleHangup()
+        
+        guard let controller = HangupController.instance() else{
+            return
+        }
+        
+        
+        controller.exit = {
+            
+            DispatchQueue.main.async {
+                self.processExitAction()
+            }
+        }
+        controller.hangup = {
+            
+            DispatchQueue.main.async {
+                self.toggleHangup()
+            }
+        }
+        
+        self.present(controller, animated: true, completion: {
+        })
+        
     }
     
     private func toggleHangup(){

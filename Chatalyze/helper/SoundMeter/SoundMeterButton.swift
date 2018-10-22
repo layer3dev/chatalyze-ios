@@ -21,7 +21,7 @@ class SoundMeterButton: UIButton {
     }
     func paintInterface(){
         
-        self.layer.borderColor = UIColor(hexString: "#999999").cgColor
+        self.layer.borderColor = UIColor(hexString: "#CBCBCB").cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 2
         self.layer.masksToBounds = true

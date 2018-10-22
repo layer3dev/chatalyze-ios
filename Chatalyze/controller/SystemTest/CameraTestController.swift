@@ -35,7 +35,7 @@ class CameraTestController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+
         self.checkForMicrphone()
         checkForCameraAccess()
         borderSoundMeter()
@@ -89,8 +89,6 @@ class CameraTestController: InterfaceExtendedController {
         }
     }
     
-    
-    
     func updateUI(level:Double){
         
         if level <= 0{
@@ -103,6 +101,11 @@ class CameraTestController: InterfaceExtendedController {
 //            progressView?.progress = Float(percentage)
 //            let numberOfViewToShown = Int(((percentage*100))*(20/100))
             
+            if level < -(50.0){
+                self.resetSoundMeter()
+                return
+            }
+            
             let newPowerOne = 50.0+level
             let percentageOne = ((newPowerOne/50))
             progressView?.progress = Float(percentageOne)
@@ -113,6 +116,11 @@ class CameraTestController: InterfaceExtendedController {
             DispatchQueue.main.async {
                 
                 self.resetSoundMeter()
+                
+                if numberOfViewToShownOne < 0{
+                    return
+                }
+                
                 for i in 1..<(numberOfViewToShownOne+1){
                     
                     let soundButton = self.view.viewWithTag(i) as? UIButton
