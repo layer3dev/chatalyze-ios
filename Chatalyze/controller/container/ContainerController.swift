@@ -151,7 +151,7 @@ class ContainerController: NavChildController {
     func implementSwipeGestureOnShadow(){
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.shadowView?.addGestureRecognizer(swipeRight)
 //        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
 //        swipeRight.direction = UISwipeGestureRecognizerDirection.left
@@ -161,14 +161,14 @@ class ContainerController: NavChildController {
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
             switch swipeGesture.direction {          
-            case UISwipeGestureRecognizerDirection.right:
+            case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
                 closeToggle()
-            case UISwipeGestureRecognizerDirection.down:
+            case UISwipeGestureRecognizer.Direction.down:
                 print("Swiped down")
-            case UISwipeGestureRecognizerDirection.left:
+            case UISwipeGestureRecognizer.Direction.left:
                 print("Swiped left")
-            case UISwipeGestureRecognizerDirection.up:
+            case UISwipeGestureRecognizer.Direction.up:
                 print("Swiped up")
             default:
                 break

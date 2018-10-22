@@ -105,9 +105,9 @@ class MemoriesCell: ExtendedTableCell {
                 }
             }catch{
                 
-                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
                 }))
                 
                 self.controller?.present(alert, animated: true, completion: {
@@ -149,9 +149,9 @@ extension MemoriesCell{
             //We got back an error!
             let ac = UIAlertController(title: AppInfoConfig.appName, message: "Please provide the access to save the photos in the Gallery.", preferredStyle: .alert)
           
-            ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
+            ac.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (alert) in
                 
-                if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
+                if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                     if #available(iOS 10.0, *) {
                         
                         UIApplication.shared.open(settingUrl)

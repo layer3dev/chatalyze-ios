@@ -12,7 +12,7 @@ class MySessionAdapter: ExtendedView {
     
     var root:MySessionRootView?
     var sessionListingArray = [EventInfo]()
-    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var spinner = UIActivityIndicatorView(style: .gray)
     var controller:MyScheduledSessionsController?
     var sessionTableView:UITableView?
     
@@ -94,7 +94,7 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -93,9 +93,9 @@ extension AspectImageView {
             return
         }
         heightConstraint = NSLayoutConstraint(
-            item:self, attribute:NSLayoutAttribute.height,
-            relatedBy:NSLayoutRelation.equal,
-            toItem:nil, attribute:NSLayoutAttribute.notAnAttribute,
+            item:self, attribute:NSLayoutConstraint.Attribute.height,
+            relatedBy:NSLayoutConstraint.Relation.equal,
+            toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier:0, constant:imageHeight)
         heightConstraint?.priority = UILayoutPriority(rawValue: 999);
         guard let heightConstraintUnWrapped = heightConstraint
@@ -111,9 +111,9 @@ extension AspectImageView {
             return
         }
         widthConstraint = NSLayoutConstraint(
-            item:self, attribute:NSLayoutAttribute.width,
-            relatedBy:NSLayoutRelation.equal,
-            toItem:nil, attribute:NSLayoutAttribute.notAnAttribute,
+            item:self, attribute:NSLayoutConstraint.Attribute.width,
+            relatedBy:NSLayoutConstraint.Relation.equal,
+            toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier:0, constant:imageWidth)
         widthConstraint?.priority = UILayoutPriority(rawValue: 999);
         guard let widthConstraintUnWrapped = widthConstraint

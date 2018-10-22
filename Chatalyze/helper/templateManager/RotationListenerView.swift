@@ -35,7 +35,7 @@ class RotationListenerView: ExtendedView {
             return
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didRotateListener), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRotateListener), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func didRotateListener(){

@@ -21,9 +21,9 @@ public extension UIView {
         
         let metrics = [String : Int]()
         let viewInfos = ["childView" : childView]
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[childView]-0-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[childView]-0-|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[childView]-0-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[childView]-0-|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
         
     }
     
@@ -32,7 +32,7 @@ public extension UIView {
         var metrics = [String : CGFloat]()
         metrics["bottom"] = bottom
         let viewInfos = ["childView" : childView]
-        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[childView]-bottom-|", options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos)
+        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "V:[childView]-bottom-|", options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewInfos)
          self.addConstraints(constraints)
         return constraints[0]
     }
@@ -54,7 +54,7 @@ public extension UIView {
         // Center horizontally
         let constraints = NSLayoutConstraint.constraints(
             withVisualFormat: "V:[superview]-(<=1)-[childView]",
-            options: NSLayoutFormatOptions.alignAllCenterX,
+            options: NSLayoutConstraint.FormatOptions.alignAllCenterX,
             metrics: metrics,
             views: viewInfos)
         self.addConstraints(constraints)
@@ -69,7 +69,7 @@ public extension UIView {
         // Center vertically
         let constraints = NSLayoutConstraint.constraints(
             withVisualFormat: "H:[superview]-(<=1)-[childView]",
-            options: NSLayoutFormatOptions.alignAllCenterY,
+            options: NSLayoutConstraint.FormatOptions.alignAllCenterY,
             metrics: metrics,
             views: viewInfos)
         
@@ -80,7 +80,7 @@ public extension UIView {
         let metrics = [String : Int]()
         let viewInfos = ["self" : self]
         let constraint = String(format : "H:[self(%f)]", width)
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: constraint, options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: constraint, options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
         
     }
     
@@ -89,7 +89,7 @@ public extension UIView {
         let metrics = [String : Int]()
         let viewInfos = ["self" : self]
         let constraint = String(format : "V:[self(%f)]", height)
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: constraint, options:NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: constraint, options:NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: metrics, views: viewInfos))
     }
     
 }

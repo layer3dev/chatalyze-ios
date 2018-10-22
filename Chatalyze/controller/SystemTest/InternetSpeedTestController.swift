@@ -78,9 +78,9 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
-            let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
             
-            alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
                 
                 self.rootController?.dismiss(animated: false, completion: {
                 })

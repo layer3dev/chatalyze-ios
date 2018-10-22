@@ -67,9 +67,9 @@ class PaymentSuccessRootView: ExtendedView {
         //create attributed string        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
+            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue-Bold", size: 24)]
             
-            let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 24)]
+            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 24)]
             
             let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
             
@@ -99,9 +99,9 @@ class PaymentSuccessRootView: ExtendedView {
             
         }else{
             
-            let greenAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
+            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue-Bold", size: 18)]
             
-            let grayAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 18)]
+            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 18)]
             
             let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
             
@@ -219,8 +219,8 @@ class PaymentSuccessRootView: ExtendedView {
             self.controller?.stopLoader()
             if success{
                 
-                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
+                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
                 }))
                 self.controller?.present(alert, animated: false, completion: {
                 })
@@ -256,11 +256,11 @@ class PaymentSuccessRootView: ExtendedView {
     
     func noPermission(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
             
-            if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
+            if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(settingUrl)
                 } else {

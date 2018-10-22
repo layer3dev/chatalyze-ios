@@ -515,7 +515,7 @@ extension VideoCallController{
         self.view.addSubview(flashView)
         self.view.layoutIfNeeded()
 
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {() -> Void in
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions.curveEaseInOut, animations: {() -> Void in
            
             flashView.alpha = 0.0
         }, completion: { (done) -> Void in

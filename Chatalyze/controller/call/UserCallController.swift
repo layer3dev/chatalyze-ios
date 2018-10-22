@@ -612,7 +612,7 @@ extension UserCallController{
         
         let alertController = UIAlertController(title: "Autograph" , message: "What would you like to do ?", preferredStyle: .actionSheet)
         
-        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertActionStyle.default) { [weak self] (action) in
+        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertAction.Style.default) { [weak self] (action) in
             self?.takeScreenshot()
             return
         }
@@ -621,7 +621,7 @@ extension UserCallController{
             takeScreenshot.isEnabled = false
         }
         
-        let requestAutograph = UIAlertAction(title: "Request Autograph", style: UIAlertActionStyle.default) {  [weak self] (action) in
+        let requestAutograph = UIAlertAction(title: "Request Autograph", style: UIAlertAction.Style.default) {  [weak self] (action) in
             self?.requestAutographProcess()
             return
         }
@@ -630,7 +630,7 @@ extension UserCallController{
             requestAutograph.isEnabled = false
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action) in
             return
         }
         
@@ -761,7 +761,7 @@ extension UserCallController{
                 completion?(false, nil)
                 return
         }
-        guard let data = UIImageJPEGRepresentation(image, 1.0)
+        guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion?(false, nil)
                 return

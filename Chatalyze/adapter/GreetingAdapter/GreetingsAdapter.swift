@@ -54,7 +54,7 @@ extension GreetingsAdapter:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -64,9 +64,9 @@ extension GreetingsAdapter:UITableViewDelegate{
         }
         if role == .analyst{
             
-            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can purchase greeting!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can purchase greeting!", preferredStyle: UIAlertController.Style.alert)
             
-            alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: { (action) in
             }))
             self.root?.controller?.present(alert, animated: true, completion: {
             })

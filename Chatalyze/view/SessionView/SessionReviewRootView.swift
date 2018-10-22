@@ -141,7 +141,7 @@ class SessionReviewRootView:ExtendedView{
         guard let image = self.controller?.selectedImage else{
             return
         }
-        guard let data = UIImageJPEGRepresentation(image, 1.0)
+        guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion?(false, nil)
                 return

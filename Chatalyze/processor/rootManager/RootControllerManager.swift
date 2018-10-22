@@ -62,7 +62,7 @@ class RootControllerManager{
         
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
-        transition.type = kCATransitionFade
+        transition.type = CATransitionType.fade
         if let userInfo = SignedUserInfo.sharedInstance{
             if userInfo.role == .analyst{
                 
