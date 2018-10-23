@@ -28,6 +28,6 @@ class HostCallQueueRootView: CallQueueRootView {
         
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
-        countdownLabel?.updateText(label: "Event will begin in ", countdown: countdownTime)
+        countdownLabel?.updateText(label: "Session will begin in ", countdown: countdownTime)
     }
 }

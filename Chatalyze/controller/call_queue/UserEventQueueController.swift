@@ -14,15 +14,27 @@ class UserEventQueueController: EventQueueController {
     @IBOutlet var scrollView:UIScrollView?
     let updatedEventScheduleListner = UpdateEventListener()
     let eventDelayListener = EventDelayListener()
+    let analystJoinedListener  = AnalystJoinedAndScheduleUpdatedListener()
+    
     @IBOutlet var eventQueueView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         //verifyForEventDelay()
+        analystJoinedNotification()
         eventNotificationListener()
         delayNotificationListener()
     }
+    
+    func analystJoinedNotification(){
+        
+        analystJoinedListener.setListener {
+            self.hideAlertMessage()
+            self.loadInfoFromServer(showLoader: true)
+        }
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -100,14 +112,13 @@ class UserEventQueueController: EventQueueController {
         super.refresh()
         
         //Verifying that event is delayed or not started yet
-        Log.echo(key: "yud", text: "valid slot started in refresh \(eventInfo?.started)")
-        Log.echo(key: "yud", text: "valid slot notified in refresh \(eventInfo?.notified)")
+       Log.echo(key: "user_socket", text: "valid slot started in refresh \(eventInfo?.started)")
+        Log.echo(key: "user_socket", text: "valid slot notified in refresh \(eventInfo?.notified)")
         
         guard let eventInfo = eventInfo
             else{
                 return
         }
-        
         
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
             
@@ -128,6 +139,7 @@ class UserEventQueueController: EventQueueController {
             self.hideAlertMessage()
         }
         
+        self.hideAlertMessage()
         guard let slotInfo = eventInfo.myValidSlot.slotInfo
             else{
                 return
@@ -155,3 +167,4 @@ class UserEventQueueController: EventQueueController {
         }
     }
 }
+

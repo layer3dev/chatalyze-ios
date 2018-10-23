@@ -406,7 +406,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
+//        Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
         
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
@@ -425,7 +425,7 @@ class UserCallController: VideoCallController {
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 
-                Log.echo(key: "animation", text: "stopAnimation")
+                //Log.echo(key: "animation", text: "stopAnimation")
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -433,7 +433,7 @@ class UserCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
             
-            if endDate < 115.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 3000.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: userRootView?.callInfoContainer?.timer)

@@ -145,7 +145,7 @@ extension UserSocket{
         
         socket?.on("notification") {data, ack in
             
-            Log.echo(key: "user_socket", text:"socket notification => \(data)")
+            Log.echo(key: "onAny", text:"socket notification => \(data)")
         }
         
         socket?.on("reconnect"){data ,ack in

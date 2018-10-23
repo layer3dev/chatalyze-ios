@@ -152,7 +152,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvr-0Y-ugc" userLabel="queue_container">
                                 <rect key="frame" x="0.0" y="400" width="320" height="80"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuM-1P-wy7">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuM-1P-wy7">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -259,6 +259,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="bottomLine" destination="wuM-1P-wy7" id="tJH-qO-bGb"/>
                         <outlet property="collectionView" destination="5XI-ED-bEB" id="coC-vw-CTG"/>
                         <outlet property="eventQueueView" destination="lvr-0Y-ugc" id="BXh-6d-LAJ"/>
                         <outlet property="scrollView" destination="HMq-cF-KEC" id="n6o-5Y-OFy"/>
@@ -267,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CV9-e0-mqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="259" y="-1270"/>
+            <point key="canvasLocation" x="251" y="-1465"/>
         </scene>
         <!--Host Event Queue Controller-->
         <scene sceneID="nxk-5C-y0a">
@@ -376,7 +377,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1O7-AS-8DP" userLabel="queue_container">
                                 <rect key="frame" x="0.0" y="400" width="320" height="80"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCj-YI-eEO">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCj-YI-eEO">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -478,6 +479,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="bottomLine" destination="fCj-YI-eEO" id="IDV-Ba-CIZ"/>
                         <outlet property="collectionView" destination="67P-Xj-7V3" id="bIg-T4-fNS"/>
                     </connections>
                 </viewController>

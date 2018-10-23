@@ -25,7 +25,6 @@ class SocketClient : NSObject{
     
     var roomId : String = "0"
 
-    
     fileprivate var isRegistered = false
     fileprivate var connectionFlag = false
     
@@ -116,12 +115,10 @@ class SocketClient : NSObject{
 
 //SOCKET CONNECTION
 extension SocketClient{
-
-
+    
     @objc func connect(roomId : String){
         
         Log.echo(key: "SocketClient", text: "connect called")
-        
         self.connectionFlag = true
         self.roomId = roomId
         socket?.connect()
@@ -134,6 +131,7 @@ extension SocketClient{
     }
     
     func initializeSocketConnection(){
+        
         socket?.onConnect = {
             Log.echo(key: "socket_client", text:"socket connected new")
             DispatchQueue.main.async {
@@ -169,11 +167,10 @@ extension SocketClient{
                 //self.testCall()
                 self.updateAllForConnectionActive()
             }
-            
         }
         
-        
         self.onEvent("error") {data in
+            
             Log.echo(key: "socket_client", text:"socket error data => \(String(describing: data))")
             self.reconnect()
         }

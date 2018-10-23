@@ -107,8 +107,4 @@ class VideoRootView: ExtendedView {
         actionContainer?.toggleContainer()
     }
     
-   
-    
-    
-
 }

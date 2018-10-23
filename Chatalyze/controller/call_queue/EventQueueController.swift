@@ -17,6 +17,8 @@ class EventQueueController: InterfaceExtendedController {
     var eventInfo : EventScheduleInfo?
     var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
+    @IBOutlet var bottomLine:UIView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,14 +98,27 @@ class EventQueueController: InterfaceExtendedController {
     
     func processEventInfo(){
         
+        hideBottomLine()
         rootView?.eventInfo = self.eventInfo
         guard let slotInfos = self.eventInfo?.slotInfos
             else{
                 return
         }
+        if slotInfos.count > 0 {
+            showBottomLine()
+        }
         self.adapter?.infos = slotInfos
         self.collectionView?.reloadData()
     }
+    func hideBottomLine(){
+        
+        bottomLine?.isHidden = true
+    }
+    
+    func showBottomLine(){
+        
+        bottomLine?.isHidden = false
+    }   
     
     private func paintInterface(){
       
