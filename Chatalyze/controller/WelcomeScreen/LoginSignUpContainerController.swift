@@ -177,7 +177,8 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
     
     fileprivate func initializeGoogleSignIn(){
         
-        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
+       
+        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"        
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
     }

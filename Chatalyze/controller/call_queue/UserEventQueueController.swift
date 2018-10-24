@@ -30,8 +30,9 @@ class UserEventQueueController: EventQueueController {
     func analystJoinedNotification(){
         
         analystJoinedListener.setListener {
+            
             self.hideAlertMessage()
-            self.loadInfoFromServer(showLoader: true)
+            self.loadInfoFromServer(showLoader: false)
         }
     }
     
@@ -112,8 +113,9 @@ class UserEventQueueController: EventQueueController {
         super.refresh()
         
         //Verifying that event is delayed or not started yet
-       Log.echo(key: "user_socket", text: "valid slot started in refresh \(eventInfo?.started)")
-        Log.echo(key: "user_socket", text: "valid slot notified in refresh \(eventInfo?.notified)")
+     
+//        Log.echo(key: "user_socket", text: "valid slot started in refresh \(eventInfo?.started)")        
+//        Log.echo(key: "user_socket", text: "valid slot notified in refresh \(eventInfo?.notified)")
         
         guard let eventInfo = eventInfo
             else{
