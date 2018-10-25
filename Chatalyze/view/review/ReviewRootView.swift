@@ -28,7 +28,7 @@ class ReviewRootView:ExtendedView{
     
     @IBAction func submit(sender:UIButton){
         
-        Log.echo(key: "yud", text: "The value of the rating is \(ratingView?.value)")
+        Log.echo(key: "yud", text: "The value of the rating is \(String(describing: ratingView?.value))")
     }
     
     @IBAction func tapReviewAction(sender:UIButton){

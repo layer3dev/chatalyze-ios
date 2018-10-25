@@ -6,8 +6,9 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import Foundation
 import QuartzCore
+import CoreText
+import UIKit
 
 class EditScheduledSessionRootView:ExtendedView{
     
@@ -30,11 +31,13 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBOutlet var sessionNameLbl:UILabel?
     
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 17)]
-    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "HelveticaNeue-bold", size: 17)]
+
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
     
-    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 16)]
-    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "HelveticaNeue", size: 16)]
+    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+
     
     var param = [String:Any]()
     
@@ -42,20 +45,29 @@ class EditScheduledSessionRootView:ExtendedView{
     
     
     @IBOutlet var hostnameLbl:UILabel?
+    
     @IBOutlet var eventNameLbl:UILabel?
+    
     @IBOutlet var costofEventLbl:UILabel?
+    
     @IBOutlet var dateTimeLbl:UILabel?
+    
     @IBOutlet var eventInfoLbl:UILabel?
+    
     @IBOutlet var eventDetailInfo:UILabel?
     
     @IBOutlet var descriptionBackLbl:UILabel?
+  
     @IBOutlet var descriptionEditLbl:UILabel?
     
     @IBOutlet var sessionNameField:SigninFieldView?
+   
     @IBOutlet var descriptionEditTextViewContainer:UIView?
+   
     @IBOutlet var descriptionTextView:UITextView?
     
     @IBOutlet var scrollView:FieldManagingScrollView?
+    
     @IBOutlet var contentBottomOffsetConstraints:NSLayoutConstraint?
     
     var delegate:UpdateForEditScheduleSessionDelgete?
@@ -63,10 +75,12 @@ class EditScheduledSessionRootView:ExtendedView{
     var editedParam = [String:Any]()
     
     @IBOutlet var imageUploadingView:UIView?
+   
     @IBOutlet var uploadedImage:UIImageView?
     
    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
+    
     @IBOutlet var heightOfuploadedImageConstraint:NSLayoutConstraint?
     
     @IBOutlet var editImageLbl:UILabel?
@@ -134,15 +148,15 @@ class EditScheduledSessionRootView:ExtendedView{
             
             sessionNameField?.textField?.text = title
             
-            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute)
+            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes)
+            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            //Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
             eventNameLbl?.attributedText = requiredStr
         }
         
@@ -150,17 +164,21 @@ class EditScheduledSessionRootView:ExtendedView{
             
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute)
+            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes)
+            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
             
             costofEventLbl?.attributedText = requiredStr
+           
+            //costofEventLbl?.text = "asdasfdsfds"
+            
+            Log.echo(key: "yud", text: "costofEventLbl text is \(costofEventLbl?.text)")
         }
         
         if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){

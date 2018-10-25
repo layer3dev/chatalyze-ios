@@ -54,6 +54,8 @@ class UserCallController: VideoCallController {
     override func interval(){
         super.interval()
         
+        Log.echo(key: "yud", text: "Interval timer is working")
+        
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
@@ -343,16 +345,15 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        guard let isConnectionConnected = self.connection?.isConnected else { return  }
+        guard let isConnectionConnected = self.connection?.isConnected else { return }
         
 //        if isSelfieTimerInitiated{
 //            return
 //        }
         
         //return if call is not connected means video stream is not coming.
-        if !(isConnectionConnected){
-            return
-        }
+        if !(isConnectionConnected)
+        { return }
         
 //        //return if screenshot is already sent.
 //        if isScreenshotSaved{
@@ -404,7 +405,9 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-                
+        
+//        Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
+        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return
@@ -422,7 +425,7 @@ class UserCallController: VideoCallController {
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 
-                Log.echo(key: "animation", text: "stopAnimation")
+                //Log.echo(key: "animation", text: "stopAnimation")
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -442,7 +445,7 @@ class UserCallController: VideoCallController {
                 stopLableAnimation()
                 return
             }
-            if endDate > 50.0{
+            if endDate > 15.0{
                 
                 isAnimating = false
                 stopLableAnimation()

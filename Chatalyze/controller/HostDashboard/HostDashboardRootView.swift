@@ -31,7 +31,9 @@ class HostDashboardRootView: MySessionRootView {
     
     func underLineLable(){
         
-        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "HelveticaNeue-Bold", size: fontSize)] as? [NSAttributedString.Key : Any]{
+
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Poppins", size: fontSize)] as? [NSAttributedString.Key : Any]{
+
          
             let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedString.Key : Any])
             underLineLbl?.attributedText = underlineAttributedString

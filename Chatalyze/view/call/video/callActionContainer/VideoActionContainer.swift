@@ -13,10 +13,13 @@ class VideoActionContainer: ExtendedView {
     @IBOutlet var audioView : MicActionView?
     @IBOutlet var videoView : VideoActionView?
     
-    @IBOutlet var leadingSpace : NSLayoutConstraint?
+    @IBOutlet var bottomSpace : NSLayoutConstraint?
     
-    let hiddenPaddingValue = -40.0
-    let visiblePaddingValue = 8.0
+    let hiddenPaddingValue = -70.0
+    let visiblePaddingValue = 15.0
+    
+    let hiddenPaddingValueiPad = -100.0
+    let visiblePaddingValueiPad = 30.0
 
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,8 +29,6 @@ class VideoActionContainer: ExtendedView {
     
     private func initialization(){
     }
-    
-    
     
     func toggleContainer(){
         weak var weakSelf = self
@@ -40,21 +41,34 @@ class VideoActionContainer: ExtendedView {
     
     private func animateContainerVisibility(){
         
-        guard let leadingSpace = self.leadingSpace
+        
+        guard let bottomSpace = self.bottomSpace
             else{
                 return
         }
         
-        if(leadingSpace.constant == CGFloat(visiblePaddingValue)){
-            self.leadingSpace?.constant = CGFloat(hiddenPaddingValue)
-//            self.alpha = 0.0
+        //For iPhone
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            
+            if(bottomSpace.constant == CGFloat(visiblePaddingValue)){
+                self.bottomSpace?.constant = CGFloat(hiddenPaddingValue)
+                //self.alpha = 0.0
+                return
+            }
+            self.bottomSpace?.constant = CGFloat(visiblePaddingValue)
+            //self.alpha = 1.0
             return
         }
         
-        self.leadingSpace?.constant = CGFloat(visiblePaddingValue)
-//        self.alpha = 1.0
+        
+        //For iPad
+        if(bottomSpace.constant == CGFloat(visiblePaddingValueiPad)){
+            self.bottomSpace?.constant = CGFloat(hiddenPaddingValueiPad)
+            //self.alpha = 0.0
+            return
+        }
+        self.bottomSpace?.constant = CGFloat(visiblePaddingValueiPad)
     }
-    
     
     /*
      -(void)addOptionToggleGesture{

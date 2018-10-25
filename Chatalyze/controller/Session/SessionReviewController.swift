@@ -60,10 +60,12 @@ class SessionReviewController: InterfaceExtendedController {
         guard let controller = EditScheduledSessionController.instance() else{
             return
         }
-        //Merging are doing in  order to get the updated param
-        mergeEditedtoRealParam()
-        controller.fillInfo(param:self.param,totalDurationofEvent:(rootView?.totalDurationOfEvent) ?? 0,selectedImage:selectedImage)
         
+        //Merging are doing in order to get the updated param       
+        mergeEditedtoRealParam()
+        controller.param = self.param
+        controller.totalDurationofEvent = (rootView?.totalDurationOfEvent) ?? 0
+        controller.selectedImage = selectedImage
         controller.rootView?.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }

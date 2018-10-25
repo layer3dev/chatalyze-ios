@@ -60,7 +60,7 @@ class PaymentListingInfo: NSObject {
                     
                     let roundedAmount = (round((refundedDoubleAmount*100))/100)
                     Log.echo(key: "yud", text: "Rounded amount is \(roundedAmount)")
-                    self.refundedAmount =                     "$ \(roundedAmount) Refunded"
+                    self.refundedAmount =                     "($ \(roundedAmount) Refunded)"
                 }
             }
         }

@@ -31,13 +31,25 @@ class CameraTestController: InterfaceExtendedController {
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
+    @IBOutlet var soundMeterView:UIView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+
         self.checkForMicrphone()
         checkForCameraAccess()
+        borderSoundMeter()
         return
     }
+    
+    func borderSoundMeter(){
+        
+        soundMeterView?.layer.cornerRadius = 2
+        soundMeterView?.layer.masksToBounds = true
+        soundMeterView?.layer.borderWidth = 2
+        soundMeterView?.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
+    }
+    
     
     @objc func appBecomeActiveAgain() {
         
@@ -61,10 +73,11 @@ class CameraTestController: InterfaceExtendedController {
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
-        Log.echo(key: "yud", text: "LEVEL IS \(level)")
-        self.updateUI(level:Double(level ?? 0.0))
+        Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
+        DispatchQueue.main.async {         
+            self.updateUI(level:Double(level ?? 0.0))
+        }
         let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
-        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -80,9 +93,49 @@ class CameraTestController: InterfaceExtendedController {
         
         if level <= 0{
             
-            powerLevelIndicator = level + 40
-            let percentage = ((powerLevelIndicator/40))
-            progressView?.progress = Float(percentage)
+            //Earlier 45 was 40
+            //Earlier 20 was 40
+            
+//            let newPower = (Float(level) - (LEVEL_THRESHOLD))
+//            let percentage = ((newPower/160))
+//            progressView?.progress = Float(percentage)
+//            let numberOfViewToShown = Int(((percentage*100))*(20/100))
+            
+            if level < -(50.0){
+                self.resetSoundMeter()
+                return
+            }
+            
+            let newPowerOne = 50.0+level
+            let percentageOne = ((newPowerOne/50))
+            progressView?.progress = Float(percentageOne)
+            let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
+            
+            Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
+           
+            DispatchQueue.main.async {
+                
+                self.resetSoundMeter()
+                
+                if numberOfViewToShownOne < 0{
+                    return
+                }
+                
+                for i in 1..<(numberOfViewToShownOne+1){
+                    
+                    let soundButton = self.view.viewWithTag(i) as? UIButton
+                    soundButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
+                }
+            }
+        }
+    }
+    
+    func resetSoundMeter(){
+       
+        for i in 1..<21{
+            
+            let soundButton = self.view.viewWithTag(i) as? UIButton
+            soundButton?.backgroundColor = UIColor.white
         }
     }
     
@@ -166,6 +219,7 @@ class CameraTestController: InterfaceExtendedController {
         RootControllerManager().getCurrentController()?.present(alert, animated: false) {
         }
     }
+    
     func errorInCapturing(error:Error?){
         
         let alert = UIAlertController(title: "Chatalyze", message: error?.localizedDescription ?? "Oops some unexpected error during streaming!!", preferredStyle: UIAlertController.Style.alert)
@@ -184,6 +238,7 @@ class CameraTestController: InterfaceExtendedController {
         
         session = AVCaptureSession()
         output = AVCaptureStillImageOutput()
+       
         guard let camera = getDevice(position: .front) else {
             errorInCamera()
             return
@@ -282,6 +337,7 @@ class CameraTestController: InterfaceExtendedController {
     
     
     //Get the device (Front or Back)
+    
     func getDevice(position: AVCaptureDevice.Position) -> AVCaptureDevice?{
         
         let devices: NSArray = AVCaptureDevice.devices() as NSArray

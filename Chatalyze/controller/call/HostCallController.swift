@@ -16,8 +16,6 @@ class HostCallController: VideoCallController {
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
-        
-    
     
     override func initialization(){
         super.initialization()
@@ -38,7 +36,28 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction private func hangupAction(){
-        toggleHangup()
+        
+        guard let controller = HangupController.instance() else{
+            return
+        }
+        
+        
+        controller.exit = {
+            
+            DispatchQueue.main.async {
+                self.processExitAction()
+            }
+        }
+        controller.hangup = {
+            
+            DispatchQueue.main.async {
+                self.toggleHangup()
+            }
+        }
+        
+        self.present(controller, animated: true, completion: {
+        })
+        
     }
     
     private func toggleHangup(){
@@ -241,10 +260,10 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
+        hostRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
-        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
@@ -264,7 +283,7 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
-        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
@@ -274,7 +293,7 @@ class HostCallController: VideoCallController {
         guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 
-                Log.echo(key: "animation", text: "stopAnimation")
+                //Log.echo(key: "animation", text: "stopAnimation")
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -288,14 +307,17 @@ class HostCallController: VideoCallController {
                 startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
                 return
             }
+            
             if endDate <= 0.0{
                 
                 isAnimating = false
                 stopLableAnimation()
                 return
             }
-            if endDate > 50.0{
+            
+            if endDate > 15.0{
                 
+                //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
                 isAnimating = false
                 stopLableAnimation()
                 return

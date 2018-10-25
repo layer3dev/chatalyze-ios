@@ -143,7 +143,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            
+
             self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
             return
         }

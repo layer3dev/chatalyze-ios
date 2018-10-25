@@ -10,16 +10,23 @@ import UIKit
 
 class EditScheduledSessionController: InterfaceExtendedController {
     
-    override func viewDidLayout() {
-        super.viewDidLayout()
-        
+    var  param:[String:Any]?
+    var totalDurationofEvent:Int = 0
+    var selectedImage:UIImage?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
         rootView?.controller = self
         paintIntreface()
+        DispatchQueue.main.async {            
+            self.fillInfo()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+       
         rootView?.paintImageUploadBorder()
     }
     
@@ -35,9 +42,9 @@ class EditScheduledSessionController: InterfaceExtendedController {
         paintSettingButton()
     }
  
-    func fillInfo(param:[String:Any],totalDurationofEvent:Int,selectedImage:UIImage?){
+    func fillInfo(){
         
-        rootView?.fillInfo(info: param,totalDurationofEvent:totalDurationofEvent,selectedImage:selectedImage)
+        rootView?.fillInfo(info: self.param,totalDurationofEvent:self.totalDurationofEvent,selectedImage:self.selectedImage)
     }
     
     var rootView:EditScheduledSessionRootView?{
@@ -49,7 +56,6 @@ class EditScheduledSessionController: InterfaceExtendedController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         //Dispose of any resources that can be recreated.
     }
     

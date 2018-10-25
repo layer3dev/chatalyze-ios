@@ -14,15 +14,12 @@ class QueueContainerView: ExtendedView {
     @IBOutlet var onGoingContainerView : OngoingEventView?
     @IBOutlet var waitContainerView : WaitCountdownView?
     @IBOutlet var noEventView : NoEventContainerView?
-    
     var delegate : EventRefreshProtocol?
-    
     var timer : EventTimer = EventTimer()
     var slotInfo : EventTimeProtocol?
     
     private var isQueueActive : Bool = false
     
-
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -89,7 +86,6 @@ class QueueContainerView: ExtendedView {
                 return
         }
         
-        
         let validator = EventValidator()
         
         if(validator.isRoomEligible(start: startDate, end: endDate)){
@@ -125,10 +121,10 @@ class QueueContainerView: ExtendedView {
     }
     
     func hideAll(){
+        
         self.joinContainerView?.hideView()
         self.waitContainerView?.hideView()
         self.noEventView?.hideView()
         self.onGoingContainerView?.hideView()
     }
-
 }

@@ -127,8 +127,7 @@ class EventLandingController: InterfaceExtendedController {
         
         
         controller.dismissListner = self.dismissListener
-        
-        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
     

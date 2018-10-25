@@ -12,7 +12,6 @@ import SDWebImage
 
 class MyTicketsVerticalCell: ExtendedTableCell {
     
-   
     @IBOutlet var borderView:UIView?
     @IBOutlet var chatnumberLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -40,7 +39,6 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.selectionStyle = .none
         self.borderView?.layer.borderWidth = 4
         self.borderView?.layer.borderColor = UIColor(red: 241.0/255.0, green: 244.0/255.0, blue: 245.0/255.0, alpha: 1).cgColor
-        
         self.joinButtonContainer?.layer.cornerRadius = 5
         self.joinButtonContainer?.layer.masksToBounds = true
     }
@@ -54,7 +52,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.info = info
         self.chatnumberLbl?.text = String(info.slotNo ?? 0)
         initializeDesiredDatesFormat(info:info)
-        self.title?.text = "Chat with \(info.eventTitle ?? "")"
+//      self.title?.text = "Chat with \(info.eventTitle ?? "")"
+        self.title?.text = "\(info.eventTitle ?? "")"
     }
     
     func initializeDesiredDatesFormat(info:EventSlotInfo){

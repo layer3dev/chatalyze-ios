@@ -9,6 +9,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-SemiBold.otf">
+            <string>Poppins-SemiBold</string>
+        </array>
+        <array key="Questrial-Regular.otf">
+            <string>Questrial-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Contact Us Controller-->
         <scene sceneID="fVZ-b0-cZz">
@@ -22,71 +30,43 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfa-6z-JCq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="662.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="637.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Mm-5c-FpR">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Us " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezz-Ak-14D">
-                                                        <rect key="frame" x="20" y="30" width="355" height="29"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
-                                                        </variation>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7L0-mI-Kxn">
-                                                        <rect key="frame" x="20" y="67" width="335" height="1"/>
-                                                        <color key="backgroundColor" red="0.5450980392" green="0.58431372550000005" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="FZQ-b2-Oe4"/>
-                                                        </constraints>
-                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send us a message and we'll get back to you ASAP." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-nm-m2Y">
-                                                        <rect key="frame" x="20" y="108" width="335" height="16.5"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <color key="textColor" red="0.5450980392" green="0.58431372550000005" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <rect key="frame" x="20" y="60" width="335" height="39.5"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                                        <color key="textColor" red="0.54509803921568623" green="0.58431372549019611" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="19"/>
+                                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="19"/>
                                                         </variation>
                                                     </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="s4N-nm-m2Y" secondAttribute="trailing" constant="20" id="Di5-K8-3cn"/>
-                                                    <constraint firstItem="ezz-Ak-14D" firstAttribute="leading" secondItem="0Mm-5c-FpR" secondAttribute="leading" constant="20" id="Nrc-cE-PEK">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    <constraint firstItem="s4N-nm-m2Y" firstAttribute="top" secondItem="0Mm-5c-FpR" secondAttribute="top" constant="60" id="FML-An-ugg">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="trailing" secondItem="7L0-mI-Kxn" secondAttribute="trailing" constant="20" id="Oe0-Nx-axq">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
-                                                    </constraint>
-                                                    <constraint firstAttribute="trailing" secondItem="ezz-Ak-14D" secondAttribute="trailing" id="RWf-wI-lwn"/>
                                                     <constraint firstItem="s4N-nm-m2Y" firstAttribute="leading" secondItem="0Mm-5c-FpR" secondAttribute="leading" constant="20" id="VC2-wq-c4a">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
-                                                    <constraint firstItem="7L0-mI-Kxn" firstAttribute="leading" secondItem="0Mm-5c-FpR" secondAttribute="leading" constant="20" id="cqA-ti-Gqt">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
-                                                    </constraint>
-                                                    <constraint firstItem="s4N-nm-m2Y" firstAttribute="top" secondItem="7L0-mI-Kxn" secondAttribute="bottom" constant="40" id="d6y-ub-JMY"/>
                                                     <constraint firstAttribute="bottom" secondItem="s4N-nm-m2Y" secondAttribute="bottom" id="d7s-yL-lXo"/>
-                                                    <constraint firstItem="ezz-Ak-14D" firstAttribute="top" secondItem="0Mm-5c-FpR" secondAttribute="top" constant="30" id="eGA-Tv-hiI">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                                    </constraint>
-                                                    <constraint firstItem="7L0-mI-Kxn" firstAttribute="top" secondItem="ezz-Ak-14D" secondAttribute="bottom" constant="8" id="iHb-Rh-VxV"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phR-JL-ieA">
-                                                <rect key="frame" x="20" y="164.5" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="139.5" width="335" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVg-0W-aa5">
                                                         <rect key="frame" x="10" y="0.0" width="325" height="45"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                         </variation>
                                                     </textField>
                                                 </subviews>
@@ -102,25 +82,25 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jay-c6-4nS">
-                                                <rect key="frame" x="20" y="229.5" width="335" height="155"/>
+                                                <rect key="frame" x="20" y="204.5" width="335" height="155"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nC-o1-6PG">
-                                                        <rect key="frame" x="10" y="7" width="325" height="20"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                        <rect key="frame" x="10" y="7" width="325" height="18"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="17"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="f5w-81-mED">
                                                         <rect key="frame" x="10" y="0.0" width="325" height="155"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" red="0.4431372549" green="0.52941176469999995" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                         </variation>
                                                     </textView>
                                                 </subviews>
@@ -141,7 +121,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJE-al-Lie">
-                                                <rect key="frame" x="265" y="424.5" width="90" height="40"/>
+                                                <rect key="frame" x="265" y="399.5" width="90" height="40"/>
                                                 <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="90" id="AUx-E1-dh0">
@@ -151,12 +131,12 @@
                                                         <variation key="heightClass=regular-widthClass=regular" constant="55"/>
                                                     </constraint>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
                                                 <state key="normal" title="SEND">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="24"/>
                                                 </variation>
                                                 <connections>
                                                     <action selector="submitAction" destination="P8I-eW-BYZ" eventType="touchUpInside" id="XIj-pe-VRm"/>

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Calling the delgate methods to the local notifications
+        //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
         test()
@@ -56,12 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillResignActive(_ application: UIApplication) {
         
+        
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        
         
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         
@@ -105,9 +107,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 guard granted else{
                     return
                 }
+                
                 self.getNotificationSettings()
             }
         }else{
+            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -119,6 +123,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         if #available(iOS 10.0, *) {
             
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+              
                 print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
                
@@ -133,14 +138,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
         completionHandler([.alert,.sound,.badge])
     }
         
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        //if UIApplication.shared.applicationState == .active{
-        //  return
-        //}
         
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo
@@ -174,8 +176,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
-    func application(_ application: UIApplication,
-                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    func application(_ application: UIApplication,                 didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("Failed to register: \(error)")
     }
     
@@ -195,7 +196,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         //(app, open: url, options: options)
-        
+
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

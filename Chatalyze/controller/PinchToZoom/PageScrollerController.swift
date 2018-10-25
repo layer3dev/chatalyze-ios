@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageScrollerController: UIViewController,UIScrollViewDelegate {
+class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
     
     private var scrollImageOne:UIImageView = UIImageView()
     private var xofTheImage:CGFloat = 0.0
@@ -21,6 +21,7 @@ class PageScrollerController: UIViewController,UIScrollViewDelegate {
     @IBOutlet private var pager:UIPageControl?
     var showingImage:UIImage?
     var deleteCell:(()->())?
+    var info:MemoriesInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +40,12 @@ class PageScrollerController: UIViewController,UIScrollViewDelegate {
     }
     
     
-    @IBAction func deleteMemory(sender:UIButton?){
-    
-        if let delete = self.deleteCell{
-            delete()
-        }
-    }
+//    @IBAction func deleteMemory(sender:UIButton?){
+//
+//        if let delete = self.deleteCell{
+//            delete()
+//        }
+//    }
     
     
     @IBAction func twitterShareAction(sender:UIButton){
@@ -166,6 +167,43 @@ class PageScrollerController: UIViewController,UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return mySingleView
+    }
+    
+    
+    //Delete memory Cell
+    
+    @IBAction func deleteMemory(sender:UIButton){
+        
+        self.alert(withTitle: "Delete Image", message: "Are you sure to delete this image?", successTitle: "Yes", rejectTitle: "No", showCancel: true) { (success) in
+            
+            if !success{
+                return
+            }
+            self.deleteImage()
+        }
+    }
+    
+    func deleteImage(){
+        
+        guard let memoryId = self.info?.id else{
+            return
+        }
+        
+        self.showLoader()
+        DeleteMemory().delete(id: memoryId) { (success, response) in
+           
+            self.stopLoader()
+            if !success{
+                return
+            }
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {
+                    if let delete = self.deleteCell{
+                        delete()
+                    }
+                }
+            }
+        }
     }
 }
 

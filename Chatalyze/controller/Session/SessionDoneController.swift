@@ -12,14 +12,16 @@ class SessionDoneController: InterfaceExtendedController {
 
     var delegate:SessionDoneControllerProtocol?
     var param = [String:Any]()
+    var eventInfo:EventInfo?
     
     override func viewDidLoad(){
         super.viewDidLoad()
      
         paintInterFace()
         initializeVariable()
-        // Do any additional setup after loading the view.
+        //Do any additional setup after loading the view.
     }
+    
     
     func initializeVariable(){
         
@@ -47,6 +49,46 @@ class SessionDoneController: InterfaceExtendedController {
         
         get{
             return self.view as? SessionDoneRootView
+        }
+    }
+    
+    
+    @IBAction func share(sender:UIButton){
+        
+        Log.echo(key: "yud", text: "EventInfo is not nil \(eventInfo?.id) and eventInfo Title is \(eventInfo?.title)")
+         Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
+
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+
+        var str = "https://dev.chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.eventInfo?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        if let url = URL(string: str) {
+
+            Log.echo(key: "yud", text: "Successfully converted url \(str)")
+
+            if UIDevice.current.userInterfaceIdiom == .pad{
+
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url,shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self.view
+                activityVC.popoverPresentationController?.sourceRect = sender.frame
+                self.present(activityVC, animated: false, completion: nil)
+
+            }else{
+
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url, shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                self.present(activityVC, animated: false, completion: nil)
+            }
         }
     }
     

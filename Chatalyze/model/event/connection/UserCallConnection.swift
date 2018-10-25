@@ -47,7 +47,6 @@ class UserCallConnection: CallConnection {
             else{
                 return nil
         }
-        
        
         connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self, andLocalStream:self.localMediaPackage)
         
