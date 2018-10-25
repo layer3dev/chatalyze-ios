@@ -48,7 +48,7 @@ public class EFImageViewZoom: UIScrollView {
         }
     }
     
-    public var contentModeImageView : UIViewContentMode = .scaleAspectFit {
+    public var contentModeImageView : UIView.ContentMode = .scaleAspectFit {
         didSet{
             self.contentMode = contentModeImageView
             self.sizeToFit()

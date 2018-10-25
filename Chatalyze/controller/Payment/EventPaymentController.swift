@@ -157,7 +157,7 @@ extension EventPaymentController:UITableViewDataSource{
         if cardInfoArray.count > indexPath.row && self.selectedArray.count > indexPath.row{
             cell.fillInfo(info:cardInfoArray[indexPath.row],isSelected:self.selectedArray[indexPath.row])
         }
-        cell.saveCard?.addTarget(self, action: #selector(saveCardAction(sender:)), for: UIControlEvents.touchUpInside)
+        cell.saveCard?.addTarget(self, action: #selector(saveCardAction(sender:)), for: UIControl.Event.touchUpInside)
         cell.saveCard?.tag = indexPath.row
         return cell
     }
@@ -171,7 +171,7 @@ extension EventPaymentController:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

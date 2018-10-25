@@ -26,7 +26,7 @@ class UploadUserImage{
                 completion(false, nil)
                 return
         }
-        guard let data = UIImageJPEGRepresentation(image, 1.0)
+        guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion(false, nil)
                 return
@@ -98,7 +98,7 @@ class UploadUserImage{
 //                return
 //        }
         
-        guard let imageData = UIImagePNGRepresentation(image)
+        guard let imageData = image.pngData()
             else{
                 completion(false)
                 return

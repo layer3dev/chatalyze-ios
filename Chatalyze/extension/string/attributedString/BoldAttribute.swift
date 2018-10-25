@@ -16,7 +16,7 @@ extension NSMutableAttributedString {
                 return NSMutableAttributedString(string : text)
         }
         
-        var attrs:[NSAttributedStringKey:Any]  = [NSAttributedStringKey:Any]()
+        var attrs:[NSAttributedString.Key:Any]  = [NSAttributedString.Key:Any]()
         attrs[.font] = font
         attrs[.foregroundColor] = color
         

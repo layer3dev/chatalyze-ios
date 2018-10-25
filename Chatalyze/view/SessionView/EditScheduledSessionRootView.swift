@@ -31,13 +31,13 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBOutlet var sessionNameLbl:UILabel?
     
-    var priceAttribute = [NSAttributedStringKey.foregroundColor: UIColor.black,NSAttributedStringKey.font:UIFont(name: "Questrial", size: 17)]
+
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
     
-    var titleAttribute = [NSAttributedStringKey.foregroundColor: UIColor.black,NSAttributedStringKey.font:UIFont(name: "Poppins", size: 17)]
-    
-    var numberOfUnitAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedStringKey.font:UIFont(name: "Questrial", size: 16)]
-    
-    var editChatattributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "Questrial", size: 16)]
+    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+
     
     var param = [String:Any]()
     
@@ -148,9 +148,9 @@ class EditScheduledSessionRootView:ExtendedView{
             
             sessionNameField?.textField?.text = title
             
-            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedStringKey : Any])
+            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedStringKey : Any])
+            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
@@ -164,9 +164,9 @@ class EditScheduledSessionRootView:ExtendedView{
             
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedStringKey : Any])
+            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedStringKey : Any])
+            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
@@ -385,9 +385,12 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
 
 extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        if let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let  chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             
             uploadedImage?.contentMode = .scaleAspectFit
             uploadedImage?.image = chosenImage
@@ -407,4 +410,14 @@ extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigat
         self.controller?.dismiss(animated: true, completion: {
         })
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

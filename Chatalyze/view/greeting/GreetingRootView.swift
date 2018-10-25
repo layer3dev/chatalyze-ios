@@ -39,7 +39,7 @@ class GreetingRootView:ExtendedView{
         }
         adapter.greetingArray.append(info)
         self.greetingTableView?.beginUpdates()
-        self.greetingTableView?.insertRows(at: [IndexPath(row: adapter.greetingArray.count-1, section: 0)],with:  UITableViewRowAnimation.automatic)
+        self.greetingTableView?.insertRows(at: [IndexPath(row: adapter.greetingArray.count-1, section: 0)],with:  UITableView.RowAnimation.automatic)
         self.greetingTableView?.endUpdates()
     }
     

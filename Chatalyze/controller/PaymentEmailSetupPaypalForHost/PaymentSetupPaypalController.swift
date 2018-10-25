@@ -26,7 +26,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "Payment")
+        paintNavigationTitle(text: "PAYMENT")
     }
     
     func paintInterface(){
@@ -104,34 +104,34 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
         //
         
-        let attributeForStringHere = [NSAttributedStringKey.font:UIFont(name: "Questrial", size:18),NSAttributedStringKey.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.underlineStyle:1,NSAttributedStringKey.link:" HERE ",NSAttributedStringKey.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedStringKey : Any]
+        let attributeForStringHere = [NSAttributedString.Key.font:UIFont(name: "Questrial", size:18),NSAttributedString.Key.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.underlineStyle:1,NSAttributedString.Key.link:" HERE ",NSAttributedString.Key.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedString.Key : Any]
         
         //        let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
         
         let text = NSMutableAttributedString(string: "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one")
         
-        text.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text.length))
+        text.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text.length))
         
         let text1 = NSMutableAttributedString(string: "(you'll be directed to Paypal's website)")
         
-        text1.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text1.length))
+        text1.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text1.length))
         
         
         let selectablePart = NSMutableAttributedString(string: " HERE ", attributes: attributeForStringHere)
         
         //        msgLbl?.
         
-        //        selectablePart.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "HelveticaNeue", size: 16), range: NSMakeRange(0, selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, selectablePart.length))
         //        // Add an underline to indicate this portion of text is selectable (optional)
-        //        selectablePart.addAttribute(NSAttributedStringKey.underlineStyle, value: 1, range: NSMakeRange(0,selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(0,selectablePart.length))
         //
-        //        selectablePart.addAttribute(NSAttributedStringKey.underlineColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.underlineColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
         //
-        //        selectablePart.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
         //        // Add an NSLinkAttributeName with a value of an url or anything else
         //
-        //        selectablePart.addAttribute(NSAttributedStringKey.link, value: "HERE ", range: NSMakeRange(0,selectablePart.length))
-        //        selectablePart.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.link, value: "HERE ", range: NSMakeRange(0,selectablePart.length))
+        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
         //
                 
         // Combine the non-selectable string with the selectable string
@@ -141,10 +141,10 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSTextAlignment.center
        
-        //        text.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
+        //        text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
         
         //Explicit
-        //        let linkAttributes: [NSAttributedStringKey: Any] = [
+        //        let linkAttributes: [NSAttributedString.Key: Any] = [
         //            .link: NSURL(string: "https://www.apple.com")!
         //        ]
         
@@ -153,7 +153,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         //To set the link text color (optional)
         
-        //        msgLbl?.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue:UIColor.green, NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue", size: 20)] as? [String : Any]
+        //        msgLbl?.linkTextAttributes = [NSAttributedString.Key.foregroundColor.rawValue:UIColor.green, NSAttributedString.Key.font.rawValue: UIFont(name: "Questrial", size: 20)] as? [String : Any]
         
         //Set the text view to contain the attributed text
         

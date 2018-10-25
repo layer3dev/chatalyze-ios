@@ -112,6 +112,7 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "call", text: "call state --> \(state.rawValue)")
         
         if(state == .connected){
+            
             self.controller?.acceptCallUpdate()
             isConnected = true
             return

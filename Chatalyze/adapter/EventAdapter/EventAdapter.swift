@@ -49,7 +49,7 @@ extension EventAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,9 +60,9 @@ extension EventAdapter:UITableViewDelegate{
         
         if role == .analyst{
             
-            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can book for the session!", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can book for the session!", preferredStyle: UIAlertController.Style.alert)
             
-            alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: { (action) in
             }))
             self.root?.controller?.present(alert, animated: false, completion: {
             })            

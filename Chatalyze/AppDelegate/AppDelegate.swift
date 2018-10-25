@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var allowRotate : Bool = false
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
@@ -178,7 +178,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         print("Failed to register: \(error)")
     }
     
-    func handlePushNotification(launch:[UIApplicationLaunchOptionsKey: Any]?){
+    func handlePushNotification(launch:[UIApplication.LaunchOptionsKey: Any]?){
         
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
@@ -191,10 +191,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         //(app, open: url, options: options)
 
-        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
+        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

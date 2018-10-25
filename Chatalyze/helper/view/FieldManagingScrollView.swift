@@ -48,17 +48,17 @@ extension FieldManagingScrollView{
 extension FieldManagingScrollView{
     
     fileprivate func registerForKeyboardNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:UIResponder.keyboardWillHideNotification , object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:UIResponder.keyboardWillShowNotification , object: nil)
         
     }
     
     fileprivate func unregisterForKeyboardNotifications(){
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func keyboardWillHide(_ notification : Notification){
@@ -72,7 +72,7 @@ extension FieldManagingScrollView{
     fileprivate func adjustForKeyboard(_ notification : Notification, shouldIncreaseOffset : Bool)->CGFloat{
         
         let info = (notification as NSNotification).userInfo
-        let keyboardSize = (info?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
+        let keyboardSize = (info?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
         let keyboardHeight = keyboardSize?.height ?? 255.0
         return adjustForHeight(keyboardHeight, shouldIncreaseOffset: shouldIncreaseOffset)
     }

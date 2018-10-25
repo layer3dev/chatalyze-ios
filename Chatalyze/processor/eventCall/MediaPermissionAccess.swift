@@ -79,14 +79,14 @@ class MediaPermissionAccess{
     
     private func checkforMicrophoneAccess(callback : ((_ success : Bool)->())?){
         
-        switch AVAudioSession.sharedInstance().recordPermission() {
-        case AVAudioSessionRecordPermission.granted:
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSession.RecordPermission.granted:
             callback?(true)
             return
-        case AVAudioSessionRecordPermission.denied:
+        case AVAudioSession.RecordPermission.denied:
             callback?(false)
             return
-        case AVAudioSessionRecordPermission.undetermined:
+        case AVAudioSession.RecordPermission.undetermined:
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
                 if !granted{
                     callback?(false)
@@ -108,11 +108,11 @@ class MediaPermissionAccess{
     
     private func alertToProvideMediaAccess(callback : (()->())?){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide Camera & Microphone access to be able to continue to session.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: { (action) in
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide Camera & Microphone access to be able to continue to session.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
             self.controller.dismiss(animated: true, completion: {
                 callback?()
-                if let settingUrl = URL(string: UIApplicationOpenSettingsURLString){
+                if let settingUrl = URL(string: UIApplication.openSettingsURLString){
                     UIApplication.shared.openURL(settingUrl)
                 }
             })

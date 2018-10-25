@@ -13,7 +13,7 @@ class PaymentAdapter: ExtendedView {
     @IBOutlet var paymentListingTableView:UITableView?
     var root:PaymentListRootView?
     var PaymentListingArray = [PaymentListingInfo]()
-    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var spinner = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -85,7 +85,7 @@ extension PaymentAdapter:UITableViewDataSource{
         }
         self.PaymentListingArray.append(info)
         self.paymentListingTableView?.beginUpdates()
-        self.paymentListingTableView?.insertRows(at: [IndexPath(row: self.PaymentListingArray.count-1, section: 0)],with:  UITableViewRowAnimation.automatic)
+        self.paymentListingTableView?.insertRows(at: [IndexPath(row: self.PaymentListingArray.count-1, section: 0)],with:  UITableView.RowAnimation.automatic)
         self.paymentListingTableView?.endUpdates()
     }
     
@@ -105,7 +105,7 @@ extension PaymentAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }    
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
