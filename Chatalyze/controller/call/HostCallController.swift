@@ -301,7 +301,7 @@ class HostCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
             
-            if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 3000.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
@@ -315,13 +315,13 @@ class HostCallController: VideoCallController {
                 return
             }
             
-            if endDate > 15.0{
-                
-                //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
-                isAnimating = false
-                stopLableAnimation()
-                return
-            }
+//            if endDate > 15.0{
+//
+//                //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
+//                isAnimating = false
+//                stopLableAnimation()
+//                return
+//            }
             Log.echo(key: "animation", text: "StartAnimation and the time is \(endDate)")
         }
     }
