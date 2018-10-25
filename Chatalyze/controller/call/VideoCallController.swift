@@ -92,6 +92,7 @@ class VideoCallController : InterfaceExtendedController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
+     
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
@@ -111,6 +112,7 @@ class VideoCallController : InterfaceExtendedController {
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        
         timer.pauseTimer()
         socketClient?.disconnect()
         self.socketClient = nil
