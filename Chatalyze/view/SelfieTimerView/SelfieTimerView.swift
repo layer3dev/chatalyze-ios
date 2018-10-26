@@ -53,7 +53,7 @@ class SelfieTimerView:ExtendedView {
     
     func startAnimationForHost(date:Date?){
         
-        autographTime = 12
+        autographTime = 13
         guard let startDate = date else {
             return
         }

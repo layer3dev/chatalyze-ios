@@ -31,7 +31,14 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction private func signoutAction(){
         
-        RootControllerManager().signOut(completion: nil)
+        self.showLoader()
+        SignOutManager().signOut { (success) in
+            self.stopLoader()
+            if !success{
+                return
+            }
+            RootControllerManager().signOut(completion: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -63,13 +70,13 @@ class SettingController : InterfaceExtendedController {
         if let roleId = SignedUserInfo.sharedInstance?.role{
             
             if roleId == .analyst{
-              
-//                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
-//                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
+                
+                //                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
+                //                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
                 
                 ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
                 MySessionHeightConstraint?.priority = UILayoutPriority(999.0)
-      
+                
             }else{
                 
                 ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
@@ -151,29 +158,29 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-//        guard let controller = MyTicketsVerticalController.instance() else{
-//            return
-//        }
-//
-//        self.navigationController?.pushViewController(controller, animated: true)
+        //        guard let controller = MyTicketsVerticalController.instance() else{
+        //            return
+        //        }
+        //
+        //        self.navigationController?.pushViewController(controller, animated: true)
         
-//       guard let controller = HostDashboardController.instance() else{
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
+        //       guard let controller = HostDashboardController.instance() else{
+        //            return
+        //        }
+        //        self.navigationController?.pushViewController(controller, animated: true)
         
-    
+        
         guard let controller = ContactUsController.instance() else{
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
         
         
-//        guard let controller = WelcomeController.instance() else{
-//            return
-//        }
-//
-//        self.navigationController?.pushViewController(controller, animated: true)
+        //        guard let controller = WelcomeController.instance() else{
+        //            return
+        //        }
+        //
+        //        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

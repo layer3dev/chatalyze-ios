@@ -178,6 +178,7 @@
 		47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3372F20D516B30078580E /* FetchProfileProcessor.swift */; };
 		47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */; };
 		47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6951121539BE500BB13BF /* GoogleSignIn.swift */; };
+		47C7B9C42182D568000D311D /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7B9C32182D568000D311D /* StringHelper.swift */; };
 		47C9EF5E215509FA00478D85 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF5D215509FA00478D85 /* MenuController.swift */; };
 		47C9EF6021550D1700478D85 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF5F21550D1700478D85 /* MenuCell.swift */; };
 		47C9EF6221550D2300478D85 /* MenuAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6121550D2300478D85 /* MenuAdapter.swift */; };
@@ -628,6 +629,7 @@
 		47C3372F20D516B30078580E /* FetchProfileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileProcessor.swift; sourceTree = "<group>"; };
 		47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadGalleryManager.swift; sourceTree = "<group>"; };
 		47C6951121539BE500BB13BF /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
+		47C7B9C32182D568000D311D /* StringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		47C9EF5D215509FA00478D85 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		47C9EF5F21550D1700478D85 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		47C9EF6121550D2300478D85 /* MenuAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAdapter.swift; sourceTree = "<group>"; };
@@ -2040,6 +2042,14 @@
 			path = Chatalyze/network/GoogleSignIn;
 			sourceTree = SOURCE_ROOT;
 		};
+		47C7B9C22182D52A000D311D /* StringHelper */ = {
+			isa = PBXGroup;
+			children = (
+				47C7B9C32182D568000D311D /* StringHelper.swift */,
+			);
+			path = StringHelper;
+			sourceTree = "<group>";
+		};
 		47C9EF5C215509E400478D85 /* MenuController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2898,6 +2908,7 @@
 				471CC8662161E7FE00DB5E8C /* Cropper */,
 				471964372150E2FE00BD21D1 /* LableAnimation */,
 				47EDCF60216E282900EC16BB /* KeyBoardExtension */,
+				47C7B9C22182D52A000D311D /* StringHelper */,
 				478C031F21776AAA0064AAFC /* SoundMeter */,
 			);
 			path = helper;
@@ -3949,6 +3960,7 @@
 				47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */,
 				FAD9CD9E2063C17100A177AC /* CallSlotFetch.swift in Sources */,
 				47B6527720AAB5030041496C /* GreetingTimeCell.swift in Sources */,
+				47C7B9C42182D568000D311D /* StringHelper.swift in Sources */,
 				FAE8B23120A3087000899731 /* AppConnectioConfigForDev.swift in Sources */,
 				FADC84E42074E35600AD9D65 /* UserVideoRootView.swift in Sources */,
 				47B6525920AAB0420041496C /* SignUpController.swift in Sources */,
@@ -4118,7 +4130,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4178,7 +4190,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4206,7 +4218,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4222,7 +4234,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4239,7 +4251,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4255,7 +4267,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

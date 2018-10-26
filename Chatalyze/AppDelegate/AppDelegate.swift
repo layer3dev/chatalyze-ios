@@ -63,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -86,9 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
      
-        UIInterfaceOrientationMask {           
+        UIInterfaceOrientationMask {
             if(allowRotate){
-                return .allButUpsideDown;
+                return .allButUpsideDown
         }
         //Only allow portrait (standard behaviour)
         return .portrait;

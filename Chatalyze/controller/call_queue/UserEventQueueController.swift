@@ -82,7 +82,7 @@ class UserEventQueueController: EventQueueController {
         updatedEventScheduleListner.setListener {
             
             self.hideAlertMessage()
-            self.loadInfoFromServer(showLoader: true)
+            self.loadInfoFromServer(showLoader: false)
         }
     }
     
@@ -91,7 +91,7 @@ class UserEventQueueController: EventQueueController {
         
         eventDelayListener.setListener {
        
-            self.loadInfoFromServer(showLoader: true)
+            self.loadInfoFromServer(showLoader: false)
 
 //            Log.echo(key: "yud", text: "Yes the event is delayed")
 //            self.showAlertMessage()

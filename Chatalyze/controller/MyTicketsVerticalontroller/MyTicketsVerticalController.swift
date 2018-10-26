@@ -12,11 +12,41 @@ class MyTicketsVerticalController: MyTicketsController{
     
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
+       
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initializeFontSize()
         underLineLable()
+        getTheRequiredDate()
+    }
+
+    
+    
+    
+    func getTheRequiredDate(){
+    
+        let dateFormatter = DateFormatter()
+        
+//        dateFormatter.timeZone = TimeZone.init(abbreviation: "GMT")
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+//        print("Required date is \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
+        
+        let date = Date()
+        
+        //dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
+        //dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        //let str = dateFormatter.string(from: date)
+        //print("String date is \(dateFormatter.string(from: date))")
+        
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "E, d MMM yyyy "
+        
+        print("Extemted date is \(dateFormatter.string(from: date))")
+        
+        print("Date from str is  \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
     }
     
     func initializeFontSize(){
@@ -30,7 +60,6 @@ class MyTicketsVerticalController: MyTicketsController{
     
     func underLineLable(){
         
-
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)] as? [NSAttributedString.Key : Any]{
 
             

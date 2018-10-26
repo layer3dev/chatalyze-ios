@@ -248,9 +248,7 @@ class EventScheduleCoreInfo: EventInfo {
                 if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture){
                      return (index, slotInfo)
                 }
-                
             }
-            
             return nil
         }
     }
@@ -258,8 +256,6 @@ class EventScheduleCoreInfo: EventInfo {
     var upcomingSlot : SlotInfo?{
         return upcomingSlotInfo?.slotInfo
     }
-
-    
     
     var preConnectSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
         guard let slotInfos = self.slotInfos
