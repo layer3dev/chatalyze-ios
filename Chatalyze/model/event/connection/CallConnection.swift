@@ -12,6 +12,7 @@ import UIKit
 //This is root class meant to be overriden by Host Connection and User Connection
 //abstract:
 class CallConnection: NSObject {
+    
     var connection : ARDAppClient?
     
     var eventInfo : EventInfo?
@@ -62,6 +63,9 @@ class CallConnection: NSObject {
     var rootView : VideoRootView?{
         return controller?.rootView
     }
+    
+    var isCallConnected:(()->())?
+    
     
     override init() {
         super.init()
@@ -115,6 +119,7 @@ extension CallConnection : ARDAppClientDelegate{
             
             self.controller?.acceptCallUpdate()
             isConnected = true
+            isCallConnected?()
             return
         }
         

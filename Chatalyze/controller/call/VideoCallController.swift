@@ -647,10 +647,11 @@ extension VideoCallController{
     
         case preConnectedSuccessFully = 0
         case userDidnotJoin  = 1
+        case callStarted = 2
     }
     
     
-    func showPreconnectMessage(type:PreConnectMessage){
+    func handleMessage(type:PreConnectMessage){
         
         self.hideChatalyzeLogo()
         self.showPreConnectLable()
@@ -690,6 +691,14 @@ extension VideoCallController{
             preConnectLbl?.attributedText = secondAttributedString
             
             return
+        }
+        
+        if type == .callStarted{
+            
+            self.hideChatalyzeLogo()
+            self.hidePreConnectLable()
+            return
+            
         }
     }
     
