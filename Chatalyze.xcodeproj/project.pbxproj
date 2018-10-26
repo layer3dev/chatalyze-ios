@@ -324,6 +324,7 @@
 		FA79F107210A042600D16F13 /* MicActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F105210A042500D16F13 /* MicActionView.swift */; };
 		FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F108210A044900D16F13 /* HangupActionView.swift */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
+		FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */; };
 		FA912D9A20417DD9002891EC /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA912D9920417DD9002891EC /* icon.xcassets */; };
 		FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */; };
 		FA912DA0204196CF002891EC /* InterfaceExtendedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */; };
@@ -828,6 +829,7 @@
 		FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCSingletonStream+Internal.h"; sourceTree = "<group>"; };
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
+		FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackIdentifierInfo.swift; sourceTree = "<group>"; };
 		FA912D9920417DD9002891EC /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
 		FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninButtonContainer.swift; sourceTree = "<group>"; };
 		FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceExtendedController.swift; sourceTree = "<group>"; };
@@ -2326,6 +2328,7 @@
 		FA3CC1382046BFFF007438A3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				FA8BA3FE2181C8E600601B0B /* helper */,
 				FAE2EC6C209C8E4C0080E92D /* lib */,
 				FA573C0E207CBE77006447A1 /* call */,
 				FAB71CE62077A57F00C24246 /* notificationInfo */,
@@ -2743,6 +2746,22 @@
 				47CE2A3D215FA9CA00A4C267 /* UploadUserImage */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		FA8BA3FE2181C8E600601B0B /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				FA8BA3FF2181C90800601B0B /* countdown */,
+			);
+			path = helper;
+			sourceTree = "<group>";
+		};
+		FA8BA3FF2181C90800601B0B /* countdown */ = {
+			isa = PBXGroup;
+			children = (
+				FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */,
+			);
+			path = countdown;
 			sourceTree = "<group>";
 		};
 		FA912D9B2041899D002891EC /* view */ = {
@@ -3924,6 +3943,7 @@
 				47B6525520AAB0170041496C /* EventController.swift in Sources */,
 				FAE9EF76206CE83D00C45F8D /* UserHomeController.swift in Sources */,
 				FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */,
+				FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */,
 				471366262108C1E000B945BB /* SubmitRequestForNextEventNotification.swift in Sources */,
 				FA74B13720639B6400983141 /* AudioManager.m in Sources */,
 				FAE9EF6F206CD05500C45F8D /* UserCallConnection.swift in Sources */,
@@ -4206,7 +4226,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4222,7 +4242,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4239,7 +4259,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4255,7 +4275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

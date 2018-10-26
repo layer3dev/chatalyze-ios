@@ -15,7 +15,7 @@ class CountdownProcessor{
     private var timerSync : TimerSync?
     private var lastRefresh = Date()
     
-    fileprivate var callbackList : [()->()] = [()->()]()
+    fileprivate var callbackList : [CallbackIdentifierInfo] = [CallbackIdentifierInfo]()
 
     static func sharedInstance()->CountdownProcessor{
         
@@ -57,8 +57,10 @@ class CountdownProcessor{
     }
     
     
-    func add(listener : @escaping ()->()){
-        callbackList.append(listener)
+    func add(listener : @escaping ()->())->Int{
+        let callbackInfo = CallbackIdentifierInfo(callback: listener)
+        callbackList.append(callbackInfo)
+        return callbackInfo.uniqueIdentifier
     }
 }
 
@@ -68,7 +70,7 @@ extension CountdownProcessor{
     
     fileprivate func refresh() {
         for callback in callbackList {
-            callback()
+            callback.listener?()
         }
     }
 
