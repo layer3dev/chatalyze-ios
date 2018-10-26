@@ -30,6 +30,7 @@ class HostCallController: VideoCallController {
     }
     
     var hostActionContainer : HostVideoActionContainer?{
+    
         get{
             return actionContainer as? HostVideoActionContainer
         }
@@ -40,7 +41,6 @@ class HostCallController: VideoCallController {
         guard let controller = HangupController.instance() else{
             return
         }
-        
         
         controller.exit = {
             
@@ -145,7 +145,7 @@ class HostCallController: VideoCallController {
                             requiredDate = newdate
                         }else{
                             
-                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
@@ -227,7 +227,7 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-        
+
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
@@ -260,7 +260,9 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        hostRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+        //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
+        
+        hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
@@ -316,7 +318,7 @@ class HostCallController: VideoCallController {
             }
             
             if endDate > 15.0{
-                
+
                 //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
                 isAnimating = false
                 stopLableAnimation()

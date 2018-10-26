@@ -14,6 +14,7 @@ class MenuController: InterfaceExtendedController {
     @IBOutlet var userImage:UIImageView?
     @IBOutlet var userName:UILabel?
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -55,7 +56,16 @@ class MenuController: InterfaceExtendedController {
     
     @IBAction func signOut(){
         
-        RootControllerManager().signOut(completion: nil)
+        
+        self.showLoader()
+        SignOutManager().signOut { (success) in
+           
+            self.stopLoader()
+            if !success{
+                return
+            }
+            RootControllerManager().signOut(completion: nil)
+        }
     }
     
     @IBAction func accountAction(sender:UIButton){

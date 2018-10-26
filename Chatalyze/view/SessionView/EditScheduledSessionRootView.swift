@@ -221,6 +221,80 @@ class EditScheduledSessionRootView:ExtendedView{
 //        }
     }
     
+    func askToSelectUploadType(){
+        
+        let sheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
+           
+            self.openCamera()
+          
+        }
+        
+        let galleryAction = UIAlertAction(title: "Choose from Gallery", style: .default) { (action) in
+            /**
+             *  Create fake photo
+             */
+            //            let photoItem = JSQPhotoMediaItem(image: UIImage(named: "goldengate"))
+            //            self.addMedia(photoItem!)
+            self.openGallery()
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        sheet.addAction(photoAction)
+        sheet.addAction(galleryAction)
+        sheet.addAction(cancelAction)
+        self.controller?.present(sheet, animated: true, completion: nil)
+    }
+    
+    
+    func openCamera(){
+        
+        if !UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerController.SourceType.camera) {
+            return
+        }
+        
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) ==  AVAuthorizationStatus.authorized {
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.controller?.present(imagePicker, animated: true, completion: nil)
+            return;
+            
+            
+        } else {
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted: Bool) -> Void in
+                if granted == true {
+                    
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                    self.controller?.present(self.imagePicker, animated: true, completion: nil)
+                    return;
+                    
+                } else {
+                    
+                    let alert = UIAlertController(title: AppInfoConfig.appName, message: "Please give the camera permission from the settings", preferredStyle: UIAlertController.Style.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (UIAlertAction) in
+                        
+                        UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+                        
+//                        UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: ., completionHandler: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                    }))
+                    self.controller?.present(alert, animated: true, completion: {
+                    })
+                }
+            })
+        }
+    }
+    func openGallery(){
+        
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.controller?.present(imagePicker, animated: true, completion: nil)
+    }
+    
     @IBAction func uploadImage(sender:UIButton?){
         
         imagePicker.allowsEditing = false

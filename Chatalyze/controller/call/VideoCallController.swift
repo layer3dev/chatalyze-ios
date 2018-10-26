@@ -6,6 +6,7 @@
 //  Copyright © 2018 netset. All rights reserved.
 //
 
+
 import UIKit
 import CallKit
 import Foundation
@@ -46,7 +47,7 @@ class VideoCallController : InterfaceExtendedController {
     let updatedEventScheduleListner = UpdateEventListener()
 
     @IBOutlet var chatalyzeLogo:UIImageView?
-    @IBOutlet var preConnectLable:UILabel?
+    @IBOutlet var preConnectLbl:UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,39 +59,14 @@ class VideoCallController : InterfaceExtendedController {
           
             self.fontSizeBig = 22
         }
+        
         // Do any additional setup after loading the view.
     }
-    
-    func showPreConnectMessage(){
-        
-        hideChatalyzeLogo()
-        hidePreConnectLable()
-    }
-    
-    private func hidePreConnectLable(){
-        
-        self.preConnectLable?.isHidden = true
-    }
-    
-    private func showPreConnectLable(){
-        
-        self.preConnectLable?.isHidden = false
-    }
-    
-    func hideChatalyzeLogo(){
-        
-        chatalyzeLogo?.isHidden = true
-    }
-    
-    func showChatalyzeLogo(){
-        
-        chatalyzeLogo?.isHidden = false
-    }
-    
     
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
+     
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
@@ -110,6 +86,7 @@ class VideoCallController : InterfaceExtendedController {
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        
         timer.pauseTimer()
         socketClient?.disconnect()
         self.socketClient = nil
@@ -377,6 +354,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func acceptCall(){
+        
         SocketClient.sharedInstance?.confirmConnect(completion: { [weak self] (success) in
             if(success){
                 //self?.startAcceptCall()
@@ -478,7 +456,6 @@ extension VideoCallController{
             }
             
             self?.eventInfo = localEventInfo
-            
             self?.verifyEventActivated()
             Log.echo(key: "yud", text: "Verification of the ScreenshotRequested id working!!")
             self?.verifyScreenshotRequested()
@@ -534,7 +511,6 @@ extension VideoCallController{
         Log.echo(key: "local stream", text: "got local stream")
         self.localTrack = localMediaPackage?.videoTrack
         self.localTrack?.add(localView)
-        
     }
 }
 
@@ -575,23 +551,8 @@ extension VideoCallController{
             }
         })
     }
-    
-    
-//    So.socket?.onText = { (text: String) in
-//    DispatchQueue.main.async {
-//    Log.echo(key : "socket_client", text : "Received text: \(text)")
-//    guard let data = text.data(using: .utf8)
-//    else{
-//    return
-//    }
-//
-//    let json = try? JSON(data : data)
-//    self.handleEventResponse(json: json)
-//    return
-//    }
-//    }
-    
 }
+
 extension VideoCallController{
 
     func startLableAnimating(label:UILabel?){
@@ -623,20 +584,14 @@ extension VideoCallController{
         biggerBounds.size = label.intrinsicContentSize
         label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
         label.bounds = biggerBounds
-
-        //        UIView.animate(withDuration: duration) {
-        //            self.label.transform = .identity
-        //        }
-        //
-        //Animated
-      
-        //self.label.textColor = UIColor.red
+       
         UIView.animate(withDuration: duration, animations: {
 
             self.label.transform = .identity
         }) { (success) in
             self.shrink()
         }
+        animateColorLable(label:self.label,color:.red)
     }
 
     private func shrink(){
@@ -662,6 +617,7 @@ extension VideoCallController{
             self.label.bounds = smallerBounds
             self.enlarge()
         })
+        animateColorLable(label:self.label,color:.white)
     }
 
     private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
@@ -670,84 +626,91 @@ extension VideoCallController{
         let scaleY = to.height / from.height
         return CGAffineTransform(scaleX: scaleX, y: scaleY)
     }
+    
+    func animateColorLable(label:UILabel?,color:UIColor){
+     
+        guard let label = label else {
+            return
+        }
+        UIView.transition(with:label , duration: 0.5, options: .showHideTransitionViews, animations: {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
+               label.textColor = color
+            })
+        }, completion:nil)
+    }
 }
 
-//extension VideoCallController{
-//
-//    func startLableAnimating(label:UILabel?){
-//
-//        guard let lable = label else{
-//            return
-//        }
-//        self.label = lable
-//        self.isAnimate = true
-//        self.label.textColor = UIColor.red
-//        enlarge()
-//    }
-//
-//    func stopLableAnimation(){
-//
-//        shrink()
-//        self.label.textColor = UIColor.white
-//        self.isAnimate = false
-//    }
-//
-//    private func enlarge(){
-//
-//        if !isAnimate{
-//            return
-//        }
-//
-//        var biggerBounds = label.bounds
-//        label.font = label.font.withSize(fontSizeBig)
-//        biggerBounds.size = label.intrinsicContentSize
-//
-//        label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
-//
-//        label.bounds = biggerBounds
-//
-//        //        UIView.animate(withDuration: duration) {
-//        //            self.label.transform = .identity
-//        //        }
-//        //
-//        //Animated
-//        self.label.textColor = UIColor.red
-//        UIView.animate(withDuration: duration, animations: {
-//
-//            self.label.transform = .identity
-//        }) { (success) in
-//            self.shrink()
-//        }
-//    }
-//
-//    private func shrink(){
-//
-//        if !isAnimate{
-//            return
-//        }
-//
-//        let labelCopy = label.copyLabel()
-//        var smallerBounds = labelCopy.bounds
-//        labelCopy.font = label.font.withSize(fontSizeSmall)
-//        smallerBounds.size = labelCopy.intrinsicContentSize
-//        let shrinkTransform = scaleTransform(from: label.bounds.size, to: smallerBounds.size)
-//
-//        self.label.textColor = UIColor.white
-//        UIView.animate(withDuration: duration, animations: {
-//
-//            self.label.transform = shrinkTransform
-//        }, completion: { done in
-//            self.label.font = labelCopy.font
-//            self.label.transform = .identity
-//            self.label.bounds = smallerBounds
-//            self.enlarge()
-//        })
-//    }
-//
-//    private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
-//
-//        let scaleX = to.width / from.width
-//        let scaleY = to.height / from.height
-//        return CGAffineTransform(scaleX: scaleX, y: scaleY)
-//    }
-//}
+extension VideoCallController{
+    
+    enum PreConnectMessage:Int{
+    
+        case preConnectedSuccessFully = 0
+        case userDidnotJoin  = 1
+    }
+    
+    
+    func showPreconnectMessage(type:PreConnectMessage){
+        
+        self.hideChatalyzeLogo()
+        self.showPreConnectLable()
+        
+        var fontSize = 18
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            fontSize = 26
+        }
+        
+        if type == .userDidnotJoin{
+          
+            let firstStr = "Participant "
+            
+            let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
+            
+            let secondStr = "hasn't joined the session."
+            
+            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+            
+            firstMutableAttributedStr.append(secondAttributedString)
+            
+            Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
+            
+            preConnectLbl?.attributedText = firstMutableAttributedStr
+            
+            return
+        }
+        
+        if type == .preConnectedSuccessFully{
+            
+            let secondStr = "You've pre-connected successfully. \n\n\n Get Ready to chat!"
+            
+            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+            
+            preConnectLbl?.attributedText = secondAttributedString
+            
+            return
+        }
+    }
+    
+    func hidePreConnectLable(){
+        
+        self.preConnectLbl?.isHidden = true
+    }
+    
+    private func showPreConnectLable(){
+        
+        self.preConnectLbl?.isHidden = false
+    }
+    
+    func hideChatalyzeLogo(){
+        
+        chatalyzeLogo?.isHidden = true
+    }
+    
+    func showChatalyzeLogo(){
+        
+        chatalyzeLogo?.isHidden = false
+        hidePreConnectLable()
+    }
+}

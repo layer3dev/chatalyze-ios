@@ -73,7 +73,7 @@ class RootControllerManager{
                 window?.set(rootViewController: containerController, withTransition: transition)
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
-
+                
             }else{
                 
                 guard let containerController = ContainerController.instance() else {

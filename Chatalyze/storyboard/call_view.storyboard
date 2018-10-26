@@ -542,12 +542,22 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyzeHeader" translatesAutoresizingMaskIntoConstraints="NO" id="AFj-y6-OtP">
                                         <rect key="frame" x="40" y="-428.5" width="240" height="1425"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DeO-KF-z6e">
+                                        <rect key="frame" x="20" y="284" width="280" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="AFj-y6-OtP" firstAttribute="leading" secondItem="KKG-bb-dgE" secondAttribute="leading" constant="40" id="36r-7c-yTx"/>
                                     <constraint firstItem="AFj-y6-OtP" firstAttribute="centerY" secondItem="KKG-bb-dgE" secondAttribute="centerY" id="MeA-Ld-ppD"/>
+                                    <constraint firstAttribute="trailing" secondItem="DeO-KF-z6e" secondAttribute="trailing" constant="20" id="QEx-nb-WiS"/>
+                                    <constraint firstItem="DeO-KF-z6e" firstAttribute="centerX" secondItem="KKG-bb-dgE" secondAttribute="centerX" id="jXc-KO-Umj"/>
+                                    <constraint firstItem="DeO-KF-z6e" firstAttribute="centerY" secondItem="KKG-bb-dgE" secondAttribute="centerY" id="kig-4N-rpZ"/>
                                     <constraint firstAttribute="trailing" secondItem="AFj-y6-OtP" secondAttribute="trailing" constant="40" id="u1x-Vt-hhr"/>
+                                    <constraint firstItem="DeO-KF-z6e" firstAttribute="leading" secondItem="KKG-bb-dgE" secondAttribute="leading" constant="20" id="xZn-nh-375"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43M-1x-4vh" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
@@ -1016,6 +1026,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="chatalyzeLogo" destination="AFj-y6-OtP" id="krI-UN-qZm"/>
+                        <outlet property="preConnectLbl" destination="DeO-KF-z6e" id="Pld-7n-khA"/>
                         <outlet property="selfieTimerView" destination="m59-4D-xzj" id="2K0-Dc-IQS"/>
                     </connections>
                 </viewController>
