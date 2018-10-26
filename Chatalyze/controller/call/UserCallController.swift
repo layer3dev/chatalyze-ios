@@ -63,6 +63,50 @@ class UserCallController: VideoCallController {
         updateLableAnimation()
     }
     
+    
+    override func updateStatusMessage(){
+        
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        if(!eventInfo.isWholeConnectEligible){
+            return
+        }
+        
+        guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                return
+        }
+       
+        
+        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
+        
+        guard let hostId = hostHashId
+            else{
+                return
+        }
+    
+        
+        if(!isOnline(hashId: hostId)){
+            setStatusMessage(type : .userDidNotJoin)
+            return;
+        }
+        
+       guard let connection = connection
+        else{
+            return
+        }
+        
+        if(connection.isConnected){
+            setStatusMessage(type: .preConnectedSuccess)
+            return
+        }
+    }
+    
     override func isExpired()->Bool{
         
         guard let myValidSlot = eventInfo?.myValidSlot

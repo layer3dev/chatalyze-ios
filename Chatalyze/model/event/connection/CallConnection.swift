@@ -19,6 +19,8 @@ class CallConnection: NSObject {
     var controller : VideoCallController?
     var localMediaPackage : CallMediaTrack?
     
+    var connectionStateListener : CallConnectionProtocol?
+    
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     var isConnected : Bool = false
     
@@ -110,7 +112,7 @@ extension CallConnection : ARDAppClientDelegate{
     
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         Log.echo(key: "call", text: "call state --> \(state.rawValue)")
-        
+        connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
         if(state == .connected){
             
             self.controller?.acceptCallUpdate()

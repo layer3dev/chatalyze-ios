@@ -227,6 +227,7 @@
 		FA0A4F9F2078B45100FF9517 /* UserCallInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4F9E2078B45100FF9517 /* UserCallInfoContainerView.swift */; };
 		FA0A4FA12078B46100FF9517 /* HostCallInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4FA02078B46100FF9517 /* HostCallInfoContainerView.swift */; };
 		FA0A4FA32078B6B700FF9517 /* HostVideoRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */; };
+		FA0E709821835C4C00C08D96 /* CallConnectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E709721835C4C00C08D96 /* CallConnectionProtocol.swift */; };
 		FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C572206B6761009FA707 /* CallEventInfo.swift */; };
 		FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */; };
 		FA15C57C206B6B6C009FA707 /* EventInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA15C579206B6B6C009FA707 /* EventInfo.swift */; };
@@ -689,6 +690,7 @@
 		FA0A4F9E2078B45100FF9517 /* UserCallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallInfoContainerView.swift; sourceTree = "<group>"; };
 		FA0A4FA02078B46100FF9517 /* HostCallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallInfoContainerView.swift; sourceTree = "<group>"; };
 		FA0A4FA22078B6B600FF9517 /* HostVideoRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVideoRootView.swift; sourceTree = "<group>"; };
+		FA0E709721835C4C00C08D96 /* CallConnectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallConnectionProtocol.swift; sourceTree = "<group>"; };
 		FA15C572206B6761009FA707 /* CallEventInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallEventInfo.swift; sourceTree = "<group>"; };
 		FA15C577206B6B6B009FA707 /* EventSlotInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSlotInfo.swift; sourceTree = "<group>"; };
 		FA15C579206B6B6C009FA707 /* EventInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInfo.swift; sourceTree = "<group>"; };
@@ -2166,6 +2168,14 @@
 			path = callInfo;
 			sourceTree = "<group>";
 		};
+		FA0E709621835C3200C08D96 /* callConnection */ = {
+			isa = PBXGroup;
+			children = (
+				FA0E709721835C4C00C08D96 /* CallConnectionProtocol.swift */,
+			);
+			path = callConnection;
+			sourceTree = "<group>";
+		};
 		FA15C576206B6B6B009FA707 /* slot */ = {
 			isa = PBXGroup;
 			children = (
@@ -2287,6 +2297,7 @@
 		FA3AF0FE204433190084B154 /* interface */ = {
 			isa = PBXGroup;
 			children = (
+				FA0E709621835C3200C08D96 /* callConnection */,
 				FA7E747D209B072C001C3374 /* objc */,
 				FAE9EF79206CE91600C45F8D /* controller */,
 				FA74B14820639D0100983141 /* lib */,
@@ -3794,6 +3805,7 @@
 				47614F72213A919C00CC9702 /* SessionRequestWithImageProcessor.swift in Sources */,
 				FADC84E22074E16B00AD9D65 /* LoaderView.swift in Sources */,
 				471C233620B701AB0040C2A8 /* ReviewController.swift in Sources */,
+				FA0E709821835C4C00C08D96 /* CallConnectionProtocol.swift in Sources */,
 				475E0E74212DBA24009BAA04 /* SessionDoneController.swift in Sources */,
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,

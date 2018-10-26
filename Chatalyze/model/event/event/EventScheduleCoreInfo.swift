@@ -229,11 +229,6 @@ class EventScheduleCoreInfo: EventInfo {
     
     
     
-    
-    
-    
-    
-    
     //this will return
     //LIVE slot OR Preconnect Slot or Future Slot.
     var upcomingSlotInfo : (index : Int, slotInfo : SlotInfo?)?{

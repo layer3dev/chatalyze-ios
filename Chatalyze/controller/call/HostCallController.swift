@@ -193,6 +193,54 @@ class HostCallController: VideoCallController {
         updateLableAnimation()
     }
     
+    override func updateStatusMessage(){
+        
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        if(!eventInfo.isWholeConnectEligible){
+            return
+        }
+        
+        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
+            else{
+                return
+        }
+        
+    
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
+        
+        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+            else{
+                return
+        }
+        
+        guard let preConnectUser = preConnectSlot.user
+            else{
+                return
+        }
+        
+        if(!isOnline(hashId: preConnectUser.hashedId)){
+            setStatusMessage(type : .userDidNotJoin)
+            return;
+        }
+        
+        guard let preConnectConnection = getPreConnectConnection()
+            else{
+                return;
+        }
+        
+        if(preConnectConnection.isConnected){
+            setStatusMessage(type: .preConnectedSuccess)
+            return
+        }
+    }
+    
+    
     private func refresh(){
        
         refreshStreamLock()
@@ -201,6 +249,19 @@ class HostCallController: VideoCallController {
     private func getActiveConnection()->HostCallConnection?{
         
         guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return nil
+        }
+        guard let connection = getWriteConnection(slotInfo: slot)
+            else{
+                return nil
+        }
+        return connection
+    }
+    
+    private func getPreConnectConnection()->HostCallConnection?{
+        
+        guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
                 return nil
         }
@@ -569,5 +630,12 @@ extension HostCallController{
         let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
         
         return controller
+    }
+}
+
+//not in use at the moment
+extension HostCallController : CallConnectionProtocol{
+    func updateConnectionState(state : RTCIceConnectionState, slotInfo : SlotInfo?){
+        
     }
 }
