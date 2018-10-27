@@ -350,6 +350,10 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func interval(){
+        updateStatusMessage()
+    }
+    
+    func updateStatusMessage(){
         
     }
     
@@ -643,8 +647,9 @@ extension VideoCallController{
 
 extension VideoCallController{
     
-    enum PreConnectMessage:Int{
+    enum callStatusMessage:Int{
     
+<<<<<<< HEAD
         case preConnectedSuccessFully = 0
         case userDidnotJoin  = 1
         case callStarted = 2
@@ -652,9 +657,24 @@ extension VideoCallController{
     
     
     func handleMessage(type:PreConnectMessage){
+=======
+        case preConnectedSuccess = 0
+        case userDidNotJoin  = 1
+        case connected = 2
+    }
+    
+    
+    func setStatusMessage(type : callStatusMessage){
+        
+        if(type == .connected){
+            self.hideChatalyzeLogo()
+            self.hidePreConnectLabel()
+            return
+        }
+>>>>>>> connection_status_message
         
         self.hideChatalyzeLogo()
-        self.showPreConnectLable()
+        self.showPreConnectLabel()
         
         var fontSize = 18
         
@@ -663,7 +683,7 @@ extension VideoCallController{
             fontSize = 26
         }
         
-        if type == .userDidnotJoin{
+        if type == .userDidNotJoin{
           
             let firstStr = "Participant "
             
@@ -682,7 +702,7 @@ extension VideoCallController{
             return
         }
         
-        if type == .preConnectedSuccessFully{
+        if type == .preConnectedSuccess{
             
             let secondStr = "You've pre-connected successfully. \n\n\n Get Ready to chat!"
             
@@ -701,12 +721,12 @@ extension VideoCallController{
         }
     }
     
-    func hidePreConnectLable(){
+    func hidePreConnectLabel(){
         
         self.preConnectLbl?.isHidden = true
     }
     
-    private func showPreConnectLable(){
+    private func showPreConnectLabel(){
         
         self.preConnectLbl?.isHidden = false
     }
@@ -719,6 +739,6 @@ extension VideoCallController{
     func showChatalyzeLogo(){
         
         chatalyzeLogo?.isHidden = false
-        hidePreConnectLable()
+        hidePreConnectLabel()
     }
 }

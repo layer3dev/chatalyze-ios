@@ -195,6 +195,22 @@ class EventInfo: NSObject {
         }
     }
     
+    var isWholeConnectEligible : Bool{
+        get{
+            guard let startDate = startDate
+                else{
+                    return false
+            }
+            
+            guard let endDate = endDate
+                else{
+                    return false
+            }
+            
+            return EventValidator().isWholeConnectEligible(start: startDate, end: endDate)
+        }
+    }
+    
     var isPreconnectEligible : Bool{
         get{
             guard let startDate = startDate

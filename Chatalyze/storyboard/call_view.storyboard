@@ -35,12 +35,22 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyzeHeader" translatesAutoresizingMaskIntoConstraints="NO" id="pAp-HD-Gyh">
                                         <rect key="frame" x="40" y="-458.5" width="240" height="1425"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lts-l6-dib">
+                                        <rect key="frame" x="20" y="254" width="280" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="lts-l6-dib" secondAttribute="trailing" constant="20" id="4Yd-3F-A9b"/>
+                                    <constraint firstItem="lts-l6-dib" firstAttribute="centerY" secondItem="9a7-Pd-LZY" secondAttribute="centerY" id="8WZ-Ac-0RY"/>
+                                    <constraint firstItem="lts-l6-dib" firstAttribute="leading" secondItem="9a7-Pd-LZY" secondAttribute="leading" constant="20" id="Mes-mI-4gU"/>
                                     <constraint firstAttribute="trailing" secondItem="pAp-HD-Gyh" secondAttribute="trailing" constant="40" id="Rhx-q6-hGx"/>
                                     <constraint firstItem="pAp-HD-Gyh" firstAttribute="leading" secondItem="9a7-Pd-LZY" secondAttribute="leading" constant="40" id="UyB-GU-fkl"/>
                                     <constraint firstItem="pAp-HD-Gyh" firstAttribute="centerY" secondItem="9a7-Pd-LZY" secondAttribute="centerY" id="WWq-Cn-2kk"/>
+                                    <constraint firstItem="lts-l6-dib" firstAttribute="centerX" secondItem="9a7-Pd-LZY" secondAttribute="centerX" id="vay-pc-kwb"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-gd-FgM" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
@@ -517,6 +527,7 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
                         <outlet property="chatalyzeLogo" destination="pAp-HD-Gyh" id="uyQ-cQ-8PV"/>
+                        <outlet property="preConnectLbl" destination="lts-l6-dib" id="gsl-5A-1oS"/>
                         <outlet property="selfieTimerView" destination="uxQ-nW-h9Q" id="Ruj-RC-GhT"/>
                     </connections>
                 </viewController>
