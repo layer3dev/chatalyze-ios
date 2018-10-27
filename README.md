@@ -1,20 +1,16 @@
 # Chatalyze
 
 [![N|Solid](https://chatalyze.com/images/v7/chatalyze-orange-min.png)](https://chatalyze.com)
+[![Languages](https://img.shields.io/badge/language-Swift4.2-orange.svg)](https://github.com/mansa-dev/chatalyze_ios)
 
 This is Chatalyze iOS Repository. It is compatible with most updated versions of XCode, iOS and Swift. Here is the checklist:
   - XCode 10.0
   - Swift 4.2
   - iOS 12
 
-## Installation
-- Requires Swift 4.2/Xcode 10.x
-- Cocoapods
-- Carthage
 
-### Tech
-
-Chatalzye uses a number of open source projects to work properly:
+## Dependencies
+Chatalyze uses a number of open source projects to work properly:
 * [socketio](https://github.com/socketio/socket.io-client-swift) - WebSocket Connection Wrapper 
 * [HCSStarRatingView](https://github.com/hsousa/HCSStarRatingView) - Swipe feature and Custom UI for rating the call.
 * [Alamofire](https://github.com/Alamofire/Alamofire) - Elegant HTTP Networking in Swift
@@ -25,8 +21,11 @@ Chatalzye uses a number of open source projects to work properly:
 * [facebook/facebook-sdk-swift](https://github.com/facebook/facebook-sdk-swift) - Integrate your iOS apps in Swift with Facebook Platform.
 
 
+## SetUp
+- Download Developer's Certification from Apple Developer Account and add it to developer's system Keychain Access. 
+- Open Xcode and Go to XCode -> Account Preferences -> Add Apple Developer Account of Chatalyze -> Download Provisional Profiles.
 
-### Installation
+## Installation
 
 Chatalyze requires [Carthage](https://github.com/Carthage/Carthage) & [CocoaPods](https://github.com/CocoaPods/CocoaPods) to install the dependencies.
 
