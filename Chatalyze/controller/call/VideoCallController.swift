@@ -698,7 +698,6 @@ extension VideoCallController{
             self.hideChatalyzeLogo()
             self.hidePreConnectLable()
             return
-            
         }
     }
     
