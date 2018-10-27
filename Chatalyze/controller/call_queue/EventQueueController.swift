@@ -18,8 +18,8 @@ class EventQueueController: InterfaceExtendedController {
     var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
     @IBOutlet var bottomLine:UIView?
-    
-    
+
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

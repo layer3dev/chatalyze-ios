@@ -13,8 +13,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     @IBOutlet var sessionListingTableView:UITableView?
     @IBOutlet var noeventLbl:UILabel?
     var eventArray:[EventInfo] = [EventInfo]()
-    
     let updatedEventScheduleListner = EventListener()
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -26,7 +26,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     func eventListener(){
         
         updatedEventScheduleListner.setListener {
-          
+            
             self.fetchInfo()
         }
     }
@@ -44,7 +44,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     }
     
     func paintInterface(){
-        
         
         paintSettingButton()
         paintHideBackButton()

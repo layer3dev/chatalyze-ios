@@ -461,7 +461,9 @@ class ContainerController: NavChildController {
                 
                 self.closeToggle()
             }
+            
             return
+            
         }else if typeOfAction == .events{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -480,10 +482,8 @@ class ContainerController: NavChildController {
             return
         }
         
-        
         //        var analystArray = ["My Sessions","Payments","Settings","Support"]
         //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
-        
     }
     
     

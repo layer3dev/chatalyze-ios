@@ -52,7 +52,7 @@ class EditProfileController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "Edit Profile")
+        paintNavigationTitle(text: "Settings")
     }
     
     class func instance()->EditProfileController?{

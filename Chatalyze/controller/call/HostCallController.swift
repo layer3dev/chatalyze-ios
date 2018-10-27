@@ -38,6 +38,13 @@ class HostCallController: VideoCallController {
     
     @IBAction private func hangupAction(){
         
+        var isDisableHangup = false
+        
+        if self.eventInfo?.mergeSlotInfo?.currentSlot == nil{
+            
+            isDisableHangup = true
+        }
+        
         guard let controller = HangupController.instance() else{
             return
         }
@@ -54,7 +61,8 @@ class HostCallController: VideoCallController {
                 self.toggleHangup()
             }
         }
-        
+        controller.isDisableHangup = isDisableHangup
+        controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
         })
         
@@ -162,6 +170,7 @@ class HostCallController: VideoCallController {
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {
+                            
                                 self.mimicScreenShotFlash()
                                 self.selfieTimerView?.reset()
                             }
@@ -239,8 +248,7 @@ class HostCallController: VideoCallController {
             return
         }
     }
-    
-    
+        
     private func refresh(){
        
         refreshStreamLock()

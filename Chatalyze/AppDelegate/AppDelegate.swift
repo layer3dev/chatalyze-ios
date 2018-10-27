@@ -108,7 +108,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 self.getNotificationSettings()
             }
         }else{
-            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -118,12 +117,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
               
                 print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
-               
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
@@ -193,7 +190,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         //(app, open: url, options: options)
-
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

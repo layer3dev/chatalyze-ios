@@ -1037,18 +1037,16 @@
 				470F0B6C21522118003F8EE7 /* WelcomeController.swift */,
 				47127B1121524C6000E1250B /* WelcomePageController.swift */,
 				47127B1321524E4A00E1250B /* LoginSignUpContainerController.swift */,
-				47127B152152532C00E1250B /* LoginSignUpTabView.swift */,
 			);
 			path = WelcomeScreen;
 			sourceTree = "<group>";
 		};
-		47111CE42158BB1800DFBC08 /* HostDashboard */ = {
+		47111CE42158BB1800DFBC08 /* HostDashboardController */ = {
 			isa = PBXGroup;
 			children = (
 				47111CE52158BB3700DFBC08 /* HostDashboardController.swift */,
-				47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */,
 			);
-			path = HostDashboard;
+			path = HostDashboardController;
 			sourceTree = "<group>";
 		};
 		47111CEB2158E2B500DFBC08 /* ContainerNavigation */ = {
@@ -1133,15 +1131,12 @@
 			path = Chatalyze/helper/Cropper;
 			sourceTree = SOURCE_ROOT;
 		};
-		471CC869216242F800DB5E8C /* MyTicketsVerticalontroller */ = {
+		471CC869216242F800DB5E8C /* MyTicketsVerticalController */ = {
 			isa = PBXGroup;
 			children = (
 				471CC86A2162433100DB5E8C /* MyTicketsVerticalController.swift */,
-				471CC86C216243AC00DB5E8C /* MyTicketsVerticalRootView.swift */,
-				471CC86E216243FB00DB5E8C /* MyTicketsVerticalCell.swift */,
-				471CC8742162463C00DB5E8C /* MyTicketesVerticalAdapter.swift */,
 			);
-			path = MyTicketsVerticalontroller;
+			path = MyTicketsVerticalController;
 			sourceTree = "<group>";
 		};
 		472780E420B02D1000D5AA1E /* Memories */ = {
@@ -1296,7 +1291,6 @@
 			children = (
 				47E7A05020B826DF0049354A /* SystemTestController.swift */,
 				47EF658B20C9396A000D9BC3 /* InternetSpeedTestController.swift */,
-				47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */,
 				47EF658F20C94EE3000D9BC3 /* CameraTestController.swift */,
 			);
 			path = SystemTest;
@@ -1771,6 +1765,95 @@
 			path = MySessionInfo;
 			sourceTree = "<group>";
 		};
+		4782822B2184366900A003F4 /* InternetAvailability */ = {
+			isa = PBXGroup;
+			children = (
+				47EF658D20C947F9000D9BC3 /* InternetReachabilityCheck.swift */,
+			);
+			path = InternetAvailability;
+			sourceTree = "<group>";
+		};
+		4782822C2184371600A003F4 /* LoginSignUpTabView */ = {
+			isa = PBXGroup;
+			children = (
+				47127B152152532C00E1250B /* LoginSignUpTabView.swift */,
+			);
+			path = LoginSignUpTabView;
+			sourceTree = "<group>";
+		};
+		4782822D2184375100A003F4 /* multipleCallOpenAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				47E97BCF214BCFA90046109B /* OpenCallAlertController.swift */,
+			);
+			name = multipleCallOpenAlertController;
+			path = WelcomeScreen/multipleCallOpenAlertController;
+			sourceTree = "<group>";
+		};
+		4782822E2184387E00A003F4 /* MenuRootView */ = {
+			isa = PBXGroup;
+			children = (
+				47C9EF6521550D4F00478D85 /* MenuRootView.swift */,
+			);
+			path = MenuRootView;
+			sourceTree = "<group>";
+		};
+		4782822F2184389B00A003F4 /* HostDashBoardRootView */ = {
+			isa = PBXGroup;
+			children = (
+				47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */,
+			);
+			path = HostDashBoardRootView;
+			sourceTree = "<group>";
+		};
+		47828230218438D000A003F4 /* MyTicketsVerticleRootView */ = {
+			isa = PBXGroup;
+			children = (
+				471CC86C216243AC00DB5E8C /* MyTicketsVerticalRootView.swift */,
+			);
+			path = MyTicketsVerticleRootView;
+			sourceTree = "<group>";
+		};
+		478282312184391000A003F4 /* MenuAdalpter */ = {
+			isa = PBXGroup;
+			children = (
+				47C9EF6121550D2300478D85 /* MenuAdapter.swift */,
+			);
+			path = MenuAdalpter;
+			sourceTree = "<group>";
+		};
+		478282322184392E00A003F4 /* VerticleCellAdapter  */ = {
+			isa = PBXGroup;
+			children = (
+				471CC8742162463C00DB5E8C /* MyTicketesVerticalAdapter.swift */,
+			);
+			path = "VerticleCellAdapter ";
+			sourceTree = "<group>";
+		};
+		478282332184397400A003F4 /* VerticleCell */ = {
+			isa = PBXGroup;
+			children = (
+				471CC86E216243FB00DB5E8C /* MyTicketsVerticalCell.swift */,
+			);
+			path = VerticleCell;
+			sourceTree = "<group>";
+		};
+		478282342184398A00A003F4 /* MenuCell */ = {
+			isa = PBXGroup;
+			children = (
+				47C9EF5F21550D1700478D85 /* MenuCell.swift */,
+			);
+			path = MenuCell;
+			sourceTree = "<group>";
+		};
+		47828235218439FD00A003F4 /* MenuInfo */ = {
+			isa = PBXGroup;
+			children = (
+				47C9EF6321550D3900478D85 /* MenuInfo.swift */,
+			);
+			path = MenuInfo;
+			sourceTree = "<group>";
+		};
 		478C031F21776AAA0064AAFC /* SoundMeter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1993,7 +2076,6 @@
 				47B90E7521466CED004BA7A0 /* Controller */,
 				47B90E7621466CF7004BA7A0 /* View */,
 				47E97BCD214B83F90046109B /* TestClass.swift */,
-				47E97BCF214BCFA90046109B /* OpenCallAlertController.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -2058,10 +2140,6 @@
 			isa = PBXGroup;
 			children = (
 				47C9EF5D215509FA00478D85 /* MenuController.swift */,
-				47C9EF5F21550D1700478D85 /* MenuCell.swift */,
-				47C9EF6121550D2300478D85 /* MenuAdapter.swift */,
-				47C9EF6321550D3900478D85 /* MenuInfo.swift */,
-				47C9EF6521550D4F00478D85 /* MenuRootView.swift */,
 			);
 			path = MenuController;
 			sourceTree = "<group>";
@@ -2148,14 +2226,6 @@
 				47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */,
 			);
 			path = NotificationHelper;
-			sourceTree = "<group>";
-		};
-		47FD6910217DE451001886A6 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				47FD6911217DE483001886A6 /* HangupController.swift */,
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
@@ -2349,6 +2419,7 @@
 		FA3CC1382046BFFF007438A3 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				47828235218439FD00A003F4 /* MenuInfo */,
 				FA8BA3FE2181C8E600601B0B /* helper */,
 				FAE2EC6C209C8E4C0080E92D /* lib */,
 				FA573C0E207CBE77006447A1 /* call */,
@@ -2474,6 +2545,7 @@
 				FA65F541206A589E006CE665 /* VideoCallController.swift */,
 				FA65F543206A58E3006CE665 /* UserCallController.swift */,
 				FA65F545206A58F2006CE665 /* HostCallController.swift */,
+				47FD6911217DE483001886A6 /* HangupController.swift */,
 			);
 			path = call;
 			sourceTree = "<group>";
@@ -2788,6 +2860,10 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				47828230218438D000A003F4 /* MyTicketsVerticleRootView */,
+				4782822F2184389B00A003F4 /* HostDashBoardRootView */,
+				4782822E2184387E00A003F4 /* MenuRootView */,
+				4782822C2184371600A003F4 /* LoginSignUpTabView */,
 				47614F7B213ABB9800CC9702 /* MySessionView */,
 				47B4F4AF211C59BC00299686 /* SessionView */,
 				47B6523A20AAAFA30041496C /* container */,
@@ -2882,6 +2958,7 @@
 				47931AEE2109E0CF00F41630 /* AccountHostPageController */,
 				47931AF12109E88C00F41630 /* AccountHostController  */,
 				47931AF62109EB7C00F41630 /* SessionController */,
+				473E3B49211B155500DC60BC /* SystemTest */,
 				475B1113210B25CB00DADD39 /* EditProfileHost */,
 				470A3ACC2111B96200988F1D /* contactUs */,
 				47169EAB211430A5009D6EEE /* LaunchDelayScreen */,
@@ -2899,17 +2976,16 @@
 				473E3B46211B14EC00DC60BC /* MemoriesListController */,
 				473E3B47211B150400DC60BC /* ReviewController */,
 				473E3B48211B152C00DC60BC /* Payment */,
-				473E3B49211B155500DC60BC /* SystemTest */,
 				473E3B4A211B158900DC60BC /* EventsoldOut */,
 				473E3B4C211B15D000DC60BC /* EventLanding */,
 				473E3B4B211B15A900DC60BC /* PaymentEmailSetupPaypalForHost */,
+				4782822D2184375100A003F4 /* multipleCallOpenAlertController */,
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
 				47B90E7221466CA3004BA7A0 /* Test */,
 				47C9EF5C215509E400478D85 /* MenuController */,
-				47111CE42158BB1800DFBC08 /* HostDashboard */,
-				471CC869216242F800DB5E8C /* MyTicketsVerticalontroller */,
+				47111CE42158BB1800DFBC08 /* HostDashboardController */,
+				471CC869216242F800DB5E8C /* MyTicketsVerticalController */,
 				470EEC0E2166200500DB705D /* PinchToZoom */,
-				47FD6910217DE451001886A6 /* New Group */,
 				47182593216B370A00216AEB /* TermsCondition */,
 			);
 			path = controller;
@@ -2940,6 +3016,7 @@
 				47EDCF60216E282900EC16BB /* KeyBoardExtension */,
 				47C7B9C22182D52A000D311D /* StringHelper */,
 				478C031F21776AAA0064AAFC /* SoundMeter */,
+				4782822B2184366900A003F4 /* InternetAvailability */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -3257,6 +3334,8 @@
 		FAFB7C71206E026F004804D2 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				478282342184398A00A003F4 /* MenuCell */,
+				478282332184397400A003F4 /* VerticleCell */,
 				473E3B77211B207B00DC60BC /* Greeting */,
 				473E3B76211B206C00DC60BC /* EventCell */,
 				473E3B78211B20A000DC60BC /* Account */,
@@ -3277,6 +3356,8 @@
 		FAFB7C77206E04A5004804D2 /* adapter */ = {
 			isa = PBXGroup;
 			children = (
+				478282322184392E00A003F4 /* VerticleCellAdapter  */,
+				478282312184391000A003F4 /* MenuAdalpter */,
 				473E3B57211B1C4800DC60BC /* EventAdapter */,
 				473E3B58211B1C6800DC60BC /* GreetingAdapter */,
 				473E3B59211B1C8C00DC60BC /* PaymentAdapter */,

@@ -405,7 +405,7 @@ extension EditProfileRootview{
         FetchProfileProcessor().fetch { (success, message, response) in
             
             self.controller?.stopLoader()
-            self.controller?.navigationController?.popViewController(animated: true)
+            //self.controller?.navigationController?.popViewController(animated: true)
         }
     }    
     

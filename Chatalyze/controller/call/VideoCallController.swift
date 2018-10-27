@@ -654,10 +654,10 @@ extension VideoCallController{
         case connected = 2
     }
     
-    
     func setStatusMessage(type : callStatusMessage){
         
         if(type == .connected){
+            
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
             return
@@ -682,7 +682,6 @@ extension VideoCallController{
             let secondStr = "hasn't joined the session."
             
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-            
             firstMutableAttributedStr.append(secondAttributedString)
             
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
@@ -703,10 +702,10 @@ extension VideoCallController{
             return
         }
         
-        if type == .callStarted{
+        if type == .connected{
             
             self.hideChatalyzeLogo()
-            self.hidePreConnectLable()
+            self.hidePreConnectLabel()
             return
         }
     }

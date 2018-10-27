@@ -13,6 +13,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
 
     @IBOutlet var emailField :SigninFieldView?
     @IBOutlet var msgLbl:UILabel?
+    @IBOutlet var saveBtn:UIButton?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -21,7 +22,15 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         setUpGestureOnLabel()
         paintInterface()
         fetchPaypalInfo()
+        roundSaveButton()
     }
+    
+    func roundSaveButton(){
+        
+        saveBtn?.layer.cornerRadius = 5
+        saveBtn?.layer.masksToBounds = true
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

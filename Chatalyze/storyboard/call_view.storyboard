@@ -925,9 +925,6 @@
                                                     <constraint firstItem="qaG-Ia-gm8" firstAttribute="top" secondItem="HNx-vJ-T6I" secondAttribute="top" id="xZr-d6-ySQ"/>
                                                     <constraint firstAttribute="trailing" secondItem="qaG-Ia-gm8" secondAttribute="trailing" id="z5b-Rt-j2A"/>
                                                 </constraints>
-                                                <connections>
-                                                    <outlet property="actionImage" destination="vtB-MG-TNC" id="QPA-qY-tTU"/>
-                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY9-bM-gik" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="160" y="0.0" width="50" height="50"/>
@@ -1272,6 +1269,10 @@
                             <constraint firstItem="rNi-tn-Uxr" firstAttribute="leading" secondItem="jEr-c0-j4v" secondAttribute="leading" id="m8N-Nw-0wE"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="exitBtn" destination="Say-TW-jBJ" id="yxd-ZW-nXt"/>
+                        <outlet property="hangupBtn" destination="JTn-TW-i0m" id="ROh-dk-ehr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBm-f4-JDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
