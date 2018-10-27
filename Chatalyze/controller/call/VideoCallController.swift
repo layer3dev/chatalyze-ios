@@ -40,7 +40,7 @@ class VideoCallController : InterfaceExtendedController {
     
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
-    var eventExpiredHandler:((Bool,EventScheduleInfo?)->())?
+    var feedbackListener : ((EventScheduleInfo?)->())?
     
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
@@ -48,6 +48,14 @@ class VideoCallController : InterfaceExtendedController {
 
     @IBOutlet var chatalyzeLogo:UIImageView?
     @IBOutlet var preConnectLbl:UILabel?
+    
+    var roomType : UserInfo.roleType{
+        return .user
+    }
+    
+    var isSocketConnected : Bool{
+        return (socketClient?.isConnected ?? false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +70,7 @@ class VideoCallController : InterfaceExtendedController {
         
         // Do any additional setup after loading the view.
     }
+    
     
     func eventScheduleUpdatedAlert(){
         
@@ -150,24 +159,28 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func exit(){
-        
-        self.dismiss(animated: false) {
-            
-            Log.echo(key: "yud", text: "Schedule iD is\(String(describing: self.eventInfo?.id))")
-            //self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
+        self.dismiss(animated: false) {[weak self] in
+            Log.echo(key: "log", text: "VideoCallController dismissed")
+            self?.onExit()
         }
     }
     
-    func eventCompleted(){
-        DispatchQueue.main.async {
-            
-            self.eventExpiredHandler?(self.isExpired(),self.eventInfo)
-        }
+    //This will be called after viewController is exited from the screen
+    func onExit(){
+        
     }
     
     func isExpired()->Bool{
         return false
     }
+    
+    func showFeedbackScreen(){
+        DispatchQueue.main.async {
+            self.feedbackListener?(self.eventInfo)
+        }
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -285,9 +298,27 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     
+    func isPeerListFetched()->Bool{
+        if(peerInfos.count == 0){
+            return false
+        }
+        return true
+    }
+    
+    //This method tells us, if target user is online and present in call room or not
     func isOnline(hashId : String)->Bool{
         for peerInfo in peerInfos {
             if(peerInfo.name == hashId && peerInfo.isBroadcasting){
+                return true
+            }
+        }
+        return false
+    }
+    
+    //same as isOnline but won't check for isBroadcasting
+    func isAvailableInRoom(hashId : String)->Bool{
+        for peerInfo in peerInfos {
+            if(peerInfo.name == hashId){
                 return true
             }
         }
@@ -648,20 +679,29 @@ extension VideoCallController{
 extension VideoCallController{
     
     enum callStatusMessage:Int{
-    
-        case preConnectedSuccess = 0
-        case userDidNotJoin  = 1
-        case connected = 2
+        case ideal = 0
+        case preConnectedSuccess = 1
+        case userDidNotJoin  = 2
+        case connected = 3
+        
     }
     
     
     func setStatusMessage(type : callStatusMessage){
+        
+        if(type == .ideal){
+            self.showChatalyzeLogo()
+            self.hidePreConnectLabel()
+            return
+        }
         
         if(type == .connected){
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
             return
         }
+        
+        
         
         self.hideChatalyzeLogo()
         self.showPreConnectLabel()
@@ -675,11 +715,11 @@ extension VideoCallController{
         
         if type == .userDidNotJoin{
           
-            let firstStr = "Participant "
+            let firstStr = (roomType == .user) ? "Influencer " : "Participant"
             
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             
-            let secondStr = "hasn't joined the session."
+            let secondStr = " hasn't joined the session."
             
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
             
@@ -694,7 +734,7 @@ extension VideoCallController{
         
         if type == .preConnectedSuccess{
             
-            let secondStr = "You've pre-connected successfully. \n\n\n Get Ready to chat!"
+            let secondStr = "You've pre-connected successfully. \n\n Get Ready to chat!"
             
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
             

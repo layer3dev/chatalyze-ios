@@ -26,6 +26,10 @@ class UserCallController: VideoCallController {
     //This is webRTC connection responsible for signalling and handling the reconnect
     
 
+    override var roomType : UserInfo.roleType{
+        return .user
+    }
+    
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
@@ -64,22 +68,32 @@ class UserCallController: VideoCallController {
     }
     
     
-    override func updateStatusMessage(){
         
+    override func updateStatusMessage(){
+        super.updateStatusMessage()
         guard let eventInfo = eventInfo
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
-        if(!eventInfo.isWholeConnectEligible){
+        
+        if(!isSocketConnected){
+            setStatusMessage(type: .ideal)
             return
         }
         
+        if(!eventInfo.isWholeConnectEligible){
+            setStatusMessage(type: .ideal)
+            return
+        }
+        
+        
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
        
-        
         if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
             setStatusMessage(type: .connected)
             return;
@@ -87,17 +101,19 @@ class UserCallController: VideoCallController {
         
         guard let hostId = hostHashId
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
     
         
-        if(!isOnline(hashId: hostId)){
+        if(!isAvailableInRoom(hashId: hostId)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
         
        guard let connection = connection
         else{
+            setStatusMessage(type: .ideal)
             return
         }
         
@@ -105,6 +121,8 @@ class UserCallController: VideoCallController {
             setStatusMessage(type: .preConnectedSuccess)
             return
         }
+        
+        setStatusMessage(type: .ideal)
     }
     
     override func isExpired()->Bool{
@@ -388,24 +406,10 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        guard let isConnectionConnected = self.connection?.isConnected else { return }
+
         
-//        if isSelfieTimerInitiated{
-//            return
-//        }
+        if(!isCallConnected){ return }
         
-        //return if call is not connected means video stream is not coming.
-        
-        if !(isConnectionConnected)
-        { return }
-        
-//        //return if screenshot is already sent.
-//        if isScreenshotSaved{
-//            return
-//        }
-        
-//        Log.echo(key: "yud", text: "Processs Autograph isSelfieTimerInitiated \(isSelfieTimerInitiated)")
-//        Log.echo(key: "yud", text: "Processs Autograph isConnection Connected \(isConnectionConnected)")
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -548,7 +552,21 @@ class UserCallController: VideoCallController {
             return
         }
         self.processExitAction()
-        eventCompleted()
+    }
+    
+    override func onExit(){
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        
+        
+        guard let _ = eventInfo.upcomingSlot
+            else{
+                showFeedbackScreen()
+                return
+        }
+        
     }
     
     private func confirmCallLinked(){
@@ -892,5 +910,10 @@ extension UserCallController{
         let message = screenshotInfo.toDict()
         params["message"] = message
         socketClient?.emit(params)
+    }
+    
+    
+    var isCallConnected : Bool{
+         return (self.connection?.isConnected ?? false)
     }
 }

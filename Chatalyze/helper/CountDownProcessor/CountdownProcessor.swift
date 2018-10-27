@@ -35,6 +35,7 @@ class CountdownProcessor{
     private func initializeTimer(){
         timerSync = TimerSync.sharedInstance
         timer.startTimer(withInterval: 0.1)
+        
         timer.ping { [weak self] in
             guard let weakSelf = self
                 else{
@@ -46,7 +47,7 @@ class CountdownProcessor{
                     return
             }
             
-            let diff = timerSync.getDate().timeIntervalSince(weakSelf.lastRefresh)
+            let diff = Int(timerSync.getDate().timeIntervalSince(weakSelf.lastRefresh))
             if(diff <= 0){
                 return
             }
@@ -61,6 +62,21 @@ class CountdownProcessor{
         let callbackInfo = CallbackIdentifierInfo(callback: listener)
         callbackList.append(callbackInfo)
         return callbackInfo.uniqueIdentifier
+    }
+    
+    func release(identifier : Int){
+        if(identifier == 0){
+            return
+        }
+        
+        let size = callbackList.count
+        for index in  0 ..< size{
+            let callback = callbackList[index]
+            if(callback.uniqueIdentifier == identifier){
+                callbackList.remove(at: index)
+                return
+            }
+        }
     }
 }
 

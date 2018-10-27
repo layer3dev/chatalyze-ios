@@ -11,7 +11,6 @@ import Foundation
 public extension Date {
     
     func isPast()->Bool{
-      
         return !isFuture()
     }
     

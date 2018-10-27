@@ -17,10 +17,27 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
+    override var roomType : UserInfo.roleType{
+        return .analyst
+    }
+    
     override func initialization(){
         super.initialization()
         
         initializeVariable()
+    }
+    
+    override func onExit(){
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        
+        if(!eventInfo.isExpired){
+            return;
+        }
+        
+        showFeedbackScreen()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,8 +74,8 @@ class HostCallController: VideoCallController {
         
         self.present(controller, animated: true, completion: {
         })
-        
     }
+    
     
     private func toggleHangup(){
         
@@ -185,7 +202,8 @@ class HostCallController: VideoCallController {
     }
     
     override func interval(){
-     
+        super.interval()
+        
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -194,55 +212,65 @@ class HostCallController: VideoCallController {
     }
     
     override func updateStatusMessage(){
+        super.updateStatusMessage()
         
         guard let eventInfo = eventInfo
             else{
-                return
-        }
-        if(!eventInfo.isWholeConnectEligible){
-            return
-        }
-        
-        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
-            else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-    
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            setStatusMessage(type: .connected)
+        //Is event strictly in preconnect state - startTime < 30 AND startTime > 0
+        //if yes, Just show it as pre-connected
+        if(eventInfo.isPreconnectEligible){
+            setStatusMessage(type: .preConnectedSuccess)
             return;
         }
         
-        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+        //if event starttime is NOT < 30 seconds
+        //we want to keep showing the logo, so do nothing
+        if(!eventInfo.isWholeConnectEligible){
+            setStatusMessage(type: .ideal)
+            return
+        }
+        
+        //Is there any slot booked
+        //if no, return
+        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-        guard let preConnectUser = preConnectSlot.user
+        
+        
+        if(!isSocketConnected){
+            setStatusMessage(type: .ideal)
+            return
+        }
+        
+        
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return
+        }
+        
+        guard let activeUser = activeSlot.user
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-        if(!isOnline(hashId: preConnectUser.hashedId)){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
         
-        guard let preConnectConnection = getPreConnectConnection()
-            else{
-                return;
-        }
-        
-        if(preConnectConnection.isConnected){
-            setStatusMessage(type: .preConnectedSuccess)
-            return
-        }
+        setStatusMessage(type: .ideal)
     }
     
     
     private func refresh(){
-       
         refreshStreamLock()
     }
     
@@ -408,11 +436,7 @@ class HostCallController: VideoCallController {
     private func processEvent(){
     
         if(!(socketClient?.isConnected ?? false)){
-//            Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
             return
-        }
-        else{
-//            Log.echo(key: "processEvent", text: "processEvent -> socket connected")
         }
         guard let eventInfo = self.eventInfo
             else{
@@ -443,7 +467,6 @@ class HostCallController: VideoCallController {
         }
         
         self.processExitAction()
-        eventCompleted()
     }
     
     private func disconnectStaleConnection(){
