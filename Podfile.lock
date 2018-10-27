@@ -1,6 +1,6 @@
 PODS:
-  - CropViewController (2.3.8)
-  - GoogleSignIn (4.3.0):
+  - CropViewController (2.3.7)
+  - GoogleSignIn (4.1.2):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
     - GTMOAuth2 (~> 1.0)
@@ -13,7 +13,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.4)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
-  - GoogleWebRTC (1.1.25331)
+  - GoogleWebRTC (1.1.24168)
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.2.0):
@@ -21,13 +21,13 @@ PODS:
   - GTMSessionFetcher/Core (1.2.0)
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
-  - JTAppleCalendar (7.1.6)
+  - JTAppleCalendar (7.1.5)
   - TwitterCore (3.1.0)
   - TwitterKit (3.4.0):
     - TwitterCore (>= 3.1.0)
 
 DEPENDENCIES:
-  - CropViewController (from `https://github.com/TimOliver/TOCropViewController.git`)
+  - CropViewController
   - GoogleSignIn
   - GoogleWebRTC
   - JTAppleCalendar (~> 7.1.5)
@@ -36,6 +36,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CropViewController
     - GoogleSignIn
     - GoogleToolboxForMac
     - GoogleWebRTC
@@ -45,26 +46,17 @@ SPEC REPOS:
     - TwitterCore
     - TwitterKit
 
-EXTERNAL SOURCES:
-  CropViewController:
-    :git: https://github.com/TimOliver/TOCropViewController.git
-
-CHECKOUT OPTIONS:
-  CropViewController:
-    :commit: f671cb9146bd3ddd4c1be7caa5103c866376d067
-    :git: https://github.com/TimOliver/TOCropViewController.git
-
 SPEC CHECKSUMS:
-  CropViewController: 624c1bc26845ac782f17c9765061f50088471cdc
-  GoogleSignIn: 11183592dc63e105475c7305a325045ff95e02b7
+  CropViewController: a9d579b526926c4e1caf754a89a9ac1c20aaa8eb
+  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
-  GoogleWebRTC: 39dc119b510339af9b59d849068016b7c668490a
+  GoogleWebRTC: ef935a1697f577bef4a3dbf9b5af50e894e94cc3
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
-  JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
+  JTAppleCalendar: 2d4f974f9f3c8b4964d51ca1f6e004883c031fbe
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
   TwitterKit: bc7bd086b9b724a1d888745a054e1d0b1ecc4f3f
 
-PODFILE CHECKSUM: 66f25ecb37066a6802b6b47bae8290e16c026f5a
+PODFILE CHECKSUM: c28bbc30b18435d468dcd80f228c174ba16f6362
 
 COCOAPODS: 1.5.3
