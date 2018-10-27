@@ -649,15 +649,6 @@ extension VideoCallController{
     
     enum callStatusMessage:Int{
     
-<<<<<<< HEAD
-        case preConnectedSuccessFully = 0
-        case userDidnotJoin  = 1
-        case callStarted = 2
-    }
-    
-    
-    func handleMessage(type:PreConnectMessage){
-=======
         case preConnectedSuccess = 0
         case userDidNotJoin  = 1
         case connected = 2
@@ -671,7 +662,6 @@ extension VideoCallController{
             self.hidePreConnectLabel()
             return
         }
->>>>>>> connection_status_message
         
         self.hideChatalyzeLogo()
         self.showPreConnectLabel()
