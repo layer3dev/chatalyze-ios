@@ -9,7 +9,7 @@ This is Chatalyze iOS Repository. It is compatible with most updated versions of
   - iOS 12
 
 
-## Dependencies
+## Dependencies Carthage
 Chatalyze uses a number of open source projects to work properly:
 * [socketio](https://github.com/socketio/socket.io-client-swift) - WebSocket Connection Wrapper 
 * [HCSStarRatingView](https://github.com/hsousa/HCSStarRatingView) - Swipe feature and Custom UI for rating the call.
@@ -20,6 +20,13 @@ Chatalyze uses a number of open source projects to work properly:
 * [input-mask-ios](https://github.com/RedMadRobot/input-mask-ios) - User input masking library repo.
 * [facebook/facebook-sdk-swift](https://github.com/facebook/facebook-sdk-swift) - Integrate your iOS apps in Swift with Facebook Platform.
 
+## Dependencies CocoaPods
+ - pod 'JTAppleCalendar', '~> 7.1.5'
+ - pod 'GoogleWebRTC' 
+ - pod 'GoogleSignIn'
+ - pod 'TwitterKit', '3.4.0'
+ - pod 'TwitterCore', '3.1.0'
+ - pod 'CropViewController', :git => 'https://github.com/TimOliver/TOCropViewController.git'
 
 ## SetUp
 - Download Developer's Certification from Apple Developer Account and add it to developer's system Keychain Access. 
