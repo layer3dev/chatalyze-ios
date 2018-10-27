@@ -38,6 +38,8 @@ class SyncTimer: NSObject {
         
         weak var weakSelf = self
         
+        
+        
         DispatchQueue.main.async(execute: {
             guard let weak = weakSelf
                 else{

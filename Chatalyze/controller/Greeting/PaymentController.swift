@@ -22,7 +22,7 @@ class PaymentController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        self.paintNavigationTitle(text: "PAYMENT INFO")
+        self.paintNavigationTitle(text: "Payment")
         self.paintBackButton()
     }
     

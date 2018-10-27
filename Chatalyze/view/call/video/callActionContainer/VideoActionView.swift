@@ -21,11 +21,10 @@ class VideoActionView: ExtendedView {
     */
     
     func mute(){
-        actionImage?.image = UIImage(named : "videocam_off")
+        actionImage?.image = UIImage(named : "newDisableCamera")
     }
     
     func unmute(){
-        actionImage?.image = UIImage(named : "videocam_on")
+        actionImage?.image = UIImage(named : "newCamera")
     }
-
 }

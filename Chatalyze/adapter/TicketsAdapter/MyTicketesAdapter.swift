@@ -48,7 +48,7 @@ class MyTicketesAdapter: ExtendedView {
         
         layout.itemSize = CGSize(width: width-60, height: height-15)
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsetsMake(5, 10, 5, 0)
+        layout.sectionInset = UIEdgeInsets.init(top: 5, left: 10, bottom: 5, right: 0)
         //layout.sectionInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 0
@@ -143,7 +143,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventId = "\(eventId)"
-            
+
             self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
             return
         }

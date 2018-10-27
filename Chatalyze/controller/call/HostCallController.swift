@@ -16,8 +16,6 @@ class HostCallController: VideoCallController {
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
-        
-    
     
     override func initialization(){
         super.initialization()
@@ -32,13 +30,34 @@ class HostCallController: VideoCallController {
     }
     
     var hostActionContainer : HostVideoActionContainer?{
+    
         get{
             return actionContainer as? HostVideoActionContainer
         }
     }
     
     @IBAction private func hangupAction(){
-        toggleHangup()
+        
+        guard let controller = HangupController.instance() else{
+            return
+        }
+        
+        controller.exit = {
+            
+            DispatchQueue.main.async {
+                self.processExitAction()
+            }
+        }
+        controller.hangup = {
+            
+            DispatchQueue.main.async {
+                self.toggleHangup()
+            }
+        }
+        
+        self.present(controller, animated: true, completion: {
+        })
+        
     }
     
     private func toggleHangup(){
@@ -126,7 +145,7 @@ class HostCallController: VideoCallController {
                             requiredDate = newdate
                         }else{
                             
-                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
+                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
@@ -174,6 +193,54 @@ class HostCallController: VideoCallController {
         updateLableAnimation()
     }
     
+    override func updateStatusMessage(){
+        
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        if(!eventInfo.isWholeConnectEligible){
+            return
+        }
+        
+        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
+            else{
+                return
+        }
+        
+    
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
+        
+        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+            else{
+                return
+        }
+        
+        guard let preConnectUser = preConnectSlot.user
+            else{
+                return
+        }
+        
+        if(!isOnline(hashId: preConnectUser.hashedId)){
+            setStatusMessage(type : .userDidNotJoin)
+            return;
+        }
+        
+        guard let preConnectConnection = getPreConnectConnection()
+            else{
+                return;
+        }
+        
+        if(preConnectConnection.isConnected){
+            setStatusMessage(type: .preConnectedSuccess)
+            return
+        }
+    }
+    
+    
     private func refresh(){
        
         refreshStreamLock()
@@ -182,6 +249,19 @@ class HostCallController: VideoCallController {
     private func getActiveConnection()->HostCallConnection?{
         
         guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return nil
+        }
+        guard let connection = getWriteConnection(slotInfo: slot)
+            else{
+                return nil
+        }
+        return connection
+    }
+    
+    private func getPreConnectConnection()->HostCallConnection?{
+        
+        guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
                 return nil
         }
@@ -208,7 +288,7 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-        
+
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
@@ -241,10 +321,12 @@ class HostCallController: VideoCallController {
                 return
         }
         
+        //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
+        
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
-        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
@@ -264,7 +346,7 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
-        let slotCountFormatted = "Slot : \(currentSlot + 1)/\(slotCount)"
+        let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
@@ -274,7 +356,7 @@ class HostCallController: VideoCallController {
         guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 
-                Log.echo(key: "animation", text: "stopAnimation")
+                //Log.echo(key: "animation", text: "stopAnimation")
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -288,14 +370,17 @@ class HostCallController: VideoCallController {
                 startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
                 return
             }
+            
             if endDate <= 0.0{
                 
                 isAnimating = false
                 stopLableAnimation()
                 return
             }
-            if endDate > 50.0{
-                
+            
+            if endDate > 15.0{
+
+                //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -545,5 +630,12 @@ extension HostCallController{
         let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
         
         return controller
+    }
+}
+
+//not in use at the moment
+extension HostCallController : CallConnectionProtocol{
+    func updateConnectionState(state : RTCIceConnectionState, slotInfo : SlotInfo?){
+        
     }
 }

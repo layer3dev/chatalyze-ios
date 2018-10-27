@@ -14,7 +14,7 @@ class MemoriesAdapter: ExtendedView {
     @IBOutlet var memoriesListingTableView:UITableView?
     var root:MemoriesRootView?
     var memoriesListingArray = [MemoriesInfo]()
-    var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var spinner = UIActivityIndicatorView(style: .gray)
     var controller:MemoriesController?
     
     override func viewDidLayout() {
@@ -58,6 +58,17 @@ extension MemoriesAdapter:UITableViewDataSource{
             
             cell.fillInfo(info:self.memoriesListingArray[indexPath.row])
             cell.controller = self.controller
+            cell.indexPath = indexPath
+            cell.deletingCellInfo = {(deletedIndexPath) in
+               
+                if let deletedIndex = deletedIndexPath{
+                    
+                    self.memoriesListingArray.remove(at: deletedIndex.row)
+                    self.memoriesListingTableView?.beginUpdates()
+                    self.memoriesListingTableView?.deleteRows(at: [deletedIndex], with: .automatic)
+                    self.memoriesListingTableView?.endUpdates()
+                }
+            }
             return cell
         }
         return UITableViewCell()
@@ -89,7 +100,7 @@ extension MemoriesAdapter:UITableViewDataSource{
         }
         self.memoriesListingArray.append(info)
         self.memoriesListingTableView?.beginUpdates()
-        self.memoriesListingTableView?.insertRows(at: [IndexPath(row: self.memoriesListingArray.count-1, section: 0)],with:  UITableViewRowAnimation.automatic)
+        self.memoriesListingTableView?.insertRows(at: [IndexPath(row: self.memoriesListingArray.count-1, section: 0)],with:  UITableView.RowAnimation.automatic)
         self.memoriesListingTableView?.endUpdates()
     }
     
@@ -107,7 +118,7 @@ extension MemoriesAdapter:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

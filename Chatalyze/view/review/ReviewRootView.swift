@@ -28,7 +28,7 @@ class ReviewRootView:ExtendedView{
     
     @IBAction func submit(sender:UIButton){
         
-        Log.echo(key: "yud", text: "The value of the rating is \(ratingView?.value)")
+        Log.echo(key: "yud", text: "The value of the rating is \(String(describing: ratingView?.value))")
     }
     
     @IBAction func tapReviewAction(sender:UIButton){
@@ -39,7 +39,7 @@ class ReviewRootView:ExtendedView{
             if let button = self.viewWithTag(i) as? UIButton
             {
                 button.tintColor = UIColor(hexString: "#82C57E")
-                button.setImage(UIImage(named: "star"), for: UIControlState.normal)
+                button.setImage(UIImage(named: "star"), for: UIControl.State.normal)
             }
         }
     }
@@ -51,7 +51,7 @@ class ReviewRootView:ExtendedView{
             if let button = self.viewWithTag(i) as? UIButton
             {
                 button.tintColor = UIColor(hexString: "#82C57E")
-                button.setImage(UIImage(named: "emptyStar"), for: UIControlState.normal)
+                button.setImage(UIImage(named: "emptyStar"), for: UIControl.State.normal)
             }
         }
     }

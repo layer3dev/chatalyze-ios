@@ -35,7 +35,7 @@ class LocalVideoView: VideoView {
     private func initialization(){
         self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
         updateLayoutRotation()
-        NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func didRotate(){

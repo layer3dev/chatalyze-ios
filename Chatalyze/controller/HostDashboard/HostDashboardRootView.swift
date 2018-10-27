@@ -31,9 +31,11 @@ class HostDashboardRootView: MySessionRootView {
     
     func underLineLable(){
         
-        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: fontSize)] as? [NSAttributedStringKey : Any]{
+
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Poppins", size: fontSize)] as? [NSAttributedString.Key : Any]{
+
          
-            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedStringKey : Any])
+            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedString.Key : Any])
             underLineLbl?.attributedText = underlineAttributedString
         }
     }

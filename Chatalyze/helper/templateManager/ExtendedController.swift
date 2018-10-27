@@ -55,7 +55,7 @@ class ExtendedController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if (self.isBeingDismissed || self.isMovingFromParentViewController) {
+        if (self.isBeingDismissed || self.isMovingFromParent) {
             // clean up code here
             viewDidRelease()
         }

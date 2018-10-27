@@ -36,8 +36,8 @@ class SessionDoneRootView:ExtendedView{
     
     func underLineLable(){
         
-        let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
-        let underlineAttributedString = NSAttributedString(string: "https://dev.chatalyze.com/sessions/Chat-Session/3459", attributes: underlineAttribute as [NSAttributedStringKey : Any])
+        let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue]
+        let underlineAttributedString = NSAttributedString(string: "https://dev.chatalyze.com/sessions/Chat-Session/3459", attributes: underlineAttribute as [NSAttributedString.Key : Any])
         underlineLabel?.attributedText = underlineAttributedString
     }
     
@@ -79,8 +79,8 @@ class SessionDoneRootView:ExtendedView{
             self.controller?.stopLoader()
             if success{
                 
-                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
+                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
                 }))
                 self.controller?.present(alert, animated: false, completion: {
                 })
@@ -116,11 +116,11 @@ class SessionDoneRootView:ExtendedView{
     
     func noPermission(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
             
-            if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
+            if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(settingUrl)
                 } else {

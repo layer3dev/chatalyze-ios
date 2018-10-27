@@ -23,7 +23,7 @@ class PaymentListingController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "PAYMENT HISTORY")
+        paintNavigationTitle(text: "Payment History")
         paintBackButton()
         paintSettingButton()
     }

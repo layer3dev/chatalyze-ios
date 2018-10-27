@@ -130,7 +130,7 @@ extension AccountController:stateofAccountTabDelegate{
     
     func  resetOffset(){
         
-        UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: UIView.AnimationOptions.curveEaseOut, animations: {
             
             self.topConstraint?.constant = 0.0
             self.view.layoutIfNeeded()
@@ -141,7 +141,7 @@ extension AccountController:stateofAccountTabDelegate{
     func setOffset(){
         
         if settingContentOffset >= 0.0 && settingContentOffset <= 65.0 {
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 
                 self.topConstraint?.constant = -(self.settingContentOffset)
                 self.containerTopContraint?.constant = 155.0 - (self.settingContentOffset)
@@ -150,7 +150,7 @@ extension AccountController:stateofAccountTabDelegate{
             }) { (success) in
             }
         }else if settingContentOffset > 65.0{
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 
                 self.topConstraint?.constant = -65.0
                 self.containerTopContraint?.constant = 90
@@ -158,7 +158,7 @@ extension AccountController:stateofAccountTabDelegate{
             }) { (success) in
             }
         }else if settingContentOffset < 0.0{
-            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.1, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 
                 self.topConstraint?.constant = 0.0
                 self.containerTopContraint?.constant = 155.0

@@ -22,11 +22,11 @@ class MicActionView: UIView {
     */
     
     func mute(){
-        actionImage?.image = UIImage(named : "mic_off")
+        actionImage?.image = UIImage(named : "newMute")
     }
     
     func unmute(){
-        actionImage?.image = UIImage(named : "mic_on")
+        actionImage?.image = UIImage(named : "newMic")
     }
 
 

@@ -24,8 +24,10 @@ class MemoriesCell: ExtendedTableCell {
     @IBOutlet var memoryImage:UIImageView?
     var controller:MemoriesController?
     var info:MemoriesInfo?
-    var deleteCell:(()->())?
+    var deletingCellInfo:((IndexPath?)->())?
     var indexPath:IndexPath?
+    var beginsUpdate:(()->())?
+    var endsUpdate:(()->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -88,6 +90,7 @@ class MemoriesCell: ExtendedTableCell {
         var url = "https://dev.chatalyze.com/api/screenshots/"
         url = url+id
         url = url+"/url/chatalyze.png"
+        
         Log.echo(key: "yud", text: "Image url is \(url)")
         
         do{
@@ -105,9 +108,9 @@ class MemoriesCell: ExtendedTableCell {
                 }
             }catch{
                 
-                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
                 }))
                 
                 self.controller?.present(alert, animated: true, completion: {
@@ -132,8 +135,11 @@ extension MemoriesCell{
             return
         }
         controller.showingImage = self.memoryImage?.image
+        controller.info = self.info
         controller.deleteCell = {
-            
+            if let deletedCell = self.deletingCellInfo{
+                deletedCell(self.indexPath)
+            }
         }
         self.controller?.present(controller, animated: true)
     }
@@ -149,9 +155,9 @@ extension MemoriesCell{
             //We got back an error!
             let ac = UIAlertController(title: AppInfoConfig.appName, message: "Please provide the access to save the photos in the Gallery.", preferredStyle: .alert)
           
-            ac.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
+            ac.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (alert) in
                 
-                if let settingUrl = URL(string:UIApplicationOpenSettingsURLString){
+                if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                     if #available(iOS 10.0, *) {
                         
                         UIApplication.shared.open(settingUrl)

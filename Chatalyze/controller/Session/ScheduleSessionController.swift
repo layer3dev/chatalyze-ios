@@ -206,6 +206,7 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
         self.internalView?.isUserInteractionEnabled = false
         Log.echo(key: "yud", text: "Event has been successfully created!!")
         updateDoneTabUI()
+        pageViewController?.doneController?.eventInfo = pageViewController?.reviewController?.rootView?.eventInfo
         pageViewController?.setDoneTab()
     }
 }

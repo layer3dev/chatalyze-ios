@@ -14,12 +14,23 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     @IBOutlet var noeventLbl:UILabel?
     var eventArray:[EventInfo] = [EventInfo]()
     
+    let updatedEventScheduleListner = EventListener()
     override func viewDidLayout() {
         super.viewDidLayout()
         
         //initializeVariable()
         paintInterface()
+        eventListener()
     }
+    
+    func eventListener(){
+        
+        updatedEventScheduleListner.setListener {
+          
+            self.fetchInfo()
+        }
+    }
+    
     
     func initializeVariable(){        
         

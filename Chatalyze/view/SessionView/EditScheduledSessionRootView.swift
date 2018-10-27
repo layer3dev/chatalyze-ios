@@ -6,8 +6,9 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
-import Foundation
 import QuartzCore
+import CoreText
+import UIKit
 
 class EditScheduledSessionRootView:ExtendedView{
     
@@ -30,11 +31,13 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBOutlet var sessionNameLbl:UILabel?
     
-    var priceAttribute = [NSAttributedStringKey.foregroundColor: UIColor.black,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 17)]
-    var titleAttribute = [NSAttributedStringKey.foregroundColor: UIColor.black,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-bold", size: 17)]
+
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
     
-    var numberOfUnitAttributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 16)]
-    var editChatattributes = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue", size: 16)]
+    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+
     
     var param = [String:Any]()
     
@@ -42,20 +45,29 @@ class EditScheduledSessionRootView:ExtendedView{
     
     
     @IBOutlet var hostnameLbl:UILabel?
+    
     @IBOutlet var eventNameLbl:UILabel?
+    
     @IBOutlet var costofEventLbl:UILabel?
+    
     @IBOutlet var dateTimeLbl:UILabel?
+    
     @IBOutlet var eventInfoLbl:UILabel?
+    
     @IBOutlet var eventDetailInfo:UILabel?
     
     @IBOutlet var descriptionBackLbl:UILabel?
+  
     @IBOutlet var descriptionEditLbl:UILabel?
     
     @IBOutlet var sessionNameField:SigninFieldView?
+   
     @IBOutlet var descriptionEditTextViewContainer:UIView?
+   
     @IBOutlet var descriptionTextView:UITextView?
     
     @IBOutlet var scrollView:FieldManagingScrollView?
+    
     @IBOutlet var contentBottomOffsetConstraints:NSLayoutConstraint?
     
     var delegate:UpdateForEditScheduleSessionDelgete?
@@ -63,10 +75,12 @@ class EditScheduledSessionRootView:ExtendedView{
     var editedParam = [String:Any]()
     
     @IBOutlet var imageUploadingView:UIView?
+   
     @IBOutlet var uploadedImage:UIImageView?
     
    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
+    
     @IBOutlet var heightOfuploadedImageConstraint:NSLayoutConstraint?
     
     @IBOutlet var editImageLbl:UILabel?
@@ -134,15 +148,15 @@ class EditScheduledSessionRootView:ExtendedView{
             
             sessionNameField?.textField?.text = title
             
-            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute)
+            let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes)
+            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            //Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
             eventNameLbl?.attributedText = requiredStr
         }
         
@@ -150,17 +164,21 @@ class EditScheduledSessionRootView:ExtendedView{
             
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute)
+            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes)
+            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
             requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
             
             costofEventLbl?.attributedText = requiredStr
+           
+            //costofEventLbl?.text = "asdasfdsfds"
+            
+            Log.echo(key: "yud", text: "costofEventLbl text is \(costofEventLbl?.text)")
         }
         
         if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){
@@ -201,6 +219,80 @@ class EditScheduledSessionRootView:ExtendedView{
 //
 //            self.eventDetailInfo?.text = "\(self.eventDetailInfo?.text ?? "") \(startTime)! Here's how:"
 //        }
+    }
+    
+    func askToSelectUploadType(){
+        
+        let sheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
+           
+            self.openCamera()
+          
+        }
+        
+        let galleryAction = UIAlertAction(title: "Choose from Gallery", style: .default) { (action) in
+            /**
+             *  Create fake photo
+             */
+            //            let photoItem = JSQPhotoMediaItem(image: UIImage(named: "goldengate"))
+            //            self.addMedia(photoItem!)
+            self.openGallery()
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        sheet.addAction(photoAction)
+        sheet.addAction(galleryAction)
+        sheet.addAction(cancelAction)
+        self.controller?.present(sheet, animated: true, completion: nil)
+    }
+    
+    
+    func openCamera(){
+        
+        if !UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerController.SourceType.camera) {
+            return
+        }
+        
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) ==  AVAuthorizationStatus.authorized {
+            
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.controller?.present(imagePicker, animated: true, completion: nil)
+            return;
+            
+            
+        } else {
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (granted: Bool) -> Void in
+                if granted == true {
+                    
+                    self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
+                    self.controller?.present(self.imagePicker, animated: true, completion: nil)
+                    return;
+                    
+                } else {
+                    
+                    let alert = UIAlertController(title: AppInfoConfig.appName, message: "Please give the camera permission from the settings", preferredStyle: UIAlertController.Style.alert)
+                    
+                    alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (UIAlertAction) in
+                        
+                        UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+                        
+//                        UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: ., completionHandler: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                    }))
+                    self.controller?.present(alert, animated: true, completion: {
+                    })
+                }
+            })
+        }
+    }
+    func openGallery(){
+        
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.controller?.present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func uploadImage(sender:UIButton?){
@@ -367,9 +459,12 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
 
 extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        if let  chosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let  chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             
             uploadedImage?.contentMode = .scaleAspectFit
             uploadedImage?.image = chosenImage
@@ -389,4 +484,14 @@ extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigat
         self.controller?.dismiss(animated: true, completion: {
         })
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

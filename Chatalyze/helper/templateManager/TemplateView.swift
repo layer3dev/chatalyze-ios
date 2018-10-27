@@ -49,7 +49,7 @@ class TemplateView: ExtendedView {
             containerView = viewUnwrapped
             viewUnwrapped.translatesAutoresizingMaskIntoConstraints = false
             self.translatesAutoresizingMaskIntoConstraints = false
-            let size = viewUnwrapped.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            let size = viewUnwrapped.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
             var frame = self.frame;
             frame.size = size;
             
@@ -87,9 +87,9 @@ class TemplateView: ExtendedView {
         }
         let bindings : [String : AnyObject] = ["view": view]
         
-        customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: bindings))
+        customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: bindings))
         
-        customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: bindings))
+        customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: bindings))
         self.addConstraints(customConstraints)
     }
 }

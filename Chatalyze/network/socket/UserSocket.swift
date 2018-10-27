@@ -45,9 +45,9 @@ class UserSocket {
         
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     @objc func appMovedToBackground() {
@@ -145,7 +145,7 @@ extension UserSocket{
         
         socket?.on("notification") {data, ack in
             
-            Log.echo(key: "user_socket", text:"socket notification => \(data)")
+            Log.echo(key: "onAny", text:"socket notification => \(data)")
         }
         
         socket?.on("reconnect"){data ,ack in

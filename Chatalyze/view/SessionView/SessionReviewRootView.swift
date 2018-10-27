@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class SessionReviewRootView:ExtendedView{
     
-    
     @IBOutlet var titleLbl:UILabel?
     @IBOutlet var dateLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -20,14 +19,14 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var priceLbl:UILabel?
     @IBOutlet var isSelfieLbl:UILabel?
     @IBOutlet var errorLabel:UILabel?
-    
+    var eventInfo:EventInfo?
     
     var param = [String:Any]()
     var controller:SessionReviewController?
     var successHandler:(()->())?
     var totalDurationOfEvent:Int = 0
     var editedParam = [String:Any]()
-    
+    var paramForUpload = [String:Any]()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -36,7 +35,6 @@ class SessionReviewRootView:ExtendedView{
     func mergeEditedtoRealParam(){
         
         //Param meters edited in the editScheduleController is merging
-        
         for (key,value) in editedParam{
             self.param[key] = value
         }
@@ -97,6 +95,7 @@ class SessionReviewRootView:ExtendedView{
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             if let newdate = dateFormatter.date(from: date) {
+                
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.dateFormat = "EEEE-MMM-dd , yyyy"
                 return dateFormatter.string(from: newdate)
@@ -124,8 +123,16 @@ class SessionReviewRootView:ExtendedView{
     }
     
     @IBAction func scheduleAction(sender:UIButton?){
+      
+        paramForUpload = self.param
+      
+        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
         
-        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(param)")
+        guard let hourlyPrice = caluclateHourlyPrice() else {
+            return
+        }
+        
+        paramForUpload["price"] = hourlyPrice
         
         if controller?.selectedImage != nil{
             scheduleActionWithImage()
@@ -141,19 +148,20 @@ class SessionReviewRootView:ExtendedView{
         guard let image = self.controller?.selectedImage else{
             return
         }
-        guard let data = UIImageJPEGRepresentation(image, 1.0)
+        guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion?(false, nil)
                 return
         }
-        
-        self.param["eventBannerInfo"] = true
-        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(param)")
+        self.paramForUpload["eventBannerInfo"] = true
+        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-        self.param["eventBanner"] = imageBase64
+        self.paramForUpload["eventBanner"] = imageBase64
         self.controller?.showLoader()
         resetErrorlabel()
-        SessionRequestWithImageProcessor().schedule(params: param) { [weak self] (success, info) in
+        SessionRequestWithImageProcessor().schedule(params: paramForUpload) { [weak self] (success, info) in
+            
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(info)")
             
             self?.controller?.stopLoader()
             completion!(success,info)
@@ -165,10 +173,15 @@ class SessionReviewRootView:ExtendedView{
     
     func scheduleActionWithImage(){
         
-        uploadImage { (success, reposnse) in
+        uploadImage { (success, response) in
             
             if !success{
                 return
+            }
+            
+            if let info = response{
+                let eventInfo = EventInfo(info: info)
+                self.eventInfo = eventInfo
             }
             
             Log.echo(key: "imageUploading", text: "Image uploading result is \(success) and the response is \(self.param)")
@@ -190,19 +203,41 @@ class SessionReviewRootView:ExtendedView{
         self.errorLabel?.text = message
     }
     
+    func caluclateHourlyPrice()->String?{
+     
+        if let duration = param["duration"] as? Int{
+            let hourlySlots = (60/duration)
+            if let singleChatPriceStr = param["price"] as? String{
+                if let singleChatPrice = Int(singleChatPriceStr){
+                    let hourlyPrice = (singleChatPrice*hourlySlots)
+                    return "\(hourlyPrice)"
+                }
+            }
+        }
+        return nil
+    }
+    
     func scheduleAction(){
-        
-        self.param["eventBannerInfo"] = false
+      
+        self.paramForUpload["eventBannerInfo"] = false
         self.controller?.showLoader()
         resetErrorlabel()
-        Log.echo(key: "yud", text: "Param sending to web \(param)")
-        ScheduleSessionRequest().save(params: param) { (success, message, response) in
+        Log.echo(key: "yud", text: "Param sending to web \(paramForUpload)")
+        
+        ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
          
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(response)")
+            
             self.controller?.stopLoader()
             
             if !success{
                 self.showError(message:message)
                 return
+            }
+            
+            if let info = response{
+                let eventInfo = EventInfo(info: info)
+                self.eventInfo = eventInfo
             }
             
             if let handler = self.successHandler{
@@ -222,6 +257,7 @@ class SessionReviewRootView:ExtendedView{
         guard let controller = SessionDoneController.instance() else{
             return
         }
+        controller.eventInfo = self.eventInfo
         controller.fillParam(param:self.param)
     }
 }

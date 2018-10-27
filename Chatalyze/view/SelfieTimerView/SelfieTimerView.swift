@@ -14,8 +14,8 @@ class SelfieTimerView:ExtendedView {
     var player : AVAudioPlayer?
     var autographTime = 0
     static var testTimer = Timer()
-    var selfieAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
-    var whiteAttribute:[NSAttributedStringKey : Any] = [NSAttributedStringKey : Any]()
+    var selfieAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
+    var whiteAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var screenShotListner:(()->())?
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
@@ -53,7 +53,7 @@ class SelfieTimerView:ExtendedView {
     
     func startAnimationForHost(date:Date?){
         
-        autographTime = 12
+        autographTime = 13
         guard let startDate = date else {
             return
         }
@@ -187,9 +187,9 @@ extension SelfieTimerView{
     
     private func greenOne(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3", attributes: oneAttribute)
         let secondStr = NSMutableAttributedString(string: " 2 1", attributes: self.whiteAttribute)
@@ -207,11 +207,11 @@ extension SelfieTimerView{
     
     private func greenTwo(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
       
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3", attributes: self.whiteAttribute)
@@ -232,11 +232,11 @@ extension SelfieTimerView{
     
     private func greenThird(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
     
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2", attributes: self.whiteAttribute)
         let secondStr = NSMutableAttributedString(string: " 1", attributes: oneAttribute)
@@ -254,10 +254,10 @@ extension SelfieTimerView{
     
     private func smile(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        let oneAttribute =  [NSAttributedStringKey.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: oneAttribute)
@@ -273,9 +273,9 @@ extension SelfieTimerView{
     
     private func greenSelfieTime(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
@@ -292,9 +292,9 @@ extension SelfieTimerView{
     
     private func graySelfieTime(){
         
-        self.selfieAttribute = [NSAttributedStringKey.foregroundColor: UIColor.white,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        self.whiteAttribute = [NSAttributedStringKey.foregroundColor: UIColor.lightGray,NSAttributedStringKey.font:UIFont(name: "HelveticaNeue-Bold", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
@@ -332,7 +332,9 @@ extension SelfieTimerView{
          return
          }*/
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try
+               AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+//            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
             try AVAudioSession.sharedInstance().setActive(true)
             
             let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
@@ -344,4 +346,9 @@ extension SelfieTimerView{
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

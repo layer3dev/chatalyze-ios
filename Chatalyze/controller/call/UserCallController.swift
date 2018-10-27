@@ -54,11 +54,57 @@ class UserCallController: VideoCallController {
     override func interval(){
         super.interval()
         
+        Log.echo(key: "yud", text: "Interval timer is working")
+        
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
         processAutograph()
         updateLableAnimation()
+    }
+    
+    
+    override func updateStatusMessage(){
+        
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        if(!eventInfo.isWholeConnectEligible){
+            return
+        }
+        
+        guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                return
+        }
+       
+        
+        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
+        
+        guard let hostId = hostHashId
+            else{
+                return
+        }
+    
+        
+        if(!isOnline(hashId: hostId)){
+            setStatusMessage(type : .userDidNotJoin)
+            return;
+        }
+        
+       guard let connection = connection
+        else{
+            return
+        }
+        
+        if(connection.isConnected){
+            setStatusMessage(type: .preConnectedSuccess)
+            return
+        }
     }
     
     override func isExpired()->Bool{
@@ -282,7 +328,7 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        //Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
+        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
         
         //Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
@@ -298,8 +344,6 @@ class UserCallController: VideoCallController {
             }
         }
         
-
-
         
         //Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
         
@@ -333,6 +377,7 @@ class UserCallController: VideoCallController {
         }
         
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
+        
         if let slotId = self.myActiveUserSlot?.id{
             if slotId == SlotFlagInfo.staticSlotId && SlotFlagInfo.staticIsTimerInitiated{
                 return
@@ -343,16 +388,16 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        guard let isConnectionConnected = self.connection?.isConnected else { return  }
+        guard let isConnectionConnected = self.connection?.isConnected else { return }
         
 //        if isSelfieTimerInitiated{
 //            return
 //        }
         
         //return if call is not connected means video stream is not coming.
-        if !(isConnectionConnected){
-            return
-        }
+        
+        if !(isConnectionConnected)
+        { return }
         
 //        //return if screenshot is already sent.
 //        if isScreenshotSaved{
@@ -365,9 +410,18 @@ class UserCallController: VideoCallController {
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
             
+            //In order to convert into the Web Format
+            //E, d MMM yyyy HH:mm:ss z
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+            let requiredWebCompatibleTimeStamp = dateFormatter.string(from: requiredTimeStamp)
+            
+            Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
+            //End
             var data:[String:Any] = [String:Any]()
             var messageData:[String:Any] = [String:Any]()
-            messageData = ["timerStartsAt":"\(requiredTimeStamp)"]
+            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
@@ -404,15 +458,19 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-                
+        
+        //Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
+        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return
         }
+        
         if(currentSlot.isFuture){
+            
             updateCallHeaderForFuture(slot : currentSlot)
             return
-        }
+        }       
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
@@ -422,7 +480,7 @@ class UserCallController: VideoCallController {
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 
-                Log.echo(key: "animation", text: "stopAnimation")
+                //Log.echo(key: "animation", text: "stopAnimation")
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -442,7 +500,7 @@ class UserCallController: VideoCallController {
                 stopLableAnimation()
                 return
             }
-            if endDate > 50.0{
+            if endDate > 15.0{
                 
                 isAnimating = false
                 stopLableAnimation()
@@ -462,7 +520,8 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+        //userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+        userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
@@ -612,7 +671,7 @@ extension UserCallController{
         
         let alertController = UIAlertController(title: "Autograph" , message: "What would you like to do ?", preferredStyle: .actionSheet)
         
-        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertActionStyle.default) { [weak self] (action) in
+        let takeScreenshot = UIAlertAction(title: "Take Screenshot", style: UIAlertAction.Style.default) { [weak self] (action) in
             self?.takeScreenshot()
             return
         }
@@ -621,7 +680,7 @@ extension UserCallController{
             takeScreenshot.isEnabled = false
         }
         
-        let requestAutograph = UIAlertAction(title: "Request Autograph", style: UIAlertActionStyle.default) {  [weak self] (action) in
+        let requestAutograph = UIAlertAction(title: "Request Autograph", style: UIAlertAction.Style.default) {  [weak self] (action) in
             self?.requestAutographProcess()
             return
         }
@@ -630,7 +689,7 @@ extension UserCallController{
             requestAutograph.isEnabled = false
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action) in
             return
         }
         
@@ -761,7 +820,7 @@ extension UserCallController{
                 completion?(false, nil)
                 return
         }
-        guard let data = UIImageJPEGRepresentation(image, 1.0)
+        guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion?(false, nil)
                 return

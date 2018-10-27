@@ -28,7 +28,7 @@ class NavigationBarCustomizer{
         navigationBarAppearace.isTranslucent = false
         
         // change navigation item title color
-        navigationBarAppearace.titleTextAttributes =  [NSAttributedStringKey.foregroundColor:UIColor.white]
+        navigationBarAppearace.titleTextAttributes =  [NSAttributedString.Key.foregroundColor:UIColor.white]
     }
     
     func updateStatusBar(){

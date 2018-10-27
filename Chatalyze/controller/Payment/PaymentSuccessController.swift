@@ -27,7 +27,7 @@ class PaymentSuccessController: InterfaceExtendedController {
     
     func painInterface(){
         
-        paintNavigationTitle(text: "PAYMENT SUCCESS")
+        paintNavigationTitle(text: "Payment")
         paintBackButton()
         paintSettingButton()
         //paintMobileField()

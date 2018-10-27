@@ -11,14 +11,17 @@ import SwiftyJSON
 
 class SignOutManager{
     
-    public func signOut(completion : @escaping ((_ success : Bool)->())){
-        
+    public func signOut(completion : @escaping ((_ success : Bool)->())){        
+     
         UserDefaults.standard.removeObject(forKey: "SignatureImage")
         UserDefaults.standard.removeObject(forKey:"SignatureImageUrl")
+       
         let url = AppConnectionConfig.webServiceURL + "/logout"
+       
         var params = [String : Any]()
         
         if let deviceInfo = SessionDeviceInfo.sharedInstance{
+       
             params["deviceId"] = deviceInfo.deviceId
             params["deviceType"] = AppInfoConfig.deviceType
         }
@@ -37,19 +40,7 @@ class SignOutManager{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool)->())){
         
-        Log.echo(key: "token", text: "raw info ==>  \(response?.string)" )
-        
-        guard let rawInfo = response
-            else{
-                completion(false)
-                return
-        }
-        if(!success){
-            completion(false)
-            return
-        }
-        completion(true)
-        
-        return
+        //Response is coming is a string with thetrue or false
+        completion(success)
     }
 }
