@@ -387,6 +387,11 @@ class VideoCallController : InterfaceExtendedController {
     func verifyScreenshotRequested(){
         
     }
+    
+    //to be overridden by child classes
+    var isVideoCallInProgress : Bool{
+        return false
+    }
 }
 
 
@@ -730,4 +735,6 @@ extension VideoCallController{
         chatalyzeLogo?.isHidden = false
         hidePreConnectLabel()
     }
+    
+    
 }

@@ -33,6 +33,22 @@ class UserCallController: VideoCallController {
     
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
+    
+    
+    override var isVideoCallInProgress : Bool{
+        guard let activeSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                return false
+        }
+        
+        
+        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
+            return true;
+        }
+        
+        return false
+    }
+    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -893,4 +909,6 @@ extension UserCallController{
         params["message"] = message
         socketClient?.emit(params)
     }
+    
+    
 }

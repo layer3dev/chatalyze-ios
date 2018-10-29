@@ -209,6 +209,8 @@
 		47F3357421493D4F006A80D1 /* SelfieTimerStatisticsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F3357321493D4F006A80D1 /* SelfieTimerStatisticsInfo.swift */; };
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
+		47F641A32187061400263DB6 /* ButtonCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F641A22187061400263DB6 /* ButtonCorners.swift */; };
+		47F641A5218707B500263DB6 /* ButtonContainerCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F641A4218707B500263DB6 /* ButtonContainerCorners.swift */; };
 		47F6CE41213E910A00BF79B2 /* RefreshDeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6CE40213E910A00BF79B2 /* RefreshDeviceToken.swift */; };
 		47F6CE46213EA45200BF79B2 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */; };
 		47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47F7CDF020C7E1E200EAEB43 /* Accounts.framework */; };
@@ -663,6 +665,8 @@
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
+		47F641A22187061400263DB6 /* ButtonCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCorners.swift; sourceTree = "<group>"; };
+		47F641A4218707B500263DB6 /* ButtonContainerCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonContainerCorners.swift; sourceTree = "<group>"; };
 		47F6CE40213E910A00BF79B2 /* RefreshDeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshDeviceToken.swift; sourceTree = "<group>"; };
 		47F6CE45213EA45200BF79B2 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		47F7CDF020C7E1E200EAEB43 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -2212,6 +2216,15 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		47F641A1218705C900263DB6 /* ButtonsCornerRadius  */ = {
+			isa = PBXGroup;
+			children = (
+				47F641A22187061400263DB6 /* ButtonCorners.swift */,
+				47F641A4218707B500263DB6 /* ButtonContainerCorners.swift */,
+			);
+			path = "ButtonsCornerRadius ";
+			sourceTree = "<group>";
+		};
 		47F6CE3F213E90F800BF79B2 /* RefreshService */ = {
 			isa = PBXGroup;
 			children = (
@@ -3016,6 +3029,7 @@
 				47EDCF60216E282900EC16BB /* KeyBoardExtension */,
 				47C7B9C22182D52A000D311D /* StringHelper */,
 				478C031F21776AAA0064AAFC /* SoundMeter */,
+				47F641A1218705C900263DB6 /* ButtonsCornerRadius  */,
 				4782822B2184366900A003F4 /* InternetAvailability */,
 			);
 			path = helper;
@@ -3799,6 +3813,7 @@
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
 				471C232F20B6A8C10040C2A8 /* FetchEventTicketsProcessor .swift in Sources */,
 				FA3B46AA21104D8F007EA72D /* RootHelper.swift in Sources */,
+				47F641A32187061400263DB6 /* ButtonCorners.swift in Sources */,
 				47B6527820AAB5030041496C /* CalendarCell.swift in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
@@ -3960,6 +3975,7 @@
 				47B90E7A21466DDA004BA7A0 /* SavedCardsCell.swift in Sources */,
 				47ABE90220B59054002EEEB0 /* MyTicketsPageController.swift in Sources */,
 				472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */,
+				47F641A5218707B500263DB6 /* ButtonContainerCorners.swift in Sources */,
 				47B4F4B1211C59D400299686 /* SessionTitleRootView.swift in Sources */,
 				FA1B363A2064E22F00F2E6BC /* HangupContainer.swift in Sources */,
 				FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */,
@@ -4331,7 +4347,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4347,7 +4363,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4364,7 +4380,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4380,7 +4396,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

@@ -17,6 +17,20 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
+    override var isVideoCallInProgress : Bool{
+        
+        guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
+            else{
+                return false
+        }
+        
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            return true;
+        }
+        
+        return false
+    }
+    
     override func initialization(){
         super.initialization()
         
@@ -35,6 +49,11 @@ class HostCallController: VideoCallController {
             return actionContainer as? HostVideoActionContainer
         }
     }
+    
+    func chatalyzeIconVisibility(){
+        
+    }
+    
     
     @IBAction private func hangupAction(){
         
