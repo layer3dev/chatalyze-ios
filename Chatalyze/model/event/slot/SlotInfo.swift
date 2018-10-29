@@ -112,10 +112,7 @@ class SlotInfo: SlotTimeInfo {
                 else{
                     return false
             }
-            guard let endDate = endDate
-                else{
-                    return false
-            }
+            
             if(startDate.isFuture()){
                 return true
             }

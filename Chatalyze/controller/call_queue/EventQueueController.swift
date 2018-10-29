@@ -76,6 +76,7 @@ class EventQueueController: InterfaceExtendedController {
       
         timer.pauseTimer()
         eventSlotListener.setListener(listener: nil)
+        
     }
     
     private func registerForTimer(){

@@ -30,6 +30,14 @@ class InterfaceExtendedController : ExtendedController {
         viewAppeared()
     }
     
+    @objc override func viewDidRelease(){
+        guard let rootView = self.view as? ExtendedRootView
+            else{
+                return
+        }
+        rootView.onRelease()
+    }
+    
     //singular execution of viewDidAppear
     func viewAppeared(){
     }
@@ -213,6 +221,10 @@ extension InterfaceExtendedController : NVActivityIndicatorViewable{
         
         self.stopAnimating()
     }
+    
+   
+    
+    
 }
 
 

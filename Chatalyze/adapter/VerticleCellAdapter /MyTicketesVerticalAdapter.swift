@@ -189,7 +189,7 @@ func jointEvent(info:SlotInfo?){
             return
     }
     
-    controller.eventExpiredHandler = {(success,eventInfo) in
+    controller.feedbackListener = {(eventInfo) in
         
         guard let controller = ReviewController.instance() else{
             return

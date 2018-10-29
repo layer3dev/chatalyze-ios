@@ -178,11 +178,12 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 return
         }
         
-        controller.eventExpiredHandler = {(success,eventInfo) in
+        controller.feedbackListener = {(eventInfo) in
             
             guard let controller = ReviewController.instance() else{
                 return
             }
+            
             controller.eventInfo = eventInfo
             controller.dismissListner = {
                 self.root?.refreshData()

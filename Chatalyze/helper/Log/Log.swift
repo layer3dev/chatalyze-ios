@@ -28,7 +28,6 @@ import Foundation
                 return
         }
         
-        print("\(key) -> \(textEx)")
+        print("\(Date()) \(key) -> \(textEx)")
     }
 }
-
