@@ -380,8 +380,8 @@ class HostCallController: VideoCallController {
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
         
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
@@ -400,8 +400,8 @@ class HostCallController: VideoCallController {
         }
         
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }

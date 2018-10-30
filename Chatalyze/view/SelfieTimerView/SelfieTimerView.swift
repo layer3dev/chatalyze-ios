@@ -17,6 +17,7 @@ class SelfieTimerView:ExtendedView {
     var selfieAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var whiteAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var screenShotListner:(()->())?
+    
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
     static var hostTimer = Timer()
