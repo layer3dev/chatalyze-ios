@@ -127,7 +127,7 @@ class UserCallController: VideoCallController {
     
     override func isExpired()->Bool{
         
-        guard let myValidSlot = eventInfo?.myValidSlot
+        guard let myValidSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{
                 return true
         }
@@ -312,7 +312,7 @@ class UserCallController: VideoCallController {
     
     var myActiveUserSlot : SlotInfo?{
         
-        guard let slotInfo = eventInfo?.myCurrentSlotInfo?.slotInfo
+        guard let slotInfo = eventInfo?.mergeSlotInfo?.myCurrentSlotInfo?.slotInfo
             else{
                 return nil
         }
@@ -321,7 +321,7 @@ class UserCallController: VideoCallController {
     
     var myCurrentUserSlot : SlotInfo?{
         
-        guard let slotInfo = eventInfo?.myValidSlot.slotInfo
+        guard let slotInfo = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return nil
         }
@@ -427,7 +427,7 @@ class UserCallController: VideoCallController {
             var messageData:[String:Any] = [String:Any]()
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
-            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+            data = ["id":"screenshotCountDown","name":self.eventInfo?.mergeSlotInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "sent time stamp data is \(data)")
             //selfie timer will be initiated after giving command to selfie view for the animation.
@@ -465,7 +465,7 @@ class UserCallController: VideoCallController {
         
         //Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
         
-        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{
                 return
         }
@@ -548,7 +548,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        if let _ = myCurrentUserSlot{
+        if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
         self.processExitAction()
@@ -561,7 +561,7 @@ class UserCallController: VideoCallController {
         }
         
         
-        guard let _ = eventInfo.upcomingSlot
+        guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
                 showFeedbackScreen()
                 return
