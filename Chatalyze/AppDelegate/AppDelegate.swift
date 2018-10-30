@@ -117,6 +117,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
+            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
               
                 print("Notification settings: \(settings)")
