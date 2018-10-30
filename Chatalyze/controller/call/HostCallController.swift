@@ -87,11 +87,12 @@ class HostCallController: VideoCallController {
         }
         
         controller.exit = {
-            
+
             DispatchQueue.main.async {
                 self.processExitAction()
             }
         }
+        
         controller.hangup = {
             
             DispatchQueue.main.async {
@@ -657,29 +658,32 @@ class HostCallController: VideoCallController {
     
     override func handleMultipleTabOpening(){
      
+        
         DispatchQueue.main.async {
             
-            guard let controller = OpenCallAlertController.instance() else{
-                return
-            }
-            controller.dismissHandler = {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: {
-                    })
-                }
-            }
-            self.present(controller, animated: false, completion: {
-            })
+//            //self.getActiveConnection()?.disconnect()
+//            guard let controller = OpenCallAlertController.instance() else{
+//                return
+//            }
+//            controller.dismissHandler = {
+//                self.processExitAction()
+//            }
+//            self.present(controller, animated: false, completion: {
+//            })
+       
+            self.processExitAction()
+             self.multipleTabsHandlingListener?()
         }
     }
 }
 
 //instance
 extension HostCallController{
+    
     class func instance()->HostCallController?{
+        
         let storyboard = UIStoryboard(name: "call_view", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
-        
         return controller
     }
 }

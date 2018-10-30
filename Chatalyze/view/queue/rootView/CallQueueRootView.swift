@@ -37,8 +37,7 @@ class CallQueueRootView: ExtendedRootView {
     
     override func onRelease(){
         super.onRelease()
-        
-        CountdownProcessor.sharedInstance().release(identifier: countdownIdentifier)
+     CountdownProcessor.sharedInstance().release(identifier: countdownIdentifier)
     }
     
 }

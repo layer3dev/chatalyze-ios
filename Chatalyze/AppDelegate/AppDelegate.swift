@@ -128,6 +128,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 print("Notification settings Registered: \(settings)")
             }
         }else{
+            
             //Fallback on earlier versions
         }
     }
@@ -172,6 +173,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     }
     
     func application(_ application: UIApplication,                 didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        
         print("Failed to register: \(error)")
     }
     

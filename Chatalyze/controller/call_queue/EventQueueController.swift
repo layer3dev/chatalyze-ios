@@ -57,8 +57,7 @@ class EventQueueController: InterfaceExtendedController {
                 self.loadInfoFromServer(showLoader : false)
             }
         }
-    }
-    
+    }    
     
     func loadInfoFromServer(showLoader : Bool){
       
@@ -76,8 +75,6 @@ class EventQueueController: InterfaceExtendedController {
       
         timer.pauseTimer()
         eventSlotListener.setListener(listener: nil)
-        
-        
     }
     
     

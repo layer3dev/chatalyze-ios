@@ -650,19 +650,23 @@ class UserCallController: VideoCallController {
     
     override func handleMultipleTabOpening(){
         
+//        DispatchQueue.main.async {
+//
+//            guard let controller = OpenCallAlertController.instance() else{
+//                    return
+//            }
+//            controller.dismissHandler = {
+//                self.processExitAction()
+//            }
+//            self.present(controller, animated: false, completion: {
+//            })
+//        }
+        
         DispatchQueue.main.async {
+        
+            self.processExitAction()
+            self.multipleTabsHandlingListener?()
             
-            guard let controller = OpenCallAlertController.instance() else{
-                    return
-            }
-            controller.dismissHandler = {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: {
-                    })
-                }
-            }
-            self.present(controller, animated: false, completion: {
-            })
         }
     }
 }
