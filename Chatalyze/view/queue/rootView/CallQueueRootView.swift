@@ -25,6 +25,7 @@ class CallQueueRootView: ExtendedRootView {
     }
     
     private func registerForTimer(){
+        
        countdownIdentifier = CountdownProcessor.sharedInstance().add { [weak self] in
             self?.refresh()
         }
@@ -39,6 +40,5 @@ class CallQueueRootView: ExtendedRootView {
         
         CountdownProcessor.sharedInstance().release(identifier: countdownIdentifier)
     }
-    
     
 }

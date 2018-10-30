@@ -764,7 +764,9 @@ extension EditProfileRootview{
                 self.controller?.fetchInfo()
                 self.userImage?.image = image
                 self.showChangeImageView()
+                return
             }
+            self.controller?.stopLoader()
         }
     }
 }
