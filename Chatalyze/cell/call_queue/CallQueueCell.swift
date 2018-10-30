@@ -15,6 +15,8 @@ class CallQueueCell: ExtendedCollectionCell {
     fileprivate var slotInfo : SlotInfo?
     @IBOutlet private var queueNumberLabel : UILabel?
     @IBOutlet private var countdownLabel : UILabel?
+    var adapterListener : CallQueueInterface?
+    private var countdownIndex : Int = 0
     
     public func fillInfo(index : Int, slotInfo : SlotInfo?){
       
@@ -87,8 +89,13 @@ class CallQueueCell: ExtendedCollectionCell {
     }
     
     private func registerForRefresh(){
-        CountdownProcessor.sharedInstance().add {[weak self] in
+        countdownIndex = CountdownProcessor.sharedInstance().add {[weak self] in
             self?.updateCountdownTime()
+            if(self?.adapterListener?.isInstanceReleased() ?? false){
+                let countdownIndex = self?.countdownIndex ?? 0
+                CountdownProcessor.sharedInstance().release(identifier: countdownIndex)
+                return
+            }
         }
     }
     

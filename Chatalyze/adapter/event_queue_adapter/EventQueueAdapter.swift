@@ -13,6 +13,11 @@ import UIKit
 class EventQueueAdapter : NSObject{
     
     fileprivate var _infos : [SlotInfo] = [SlotInfo]()
+    private var isReleased = false;
+    
+    func viewDidRelease(){
+        isReleased = true
+    }
 }
 
 extension EventQueueAdapter : UICollectionViewDelegate{
@@ -43,6 +48,8 @@ extension EventQueueAdapter : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return _infos.count
     }
+    
+    
 }
 
 extension EventQueueAdapter{
@@ -55,5 +62,11 @@ extension EventQueueAdapter{
         set{
             _infos = newValue
         }
+    }
+}
+
+extension EventQueueAdapter : CallQueueInterface{
+    func isInstanceReleased() -> Bool {
+        return isReleased
     }
 }

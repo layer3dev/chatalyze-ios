@@ -390,6 +390,7 @@
 		FAD2018420761C7B0004E10E /* AutographyCanvas.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD2018220761C7A0004E10E /* AutographyCanvas.xib */; };
 		FAD2018620761CC00004E10E /* AspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2018520761CC00004E10E /* AspectImageView.swift */; };
 		FAD20188207622DF0004E10E /* BroadcastInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD20187207622DF0004E10E /* BroadcastInfo.swift */; };
+		FAD695C2218863F800CFCC52 /* CallQueueInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD695C1218863F800CFCC52 /* CallQueueInterface.swift */; };
 		FAD6BA382064F6CF00942F27 /* QueueContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA372064F6CF00942F27 /* QueueContainerView.swift */; };
 		FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA3B2064F7FB00942F27 /* EventDate.swift */; };
 		FAD6BA41206502E100942F27 /* NoEventContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA40206502E100942F27 /* NoEventContainerView.swift */; };
@@ -900,6 +901,7 @@
 		FAD2018220761C7A0004E10E /* AutographyCanvas.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutographyCanvas.xib; sourceTree = "<group>"; };
 		FAD2018520761CC00004E10E /* AspectImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AspectImageView.swift; sourceTree = "<group>"; };
 		FAD20187207622DF0004E10E /* BroadcastInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastInfo.swift; sourceTree = "<group>"; };
+		FAD695C1218863F800CFCC52 /* CallQueueInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallQueueInterface.swift; sourceTree = "<group>"; };
 		FAD6BA372064F6CF00942F27 /* QueueContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueContainerView.swift; sourceTree = "<group>"; };
 		FAD6BA3B2064F7FB00942F27 /* EventDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDate.swift; sourceTree = "<group>"; };
 		FAD6BA40206502E100942F27 /* NoEventContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventContainerView.swift; sourceTree = "<group>"; };
@@ -2382,6 +2384,7 @@
 		FA3AF0FE204433190084B154 /* interface */ = {
 			isa = PBXGroup;
 			children = (
+				FAD695C0218863E900CFCC52 /* callQueue */,
 				FA0E709621835C3200C08D96 /* callConnection */,
 				FA7E747D209B072C001C3374 /* objc */,
 				FAE9EF79206CE91600C45F8D /* controller */,
@@ -3196,6 +3199,14 @@
 			path = autographyCanvas;
 			sourceTree = "<group>";
 		};
+		FAD695C0218863E900CFCC52 /* callQueue */ = {
+			isa = PBXGroup;
+			children = (
+				FAD695C1218863F800CFCC52 /* CallQueueInterface.swift */,
+			);
+			path = callQueue;
+			sourceTree = "<group>";
+		};
 		FAD6BA392064F7EF00942F27 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -3823,6 +3834,7 @@
 				47B6525420AAB0170041496C /* PaymentController.swift in Sources */,
 				473646ED20AEE1D400D684FE /* AcccountPageViewController.swift in Sources */,
 				FAD2018320761C7B0004E10E /* AutographyCanvas.swift in Sources */,
+				FAD695C2218863F800CFCC52 /* CallQueueInterface.swift in Sources */,
 				FAFB7C76206E02D7004804D2 /* ExtendedCollectionCell.swift in Sources */,
 				47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */,
 				47B6523E20AAAFA40041496C /* TabElementView.swift in Sources */,
