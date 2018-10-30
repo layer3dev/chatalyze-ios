@@ -227,6 +227,38 @@ class EventScheduleCoreInfo: EventInfo {
     
     
     
+
+    
+    
+    
+    //this will return
+    //LIVE slot OR Preconnect Slot or Future Slot.
+    var myUpcomingSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
+        get{
+            guard let slotInfos = slotInfos
+                else{
+                    return nil
+            }
+    
+            guard let selfId = SignedUserInfo.sharedInstance?.id
+            else{
+                return (0, nil)
+            }
+            
+            for index in 0 ..< slotInfos.count{
+                let slotInfo = slotInfos[index]
+                let slotUserId = slotInfo.user?.id ?? "0"
+                if((slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture)  && selfId == slotUserId){
+                    return (index, slotInfo)
+                }
+            }
+            return nil
+        }
+    }
+    
+    var myUpcomingSlot : SlotInfo?{
+        return myUpcomingSlotInfo?.slotInfo
+    }
     
     
     //this will return
