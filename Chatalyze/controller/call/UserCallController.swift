@@ -98,6 +98,7 @@ class UserCallController: VideoCallController {
             return
         }
         
+        
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
             return
@@ -109,23 +110,29 @@ class UserCallController: VideoCallController {
                 setStatusMessage(type: .ideal)
                 return
         }
-       
-        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
-            setStatusMessage(type: .connected)
-            return;
-        }
         
         guard let hostId = hostHashId
             else{
                 setStatusMessage(type: .ideal)
                 return
         }
-    
+        
         
         if(!isAvailableInRoom(hashId: hostId)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
+        
+        if(activeSlot.isPreconnectEligible){
+            setStatusMessage(type : .connected)
+            return;
+        }
+       
+        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
+        
         
        guard let connection = connection
         else{
@@ -479,7 +486,6 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        //Log.echo(key: "yud", text: "currentSlot info is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo) valid slot future  is \(eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.isFuture)")
         
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{

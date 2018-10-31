@@ -124,6 +124,8 @@ class ServerProcessor{
                 })
                 return
         }
+        
+        //Todo: Fix the issue with callback
     }
     
     fileprivate func getAuthorizationToken()->String{
@@ -241,4 +243,3 @@ class ServerProcessor{
         }
     }
 }
-
