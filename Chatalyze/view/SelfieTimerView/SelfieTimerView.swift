@@ -95,14 +95,16 @@ class SelfieTimerView:ExtendedView {
     private func invalidateTimer(){
         
         player?.stop()
+        //player = nil
         SelfieTimerView.testTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
     }
     
     private func invalidateTimerForHost(){
-      
+ 
         player?.stop()
+        //player = nil
         SelfieTimerView.hostTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
@@ -134,15 +136,18 @@ class SelfieTimerView:ExtendedView {
                     }
                 })
             }
-        }else if autographTime >= 15 && autographTime  < 16{
+        }
+        else if autographTime >= 15 && autographTime  < 16{
             self.playSound()
             self.greenOne()
-        }else if autographTime >= 16 && autographTime  < 17{
+        }
+        else if autographTime >= 16 && autographTime  < 17{
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
             self.greenTwo()
-        }else if autographTime >= 17 && autographTime  < 18{
+        }
+        else if autographTime >= 17 && autographTime  < 18{
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
@@ -344,6 +349,7 @@ extension SelfieTimerView{
             try
                 AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
             //            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
+            
             try AVAudioSession.sharedInstance().setActive(true)
             
             let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
@@ -355,6 +361,10 @@ extension SelfieTimerView{
             
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
+    }
+    
+    func test(){
+    
     }
     
     func playSound() {

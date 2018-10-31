@@ -50,10 +50,10 @@ class HangupController: InterfaceExtendedController {
         
         if isHanged{
             
-            hangupBtn?.titleLabel?.text  = "RESUME CURRENT CHAT"
+            hangupBtn?.setTitle("RESUME CURRENT CHAT", for: .normal)
             return
         }
-         hangupBtn?.titleLabel?.text  = "HANG UP CURRENT CHAT"
+        hangupBtn?.setTitle("HANG UP CURRENT CHAT", for: .normal)
     }
     
     

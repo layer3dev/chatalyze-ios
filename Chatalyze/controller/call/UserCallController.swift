@@ -433,6 +433,9 @@ class UserCallController: VideoCallController {
         
         if(!isCallConnected){ return }
         
+        if !(isCallStreaming){
+            return
+        }
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -577,6 +580,7 @@ class UserCallController: VideoCallController {
     }
     
     override func onExit(){
+        
         guard let eventInfo = eventInfo
             else{
                 return
@@ -944,5 +948,9 @@ extension UserCallController{
 
     var isCallConnected : Bool{
          return (self.connection?.isConnected ?? false)
+    }
+    
+    var isCallStreaming: Bool{
+        return (self.connection?.isStreaming ?? false)
     }
 }
