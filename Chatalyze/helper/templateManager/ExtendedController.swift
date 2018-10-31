@@ -11,7 +11,6 @@ import UIKit
 class ExtendedController: UIViewController {
 
     private var isLoaded = false;
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,21 +32,6 @@ class ExtendedController: UIViewController {
     
     func viewDidLayout(){
     }
-    
-    /*
-     - (void)viewWillDisappear:(BOOL)animated
-     {
-     [super viewWillDisappear:animated];
-     if ([self isMovingFromParentViewController])
-     {
-     NSLog(@"View controller was popped");
-     }
-     else
-     {
-     NSLog(@"New view controller was pushed");
-     }
-     }
-     */
     
     func viewDidRelease(){
         Log.echo(key: "template", text: "viewDidRelease")

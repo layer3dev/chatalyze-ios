@@ -25,6 +25,8 @@ class CallConnection: NSObject {
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     var isConnected : Bool = false
     
+    var isStreaming : Bool = false
+    
     
     /*flags*/
     var isLinked = false
@@ -121,17 +123,20 @@ extension CallConnection : ARDAppClientDelegate{
             
             self.controller?.acceptCallUpdate()
             isConnected = true
+            isStreaming = true
             isCallConnected?()
             return
         }
         
         if(state == .disconnected){
             resetRemoteFrame()
+            isStreaming = false
         }
         
         if(state == .failed){
             callFailed()
             isConnected = false
+            isStreaming = false
             resetRemoteFrame()
             return
         }

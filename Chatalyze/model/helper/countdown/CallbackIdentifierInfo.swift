@@ -15,7 +15,7 @@ class CallbackIdentifierInfo{
     
     init(callback : @escaping (()->())) {
         self.callback = callback
-        self.identifier = identifier + 1
+        self.identifier = getUniqueIdentifier()
     }
     
     private func getUniqueIdentifier()->Int{

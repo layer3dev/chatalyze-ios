@@ -10,7 +10,6 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
-    
     //For animation
     var isAnimating = false
     
@@ -278,12 +277,6 @@ class HostCallController: VideoCallController {
             return
         }
         
-        
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            setStatusMessage(type: .connected)
-            return
-        }
-        
         guard let activeUser = activeSlot.user
             else{
                 setStatusMessage(type: .ideal)
@@ -294,6 +287,17 @@ class HostCallController: VideoCallController {
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
+        
+        if(activeSlot.isPreconnectEligible){
+            setStatusMessage(type: .connected)
+            return
+        }
+        
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            setStatusMessage(type: .connected)
+            return
+        }
+        
         
         setStatusMessage(type: .ideal)
     }
