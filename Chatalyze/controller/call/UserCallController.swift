@@ -621,7 +621,9 @@ class UserCallController: VideoCallController {
         }
         
         ScreenshotInfoFetch().fetchInfo(slotId: slotId) {[weak self] (success, infos)  in
+            
             Log.echo(key: "yud", text: "Finally I am veryfying slot")
+            
             self?.verifySlot(slotInfo: activeSlot, screenshotInfos: infos)
             self?.isScreenshotStatusLoaded = true
         }

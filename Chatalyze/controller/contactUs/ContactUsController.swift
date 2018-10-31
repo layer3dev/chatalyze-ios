@@ -34,6 +34,10 @@ class ContactUsController: InterfaceExtendedController {
         paintBorder()
     }
     
+    
+    
+    
+    
     func paintBorder(){
         
         subjectView?.layer.borderWidth = 1

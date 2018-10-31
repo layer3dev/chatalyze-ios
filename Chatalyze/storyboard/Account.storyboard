@@ -1321,7 +1321,7 @@
                                                     <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="26"/>
                                                 </variation>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
                                                 <rect key="frame" x="258" y="493" width="252" height="75"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -3780,7 +3780,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G51-38-a3n">
-                                        <rect key="frame" x="0.0" y="150" width="768" height="1035.5"/>
+                                        <rect key="frame" x="0.0" y="150" width="768" height="1026"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PART II - Devices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eno-eV-4Mj">
                                                 <rect key="frame" x="20" y="20" width="728" height="39.5"/>
@@ -4008,60 +4008,17 @@
                                                 </constraints>
                                                 <variation key="heightClass=regular-widthClass=regular" spacing="5"/>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvk-Bv-DOw">
-                                                <rect key="frame" x="166.5" y="743.5" width="435" height="117"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="If the answer to both questions is &quot;">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Questrial-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Yes">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Poppins-SemiBold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="&quot;, your phone passes the test. If not, please check our FAQs or contact us for support.">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Questrial-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If the answer to both questions is &quot;Yes&quot;, your phone passes the test. If not, please check our FAQs or contact us for support." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvk-Bv-DOw">
+                                                <rect key="frame" x="166.5" y="743.5" width="435" height="107.5"/>
+                                                <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="26"/>
+                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="If the answer to both questions is &quot;">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="26" name="Questrial-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="Yes">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="26" name="Poppins-SemiBold"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="&quot;, your phone passes the test. If not, please check our FAQs or contact us for support.">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="26" name="Questrial-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <nil key="attributedText"/>
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GM0-sq-oVt" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="134.5" y="900.5" width="499" height="65"/>
+                                                <rect key="frame" x="134.5" y="891" width="499" height="65"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5L-O6-Jv1">
                                                         <rect key="frame" x="0.0" y="0.0" width="499" height="65"/>
@@ -4187,6 +4144,7 @@
                     </view>
                     <connections>
                         <outlet property="cameraPreview" destination="7b5-Li-iht" id="Xx8-2u-7hJ"/>
+                        <outlet property="statusLbl" destination="Hvk-Bv-DOw" id="PbF-DL-wdx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guR-Wr-q6J" userLabel="First Responder" sceneMemberID="firstResponder"/>

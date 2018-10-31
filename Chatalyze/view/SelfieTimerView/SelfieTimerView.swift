@@ -27,6 +27,7 @@ class SelfieTimerView:ExtendedView {
         super.viewDidLayout()
         
         graySelfieTime()
+        createPlayerObject()
     }
     
     func reset(){
@@ -93,13 +94,15 @@ class SelfieTimerView:ExtendedView {
     
     private func invalidateTimer(){
         
+        player?.stop()
         SelfieTimerView.testTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
     }
     
     private func invalidateTimerForHost(){
-        
+      
+        player?.stop()
         SelfieTimerView.hostTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
@@ -242,6 +245,7 @@ extension SelfieTimerView{
         let second = NSMutableAttributedString(string: " 3 2", attributes: self.whiteAttribute)
         let secondStr = NSMutableAttributedString(string: " 1", attributes: oneAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
+        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)
@@ -259,6 +263,7 @@ extension SelfieTimerView{
         self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: oneAttribute)
@@ -313,11 +318,14 @@ extension SelfieTimerView{
 
 extension SelfieTimerView{
     
-    func playSound() {
+    func createPlayerObject(){
         
         /*
+         
          NSURL *audioURL = [[NSBundle mainBundle] URLForResource:YourSound.stringByDeletingPathExtension withExtension:YourSound.pathExtension];
+         
          NSData *audioData = [NSData dataWithContentsOfURL:audioURL];
+         
          */
         
         guard let soundUrl = Bundle.main.url(forResource:"countDown_original" , withExtension: "mp3")
@@ -334,18 +342,24 @@ extension SelfieTimerView{
          }*/
         do {
             try
-               AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-//            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
+                AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            //            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
             try AVAudioSession.sharedInstance().setActive(true)
             
             let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
+            
             self.player = player
             
-            player.play()
+            
         } catch let error as NSError {
             
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
+    }
+    
+    func playSound() {
+        
+        self.player?.play()
     }
 }
 

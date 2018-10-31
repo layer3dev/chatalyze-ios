@@ -20,7 +20,7 @@ class AppThemeConfig{
     static let userPlaceholderImage = "user_placeholder"
     //static let navigationBarColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 51/255.0)
     static let navigationBarColor = UIColor(hexString: "#FAA579")
-    
+    static let boldFont = "Poppins"
     //Ticket Height
     static var ticketHeight:CGFloat = 0.0
 }

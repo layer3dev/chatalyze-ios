@@ -76,19 +76,19 @@ class CallConnection: NSObject {
     }
     
     private func initialization(){
+       
         initVariable()
         registerForListeners()
     }
     
     private func initVariable(){
+       
         self.connection = self.getWriteConnection()
         socketClient = SocketClient.sharedInstance
     }
     
-    
     func registerForListeners(){
     }
-    
     
     func getWriteConnection() ->ARDAppClient?{
        return nil
@@ -99,6 +99,7 @@ class CallConnection: NSObject {
     }
     
     func disconnect(){
+        
         self.connection?.disconnect()
         self.remoteTrack = nil
         self.captureController = nil

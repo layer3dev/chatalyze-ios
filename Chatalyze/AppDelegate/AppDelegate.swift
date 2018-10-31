@@ -152,6 +152,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
+        
         let token = tokenParts.joined()
         
         //This method save the device token if shared intance alraedy exists else create new one with the data
