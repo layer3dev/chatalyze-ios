@@ -10,7 +10,6 @@ import UIKit
 import SwiftyJSON
 
 class UserCallController: VideoCallController {
-    
     //Animation Responsible
     var isAnimating = false
     
@@ -124,15 +123,15 @@ class UserCallController: VideoCallController {
         }
         
         if(activeSlot.isPreconnectEligible){
-            setStatusMessage(type : .connected)
-            return;
-        }
-       
-        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
-            setStatusMessage(type: .connected)
+            setStatusMessage(type : .preConnectedSuccess)
             return;
         }
         
+       
+        if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
+            setStatusMessage(type: .connected)
+            return;
+        }
         
        guard let connection = connection
         else{
@@ -140,7 +139,7 @@ class UserCallController: VideoCallController {
             return
         }
         
-        if(connection.isConnected){
+        if(connection.isStreaming){
             setStatusMessage(type: .preConnectedSuccess)
             return
         }
@@ -225,6 +224,7 @@ class UserCallController: VideoCallController {
             if(self?.socketClient == nil){
                 return
             }
+            self?.hangup(hangup: false)
             self?.processCallInitiation(data : json)
         })
         

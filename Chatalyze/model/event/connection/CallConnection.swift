@@ -120,11 +120,11 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "call", text: "call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
         if(state == .connected){
-            
             self.controller?.acceptCallUpdate()
             isConnected = true
             isStreaming = true
             isCallConnected?()
+            renderIfLinked()
             return
         }
         
@@ -175,6 +175,14 @@ extension CallConnection : ARDAppClientDelegate{
         renderRemoteTrack()
     }
     
+    //only render if linked, but not if only pre-connected
+    func renderIfLinked(){
+        if(!isLinked){
+            return
+        }
+        renderRemoteTrack()
+    }
+    
     func renderRemoteTrack(){
         
         guard let remoteView = rootView?.remoteVideoView
@@ -182,10 +190,8 @@ extension CallConnection : ARDAppClientDelegate{
                 return
         }
         resetRemoteFrame()
-//        self.remoteTrack?.remove(remoteView)
-//        self.remoteTrack = nil
-        
-        
+
+    
         Log.echo(key: "render", text: "renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)

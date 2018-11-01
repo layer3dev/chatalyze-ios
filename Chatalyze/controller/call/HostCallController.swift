@@ -289,11 +289,11 @@ class HostCallController: VideoCallController {
         }
         
         if(activeSlot.isPreconnectEligible){
-            setStatusMessage(type: .connected)
+            setStatusMessage(type: .preConnectedSuccess)
             return
         }
         
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+        if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
             return
         }
@@ -578,16 +578,18 @@ class HostCallController: VideoCallController {
         }
         
         if(!isOnline(hashId: targetHashedId)){
-//            Log.echo(key: "processEvent", text: "connectUser -> user is offline")
             return
         }
+        
         if(connection.isInitiated){
             return
         }
+        
         Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
         if(slot.isHangedUp){
             return
         }
+        
         connection.initateHandshake()
     }
     
