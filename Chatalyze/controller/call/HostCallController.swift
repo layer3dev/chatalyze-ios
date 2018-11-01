@@ -177,8 +177,10 @@ class HostCallController: VideoCallController {
         socketClient?.onEvent("screenshotCountDown", completion: { (response) in
             
             Log.echo(key: "yud", text: "Response in screenshotCountDown is \(String(describing: response))")
+            
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    
                     if let date = dateDict["timerStartsAt"]?.stringValue{
                         
                         let dateFormatter = DateFormatter()

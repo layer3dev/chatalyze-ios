@@ -26,7 +26,8 @@ class SocketClient : NSObject{
     var roomId : String = "0"
 
     fileprivate var isRegistered = false
-    fileprivate var connectionFlag = false
+   
+     fileprivate var connectionFlag = false
     
     override init(){
         super.init()
@@ -260,7 +261,7 @@ extension SocketClient{
         
         self.socket?.onText = { (text: String) in
             
-            Log.echo(key: "yud", text: "text is \(text)")
+            Log.echo(key: "socket_client", text: "text is \(text)")
              DispatchQueue.main.async {
                 Log.echo(key : "socket_client", text : "Received text: \(text)")
                 guard let data = text.data(using: .utf8)
@@ -276,7 +277,7 @@ extension SocketClient{
     
     fileprivate func handleEventResponse(json : JSON?){
         
-        Log.echo(key: "yud", text: "Respond json is \(json)")
+        Log.echo(key: "socket_client", text: "Respond json is \(json)")
         
         guard let json = json
             else{
@@ -366,10 +367,10 @@ extension SocketClient{
     
     func confirmConnect(completion : ((_ success : Bool)->())?){
         
-        Log.echo(key: "socket", text: "confirmConnect please")
+        Log.echo(key: "socket_client", text: "confirmConnect please")
         let isConnected = self.isRegistered
         if isConnected{
-            Log.echo(key: "socket", text: "you are connected please continue")
+            Log.echo(key: "socket_client", text: "you are connected please continue")
             completion?(true)
             return
         }
@@ -390,7 +391,7 @@ extension SocketClient{
     
     fileprivate func updateAllForConnectionActive() {
         
-        Log.echo(key: "socket", text: "the the world that you are connected now")
+        Log.echo(key: "socket_client", text: "the the world that you are connected now")
         for (connectionCounter,callback) in connectionCallbackList {
             Log.echo(key: "socket", text: "Hey i'm connected")
             let isConnected = self.isRegistered

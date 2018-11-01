@@ -160,7 +160,7 @@ class UserCallController: VideoCallController {
         super.viewWillDisappear(animated)
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
-        Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myActiveUserSlot?.isSelfieTimerInitiated))")
+        Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
         self.selfieTimerView?.reset()
         DispatchQueue.main.async {
@@ -168,13 +168,13 @@ class UserCallController: VideoCallController {
             if !SlotFlagInfo.staticScreenShotSaved{
                 SlotFlagInfo.staticIsTimerInitiated = false
             }
-            guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else {
+            guard let isScreenshotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved else {
                 return
             }
             if isScreenshotSaved == true{
-                self.myActiveUserSlot?.isSelfieTimerInitiated = true
+                self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
             }else{
-                self.myActiveUserSlot?.isSelfieTimerInitiated = false
+                self.myLiveUnMergedSlot?.isSelfieTimerInitiated = false
             }
         }
     }
@@ -195,7 +195,7 @@ class UserCallController: VideoCallController {
     
     private func resetPreviousAutograph(){
         
-        guard let slot = myActiveUserSlot
+        guard let slot = myLiveUnMergedSlot
             else{
                 return
         }
@@ -333,6 +333,16 @@ class UserCallController: VideoCallController {
         startCallRing()
     }
     
+    
+    var myLiveUnMergedSlot : SlotInfo?{
+        guard let slotInfo = eventInfo?.myCurrentSlotInfo?.slotInfo
+            else{
+                return nil
+        }
+        return slotInfo
+    }
+    
+    //ONLY LIVE - MERGED
     var myActiveUserSlot : SlotInfo?{
         
         guard let slotInfo = eventInfo?.mergeSlotInfo?.myCurrentSlotInfo?.slotInfo
@@ -342,6 +352,7 @@ class UserCallController: VideoCallController {
         return slotInfo
     }
     
+    //whole connect (preconnect & LIVE)
     var myCurrentUserSlot : SlotInfo?{
         
         guard let slotInfo = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
@@ -369,26 +380,23 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myActiveUserSlot?.id) stored store id is \(UserDefaults.standard.value(forKey: "selfieTimerCurrentSlotId"))is ScreenShot Saved \(self.myActiveUserSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
+        myLiveUnMergedSlot
         
-        //Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
+        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
+        
+        Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
         if self.eventInfo?.isScreenShotAllowed == nil{
             return
         }
         
-
-        if let endtimeOfSlot = myActiveUserSlot?.endDate{
+        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
             //Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
             if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
                 return
             }
         }
         
-        
-        //Log.echo(key: "yud", text: "Current Id with the time is \(String(describing: self.myActiveUserSlot?.id)) , Date:-\(Date()) and the saved screenShotInfo  is \(String(describing: self.myActiveUserSlot?.isScreenshotSaved))")
-        
-        //isScreenshotStatusLoaded is updated from the Call Slot Fetch webService , either active slot is available or not isScreenshotStatusLoaded will be updated with true.
         
         if !isScreenshotStatusLoaded{
             return
@@ -406,12 +414,12 @@ class UserCallController: VideoCallController {
         }
         
         //if current slot id is nil then return
-        if self.myActiveUserSlot?.id == nil{
+        if self.myLiveUnMergedSlot?.id == nil{
             return
         }
         
         //Server response for screenShot saved
-        if let isScreenShotSaved = self.myActiveUserSlot?.isScreenshotSaved{
+        if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
             if isScreenShotSaved{                
                 return
             }
@@ -419,8 +427,8 @@ class UserCallController: VideoCallController {
         
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
         
-        if let slotId = self.myActiveUserSlot?.id{
-            if slotId == SlotFlagInfo.staticSlotId && SlotFlagInfo.staticIsTimerInitiated{
+        if let slotId = self.myLiveUnMergedSlot?.id{
+            if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated){
                 return
             }
         }
@@ -453,13 +461,13 @@ class UserCallController: VideoCallController {
             var messageData:[String:Any] = [String:Any]()
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
-            data = ["id":"screenshotCountDown","name":self.eventInfo?.mergeSlotInfo?.user?.hashedId ?? "","message":messageData]
+            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "sent time stamp data is \(data)")
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
-            self.myActiveUserSlot?.isSelfieTimerInitiated = true
-            if let id = self.myActiveUserSlot?.id {
+            self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
+            if let id = self.myLiveUnMergedSlot?.id {
                 
                 //UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
                 SlotFlagInfo.staticSlotId = id
@@ -467,6 +475,7 @@ class UserCallController: VideoCallController {
             }
             
             selfieTimerView?.startAnimation()
+            
             //Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
     }
@@ -477,7 +486,7 @@ class UserCallController: VideoCallController {
             
             let image = self.userRootView?.getSnapshot()
             self.mimicScreenShotFlash()
-            self.myActiveUserSlot?.isScreenshotSaved = true
+            self.myLiveUnMergedSlot?.isScreenshotSaved = true
             SlotFlagInfo.staticScreenShotSaved = true
             self.uploadImage(image: image, completion: { (success, info) in
                 if success{
@@ -616,9 +625,9 @@ class UserCallController: VideoCallController {
     
     override func verifyScreenshotRequested(){
         
-        Log.echo(key: "yud", text: "cross Verify ScreenShot Requested is activeSlot\(myActiveUserSlot) and the slotId is \(myActiveUserSlot?.id)")
+        Log.echo(key: "yud", text: "cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
-        guard let activeSlot = myActiveUserSlot
+        guard let activeSlot = myLiveUnMergedSlot
             else{
                 isScreenshotStatusLoaded = true
                 return
@@ -655,9 +664,9 @@ class UserCallController: VideoCallController {
             }
         }
         
-        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isScreenshotSaved)")
+        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isScreenshotSaved)")
         
-        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myActiveUserSlot?.id)\(self.myActiveUserSlot?.isSelfieTimerInitiated)")
+        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
     }
     
     override func handleMultipleTabOpening(){
@@ -833,7 +842,7 @@ extension UserCallController{
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         
         //self.showLoader()
-        myActiveUserSlot?.isAutographRequested = true
+        myLiveUnMergedSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
@@ -853,7 +862,7 @@ extension UserCallController{
         controller.image = image
         controller.onResult { [weak self] (image) in
             
-            self?.myActiveUserSlot?.isScreenshotSaved = true
+            self?.myLiveUnMergedSlot?.isScreenshotSaved = true
             self?.uploadImage(image: image, completion: { (success, info) in
                 self?.screenshotInfo = info
             })
@@ -861,7 +870,6 @@ extension UserCallController{
         self.present(controller, animated: true) {
         }
     }
-    
     
     private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
         

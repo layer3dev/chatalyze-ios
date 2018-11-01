@@ -12,12 +12,9 @@ import SwiftyJSON
 
 class DeviceInfo: NSObject {
 
-    
     var deviceToken : String?
     var deviceId : String?
    
-    
-    
     override init(){
         super.init()
     }
