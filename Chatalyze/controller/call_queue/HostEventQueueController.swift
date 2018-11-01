@@ -22,7 +22,7 @@ class HostEventQueueController: EventQueueController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-            self.loadInfoFromServer(showLoader : false)
+            self.loadInfoFromServer(showLoader : true)
         }
     }
     

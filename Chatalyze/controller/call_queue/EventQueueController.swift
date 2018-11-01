@@ -44,7 +44,7 @@ class EventQueueController: InterfaceExtendedController {
         paintInterface()
         registerForEvent()
         registerForTimer()
-        loadInfoFromServer(showLoader : false)
+        loadInfoFromServer(showLoader : true)
         listenOnSocketConnect()
     }
     func listenOnSocketConnect(){
@@ -54,7 +54,7 @@ class EventQueueController: InterfaceExtendedController {
             Log.echo(key: "yud", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
                 
-                self.loadInfoFromServer(showLoader : false)
+                self.loadInfoFromServer(showLoader : true)
             }
         }
     }    
@@ -90,7 +90,7 @@ class EventQueueController: InterfaceExtendedController {
     private func registerForEvent(){
         
         eventSlotListener.setListener { [weak self] in
-            self?.loadInfoFromServer(showLoader : false)
+            self?.loadInfoFromServer(showLoader : true)
         }
     }
     

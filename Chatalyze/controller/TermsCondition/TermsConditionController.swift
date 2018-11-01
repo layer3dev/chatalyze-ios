@@ -26,6 +26,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
         }
     }
     
+    
     @IBAction func dismissController(){
         
         self.navigationController?.popViewController(animated: true)

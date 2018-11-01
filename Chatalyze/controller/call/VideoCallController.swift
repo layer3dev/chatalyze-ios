@@ -214,7 +214,7 @@ class VideoCallController : InterfaceExtendedController {
         audioManager = AudioManager()
         startLocalStream()
         
-        fetchInfo(showLoader: true) { [weak self] (success) in
+        fetchInfo(showLoader: false) { [weak self] (success) in
             
             if(!success){
                 return
@@ -266,11 +266,13 @@ class VideoCallController : InterfaceExtendedController {
         })
         
         rootView?.hangupListener(listener: {
+            
             self.processExitAction()
             self.rootView?.callOverlayView?.isHidden = true
         })
         
         socketClient?.onEvent("updatePeerList", completion: { [weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -281,6 +283,7 @@ class VideoCallController : InterfaceExtendedController {
     
     
     private func processUpdatePeerList(json : JSON?){
+        
         guard let json = json
             else{
                 return
@@ -449,7 +452,7 @@ extension VideoCallController{
     
     func fetchInfoAfterActivatIngEvent(){
         
-        self.fetchInfo(showLoader: true, completion: { (success) in
+        self.fetchInfo(showLoader: false, completion: { (success) in
         })
     }
     
