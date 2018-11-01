@@ -24,7 +24,6 @@ class CallConnection: NSObject {
     
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     var isConnected : Bool = false
-    
     var isStreaming : Bool = false
     
     
@@ -200,7 +199,9 @@ extension CallConnection : ARDAppClientDelegate{
     
     
     private func resetRemoteFrame(){
-        
+        if(!isLinked){
+            return
+        }
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return
