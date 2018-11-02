@@ -270,6 +270,10 @@ class UserCallController: VideoCallController {
     
     
     func hangup(hangup : Bool){
+        if(!hangup){
+            resetMuteActions()
+        }
+        
         localMediaPackage?.isDisabled = hangup
     }
     
@@ -301,7 +305,6 @@ class UserCallController: VideoCallController {
     }
 
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
-    
     private func processHandshakeResponse(data : JSON?){
         
         guard let json = data
@@ -328,9 +331,20 @@ class UserCallController: VideoCallController {
                 return
         }
         
+        disposeCurrentConnection()
         self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
         connection?.initiateCall()
         startCallRing()
+    }
+    
+    private func disposeCurrentConnection(){
+        guard let currentConnection = self.connection
+            else{
+                return
+        }
+        
+        currentConnection.abort()
+        self.connection = nil
     }
     
     var myActiveUserSlot : SlotInfo?{

@@ -116,12 +116,29 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    func resetMuteActions(){
+        actionContainer?.audioView?.unmute()
+        actionContainer?.videoView?.unmute()
+        
+        guard let localMediaPackage = self.localMediaPackage
+            else{
+                return
+        }
+        localMediaPackage.muteAudio = false
+        localMediaPackage.muteVideo = false
+
+    }
+    
     @IBAction private func audioMuteAction(){
-     
         guard let localMediaPackage = self.localMediaPackage
         else{
             return
         }
+        
+        if(localMediaPackage.isDisabled){
+            return
+        }
+        
         if(localMediaPackage.muteAudio){
             localMediaPackage.muteAudio = false
             actionContainer?.audioView?.unmute()
@@ -129,13 +146,22 @@ class VideoCallController : InterfaceExtendedController {
             localMediaPackage.muteAudio = true
             actionContainer?.audioView?.mute()
         }
-    }    
+        
+    }
+    
+    
     
     @IBAction private func videoDisableAction(){
+        
+        
       
         guard let localMediaPackage = self.localMediaPackage
             else{
                 return
+        }
+        
+        if(localMediaPackage.isDisabled){
+            return
         }
         if(localMediaPackage.muteVideo){
             localMediaPackage.muteVideo = false

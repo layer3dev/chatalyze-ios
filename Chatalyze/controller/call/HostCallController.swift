@@ -116,6 +116,9 @@ class HostCallController: VideoCallController {
         
         isHangedUp ? hostActionContainer?.hangupView?.deactivate() : hostActionContainer?.activateFromHangup()
         
+        if(!isHangedUp){
+            resetMuteActions()
+        }
         refreshStreamLock()
         
         let hashedUserId = slot.user?.hashedId ?? ""
@@ -129,6 +132,7 @@ class HostCallController: VideoCallController {
                 localMediaPackage?.isDisabled = false
                 return
         }
+        
         localMediaPackage?.isDisabled = slot.isHangedUp
     }
     
