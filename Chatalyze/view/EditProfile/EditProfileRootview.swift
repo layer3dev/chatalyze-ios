@@ -405,7 +405,7 @@ extension EditProfileRootview{
         FetchProfileProcessor().fetch { (success, message, response) in
             
             self.controller?.stopLoader()
-            self.controller?.navigationController?.popViewController(animated: true)
+            //self.controller?.navigationController?.popViewController(animated: true)
         }
     }    
     
@@ -764,7 +764,9 @@ extension EditProfileRootview{
                 self.controller?.fetchInfo()
                 self.userImage?.image = image
                 self.showChangeImageView()
+                return
             }
+            self.controller?.stopLoader()
         }
     }
 }

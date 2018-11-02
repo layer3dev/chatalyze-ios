@@ -14,13 +14,48 @@ class HangupController: InterfaceExtendedController {
     var hangup:(()->())?
     @IBOutlet var exitBtn:UIButton?
     @IBOutlet var hangupBtn:UIButton?
+    var isHungUp:Bool?
+    var isDisableHangup:Bool?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         roundView()
+        paintDisbleHangup()
+        paintHangupButton()
         // Do any additional setup after loading the view.
     }
+    
+    func paintDisbleHangup(){
+        
+        guard let isDisable = isDisableHangup else {
+            return
+        }
+        if isDisable{
+            
+            self.hangupBtn?.isEnabled = false
+            self.hangupBtn?.alpha = 0.5
+            return
+        }
+        self.hangupBtn?.isEnabled = true
+        self.hangupBtn?.alpha = 1
+    }
+    
+    
+    func paintHangupButton(){
+        
+        guard let isHanged = isHungUp else {
+            return
+        }
+        
+        if isHanged{
+            
+            hangupBtn?.setTitle("RESUME CURRENT CHAT", for: .normal)
+            return
+        }
+        hangupBtn?.setTitle("HANG UP CURRENT CHAT", for: .normal)
+    }
+    
     
     func roundView(){
        

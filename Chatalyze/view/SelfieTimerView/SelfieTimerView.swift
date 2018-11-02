@@ -17,6 +17,7 @@ class SelfieTimerView:ExtendedView {
     var selfieAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var whiteAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var screenShotListner:(()->())?
+    
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
     static var hostTimer = Timer()
@@ -26,6 +27,7 @@ class SelfieTimerView:ExtendedView {
         super.viewDidLayout()
         
         graySelfieTime()
+        createPlayerObject()
     }
     
     func reset(){
@@ -92,13 +94,17 @@ class SelfieTimerView:ExtendedView {
     
     private func invalidateTimer(){
         
+        player?.stop()
+        //player = nil
         SelfieTimerView.testTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
     }
     
     private func invalidateTimerForHost(){
-        
+ 
+        player?.stop()
+        //player = nil
         SelfieTimerView.hostTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
@@ -130,15 +136,18 @@ class SelfieTimerView:ExtendedView {
                     }
                 })
             }
-        }else if autographTime >= 15 && autographTime  < 16{
+        }
+        else if autographTime >= 15 && autographTime  < 16{
             self.playSound()
             self.greenOne()
-        }else if autographTime >= 16 && autographTime  < 17{
+        }
+        else if autographTime >= 16 && autographTime  < 17{
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
             self.greenTwo()
-        }else if autographTime >= 17 && autographTime  < 18{
+        }
+        else if autographTime >= 17 && autographTime  < 18{
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
@@ -241,6 +250,7 @@ extension SelfieTimerView{
         let second = NSMutableAttributedString(string: " 3 2", attributes: self.whiteAttribute)
         let secondStr = NSMutableAttributedString(string: " 1", attributes: oneAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
+        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)
@@ -258,6 +268,7 @@ extension SelfieTimerView{
         self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
         let second = NSMutableAttributedString(string: " 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: oneAttribute)
@@ -312,11 +323,14 @@ extension SelfieTimerView{
 
 extension SelfieTimerView{
     
-    func playSound() {
+    func createPlayerObject(){
         
         /*
+         
          NSURL *audioURL = [[NSBundle mainBundle] URLForResource:YourSound.stringByDeletingPathExtension withExtension:YourSound.pathExtension];
+         
          NSData *audioData = [NSData dataWithContentsOfURL:audioURL];
+         
          */
         
         guard let soundUrl = Bundle.main.url(forResource:"countDown_original" , withExtension: "mp3")
@@ -333,18 +347,29 @@ extension SelfieTimerView{
          }*/
         do {
             try
-               AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-//            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
+                AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            //            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
+            
             try AVAudioSession.sharedInstance().setActive(true)
             
             let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
+            
             self.player = player
             
-            player.play()
+            
         } catch let error as NSError {
             
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
+    }
+    
+    func test(){
+    
+    }
+    
+    func playSound() {
+        
+        self.player?.play()
     }
 }
 

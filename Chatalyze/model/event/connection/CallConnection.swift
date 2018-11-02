@@ -12,6 +12,7 @@ import UIKit
 //This is root class meant to be overriden by Host Connection and User Connection
 //abstract:
 class CallConnection: NSObject {
+    
     var connection : ARDAppClient?
     
     var eventInfo : EventInfo?
@@ -23,6 +24,8 @@ class CallConnection: NSObject {
     
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     var isConnected : Bool = false
+    
+    var isStreaming : Bool = false
     
     
     /*flags*/
@@ -65,6 +68,9 @@ class CallConnection: NSObject {
         return controller?.rootView
     }
     
+    var isCallConnected:(()->())?
+    
+    
     override init() {
         super.init()
         
@@ -72,19 +78,19 @@ class CallConnection: NSObject {
     }
     
     private func initialization(){
+       
         initVariable()
         registerForListeners()
     }
     
     private func initVariable(){
+       
         self.connection = self.getWriteConnection()
         socketClient = SocketClient.sharedInstance
     }
     
-    
     func registerForListeners(){
     }
-    
     
     func getWriteConnection() ->ARDAppClient?{
        return nil
@@ -95,6 +101,7 @@ class CallConnection: NSObject {
     }
     
     func disconnect(){
+        
         self.connection?.disconnect()
         self.remoteTrack = nil
         self.captureController = nil
@@ -114,19 +121,23 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "call", text: "call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
         if(state == .connected){
-            
             self.controller?.acceptCallUpdate()
             isConnected = true
+            isStreaming = true
+            isCallConnected?()
+            renderIfLinked()
             return
         }
         
         if(state == .disconnected){
             resetRemoteFrame()
+            isStreaming = false
         }
         
         if(state == .failed){
             callFailed()
             isConnected = false
+            isStreaming = false
             resetRemoteFrame()
             return
         }
@@ -165,6 +176,14 @@ extension CallConnection : ARDAppClientDelegate{
         renderRemoteTrack()
     }
     
+    //only render if linked, but not if only pre-connected
+    func renderIfLinked(){
+        if(!isLinked){
+            return
+        }
+        renderRemoteTrack()
+    }
+    
     func renderRemoteTrack(){
         
         guard let remoteView = rootView?.remoteVideoView
@@ -172,10 +191,8 @@ extension CallConnection : ARDAppClientDelegate{
                 return
         }
         resetRemoteFrame()
-//        self.remoteTrack?.remove(remoteView)
-//        self.remoteTrack = nil
-        
-        
+
+    
         Log.echo(key: "render", text: "renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)

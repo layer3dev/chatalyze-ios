@@ -10,6 +10,8 @@ import Foundation
 
 extension String{
     
+    //Attributes text always inserted to UILable with the main thread
+    
     func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor))->NSAttributedString{
         
         let attributes = [NSAttributedString.Key.font:UIFont(name: font, size: CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]

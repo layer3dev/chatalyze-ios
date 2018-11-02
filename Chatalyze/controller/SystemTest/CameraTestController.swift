@@ -32,6 +32,7 @@ class CameraTestController: InterfaceExtendedController {
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
     @IBOutlet var soundMeterView:UIView?
+    @IBOutlet var statusLbl:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -39,6 +40,7 @@ class CameraTestController: InterfaceExtendedController {
         self.checkForMicrphone()
         checkForCameraAccess()
         borderSoundMeter()
+        paintStatusMessage()
         return
     }
     
@@ -48,6 +50,53 @@ class CameraTestController: InterfaceExtendedController {
         soundMeterView?.layer.masksToBounds = true
         soundMeterView?.layer.borderWidth = 2
         soundMeterView?.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
+    }
+    
+    
+    func paintStatusMessage(){
+        
+        //If the answer to both questions is "Yes", your phone passes the test. If not, please check our FAQs or contact us for support.
+        
+        var fontSize = 16
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            
+            fontSize = 24
+        }
+        
+        let firstStr = "If the answer to both questions is "
+        let mutatedStr = firstStr.toMutableAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
+
+        let secondStr = "\("Yes"), "
+        let secondAttributedStr = secondStr.toAttributedString(font: AppThemeConfig.boldFont, size: fontSize , color:UIColor(hexString: "#999999"))
+        
+        let thirdStr = "your phone passes the test. If not, please check our "
+        let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
+        
+        let forthStr = "FAQs "
+        let fourthAttributesStr = forthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        
+        let fifthStr = "or "
+        let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
+        
+        let sixthStr = "contact us "
+        let sixthAttributesStr = sixthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        
+        let seventhStr = "for support."
+        let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
+        
+        mutatedStr.append(secondAttributedStr)
+        mutatedStr.append(thirdAttributedStr)
+        mutatedStr.append(fourthAttributesStr)
+        mutatedStr.append(fifthAttributesStr)
+        mutatedStr.append(sixthAttributesStr)
+        mutatedStr.append(seventhAttributesStr)
+        
+        DispatchQueue.main.async {
+            self.statusLbl?.attributedText = mutatedStr
+        }
+        
+        Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
     }
     
     

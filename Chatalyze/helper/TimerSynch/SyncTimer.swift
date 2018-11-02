@@ -46,10 +46,12 @@ class SyncTimer: NSObject {
                     return
             }
             
-            let diff = weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh)
+            let diff = Int(weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh))
+            
             if(diff <= 0){
                 return
             }
+            
             weak.lastRefresh = weak.timerSync.getDate()
             weak.closure?()
         })

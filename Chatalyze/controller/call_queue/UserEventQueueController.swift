@@ -32,7 +32,7 @@ class UserEventQueueController: EventQueueController {
         analystJoinedListener.setListener {
             
             self.hideAlertMessage()
-            self.loadInfoFromServer(showLoader: false)
+            self.loadInfoFromServer(showLoader: true)
         }
     }
     
@@ -48,6 +48,8 @@ class UserEventQueueController: EventQueueController {
         eventQueueView?.isHidden = true
         statusLbl?.isHidden = false
     }
+    
+    
     func hideAlertMessage(){
         
         scrollView?.isHidden = false
@@ -82,7 +84,7 @@ class UserEventQueueController: EventQueueController {
         updatedEventScheduleListner.setListener {
             
             self.hideAlertMessage()
-            self.loadInfoFromServer(showLoader: false)
+            self.loadInfoFromServer(showLoader: true)
         }
     }
     
@@ -91,7 +93,7 @@ class UserEventQueueController: EventQueueController {
         
         eventDelayListener.setListener {
        
-            self.loadInfoFromServer(showLoader: false)
+            self.loadInfoFromServer(showLoader: true)
 
 //            Log.echo(key: "yud", text: "Yes the event is delayed")
 //            self.showAlertMessage()
@@ -164,7 +166,7 @@ class UserEventQueueController: EventQueueController {
             
             self.navigationController?.present(controller, animated: true, completion: {
                 
-                self.navigationController?.popViewController(animated: false)
+            self.navigationController?.popViewController(animated: false)
             })
         }
     }

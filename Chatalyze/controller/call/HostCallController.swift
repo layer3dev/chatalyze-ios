@@ -10,17 +10,48 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
-    
     //For animation
     var isAnimating = false
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
+
+    override var isVideoCallInProgress : Bool{
+        
+        guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
+            else{
+                return false
+        }
+        
+        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
+            return true;
+        }
+        
+        return false
+    }
+
+    override var roomType : UserInfo.roleType{
+        return .analyst
+    }
+    
     override func initialization(){
         super.initialization()
         
         initializeVariable()
+    }
+    
+    override func onExit(){
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        
+        if(!eventInfo.isExpired){
+            return;
+        }
+        
+        showFeedbackScreen()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,29 +67,45 @@ class HostCallController: VideoCallController {
         }
     }
     
+    func chatalyzeIconVisibility(){
+        
+    }
+    
+    
     @IBAction private func hangupAction(){
+        
+        var isDisableHangup = false
+        
+        if self.eventInfo?.mergeSlotInfo?.currentSlot == nil{
+            
+            isDisableHangup = true
+        }
         
         guard let controller = HangupController.instance() else{
             return
         }
         
         controller.exit = {
-            
+
             DispatchQueue.main.async {
                 self.processExitAction()
             }
         }
+        
         controller.hangup = {
             
             DispatchQueue.main.async {
                 self.toggleHangup()
             }
         }
-        
+        controller.isDisableHangup = isDisableHangup
+        Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
+        //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
+        controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
         })
-        
     }
+    
     
     private func toggleHangup(){
         
@@ -130,8 +177,10 @@ class HostCallController: VideoCallController {
         socketClient?.onEvent("screenshotCountDown", completion: { (response) in
             
             Log.echo(key: "yud", text: "Response in screenshotCountDown is \(String(describing: response))")
+            
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    
                     if let date = dateDict["timerStartsAt"]?.stringValue{
                         
                         let dateFormatter = DateFormatter()
@@ -162,6 +211,7 @@ class HostCallController: VideoCallController {
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {
+                            
                                 self.mimicScreenShotFlash()
                                 self.selfieTimerView?.reset()
                             }
@@ -185,7 +235,8 @@ class HostCallController: VideoCallController {
     }
     
     override func interval(){
-     
+        super.interval()
+        
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -194,55 +245,69 @@ class HostCallController: VideoCallController {
     }
     
     override func updateStatusMessage(){
+        super.updateStatusMessage()
         
         guard let eventInfo = eventInfo
             else{
-                return
-        }
-        if(!eventInfo.isWholeConnectEligible){
-            return
-        }
-        
-        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
-            else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-    
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            setStatusMessage(type: .connected)
+        //Is event strictly in preconnect state - startTime < 30 AND startTime > 0
+        //if yes, Just show it as pre-connected
+        if(eventInfo.isPreconnectEligible){
+            setStatusMessage(type: .preConnectedSuccess)
             return;
         }
         
-        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+        //if event starttime is NOT < 30 seconds
+        //we want to keep showing the logo, so do nothing
+        if(!eventInfo.isWholeConnectEligible){
+            setStatusMessage(type: .ideal)
+            return
+        }
+        
+        //Is there any slot booked
+        //if no, return
+        guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-        guard let preConnectUser = preConnectSlot.user
+        
+        
+        if(!isSocketConnected){
+            setStatusMessage(type: .ideal)
+            return
+        }
+        
+        guard let activeUser = activeSlot.user
             else{
+                setStatusMessage(type: .ideal)
                 return
         }
         
-        if(!isOnline(hashId: preConnectUser.hashedId)){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
         
-        guard let preConnectConnection = getPreConnectConnection()
-            else{
-                return;
-        }
-        
-        if(preConnectConnection.isConnected){
+        if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
             return
         }
+        
+        if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+            setStatusMessage(type: .connected)
+            return
+        }
+        
+        
+        setStatusMessage(type: .ideal)
     }
-    
-    
+        
     private func refresh(){
-       
         refreshStreamLock()
     }
     
@@ -324,8 +389,8 @@ class HostCallController: VideoCallController {
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
         
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
@@ -344,8 +409,8 @@ class HostCallController: VideoCallController {
         }
         
         hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
@@ -408,11 +473,7 @@ class HostCallController: VideoCallController {
     private func processEvent(){
     
         if(!(socketClient?.isConnected ?? false)){
-//            Log.echo(key: "processEvent", text: "processEvent -> socket not connected")
             return
-        }
-        else{
-//            Log.echo(key: "processEvent", text: "processEvent -> socket connected")
         }
         guard let eventInfo = self.eventInfo
             else{
@@ -443,7 +504,6 @@ class HostCallController: VideoCallController {
         }
         
         self.processExitAction()
-        eventCompleted()
     }
     
     private func disconnectStaleConnection(){
@@ -523,16 +583,18 @@ class HostCallController: VideoCallController {
         }
         
         if(!isOnline(hashId: targetHashedId)){
-//            Log.echo(key: "processEvent", text: "connectUser -> user is offline")
             return
         }
+        
         if(connection.isInitiated){
             return
         }
+        
         Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
         if(slot.isHangedUp){
             return
         }
+        
         connection.initateHandshake()
     }
     
@@ -606,29 +668,32 @@ class HostCallController: VideoCallController {
     
     override func handleMultipleTabOpening(){
      
+        
         DispatchQueue.main.async {
             
-            guard let controller = OpenCallAlertController.instance() else{
-                return
-            }
-            controller.dismissHandler = {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: {
-                    })
-                }
-            }
-            self.present(controller, animated: false, completion: {
-            })
+//            //self.getActiveConnection()?.disconnect()
+//            guard let controller = OpenCallAlertController.instance() else{
+//                return
+//            }
+//            controller.dismissHandler = {
+//                self.processExitAction()
+//            }
+//            self.present(controller, animated: false, completion: {
+//            })
+       
+            self.processExitAction()
+             self.multipleTabsHandlingListener?()
         }
     }
 }
 
 //instance
 extension HostCallController{
+    
     class func instance()->HostCallController?{
+        
         let storyboard = UIStoryboard(name: "call_view", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
-        
         return controller
     }
 }

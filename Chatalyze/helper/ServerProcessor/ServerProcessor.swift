@@ -115,12 +115,17 @@ class ServerProcessor{
             .validate()
             .validate(statusCode: 200 ..< 300)
             .responseJSON { (response) in
+               
+                Log.echo(key: "yud", text: "Response data from the server is  => \(response)")
+                
                 DispatchQueue.main.async(execute: {
                     self.handleResponse(response)
                     return
                 })
                 return
         }
+        
+        //Todo: Fix the issue with callback
     }
     
     fileprivate func getAuthorizationToken()->String{
@@ -147,10 +152,21 @@ class ServerProcessor{
     
     fileprivate func handleResponse(_ response : Alamofire.DataResponse<Any>){
         
+        if response.error != nil{
+
+            //Error and the failure cases are same.
+            if let data = response.data{
+
+                respond(success: false, response: try? JSON(data : data))
+                return
+            }
+            respond(success: false, response: nil)
+            return
+        }
+        
         if let data = response.data{
-            
+                   
             let responseData = String(data: data , encoding: String.Encoding.utf8)
-            Log.echo(key: "yud", text: "param => \(responseData)")
         }
         
         if(response.response?.statusCode == 401 && self.authorize){
@@ -162,6 +178,7 @@ class ServerProcessor{
         
         guard let senddata = response.data
             else{
+                respond(success: false, response: nil)
                 return
         }
         
@@ -201,7 +218,6 @@ class ServerProcessor{
          RootControllerManager.signOutAction(completion: nil)
          return;
          }*/
-        
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
        
@@ -232,4 +248,3 @@ class ServerProcessor{
         }
     }
 }
-

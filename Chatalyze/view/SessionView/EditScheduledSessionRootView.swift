@@ -228,7 +228,6 @@ class EditScheduledSessionRootView:ExtendedView{
         let photoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
            
             self.openCamera()
-          
         }
         
         let galleryAction = UIAlertAction(title: "Choose from Gallery", style: .default) { (action) in
@@ -296,6 +295,9 @@ class EditScheduledSessionRootView:ExtendedView{
     }
     
     @IBAction func uploadImage(sender:UIButton?){
+        
+        
+
         
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary

@@ -18,8 +18,8 @@ class EventQueueController: InterfaceExtendedController {
     var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
     @IBOutlet var bottomLine:UIView?
-    
-    
+
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,8 +57,7 @@ class EventQueueController: InterfaceExtendedController {
                 self.loadInfoFromServer(showLoader : true)
             }
         }
-    }
-    
+    }    
     
     func loadInfoFromServer(showLoader : Bool){
       
@@ -78,6 +77,8 @@ class EventQueueController: InterfaceExtendedController {
         eventSlotListener.setListener(listener: nil)
     }
     
+    
+    
     private func registerForTimer(){
         
         timer.startTimer()
@@ -89,7 +90,7 @@ class EventQueueController: InterfaceExtendedController {
     private func registerForEvent(){
         
         eventSlotListener.setListener { [weak self] in
-            self?.loadInfoFromServer(showLoader : false)
+            self?.loadInfoFromServer(showLoader : true)
         }
     }
     
@@ -227,6 +228,7 @@ extension EventQueueController{
             return
         }
     }
+    
 }
 
 

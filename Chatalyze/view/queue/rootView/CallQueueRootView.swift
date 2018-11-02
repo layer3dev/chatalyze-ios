@@ -8,10 +8,11 @@
 
 import UIKit
 
-class CallQueueRootView: ExtendedView {
+class CallQueueRootView: ExtendedRootView {
     
     @IBOutlet var countdownLabel : EventCountDownLabel?
     var eventInfo : EventScheduleInfo?
+    var countdownIdentifier : Int = 0
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -24,7 +25,8 @@ class CallQueueRootView: ExtendedView {
     }
     
     private func registerForTimer(){
-        CountdownProcessor.sharedInstance().add { [weak self] in
+        
+       countdownIdentifier = CountdownProcessor.sharedInstance().add { [weak self] in
             self?.refresh()
         }
     }
@@ -32,4 +34,14 @@ class CallQueueRootView: ExtendedView {
     func refresh(){
         Log.echo(key: "CallQueueRootView", text: "base refresh()")
     }
+    
+    override func onRelease(){
+        super.onRelease()
+
+        
+        Log.echo(key: "CallQueueRootView", text: "onRelease of CallQueueRootView -> \(countdownIdentifier)")
+        
+        CountdownProcessor.sharedInstance().release(identifier: countdownIdentifier)
+    }
+    
 }

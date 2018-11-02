@@ -31,7 +31,6 @@ class MySessionRootView:ExtendedView{
 //
 //            self.controller?.navigationController?.pushViewController(controller, animated: true)
             
-            
             guard let eventInfo = eventInfo
                 else{
                     return
@@ -55,6 +54,23 @@ class MySessionRootView:ExtendedView{
             guard let controller = HostCallController.instance()
                 else{
                     return
+            }
+            
+            controller.multipleTabsHandlingListener = {
+                
+                 DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
+                    
+                    guard let controller = OpenCallAlertController.instance() else{
+                        return
+                    }
+                    controller.dismissHandler = {
+                        
+                        //self.root?.refreshData()
+                    }
+                    self.controller?.present(controller, animated: false, completion: {
+                    })
+                })
+                
             }
             
             controller.eventId = String(eventId)

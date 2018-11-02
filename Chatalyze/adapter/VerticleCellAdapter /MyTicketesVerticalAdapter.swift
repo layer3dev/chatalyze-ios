@@ -189,7 +189,7 @@ func jointEvent(info:SlotInfo?){
             return
     }
     
-    controller.eventExpiredHandler = {(success,eventInfo) in
+    controller.feedbackListener = {(eventInfo) in
         
         guard let controller = ReviewController.instance() else{
             return
@@ -199,6 +199,22 @@ func jointEvent(info:SlotInfo?){
             self.root?.refreshData()
         }
         self.root?.controller?.present(controller, animated: false, completion:{
+        })
+    }
+    
+    controller.multipleTabsHandlingListener = {
+        
+        DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
+      
+            guard let controller = OpenCallAlertController.instance() else{
+                return
+            }
+            controller.dismissHandler = {
+                
+                self.root?.refreshData()
+            }
+            self.root?.controller?.present(controller, animated: false, completion: {
+            })
         })
     }
     controller.eventId = String(eventId)

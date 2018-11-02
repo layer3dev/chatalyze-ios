@@ -7,6 +7,7 @@
 //
 import Foundation
 import SystemConfiguration
+
 class InternetReachabilityCheck {
     
     func isInternetAvailable() -> Bool
