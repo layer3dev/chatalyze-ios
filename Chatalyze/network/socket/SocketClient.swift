@@ -18,6 +18,8 @@ class SocketClient : NSObject{
     var socket : WebSocket?
     
     fileprivate var connectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
+    
+    fileprivate var newConnectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
   
     fileprivate var eventListenerList : [Int : SocketListenerCallback] = [Int : SocketListenerCallback]()
     
@@ -365,6 +367,22 @@ extension SocketClient{
 //connectionWait
 extension SocketClient{
     
+    func newConnectionListener(completion : ((_ success : Bool)->())?)->Int{
+        
+        Log.echo(key: "socket", text: "confirmConnect please")
+        let isConnected = self.isRegistered
+        if isConnected{
+            Log.echo(key: "socket", text: "you are connected please continue")
+            completion?(true)
+        }
+        
+        
+        return addToNewConnectionList() { (success) in
+            completion?(success)
+        }
+        
+    }
+    
     func confirmConnect(completion : ((_ success : Bool)->())?){
         
         Log.echo(key: "socket_client", text: "confirmConnect please")
@@ -375,13 +393,18 @@ extension SocketClient{
             return
         }
         
-        let countdown = connectionCounter
-        connectionCounter = connectionCounter + 1
+        let countdown = uniqueConnectionIdentifier
         
         add(connectionCounter: countdown) { (success) in
             completion?(success)
         }
         
+    }
+    
+    fileprivate func addToNewConnectionList(listener : @escaping (_ connected : Bool)->())->Int{
+        let identifier = uniqueConnectionIdentifier
+        connectionCallbackList[identifier] = listener
+        return identifier
     }
     
     fileprivate func add(connectionCounter : Int, listener : @escaping (_ connected : Bool)->()){
@@ -422,13 +445,9 @@ extension SocketClient{
 
     
     func onEvent(_ action : String, completion : ((_ json : JSON?)->())?){
-        
-        
-        let counter = connectionCounter
-        connectionCounter = connectionCounter + 1
+        let counter = uniqueConnectionIdentifier
         
         let callback = SocketListenerCallback(action: action, listener: completion)
-        
         eventListenerList[counter] = callback
     }
     
@@ -442,10 +461,9 @@ extension SocketClient{
         }
     }
     
+    var uniqueConnectionIdentifier : Int{
+        connectionCounter = connectionCounter + 1
+        return connectionCounter
+    }
     
 }
-
-
-
-
-
