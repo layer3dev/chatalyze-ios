@@ -9,6 +9,11 @@
 import UIKit
 import AudioToolbox
 
+
+protocol GetisHangedUpDelegate {
+    func getHangUpStatus()->Bool
+}
+
 class SelfieTimerView:ExtendedView {
     
     var player : AVAudioPlayer?
@@ -22,6 +27,9 @@ class SelfieTimerView:ExtendedView {
     var isScreenShotTaken = false
     static var hostTimer = Timer()
     var requiredDate:Date?
+    
+    var delegate:GetisHangedUpDelegate?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -100,6 +108,7 @@ class SelfieTimerView:ExtendedView {
         SelfieTimerView.testTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
+        self.isHidden = true
     }
     
     private func invalidateTimerForHost(){
@@ -109,6 +118,7 @@ class SelfieTimerView:ExtendedView {
         SelfieTimerView.hostTimer.invalidate()
         autographTime = 0
         self.isScreenShotTaken = false
+        self.isHidden = true
     }
     
     
@@ -121,6 +131,18 @@ class SelfieTimerView:ExtendedView {
     }
     
     @objc func updateTimer(){
+        
+        Log.echo(key: "yud", text: "Hangup Status oid \(String(describing: delegate?.getHangUpStatus()))")
+        
+        if let isHangedUp = delegate?.getHangUpStatus(){
+            
+            if isHangedUp{
+                
+                invalidateTimer()
+                invalidateTimerForHost()
+                return
+            }
+        }
         
         if autographTime >= 12 && autographTime  < 15{
             

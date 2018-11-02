@@ -58,6 +58,7 @@ class HostCallController: VideoCallController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         self.registerForTimerNotification()
     }
     
@@ -175,6 +176,7 @@ class HostCallController: VideoCallController {
         
         self.registerForTimerNotification()
         self.registerForListeners()
+        self.selfieTimerView?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -718,6 +720,11 @@ extension HostCallController{
 //not in use at the moment
 extension HostCallController : CallConnectionProtocol{
     func updateConnectionState(state : RTCIceConnectionState, slotInfo : SlotInfo?){
-        
+    }
+}
+
+extension HostCallController:GetisHangedUpDelegate{
+    func getHangUpStatus() -> Bool {
+        return isCallHangedUp 
     }
 }
