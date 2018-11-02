@@ -672,6 +672,7 @@ class HostCallController: VideoCallController {
             guard let controller = OpenCallAlertController.instance() else{
                 return
             }
+            
             controller.dismissHandler = {
                 DispatchQueue.main.async {
                     self.dismiss(animated: false, completion: {
