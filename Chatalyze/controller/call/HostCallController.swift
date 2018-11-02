@@ -16,7 +16,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
-
+    
     override var isVideoCallInProgress : Bool{
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
@@ -30,7 +30,7 @@ class HostCallController: VideoCallController {
         
         return false
     }
-
+    
     override var roomType : UserInfo.roleType{
         return .analyst
     }
@@ -62,7 +62,7 @@ class HostCallController: VideoCallController {
     }
     
     var hostActionContainer : HostVideoActionContainer?{
-    
+        
         get{
             return actionContainer as? HostVideoActionContainer
         }
@@ -96,7 +96,7 @@ class HostCallController: VideoCallController {
         }
         
         controller.exit = {
-
+            
             DispatchQueue.main.async {
                 self.processExitAction()
             }
@@ -127,7 +127,7 @@ class HostCallController: VideoCallController {
         
         let isHangedUp = !slot.isHangedUp
         slot.isHangedUp = isHangedUp
-
+        
         isHangedUp ? hostActionContainer?.hangupView?.deactivate() : hostActionContainer?.activateFromHangup()
         
         if(!isHangedUp){
@@ -198,7 +198,7 @@ class HostCallController: VideoCallController {
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-                       
+                        
                         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
                         var requiredDate:Date?
                         
@@ -219,8 +219,8 @@ class HostCallController: VideoCallController {
                             return
                         }
                         if connection.isConnected{
-                         
-                            if isCallHangedUp{
+                            
+                            if self.isCallHangedUp{
                                 return
                             }
                             
@@ -228,7 +228,7 @@ class HostCallController: VideoCallController {
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                             
                             self.selfieTimerView?.screenShotListner = {
-                            
+                                
                                 self.mimicScreenShotFlash()
                                 self.selfieTimerView?.reset()
                             }
@@ -323,7 +323,7 @@ class HostCallController: VideoCallController {
         
         setStatusMessage(type: .ideal)
     }
-        
+    
     private func refresh(){
         refreshStreamLock()
     }
@@ -370,7 +370,7 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-
+        
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
@@ -461,7 +461,7 @@ class HostCallController: VideoCallController {
             }
             
             if endDate > 15.0{
-
+                
                 //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
                 isAnimating = false
                 stopLableAnimation()
@@ -471,38 +471,38 @@ class HostCallController: VideoCallController {
         }
     }
     
-//    func animateUIlabel(){
-//
-//        var bounds = (hostRootView?.callInfoContainer?.timer?.bounds) ?? CGRect()
-//        bounds.size = (hostRootView?.callInfoContainer?.timer?.intrinsicContentSize) ?? CGSize()
-//        let scaleX = bounds.size.width / ((hostRootView?.callInfoContainer?.timer?.frame.size.width) ?? 0.0)
-//        let scaleY = bounds.size.height / ((hostRootView?.callInfoContainer?.timer?.frame.size.height) ?? 0.0)
-//        UIView.animate(withDuration: 1.0, animations: {
-//            self.hostRootView?.callInfoContainer?.timer?.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-//        }, completion: { done in
-//            self.hostRootView?.callInfoContainer?.timer?.font = labelCopy.font
-//            self.hostRootView?.callInfoContainer?.timer?.transform = .identity
-//            self.hostRootView?.callInfoContainer?.timer?.bounds = bounds
-//        })
-//    }
+    //    func animateUIlabel(){
+    //
+    //        var bounds = (hostRootView?.callInfoContainer?.timer?.bounds) ?? CGRect()
+    //        bounds.size = (hostRootView?.callInfoContainer?.timer?.intrinsicContentSize) ?? CGSize()
+    //        let scaleX = bounds.size.width / ((hostRootView?.callInfoContainer?.timer?.frame.size.width) ?? 0.0)
+    //        let scaleY = bounds.size.height / ((hostRootView?.callInfoContainer?.timer?.frame.size.height) ?? 0.0)
+    //        UIView.animate(withDuration: 1.0, animations: {
+    //            self.hostRootView?.callInfoContainer?.timer?.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+    //        }, completion: { done in
+    //            self.hostRootView?.callInfoContainer?.timer?.font = labelCopy.font
+    //            self.hostRootView?.callInfoContainer?.timer?.transform = .identity
+    //            self.hostRootView?.callInfoContainer?.timer?.bounds = bounds
+    //        })
+    //    }
     
     
     private func processEvent(){
-    
+        
         if(!(socketClient?.isConnected ?? false)){
             return
         }
         guard let eventInfo = self.eventInfo
             else{
-//                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+                //                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
                 return
         }
         
         if(eventInfo.started == nil){
-//            Log.echo(key: "processEvent", text: "event not activated yet")
+            //            Log.echo(key: "processEvent", text: "event not activated yet")
             return
         }
-
+        
         preconnectUser()
         connectLiveUser()
         disconnectStaleConnection()
@@ -549,7 +549,7 @@ class HostCallController: VideoCallController {
         
         guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
-//                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+                //                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         
@@ -566,7 +566,7 @@ class HostCallController: VideoCallController {
         
         guard let slot = eventInfo.mergeSlotInfo?.currentSlot
             else{
-//                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+                //                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         
@@ -649,7 +649,7 @@ class HostCallController: VideoCallController {
             connection.disconnect()
         }
     }
-        
+    
     override func verifyEventActivated(){
         
         guard let eventInfo = self.eventInfo
@@ -668,7 +668,7 @@ class HostCallController: VideoCallController {
         
         let eventIdString = "\(eventId)"
         ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
-
+            
             if(!success){
                 return
             }
@@ -681,25 +681,25 @@ class HostCallController: VideoCallController {
             self.fetchInfoAfterActivatIngEvent()
         }
     }
-   
+    
     
     override func handleMultipleTabOpening(){
-     
+        
         
         DispatchQueue.main.async {
             
-//            //self.getActiveConnection()?.disconnect()
-//            guard let controller = OpenCallAlertController.instance() else{
-//                return
-//            }
-//            controller.dismissHandler = {
-//                self.processExitAction()
-//            }
-//            self.present(controller, animated: false, completion: {
-//            })
-       
+            //            //self.getActiveConnection()?.disconnect()
+            //            guard let controller = OpenCallAlertController.instance() else{
+            //                return
+            //            }
+            //            controller.dismissHandler = {
+            //                self.processExitAction()
+            //            }
+            //            self.present(controller, animated: false, completion: {
+            //            })
+            
             self.processExitAction()
-             self.multipleTabsHandlingListener?()
+            self.multipleTabsHandlingListener?()
         }
     }
 }
