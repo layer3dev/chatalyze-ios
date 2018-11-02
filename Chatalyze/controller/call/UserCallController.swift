@@ -69,9 +69,14 @@ class UserCallController: VideoCallController {
     override func initialization(){
         super.initialization()
         
+        
+        
         initializeVariable()
         registerForAutographListener()
     }
+    
+    
+    
     
     override func interval(){
         super.interval()
@@ -165,6 +170,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
+        
         self.selfieTimerView?.reset()
         DispatchQueue.main.async {
             
@@ -216,6 +222,7 @@ class UserCallController: VideoCallController {
        
         initializeGetCommondForTakeScreenShot()
         registerForListeners()
+        self.selfieTimerView?.delegate = self
     }
     
     override func registerForListeners(){
@@ -969,5 +976,12 @@ extension UserCallController{
     
     var isCallStreaming: Bool{
         return (self.connection?.isStreaming ?? false)
+    }
+}
+
+
+extension UserCallController:GetisHangedUpDelegate{
+    func getHangUpStatus() -> Bool {
+        return isHangUp || (!isCallStreaming)
     }
 }
