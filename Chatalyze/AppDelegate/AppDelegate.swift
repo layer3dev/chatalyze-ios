@@ -142,7 +142,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo
-        Log.echo(key: "yud", text: "remoteNotificatio userInfo is \(userInfo)")
+        Log.echo(key: "yud", text: "RemoteNotification userInfo is \(userInfo)")
         let aps = userInfo["aps"] as? [String: AnyObject]
         Log.echo(key: "yud", text: "RemoteNotification aps data \(String(describing: aps))")
     }

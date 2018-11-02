@@ -279,8 +279,6 @@ class VideoCallController : InterfaceExtendedController {
             self?.processUpdatePeerList(json: json)
         })
     }
-
-
     
     private func processUpdatePeerList(json : JSON?){
         

@@ -113,11 +113,10 @@ extension UserSocket{
         }
         
         socket?.on("login") {data, ack in
-            Log.echo(key: "user_socket", text:"socket login data => \(data)")
             
+            Log.echo(key: "user_socket", text:"socket login data => \(data)")
             self.isRegisteredToServer = true
             self.updateConnectionStatus(isConnected: true)
-           
             //Changing the color of online offline view
             self.showConnect()
         }
@@ -127,7 +126,6 @@ extension UserSocket{
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket error data (disconnect) => \(data)")
             self.updateConnectionStatus(isConnected: false)
-        
             //Changing the color of online offline view
             self.showDisconnect()
         

@@ -42,6 +42,7 @@ class HostCallController: VideoCallController {
     }
     
     override func onExit(){
+        
         guard let eventInfo = eventInfo
             else{
                 return
@@ -68,7 +69,6 @@ class HostCallController: VideoCallController {
     }
     
     func chatalyzeIconVisibility(){
-        
     }
     
     
@@ -101,6 +101,7 @@ class HostCallController: VideoCallController {
         controller.isDisableHangup = isDisableHangup
         Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
+        
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
         })
