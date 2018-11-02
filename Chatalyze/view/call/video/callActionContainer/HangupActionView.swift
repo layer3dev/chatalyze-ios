@@ -21,10 +21,12 @@ class HangupActionView: ExtendedView {
      */
     
     func activate(){
+       
         actionImage?.image = UIImage(named : "activate_hangup")
     }
     
     func deactivate(){
+       
         actionImage?.image = UIImage(named : "deactivate_hangup")
     }
 

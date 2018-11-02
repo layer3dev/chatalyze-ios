@@ -153,10 +153,16 @@ class ServerProcessor{
     fileprivate func handleResponse(_ response : Alamofire.DataResponse<Any>){
         
         if response.error != nil{
-            
+
+            //Error and the failure cases are same.
+            if let data = response.data{
+
+                respond(success: false, response: try? JSON(data : data))
+                return
+            }
             respond(success: false, response: nil)
+            return
         }
-        
         
         if let data = response.data{
                    
@@ -212,7 +218,6 @@ class ServerProcessor{
          RootControllerManager.signOutAction(completion: nil)
          return;
          }*/
-        
     }
     private func extractToken(httpResponse : HTTPURLResponse?){
        

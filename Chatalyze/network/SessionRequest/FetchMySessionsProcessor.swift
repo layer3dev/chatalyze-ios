@@ -18,7 +18,7 @@ class FetchMySessionsProcessor{
         let newdate = DateParser.getMidNightDateTimeInString(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssXXX")
         Log.echo(key: "yud", text: "Date is in My sessions fetching \(Date())")
         
-        let url = AppConnectionConfig.webServiceURL + "/schedules/calls/"
+        let url = AppConnectionConfig.webServiceURL + "/schedules/calls/all"
         var param:[String:Any] = [String:Any]()
         param["isTestAccount"] = false
         param["include"] = "callbookings"
