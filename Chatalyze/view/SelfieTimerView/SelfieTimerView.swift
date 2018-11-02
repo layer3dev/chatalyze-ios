@@ -82,6 +82,7 @@ class SelfieTimerView:ExtendedView {
             Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
             let difference = currentDateTimeGMT().timeIntervalSince(date)
             Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
+            
             if difference >= 3 {                
                 updateTimer()
             }
@@ -142,12 +143,14 @@ class SelfieTimerView:ExtendedView {
             self.greenOne()
         }
         else if autographTime >= 16 && autographTime  < 17{
+            
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
             self.greenTwo()
         }
         else if autographTime >= 17 && autographTime  < 18{
+       
             DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
                 self.playSound()
             }
@@ -310,6 +313,7 @@ extension SelfieTimerView{
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
+        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)

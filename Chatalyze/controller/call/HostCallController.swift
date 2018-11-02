@@ -117,7 +117,7 @@ class HostCallController: VideoCallController {
         
         let isHangedUp = !slot.isHangedUp
         slot.isHangedUp = isHangedUp
-        
+
         isHangedUp ? hostActionContainer?.hangupView?.deactivate() : hostActionContainer?.activateFromHangup()
         
         refreshStreamLock()

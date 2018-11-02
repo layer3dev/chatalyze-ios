@@ -103,9 +103,8 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         let speedStr = String(format: "%.2f", speed ?? 0.0)
                         if (speed ?? 0.0) < 0.03125 {
                             
-                            
                             self.speedLbl?.textColor = UIColor.red
-                            self.speedLbl?.text = "Success"
+                            self.speedLbl?.text = "Fail"
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 self.dismissAction()
                             }
@@ -121,6 +120,10 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 }else{
                     
                     self.speedLbl?.text = "Fail"
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.dismissAction()
+                    }
+                    return
                 }
             }
         }

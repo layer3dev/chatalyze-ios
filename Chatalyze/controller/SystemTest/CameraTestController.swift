@@ -36,11 +36,12 @@ class CameraTestController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-
+        
         self.checkForMicrphone()
         checkForCameraAccess()
         borderSoundMeter()
         paintStatusMessage()
+        setUpGestureOnLabel()
         return
     }
     
@@ -66,7 +67,7 @@ class CameraTestController: InterfaceExtendedController {
         
         let firstStr = "If the answer to both questions is "
         let mutatedStr = firstStr.toMutableAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
-
+        
         let secondStr = "\("Yes"), "
         let secondAttributedStr = secondStr.toAttributedString(font: AppThemeConfig.boldFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
@@ -98,6 +99,65 @@ class CameraTestController: InterfaceExtendedController {
         
         Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
     }
+    
+    
+    func setUpGestureOnLabel(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
+        self.statusLbl?.addGestureRecognizer(tap)
+        self.statusLbl?.isUserInteractionEnabled = true
+    }
+    
+    @objc func tapLabel(tap: UITapGestureRecognizer) {
+        
+        if let msglabel = self.statusLbl{
+            guard let range = msglabel.text?.range(of: "contact us for support.")?.nsRange else {
+                return
+            }
+            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
+                Log.echo(key: "yud",text: "Sub string is tapped")
+                
+                DispatchQueue.main.async {
+                    
+                    self.dismiss(animated: true) {
+                        
+                        guard let rootController = RootControllerManager().getCurrentController() else{
+                            return
+                        }
+                        
+                        guard let roleId = SignedUserInfo.sharedInstance?.role else{
+                            return
+                        }
+                        
+                        if roleId  == .analyst{
+                            
+                            rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+                            rootController.closeToggle()
+                            return
+                        }
+                        if roleId == .user{
+                            
+                            rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+                            rootController.closeToggle()
+                            return
+                        }
+                    }
+                }
+                
+                
+                
+                
+                
+                
+                
+                //                self.dismiss(animated: true) {
+                //                }
+                //Substring tapped
+            }
+        }
+    }
+    
+    
     
     
     @objc func appBecomeActiveAgain() {
@@ -145,10 +205,10 @@ class CameraTestController: InterfaceExtendedController {
             //Earlier 45 was 40
             //Earlier 20 was 40
             
-//            let newPower = (Float(level) - (LEVEL_THRESHOLD))
-//            let percentage = ((newPower/160))
-//            progressView?.progress = Float(percentage)
-//            let numberOfViewToShown = Int(((percentage*100))*(20/100))
+            //            let newPower = (Float(level) - (LEVEL_THRESHOLD))
+            //            let percentage = ((newPower/160))
+            //            progressView?.progress = Float(percentage)
+            //            let numberOfViewToShown = Int(((percentage*100))*(20/100))
             
             if level < -(50.0){
                 self.resetSoundMeter()
@@ -161,7 +221,7 @@ class CameraTestController: InterfaceExtendedController {
             let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
             
             Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
-           
+            
             DispatchQueue.main.async {
                 
                 self.resetSoundMeter()
@@ -180,7 +240,7 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     func resetSoundMeter(){
-       
+        
         for i in 1..<21{
             
             let soundButton = self.view.viewWithTag(i) as? UIButton
@@ -208,11 +268,11 @@ class CameraTestController: InterfaceExtendedController {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-        
+            
             try
                 
-               audioSession.setCategory(.playAndRecord, mode: .default, options: [])
-//                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
+                audioSession.setCategory(.playAndRecord, mode: .default, options: [])
+            //                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
             try audioSession.setActive(true)
             try recorder = AVAudioRecorder(url:url, settings: recordSettings)
             
@@ -287,7 +347,7 @@ class CameraTestController: InterfaceExtendedController {
         
         session = AVCaptureSession()
         output = AVCaptureStillImageOutput()
-       
+        
         guard let camera = getDevice(position: .front) else {
             errorInCamera()
             return
@@ -505,7 +565,7 @@ class CameraTestController: InterfaceExtendedController {
                 return
             }
             controller.info = self.info
-         
+            
             //        if self.info?.isFree ?? false{
             //            return
             //        }
@@ -564,7 +624,7 @@ class CameraTestController: InterfaceExtendedController {
             //            })
         }))
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
-           
+            
         }))
         
         self.present(alert, animated: false) {
@@ -584,5 +644,5 @@ extension CameraTestController{
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }
