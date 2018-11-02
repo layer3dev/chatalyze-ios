@@ -71,6 +71,16 @@ class HostCallController: VideoCallController {
     func chatalyzeIconVisibility(){
     }
     
+    var isCallHangedUp:Bool{
+        
+        if let hangUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp{
+            if hangUp{
+                return true
+            }
+            return false
+        }
+        return true
+    }
     
     @IBAction private func hangupAction(){
         
@@ -136,7 +146,6 @@ class HostCallController: VideoCallController {
                 localMediaPackage?.isDisabled = false
                 return
         }
-        
         localMediaPackage?.isDisabled = slot.isHangedUp
     }
     
@@ -149,7 +158,6 @@ class HostCallController: VideoCallController {
         param["name"] = hashedUserId
         socketClient?.emit(param)
     }
-    
     
     
     //public - Need to be access by child
@@ -211,6 +219,10 @@ class HostCallController: VideoCallController {
                             return
                         }
                         if connection.isConnected{
+                         
+                            if isCallHangedUp{
+                                return
+                            }
                             
                             self.selfieTimerView?.reset()
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate)

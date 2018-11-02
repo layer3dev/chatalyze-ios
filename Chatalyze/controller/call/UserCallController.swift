@@ -36,8 +36,6 @@ class UserCallController: VideoCallController {
     
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
-    
-    
     override var isVideoCallInProgress : Bool{
         guard let activeSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
@@ -61,6 +59,11 @@ class UserCallController: VideoCallController {
     
     var userRootView : UserVideoRootView?{
         return self.view as? UserVideoRootView
+    }
+    
+    var isHangUp:Bool{
+        
+        return localMediaPackage?.isDisabled ?? true
     }
     
     override func initialization(){
@@ -459,6 +462,11 @@ class UserCallController: VideoCallController {
         if !(isCallStreaming){
             return
         }
+        
+        if isHangUp{
+           return
+        }
+        
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
