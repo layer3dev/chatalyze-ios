@@ -265,8 +265,8 @@ class UserCallController: VideoCallController {
         hangup(hangup: value)
     }
     
-    override func processExitAction(){
-        super.processExitAction()
+    override func processExitAction(code : exitCode){
+        super.processExitAction(code : code)
         
         connection?.disconnect()
     }
@@ -528,7 +528,6 @@ class UserCallController: VideoCallController {
         }
         
         if(currentSlot.isFuture){
-            
             updateCallHeaderForFuture(slot : currentSlot)
             return
         }       
@@ -608,16 +607,21 @@ class UserCallController: VideoCallController {
         if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
-        self.processExitAction()
+        self.processExitAction(code : .expired)
     }
     
-    override func onExit(){
+    override func onExit(code : exitCode){
+        super.onExit(code: code)
+        
+        if(code == .prohibited){
+            showErrorScreen()
+            return
+        }
         
         guard let eventInfo = eventInfo
             else{
                 return
         }
-        
         
         guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
@@ -693,25 +697,7 @@ class UserCallController: VideoCallController {
     }
     
     override func handleMultipleTabOpening(){
-        
-//        DispatchQueue.main.async {
-//
-//            guard let controller = OpenCallAlertController.instance() else{
-//                    return
-//            }
-//            controller.dismissHandler = {
-//                self.processExitAction()
-//            }
-//            self.present(controller, animated: false, completion: {
-//            })
-//        }
-        
-        DispatchQueue.main.async {
-        
-            self.processExitAction()
-            self.multipleTabsHandlingListener?()
-            
-        }
+        self.processExitAction(code : .prohibited)
     }
 }
 

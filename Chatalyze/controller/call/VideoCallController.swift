@@ -13,6 +13,14 @@ import Foundation
 import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
+    
+    enum exitCode {
+        case userAction
+        case expired
+        case prohibited
+        case mediaAccess
+        case undefined
+    }
    
     //user for animatingLable
     var label = UILabel()
@@ -45,6 +53,11 @@ class VideoCallController : InterfaceExtendedController {
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
     let updatedEventScheduleListner = UpdateEventListener()
+    
+    //in case if user opens up 
+    var isProhibited = false
+    
+    weak var lastPresentingController : UIViewController?
 
     @IBOutlet var chatalyzeLogo:UIImageView?
     @IBOutlet var preConnectLbl:UILabel?
@@ -59,6 +72,7 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         if UIDevice.current.userInterfaceIdiom == .pad{
        
@@ -75,7 +89,6 @@ class VideoCallController : InterfaceExtendedController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-     
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
@@ -153,8 +166,6 @@ class VideoCallController : InterfaceExtendedController {
     
     @IBAction private func videoDisableAction(){
         
-        
-      
         guard let localMediaPackage = self.localMediaPackage
             else{
                 return
@@ -174,26 +185,41 @@ class VideoCallController : InterfaceExtendedController {
     
     @IBAction private func exitAction(){
         
-        processExitAction()
+        processExitAction(code: .userAction)
     }
     
-    func processExitAction(){
+    
+    func processExitAction(code : exitCode){
         
         timer.pauseTimer()
-        self.exit()
+        self.exit(code : code)
         updateUserOfExit()
     }
     
-    func exit(){
+    
+    func exit(code : exitCode){
         self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")
-            self?.onExit()
+            self?.onExit(code : code)
         }
     }
     
     //This will be called after viewController is exited from the screen
-    func onExit(){
+    func onExit(code : exitCode){
         
+    }
+    
+    func showErrorScreen(){
+        guard let controller = OpenCallAlertController.instance() else{
+            return
+        }
+        
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        presentingController.present(controller, animated: true, completion: nil)
     }
     
     func isExpired()->Bool{
@@ -225,7 +251,7 @@ class VideoCallController : InterfaceExtendedController {
         self.accessManager = accessManager
         accessManager.verifyMediaAccess { (success) in
             if(!success){
-                self.processExitAction()
+                self.processExitAction(code : .mediaAccess)
                 return
             }
             self.initialization()
@@ -293,7 +319,7 @@ class VideoCallController : InterfaceExtendedController {
         
         rootView?.hangupListener(listener: {
             
-            self.processExitAction()
+            self.processExitAction(code: .userAction)
             self.rootView?.callOverlayView?.isHidden = true
         })
         
@@ -378,6 +404,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func initializeVariable(){
         appDelegate?.allowRotate = true
+        lastPresentingController = self.presentingViewController
         
         eventSlotListener.eventId = self.eventId
         registerForEvent()

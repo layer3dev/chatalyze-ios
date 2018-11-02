@@ -204,18 +204,6 @@ func jointEvent(info:SlotInfo?){
     
     controller.multipleTabsHandlingListener = {
         
-        DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
-      
-            guard let controller = OpenCallAlertController.instance() else{
-                return
-            }
-            controller.dismissHandler = {
-                
-                self.root?.refreshData()
-            }
-            self.root?.controller?.present(controller, animated: false, completion: {
-            })
-        })
     }
     controller.eventId = String(eventId)
     self.root?.controller?.present(controller, animated: false, completion: nil)

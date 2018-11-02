@@ -41,7 +41,13 @@ class HostCallController: VideoCallController {
         initializeVariable()
     }
     
-    override func onExit(){
+    override func onExit(code : exitCode){
+        super.onExit(code: code)
+        
+        if(code == .prohibited){
+            showErrorScreen()
+            return
+        }
         
         guard let eventInfo = eventInfo
             else{
@@ -54,6 +60,8 @@ class HostCallController: VideoCallController {
         
         showFeedbackScreen()
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -98,7 +106,7 @@ class HostCallController: VideoCallController {
         controller.exit = {
             
             DispatchQueue.main.async {
-                self.processExitAction()
+                self.processExitAction(code : .userAction)
             }
         }
         
@@ -520,7 +528,7 @@ class HostCallController: VideoCallController {
             return
         }
         
-        self.processExitAction()
+        self.processExitAction(code : .expired)
     }
     
     private func disconnectStaleConnection(){
@@ -642,8 +650,8 @@ class HostCallController: VideoCallController {
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
     
-    override func exit(){
-        super.exit()
+    override func exit(code : exitCode){
+        super.exit(code : code)
         
         for (_, connection) in connectionInfo {
             connection.disconnect()
@@ -684,23 +692,8 @@ class HostCallController: VideoCallController {
     
     
     override func handleMultipleTabOpening(){
-        
-        
-        DispatchQueue.main.async {
-            
-            //            //self.getActiveConnection()?.disconnect()
-            //            guard let controller = OpenCallAlertController.instance() else{
-            //                return
-            //            }
-            //            controller.dismissHandler = {
-            //                self.processExitAction()
-            //            }
-            //            self.present(controller, animated: false, completion: {
-            //            })
-            
-            self.processExitAction()
-            self.multipleTabsHandlingListener?()
-        }
+        self.processExitAction(code : .prohibited)
+
     }
 }
 
