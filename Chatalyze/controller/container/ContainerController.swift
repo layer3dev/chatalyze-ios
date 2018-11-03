@@ -41,6 +41,17 @@ class ContainerController: NavChildController {
         }
         initialization()
         initializeToggleWidth()
+        hideSocketVerifierOnAdhoc()
+    }
+    
+    func hideSocketVerifierOnAdhoc(){
+        
+        if ProvisiningProfileStatus.isDevelopmentProvisioningProfile(){
+            socketVerifierView?.isHidden = false
+            return
+        }
+        socketVerifierView?.isHidden = true
+        return
     }
     
     func showShadowView(){

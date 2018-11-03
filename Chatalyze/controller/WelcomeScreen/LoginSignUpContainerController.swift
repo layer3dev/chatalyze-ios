@@ -104,8 +104,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
                     tab.select()
                 })
                 self.view.layoutIfNeeded()
-            //self.showWelcomeScreen()
-            
+            //self.showWelcomeScreen()            
         })
         
         signUpTab?.tabAction(action: { (tab) in
@@ -190,7 +189,7 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
             
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
+            let idToken = user.serverAuthCode // Safe to send to the server
             let fullName = user.profile.name
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName

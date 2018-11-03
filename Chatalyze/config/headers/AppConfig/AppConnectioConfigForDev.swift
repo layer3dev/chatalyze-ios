@@ -14,7 +14,7 @@ class AppConnectionConfig {
     //    static let socketURL = "wss://192.168.1.113:3001/oneonone"
     //static let socketURL = "wss://192.168.1.17:3001/oneonone"
     //static let webServiceURL = "https://chatalyze.com/api"
-    static let webServiceURL = "https://dev.chatalyze.com/api"
+    static let webServiceURL = "http://192.168.1.35:3000"
     //static let webServiceURL = "https://beta.chatalyze.com/api"
     //static let webServiceURL = "https://api.chatalyze.com/v1"
     //static let webServiceURL = "http://192.168.1.113:8080/api"

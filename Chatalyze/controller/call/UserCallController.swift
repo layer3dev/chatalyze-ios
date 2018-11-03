@@ -42,7 +42,6 @@ class UserCallController: VideoCallController {
                 return false
         }
         
-        
         if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
             return true;
         }
@@ -69,14 +68,9 @@ class UserCallController: VideoCallController {
     override func initialization(){
         super.initialization()
         
-        
-        
         initializeVariable()
         registerForAutographListener()
     }
-    
-    
-    
     
     override func interval(){
         super.interval()
@@ -90,10 +84,9 @@ class UserCallController: VideoCallController {
         updateLableAnimation()
     }
     
-    
-        
     override func updateStatusMessage(){
         super.updateStatusMessage()
+        
         guard let eventInfo = eventInfo
             else{
                 setStatusMessage(type: .ideal)
@@ -105,12 +98,10 @@ class UserCallController: VideoCallController {
             return
         }
         
-        
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
             return
         }
-        
         
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
@@ -169,7 +160,6 @@ class UserCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
-        
         
         self.selfieTimerView?.reset()
         DispatchQueue.main.async {
@@ -405,7 +395,7 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        myLiveUnMergedSlot
+        
         
         Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
         
@@ -462,7 +452,6 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-
         
         if(!isCallConnected){ return }
         
@@ -503,7 +492,8 @@ class UserCallController: VideoCallController {
                 SlotFlagInfo.staticSlotId = id
                 SlotFlagInfo.staticIsTimerInitiated = true
             }
-            
+            //for testing
+            selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
             
             //Log.echo(key: "yud", text: "Yes I am sending the animation request")
@@ -517,8 +507,18 @@ class UserCallController: VideoCallController {
             let image = self.userRootView?.getSnapshot()
             self.mimicScreenShotFlash()
             self.myLiveUnMergedSlot?.isScreenshotSaved = true
+            self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
             SlotFlagInfo.staticScreenShotSaved = true
+            let slotInfo = self.myLiveUnMergedSlot
             self.uploadImage(image: image, completion: { (success, info) in
+                let isExpired = slotInfo?.isExpired ?? true
+                if(!success && !isExpired){
+                    
+                    slotInfo?.isScreenshotSaved = false
+                    slotInfo?.isSelfieTimerInitiated = false
+                    SlotFlagInfo.staticScreenShotSaved = false
+                    return
+                }
                 if success{
                 }
                 self.screenshotInfo = info
@@ -921,12 +921,14 @@ extension UserCallController{
     func registerForAutographListener(){
         
         socketClient?.onEvent("startedSigning", completion: { (json) in
+           
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketClient?.onEvent("stoppedSigning", completion: { (json) in
+       
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })
@@ -968,8 +970,6 @@ extension UserCallController{
         socketClient?.emit(params)
     }
     
-    
-
     var isCallConnected : Bool{
          return (self.connection?.isConnected ?? false)
     }
@@ -979,8 +979,13 @@ extension UserCallController{
     }
 }
 
-
 extension UserCallController:GetisHangedUpDelegate{
+    
+    func restartSelfie() {
+     
+        SlotFlagInfo.staticIsTimerInitiated = false
+    }
+    
     func getHangUpStatus() -> Bool {
         return isHangUp || (!isCallStreaming)
     }

@@ -172,11 +172,9 @@ extension CallConnection : ARDAppClientDelegate{
         
     }
     
-    
     func appClient(_ client: ARDAppClient!, didCreateLocalCapturer localCapturer: RTCCameraVideoCapturer!) {
+        
         Log.echo(key: "_connection_", text: "\(tempIdentifier) didCreateLocalCapturer")
-        
-        
     }
     
     func appClient(_ client: ARDAppClient!, didReceiveLocalVideoTrack localVideoTrack: RTCVideoTrack!) {
@@ -199,6 +197,7 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     func linkCall(){
+        
         if(isLinked){
             return
         }
@@ -212,10 +211,12 @@ extension CallConnection : ARDAppClientDelegate{
         if(!isLinked){
             return
         }
+        
         renderRemoteTrack()
     }
     
     func renderRemoteTrack(){
+        
         Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteTrack")
         
         if(isAborted){
@@ -230,17 +231,20 @@ extension CallConnection : ARDAppClientDelegate{
             else{
                 return
         }
+        
         resetRemoteFrame()
-    
+        
         Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)
         
         self.remoteTrack?.audioTrack?.isEnabled = true
+        
         isRendered = true
     }
     
     private func removeLastRenderer(){
+        
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return
@@ -250,13 +254,13 @@ extension CallConnection : ARDAppClientDelegate{
     
     
     private func resetRemoteFrame(){
+        
         if(isAborted){
             return
         }
         if(!isLinked){
             return
         }
-        
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return

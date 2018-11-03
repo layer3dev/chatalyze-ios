@@ -11,7 +11,6 @@ import UIKit
 class HostDashboardController: MyScheduledSessionsController {
     
     @IBOutlet var testingLabel:UILabel?
-    
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     
@@ -20,6 +19,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Poppins", size: 15)
+        Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
     }
     
     func roundSessionButton(){
@@ -54,19 +54,18 @@ class HostDashboardController: MyScheduledSessionsController {
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
-        
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
-    }
-    
+    }    
     
     /*
     // MARK: - Navigation
-
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
@@ -75,7 +74,6 @@ class HostDashboardController: MyScheduledSessionsController {
     override func updateScrollViewWithTable(height:CGFloat){
         
         Log.echo(key: "yud", text: "The height of the table is \(height)")
-        
         tableHeight?.constant = height
         self.updateViewConstraints()
         self.view.layoutIfNeeded()

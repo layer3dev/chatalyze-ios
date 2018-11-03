@@ -199,7 +199,7 @@ class HostCallController: VideoCallController {
         
         socketClient?.onEvent("screenshotCountDown", completion: { (response) in
             
-            Log.echo(key: "yud", text: "Response in screenshotCountDown is \(String(describing: response))")
+            Log.echo(key: "selfie_timer", text: "Response in screenshotCountDown is \(String(describing: response))")
             
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
@@ -692,6 +692,10 @@ class HostCallController: VideoCallController {
         }
     }
     
+    var isCallStreaming: Bool{
+        return (self.getActiveConnection()?.isStreaming ?? false)
+    }
+    
     
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
@@ -712,12 +716,18 @@ extension HostCallController{
 
 //not in use at the moment
 extension HostCallController : CallConnectionProtocol{
+    
     func updateConnectionState(state : RTCIceConnectionState, slotInfo : SlotInfo?){
     }
 }
 
 extension HostCallController:GetisHangedUpDelegate{
+    
+    func restartSelfie() {
+        
+    }
+   
     func getHangUpStatus() -> Bool {
-        return isCallHangedUp 
+        return isCallHangedUp || (!isCallStreaming)
     }
 }

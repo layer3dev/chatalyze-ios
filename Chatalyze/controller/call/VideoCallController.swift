@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
-    enum exitCode {
+    enum exitCode {        
         case userAction
         case expired
         case prohibited

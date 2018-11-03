@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func initialization(){
-
+        
         _ = NavigationBarCustomizer()
         
         RootControllerManager().setRoot {
@@ -117,7 +117,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
               
                 print("Notification settings: \(settings)")
