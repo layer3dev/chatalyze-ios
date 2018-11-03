@@ -13,6 +13,7 @@ class AutographyCanvas: ExtendedView {
     @IBOutlet var tempImageView : AspectImageView?
     @IBOutlet var mainImageView : AspectImageView?
     private var socketClient : SocketClient?
+    private var socketListener : SocketListener?
     
 
     static let kPointMinDistance : Double = 0.1;
@@ -100,6 +101,7 @@ class AutographyCanvas: ExtendedView {
     fileprivate func initialization()
     {
         socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
         paintInterface()
         registerForAutographListener()
     }
@@ -110,7 +112,7 @@ class AutographyCanvas: ExtendedView {
     
     private func registerForAutographListener(){
         
-        socketClient?.onEvent("broadcastPoints", completion: { (json) in
+        socketListener?.onEvent("broadcastPoints", completion: { (json) in
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
             self.processPoint(info: broadcastInfo)

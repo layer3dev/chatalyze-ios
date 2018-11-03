@@ -197,7 +197,7 @@ class HostCallController: VideoCallController {
     
     private func registerForTimerNotification(){
         
-        socketClient?.onEvent("screenshotCountDown", completion: { (response) in
+        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
             
             Log.echo(key: "selfie_timer", text: "Response in screenshotCountDown is \(String(describing: response))")
             
@@ -566,17 +566,18 @@ class HostCallController: VideoCallController {
         connectUser(slotInfo: preConnectSlot)
     }
     
+    
     private func connectLiveUser(){
         
         guard let eventInfo = self.eventInfo
             else{
-                Log.echo(key: "processEvent", text: "preConnectUser -> eventInfo is nil")
+                Log.echo(key: "handshake", text: "connectLiveUser -> eventInfo is nil")
                 return
         }
         
         guard let slot = eventInfo.mergeSlotInfo?.currentSlot
             else{
-                //                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+                Log.echo(key: "handshake", text: "connectLiveUser -> slot is nil")
                 return
         }
         
@@ -587,40 +588,45 @@ class HostCallController: VideoCallController {
         
         guard let eventInfo = self.eventInfo
             else{
-                Log.echo(key: "processEvent", text: "connectUser -> eventInfo is nil")
+                Log.echo(key: "handshake", text: "connectUser -> eventInfo is nil")
                 return
         }
         
         guard let slot = slotInfo
             else{
-                Log.echo(key: "processEvent", text: "connectUser -> slot is nil")
+                Log.echo(key: "handshake", text: "connectUser -> slot is nil")
                 return
         }
         
         guard let connection = getWriteConnection(slotInfo : slot)
             else{
-                Log.echo(key: "processEvent", text: "connectUser -> getWriteConnection is nil")
+                Log.echo(key: "handshake", text: "connectUser -> getWriteConnection is nil")
                 return
         }
         
         guard let targetHashedId = slot.user?.hashedId
             else{
-                Log.echo(key: "processEvent", text: "connectUser -> targetHashedId is nil")
+                Log.echo(key: "handshake", text: "connectUser -> targetHashedId is nil")
                 return
         }
         
         if(!isOnline(hashId: targetHashedId)){
+            Log.echo(key: "handshake", text: "isOnline NO -> targetHashedId")
             return
         }
         
         if(connection.isInitiated){
+            Log.echo(key: "handshake", text: "connectUser -> isInitiated")
             return
         }
         
-        Log.echo(key: "processEvent", text: "connectUser -> initateHandshake")
+        
         if(slot.isHangedUp){
+            Log.echo(key: "handshake", text: "connectUser -> isHangedUp")
             return
         }
+        
+         Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
         
         connection.initateHandshake()
     }

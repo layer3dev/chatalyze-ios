@@ -220,7 +220,7 @@ class UserCallController: VideoCallController {
         
         //call initiation
         
-        socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
+        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
@@ -228,14 +228,14 @@ class UserCallController: VideoCallController {
             self?.processCallInitiation(data : json)
         })
         
-        socketClient?.onEvent("startConnecting", completion: { [weak self] (json) in
+        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
             self?.initiateCall()
         })
         
-        socketClient?.onEvent("linkCall", completion: {[weak self] (json) in
+        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
@@ -243,7 +243,7 @@ class UserCallController: VideoCallController {
         })
         
         //call initiation
-        socketClient?.onEvent("hangUp", completion: { [weak self] (json) in
+        socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
@@ -920,15 +920,15 @@ extension UserCallController{
     
     func registerForAutographListener(){
         
-        socketClient?.onEvent("startedSigning", completion: { (json) in
-           
+
+        socketListener?.onEvent("startedSigning", completion: { (json) in
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
         })
         
-        socketClient?.onEvent("stoppedSigning", completion: { (json) in
-       
+
+        socketListener?.onEvent("stoppedSigning", completion: { (json) in
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })

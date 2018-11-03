@@ -17,11 +17,9 @@ class SocketClient : NSObject{
     fileprivate static var _sharedInstance : SocketClient?
     var socket : WebSocket?
     
-    fileprivate var connectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
+    fileprivate var listenerInfo = [Int : SocketListener]()
     
-    fileprivate var newConnectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
-  
-    fileprivate var eventListenerList : [Int : SocketListenerCallback] = [Int : SocketListenerCallback]()
+    fileprivate var selfListener : SocketListener?
     
     fileprivate var connectionCounter = 0
     
@@ -42,8 +40,16 @@ class SocketClient : NSObject{
         }
     }
     
-    fileprivate func initialization(){
+    @objc func createListener()->SocketListener{
+        let identifier = uniqueConnectionIdentifier
+        let listener = SocketListener(identifier : identifier, socketClient : self)
         
+        listenerInfo[identifier] = listener
+        return listener
+        
+    }
+    
+    fileprivate func initialization(){
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -58,7 +64,7 @@ class SocketClient : NSObject{
             else{
                 return
         }
-        
+        self.selfListener = self.createListener()
         socket = WebSocket(url: url)
         registerForEvent()
     }
@@ -156,7 +162,7 @@ extension SocketClient{
         }
         
         
-        self.onEvent("registerResponse") {data in
+        selfListener?.onEvent("registerResponse") {data in
             Log.echo(key: "socket_client", text:"socket connected in registerResponse")
             
             let json = data?.rawString() ?? ""
@@ -169,16 +175,17 @@ extension SocketClient{
                 self.isRegistered = true
                 //self.testCall()
                 self.updateAllForConnectionActive()
+                self.updateAllForNewConnection()
             }
         }
         
-        self.onEvent("error") {data in
+         selfListener?.onEvent("error") {data in
             
             Log.echo(key: "socket_client", text:"socket error data => \(String(describing: data))")
             self.reconnect()
         }
         
-        self.onEvent("notification") {data in
+         selfListener?.onEvent("notification") {data in
             Log.echo(key: "socket_client", text:"socket notification => \(String(describing: data))")
         }
         
@@ -220,7 +227,6 @@ extension SocketClient{
         
         Log.echo(key: "socket_client", text: "disconnect => called")
         connectionFlag = false
-        resetListeners()
         socket?.disconnect()
     }
     
@@ -279,7 +285,7 @@ extension SocketClient{
     
     fileprivate func handleEventResponse(json : JSON?){
         
-        Log.echo(key: "socket_client", text: "Respond json is \(json)")
+        Log.echo(key: "handshake", text: "Respond json is \(json)")
         
         guard let json = json
             else{
@@ -291,7 +297,7 @@ extension SocketClient{
         if(data.dictionary == nil && data.array == nil){
             data = json
         }
-        //Log.echo(key: "yud", text: "Respond new json is \(json) and the data is \(data)")
+        
         updateForEvent(action: responseAction, data: data)
         return
         
@@ -355,7 +361,7 @@ extension SocketClient{
             return
         }
         
-        confirmConnect { (success) in
+        selfListener?.confirmConnect { (success) in
            
             self.socket?.write(string: jsonString)
         }
@@ -367,61 +373,24 @@ extension SocketClient{
 //connectionWait
 extension SocketClient{
     
-    func newConnectionListener(completion : ((_ success : Bool)->())?)->Int{
-        
-        Log.echo(key: "socket", text: "confirmConnect please")
-        let isConnected = self.isRegistered
-        if isConnected{
-            Log.echo(key: "socket", text: "you are connected please continue")
-            completion?(true)
-        }
-        
-        
-        return addToNewConnectionList() { (success) in
-            completion?(success)
-        }
-        
-    }
-    
-    func confirmConnect(completion : ((_ success : Bool)->())?){
-        
-        Log.echo(key: "socket_client", text: "confirmConnect please")
-        let isConnected = self.isRegistered
-        if isConnected{
-            Log.echo(key: "socket_client", text: "you are connected please continue")
-            completion?(true)
-            return
-        }
-        
-        let countdown = uniqueConnectionIdentifier
-        
-        add(connectionCounter: countdown) { (success) in
-            completion?(success)
-        }
-        
-    }
-    
-    fileprivate func addToNewConnectionList(listener : @escaping (_ connected : Bool)->())->Int{
-        let identifier = uniqueConnectionIdentifier
-        connectionCallbackList[identifier] = listener
-        return identifier
-    }
-    
-    fileprivate func add(connectionCounter : Int, listener : @escaping (_ connected : Bool)->()){
-        connectionCallbackList[connectionCounter] = listener
-    }
-    
     
     fileprivate func updateAllForConnectionActive() {
         
         Log.echo(key: "socket_client", text: "the the world that you are connected now")
-        for (connectionCounter,callback) in connectionCallbackList {
-            Log.echo(key: "socket", text: "Hey i'm connected")
-            let isConnected = self.isRegistered
-            callback(isConnected)
-            connectionCallbackList[connectionCounter] = nil
+        for (_,listener) in listenerInfo {
+           listener.updateAllForConnectionActive()
         }
     }
+    
+    fileprivate func updateAllForNewConnection() {
+        
+        Log.echo(key: "socket_client", text: "new connection")
+        for (_,listener) in listenerInfo {
+            listener.updateAllForNewConnection()
+        }
+    }
+    
+    
     
 }
 
@@ -431,34 +400,17 @@ extension SocketClient{
 //connectionWait
 extension SocketClient{
     
-    @objc func onEventSupport(action : String, completion : @escaping (_ rawData : [String : Any]?)->()){
-        self.onEvent(action) { (json) in
-            guard let data = json?.dictionaryObject
-                else{
-                    return
-            }
-            
-            completion(data)
-            return
-        }
-    }
+    
 
     
-    func onEvent(_ action : String, completion : ((_ json : JSON?)->())?){
-        let counter = uniqueConnectionIdentifier
-        
-        let callback = SocketListenerCallback(action: action, listener: completion)
-        eventListenerList[counter] = callback
-    }
     
     
     fileprivate func updateForEvent(action : String, data : JSON?) {
-        for (_,callback) in eventListenerList {
-            if(callback.action != action){
-                continue
-            }
-            callback.listener?(data)
+        
+        for (_,listener) in listenerInfo {
+            listener.updateForEvent(action: action, data: data)
         }
+        
     }
     
     var uniqueConnectionIdentifier : Int{
@@ -466,4 +418,16 @@ extension SocketClient{
         return connectionCounter
     }
     
+}
+
+extension SocketClient : SocketRootProtocol{
+    var isSocketConnected : Bool{
+        get{
+            return isConnected
+        }
+    }
+    
+    func release(identifier : Int){
+        listenerInfo[identifier] = nil
+    }
 }
