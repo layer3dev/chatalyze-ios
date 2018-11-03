@@ -32,6 +32,7 @@ class VideoCallController : InterfaceExtendedController {
     //End
     
     var socketClient : SocketClient?
+    var socketListener : SocketListener?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
@@ -111,7 +112,9 @@ class VideoCallController : InterfaceExtendedController {
         
         timer.pauseTimer()
         socketClient?.disconnect()
+        socketListener?.releaseListener()
         self.socketClient = nil
+        self.socketListener = nil
     }
     
     var rootView : VideoRootView?{
@@ -299,7 +302,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func registerForListeners(){
 
-        socketClient?.confirmConnect(completion: { [weak self] (success)  in
+        socketListener?.newConnectionListener(completion: { [weak self] (success)  in
             if(self?.socketClient == nil){
                 return
             }
@@ -323,7 +326,7 @@ class VideoCallController : InterfaceExtendedController {
             self.rootView?.callOverlayView?.isHidden = true
         })
         
-        socketClient?.onEvent("updatePeerList", completion: { [weak self] (json) in
+        socketListener?.onEvent("updatePeerList", completion: { [weak self] (json) in
             
             if(self?.socketClient == nil){
                 return
@@ -410,6 +413,7 @@ class VideoCallController : InterfaceExtendedController {
         registerForEvent()
         
         socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
         
@@ -444,7 +448,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func acceptCall(){
         
-        SocketClient.sharedInstance?.confirmConnect(completion: { [weak self] (success) in
+        socketListener?.confirmConnect(completion: { [weak self] (success) in
             if(success){
                 //self?.startAcceptCall()
             }
@@ -631,7 +635,7 @@ extension VideoCallController{
    
     func multipleVideoTabListner(){
         
-        socketClient?.onEvent("multipleTabRequest", completion: { (json) in
+        socketListener?.onEvent("multipleTabRequest", completion: { (json) in
             
             Log.echo(key : "socket_client", text : "Multiplexing Error: \(json)")
             

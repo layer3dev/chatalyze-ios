@@ -27,6 +27,7 @@ class TimerSync {
     private var requestTime = Date()
     private let countdown = CountdownProcessor.sharedInstance()
     private let socket = SocketClient.sharedInstance
+    private var socketListener : SocketListener?
     
    static var sharedInstance : TimerSync{
         get{
@@ -48,10 +49,14 @@ class TimerSync {
     }
     
     private func initialization(){
-        
+        initializeVariable()
         syncListener()
         setServerListener()
         sync()        
+    }
+    
+    private func initializeVariable(){
+        socketListener = socket?.createListener()
     }
     
     private func syncListener(){
@@ -105,7 +110,7 @@ class TimerSync {
     }
     
     private func setServerListener(){
-        socket?.onEvent("timestamp", completion: {[weak self] (json) in
+        socketListener?.onEvent("timestamp", completion: {[weak self] (json) in
             
             Log.echo(key: "timestamp", text: "json -> \(String(describing: json?.rawString()))")
             

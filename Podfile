@@ -7,8 +7,8 @@ target 'Chatalyze' do
 
   # Pods for Chatalyze
 
-  pod 'JTAppleCalendar'
-  pod 'GoogleWebRTC' 
+pod 'JTAppleCalendar'
+pod 'GoogleWebRTC'
 
 pod 'GoogleSignIn'
 pod 'TwitterKit', '3.4.0'

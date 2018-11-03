@@ -55,15 +55,12 @@ class MenuController: InterfaceExtendedController {
     }
     
     @IBAction func signOut(){
-        
-        
         self.showLoader()
         SignOutManager().signOut { (success) in
-           
             self.stopLoader()
-            if !success{
+            /*if !success{
                 return
-            }
+            }*/
             RootControllerManager().signOut(completion: nil)
         }
     }

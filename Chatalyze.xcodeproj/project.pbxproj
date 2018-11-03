@@ -333,6 +333,8 @@
 		FA912D9A20417DD9002891EC /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA912D9920417DD9002891EC /* icon.xcassets */; };
 		FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */; };
 		FA912DA0204196CF002891EC /* InterfaceExtendedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */; };
+		FA97A3C9218D89A40010907A /* SocketListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA97A3C8218D89A40010907A /* SocketListener.swift */; };
+		FA97A3CC218D8C7F0010907A /* SocketRootProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA97A3CB218D8C7F0010907A /* SocketRootProtocol.swift */; };
 		FA9858E220637AED00989CBB /* EmailResetPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9858DF20637AED00989CBB /* EmailResetPasswordRequest.swift */; };
 		FA9858E320637AED00989CBB /* EmailSigninHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9858E020637AED00989CBB /* EmailSigninHandler.swift */; };
 		FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9858E120637AED00989CBB /* SignOutManager.swift */; };
@@ -844,6 +846,8 @@
 		FA912D9920417DD9002891EC /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
 		FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninButtonContainer.swift; sourceTree = "<group>"; };
 		FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceExtendedController.swift; sourceTree = "<group>"; };
+		FA97A3C8218D89A40010907A /* SocketListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketListener.swift; sourceTree = "<group>"; };
+		FA97A3CB218D8C7F0010907A /* SocketRootProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketRootProtocol.swift; sourceTree = "<group>"; };
 		FA9858DF20637AED00989CBB /* EmailResetPasswordRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailResetPasswordRequest.swift; sourceTree = "<group>"; };
 		FA9858E020637AED00989CBB /* EmailSigninHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailSigninHandler.swift; sourceTree = "<group>"; };
 		FA9858E120637AED00989CBB /* SignOutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignOutManager.swift; sourceTree = "<group>"; };
@@ -2384,6 +2388,7 @@
 		FA3AF0FE204433190084B154 /* interface */ = {
 			isa = PBXGroup;
 			children = (
+				FA97A3CA218D8C730010907A /* socket */,
 				FAD695C0218863E900CFCC52 /* callQueue */,
 				FA0E709621835C3200C08D96 /* callConnection */,
 				FA7E747D209B072C001C3374 /* objc */,
@@ -2769,6 +2774,7 @@
 			isa = PBXGroup;
 			children = (
 				FA74B1502063A0B600983141 /* SocketListenerCallback.swift */,
+				FA97A3C8218D89A40010907A /* SocketListener.swift */,
 			);
 			path = socket;
 			sourceTree = "<group>";
@@ -2923,6 +2929,14 @@
 				47B6522020AAAF680041496C /* Signupview.swift */,
 			);
 			path = signin;
+			sourceTree = "<group>";
+		};
+		FA97A3CA218D8C730010907A /* socket */ = {
+			isa = PBXGroup;
+			children = (
+				FA97A3CB218D8C7F0010907A /* SocketRootProtocol.swift */,
+			);
+			path = socket;
 			sourceTree = "<group>";
 		};
 		FA9858DE20637AED00989CBB /* signinManager */ = {
@@ -4057,6 +4071,7 @@
 				47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */,
 				FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */,
 				FAA0019F203ED472003C8A74 /* Dictionary.swift in Sources */,
+				FA97A3CC218D8C7F0010907A /* SocketRootProtocol.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
 				47B6524720AAB0000041496C /* TabContainerController.swift in Sources */,
 				6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */,
@@ -4119,6 +4134,7 @@
 				47B6524620AAB0000041496C /* TabChildLoadController.swift in Sources */,
 				47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */,
 				FA3CC1442046CA2A007438A3 /* SignedUserInfo.swift in Sources */,
+				FA97A3C9218D89A40010907A /* SocketListener.swift in Sources */,
 				FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */,
 				FA3FAA0E2076047200CC4AF8 /* AutographPreviewView.swift in Sources */,
 				FA9858E420637AED00989CBB /* SignOutManager.swift in Sources */,

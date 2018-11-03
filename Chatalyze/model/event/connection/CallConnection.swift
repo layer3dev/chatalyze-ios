@@ -43,6 +43,7 @@ class CallConnection: NSObject {
     private var localTrack : RTCVideoTrack?
     private var remoteTrack : CallMediaTrack?
     var socketClient : SocketClient?
+    var socketListener : SocketListener?
     
     //connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self)
     
@@ -99,6 +100,7 @@ class CallConnection: NSObject {
        
         self.connection = self.getWriteConnection()
         socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
     }
     
     func registerForListeners(){
@@ -127,6 +129,8 @@ class CallConnection: NSObject {
         self.remoteTrack = nil
         self.captureController = nil
         self.socketClient = nil
+        self.socketListener?.releaseListener()
+        self.socketListener = nil
         resetRemoteFrame()
     }
     
