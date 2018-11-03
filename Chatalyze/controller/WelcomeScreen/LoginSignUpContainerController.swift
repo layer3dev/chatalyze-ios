@@ -128,6 +128,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         self.pageController?.signinController?.googleSignInAction = {
             
             self.showWelcomeScreen(response: {
+                GIDSignIn.sharedInstance()?.signOut()
                 GIDSignIn.sharedInstance().signIn()
             })
         }
@@ -136,6 +137,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         self.pageController?.signUpController?.googleSignInAction = {
             
             self.showWelcomeScreen(response: {
+                GIDSignIn.sharedInstance()?.signOut()
                 GIDSignIn.sharedInstance().signIn()
             })
         }
@@ -180,6 +182,7 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
         GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"        
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
+//        GIDSignIn.sharedInstance()?.serverClientID = ""
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
