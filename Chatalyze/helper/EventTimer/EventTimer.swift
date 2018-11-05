@@ -13,6 +13,7 @@ class EventTimer: NSObject {
     
     fileprivate var closure : (()->Void)?
     fileprivate var timer : Timer?
+    fileprivate var interval : Double = 1.0
     
     override init(){
         super.init()
@@ -23,6 +24,7 @@ class EventTimer: NSObject {
     }
     
     func startTimer(withInterval interval : Double = 1.0){
+        self.interval = interval
         pauseTimer()
         timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(processData(_:)), userInfo: nil, repeats: true)
     }
@@ -49,6 +51,6 @@ class EventTimer: NSObject {
     
     func resumeTimer(){
         pauseTimer()
-        startTimer()
+        startTimer(withInterval: interval)
     }
 }

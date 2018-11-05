@@ -454,7 +454,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             
             if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
                 

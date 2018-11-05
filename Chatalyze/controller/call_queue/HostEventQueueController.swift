@@ -71,10 +71,10 @@ class HostEventQueueController: EventQueueController {
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
             
-            timer.pauseTimer()
             
             self.navigationController?.present(controller, animated: true, completion: { [weak self] in
                 self?.navigationController?.popViewController(animated: false)
+                self?.viewDidRelease()
             })
         }
     }

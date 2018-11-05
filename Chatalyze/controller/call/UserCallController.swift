@@ -416,8 +416,7 @@ class UserCallController: VideoCallController {
         }
         
         if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-            //Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
-            if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
+            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
                 return
             }
         }
@@ -553,7 +552,7 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             
             if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
                 

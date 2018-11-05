@@ -13,6 +13,7 @@ class CallQueueRootView: ExtendedRootView {
     @IBOutlet var countdownLabel : EventCountDownLabel?
     var eventInfo : EventScheduleInfo?
     var countdownIdentifier : Int = 0
+    var countdownListener = CountdownListener()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -25,8 +26,7 @@ class CallQueueRootView: ExtendedRootView {
     }
     
     private func registerForTimer(){
-        
-       countdownIdentifier = CountdownProcessor.sharedInstance().add { [weak self] in
+        countdownListener.add { [weak self] in
             self?.refresh()
         }
     }
@@ -41,7 +41,7 @@ class CallQueueRootView: ExtendedRootView {
         
         Log.echo(key: "CallQueueRootView", text: "onRelease of CallQueueRootView -> \(countdownIdentifier)")
         
-        CountdownProcessor.sharedInstance().release(identifier: countdownIdentifier)
+        countdownListener.releaseListener()
     }
     
 }

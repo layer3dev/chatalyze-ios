@@ -16,7 +16,7 @@ class SyncTimer: NSObject {
     fileprivate var timer : Timer?
     
     private var timerSync = TimerSync.sharedInstance
-    private var lastRefresh = Date()
+    private var lastRefresh : Int = 0
     
     override init(){
         super.init()
@@ -37,22 +37,22 @@ class SyncTimer: NSObject {
     @objc func processData(_ timer : Timer){
         
         weak var weakSelf = self
-        
-        
-        
         DispatchQueue.main.async(execute: {
             guard let weak = weakSelf
                 else{
                     return
             }
             
-            let diff = Int(weak.timerSync.getDate().timeIntervalSince(weak.lastRefresh))
+            let seconds = weak.timerSync.getSeconds()
+            let lastRefreshSeconds = weak.lastRefresh
+            
+            let diff = seconds - lastRefreshSeconds
             
             if(diff <= 0){
                 return
             }
             
-            weak.lastRefresh = weak.timerSync.getDate()
+            weak.lastRefresh = seconds
             weak.closure?()
         })
     }

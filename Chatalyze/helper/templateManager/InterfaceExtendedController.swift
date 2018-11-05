@@ -31,6 +31,9 @@ class InterfaceExtendedController : ExtendedController {
     }
     
     @objc override func viewDidRelease(){
+        super.viewDidRelease()
+        
+        Log.echo(key: "release", text: "viewDidRelease -> InterfaceExtended")
         guard let rootView = self.view as? ExtendedRootView
             else{
                 return

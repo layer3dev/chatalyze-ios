@@ -3,7 +3,7 @@
 //  Chatalyze Autography
 //
 //  Created by Sumant Handa on 21/12/16.
-//  Copyright © 2016 Chatalyze. All rights reserved.
+//  Copyright © 2016 Chatalyze. All rights reserved.Tim
 //
 
 import Foundation
