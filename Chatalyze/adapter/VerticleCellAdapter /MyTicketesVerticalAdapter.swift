@@ -173,7 +173,6 @@ func jointEvent(info:SlotInfo?){
     
     //End
     if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-        
         guard let controller = HostEventQueueController.instance()
             else{
                 return
@@ -202,9 +201,7 @@ func jointEvent(info:SlotInfo?){
         })
     }
     
-    controller.multipleTabsHandlingListener = {
-        
-    }
+
     controller.eventId = String(eventId)
     self.root?.controller?.present(controller, animated: false, completion: nil)
 }

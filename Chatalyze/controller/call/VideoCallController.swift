@@ -50,7 +50,6 @@ class VideoCallController : InterfaceExtendedController {
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     var feedbackListener : ((EventScheduleInfo?)->())?
-    var multipleTabsHandlingListener:(()->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
     let updatedEventScheduleListner = UpdateEventListener()
