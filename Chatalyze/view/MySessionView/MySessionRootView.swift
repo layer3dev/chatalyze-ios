@@ -56,22 +56,7 @@ class MySessionRootView:ExtendedView{
                     return
             }
             
-            controller.multipleTabsHandlingListener = {
-                
-                 DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
-                    
-                    guard let controller = OpenCallAlertController.instance() else{
-                        return
-                    }
-                    controller.dismissHandler = {
-                        
-                        //self.root?.refreshData()
-                    }
-                    self.controller?.present(controller, animated: false, completion: {
-                    })
-                })
-                
-            }
+
             
             controller.eventId = String(eventId)
             self.controller?.present(controller, animated: true, completion: nil)
