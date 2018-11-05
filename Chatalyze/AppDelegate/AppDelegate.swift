@@ -113,10 +113,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
-    
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
+          
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
               
                 print("Notification settings: \(settings)")
@@ -127,7 +127,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 print("Notification settings Registered: \(settings)")
             }
         }else{
-            
             //Fallback on earlier versions
         }
     }
@@ -158,7 +157,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
         //call function for the token Update
         self.updateToken()
-        print("Device Token is : \(token)")
+        //print("Device Token is : \(token)")
     }
     
     func updateToken(){

@@ -111,12 +111,14 @@ class CameraTestController: InterfaceExtendedController {
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         
         if let msglabel = self.statusLbl{
-            guard let range = msglabel.text?.range(of: "contact us for support.")?.nsRange else {
+            
+            guard let range = msglabel.text?.range(of: "contact us for")?.nsRange else {
                 return
             }
             if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
+            
                 Log.echo(key: "yud",text: "Sub string is tapped")
-                
+            
                 DispatchQueue.main.async {
                     
                     self.dismiss(animated: true) {
@@ -135,6 +137,7 @@ class CameraTestController: InterfaceExtendedController {
                             rootController.closeToggle()
                             return
                         }
+                        
                         if roleId == .user{
                             
                             rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
@@ -143,16 +146,24 @@ class CameraTestController: InterfaceExtendedController {
                         }
                     }
                 }
+                return
+            }
+            
+            guard let rangeFAQ = msglabel.text?.range(of: "check our FAQs")?.nsRange else {
+                return
+            }
+            
+            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: rangeFAQ) {
                 
-                
-                
-                
-                
-                
-                
-                //                self.dismiss(animated: true) {
-                //                }
-                //Substring tapped
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: {
+                        guard let rootController = RootControllerManager().getCurrentController() else{
+                            return
+                        }
+                        rootController.showFAQController()
+                    })
+                }
+                return
             }
         }
     }

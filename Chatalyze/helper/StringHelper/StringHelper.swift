@@ -12,19 +12,37 @@ extension String{
     
     //Attributes text always inserted to UILable with the main thread
     
-    func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor))->NSAttributedString{
+    func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSAttributedString{
         
-        let attributes = [NSAttributedString.Key.font:UIFont(name: font, size: CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]
+      
+        var  attributes =  [NSAttributedString.Key : Any]()
+        
+        if isUnderLine{
+            
+             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
+        }else{
+            
+             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
+        }
         
         let attriutedText = NSAttributedString(string: self, attributes: attributes)
         
         return attriutedText
     }
     
-    func toMutableAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor))->NSMutableAttributedString{
+    func toMutableAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSMutableAttributedString{
         
-        let attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]
+        var attributes = [NSAttributedString.Key : Any]()
         
+        if isUnderLine {
+          
+            attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
+        }else{
+            
+            attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]
+        }
+        
+     
         let attriutedText = NSAttributedString(string: self, attributes: attributes)
         
         let mutableString = NSMutableAttributedString()

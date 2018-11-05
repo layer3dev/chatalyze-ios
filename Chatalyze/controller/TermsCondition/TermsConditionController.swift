@@ -12,6 +12,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
 
     @IBOutlet var webView:UIWebView?
     var url = ""
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -74,9 +75,6 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-}
-
-extension TermsConditionController{
     
     class func instance()->TermsConditionController?{
         
@@ -84,4 +82,7 @@ extension TermsConditionController{
         let controller = storyboard.instantiateViewController(withIdentifier: "TermsCondition") as? TermsConditionController
         return controller
     }
+}
+
+extension TermsConditionController{
 }

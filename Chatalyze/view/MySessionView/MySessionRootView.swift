@@ -42,10 +42,12 @@ class MySessionRootView:ExtendedView{
             }
             
             if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
+                
                 guard let controller = HostEventQueueController.instance()
                     else{
                         return
                 }
+                
                 controller.eventId = "\(eventId)"
                 self.controller?.navigationController?.pushViewController(controller, animated: true)
                 return

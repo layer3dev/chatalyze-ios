@@ -90,8 +90,7 @@ class MyTicketsController: InterfaceExtendedController{
         
         self.showLoader()
         CallSlotFetch().fetchInfos() {(success, info) in
-            
-            
+                        
             DispatchQueue.main.async {
                
                 self.ticketsArray.removeAll()

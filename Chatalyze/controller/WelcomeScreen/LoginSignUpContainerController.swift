@@ -179,10 +179,10 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
     fileprivate func initializeGoogleSignIn(){
         
        
-        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"        
+        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-//        GIDSignIn.sharedInstance()?.serverClientID = ""
+        GIDSignIn.sharedInstance()?.serverClientID = "1084817921581-qihsa275kmr3s4g4qn5rclm9294h86ns.apps.googleusercontent.com"
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -192,7 +192,9 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
             
             // Perform any operations on signed in user here.
             let userId = user.userID                  // For client-side use only!
-            let idToken = user.serverAuthCode // Safe to send to the server
+            let idToken = user.serverAuthCode // Safe to send to the
+            //server
+            let idTokenAuth = user.authentication.accessToken
             let fullName = user.profile.name
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName
@@ -200,6 +202,7 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
             
             print(userId)
             print(idToken)
+            print(idTokenAuth)
             print(fullName)
             print(givenName)
             print(familyName)

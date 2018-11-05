@@ -20,9 +20,6 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
     }
-
-    
-    
     
     func getTheRequiredDate(){
     
@@ -64,6 +61,7 @@ class MyTicketsVerticalController: MyTicketsController{
 
             
             let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            
             underLineLbl?.attributedText = underlineAttributedString
         }
     }

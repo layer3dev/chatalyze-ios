@@ -82,6 +82,10 @@
 		473D059C2113266000E121C4 /* EventDelayListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D059B2113266000E121C4 /* EventDelayListener.swift */; };
 		4743195E2133F13F0086FDEE /* SessionDoneRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */; };
 		474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474BF8A420D912580074EBBC /* SafariServices.framework */; };
+		4753B9FF21900F980060777B /* FAQ.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4753B9FE21900F980060777B /* FAQ.storyboard */; };
+		4753BA0221900FE00060777B /* FAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA0121900FE00060777B /* FAQController.swift */; };
+		4753BA05219013BF0060777B /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA04219013BF0060777B /* ShadowView.swift */; };
+		4753BA0721902EFF0060777B /* FAQWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA0621902EFF0060777B /* FAQWebController.swift */; };
 		475B1115210B260400DADD39 /* EditProfileHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1114210B260400DADD39 /* EditProfileHostController.swift */; };
 		475B1118210B26E600DADD39 /* EditProfileHostRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1117210B26E600DADD39 /* EditProfileHostRootView.swift */; };
 		475B111A210B2C9C00DADD39 /* PaymentSetupPaypalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1119210B2C9C00DADD39 /* PaymentSetupPaypalController.swift */; };
@@ -538,6 +542,10 @@
 		473D059B2113266000E121C4 /* EventDelayListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDelayListener.swift; sourceTree = "<group>"; };
 		4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneRootView.swift; sourceTree = "<group>"; };
 		474BF8A420D912580074EBBC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		4753B9FE21900F980060777B /* FAQ.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FAQ.storyboard; sourceTree = "<group>"; };
+		4753BA0121900FE00060777B /* FAQController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQController.swift; sourceTree = "<group>"; };
+		4753BA04219013BF0060777B /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		4753BA0621902EFF0060777B /* FAQWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQWebController.swift; sourceTree = "<group>"; };
 		475B1114210B260400DADD39 /* EditProfileHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHostController.swift; sourceTree = "<group>"; };
 		475B1117210B26E600DADD39 /* EditProfileHostRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHostRootView.swift; sourceTree = "<group>"; };
 		475B1119210B2C9C00DADD39 /* PaymentSetupPaypalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSetupPaypalController.swift; sourceTree = "<group>"; };
@@ -1721,6 +1729,23 @@
 				4718425520C51EEE00C6FFD5 /* EventPaymentDelegte.swift */,
 			);
 			path = PaymentProtocol;
+			sourceTree = "<group>";
+		};
+		4753BA0021900FB90060777B /* FAQ */ = {
+			isa = PBXGroup;
+			children = (
+				4753BA0121900FE00060777B /* FAQController.swift */,
+				4753BA0621902EFF0060777B /* FAQWebController.swift */,
+			);
+			path = FAQ;
+			sourceTree = "<group>";
+		};
+		4753BA03219013A90060777B /* ShadowView */ = {
+			isa = PBXGroup;
+			children = (
+				4753BA04219013BF0060777B /* ShadowView.swift */,
+			);
+			path = ShadowView;
 			sourceTree = "<group>";
 		};
 		475B1113210B25CB00DADD39 /* EditProfileHost */ = {
@@ -2925,6 +2950,7 @@
 				473328BF2101FCA500AB732D /* SelfieTimerView */,
 				47E3A76C20DA8A26009347B6 /* review */,
 				4713662221084FD400B945BB /* EventLandingRootView */,
+				4753BA03219013A90060777B /* ShadowView */,
 				475B111B210B2CD400DADD39 /* PaymentSetupPaypal */,
 			);
 			path = view;
@@ -2980,6 +3006,7 @@
 				47614F73213AB47E00CC9702 /* MySessions.storyboard */,
 				470F0B6921521D1F003F8EE7 /* Welcome.storyboard */,
 				47111CE92158BC3700DFBC08 /* HostDashBoard.storyboard */,
+				4753B9FE21900F980060777B /* FAQ.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -2987,6 +3014,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				4753BA0021900FB90060777B /* FAQ */,
 				47614F75213AB99600CC9702 /* MySession */,
 				47B4F4AC211C58ED00299686 /* Session */,
 				FADC84EA2074ED8F00AD9D65 /* autograph */,
@@ -3657,6 +3685,7 @@
 				FAD2018420761C7B0004E10E /* AutographyCanvas.xib in Resources */,
 				47B6521820AAADB30041496C /* Greeting.storyboard in Resources */,
 				470EEC0B2165E6D100DB705D /* Poppins-SemiBold.otf in Resources */,
+				4753B9FF21900F980060777B /* FAQ.storyboard in Resources */,
 				47B6521920AAADB30041496C /* Signup.storyboard in Resources */,
 				47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */,
 				FA9858E620638A3A00989CBB /* home.storyboard in Resources */,
@@ -3836,6 +3865,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4753BA05219013BF0060777B /* ShadowView.swift in Sources */,
 				47AD144020ADB013006AF9D6 /* PaymentAdapter.swift in Sources */,
 				47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */,
 				FA74B13F20639B6400983141 /* SocketChannel.m in Sources */,
@@ -3854,6 +3884,7 @@
 				FA3B46AA21104D8F007EA72D /* RootHelper.swift in Sources */,
 				47F641A32187061400263DB6 /* ButtonCorners.swift in Sources */,
 				47B6527820AAB5030041496C /* CalendarCell.swift in Sources */,
+				4753BA0221900FE00060777B /* FAQController.swift in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
 				47B6525420AAB0170041496C /* PaymentController.swift in Sources */,
@@ -4101,6 +4132,7 @@
 				FA5FD1722119CE0E00172144 /* MediaPermissionAccess.swift in Sources */,
 				FAFB7C84206E6E3D004804D2 /* EventQueueController.swift in Sources */,
 				47B6523020AAAF710041496C /* SignInTextViewField.swift in Sources */,
+				4753BA0721902EFF0060777B /* FAQWebController.swift in Sources */,
 				FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */,
 				47B6525520AAB0170041496C /* EventController.swift in Sources */,
 				FAE9EF76206CE83D00C45F8D /* UserHomeController.swift in Sources */,
@@ -4391,7 +4423,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4407,7 +4439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4424,7 +4456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4440,7 +4472,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

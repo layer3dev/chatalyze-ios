@@ -142,12 +142,13 @@ class ContainerController: NavChildController {
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
      
         if recognizer.state == .recognized {
+            
             print("Screen edge swiped!")
             //toggleAnimation()
         }
         if recognizer.state == .began{
             
-            recognizer.view?.center.x = (self.view.frame.size.width)
+            recognizer.view?.center.x = (self.view.frame.size.width+40)
             recognizer.setTranslation(CGPoint.zero, in: view)
             Log.echo(key: "yud", text: "Edge Gesture Begun")
         }
@@ -525,6 +526,41 @@ class ContainerController: NavChildController {
         tabContainerView?.selectTab(type : type)
         elementSelected(type: type)
     }
+    
+    func showFAQController(){
+        
+        guard let roleId = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if roleId == .analyst{
+            
+            guard let rootController = HostDashboardController.instance() else{
+                return
+            }
+            
+            guard let controller = FAQController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            
+            self.closeToggle()
+            
+        }else{
+            
+            guard let rootController = MyTicketsVerticalController.instance() else{
+                return
+            }
+            
+            guard let controller = FAQController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            
+            self.closeToggle()
+        }
+        return
+    }
 }
 
 extension ContainerController : TabContainerViewInterface{
@@ -618,6 +654,7 @@ extension ContainerController{
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
         let gestureIsDraggingFromLeftToRight = (recognizer.velocity(in: view).x > 0)
+        
         let gestureIsDraggingFromRightToLeft = (recognizer.velocity(in: view).x < 0)
         
         guard let rview = recognizer.view else{
@@ -639,6 +676,7 @@ extension ContainerController{
             Log.echo(key: "yud", text: "change\(rview.center.x) and the view width is \(self.view.frame.size.width) toggle width is \(self.toggleView?.frame.size.width) and the toggleTrailing is \(toggleTrailing?.constant) and the test is \((self.view.frame.size.width-toggleWidth/2))")
             
             if rview.center.x + recognizer.translation(in: view).x < (self.view.frame.size.width-toggleWidth/2){
+                
                 UIView.animate(withDuration: 0.35) {
                     self.toggleTrailing?.constant = 0.0
                     self.showShadowView()

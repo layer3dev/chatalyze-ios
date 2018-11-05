@@ -911,7 +911,7 @@ extension UserCallController{
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
 
             self?.userRootView?.requestAutographButton?.hideLoader()
-            completion?(true, info)
+            completion?(success, info)
         }
     }
 }
