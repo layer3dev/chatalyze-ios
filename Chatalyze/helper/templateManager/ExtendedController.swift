@@ -34,7 +34,7 @@ class ExtendedController: UIViewController {
     }
     
     func viewDidRelease(){
-        Log.echo(key: "template", text: "viewDidRelease")
+        Log.echo(key: "release", text: "viewDidRelease -> Extended")
     }
     
     override func viewDidDisappear(_ animated: Bool) {

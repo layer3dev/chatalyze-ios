@@ -17,19 +17,23 @@ class CallQueueCell: ExtendedCollectionCell {
     @IBOutlet private var countdownLabel : UILabel?
     var adapterListener : CallQueueInterface?
     private var countdownIndex : Int = 0
+    var countdownListener : CountdownListener?
+    private var isRegisteredForRefresh = false
     
-    public func fillInfo(index : Int, slotInfo : SlotInfo?){
+    public func fillInfo(index : Int, slotInfo : SlotInfo?, countdownListener : CountdownListener?){
       
         self.slotInfo = slotInfo
         self.index = index
+        self.countdownListener = countdownListener
         fillInterface()
+        registerForRefresh()
     }
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.clipsToBounds = true
-        registerForRefresh()
+        
     }
     
     private func fillInterface(){
@@ -48,15 +52,12 @@ class CallQueueCell: ExtendedCollectionCell {
     }
     
     private func updateCountdownTime(){
-        
-    
         guard let slotInfo = slotInfo
             else{
                 return
         }
         
         if(slotInfo.isBreak){
-            
             countdownLabel?.text = "Break"
             return
         }
@@ -89,7 +90,11 @@ class CallQueueCell: ExtendedCollectionCell {
     }
     
     private func registerForRefresh(){
-        countdownIndex = CountdownProcessor.sharedInstance().add {[weak self] in
+        if(isRegisteredForRefresh){
+            return
+        }
+        isRegisteredForRefresh = true
+        countdownListener?.add {[weak self] in
             self?.updateCountdownTime()
             if(self?.adapterListener?.isInstanceReleased() ?? false){
                 let countdownIndex = self?.countdownIndex ?? 0

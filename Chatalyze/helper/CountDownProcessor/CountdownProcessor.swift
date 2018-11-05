@@ -13,8 +13,10 @@ class CountdownProcessor{
     var timer : EventTimer = EventTimer()
     private static var instance : CountdownProcessor?
     private var timerSync : TimerSync?
-    private var lastRefresh = Date()
+    private var lastRefresh : Int = 0
+    private var counter = 0
     
+    fileprivate var listenerInfo : [Int : CountdownListener] = [Int : CountdownListener]()
     fileprivate var callbackList : [CallbackIdentifierInfo] = [CallbackIdentifierInfo]()
 
     static func sharedInstance()->CountdownProcessor{
@@ -46,48 +48,52 @@ class CountdownProcessor{
                 else{
                     return
             }
+            let seconds = timerSync.getSeconds()
+            let lastRefresh = weakSelf.lastRefresh
             
-            let diff = Int(timerSync.getDate().timeIntervalSince(weakSelf.lastRefresh))
+            let diff = seconds - lastRefresh
+            
             if(diff <= 0){
                 return
             }
             
-            weakSelf.lastRefresh = timerSync.getDate()
+            weakSelf.lastRefresh = seconds
             self?.refresh()
         }
     }
     
-    
-    func add(listener : @escaping ()->())->Int{
-        let callbackInfo = CallbackIdentifierInfo(callback: listener)
-        callbackList.append(callbackInfo)
-        return callbackInfo.uniqueIdentifier
+    func add(listener : CountdownListener)->Int{
+        let identifier = uniqueIdentifier
+        listenerInfo[identifier] = listener
+        return identifier
     }
     
     func release(identifier : Int){
-        if(identifier == 0){
-            return
-        }
-        
-        let size = callbackList.count
-        for index in  0 ..< size{
-            let callback = callbackList[index]
-            if(callback.uniqueIdentifier == identifier){
-                callbackList.remove(at: index)
-                return
-            }
-        }
+        listenerInfo[identifier] = nil
     }
-}
-
-
-
-extension CountdownProcessor{
+    
+    func stopTimer(){
+        timer.pauseTimer()
+    }
+    
+    func resumeTimer(){
+        timer.resumeTimer()
+    }
+    
     
     fileprivate func refresh() {
-        for callback in callbackList {
-            callback.listener?()
+        for (identifier, listener) in listenerInfo {
+            listener.refresh()
         }
     }
-
+    
+    
+    
+    var uniqueIdentifier : Int{
+        counter = counter + 1
+        return counter
+    }
 }
+
+
+

@@ -1,4 +1,3 @@
-
 //
 //  EventQueueController.swift
 //  Chatalyze
@@ -15,9 +14,9 @@ class EventQueueController: InterfaceExtendedController {
     fileprivate var adapter : EventQueueAdapter?
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
-    var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
     @IBOutlet var bottomLine:UIView?
+    private var countdownListener : CountdownListener = CountdownListener()
 
         
     override func viewDidLoad() {
@@ -73,18 +72,19 @@ class EventQueueController: InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
       
-        timer.pauseTimer()
+        Log.echo(key: "release", text: "viewDidRelease -> EventQueue")
+        
         eventSlotListener.setListener(listener: nil)
+        countdownListener.releaseListener()
     }
     
     
     
     private func registerForTimer(){
-        
-        timer.startTimer()
-        timer.ping { [weak self] in
+        countdownListener.add { [weak self] in
             self?.refresh()
         }
+        
     }
     
     private func registerForEvent(){
@@ -140,6 +140,7 @@ class EventQueueController: InterfaceExtendedController {
             eventSlotListener.eventId = eventId
         }
         adapter = EventQueueAdapter()
+        adapter?.countdownListener = countdownListener
         collectionView?.delegate = adapter
         collectionView?.dataSource = adapter
         collectionView?.collectionViewLayout = EventQueueFlowLayout()

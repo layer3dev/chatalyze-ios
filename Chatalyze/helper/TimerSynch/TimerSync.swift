@@ -10,10 +10,8 @@ import UIKit
 import SwiftyJSON
 
 class TimerSync {
-    
-    
     private var syncTime : Date?
-    
+
     var timeDiff : Int64 = Int64(0);
     var resyncTime = 60 * 1000
     var precision = 0
@@ -25,7 +23,7 @@ class TimerSync {
     private var thresholdPrecisionAccuracy = 250; //minimum accuracy required from response
     
     private var requestTime = Date()
-    private let countdown = CountdownProcessor.sharedInstance()
+    private let countdown = CountdownListener()
     private let socket = SocketClient.sharedInstance
     private var socketListener : SocketListener?
     
@@ -59,6 +57,8 @@ class TimerSync {
         socketListener = socket?.createListener()
     }
     
+    
+    
     private func syncListener(){
         countdown.add { [weak self] in
             self?.sync()
@@ -72,6 +72,7 @@ class TimerSync {
 //            Log.echo(key: "sync socket", text: "not connected")
             return
         }
+        
         if let syncTime = self.syncTime{
             let lastSyncTimestamp = syncTime.millisecondsSince1970
             let timestampNow = Date().millisecondsSince1970
@@ -88,13 +89,6 @@ class TimerSync {
     }
     
     
-    /*var message = {
-     id : 'getTimestamp',
-     requestIdentifier : requestIdentifierCounter
-     };
-     
-     requestTime = Date.now();
-     sendMessage(message);*/
     
     
     private func executeSync(){
@@ -153,8 +147,6 @@ class TimerSync {
     
     func getDate()->Date{
       
-        //temp
-        return Date()
         let seconds = getSeconds()
         return Date.init(seconds : seconds)
     }

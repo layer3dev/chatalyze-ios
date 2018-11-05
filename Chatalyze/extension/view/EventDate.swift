@@ -16,11 +16,18 @@ public extension Date {
     
     func isFuture()->Bool{
              
-        let timeInterval = self.timeIntervalSinceNow
+        let timeInterval = self.timeIntervalTillNow
         if(timeInterval > 0){
             return true
         }
         return false
+    }
+    
+    var timeIntervalTillNow : TimeInterval{
+        let interval = self.timeIntervalSince1970
+        let secondsNow = Double(TimerSync.sharedInstance.getSeconds())
+        
+        return interval - secondsNow
     }
 }
 

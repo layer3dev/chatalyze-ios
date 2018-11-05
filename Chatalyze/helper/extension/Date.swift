@@ -40,7 +40,7 @@ public extension Date {
     
     func countdownTimeFromNow()->(isActive : Bool, hours : String, minutes : String, seconds : String)?{
         
-        let totalSeconds = Int(self.timeIntervalSinceNow + 1)
+        let totalSeconds = Int(self.timeIntervalTillNow)
         
         if(totalSeconds < 0){
             return (false, "00", "00", "00")
@@ -59,7 +59,7 @@ public extension Date {
     
     func countdownMinutesFromNow()->(minutes : String, seconds : String)?{
         
-        let totalSeconds = Int(self.timeIntervalSinceNow + 1)
+        let totalSeconds = Int(self.timeIntervalTillNow)
         
         if(totalSeconds < 0){
             return ("00", "00")
