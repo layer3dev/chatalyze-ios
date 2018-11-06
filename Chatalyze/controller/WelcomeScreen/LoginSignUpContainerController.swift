@@ -191,8 +191,10 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
         if (error == nil) {
             
             // Perform any operations on signed in user here.
+        
             let userId = user.userID                  // For client-side use only!
-            let idToken = user.serverAuthCode // Safe to send to the
+            let idToken = user.serverAuthCode
+            // Safe to send to the
             //server
             let idTokenAuth = user.authentication.accessToken
             let fullName = user.profile.name
@@ -209,7 +211,7 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
             print(email)
             
            // loginWithGoogle(data:user)
-            guard let token = idToken else{
+            guard let token = idTokenAuth else{
                 return
             }
             googleSignProcessor(accessToken:token)
@@ -229,20 +231,19 @@ extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate
     func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
         
         self.dismiss(animated: true) {
+
             GIDSignIn.sharedInstance().signOut()
         }
     }    
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        
     }
     
     func googleSignProcessor(accessToken:String){
         
         GoogleSignIn().signin(accessToken: accessToken) { (success, message, info) in
             
-            Log.echo(key: "yud", text: "response ")
-            
+            Log.echo(key: "yud", text: "response")
         }
     }
 }

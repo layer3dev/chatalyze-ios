@@ -41,26 +41,70 @@ class MySessionRootView:ExtendedView{
                     return
             }
             
-            if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
+            self.isEventDelayed(eventId: "\(eventId)", completion: { (success) in
                 
-                guard let controller = HostEventQueueController.instance()
+                
+                if success{
+                  
+                    //Success will be true of event is true.
+                    guard let controller = HostEventQueueController.instance()
+                        else{
+                            return
+                    }
+                    
+                    controller.eventId = "\(eventId)"
+                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+                    return
+                    
+                }
+
+                if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
+                    
+                    guard let controller = HostEventQueueController.instance()
+                        else{
+                            return
+                    }
+                    
+                    controller.eventId = "\(eventId)"
+                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+                    return
+                }
+                
+                
+                guard let controller = HostCallController.instance()
                     else{
                         return
                 }
                 
-                controller.eventId = "\(eventId)"
-                self.controller?.navigationController?.pushViewController(controller, animated: true)
+                controller.eventId = String(eventId)
+                self.controller?.present(controller, animated: true, completion: nil)
+            })
+        }
+    }
+    
+    
+    func isEventDelayed(eventId:String?,completion:@escaping ((Bool)->())){
+        
+        guard let id = eventId else{
+            completion(true)
+            return
+        }
+        self.controller?.showLoader()
+        CallEventInfo().fetchInfo(eventId: id) { (success, eventInfo) in
+            self.controller?.stopLoader()
+            if !success{
+                completion(true)
                 return
             }
-            
-
-            guard let controller = HostCallController.instance()
-                else{
-                    return
-            }            
-
-            controller.eventId = String(eventId)
-            self.controller?.present(controller, animated: true, completion: nil)
+            guard let info = eventInfo else{
+                completion(true)
+                return
+            }
+            if info.notified == "delayed"{
+                completion(true)
+                return
+            }
+            completion(false)
         }
     }
     
