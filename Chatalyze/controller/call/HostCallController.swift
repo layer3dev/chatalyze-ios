@@ -386,7 +386,19 @@ class HostCallController: VideoCallController {
                 updateCallHeaderForEmptySlot()
                 return
         }
-        hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
+        
+       
+                
+        if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
+            if array.count >= 1{
+                hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
+            }else{
+                hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
+            }
+        }else{
+            hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
+        }
+        
         if(slotInfo.isFuture){
             updateCallHeaderForFuture(slot : slotInfo)
         }else{

@@ -18,6 +18,7 @@ class CameraTestController: InterfaceExtendedController {
     
     let LEVEL_THRESHOLD: Float = -160.0
     var powerLevelIndicator = -200.0
+    
     //Above for mic
     
     @IBOutlet weak var cameraPreview: UIView?
@@ -58,11 +59,13 @@ class CameraTestController: InterfaceExtendedController {
         
         //If the answer to both questions is "Yes", your phone passes the test. If not, please check our FAQs or contact us for support.
         
-        var fontSize = 16
+        var fontSize = 18
+        var linkSize = 22
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             fontSize = 24
+            linkSize = 24
         }
         
         let firstStr = "If the answer to both questions is "
@@ -75,13 +78,13 @@ class CameraTestController: InterfaceExtendedController {
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
         let forthStr = "FAQs "
-        let fourthAttributesStr = forthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        let fourthAttributesStr = forthStr.toAttributedString(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let fifthStr = "or "
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         let sixthStr = "contact us "
-        let sixthAttributesStr = sixthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        let sixthAttributesStr = sixthStr.toAttributedString(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let seventhStr = "for support."
         let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
@@ -97,7 +100,7 @@ class CameraTestController: InterfaceExtendedController {
             self.statusLbl?.attributedText = mutatedStr
         }
         
-        Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
+        //Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
     }
     
     
@@ -110,60 +113,61 @@ class CameraTestController: InterfaceExtendedController {
     
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         
+        Log.echo(key: "yud", text: "Tap range is \(self.statusLbl?.text)")
+        
         if let msglabel = self.statusLbl{
             
-            guard let range = msglabel.text?.range(of: "contact us for")?.nsRange else {
-                return
-            }
-            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
-            
-                Log.echo(key: "yud",text: "Sub string is tapped")
-            
-                DispatchQueue.main.async {
+            if let range = msglabel.text?.range(of: "contact us for support.")?.nsRange {
+                
+                if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
                     
-                    self.dismiss(animated: true) {
+                    Log.echo(key: "yud",text: "Sub string is tapped")
+                    
+                    DispatchQueue.main.async {
                         
-                        guard let rootController = RootControllerManager().getCurrentController() else{
-                            return
-                        }
-                        
-                        guard let roleId = SignedUserInfo.sharedInstance?.role else{
-                            return
-                        }
-                        
-                        if roleId  == .analyst{
+                        self.dismiss(animated: true) {
                             
-                            rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
-                            rootController.closeToggle()
-                            return
-                        }
-                        
-                        if roleId == .user{
+                            guard let rootController = RootControllerManager().getCurrentController() else{
+                                return
+                            }
                             
-                            rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
-                            rootController.closeToggle()
-                            return
+                            guard let roleId = SignedUserInfo.sharedInstance?.role else{
+                                return
+                            }
+                            
+                            if roleId  == .analyst{
+                                 rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+                                
+                                rootController.closeToggle()
+                                return
+                            }
+                            
+                            if roleId == .user{
+                                
+                                rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+                                rootController.closeToggle()
+                                return
+                            }
                         }
                     }
+                    return
                 }
-                return
             }
             
-            guard let rangeFAQ = msglabel.text?.range(of: "check our FAQs")?.nsRange else {
-                return
-            }
-            
-            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: rangeFAQ) {
+            if let rangeFAQ = msglabel.text?.range(of: "our FAQs")?.nsRange  {
                 
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: {
-                        guard let rootController = RootControllerManager().getCurrentController() else{
-                            return
-                        }
-                        rootController.showFAQController()
-                    })
+                if tap.didTapAttributedTextInLabel(label: msglabel, inRange: rangeFAQ) {
+                    
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: {
+                            guard let rootController = RootControllerManager().getCurrentController() else{
+                                return
+                            }
+                            rootController.showFAQController()
+                        })
+                    }
+                    return
                 }
-                return
             }
         }
     }
@@ -193,7 +197,7 @@ class CameraTestController: InterfaceExtendedController {
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
-        Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
+        //Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
         DispatchQueue.main.async {         
             self.updateUI(level:Double(level ?? 0.0))
         }
@@ -202,7 +206,7 @@ class CameraTestController: InterfaceExtendedController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Log.echo(key: "yud", text: "I am dissapearing")
+        // Log.echo(key: "yud", text: "I am dissapearing")
         
         DispatchQueue.main.async {
             CameraTestController.levelTimer.invalidate()
@@ -231,7 +235,7 @@ class CameraTestController: InterfaceExtendedController {
             progressView?.progress = Float(percentageOne)
             let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
             
-            Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
+            //Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
             
             DispatchQueue.main.async {
                 
@@ -262,7 +266,7 @@ class CameraTestController: InterfaceExtendedController {
     func checkForMicrphone(){
         
         CameraTestController.levelTimer.invalidate()
-        Log.echo(key: "yud", text: "Checking for the microphone access")
+        // Log.echo(key: "yud", text: "Checking for the microphone access")
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
         
         let url = documents.appendingPathComponent("record.caf")

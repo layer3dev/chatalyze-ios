@@ -127,6 +127,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 print("Notification settings Registered: \(settings)")
             }
         }else{
+            
             //Fallback on earlier versions
         }
     }
@@ -153,7 +154,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
         let token = tokenParts.joined()
         
-        //This method save the device token if shared intance alraedy exists else create new one with the data
+        //This method save the device token if shared intance alraedy exists else create new one with the data.
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
         //call function for the token Update
         self.updateToken()

@@ -103,12 +103,16 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-ZB-2eM" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="257" y="60" width="63" height="112"/>
+                                <rect key="frame" x="260" y="60" width="60" height="112"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="112" id="LWJ-Oh-epR"/>
-                                    <constraint firstAttribute="width" constant="63" id="cQG-B4-jId"/>
+                                    <constraint firstAttribute="height" constant="112" id="LWJ-Oh-epR">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="160"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="60" id="cQG-B4-jId">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                    </constraint>
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomConstraint" destination="0nX-VJ-mJY" id="G2W-t0-Wa9"/>
@@ -677,12 +681,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8L-eB-LKB" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="257" y="60" width="63" height="112"/>
+                                <rect key="frame" x="260" y="60" width="60" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="112" id="3Iu-Og-126"/>
-                                    <constraint firstAttribute="width" constant="63" id="H2I-jT-7ft"/>
+                                    <constraint firstAttribute="height" constant="110" id="3Iu-Og-126">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="160"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="60" id="H2I-jT-7ft">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                    </constraint>
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomConstraint" destination="e67-UJ-ke9" id="23O-Lc-qld"/>
@@ -1170,10 +1178,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-Kf-uiS">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="413.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="402.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to hang up the current chat and wait until the next one or leave your session completely?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-nW-INd">
-                                                <rect key="frame" x="40" y="80" width="240" height="93.5"/>
+                                                <rect key="frame" x="40" y="80" width="240" height="82.5"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1182,7 +1190,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTn-TW-i0m">
-                                                <rect key="frame" x="50" y="293.5" width="220" height="40"/>
+                                                <rect key="frame" x="50" y="282.5" width="220" height="40"/>
                                                 <color key="backgroundColor" red="1" green="0.24313725490196078" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="fUy-ce-9fB">
@@ -1201,7 +1209,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Say-TW-jBJ">
-                                                <rect key="frame" x="50" y="353.5" width="220" height="40"/>
+                                                <rect key="frame" x="50" y="342.5" width="220" height="40"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="zZn-02-r18">

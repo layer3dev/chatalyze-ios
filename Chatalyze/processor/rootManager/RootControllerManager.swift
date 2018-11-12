@@ -42,8 +42,7 @@ class RootControllerManager{
     private func showSigninScreen(){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let window = appDelegate?.window
-        
+        let window = appDelegate?.window        
         guard let signinController = LoginSignUpContainerController.instance()
             else{
                 return
@@ -59,7 +58,6 @@ class RootControllerManager{
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
         let rootNav : UINavigationController = ExtendedNavigationController()
-        
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
         transition.type = CATransitionType.fade
