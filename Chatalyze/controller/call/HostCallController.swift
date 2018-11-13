@@ -225,24 +225,20 @@ class HostCallController: VideoCallController {
                         
                         Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
                         
-                        guard let connection = self.getActiveConnection() else{
-                            return
-                        }
-                        if connection.isConnected{
+//                        guard let connection = self.getActiveConnection() else{
+//                            return
+//                        }
+                        
+                        //if connection.isConnected{
+                        
+                        self.selfieTimerView?.reset()
+                        self.selfieTimerView?.startAnimationForHost(date: requiredDate)
+                        
+                        self.selfieTimerView?.screenShotListner = {
                             
-                            if self.isCallHangedUp{
-                                return
-                            }
-                            
+                            self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
-                            self.selfieTimerView?.startAnimationForHost(date: requiredDate)
-                            
-                            self.selfieTimerView?.screenShotListner = {
-                                
-                                self.mimicScreenShotFlash()
-                                self.selfieTimerView?.reset()
-                            }
-                        }                       
+                        }
                     }
                 }
             }
@@ -387,8 +383,8 @@ class HostCallController: VideoCallController {
                 return
         }
         
-       
-                
+        
+        
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
@@ -640,7 +636,7 @@ class HostCallController: VideoCallController {
             return
         }
         
-         Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
+        Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
         
         connection.initateHandshake()
     }
@@ -719,7 +715,7 @@ class HostCallController: VideoCallController {
     
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
-
+        
     }
 }
 
@@ -744,10 +740,53 @@ extension HostCallController : CallConnectionProtocol{
 extension HostCallController:GetisHangedUpDelegate{
     
     func restartSelfie() {
-        
     }
-   
+    
     func getHangUpStatus() -> Bool {
         return isCallHangedUp || (!isCallStreaming)
     }
+}
+
+extension HostCallController{
+    
+    func updateSessionStats(){
+        
+        var timerFontSize = 18
+        var chatFontSize = 16
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            timerFontSize = 22
+            chatFontSize = 22
+        }
+        
+        let timerStr = "05:00"
+        let firstAttributedStr = timerStr.toAttributedString(font: "Poppins", size: timerFontSize, color: UIColor(hexString: "#faa579"), isUnderLine: false)
+        //timerLable?.attributedText = firstAttributedStr
+        
+        let curentChatNumber = 1
+        let chatNumber = "chat\(curentChatNumber): "
+        let chatNumberMutableStr = chatNumber.toMutableAttributedString(font: "Questrial", size:chatFontSize , color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        
+    
+        let userName = "Jordon"
+        let userAttrStr = userName.toAttributedString(font: "Poppins", size: chatFontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        chatNumberMutableStr.append(userAttrStr)
+        
+        //chatNumberLbl?.attributedText  = chatNumberMutableStr
+        
+        
+        let numberOfTotalChats = "\(12)"
+        let totalChats = "Total chats: "
+        let totalChatsMutableStr = totalChats.toMutableAttributedString(font: "Questrial", size:chatFontSize , color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        
+        
+        let numberOfTotalChatsAttrStr = numberOfTotalChats.toAttributedString(font: "Poppins", size: chatFontSize, color: UIColor(hexString: "#faa579"), isUnderLine: false)
+        
+        totalChatsMutableStr.append(numberOfTotalChatsAttrStr)
+                
+        //totalChatLbl?.attributedText  = totalChatsMutableStr
+    }
+    
 }

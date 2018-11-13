@@ -777,7 +777,7 @@ extension VideoCallController{
         
         if type == .userDidNotJoin{
           
-            let firstStr = (roomType == .user) ? "Influencer " : "Participant"
+            let firstStr = (roomType == .user) ? "Host " : "Participant"
             
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             
@@ -795,7 +795,7 @@ extension VideoCallController{
         
         if type == .preConnectedSuccess{
             
-            let secondStr = "You've pre-connected successfully. \n\n Get Ready to chat!"
+            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
             
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
             

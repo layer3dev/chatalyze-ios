@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
+        disableAppToSwitchIntoSleepMode()
         test()
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
@@ -43,10 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TimerSync.sharedInstance
     }
     
+    fileprivate func disableAppToSwitchIntoSleepMode(){
+        
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
     fileprivate func initialization(){
         
         _ = NavigationBarCustomizer()
-        
+
         RootControllerManager().setRoot {
             
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")

@@ -9,8 +9,8 @@
 import UIKit
 
 class HostCallConnection: CallConnection {
-    var isInitiated = false
     
+    var isInitiated = false
     private var disposeListener : (()->())?
     
     override func callFailed(){
