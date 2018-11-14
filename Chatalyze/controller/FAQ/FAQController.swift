@@ -66,8 +66,9 @@ class FAQController: InterfaceExtendedController {
         guard let controller = FAQWebController.instance() else{
             return
         }
+        
         controller.url = "https://dev.chatalyze.com/faqs/influencer/app"
-        controller.nameofTitle = "Influencer's FAQ"
+        controller.nameofTitle = "Influencer FAQs"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -76,7 +77,7 @@ class FAQController: InterfaceExtendedController {
         guard let controller = FAQWebController.instance() else{
             return
         }
-        controller.nameofTitle = "Fan's FAQ"
+        controller.nameofTitle = "Fan FAQs"
         controller.url = "https://dev.chatalyze.com/faqs/fan/app"
         self.navigationController?.pushViewController(controller, animated: true)
     }

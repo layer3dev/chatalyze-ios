@@ -131,6 +131,7 @@ class EditScheduledSessionRootView:ExtendedView{
         self.param = info
         self.totalTimeDuration = totalDurationofEvent
         self.selectedImage = selectedImage
+        
         if selectedImage != nil{
             
             uploadedImage?.image = selectedImage
@@ -322,6 +323,14 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBAction func saveTitleAction(sender:UIButton?){
         
+        //Verifying for title text to be empty.
+        guard let titleText =  sessionNameField?.textField?.text else {
+            return
+        }
+        let text = titleText.replacingOccurrences(of: " ", with: "")
+        if text == ""{
+            return
+        }
         self.param["title"] = sessionNameField?.textField?.text
         self.editedParam["title"] = sessionNameField?.textField?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
@@ -332,6 +341,14 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBAction func saveDescriptionAction(sender:UIButton?){
         
+        //Verifying for title text to be empty.
+        guard let descriptionText =  descriptionTextView?.text else {
+            return
+        }
+        let description = descriptionText.replacingOccurrences(of: " ", with: "")
+        if description == ""{
+            return
+        }
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
@@ -364,8 +381,7 @@ class EditScheduledSessionRootView:ExtendedView{
         let tapGestureOnDisbleEditDescription = UITapGestureRecognizer(target: self, action: #selector(self.disableEditDescriptionAction))
         self.descriptionBackLbl?.isUserInteractionEnabled = true
         self.descriptionBackLbl?.isEnabled = true
-        descriptionBackLbl?.addGestureRecognizer(tapGestureOnDisbleEditDescription)
-        
+        descriptionBackLbl?.addGestureRecognizer(tapGestureOnDisbleEditDescription)        
         
         let tapGestureEditImage = UITapGestureRecognizer(target: self, action: #selector(self.changeImage(sender:)))
         self.editImageLbl?.isUserInteractionEnabled = true
@@ -463,8 +479,8 @@ extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 // Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         if let  chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             

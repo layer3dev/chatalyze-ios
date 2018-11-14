@@ -31,11 +31,16 @@ class HostDashboardRootView: MySessionRootView {
     
     func underLineLable(){
         
+        var testingText = "TEST MY PHONE"
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            testingText = "TEST MY iPad"
+        }
 
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Poppins", size: fontSize)] as? [NSAttributedString.Key : Any]{
 
          
-            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            let underlineAttributedString = NSAttributedString(string: testingText, attributes: underlineAttribute as [NSAttributedString.Key : Any])
             underLineLbl?.attributedText = underlineAttributedString
         }
     }
