@@ -82,7 +82,7 @@ class CountdownProcessor{
     
     
     fileprivate func refresh() {
-        for (identifier, listener) in listenerInfo {
+        for (_, listener) in listenerInfo {
             listener.refresh()
         }
     }
