@@ -132,7 +132,7 @@ class SelfieTimerView:ExtendedView {
         //to balance the time taken by animation
         SelfieTimerView.testTimer.invalidate()
         SelfieTimerView.hostTimer.invalidate()
-        //SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         //self.registerForTimer()
     }
     
