@@ -24,6 +24,7 @@ class SessionTimeDateRootView:ExtendedView{
     var endDate = ""
     var actualStartDate:Date?
     var successHandler:(()->())?
+    @IBOutlet var currentZoneShowingLbl:UILabel?
     
     enum activePicker:Int{
         
@@ -47,8 +48,22 @@ class SessionTimeDateRootView:ExtendedView{
     
     override func viewDidLayout(){
         super.viewDidLayout()
+  
+        paintFullBorder()
+        showingCurrentTimeZone()
     }
     
+    func showingCurrentTimeZone(){
+        
+        currentZoneShowingLbl?.text = TimeZone.current.abbreviation() ?? ""
+    }
+    
+    
+    func paintFullBorder(){
+        
+        dateField?.isCompleteBorderAllow = true
+        startTimeField?.isCompleteBorderAllow = true
+    }
     
     @IBAction func pickerDoneAction(sender:UIButton?){
         

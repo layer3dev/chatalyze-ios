@@ -12,7 +12,8 @@ class MyTicketsVerticalController: MyTicketsController{
     
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
-       
+   
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -101,3 +102,5 @@ class MyTicketsVerticalController: MyTicketsController{
         return controller
     }
 }
+
+

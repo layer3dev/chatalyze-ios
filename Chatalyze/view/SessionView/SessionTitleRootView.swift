@@ -14,6 +14,8 @@ class SessionTitleRootView:ExtendedView{
     override func viewDidLayout(){
         super.viewDidLayout()        
     }
+    
+    
    
     func validateFields()->Bool{
         

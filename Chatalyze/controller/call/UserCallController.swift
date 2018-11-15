@@ -491,6 +491,7 @@ class UserCallController: VideoCallController {
                 SlotFlagInfo.staticSlotId = id
                 SlotFlagInfo.staticIsTimerInitiated = true
             }
+            
             //for testing
             selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
@@ -526,7 +527,6 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderInfo(){
-        
         
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{

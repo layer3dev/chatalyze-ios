@@ -32,6 +32,8 @@ class SelfieTimerView:ExtendedView {
     
     var delegate:GetisHangedUpDelegate?
     
+    var selfieTimerAnimateFlag = 0
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -91,9 +93,9 @@ class SelfieTimerView:ExtendedView {
         
         if let date = requiredDate {
             
-            Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
+            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT())")
             let difference = currentDateTimeGMT().timeIntervalSince(date)
-            Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
+            Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
             
             if difference >= 3 {
                 
@@ -132,99 +134,179 @@ class SelfieTimerView:ExtendedView {
         //to balance the time taken by animation
         SelfieTimerView.testTimer.invalidate()
         SelfieTimerView.hostTimer.invalidate()
-        //SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         //self.registerForTimer()
+    }
+    
+    
+    func showSelfieTimerAnimationGrayandGreen(){
+        
+        DispatchQueue.main.async {
+            
+            self.isHidden = false
+            if self.selfieTimerAnimateFlag%2 == 0 {
+                self.greenSelfieTime()
+            }else{
+                self.graySelfieTime()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    
+                    if self.selfieTimerAnimateFlag >= 3{
+                        self.playOne()
+                        self.selfieTimerAnimateFlag = 0
+                    }else{
+                        self.showSelfieTimerAnimationGrayandGreen()
+                    }
+            })
+            self.selfieTimerAnimateFlag = self.selfieTimerAnimateFlag + 1
+        }
+    }
+    
+    
+    func playOne(){
+        
+        self.playSound()
+        self.greenOne()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.playTwo()
+        }
+    }
+    
+    func playTwo(){
+        
+        self.playSound()
+        self.greenTwo()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.playThree()
+        }
+        
+        //        DispatchQueue.main.async {
+        //
+        //        UIView.animate(withDuration: 1, animations: {
+        //
+        //            self.layoutIfNeeded()
+        //
+        //        }) { (success) in
+        //            self.playThree()
+        //        }
+        //        self.layoutIfNeeded()
+        //
+        //        }
+    }
+    
+    func playThree(){
+        
+        self.playSound()
+        self.greenThird()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            self.mimicFlash()
+        }
+    }
+    
+    func mimicFlash(){
+        
+        DispatchQueue.main.async {
+            
+            if !(self.isScreenShotTaken){
+                
+                self.isHidden = true
+                self.isScreenShotTaken = true
+                if let listner = self.screenShotListner{
+                    listner()
+                }
+            }else{
+                self.isHidden = true
+            }
+        }
     }
     
     @objc func updateTimer(){
         
-        Log.echo(key: "yud", text: "Hangup Status oid \(String(describing: delegate?.getHangUpStatus()))")
-        
-        if let isHangedUp = delegate?.getHangUpStatus(){
+        if let date = requiredDate {
             
-            if isHangedUp{
-                
-                invalidateTimer()
-                invalidateTimerForHost()
-                return
-            }
-        }
-        
-        if autographTime >= 12 && autographTime  < 15{
+            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(requiredDate)")
+            let difference = currentDateTimeGMT().timeIntervalSince(date)
+            Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
             
-            DispatchQueue.main.async {
+            if difference >= 3 {
                 
-                self.isHidden = false
-                self.layoutIfNeeded()
-                UIView.animate(withDuration: 0.845, animations: {
+                self.showSelfieTimerAnimationGrayandGreen()
+                if let isHangedUp = delegate?.getHangUpStatus(){
                     
-                    if self.autographTime%2 == 0 {
-                        self.graySelfieTime()
-                    }else{
-                        self.greenSelfieTime()
+                    if isHangedUp{
+                        invalidateTimer()
+                        invalidateTimerForHost()
+                        return
                     }
-                })
-            }
-        }
-        else if autographTime >= 15 && autographTime  < 16{
-            
-            self.playSound()
-            self.greenOne()
-        }
-        else if autographTime >= 16 && autographTime  < 17{
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
-                self.playSound()
-            }
-            self.greenTwo()
-        }
-        else if autographTime >= 17 && autographTime  < 18{
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
-                self.playSound()
-            }
-            //            self.playSound()
-            self.greenThird()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.88) {
-                
-                if !(self.isScreenShotTaken){
-                    
-                    self.isHidden = true
-                    self.isScreenShotTaken = true
-                    if let listner = self.screenShotListner{
-                        listner()
-                    }
-                }else{
-                    self.isHidden = true
                 }
-                self.invalidateTimer()
-                self.invalidateTimerForHost()
+                SelfieTimerView.testTimer.invalidate()
+                SelfieTimerView.hostTimer.invalidate()
             }
-        }else if autographTime >= 18 && autographTime  < 19 {
-            
-            //                if !(self.isScreenShotTaken){
-            //                    self.isHidden = true
-            //                    self.isScreenShotTaken = true
-            //                    if let listner = self.screenShotListner{
-            //                        listner()
-            //                    }
-            //                }else{
-            //                    self.isHidden = true
-            //                }
-            self.invalidateTimer()
-            self.invalidateTimerForHost()
-            //self.smile()
-        }else if autographTime >= 19{
-            
-            self.invalidateTimer()
-            self.invalidateTimerForHost()
         }
-        autographTime = autographTime + 1
+        
+        //        else if autographTime >= 15 && autographTime  < 16{
+        //
+        //            self.playSound()
+        //            self.greenOne()
+        //        }
+        //        else if autographTime >= 16 && autographTime  < 17{
+        //
+        //            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
+        //                self.playSound()
+        //            }
+        //            self.greenTwo()
+        //        }
+        //        else if autographTime >= 17 && autographTime  < 18{
+        //
+        //            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
+        //                self.playSound()
+        //            }
+        //            //            self.playSound()
+        //            self.greenThird()
+        //            DispatchQueue.main.asyncAfter(deadline: .now()+0.88) {
+        //
+        //                if !(self.isScreenShotTaken){
+        //
+        //                    self.isHidden = true
+        //                    self.isScreenShotTaken = true
+        //                    if let listner = self.screenShotListner{
+        //                        listner()
+        //                    }
+        //                }else{
+        //                    self.isHidden = true
+        //                }
+        //                self.invalidateTimer()
+        //                self.invalidateTimerForHost()
+        //            }
+        //        }else if autographTime >= 18 && autographTime  < 19 {
+        //
+        //            //                if !(self.isScreenShotTaken){
+        //            //                    self.isHidden = true
+        //            //                    self.isScreenShotTaken = true
+        //            //                    if let listner = self.screenShotListner{
+        //            //                        listner()
+        //            //                    }
+        //            //                }else{
+        //            //                    self.isHidden = true
+        //            //                }
+        //            self.invalidateTimer()
+        //            self.invalidateTimerForHost()
+        //            //self.smile()
+        //        }else if autographTime >= 19{
+        //
+        //            self.invalidateTimer()
+        //            self.invalidateTimerForHost()
+        //        }
+        //        autographTime = autographTime + 1
+        //    }
     }
 }
 
-
 extension SelfieTimerView{
+    
+    
     
     private func greenOne(){
         
