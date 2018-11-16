@@ -131,6 +131,11 @@ extension SocketClient{
     
     @objc func connect(roomId : String){
         Log.echo(key: "SocketClient", text: "connect called")
+        
+        if(roomId == self.roomId && isBridged && connectionFlag){
+            return;
+        }
+        
         self.connectionFlag = true
         self.roomId = roomId
         

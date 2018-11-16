@@ -610,6 +610,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
+        
         if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
