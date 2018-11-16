@@ -87,7 +87,7 @@ extension NotificationInfo{
     
     var timePassed : String{
         get{
-            let timeInterval = Int((createdAt?.timeIntervalSinceNow) ?? 0)
+            let timeInterval = Int((createdAt?.timeIntervalTillNow) ?? 0)
             return DateStringFormatter.formatTimeInterval(timeInterval)
         }
     }

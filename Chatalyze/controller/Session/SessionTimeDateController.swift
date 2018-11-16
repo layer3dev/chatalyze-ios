@@ -44,8 +44,8 @@ class SessionTimeDateController: InterfaceExtendedController {
     */
     
     var rootView:SessionTimeDateRootView?{
+        
         get{
-         
             return self.view as? SessionTimeDateRootView
         }
     }

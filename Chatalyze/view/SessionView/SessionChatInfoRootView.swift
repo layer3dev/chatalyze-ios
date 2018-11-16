@@ -59,7 +59,10 @@ class SessionChatInfoRootView:ExtendedView{
        
         self.priceField?.textField?.doneAccessory = true
         initializeVariable()
+        
     }
+    
+
     
     func initializeVariable(){
   
@@ -122,7 +125,7 @@ class SessionChatInfoRootView:ExtendedView{
             sender.backgroundColor = UIColor(hexString: "#E1E4E6")
             self.slotSelected = .thirty
         }
-        initializeChatCalculator()
+        //initializeChatCalculator()
     }
     
     @IBAction func isAllowedForSelfieAction(sender:UIButton){
@@ -234,10 +237,10 @@ class SessionChatInfoRootView:ExtendedView{
         controller.param = getParameter()
         Log.echo(key: "yud", text: "Params are \(getParameter())")
         controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
-        initializeChatCalculator()
+        paintChatCalculator()
     }
     
-    func initializeChatCalculator(){
+    func paintChatCalculator(){
       
         Log.echo(key: "yud", text: "Calculator response is \(param)")
         

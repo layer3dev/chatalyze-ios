@@ -295,7 +295,7 @@ class SelfieTimerView:ExtendedView {
             
             Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(requiredDate)")
             
-            let difference = currentDateTimeGMT().timeIntervalSince(date)
+            let difference = date.timeIntervalTillNow
             
             Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
             

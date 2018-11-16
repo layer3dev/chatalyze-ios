@@ -12,7 +12,6 @@ class SessionTitleController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-        
     }
     
     override func didReceiveMemoryWarning() {

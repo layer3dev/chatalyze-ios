@@ -466,7 +466,7 @@ class HostCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             
-            if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
@@ -480,7 +480,7 @@ class HostCallController: VideoCallController {
                 return
             }
             
-            if endDate > 15.0{
+            if endDate > 16.0{
                 
                 //implemented in order to stop Animation if new slot comes and added so that new time slot becomes (120, 180, 300 ..etc.)//
                 isAnimating = false

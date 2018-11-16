@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
@@ -52,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func initialization(){
         
-        _ = NavigationBarCustomizer()
-        
+        _ = NavigationBarCustomizer()        
         RootControllerManager().setRoot {
             
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")

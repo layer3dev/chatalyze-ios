@@ -27,7 +27,9 @@ class SessionChatInfoController: InterfaceExtendedController {
     
     func updateRootInfo(){
         
+        Log.echo(key: "yud", text: "updating the code on the updateRootInfo")
         rootView?.param  = self.param
+        rootView?.paintChatCalculator()
     }
     
     var rootView:SessionChatInfoRootView?{
@@ -35,6 +37,12 @@ class SessionChatInfoController: InterfaceExtendedController {
         get{
             return self.view as? SessionChatInfoRootView
         }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+       //rootView?.paintChatCalculator
     }
     
     override func didReceiveMemoryWarning() {

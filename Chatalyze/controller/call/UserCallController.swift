@@ -554,7 +554,7 @@ class UserCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             
-            if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: userRootView?.callInfoContainer?.timer)
@@ -566,7 +566,7 @@ class UserCallController: VideoCallController {
                 stopLableAnimation()
                 return
             }
-            if endDate > 15.0{
+            if endDate > 16.0{
                 
                 isAnimating = false
                 stopLableAnimation()
