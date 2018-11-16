@@ -229,9 +229,21 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func showFeedbackScreen(){
-        DispatchQueue.main.async {
-            self.feedbackListener?(self.eventInfo)
+        
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
         }
+        guard let controller = ReviewController.instance() else{
+            return
+        }
+        controller.eventInfo = eventInfo
+        controller.dismissListner = {[weak self] in
+            self?.feedbackListener?(self?.eventInfo)
+        }
+        presentingController.present(controller, animated: false, completion:{
+        })
     }
     
     

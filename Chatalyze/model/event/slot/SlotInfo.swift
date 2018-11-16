@@ -47,6 +47,15 @@ class SlotInfo: SlotTimeInfo {
         fillInfo(info: info)
     }
     
+    //This should be used instead of default constructor, so that nil value gets returned in case of invalid JSON or invalid Slot
+    class func instance(info : JSON?)->SlotInfo?{
+        let slotInfo = SlotInfo(info : info)
+        if(slotInfo.slotNo == nil){
+            return nil
+        }
+        return slotInfo
+    }
+    
     func fillInfo(info : JSON?) {
     
         guard let json = info

@@ -189,16 +189,7 @@ func jointEvent(info:SlotInfo?){
     }
     
     controller.feedbackListener = {(eventInfo) in
-        
-        guard let controller = ReviewController.instance() else{
-            return
-        }
-        controller.eventInfo = eventInfo
-        controller.dismissListner = {
-            self.root?.refreshData()
-        }
-        self.root?.controller?.present(controller, animated: false, completion:{
-        })
+        self.root?.refreshData()
     }
     
 
