@@ -179,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2B-cb-R7Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="559" y="-33"/>
+            <point key="canvasLocation" x="559" y="-32"/>
         </scene>
         <!--Session Time Date Controller-->
         <scene sceneID="CeY-L6-NPb">
@@ -739,21 +739,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBK-mS-A1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-536" y="106"/>
+            <point key="canvasLocation" x="-518" y="108"/>
         </scene>
         <!--Session Chat Info Controller-->
         <scene sceneID="hOs-8H-Btc">
             <objects>
                 <viewController storyboardIdentifier="SessionChatInfo" automaticallyAdjustsScrollViewInsets="NO" id="3Tr-sZ-b1o" customClass="SessionChatInfoController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FWd-zz-563" customClass="SessionChatInfoRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="2000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1P-F8-5X1" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="768" height="919"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="1895"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afw-XQ-N7H">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="972.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1052"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgd-B2-kdt">
                                                 <rect key="frame" x="40" y="0.0" width="688" height="470"/>
@@ -1195,13 +1195,133 @@
                                                     </constraint>
                                                 </constraints>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S96-fx-pgz">
+                                                <rect key="frame" x="40" y="1032" width="688" height="0.0"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Calculator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1H-r4-vv9">
+                                                        <rect key="frame" x="20" y="20" width="648" height="34"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="24"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session Length / 1:1 Chat Length = " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="er6-42-16e">
+                                                        <rect key="frame" x="20" y="74" width="648" height="19"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
+                                                        <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60 mins. / 5 mins. = " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aL1-bc-SeY">
+                                                        <rect key="frame" x="20" y="113" width="648" height="20"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
+                                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="19"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJp-Ke-YqB">
+                                                        <rect key="frame" x="20" y="153" width="648" height="42"/>
+                                                        <attributedString key="attributedText">
+                                                            <fragment content="12">
+                                                                <attributes>
+                                                                    <color key="NSColor" red="0.98039215686274506" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <font key="NSFont" size="22" name="Poppins-SemiBold"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                            <fragment content=" ">
+                                                                <attributes>
+                                                                    <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <font key="NSFont" size="22" name="Questrial-Regular"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                            <fragment content="Available 1:1 Chats">
+                                                                <attributes>
+                                                                    <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <font key="NSFont" size="16" name="Questrial-Regular"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                            <fragment content=" ">
+                                                                <attributes>
+                                                                    <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <font key="NSFont" size="22" name="Questrial-Regular"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                        </attributedString>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="12">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.98039215686274506" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="30" name="Poppins-SemiBold"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                                <fragment content=" ">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="22" name="Questrial-Regular"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                                <fragment content="Available 1:1 Chats">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="18" name="Questrial-Regular"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                                <fragment content=" ">
+                                                                    <attributes>
+                                                                        <color key="NSColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <font key="NSFont" size="22" name="Questrial-Regular"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="aL1-bc-SeY" firstAttribute="leading" secondItem="S96-fx-pgz" secondAttribute="leading" constant="20" id="0Bo-cK-3hC"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bJp-Ke-YqB" secondAttribute="trailing" constant="20" id="4in-ck-3CG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aL1-bc-SeY" secondAttribute="trailing" constant="20" id="5zg-mj-x9H"/>
+                                                    <constraint firstItem="aL1-bc-SeY" firstAttribute="top" secondItem="er6-42-16e" secondAttribute="bottom" constant="20" id="7Za-mR-m3m"/>
+                                                    <constraint firstAttribute="trailing" secondItem="h1H-r4-vv9" secondAttribute="trailing" constant="20" id="AuZ-wm-sjn"/>
+                                                    <constraint firstItem="bJp-Ke-YqB" firstAttribute="leading" secondItem="S96-fx-pgz" secondAttribute="leading" constant="20" id="Blb-Az-yzC"/>
+                                                    <constraint firstItem="bJp-Ke-YqB" firstAttribute="top" secondItem="aL1-bc-SeY" secondAttribute="bottom" constant="20" id="DwG-ej-FSI"/>
+                                                    <constraint firstItem="er6-42-16e" firstAttribute="leading" secondItem="S96-fx-pgz" secondAttribute="leading" constant="20" id="L2C-Yb-4nH"/>
+                                                    <constraint firstItem="er6-42-16e" firstAttribute="top" secondItem="h1H-r4-vv9" secondAttribute="bottom" constant="20" id="RMR-Vx-yV5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="er6-42-16e" secondAttribute="trailing" constant="20" id="jTW-P8-6uY"/>
+                                                    <constraint firstItem="h1H-r4-vv9" firstAttribute="top" secondItem="S96-fx-pgz" secondAttribute="top" constant="20" id="lHU-G5-WFV"/>
+                                                    <constraint firstItem="h1H-r4-vv9" firstAttribute="leading" secondItem="S96-fx-pgz" secondAttribute="leading" constant="20" id="n6d-fc-MRU"/>
+                                                    <constraint firstAttribute="height" id="vgf-vs-Zeb"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="S96-fx-pgz" secondAttribute="trailing" id="28f-hj-PLe">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
                                             <constraint firstItem="d0n-Kw-out" firstAttribute="leading" secondItem="afw-XQ-N7H" secondAttribute="leading" id="9fc-dC-7AV">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="mgd-B2-kdt" firstAttribute="leading" secondItem="afw-XQ-N7H" secondAttribute="leading" id="ADi-3j-Z2b">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                            <constraint firstItem="S96-fx-pgz" firstAttribute="top" secondItem="t7U-ps-V49" secondAttribute="bottom" constant="70" id="DMV-f7-uuH"/>
+                                            <constraint firstItem="S96-fx-pgz" firstAttribute="leading" secondItem="afw-XQ-N7H" secondAttribute="leading" id="JAU-Zl-pe3">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="t7U-ps-V49" firstAttribute="leading" secondItem="afw-XQ-N7H" secondAttribute="leading" id="KgB-Yh-bOw">
@@ -1216,10 +1336,10 @@
                                             </constraint>
                                             <constraint firstItem="d0n-Kw-out" firstAttribute="top" secondItem="mgd-B2-kdt" secondAttribute="bottom" id="goG-ML-PwG"/>
                                             <constraint firstItem="mgd-B2-kdt" firstAttribute="top" secondItem="afw-XQ-N7H" secondAttribute="top" id="mrH-F4-JCf"/>
+                                            <constraint firstAttribute="bottom" secondItem="S96-fx-pgz" secondAttribute="bottom" constant="20" id="orh-EP-uUL"/>
                                             <constraint firstAttribute="trailing" secondItem="t7U-ps-V49" secondAttribute="trailing" id="qd5-ai-j84">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
-                                            <constraint firstAttribute="bottom" secondItem="t7U-ps-V49" secondAttribute="bottom" constant="10.5" id="ywy-iH-J8d"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1232,7 +1352,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wP8-oQ-6G3">
-                                <rect key="frame" x="0.0" y="939" width="768" height="85"/>
+                                <rect key="frame" x="0.0" y="1915" width="768" height="85"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f32-4D-Bc5" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="40" y="0.0" width="688" height="65"/>
@@ -1307,7 +1427,7 @@
                             <outlet property="isSocialNoBtn" destination="X0Q-eo-fhq" id="7q3-fa-CpN"/>
                             <outlet property="isSocialYesBtn" destination="RgC-TJ-eZC" id="cL4-98-3oC"/>
                             <outlet property="priceField" destination="lKO-vO-YpP" id="Fcf-2x-sVS"/>
-                            <outlet property="scrollContentBottonOffset" destination="ywy-iH-J8d" id="ElM-mQ-p0L"/>
+                            <outlet property="scrollContentBottonOffset" destination="orh-EP-uUL" id="He0-gg-5N5"/>
                             <outlet property="scrollView" destination="y1P-F8-5X1" id="M0x-xa-RWU"/>
                             <outlet property="slotDurationErrorLbl" destination="F0T-vI-hE9" id="A8g-33-bOc"/>
                             <outlet property="socialErrorLbl" destination="oFP-1Q-Zel" id="QyA-eK-ASm"/>
@@ -1318,10 +1438,11 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <size key="freeformSize" width="768" height="2000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYG-Uj-rxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1189" y="-33"/>
+            <point key="canvasLocation" x="1173" y="254"/>
         </scene>
         <!--Session Review Controller-->
         <scene sceneID="yyj-ic-9zh">
@@ -1804,7 +1925,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5sm-7X-NuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-64" y="-34"/>
+            <point key="canvasLocation" x="-57" y="-32"/>
         </scene>
         <!--Session Done Controller-->
         <scene sceneID="gvg-KK-fDx">
@@ -2032,7 +2153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWV-MW-RqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="-32"/>
+            <point key="canvasLocation" x="1790" y="-31"/>
         </scene>
         <!--Schedule Session Controller-->
         <scene sceneID="GeC-i6-vfd">
@@ -2199,7 +2320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGa-rM-2Hs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2447" y="-30"/>
+            <point key="canvasLocation" x="2403" y="-31"/>
         </scene>
         <!--Schedule Session Page View Controller-->
         <scene sceneID="VAY-7P-4pk">
@@ -2207,7 +2328,7 @@
                 <pageViewController storyboardIdentifier="ScheduleSessionPage" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Qc3-Yf-nLu" customClass="ScheduleSessionPageViewController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWi-yQ-cmk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3070" y="-86"/>
+            <point key="canvasLocation" x="3009" y="-88"/>
         </scene>
         <!--Edit Scheduled Session Controller-->
         <scene sceneID="XF2-I8-v6d">
@@ -3070,7 +3191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2M-6q-USy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3938" y="-32"/>
+            <point key="canvasLocation" x="3619" y="-31"/>
         </scene>
     </scenes>
     <resources>

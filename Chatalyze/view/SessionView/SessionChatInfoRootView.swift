@@ -122,6 +122,7 @@ class SessionChatInfoRootView:ExtendedView{
             sender.backgroundColor = UIColor(hexString: "#E1E4E6")
             self.slotSelected = .thirty
         }
+        initializeChatCalculator()
     }
     
     @IBAction func isAllowedForSelfieAction(sender:UIButton){
@@ -233,7 +234,28 @@ class SessionChatInfoRootView:ExtendedView{
         controller.param = getParameter()
         Log.echo(key: "yud", text: "Params are \(getParameter())")
         controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
+        initializeChatCalculator()
     }
+    
+    func initializeChatCalculator(){
+      
+        Log.echo(key: "yud", text: "Calculator response is \(param)")
+        
+//        guar
+//
+//
+//
+//        case thirtyMin = 0
+//        case oneHour = 1
+//        case oneAndhour = 2
+//        case twohour = 3
+//        case none = 4
+//        if self.controller?.selectedDurationType{
+//
+//        }
+        
+    }
+    
     
     func resetErrorStatus(){
         

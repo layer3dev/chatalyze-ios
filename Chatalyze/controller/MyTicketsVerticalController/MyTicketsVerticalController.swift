@@ -61,7 +61,7 @@ class MyTicketsVerticalController: MyTicketsController{
         var testingText = "TEST MY PHONE"
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY iPad"
+            testingText = "TEST MY IPAD"
         }
         
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)] as? [NSAttributedString.Key : Any]{
