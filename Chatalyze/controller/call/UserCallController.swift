@@ -379,7 +379,7 @@ class UserCallController: VideoCallController {
     
     func getTimeStampAfterEightSecond()->Date?{
         
-        let date = TimerSync().getDate()
+        let date = TimerSync.sharedInstance.getDate()
         Log.echo(key: "yud", text: "Synced date is \(date)")
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
@@ -401,6 +401,10 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
         if self.eventInfo?.isScreenShotAllowed == nil{
+            return
+        }
+        
+        if(!TimerSync.sharedInstance.isSynced){
             return
         }
         

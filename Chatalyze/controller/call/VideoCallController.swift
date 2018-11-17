@@ -105,6 +105,7 @@ class VideoCallController : InterfaceExtendedController {
         
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
+        
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")

@@ -16,8 +16,11 @@ class EventQueueController: InterfaceExtendedController {
     var eventInfo : EventScheduleInfo?
     private let eventSlotListener = EventSlotListener()
     @IBOutlet var bottomLine:UIView?
-    private var countdownListener : CountdownListener = CountdownListener()
+    private var countdownListener : CountdownListener =
+        CountdownListener()
 
+    private var socketClient : SocketClient?
+    private var timerSync = TimerSync.sharedInstance
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +48,18 @@ class EventQueueController: InterfaceExtendedController {
         registerForTimer()
         loadInfoFromServer(showLoader : true)
         listenOnSocketConnect()
+        startSync()
     }
+    
+    private func startSync(){
+        guard let eventId = self.eventId
+            else{
+                return
+        }
+        
+        socketClient?.connect(roomId: eventId)
+    }
+    
     func listenOnSocketConnect(){
         
         UserSocket.sharedInstance?.socket?.on("connect") {data, ack in
@@ -144,6 +158,7 @@ class EventQueueController: InterfaceExtendedController {
         collectionView?.delegate = adapter
         collectionView?.dataSource = adapter
         collectionView?.collectionViewLayout = EventQueueFlowLayout()
+        socketClient = SocketClient.sharedInstance
     }
     
     

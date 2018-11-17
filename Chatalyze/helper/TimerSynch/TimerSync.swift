@@ -17,6 +17,8 @@ class TimerSync {
     var precision = 0
     var maxCountRequest = 3
     
+    var isSynced = false
+    
     private var countRequest = 0; //current Request Count status
     private var requestIdentifierCounter : Int = 0
     
@@ -115,7 +117,7 @@ class TimerSync {
             
             let syncInfo = TimeSyncInfo(info: json)
             let isSynced = weakSelf.updateTimeDifference(info : syncInfo)
-            
+            self?.isSynced = true
             if(weakSelf.countRequest > weakSelf.maxCountRequest || isSynced){
                 return
             }
