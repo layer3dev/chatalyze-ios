@@ -134,8 +134,6 @@ class TimerSync {
         }
         
         return currentDate.millisecondsSince1970 + Int64(self.timeDiff)
-        
-        
     }
     
     

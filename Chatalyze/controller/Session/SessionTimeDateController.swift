@@ -25,7 +25,6 @@ class SessionTimeDateController: InterfaceExtendedController {
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         

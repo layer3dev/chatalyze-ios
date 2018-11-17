@@ -51,6 +51,9 @@ class SessionChatInfoRootView:ExtendedView{
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
     
+    @IBOutlet var chatCalculatorLbl:UILabel?
+    @IBOutlet var chatTotalNumberOfSlots:UILabel?
+    
     var param = [String:Any]()
     var successHandler:(()->())?
     
@@ -58,11 +61,9 @@ class SessionChatInfoRootView:ExtendedView{
         super.viewDidLayout()
        
         self.priceField?.textField?.doneAccessory = true
+        self.priceField?.isCompleteBorderAllow = true
         initializeVariable()
-        
     }
-    
-
     
     func initializeVariable(){
   
@@ -125,7 +126,7 @@ class SessionChatInfoRootView:ExtendedView{
             sender.backgroundColor = UIColor(hexString: "#E1E4E6")
             self.slotSelected = .thirty
         }
-        //initializeChatCalculator()
+        paintChatCalculator()
     }
     
     @IBAction func isAllowedForSelfieAction(sender:UIButton){
@@ -178,7 +179,6 @@ class SessionChatInfoRootView:ExtendedView{
             param["duration"] = 2
         }
         if slotSelected == .three{
-            
             param["duration"] = 3
         }
         if slotSelected == .five{
@@ -193,18 +193,12 @@ class SessionChatInfoRootView:ExtendedView{
         if slotSelected == .thirty{
             param["duration"] = 30
         }
-        
-        //Calculating the price for one hour
-        
+        //Calculating the price for one hour        
         param["price"] = priceField?.textField?.text
-        
         if isSocialSelfieAllowed == .yes{
-            
             param["screenshotAllow"] = "automatic"
         }
-        
         for (key,value) in self.param{
-            
             param[key] = value
         }
         return param
@@ -242,23 +236,68 @@ class SessionChatInfoRootView:ExtendedView{
     
     func paintChatCalculator(){
       
-        Log.echo(key: "yud", text: "Calculator response is \(param)")
+        //Log.echo(key: "yud", text: "Calculator response is \(param)")
+        var totalSlots = 0
+        var totalMinutesOfChat = 0
+        var singleChatMinutes = 0
+        let currentParams = getParameter()
+      
+        //Log.echo(key: "yud", text: "Calculator duration is \(currentParams) and the duration is \(currentParams["duration"] as? Int)Type is \(self.controller?.selectedDurationType)")
         
-//        guar
-//
-//
-//
-//        case thirtyMin = 0
-//        case oneHour = 1
-//        case oneAndhour = 2
-//        case twohour = 3
-//        case none = 4
-//        if self.controller?.selectedDurationType{
-//
-//        }
+        if let durate = currentParams["duration"] as? Int{
+            singleChatMinutes = durate
+            if let durationType =  currentParams["selectedHourSlot"] as? SessionTimeDateRootView.DurationLength {
+                
+                if durationType == .none{
+                    return
+                }
+                if durationType == .oneHour{
+                   
+                    totalMinutesOfChat = 60
+                    totalSlots = 60/durate
+                }
+                if durationType == .twohour{
+                  
+                    totalMinutesOfChat = 120
+                    totalSlots = 120/durate
+                }
+                if durationType == .thirtyMin{
+                    
+                    totalMinutesOfChat = 30
+                    totalSlots = 30/durate
+                }
+                if durationType == .oneAndhour{
+                    
+                    totalMinutesOfChat = 90
+                    totalSlots = 90/durate
+                }
+            }
+        }
         
+        var fontSizeTotalSlot = 24
+        var normalFont = 20
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            
+            fontSizeTotalSlot = 22
+            normalFont = 18
+        }
+        
+        if totalSlots > 0 && totalMinutesOfChat > 0 && singleChatMinutes > 0{
+          
+            Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalMinutesOfChat) and the single Chat is \(singleChatMinutes)")
+            
+            chatCalculatorLbl?.text = "\(totalMinutesOfChat) mins. / \(singleChatMinutes) mins."
+           
+            let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+            
+            let nextStr = " Available 1:1 chats"
+            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+            
+            mutableStr.append(nextAttrStr)
+            chatTotalNumberOfSlots?.attributedText = mutableStr
+        }
+        Log.echo(key: "yud", text: "total number of the slot is \(totalSlots)")
     }
-    
     
     func resetErrorStatus(){
         

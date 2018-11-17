@@ -177,7 +177,7 @@ import UIKit
             }
             if type == .eventScheduledAgainForAnalyst{
                 
-                RootControllerManager().selectEventTabWithSessions()
+                RootControllerManager().setMyTicketsScreenForNavigation()
             }
             if type == .remindForEvent{
                 

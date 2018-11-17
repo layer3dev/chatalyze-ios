@@ -58,7 +58,6 @@ class SessionTimeDateRootView:ExtendedView{
         currentZoneShowingLbl?.text = TimeZone.current.abbreviation() ?? ""
     }
     
-    
     func paintFullBorder(){
         
         dateField?.isCompleteBorderAllow = true
@@ -77,9 +76,12 @@ class SessionTimeDateRootView:ExtendedView{
     @IBAction func datePickerAction(_ sender: Any){
         
         if selectedPickerType == .date{
+            
             dateField?.textField?.text = selectedTime
         }
+        
         if selectedPickerType == .time{
+            
             startTimeField?.textField?.text = startTime
         }
     }
@@ -93,6 +95,7 @@ class SessionTimeDateRootView:ExtendedView{
         dateField?.textField?.text = selectedTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
+        
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -357,6 +360,7 @@ class SessionTimeDateRootView:ExtendedView{
         param["end"] = getEndDateForParameter()
         param["userId"] = id
         param["isFree"] = false
+        param["selectedHourSlot"] = selectedDurationType
         return param
     }
     
@@ -383,5 +387,4 @@ class SessionTimeDateRootView:ExtendedView{
         controller.param  = getParam()
         controller.selectedDurationType = self.selectedDurationType
     }
-    
 }

@@ -224,7 +224,11 @@ class SessionReviewRootView:ExtendedView{
         resetErrorlabel()
         Log.echo(key: "yud", text: "Param sending to web \(paramForUpload)")
         
-        ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
+        var requiredParamForUpload = paramForUpload
+        requiredParamForUpload["selectedHourSlot"] = nil
+        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
+        
+        ScheduleSessionRequest().save(params: requiredParamForUpload) { (success, message, response) in
          
             Log.echo(key: "yud", text: "Response in succesful event creation is \(response)")
             

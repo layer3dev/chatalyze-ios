@@ -379,12 +379,13 @@ class UserCallController: VideoCallController {
     
     func getTimeStampAfterEightSecond()->Date?{
         
-        let date = Date()
+        let date = TimerSync().getDate()
+        Log.echo(key: "yud", text: "Synced date is \(date)")
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
         calendar.locale = Locale(identifier: "en_US_POSIX")
         let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
-        let requiredDate = calendar.date(byAdding: .second, value: 8, to: calendar.date(from: components) ?? date)
+        let requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
         Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
         Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
         if let verifiedDate = requiredDate{
@@ -394,8 +395,6 @@ class UserCallController: VideoCallController {
     }
     
     private func processAutograph(){
-        
-        
         
         Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
         
@@ -513,7 +512,6 @@ class UserCallController: VideoCallController {
             self.uploadImage(image: image, completion: { (success, info) in
                 let isExpired = slotInfo?.isExpired ?? true
                 if(!success && !isExpired){
-                    
                     slotInfo?.isScreenshotSaved = false
                     slotInfo?.isSelfieTimerInitiated = false
                     SlotFlagInfo.staticScreenShotSaved = false
@@ -532,7 +530,6 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
         if(currentSlot.isFuture){
             updateCallHeaderForFuture(slot : currentSlot)
             return
