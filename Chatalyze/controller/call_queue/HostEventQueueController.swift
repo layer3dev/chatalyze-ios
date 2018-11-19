@@ -47,7 +47,6 @@ class HostEventQueueController: EventQueueController {
     override func refresh(){
         super.refresh()
         
-        Log.echo(key: "yud", text: "Refresh in the HostEventQueue is running")
         
         guard let eventInfo = self.eventInfo
             else{
@@ -57,6 +56,8 @@ class HostEventQueueController: EventQueueController {
         //&& isEventActivated
        
         if((eventInfo.isPreconnectEligible || eventInfo.isLIVE) ){
+            
+            Log.echo(key: "rotate", text: "Host Call Controllern new instance Host Event Queue Controller")
             
             guard let controller = HostCallController.instance()
                 else{
@@ -70,11 +71,15 @@ class HostEventQueueController: EventQueueController {
             
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
+            self.viewDidRelease()
             
             
-            self.navigationController?.present(controller, animated: true, completion: { [weak self] in
-                self?.navigationController?.popViewController(animated: false)
-                self?.viewDidRelease()
+            
+            self.navigationController?.present(controller, animated: true, completion: {
+                
+                self.navigationController?.popViewController(animated: false)
+                
+               
             })
         }
     }
@@ -108,5 +113,11 @@ class HostEventQueueController: EventQueueController {
             self.eventInfo = info
             self.isEventActivated = true
         }
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        updatedEventScheduleListner.setListener(listener: nil)
     }
 }

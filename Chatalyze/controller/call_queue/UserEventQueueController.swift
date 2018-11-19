@@ -157,11 +157,13 @@ class UserEventQueueController: EventQueueController {
             }
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
+            self.viewDidRelease()
             
-            self.navigationController?.present(controller, animated: true, completion: {[weak self] in
+            self.navigationController?.present(controller, animated: true, completion: {
                 
-            self?.navigationController?.popViewController(animated: false)
-            self?.viewDidRelease()
+            self.navigationController?.popViewController(animated: false)
+                
+            
             })
         }
     }

@@ -18,7 +18,7 @@ class InterfaceExtendedController : ExtendedController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended")
+        Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended -> \(self)")
         initialization()
     }
     
@@ -26,17 +26,20 @@ class InterfaceExtendedController : ExtendedController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if(isViewDidAppear){
-            return
+        DispatchQueue.main.async {
+            if(self.isViewDidAppear){
+                return
+            }
+            self.isViewDidAppear = true
+            self.viewAppeared()
         }
-        isViewDidAppear = true
-        viewAppeared()
+        
     }
     
     @objc override func viewDidRelease(){
         super.viewDidRelease()
         
-        Log.echo(key : "rotate", text : "viewDidRelease in InterfaceExtended")
+        Log.echo(key : "rotate", text : "viewDidRelease in InterfaceExtended-> \(self)")
         guard let rootView = self.view as? ExtendedRootView
             else{
                 return
@@ -46,7 +49,7 @@ class InterfaceExtendedController : ExtendedController {
     
     //singular execution of viewDidAppear
     func viewAppeared(){
-         Log.echo(key : "rotate", text : "viewAppeared in InterfaceExtended")
+         Log.echo(key : "rotate", text : "viewAppeared in InterfaceExtended-> \(self)")
     }
     
     private func initialization(){
@@ -63,7 +66,7 @@ class InterfaceExtendedController : ExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        Log.echo(key : "rotate", text : "viewWillAppear in InterfaceExtended -> isViewDidAppear -> \(isViewDidAppear)")
+        Log.echo(key : "rotate", text : "viewWillAppear in InterfaceExtended -> isViewDidAppear -> \(isViewDidAppear) -> \(self)")
         
         //:todo
         /*self.notificationBar?.count = SignedUserInfo.sharedInstance?.notificationCount ?? 0*/
@@ -232,8 +235,4 @@ extension InterfaceExtendedController : NVActivityIndicatorViewable{
     }
     
    
-    
-    
 }
-
-

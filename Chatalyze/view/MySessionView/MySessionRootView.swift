@@ -70,6 +70,7 @@ class MySessionRootView:ExtendedView{
                     return
                 }
                 
+                Log.echo(key: "rotate", text: "Host Call Controllern new instance MySessionRootView")
                 
                 guard let controller = HostCallController.instance()
                     else{

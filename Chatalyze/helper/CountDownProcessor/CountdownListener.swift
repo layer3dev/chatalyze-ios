@@ -22,7 +22,6 @@ class CountdownListener{
     }
     
     func releaseListener(){
-        
         countdownProcessor?.release(identifier: identifier)
         callbackList.removeAll()
         isReleased = true
