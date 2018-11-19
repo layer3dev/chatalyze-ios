@@ -18,6 +18,9 @@ class MediaPermissionAccess{
     }
     
     func verifyMediaAccess(callback : ((_ success : Bool)->())?){
+        
+        Log.echo(key : "rotate", text : "verifyMediaAccess")
+        
         self.callback = callback
         checkForMediaAccess { (success) in
             if(success){
@@ -33,8 +36,11 @@ class MediaPermissionAccess{
     }
     
     private func checkForMediaAccess(callback : ((_ success : Bool)->())?){
+        Log.echo(key : "rotate", text : "checkForMediaAccess")
         checkForCameraAccess { (cameraAccess) in
+            Log.echo(key : "rotate", text : "checkForCameraAccess response")
             self.checkforMicrophoneAccess(callback: { (microphoneAccess) in
+                Log.echo(key : "rotate", text : "checkforMicrophoneAccess response")
                 if(cameraAccess && microphoneAccess){
                     callback?(true)
                     return
@@ -51,6 +57,8 @@ class MediaPermissionAccess{
         
         let cameraMediaType = AVMediaType.video
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: cameraMediaType)
+        Log.echo(key : "rotate", text : "AVCaptureDevice.authorizat \(cameraAuthorizationStatus)")
+        
         switch cameraAuthorizationStatus {
         case .denied:
             callback?(false)
@@ -64,6 +72,9 @@ class MediaPermissionAccess{
         case .notDetermined:
             // Prompting user for the permission to use the camera.
             AVCaptureDevice.requestAccess(for: cameraMediaType) { granted in
+                
+                Log.echo(key : "rotate", text : "AVCaptureDevice.requestAccess( \(granted)")
+                
                 if granted {
                     callback?(true)
                     return
@@ -78,8 +89,9 @@ class MediaPermissionAccess{
     
     
     private func checkforMicrophoneAccess(callback : ((_ success : Bool)->())?){
-        
-        switch AVAudioSession.sharedInstance().recordPermission {
+        let permission = AVAudioSession.sharedInstance().recordPermission
+        Log.echo(key : "rotate", text : "VudioSession.sharedInstance( \(permission)")
+        switch permission{
         case AVAudioSession.RecordPermission.granted:
             callback?(true)
             return
@@ -88,6 +100,7 @@ class MediaPermissionAccess{
             return
         case AVAudioSession.RecordPermission.undetermined:
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
+                Log.echo(key : "rotate", text : "requestRecordPermission(( \(granted)")
                 if !granted{
                     callback?(false)
                     return
