@@ -17,6 +17,8 @@ class UserCallController: VideoCallController {
     
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
+    @IBOutlet var countDountAttrTimerLbl:UILabel?
+    
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     var isScreenshotStatusLoaded = false
@@ -454,7 +456,6 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        
         if(!isCallConnected){ return }
         
         if !(isCallStreaming){
@@ -464,7 +465,6 @@ class UserCallController: VideoCallController {
         if isHangUp{
            return
         }
-        
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -514,6 +514,7 @@ class UserCallController: VideoCallController {
             SlotFlagInfo.staticScreenShotSaved = true
             let slotInfo = self.myLiveUnMergedSlot
             self.uploadImage(image: image, completion: { (success, info) in
+                
                 let isExpired = slotInfo?.isExpired ?? true
                 if(!success && !isExpired){
                     slotInfo?.isScreenshotSaved = false
@@ -588,8 +589,32 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+    
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
+    
+    
+    private func updateNewHeaderInfoForSession(slot : SlotInfo){
+        
+        
+        guard let startDate = slot.endDate
+            else{
+                return
+        }
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        let remainingTime = "\(counddownInfo.time)"
+        var fontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 26
+        }
+        
+        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+    }
+    
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
         
@@ -990,4 +1015,9 @@ extension UserCallController:GetisHangedUpDelegate{
     func getHangUpStatus() -> Bool {
         return isHangUp || (!isCallStreaming)
     }
+}
+
+extension UserCallController{
+    
+    
 }

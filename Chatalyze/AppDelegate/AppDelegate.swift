@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
+        
         return true
     }
     
@@ -89,8 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
-     
+
         UIInterfaceOrientationMask {
+            
             if(allowRotate){
                 return .allButUpsideDown
         }

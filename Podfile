@@ -16,7 +16,6 @@ pod 'TwitterCore', '3.1.0'
 pod 'CropViewController', :git => 'https://github.com/TimOliver/TOCropViewController.git'
 
 
-
   target 'ChatalyzeTests' do
     inherit! :search_paths
     # Pods for testing

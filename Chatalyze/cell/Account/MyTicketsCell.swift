@@ -12,7 +12,7 @@ import UIKit
 import SDWebImage
 
 class MyTicketsCell: ExtendedCollectionCell {
-
+    
     @IBOutlet var mainView: UIView?
     @IBOutlet var chatnumberLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -26,14 +26,14 @@ class MyTicketsCell: ExtendedCollectionCell {
     var formattedStartDate:String?
     var fromattedEndDate:String?
     
-        override func viewDidLayout(){
+    override func viewDidLayout(){
         super.viewDidLayout()
         
         painInterface()
     }
     
     func painInterface(){
-
+        
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
         self.layer.borderWidth = 3
@@ -41,7 +41,7 @@ class MyTicketsCell: ExtendedCollectionCell {
     }
     
     func fillInfo(info:EventSlotInfo?){
-
+        
         guard let info = info else{
             return
         }
@@ -52,7 +52,7 @@ class MyTicketsCell: ExtendedCollectionCell {
     }
     
     func initializeDesiredDatesFormat(info:EventSlotInfo){
-       
+        
         _formattedEndTime = info.end
         _formattedStartTime = info.start
         self.timeLbl?.text = self.formattedStartTime
@@ -89,8 +89,6 @@ class MyTicketsCell: ExtendedCollectionCell {
             formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
         }
     }
-
-    
     
     @IBAction func jointEvent(send:UIButton?){
         
