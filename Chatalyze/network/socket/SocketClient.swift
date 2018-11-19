@@ -390,7 +390,7 @@ extension SocketClient{
         }
         
         selfListener?.confirmConnect { (success) in
-           
+            
             self.socket?.write(string: jsonString)
         }
     }

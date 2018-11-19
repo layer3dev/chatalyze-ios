@@ -10,12 +10,18 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
+    
+    //Outlet for sessioninfo
+    
+    @IBOutlet var sessionRemianingTimeLbl:UILabel?
+    @IBOutlet var sessionCurrentSlotLbl:UILabel?
+    @IBOutlet var sessionTotalSlotNumLbl:UILabel?
+    
     //For animation
     var isAnimating = false
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
-    
     
     override var isVideoCallInProgress : Bool{
         
@@ -395,6 +401,10 @@ class HostCallController: VideoCallController {
             hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
+        //Below method is implemented by Yud
+        //updateNewHeaderInfoForSession(slot : slotInfo)
+        
+        
         if(slotInfo.isFuture){
             updateCallHeaderForFuture(slot : slotInfo)
         }else{
@@ -432,6 +442,56 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
+    private func updateNewHeaderInfoForSession(slot : SlotInfo){
+        
+        guard let startDate = slot.startDate
+            else{
+                return
+        }
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
+        
+        var fontSize = 18
+        var remainingTimeFontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+            remainingTimeFontSize = 26
+        }
+        
+        //Editing For the remaining time
+
+        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        sessionRemianingTimeLbl?.attributedText = timeRemaining
+        
+        //Editing  for the current Chat
+        
+        let currentSlotText = "Chat \(currentSlot+1): "
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let slotUserName = "\(String(describing: slot.user?.firstName))"
+        
+        let slotUserNameAttrStr = slotUserName.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        currentMutatedSlotText.append(slotUserNameAttrStr)
+        sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
+        
+        //Editing for the total Chats
+        let totatlNumberOfSlotsText = "Total chats: "
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        totalAttrText.append(totalSlots)
+        
+        sessionTotalSlotNumLbl?.attributedText = totalAttrText
+    }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
         
@@ -747,46 +807,3 @@ extension HostCallController:GetisHangedUpDelegate{
     }
 }
 
-extension HostCallController{
-    
-    func updateSessionStats(){
-        
-        var timerFontSize = 18
-        var chatFontSize = 16
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            timerFontSize = 22
-            chatFontSize = 22
-        }
-        
-        let timerStr = "05:00"
-        let firstAttributedStr = timerStr.toAttributedString(font: "Poppins", size: timerFontSize, color: UIColor(hexString: "#faa579"), isUnderLine: false)
-        //timerLable?.attributedText = firstAttributedStr
-        
-        let curentChatNumber = 1
-        let chatNumber = "chat\(curentChatNumber): "
-        let chatNumberMutableStr = chatNumber.toMutableAttributedString(font: "Questrial", size:chatFontSize , color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        
-    
-        let userName = "Jordon"
-        let userAttrStr = userName.toAttributedString(font: "Poppins", size: chatFontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        chatNumberMutableStr.append(userAttrStr)
-        
-        //chatNumberLbl?.attributedText  = chatNumberMutableStr
-        
-        
-        let numberOfTotalChats = "\(12)"
-        let totalChats = "Total chats: "
-        let totalChatsMutableStr = totalChats.toMutableAttributedString(font: "Questrial", size:chatFontSize , color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        
-        
-        let numberOfTotalChatsAttrStr = numberOfTotalChats.toAttributedString(font: "Poppins", size: chatFontSize, color: UIColor(hexString: "#faa579"), isUnderLine: false)
-        
-        totalChatsMutableStr.append(numberOfTotalChatsAttrStr)
-                
-        //totalChatLbl?.attributedText  = totalChatsMutableStr
-    }
-    
-}
