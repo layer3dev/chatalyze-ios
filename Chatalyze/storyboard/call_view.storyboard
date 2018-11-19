@@ -20,7 +20,7 @@
         <!--User Call Controller-->
         <scene sceneID="CUH-cP-l1I">
             <objects>
-                <viewController storyboardIdentifier="user_video_call" automaticallyAdjustsScrollViewInsets="NO" id="69S-M1-2Z4" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="69S-M1-2Z4" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EuP-R3-z0r"/>
                         <viewControllerLayoutGuide type="bottom" id="W58-xK-9n0"/>
@@ -1289,7 +1289,7 @@
         <!--User Call Controller-->
         <scene sceneID="lsO-s1-FcF">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ddm-i3-FOl" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="user_video_call" automaticallyAdjustsScrollViewInsets="NO" id="ddm-i3-FOl" customClass="UserCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ci5-fd-cBv"/>
                         <viewControllerLayoutGuide type="bottom" id="f3n-S7-m9z"/>
@@ -1587,7 +1587,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccG-Ux-JqL">
-                                <rect key="frame" x="20" y="70" width="220" height="82"/>
+                                <rect key="frame" x="20" y="70" width="220" height="54"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session starts in:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNt-tC-RBA">
                                         <rect key="frame" x="15" y="5" width="200" height="19"/>
@@ -1598,8 +1598,8 @@
                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yi-2S-ZcF">
-                                        <rect key="frame" x="15" y="39" width="200" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yi-2S-ZcF">
+                                        <rect key="frame" x="15" y="39" width="200" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1837,6 +1837,7 @@
                     <connections>
                         <outlet property="chatalyzeLogo" destination="05F-Pn-HJb" id="dE5-pJ-WAU"/>
                         <outlet property="countDountAttrTimerLbl" destination="3yi-2S-ZcF" id="G5a-pn-MZt"/>
+                        <outlet property="futureSessionView" destination="ccG-Ux-JqL" id="ujs-sz-Gty"/>
                         <outlet property="preConnectLbl" destination="4HO-qv-0AG" id="se1-RP-zPG"/>
                         <outlet property="selfieTimerView" destination="tT6-Gm-3ac" id="8tZ-5G-RhR"/>
                     </connections>

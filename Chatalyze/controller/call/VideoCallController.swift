@@ -763,7 +763,7 @@ extension VideoCallController{
     
     func setStatusMessage(type : callStatusMessage){
         
-        if(type == .ideal){
+        if(type == .ideal || type == .preConnectedSuccess){
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
             return
@@ -806,16 +806,16 @@ extension VideoCallController{
             return
         }
         
-        if type == .preConnectedSuccess{
-            
-            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
-            
-            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-            
-            preConnectLbl?.attributedText = secondAttributedString
-            
-            return
-        }
+//        if type == .preConnectedSuccess{
+//
+//            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
+//
+//            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+//
+//            preConnectLbl?.attributedText = secondAttributedString
+//
+//            return
+//        }
         
         if type == .connected{
             

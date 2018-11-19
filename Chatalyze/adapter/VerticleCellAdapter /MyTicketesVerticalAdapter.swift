@@ -147,43 +147,44 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         
         //Verify for delay and not started
         
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-            
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
-        
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
-        
-        //End
-        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+//        //End
+//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
         
         guard let controller = UserCallController.instance()
             else{

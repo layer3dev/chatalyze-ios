@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class UserCallController: VideoCallController {
+  
     //Animation Responsible
     var isAnimating = false
     
@@ -18,6 +19,7 @@ class UserCallController: VideoCallController {
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
     @IBOutlet var countDountAttrTimerLbl:UILabel?
+    @IBOutlet var futureSessionView:UIView?
     
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
@@ -536,7 +538,8 @@ class UserCallController: VideoCallController {
                 return
         }
         if(currentSlot.isFuture){
-            updateCallHeaderForFuture(slot : currentSlot)
+            updateNewHeaderInfoForSession(slot : currentSlot)
+//            updateCallHeaderForFuture(slot : currentSlot)
             return
         }       
         updateCallHeaderForLiveCall(slot: currentSlot)
@@ -579,7 +582,10 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
-                
+        
+        userRootView?.callInfoContainer?.isHidden = false
+        futureSessionView?.isHidden = true
+        
         guard let startDate = slot.endDate
             else{
                 return
@@ -595,7 +601,9 @@ class UserCallController: VideoCallController {
     
     
     private func updateNewHeaderInfoForSession(slot : SlotInfo){
-        
+      
+        userRootView?.callInfoContainer?.isHidden = true
+        futureSessionView?.isHidden = false
         
         guard let startDate = slot.endDate
             else{
@@ -685,7 +693,7 @@ class UserCallController: VideoCallController {
     
     override func verifyScreenshotRequested(){
         
-        Log.echo(key: "yud", text: "cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
+        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
             else{

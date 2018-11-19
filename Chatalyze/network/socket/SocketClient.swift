@@ -429,10 +429,6 @@ extension SocketClient{
 extension SocketClient{
     
     
-
-    
-    
-    
     fileprivate func updateForEvent(action : String, data : JSON?) {
         
         for (_,listener) in listenerInfo {
