@@ -97,6 +97,7 @@ class VideoCallController : InterfaceExtendedController {
     override func viewAppeared(){
         super.viewAppeared()
         
+        Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
          processPermission()
     }
     
@@ -276,6 +277,8 @@ class VideoCallController : InterfaceExtendedController {
 
     
      func initialization(){
+        
+        Log.echo(key : "test", text : "who dared to initialize me ??")
 
         initializeVariable()
         audioManager = AudioManager()
