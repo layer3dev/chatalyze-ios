@@ -13,11 +13,11 @@ class HostCallController: VideoCallController {
     
     //Outlet for sessioninfo
     
-    @IBOutlet var sessionRemianingTimeLbl:UILabel?
+    @IBOutlet var sessionHeaderLbl:UILabel?
+    @IBOutlet var sessionRemainingTimeLbl:UILabel?
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
-    
     
     //For animation
     var isAnimating = false
@@ -72,7 +72,6 @@ class HostCallController: VideoCallController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         self.registerForTimerNotification()
     }
     
@@ -123,8 +122,9 @@ class HostCallController: VideoCallController {
                 self.toggleHangup()
             }
         }
+        
         controller.isDisableHangup = isDisableHangup
-       
+        
         Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         
@@ -232,16 +232,15 @@ class HostCallController: VideoCallController {
                         
                         Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
                         
-//                        guard let connection = self.getActiveConnection() else{
-//                            return
-//                        }
+                        //                        guard let connection = self.getActiveConnection() else{
+                        //                            return
+                        //                        }
                         
                         //if connection.isConnected{
                         
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
-                       
                         self.selfieTimerView?.screenShotListner = {
                             
                             self.mimicScreenShotFlash()
@@ -337,6 +336,7 @@ class HostCallController: VideoCallController {
     }
     
     private func refresh(){
+        
         refreshStreamLock()
     }
     
@@ -383,6 +383,82 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
+        guard let startDate = self.eventInfo?.startDate
+            else{
+                return
+        }
+        
+        guard let countdownInfo = startDate.countdownTimeFromNow()
+            else{
+                return
+        }
+        
+        if(!countdownInfo.isActive){
+            //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
+            updateCallHeaderAfterEventStart()
+            return
+        }
+                
+        //Below code is responsible befor the event start.
+        
+        sessionHeaderLbl?.text = "Session starts in:"
+        
+        var fontSize = 18
+        var remainingTimeFontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+            remainingTimeFontSize = 26
+        }
+        
+        //Editing For the remaining time
+        
+        let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        
+        let timeRemaining = countdownTime.toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        sessionRemainingTimeLbl?.attributedText = timeRemaining
+        
+        
+        //Editing  for the current Chat
+        
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
+        
+        if slotCount <= 0{
+         
+            //This info will only be show if slots are greater than one.
+            return
+        }
+        
+        let currentSlotText = "Chat \(currentSlot+1): "
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        var username = ""
+        if let slotUserName = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
+            username = slotUserName
+        }
+        
+        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        currentMutatedSlotText.append(slotUserNameAttrStr)
+        sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
+        
+        //Editing for the total Chats
+        let totatlNumberOfSlotsText = "Total chats: "
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        totalAttrText.append(totalSlots)
+        
+        sessionTotalSlotNumLbl?.attributedText = totalAttrText
+        
+    }
+    
+    private func updateCallHeaderAfterEventStart(){
+        
+        //Above code is responsible for handling the status if event is not started yet.
+        
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
@@ -393,6 +469,7 @@ class HostCallController: VideoCallController {
             if array.count >= 1{
                 
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
+                
             }else{
                 
                 hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
@@ -405,12 +482,14 @@ class HostCallController: VideoCallController {
         //Below method is implemented by Yud
         //updateNewHeaderInfoForSession(slot : slotInfo)
         
-        
         if(slotInfo.isFuture){
             
+            updateTimeRamaingCallHeaderForUpcomingSlot()
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
             //updateCallHeaderForFuture(slot : slotInfo)
         }else{
+            
+            updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
     }
@@ -420,12 +499,30 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
+        sessionRemainingTimeLbl?.text = ""
+        sessionCurrentSlotLbl?.text = ""
+        sessionTotalSlotNumLbl?.text = ""
+        sessionHeaderLbl?.text = ""
+        
     }
     
-    private func updateCallHeaderForLiveCall(slot : SlotInfo){
+    private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
-        hostRootView?.callInfoContainer?.isHidden = false
-        sessionSlotView?.isHidden = true
+        hostRootView?.callInfoContainer?.slotUserName?.text = ""
+        hostRootView?.callInfoContainer?.timer?.text = ""
+        hostRootView?.callInfoContainer?.slotCount?.text = ""
+    }
+    
+    private func updateFutureCallHeaderForEmptySlot(){
+        
+        sessionRemainingTimeLbl?.text = ""
+        sessionCurrentSlotLbl?.text = ""
+        sessionTotalSlotNumLbl?.text = ""
+        sessionHeaderLbl?.text = ""
+    }
+    
+    
+    private func updateCallHeaderForLiveCall(slot : SlotInfo){
         
         guard let startDate = slot.endDate
             else{
@@ -436,6 +533,8 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
+        
+        Log.echo(key: "yud", text: "updating the live call")
         
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
         
@@ -572,7 +671,6 @@ class HostCallController: VideoCallController {
             }
         }
     }
-    
     
     private func preconnectUser(){
         
@@ -764,11 +862,8 @@ extension HostCallController:GetisHangedUpDelegate{
 
 
 extension HostCallController{
-  
+    
     private func updateNewHeaderInfoForFutureSession(slot : SlotInfo){
-        
-        hostRootView?.callInfoContainer?.isHidden = true
-        sessionSlotView?.isHidden = false
         
         guard let startDate = slot.startDate
             else{
@@ -779,6 +874,8 @@ extension HostCallController{
             else{
                 return
         }
+        
+        sessionHeaderLbl?.text = "Chat starts in:"
         
         let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
@@ -794,7 +891,7 @@ extension HostCallController{
         
         let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
-        sessionRemianingTimeLbl?.attributedText = timeRemaining
+        sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
         

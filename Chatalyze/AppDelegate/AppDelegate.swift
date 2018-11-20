@@ -31,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
-        
         return true
     }
     

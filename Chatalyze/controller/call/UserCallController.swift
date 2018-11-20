@@ -20,6 +20,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     @IBOutlet var countDountAttrTimerLbl:UILabel?
     @IBOutlet var futureSessionView:UIView?
+    @IBOutlet var futureSessionHeaderLbl:UILabel?
     
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
@@ -251,8 +252,7 @@ class UserCallController: VideoCallController {
             if(self?.socketClient == nil){
                 return
             }
-            self?.processHangupEvent(data : json)
-            
+            self?.processHangupEvent(data : json)            
         })
     }
     
@@ -538,6 +538,7 @@ class UserCallController: VideoCallController {
                 return
         }
         if(currentSlot.isFuture){
+            
             updateNewHeaderInfoForSession(slot : currentSlot)
 //            updateCallHeaderForFuture(slot : currentSlot)
             return
@@ -1007,7 +1008,7 @@ extension UserCallController{
         userRootView?.callInfoContainer?.isHidden = true
         futureSessionView?.isHidden = false
         
-        guard let startDate = slot.endDate
+        guard let startDate = slot.startDate
             else{
                 return
         }
@@ -1022,6 +1023,8 @@ extension UserCallController{
         if  UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 26
         }
+        
+        futureSessionHeaderLbl?.text = "Chat starts in:"
         
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }

@@ -162,8 +162,6 @@ class UserEventQueueController: EventQueueController {
             self.navigationController?.present(controller, animated: true, completion: {
                 
             self.navigationController?.popViewController(animated: false)
-                
-            
             })
         }
     }

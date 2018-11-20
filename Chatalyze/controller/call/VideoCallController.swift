@@ -73,7 +73,6 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if UIDevice.current.userInterfaceIdiom == .pad{
        
             self.fontSizeBig = 24
@@ -81,7 +80,6 @@ class VideoCallController : InterfaceExtendedController {
           
             self.fontSizeBig = 22
         }
-        
         // Do any additional setup after loading the view.
     }
     
@@ -89,6 +87,7 @@ class VideoCallController : InterfaceExtendedController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
+           
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
@@ -421,6 +420,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func initializeVariable(){
+        
         appDelegate?.allowRotate = true
         lastPresentingController = self.presentingViewController
         
@@ -505,8 +505,8 @@ extension VideoCallController{
 }
 
 extension VideoCallController{
+    
     func startCallRing(){
-
     }
     
     func acceptCallUpdate(){
@@ -531,6 +531,7 @@ extension VideoCallController{
             else{
                 return
         }
+
         if(showLoader){
             self.showLoader()
         }
@@ -777,8 +778,6 @@ extension VideoCallController{
             self.hidePreConnectLabel()
             return
         }
-        
-        
         
         self.hideChatalyzeLogo()
         self.showPreConnectLabel()
