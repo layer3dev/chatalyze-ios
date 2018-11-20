@@ -90,6 +90,7 @@ class EventQueueController: InterfaceExtendedController {
         
         eventSlotListener.setListener(listener: nil)
         countdownListener.releaseListener()
+//        socketClient?.disconnect()
     }
     
     

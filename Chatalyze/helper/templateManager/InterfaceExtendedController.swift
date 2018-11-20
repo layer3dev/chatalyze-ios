@@ -12,28 +12,31 @@ import NVActivityIndicatorView
 class InterfaceExtendedController : ExtendedController {
     
     var disableBack : Bool = false
-    var viewDidAppear : Bool = false
+    private var isViewDidAppear : Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended")
         initialization()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if(viewDidAppear){
+        
+        if(isViewDidAppear){
             return
         }
-        viewDidAppear = true
+        isViewDidAppear = true
         viewAppeared()
     }
     
     @objc override func viewDidRelease(){
         super.viewDidRelease()
         
-        Log.echo(key: "release", text: "viewDidRelease -> InterfaceExtended")
+        Log.echo(key : "rotate", text : "viewDidRelease in InterfaceExtended")
         guard let rootView = self.view as? ExtendedRootView
             else{
                 return
@@ -43,6 +46,7 @@ class InterfaceExtendedController : ExtendedController {
     
     //singular execution of viewDidAppear
     func viewAppeared(){
+         Log.echo(key : "rotate", text : "viewAppeared in InterfaceExtended")
     }
     
     private func initialization(){
@@ -58,6 +62,8 @@ class InterfaceExtendedController : ExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        Log.echo(key : "rotate", text : "viewWillAppear in InterfaceExtended -> isViewDidAppear -> \(isViewDidAppear)")
         
         //:todo
         /*self.notificationBar?.count = SignedUserInfo.sharedInstance?.notificationCount ?? 0*/
