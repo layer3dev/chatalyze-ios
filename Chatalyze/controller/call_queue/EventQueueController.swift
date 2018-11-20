@@ -46,6 +46,7 @@ class EventQueueController: InterfaceExtendedController {
         paintInterface()
         registerForEvent()
         registerForTimer()
+        
         loadInfoFromServer(showLoader : true)
         listenOnSocketConnect()
         startSync()
