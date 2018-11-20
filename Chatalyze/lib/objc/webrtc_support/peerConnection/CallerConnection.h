@@ -8,7 +8,6 @@
 
 #import "ARDAppClient.h"
 
-
 @interface CallerConnection : ARDAppClient
 
 - (void)initiateCall ;

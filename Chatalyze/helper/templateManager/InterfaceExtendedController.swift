@@ -224,10 +224,6 @@ extension InterfaceExtendedController : NVActivityIndicatorViewable{
         
         self.stopAnimating()
     }
-    
-   
-    
-    
 }
 
 

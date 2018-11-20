@@ -542,7 +542,7 @@
         <!--Host Call Controller-->
         <scene sceneID="MlE-Lx-eIT">
             <objects>
-                <viewController storyboardIdentifier="host_video_call" automaticallyAdjustsScrollViewInsets="NO" id="yIB-kd-klD" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yIB-kd-klD" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lG8-qq-gzL"/>
                         <viewControllerLayoutGuide type="bottom" id="LNz-ky-YSt"/>
@@ -1849,7 +1849,7 @@
         <!--Host Call Controller-->
         <scene sceneID="zgB-UX-4on">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="IXy-HW-q26" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="host_video_call" automaticallyAdjustsScrollViewInsets="NO" id="IXy-HW-q26" customClass="HostCallController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cTq-Z8-3Fe"/>
                         <viewControllerLayoutGuide type="bottom" id="BAW-EJ-MS8"/>
@@ -1988,19 +1988,19 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIh-yb-NX5">
-                                <rect key="frame" x="0.0" y="60" width="260" height="163"/>
+                                <rect key="frame" x="0.0" y="60" width="260" height="86"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session starts in:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oWI-u0-xS9">
-                                        <rect key="frame" x="15" y="5" width="240" height="19"/>
-                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
+                                        <rect key="frame" x="15" y="5" width="240" height="21"/>
+                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                         <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="22"/>
+                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sw-Jz-egg">
-                                        <rect key="frame" x="15" y="39" width="240" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sw-Jz-egg">
+                                        <rect key="frame" x="15" y="41" width="240" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                         <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2009,51 +2009,19 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dnj-2B-o0s">
-                                        <rect key="frame" x="15" y="82" width="230" height="25.5"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Chat 1:  Jordon">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="18" name="Poppins-SemiBold"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <rect key="frame" x="15" y="56" width="230" height="0.0"/>
+                                        <attributedString key="attributedText"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <attributedString key="attributedText">
-                                                <fragment content="Chat 1:  Jordon">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="20" name="Poppins-SemiBold"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <attributedString key="attributedText"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsK-C9-uKo">
-                                        <rect key="frame" x="15" y="117.5" width="240" height="25.5"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Total chats: 12">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" size="18" name="Poppins-SemiBold"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                        <rect key="frame" x="15" y="66" width="240" height="0.0"/>
+                                        <attributedString key="attributedText"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <attributedString key="attributedText">
-                                                <fragment content="Total chats: 12">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="20" name="Poppins-SemiBold"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <attributedString key="attributedText"/>
                                         </variation>
                                     </label>
                                 </subviews>
@@ -2443,6 +2411,7 @@
                         <outlet property="selfieTimerView" destination="eeA-KO-1SA" id="Cfu-Qn-r9q"/>
                         <outlet property="sessionCurrentSlotLbl" destination="dnj-2B-o0s" id="IsM-Fs-vIP"/>
                         <outlet property="sessionRemianingTimeLbl" destination="0Sw-Jz-egg" id="2PS-m5-5LJ"/>
+                        <outlet property="sessionSlotView" destination="AIh-yb-NX5" id="bsX-Fv-Wt5"/>
                         <outlet property="sessionTotalSlotNumLbl" destination="fsK-C9-uKo" id="2OY-Ir-VdR"/>
                     </connections>
                 </viewController>

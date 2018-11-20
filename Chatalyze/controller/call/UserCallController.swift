@@ -600,30 +600,6 @@ class UserCallController: VideoCallController {
     }
     
     
-    private func updateNewHeaderInfoForSession(slot : SlotInfo){
-      
-        userRootView?.callInfoContainer?.isHidden = true
-        futureSessionView?.isHidden = false
-        
-        guard let startDate = slot.endDate
-            else{
-                return
-        }
-        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
-            else{
-                return
-        }
-        
-        let remainingTime = "\(counddownInfo.time)"
-        var fontSize = 20
-        if  UIDevice.current.userInterfaceIdiom == .pad{
-            fontSize = 26
-        }
-        
-        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
-    }
-    
-    
     private func updateCallHeaderForFuture(slot : SlotInfo){
         
         guard let startDate = slot.startDate
@@ -954,7 +930,6 @@ extension UserCallController{
     
     func registerForAutographListener(){
         
-
         socketListener?.onEvent("startedSigning", completion: { (json) in
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
@@ -1027,5 +1002,27 @@ extension UserCallController:GetisHangedUpDelegate{
 
 extension UserCallController{
     
-    
+    private func updateNewHeaderInfoForSession(slot : SlotInfo){
+        
+        userRootView?.callInfoContainer?.isHidden = true
+        futureSessionView?.isHidden = false
+        
+        guard let startDate = slot.endDate
+            else{
+                return
+        }
+                
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        let remainingTime = "\(counddownInfo.time)"
+        var fontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 26
+        }
+        
+        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+    }
 }

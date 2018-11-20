@@ -185,19 +185,14 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
 //            return
 //        }
 //
-        
         guard let controller = UserCallController.instance()
             else{
                 return
         }
-        
         controller.feedbackListener = {(eventInfo) in
-            
             self.root?.refreshData()
         }
-        
         controller.eventId = String(eventId)
-        
         self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     

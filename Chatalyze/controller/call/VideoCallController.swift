@@ -496,11 +496,10 @@ class VideoCallController : InterfaceExtendedController {
 }
 
 
-
 //actionButtons
+
 extension VideoCallController{
 }
-
 
 extension VideoCallController{
     func startCallRing(){
@@ -790,7 +789,7 @@ extension VideoCallController{
         
         if type == .userDidNotJoin{
           
-            let firstStr = (roomType == .user) ? "Host " : "Participant"
+            let firstStr = (roomType == .user) ? "Host" : "Participant"
             
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             

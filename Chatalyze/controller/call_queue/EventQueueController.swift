@@ -243,8 +243,7 @@ extension EventQueueController{
             completion?(true)
             return
         }
-    }
-    
+    }    
 }
 
 

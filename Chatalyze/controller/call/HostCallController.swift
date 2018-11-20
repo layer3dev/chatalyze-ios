@@ -16,6 +16,8 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionRemianingTimeLbl:UILabel?
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
+    @IBOutlet var sessionSlotView:UIView?
+    
     
     //For animation
     var isAnimating = false
@@ -66,8 +68,6 @@ class HostCallController: VideoCallController {
         
         showFeedbackScreen()
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -124,6 +124,7 @@ class HostCallController: VideoCallController {
             }
         }
         controller.isDisableHangup = isDisableHangup
+       
         Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         
@@ -240,6 +241,7 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
+                       
                         self.selfieTimerView?.screenShotListner = {
                             
                             self.mimicScreenShotFlash()
@@ -303,8 +305,6 @@ class HostCallController: VideoCallController {
                 setStatusMessage(type: .ideal)
                 return
         }
-        
-        
         
         if(!isSocketConnected){
             setStatusMessage(type: .ideal)
@@ -389,15 +389,16 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        
-        
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
+                
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
             }else{
+                
                 hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
             }
         }else{
+            
             hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
@@ -406,7 +407,9 @@ class HostCallController: VideoCallController {
         
         
         if(slotInfo.isFuture){
-            updateCallHeaderForFuture(slot : slotInfo)
+            
+            updateNewHeaderInfoForFutureSession(slot : slotInfo)
+            //updateCallHeaderForFuture(slot : slotInfo)
         }else{
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
@@ -420,6 +423,9 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
+        
+        hostRootView?.callInfoContainer?.isHidden = false
+        sessionSlotView?.isHidden = true
         
         guard let startDate = slot.endDate
             else{
@@ -440,57 +446,6 @@ class HostCallController: VideoCallController {
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
         hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
-    }
-    
-    private func updateNewHeaderInfoForSession(slot : SlotInfo){
-        
-        guard let startDate = slot.startDate
-            else{
-                return
-        }
-        
-        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
-            else{
-                return
-        }
-        
-        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
-        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
-        
-        var fontSize = 18
-        var remainingTimeFontSize = 20
-        if  UIDevice.current.userInterfaceIdiom == .pad{
-            fontSize = 24
-            remainingTimeFontSize = 26
-        }
-        
-        //Editing For the remaining time
-
-        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
-        
-        sessionRemianingTimeLbl?.attributedText = timeRemaining
-        
-        //Editing  for the current Chat
-        
-        let currentSlotText = "Chat \(currentSlot+1): "
-        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        let slotUserName = "\(String(describing: slot.user?.firstName))"
-        
-        let slotUserNameAttrStr = slotUserName.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        currentMutatedSlotText.append(slotUserNameAttrStr)
-        sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
-        
-        //Editing for the total Chats
-        let totatlNumberOfSlotsText = "Total chats: "
-        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-        
-        totalAttrText.append(totalSlots)
-        
-        sessionTotalSlotNumLbl?.attributedText = totalAttrText
     }
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
@@ -807,3 +762,63 @@ extension HostCallController:GetisHangedUpDelegate{
     }
 }
 
+
+extension HostCallController{
+  
+    private func updateNewHeaderInfoForFutureSession(slot : SlotInfo){
+        
+        hostRootView?.callInfoContainer?.isHidden = true
+        sessionSlotView?.isHidden = false
+        
+        guard let startDate = slot.startDate
+            else{
+                return
+        }
+        
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
+        
+        var fontSize = 18
+        var remainingTimeFontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+            remainingTimeFontSize = 26
+        }
+        
+        //Editing For the remaining time
+        
+        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        sessionRemianingTimeLbl?.attributedText = timeRemaining
+        
+        //Editing  for the current Chat
+        
+        let currentSlotText = "Chat \(currentSlot+1): "
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        var username = ""
+        if let slotUserName = slot.user?.firstName{
+            username = slotUserName
+        }
+        
+        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        currentMutatedSlotText.append(slotUserNameAttrStr)
+        sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
+        
+        //Editing for the total Chats
+        let totatlNumberOfSlotsText = "Total chats: "
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        totalAttrText.append(totalSlots)
+        
+        sessionTotalSlotNumLbl?.attributedText = totalAttrText
+    }
+}
