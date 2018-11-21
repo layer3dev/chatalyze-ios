@@ -13,7 +13,6 @@ class HostCallFetch{
     
     public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : EventInfo?)->())){
         
-       //dev.chatalyze.com/api/schedules/calls/all?include=callbookings&start=2018-03-29T00:00:00%2B05:30&userId=28
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/all"
         
         guard let userId = SignedUserInfo.sharedInstance?.id

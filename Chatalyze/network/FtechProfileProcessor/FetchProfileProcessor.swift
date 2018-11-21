@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class FetchProfileProcessor{
     
-    //https://dev.chatalyze.com/api/users/50
     public func fetch( completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
         var url = AppConnectionConfig.webServiceURL + "/users/"

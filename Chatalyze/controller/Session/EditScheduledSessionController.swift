@@ -24,6 +24,11 @@ class EditScheduledSessionController: InterfaceExtendedController {
         }
     }
     
+    @IBAction func doneEditingAction(sender:UIButton?){
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
        
@@ -34,6 +39,13 @@ class EditScheduledSessionController: InterfaceExtendedController {
         super.viewWillAppear(animated)
         
         paintNavigationTitle(text: "Edit Schedule Session")
+        hideNavigationBar()
+    }
+ 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+     
+        showNavigationBar()
     }
     
     func paintIntreface(){

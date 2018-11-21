@@ -13,7 +13,6 @@ class SubmitPaypalEmailProcessor{
     
     public func save(analystId:String,email:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        //https://dev.chatalyze.com/api/paymentEmail/
         let url = AppConnectionConfig.webServiceURL + "/paymentEmail/"
         
         var params = [String : Any]()

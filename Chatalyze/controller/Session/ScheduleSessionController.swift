@@ -9,7 +9,7 @@
 import UIKit
 
 class ScheduleSessionController: InterfaceExtendedController {
-
+    
     var pageViewController:ScheduleSessionPageViewController?
     
     @IBOutlet var timeDateLbl:UILabel?
@@ -35,13 +35,27 @@ class ScheduleSessionController: InterfaceExtendedController {
         paintSettingButton()
     }
     
+    @IBAction func backButtonAction(sender:UIButton?){
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         paintNavigationTitle(text: "Schedule Session")
         initializeTapGesture()
         paintInterface()
+        hideNavigationBar()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        showNavigationBar()
+    }
+    
     
     func paintInterface(){
  

@@ -418,10 +418,9 @@ class HostCallController: VideoCallController {
         
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
-        
         //Editing  for the current Chat
-        
-        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+
+        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{

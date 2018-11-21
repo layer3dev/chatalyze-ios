@@ -10,7 +10,6 @@
 import Foundation
 import SwiftyJSON
 
-//https://dev.chatalyze.com/api/screenshots/?limit=4&offset=12&order=updatedAt&order=DESC&userId=50
 
 class MemoriesFetchProcessor{
     

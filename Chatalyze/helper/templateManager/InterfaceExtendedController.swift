@@ -93,6 +93,10 @@ class InterfaceExtendedController : ExtendedController {
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    func showNavigationBar(){
+        
+        self.navigationController?.isNavigationBarHidden = false
+    }
     
     func paintNavigationTitle(text : String?){
     

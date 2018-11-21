@@ -41,7 +41,7 @@ class CallSlotFetch{
         
         //https://chatitat.incamerasports.com/api/screenshots/?analystId=39&limit=5&offset=0
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/pagination"
-        //  https://dev.chatalyze.com/api/bookings/calls/pagination?limit=4&offset=0&removePrevious=true&start=2018-03-22T00:00:00%2B05:30&userId=9
+
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
                 completion(false, nil)

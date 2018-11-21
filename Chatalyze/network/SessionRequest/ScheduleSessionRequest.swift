@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class ScheduleSessionRequest{
     
-    //https://dev.chatalyze.com/api/schedules/calls/
     public func save(params:[String:Any], completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/"

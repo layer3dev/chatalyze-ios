@@ -10,7 +10,6 @@
 import Foundation
 import SwiftyJSON
 
-//https://dev.chatalyze.com/api/bookings/calls/pagination?limit=4&offset=0&removePrevious=true&start=2018-05-24T00:00:00%2B05:30&userId=50
 
 class FetchEventTicketsProcessor{
     

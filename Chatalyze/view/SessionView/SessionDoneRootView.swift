@@ -20,7 +20,7 @@ class SessionDoneRootView:ExtendedView{
     override func viewDidLayout() {
         super.viewDidLayout()
        
-        underLineLable()
+        //underLineLable()
         paintCalenderView()
     }
     
@@ -30,16 +30,8 @@ class SessionDoneRootView:ExtendedView{
         addToCalenderView?.layer.masksToBounds = true
         addToCalenderView?.layer.cornerRadius = 5
         addToCalenderView?.layer.borderColor = UIColor(hexString: "#999999").cgColor
-        
     }
-    
-    
-    func underLineLable(){
         
-        let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue]
-        let underlineAttributedString = NSAttributedString(string: "https://dev.chatalyze.com/sessions/Chat-Session/3459", attributes: underlineAttribute as [NSAttributedString.Key : Any])
-        underlineLabel?.attributedText = underlineAttributedString
-    }
     
     func addEventToCalendar(title: String, description: String?, startDate: Date, endDate: Date, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
         
@@ -76,18 +68,22 @@ class SessionDoneRootView:ExtendedView{
         
         addEventToCalendar(title: "Chatalyze Event", description: "Your session is officially scheduled. Now add the session to your calendar.", startDate: startDate, endDate: endDate) { (success, error) in
             
-            self.controller?.stopLoader()
-            if success{
+            DispatchQueue.main.async {
                 
-                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
-                }))
-                self.controller?.present(alert, animated: false, completion: {
-                })
+                self.controller?.stopLoader()
+                
+                if success{
+                    
+                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+                    }))
+                    self.controller?.present(alert, animated: false, completion: {
+                    })
+                    return
+                }
+                self.noPermission()
                 return
             }
-            self.noPermission()
-            return
         }
     }
     

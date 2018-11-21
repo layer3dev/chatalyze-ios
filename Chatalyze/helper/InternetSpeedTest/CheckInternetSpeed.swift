@@ -19,9 +19,6 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
     
     func testDownloadSpeedWithTimeOut(timeOut:TimeInterval,completionHandler:@escaping ((_ megabytesPerSecond: Double?, _ error: Error?)->())){
         
-       // https://dev.chatalyze.com/api/screenshots/50/url/chatalyze.png
-        //"https://speed.hetzner.de/10GB.bin"
-        
         guard let url = URL(string: "https://dev.chatalyze.com/images/small_image.jpg?version=1528457954337") else{
             Log.echo(key: "yud", text: "url is incorrect")
             return

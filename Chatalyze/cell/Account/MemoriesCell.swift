@@ -87,7 +87,7 @@ class MemoriesCell: ExtendedTableCell {
             return
         }
         
-        var url = "https://dev.chatalyze.com/api/screenshots/"
+        var url = "https://chatalyze.com/api/screenshots/"
         url = url+id
         url = url+"/url/chatalyze.png"
         

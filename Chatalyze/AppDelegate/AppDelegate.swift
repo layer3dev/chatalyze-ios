@@ -113,7 +113,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 }
                 self.getNotificationSettings()
             }
-        }else{            
+        }else{
+            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -122,11 +123,13 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-          
+            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-              
+                
                 print("Notification settings: \(settings)")
+                
                 guard settings.authorizationStatus == .authorized else { return }
+                
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }

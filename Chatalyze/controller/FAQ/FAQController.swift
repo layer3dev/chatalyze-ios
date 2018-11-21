@@ -68,6 +68,7 @@ class FAQController: InterfaceExtendedController {
         }
         
         controller.url = "https://dev.chatalyze.com/faqs/influencer/app"
+        
         controller.nameofTitle = "Influencer FAQs"
         self.navigationController?.pushViewController(controller, animated: true)
     }

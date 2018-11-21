@@ -274,11 +274,12 @@ class SessionChatInfoRootView:ExtendedView{
             }
         }
         
-        var fontSizeTotalSlot = 24
+        var fontSizeTotalSlot = 30
         var normalFont = 20
+        
         if UIDevice.current.userInterfaceIdiom == .phone{
             
-            fontSizeTotalSlot = 22
+            fontSizeTotalSlot = 26
             normalFont = 18
         }
         
@@ -286,12 +287,12 @@ class SessionChatInfoRootView:ExtendedView{
           
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalMinutesOfChat) and the single Chat is \(singleChatMinutes)")
             
-            chatCalculatorLbl?.text = "\(totalMinutesOfChat) mins. / \(singleChatMinutes) mins."
+            chatCalculatorLbl?.text = "\(totalMinutesOfChat) mins. / \(singleChatMinutes) mins. ="
            
             let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " Available 1:1 chats"
-            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+            let nextAttrStr  = nextStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr

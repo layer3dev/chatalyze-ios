@@ -60,7 +60,7 @@ class EventLandingController: InterfaceExtendedController {
             return
         }
         
-        var str = "https://dev.chatalyze.com/"
+        var str = "https://chatalyze.com/"
         str = str + "sessions/"
         str = str + (self.info?.title ?? "")
         str = str + "/"

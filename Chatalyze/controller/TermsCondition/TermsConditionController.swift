@@ -34,9 +34,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
     }
     
     func loadUrl(){
-        
-        //https://dev.chatalyze.com/terms-app"
-        
+                
         if let url = URL(string: self.url) {
 
             let requestedUrl = URLRequest(url: url as URL)

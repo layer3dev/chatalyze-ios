@@ -76,12 +76,12 @@ class EventQueueController: InterfaceExtendedController {
     func loadInfoFromServer(showLoader : Bool){
       
         fetchInfo(showLoader: showLoader) { [weak self] (success) in
+          
             if(!success){
                 return
             }
             self?.processEventInfo()
-        }
-    }
+        }    }
 
     
     override func viewDidRelease() {

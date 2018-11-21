@@ -14,7 +14,6 @@ class ScreenshotInfoFetch{
     
     public func fetchInfo(slotId : Int, completion : @escaping ((_ success : Bool, _ response : [ScreenshotInfo])->())){
         
-        //https://dev.chatalyze.com/api/bookings/3267/screenshot/
         let url = AppConnectionConfig.webServiceURL + "/bookings/\(slotId)/screenshot/"
         
         

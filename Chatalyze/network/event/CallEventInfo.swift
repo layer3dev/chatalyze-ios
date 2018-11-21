@@ -14,7 +14,6 @@ class CallEventInfo{
     
     public func fetchInfo(eventId : String, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
         
-        //https://dev.chatalyze.com/api/schedules/calls/845
         
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/\(eventId)"
         
