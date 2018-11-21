@@ -433,10 +433,30 @@ class HostCallController: VideoCallController {
         let currentSlotText = "Chat \(currentSlot+1): "
         let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
+        //new username without last name
         var username = ""
-        if let slotUserName = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
-            username = slotUserName
+        
+        if let array = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName?.components(separatedBy: " "){
+            
+            if array.count >= 1{
+                
+                username = array[0]
+                
+            }else{
+                
+                if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
+                    username  = name
+                }
+            }
+        }else{
+            
+            if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
+                username  = name
+            }
         }
+        
+        //End
+        
         
         let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
@@ -898,7 +918,29 @@ extension HostCallController{
         let currentSlotText = "Chat \(currentSlot+1): "
         let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
+        //new username without last name
         var username = ""
+        
+        if let array = slot.user?.firstName?.components(separatedBy: " "){
+            
+            if array.count >= 1{
+                
+                username = array[0]
+            }else{
+                
+                if let name = slot.user?.firstName{
+                    username  = name
+                }
+            }
+        }else{
+            
+            if let name = slot.user?.firstName{
+                username  = name
+            }
+        }
+        
+        //End
+        
         if let slotUserName = slot.user?.firstName{
             username = slotUserName
         }
@@ -909,6 +951,7 @@ extension HostCallController{
         sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
         
         //Editing for the total Chats
+        
         let totatlNumberOfSlotsText = "Total chats: "
         let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         

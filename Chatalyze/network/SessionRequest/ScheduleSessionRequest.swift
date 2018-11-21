@@ -30,7 +30,6 @@ class ScheduleSessionRequest{
         
         Log.echo(key: "yud", text: "Response in session request \(response)")
         
-        
         guard let rawInfo = response
             else{
                 completion(false, "",  nil)

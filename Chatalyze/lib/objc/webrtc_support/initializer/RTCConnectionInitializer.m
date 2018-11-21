@@ -37,6 +37,7 @@
 }
 
 -(void)initializeWebRTC{
+    
     NSDictionary *fieldTrials = @{
                                   kRTCFieldTrialH264HighProfileKey: kRTCFieldTrialEnabledValue,
                                   };

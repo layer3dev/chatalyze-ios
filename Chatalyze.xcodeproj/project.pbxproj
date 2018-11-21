@@ -20,7 +20,6 @@
 		470EEC102166201800DB705D /* PageScrollerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470EEC0F2166201800DB705D /* PageScrollerController.swift */; };
 		470F0B6A21521D1F003F8EE7 /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 470F0B6921521D1F003F8EE7 /* Welcome.storyboard */; };
 		470F0B6D21522118003F8EE7 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F0B6C21522118003F8EE7 /* WelcomeController.swift */; };
-		470F572021A444EF001C7CC5 /* AppConnectionConfigForProduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8B23020A3087000899731 /* AppConnectionConfigForProduction.swift */; };
 		47111CE62158BB3700DFBC08 /* HostDashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CE52158BB3700DFBC08 /* HostDashboardController.swift */; };
 		47111CE82158BBBA00DFBC08 /* HostDashboardRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47111CE72158BBBA00DFBC08 /* HostDashboardRootView.swift */; };
 		47111CEA2158BC3700DFBC08 /* HostDashBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47111CE92158BC3700DFBC08 /* HostDashBoard.storyboard */; };
@@ -93,6 +92,7 @@
 		475B111F210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B111E210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift */; };
 		475B1121210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1120210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift */; };
 		475E0E74212DBA24009BAA04 /* SessionDoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E0E73212DBA24009BAA04 /* SessionDoneController.swift */; };
+		475E9ACB21A530950012EDB5 /* AppConnectioConfigForDev.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8B22F20A3086E00899731 /* AppConnectioConfigForDev.swift */; };
 		47614F72213A919C00CC9702 /* SessionRequestWithImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F71213A919C00CC9702 /* SessionRequestWithImageProcessor.swift */; };
 		47614F74213AB47E00CC9702 /* MySessions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47614F73213AB47E00CC9702 /* MySessions.storyboard */; };
 		47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F76213AB9B500CC9702 /* MyScheduledSessionsController.swift */; };
@@ -4048,6 +4048,7 @@
 				4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */,
 				47B6526B20AAB43B0041496C /* SignupProcessor.swift in Sources */,
 				FA74B13420639B6400983141 /* ARDStatsBuilder.m in Sources */,
+				475E9ACB21A530950012EDB5 /* AppConnectioConfigForDev.swift in Sources */,
 				FAD2017F207615730004E10E /* CanvasInfo.swift in Sources */,
 				FAA001B1203ED472003C8A74 /* ExtendedView.swift in Sources */,
 				FAA001AA203ED472003C8A74 /* CircularImageView.swift in Sources */,
@@ -4131,7 +4132,6 @@
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
 				4732C03B217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift in Sources */,
 				47B90E7C21466E11004BA7A0 /* SavedCardsAdapter.swift in Sources */,
-				470F572021A444EF001C7CC5 /* AppConnectionConfigForProduction.swift in Sources */,
 				47B6522120AAAF680041496C /* Signupview.swift in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,
@@ -4453,7 +4453,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4469,7 +4469,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4486,7 +4486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -4502,7 +4502,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

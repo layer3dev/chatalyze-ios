@@ -40,6 +40,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     }
     
     func updateScrollViewWithTable(height:CGFloat){
+        
         Log.echo(key: "yud", text: "The height of the table is calling in inherited class \(height)")
     }
     

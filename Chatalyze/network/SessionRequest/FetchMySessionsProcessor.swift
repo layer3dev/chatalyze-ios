@@ -20,7 +20,7 @@ class FetchMySessionsProcessor{
         
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/all"
         var param:[String:Any] = [String:Any]()
-        param["isTestAccount"] = false
+        //param["isTestAccount"] = false
         param["include"] = "callbookings"
         param["start"] = newdate
         param["userId"] = id
@@ -29,7 +29,6 @@ class FetchMySessionsProcessor{
         param["offset"] = 0
         
 //        include=callbookings&limit=5&offset=0&removePrevious=true&start=2018-09-03T00:00:00%2B05:30&userId=36
-        
         
         Log.echo(key: "yud", text: "Url is My sessions fetching \(url)")
         Log.echo(key: "yud", text: "Param are  My sessions fetching \(param)")
