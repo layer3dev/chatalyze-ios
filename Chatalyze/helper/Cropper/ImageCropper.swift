@@ -14,6 +14,7 @@ class ImageCropper:NSObject, UIImagePickerControllerDelegate,UINavigationControl
     private var imagePicker = UIImagePickerController()
     private var controller:UIViewController?
     var getCroppedImage:((UIImage)->())?
+    var isOnlySquare = false
     
     override init() {
         super.init()
@@ -57,9 +58,14 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 
                 Log.echo(key: "yud", text: "selected image is")
                 let cropViewController = CropViewController(image: chosenImage)
+                if self.isOnlySquare{
+                    
+                    cropViewController.aspectRatioPreset = TOCropViewControllerAspectRatioPreset.presetSquare
+                    cropViewController.aspectRatioLockEnabled = true
+                    cropViewController.aspectRatioPickerButtonHidden = true
+                }
                 cropViewController.delegate = self
                 cropViewController.modalPresentationStyle = UIModalPresentationStyle.currentContext
-                
                 self.controller?.dismiss(animated: true, completion: {
                     self.controller?.present(cropViewController, animated: true, completion: nil)
                 })

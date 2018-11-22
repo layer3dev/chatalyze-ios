@@ -54,6 +54,9 @@ class SessionChatInfoRootView:ExtendedView{
     @IBOutlet var chatCalculatorLbl:UILabel?
     @IBOutlet var chatTotalNumberOfSlots:UILabel?
     
+    @IBOutlet var earningFormulaLbl:UILabel?
+    @IBOutlet var totalEarningLabel:UILabel?
+    
     var param = [String:Any]()
     var successHandler:(()->())?
     
@@ -70,6 +73,12 @@ class SessionChatInfoRootView:ExtendedView{
         scrollView?.bottomContentOffset = scrollContentBottonOffset
         priceField?.textField?.delegate = self
         priceField?.textField?.keyboardType = UIKeyboardType.numberPad
+        //priceField?.textField?.addTarget(self, action: "textFieldDidChange:", for: UIControl.Event.EditingChanged)
+        priceField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        paintMaximumEarningCalculator()
     }
     
     func resetDurationSelection(){
@@ -232,11 +241,122 @@ class SessionChatInfoRootView:ExtendedView{
         Log.echo(key: "yud", text: "Params are \(getParameter())")
         controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
         paintChatCalculator()
+        paintMaximumEarningCalculator()
+    }
+    
+    func paintMaximumEarningCalculator(){
+        
+        guard let price = Int(priceField?.textField?.text ?? "0") else{
+            resetEarningCalculator()
+            return
+        }
+        if price > 9999{
+            return
+        }
+        
+        if price == 0{            
+            resetEarningCalculator()
+            return
+        }
+        
+        var totalSlots = 0
+        var totalMinutesOfChat = 0
+        var singleChatMinutes = 0
+        let currentParams = getParameter()
+        
+        if let durate = currentParams["duration"] as? Int{
+            singleChatMinutes = durate
+            if let durationType =  currentParams["selectedHourSlot"] as? SessionTimeDateRootView.DurationLength {
+                
+                if durationType == .none{
+                    return
+                }
+                if durationType == .oneHour{
+                    
+                    totalMinutesOfChat = 60
+                    totalSlots = 60/durate
+                }
+                if durationType == .twohour{
+                    
+                    totalMinutesOfChat = 120
+                    totalSlots = 120/durate
+                }
+                if durationType == .thirtyMin{
+                    
+                    totalMinutesOfChat = 30
+                    totalSlots = 30/durate
+                }
+                if durationType == .oneAndhour{
+                    
+                    totalMinutesOfChat = 90
+                    totalSlots = 90/durate
+                }
+            }else{
+                return
+            }
+        }else{
+            return
+        }
+        
+        let priceOfSingleChat = Double(price)
+        let totalPriceOfChatwithoutTax = (priceOfSingleChat*Double(totalSlots))
+        let paypalFeeofSingleChat = ((priceOfSingleChat*2.9)/100)+(0.30)
+        let paypalFeeOfWholeChat = (paypalFeeofSingleChat*Double(totalSlots))
+        let clientShares = (totalPriceOfChatwithoutTax/10)
+        let totalSeviceFee = clientShares + paypalFeeOfWholeChat + 0.25
+        
+        let totalEarning = (totalPriceOfChatwithoutTax-totalSeviceFee)
+       // let serviceFee = totalSeviceFee
+        
+        let serviceFee = (round((totalSeviceFee*1000))/1000)      
+        
+        Log.echo(key: "yud", text: "Service fee is \(serviceFee) and the total earning is \(totalEarning) paypal fee is \(paypalFeeofSingleChat) and the cost of the single chat is \(price)")
+        
+        var fontSizeTotalSlot = 30
+        var normalFont = 20
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            
+            fontSizeTotalSlot = 26
+            normalFont = 18
+        }
+        
+        let calculatorStr = "\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
+        
+        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let mutableStr  = "$\(totalEarning)".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        earningFormulaLbl?.attributedText = calculateAttrStr
+        totalEarningLabel?.attributedText = mutableStr
+        //chatTotalNumberOfSlots?.attributedText = mutableStr
+    }
+    
+    func resetEarningCalculator(){
+        
+        var fontSizeTotalSlot = 30
+        var normalFont = 20
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            
+            fontSizeTotalSlot = 26
+            normalFont = 18
+        }
+        
+        let calculatorStr = "(\(0) chats * $\(0) per chat) - $\(0) ="
+        
+        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        
+        let mutableStr  = "$\(0)".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        earningFormulaLbl?.attributedText = calculateAttrStr
+        totalEarningLabel?.attributedText = mutableStr
     }
     
     func paintChatCalculator(){
       
         //Log.echo(key: "yud", text: "Calculator response is \(param)")
+        
         var totalSlots = 0
         var totalMinutesOfChat = 0
         var singleChatMinutes = 0
@@ -374,6 +494,9 @@ extension Dictionary {
 
 extension SessionChatInfoRootView:UITextFieldDelegate{
     
+
+    
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         scrollView?.activeField = priceField
@@ -388,7 +511,7 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if (((textField.text?.count) ?? 0)+(string.count)) > 7{
+        if (((textField.text?.count) ?? 0)+(string.count)) > 4{
             return false
         }
         if string == ""{

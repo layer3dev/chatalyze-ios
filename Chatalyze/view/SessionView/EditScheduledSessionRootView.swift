@@ -13,6 +13,7 @@ import UIKit
 class EditScheduledSessionRootView:ExtendedView{
     
     let imagePicker = UIImagePickerController()
+    let cropper = ImageCropper()
     
     var controller:EditScheduledSessionController?
     
@@ -114,6 +115,7 @@ class EditScheduledSessionRootView:ExtendedView{
     func paintInerface(){
     
         //paintImageUploadBorder()
+        paintEditChangeImagelbl()
         
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
@@ -122,7 +124,7 @@ class EditScheduledSessionRootView:ExtendedView{
     
     func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
         
-        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
+//        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
         
         guard let info = info else {
             return
@@ -298,16 +300,16 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBAction func uploadImage(sender:UIButton?){
         
         
-
+        cropper.show(controller: self.controller)
         
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        
-        self.controller?.present(imagePicker, animated: true, completion: {
-           
-        })
+//        imagePicker.allowsEditing = false
+//        imagePicker.sourceType = .photoLibrary
+//        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+//        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//
+//        self.controller?.present(imagePicker, animated: true, completion: {
+//
+//        })
         //imagePicker.popoverPresentationController?. = sender
     }
     
@@ -363,6 +365,34 @@ class EditScheduledSessionRootView:ExtendedView{
         scrollView?.bottomContentOffset = contentBottomOffsetConstraints
         sessionNameField?.textField?.delegate = self
         descriptionTextView?.delegate = self
+        initializeCropper()
+    }
+    
+    
+    func initializeCropper(){
+       
+        cropper.isOnlySquare = true
+        cropper.getCroppedImage = {(croppedImage) in
+           
+            self.uploadedImage?.contentMode = .scaleAspectFit
+            self.uploadedImage?.image = croppedImage
+            self.selectedImage = croppedImage
+            self.delegate?.selectedImage(image:self.selectedImage)
+            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        }
+    }
+    
+    
+    func paintEditChangeImagelbl(){
+        
+        var fontSize = 15
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 18
+        }
+        
+        let text = "Change picture"
+        editImageLbl?.attributedText = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#Faa579"), isUnderLine: true)
     }
     
     func implementGestureOnEditSessionName(){

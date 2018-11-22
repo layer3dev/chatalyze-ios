@@ -73,8 +73,9 @@ class PaymentListingInfo: NSObject {
         
         get{
             return DateParser.convertDateToDesiredFormat(date: _date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy h:mm:ss a")
-            //Jan 16, 2018 5:51:48 PM
-           //EE, MMM dd h:mm
+           
+            //Jan 16, 2018 5:51:48 PM           
+            //EE, MMM dd h:mm
         }
     }
 }

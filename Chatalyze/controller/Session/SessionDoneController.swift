@@ -9,7 +9,6 @@
 import UIKit
 
 class SessionDoneController: InterfaceExtendedController {
-
     
     @IBOutlet var linkLbl:UILabel?
     var delegate:SessionDoneControllerProtocol?
@@ -73,6 +72,32 @@ class SessionDoneController: InterfaceExtendedController {
         }
         let attrStr = str.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#faa579"), isUnderLine: true)
         linkLbl?.attributedText  = attrStr
+        
+        let linkGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnLink))
+      
+        linkGesture.delegate = self
+        
+        self.linkLbl?.addGestureRecognizer(linkGesture)
+        
+    }
+    
+    @objc func tapOnLink(recognizer:UITapGestureRecognizer){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        
+        var str = "https://chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.eventInfo?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        
+        if let url = URL(string: str){          
+            UIApplication.shared.open(url, options: [:])
+        }
     }
     
     
