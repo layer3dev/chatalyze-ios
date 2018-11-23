@@ -94,9 +94,15 @@ extension SigninRootView{
         
         if(emailField?.textField?.text == ""){
             
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required")
             return false
         }
+        
+        if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
+            emailField?.showError(text: "Email looks incorrect !")
+            return false
+        }
+        
         emailField?.resetErrorStatus()
         return true
     }
@@ -105,7 +111,7 @@ extension SigninRootView{
         
         if(passwordField?.textField?.text == ""){
             
-            passwordField?.showError(text: "Password field can't be left empty !")
+            passwordField?.showError(text: "Email is required")
             return false
         }
         passwordField?.resetErrorStatus()

@@ -58,6 +58,7 @@ class MenuCell: ExtendedTableCell {
         
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
+                
                 if selectedIndexName == "My Sessions"{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }

@@ -136,6 +136,7 @@ class SessionChatInfoRootView:ExtendedView{
             self.slotSelected = .thirty
         }
         paintChatCalculator()
+        paintMaximumEarningCalculator()
     }
     
     @IBAction func isAllowedForSelfieAction(sender:UIButton){
@@ -228,9 +229,9 @@ class SessionChatInfoRootView:ExtendedView{
         }
         controller.param = getParameter()
         controller.selectedDurationType = (self.controller?.selectedDurationType) ?? (SessionTimeDateRootView.DurationLength.none)
+
         ///self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
-    
     
     func fillInfo(controller:SessionReviewController?){
        
@@ -471,7 +472,7 @@ class SessionChatInfoRootView:ExtendedView{
         
         if(isSocialSelfieAllowed == .none){
             
-            socialErrorLbl?.text = "Please tell if you are comfortable with the screenshot capture."
+            socialErrorLbl?.text = "Please specify whether you want each person to receive a screenshot of their chat."
             return false
         }
         socialErrorLbl?.text = ""
@@ -493,9 +494,6 @@ extension Dictionary {
 }
 
 extension SessionChatInfoRootView:UITextFieldDelegate{
-    
-
-    
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         

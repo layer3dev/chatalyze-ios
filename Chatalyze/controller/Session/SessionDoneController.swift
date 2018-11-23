@@ -76,7 +76,7 @@ class SessionDoneController: InterfaceExtendedController {
         let linkGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnLink))
       
         linkGesture.delegate = self
-        
+        linkLbl?.isUserInteractionEnabled = true
         self.linkLbl?.addGestureRecognizer(linkGesture)
         
     }
@@ -95,7 +95,7 @@ class SessionDoneController: InterfaceExtendedController {
         Log.echo(key: "yud", text: "url id is \(str)")
         str  = str.replacingOccurrences(of: " ", with: "")
         
-        if let url = URL(string: str){          
+        if let url = URL(string: str){
             UIApplication.shared.open(url, options: [:])
         }
     }
@@ -104,7 +104,8 @@ class SessionDoneController: InterfaceExtendedController {
     @IBAction func share(sender:UIButton){
         
         Log.echo(key: "yud", text: "EventInfo is not nil \(eventInfo?.id) and eventInfo Title is \(eventInfo?.title)")
-         Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
+        
+        Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
 
         guard let id = self.eventInfo?.id else{
             return

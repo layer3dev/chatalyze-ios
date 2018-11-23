@@ -20,6 +20,7 @@ class MyTicketsController: InterfaceExtendedController{
     @IBOutlet var rootview:MyTicketsRootView?
     @IBOutlet var scroll:UIScrollView?
     @IBOutlet var noTicketLbl:UILabel?
+    @IBOutlet var noTicketView:UIView?
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
@@ -102,6 +103,7 @@ class MyTicketsController: InterfaceExtendedController{
                 if !success{
                     
                     self.noTicketLbl?.isHidden = false
+                    self.noTicketView?.isHidden = false
                     return
                 }
                 
@@ -110,11 +112,13 @@ class MyTicketsController: InterfaceExtendedController{
                     if info.count <= 0{
                         
                         self.noTicketLbl?.isHidden = false
+                        self.noTicketView?.isHidden = false
                         self.rootview?.fillInfo(info: self.ticketsArray)
                         return
                     }
                     self.ticketsArray = info
                     self.noTicketLbl?.isHidden = true
+                    self.noTicketView?.isHidden = true
                     self.rootview?.fillInfo(info: info)
                 }
             }

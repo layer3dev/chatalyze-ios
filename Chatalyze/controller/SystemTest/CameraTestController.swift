@@ -18,6 +18,7 @@ class CameraTestController: InterfaceExtendedController {
     
     let LEVEL_THRESHOLD: Float = -160.0
     var powerLevelIndicator = -200.0
+    @IBOutlet var testTextView:UITextView?
     
     //Above for mic
     
@@ -43,8 +44,10 @@ class CameraTestController: InterfaceExtendedController {
         borderSoundMeter()
         paintStatusMessage()
         setUpGestureOnLabel()
+        test()
         return
     }
+    
     
     func borderSoundMeter(){
         
@@ -78,15 +81,15 @@ class CameraTestController: InterfaceExtendedController {
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
         let forthStr = "FAQs "
-        let fourthAttributesStr = forthStr.toAttributedString(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
+        let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let fifthStr = "or "
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let sixthStr = "contact us "
-        let sixthAttributesStr = sixthStr.toAttributedString(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
+        let sixthStr = "contact us"
+        let sixthAttributesStr = sixthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
-        let seventhStr = "for support."
+        let seventhStr = " for support."
         let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         mutatedStr.append(secondAttributedStr)
@@ -98,6 +101,8 @@ class CameraTestController: InterfaceExtendedController {
         
         DispatchQueue.main.async {
             self.statusLbl?.attributedText = mutatedStr
+            self.testTextView?.attributedText = mutatedStr
+            
         }
         
         //Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
@@ -113,59 +118,61 @@ class CameraTestController: InterfaceExtendedController {
     
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         
-        Log.echo(key: "yud", text: "Tap range is \(self.statusLbl?.text)")
+        //Log.echo(key: "yud", text: "Tap range is \(self.statusLbl?.text)")
         
         if let msglabel = self.statusLbl{
             
-            if let range = msglabel.text?.range(of: "contact us for support.")?.nsRange {
+            if let range = msglabel.text?.range(of: "tact us for support.")?.nsRange {
                 
                 if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
                     
-                    Log.echo(key: "yud",text: "Sub string is tapped")
+                    Log.echo(key: "yud",text: "Sub string is tapped countct is ()")
                     
-                    DispatchQueue.main.async {
-                        
-                        self.dismiss(animated: true) {
-                            
-                            guard let rootController = RootControllerManager().getCurrentController() else{
-                                return
-                            }
-                            
-                            guard let roleId = SignedUserInfo.sharedInstance?.role else{
-                                return
-                            }
-                            
-                            if roleId  == .analyst{
-                                 rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
-                                
-                                rootController.closeToggle()
-                                return
-                            }
-                            
-                            if roleId == .user{
-                                
-                                rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
-                                rootController.closeToggle()
-                                return
-                            }
-                        }
-                    }
+//                    DispatchQueue.main.async {
+//
+//                        self.dismiss(animated: true) {
+//
+//                            guard let rootController = RootControllerManager().getCurrentController() else{
+//                                return
+//                            }
+//
+//                            guard let roleId = SignedUserInfo.sharedInstance?.role else{
+//                                return
+//                            }
+//
+//                            if roleId  == .analyst{
+//                                 rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+//
+//                                rootController.closeToggle()
+//                                return
+//                            }
+//
+//                            if roleId == .user{
+//
+//                                rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+//                                rootController.closeToggle()
+//                                return
+//                            }
+//                        }
+//                    }
                     return
                 }
             }
             
-            if let rangeFAQ = msglabel.text?.range(of: "our FAQs")?.nsRange  {
+            if let rangeFAQ = msglabel.text?.range(of: "check our FAQs or con")?.nsRange  {
                 
                 if tap.didTapAttributedTextInLabel(label: msglabel, inRange: rangeFAQ) {
+                
+                    Log.echo(key: "yud",text: "Sub string is tapped faq is ()")
                     
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: {
-                            guard let rootController = RootControllerManager().getCurrentController() else{
-                                return
-                            }
-                            rootController.showFAQController()
-                        })
-                    }
+//                    DispatchQueue.main.async {
+//                        self.dismiss(animated: true, completion: {
+//                            guard let rootController = RootControllerManager().getCurrentController() else{
+//                                return
+//                            }
+//                            rootController.showFAQController()
+//                        })
+//                    }
                     return
                 }
             }
@@ -660,4 +667,87 @@ extension CameraTestController{
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
     return input.rawValue
+}
+
+
+extension CameraTestController:UITextViewDelegate{
+    
+    func test(){
+     
+        testTextView?.delegate = self
+        testTextView?.isSelectable = true
+        testTextView?.isEditable = false
+        testTextView?.dataDetectorTypes = .link
+        testTextView?.isUserInteractionEnabled = true
+        testTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if range == textView.text?.range(of: "contact us for support.")?.nsRange {
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  range == textView.text?.range(of: "our FAQs")?.nsRange {
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        Log.echo(key: "yud", text: "interacting with url")
+        
+        if characterRange == testTextView?.text?.range(of: "contact us")?.nsRange {
+            
+            DispatchQueue.main.async {
+                
+                self.dismiss(animated: true) {
+                    
+                    guard let rootController = RootControllerManager().getCurrentController() else{
+                        return
+                    }
+                    
+                    guard let roleId = SignedUserInfo.sharedInstance?.role else{
+                        return
+                    }
+                    
+                    if roleId  == .analyst{
+                        rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+                        
+                        rootController.closeToggle()
+                        return
+                    }
+                    
+                    if roleId == .user{
+                        
+                        rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+                        rootController.closeToggle()
+                        return
+                    }
+                }
+            }
+            return false
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  characterRange == testTextView?.text?.range(of: "FAQs ")?.nsRange {
+            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: {
+                    guard let rootController = RootControllerManager().getCurrentController() else{
+                        return
+                    }
+                    rootController.showFAQController()
+                })
+            }
+            return false
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return false
+    }
 }
