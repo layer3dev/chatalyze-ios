@@ -111,7 +111,7 @@ extension SigninRootView{
         
         if(passwordField?.textField?.text == ""){
             
-            passwordField?.showError(text: "Email is required")
+            passwordField?.showError(text: "Password is required")
             return false
         }
         passwordField?.resetErrorStatus()

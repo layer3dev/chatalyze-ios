@@ -25,7 +25,6 @@ class MyTicketsController: InterfaceExtendedController{
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
     
-    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -41,7 +40,8 @@ class MyTicketsController: InterfaceExtendedController{
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
-        }        
+        }
+        
         eventSlotListiner.userId = id
         eventSlotListiner.setListener {
             
@@ -52,7 +52,7 @@ class MyTicketsController: InterfaceExtendedController{
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-     
+        
         paintNavigationTitle(text: "My Tickets")
         initializeVariable()
         //paintInterface()
@@ -83,6 +83,7 @@ class MyTicketsController: InterfaceExtendedController{
         fetchInfo()
     }
     
+    
     func fetchInfo(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -91,9 +92,9 @@ class MyTicketsController: InterfaceExtendedController{
         
         self.showLoader()
         CallSlotFetch().fetchInfos() {(success, info) in
-                        
+            
             DispatchQueue.main.async {
-               
+                
                 self.ticketsArray.removeAll()
                 self.rootview?.adapter?.initializeCollectionFlowLayout()
                 
@@ -124,6 +125,7 @@ class MyTicketsController: InterfaceExtendedController{
             }
         }
     }
+        
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,7 +142,7 @@ class MyTicketsController: InterfaceExtendedController{
 extension MyTicketsController:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-       
+        
         delegate?.getTicketsScrollInset(scrollView: scrollView)
     }
 }

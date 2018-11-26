@@ -14,14 +14,18 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
-    enum exitCode {        
+    enum exitCode {
+        
         case userAction
         case expired
         case prohibited
         case mediaAccess
         case undefined
     }
-   
+    
+    //Implementing the eventDeleteListener
+    var eventDeleteListener = EventDeletedListener()
+    
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
@@ -80,9 +84,20 @@ class VideoCallController : InterfaceExtendedController {
           
             self.fontSizeBig = 22
         }
+        initializeListenrs()
         // Do any additional setup after loading the view.
     }
     
+    
+    func initializeListenrs(){
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+            if self.eventId == deletedEventID{
+                self.exitAction()
+                Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
+            }
+        }
+    }
     
     func eventScheduleUpdatedAlert(){
         
@@ -162,10 +177,7 @@ class VideoCallController : InterfaceExtendedController {
             localMediaPackage.muteAudio = true
             actionContainer?.audioView?.mute()
         }
-        
     }
-    
-    
     
     @IBAction private func videoDisableAction(){
         
@@ -464,6 +476,7 @@ class VideoCallController : InterfaceExtendedController {
     private func acceptCall(){
         
         socketListener?.confirmConnect(completion: { [weak self] (success) in
+           
             if(success){
                 //self?.startAcceptCall()
             }

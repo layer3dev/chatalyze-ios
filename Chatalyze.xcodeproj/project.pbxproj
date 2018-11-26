@@ -174,6 +174,12 @@
 		47B6527920AAB5030041496C /* GreetingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527420AAB5010041496C /* GreetingCell.swift */; };
 		47B6527A20AAB5030041496C /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527520AAB5020041496C /* EventCell.swift */; };
 		47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6527620AAB5020041496C /* GreetingDateCell.swift */; };
+		47B6EE0121ABF4C0009E155A /* EventDeletedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */; };
+		47B6EE0221ABF806009E155A /* EventDeletedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */; };
+		47B6EE0421ABFAF1009E155A /* EventCreateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */; };
+		47B6EE0521ABFC63009E155A /* EventCreateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */; };
+		47B6EE0A21AC1768009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */; };
+		47B6EE0B21AC18A2009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */; };
 		47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */; };
 		47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */; };
 		47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */; };
@@ -1085,6 +1091,9 @@
 		47B6527420AAB5010041496C /* GreetingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingCell.swift; sourceTree = "<group>"; };
 		47B6527520AAB5020041496C /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		47B6527620AAB5020041496C /* GreetingDateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingDateCell.swift; sourceTree = "<group>"; };
+		47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDeletedListener.swift; sourceTree = "<group>"; };
+		47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateListener.swift; sourceTree = "<group>"; };
+		47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChatCountInSessionsListeners.swift; sourceTree = "<group>"; };
 		47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsRootView.swift; sourceTree = "<group>"; };
 		47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketesAdapter.swift; sourceTree = "<group>"; };
 		47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsCell.swift; sourceTree = "<group>"; };
@@ -2594,6 +2603,13 @@
 			path = "greeting ";
 			sourceTree = "<group>";
 		};
+		47B6EE0821AC174A009E155A /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		47B80DBA20B3F1D6001F13CA /* My Tickets */ = {
 			isa = PBXGroup;
 			children = (
@@ -3723,6 +3739,10 @@
 				FAD9CD9D2063C17100A177AC /* CallSlotFetch.swift */,
 				4732C038217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift */,
 				4732C03A217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift */,
+				47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */,
+				47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */,
+				47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */,
+				47B6EE0821AC174A009E155A /* New Group */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -4648,6 +4668,7 @@
 				47D0B07621A6C4B5006376A8 /* SessionDoneController.swift in Sources */,
 				47D0B07721A6C4B5006376A8 /* EventSlotInfo.swift in Sources */,
 				47D0B07821A6C4B5006376A8 /* ViewController.swift in Sources */,
+				47B6EE0221ABF806009E155A /* EventDeletedListener.swift in Sources */,
 				47D0B07921A6C4B5006376A8 /* GreetingInfoRootView.swift in Sources */,
 				47D0B07A21A6C4B5006376A8 /* MySessionRootView.swift in Sources */,
 				47D0B07B21A6C4B5006376A8 /* PaymentListRootView.swift in Sources */,
@@ -4761,6 +4782,7 @@
 				47D0B0E821A6C4B5006376A8 /* EventTimer.swift in Sources */,
 				47D0B0E921A6C4B5006376A8 /* HomeController.swift in Sources */,
 				47D0B0EA21A6C4B5006376A8 /* WelcomeController.swift in Sources */,
+				47B6EE0B21AC18A2009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */,
 				47D0B0EB21A6C4B5006376A8 /* ARDMessageResponse.m in Sources */,
 				47D0B0EC21A6C4B5006376A8 /* MyTicketCellDelegate.swift in Sources */,
 				47D0B0ED21A6C4B5006376A8 /* EventListener.swift in Sources */,
@@ -4819,6 +4841,7 @@
 				47D0B12221A6C4B5006376A8 /* PaymentListingInfo.swift in Sources */,
 				47D0B12321A6C4B5006376A8 /* ScheduleSessionPageInterface.swift in Sources */,
 				47D0B12421A6C4B5006376A8 /* EventInfoExtension.swift in Sources */,
+				47B6EE0521ABFC63009E155A /* EventCreateListener.swift in Sources */,
 				47D0B12521A6C4B5006376A8 /* EditProfileRootview.swift in Sources */,
 				47D0B12621A6C4B5006376A8 /* EventPaymentController.swift in Sources */,
 				47D0B12721A6C4B5006376A8 /* HangupActionView.swift in Sources */,
@@ -5040,6 +5063,7 @@
 				FA15C57B206B6B6C009FA707 /* EventSlotInfo.swift in Sources */,
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				47B6522C20AAAF710041496C /* GreetingInfoRootView.swift in Sources */,
+				47B6EE0121ABF4C0009E155A /* EventDeletedListener.swift in Sources */,
 				47614F7D213ABBAB00CC9702 /* MySessionRootView.swift in Sources */,
 				47AD144420ADB3EA006AF9D6 /* PaymentListRootView.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
@@ -5211,6 +5235,7 @@
 				47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */,
 				4702A3FF2136BE820046EA21 /* ScheduleSessionPageInterface.swift in Sources */,
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
+				47B6EE0421ABFAF1009E155A /* EventCreateListener.swift in Sources */,
 				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,
 				472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */,
 				FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */,
@@ -5295,6 +5320,7 @@
 				FAA001AE203ED472003C8A74 /* ExtendedTableCell.swift in Sources */,
 				FAD6BA41206502E100942F27 /* NoEventContainerView.swift in Sources */,
 				FAA001A0203ED472003C8A74 /* Double.swift in Sources */,
+				47B6EE0A21AC1768009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */,
 				FAA001A1203ED472003C8A74 /* ImageRequestHelper.swift in Sources */,
 				FA74B13C20639B6400983141 /* RTCIceServer+JSON.m in Sources */,
 				FA65F546206A58F2006CE665 /* HostCallController.swift in Sources */,

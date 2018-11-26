@@ -24,6 +24,7 @@ class NotificationInfo{
     var updatedAt : Date?
     var deletedAt : Date?
     var href : String?
+    var activityId:String?
     
     
     init(){
@@ -46,6 +47,7 @@ class NotificationInfo{
         fromId = info["fromId"]?.stringValue
         toId = info["toId"]?.stringValue
         metaInfo = NotificationMetaInfo(info : info["meta"])
+        
         
         let viewedAt = info["viewedAt"]?.stringValue
         self.viewedAt = DateParser.UTCStringToDate(viewedAt ?? "")

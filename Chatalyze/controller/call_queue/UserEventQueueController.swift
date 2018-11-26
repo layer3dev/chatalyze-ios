@@ -21,6 +21,7 @@ class UserEventQueueController: EventQueueController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        
         //verifyForEventDelay()
         analystJoinedNotification()
         eventNotificationListener()

@@ -10,6 +10,7 @@ import UIKit
 
 class MyTicketsVerticalController: MyTicketsController{
     
+       
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
    
@@ -23,6 +24,8 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
     }
+    
+    
     
     @IBAction func animateInfo(){
         
@@ -53,9 +56,6 @@ class MyTicketsVerticalController: MyTicketsController{
         return
     }
     
-    
-    
-    
     func getTheRequiredDate(){
     
         let dateFormatter = DateFormatter()
@@ -76,8 +76,7 @@ class MyTicketsVerticalController: MyTicketsController{
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "E, d MMM yyyy "
         
-        print("Extemted date is \(dateFormatter.string(from: date))")
-        
+        print("Extented date is \(dateFormatter.string(from: date))")
         print("Date from str is  \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
     }
     
