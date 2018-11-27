@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if(allowRotate){
                 return .allButUpsideDown
         }
-        //Only allow portrait (standard behaviour)
+        // Only allow portrait (standard behaviour)
         return .portrait;
     }
 }
@@ -116,14 +116,14 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }else{
             
             Log.echo(key: "yud", text: "Fallback version")
-            //Fallback on earlier versions
+            // Fallback on earlier versions
         }
     }
     
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-            
+
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 
                 print("Notification settings: \(settings)")
@@ -137,7 +137,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
             }
         }else{
             
-            //Fallback on earlier versions
+            // Fallback on earlier versions
         }
     }
     
@@ -163,11 +163,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
         let token = tokenParts.joined()
         
-        //This method save the device token if shared intance alraedy exists else create new one with the data.
+        // This method save the device token if shared intance alraedy exists else create new one with the data.
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
-        //call function for the token Update
+        // call function for the token Update
         self.updateToken()
-        //print("Device Token is : \(token)")
+        // print("Device Token is : \(token)")
     }
     
     func updateToken(){
@@ -201,7 +201,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
-        //(app, open: url, options: options)
+        // (app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

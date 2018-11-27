@@ -11,7 +11,8 @@ import UIKit
 class MyTicketsVerticalRootView:MyTicketsRootView {
     
     @IBOutlet var tableAdapter:MyTicketesVerticalAdapter?
-    
+
+
     override func viewDidLayout(){
         super.viewDidLayout()
         
