@@ -150,10 +150,7 @@ class SessionReviewRootView:ExtendedView{
             self.showError(message: "Please select the future time")
             return
         }
-        
-        return
-        
-        
+                
         guard let hourlyPrice = caluclateHourlyPrice() else {
             return
         }
