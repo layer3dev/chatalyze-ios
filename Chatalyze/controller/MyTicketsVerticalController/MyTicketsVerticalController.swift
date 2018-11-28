@@ -10,7 +10,6 @@ import UIKit
 
 class MyTicketsVerticalController: MyTicketsController{
     
-       
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
    
@@ -24,8 +23,6 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
     }
-    
-    
     
     @IBAction func animateInfo(){
         
@@ -45,6 +42,7 @@ class MyTicketsVerticalController: MyTicketsController{
         }
         return
     }
+    
     
     @IBAction func  disableInfoAction(){
      

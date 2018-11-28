@@ -176,13 +176,19 @@ class SessionReviewRootView:ExtendedView{
                 completion?(false, nil)
                 return
         }
+        
         self.paramForUpload["eventBannerInfo"] = true
         Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         self.paramForUpload["eventBanner"] = imageBase64
+        
+        var requiredParamForUpload = paramForUpload
+        requiredParamForUpload["selectedHourSlot"] = nil
+        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
+        
         self.controller?.showLoader()
         resetErrorlabel()
-        SessionRequestWithImageProcessor().schedule(params: paramForUpload) { [weak self] (success, info) in
+        SessionRequestWithImageProcessor().schedule(params: requiredParamForUpload) { [weak self] (success, info) in
             
             Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: info))")
             

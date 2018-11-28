@@ -44,7 +44,10 @@ class MyTicketesVerticalAdapter: ExtendedView {
     func initailizeAdapter(info:[EventSlotInfo]?){
         
         DispatchQueue.main.async {
+            
             guard let info = info else {
+                self.ticketsListingArray.removeAll()
+                self.myTicketsVerticalTableView?.reloadData()
                 return
             }
             self.ticketsListingArray = info

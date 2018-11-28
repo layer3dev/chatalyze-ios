@@ -60,14 +60,10 @@ extension String{
             
             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]
         }
-        
      
         let attriutedText = NSAttributedString(string: self, attributes: attributes)
-        
         let mutableString = NSMutableAttributedString()
-        
         mutableString.append(attriutedText)
-        
         return mutableString
     }
 }
@@ -113,7 +109,6 @@ extension UITapGestureRecognizer {
         let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         return NSLocationInRange(indexOfCharacter, targetRange)
     }
-    
 }
 
 extension Range where Bound == String.Index {
@@ -123,3 +118,11 @@ extension Range where Bound == String.Index {
                         self.lowerBound.encodedOffset)
     }
 }
+
+
+//extension Double {
+//    func roundTo(places:Int) -> Double {
+//        let divisor = pow(10.0, Double(places))
+//        return (self * divisor).rounded() / divisor
+//    }
+//}

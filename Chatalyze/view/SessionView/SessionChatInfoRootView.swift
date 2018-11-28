@@ -62,14 +62,19 @@ class SessionChatInfoRootView:ExtendedView{
     
     override func viewDidLayout(){
         super.viewDidLayout()
-       
+        
+        
+        Log.echo(key: "yud", text: "Rounded of 0.45 is \(0.45.rounded())")
+        Log.echo(key: "yud", text: "Rounded of 0.5 is \(0.5.rounded())")
+        Log.echo(key: "yud", text: "Rounded of 0.67 is \(0.67.rounded())")
+        Log.echo(key: "yud", text: "Final round is \(round(0.445*100)/100)")
         self.priceField?.textField?.doneAccessory = true
         self.priceField?.isCompleteBorderAllow = true
         initializeVariable()
     }
     
     func initializeVariable(){
-  
+        
         scrollView?.bottomContentOffset = scrollContentBottonOffset
         priceField?.textField?.delegate = self
         priceField?.textField?.keyboardType = UIKeyboardType.numberPad
@@ -79,6 +84,7 @@ class SessionChatInfoRootView:ExtendedView{
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         paintMaximumEarningCalculator()
+        priceValidation()
     }
     
     func resetDurationSelection(){
@@ -137,6 +143,7 @@ class SessionChatInfoRootView:ExtendedView{
         }
         paintChatCalculator()
         paintMaximumEarningCalculator()
+        validateSlotTime()
     }
     
     @IBAction func isAllowedForSelfieAction(sender:UIButton){
@@ -153,6 +160,7 @@ class SessionChatInfoRootView:ExtendedView{
             sender.backgroundColor = UIColor(hexString: "#E1E4E6")
             self.isSocialSelfieAllowed = .no
         }
+        validateSocialSharing()
     }
     
     @IBAction func nextAction(sender:UIButton?){
@@ -302,21 +310,27 @@ class SessionChatInfoRootView:ExtendedView{
         let priceOfSingleChat = Double(price)
         let totalPriceOfChatwithoutTax = (priceOfSingleChat*Double(totalSlots))
         let paypalFeeofSingleChat = ((priceOfSingleChat*2.9)/100)+(0.30)
-        let paypalFeeOfWholeChat = (paypalFeeofSingleChat*Double(totalSlots))
+        let roundedPaypalFeeofSingleChatThreeDecimalPlace = paypalFeeofSingleChat.roundTo(places: 3)
+        let roundedPaypalFeeofSingleChat = round(roundedPaypalFeeofSingleChatThreeDecimalPlace*100)/100
+        Log.echo(key: "yud", text: "Paypal fee of the Single chat is \(roundedPaypalFeeofSingleChat) rounded exact i s\(roundedPaypalFeeofSingleChat.rounded())")
+        let paypalFeeOfWholeChat = (roundedPaypalFeeofSingleChat*Double(totalSlots))
+        Log.echo(key: "yud", text: "Paypal fee of the whole chat is \(paypalFeeOfWholeChat)")
         let clientShares = (totalPriceOfChatwithoutTax/10)
+        Log.echo(key: "yud", text: "Client shares are \(clientShares)")
         let totalSeviceFee = clientShares + paypalFeeOfWholeChat + 0.25
-        
+        Log.echo(key: "yud", text: "Total Service fee is \(totalSeviceFee)")
         let totalEarning = (totalPriceOfChatwithoutTax-totalSeviceFee)
        // let serviceFee = totalSeviceFee
         
-        let serviceFee = (round((totalSeviceFee*1000))/1000)      
+        let serviceFee = (round((totalSeviceFee*1000))/1000)
+        let totalEarningRoundedPrice = (round((totalEarning*1000))/1000)
         
-        Log.echo(key: "yud", text: "Service fee is \(serviceFee) and the total earning is \(totalEarning) paypal fee is \(paypalFeeofSingleChat) and the cost of the single chat is \(price)")
+        //Log.echo(key: "yud", text: "Service fee is \(serviceFee) and the total earning is \(totalEarning) paypal fee is \(paypalFeeofSingleChat) and the cost of the single chat is \(price)")
         
         var fontSizeTotalSlot = 30
         var normalFont = 20
         
-        if UIDevice.current.userInterfaceIdiom == .phone{
+        if UIDevice.current.userInterfaceIdiom == .phone {
             
             fontSizeTotalSlot = 26
             normalFont = 18
@@ -326,7 +340,7 @@ class SessionChatInfoRootView:ExtendedView{
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let mutableStr  = "$\(totalEarning)".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let mutableStr  = "$\(String(format: "%.2f", totalEarningRoundedPrice))".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
         earningFormulaLbl?.attributedText = calculateAttrStr
         totalEarningLabel?.attributedText = mutableStr

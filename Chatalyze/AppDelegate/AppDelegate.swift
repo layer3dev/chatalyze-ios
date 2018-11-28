@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate:UNUserNotificationCenterDelegate{
+extension AppDelegate:UNUserNotificationCenterDelegate {
 
     func registerForPushNotifications() {
         
@@ -136,7 +136,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 print("Notification settings Registered: \(settings)")
             }
         }else{
-            
             // Fallback on earlier versions
         }
     }

@@ -148,6 +148,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func resetMuteActions(){
+        
         actionContainer?.audioView?.unmute()
         actionContainer?.videoView?.unmute()
         
@@ -161,6 +162,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     @IBAction private func audioMuteAction(){
+        
         guard let localMediaPackage = self.localMediaPackage
         else{
             return
@@ -213,6 +215,7 @@ class VideoCallController : InterfaceExtendedController {
     
     
     func exit(code : exitCode){
+        
         self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : code)
@@ -225,6 +228,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func showErrorScreen(){
+        
         guard let controller = OpenCallAlertController.instance() else{
             return
         }

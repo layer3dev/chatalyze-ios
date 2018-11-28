@@ -71,6 +71,8 @@ class SessionTimeDateRootView:ExtendedView{
             isPickerHidden = true
             pickerContainer?.isHidden = true
         }
+        validateDate()
+        validateTime()
     }
     
     @IBAction func datePickerAction(_ sender: Any){
@@ -174,6 +176,7 @@ class SessionTimeDateRootView:ExtendedView{
     }
     
     var startTime:String{
+      
         get{
             
             let dateFormatter = DateFormatter()
@@ -189,7 +192,7 @@ class SessionTimeDateRootView:ExtendedView{
         }
     }
     
-    func getStartDateForParameter()->String{
+    func getStartDateForParameter()->String {
         
         let date = startDate + " " + endDate
         let dateFormatter = DateFormatter()
@@ -205,7 +208,7 @@ class SessionTimeDateRootView:ExtendedView{
         return ""
     }
     
-    func getEndDateForParameter()->String{
+    func getEndDateForParameter()->String {
         
         let startDate = getStartDateForParameter()
         let dateFormatter = DateFormatter()
@@ -255,24 +258,28 @@ class SessionTimeDateRootView:ExtendedView{
         resetDurationSelection()
         selectedDurationType = .thirtyMin
         thirtyMinsBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func oneHourAction(sender:UIButton){
  
         resetDurationSelection()
         selectedDurationType = .oneHour
         oneHourBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func oneAndHalfHourAction(sender:UIButton){
         
         resetDurationSelection()
         selectedDurationType = .oneAndhour
         oneAndHalfBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func twoHourAction(sender:UIButton){
         
         resetDurationSelection()
         selectedDurationType = .twohour
         twoHourBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     
     @IBAction func nextAction(){
@@ -305,10 +312,10 @@ class SessionTimeDateRootView:ExtendedView{
     func validateFields()->Bool{
         
         
-        let emailValidated  = validateDate()
-        let passwordValidated = validateTime()
+        let dateValidated  = validateDate()
+        let timeValidated = validateTime()
         let durationValidation = validateDuration()
-        return emailValidated && passwordValidated && durationValidation
+        return dateValidated && timeValidated && durationValidation
     }
     
     fileprivate func validateDate()->Bool{

@@ -33,7 +33,7 @@ class SessionChatInfoController: InterfaceExtendedController {
     }
     
     var rootView:SessionChatInfoRootView?{
-        
+    
         get{
             return self.view as? SessionChatInfoRootView
         }
