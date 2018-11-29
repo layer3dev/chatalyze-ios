@@ -43,7 +43,7 @@ class EditScheduledSessionController: InterfaceExtendedController {
     }
  
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewWillDisappear(animated)
      
         showNavigationBar()
     }

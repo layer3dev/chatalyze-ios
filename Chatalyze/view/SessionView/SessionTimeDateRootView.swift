@@ -71,8 +71,8 @@ class SessionTimeDateRootView:ExtendedView{
             isPickerHidden = true
             pickerContainer?.isHidden = true
         }
-        validateDate()
-        validateTime()
+        
+       
     }
     
     @IBAction func datePickerAction(_ sender: Any){
@@ -80,11 +80,13 @@ class SessionTimeDateRootView:ExtendedView{
         if selectedPickerType == .date{
             
             dateField?.textField?.text = selectedTime
+            validateDate()
         }
         
         if selectedPickerType == .time{
             
             startTimeField?.textField?.text = startTime
+            validateTime()
         }
     }
     
@@ -97,6 +99,7 @@ class SessionTimeDateRootView:ExtendedView{
         dateField?.textField?.text = selectedTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
+        validateDate()
         
 //        if isPickerHidden == true {
 //
@@ -118,7 +121,7 @@ class SessionTimeDateRootView:ExtendedView{
         startTimeField?.textField?.text = startTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
-        
+        validateTime()
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -311,7 +314,6 @@ class SessionTimeDateRootView:ExtendedView{
     
     func validateFields()->Bool{
         
-        
         let dateValidated  = validateDate()
         let timeValidated = validateTime()
         let durationValidation = validateDuration()
@@ -322,17 +324,18 @@ class SessionTimeDateRootView:ExtendedView{
         
         if(dateField?.textField?.text == ""){
             
-            dateField?.showError(text: "Date field can't be left empty !")
+            dateField?.showError(text: "Date is required.")
             return false
         }
         dateField?.resetErrorStatus()
         return true
     }
+    
     fileprivate func validateTime()->Bool{
         
         if(startTimeField?.textField?.text == ""){
             
-            startTimeField?.showError(text: "Time field can't be left empty !")
+            startTimeField?.showError(text: "Time is required.")
             return false
         }
         startTimeField?.resetErrorStatus()
@@ -343,7 +346,7 @@ class SessionTimeDateRootView:ExtendedView{
         
         if(selectedDurationType == .none){
             
-            showError(message: "Please select session duration !")
+            showError(message: "Session duration is required.")
             return false
         }
         resetErrorStatus()
@@ -374,6 +377,7 @@ class SessionTimeDateRootView:ExtendedView{
     func next(){
         
         Log.echo(key: "yud", text: "Required Date is \(getStartDateForParameter())")
+        
         Log.echo(key: "yud", text: "End Date is \(getEndDateForParameter())")
         
         guard let controller = SessionChatInfoController.instance() else{

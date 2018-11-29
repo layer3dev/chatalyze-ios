@@ -12,7 +12,6 @@ class FAQController: InterfaceExtendedController {
 
     @IBOutlet var influencerLbl:UILabel?
     @IBOutlet var fanLbl:UILabel?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +27,7 @@ class FAQController: InterfaceExtendedController {
         var browserTextFontSize = 14
         
         if UIDevice.current.userInterfaceIdiom == .pad{
+            
             fontSize = 26
             browserTextFontSize = 18
         }
@@ -51,7 +51,6 @@ class FAQController: InterfaceExtendedController {
         firstFanMutableAttributedStr.append(secondFanAttributesStr)
         
         fanLbl?.attributedText = firstFanMutableAttributedStr
-        
     }
     
     func paintInterface(){
@@ -66,9 +65,7 @@ class FAQController: InterfaceExtendedController {
         guard let controller = FAQWebController.instance() else{
             return
         }
-        
         controller.url = "https://dev.chatalyze.com/faqs/influencer/app"
-        
         controller.nameofTitle = "Influencer FAQs"
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -84,6 +81,7 @@ class FAQController: InterfaceExtendedController {
     }
     
     /*
+     
     // MARK: - Navigation
      
     // In a storyboard-based application, you will often want to do a little preparation before navigation

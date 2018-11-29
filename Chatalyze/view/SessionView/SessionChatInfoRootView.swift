@@ -338,7 +338,7 @@ class SessionChatInfoRootView:ExtendedView{
         
         let calculatorStr = "\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
         
-        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         let mutableStr  = "$\(String(format: "%.2f", totalEarningRoundedPrice))".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
@@ -360,7 +360,7 @@ class SessionChatInfoRootView:ExtendedView{
         
         let calculatorStr = "(\(0) chats * $\(0) per chat) - $\(0) ="
         
-        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         let mutableStr  = "$\(0)".toAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
@@ -427,7 +427,7 @@ class SessionChatInfoRootView:ExtendedView{
             let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " Available 1:1 chats"
-            let nextAttrStr  = nextStr.toAttributedString(font: "Poppins", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr

@@ -71,13 +71,13 @@ class SelfieTimerView:ExtendedView {
         requiredDate = startDate
         
         
-//        SelfieTimerView.testTimer.invalidate()
-//        SelfieTimerView.hostTimer.invalidate()
-
+        //        SelfieTimerView.testTimer.invalidate()
+        //        SelfieTimerView.hostTimer.invalidate()
+        
         self.testTimer.releaseListener()
         self.hostTimer.releaseListener()
         
-   
+        
         //SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
         
         self.testTimer.start()
@@ -152,16 +152,16 @@ class SelfieTimerView:ExtendedView {
     private func runTimer(){
         
         //to balance the time taken by animation
-
-//        SelfieTimerView.testTimer.invalidate()
-//        SelfieTimerView.hostTimer.invalidate()
-//        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        
+        //        SelfieTimerView.testTimer.invalidate()
+        //        SelfieTimerView.hostTimer.invalidate()
+        //        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         
         self.testTimer.releaseListener()
         self.hostTimer.releaseListener()
         self.testTimer.start()
         self.registerForTimer()
-
+        
     }
     
     
@@ -185,13 +185,13 @@ class SelfieTimerView:ExtendedView {
                 self.graySelfieTime()
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                    
-                    if self.selfieTimerAnimateFlag >= 3{
-                        self.playOne()
-                        self.selfieTimerAnimateFlag = 0
-                    }else{
-                        self.showSelfieTimerAnimationGrayandGreen()
-                    }
+                
+                if self.selfieTimerAnimateFlag >= 3{
+                    self.playOne()
+                    self.selfieTimerAnimateFlag = 0
+                }else{
+                    self.showSelfieTimerAnimationGrayandGreen()
+                }
             })
             self.selfieTimerAnimateFlag = self.selfieTimerAnimateFlag + 1
         }
@@ -252,7 +252,9 @@ class SelfieTimerView:ExtendedView {
         
         //Verifying for the Hangup
         if let isHangedUp = self.delegate?.getHangUpStatus(){
+           
             if isHangedUp{
+                
                 self.invalidateTimer()
                 self.invalidateTimerForHost()
                 return
