@@ -41,40 +41,74 @@ class MySessionRootView:ExtendedView{
                     return
             }
             
-            if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
-                guard let controller = HostEventQueueController.instance()
-                    else{
-                        return
-                }
-                controller.eventId = "\(eventId)"
-                self.controller?.navigationController?.pushViewController(controller, animated: true)
-                return
-            }
             
             guard let controller = HostCallController.instance()
                 else{
                     return
             }
             
-            controller.multipleTabsHandlingListener = {
-                
-                 DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
-                    
-                    guard let controller = OpenCallAlertController.instance() else{
-                        return
-                    }
-                    controller.dismissHandler = {
-                        
-                        //self.root?.refreshData()
-                    }
-                    self.controller?.present(controller, animated: false, completion: {
-                    })
-                })
-                
-            }
-            
             controller.eventId = String(eventId)
+            
             self.controller?.present(controller, animated: true, completion: nil)
+            
+//            self.isEventDelayed(eventId: "\(eventId)", completion: { (success) in
+//
+//
+//                if success{
+//
+//                    //Success will be true of event is true.
+//                    guard let controller = HostEventQueueController.instance()
+//                        else{
+//                            return
+//                    }
+//
+//                    controller.eventId = "\(eventId)"
+//                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+//                    return
+//                }
+//
+//                if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
+//
+//                    guard let controller = HostEventQueueController.instance()
+//                        else{
+//                            return
+//                    }
+//
+//                    controller.eventId = "\(eventId)"
+//                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+//                    return
+//                }
+//
+//
+//
+//            })
+            
+        }
+    }
+    
+    
+    func isEventDelayed(eventId:String?,completion:@escaping ((Bool)->())){
+        
+        guard let id = eventId else{
+            completion(true)
+            return
+        }
+        self.controller?.showLoader()
+        CallEventInfo().fetchInfo(eventId: id) { (success, eventInfo) in
+            self.controller?.stopLoader()
+            if !success{
+                completion(true)
+                return
+            }
+            guard let info = eventInfo else{
+                completion(true)
+                return
+            }
+            if info.notified == "delayed"{
+                completion(true)
+                return
+            }
+            completion(false)
         }
     }
     

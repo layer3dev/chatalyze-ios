@@ -94,6 +94,7 @@ class UserInfo: NSObject {
 
 extension UserInfo{
     
+    
     @objc var genderType : genderType{
        
         get{

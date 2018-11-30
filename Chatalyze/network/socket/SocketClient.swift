@@ -17,9 +17,9 @@ class SocketClient : NSObject{
     fileprivate static var _sharedInstance : SocketClient?
     var socket : WebSocket?
     
-    fileprivate var connectionCallbackList : [Int : (Bool)->()] = [Int : (Bool)->()]()
-  
-    fileprivate var eventListenerList : [Int : SocketListenerCallback] = [Int : SocketListenerCallback]()
+    fileprivate var listenerInfo = [Int : SocketListener]()
+    
+    fileprivate var selfListener : SocketListener?
     
     fileprivate var connectionCounter = 0
     
@@ -27,7 +27,7 @@ class SocketClient : NSObject{
 
     fileprivate var isRegistered = false
    
-     fileprivate var connectionFlag = false
+    fileprivate var connectionFlag = false
     
     override init(){
         super.init()
@@ -36,12 +36,24 @@ class SocketClient : NSObject{
     
     var isConnected : Bool{
         get{
-            return isRegistered
+            return isBridged && isRegistered
         }
     }
     
-    fileprivate func initialization(){
+    var isInstantiated : Bool{
+        return connectionFlag
+    }
+    
+    @objc func createListener()->SocketListener{
+        let identifier = uniqueConnectionIdentifier
+        let listener = SocketListener(identifier : identifier, socketClient : self)
         
+        listenerInfo[identifier] = listener
+        return listener
+        
+    }
+    
+    fileprivate func initialization(){
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -50,13 +62,13 @@ class SocketClient : NSObject{
     
     fileprivate func initializeVariable(){
         
-        Log.echo(key: "socket_client", text:"initializeVariable WebSocket")
+        Log.echo(key: "timestamp", text:"initializeVariable WebSocket")
         
         guard let url = URL(string: AppConnectionConfig.socketURL)
             else{
                 return
         }
-        
+        self.selfListener = self.createListener()
         socket = WebSocket(url: url)
         registerForEvent()
     }
@@ -71,13 +83,13 @@ class SocketClient : NSObject{
     
     @objc func appMovedToBackground() {
         
-        Log.echo(key: "socket_client", text:"appMovedToBackground")
+        Log.echo(key: "timestamp", text:"appMovedToBackground")
     }
     
     
     @objc func appMovedToForeground() {
         
-        Log.echo(key: "socket_client", text:"appMovedToForeground")
+        Log.echo(key: "timestamp", text:"appMovedToForeground")
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
             return
@@ -118,11 +130,29 @@ class SocketClient : NSObject{
 extension SocketClient{
     
     @objc func connect(roomId : String){
-        
         Log.echo(key: "SocketClient", text: "connect called")
+        
+        if(roomId == self.roomId && isBridged && connectionFlag){
+            return;
+        }
+        
         self.connectionFlag = true
         self.roomId = roomId
+        
+        if(isBridged){
+            breakForReconnect()
+            return
+        }
+        
         socket?.connect()
+    }
+    
+    func ensureConnection(){
+        if(isInstantiated){
+            return
+        }
+        connect(roomId: "###")
+        return
     }
     
     var isBridged : Bool{
@@ -134,7 +164,7 @@ extension SocketClient{
     func initializeSocketConnection(){
         
         socket?.onConnect = {
-            Log.echo(key: "socket_client", text:"socket connected new")
+            Log.echo(key: "timestamp", text:"socket connected new")
             DispatchQueue.main.async {
                 self.registerSocket()
             }
@@ -144,7 +174,7 @@ extension SocketClient{
         socket?.onDisconnect = { (error: Error?) in
             self.isRegistered = false
             
-            Log.echo(key: "socket_client", text:"socket websocketDidDisconnect")
+            Log.echo(key: "timestamp", text:"socket websocketDidDisconnect")
             DispatchQueue.main.asyncAfter(deadline: (.now() + 0.5), execute: {
                 if(self.connectionFlag){
                     self.socket?.connect()
@@ -154,8 +184,8 @@ extension SocketClient{
         }
         
         
-        self.onEvent("registerResponse") {data in
-            Log.echo(key: "socket_client", text:"socket connected in registerResponse")
+        selfListener?.onEvent("registerResponse") {data in
+            Log.echo(key: "timestamp", text:"socket connected in registerResponse")
             
             let json = data?.rawString() ?? ""
             Log.echo(key: "registerResponse", text:json)
@@ -167,17 +197,18 @@ extension SocketClient{
                 self.isRegistered = true
                 //self.testCall()
                 self.updateAllForConnectionActive()
+                self.updateAllForNewConnection()
             }
         }
         
-        self.onEvent("error") {data in
+         selfListener?.onEvent("error") {data in
             
-            Log.echo(key: "socket_client", text:"socket error data => \(String(describing: data))")
+            Log.echo(key: "timestamp", text:"socket error data => \(String(describing: data))")
             self.reconnect()
         }
         
-        self.onEvent("notification") {data in
-            Log.echo(key: "socket_client", text:"socket notification => \(String(describing: data))")
+         selfListener?.onEvent("notification") {data in
+            Log.echo(key: "timestamp", text:"socket notification => \(String(describing: data))")
         }
         
     }
@@ -186,7 +217,7 @@ extension SocketClient{
 
     fileprivate func registerSocket(){
         
-        Log.echo(key: "socket_client", text:"socket registerSocket")
+        Log.echo(key: "timestamp", text:"socket registerSocket")
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
                 return
@@ -207,7 +238,7 @@ extension SocketClient{
         param["data"] = data
         
         let info = param.JSONDescription()
-        Log.echo(key: "socket_client", text: "info => " + info)
+        Log.echo(key: "timestamp", text: "info => " + info)
     
 
         directEmit(param)
@@ -216,11 +247,16 @@ extension SocketClient{
     
     func disconnect(){
         
-        Log.echo(key: "socket_client", text: "disconnect => called")
+        Log.echo(key: "timestamp", text: "disconnect => called")
         connectionFlag = false
-        resetListeners()
         socket?.disconnect()
     }
+    
+    func breakForReconnect(){
+        socket?.disconnect()
+    }
+    
+    
     
     private func resetListeners(){
 
@@ -232,7 +268,7 @@ extension SocketClient{
     func reconnect(){
        
         //socket?.disconnect()
-        //Log.echo(key: "socket_client", text:"tearup and make new")
+        //Log.echo(key: "timestamp", text:"tearup and make new")
         //socket?.connect()
     }
 }
@@ -261,9 +297,9 @@ extension SocketClient{
         
         self.socket?.onText = { (text: String) in
             
-            Log.echo(key: "socket_client", text: "text is \(text)")
+            Log.echo(key: "timestamp", text: "text is \(text)")
              DispatchQueue.main.async {
-                Log.echo(key : "socket_client", text : "Received text: \(text)")
+                Log.echo(key : "timestamp", text : "Received text: \(text)")
                 guard let data = text.data(using: .utf8)
                     else{
                         return
@@ -277,7 +313,7 @@ extension SocketClient{
     
     fileprivate func handleEventResponse(json : JSON?){
         
-        Log.echo(key: "socket_client", text: "Respond json is \(json)")
+        Log.echo(key: "handshake", text: "Respond json is \(json)")
         
         guard let json = json
             else{
@@ -289,7 +325,7 @@ extension SocketClient{
         if(data.dictionary == nil && data.array == nil){
             data = json
         }
-        //Log.echo(key: "yud", text: "Respond new json is \(json) and the data is \(data)")
+        
         updateForEvent(action: responseAction, data: data)
         return
         
@@ -346,15 +382,15 @@ extension SocketClient{
     fileprivate func sendWrapped(_ data : [String : Any]?, waitForConnection : Bool = true){
         
         let jsonString = data?.JSONDescription() ?? ""
-        Log.echo(key : "socket_client", text : "sendWrapped: \(jsonString)")
+        Log.echo(key : "timestamp", text : "sendWrapped: \(jsonString)")
         
         if(!waitForConnection){
             self.socket?.write(string: jsonString)
             return
         }
         
-        confirmConnect { (success) in
-           
+        selfListener?.confirmConnect { (success) in
+            
             self.socket?.write(string: jsonString)
         }
     }
@@ -365,40 +401,24 @@ extension SocketClient{
 //connectionWait
 extension SocketClient{
     
-    func confirmConnect(completion : ((_ success : Bool)->())?){
-        
-        Log.echo(key: "socket_client", text: "confirmConnect please")
-        let isConnected = self.isRegistered
-        if isConnected{
-            Log.echo(key: "socket_client", text: "you are connected please continue")
-            completion?(true)
-            return
-        }
-        
-        let countdown = connectionCounter
-        connectionCounter = connectionCounter + 1
-        
-        add(connectionCounter: countdown) { (success) in
-            completion?(success)
-        }
-        
-    }
-    
-    fileprivate func add(connectionCounter : Int, listener : @escaping (_ connected : Bool)->()){
-        connectionCallbackList[connectionCounter] = listener
-    }
-    
     
     fileprivate func updateAllForConnectionActive() {
         
-        Log.echo(key: "socket_client", text: "the the world that you are connected now")
-        for (connectionCounter,callback) in connectionCallbackList {
-            Log.echo(key: "socket", text: "Hey i'm connected")
-            let isConnected = self.isRegistered
-            callback(isConnected)
-            connectionCallbackList[connectionCounter] = nil
+        Log.echo(key: "timestamp", text: "the the world that you are connected now")
+        for (_,listener) in listenerInfo {
+           listener.updateAllForConnectionActive()
         }
     }
+    
+    fileprivate func updateAllForNewConnection() {
+        
+        Log.echo(key: "timestamp", text: "new connection")
+        for (_,listener) in listenerInfo {
+            listener.updateAllForNewConnection()
+        }
+    }
+    
+    
     
 }
 
@@ -408,44 +428,30 @@ extension SocketClient{
 //connectionWait
 extension SocketClient{
     
-    @objc func onEventSupport(action : String, completion : @escaping (_ rawData : [String : Any]?)->()){
-        self.onEvent(action) { (json) in
-            guard let data = json?.dictionaryObject
-                else{
-                    return
-            }
-            
-            completion(data)
-            return
-        }
-    }
-
-    
-    func onEvent(_ action : String, completion : ((_ json : JSON?)->())?){
-        
-        
-        let counter = connectionCounter
-        connectionCounter = connectionCounter + 1
-        
-        let callback = SocketListenerCallback(action: action, listener: completion)
-        
-        eventListenerList[counter] = callback
-    }
-    
     
     fileprivate func updateForEvent(action : String, data : JSON?) {
-        for (_,callback) in eventListenerList {
-            if(callback.action != action){
-                continue
-            }
-            callback.listener?(data)
+        
+        for (_,listener) in listenerInfo {
+            listener.updateForEvent(action: action, data: data)
         }
+        
     }
     
+    var uniqueConnectionIdentifier : Int{
+        connectionCounter = connectionCounter + 1
+        return connectionCounter
+    }
     
 }
 
-
-
-
-
+extension SocketClient : SocketRootProtocol{
+    var isSocketConnected : Bool{
+        get{
+            return isConnected
+        }
+    }
+    
+    func release(identifier : Int){
+        listenerInfo[identifier] = nil
+    }
+}

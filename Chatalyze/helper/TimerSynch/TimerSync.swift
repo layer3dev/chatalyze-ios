@@ -10,14 +10,14 @@ import UIKit
 import SwiftyJSON
 
 class TimerSync {
-    
-    
     private var syncTime : Date?
-    
+
     var timeDiff : Int64 = Int64(0);
     var resyncTime = 60 * 1000
     var precision = 0
     var maxCountRequest = 3
+    
+    var isSynced = false
     
     private var countRequest = 0; //current Request Count status
     private var requestIdentifierCounter : Int = 0
@@ -25,8 +25,9 @@ class TimerSync {
     private var thresholdPrecisionAccuracy = 250; //minimum accuracy required from response
     
     private var requestTime = Date()
-    private let countdown = CountdownProcessor.sharedInstance()
+    private let countdown = CountdownListener()
     private let socket = SocketClient.sharedInstance
+    private var socketListener : SocketListener?
     
    static var sharedInstance : TimerSync{
         get{
@@ -48,11 +49,17 @@ class TimerSync {
     }
     
     private func initialization(){
-        
+        initializeVariable()
         syncListener()
         setServerListener()
         sync()        
     }
+    
+    private func initializeVariable(){
+        socketListener = socket?.createListener()
+    }
+    
+    
     
     private func syncListener(){
         countdown.add { [weak self] in
@@ -67,6 +74,7 @@ class TimerSync {
 //            Log.echo(key: "sync socket", text: "not connected")
             return
         }
+        
         if let syncTime = self.syncTime{
             let lastSyncTimestamp = syncTime.millisecondsSince1970
             let timestampNow = Date().millisecondsSince1970
@@ -83,13 +91,6 @@ class TimerSync {
     }
     
     
-    /*var message = {
-     id : 'getTimestamp',
-     requestIdentifier : requestIdentifierCounter
-     };
-     
-     requestTime = Date.now();
-     sendMessage(message);*/
     
     
     private func executeSync(){
@@ -105,7 +106,7 @@ class TimerSync {
     }
     
     private func setServerListener(){
-        socket?.onEvent("timestamp", completion: {[weak self] (json) in
+        socketListener?.onEvent("timestamp", completion: {[weak self] (json) in
             
             Log.echo(key: "timestamp", text: "json -> \(String(describing: json?.rawString()))")
             
@@ -116,7 +117,7 @@ class TimerSync {
             
             let syncInfo = TimeSyncInfo(info: json)
             let isSynced = weakSelf.updateTimeDifference(info : syncInfo)
-            
+            self?.isSynced = true
             if(weakSelf.countRequest > weakSelf.maxCountRequest || isSynced){
                 return
             }
@@ -135,8 +136,6 @@ class TimerSync {
         }
         
         return currentDate.millisecondsSince1970 + Int64(self.timeDiff)
-        
-        
     }
     
     
@@ -148,8 +147,6 @@ class TimerSync {
     
     func getDate()->Date{
       
-        //temp
-        return Date()
         let seconds = getSeconds()
         return Date.init(seconds : seconds)
     }

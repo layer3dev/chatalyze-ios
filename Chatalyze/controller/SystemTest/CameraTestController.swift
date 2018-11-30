@@ -18,6 +18,8 @@ class CameraTestController: InterfaceExtendedController {
     
     let LEVEL_THRESHOLD: Float = -160.0
     var powerLevelIndicator = -200.0
+    @IBOutlet var testTextView:UITextView?
+    
     //Above for mic
     
     @IBOutlet weak var cameraPreview: UIView?
@@ -36,13 +38,16 @@ class CameraTestController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-
+        
         self.checkForMicrphone()
         checkForCameraAccess()
         borderSoundMeter()
         paintStatusMessage()
+        setUpGestureOnLabel()
+        test()
         return
     }
+    
     
     func borderSoundMeter(){
         
@@ -57,16 +62,18 @@ class CameraTestController: InterfaceExtendedController {
         
         //If the answer to both questions is "Yes", your phone passes the test. If not, please check our FAQs or contact us for support.
         
-        var fontSize = 16
+        var fontSize = 18
+        var linkSize = 22
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             fontSize = 24
+            linkSize = 24
         }
         
         let firstStr = "If the answer to both questions is "
         let mutatedStr = firstStr.toMutableAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
-
+        
         let secondStr = "\("Yes"), "
         let secondAttributedStr = secondStr.toAttributedString(font: AppThemeConfig.boldFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
@@ -74,15 +81,15 @@ class CameraTestController: InterfaceExtendedController {
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
         let forthStr = "FAQs "
-        let fourthAttributesStr = forthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let fifthStr = "or "
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let sixthStr = "contact us "
-        let sixthAttributesStr = sixthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: AppThemeConfig.themeColor))
+        let sixthStr = "contact us"
+        let sixthAttributesStr = sixthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
-        let seventhStr = "for support."
+        let seventhStr = " for support."
         let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         mutatedStr.append(secondAttributedStr)
@@ -94,10 +101,85 @@ class CameraTestController: InterfaceExtendedController {
         
         DispatchQueue.main.async {
             self.statusLbl?.attributedText = mutatedStr
+            self.testTextView?.attributedText = mutatedStr
+            
         }
         
-        Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
+        //Log.echo(key: "yud", text: "Mutated String is \(mutatedStr)")
     }
+    
+    
+    func setUpGestureOnLabel(){
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
+        self.statusLbl?.addGestureRecognizer(tap)
+        self.statusLbl?.isUserInteractionEnabled = true
+    }
+    
+    @objc func tapLabel(tap: UITapGestureRecognizer) {
+        
+        //Log.echo(key: "yud", text: "Tap range is \(self.statusLbl?.text)")
+        
+        if let msglabel = self.statusLbl{
+            
+            if let range = msglabel.text?.range(of: "tact us for support.")?.nsRange {
+                
+                if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
+                    
+                    Log.echo(key: "yud",text: "Sub string is tapped countct is ()")
+                    
+//                    DispatchQueue.main.async {
+//
+//                        self.dismiss(animated: true) {
+//
+//                            guard let rootController = RootControllerManager().getCurrentController() else{
+//                                return
+//                            }
+//
+//                            guard let roleId = SignedUserInfo.sharedInstance?.role else{
+//                                return
+//                            }
+//
+//                            if roleId  == .analyst{
+//                                 rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+//
+//                                rootController.closeToggle()
+//                                return
+//                            }
+//
+//                            if roleId == .user{
+//
+//                                rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+//                                rootController.closeToggle()
+//                                return
+//                            }
+//                        }
+//                    }
+                    return
+                }
+            }
+            
+            if let rangeFAQ = msglabel.text?.range(of: "check our FAQs or con")?.nsRange  {
+                
+                if tap.didTapAttributedTextInLabel(label: msglabel, inRange: rangeFAQ) {
+                
+                    Log.echo(key: "yud",text: "Sub string is tapped faq is ()")
+                    
+//                    DispatchQueue.main.async {
+//                        self.dismiss(animated: true, completion: {
+//                            guard let rootController = RootControllerManager().getCurrentController() else{
+//                                return
+//                            }
+//                            rootController.showFAQController()
+//                        })
+//                    }
+                    return
+                }
+            }
+        }
+    }
+    
+    
     
     
     @objc func appBecomeActiveAgain() {
@@ -122,7 +204,7 @@ class CameraTestController: InterfaceExtendedController {
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
-        Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
+        //Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
         DispatchQueue.main.async {         
             self.updateUI(level:Double(level ?? 0.0))
         }
@@ -131,7 +213,7 @@ class CameraTestController: InterfaceExtendedController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Log.echo(key: "yud", text: "I am dissapearing")
+        // Log.echo(key: "yud", text: "I am dissapearing")
         
         DispatchQueue.main.async {
             CameraTestController.levelTimer.invalidate()
@@ -145,10 +227,10 @@ class CameraTestController: InterfaceExtendedController {
             //Earlier 45 was 40
             //Earlier 20 was 40
             
-//            let newPower = (Float(level) - (LEVEL_THRESHOLD))
-//            let percentage = ((newPower/160))
-//            progressView?.progress = Float(percentage)
-//            let numberOfViewToShown = Int(((percentage*100))*(20/100))
+            //            let newPower = (Float(level) - (LEVEL_THRESHOLD))
+            //            let percentage = ((newPower/160))
+            //            progressView?.progress = Float(percentage)
+            //            let numberOfViewToShown = Int(((percentage*100))*(20/100))
             
             if level < -(50.0){
                 self.resetSoundMeter()
@@ -160,8 +242,8 @@ class CameraTestController: InterfaceExtendedController {
             progressView?.progress = Float(percentageOne)
             let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
             
-            Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
-           
+            //Log.echo(key: "yud", text: "new power is \(newPowerOne) and the number of the view to shown is \(numberOfViewToShownOne) and the percentage is \(percentageOne)")
+            
             DispatchQueue.main.async {
                 
                 self.resetSoundMeter()
@@ -180,7 +262,7 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     func resetSoundMeter(){
-       
+        
         for i in 1..<21{
             
             let soundButton = self.view.viewWithTag(i) as? UIButton
@@ -191,7 +273,7 @@ class CameraTestController: InterfaceExtendedController {
     func checkForMicrphone(){
         
         CameraTestController.levelTimer.invalidate()
-        Log.echo(key: "yud", text: "Checking for the microphone access")
+        // Log.echo(key: "yud", text: "Checking for the microphone access")
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
         
         let url = documents.appendingPathComponent("record.caf")
@@ -208,11 +290,11 @@ class CameraTestController: InterfaceExtendedController {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-        
+            
             try
                 
-               audioSession.setCategory(.playAndRecord, mode: .default, options: [])
-//                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
+                audioSession.setCategory(.playAndRecord, mode: .default, options: [])
+            //                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
             try audioSession.setActive(true)
             try recorder = AVAudioRecorder(url:url, settings: recordSettings)
             
@@ -287,7 +369,7 @@ class CameraTestController: InterfaceExtendedController {
         
         session = AVCaptureSession()
         output = AVCaptureStillImageOutput()
-       
+        
         guard let camera = getDevice(position: .front) else {
             errorInCamera()
             return
@@ -505,7 +587,7 @@ class CameraTestController: InterfaceExtendedController {
                 return
             }
             controller.info = self.info
-         
+            
             //        if self.info?.isFree ?? false{
             //            return
             //        }
@@ -564,7 +646,7 @@ class CameraTestController: InterfaceExtendedController {
             //            })
         }))
         alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
-           
+            
         }))
         
         self.present(alert, animated: false) {
@@ -584,5 +666,88 @@ extension CameraTestController{
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
+}
+
+
+extension CameraTestController:UITextViewDelegate{
+    
+    func test(){
+     
+        testTextView?.delegate = self
+        testTextView?.isSelectable = true
+        testTextView?.isEditable = false
+        testTextView?.dataDetectorTypes = .link
+        testTextView?.isUserInteractionEnabled = true
+        testTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if range == textView.text?.range(of: "contact us for support.")?.nsRange {
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  range == textView.text?.range(of: "our FAQs")?.nsRange {
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        Log.echo(key: "yud", text: "interacting with url")
+        
+        if characterRange == testTextView?.text?.range(of: "contact us")?.nsRange {
+            
+            DispatchQueue.main.async {
+                
+                self.dismiss(animated: true) {
+                    
+                    guard let rootController = RootControllerManager().getCurrentController() else{
+                        return
+                    }
+                    
+                    guard let roleId = SignedUserInfo.sharedInstance?.role else{
+                        return
+                    }
+                    
+                    if roleId  == .analyst{
+                        rootController.tapAction(menuType: MenuRootView.MenuType.contactUsAnalyst)
+                        
+                        rootController.closeToggle()
+                        return
+                    }
+                    
+                    if roleId == .user{
+                        
+                        rootController.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+                        rootController.closeToggle()
+                        return
+                    }
+                }
+            }
+            return false
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  characterRange == testTextView?.text?.range(of: "FAQs ")?.nsRange {
+            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: {
+                    guard let rootController = RootControllerManager().getCurrentController() else{
+                        return
+                    }
+                    rootController.showFAQController()
+                })
+            }
+            return false
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return false
+    }
 }

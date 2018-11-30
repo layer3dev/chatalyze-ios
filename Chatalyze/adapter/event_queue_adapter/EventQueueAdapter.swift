@@ -14,6 +14,7 @@ class EventQueueAdapter : NSObject{
     
     fileprivate var _infos : [SlotInfo] = [SlotInfo]()
     private var isReleased = false;
+    var countdownListener : CountdownListener?
     
     func viewDidRelease(){
         isReleased = true
@@ -41,14 +42,12 @@ extension EventQueueAdapter : UICollectionViewDataSource{
       
         let index = (indexPath as NSIndexPath).row
         let info = infos[index]
-        cell.fillInfo(index: index, slotInfo: info)
-    }
-    
+        cell.fillInfo(index: index, slotInfo: info, countdownListener: countdownListener)
+    }    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return _infos.count
     }
-    
     
 }
 

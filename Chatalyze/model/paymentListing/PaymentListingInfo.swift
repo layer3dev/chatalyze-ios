@@ -24,6 +24,7 @@ class PaymentListingInfo: NSObject {
     
     init(info : JSON?){
         super.init()
+        
         fillInfo(info: info)
     }
     
@@ -46,9 +47,10 @@ class PaymentListingInfo: NSObject {
         
         if let amount = Double(self.amount ?? "0.0"){
          
-            let roundedAmount = (round((amount*100))/100)
+            let roundedAmount = (round((amount*1000))/1000)
             Log.echo(key: "yud", text: "Rounded amount is \(roundedAmount)")
-            self.amount = "\(roundedAmount)"
+            //self.amount = "\(roundedAmount)"
+            self.amount = "\(String(format: "%.2f", roundedAmount))"
         }
         
         _date = json["createdAt"].stringValue
@@ -58,9 +60,10 @@ class PaymentListingInfo: NSObject {
 
                 if let refundedDoubleAmount = Double(refundedAmount){
                     
-                    let roundedAmount = (round((refundedDoubleAmount*100))/100)
+                    let roundedAmount = (round((refundedDoubleAmount*1000))/1000)
                     Log.echo(key: "yud", text: "Rounded amount is \(roundedAmount)")
-                    self.refundedAmount =                     "($ \(roundedAmount) Refunded)"
+                    //self.refundedAmount = "($ \(roundedAmount) Refunded)"
+                    self.refundedAmount = "($ \(String(format: "%.2f", refundedDoubleAmount)) Refunded)"
                 }
             }
         }
@@ -70,8 +73,9 @@ class PaymentListingInfo: NSObject {
         
         get{
             return DateParser.convertDateToDesiredFormat(date: _date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy h:mm:ss a")
-            //Jan 16, 2018 5:51:48 PM
-           //EE, MMM dd h:mm
+           
+            //Jan 16, 2018 5:51:48 PM           
+            //EE, MMM dd h:mm
         }
     }
 }

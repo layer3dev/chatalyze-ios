@@ -1,4 +1,3 @@
-
 //
 //  EventQueueController.swift
 //  Chatalyze
@@ -15,10 +14,13 @@ class EventQueueController: InterfaceExtendedController {
     fileprivate var adapter : EventQueueAdapter?
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
-    var timer : EventTimer = EventTimer()
     private let eventSlotListener = EventSlotListener()
     @IBOutlet var bottomLine:UIView?
+    private var countdownListener : CountdownListener =
+        CountdownListener()
 
+    private var socketClient : SocketClient?
+    private var timerSync = TimerSync.sharedInstance
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +46,21 @@ class EventQueueController: InterfaceExtendedController {
         paintInterface()
         registerForEvent()
         registerForTimer()
+        
         loadInfoFromServer(showLoader : true)
         listenOnSocketConnect()
+        startSync()
     }
+    
+    private func startSync(){
+        guard let eventId = self.eventId
+            else{
+                return
+        }
+        
+        socketClient?.connect(roomId: eventId)
+    }
+    
     func listenOnSocketConnect(){
         
         UserSocket.sharedInstance?.socket?.on("connect") {data, ack in
@@ -62,29 +76,31 @@ class EventQueueController: InterfaceExtendedController {
     func loadInfoFromServer(showLoader : Bool){
       
         fetchInfo(showLoader: showLoader) { [weak self] (success) in
+          
             if(!success){
                 return
             }
             self?.processEventInfo()
-        }
-    }
+        }    }
 
     
     override func viewDidRelease() {
         super.viewDidRelease()
       
-        timer.pauseTimer()
+        Log.echo(key: "release", text: "viewDidRelease -> EventQueue")
+        
         eventSlotListener.setListener(listener: nil)
+        countdownListener.releaseListener()
+//        socketClient?.disconnect()
     }
     
     
     
     private func registerForTimer(){
-        
-        timer.startTimer()
-        timer.ping { [weak self] in
+        countdownListener.add { [weak self] in
             self?.refresh()
         }
+        
     }
     
     private func registerForEvent(){
@@ -140,9 +156,11 @@ class EventQueueController: InterfaceExtendedController {
             eventSlotListener.eventId = eventId
         }
         adapter = EventQueueAdapter()
+        adapter?.countdownListener = countdownListener
         collectionView?.delegate = adapter
         collectionView?.dataSource = adapter
         collectionView?.collectionViewLayout = EventQueueFlowLayout()
+        socketClient = SocketClient.sharedInstance
     }
     
     
@@ -227,8 +245,7 @@ extension EventQueueController{
             completion?(true)
             return
         }
-    }
-    
+    }    
 }
 
 

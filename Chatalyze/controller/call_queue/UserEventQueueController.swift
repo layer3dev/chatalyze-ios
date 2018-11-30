@@ -21,6 +21,7 @@ class UserEventQueueController: EventQueueController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        
         //verifyForEventDelay()
         analystJoinedNotification()
         eventNotificationListener()
@@ -114,11 +115,6 @@ class UserEventQueueController: EventQueueController {
     override func refresh(){
         super.refresh()
         
-        //Verifying that event is delayed or not started yet
-     
-//        Log.echo(key: "user_socket", text: "valid slot started in refresh \(eventInfo?.started)")        
-//        Log.echo(key: "user_socket", text: "valid slot notified in refresh \(eventInfo?.notified)")
-        
         guard let eventInfo = eventInfo
             else{
                 return
@@ -162,7 +158,7 @@ class UserEventQueueController: EventQueueController {
             }
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
-            timer.pauseTimer()
+            self.viewDidRelease()
             
             self.navigationController?.present(controller, animated: true, completion: {
                 

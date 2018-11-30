@@ -122,12 +122,35 @@ class SessionReviewRootView:ExtendedView{
         return ""
     }
     
+    func isThisFutureTime()->Bool{
+        
+        if let startTime = DateParser.getDateTimeInUTCFromWeb(dateInString:self.param["start"] as? String? ?? nil,dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSSZ"){
+            
+            Log.echo(key: "yud", text: "Time Interval till now is \(startTime.timeIntervalTillNow)")
+            if startTime.timeIntervalTillNow > 0{
+                return true
+            }
+            return false
+        }
+        return false
+    }
+    
+    
     @IBAction func scheduleAction(sender:UIButton?){
-      
+     
+        self.resetErrorlabel()
         paramForUpload = self.param
       
         Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
+     
+        let isThisFutureTime = self.isThisFutureTime()
         
+        if !isThisFutureTime {
+            
+            self.showError(message: "Please select the future time")
+            return
+        }
+                
         guard let hourlyPrice = caluclateHourlyPrice() else {
             return
         }
@@ -153,15 +176,21 @@ class SessionReviewRootView:ExtendedView{
                 completion?(false, nil)
                 return
         }
+        
         self.paramForUpload["eventBannerInfo"] = true
         Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         self.paramForUpload["eventBanner"] = imageBase64
+        
+        var requiredParamForUpload = paramForUpload
+        requiredParamForUpload["selectedHourSlot"] = nil
+        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
+        
         self.controller?.showLoader()
         resetErrorlabel()
-        SessionRequestWithImageProcessor().schedule(params: paramForUpload) { [weak self] (success, info) in
+        SessionRequestWithImageProcessor().schedule(params: requiredParamForUpload) { [weak self] (success, info) in
             
-            Log.echo(key: "yud", text: "Response in succesful event creation is \(info)")
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: info))")
             
             self?.controller?.stopLoader()
             completion!(success,info)
@@ -224,7 +253,11 @@ class SessionReviewRootView:ExtendedView{
         resetErrorlabel()
         Log.echo(key: "yud", text: "Param sending to web \(paramForUpload)")
         
-        ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
+        var requiredParamForUpload = paramForUpload
+        requiredParamForUpload["selectedHourSlot"] = nil
+        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
+        
+        ScheduleSessionRequest().save(params: requiredParamForUpload) { (success, message, response) in
          
             Log.echo(key: "yud", text: "Response in succesful event creation is \(response)")
             

@@ -20,10 +20,10 @@ class MyTicketsController: InterfaceExtendedController{
     @IBOutlet var rootview:MyTicketsRootView?
     @IBOutlet var scroll:UIScrollView?
     @IBOutlet var noTicketLbl:UILabel?
+    @IBOutlet var noTicketView:UIView?
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
-    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -40,7 +40,8 @@ class MyTicketsController: InterfaceExtendedController{
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
-        }        
+        }
+        
         eventSlotListiner.userId = id
         eventSlotListiner.setListener {
             
@@ -51,7 +52,7 @@ class MyTicketsController: InterfaceExtendedController{
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-     
+        
         paintNavigationTitle(text: "My Tickets")
         initializeVariable()
         //paintInterface()
@@ -82,6 +83,7 @@ class MyTicketsController: InterfaceExtendedController{
         fetchInfo()
     }
     
+    
     func fetchInfo(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -91,9 +93,8 @@ class MyTicketsController: InterfaceExtendedController{
         self.showLoader()
         CallSlotFetch().fetchInfos() {(success, info) in
             
-            
             DispatchQueue.main.async {
-               
+                
                 self.ticketsArray.removeAll()
                 self.rootview?.adapter?.initializeCollectionFlowLayout()
                 
@@ -103,6 +104,7 @@ class MyTicketsController: InterfaceExtendedController{
                 if !success{
                     
                     self.noTicketLbl?.isHidden = false
+                    self.noTicketView?.isHidden = false
                     return
                 }
                 
@@ -111,16 +113,19 @@ class MyTicketsController: InterfaceExtendedController{
                     if info.count <= 0{
                         
                         self.noTicketLbl?.isHidden = false
+                        self.noTicketView?.isHidden = false
                         self.rootview?.fillInfo(info: self.ticketsArray)
                         return
                     }
                     self.ticketsArray = info
                     self.noTicketLbl?.isHidden = true
+                    self.noTicketView?.isHidden = true
                     self.rootview?.fillInfo(info: info)
                 }
             }
         }
     }
+        
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -137,7 +142,7 @@ class MyTicketsController: InterfaceExtendedController{
 extension MyTicketsController:UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-       
+        
         delegate?.getTicketsScrollInset(scrollView: scrollView)
     }
 }

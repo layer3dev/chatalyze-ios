@@ -13,7 +13,6 @@ class FetchPaypalEmailHost{
     
     public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
-        //https://dev.chatalyze.com/api/paymentEmail/user/36
         
         var url = AppConnectionConfig.webServiceURL + "/paymentEmail/user/"
         

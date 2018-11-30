@@ -54,7 +54,11 @@ class EventScheduleCoreInfo: EventInfo {
         }
         
         for bookingInfo in bookingInfos {
-            let slotInfo = SlotInfo(info: bookingInfo)
+//            let slotInfo = SlotInfo(info: bookingInfo)
+            guard let slotInfo = SlotInfo.instance(info: bookingInfo)
+                else{
+                    continue
+            }
             if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
                 slotInfo.updateFlags(info: oldSlotInfo)
             }
@@ -73,7 +77,11 @@ class EventScheduleCoreInfo: EventInfo {
         
         for bookingInfo in bookingInfos {
             
-            let slotInfo = SlotInfo(info: bookingInfo)
+//            let slotInfo = SlotInfo(info: bookingInfo)
+            guard let slotInfo = SlotInfo.instance(info: bookingInfo)
+                else{
+                    continue
+            }
             if let oldSlotInfo = fetchSlotInfo(id: (slotInfo.id ?? 0)){
                 slotInfo.updateFlags(info: oldSlotInfo)
             }

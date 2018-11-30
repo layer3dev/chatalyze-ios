@@ -21,10 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var allowRotate : Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
+        disableAppToSwitchIntoSleepMode()
         test()
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
@@ -43,10 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TimerSync.sharedInstance
     }
     
-    fileprivate func initialization(){
-
-        _ = NavigationBarCustomizer()
+    fileprivate func disableAppToSwitchIntoSleepMode(){
         
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    fileprivate func initialization(){
+        
+        _ = NavigationBarCustomizer()        
         RootControllerManager().setRoot {
             
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
@@ -84,22 +89,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
-     
+
         UIInterfaceOrientationMask {
+            
             if(allowRotate){
                 return .allButUpsideDown
         }
-        //Only allow portrait (standard behaviour)
+        // Only allow portrait (standard behaviour)
         return .portrait;
     }
 }
 
-extension AppDelegate:UNUserNotificationCenterDelegate{
-    
+extension AppDelegate:UNUserNotificationCenterDelegate {
+
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *) {
-             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
                 Log.echo(key: "yud", text: "10.0 \(granted)")
                 guard granted else{
@@ -108,28 +114,29 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
                 self.getNotificationSettings()
             }
         }else{
+            
             Log.echo(key: "yud", text: "Fallback version")
-            //Fallback on earlier versions
+            // Fallback on earlier versions
         }
     }
-    
     
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-            
+
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-              
+                
                 print("Notification settings: \(settings)")
+                
                 guard settings.authorizationStatus == .authorized else { return }
+                
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
                 print("Notification settings Registered: \(settings)")
             }
         }else{
-            
-            //Fallback on earlier versions
+            // Fallback on earlier versions
         }
     }
     
@@ -142,7 +149,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo
-        Log.echo(key: "yud", text: "remoteNotificatio userInfo is \(userInfo)")
+        Log.echo(key: "yud", text: "RemoteNotification userInfo is \(userInfo)")
         let aps = userInfo["aps"] as? [String: AnyObject]
         Log.echo(key: "yud", text: "RemoteNotification aps data \(String(describing: aps))")
     }
@@ -155,11 +162,11 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         
         let token = tokenParts.joined()
         
-        //This method save the device token if shared intance alraedy exists else create new one with the data
+        // This method save the device token if shared intance alraedy exists else create new one with the data.
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
-        //call function for the token Update
+        // call function for the token Update
         self.updateToken()
-        print("Device Token is : \(token)")
+        // print("Device Token is : \(token)")
     }
     
     func updateToken(){
@@ -191,9 +198,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate{
         }
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
-        //(app, open: url, options: options)
+        // (app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

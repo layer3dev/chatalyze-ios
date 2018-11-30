@@ -89,7 +89,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             dateFormatter.dateFormat = "EE, MMM dd"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
-            self.dateLbl?.text = "\(dateFormatter.string(from: date)) \(Locale.current.regionCode ?? "")"
+            self.dateLbl?.text = "\(dateFormatter.string(from: date))"
         }
         
         if let date = info.startDate{

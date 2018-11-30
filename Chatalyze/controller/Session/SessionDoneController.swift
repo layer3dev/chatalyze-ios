@@ -9,7 +9,8 @@
 import UIKit
 
 class SessionDoneController: InterfaceExtendedController {
-
+    
+    @IBOutlet var linkLbl:UILabel?
     var delegate:SessionDoneControllerProtocol?
     var param = [String:Any]()
     var eventInfo:EventInfo?
@@ -22,11 +23,11 @@ class SessionDoneController: InterfaceExtendedController {
         //Do any additional setup after loading the view.
     }
     
-    
     func initializeVariable(){
         
         rootView?.controller = self
         rootView?.param = self.param
+        updateLabelUrl()
     }
     
     func fillParam(param:[String:Any]){
@@ -52,17 +53,65 @@ class SessionDoneController: InterfaceExtendedController {
         }
     }
     
+    func updateLabelUrl(){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        
+        var str = "https://chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.eventInfo?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        var fontSize  = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 20
+        }
+        let attrStr = str.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#faa579"), isUnderLine: true)
+        linkLbl?.attributedText  = attrStr
+        
+        let linkGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnLink))
+      
+        linkGesture.delegate = self
+        linkLbl?.isUserInteractionEnabled = true
+        self.linkLbl?.addGestureRecognizer(linkGesture)
+        
+    }
+    
+    @objc func tapOnLink(recognizer:UITapGestureRecognizer){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        
+        var str = "https://chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.eventInfo?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        
+        if let url = URL(string: str){
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
     
     @IBAction func share(sender:UIButton){
         
         Log.echo(key: "yud", text: "EventInfo is not nil \(eventInfo?.id) and eventInfo Title is \(eventInfo?.title)")
-         Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
+        
+        Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
 
         guard let id = self.eventInfo?.id else{
             return
         }
 
-        var str = "https://dev.chatalyze.com/"
+        var str = "https://chatalyze.com/"
         str = str + "sessions/"
         str = str + (self.eventInfo?.title ?? "")
         str = str + "/"

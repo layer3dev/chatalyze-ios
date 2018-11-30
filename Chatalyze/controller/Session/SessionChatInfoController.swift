@@ -27,14 +27,21 @@ class SessionChatInfoController: InterfaceExtendedController {
     
     func updateRootInfo(){
         
+        Log.echo(key: "yud", text: "updating the code on the updateRootInfo\(self.param)")        
         rootView?.param  = self.param
+        rootView?.paintChatCalculator()
     }
     
     var rootView:SessionChatInfoRootView?{
-        
+    
         get{
             return self.view as? SessionChatInfoRootView
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+       //rootView?.paintChatCalculator
     }
     
     override func didReceiveMemoryWarning() {

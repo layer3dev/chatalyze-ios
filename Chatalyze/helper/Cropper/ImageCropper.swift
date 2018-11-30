@@ -14,6 +14,7 @@ class ImageCropper:NSObject, UIImagePickerControllerDelegate,UINavigationControl
     private var imagePicker = UIImagePickerController()
     private var controller:UIViewController?
     var getCroppedImage:((UIImage)->())?
+    var isOnlySquare = true
     
     override init() {
         super.init()
@@ -57,9 +58,26 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 
                 Log.echo(key: "yud", text: "selected image is")
                 let cropViewController = CropViewController(image: chosenImage)
+                if self.isOnlySquare{
+                    
+                    cropViewController.aspectRatioPreset = TOCropViewControllerAspectRatioPreset.presetSquare
+                    cropViewController.aspectRatioLockEnabled = true
+                    cropViewController.cropView.cropBoxResizeEnabled = false
+                    cropViewController.aspectRatioPickerButtonHidden = true
+                    cropViewController.toolbar.rotateButton.isHidden = true
+                    cropViewController.toolbar.rotateClockwiseButtonHidden = true
+                    cropViewController.toolbar.rotateCounterclockwiseButtonHidden = true
+                    cropViewController.toolbar.resetButton.isHidden = true
+                    //cropViewController.rotateButtonsHidden = true
+                    //cropViewController.toolbar.resetButtonEnabled = false
+                    //cropViewController.toolbar.clampButtonHidden = true
+                    //cropViewController.toolbar.rotateButton.isEnabled = false
+                    //cropViewController.toolbar.rotateButton.isUserInteractionEnabled = false                    
+                    //cropViewController.rotateClockwiseButtonHidden = true
+                    //cropViewController.clo
+                }
                 cropViewController.delegate = self
                 cropViewController.modalPresentationStyle = UIModalPresentationStyle.currentContext
-                
                 self.controller?.dismiss(animated: true, completion: {
                     self.controller?.present(cropViewController, animated: true, completion: nil)
                 })

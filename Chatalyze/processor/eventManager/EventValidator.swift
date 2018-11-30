@@ -15,7 +15,7 @@ class EventValidator{
             return false
         }
         
-        let startTime = start.timeIntervalSinceNow
+        let startTime = start.timeIntervalTillNow
         if(startTime <= 30 && startTime > 0){
             return true
         }
@@ -29,7 +29,7 @@ class EventValidator{
             return false
         }
         
-        let startTime = start.timeIntervalSinceNow
+        let startTime = start.timeIntervalTillNow
         if(startTime <= 30){
             return true
         }
@@ -42,7 +42,7 @@ class EventValidator{
             return false
         }
         
-        let startTimeInterval = start.timeIntervalSinceNow
+        let startTimeInterval = start.timeIntervalTillNow
         if(startTimeInterval <= 120*60 && startTimeInterval > 0){
             return true
         }

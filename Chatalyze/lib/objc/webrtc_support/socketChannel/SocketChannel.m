@@ -20,6 +20,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 @implementation SocketChannel{
     SocketClient *socketClient;
+    SocketListener *socketListener;
     // TODO(tkchin): move these to a configuration object.
 }
 
@@ -36,6 +37,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(void)initialize{
     socketClient = [SocketClient sharedInstance];
+    socketListener = [socketClient createListener];
 }
 
 
@@ -58,7 +60,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(void)registerListeners{
     
-    [socketClient onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+    [socketListener onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         if(socketClient == nil){
             return;
         }
@@ -66,7 +68,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     }];
     
     
-    [socketClient onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
+    [socketListener onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         
         if(socketClient == nil){
             return;
@@ -213,6 +215,8 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 -(void)disconnect{
     self.listener = nil;
     socketClient = nil;
+    [socketListener releaseListener];
+    socketListener = nil;
 }
 
 @end

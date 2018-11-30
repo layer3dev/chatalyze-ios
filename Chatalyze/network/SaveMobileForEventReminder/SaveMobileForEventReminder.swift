@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class SaveMobileForEventReminder{
     
-    //https://dev.chatalyze.com/api/users/50
     public func save(mobilenumber : String, countryCode:String,saveForFuture : Bool, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
         var url = AppConnectionConfig.webServiceURL + "/users/"

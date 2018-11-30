@@ -12,25 +12,34 @@ import NVActivityIndicatorView
 class InterfaceExtendedController : ExtendedController {
     
     var disableBack : Bool = false
-    var viewDidAppear : Bool = false
+    private var isViewDidAppear : Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended -> \(self)")
         initialization()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if(viewDidAppear){
-            return
+        
+        DispatchQueue.main.async {
+            if(self.isViewDidAppear){
+                return
+            }
+            self.isViewDidAppear = true
+            self.viewAppeared()
         }
-        viewDidAppear = true
-        viewAppeared()
+        
     }
     
     @objc override func viewDidRelease(){
+        super.viewDidRelease()
+        
+        Log.echo(key : "rotate", text : "viewDidRelease in InterfaceExtended-> \(self)")
         guard let rootView = self.view as? ExtendedRootView
             else{
                 return
@@ -40,6 +49,7 @@ class InterfaceExtendedController : ExtendedController {
     
     //singular execution of viewDidAppear
     func viewAppeared(){
+         Log.echo(key : "rotate", text : "viewAppeared in InterfaceExtended-> \(self)")
     }
     
     private func initialization(){
@@ -55,6 +65,8 @@ class InterfaceExtendedController : ExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        Log.echo(key : "rotate", text : "viewWillAppear in InterfaceExtended -> isViewDidAppear -> \(isViewDidAppear) -> \(self)")
         
         //:todo
         /*self.notificationBar?.count = SignedUserInfo.sharedInstance?.notificationCount ?? 0*/
@@ -81,6 +93,10 @@ class InterfaceExtendedController : ExtendedController {
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    func showNavigationBar(){
+        
+        self.navigationController?.isNavigationBarHidden = false
+    }
     
     func paintNavigationTitle(text : String?){
     
@@ -221,10 +237,4 @@ extension InterfaceExtendedController : NVActivityIndicatorViewable{
         
         self.stopAnimating()
     }
-    
-   
-    
-    
 }
-
-

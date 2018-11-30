@@ -22,19 +22,7 @@ class CacheImageLoader : NSObject{
     
     func loadImage(_ urlString : String?, token : @escaping ()->(Int) , completionBlock : @escaping (_ success : Bool, _ image : UIImage?)->()){
         
-        /*
-         SDWebImageManager *manager = [SDWebImageManager sharedManager];
-         [manager loadImageWithURL:imageURL
-         options:0
-         progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-         // progression tracking code
-         }
-         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-         if (image) {
-         // do something with image
-         }
-         }];
-         */
+        
         guard let urlString = urlString
             else{
                 completionBlock(false, nil)

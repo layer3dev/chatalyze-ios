@@ -24,6 +24,7 @@ class SessionTimeDateRootView:ExtendedView{
     var endDate = ""
     var actualStartDate:Date?
     var successHandler:(()->())?
+    @IBOutlet var currentZoneShowingLbl:UILabel?
     
     enum activePicker:Int{
         
@@ -47,8 +48,21 @@ class SessionTimeDateRootView:ExtendedView{
     
     override func viewDidLayout(){
         super.viewDidLayout()
+  
+        paintFullBorder()
+        showingCurrentTimeZone()
     }
     
+    func showingCurrentTimeZone(){
+        
+        currentZoneShowingLbl?.text = TimeZone.current.abbreviation() ?? ""
+    }
+    
+    func paintFullBorder(){
+        
+        dateField?.isCompleteBorderAllow = true
+        startTimeField?.isCompleteBorderAllow = true
+    }
     
     @IBAction func pickerDoneAction(sender:UIButton?){
         
@@ -57,15 +71,22 @@ class SessionTimeDateRootView:ExtendedView{
             isPickerHidden = true
             pickerContainer?.isHidden = true
         }
+        
+       
     }
     
     @IBAction func datePickerAction(_ sender: Any){
         
         if selectedPickerType == .date{
+            
             dateField?.textField?.text = selectedTime
+            validateDate()
         }
+        
         if selectedPickerType == .time{
+            
             startTimeField?.textField?.text = startTime
+            validateTime()
         }
     }
     
@@ -78,6 +99,8 @@ class SessionTimeDateRootView:ExtendedView{
         dateField?.textField?.text = selectedTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
+        validateDate()
+        
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -98,7 +121,7 @@ class SessionTimeDateRootView:ExtendedView{
         startTimeField?.textField?.text = startTime
         isPickerHidden = false
         pickerContainer?.isHidden = false
-        
+        validateTime()
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -156,6 +179,7 @@ class SessionTimeDateRootView:ExtendedView{
     }
     
     var startTime:String{
+      
         get{
             
             let dateFormatter = DateFormatter()
@@ -171,7 +195,7 @@ class SessionTimeDateRootView:ExtendedView{
         }
     }
     
-    func getStartDateForParameter()->String{
+    func getStartDateForParameter()->String {
         
         let date = startDate + " " + endDate
         let dateFormatter = DateFormatter()
@@ -187,7 +211,7 @@ class SessionTimeDateRootView:ExtendedView{
         return ""
     }
     
-    func getEndDateForParameter()->String{
+    func getEndDateForParameter()->String {
         
         let startDate = getStartDateForParameter()
         let dateFormatter = DateFormatter()
@@ -237,24 +261,28 @@ class SessionTimeDateRootView:ExtendedView{
         resetDurationSelection()
         selectedDurationType = .thirtyMin
         thirtyMinsBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func oneHourAction(sender:UIButton){
  
         resetDurationSelection()
         selectedDurationType = .oneHour
         oneHourBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func oneAndHalfHourAction(sender:UIButton){
         
         resetDurationSelection()
         selectedDurationType = .oneAndhour
         oneAndHalfBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     @IBAction func twoHourAction(sender:UIButton){
         
         resetDurationSelection()
         selectedDurationType = .twohour
         twoHourBtn?.backgroundColor = UIColor(hexString: "#E1E4E6")
+        validateDuration()
     }
     
     @IBAction func nextAction(){
@@ -286,28 +314,28 @@ class SessionTimeDateRootView:ExtendedView{
     
     func validateFields()->Bool{
         
-        
-        let emailValidated  = validateDate()
-        let passwordValidated = validateTime()
+        let dateValidated  = validateDate()
+        let timeValidated = validateTime()
         let durationValidation = validateDuration()
-        return emailValidated && passwordValidated && durationValidation
+        return dateValidated && timeValidated && durationValidation
     }
     
     fileprivate func validateDate()->Bool{
         
         if(dateField?.textField?.text == ""){
             
-            dateField?.showError(text: "Date field can't be left empty !")
+            dateField?.showError(text: "Date is required.")
             return false
         }
         dateField?.resetErrorStatus()
         return true
     }
+    
     fileprivate func validateTime()->Bool{
         
         if(startTimeField?.textField?.text == ""){
             
-            startTimeField?.showError(text: "Time field can't be left empty !")
+            startTimeField?.showError(text: "Time is required.")
             return false
         }
         startTimeField?.resetErrorStatus()
@@ -318,7 +346,7 @@ class SessionTimeDateRootView:ExtendedView{
         
         if(selectedDurationType == .none){
             
-            showError(message: "Please select session duration !")
+            showError(message: "Session duration is required.")
             return false
         }
         resetErrorStatus()
@@ -342,12 +370,14 @@ class SessionTimeDateRootView:ExtendedView{
         param["end"] = getEndDateForParameter()
         param["userId"] = id
         param["isFree"] = false
+        param["selectedHourSlot"] = selectedDurationType
         return param
     }
     
     func next(){
         
         Log.echo(key: "yud", text: "Required Date is \(getStartDateForParameter())")
+        
         Log.echo(key: "yud", text: "End Date is \(getEndDateForParameter())")
         
         guard let controller = SessionChatInfoController.instance() else{
@@ -368,5 +398,4 @@ class SessionTimeDateRootView:ExtendedView{
         controller.param  = getParam()
         controller.selectedDurationType = self.selectedDurationType
     }
-    
 }

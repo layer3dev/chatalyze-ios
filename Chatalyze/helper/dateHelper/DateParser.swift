@@ -111,6 +111,7 @@ class DateParser: NSObject {
     static func getCurrentDateTimeInStringWithWebFormat(date:Date?,format:String?)->String?{
         
         //For Start Date
+        
         guard let getDate = date else {
             return ""
         }

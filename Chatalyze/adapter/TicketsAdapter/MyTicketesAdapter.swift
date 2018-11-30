@@ -17,11 +17,11 @@ class MyTicketesAdapter: ExtendedView {
     var ticketsListingArray = [EventSlotInfo]()
     var featureHeight:CGFloat = 0.0
     var myTicketsVerticalTableView:UITableView?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
-       // initializeCollectionFlowLayout()
+        //initializeCollectionFlowLayout()
     }
     
     func initailizeAdapter(info:[EventSlotInfo]?){
@@ -133,45 +133,74 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 return
         }
         
-        //Verify for delay and not started
-        
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
-        
-        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
-        
-        //End
-        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-            
-            guard let controller = HostEventQueueController.instance()
-                else{
-                    return
-            }
-            
-            controller.eventId = "\(eventId)"
-            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-            return
-        }
+//        //Verify for delay and not started
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//
+//            return
+//        }
+//
+//        //End
+//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//
+//            return
+//        }
+//
+//        guard let controller = UserCallController.instance()
+//            else{
+//                return
+//        }
+//
+//        controller.feedbackListener = {(eventInfo) in
+//
+//            guard let controller = ReviewController.instance() else{
+//                return
+//            }
+//
+//            controller.eventInfo = eventInfo
+//
+//            controller.dismissListner = {
+//                self.root?.refreshData()
+//            }
+//
+//            self.root?.controller?.present(controller, animated: false, completion:{
+//            })
+//
+//        }
+//        controller.eventId = String(eventId)
+//
+//        self.root?.controller?.present(controller, animated: false, completion: nil)
+//
+//
+//        //
         
         guard let controller = UserCallController.instance()
             else{
@@ -185,32 +214,39 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             }
             
             controller.eventInfo = eventInfo
+            
             controller.dismissListner = {
                 self.root?.refreshData()
             }
+            
             self.root?.controller?.present(controller, animated: false, completion:{
             })
+            
         }
         controller.eventId = String(eventId)
-        self.root?.controller?.present(controller, animated: false, completion: nil)
+        
+        self.root?.controller?.present(controller, animated: false, completion: nil)        
     }
     
     func systemTest(){
         
-//        guard let controller = SystemTestController.instance() else { return }
-//
-//        controller.isOnlySystemTest = true
-//        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
-//        })
+        //        guard let controller = SystemTestController.instance() else { return }
+        //
+        //        controller.isOnlySystemTest = true
+        //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+        //        })
         
         
         guard let controller = InternetSpeedTestController.instance() else{
-                return
-            }
+            return
+        }
+        
         controller.onlySystemTest = true
+        
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-            })
+        
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
     }
     
     func refreshData(){

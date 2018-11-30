@@ -15,7 +15,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     @IBOutlet var heightOfTableViewContainer:NSLayoutConstraint?
     var ticketsListingArray = [EventSlotInfo]()
     var root:MyTicketsVerticalRootView?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -27,13 +27,15 @@ class MyTicketesVerticalAdapter: ExtendedView {
     }
     
     func initializeForTableContentHeight(){
-       
+        
         self.myTicketsVerticalTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
+        
         self.myTicketsVerticalTableView?.layer.removeAllAnimations()
+        
         self.heightOfTableViewContainer?.constant = myTicketsVerticalTableView?.contentSize.height ?? 0.0
         self.updateConstraints()
         self.layoutIfNeeded()
@@ -42,7 +44,10 @@ class MyTicketesVerticalAdapter: ExtendedView {
     func initailizeAdapter(info:[EventSlotInfo]?){
         
         DispatchQueue.main.async {
+            
             guard let info = info else {
+                self.ticketsListingArray.removeAll()
+                self.myTicketsVerticalTableView?.reloadData()
                 return
             }
             self.ticketsListingArray = info
@@ -104,140 +109,113 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
+    //
+    //    //    private func verifyForEventDelay(){
+    //    //
+    //    //        guard let slotInfo = slotInfo else{
+    //    //            return
+    //    //        }
+    //    //
+    //    //Verifying that event is delayed or not started yet
+    //
+    //    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
+    //    //
+    //    //            showAlertMessage()
+    //    //            statusLbl?.text = "Session has not started yet."
+    //    //            return
+    //    //        }
+    //    //
+    //    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+    //    //
+    //    //            showAlertMessage()
+    //    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
+    //    //            return
+    //    //        }
+    //    //    }
+    //    //
+    
+    func jointEvent(info:SlotInfo?){
+        
+        Log.echo(key: "yud", text: "Joint Event is calling in adapter!!")
+        
+        guard let slotInfo = info
+            else{
+                return
+        }
+        
+        guard let eventId = slotInfo.callscheduleId
+            else{
+                return
+        }
+        
+        //Verify for delay and not started
+        
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
 //
-//    //    private func verifyForEventDelay(){
-//    //
-//    //        guard let slotInfo = slotInfo else{
-//    //            return
-//    //        }
-//    //
-//    //Verifying that event is delayed or not started yet
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
 //
-//    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-//    //
-//    //            showAlertMessage()
-//    //            statusLbl?.text = "Session has not started yet."
-//    //            return
-//    //        }
-//    //
-//    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-//    //
-//    //            showAlertMessage()
-//    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-//    //            return
-//    //        }
-//    //    }
-//    //
-    
-func jointEvent(info:SlotInfo?){
-    
-    Log.echo(key: "yud", text: "Joint Event is calling in adapter!!")
-
-    
-    guard let slotInfo = info
-        else{
-            return
-    }
-    
-    guard let eventId = slotInfo.callscheduleId
-        else{
-            return
-    }
-    
-    //Verify for delay and not started
-    
-    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-        
-        guard let controller = HostEventQueueController.instance()
+//            controller.eventId = "\(eventId)"
+//
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+//        //End
+//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
+//
+//            guard let controller = HostEventQueueController.instance()
+//                else{
+//                    return
+//            }
+//
+//            controller.eventId = "\(eventId)"
+//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
+//            return
+//        }
+//
+        guard let controller = UserCallController.instance()
             else{
                 return
         }
-        
-        controller.eventId = "\(eventId)"
-        
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-        return
-    }
-    
-    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-        
-        guard let controller = HostEventQueueController.instance()
-            else{
-                return
-        }
-        
-        controller.eventId = "\(eventId)"
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-        return
-    }
-    
-    //End
-    if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-        
-        guard let controller = HostEventQueueController.instance()
-            else{
-                return
-        }
-        
-        controller.eventId = "\(eventId)"
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-        return
-    }
-    
-    guard let controller = UserCallController.instance()
-        else{
-            return
-    }
-    
-    controller.feedbackListener = {(eventInfo) in
-        
-        guard let controller = ReviewController.instance() else{
-            return
-        }
-        controller.eventInfo = eventInfo
-        controller.dismissListner = {
+        controller.feedbackListener = {(eventInfo) in
             self.root?.refreshData()
         }
-        self.root?.controller?.present(controller, animated: false, completion:{
-        })
+        controller.eventId = String(eventId)
+        self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
-    controller.multipleTabsHandlingListener = {
+    func systemTest(){
         
-        DispatchQueue.main.asyncAfter(deadline: (.now() + 2), execute: {
-      
-            guard let controller = OpenCallAlertController.instance() else{
-                return
-            }
-            controller.dismissHandler = {
-                
-                self.root?.refreshData()
-            }
-            self.root?.controller?.present(controller, animated: false, completion: {
-            })
+        //        guard let controller = SystemTestController.instance() else { return }
+        //
+        //        controller.isOnlySystemTest = true
+        //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
+        //        })
+        
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+        controller.onlySystemTest = true
+        
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
-    }
-    controller.eventId = String(eventId)
-    self.root?.controller?.present(controller, animated: false, completion: nil)
-}
-
-func systemTest(){
-    
-    //        guard let controller = SystemTestController.instance() else { return }
-    //
-    //        controller.isOnlySystemTest = true
-    //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
-    //        })
-    
-    
-    guard let controller = InternetSpeedTestController.instance() else{
-        return
-    }
-    controller.onlySystemTest = true
-    controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-    RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-    })
-    
+        
     }
     
     func refreshData(){

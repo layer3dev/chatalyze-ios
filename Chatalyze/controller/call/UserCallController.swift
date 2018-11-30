@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class UserCallController: VideoCallController {
+  
     //Animation Responsible
     var isAnimating = false
     
@@ -17,6 +18,10 @@ class UserCallController: VideoCallController {
     
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
+    @IBOutlet var countDountAttrTimerLbl:UILabel?
+    @IBOutlet var futureSessionView:UIView?
+    @IBOutlet var futureSessionHeaderLbl:UILabel?
+    
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     var isScreenshotStatusLoaded = false
@@ -36,14 +41,11 @@ class UserCallController: VideoCallController {
     
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
-    
-    
     override var isVideoCallInProgress : Bool{
         guard let activeSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return false
         }
-        
         
         if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
             return true;
@@ -61,6 +63,11 @@ class UserCallController: VideoCallController {
     
     var userRootView : UserVideoRootView?{
         return self.view as? UserVideoRootView
+    }
+    
+    var isHangUp:Bool{
+        
+        return localMediaPackage?.isDisabled ?? true
     }
     
     override func initialization(){
@@ -82,10 +89,9 @@ class UserCallController: VideoCallController {
         updateLableAnimation()
     }
     
-    
-        
     override func updateStatusMessage(){
         super.updateStatusMessage()
+        
         guard let eventInfo = eventInfo
             else{
                 setStatusMessage(type: .ideal)
@@ -97,12 +103,10 @@ class UserCallController: VideoCallController {
             return
         }
         
-        
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
             return
         }
-        
         
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
@@ -213,6 +217,7 @@ class UserCallController: VideoCallController {
        
         initializeGetCommondForTakeScreenShot()
         registerForListeners()
+        self.selfieTimerView?.delegate = self
     }
     
     override func registerForListeners(){
@@ -220,7 +225,7 @@ class UserCallController: VideoCallController {
         
         //call initiation
         
-        socketClient?.onEvent("startSendingVideo", completion: { [weak self] (json) in
+        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
@@ -228,14 +233,14 @@ class UserCallController: VideoCallController {
             self?.processCallInitiation(data : json)
         })
         
-        socketClient?.onEvent("startConnecting", completion: { [weak self] (json) in
+        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
             self?.initiateCall()
         })
         
-        socketClient?.onEvent("linkCall", completion: {[weak self] (json) in
+        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
@@ -243,12 +248,11 @@ class UserCallController: VideoCallController {
         })
         
         //call initiation
-        socketClient?.onEvent("hangUp", completion: { [weak self] (json) in
+        socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }
-            self?.processHangupEvent(data : json)
-            
+            self?.processHangupEvent(data : json)            
         })
     }
     
@@ -262,14 +266,18 @@ class UserCallController: VideoCallController {
         hangup(hangup: value)
     }
     
-    override func processExitAction(){
-        super.processExitAction()
+    override func processExitAction(code : exitCode){
+        super.processExitAction(code : code)
         
         connection?.disconnect()
     }
     
     
     func hangup(hangup : Bool){
+        if(!hangup){
+            resetMuteActions()
+        }
+        
         localMediaPackage?.isDisabled = hangup
     }
     
@@ -301,7 +309,6 @@ class UserCallController: VideoCallController {
     }
 
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
-    
     private func processHandshakeResponse(data : JSON?){
         
         guard let json = data
@@ -328,6 +335,7 @@ class UserCallController: VideoCallController {
                 return
         }
         
+        disposeCurrentConnection()
         self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
         connection?.initiateCall()
         startCallRing()
@@ -343,6 +351,17 @@ class UserCallController: VideoCallController {
     }
     
     //ONLY LIVE - MERGED
+
+    private func disposeCurrentConnection(){
+        guard let currentConnection = self.connection
+            else{
+                return
+        }
+        
+        currentConnection.abort()
+        self.connection = nil
+    }
+    
     var myActiveUserSlot : SlotInfo?{
         
         guard let slotInfo = eventInfo?.mergeSlotInfo?.myCurrentSlotInfo?.slotInfo
@@ -364,12 +383,13 @@ class UserCallController: VideoCallController {
     
     func getTimeStampAfterEightSecond()->Date?{
         
-        let date = Date()
+        let date = TimerSync.sharedInstance.getDate()
+        Log.echo(key: "yud", text: "Synced date is \(date)")
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
         calendar.locale = Locale(identifier: "en_US_POSIX")
         let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
-        let requiredDate = calendar.date(byAdding: .second, value: 8, to: calendar.date(from: components) ?? date)
+        let requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
         Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
         Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
         if let verifiedDate = requiredDate{
@@ -380,8 +400,6 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        myLiveUnMergedSlot
-        
         Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
@@ -390,9 +408,12 @@ class UserCallController: VideoCallController {
             return
         }
         
+        if(!TimerSync.sharedInstance.isSynced){
+            return
+        }
+        
         if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-            //Log.echo(key: "yud", text: "Remaining Time to end the slot is \(endtimeOfSlot.timeIntervalSinceNow)")
-            if endtimeOfSlot.timeIntervalSinceNow <= 30.0{
+            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
                 return
             }
         }
@@ -437,12 +458,14 @@ class UserCallController: VideoCallController {
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-
-        
         if(!isCallConnected){ return }
         
         if !(isCallStreaming){
             return
+        }
+        
+        if isHangUp{
+           return
         }
         
         //here it is need to send the ping to host for the screenshot
@@ -474,6 +497,8 @@ class UserCallController: VideoCallController {
                 SlotFlagInfo.staticIsTimerInitiated = true
             }
             
+            //for testing
+            selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
             
             //Log.echo(key: "yud", text: "Yes I am sending the animation request")
@@ -487,8 +512,18 @@ class UserCallController: VideoCallController {
             let image = self.userRootView?.getSnapshot()
             self.mimicScreenShotFlash()
             self.myLiveUnMergedSlot?.isScreenshotSaved = true
+            self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
             SlotFlagInfo.staticScreenShotSaved = true
+            let slotInfo = self.myLiveUnMergedSlot
             self.uploadImage(image: image, completion: { (success, info) in
+                
+                let isExpired = slotInfo?.isExpired ?? true
+                if(!success && !isExpired){
+                    slotInfo?.isScreenshotSaved = false
+                    slotInfo?.isSelfieTimerInitiated = false
+                    SlotFlagInfo.staticScreenShotSaved = false
+                    return
+                }
                 if success{
                 }
                 self.screenshotInfo = info
@@ -498,15 +533,14 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{
                 return
         }
-        
         if(currentSlot.isFuture){
             
-            updateCallHeaderForFuture(slot : currentSlot)
+            updateNewHeaderInfoForSession(slot : currentSlot)
+//            updateCallHeaderForFuture(slot : currentSlot)
             return
         }       
         updateCallHeaderForLiveCall(slot: currentSlot)
@@ -524,9 +558,9 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        if let endDate = (currentSlot.endDate?.timeIntervalSinceNow) {
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             
-            if endDate < 15.0 && endDate >= 1.0 && isAnimating == false {
+            if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
                 startLableAnimating(label: userRootView?.callInfoContainer?.timer)
@@ -538,7 +572,7 @@ class UserCallController: VideoCallController {
                 stopLableAnimation()
                 return
             }
-            if endDate > 15.0{
+            if endDate > 16.0{
                 
                 isAnimating = false
                 stopLableAnimation()
@@ -549,7 +583,10 @@ class UserCallController: VideoCallController {
     }
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
-                
+        
+        userRootView?.callInfoContainer?.isHidden = false
+        futureSessionView?.isHidden = true
+        
         guard let startDate = slot.endDate
             else{
                 return
@@ -559,8 +596,10 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+    
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
+    
     
     private func updateCallHeaderForFuture(slot : SlotInfo){
         
@@ -582,19 +621,25 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
+        
         if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
-        self.processExitAction()
+        self.processExitAction(code : .expired)
     }
     
-    override func onExit(){
+    override func onExit(code : exitCode){
+        super.onExit(code: code)
+        
+        if(code == .prohibited){
+            showErrorScreen()
+            return
+        }
         
         guard let eventInfo = eventInfo
             else{
                 return
         }
-        
         
         guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
@@ -625,7 +670,7 @@ class UserCallController: VideoCallController {
     
     override func verifyScreenshotRequested(){
         
-        Log.echo(key: "yud", text: "cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
+        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
             else{
@@ -670,25 +715,7 @@ class UserCallController: VideoCallController {
     }
     
     override func handleMultipleTabOpening(){
-        
-//        DispatchQueue.main.async {
-//
-//            guard let controller = OpenCallAlertController.instance() else{
-//                    return
-//            }
-//            controller.dismissHandler = {
-//                self.processExitAction()
-//            }
-//            self.present(controller, animated: false, completion: {
-//            })
-//        }
-        
-        DispatchQueue.main.async {
-        
-            self.processExitAction()
-            self.multipleTabsHandlingListener?()
-            
-        }
+        self.processExitAction(code : .prohibited)
     }
 }
 
@@ -895,7 +922,7 @@ extension UserCallController{
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
 
             self?.userRootView?.requestAutographButton?.hideLoader()
-            completion?(true, info)
+            completion?(success, info)
         }
     }
 }
@@ -904,13 +931,14 @@ extension UserCallController{
     
     func registerForAutographListener(){
         
-        socketClient?.onEvent("startedSigning", completion: { (json) in
+        socketListener?.onEvent("startedSigning", completion: { (json) in
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
         })
         
-        socketClient?.onEvent("stoppedSigning", completion: { (json) in
+
+        socketListener?.onEvent("stoppedSigning", completion: { (json) in
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })
@@ -952,13 +980,52 @@ extension UserCallController{
         socketClient?.emit(params)
     }
     
-    
-
     var isCallConnected : Bool{
          return (self.connection?.isConnected ?? false)
     }
     
     var isCallStreaming: Bool{
         return (self.connection?.isStreaming ?? false)
+    }
+}
+
+extension UserCallController:GetisHangedUpDelegate{
+    
+    func restartSelfie() {
+     
+        SlotFlagInfo.staticIsTimerInitiated = false
+    }
+    
+    func getHangUpStatus() -> Bool {
+        return isHangUp || (!isCallStreaming)
+    }
+}
+
+extension UserCallController{
+    
+    private func updateNewHeaderInfoForSession(slot : SlotInfo){
+        
+        userRootView?.callInfoContainer?.isHidden = true
+        futureSessionView?.isHidden = false
+        
+        guard let startDate = slot.startDate
+            else{
+                return
+        }
+                
+        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+            else{
+                return
+        }
+        
+        let remainingTime = "\(counddownInfo.time)"
+        var fontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 26
+        }
+        
+        futureSessionHeaderLbl?.text = "Chat starts in:"
+        
+        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }

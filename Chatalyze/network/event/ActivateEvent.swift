@@ -14,7 +14,6 @@ class ActivateEvent{
     
     public func activate(eventId : String, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
         
-        //https://dev.chatalyze.com/api/schedules/calls/1021
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/\(eventId)"
         
         var params = [String : Any]()

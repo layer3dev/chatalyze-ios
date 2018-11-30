@@ -13,8 +13,11 @@ import UIKit
 class EditScheduledSessionRootView:ExtendedView{
     
     let imagePicker = UIImagePickerController()
+    let cropper = ImageCropper()
     
     var controller:EditScheduledSessionController?
+    
+    @IBOutlet var selfieViewHeightConstraints:NSLayoutConstraint?
     
     @IBOutlet var namePriceViewHieghtConstraints:NSLayoutConstraint?
     
@@ -33,9 +36,11 @@ class EditScheduledSessionRootView:ExtendedView{
     
 
     var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
+   
     var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
     
     var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+   
     var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
 
     
@@ -107,13 +112,15 @@ class EditScheduledSessionRootView:ExtendedView{
         yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
         yourViewBorder.fillColor = nil
         yourViewBorder.path = UIBezierPath(rect: (imageUploadingView?.bounds) ?? CGRect.zero).cgPath
-         imageUploadingView?.layer.addSublayer(yourViewBorder)
+        
+        imageUploadingView?.layer.addSublayer(yourViewBorder)
     }
     
     
     func paintInerface(){
     
         //paintImageUploadBorder()
+        paintEditChangeImagelbl()
         
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
@@ -122,15 +129,18 @@ class EditScheduledSessionRootView:ExtendedView{
     
     func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
         
-        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
+//        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
+        
+        Log.echo(key: "yud", text: "The info is \(info) and the total Duration of the event is \(totalDurationofEvent)")
         
         guard let info = info else {
             return
         }
         
         self.param = info
-        self.totalTimeDuration = totalDurationofEvent
+        //self.totalTimeDuration = totalDurationofEvent
         self.selectedImage = selectedImage
+        
         if selectedImage != nil{
             
             uploadedImage?.image = selectedImage
@@ -150,7 +160,7 @@ class EditScheduledSessionRootView:ExtendedView{
             
             let firstStr = NSMutableAttributedString(string: title, attributes: self.titleAttribute as [NSAttributedString.Key : Any])
             
-            let secondStr = NSMutableAttributedString(string: " Edit Chat", attributes: editChatattributes as [NSAttributedString.Key : Any])
+            let secondStr = NSMutableAttributedString(string: " Edit", attributes: editChatattributes as [NSAttributedString.Key : Any])
             
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)
@@ -200,9 +210,9 @@ class EditScheduledSessionRootView:ExtendedView{
             }
         }
         
-        
+        fillTotalChats(info: info)
         let durate = info["duration"] as? Int
-        let numberofEvent = (totalDurationofEvent/(durate ?? 1))
+        let numberofEvent = (self.totalTimeDuration/(durate ?? 1))
         
         if param["description"] == nil{
             
@@ -215,10 +225,70 @@ class EditScheduledSessionRootView:ExtendedView{
             descriptionTextView?.text = param["description"] as? String
         }
         
+        if let screenShot = info["screenshotAllow"] as? String{
+            
+            if screenShot == "automatic"{
+                
+                selfieViewHeightConstraints?.priority = UILayoutPriority(rawValue: 250.0)
+            }else{
+                selfieViewHeightConstraints?.priority = UILayoutPriority(rawValue: 999.0)
+            }
+        }else{
+            
+            selfieViewHeightConstraints?.priority = UILayoutPriority(rawValue: 999.0)
+        }
+        
+        
+        
+        
+        
 //        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd"){
-//
+
+        //
 //            self.eventDetailInfo?.text = "\(self.eventDetailInfo?.text ?? "") \(startTime)! Here's how:"
 //        }
+    }
+    
+    
+    func fillTotalChats(info:[String:Any]?){
+        
+        guard let currentParams = info else {
+            return
+        }
+        
+        var singleChatMinutes =  0
+        var totalMinutesOfChat = 0
+        var totalSlots = 0
+        
+        if let durate = currentParams["duration"] as? Int{
+            singleChatMinutes = durate
+            if let durationType =  currentParams["selectedHourSlot"] as? SessionTimeDateRootView.DurationLength {
+                
+                if durationType == .none{
+                    return
+                }
+                if durationType == .oneHour{
+                    
+                    self.totalTimeDuration = 60
+                    totalSlots = 60/durate
+                }
+                if durationType == .twohour{
+                    
+                    self.totalTimeDuration = 120
+                    totalSlots = 120/durate
+                }
+                if durationType == .thirtyMin{
+                    
+                    self.totalTimeDuration = 30
+                    totalSlots = 30/durate
+                }
+                if durationType == .oneAndhour{
+                    
+                    self.totalTimeDuration = 90
+                    totalSlots = 90/durate
+                }
+            }
+        }
     }
     
     func askToSelectUploadType(){
@@ -297,16 +367,16 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBAction func uploadImage(sender:UIButton?){
         
         
-
+        cropper.show(controller: self.controller)
         
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        
-        self.controller?.present(imagePicker, animated: true, completion: {
-           
-        })
+//        imagePicker.allowsEditing = false
+//        imagePicker.sourceType = .photoLibrary
+//        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+//        imagePicker.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//
+//        self.controller?.present(imagePicker, animated: true, completion: {
+//
+//        })
         //imagePicker.popoverPresentationController?. = sender
     }
     
@@ -322,6 +392,14 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBAction func saveTitleAction(sender:UIButton?){
         
+        //Verifying for title text to be empty.
+        guard let titleText =  sessionNameField?.textField?.text else {
+            return
+        }
+        let text = titleText.replacingOccurrences(of: " ", with: "")
+        if text == ""{
+            return
+        }
         self.param["title"] = sessionNameField?.textField?.text
         self.editedParam["title"] = sessionNameField?.textField?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
@@ -332,6 +410,14 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBAction func saveDescriptionAction(sender:UIButton?){
         
+        //Verifying for title text to be empty.
+        guard let descriptionText =  descriptionTextView?.text else {
+            return
+        }
+        let description = descriptionText.replacingOccurrences(of: " ", with: "")
+        if description == ""{
+            return
+        }
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)
@@ -346,6 +432,34 @@ class EditScheduledSessionRootView:ExtendedView{
         scrollView?.bottomContentOffset = contentBottomOffsetConstraints
         sessionNameField?.textField?.delegate = self
         descriptionTextView?.delegate = self
+        initializeCropper()
+    }
+    
+    
+    func initializeCropper(){
+       
+        cropper.isOnlySquare = true
+        cropper.getCroppedImage = {(croppedImage) in
+           
+            self.uploadedImage?.contentMode = .scaleAspectFit
+            self.uploadedImage?.image = croppedImage
+            self.selectedImage = croppedImage
+            self.delegate?.selectedImage(image:self.selectedImage)
+            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        }
+    }
+    
+    
+    func paintEditChangeImagelbl(){
+        
+        var fontSize = 15
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 18
+        }
+        
+        let text = "Change picture"
+        editImageLbl?.attributedText = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#Faa579"), isUnderLine: true)
     }
     
     func implementGestureOnEditSessionName(){
@@ -355,7 +469,6 @@ class EditScheduledSessionRootView:ExtendedView{
         self.sessionNameLbl?.isEnabled = true
         sessionNameLbl?.addGestureRecognizer(tapGesture)
         
-        
         let tapGestureOnEditDescription = UITapGestureRecognizer(target: self, action: #selector(self.editDescriptionAction))
         self.descriptionEditLbl?.isUserInteractionEnabled = true
         self.descriptionEditLbl?.isEnabled = true
@@ -364,8 +477,7 @@ class EditScheduledSessionRootView:ExtendedView{
         let tapGestureOnDisbleEditDescription = UITapGestureRecognizer(target: self, action: #selector(self.disableEditDescriptionAction))
         self.descriptionBackLbl?.isUserInteractionEnabled = true
         self.descriptionBackLbl?.isEnabled = true
-        descriptionBackLbl?.addGestureRecognizer(tapGestureOnDisbleEditDescription)
-        
+        descriptionBackLbl?.addGestureRecognizer(tapGestureOnDisbleEditDescription)        
         
         let tapGestureEditImage = UITapGestureRecognizer(target: self, action: #selector(self.changeImage(sender:)))
         self.editImageLbl?.isUserInteractionEnabled = true
@@ -440,7 +552,6 @@ class EditScheduledSessionRootView:ExtendedView{
         hideEditDescriptionInfoView()
         self.layoutIfNeeded()
     }
-    
 }
 
 extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
@@ -457,14 +568,21 @@ extension EditScheduledSessionRootView:UITextFieldDelegate,UITextViewDelegate{
         return true
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if textView.text.count + text.count > 3800{
+            return false
+        }
+        return true
+    }
 }
 
 extension EditScheduledSessionRootView:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         if let  chosenImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             
@@ -472,10 +590,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             uploadedImage?.image = chosenImage
             selectedImage = chosenImage
             delegate?.selectedImage(image:selectedImage)
-            
             self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
             self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
-            
             self.controller?.dismiss(animated:true, completion: nil)
         }
     }

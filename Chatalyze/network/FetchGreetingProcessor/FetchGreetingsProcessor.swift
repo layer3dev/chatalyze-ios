@@ -9,7 +9,6 @@
 import Foundation
 import SwiftyJSON
 
-//https://dev.chatalyze.com/api/greetingControl/availableAnalysts/?fetchTestAnalysts=false&limit=6&offset=0&order=id&order=ASC
 
 class FetchGreetingsProcessor{
     

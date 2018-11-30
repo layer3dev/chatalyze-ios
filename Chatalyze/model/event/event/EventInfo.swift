@@ -101,6 +101,7 @@ class EventInfo: NSObject {
     }
     
     private var _price:Double?{
+        
         get{
             return price
         }
@@ -169,6 +170,7 @@ class EventInfo: NSObject {
     }
     
     var isFuture : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -196,6 +198,7 @@ class EventInfo: NSObject {
     }
     
     var isWholeConnectEligible : Bool{
+        
         get{
             guard let startDate = startDate
                 else{
@@ -212,6 +215,7 @@ class EventInfo: NSObject {
     }
     
     var isPreconnectEligible : Bool{
+        
         get{
             guard let startDate = startDate
                 else{

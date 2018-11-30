@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AppConnectionConfigI {
+class AppConnectionConfig {
     
     static let socketURL = "wss://peertopeer.chatalyze.com/oneonone"
     //    static let socketURL = "wss://192.168.1.113:3001/oneonone"
@@ -25,5 +25,4 @@ class AppConnectionConfigI {
     //static let userSocketURL = "https://api.chatalyze.com/"
     //static let userSocketURL = "http://192.168.1.113:8080/"
     //static let userSocketURL = "http://192.168.1.17:8080/"
-    
 }

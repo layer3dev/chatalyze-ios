@@ -9,8 +9,8 @@
 import UIKit
 
 class HostCallConnection: CallConnection {
-    var isInitiated = false
     
+    var isInitiated = false
     private var disposeListener : (()->())?
     
     override func callFailed(){
@@ -64,7 +64,7 @@ class HostCallConnection: CallConnection {
     override func registerForListeners(){
         super.registerForListeners()
         
-        socketClient?.onEvent("startReceivingVideo", completion: { [weak self] (json) in
+        socketListener?.onEvent("startReceivingVideo", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
             }

@@ -7,15 +7,13 @@ target 'Chatalyze' do
 
   # Pods for Chatalyze
 
-  pod 'JTAppleCalendar'
-  pod 'GoogleWebRTC' 
+pod 'JTAppleCalendar'
+pod 'GoogleWebRTC'
 
 pod 'GoogleSignIn'
 pod 'TwitterKit', '3.4.0'
 pod 'TwitterCore', '3.1.0'
-#pod 'CropViewController', '2.3.7'
 pod 'CropViewController', :git => 'https://github.com/TimOliver/TOCropViewController.git'
-
 
 
   target 'ChatalyzeTests' do

@@ -6,22 +6,33 @@
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
+
+
 import UIKit
 import AudioToolbox
+
+
+protocol GetisHangedUpDelegate {
+    func getHangUpStatus()->Bool
+}
 
 class SelfieTimerView:ExtendedView {
     
     var player : AVAudioPlayer?
     var autographTime = 0
-    static var testTimer = Timer()
+    //static var testTimer = Timer()
+    var testTimer = CountdownListener()
     var selfieAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var whiteAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var screenShotListner:(()->())?
     
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
-    static var hostTimer = Timer()
+    //static var hostTimer = Timer()
+    var hostTimer = CountdownListener()
     var requiredDate:Date?
+    var delegate:GetisHangedUpDelegate?
+    var selfieTimerAnimateFlag = 0
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -35,7 +46,6 @@ class SelfieTimerView:ExtendedView {
         invalidateTimer()
         invalidateTimerForHost()
     }
-    
     
     override func willRemoveSubview(_ subview: UIView) {
         super.willRemoveSubview(subview)
@@ -52,7 +62,6 @@ class SelfieTimerView:ExtendedView {
         self.runTimer()
     }
     
-    
     func startAnimationForHost(date:Date?){
         
         autographTime = 13
@@ -60,11 +69,30 @@ class SelfieTimerView:ExtendedView {
             return
         }
         requiredDate = startDate
-        //(#selector(self.updateAnlalyst(requiredDate:startDate)))
-        SelfieTimerView.testTimer.invalidate()
-        SelfieTimerView.hostTimer.invalidate()
-        SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
+        
+        
+        //        SelfieTimerView.testTimer.invalidate()
+        //        SelfieTimerView.hostTimer.invalidate()
+        
+        self.testTimer.releaseListener()
+        self.hostTimer.releaseListener()
+        
+        
+        //SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
+        
+        self.testTimer.start()
+        self.registerForTimer()
     }
+    
+    private func registerForTimer(){
+        
+        self.testTimer.add { [weak self] in
+            
+            Log.echo(key: "yud", text: "Yes I am running in add")
+            self?.updateTimer()
+        }
+    }
+    
     
     func currentDateTimeGMT()->Date{
         
@@ -79,10 +107,16 @@ class SelfieTimerView:ExtendedView {
         
         if let date = requiredDate {
             
-            Log.echo(key: "yud", text: "The current time date is \(currentDateTimeGMT())")
-            let difference = currentDateTimeGMT().timeIntervalSince(date)
-            Log.echo(key: "yud", text: "The diffrence in time date is \(difference)")
-            if difference >= 3 {                
+            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT())")
+            
+            let difference = date.timeIntervalTillNow
+            
+            //let difference = currentDateTimeGMT().timeIntervalSince(date)
+            
+            Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
+            
+            if difference <= -3 {
+                
                 updateTimer()
             }
         }else{
@@ -96,110 +130,210 @@ class SelfieTimerView:ExtendedView {
         
         player?.stop()
         //player = nil
-        SelfieTimerView.testTimer.invalidate()
+        //SelfieTimerView.testTimer.invalidate()
+        self.testTimer.releaseListener()
         autographTime = 0
         self.isScreenShotTaken = false
+        self.isHidden = true
     }
     
     private func invalidateTimerForHost(){
- 
+        
         player?.stop()
         //player = nil
-        SelfieTimerView.hostTimer.invalidate()
+        //SelfieTimerView.hostTimer.invalidate()
+        self.hostTimer.releaseListener()
         autographTime = 0
         self.isScreenShotTaken = false
+        self.isHidden = true
     }
     
     
     private func runTimer(){
         
         //to balance the time taken by animation
-        SelfieTimerView.testTimer.invalidate()
-        SelfieTimerView.hostTimer.invalidate()
-        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        
+        //        SelfieTimerView.testTimer.invalidate()
+        //        SelfieTimerView.hostTimer.invalidate()
+        //        SelfieTimerView.testTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        
+        self.testTimer.releaseListener()
+        self.hostTimer.releaseListener()
+        self.testTimer.start()
+        self.registerForTimer()
+        
+    }
+    
+    
+    func showSelfieTimerAnimationGrayandGreen(){
+        
+        DispatchQueue.main.async {
+            
+            //Verifying for the Hangup
+            if let isHangedUp = self.delegate?.getHangUpStatus(){
+                if isHangedUp{
+                    self.invalidateTimer()
+                    self.invalidateTimerForHost()
+                    return
+                }
+            }
+            
+            self.isHidden = false
+            if self.selfieTimerAnimateFlag%2 == 0 {
+                self.greenSelfieTime()
+            }else{
+                self.graySelfieTime()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                
+                if self.selfieTimerAnimateFlag >= 3{
+                    self.playOne()
+                    self.selfieTimerAnimateFlag = 0
+                }else{
+                    self.showSelfieTimerAnimationGrayandGreen()
+                }
+            })
+            self.selfieTimerAnimateFlag = self.selfieTimerAnimateFlag + 1
+        }
+    }
+    
+    
+    func playOne(){
+        
+        //Verifying for the Hangup
+        if let isHangedUp = self.delegate?.getHangUpStatus(){
+            if isHangedUp{
+                self.invalidateTimer()
+                self.invalidateTimerForHost()
+                return
+            }
+        }
+        
+        self.playSound()
+        self.greenOne()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.playTwo()
+        }
+    }
+    
+    func playTwo(){
+        
+        //Verifying for the Hangup
+        if let isHangedUp = self.delegate?.getHangUpStatus(){
+            if isHangedUp{
+                self.invalidateTimer()
+                self.invalidateTimerForHost()
+                return
+            }
+        }
+        
+        self.playSound()
+        self.greenTwo()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.playThree()
+        }
+        
+        //        DispatchQueue.main.async {
+        //
+        //        UIView.animate(withDuration: 1, animations: {
+        //
+        //            self.layoutIfNeeded()
+        //
+        //        }) { (success) in
+        //            self.playThree()
+        //        }
+        //        self.layoutIfNeeded()
+        //
+        //        }
+    }
+    
+    func playThree(){
+        
+        //Verifying for the Hangup
+        if let isHangedUp = self.delegate?.getHangUpStatus(){
+           
+            if isHangedUp{
+                
+                self.invalidateTimer()
+                self.invalidateTimerForHost()
+                return
+            }
+        }
+        
+        self.playSound()
+        self.greenThird()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.25) {
+            
+            self.mimicFlash()
+        }
+    }
+    
+    func mimicFlash(){
+        
+        DispatchQueue.main.async {
+            
+            //Verifying for the Hangup
+            if let isHangedUp = self.delegate?.getHangUpStatus(){
+                if isHangedUp{
+                    self.invalidateTimer()
+                    self.invalidateTimerForHost()
+                    return
+                }
+            }
+            
+            if !(self.isScreenShotTaken){
+                
+                self.isHidden = true
+                self.isScreenShotTaken = true
+                if let listner = self.screenShotListner{
+                    listner()
+                }
+            }else{
+                self.isHidden = true
+            }
+        }
     }
     
     @objc func updateTimer(){
         
-        if autographTime >= 12 && autographTime  < 15{
+        if let date = requiredDate {
             
-            DispatchQueue.main.async {
+            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(requiredDate) and the diffrence is \(date.timeIntervalTillNow)")
+            
+            let difference = date.timeIntervalTillNow
+            
+            Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
+            
+            if difference <= -3 {
                 
-                self.isHidden = false
-                self.layoutIfNeeded()
-                UIView.animate(withDuration: 0.845, animations: {
+                self.showSelfieTimerAnimationGrayandGreen()
+                if let isHangedUp = delegate?.getHangUpStatus(){
                     
-                    if self.autographTime%2 == 0 {
-                        self.graySelfieTime()
-                    }else{
-                        self.greenSelfieTime()
+                    if isHangedUp{
+                        invalidateTimer()
+                        invalidateTimerForHost()
+                        return
                     }
-                })
-            }
-        }
-        else if autographTime >= 15 && autographTime  < 16{
-            self.playSound()
-            self.greenOne()
-        }
-        else if autographTime >= 16 && autographTime  < 17{
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
-                self.playSound()
-            }
-            self.greenTwo()
-        }
-        else if autographTime >= 17 && autographTime  < 18{
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.30) {
-                self.playSound()
-            }
-//            self.playSound()
-            self.greenThird()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.88) {
-                
-                if !(self.isScreenShotTaken){
-                    
-                    self.isHidden = true
-                    self.isScreenShotTaken = true
-                    if let listner = self.screenShotListner{
-                        listner()
-                    }
-                }else{
-                    self.isHidden = true
                 }
-                self.invalidateTimer()
-                self.invalidateTimerForHost()
+                self.testTimer.releaseListener()
+                self.hostTimer.releaseListener()
             }
-        }else if autographTime >= 18 && autographTime  < 19 {
-            
-//                if !(self.isScreenShotTaken){
-            
-//                    self.isHidden = true
-//                    self.isScreenShotTaken = true
-//                    if let listner = self.screenShotListner{
-//                        listner()
-//                    }
-//                }else{
-//                    self.isHidden = true
-//                }
-                self.invalidateTimer()
-                self.invalidateTimerForHost()
-            //self.smile()
-        }else if autographTime >= 19{
-            self.invalidateTimer()
-            self.invalidateTimerForHost()
         }
-        autographTime = autographTime + 1
     }
 }
-
 
 extension SelfieTimerView{
     
     private func greenOne(){
         
         self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        
         self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        
         let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME:", attributes: self.selfieAttribute)
+        
         let second = NSMutableAttributedString(string: " 3", attributes: oneAttribute)
         let secondStr = NSMutableAttributedString(string: " 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
@@ -217,7 +351,7 @@ extension SelfieTimerView{
     private func greenTwo(){
         
         self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
-      
+        
         self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
@@ -242,7 +376,7 @@ extension SelfieTimerView{
     private func greenThird(){
         
         self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
-    
+        
         self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let oneAttribute =  [NSAttributedString.Key.foregroundColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
@@ -284,9 +418,9 @@ extension SelfieTimerView{
     
     private func greenSelfieTime(){
         
-        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString:AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor:UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
@@ -303,13 +437,14 @@ extension SelfieTimerView{
     
     private func graySelfieTime(){
         
-        self.selfieAttribute = [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.selfieAttribute = [NSAttributedString.Key.foregroundColor:UIColor.white,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
-        self.whiteAttribute = [NSAttributedString.Key.foregroundColor: UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
+        self.whiteAttribute = [NSAttributedString.Key.foregroundColor:UIColor.lightGray,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 28)]
         
         let firstStr = NSMutableAttributedString(string: "SELFIE TIME", attributes: self.selfieAttribute)
         let secondStr = NSMutableAttributedString(string: ": 3 2 1", attributes: self.whiteAttribute)
         let thirdStr = NSMutableAttributedString(string: " SMILE", attributes: self.whiteAttribute)
+        
         var requiredString:NSMutableAttributedString = NSMutableAttributedString()
         
         requiredString.append(firstStr)
@@ -351,20 +486,15 @@ extension SelfieTimerView{
             //            AVAudioSession.sharedInstance().setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), mode: .continuous)
             
             try AVAudioSession.sharedInstance().setActive(true)
-            
             let player = try AVAudioPlayer(data: sound, fileTypeHint: AVFileType.mp3.rawValue)
-            
             self.player = player
             
-            
         } catch let error as NSError {
-            
             Log.echo(key: "", text:"error: \(error.localizedDescription)")
         }
     }
     
     func test(){
-    
     }
     
     func playSound() {
@@ -375,5 +505,5 @@ extension SelfieTimerView{
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-	return input.rawValue
+    return input.rawValue
 }

@@ -13,7 +13,19 @@ import Foundation
 import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
-   
+    
+    enum exitCode {
+        
+        case userAction
+        case expired
+        case prohibited
+        case mediaAccess
+        case undefined
+    }
+    
+    //Implementing the eventDeleteListener
+    var eventDeleteListener = EventDeletedListener()
+    
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
@@ -24,6 +36,7 @@ class VideoCallController : InterfaceExtendedController {
     //End
     
     var socketClient : SocketClient?
+    var socketListener : SocketListener?
     private let eventSlotListener = EventSlotListener()
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
@@ -41,10 +54,14 @@ class VideoCallController : InterfaceExtendedController {
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
     var feedbackListener : ((EventScheduleInfo?)->())?
-    var multipleTabsHandlingListener:(()->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
     let updatedEventScheduleListner = UpdateEventListener()
+    
+    //in case if user opens up 
+    var isProhibited = false
+    
+    weak var lastPresentingController : UIViewController?
 
     @IBOutlet var chatalyzeLogo:UIImageView?
     @IBOutlet var preConnectLbl:UILabel?
@@ -67,15 +84,25 @@ class VideoCallController : InterfaceExtendedController {
           
             self.fontSizeBig = 22
         }
-        
+        initializeListenrs()
         // Do any additional setup after loading the view.
     }
     
     
+    func initializeListenrs(){
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+            if self.eventId == deletedEventID{
+                self.exitAction()
+                Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
+            }
+        }
+    }
+    
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-     
+           
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
@@ -84,6 +111,7 @@ class VideoCallController : InterfaceExtendedController {
     override func viewAppeared(){
         super.viewAppeared()
         
+        Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
          processPermission()
     }
     
@@ -92,13 +120,16 @@ class VideoCallController : InterfaceExtendedController {
         
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
+        
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         
         timer.pauseTimer()
         socketClient?.disconnect()
+        socketListener?.releaseListener()
         self.socketClient = nil
+        self.socketListener = nil
     }
     
     var rootView : VideoRootView?{
@@ -116,12 +147,31 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    func resetMuteActions(){
+        
+        actionContainer?.audioView?.unmute()
+        actionContainer?.videoView?.unmute()
+        
+        guard let localMediaPackage = self.localMediaPackage
+            else{
+                return
+        }
+        localMediaPackage.muteAudio = false
+        localMediaPackage.muteVideo = false
+
+    }
+    
     @IBAction private func audioMuteAction(){
-     
+        
         guard let localMediaPackage = self.localMediaPackage
         else{
             return
         }
+        
+        if(localMediaPackage.isDisabled){
+            return
+        }
+        
         if(localMediaPackage.muteAudio){
             localMediaPackage.muteAudio = false
             actionContainer?.audioView?.unmute()
@@ -129,13 +179,17 @@ class VideoCallController : InterfaceExtendedController {
             localMediaPackage.muteAudio = true
             actionContainer?.audioView?.mute()
         }
-    }    
+    }
     
     @IBAction private func videoDisableAction(){
-      
+        
         guard let localMediaPackage = self.localMediaPackage
             else{
                 return
+        }
+        
+        if(localMediaPackage.isDisabled){
+            return
         }
         if(localMediaPackage.muteVideo){
             localMediaPackage.muteVideo = false
@@ -148,26 +202,43 @@ class VideoCallController : InterfaceExtendedController {
     
     @IBAction private func exitAction(){
         
-        processExitAction()
+        processExitAction(code: .userAction)
     }
     
-    func processExitAction(){
+    
+    func processExitAction(code : exitCode){
         
         timer.pauseTimer()
-        self.exit()
+        self.exit(code : code)
         updateUserOfExit()
     }
     
-    func exit(){
+    
+    func exit(code : exitCode){
+        
         self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")
-            self?.onExit()
+            self?.onExit(code : code)
         }
     }
     
     //This will be called after viewController is exited from the screen
-    func onExit(){
+    func onExit(code : exitCode){
         
+    }
+    
+    func showErrorScreen(){
+        
+        guard let controller = OpenCallAlertController.instance() else{
+            return
+        }
+        
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        presentingController.present(controller, animated: true, completion: nil)
     }
     
     func isExpired()->Bool{
@@ -175,9 +246,21 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func showFeedbackScreen(){
-        DispatchQueue.main.async {
-            self.feedbackListener?(self.eventInfo)
+        
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
         }
+        guard let controller = ReviewController.instance() else{
+            return
+        }
+        controller.eventInfo = eventInfo
+        controller.dismissListner = {[weak self] in
+            self?.feedbackListener?(self?.eventInfo)
+        }
+        presentingController.present(controller, animated: false, completion:{
+        })
     }
     
     
@@ -199,7 +282,7 @@ class VideoCallController : InterfaceExtendedController {
         self.accessManager = accessManager
         accessManager.verifyMediaAccess { (success) in
             if(!success){
-                self.processExitAction()
+                self.processExitAction(code : .mediaAccess)
                 return
             }
             self.initialization()
@@ -209,6 +292,8 @@ class VideoCallController : InterfaceExtendedController {
 
     
      func initialization(){
+        
+        Log.echo(key : "test", text : "who dared to initialize me ??")
 
         initializeVariable()
         audioManager = AudioManager()
@@ -247,7 +332,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func registerForListeners(){
 
-        socketClient?.confirmConnect(completion: { [weak self] (success)  in
+        socketListener?.newConnectionListener(completion: { [weak self] (success)  in
             if(self?.socketClient == nil){
                 return
             }
@@ -267,11 +352,11 @@ class VideoCallController : InterfaceExtendedController {
         
         rootView?.hangupListener(listener: {
             
-            self.processExitAction()
+            self.processExitAction(code: .userAction)
             self.rootView?.callOverlayView?.isHidden = true
         })
         
-        socketClient?.onEvent("updatePeerList", completion: { [weak self] (json) in
+        socketListener?.onEvent("updatePeerList", completion: { [weak self] (json) in
             
             if(self?.socketClient == nil){
                 return
@@ -279,8 +364,6 @@ class VideoCallController : InterfaceExtendedController {
             self?.processUpdatePeerList(json: json)
         })
     }
-
-
     
     private func processUpdatePeerList(json : JSON?){
         
@@ -353,12 +436,15 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func initializeVariable(){
+        
         appDelegate?.allowRotate = true
+        lastPresentingController = self.presentingViewController
         
         eventSlotListener.eventId = self.eventId
         registerForEvent()
         
         socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
         
@@ -393,7 +479,8 @@ class VideoCallController : InterfaceExtendedController {
     
     private func acceptCall(){
         
-        SocketClient.sharedInstance?.confirmConnect(completion: { [weak self] (success) in
+        socketListener?.confirmConnect(completion: { [weak self] (success) in
+           
             if(success){
                 //self?.startAcceptCall()
             }
@@ -429,15 +516,14 @@ class VideoCallController : InterfaceExtendedController {
 }
 
 
-
 //actionButtons
+
 extension VideoCallController{
 }
 
-
 extension VideoCallController{
+    
     func startCallRing(){
-
     }
     
     func acceptCallUpdate(){
@@ -462,6 +548,7 @@ extension VideoCallController{
             else{
                 return
         }
+
         if(showLoader){
             self.showLoader()
         }
@@ -580,7 +667,7 @@ extension VideoCallController{
    
     func multipleVideoTabListner(){
         
-        socketClient?.onEvent("multipleTabRequest", completion: { (json) in
+        socketListener?.onEvent("multipleTabRequest", completion: { (json) in
             
             Log.echo(key : "socket_client", text : "Multiplexing Error: \(json)")
             
@@ -696,7 +783,7 @@ extension VideoCallController{
     
     func setStatusMessage(type : callStatusMessage){
         
-        if(type == .ideal){
+        if(type == .ideal || type == .preConnectedSuccess){
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
             return
@@ -708,8 +795,6 @@ extension VideoCallController{
             self.hidePreConnectLabel()
             return
         }
-        
-        
         
         self.hideChatalyzeLogo()
         self.showPreConnectLabel()
@@ -723,7 +808,7 @@ extension VideoCallController{
         
         if type == .userDidNotJoin{
           
-            let firstStr = (roomType == .user) ? "Influencer " : "Participant"
+            let firstStr = (roomType == .user) ? "Host" : "Participant"
             
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             
@@ -739,16 +824,16 @@ extension VideoCallController{
             return
         }
         
-        if type == .preConnectedSuccess{
-            
-            let secondStr = "You've pre-connected successfully. \n\n Get Ready to chat!"
-            
-            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-            
-            preConnectLbl?.attributedText = secondAttributedString
-            
-            return
-        }
+//        if type == .preConnectedSuccess{
+//
+//            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
+//
+//            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+//
+//            preConnectLbl?.attributedText = secondAttributedString
+//
+//            return
+//        }
         
         if type == .connected{
             

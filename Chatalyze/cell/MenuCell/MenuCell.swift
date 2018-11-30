@@ -33,6 +33,7 @@ class MenuCell: ExtendedTableCell {
         }
         self.info = info
         userImage?.image = UIImage(named: "base")
+        
 //        if let imageStr = info.screenShotUrl{
 //            if let url = URL(string: imageStr){
 //                memoryImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
@@ -57,6 +58,7 @@ class MenuCell: ExtendedTableCell {
         
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
+                
                 if selectedIndexName == "My Sessions"{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }

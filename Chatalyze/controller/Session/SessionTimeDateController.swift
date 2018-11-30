@@ -21,14 +21,11 @@ class SessionTimeDateController: InterfaceExtendedController {
         rootView?.controller = self
     }
     
-    func updateEditedInfo(info:[String:Any]){
-        
+    func updateEditedInfo(info:[String:Any]){ 
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         //Dispose of any resources that can be recreated.
     }
     
@@ -44,8 +41,8 @@ class SessionTimeDateController: InterfaceExtendedController {
     */
     
     var rootView:SessionTimeDateRootView?{
+        
         get{
-         
             return self.view as? SessionTimeDateRootView
         }
     }

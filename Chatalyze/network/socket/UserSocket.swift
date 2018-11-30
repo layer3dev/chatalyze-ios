@@ -33,8 +33,22 @@ class UserSocket {
             else{
                 return
         }
+        
+        
+//        private var socket = SocketIOClient(socketURL: NSURL(string:  socketHostname,
+//                                                             options: [
+//                                                                **.Reconnects(true),**
+//                                                                    .ReconnectAttempts(50),
+//                                                                .ReconnectWait(3),
+//                                                                .Log(false),
+//                                                                .ForcePolling(false),
+//                                                                .ForceWebsockets(true),
+//                                                                .ForceNew(true), // this only happens when disconected
+//                                                                .Secure(true),
+//                                                                .SelfSigned(true)
+//            ]);
 
-        let manager = SocketManager(socketURL: socketURL, config: [.log(false),.forceNew(true)])
+        let manager = SocketManager(socketURL: socketURL, config: [.log(false),.forceNew(true),.reconnects(true)])
         let socket = manager.defaultSocket
         self.socketManager = manager
         self.socket = socket
@@ -65,7 +79,7 @@ class UserSocket {
         if(userInfo == nil){
            return
         }
-        Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")        
+        Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socket?.connect()
         
         //open func connect(timeoutAfter: Int, withHandler handler: (() -> Swift.Void)?)
@@ -113,11 +127,10 @@ extension UserSocket{
         }
         
         socket?.on("login") {data, ack in
-            Log.echo(key: "user_socket", text:"socket login data => \(data)")
             
+            Log.echo(key: "user_socket", text:"socket login data => \(data)")
             self.isRegisteredToServer = true
             self.updateConnectionStatus(isConnected: true)
-           
             //Changing the color of online offline view
             self.showConnect()
         }
@@ -127,7 +140,6 @@ extension UserSocket{
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket error data (disconnect) => \(data)")
             self.updateConnectionStatus(isConnected: false)
-        
             //Changing the color of online offline view
             self.showDisconnect()
         

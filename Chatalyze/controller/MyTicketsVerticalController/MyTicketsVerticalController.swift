@@ -12,7 +12,10 @@ class MyTicketsVerticalController: MyTicketsController{
     
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
-       
+   
+    @IBOutlet var showView:UIView?
+    var isShow = false
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -20,9 +23,36 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
     }
-
+    
+    @IBAction func animateInfo(){
+        
+        if isShow{
+            
+            isShow = false
+            UIView.animate(withDuration: 0.35) {
+                self.showView?.alpha = 0
+                self.view.layoutIfNeeded()
+            }
+            return
+        }
+        isShow = true
+        UIView.animate(withDuration: 0.35) {
+            self.showView?.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+        return
+    }
     
     
+    @IBAction func  disableInfoAction(){
+     
+        isShow = false
+        UIView.animate(withDuration: 0.35) {
+            self.showView?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+        return
+    }
     
     func getTheRequiredDate(){
     
@@ -44,8 +74,7 @@ class MyTicketsVerticalController: MyTicketsController{
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "E, d MMM yyyy "
         
-        print("Extemted date is \(dateFormatter.string(from: date))")
-        
+        print("Extented date is \(dateFormatter.string(from: date))")
         print("Date from str is  \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
     }
     
@@ -60,10 +89,17 @@ class MyTicketsVerticalController: MyTicketsController{
     
     func underLineLable(){
         
+        var testingText = "TEST MY PHONE"
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            testingText = "TEST MY IPAD"
+        }
+        
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)] as? [NSAttributedString.Key : Any]{
 
             
-            let underlineAttributedString = NSAttributedString(string: "TEST MY PHONE", attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            let underlineAttributedString = NSAttributedString(string: testingText, attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            
             underLineLbl?.attributedText = underlineAttributedString
         }
     }
@@ -97,3 +133,5 @@ class MyTicketsVerticalController: MyTicketsController{
         return controller
     }
 }
+
+

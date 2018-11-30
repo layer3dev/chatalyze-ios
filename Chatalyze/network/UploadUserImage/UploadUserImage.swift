@@ -12,11 +12,11 @@ import Alamofire
 
 class UploadUserImage{
     
-    //https://dev.chatalyze.com/api/users/36/uploads/
-    
     func uploadImage(image : UIImage?, completion : @escaping ((_ success : Bool, _ info : JSON?)->())){
         
-        var url = "https://dev.chatalyze.com/api/users/"
+
+        var url = AppConnectionConfig.webServiceURL + "/users/"
+        
         url = url + "\(SignedUserInfo.sharedInstance?.id ?? "0")"+"/uploads/"
         
         Log.echo(key: "yud", text: "uploading image url is \(url)")
@@ -46,7 +46,8 @@ class UploadUserImage{
     
     func deleteUploadedImage(completion : @escaping ((_ success : Bool, _ info : JSON?)->())){
         
-        var url = "https://dev.chatalyze.com/api/users/"
+        var url = AppConnectionConfig.webServiceURL + "/users/"
+        
         url = url + "\(SignedUserInfo.sharedInstance?.id ?? "0")"+"/uploads/"
         
         Log.echo(key: "yud", text: "uploading image url is \(url)")
@@ -87,10 +88,9 @@ class UploadUserImage{
             return
         }
         
-        var url = "https://dev.chatalyze.com/api/users/"
+        var url = AppConnectionConfig.webServiceURL + "/users/"
+                
         url = url + "\(userId)"+"/uploads/"
-        
-       
         
 //        guard let imageData = UIImageJPEGRepresentation(image, 0.1)
 //            else{

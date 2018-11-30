@@ -30,23 +30,51 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqY-XA-gh3" userLabel="container_view">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="417.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="382.5"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kev-wh-JXH" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="40" width="260" height="45"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Py-f2-bM6">
+                                                        <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-k8-wxW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
+                                                        <connections>
+                                                            <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="nty-pB-Eia"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.050980392156862744" green="0.27450980392156865" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="1ss-k8-wxW" secondAttribute="bottom" id="5aT-ss-ZnJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1ss-k8-wxW" secondAttribute="trailing" id="T6e-OL-QGW"/>
+                                                    <constraint firstItem="1ss-k8-wxW" firstAttribute="leading" secondItem="Kev-wh-JXH" secondAttribute="leading" id="UZD-UH-vNh"/>
+                                                    <constraint firstAttribute="trailing" secondItem="3Py-f2-bM6" secondAttribute="trailing" id="azY-Xc-OMM"/>
+                                                    <constraint firstItem="3Py-f2-bM6" firstAttribute="top" secondItem="Kev-wh-JXH" secondAttribute="top" id="gSr-Vx-KoU"/>
+                                                    <constraint firstAttribute="height" constant="45" id="hac-RJ-LQl">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    </constraint>
+                                                    <constraint firstItem="1ss-k8-wxW" firstAttribute="top" secondItem="Kev-wh-JXH" secondAttribute="top" id="t7a-gY-QUp"/>
+                                                    <constraint firstAttribute="bottom" secondItem="3Py-f2-bM6" secondAttribute="bottom" id="w7q-Ud-HKb"/>
+                                                    <constraint firstItem="3Py-f2-bM6" firstAttribute="leading" secondItem="Kev-wh-JXH" secondAttribute="leading" id="w9G-tG-A3U"/>
+                                                </constraints>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPB-V4-VB2">
-                                                <rect key="frame" x="125" y="40" width="70" height="70"/>
+                                                <rect key="frame" x="125" y="40" width="70" height="35"/>
                                                 <subviews>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYC-3J-vRt" userLabel="fb_login">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook_new" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-y6-30W">
-                                                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                                                                <rect key="frame" x="15" y="-2.5" width="40" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="5Nc-AX-MtH"/>
                                                                     <constraint firstAttribute="width" constant="40" id="H3I-Cv-MsY"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
                                                                 <connections>
                                                                     <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="rxi-Ys-b0f"/>
                                                                 </connections>
@@ -155,7 +183,7 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-Sz-0CY" userLabel="or_label">
-                                                <rect key="frame" x="30" y="140" width="260" height="14.5"/>
+                                                <rect key="frame" x="30" y="105" width="260" height="14.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
                                                         <rect key="frame" x="0.0" y="7" width="48" height="1"/>
@@ -195,7 +223,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXC-fy-Deb" userLabel="field_container">
-                                                <rect key="frame" x="30" y="174.5" width="260" height="96"/>
+                                                <rect key="frame" x="30" y="139.5" width="260" height="96"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="260" height="33"/>
@@ -318,7 +346,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="310.5" width="260" height="45"/>
+                                                <rect key="frame" x="30" y="275.5" width="260" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
                                                         <rect key="frame" x="101" y="11.5" width="58.5" height="22.5"/>
@@ -350,7 +378,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-9i-LL8" userLabel="error_label">
-                                                <rect key="frame" x="5" y="360.5" width="310" height="0.0"/>
+                                                <rect key="frame" x="5" y="325.5" width="310" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -359,11 +387,11 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-gj-jhO" userLabel="forgot_password">
-                                                <rect key="frame" x="60" y="367.5" width="200" height="30"/>
+                                                <rect key="frame" x="60" y="332.5" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-ik-gjO">
-                                                        <rect key="frame" x="35.5" y="0.0" width="129" height="16.5"/>
-                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
+                                                        <rect key="frame" x="47.5" y="0.0" width="105" height="13.5"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="13"/>
                                                         <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
@@ -393,7 +421,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXt-2N-n7m" userLabel="forgot_password">
-                                                <rect key="frame" x="60" y="457.5" width="200" height="30"/>
+                                                <rect key="frame" x="60" y="422.5" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C34-r8-ptv">
                                                         <rect key="frame" x="15.5" y="13.5" width="169.5" height="16.5"/>
@@ -423,7 +451,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yub-cQ-D52" userLabel="signin_button" customClass="Signupview" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="492.5" width="260" height="40"/>
+                                                <rect key="frame" x="30" y="457.5" width="260" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-Vw-eRN">
                                                         <rect key="frame" x="99" y="12" width="62" height="16.5"/>
@@ -473,12 +501,24 @@
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="GEy-XH-yMg">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
+                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="IQ9-kc-Tvv">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
                                             <constraint firstItem="jXt-2N-n7m" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="L3C-xG-Can"/>
                                             <constraint firstItem="jXt-2N-n7m" firstAttribute="top" secondItem="hPR-gj-jhO" secondAttribute="bottom" constant="60" id="M4w-Zh-XvU"/>
                                             <constraint firstItem="HXC-fy-Deb" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="MSB-co-Vix">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
+                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="MWZ-jZ-Nyg">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="Kev-wh-JXH" secondAttribute="trailing" constant="30" id="NS7-lk-uOT">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="NYv-C9-FBD"/>
+                                            <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="Kev-wh-JXH" secondAttribute="bottom" constant="20" id="UJA-aa-Mum">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="Yub-cQ-D52" secondAttribute="trailing" constant="30" id="bSk-Ei-KNB">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -512,6 +552,11 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="JPB-V4-VB2"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -543,11 +588,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvd-3O-Efu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="280.80000000000001" y="-339.58020989505252"/>
+            <point key="canvasLocation" x="278" y="-327"/>
         </scene>
     </scenes>
     <resources>
         <image name="facebook_new" width="50" height="50"/>
+        <image name="fbImage" width="260" height="45"/>
         <image name="google_new" width="50" height="50"/>
         <image name="pateron" width="50" height="50"/>
         <image name="twitter_new" width="50" height="50"/>

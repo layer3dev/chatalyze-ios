@@ -14,6 +14,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     @IBOutlet var noeventLbl:UILabel?
     var eventArray:[EventInfo] = [EventInfo]()
     let updatedEventScheduleListner = EventListener()
+    let eventDeletedListener = EventDeletedListener()
+    let chatCountUpdateListener = UpdateChatCountInSessionsListeners()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,9 +28,33 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     func eventListener(){
         
         updatedEventScheduleListner.setListener {
-            
-            self.fetchInfo()
+            self.fetchInfoForListener()
         }
+        
+        eventDeletedListener.setListener {(deletedEventID) in
+          
+            for info in self.eventArray{
+                
+                Log.echo(key: "yud", text: "Event id is \(info.id)")
+                if info.id == Int(deletedEventID ?? "0"){
+                    Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
+                }
+            }
+            
+        }
+        
+        chatCountUpdateListener.setListener{(callScheduleId) in
+            
+            for info in self.eventArray{
+                
+                Log.echo(key: "yud", text: "Event id is \(info.id)")
+                if info.id == (callScheduleId ?? 0){
+                    
+                    self.fetchInfoForListener()
+                    Log.echo(key: "yud", text: "matched call ScheduleId  Event Id is \(callScheduleId)")
+                }
+            }
+        }        
     }
     
     
@@ -40,6 +66,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     }
     
     func updateScrollViewWithTable(height:CGFloat){
+        
         Log.echo(key: "yud", text: "The height of the table is calling in inherited class \(height)")
     }
     
@@ -66,6 +93,37 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
          
             self.stopLoader()
+            self.eventArray.removeAll()
+            self.noeventLbl?.isHidden = true
+            if success{
+                if let array  = info{
+                    if array.count > 0{
+                        self.noeventLbl?.isHidden = true
+                        for info in array{
+                            self.eventArray.append(info)
+                            self.rootView?.fillInfo(info: self.eventArray)
+                        }
+                    }else if array.count <= 0{
+                        self.noeventLbl?.isHidden = false
+                        self.rootView?.fillInfo(info: self.eventArray)
+                    }
+                    return
+                }
+            }
+            self.noeventLbl?.isHidden = false
+            self.rootView?.fillInfo(info: self.eventArray)
+            return
+        }
+    }
+    
+    func fetchInfoForListener(){
+        
+        guard let id = SignedUserInfo.sharedInstance?.id else{
+            return
+        }
+
+        FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
+            
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
             if success{

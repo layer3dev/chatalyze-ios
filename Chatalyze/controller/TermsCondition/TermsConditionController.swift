@@ -12,6 +12,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
 
     @IBOutlet var webView:UIWebView?
     var url = ""
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -33,9 +34,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
     }
     
     func loadUrl(){
-        
-        //https://dev.chatalyze.com/terms-app"
-        
+                
         if let url = URL(string: self.url) {
 
             let requestedUrl = URLRequest(url: url as URL)
@@ -74,9 +73,6 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-}
-
-extension TermsConditionController{
     
     class func instance()->TermsConditionController?{
         
@@ -84,4 +80,7 @@ extension TermsConditionController{
         let controller = storyboard.instantiateViewController(withIdentifier: "TermsCondition") as? TermsConditionController
         return controller
     }
+}
+
+extension TermsConditionController{
 }

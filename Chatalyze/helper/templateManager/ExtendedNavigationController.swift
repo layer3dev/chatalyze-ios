@@ -31,12 +31,13 @@ class ExtendedNavigationController: UINavigationController {
     }
     */
     
+    /*
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return visibleViewController?.supportedInterfaceOrientations ?? super.supportedInterfaceOrientations
     }
     
     open override var shouldAutorotate: Bool {
         return visibleViewController?.shouldAutorotate ?? super.shouldAutorotate
-    }
+    }*/
 
 }
