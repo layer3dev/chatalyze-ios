@@ -17,8 +17,6 @@
 @property (strong, nonatomic) RTCVideoTrack *localVideoTrack;
 @property (strong, nonatomic) ARDSettingsModel *settingsModel;
 
-
-
 @property (strong, nonatomic) void (^block)(RTCCameraVideoCapturer *capturer);
 
 

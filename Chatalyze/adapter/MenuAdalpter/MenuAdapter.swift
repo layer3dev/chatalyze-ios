@@ -15,8 +15,8 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-    var analystArray = ["My Sessions","Payments","Settings","Contact Us","\(AppInfoConfig.appversion)"]
-    var userArray = ["My Tickets","Memories","Payment History", "Settings","\(AppInfoConfig.appversion)"]
+    var analystArray = ["My Sessions","Payments","Settings","Contact Us","Version \(AppInfoConfig.appversion)"]
+    var userArray = ["My Tickets","Memories","Payment History", "Settings","Version \(AppInfoConfig.appversion)"]
     
     //var userArray = ["My Tickets","Memories","Purchase","Purchase History", "Settings"]
     
@@ -88,7 +88,7 @@ extension MenuAdapter:UITableViewDataSource{
     }
 }
 
-extension MenuAdapter:UITableViewDelegate{
+extension MenuAdapter:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -111,7 +111,6 @@ extension MenuAdapter:UITableViewDelegate{
     //        }
     //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     //    }
-    
 }
 
 

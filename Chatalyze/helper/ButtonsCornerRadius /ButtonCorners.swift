@@ -25,11 +25,11 @@ class ButtonCorners:UIButton{
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            self.layer.cornerRadius = 3
+            self.layer.cornerRadius = 5
             self.layer.masksToBounds = true
             return
          }
-        self.layer.cornerRadius = 1.5
+        self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
         return
     }

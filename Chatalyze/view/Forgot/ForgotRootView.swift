@@ -75,7 +75,7 @@ class ForgotRootView:ExtendedView{
     
     func paintInterface(){
         
-        sendBtn?.layer.cornerRadius = 2
+        sendBtn?.layer.cornerRadius = 3
         sendBtn?.layer.masksToBounds = true
     }
     

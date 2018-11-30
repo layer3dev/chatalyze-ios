@@ -39,7 +39,7 @@ class GreetingDateTimeRootView: ExtendedView {
     
     func paintInterface(){
         
-        nextButtonContainerView?.layer.cornerRadius = 5
+        nextButtonContainerView?.layer.cornerRadius = 3
         nextButtonContainerView?.layer.masksToBounds = true
     }
     

@@ -21,6 +21,8 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var errorLabel:UILabel?
     var eventInfo:EventInfo?
     
+    var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
+    
     var param = [String:Any]()
     var controller:SessionReviewController?
     var successHandler:(()->())?
@@ -30,6 +32,15 @@ class SessionReviewRootView:ExtendedView{
     
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        acivateFlagForCurrentController()
+    }
+    
+    func acivateFlagForCurrentController(){
+        
+        if let activate = activeControllerListner{
+            activate(ScheduleSessionController.CurrentControllerFlag.LandingController)
+        }
     }
     
     func mergeEditedtoRealParam(){

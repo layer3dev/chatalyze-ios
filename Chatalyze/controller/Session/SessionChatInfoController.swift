@@ -40,9 +40,13 @@ class SessionChatInfoController: InterfaceExtendedController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-       //rootView?.paintChatCalculator
+        rootView?.acivateFlagForCurrentController()
     }
+   
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

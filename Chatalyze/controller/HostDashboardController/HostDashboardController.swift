@@ -25,11 +25,11 @@ class HostDashboardController: MyScheduledSessionsController {
     func roundSessionButton(){
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            scheduleSessionBtnContainer?.layer.cornerRadius = 7
+            scheduleSessionBtnContainer?.layer.cornerRadius = 5
             scheduleSessionBtnContainer?.layer.masksToBounds = true
             return
         }
-        scheduleSessionBtnContainer?.layer.cornerRadius = 4
+        scheduleSessionBtnContainer?.layer.cornerRadius = 3
         scheduleSessionBtnContainer?.layer.masksToBounds = true
     }
     

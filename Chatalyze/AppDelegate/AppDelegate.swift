@@ -53,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = NavigationBarCustomizer()        
         RootControllerManager().setRoot {
-            
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
         _ = RTCConnectionInitializer()
@@ -104,7 +103,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
 
     func registerForPushNotifications() {
         
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *){
+            
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
                 Log.echo(key: "yud", text: "10.0 \(granted)")
@@ -114,7 +114,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 self.getNotificationSettings()
             }
         }else{
-            
             Log.echo(key: "yud", text: "Fallback version")
             // Fallback on earlier versions
         }
@@ -127,9 +126,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 
                 print("Notification settings: \(settings)")
-                
                 guard settings.authorizationStatus == .authorized else { return }
-                
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }

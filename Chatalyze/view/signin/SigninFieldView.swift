@@ -36,7 +36,7 @@ class SigninFieldView: ExtendedView {
            
             self.textFieldContainer?.layer.borderWidth = 1
             self.textFieldContainer?.layer.borderColor = UIColor(hexString: AppThemeConfig.borderGrayColor).cgColor
-            self.textFieldContainer?.layer.cornerRadius = 5
+            self.textFieldContainer?.layer.cornerRadius = 3
             self.textFieldContainer?.layer.masksToBounds = true
             borderView?.backgroundColor = UIColor.clear
             return

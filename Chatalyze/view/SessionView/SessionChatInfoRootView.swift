@@ -30,6 +30,8 @@ class SessionChatInfoRootView:ExtendedView{
         case none = 2
     }
     
+    var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
+    
     @IBOutlet var priceField:SigninFieldView?
     
     @IBOutlet var twoMinutesBtn:UIButton?
@@ -71,6 +73,14 @@ class SessionChatInfoRootView:ExtendedView{
         self.priceField?.textField?.doneAccessory = true
         self.priceField?.isCompleteBorderAllow = true
         initializeVariable()
+        acivateFlagForCurrentController()
+    }
+    
+    func acivateFlagForCurrentController(){
+        
+        if let activate = activeControllerListner{
+            activate(ScheduleSessionController.CurrentControllerFlag.ChatController)
+        }
     }
     
     func initializeVariable(){
@@ -83,6 +93,7 @@ class SessionChatInfoRootView:ExtendedView{
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
+        
         paintMaximumEarningCalculator()
         priceValidation()
     }

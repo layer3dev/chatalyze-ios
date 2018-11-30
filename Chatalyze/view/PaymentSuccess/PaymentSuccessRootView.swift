@@ -133,7 +133,7 @@ class PaymentSuccessRootView: ExtendedView {
     
     func paintInterface(){
         
-        addtocalendarView?.layer.cornerRadius = 2
+        addtocalendarView?.layer.cornerRadius = 3
         addtocalendarView?.layer.masksToBounds = true
         addtocalendarView?.layer.borderWidth = 1
         addtocalendarView?.layer.borderColor = UIColor(hexString: "#999999").cgColor

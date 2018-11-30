@@ -27,7 +27,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     
     func roundSaveButton(){
         
-        saveBtn?.layer.cornerRadius = 5
+        saveBtn?.layer.cornerRadius = 3
         saveBtn?.layer.masksToBounds = true
     }
     

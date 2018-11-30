@@ -43,7 +43,7 @@ class AccountRootView: ExtendedView {
         myTicketLbl?.textColor = UIColor.white
         memoriesLbl?.textColor = UIColor(red: 140.0/255.0, green: 157.0/255.0, blue: 161.0/255.0, alpha: 1.0)
         settingLbl?.textColor = UIColor(red: 140.0/255.0, green: 157.0/255.0, blue: 161.0/255.0, alpha: 1.0)
-        stackContainerView?.layer.cornerRadius = 5
+        stackContainerView?.layer.cornerRadius = 3
         stackContainerView?.layer.masksToBounds = true
         stackContainerView?.layer.borderWidth = 1
         stackContainerView?.layer.borderColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor

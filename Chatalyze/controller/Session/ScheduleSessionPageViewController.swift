@@ -10,6 +10,8 @@ import UIKit
 
 class ScheduleSessionPageViewController: UIPageViewController {
     
+    
+    var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
     let timeDateController = SessionTimeDateController.instance()
     let chatController = SessionChatInfoController.instance()
     let reviewController = SessionReviewController.instance()
@@ -32,24 +34,34 @@ class ScheduleSessionPageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         initializeVariable()
         setFirstController()
+        initializeActiveControllersListner()
         //Do any additional setup after loading the view.
     }
     
-    
+    func initializeActiveControllersListner(){
+        
+        timeDateController?.rootView?.activeControllerListner = {(activatedController) in
+            self.activeControllerListner?(activatedController)
+        }
+        chatController?.rootView?.activeControllerListner = {(activatedController) in
+            self.activeControllerListner?(activatedController)
+        }
+        reviewController?.rootView?.activeControllerListner = {(activatedController) in
+            self.activeControllerListner?(activatedController)
+        }
+        //doneController
+        //activeControllerListner
+    }
     
     func initializeVariable(){
-        
-    
-        
+                
         timeDateController?.rootView?.successHandler = {
 
             self.timeDateController?.rootView?.fillInfo(controller:self.chatController)
-            
             self.chatController?.updateRootInfo()
-            
             self.sessionPageDelegate?.updateChatTabUI()
             self.setChatInternalTab()
         }

@@ -9,7 +9,7 @@
 import UIKit
 
 class SessionTimeDateController: InterfaceExtendedController {
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -21,7 +21,13 @@ class SessionTimeDateController: InterfaceExtendedController {
         rootView?.controller = self
     }
     
-    func updateEditedInfo(info:[String:Any]){ 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        rootView?.acivateFlagForCurrentController()
+    }
+    
+    func updateEditedInfo(info:[String:Any]){
     }
     
     override func didReceiveMemoryWarning() {

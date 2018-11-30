@@ -103,7 +103,7 @@ class SignupRootView:ExtendedView{
     
     func paintInterface(){
         
-        signUpBtn?.layer.cornerRadius = 2
+        signUpBtn?.layer.cornerRadius = 3
         signUpBtn?.layer.masksToBounds = true
     }
 }

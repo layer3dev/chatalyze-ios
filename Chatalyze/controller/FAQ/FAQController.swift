@@ -32,7 +32,7 @@ class FAQController: InterfaceExtendedController {
             browserTextFontSize = 18
         }
         
-        let firstText = "Influencers\n"
+        let firstText = "Hosts\n"
         let firstMutableAttributedStr = firstText.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor.black)
         
         let secondStr =  "Browse FAQs"
@@ -42,7 +42,7 @@ class FAQController: InterfaceExtendedController {
         
         influencerLbl?.attributedText = firstMutableAttributedStr
         
-        let firstFanText = "Fans \n"
+        let firstFanText = "Participants \n"
         let firstFanMutableAttributedStr = firstFanText.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor.black)
         
         let secondFanStr =  "Browse FAQs"
@@ -55,7 +55,7 @@ class FAQController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "FAQ")
+        paintNavigationTitle(text: "FAQs")
         paintBackButton()
     }
     
@@ -66,7 +66,7 @@ class FAQController: InterfaceExtendedController {
             return
         }
         controller.url = "https://dev.chatalyze.com/faqs/influencer/app"
-        controller.nameofTitle = "Influencer FAQs"
+        controller.nameofTitle = "Host FAQs"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -75,7 +75,7 @@ class FAQController: InterfaceExtendedController {
         guard let controller = FAQWebController.instance() else{
             return
         }
-        controller.nameofTitle = "Fan FAQs"
+        controller.nameofTitle = "Participant FAQs"
         controller.url = "https://dev.chatalyze.com/faqs/fan/app"
         self.navigationController?.pushViewController(controller, animated: true)
     }
