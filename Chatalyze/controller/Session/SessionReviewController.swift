@@ -11,6 +11,7 @@ import Alamofire
 
 class SessionReviewController: InterfaceExtendedController {
 
+    
     var param = [String:Any]()
     var selectedDurationType:SessionTimeDateRootView.DurationLength? = SessionTimeDateRootView.DurationLength.none
     var delegate:UpdateForEditScheduleSessionDelgete?
@@ -38,7 +39,10 @@ class SessionReviewController: InterfaceExtendedController {
         
         rootView?.editedParam = self.editedParam
         rootView?.fillInfo()
+        rootView?.acivateFlagForCurrentController()
     }
+    
+    
     
   
     func initalializeVariable(){

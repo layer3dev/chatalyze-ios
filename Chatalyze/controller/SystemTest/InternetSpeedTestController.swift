@@ -20,7 +20,6 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
 
-    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -78,14 +77,20 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
-            let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
-            
-            alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+            Log.echo(key: "yud", text: "Yes I know internet is down")
+            DispatchQueue.main.async {
                 
-                self.rootController?.dismiss(animated: false, completion: {
+                self.dismiss(animated: false, completion: {
+                    
+                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
+                    
+                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+                   
+                    }))
+                    
+                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
+                    }
                 })
-            }))
-            RootControllerManager().getCurrentController()?.present(alert, animated: false) {
             }
             return
         }

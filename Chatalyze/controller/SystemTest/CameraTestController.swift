@@ -51,7 +51,7 @@ class CameraTestController: InterfaceExtendedController {
     
     func borderSoundMeter(){
         
-        soundMeterView?.layer.cornerRadius = 2
+        soundMeterView?.layer.cornerRadius = 3
         soundMeterView?.layer.masksToBounds = true
         soundMeterView?.layer.borderWidth = 2
         soundMeterView?.layer.borderColor = UIColor(hexString: "#EFEFEF").cgColor
@@ -290,9 +290,7 @@ class CameraTestController: InterfaceExtendedController {
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            
             try
-                
                 audioSession.setCategory(.playAndRecord, mode: .default, options: [])
             //                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
             try audioSession.setActive(true)

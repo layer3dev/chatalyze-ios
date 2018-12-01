@@ -9,6 +9,7 @@
 import QuartzCore
 import CoreText
 import UIKit
+import SDWebImage
 
 class EditScheduledSessionRootView:ExtendedView{
     
@@ -146,6 +147,33 @@ class EditScheduledSessionRootView:ExtendedView{
             uploadedImage?.image = selectedImage
             self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
             self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+        }else{
+            
+            //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
+            
+            imageUploadingView?.isUserInteractionEnabled = false
+            if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
+                if let url = URL(string: userProfilePic){
+                    uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
+                        if error == nil{
+                            
+                            self.uploadedImage?.contentMode = .scaleAspectFit
+                            self.uploadedImage?.image = image
+                            self.selectedImage = image
+                            self.delegate?.selectedImage(image:self.selectedImage)
+                            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+                            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+                            self.imageUploadingView?.isUserInteractionEnabled = true
+                        }else{
+                            self.imageUploadingView?.isUserInteractionEnabled = true
+                        }
+                    })
+                }else{
+                    self.imageUploadingView?.isUserInteractionEnabled = true
+                }
+            }else{
+                self.imageUploadingView?.isUserInteractionEnabled = true
+            }
         }
         
         

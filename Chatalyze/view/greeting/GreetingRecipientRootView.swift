@@ -36,7 +36,7 @@ class GreetingRecipientRootView: ExtendedView {
     
     func paintInterface(){
         
-        signUpBtn?.layer.cornerRadius = 5
+        signUpBtn?.layer.cornerRadius = 3
         signUpBtn?.layer.masksToBounds = true
     }    
     

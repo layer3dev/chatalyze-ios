@@ -10,6 +10,9 @@ import UIKit
 
 class ScheduleSessionController: InterfaceExtendedController {
     
+    var activatedController = CurrentControllerFlag.DateTimeController
+    var activeControllerListner:((CurrentControllerFlag?)->())?
+    
     var pageViewController:ScheduleSessionPageViewController?
     
     @IBOutlet var timeDateLbl:UILabel?
@@ -35,9 +38,38 @@ class ScheduleSessionController: InterfaceExtendedController {
         paintSettingButton()
     }
     
+    func initializeVariable(){
+        
+        pageViewController?.activeControllerListner = {(activatedController) in
+            
+            Log.echo(key:"yud",text:"ctivatedController is \(activatedController.rawValue)")
+            self.activatedController = activatedController
+        }
+    }
+    
     @IBAction func backButtonAction(sender:UIButton?){
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @IBAction func goToPreviousController(sender:UIButton?){
+        
+        if self.activatedController ==  CurrentControllerFlag.DateTimeController{
+          
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        if self.activatedController ==  CurrentControllerFlag.ChatController{
+           
+            pageViewController?.setDateTab()
+            return
+        }
+        if self.activatedController ==  CurrentControllerFlag.LandingController{
+            
+            pageViewController?.setChatTab()
+            return
+        }        
     }
     
     
@@ -48,6 +80,7 @@ class ScheduleSessionController: InterfaceExtendedController {
         initializeTapGesture()
         paintInterface()
         hideNavigationBar()
+        initializeVariable()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,7 +139,7 @@ class ScheduleSessionController: InterfaceExtendedController {
         let segueIdentifier  = segue.identifier
         if segueIdentifier == "session"{
             
-            pageViewController = segue.destination as? ScheduleSessionPageViewController           
+            pageViewController = segue.destination as? ScheduleSessionPageViewController
             //pageViewController?.accountDelegate = self
             //pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
         }
@@ -225,3 +258,13 @@ extension ScheduleSessionController:ScheduleSessionPageInterface{
     }
 }
 
+
+extension ScheduleSessionController{
+    
+    enum CurrentControllerFlag:Int{
+    
+        case DateTimeController = 0
+        case ChatController = 1
+        case LandingController = 2
+    }
+}

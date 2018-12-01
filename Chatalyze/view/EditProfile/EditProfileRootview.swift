@@ -77,7 +77,7 @@ class EditProfileRootview: ExtendedView {
     
     func paintButton(){
         
-        saveMainInfoBtn?.layer.cornerRadius = 5
+        saveMainInfoBtn?.layer.cornerRadius = 3
         saveMainInfoBtn?.layer.masksToBounds = true
     }
     

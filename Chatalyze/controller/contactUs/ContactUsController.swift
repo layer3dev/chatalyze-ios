@@ -12,6 +12,7 @@ class ContactUsController: InterfaceExtendedController {
     
        
     @IBOutlet var subjectView:UIView?
+    @IBOutlet var subjectTextField:UITextField?
     @IBOutlet var messageView:UIView?
     @IBOutlet var contactTextView:UITextView?
     @IBOutlet var contactPlaceholderLbl:UILabel?
@@ -22,8 +23,19 @@ class ContactUsController: InterfaceExtendedController {
         super.viewDidLayout()
         
         painteInterface()
+        paintTextfieldPlaceHolder()
     }
    
+    func paintTextfieldPlaceHolder(){
+        
+        var fontSize:CGFloat = 16.0
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24.0
+        }
+        
+        subjectTextField?.attributedPlaceholder =
+            NSAttributedString(string: "Subject", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+    }
     
     func painteInterface(){
         
@@ -35,9 +47,6 @@ class ContactUsController: InterfaceExtendedController {
     }
     
     
-    
-    
-    
     func paintBorder(){
         
         subjectView?.layer.borderWidth = 1
@@ -46,10 +55,12 @@ class ContactUsController: InterfaceExtendedController {
         messageView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
     }
     
+    
     func initializeVariable(){
         
         contactTextView?.delegate = self
     }
+    
     
     @IBAction private func submitAction(){
         

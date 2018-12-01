@@ -9,7 +9,8 @@
 import Foundation
 
 class SessionTimeDateRootView:ExtendedView{
-    
+ 
+    var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
     var isPickerHidden = true
     @IBOutlet var pickerContainer:UIView?
     @IBOutlet var timePicker:UIDatePicker?
@@ -51,6 +52,14 @@ class SessionTimeDateRootView:ExtendedView{
   
         paintFullBorder()
         showingCurrentTimeZone()
+        acivateFlagForCurrentController()
+    }
+    
+    func acivateFlagForCurrentController(){
+        
+        if let activate = activeControllerListner {
+            activate(ScheduleSessionController.CurrentControllerFlag.DateTimeController)
+        }
     }
     
     func showingCurrentTimeZone(){

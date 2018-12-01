@@ -25,7 +25,7 @@ class ShadowView: ExtendedView {
 //            setupShadow()
 //        }
 //    }
-//
+    
 //    private func setupShadow() {
 //
 //        self.layer.cornerRadius = 5
@@ -33,6 +33,7 @@ class ShadowView: ExtendedView {
 //        self.layer.shadowRadius = 2
 //        self.layer.shadowOpacity = 0.4
 //        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+    
 //        self.layer.shouldRasterize = true
 //        self.layer.rasterizationScale = UIScreen.main.scale
 //    }

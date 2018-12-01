@@ -18,7 +18,7 @@ class GreetingInfoButtonContainer: UIView {
     
     private func setupShadow() {
         
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 3
         self.layer.shadowOffset = CGSize(width: 0, height: 3)
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0.4

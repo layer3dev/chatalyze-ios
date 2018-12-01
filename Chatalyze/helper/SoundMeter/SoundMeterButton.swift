@@ -23,7 +23,7 @@ class SoundMeterButton: UIButton {
         
         self.layer.borderColor = UIColor(hexString: "#CBCBCB").cgColor
         self.layer.borderWidth = 2
-        self.layer.cornerRadius = 2
+        self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
     }
     

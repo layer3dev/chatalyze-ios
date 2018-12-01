@@ -31,11 +31,11 @@ class MySessionTableViewCell: ExtendedTableCell {
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            joinButton?.layer.cornerRadius = 7
+            joinButton?.layer.cornerRadius = 5
             joinButton?.layer.masksToBounds = true
             return
         }
-        joinButton?.layer.cornerRadius = 4
+        joinButton?.layer.cornerRadius = 3
         joinButton?.layer.masksToBounds = true
     }
     
