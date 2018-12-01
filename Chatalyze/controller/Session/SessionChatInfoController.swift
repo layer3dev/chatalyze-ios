@@ -43,6 +43,7 @@ class SessionChatInfoController: InterfaceExtendedController {
         super.viewWillAppear(animated)
         
         rootView?.acivateFlagForCurrentController()
+        hideNavigationBar()
     }
    
     

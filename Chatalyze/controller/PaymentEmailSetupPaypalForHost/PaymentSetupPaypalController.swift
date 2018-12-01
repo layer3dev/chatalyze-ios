@@ -18,11 +18,11 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        //maketextLinkable()
-        setUpGestureOnLabel()
+        maketextLinkable()
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
+        setUpGestureOnLabel()
     }
     
     func roundSaveButton(){
@@ -53,7 +53,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required.")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
@@ -112,60 +112,26 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
         //
         
-        let attributeForStringHere = [NSAttributedString.Key.font:UIFont(name: "Questrial", size:18),NSAttributedString.Key.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.underlineStyle:1,NSAttributedString.Key.link:" HERE ",NSAttributedString.Key.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedString.Key : Any]
+        var fontSize = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+        }
         
-        //        let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
+        let text = "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one "
         
-        let text = NSMutableAttributedString(string: "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one")
+        let textMutable = text.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        text.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text.length))
+        let text1 = " (you'll be directed to Paypal's website)"
         
-        let text1 = NSMutableAttributedString(string: "(you'll be directed to Paypal's website)")
+        let text1Attr = text1.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        text1.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text1.length))
+        let selectablePart = "Here".toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
         
-        
-        let selectablePart = NSMutableAttributedString(string: " HERE ", attributes: attributeForStringHere)
-        
-        //        msgLbl?.
-        
-        //        selectablePart.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, selectablePart.length))
-        //        // Add an underline to indicate this portion of text is selectable (optional)
-        //        selectablePart.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(0,selectablePart.length))
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.underlineColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //        // Add an NSLinkAttributeName with a value of an url or anything else
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.link, value: "HERE ", range: NSMakeRange(0,selectablePart.length))
-        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //
-                
-        // Combine the non-selectable string with the selectable string
-        text.append(selectablePart)
-        text.append(text1)
+        textMutable.append(selectablePart)
+        textMutable.append(text1Attr)
         // Center the text (optional)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSTextAlignment.center
-       
-        //        text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
         
-        //Explicit
-        //        let linkAttributes: [NSAttributedString.Key: Any] = [
-        //            .link: NSURL(string: "https://www.apple.com")!
-        //        ]
-        
-        // selectablePart.setAttributes(linkAttributes, range: NSMakeRange(0,selectablePart.length))
-        //Doing
-        
-        //To set the link text color (optional)
-        
-        //        msgLbl?.linkTextAttributes = [NSAttributedString.Key.foregroundColor.rawValue:UIColor.green, NSAttributedString.Key.font.rawValue: UIFont(name: "Questrial", size: 20)] as? [String : Any]
-        
-        //Set the text view to contain the attributed text
-        
-        msgLbl?.attributedText = text
+        msgLbl?.attributedText = textMutable
         msgLbl?.isUserInteractionEnabled = true
     }
     
@@ -178,6 +144,17 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         
+        if #available(iOS 10.0, *) {
+            
+            guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
+                return
+            }
+            
+            UIApplication.shared.open(url, options: [:])
+        } else {
+            // Fallback on earlier versions
+        }
+        
         if let msglabel = self.msgLbl{
             guard let range = msglabel.text?.range(of: "create one HERE (you'll")?.nsRange else {
                 return
@@ -185,16 +162,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
                 Log.echo(key: "yud",text: "Sub string is tapped")
                 
-                if #available(iOS 10.0, *) {
-                    
-                    guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
-                        return
-                    }
-                    
-                    UIApplication.shared.open(url, options: [:])
-                } else {
-                    // Fallback on earlier versions
-                }
+                
                 //Substring tapped
             }
         }

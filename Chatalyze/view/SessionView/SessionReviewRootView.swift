@@ -195,6 +195,18 @@ class SessionReviewRootView:ExtendedView{
         
         var requiredParamForUpload = paramForUpload
         requiredParamForUpload["selectedHourSlot"] = nil
+        
+        
+        //For inserting the paragraph
+        let paraText = requiredParamForUpload["description"] as? String
+        let ParaArray = paraText?.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray ?? []{
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        requiredParamForUpload["description"] = requiredStr
+        
         Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
         
         self.controller?.showLoader()
@@ -266,6 +278,18 @@ class SessionReviewRootView:ExtendedView{
         
         var requiredParamForUpload = paramForUpload
         requiredParamForUpload["selectedHourSlot"] = nil
+        
+        
+        //For inserting the paragraph
+        let paraText = requiredParamForUpload["description"] as? String
+        let ParaArray = paraText?.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray ?? []{
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        requiredParamForUpload["description"] = requiredStr
+        
         Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
         
         ScheduleSessionRequest().save(params: requiredParamForUpload) { (success, message, response) in

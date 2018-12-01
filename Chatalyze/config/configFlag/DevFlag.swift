@@ -8,8 +8,8 @@ import Foundation
 
 class DevFlag : NSObject{
 
-    @objc static let key = "selfie_timer"
-    @objc static let showAll = true
-    @objc static let debug = true
+    @objc static let key = ""
+    @objc static let showAll = false
+    @objc static let debug = false
 }
 

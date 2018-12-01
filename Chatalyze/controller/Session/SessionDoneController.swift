@@ -41,6 +41,11 @@ class SessionDoneController: InterfaceExtendedController {
         paintHideBackButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        hideNavigationBar()
+    }
+    
     @IBAction func backToMyAccountAction(sender:UIButton?){
         
         delegate?.backToAccount()

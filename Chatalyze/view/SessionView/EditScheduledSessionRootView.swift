@@ -13,6 +13,8 @@ import SDWebImage
 
 class EditScheduledSessionRootView:ExtendedView{
     
+    var isProfileImageChecked = false
+    
     let imagePicker = UIImagePickerController()
     let cropper = ImageCropper()
     
@@ -36,9 +38,9 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var sessionNameLbl:UILabel?
     
 
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 20)]
    
-    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 23)]
     
     var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
    
@@ -83,7 +85,6 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var imageUploadingView:UIView?
    
     @IBOutlet var uploadedImage:UIImageView?
-    
    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
     
@@ -151,29 +152,36 @@ class EditScheduledSessionRootView:ExtendedView{
             
             //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
             
-            imageUploadingView?.isUserInteractionEnabled = false
-            if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
-                if let url = URL(string: userProfilePic){
-                    uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
-                        if error == nil{
-                            
-                            self.uploadedImage?.contentMode = .scaleAspectFit
-                            self.uploadedImage?.image = image
-                            self.selectedImage = image
-                            self.delegate?.selectedImage(image:self.selectedImage)
-                            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
-                            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
-                            self.imageUploadingView?.isUserInteractionEnabled = true
-                        }else{
-                            self.imageUploadingView?.isUserInteractionEnabled = true
-                        }
-                    })
+            if isProfileImageChecked{
+                
+            }else{
+                isProfileImageChecked = true
+                imageUploadingView?.isUserInteractionEnabled = false
+                if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
+                    if let url = URL(string: userProfilePic){
+                        uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
+                            if error == nil{
+                                
+                                self.uploadedImage?.contentMode = .scaleAspectFit
+                                self.uploadedImage?.image = image
+                                self.selectedImage = image
+                                self.delegate?.selectedImage(image:self.selectedImage)
+                                self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+                                self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+                                self.imageUploadingView?.isUserInteractionEnabled = true
+                            }else{
+                                self.imageUploadingView?.isUserInteractionEnabled = true
+                            }
+                        })
+                    }else{
+                        self.imageUploadingView?.isUserInteractionEnabled = true
+                    }
                 }else{
                     self.imageUploadingView?.isUserInteractionEnabled = true
                 }
-            }else{
-                self.imageUploadingView?.isUserInteractionEnabled = true
             }
+            
+
         }
         
         
@@ -200,26 +208,36 @@ class EditScheduledSessionRootView:ExtendedView{
         
         if let price = info["price"]{
             
+            //Book a 2-minute chat ($2121.00)
+            
+            //\(info["duration"] ?? 0.0)
+            
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
+            let newFirstStr = "Book a \(info["duration"] ?? 0.0)-minute chat ($\(price))"
+            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 20, color: UIColor.black, isUnderLine: false)
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
+            costofEventLbl?.attributedText = newAttrStr
             
-            let requiredStr = NSMutableAttributedString()
-            requiredStr.append(firstStr)
-            requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
-            
-            costofEventLbl?.attributedText = requiredStr
+//            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
+//
+//            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
+//
+//            let requiredStr = NSMutableAttributedString()
+//            requiredStr.append(firstStr)
+//            requiredStr.append(secondStr)
+//
+//            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
+//
+//            costofEventLbl?.attributedText = requiredStr
            
             //costofEventLbl?.text = "asdasfdsfds"
             
             Log.echo(key: "yud", text: "costofEventLbl text is \(costofEventLbl?.text)")
         }
         
-        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){
+        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEEE, MMMM dd, yyyy"){
             
             self.dateTimeLbl?.text = startTime
         }
@@ -230,9 +248,11 @@ class EditScheduledSessionRootView:ExtendedView{
             
             if let endTime = DateParser.convertDateToDesiredFormat(date: info["end"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "hh:mm a"){
                 
-                self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
+               // self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
                 
-                eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
+               // eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
+                
+                eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes"
                 
                // 3-minute video chats available from 07:00 - 07:30 PM IST
             }
@@ -244,9 +264,14 @@ class EditScheduledSessionRootView:ExtendedView{
         
         if param["description"] == nil{
             
-            eventDetailInfo?.text = "I'm hosting \(numberofEvent) private 1:1 video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+//            I’m hosting 15 private one-on-one video chats during this session. Want to meet with me for 2 minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!
             
-            descriptionTextView?.text = "I'm hosting \(numberofEvent) private 1:1 video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+            //eventDetailInfo?.text = "I'm hosting \(numberofEvent) private one-on-one video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+            
+            eventDetailInfo?.text =  "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+            
+            
+            descriptionTextView?.text = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
         }else{
           
             eventDetailInfo?.text = param["description"] as? String
@@ -324,7 +349,6 @@ class EditScheduledSessionRootView:ExtendedView{
         let sheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .actionSheet)
         
         let photoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
-           
             self.openCamera()
         }
         
@@ -445,7 +469,8 @@ class EditScheduledSessionRootView:ExtendedView{
         let description = descriptionText.replacingOccurrences(of: " ", with: "")
         if description == ""{
             return
-        }
+        }        
+        
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)

@@ -197,6 +197,7 @@ extension SignupRootView{
     fileprivate func fbLogin(){
         
         let loginManager = LoginManager()
+        loginManager.logOut() 
         loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
             switch loginResult {
             case .failed(let error):
