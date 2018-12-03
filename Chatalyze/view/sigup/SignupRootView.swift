@@ -198,7 +198,8 @@ extension SignupRootView{
         
         let loginManager = LoginManager()
         loginManager.logOut() 
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
+        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile , ReadPermission.email], viewController: controller) { [weak self] (loginResult) in
+            
             switch loginResult {
             case .failed(let error):
                 self?.showError(text: error.localizedDescription)

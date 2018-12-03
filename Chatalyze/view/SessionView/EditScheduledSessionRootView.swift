@@ -37,10 +37,9 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBOutlet var sessionNameLbl:UILabel?
     
-
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 20)]
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 15)]
    
-    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 23)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 22)]
     
     var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
    
@@ -50,7 +49,6 @@ class EditScheduledSessionRootView:ExtendedView{
     var param = [String:Any]()
     
 //    var param:[String:Any] = ["isFree": false, "screenshotAllow": "automatic", "title": "Chat Session", "end": "2018-08-31T06:06:27.000+0000", "duration": 5, "price": "1000", "start": "2018-08-31T05:36:27.000+0000", "userId": "36"]
-    
     
     @IBOutlet var hostnameLbl:UILabel?
     
@@ -99,22 +97,44 @@ class EditScheduledSessionRootView:ExtendedView{
         
         initializeVariable()
         paintInerface()
+        paintBackAndEditDescription()
     }
+    
+    func paintBackAndEditDescription(){
+        
+        let textStr = "Description "
+        let textStrMutable = textStr.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        
+        let textEditStr = "Edit"
+        let textEditStrMutable = textEditStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        
+        textStrMutable.append(textEditStrMutable)
+        
+        let textStrNew = "Description "
+        let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        
+        
+        let textBackStr = "Back"
+        let textBackStrAttr = textBackStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        
+        textStrNewMutable.append(textBackStrAttr)
+        
+        descriptionBackLbl?.attributedText = textStrNewMutable
+        descriptionEditLbl?.attributedText = textStrMutable
+    }
+    
     
     func paintImageUploadBorder(){
         
         imagePicker.delegate = self
-        
 //        imageUploadingView?.layer.borderWidth = 2.0
 //        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
-        
         let yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
         yourViewBorder.lineDashPattern = [8, 4]
         yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
         yourViewBorder.fillColor = nil
         yourViewBorder.path = UIBezierPath(rect: (imageUploadingView?.bounds) ?? CGRect.zero).cgPath
-        
         imageUploadingView?.layer.addSublayer(yourViewBorder)
     }
     
@@ -127,6 +147,8 @@ class EditScheduledSessionRootView:ExtendedView{
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
+        
+        //eventDetailInfo?.lin
     }
     
     func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
@@ -215,7 +237,7 @@ class EditScheduledSessionRootView:ExtendedView{
             costofEventLbl?.isHidden = false
             
             let newFirstStr = "Book a \(info["duration"] ?? 0.0)-minute chat ($\(price))"
-            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 20, color: UIColor.black, isUnderLine: false)
+            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
             
             costofEventLbl?.attributedText = newAttrStr
             
@@ -268,14 +290,57 @@ class EditScheduledSessionRootView:ExtendedView{
             
             //eventDetailInfo?.text = "I'm hosting \(numberofEvent) private one-on-one video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
             
-            eventDetailInfo?.text =  "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+            
+            let txtStr = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
             
             
-            descriptionTextView?.text = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+            let attributedString = NSMutableAttributedString(string: txtStr)
+            
+            // *** Create instance of `NSMutableParagraphStyle`
+            let paragraphStyle = NSMutableParagraphStyle()
+            
+            // *** set LineSpacing property in points ***
+            paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
+            
+            // *** Apply attribute to string ***
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            
+            // *** Set Attributed String to your label ***
+            //label.attributedText = attributedString
+            
+            eventDetailInfo?.attributedText = attributedString
+            descriptionTextView?.attributedText = attributedString
+            
+            
+//            eventDetailInfo?.text =  "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+//
+//
+//            descriptionTextView?.text = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
         }else{
+            
+            
+            let attributedString = NSMutableAttributedString(string: param["description"] as? String ?? "")
+            
+            // *** Create instance of `NSMutableParagraphStyle`
+            let paragraphStyle = NSMutableParagraphStyle()
+            
+            // *** set LineSpacing property in points ***
+            paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
+            
+            // *** Apply attribute to string ***
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            
+            // *** Set Attributed String to your label ***
+            //label.attributedText = attributedString
+            
+           // eventDetailInfo?.attributedText = attributedString
+            
+            eventDetailInfo?.attributedText = attributedString
+            descriptionTextView?.attributedText = attributedString
+            
           
-            eventDetailInfo?.text = param["description"] as? String
-            descriptionTextView?.text = param["description"] as? String
+//            eventDetailInfo?.text = param["description"] as? String
+//            descriptionTextView?.text = param["description"] as? String
         }
         
         if let screenShot = info["screenshotAllow"] as? String{

@@ -10,7 +10,6 @@ import UIKit
 
 class ScheduleSessionPageViewController: UIPageViewController {
     
-    
     var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
     let timeDateController = SessionTimeDateController.instance()
     let chatController = SessionChatInfoController.instance()
@@ -38,8 +37,6 @@ class ScheduleSessionPageViewController: UIPageViewController {
         initializeVariable()
         setFirstController()
         initializeActiveControllersListner()
-        
-    
         //Do any additional setup after loading the view.
     }
     
