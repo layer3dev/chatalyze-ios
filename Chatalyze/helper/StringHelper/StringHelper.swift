@@ -12,16 +12,16 @@ extension String{
     
     //Attributes text always inserted to UILable with the main thread
     
-    func toAttributedStringLink(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSAttributedString{
+    func toAttributedStringLink(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false, url:String? = nil)->NSAttributedString{
         
         var  attributes =  [NSAttributedString.Key : Any]()
         
         if isUnderLine{
             
-            attributes = [NSAttributedString.Key.link:URL(string: "https://www.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
+            attributes = [NSAttributedString.Key.link:URL(string: url ?? "https://www.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
         }else{
             
-            attributes = [NSAttributedString.Key.link:URL(string: "https://ww.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
+            attributes = [NSAttributedString.Key.link:URL(string: url ?? "https://www.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
         }
         
         let attriutedText = NSAttributedString(string: self, attributes: attributes)

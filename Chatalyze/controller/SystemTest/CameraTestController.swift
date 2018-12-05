@@ -44,7 +44,7 @@ class CameraTestController: InterfaceExtendedController {
         borderSoundMeter()
         paintStatusMessage()
         setUpGestureOnLabel()
-        test()
+        initializeLink()
         return
     }
     
@@ -670,7 +670,7 @@ fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Categ
 
 extension CameraTestController:UITextViewDelegate{
     
-    func test(){
+    func initializeLink(){
      
         testTextView?.delegate = self
         testTextView?.isSelectable = true

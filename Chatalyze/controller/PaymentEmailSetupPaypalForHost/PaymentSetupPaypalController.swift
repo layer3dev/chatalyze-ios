@@ -12,7 +12,7 @@ import MobileCoreServices
 class PaymentSetupPaypalController: InterfaceExtendedController {
 
     @IBOutlet var emailField :SigninFieldView?
-    @IBOutlet var msgLbl:UILabel?
+    @IBOutlet var msgTextView:UITextView?
     @IBOutlet var saveBtn:UIButton?
     
     override func viewDidLayout() {
@@ -22,7 +22,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
-        setUpGestureOnLabel()
+        //setUpGestureOnLabel()
+        initializeLink()
     }
     
     func roundSaveButton(){
@@ -125,21 +126,21 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         let text1Attr = text1.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        let selectablePart = "Here".toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        let selectablePart = "Here".toAttributedStringLink(font: "Questrial", size: fontSize+2, color: UIColor(hexString: "#FAA579"), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
         textMutable.append(selectablePart)
         textMutable.append(text1Attr)
         // Center the text (optional)
         
-        msgLbl?.attributedText = textMutable
-        msgLbl?.isUserInteractionEnabled = true
+        msgTextView?.attributedText = textMutable
+        msgTextView?.isUserInteractionEnabled = true
     }
     
     func setUpGestureOnLabel(){
        
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
-        self.msgLbl?.addGestureRecognizer(tap)
-        self.msgLbl?.isUserInteractionEnabled = true
+        self.msgTextView?.addGestureRecognizer(tap)
+        self.msgTextView?.isUserInteractionEnabled = true
     }
     
     @objc func tapLabel(tap: UITapGestureRecognizer) {
@@ -153,18 +154,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             UIApplication.shared.open(url, options: [:])
         } else {
             // Fallback on earlier versions
-        }
-        
-        if let msglabel = self.msgLbl{
-            guard let range = msglabel.text?.range(of: "create one HERE (you'll")?.nsRange else {
-                return
-            }
-            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
-                Log.echo(key: "yud",text: "Sub string is tapped")
-                
-                
-                //Substring tapped
-            }
         }
     }
     
@@ -192,32 +181,48 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     */
 }
 
-extension PaymentSetupPaypalController:UITextViewDelegate {
+
+extension PaymentSetupPaypalController:UITextViewDelegate{
+    
+    func initializeLink(){
         
-//    @available(iOS 10.0, *)
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//
-//        Log.echo(key: "yud", text: "I am in the url \(URL)")
-//
-//        UIApplication.shared.open(URL, options: [:])
-//        return false
-//    }
-//
-//    /// deprecated delegate method. Gets called if iOS version is < 10.
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-//        return textViewShouldInteractWithURL(URL: URL)
-//    }
-//
-//    func textViewShouldInteractWithURL(URL: URL) -> Bool {
-//        // common logic here
-//        if #available(iOS 10.0, *) {
-//            UIApplication.shared.open(URL, options: [:])
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        return false
-//    }
+        msgTextView?.delegate = self
+        msgTextView?.isSelectable = true
+        msgTextView?.isEditable = false
+        msgTextView?.dataDetectorTypes = .link
+        msgTextView?.isUserInteractionEnabled = true
+        msgTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if range == textView.text?.range(of: "HERE")?.nsRange {
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  range == textView.text?.range(of: "our FAQs")?.nsRange {
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        Log.echo(key: "yud", text: "interacting with url")
+        
+        if characterRange == msgTextView?.text?.range(of: "HERE")?.nsRange {
+          
+            Log.echo(key: "yud", text: "interacting with url")
+            return true
+        }
+         return true
+    }
 }
+
 
 
 extension PaymentSetupPaypalController{
