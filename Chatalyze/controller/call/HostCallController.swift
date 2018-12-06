@@ -811,35 +811,41 @@ class HostCallController: VideoCallController {
         }
     }
     
-    override func verifyEventActivated(){
+    override func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
         
-        guard let eventInfo = self.eventInfo
-            else{
-                return
-        }
+        let eventInfo = info
         
+        //already activated
         if(eventInfo.started != nil){
+            completion(true, eventInfo)
             return
         }
         
         guard let eventId = eventInfo.id
             else{
+                completion(false, eventInfo)
                 return
         }
         
         let eventIdString = "\(eventId)"
-        ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+        ActivateEvent().activate(eventId: eventIdString) {[weak self] (success, eventInfo) in
             
-            if(!success){
-                return
-            }
-            guard let info = eventInfo
+            guard let weakSelf = self
                 else{
+                    completion(false, eventInfo)
                     return
             }
-            self.eventInfo = info
-            Log.echo(key: "yud", text: "First activates startDate is \(self.eventInfo?.started)")
-            self.fetchInfoAfterActivatIngEvent()
+            if(!success){
+                completion(false, eventInfo)
+                return
+            }
+            guard var info = eventInfo
+                else{
+                    completion(false, eventInfo)
+                    return
+            }
+            info = weakSelf.transerState(info: info)
+            completion(true, info)
         }
     }
     
