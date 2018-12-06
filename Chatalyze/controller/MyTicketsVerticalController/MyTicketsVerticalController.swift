@@ -16,12 +16,36 @@ class MyTicketsVerticalController: MyTicketsController{
     @IBOutlet var showView:UIView?
     var isShow = false
     
+    //Implementing the eventDeleteListener
+    var eventDeleteListener = EventDeletedListener()
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initializeFontSize()
         underLineLable()
         getTheRequiredDate()
+        initializeListenrs()
+    }
+    
+    
+    func initializeListenrs(){
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+            
+            Log.echo(key: "yud", text: "Got the deleted event")
+            
+            for events in self.ticketsArray{
+                
+                Log.echo(key: "yud", text: "Matched Event Id is \(events.callschedule?.id ?? 0) and coming from server is \(Int(deletedEventID ?? "0"))")
+                
+                if events.callschedule?.id ?? 0 == Int(deletedEventID ?? "0"){
+                    
+                    //self.exitAction()
+                    Log.echo(key: "yud", text: "Yes I got matched \(deletedEventID)")
+                }
+            }
+        }
     }
     
     @IBAction func animateInfo(){

@@ -39,6 +39,23 @@ class HostCallController: VideoCallController {
         return false
     }
     
+    
+    
+    //Using in order to prevent to showing the message "Participant did not join session before the slot start."
+    override var isSlotRunning : Bool{
+        
+        guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
+            else{
+                return false
+        }
+        
+        if(activeSlot.isLIVE){
+            return true
+        }
+        return false
+    }
+    
+    
     override var roomType : UserInfo.roleType{
         return .analyst
     }
@@ -230,7 +247,9 @@ class HostCallController: VideoCallController {
                         
                         Log.echo(key: "yud", text: "Date of the CountDown is \(requiredDate)")
                         
+                        
                         Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
+                        
                         
                         //                        guard let connection = self.getActiveConnection() else{
                         //                            return
@@ -316,7 +335,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId)){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
@@ -355,7 +374,6 @@ class HostCallController: VideoCallController {
     
     private func getPreConnectConnection()->HostCallConnection?{
         
-        
         guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
                 return nil
@@ -368,7 +386,6 @@ class HostCallController: VideoCallController {
     }
     
     private func confirmCallLinked(){
-        
         
         guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
@@ -385,7 +402,6 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
-        
         guard let startDate = self.eventInfo?.startDate
             else{
                 return
@@ -396,7 +412,9 @@ class HostCallController: VideoCallController {
                 return
         }
         if(!countdownInfo.isActive){
+            
             //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
+            
             updateCallHeaderAfterEventStart()
             return
         }
@@ -458,7 +476,6 @@ class HostCallController: VideoCallController {
         
         //End
         
-        
         let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
@@ -473,7 +490,6 @@ class HostCallController: VideoCallController {
         totalAttrText.append(totalSlots)
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
-        
     }
     
     private func updateCallHeaderAfterEventStart(){
@@ -844,6 +860,7 @@ class HostCallController: VideoCallController {
     }
     
     var isCallStreaming: Bool{
+        
         return (self.getActiveConnection()?.isStreaming ?? false)
     }
     

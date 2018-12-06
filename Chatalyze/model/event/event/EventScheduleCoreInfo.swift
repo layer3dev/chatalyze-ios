@@ -217,8 +217,6 @@ class EventScheduleCoreInfo: EventInfo {
                 return (index,slotInfo)
             }
         }
-        
-        
         return nil
     }
     

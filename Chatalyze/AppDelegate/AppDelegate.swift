@@ -88,9 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->
-
-        UIInterfaceOrientationMask {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
             
             if(allowRotate){
                 return .allButUpsideDown
@@ -116,7 +114,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             }
         }else{
             Log.echo(key: "yud", text: "Fallback version")
-            // Fallback on earlier versions
+            //Fallback on earlier versions
         }
     }
     

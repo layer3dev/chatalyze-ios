@@ -126,13 +126,14 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         let text1Attr = text1.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        let selectablePart = "Here".toAttributedStringLink(font: "Questrial", size: fontSize+2, color: UIColor(hexString: "#FAA579"), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        let selectablePart = "HERE".toAttributedStringLink(font: "Questrial", size: fontSize+2, color: UIColor(hexString: "#FAA579"), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
         textMutable.append(selectablePart)
         textMutable.append(text1Attr)
         // Center the text (optional)
         
         msgTextView?.attributedText = textMutable
+        msgTextView?.setLineSpacing(lineSpacing: 5.0)
         msgTextView?.isUserInteractionEnabled = true
     }
     
