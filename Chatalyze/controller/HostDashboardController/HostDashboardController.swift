@@ -41,11 +41,15 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
 
-        guard let controller = ScheduleSessionController.instance() else{
-            return
+        DispatchQueue.main.async {
+            
+            guard let controller = ScheduleSessionController.instance() else{
+                return
+            }
+            
+            self.navigationController?.pushViewController(controller, animated: false)
         }
-        
-        self.navigationController?.pushViewController(controller, animated: true)
+       
     }
     
     @IBAction func systemTestAction(sender:UIButton){

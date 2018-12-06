@@ -149,7 +149,7 @@ extension SigninRootView{
         
         loginManager.logOut() 
         
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
+        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile,ReadPermission.email], viewController: controller) { [weak self] (loginResult) in
             Log.echo(key: "yud", text: "loginResult in the facebook is \(loginResult)")
             
             switch loginResult {

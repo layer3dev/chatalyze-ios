@@ -64,8 +64,8 @@ class SignupRootView:ExtendedView{
         EmailSigninHandler().signin(withEmail: email, password: password) { (success, error, info) in
             self.controller?.stopLoader()
             if success{
-                 RootControllerManager().updateRoot()
-            return
+                RootControllerManager().updateRoot()
+                return
             }
         }
     }
@@ -109,7 +109,7 @@ class SignupRootView:ExtendedView{
 }
 
 extension SignupRootView:UITextFieldDelegate{
-   
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         scrollView?.activeField = textField
         return true
@@ -133,7 +133,7 @@ extension SignupRootView:UITextFieldDelegate{
 extension SignupRootView{
     
     func validateFields()->Bool{
-    
+        
         let confirmPasswordValidate = valiadteConfirmPassword()
         let emailValidated  = validateEmail()
         let passwordValidated = validatePassword()
@@ -141,7 +141,7 @@ extension SignupRootView{
     }
     
     func resetErrorStatus(){
-    
+        
         errorLabel?.text = ""
         emailField?.resetErrorStatus()
         passwordField?.resetErrorStatus()
@@ -156,10 +156,12 @@ extension SignupRootView{
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            
+            emailField?.showError(text: "Email is required")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
+            
             emailField?.showError(text: "Email looks incorrect !")
             return false
         }
@@ -170,7 +172,8 @@ extension SignupRootView{
     fileprivate func validatePassword()->Bool{
         
         if(passwordField?.textField?.text == ""){
-            passwordField?.showError(text: "Password field can't be left empty !")
+            
+            passwordField?.showError(text: "Password is required")
             return false
         }
         passwordField?.resetErrorStatus()
@@ -180,10 +183,12 @@ extension SignupRootView{
     fileprivate func valiadteConfirmPassword()->Bool{
         
         if(firstName?.textField?.text == ""){
-            firstName?.showError(text: "Firstname field can't be left empty !")
+            
+            firstName?.showError(text: "Firstname is required")
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(firstName?.textField?.text ?? "")){
+            
             firstName?.showError(text: "Firstname looks incorrect !")
             return false
         }
@@ -197,7 +202,9 @@ extension SignupRootView{
     fileprivate func fbLogin(){
         
         let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile ], viewController: controller) { [weak self] (loginResult) in
+        loginManager.logOut() 
+        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile , ReadPermission.email], viewController: controller) { [weak self] (loginResult) in
+            
             switch loginResult {
             case .failed(let error):
                 self?.showError(text: error.localizedDescription)
@@ -214,6 +221,7 @@ extension SignupRootView{
         DispatchQueue.main.async(execute: {
             self.controller?.showLoader()
             FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
+                
                 self.controller?.stopLoader()
                 if(success){
                     RootControllerManager().updateRoot()

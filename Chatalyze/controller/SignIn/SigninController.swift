@@ -13,9 +13,9 @@ class SigninController: InterfaceExtendedController {
     
     var googleSignInAction:(()->())?
     var signUpHandler:(()->())?
-
     
     @IBAction fileprivate func signinAction(){
+       
         signin()
     }
     
@@ -42,12 +42,18 @@ class SigninController: InterfaceExtendedController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialization()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+
     
     fileprivate func initialization(){
         

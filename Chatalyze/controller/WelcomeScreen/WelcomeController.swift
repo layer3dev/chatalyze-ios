@@ -42,9 +42,16 @@ class WelcomeController: InterfaceExtendedController {
     func paintInterface(){
         
         //paintNavigationTitle(text: "CHATALYZE")
-        hideNavigationBar()
+        
         roundCornerToView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+    
     
     @IBAction func hostAction(sender:UIButton){
         

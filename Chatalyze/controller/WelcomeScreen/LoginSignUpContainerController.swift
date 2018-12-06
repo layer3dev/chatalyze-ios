@@ -68,6 +68,12 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         //paintNavigationTitle(text: "ACCOUNT")
         //paintBackButton()
         //paintHideBackButton()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         hideNavigationBar()
     }
     

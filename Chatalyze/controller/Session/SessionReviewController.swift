@@ -40,6 +40,7 @@ class SessionReviewController: InterfaceExtendedController {
         rootView?.editedParam = self.editedParam
         rootView?.fillInfo()
         rootView?.acivateFlagForCurrentController()
+        hideNavigationBar()
     }
     
     

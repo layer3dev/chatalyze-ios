@@ -93,7 +93,8 @@ class SessionTimeDateRootView:ExtendedView{
         }
         
         if selectedPickerType == .time{
-            
+          
+           //dateField?.textField?.text = selectedTime
             startTimeField?.textField?.text = startTime
             validateTime()
         }
@@ -131,6 +132,7 @@ class SessionTimeDateRootView:ExtendedView{
         isPickerHidden = false
         pickerContainer?.isHidden = false
         validateTime()
+        
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -178,9 +180,13 @@ class SessionTimeDateRootView:ExtendedView{
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+            //dateFormatter.locale = Locale.current
             dateFormatter.dateFormat = "dd MMM, yyyy"
             if let cd  = timePicker?.date{
-                setStartDate(date:timePicker?.date)
+               // setStartDate(date:timePicker?.date)
+                
+                Log.echo(key: "yud" ,text: "Selected time is \(dateFormatter.string(from: cd))")
+                startDate = dateFormatter.string(from: cd).replacingOccurrences(of: ":", with: "")
                 return dateFormatter.string(from: cd).replacingOccurrences(of: ":", with: "")
             }
             return ""
@@ -194,10 +200,12 @@ class SessionTimeDateRootView:ExtendedView{
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+            //dateFormatter.locale = Locale.current
             dateFormatter.dateFormat = "hh:mm a"
             if let cd  = timePicker?.date{
-                
-                setEndTime(date:timePicker?.date)
+                Log.echo(key: "yud" ,text: "Selected date is \(dateFormatter.string(from: cd))")
+                endDate = dateFormatter.string(from: cd)
+                //setEndTime(date:timePicker?.date)
                 return dateFormatter.string(from: cd)
             }
             return ""
@@ -206,15 +214,22 @@ class SessionTimeDateRootView:ExtendedView{
     
     func getStartDateForParameter()->String {
         
+        Log.echo(key: "yud", text: "Param start and the end Date is \(startDate) and the end date is \(endDate)")
+        
         let date = startDate + " " + endDate
         let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        // dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "dd MMM, yyyy hh:mm a"
+        
         if let newdate = dateFormatter.date(from: date){
             
+            dateFormatter.timeZone = TimeZone(identifier: "UTC")
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             let requiredString = dateFormatter.string(from: newdate)
+            
+            Log.echo(key: "yud", text: "Final Start Date is  \(requiredString)")
             return requiredString
         }
         return ""
@@ -326,7 +341,9 @@ class SessionTimeDateRootView:ExtendedView{
         let dateValidated  = validateDate()
         let timeValidated = validateTime()
         let durationValidation = validateDuration()
-        return dateValidated && timeValidated && durationValidation
+        let isFutureTimeValidation = isFutureTime()
+        
+        return dateValidated && timeValidated && durationValidation && isFutureTimeValidation
     }
     
     fileprivate func validateDate()->Bool{
@@ -350,6 +367,33 @@ class SessionTimeDateRootView:ExtendedView{
         startTimeField?.resetErrorStatus()
         return true
     }
+    
+    func isFutureTime()->Bool{
+       
+        if startDate != "" {
+            
+            let startDate = getStartDateForParameter()
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(identifier: "UTC")
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: startDate){
+                
+                Log.echo(key: "yud", text: "Diffrenece between the current time is \(date.timeIntervalSinceNow)")
+               
+                if date.timeIntervalSinceNow <=  0{
+                    startTimeField?.showError(text: "Please select the future time")
+                    return false
+                }else{
+                    startTimeField?.resetErrorStatus()
+                    return true
+                }
+            }
+            return true
+        }
+        return true
+    }
+    
     
     fileprivate func validateDuration()->Bool{
         

@@ -108,6 +108,12 @@ class SignUpController: InterfaceExtendedController {
         paintBackButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+    
     @IBAction func googleSignIn(){
         
         if let action = googleSignInAction{

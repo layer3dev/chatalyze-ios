@@ -13,6 +13,8 @@ import SDWebImage
 
 class EditScheduledSessionRootView:ExtendedView{
     
+    var isProfileImageChecked = false
+    
     let imagePicker = UIImagePickerController()
     let cropper = ImageCropper()
     
@@ -34,11 +36,12 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var editDescriptionBottomConstraints:NSLayoutConstraint?
     
     @IBOutlet var sessionNameLbl:UILabel?
-    
-
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 17)]
    
-    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 17)]
+    @IBOutlet var nextSlotTime:UILabel?
+    
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 15)]
+   
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 22)]
     
     var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
    
@@ -48,7 +51,6 @@ class EditScheduledSessionRootView:ExtendedView{
     var param = [String:Any]()
     
 //    var param:[String:Any] = ["isFree": false, "screenshotAllow": "automatic", "title": "Chat Session", "end": "2018-08-31T06:06:27.000+0000", "duration": 5, "price": "1000", "start": "2018-08-31T05:36:27.000+0000", "userId": "36"]
-    
     
     @IBOutlet var hostnameLbl:UILabel?
     
@@ -83,7 +85,6 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var imageUploadingView:UIView?
    
     @IBOutlet var uploadedImage:UIImageView?
-    
    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
     
@@ -98,22 +99,44 @@ class EditScheduledSessionRootView:ExtendedView{
         
         initializeVariable()
         paintInerface()
+        paintBackAndEditDescription()
     }
+    
+    func paintBackAndEditDescription(){
+        
+        let textStr = "Description "
+        let textStrMutable = textStr.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        
+        let textEditStr = "Edit"
+        let textEditStrMutable = textEditStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        
+        textStrMutable.append(textEditStrMutable)
+        
+        let textStrNew = "Description "
+        let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        
+        
+        let textBackStr = "Back"
+        let textBackStrAttr = textBackStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        
+        textStrNewMutable.append(textBackStrAttr)
+        
+        descriptionBackLbl?.attributedText = textStrNewMutable
+        descriptionEditLbl?.attributedText = textStrMutable
+    }
+    
     
     func paintImageUploadBorder(){
         
         imagePicker.delegate = self
-        
 //        imageUploadingView?.layer.borderWidth = 2.0
 //        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
-        
         let yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
         yourViewBorder.lineDashPattern = [8, 4]
         yourViewBorder.frame = (imageUploadingView?.bounds) ?? CGRect.zero
         yourViewBorder.fillColor = nil
         yourViewBorder.path = UIBezierPath(rect: (imageUploadingView?.bounds) ?? CGRect.zero).cgPath
-        
         imageUploadingView?.layer.addSublayer(yourViewBorder)
     }
     
@@ -126,17 +149,20 @@ class EditScheduledSessionRootView:ExtendedView{
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
+        
+        //eventDetailInfo?.lin
     }
     
     func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
         
-//        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
+        //Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
         
         Log.echo(key: "yud", text: "The info is \(info) and the total Duration of the event is \(totalDurationofEvent)")
         
         guard let info = info else {
             return
         }
+        
         
         self.param = info
         //self.totalTimeDuration = totalDurationofEvent
@@ -151,29 +177,36 @@ class EditScheduledSessionRootView:ExtendedView{
             
             //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
             
-            imageUploadingView?.isUserInteractionEnabled = false
-            if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
-                if let url = URL(string: userProfilePic){
-                    uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
-                        if error == nil{
-                            
-                            self.uploadedImage?.contentMode = .scaleAspectFit
-                            self.uploadedImage?.image = image
-                            self.selectedImage = image
-                            self.delegate?.selectedImage(image:self.selectedImage)
-                            self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
-                            self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
-                            self.imageUploadingView?.isUserInteractionEnabled = true
-                        }else{
-                            self.imageUploadingView?.isUserInteractionEnabled = true
-                        }
-                    })
+            if isProfileImageChecked{
+                
+            }else{
+                isProfileImageChecked = true
+                imageUploadingView?.isUserInteractionEnabled = false
+                if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
+                    if let url = URL(string: userProfilePic){
+                        uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
+                            if error == nil{
+                                
+                                self.uploadedImage?.contentMode = .scaleAspectFit
+                                self.uploadedImage?.image = image
+                                self.selectedImage = image
+                                self.delegate?.selectedImage(image:self.selectedImage)
+                                self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
+                                self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+                                self.imageUploadingView?.isUserInteractionEnabled = true
+                            }else{
+                                self.imageUploadingView?.isUserInteractionEnabled = true
+                            }
+                        })
+                    }else{
+                        self.imageUploadingView?.isUserInteractionEnabled = true
+                    }
                 }else{
                     self.imageUploadingView?.isUserInteractionEnabled = true
                 }
-            }else{
-                self.imageUploadingView?.isUserInteractionEnabled = true
             }
+            
+
         }
         
         
@@ -200,26 +233,36 @@ class EditScheduledSessionRootView:ExtendedView{
         
         if let price = info["price"]{
             
+            //Book a 2-minute chat ($2121.00)
+            
+            //\(info["duration"] ?? 0.0)
+            
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
+            let newFirstStr = "Book a \(info["duration"] ?? 0.0)-minute chat ($\(price))"
+            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
             
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
+            costofEventLbl?.attributedText = newAttrStr
             
-            let requiredStr = NSMutableAttributedString()
-            requiredStr.append(firstStr)
-            requiredStr.append(secondStr)
             
-            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
-            
-            costofEventLbl?.attributedText = requiredStr
+//            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
+//
+//            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
+//
+//            let requiredStr = NSMutableAttributedString()
+//            requiredStr.append(firstStr)
+//            requiredStr.append(secondStr)
+//
+//            Log.echo(key: "yud", text: "price is requiered String \(requiredStr) and the price is \(price)")
+//
+//            costofEventLbl?.attributedText = requiredStr
            
             //costofEventLbl?.text = "asdasfdsfds"
             
             Log.echo(key: "yud", text: "costofEventLbl text is \(costofEventLbl?.text)")
         }
         
-        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EE, MMM dd yyyy"){
+        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEEE, MMMM dd, yyyy"){
             
             self.dateTimeLbl?.text = startTime
         }
@@ -230,9 +273,11 @@ class EditScheduledSessionRootView:ExtendedView{
             
             if let endTime = DateParser.convertDateToDesiredFormat(date: info["end"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "hh:mm a"){
                 
-                self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
+               // self.eventInfoLbl?.text = "\(self.eventInfoLbl?.text ?? "")\(endTime) \(Locale.current.regionCode ?? "")"
                 
-                eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
+               // eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes video chats available from \(startTime)-\(endTime) \(Locale.current.regionCode ?? "")"
+                
+                eventInfoLbl?.text = "\(info["duration"] ?? 0.0)-minutes"
                 
                // 3-minute video chats available from 07:00 - 07:30 PM IST
             }
@@ -244,13 +289,60 @@ class EditScheduledSessionRootView:ExtendedView{
         
         if param["description"] == nil{
             
-            eventDetailInfo?.text = "I'm hosting \(numberofEvent) private 1:1 video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+//            I’m hosting 15 private one-on-one video chats during this session. Want to meet with me for 2 minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!
             
-            descriptionTextView?.text = "I'm hosting \(numberofEvent) private 1:1 video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+            //eventDetailInfo?.text = "I'm hosting \(numberofEvent) private one-on-one video chats during this session. If you purchase a chat, you'll receive a scheduled time when we'll connect. We'll talk, you can ask questions, and we'll get to know each other!"
+            
+            
+            let txtStr = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+                        
+            let attributedString = NSMutableAttributedString(string: txtStr)
+            
+            // *** Create instance of `NSMutableParagraphStyle`
+            let paragraphStyle = NSMutableParagraphStyle()
+            
+            // *** set LineSpacing property in points ***
+            paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
+            
+            // *** Apply attribute to string ***
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            
+            // *** Set Attributed String to your label ***
+            //label.attributedText = attributedString
+            
+            eventDetailInfo?.attributedText = attributedString
+            descriptionTextView?.attributedText = attributedString
+            
+            
+//            eventDetailInfo?.text =  "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
+//
+//
+//            descriptionTextView?.text = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
         }else{
+            
+            
+            let attributedString = NSMutableAttributedString(string: param["description"] as? String ?? "")
+            
+            // *** Create instance of `NSMutableParagraphStyle`
+            let paragraphStyle = NSMutableParagraphStyle()
+            
+            // *** set LineSpacing property in points ***
+            paragraphStyle.lineSpacing = 6 // Whatever line spacing you want in points
+            
+            // *** Apply attribute to string ***
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+            
+            // *** Set Attributed String to your label ***
+            //label.attributedText = attributedString
+            
+           // eventDetailInfo?.attributedText = attributedString
+            
+            eventDetailInfo?.attributedText = attributedString
+            descriptionTextView?.attributedText = attributedString
+            
           
-            eventDetailInfo?.text = param["description"] as? String
-            descriptionTextView?.text = param["description"] as? String
+//            eventDetailInfo?.text = param["description"] as? String
+//            descriptionTextView?.text = param["description"] as? String
         }
         
         if let screenShot = info["screenshotAllow"] as? String{
@@ -267,7 +359,7 @@ class EditScheduledSessionRootView:ExtendedView{
         }
         
         
-        
+        nextSlotTime?.text  = "\(getnextSlotInitialTime())-\(getNextSlotTime()) \(TimeZone.current.abbreviation() ?? "")"
         
         
 //        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd"){
@@ -277,6 +369,89 @@ class EditScheduledSessionRootView:ExtendedView{
 //        }
     }
     
+    
+    func getnextSlotInitialTime()->String{
+        
+        if let date = self.param["start"] as? String{
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(identifier: "UTC")
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let newdate = dateFormatter.date(from: date) {
+                dateFormatter.timeZone = TimeZone.current
+                dateFormatter.dateFormat = "hh:mm"
+                return dateFormatter.string(from: newdate)
+            }
+            return ""
+        }
+        return ""
+    }
+    
+    func getNextSlotTime()->String{
+        
+        if let date = self.param["start"] as? String{
+            if let durate = self.param["duration"] as? Int{
+                let requiredDate = nextSessionTime(startDate:date,durate:durate)
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeZone = TimeZone(identifier: "UTC")
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+                if let newdate = dateFormatter.date(from: requiredDate) {
+                    
+                    dateFormatter.timeZone = TimeZone.current
+                    dateFormatter.dateFormat = "hh:mm a"
+                    return dateFormatter.string(from: newdate)
+                }
+                return ""
+            }
+            return ""
+        }
+        return ""
+    }
+    
+    
+    private func nextSessionTime(startDate:String,durate:Int)->String{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let newDate = dateFormatter.date(from: startDate){
+            
+            
+            let calendar = Calendar.current
+            var date:Date?
+            if durate == 2{
+                
+                date = calendar.date(byAdding: .minute, value: 2, to: newDate)
+            }else if durate == 3{
+                
+                date = calendar.date(byAdding: .minute, value: 3, to: newDate)
+            }else if durate == 5{
+                
+                date = calendar.date(byAdding: .minute, value: 5, to: newDate)
+                
+            }else if durate == 10{
+                
+                date = calendar.date(byAdding: .minute, value: 10, to: newDate)
+            }else if durate == 15{
+                
+                date = calendar.date(byAdding: .minute, value: 15, to: newDate)
+            }else if durate == 30{
+                
+                date = calendar.date(byAdding: .minute, value: 30, to: newDate)
+            }
+            if let date = date{
+                
+                return dateFormatter.string(from: date)
+            }
+            return ""
+        }
+        return ""
+    }   
+
     
     func fillTotalChats(info:[String:Any]?){
         
@@ -324,7 +499,6 @@ class EditScheduledSessionRootView:ExtendedView{
         let sheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .actionSheet)
         
         let photoAction = UIAlertAction(title: "Take Photo", style: .default) { (action) in
-           
             self.openCamera()
         }
         
@@ -445,7 +619,8 @@ class EditScheduledSessionRootView:ExtendedView{
         let description = descriptionText.replacingOccurrences(of: " ", with: "")
         if description == ""{
             return
-        }
+        }        
+        
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
         self.fillInfo(info: self.param, totalDurationofEvent: self.totalTimeDuration, selectedImage: self.selectedImage)

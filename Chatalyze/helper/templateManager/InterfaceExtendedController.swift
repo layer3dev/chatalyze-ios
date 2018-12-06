@@ -20,6 +20,7 @@ class InterfaceExtendedController : ExtendedController {
         
         Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended -> \(self)")
         initialization()
+        showNavigationBar()
     }
     
     

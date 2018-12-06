@@ -19,6 +19,7 @@ class SessionReviewRootView:ExtendedView{
     @IBOutlet var priceLbl:UILabel?
     @IBOutlet var isSelfieLbl:UILabel?
     @IBOutlet var errorLabel:UILabel?
+  
     var eventInfo:EventInfo?
     
     var activeControllerListner:((ScheduleSessionController.CurrentControllerFlag)->())?
@@ -95,16 +96,19 @@ class SessionReviewRootView:ExtendedView{
         }
         dateLbl?.text = getDate()
         timeLbl?.text = getTime()
+        
+        
     }
     
     func getDate()->String{
         
-        if let date = self.param["start"] as? String{
+        if let date = self.param["start"] as? String {
             
             let dateFormatter = DateFormatter()
             dateFormatter.timeZone = TimeZone(identifier: "UTC")
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            
             if let newdate = dateFormatter.date(from: date) {
                 
                 dateFormatter.timeZone = TimeZone.current
@@ -133,6 +137,7 @@ class SessionReviewRootView:ExtendedView{
         return ""
     }
     
+     
     func isThisFutureTime()->Bool{
         
         if let startTime = DateParser.getDateTimeInUTCFromWeb(dateInString:self.param["start"] as? String? ?? nil,dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSSZ"){
@@ -176,6 +181,9 @@ class SessionReviewRootView:ExtendedView{
         scheduleAction()
     }
     
+   
+    
+    
     
     private func uploadImage(completion : ((_ success : Bool, _ info : JSON?)->())?){
         
@@ -195,6 +203,18 @@ class SessionReviewRootView:ExtendedView{
         
         var requiredParamForUpload = paramForUpload
         requiredParamForUpload["selectedHourSlot"] = nil
+        
+        
+        //For inserting the paragraph
+        let paraText = requiredParamForUpload["description"] as? String
+        let ParaArray = paraText?.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray ?? []{
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        requiredParamForUpload["description"] = requiredStr
+        
         Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
         
         self.controller?.showLoader()
@@ -266,6 +286,18 @@ class SessionReviewRootView:ExtendedView{
         
         var requiredParamForUpload = paramForUpload
         requiredParamForUpload["selectedHourSlot"] = nil
+        
+        
+        //For inserting the paragraph
+        let paraText = requiredParamForUpload["description"] as? String
+        let ParaArray = paraText?.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray ?? []{
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        requiredParamForUpload["description"] = requiredStr
+        
         Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
         
         ScheduleSessionRequest().save(params: requiredParamForUpload) { (success, message, response) in

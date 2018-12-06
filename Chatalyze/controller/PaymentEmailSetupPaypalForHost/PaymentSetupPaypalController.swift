@@ -12,17 +12,18 @@ import MobileCoreServices
 class PaymentSetupPaypalController: InterfaceExtendedController {
 
     @IBOutlet var emailField :SigninFieldView?
-    @IBOutlet var msgLbl:UILabel?
+    @IBOutlet var msgTextView:UITextView?
     @IBOutlet var saveBtn:UIButton?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        //maketextLinkable()
-        setUpGestureOnLabel()
+        maketextLinkable()
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
+        //setUpGestureOnLabel()
+        initializeLink()
     }
     
     func roundSaveButton(){
@@ -53,7 +54,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required.")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
@@ -112,91 +113,48 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
         //
         
-        let attributeForStringHere = [NSAttributedString.Key.font:UIFont(name: "Questrial", size:18),NSAttributedString.Key.underlineColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.underlineStyle:1,NSAttributedString.Key.link:" HERE ",NSAttributedString.Key.strokeColor:UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor)] as [NSAttributedString.Key : Any]
+        var fontSize = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+        }
         
-        //        let secondStr = NSMutableAttributedString(string: " 2 3", attributes: self.whiteAttribute)
+        let text = "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one "
         
-        let text = NSMutableAttributedString(string: "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one")
+        let textMutable = text.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        text.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text.length))
+        let text1 = " (you'll be directed to Paypal's website)"
         
-        let text1 = NSMutableAttributedString(string: "(you'll be directed to Paypal's website)")
+        let text1Attr = text1.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.black, isUnderLine: false)
         
-        text1.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, text1.length))
+        let selectablePart = "HERE".toAttributedStringLink(font: "Questrial", size: fontSize+2, color: UIColor(hexString: "#FAA579"), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
-        
-        let selectablePart = NSMutableAttributedString(string: " HERE ", attributes: attributeForStringHere)
-        
-        //        msgLbl?.
-        
-        //        selectablePart.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Questrial", size: 16), range: NSMakeRange(0, selectablePart.length))
-        //        // Add an underline to indicate this portion of text is selectable (optional)
-        //        selectablePart.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSMakeRange(0,selectablePart.length))
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.underlineColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //        // Add an NSLinkAttributeName with a value of an url or anything else
-        //
-        //        selectablePart.addAttribute(NSAttributedString.Key.link, value: "HERE ", range: NSMakeRange(0,selectablePart.length))
-        //        selectablePart.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(0, selectablePart.length))
-        //
-                
-        // Combine the non-selectable string with the selectable string
-        text.append(selectablePart)
-        text.append(text1)
+        textMutable.append(selectablePart)
+        textMutable.append(text1Attr)
         // Center the text (optional)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSTextAlignment.center
-       
-        //        text.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, text.length))
         
-        //Explicit
-        //        let linkAttributes: [NSAttributedString.Key: Any] = [
-        //            .link: NSURL(string: "https://www.apple.com")!
-        //        ]
-        
-        // selectablePart.setAttributes(linkAttributes, range: NSMakeRange(0,selectablePart.length))
-        //Doing
-        
-        //To set the link text color (optional)
-        
-        //        msgLbl?.linkTextAttributes = [NSAttributedString.Key.foregroundColor.rawValue:UIColor.green, NSAttributedString.Key.font.rawValue: UIFont(name: "Questrial", size: 20)] as? [String : Any]
-        
-        //Set the text view to contain the attributed text
-        
-        msgLbl?.attributedText = text
-        msgLbl?.isUserInteractionEnabled = true
+        msgTextView?.attributedText = textMutable
+        msgTextView?.setLineSpacing(lineSpacing: 5.0)
+        msgTextView?.isUserInteractionEnabled = true
     }
     
     func setUpGestureOnLabel(){
        
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
-        self.msgLbl?.addGestureRecognizer(tap)
-        self.msgLbl?.isUserInteractionEnabled = true
+        self.msgTextView?.addGestureRecognizer(tap)
+        self.msgTextView?.isUserInteractionEnabled = true
     }
     
     @objc func tapLabel(tap: UITapGestureRecognizer) {
         
-        if let msglabel = self.msgLbl{
-            guard let range = msglabel.text?.range(of: "create one HERE (you'll")?.nsRange else {
+        if #available(iOS 10.0, *) {
+            
+            guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
                 return
             }
-            if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
-                Log.echo(key: "yud",text: "Sub string is tapped")
-                
-                if #available(iOS 10.0, *) {
-                    
-                    guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
-                        return
-                    }
-                    
-                    UIApplication.shared.open(url, options: [:])
-                } else {
-                    // Fallback on earlier versions
-                }
-                //Substring tapped
-            }
+            
+            UIApplication.shared.open(url, options: [:])
+        } else {
+            // Fallback on earlier versions
         }
     }
     
@@ -224,32 +182,48 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     */
 }
 
-extension PaymentSetupPaypalController:UITextViewDelegate {
+
+extension PaymentSetupPaypalController:UITextViewDelegate{
+    
+    func initializeLink(){
         
-//    @available(iOS 10.0, *)
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//
-//        Log.echo(key: "yud", text: "I am in the url \(URL)")
-//
-//        UIApplication.shared.open(URL, options: [:])
-//        return false
-//    }
-//
-//    /// deprecated delegate method. Gets called if iOS version is < 10.
-//    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-//        return textViewShouldInteractWithURL(URL: URL)
-//    }
-//
-//    func textViewShouldInteractWithURL(URL: URL) -> Bool {
-//        // common logic here
-//        if #available(iOS 10.0, *) {
-//            UIApplication.shared.open(URL, options: [:])
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        return false
-//    }
+        msgTextView?.delegate = self
+        msgTextView?.isSelectable = true
+        msgTextView?.isEditable = false
+        msgTextView?.dataDetectorTypes = .link
+        msgTextView?.isUserInteractionEnabled = true
+        msgTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if range == textView.text?.range(of: "HERE")?.nsRange {
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  range == textView.text?.range(of: "our FAQs")?.nsRange {
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        Log.echo(key: "yud", text: "interacting with url")
+        
+        if characterRange == msgTextView?.text?.range(of: "HERE")?.nsRange {
+          
+            Log.echo(key: "yud", text: "interacting with url")
+            return true
+        }
+         return true
+    }
 }
+
 
 
 extension PaymentSetupPaypalController{

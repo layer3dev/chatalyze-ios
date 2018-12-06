@@ -33,9 +33,16 @@ class ScheduleSessionController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
+//        DispatchQueue.main.async {
+//            
+//        }
         paintBackButton()
         paintSettingButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     func initializeVariable(){
@@ -89,7 +96,6 @@ class ScheduleSessionController: InterfaceExtendedController {
         showNavigationBar()
     }
     
-    
     func paintInterface(){
  
         handleTransitions()
@@ -136,13 +142,17 @@ class ScheduleSessionController: InterfaceExtendedController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
-        let segueIdentifier  = segue.identifier
-        if segueIdentifier == "session"{
-            
-            pageViewController = segue.destination as? ScheduleSessionPageViewController
-            //pageViewController?.accountDelegate = self
-            //pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
-        }
+       // DispatchQueue.main.async {
+          
+            let segueIdentifier  = segue.identifier
+            if segueIdentifier == "session"{
+                
+                self.pageViewController = segue.destination as? ScheduleSessionPageViewController
+               
+                //pageViewController?.accountDelegate = self
+                //pageViewController?.ticketController?.featureHeight = containerView?.bounds.size.height ?? 0.0
+            }
+        //}
     }
     
     @objc func setReviewLaunchTab(){

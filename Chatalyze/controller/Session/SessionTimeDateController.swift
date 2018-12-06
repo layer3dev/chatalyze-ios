@@ -25,6 +25,7 @@ class SessionTimeDateController: InterfaceExtendedController {
         super.viewWillAppear(animated)
         
         rootView?.acivateFlagForCurrentController()
+        hideNavigationBar()
     }
     
     func updateEditedInfo(info:[String:Any]){
