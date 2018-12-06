@@ -36,6 +36,8 @@ class EditScheduledSessionRootView:ExtendedView{
     @IBOutlet var editDescriptionBottomConstraints:NSLayoutConstraint?
     
     @IBOutlet var sessionNameLbl:UILabel?
+   
+    @IBOutlet var nextSlotTime:UILabel?
     
     var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 15)]
    
@@ -153,13 +155,14 @@ class EditScheduledSessionRootView:ExtendedView{
     
     func fillInfo(info:[String:Any]?,totalDurationofEvent:Int,selectedImage:UIImage?){
         
-//        Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
+        //Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
         
         Log.echo(key: "yud", text: "The info is \(info) and the total Duration of the event is \(totalDurationofEvent)")
         
         guard let info = info else {
             return
         }
+        
         
         self.param = info
         //self.totalTimeDuration = totalDurationofEvent
@@ -292,8 +295,7 @@ class EditScheduledSessionRootView:ExtendedView{
             
             
             let txtStr = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
-            
-            
+                        
             let attributedString = NSMutableAttributedString(string: txtStr)
             
             // *** Create instance of `NSMutableParagraphStyle`
@@ -357,7 +359,7 @@ class EditScheduledSessionRootView:ExtendedView{
         }
         
         
-        
+        nextSlotTime?.text  = "\(getnextSlotInitialTime())-\(getNextSlotTime()) \(TimeZone.current.abbreviation() ?? "")"
         
         
 //        if let startTime = DateParser.convertDateToDesiredFormat(date: info["start"] as? String, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd"){
@@ -367,6 +369,89 @@ class EditScheduledSessionRootView:ExtendedView{
 //        }
     }
     
+    
+    func getnextSlotInitialTime()->String{
+        
+        if let date = self.param["start"] as? String{
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(identifier: "UTC")
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let newdate = dateFormatter.date(from: date) {
+                dateFormatter.timeZone = TimeZone.current
+                dateFormatter.dateFormat = "hh:mm"
+                return dateFormatter.string(from: newdate)
+            }
+            return ""
+        }
+        return ""
+    }
+    
+    func getNextSlotTime()->String{
+        
+        if let date = self.param["start"] as? String{
+            if let durate = self.param["duration"] as? Int{
+                let requiredDate = nextSessionTime(startDate:date,durate:durate)
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeZone = TimeZone(identifier: "UTC")
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+                if let newdate = dateFormatter.date(from: requiredDate) {
+                    
+                    dateFormatter.timeZone = TimeZone.current
+                    dateFormatter.dateFormat = "hh:mm a"
+                    return dateFormatter.string(from: newdate)
+                }
+                return ""
+            }
+            return ""
+        }
+        return ""
+    }
+    
+    
+    private func nextSessionTime(startDate:String,durate:Int)->String{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        if let newDate = dateFormatter.date(from: startDate){
+            
+            
+            let calendar = Calendar.current
+            var date:Date?
+            if durate == 2{
+                
+                date = calendar.date(byAdding: .minute, value: 2, to: newDate)
+            }else if durate == 3{
+                
+                date = calendar.date(byAdding: .minute, value: 3, to: newDate)
+            }else if durate == 5{
+                
+                date = calendar.date(byAdding: .minute, value: 5, to: newDate)
+                
+            }else if durate == 10{
+                
+                date = calendar.date(byAdding: .minute, value: 10, to: newDate)
+            }else if durate == 15{
+                
+                date = calendar.date(byAdding: .minute, value: 15, to: newDate)
+            }else if durate == 30{
+                
+                date = calendar.date(byAdding: .minute, value: 30, to: newDate)
+            }
+            if let date = date{
+                
+                return dateFormatter.string(from: date)
+            }
+            return ""
+        }
+        return ""
+    }   
+
     
     func fillTotalChats(info:[String:Any]?){
         

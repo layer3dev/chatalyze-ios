@@ -287,7 +287,7 @@ class HostCallController: VideoCallController {
         //if yes, Just show it as pre-connected
         if(eventInfo.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
-            return;
+            return
         }
         
         //if event starttime is NOT < 30 seconds
@@ -321,6 +321,7 @@ class HostCallController: VideoCallController {
             return;
         }
         
+        
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
             return
@@ -330,7 +331,6 @@ class HostCallController: VideoCallController {
             setStatusMessage(type: .connected)
             return
         }
-        
         
         setStatusMessage(type: .ideal)
     }
@@ -355,6 +355,7 @@ class HostCallController: VideoCallController {
     
     private func getPreConnectConnection()->HostCallConnection?{
         
+        
         guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
                 return nil
@@ -367,6 +368,7 @@ class HostCallController: VideoCallController {
     }
     
     private func confirmCallLinked(){
+        
         
         guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
             else{
@@ -383,6 +385,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
+        
         guard let startDate = self.eventInfo?.startDate
             else{
                 return
@@ -392,7 +395,6 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-        
         if(!countdownInfo.isActive){
             //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
             updateCallHeaderAfterEventStart()
@@ -521,8 +523,7 @@ class HostCallController: VideoCallController {
         sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
-        sessionHeaderLbl?.text = ""
-        
+        sessionHeaderLbl?.text = ""        
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -677,6 +678,7 @@ class HostCallController: VideoCallController {
     }
     
     private func disconnectStaleConnection(){
+    
         for (key, connection) in connectionInfo {
             
             guard let slotInfo = connection.slotInfo
@@ -701,7 +703,8 @@ class HostCallController: VideoCallController {
         
         guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
-                //                Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+              
+                //Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
         

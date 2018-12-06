@@ -132,6 +132,7 @@ class SessionTimeDateRootView:ExtendedView{
         isPickerHidden = false
         pickerContainer?.isHidden = false
         validateTime()
+        
 //        if isPickerHidden == true {
 //
 //            isPickerHidden = false
@@ -369,7 +370,7 @@ class SessionTimeDateRootView:ExtendedView{
     
     func isFutureTime()->Bool{
        
-        if startDate != ""{
+        if startDate != "" {
             
             let startDate = getStartDateForParameter()
             let dateFormatter = DateFormatter()
@@ -379,6 +380,7 @@ class SessionTimeDateRootView:ExtendedView{
             if let date = dateFormatter.date(from: startDate){
                 
                 Log.echo(key: "yud", text: "Diffrenece between the current time is \(date.timeIntervalSinceNow)")
+               
                 if date.timeIntervalSinceNow <=  0{
                     startTimeField?.showError(text: "Please select the future time")
                     return false
@@ -388,7 +390,6 @@ class SessionTimeDateRootView:ExtendedView{
                 }
             }
             return true
-            
         }
         return true
     }
