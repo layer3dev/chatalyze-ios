@@ -28,7 +28,6 @@ class MyTicketsVerticalController: MyTicketsController{
         initializeListenrs()
     }
     
-    
     func initializeListenrs(){
         
         eventDeleteListener.setListener { (deletedEventID) in
