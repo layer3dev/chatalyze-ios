@@ -55,6 +55,7 @@ class WelcomeController: InterfaceExtendedController {
     
     @IBAction func hostAction(sender:UIButton){
         
+        
         LoginSignUpContainerController.roleId = 2
         DispatchQueue.main.async {
             self.dismiss(animated: true) {
@@ -63,22 +64,11 @@ class WelcomeController: InterfaceExtendedController {
                 }
             }
         }
-        
-//        guard let controller = LoginSignUpContainerController.instance() else{
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
-        
     }
     
     @IBAction func userAction(sender:UIButton){
        
         LoginSignUpContainerController.roleId = 3
-        
-//        guard let controller = LoginSignUpContainerController.instance() else{
-//            return
-//        }
-//        self.navigationController?.pushViewController(controller, animated: true)
         
         DispatchQueue.main.async {
             self.dismiss(animated: true) {

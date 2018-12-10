@@ -125,6 +125,9 @@ class RootControllerManager{
         return root
     }
     
+    
+    
+    
     func setMyTicketsScreenForNavigation(){
         
         if let rootController = getCurrentController(){

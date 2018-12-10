@@ -1,19 +1,20 @@
 //
-//  UpdateAlertController.swift
+//  ObsoleteAlertController.swift
 //  Chatalyze
 //
-//  Created by Mansa on 07/12/18.
+//  Created by Mansa on 10/12/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class UpdateAlertController: InterfaceExtendedController {
+class ObsoleteAlertController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-    
+
     }
+    
     
     @IBAction func exit(sender:UIButton){
         
@@ -21,6 +22,7 @@ class UpdateAlertController: InterfaceExtendedController {
             
         }
     }
+    
 
     /*
     // MARK: - Navigation
@@ -32,10 +34,12 @@ class UpdateAlertController: InterfaceExtendedController {
     }
     */
     
-    class func instance()->UpdateAlertController?{
+    class func instance()->ObsoleteAlertController?{
         
         let storyboard = UIStoryboard(name: "UpdateAlert", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "UpdateAlert") as? UpdateAlertController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ObsoleteAlert") as? ObsoleteAlertController
         return controller
     }
+
+
 }

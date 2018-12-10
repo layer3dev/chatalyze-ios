@@ -1,26 +1,28 @@
 //
-//  UpdateAlertController.swift
+//  DeprecationAlertController.swift
 //  Chatalyze
 //
-//  Created by Mansa on 07/12/18.
+//  Created by Mansa on 10/12/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class UpdateAlertController: InterfaceExtendedController {
+class DeprecationAlertController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-    
+        
     }
     
+    
     @IBAction func exit(sender:UIButton){
-        
+       
         self.dismiss(animated: true) {
             
         }
     }
+    
 
     /*
     // MARK: - Navigation
@@ -30,12 +32,13 @@ class UpdateAlertController: InterfaceExtendedController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+    */    
     
-    class func instance()->UpdateAlertController?{
+    class func instance()->DeprecationAlertController?{
         
         let storyboard = UIStoryboard(name: "UpdateAlert", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "UpdateAlert") as? UpdateAlertController
+        let controller = storyboard.instantiateViewController(withIdentifier: "DeprecationAlert") as? DeprecationAlertController
         return controller
     }
+    
 }
