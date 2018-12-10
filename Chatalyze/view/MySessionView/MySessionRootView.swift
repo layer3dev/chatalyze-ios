@@ -33,6 +33,9 @@ class MySessionRootView:ExtendedView{
             
             guard let eventInfo = eventInfo
                 else{
+                   
+                    //Case less than 30 minute
+                    self.controller?.fetchInfo()
                     return
             }
             

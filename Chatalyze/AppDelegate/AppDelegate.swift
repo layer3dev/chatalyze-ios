@@ -46,8 +46,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if !success{
             
-                RootControllerManager().signOut(completion: {
-                })
+                SignOutManager().signOut { (success) in
+                    
+                    //self.stopLoader()
+                    /*if !success{
+                     return
+                     }*/
+                    RootControllerManager().signOut(completion: nil)
+                }
             }
             Log.echo(key: "yud", text: "Printing the result \(success)")
         }
