@@ -32,6 +32,11 @@ class ContainerController: NavChildController {
     var toggleWidth:CGFloat = 0.0
     @IBOutlet var shadowView:UIView?
     
+    @IBOutlet var updateAlertView:UIView?
+    @IBOutlet var deprecationAlertView:UIView?
+    @IBOutlet var obsoleteAlertView:UIView?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +48,10 @@ class ContainerController: NavChildController {
         initializeToggleWidth()
         hideSocketVerifierOnAdhoc()
     }
+    
+    
+    
+    
     
     func hideSocketVerifierOnAdhoc(){
         
@@ -719,5 +728,55 @@ extension ContainerController{
         }
         return false
     }
+}
+
+
+//MARK:- Support for update alert , depercation support , obsolete version support
+
+extension ContainerController{
+    
+    func hideAllAlert(){
+        
+        updateAlertView?.alpha = 0
+        deprecationAlertView?.alpha = 0
+        obsoleteAlertView?.alpha = 0
+    }
+    
+    func showUpdateAlert(){
+        
+        UIView.animate(withDuration: 0.25) {
+            
+            self.updateAlertView?.alpha = 1
+            self.deprecationAlertView?.alpha = 0
+            self.obsoleteAlertView?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func showDeprecationAlert() {
+       
+        UIView.animate(withDuration: 0.25) {
+            
+            self.updateAlertView?.alpha = 0
+            self.deprecationAlertView?.alpha = 1
+            self.obsoleteAlertView?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func showObsoleteAlert(){
+       
+        UIView.animate(withDuration: 0.25) {
+            
+            self.updateAlertView?.alpha = 0
+            self.deprecationAlertView?.alpha = 0
+            self.obsoleteAlertView?.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func checkForSupport(){
+    }
+    
 }
 

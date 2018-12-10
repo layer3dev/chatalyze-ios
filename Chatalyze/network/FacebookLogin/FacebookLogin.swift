@@ -45,6 +45,7 @@ class FacebookLogin{
         rawParam["expires_in"] = String(accessToken.expirationDate.timeIntervalSinceNow)
         
         params["accessToken"] = rawParam
+        params["rememberMe"] = true
         
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         

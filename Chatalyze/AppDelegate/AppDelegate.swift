@@ -32,8 +32,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
+        
         return true
     }
+    
+    //This will verify session token, each time user opens the app.
+    func verifyingAccessToken(){
+        
+        guard let userInfo = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        
+        AccessTokenValidator().validate { (success) in
+            
+            if !success{
+            
+                SignOutManager().signOut { (success) in
+                    
+                    //self.stopLoader()
+                    /*if !success{
+                     return
+                     }*/
+                    RootControllerManager().signOut(completion: nil)
+                }
+            }
+            Log.echo(key: "yud", text: "Printing the result \(success)")
+        }
+    }
+    
     
     func initializeTwitterKit(){
         
@@ -79,7 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-                
+        
+        verifyingAccessToken()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -93,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if(allowRotate){
                 return .allButUpsideDown
         }
-        // Only allow portrait (standard behaviour)
+        //Only allow portrait (standard behaviour)
         return .portrait;
     }
 }

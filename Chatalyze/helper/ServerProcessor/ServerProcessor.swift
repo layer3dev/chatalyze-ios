@@ -29,8 +29,6 @@ class ServerProcessor{
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
         )
         self.sessionManager = sessionManager
-        
-        
     }
     
     enum httpMethod {
@@ -41,6 +39,7 @@ class ServerProcessor{
         
         public func libHttpMethod()->Alamofire.HTTPMethod{
             switch self {
+                
             case .get:
                 return Alamofire.HTTPMethod.get
             case .post:
@@ -102,6 +101,7 @@ class ServerProcessor{
         var headers = headers ?? [String : String]()
         
         if(authorize){
+            
             headers["Authorization"] = getAuthorizationToken()
         }
         
@@ -119,6 +119,7 @@ class ServerProcessor{
                 Log.echo(key: "yud", text: "Response data from the server is  => \(response)")
                 
                 DispatchQueue.main.async(execute: {
+                 
                     self.handleResponse(response)
                     return
                 })
@@ -152,17 +153,17 @@ class ServerProcessor{
     
     fileprivate func handleResponse(_ response : Alamofire.DataResponse<Any>){
         
-        if response.error != nil{
-
-            //Error and the failure cases are same.
-            if let data = response.data{
-
-                respond(success: false, response: try? JSON(data : data))
-                return
-            }
-            respond(success: false, response: nil)
-            return
-        }
+//        if response.error != nil{
+//
+//            //Error and the failure cases are same.
+//            if let data = response.data{
+//
+//                respond(success: false, response: try? JSON(data : data))
+//                return
+//            }
+//            respond(success: false, response: nil)
+//            return
+//        }
         
         if let data = response.data{
                    
@@ -195,6 +196,7 @@ class ServerProcessor{
         
         guard let data = response.data
             else{
+                
                 respond(success: response.result.isSuccess, response: nil)
                 return
         }
@@ -225,12 +227,12 @@ class ServerProcessor{
         Log.echo(key: "token", text: "headerInfo extracted ==>  \(headerInfo)")
         guard let accessToken = headerInfo?["x-session-token"] as? String
             else{
-                Log.echo(key: "token", text: "accessToken not found ")
+                Log.echo(key: "token", text: "accessToken not found")
                 return
         }
         guard let instance = SignedUserInfo.sharedInstance
             else{
-                Log.echo(key: "token", text: "user instance not found ")
+                Log.echo(key: "token", text: "user instance not found")
                 return
         }
         Log.echo(key: "token", text: "token extracted ==>  " + accessToken)
