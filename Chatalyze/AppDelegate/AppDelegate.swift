@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    //This will verify session token, each time user opens the app.
     func verifyingAccessToken(){
         
         guard let userInfo = SignedUserInfo.sharedInstance?.id else {
