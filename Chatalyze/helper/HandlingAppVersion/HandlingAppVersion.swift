@@ -53,6 +53,10 @@ class HandlingAppVersion:NSObject {
         }
         else if appVersion <= deprecatedVersion{
             
+            if !isThisTimeToShowAlert(){
+                return
+            }
+            saveTimeStampToShowAlert()
             guard let controller = DeprecationAlertController.instance() else{
                 return
             }
@@ -62,7 +66,11 @@ class HandlingAppVersion:NSObject {
             return
         }
         else if appVersion < latestVersion{
-            
+           
+            if !isThisTimeToShowAlert(){
+                return
+            }
+            saveTimeStampToShowAlert()
             guard let controller = UpdateAlertController.instance() else{
                 return
             }
@@ -72,4 +80,30 @@ class HandlingAppVersion:NSObject {
             return
         }
     }
+    
+    func isThisTimeToShowAlert()->Bool{
+        
+        if UserDefaults.standard.value(forKey: "lastSavedTimeForAlert") as? Date == nil {
+            return true
+        }
+        
+        if let lastSavedDate = UserDefaults.standard.value(forKey: "lastSavedTimeForAlert") as? Date{
+            
+            let timeDiffrence  = Date().timeIntervalSince(lastSavedDate)
+            
+            Log.echo(key: "yud", text: "Time Difference in showing the alert is \(timeDiffrence)")
+            
+            if timeDiffrence > 20{
+                return true
+            }
+            return false
+        }
+        return true
+    }
+    
+    func saveTimeStampToShowAlert(){
+        
+        UserDefaults.standard.set(Date(), forKey: "lastSavedTimeForAlert")
+    }
+    
 }

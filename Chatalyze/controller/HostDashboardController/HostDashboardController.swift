@@ -30,7 +30,7 @@ class HostDashboardController: MyScheduledSessionsController {
             scheduleSessionBtnContainer?.layer.masksToBounds = true
             return
         }
-      
+        
         scheduleSessionBtnContainer?.layer.cornerRadius = 3
         scheduleSessionBtnContainer?.layer.masksToBounds = true
     }
@@ -48,10 +48,8 @@ class HostDashboardController: MyScheduledSessionsController {
             guard let controller = ScheduleSessionController.instance() else{
                 return
             }
-
             self.navigationController?.pushViewController(controller, animated: false)
         }
-       
     }
     
     @IBAction func systemTestAction(sender:UIButton){

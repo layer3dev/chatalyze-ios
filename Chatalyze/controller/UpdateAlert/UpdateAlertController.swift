@@ -22,6 +22,21 @@ class UpdateAlertController: InterfaceExtendedController {
         }
     }
 
+    @IBAction func updateApp(sender:UIButton){
+        
+        if let itunesUrl = URL(string:"https://itunes.apple.com/us/app/chatalyze/id1313197231?ls=1&mt=8"){
+            if #available(iOS 10.0, *) {
+                
+                UIApplication.shared.open(itunesUrl)
+                return
+            }
+            //Fallback on earlier versions
+            UIApplication.shared.openURL(itunesUrl)
+        }
+    }
+    
+    //https://itunes.apple.com/us/app/chatalyze/id1313197231?ls=1&mt=8
+    
     /*
     // MARK: - Navigation
 

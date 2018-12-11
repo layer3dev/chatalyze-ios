@@ -11,12 +11,14 @@ import UIKit
 class ButtonCorners:UIButton{
     
     var isLoaded = false
+  
     override func layoutSubviews(){
      super.layoutSubviews()
         
         if isLoaded{
             return
         }
+        paintInterface()
         isLoaded = true
         return
     }

@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         //Calling the delegate methods to the local notifications
-        
         UNUserNotificationCenter.current().delegate = self
         initialization()
         disableAppToSwitchIntoSleepMode()
@@ -32,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
-        
         return true
     }
     
@@ -45,10 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AccessTokenValidator().validate { (success) in
             
             if !success{
-            
+                
                 RootControllerManager().signOut(completion: {
                 })
             }
+            
             Log.echo(key: "yud", text: "Printing the result \(success)")
         }
     }
@@ -109,9 +108,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
-            
-            if(allowRotate){
-                return .allButUpsideDown
+        
+        if(allowRotate){
+            return .allButUpsideDown
         }
         //Only allow portrait (standard behaviour)
         return .portrait;
@@ -175,9 +174,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
-        
         let token = tokenParts.joined()
-        
         // This method save the device token if shared intance alraedy exists else create new one with the data.
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
         // call function for the token Update
