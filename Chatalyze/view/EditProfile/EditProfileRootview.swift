@@ -41,9 +41,13 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var changeImageViewHeightConstant:NSLayoutConstraint?
     
     @IBOutlet var accountPhotoView:UIView?
+ 
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+    }
+    
+    func initializeThroughController(){
+       
         initializeCountryPicker()
         implementTapGestuePicker()
         initializeVariable()
@@ -51,6 +55,7 @@ class EditProfileRootview: ExtendedView {
         paintInterface()
         initializeImageCropper()
     }
+    
     
     func initializeImageCropper(){
        
@@ -291,6 +296,7 @@ extension EditProfileRootview{
                 param["mobile"] = NSNull()
                 param["countryCode"] = NSNull()
             }
+            
             param["oldpassword"] = oldPasswordField?.textField?.text
             param["password"] = newPasswordField?.textField?.text
             param["firstName"] = nameField?.textField?.text
@@ -364,14 +370,20 @@ extension EditProfileRootview{
         self.controller?.showLoader()
         EditProfileProcessor().edit(params: param) { (success, message, response) in
             
-            //self.controller?.stopLoader()
+            self.controller?.stopLoader()
             Log.echo(key: "yud", text: "the velue of the success is \(success)")
+          
             if !success{
+                
                 self.controller?.stopLoader()
                 self.mainInfoError?.text = message
                 return
             }
-            self.fetchProfile()
+            
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
+                self.fetchProfile()
+            })
         }
         Log.echo(key: "yud", text: "Please save the mainInfo data acces granted!!")
         
@@ -744,10 +756,23 @@ extension EditProfileRootview{
             self.controller?.stopLoader()
             if success{
                 
+                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile picture changed successfully.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                   
+                    self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
+                    self.controller?.fetchInfo()
+                    self.showUploadImageView()
+                    return
+                })
+            }
+            
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
                 self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
                 self.controller?.fetchInfo()
                 self.showUploadImageView()
-            }
+                return
+            })
+            return
         }
     }
     

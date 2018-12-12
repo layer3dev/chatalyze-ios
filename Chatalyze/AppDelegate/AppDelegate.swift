@@ -13,6 +13,7 @@ import GoogleSignIn
 //import Stripe
 import TwitterKit
 import FBSDKLoginKit
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,25 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.registerForRemoteNotifications()
         return true
     }
-    
-    func verifyingAccessToken(){
-        
-        guard let userInfo = SignedUserInfo.sharedInstance?.id else {
-            return
-        }
-        
-        AccessTokenValidator().validate { (success) in
-            
-            if !success{
-                
-                RootControllerManager().signOut(completion: {
-                })
-            }
-            
-            Log.echo(key: "yud", text: "Printing the result \(success)")
-        }
-    }
-    
     
     func initializeTwitterKit(){
         
@@ -99,6 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         verifyingAccessToken()
+        fetchAppVersionInfoToServer()
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -215,5 +199,50 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         
         // (app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
+    }
+}
+
+
+extension AppDelegate{
+    
+    func verifyingAccessToken(){
+        
+        guard let userInfo = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        AccessTokenValidator().validate { (success) in
+         
+            if !success{
+               
+                RootControllerManager().signOut(completion: {
+                })
+            }
+            Log.echo(key: "yud", text: "Printing the result \(success)")
+        }
+    }
+    
+    func fetchAppVersionInfoToServer(){
+        
+        FetchAppVersionInfo().fetchInfo { (success, response) in
+           
+            if !success{
+                HandlingAppVersion().checkForAlert()
+                return
+            }
+            
+            Log.echo(key: "yud", text: "DICT IS \(response?.dictionary)")
+            if let dict = response?.dictionary{
+              
+                Log.echo(key: "yud", text: "latestVersion IS \(dict["current_app_version"]?.doubleValue)")
+                let latestVersion = dict["current_app_version"]?.doubleValue
+                let deprecateVersion = dict["deprecated_version"]?.doubleValue
+                //let obsoleteVersion = dict["obsolete_version"]?.doubleValue
+                let obsoleteVersion = 1.00
+                UserDefaults.standard.setValue(latestVersion ?? 0.0, forKey: "latestVersion")
+                UserDefaults.standard.setValue(deprecateVersion ?? 0.0, forKey: "deprecateVersion")
+                UserDefaults.standard.setValue(obsoleteVersion ?? 0.0, forKey: "obsoleteVersion")
+                HandlingAppVersion().checkForAlert()
+            }
+        }
     }
 }

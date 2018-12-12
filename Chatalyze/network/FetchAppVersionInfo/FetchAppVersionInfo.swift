@@ -14,19 +14,17 @@ class FetchAppVersionInfo {
     
     public func fetchInfo(completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
-        var url = AppConnectionConfig.webServiceURL + "/paymentEmail/user/"
+        let url = AppConnectionConfig.webServiceURL + "/appVersion"
         
-        guard let userId = SignedUserInfo.sharedInstance?.id
-            else{
-                completion(false, nil)
-                return
-        }
-        url = url+userId
+        //https://dev.chatalyze.com/api/appVersion?plateform=iOS&deviceType=featured
+        
         var params = [String : Any]()
+        params["plateform"] = "iOS"
+        params["deviceType"] = "featured"
         
         Log.echo(key: "yud", text:"url in the paymanet fetch is \(url)")
         
-        ServerProcessor().request(.get, url, parameters : params, encoding: .queryString, authorize : true) { (success, response) in
+        ServerProcessor().request(.get, url, parameters : params, encoding: .queryString, authorize : false) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }

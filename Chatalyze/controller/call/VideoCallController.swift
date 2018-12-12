@@ -112,7 +112,7 @@ class VideoCallController : InterfaceExtendedController {
         super.viewAppeared()
         
         Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
-         processPermission()
+        processPermission()
     }
     
     override func viewDidRelease() {
@@ -618,11 +618,10 @@ extension VideoCallController{
             }
             
             guard let localView = self?.rootView?.localVideoView
-             else{
-             return
-             }
-             
-             
+                else{
+                    return
+            }
+            
              let captureSession = localCapturer.captureSession
 //             localView.captureSession = captureSession
             

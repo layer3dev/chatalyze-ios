@@ -12,12 +12,13 @@ class MyTicketsVerticalController: MyTicketsController{
     
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
-   
     @IBOutlet var showView:UIView?
     var isShow = false
     
     //Implementing the eventDeleteListener
     var eventDeleteListener = EventDeletedListener()
+  
+    var testingText = ""
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,25 +27,6 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
         initializeListenrs()
-    }
-    
-    func initializeListenrs(){
-        
-        eventDeleteListener.setListener { (deletedEventID) in
-            
-            Log.echo(key: "yud", text: "Got the deleted event")
-            
-            for events in self.ticketsArray{
-                
-                Log.echo(key: "yud", text: "Matched Event Id is \(events.callschedule?.id ?? 0) and coming from server is \(Int(deletedEventID ?? "0"))")
-                
-                if events.callschedule?.id ?? 0 == Int(deletedEventID ?? "0"){
-                    
-                    //self.exitAction()
-                    Log.echo(key: "yud", text: "Yes I got matched \(deletedEventID)")
-                }
-            }
-        }
     }
     
     @IBAction func animateInfo(){
@@ -113,13 +95,13 @@ class MyTicketsVerticalController: MyTicketsController{
     func underLineLable(){
         
         var testingText = "TEST MY PHONE"
-        
+        self.testingText = testingText
         if UIDevice.current.userInterfaceIdiom == .pad{
             testingText = "TEST MY IPAD"
+            self.testingText = testingText
         }
         
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)] as? [NSAttributedString.Key : Any]{
-
             
             let underlineAttributedString = NSAttributedString(string: testingText, attributes: underlineAttribute as [NSAttributedString.Key : Any])
             
@@ -127,16 +109,64 @@ class MyTicketsVerticalController: MyTicketsController{
         }
     }
 
+    func showAlert(sender:UIButton){
+        
+        let alertMessage = HandlingAppVersion().getAlertMessage()
+        
+        let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let uploadAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) { (success) in
+          
+            HandlingAppVersion.goToAppStoreForUpdate()
+        }
+        
+        let callRoomAction = UIAlertAction(title: self.testingText, style: UIAlertAction.Style.destructive) { (success) in
+            
+             self.goToSystemTest()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (success) in
+        }
+        
+        alertActionSheet.addAction(cancel)
+        alertActionSheet.addAction(uploadAction)
+        alertActionSheet.addAction(callRoomAction)
+        
+        //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        if let presenter = alertActionSheet.popoverPresentationController {
+            
+            alertActionSheet.popoverPresentationController?.sourceView =                 self.view
+            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
+        }
+        self.present(alertActionSheet, animated: true) {
+        }
+        
+    }
     
-    @IBAction func systemTest(){
-      
+    
+    func goToSystemTest(){
+        
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
+        
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
+    }
+    
+    
+    @IBAction func systemTest(sender:UIButton){
+      
+        if HandlingAppVersion().getAlertMessage() != "" {
+            
+            showAlert(sender: sender)
+            return
+        }
+        
+        self.goToSystemTest()
     }
     
     /*
@@ -158,3 +188,37 @@ class MyTicketsVerticalController: MyTicketsController{
 }
 
 
+extension MyTicketsVerticalController{
+    
+    func initializeListenrs(){
+        
+        UserSocket.sharedInstance?.socket?.on("DeletedChatalyzeEvent", callback: { (data, emit) in
+            
+            self.fetchInfoForListenr()
+            return
+                Log.echo(key: "yud", text: "Got the deleted event having the deletedEventID")
+        })
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+         
+            self.fetchInfoForListenr()
+            return
+                
+                Log.echo(key: "yud", text: "Got the deleted event having the deletedEventID is\(deletedEventID)")
+            
+            for events in self.ticketsArray{
+                
+                Log.echo(key: "yud", text: "Matched Event Id is \(events.callschedule?.id ?? 0) and coming from server is \(Int(deletedEventID ?? "0"))")
+                
+                if events.callschedule?.id ?? 0 == Int(deletedEventID ?? "0"){
+                    
+                    //  fetchInfo()
+                    //self.exitAction()
+                    Log.echo(key: "yud", text: "Yes I got matched \(deletedEventID)")
+                }
+            }
+        }
+    }
+    
+    
+}

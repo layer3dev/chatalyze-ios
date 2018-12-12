@@ -33,6 +33,7 @@ class MySessionRootView:ExtendedView{
             
             guard let eventInfo = eventInfo
                 else{
+                    self.controller?.fetchInfo()
                     return
             }
             

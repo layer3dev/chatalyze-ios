@@ -11,13 +11,19 @@ import UIKit
 class EditProfileController: InterfaceExtendedController {
     
     @IBOutlet var rootView:EditProfileRootview?
-    
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
         painInterface()
+    }
+    
+    override func viewAppeared() {
+        super.viewAppeared()
+     
         initializationVariable()
         fetchInfo()
+        rootView?.initializeThroughController()
     }
     
     func fetchInfo(){

@@ -74,6 +74,7 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTicketsVerticalCell", for: indexPath) as? MyTicketsVerticalCell else {            
             return UITableViewCell()
         }
+        cell.rootAdapter = self
         cell.delegate = self
         if indexPath.row >= ticketsListingArray.count{
             return UITableViewCell()
@@ -134,6 +135,8 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     //    //    }
     //    //
     
+    
+    
     func jointEvent(info:SlotInfo?){
         
         Log.echo(key: "yud", text: "Joint Event is calling in adapter!!")
@@ -187,7 +190,14 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
 //            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
 //            return
 //        }
+        
+        
+        
 //
+       
+        
+        
+        
         guard let controller = UserCallController.instance()
             else{
                 return
