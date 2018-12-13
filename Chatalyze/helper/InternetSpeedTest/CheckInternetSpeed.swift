@@ -73,7 +73,8 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
             speedTestCompletionHandler(nil,error)
             return
         }
-        let speed = elapsed != 0 ? Double(bytesReceived) / elapsed / 1024.0 / 1024.0 : -1
+        let speed = elapsed != 0 ? Double(bytesReceived) / elapsed / 1024.0 / 1024.0 : -1        
+    
         speedTestCompletionHandler(speed,nil)
     }
 }
