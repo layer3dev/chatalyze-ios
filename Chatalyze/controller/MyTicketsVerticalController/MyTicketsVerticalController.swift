@@ -16,8 +16,7 @@ class MyTicketsVerticalController: MyTicketsController{
     var isShow = false
     
     //Implementing the eventDeleteListener
-    var eventDeleteListener = EventDeletedListener()
-  
+    var eventDeleteListener = EventDeletedListener()  
     var testingText = ""
     
     override func viewDidLayout() {
@@ -160,11 +159,11 @@ class MyTicketsVerticalController: MyTicketsController{
     
     @IBAction func systemTest(sender:UIButton){
       
-        if HandlingAppVersion().getAlertMessage() != "" {
-            
-            showAlert(sender: sender)
-            return
-        }
+//        if HandlingAppVersion().getAlertMessage() != "" {
+//            
+//            showAlert(sender: sender)
+//            return
+//        }
         
         self.goToSystemTest()
     }

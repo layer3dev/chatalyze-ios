@@ -35,7 +35,6 @@ class MyTicketsController: InterfaceExtendedController{
         registerEventSlotListner()       
     }
     
-    
     func registerEventSlotListner(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -88,7 +87,6 @@ class MyTicketsController: InterfaceExtendedController{
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
-        
       
         CallSlotFetch().fetchInfos() {(success, info) in
             
@@ -124,7 +122,6 @@ class MyTicketsController: InterfaceExtendedController{
             }
         }
     }
-    
     
     
     func fetchInfo(){

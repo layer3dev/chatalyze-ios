@@ -12,7 +12,6 @@ class ObsoleteAlertController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-
     }
     
     @IBAction func updateApp(sender:UIButton){
@@ -23,7 +22,6 @@ class ObsoleteAlertController: InterfaceExtendedController {
     @IBAction func exit(sender:UIButton){
         
         self.dismiss(animated: true) {
-            
         }
     }
     

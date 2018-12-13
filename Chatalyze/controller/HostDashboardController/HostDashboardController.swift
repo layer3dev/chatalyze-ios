@@ -113,11 +113,11 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func systemTestAction(sender:UIButton){
       
-        if HandlingAppVersion().getAlertMessage() != "" {
-            
-            showAlert(sender: sender)
-            return
-        }
+//        if HandlingAppVersion().getAlertMessage() != "" {
+//            
+//            showAlert(sender: sender)
+//            return
+//        }
         self.gotoSystemTest()
     }    
     

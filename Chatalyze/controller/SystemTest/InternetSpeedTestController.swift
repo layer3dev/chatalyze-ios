@@ -25,7 +25,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         //self.speedLbl?.text = "Checking your system. This will just take a moment."
         //rotateImage(breakMethod:true)
-        testInternet()
+        initializeTest()
     }
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(animated)
@@ -73,6 +73,25 @@ class InternetSpeedTestController: InterfaceExtendedController {
         }
     }
     
+
+    func initializeTest(){
+     
+        if HandlingAppVersion().getAlertMessage() != ""{
+            
+            self.speedLbl?.textColor = UIColor.red
+            self.speedLbl?.text = HandlingAppVersion().getAlertMessage()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+              
+                self.speedLbl?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
+                self.speedLbl?.text = ""
+                self.testInternet()
+            }
+        }else{
+            testInternet()
+        }
+        
+    }
+    
     func testInternet(){
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
@@ -95,7 +114,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             return
         }
         
-        self.speedLbl?.text = "Checking your system. This will just take a moment."
+        self.speedLbl?.text = "Checking your system for internet. This will just take a moment."
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
