@@ -52,24 +52,27 @@ class InternetSpeedTestController: InterfaceExtendedController {
         //self.speedLbl?.text = "Checking your system. This will just take a moment."
         //rotateImage(breakMethod:true)
         startSystemTest()
-        
     }
-    
-    
     
     func appVersionAlert(){
         
+        self.alert(withTitle: AppInfoConfig.appName, message: "Your app version is outdated, To avoid potential issues, please update to the latest version", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
     }
     
     func slowInternetConnectionAlert(){
-        
+     
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be slow. Please update your internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
     }
     
     func noInternetConnection(){
-        
+       
+        self.alert(withTitle: AppInfoConfig.appName, message: "You seem to be offline. Please connect to the internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
     }
     
-    
+        
     func startSystemTest(){
         
         initializeTest()
