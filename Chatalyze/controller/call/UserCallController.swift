@@ -717,6 +717,83 @@ class UserCallController: VideoCallController {
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
     }
+    
+    override func checkForDelaySupport(){
+        
+        guard let eventInfo = eventInfo
+            else{
+                return
+        }
+        
+//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
+        
+        if true {
+        
+            if self.presentedViewController != nil{
+                self.dismiss(animated: true) {
+                    
+                    guard let controller = EventDelayController.instance() else{
+                        return
+                    }
+                    controller.alert = EventDelayController.alertType.sessionNotStarted
+                    
+                    self.present(controller, animated: true, completion: {
+                    })
+                }
+                return
+            }
+            
+            
+            guard let controller = EventDelayController.instance() else{
+                return
+            }
+            
+            controller.alert = EventDelayController.alertType.sessionNotStarted
+            
+            self.present(controller, animated: true, completion: {
+            })
+            return
+            // statusLbl?.text = "Session has not started yet."
+        }
+        
+        
+        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
+            
+            if self.presentedViewController != nil{
+                self.dismiss(animated: true) {
+                    
+                    guard let controller = EventDelayController.instance() else{
+                        return
+                    }
+                    controller.alert = EventDelayController.alertType.sessionDelay
+                    
+                    self.present(controller, animated: true, completion: {
+                    })
+                }
+                return
+            }
+            
+            
+            guard let controller = EventDelayController.instance() else{
+                return
+            }
+            controller.alert = EventDelayController.alertType.sessionDelay
+            self.present(controller, animated: true, completion: {
+            })
+            return
+            // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
+        }
+        
+        
+        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
+     
+            if self.presentedViewController != nil {
+                self.dismiss(animated: true) {
+                }
+            }
+            //Event has updated
+        }
+    }
 }
 
 extension UserCallController{
@@ -1029,3 +1106,102 @@ extension UserCallController{
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
+
+//extension UserCallController{
+//
+//    override func refresh(){
+//        super.refresh()
+//
+//        guard let eventInfo = eventInfo
+//            else{
+//                return
+//        }
+//
+//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "Session has not started yet."
+//            return
+//        }
+//
+//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
+//
+//            showAlertMessage()
+//            statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
+//            return
+//        }
+//
+//        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
+//
+//            self.hideAlertMessage()
+//        }
+//
+//        self.hideAlertMessage()
+//
+//        guard let slotInfo = eventInfo.myValidSlot.slotInfo
+//            else{
+//                return
+//        }
+//
+//        if(slotInfo.isWholeConnectEligible){
+//
+//            guard let controller = UserCallController.instance()
+//                else{
+//                    return
+//            }
+//
+//            guard let eventId = self.eventInfo?.id
+//                else{
+//                    return
+//            }
+//            controller.eventInfo = eventInfo
+//            controller.eventId = "\(eventId)"
+//            self.viewDidRelease()
+//
+//            self.navigationController?.present(controller, animated: true, completion: {
+//
+//                self.navigationController?.popViewController(animated: false)
+//            })
+//        }
+//    }
+//}
+
+
+//extension UserCallController{
+//    
+//   override func checkForDelaySupport(){
+//    
+//        guard let eventInfo = eventInfo
+//            else{
+//                return
+//        }
+//        
+//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
+//            
+//            if self.presentedViewController != nil{
+//                self.dismiss(animated: true) {
+//                    
+//                    
+//                    
+//                }
+//            }
+//            
+//            
+//           // statusLbl?.text = "Session has not started yet."
+//            return
+//        }
+//    
+//    
+//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
+//            
+//            // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
+//            return
+//        }
+//    
+//        
+//        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
+//            
+//           //Event has updated
+//        }
+//    }
+//}

@@ -81,8 +81,8 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
     func startSystemTest(){
         
-        initializeTest()
         showSystemTest()
+        initializeTest()
     }
     
     @IBAction func continueToCameraTest(){
@@ -239,7 +239,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     func isVersionWarningExists()->Bool{
         
-        if HandlingAppVersion().getAlertMessage() != ""{
+        if HandlingAppVersion().getAlertMessage() != "This version of our app will soon no longer work. Please update to the latest version now to avoid any issues."{
             return true
             self.speedLbl?.textColor = UIColor.red
             self.speedLbl?.text = HandlingAppVersion().getAlertMessage()
@@ -265,20 +265,20 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 //Return with the Error View of No InternetConnection
                 
                 Log.echo(key: "yud", text: "Yes I know internet is down")
-            DispatchQueue.main.async {
-                
-                self.dismiss(animated: false, completion: {
-                    
-                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
-                    
-                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
-                        
-                    }))
-                    
-                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
-                    }
-                })
-            }
+//            DispatchQueue.main.async {
+//
+//                self.dismiss(animated: false, completion: {
+//
+//                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
+//
+//                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+//
+//                    }))
+//
+//                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
+//                    }
+//                })
+//            }
             return
         }
         
@@ -296,7 +296,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         let speedStr = String(format: "%.2f", speed ?? 0.0)
                         
                         //if (speed ?? 0.0) < 0.1875 {
-                        //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.12
+                        //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
                         if (speed ?? 0.0) < 0.13 {
                             

@@ -190,9 +190,6 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
 //            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
 //            return
 //        }
-        
-        
-        
 //
        
         

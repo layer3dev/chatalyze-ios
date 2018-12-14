@@ -140,7 +140,6 @@ class MyTicketsVerticalController: MyTicketsController{
         }
         self.present(alertActionSheet, animated: true) {
         }
-        
     }
     
     

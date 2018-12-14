@@ -17,7 +17,6 @@ class HandlingAppVersion:NSObject {
     override init(){
         super.init()
         
-
         Log.echo(key: "yud", text: "Initializing from the server")
         Log.echo(key: "yud", text: "lv is \(UserDefaults.standard.value(forKey: "latestVersion") as? Double ?? 0.0) dv is \(UserDefaults.standard.value(forKey: "deprecateVersion") as? Double ?? 0.0) ov is \(UserDefaults.standard.value(forKey: "obsoleteVersion") as? Double ?? 0.0)")
         
@@ -38,14 +37,15 @@ class HandlingAppVersion:NSObject {
         Log.echo(key: "yud", text: "Without Login RootView is\(appDelegate?.window?.rootViewController)")
         if let root = appDelegate?.window?.rootViewController{
             
-            if root.presentedViewController != nil{
-                root.presentedViewController?.dismiss(animated: false, completion: {
-                })
-            }
             rootController = root
         }
         
         if appVersion <= ObsoleteVersion{
+            
+            if rootController?.presentedViewController != nil{
+                rootController?.presentedViewController?.dismiss(animated: false, completion: {
+                })
+            }
             
             guard let controller = ObsoleteAlertController.instance() else{
                 return
@@ -60,6 +60,12 @@ class HandlingAppVersion:NSObject {
             if !isThisTimeToShowAlert(){
                 return
             }
+            
+            if rootController?.presentedViewController != nil{
+                rootController?.presentedViewController?.dismiss(animated: false, completion: {
+                })
+            }
+            
             saveTimeStampToShowAlert()
             guard let controller = DeprecationAlertController.instance() else{
                 return
@@ -70,10 +76,16 @@ class HandlingAppVersion:NSObject {
             return
         }
         else if appVersion < latestVersion{
-            
+          
             if !isThisTimeToShowAlert(){
                 return
             }
+            
+            if rootController?.presentedViewController != nil{
+                rootController?.presentedViewController?.dismiss(animated: false, completion: {
+                })
+            }
+            
             saveTimeStampToShowAlert()
             guard let controller = UpdateAlertController.instance() else{
                 return
@@ -97,8 +109,10 @@ class HandlingAppVersion:NSObject {
             
             Log.echo(key: "yud", text: "Time Difference in showing the alert is \(timeDiffrence)")
             
-            if timeDiffrence > 86400{
-                return true
+             
+                if timeDiffrence > 86400{
+                
+                    return true
             }
             return false
         }

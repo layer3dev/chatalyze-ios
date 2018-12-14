@@ -295,7 +295,6 @@ class VideoCallController : InterfaceExtendedController {
      func initialization(){
         
         Log.echo(key : "test", text : "who dared to initialize me ??")
-
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()
@@ -448,7 +447,6 @@ class VideoCallController : InterfaceExtendedController {
         socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
-        
         eventScheduleUpdatedAlert()
     }
     
@@ -518,6 +516,11 @@ class VideoCallController : InterfaceExtendedController {
     //to be overridden by child classes
     var isSlotRunning:Bool{
         return false
+    }
+    
+    //To be overridden
+    func checkForDelaySupport(){
+        
     }
 }
 
@@ -598,11 +601,14 @@ extension VideoCallController{
             
             let roomId = localEventInfo.id ?? 0
             Log.echo(key : "service", text : "eventId - > \(roomId)")
-            
+            //self?.checkForDelaySupport()
             completion?(true)
             return
         }
     }
+    
+  
+    
 }
 
 
