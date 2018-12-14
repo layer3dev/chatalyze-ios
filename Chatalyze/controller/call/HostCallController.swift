@@ -411,6 +411,7 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
+        
         if(!countdownInfo.isActive){
             
             //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
@@ -658,18 +659,20 @@ class HostCallController: VideoCallController {
     
     
     private func processEvent(){
+        Log.echo(key : "delay", text : "processEvent")
         
         if(!(socketClient?.isConnected ?? false)){
+            Log.echo(key : "delay", text : "processEvent socket NOT connected")
             return
         }
         guard let eventInfo = self.eventInfo
             else{
-                //                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
                 return
         }
         
         if(eventInfo.started == nil){
-            //            Log.echo(key: "processEvent", text: "event not activated yet")
+            Log.echo(key: "processEvent", text: "event not activated yet")
             return
         }
         
@@ -827,37 +830,53 @@ class HostCallController: VideoCallController {
         }
     }
     
-    override func verifyEventActivated(){
+    override func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
         
-        guard let eventInfo = self.eventInfo
-            else{
-                return
-        }
+        let eventInfo = info
         
+        //already activated
         if(eventInfo.started != nil){
+            completion(true, eventInfo)
             return
         }
         
         guard let eventId = eventInfo.id
             else{
+                completion(false, eventInfo)
                 return
         }
         
         let eventIdString = "\(eventId)"
-        ActivateEvent().activate(eventId: eventIdString) { (success, eventInfo) in
+        ActivateEvent().activate(eventId: eventIdString) {[weak self] (success, eventInfo) in
             
-            if(!success){
-                return
-            }
-            guard let info = eventInfo
-                else{
-                    return
-            }
-            self.eventInfo = info
-            Log.echo(key: "yud", text: "First activates startDate is \(self.eventInfo?.started)")
-            self.fetchInfoAfterActivatIngEvent()
+            //can't use eventInfo received from ActivateEvent because it lags slots information
+            self?.refreshInfo(eventInfo : info, completion: completion)
+            
         }
     }
+    
+    
+    private func refreshInfo(eventInfo : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
+        
+        self.loadInfo(completion: { (success, info) in
+            if(!success){
+                completion(false, eventInfo)
+                return
+            }
+            
+            guard let updateInfo = info
+                else{
+                    completion(false, eventInfo)
+                    return
+            }
+            
+            completion(true, updateInfo)
+            
+        })
+    }
+    
+    
+    
     
     var isCallStreaming: Bool{
         

@@ -94,7 +94,7 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.setListener { (deletedEventID) in
             if self.eventId == deletedEventID{
                 self.exitAction()
-                Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
+                Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
     }
@@ -291,27 +291,68 @@ class VideoCallController : InterfaceExtendedController {
     }
     
 
-    
+    //overridden
      func initialization(){
         
         Log.echo(key : "test", text : "who dared to initialize me ??")
-
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()
         
-        fetchInfo(showLoader: false) { [weak self] (success) in
+        showLoader()
+        loadActivatedInfo {[weak self] (isActivated, info) in
+            self?.stopLoader()
+            Log.echo(key: "delay", text: "info received -> \(info?.title)")
             
-            if(!success){
-                return
+            guard let info = info
+                else{
+                    return
             }
-            self?.processEventInfo()
+            
+            self?.processEventInfo(info: info)
+            
+            Log.echo(key: "delay", text: "processed")
+            
+            if(isActivated){
+                Log.echo(key: "delay", text: "event is activated")
+                self?.eventInfo = info
+            }
         }
     }
     
-    private func processEventInfo(){
+    //This will still return info - even if call not activated.
+    //if not activated - success will be false and info will have valid data
+    private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
+        loadInfo {[weak self] (success, info) in
+            if(!success){
+                completion?(false, nil)
+                return
+            }
+            
+            guard let eventInfo = info
+                else{
+                    completion?(false, nil)
+                    return
+            }
+            
+
+            self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
+                if(!success){
+                    completion?(false, info)
+                    return
+                }
+                
+                //only the first time
+                self?.verifyScreenshotRequested()
+                completion?(true, info)
+            })
+            
+        }
+    }
+    
+    private func processEventInfo(info : EventScheduleInfo){
         
-        socketClient?.connect(roomId: (self.eventInfo?.roomId ?? ""))
+        socketClient?.connect(roomId: (info.roomId ?? ""))
     }
     
     private func updateUserOfExit(){
@@ -436,6 +477,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    //isolated from eventInfo
     private func initializeVariable(){
         
         appDelegate?.allowRotate = true
@@ -498,9 +540,12 @@ class VideoCallController : InterfaceExtendedController {
     }    
     
     //abstract
-    func verifyEventActivated(){
+    func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
         
     }
+    
+    
+    
     //abstract
     func handleMultipleTabOpening(){
         
@@ -542,68 +587,75 @@ extension VideoCallController{
 //instance
 extension VideoCallController{
     
-    func fetchInfoAfterActivatIngEvent(){
-        
+    
+    
+    func fetchInfoAfterActivatingEvent(){
         self.fetchInfo(showLoader: false, completion: { (success) in
         })
     }
     
-    fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
-   
+    func loadInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo? )->())?){
         guard let eventId = self.eventId
             else{
                 return
         }
-
+        
+        CallEventInfo().fetchInfo(eventId: eventId) { (success, info) in
+            
+            if(!success){
+                completion?(false, nil)
+                return
+            }
+            
+            guard var localEventInfo = info
+                else{
+                    completion?(false, nil)
+                    return
+            }
+            
+            localEventInfo = self.transerState(info: localEventInfo)
+            completion?(true, localEventInfo)
+            return
+            
+        }
+    }
+    
+    
+    fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
+   
         if(showLoader){
             self.showLoader()
         }
         
-        CallEventInfo().fetchInfo(eventId: eventId) { [weak self] (success, info) in
+        loadInfo {[unowned self] (success, info) in
             
-            if(showLoader){
-                self?.stopLoader()
-            }
-            
-            if(!success){
-                completion?(false)
-                return
-            }
-            
-            guard let localEventInfo = info
-                else{
-                    completion?(false)
-                    return
-            }
-            
-            //new event is updated with the old event local Parameters
-            if let newSlotInfo = localEventInfo.slotInfos{
-                for newinfo in newSlotInfo{
-                    if let oldSlotInfo = self?.eventInfo?.slotInfos{
-                        for oldInfo in oldSlotInfo{
-                            if oldInfo.id == newinfo.id{
-                                
-                                //newinfo.isScreenshotSaved = oldInfo.isScreenshotSaved
-                                newinfo.isSelfieTimerInitiated = oldInfo.isSelfieTimerInitiated
-                            }
-                        }
-                    }
-                }
-            }
-            
-            self?.eventInfo = localEventInfo
-            self?.verifyEventActivated()
-            Log.echo(key: "yud", text: "Verification of the ScreenshotRequested id working!!")
-            self?.verifyScreenshotRequested()
-            
-            let roomId = localEventInfo.id ?? 0
-            Log.echo(key : "service", text : "eventId - > \(roomId)")
-            
+            self.eventInfo = info
             completion?(true)
             return
         }
     }
+    
+    func transerState(info : EventScheduleInfo)->EventScheduleInfo{
+        
+        let localEventInfo = info
+        //new event is updated with the old event local Parameters
+        if let newSlotInfo = localEventInfo.slotInfos{
+            for newinfo in newSlotInfo{
+                if let oldSlotInfo = self.eventInfo?.slotInfos{
+                    for oldInfo in oldSlotInfo{
+                        if oldInfo.id == newinfo.id{
+                            newinfo.isSelfieTimerInitiated = oldInfo.isSelfieTimerInitiated
+                        }
+                    }
+                }
+            }
+        }
+        
+        return localEventInfo
+    }
 }
+
+
 
 
 extension VideoCallController{
