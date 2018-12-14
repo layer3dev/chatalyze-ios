@@ -239,7 +239,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     func isVersionWarningExists()->Bool{
         
-        if HandlingAppVersion().getAlertMessage() != "This version of our app will soon no longer work. Please update to the latest version now to avoid any issues."{
+        if HandlingAppVersion().getAlertMessage() == "This version of our app will soon no longer work. Please update to the latest version now to avoid any issues."{
             return true
             self.speedLbl?.textColor = UIColor.red
             self.speedLbl?.text = HandlingAppVersion().getAlertMessage()
