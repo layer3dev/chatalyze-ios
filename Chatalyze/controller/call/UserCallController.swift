@@ -665,8 +665,18 @@ class UserCallController: VideoCallController {
         super.callFailed()
     }
     
-    override func verifyEventActivated(){
+    override func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
+        let eventInfo = info
+        
+        //already activated
+        if(eventInfo.started != nil){
+            completion(true, eventInfo)
+            return
+        }
+        
+        completion(false, eventInfo)
     }
+    
     
     override func verifyScreenshotRequested(){
         

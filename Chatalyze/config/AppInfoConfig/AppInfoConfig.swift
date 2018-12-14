@@ -14,5 +14,5 @@ class AppInfoConfig {
     static var deviceType = "ios"
     static var appversion = "1.03"
     static var appType = "featured"
-    //Next version going to release is 1.03
+    //Next version going to release is 1.04
 }

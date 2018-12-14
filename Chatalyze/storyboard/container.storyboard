@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="99D-e5-Imz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="99D-e5-Imz">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,7 +28,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MgO-Uh-W1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-601" y="-507"/>
+            <point key="canvasLocation" x="-766" y="-435"/>
         </scene>
         <!--Container Controller-->
         <scene sceneID="89L-IM-lTq">
@@ -45,9 +45,6 @@
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXy-2Z-R9c">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1008"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="Wh4-up-qAB" kind="embed" identifier="CONTAINER_SEGUE" id="8Wy-w4-MBu"/>
-                                </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrX-Jl-8x2" customClass="TabContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="959" width="768" height="65"/>
@@ -347,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D91-RD-vEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2030" y="-439"/>
+            <point key="canvasLocation" x="-2308" y="-590"/>
         </scene>
         <!--Tab Container Controller-->
         <scene sceneID="xnq-GR-xDn">
@@ -364,7 +361,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDc-P3-qfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1274" y="-431"/>
+            <point key="canvasLocation" x="-1594" y="-916"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="c9X-fd-ydS">
@@ -381,7 +378,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXJ-Gq-PtO">
                                 <rect key="frame" x="0.0" y="0.0" width="420" height="230"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="wwX-NA-Ssb">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="wwX-NA-Ssb">
                                         <rect key="frame" x="150" y="40" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="PJY-Du-Cfx">
@@ -596,6 +593,6 @@
         <image name="tab_account_unselect" width="40" height="40"/>
         <image name="tab_event_select" width="40" height="40"/>
         <image name="tab_greeting_unselect" width="40" height="40"/>
-        <image name="user_placeholder" width="300" height="300"/>
+        <image name="user_placeholder" width="70" height="70"/>
     </resources>
 </document>
