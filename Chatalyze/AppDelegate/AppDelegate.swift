@@ -236,8 +236,8 @@ extension AppDelegate{
                 Log.echo(key: "yud", text: "latestVersion IS \(dict["current_app_version"]?.doubleValue)")
                 let latestVersion = dict["current_app_version"]?.doubleValue
                 let deprecateVersion = dict["deprecated_version"]?.doubleValue
-                //let obsoleteVersion = dict["obsolete_version"]?.doubleValue
-                let obsoleteVersion = 1.00
+                let obsoleteVersion = dict["obsolete_version"]?.doubleValue
+                //let obsoleteVersion = 1.00
                 UserDefaults.standard.setValue(latestVersion ?? 0.0, forKey: "latestVersion")
                 UserDefaults.standard.setValue(deprecateVersion ?? 0.0, forKey: "deprecateVersion")
                 UserDefaults.standard.setValue(obsoleteVersion ?? 0.0, forKey: "obsoleteVersion")

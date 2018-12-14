@@ -174,3 +174,28 @@ extension UITextView {
 //        return (self * divisor).rounded() / divisor
 //    }
 //}
+
+
+extension Double{
+    
+    func getRandomNumber()->Double{
+        
+        return Double.random(in: 0.123126...99999.14159)
+    }
+}
+
+extension Int{
+    
+    func getRandomNumber()->Int{
+        
+        return Int.random(in: 0..<999999)
+    }
+}
+
+extension Bool{
+    
+    func getRandomNumber()->Bool{
+        
+        return Bool.random()
+    }
+}

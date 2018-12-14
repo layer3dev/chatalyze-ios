@@ -66,7 +66,13 @@ class InternetSpeedTestController: InterfaceExtendedController {
         }
     }
     
-    func noInternetConnection(){
+    func averageInternetConnectionAlert(){
+        
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be average. You can update your internet or continue for the system test", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+    }
+    
+    func noInternetConnectionAlert(){
        
         self.alert(withTitle: AppInfoConfig.appName, message: "You seem to be offline. Please connect to the internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
         }
@@ -138,6 +144,25 @@ class InternetSpeedTestController: InterfaceExtendedController {
     }
     
     
+    @IBAction func poorInternetInfoAction(){
+        
+        self.slowInternetConnectionAlert()
+    }
+    
+    @IBAction func averageInternetInfoAction(){
+     
+        slowInternetConnectionAlert()
+    }
+    
+    @IBAction func noInternetConnectionAction(){
+      
+        noInternetConnectionAlert()
+    }
+    
+    @IBAction func versionInfoAction(){
+       
+        self.appVersionAlert()
+    }
     
     //    func systemTest(){
     //
@@ -146,7 +171,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     //            //Show Error
     //        }
     //
-    //        if App version is out Date || Internet connectio is slow {
+    //        if App version is out Date || Internet connection is slow {
     //
     //            //Show Warning
     //            //CReate a method taking param type of warning
@@ -261,6 +286,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
+            var speedMb = (speed ?? 0.0) * 8;
             DispatchQueue.main.async {
                 //self.loaderImage?.isHidden = true
                 self.stopLoader()
@@ -268,8 +294,11 @@ class InternetSpeedTestController: InterfaceExtendedController {
                     if speed != nil{
                         
                         let speedStr = String(format: "%.2f", speed ?? 0.0)
-                        if (speed ?? 0.0) < 0.1875 {
-                            
+                        
+                        //if (speed ?? 0.0) < 0.1875 {
+                        //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.12
+                        
+                        if (speed ?? 0.0) < 0.13 {
                             
                             self.errorType = .SlowInternetError
                             self.warningType = .none
@@ -286,8 +315,13 @@ class InternetSpeedTestController: InterfaceExtendedController {
 //                            }
                             return
                         }
+                      //  else if (speed ?? 0.0) >= 0.1875 && (speed ?? 0.0) <= 0.25{
+
                             
-                        else if (speed ?? 0.0) >= 0.1875 && (speed ?? 0.0) <= 0.25{
+                            /*Dropping this condition as it does not exist in the web.
+                            
+                            
+                        else if (speed ?? 0.0) >= 0.1 && (speed ?? 0.0) <= 0.3{
                             
                             self.errorType = .none
                             self.warningType = .InternetAverage
@@ -312,7 +346,9 @@ class InternetSpeedTestController: InterfaceExtendedController {
 //                            }
                             return
                         }
-                        
+ 
+ 
+ */
                         if self.isVersionWarningExists(){
                             
                             self.errorType = .none

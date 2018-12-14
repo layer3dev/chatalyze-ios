@@ -14,6 +14,7 @@ class AppConnectionConfig {
 
     //static let webServiceURL = "http://192.168.1.35:3000/v1/"
     static let webServiceURL = "https://dev.chatalyze.com/api"
+    static let systemTestUrl = "https://dev.chatalyze.com"
     //static let webServiceURL = "https://beta.chatalyze.com/api"
     
     //static let webServiceURL = "https://api.chatalyze.com/v1"

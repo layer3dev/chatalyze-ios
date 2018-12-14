@@ -27,11 +27,11 @@ class AccessTokenValidator {
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool)->())){
         
-        Log.echo(key: "yud", text: "Response from the login is \(response)")
+        Log.echo(key: "yud", text: "Response from the login is \(String(describing: response))")
         
         guard let rawInfo = response
             else{
-                completion(false)
+                completion(true)
                 return
         }
         

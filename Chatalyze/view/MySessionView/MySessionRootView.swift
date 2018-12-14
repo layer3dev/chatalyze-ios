@@ -33,7 +33,7 @@ class MySessionRootView:ExtendedView{
             
             guard let eventInfo = eventInfo
                 else{
-                    self.controller?.fetchInfo()
+                    self.controller?.fetchInfoForListener()
                     return
             }
             
@@ -41,7 +41,6 @@ class MySessionRootView:ExtendedView{
                 else{
                     return
             }
-            
             
             guard let controller = HostCallController.instance()
                 else{
