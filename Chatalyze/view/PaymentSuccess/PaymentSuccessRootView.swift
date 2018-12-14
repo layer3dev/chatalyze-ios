@@ -412,6 +412,7 @@ extension PaymentSuccessRootView{
 extension PaymentSuccessRootView:UIGestureRecognizerDelegate{
 }
 
+/*
 extension UIAlertController {
     
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -422,6 +423,8 @@ extension UIAlertController {
         return false
     }
 }
+
+ */
 
 extension PaymentSuccessRootView:UITextFieldDelegate{
     

@@ -21,7 +21,6 @@ class UserEventQueueController: EventQueueController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        
         //verifyForEventDelay()
         analystJoinedNotification()
         eventNotificationListener()
@@ -140,6 +139,7 @@ class UserEventQueueController: EventQueueController {
         }
         
         self.hideAlertMessage()
+        
         guard let slotInfo = eventInfo.myValidSlot.slotInfo
             else{
                 return
@@ -162,7 +162,7 @@ class UserEventQueueController: EventQueueController {
             
             self.navigationController?.present(controller, animated: true, completion: {
                 
-            self.navigationController?.popViewController(animated: false)
+                self.navigationController?.popViewController(animated: false)
             })
         }
     }

@@ -35,7 +35,6 @@ class MyTicketsController: InterfaceExtendedController{
         registerEventSlotListner()       
     }
     
-    
     func registerEventSlotListner(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -46,7 +45,7 @@ class MyTicketsController: InterfaceExtendedController{
         eventSlotListiner.setListener {
             
             Log.echo(key: "yud", text:"New slot is booked")
-            self.fetchInfo()
+            self.fetchInfoForListenr()
         }
     }
     
@@ -81,6 +80,47 @@ class MyTicketsController: InterfaceExtendedController{
     func refreshData(){
         
         fetchInfo()
+    }
+    
+    func fetchInfoForListenr(){
+     
+        guard let id = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+      
+        CallSlotFetch().fetchInfos() {(success, info) in
+            
+            DispatchQueue.main.async {
+                
+                self.ticketsArray.removeAll()
+                self.rootview?.adapter?.initializeCollectionFlowLayout()
+                
+                self.rootview?.fillInfo(info: self.ticketsArray)
+                self.stopLoader()
+                
+                if !success{
+                    
+                    self.noTicketLbl?.isHidden = false
+                    self.noTicketView?.isHidden = false
+                    return
+                }
+                
+                if let info = info{
+                    
+                    if info.count <= 0{
+                        
+                        self.noTicketLbl?.isHidden = false
+                        self.noTicketView?.isHidden = false
+                        self.rootview?.fillInfo(info: self.ticketsArray)
+                        return
+                    }
+                    self.ticketsArray = info
+                    self.noTicketLbl?.isHidden = true
+                    self.noTicketView?.isHidden = true
+                    self.rootview?.fillInfo(info: info)
+                }
+            }
+        }
     }
     
     

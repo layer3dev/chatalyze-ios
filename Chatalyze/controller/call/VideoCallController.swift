@@ -112,7 +112,7 @@ class VideoCallController : InterfaceExtendedController {
         super.viewAppeared()
         
         Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
-         processPermission()
+        processPermission()
     }
     
     override func viewDidRelease() {
@@ -490,7 +490,6 @@ class VideoCallController : InterfaceExtendedController {
         socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
-        
         eventScheduleUpdatedAlert()
     }
     
@@ -564,6 +563,11 @@ class VideoCallController : InterfaceExtendedController {
     var isSlotRunning:Bool{
         return false
     }
+    
+    //To be overridden
+    func checkForDelaySupport(){
+        
+    }
 }
 
 
@@ -614,9 +618,12 @@ extension VideoCallController{
             }
             
             localEventInfo = self.transerState(info: localEventInfo)
+            //self?.checkForDelaySupport()
             completion?(true, localEventInfo)
+            
             return
             
+
         }
     }
     
@@ -630,11 +637,14 @@ extension VideoCallController{
         loadInfo {[unowned self] (success, info) in
             
             self.eventInfo = info
+                
+                
             completion?(true)
             return
         }
     }
     
+
     func transerState(info : EventScheduleInfo)->EventScheduleInfo{
         
         let localEventInfo = info
@@ -670,11 +680,10 @@ extension VideoCallController{
             }
             
             guard let localView = self?.rootView?.localVideoView
-             else{
-             return
-             }
-             
-             
+                else{
+                    return
+            }
+            
              let captureSession = localCapturer.captureSession
 //             localView.captureSession = captureSession
             

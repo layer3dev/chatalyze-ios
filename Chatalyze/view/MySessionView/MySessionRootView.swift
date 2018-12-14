@@ -35,7 +35,7 @@ class MySessionRootView:ExtendedView{
                 else{
                    
                     //Case less than 30 minute
-                    self.controller?.fetchInfo()
+                    self.controller?.fetchInfoForListener()
                     return
             }
             
@@ -43,7 +43,6 @@ class MySessionRootView:ExtendedView{
                 else{
                     return
             }
-            
             
             guard let controller = HostCallController.instance()
                 else{

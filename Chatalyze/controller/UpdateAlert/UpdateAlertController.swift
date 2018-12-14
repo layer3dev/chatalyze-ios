@@ -8,15 +8,27 @@
 
 import UIKit
 
-class UpdateAlertController: UIViewController {
+class UpdateAlertController: InterfaceExtendedController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    override func viewDidLayout() {
+        super.viewDidLayout()
+    
     }
     
+    @IBAction func exit(sender:UIButton){
+        
+        self.dismiss(animated: true) {
+            
+        }
+    }
 
+    @IBAction func updateApp(sender:UIButton){
+        
+        HandlingAppVersion.goToAppStoreForUpdate()
+    }
+    
+    //https://itunes.apple.com/us/app/chatalyze/id1313197231?ls=1&mt=8
+    
     /*
     // MARK: - Navigation
 
@@ -26,5 +38,11 @@ class UpdateAlertController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    class func instance()->UpdateAlertController?{
+        
+        let storyboard = UIStoryboard(name: "UpdateAlert", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "UpdateAlert") as? UpdateAlertController
+        return controller
+    }
 }

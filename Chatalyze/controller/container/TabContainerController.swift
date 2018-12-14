@@ -80,21 +80,21 @@ class TabContainerController: UITabBarController {
         selectedIndex = initialTab.rawValue
     }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        
-        if let selected = selectedViewController {
-            return selected.supportedInterfaceOrientations
-        }
-        return super.supportedInterfaceOrientations
-    }
-    
-    open override var shouldAutorotate: Bool {
-        
-        if let selected = selectedViewController {
-            return selected.shouldAutorotate
-        }
-        return super.shouldAutorotate
-    }
+//    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        
+//        if let selected = selectedViewController {
+//            return selected.supportedInterfaceOrientations
+//        }
+//        return super.supportedInterfaceOrientations
+//    }
+//    
+//    open override var shouldAutorotate: Bool {
+//        
+//        if let selected = selectedViewController {
+//            return selected.shouldAutorotate
+//        }
+//        return super.shouldAutorotate
+//    }
     
     func setActionPending(isPending : Bool, type : TabContainerView.tabType){
         

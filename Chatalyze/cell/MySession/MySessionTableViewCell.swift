@@ -103,21 +103,69 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
     }
     
+    func showAlert(sender:UIButton){
+        
+        let alertMessage = HandlingAppVersion().getAlertMessage()
+        
+        let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let uploadAction = UIAlertAction(title: "Update App", style: UIAlertAction.Style.default) { (success) in
+            HandlingAppVersion.goToAppStoreForUpdate()
+        }
+        
+        let callRoomAction = UIAlertAction(title: "Continue to Session", style: UIAlertAction.Style.default) { (success) in
+            
+            self.gotoSession()
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.destructive) { (success) in
+        }
+        
+        
+        alertActionSheet.addAction(uploadAction)
+        alertActionSheet.addAction(callRoomAction)
+        alertActionSheet.addAction(cancel)
+        
+        //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        if let presenter = alertActionSheet.popoverPresentationController {
+            
+            alertActionSheet.popoverPresentationController?.sourceView =                 RootControllerManager().getCurrentController()?.view
+            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
+        }
+        
+        RootControllerManager().getCurrentController()?.present(alertActionSheet, animated: true) {
+        }
+        //self.root?.controller?.present
+    }
     
-    @IBAction func enterSessionAction(sender:UIButton?){
+    
+
+    
+    func gotoSession(){
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
-         
+            
             Log.echo(key: "yud", text: "You'll be able to enter your session 30 minutes before it starts")
-         
+            
             RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "You'll be able to enter your session 30 minutes before it starts", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                 
                 self.enterSession?(nil)
             })
             return
         }
+        
         if let session = enterSession{
             session(self.info)
         }
+    }
+    
+    
+    @IBAction func enterSessionAction(sender:UIButton?){
+        
+        if HandlingAppVersion().getAlertMessage() != "" {
+            showAlert(sender: sender ?? UIButton())
+            return
+        }
+        self.gotoSession()
     }
 }

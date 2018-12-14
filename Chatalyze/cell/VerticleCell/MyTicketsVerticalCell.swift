@@ -12,6 +12,8 @@ import SDWebImage
 
 class MyTicketsVerticalCell: ExtendedTableCell {
     
+    var rootAdapter:MyTicketesVerticalAdapter?
+    
     @IBOutlet var borderView:UIView?
     @IBOutlet var chatnumberLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -95,10 +97,50 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         }
     }
     
-    
+    func showAlert(sender:UIButton){
+        
+        let alertMessage = HandlingAppVersion().getAlertMessage()
+        
+        let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let uploadAction = UIAlertAction(title: "Update App", style: UIAlertAction.Style.default) { (success) in
+           
+            HandlingAppVersion.goToAppStoreForUpdate()
+        }
+        
+        let callRoomAction = UIAlertAction(title: "Continue to Session", style: UIAlertAction.Style.default) { (success) in
+            
+            self.delegate?.jointEvent(info:self.info)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.destructive) { (success) in
+        }
+        
+        alertActionSheet.addAction(uploadAction)
+        alertActionSheet.addAction(callRoomAction)
+        alertActionSheet.addAction(cancel)
+        
+        //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
+        if let presenter = alertActionSheet.popoverPresentationController {
+            
+            alertActionSheet.popoverPresentationController?.sourceView =                 self.rootAdapter?.root?.controller?.view
+            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
+        }
+        
+        self.rootAdapter?.root?.controller?.present(alertActionSheet, animated: true) {
+        }
+        
+        
+        //self.root?.controller?.present
+    }
     
     @IBAction func jointEvent(send:UIButton?){
         
+        if HandlingAppVersion().getAlertMessage() != "" {            
+            showAlert(sender: send ?? UIButton())
+            return
+        }
         Log.echo(key: "yud", text: "Joint Event is calling!!")        
         delegate?.jointEvent(info:self.info)
     }

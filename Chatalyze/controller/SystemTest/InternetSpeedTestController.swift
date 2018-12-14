@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 class InternetSpeedTestController: InterfaceExtendedController {
-
+    
     @IBOutlet var speedLbl:UILabel?
     var rootController:EventController?
     @IBOutlet var loaderImage:UIView?
@@ -19,14 +19,170 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
-
+    
+    @IBOutlet var systemTestView:UIView?
+    @IBOutlet var warningView:UIView?
+    @IBOutlet var errorView:UIView?
+    @IBOutlet var noInternetConnectionView:UIView?
+    
+    @IBOutlet var warningViewInternet:UIView?
+    @IBOutlet var warningViewVersion:UIView?
+    
+    enum errorStatus:Int{
+        
+        case NoInternetConnectionError = 0
+        case SlowInternetError = 1
+        case none = 2
+    }
+    
+    enum warningStatus:Int {
+        
+        case versionOutdated = 0
+        case InternetAverage = 1
+        case versionOutdatedWithInternetAverage = 2
+        case none = 4
+    }
+    
+    var errorType = InternetSpeedTestController.errorStatus.none
+    var warningType = InternetSpeedTestController.warningStatus.none
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         //self.speedLbl?.text = "Checking your system. This will just take a moment."
         //rotateImage(breakMethod:true)
-        testInternet()
+        startSystemTest()
     }
+    
+    func appVersionAlert(){
+        
+        self.alert(withTitle: AppInfoConfig.appName, message: "Your app version is outdated, To avoid potential issues, please update to the latest version", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+    }
+    
+    func slowInternetConnectionAlert(){
+     
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be slow. Please update your internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+    }
+    
+    func averageInternetConnectionAlert(){
+        
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be average. You can update your internet or continue for the system test", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+    }
+    
+    func noInternetConnectionAlert(){
+       
+        self.alert(withTitle: AppInfoConfig.appName, message: "You seem to be offline. Please connect to the internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+    }
+    
+        
+    func startSystemTest(){
+        
+        showSystemTest()
+        initializeTest()
+    }
+    
+    @IBAction func continueToCameraTest(){
+        
+        self.cameraTest(sender: nil)
+    }
+    
+    @IBAction func retryTest(){
+        
+        startSystemTest()
+    }
+    
+    
+    func showSystemTest(){
+        
+        self.systemTestView?.isHidden = false
+        self.warningView?.isHidden = true
+        self.errorView?.isHidden = true
+        self.noInternetConnectionView?.isHidden = true
+    }
+    
+    func showSlowInternetError(){
+        
+        self.systemTestView?.isHidden = true
+        self.warningView?.isHidden = true
+        self.errorView?.isHidden = false
+        self.noInternetConnectionView?.isHidden = true
+    }
+    
+    func showWarning(warningType:warningStatus){
+        
+        if warningType == .versionOutdated{
+            
+            self.warningViewInternet?.isHidden = true
+            self.warningViewVersion?.isHidden = false
+        }
+        else if warningType == .versionOutdatedWithInternetAverage{
+            
+            self.warningViewInternet?.isHidden = false
+            self.warningViewVersion?.isHidden = false
+        }
+        else if warningType == .InternetAverage {
+            
+            self.warningViewInternet?.isHidden = false
+            self.warningViewVersion?.isHidden = true
+        }
+        self.systemTestView?.isHidden = true
+        self.warningView?.isHidden = false
+        self.errorView?.isHidden = true
+        self.noInternetConnectionView?.isHidden = true
+    }
+    
+    func shownoInternetConnection(){
+        
+        self.systemTestView?.isHidden = true
+        self.warningView?.isHidden = true
+        self.errorView?.isHidden = true
+        self.noInternetConnectionView?.isHidden = false
+    }
+    
+    
+    @IBAction func poorInternetInfoAction(){
+        
+        self.slowInternetConnectionAlert()
+    }
+    
+    @IBAction func averageInternetInfoAction(){
+     
+        slowInternetConnectionAlert()
+    }
+    
+    @IBAction func noInternetConnectionAction(){
+      
+        noInternetConnectionAlert()
+    }
+    
+    @IBAction func versionInfoAction(){
+       
+        self.appVersionAlert()
+    }
+    
+    //    func systemTest(){
+    //
+    //        if InternetConnection is not Good {
+    //
+    //            //Show Error
+    //        }
+    //
+    //        if App version is out Date || Internet connection is slow {
+    //
+    //            //Show Warning
+    //            //CReate a method taking param type of warning
+    //        }
+    //
+    //
+    //
+    //    }
+    
+    
+    
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(animated)
         
@@ -73,25 +229,56 @@ class InternetSpeedTestController: InterfaceExtendedController {
         }
     }
     
+    
+    func initializeTest(){
+        
+        self.errorType = .none
+        self.warningType = .versionOutdated
+        self.testInternet()
+    }
+    
+    func isVersionWarningExists()->Bool{
+        
+        if HandlingAppVersion().getAlertMessage() == "This version of our app will soon no longer work. Please update to the latest version now to avoid any issues."{
+            return true
+            self.speedLbl?.textColor = UIColor.red
+            self.speedLbl?.text = HandlingAppVersion().getAlertMessage()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                
+                self.speedLbl?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
+                self.speedLbl?.text = ""
+                self.testInternet()
+            }
+        }
+        return false
+    }
+    
+    
     func testInternet(){
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
-            Log.echo(key: "yud", text: "Yes I know internet is down")
-            DispatchQueue.main.async {
+            self.errorType = .NoInternetConnectionError
+            self.warningType = .none
+            self.shownoInternetConnection()
+            return
+                //Return with the Error View of No InternetConnection
                 
-                self.dismiss(animated: false, completion: {
-                    
-                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
-                    
-                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
-                   
-                    }))
-                    
-                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
-                    }
-                })
-            }
+                Log.echo(key: "yud", text: "Yes I know internet is down")
+//            DispatchQueue.main.async {
+//
+//                self.dismiss(animated: false, completion: {
+//
+//                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
+//
+//                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+//
+//                    }))
+//
+//                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
+//                    }
+//                })
+//            }
             return
         }
         
@@ -99,22 +286,78 @@ class InternetSpeedTestController: InterfaceExtendedController {
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
+            var speedMb = (speed ?? 0.0) * 8;
             DispatchQueue.main.async {
-            //self.loaderImage?.isHidden = true
+                //self.loaderImage?.isHidden = true
                 self.stopLoader()
                 if error == nil{
                     if speed != nil{
                         
                         let speedStr = String(format: "%.2f", speed ?? 0.0)
-                        if (speed ?? 0.0) < 0.03125 {
+                        
+                        //if (speed ?? 0.0) < 0.1875 {
+                        //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                        
+                        if (speed ?? 0.0) < 0.13 {
                             
-                            self.speedLbl?.textColor = UIColor.red
-                            self.speedLbl?.text = "Fail"
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.dismissAction()
-                            }
+                            self.errorType = .SlowInternetError
+                            self.warningType = .none
+                            self.showSlowInternetError()
+                            return
+                                
+                                //showSlowInternetError()
+                                //self.speedLbl?.textColor = UIColor.red
+                            
+                            //self.speedLbl?.text  =   "Fail"
+                            
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                                self.dismissAction()
+//                            }
                             return
                         }
+                      //  else if (speed ?? 0.0) >= 0.1875 && (speed ?? 0.0) <= 0.25{
+
+                            
+                            /*Dropping this condition as it does not exist in the web.
+                            
+                            
+                        else if (speed ?? 0.0) >= 0.1 && (speed ?? 0.0) <= 0.3{
+                            
+                            self.errorType = .none
+                            self.warningType = .InternetAverage
+                            
+                            if self.isVersionWarningExists(){
+                                
+                                self.warningType = .versionOutdatedWithInternetAverage
+                                self.showWarning(warningType:self.warningType)
+                                return
+                            }
+                            
+                            self.showWarning(warningType:self.warningType)
+                            return
+                                
+                                //showSlowInternetError()
+                                //showWarning() of averageInternet
+
+                                //self.speedLbl?.textColor = UIColor.red
+                                //self.speedLbl?.text = "Fail"
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                                self.dismissAction()
+//                            }
+                            return
+                        }
+ 
+ 
+ */
+                        if self.isVersionWarningExists(){
+                            
+                            self.errorType = .none
+                            self.warningType = .versionOutdated
+                            self.showWarning(warningType:self.warningType)
+                            return
+                        }
+                        
+                        //Check for outdated warning Too.
                         
                         self.speedLbl?.text = "Success"
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -122,20 +365,27 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         }
                         return
                     }
+                    
                 }else{
                     
-                    self.speedLbl?.text = "Fail"
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.dismissAction()
-                    }
+                    self.errorType = .SlowInternetError
+                    self.warningType = .none
+                    self.showSlowInternetError()
                     return
+                    
+//                    self.speedLbl?.text = "Fail"
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        self.dismissAction()
+//                    }
+//                    return
                 }
             }
         }
     }
     
+    
     @IBAction func dismissAction(){
-  
+        
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
                 if let listner = self.dismissListner{

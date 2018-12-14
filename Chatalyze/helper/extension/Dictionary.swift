@@ -25,7 +25,6 @@ public extension Dictionary {
     func JSONDescription()->String{
         
         let dict = self
-
         
         guard let JSONData: Data = try? JSONSerialization.data(withJSONObject: dict, options: [])
             else{

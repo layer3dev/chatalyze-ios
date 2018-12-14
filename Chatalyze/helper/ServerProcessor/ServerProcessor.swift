@@ -165,12 +165,17 @@ class ServerProcessor{
 //            return
 //        }
         
+        
+        Log.echo(key: "yud", text: "Status code is \(response.response?.statusCode)")
+        
         if let data = response.data{
                    
             let responseData = String(data: data , encoding: String.Encoding.utf8)
         }
         
         if(response.response?.statusCode == 401 && self.authorize){
+            
+            Log.echo(key: "yud", text: "Signing out due to the status code 401")
             
             self.signout()
             respond(success: false, response: nil)

@@ -13,17 +13,17 @@ import GoogleSignIn
 //import Stripe
 import TwitterKit
 import FBSDKLoginKit
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var allowRotate : Bool = false
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        //Calling the delegate methods to the local notifications
         
+        //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
         disableAppToSwitchIntoSleepMode()
@@ -32,34 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
-        
         return true
     }
-    
-    //This will verify session token, each time user opens the app.
-    func verifyingAccessToken(){
-        
-        guard let userInfo = SignedUserInfo.sharedInstance?.id else {
-            return
-        }
-        
-        AccessTokenValidator().validate { (success) in
-            
-            if !success{
-            
-                SignOutManager().signOut { (success) in
-                    
-                    //self.stopLoader()
-                    /*if !success{
-                     return
-                     }*/
-                    RootControllerManager().signOut(completion: nil)
-                }
-            }
-            Log.echo(key: "yud", text: "Printing the result \(success)")
-        }
-    }
-    
     
     func initializeTwitterKit(){
         
@@ -91,34 +65,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         verifyingAccessToken()
+        fetchAppVersionInfoToServer()
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
-            
-            if(allowRotate){
-                return .allButUpsideDown
+        
+        if(allowRotate){
+            return .allButUpsideDown
         }
         //Only allow portrait (standard behaviour)
         return .portrait;
@@ -126,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate:UNUserNotificationCenterDelegate {
-
+    
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *){
@@ -148,7 +124,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
-
+            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 
                 print("Notification settings: \(settings)")
@@ -167,7 +143,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         
         completionHandler([.alert,.sound,.badge])
     }
-        
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
@@ -182,9 +158,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
-        
         let token = tokenParts.joined()
-        
         // This method save the device token if shared intance alraedy exists else create new one with the data.
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
         // call function for the token Update
@@ -225,5 +199,51 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         
         // (app, open: url, options: options)
         return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
+    }
+}
+
+
+extension AppDelegate{
+    
+    func verifyingAccessToken(){
+        
+        guard let userInfo = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        
+        AccessTokenValidator().validate { (success) in
+            
+            if !success{
+                
+                RootControllerManager().signOut(completion: {
+                })
+            }
+            Log.echo(key: "yud", text: "Printing the result \(success)")
+        }
+    }
+    
+    func fetchAppVersionInfoToServer(){
+        
+        FetchAppVersionInfo().fetchInfo { (success, response) in
+            
+            if !success{
+                HandlingAppVersion().checkForAlert()
+                return
+            }
+            
+            Log.echo(key: "yud", text: "DICT IS \(response?.dictionary)")
+            if let dict = response?.dictionary{
+                
+                Log.echo(key: "yud", text: "latestVersion IS \(dict["current_app_version"]?.doubleValue)")
+                let latestVersion = dict["current_app_version"]?.doubleValue
+                let deprecateVersion = dict["deprecated_version"]?.doubleValue
+                let obsoleteVersion = dict["obsolete_version"]?.doubleValue
+                //let obsoleteVersion = 1.00
+                UserDefaults.standard.setValue(latestVersion ?? 0.0, forKey: "latestVersion")
+                UserDefaults.standard.setValue(deprecateVersion ?? 0.0, forKey: "deprecateVersion")
+                UserDefaults.standard.setValue(obsoleteVersion ?? 0.0, forKey: "obsoleteVersion")
+                HandlingAppVersion().checkForAlert()
+            }
+        }
     }
 }

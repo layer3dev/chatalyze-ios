@@ -513,21 +513,21 @@ class ContainerController: NavChildController {
         tabContainerView?.setActionPending(isPending: isPending, type: type)
     }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        
-        if let selected = tabController {
-            return selected.supportedInterfaceOrientations
-        }
-        return super.supportedInterfaceOrientations
-    }
-    
-    open override var shouldAutorotate: Bool {
-        
-        if let selected = tabController {
-            return selected.shouldAutorotate
-        }
-        return super.shouldAutorotate
-    }
+//    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+//        
+//        if let selected = tabController {
+//            return selected.supportedInterfaceOrientations
+//        }
+//        return super.supportedInterfaceOrientations
+//    }
+//    
+//    open override var shouldAutorotate: Bool {
+//        
+//        if let selected = tabController {
+//            return selected.shouldAutorotate
+//        }
+//        return super.shouldAutorotate
+//    }
     
     
     func selectTab(type : TabContainerView.tabType){

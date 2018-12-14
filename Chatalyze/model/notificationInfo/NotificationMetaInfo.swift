@@ -92,6 +92,8 @@ extension NotificationMetaInfo{
             return .analystJoined
         case "event_deleted":
             return .eventDeleted
+        case "schedule_cancelled":
+            return .eventDeleted
         default:
             return .undefined
         }
