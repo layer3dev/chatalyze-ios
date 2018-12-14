@@ -395,6 +395,7 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
+        
         if(!countdownInfo.isActive){
             //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
             updateCallHeaderAfterEventStart()
@@ -642,18 +643,20 @@ class HostCallController: VideoCallController {
     
     
     private func processEvent(){
+        Log.echo(key : "delay", text : "processEvent")
         
         if(!(socketClient?.isConnected ?? false)){
+            Log.echo(key : "delay", text : "processEvent socket NOT connected")
             return
         }
         guard let eventInfo = self.eventInfo
             else{
-                //                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
                 return
         }
         
         if(eventInfo.started == nil){
-            //            Log.echo(key: "processEvent", text: "event not activated yet")
+            Log.echo(key: "processEvent", text: "event not activated yet")
             return
         }
         
@@ -830,24 +833,34 @@ class HostCallController: VideoCallController {
         let eventIdString = "\(eventId)"
         ActivateEvent().activate(eventId: eventIdString) {[weak self] (success, eventInfo) in
             
-            guard let weakSelf = self
-                else{
-                    completion(false, eventInfo)
-                    return
-            }
+            //can't use eventInfo received from ActivateEvent because it lags slots information
+            self?.refreshInfo(eventInfo : info, completion: completion)
+            
+        }
+    }
+    
+    
+    private func refreshInfo(eventInfo : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
+        
+        self.loadInfo(completion: { (success, info) in
             if(!success){
                 completion(false, eventInfo)
                 return
             }
-            guard var info = eventInfo
+            
+            guard let updateInfo = info
                 else{
                     completion(false, eventInfo)
                     return
             }
-            info = weakSelf.transerState(info: info)
-            completion(true, info)
-        }
+            
+            completion(true, updateInfo)
+            
+        })
     }
+    
+    
+    
     
     var isCallStreaming: Bool{
         return (self.getActiveConnection()?.isStreaming ?? false)

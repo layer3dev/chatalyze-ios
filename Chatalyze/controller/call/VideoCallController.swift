@@ -290,7 +290,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
 
-    
+    //overridden
      func initialization(){
         
         Log.echo(key : "test", text : "who dared to initialize me ??")
@@ -298,7 +298,10 @@ class VideoCallController : InterfaceExtendedController {
         audioManager = AudioManager()
         startLocalStream()
         
-        loadActivatedInfo {[weak self] (success, info) in
+        showLoader()
+        loadActivatedInfo {[weak self] (isActivated, info) in
+            self?.stopLoader()
+            Log.echo(key: "delay", text: "info received -> \(info?.title)")
             
             guard let info = info
                 else{
@@ -307,12 +310,18 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.processEventInfo(info: info)
             
+            Log.echo(key: "delay", text: "processed")
+            
+            if(isActivated){
+                Log.echo(key: "delay", text: "event is activated")
+                self?.eventInfo = info
+            }
         }
     }
     
     //This will still return info - even if call not activated.
     //if not activated - success will be false and info will have valid data
-    private func loadActivatedInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo?)->())?){
+    private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
         loadInfo {[weak self] (success, info) in
             if(!success){
                 completion?(false, nil)
@@ -331,7 +340,7 @@ class VideoCallController : InterfaceExtendedController {
                     completion?(false, info)
                     return
                 }
-                self?.eventInfo = info
+                
                 //only the first time
                 self?.verifyScreenshotRequested()
                 completion?(true, info)
@@ -467,6 +476,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    //isolated from eventInfo
     private func initializeVariable(){
         
         appDelegate?.allowRotate = true
@@ -578,7 +588,7 @@ extension VideoCallController{
         })
     }
     
-    private func loadInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo? )->())?){
+    func loadInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo? )->())?){
         guard let eventId = self.eventId
             else{
                 return

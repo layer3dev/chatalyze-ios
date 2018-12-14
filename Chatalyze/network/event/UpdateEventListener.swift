@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class UpdateEventListener{
     
-    var callScheduleId : String?
     private var listener : (()->())?
     
     init(){
@@ -75,16 +74,7 @@ class UpdateEventListener{
             return
         }
         
-//        guard let receivedEventId = metaInfo.callScheduleId
-//            else{
-//                return
-//        }
-//
-//        let receivedEventIdString = String(receivedEventId)
-//
-//        if(receivedEventIdString != callScheduleId){
-//            return
-//        }
+        
         
         listener?()
     }
