@@ -18,6 +18,7 @@ class EmailSigninHandler{
         var params = [String : Any]()
         params["email"] = email
         params["password"] = password
+        params["rememberMe"] = true
         
         if let deviceInfo = SessionDeviceInfo.sharedInstance{
             

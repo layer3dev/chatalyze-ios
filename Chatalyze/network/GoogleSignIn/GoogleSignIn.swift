@@ -26,6 +26,7 @@ class GoogleSignIn{
         params["redirectUrl"] = "https://dev.chatalyze.com"
         params["accessToken"] = accessToken
         params["roleId"] = LoginSignUpContainerController.roleId
+        params["rememberMe"] = true
         
         if let deviceInfo = SessionDeviceInfo.sharedInstance{
             

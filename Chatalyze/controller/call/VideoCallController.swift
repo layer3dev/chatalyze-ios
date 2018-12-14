@@ -156,9 +156,9 @@ class VideoCallController : InterfaceExtendedController {
             else{
                 return
         }
+        
         localMediaPackage.muteAudio = false
         localMediaPackage.muteVideo = false
-
     }
     
     @IBAction private func audioMuteAction(){
@@ -173,9 +173,11 @@ class VideoCallController : InterfaceExtendedController {
         }
         
         if(localMediaPackage.muteAudio){
+            
             localMediaPackage.muteAudio = false
             actionContainer?.audioView?.unmute()
         }else{
+            
             localMediaPackage.muteAudio = true
             actionContainer?.audioView?.mute()
         }
@@ -187,7 +189,6 @@ class VideoCallController : InterfaceExtendedController {
             else{
                 return
         }
-        
         if(localMediaPackage.isDisabled){
             return
         }
@@ -558,6 +559,11 @@ class VideoCallController : InterfaceExtendedController {
     var isVideoCallInProgress : Bool{
         return false
     }
+   
+    //to be overridden by child classes
+    var isSlotRunning:Bool{
+        return false
+    }
 }
 
 
@@ -858,7 +864,7 @@ extension VideoCallController{
             fontSize = 26
         }
         
-        if type == .userDidNotJoin{
+        if type == .userDidNotJoin {
           
             let firstStr = (roomType == .user) ? "Host" : "Participant"
             
