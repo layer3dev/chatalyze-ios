@@ -92,6 +92,7 @@ class VideoCallController : InterfaceExtendedController {
     func initializeListenrs(){
         
         eventDeleteListener.setListener { (deletedEventID) in
+            
             if self.eventId == deletedEventID{
                 self.exitAction()
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
@@ -290,6 +291,18 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    var isActivated : Bool{
+        guard let eventInfo = eventInfo
+            else{
+                return false
+        }
+        guard let _ = eventInfo.started
+            else{
+                return false
+        }
+        return true
+    }
+    
 
     //overridden
      func initialization(){
@@ -300,6 +313,7 @@ class VideoCallController : InterfaceExtendedController {
         startLocalStream()
         
         showLoader()
+        
         loadActivatedInfo {[weak self] (isActivated, info) in
             self?.stopLoader()
             Log.echo(key: "delay", text: "info received -> \(info?.title)")
@@ -310,14 +324,21 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self?.processEventInfo(info: info)
+            self?.eventInfo = info
             
             Log.echo(key: "delay", text: "processed")
-            
+            self?.processEventInfo()
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
-                self?.eventInfo = info
             }
         }
+    }
+    
+    
+    //overridden
+    func processEventInfo(){
+        
+        self.checkForDelaySupport()
     }
     
     //This will still return info - even if call not activated.
@@ -335,13 +356,11 @@ class VideoCallController : InterfaceExtendedController {
                     return
             }
             
-
             self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
                 if(!success){
                     completion?(false, info)
                     return
                 }
-                
                 //only the first time
                 self?.verifyScreenshotRequested()
                 completion?(true, info)
@@ -505,10 +524,17 @@ class VideoCallController : InterfaceExtendedController {
     
     private func startTimer(){
         timer.ping { [weak self] in
-            self?.interval()
+            self?.executeInterval()
         }
         
         timer.startTimer()
+    }
+    
+    private func executeInterval(){
+        if(!isActivated){
+            return
+        }
+        interval()
     }
     
     func interval(){
@@ -542,8 +568,6 @@ class VideoCallController : InterfaceExtendedController {
     func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
         
     }
-    
-    
     
     //abstract
     func handleMultipleTabOpening(){
@@ -591,14 +615,14 @@ extension VideoCallController{
 //instance
 extension VideoCallController{
     
-    
-    
     func fetchInfoAfterActivatingEvent(){
+ 
         self.fetchInfo(showLoader: false, completion: { (success) in
         })
     }
     
     func loadInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo? )->())?){
+        
         guard let eventId = self.eventId
             else{
                 return
@@ -618,12 +642,9 @@ extension VideoCallController{
             }
             
             localEventInfo = self.transerState(info: localEventInfo)
-            //self?.checkForDelaySupport()
             completion?(true, localEventInfo)
             
             return
-            
-
         }
     }
     
@@ -660,12 +681,9 @@ extension VideoCallController{
                 }
             }
         }
-        
         return localEventInfo
     }
 }
-
-
 
 
 extension VideoCallController{
@@ -841,11 +859,13 @@ extension VideoCallController{
 extension VideoCallController{
     
     enum callStatusMessage:Int{
+      
         case ideal = 0
         case preConnectedSuccess = 1
         case userDidNotJoin  = 2
         case connected = 3
-        
+        case eventDelay = 4
+        case eventNotStarted = 5
     }
     
     func setStatusMessage(type : callStatusMessage){
@@ -873,6 +893,26 @@ extension VideoCallController{
             fontSize = 26
         }
         
+        if type == .eventDelay{
+            
+            let requiredMessage = "Your chat has been delayed. You’ll see a countdown to your new chat time once the host joins."
+            
+            let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
+            
+            preConnectLbl?.attributedText = secondAttributedString
+            return
+        }
+    
+        if type == .eventNotStarted{
+            
+            let requiredMessage = "Session is not started yet."
+            
+            let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
+            
+            preConnectLbl?.attributedText = secondAttributedString
+            return
+        }
+        
         if type == .userDidNotJoin {
           
             let firstStr = (roomType == .user) ? "Host" : "Participant"
@@ -882,6 +922,7 @@ extension VideoCallController{
             let secondStr = " hasn't joined the session."
             
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+            
             firstMutableAttributedStr.append(secondAttributedString)
             
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
@@ -890,6 +931,9 @@ extension VideoCallController{
             
             return
         }
+        
+
+        
         
 //        if type == .preConnectedSuccess{
 //
@@ -902,7 +946,7 @@ extension VideoCallController{
 //            return
 //        }
         
-        if type == .connected{
+        if type == .connected {
             
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
@@ -930,6 +974,9 @@ extension VideoCallController{
         chatalyzeLogo?.isHidden = false
         hidePreConnectLabel()
     }
-    
+}
+
+
+extension VideoCallController{
     
 }

@@ -164,6 +164,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         self.appVersionAlert()
     }
     
+    
     //    func systemTest(){
     //
     //        if InternetConnection is not Good {
@@ -176,11 +177,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     //            //Show Warning
     //            //CReate a method taking param type of warning
     //        }
-    //
-    //
-    //
     //    }
-    
     
     
     override func viewDidAppear(_ animated: Bool){
@@ -262,93 +259,30 @@ class InternetSpeedTestController: InterfaceExtendedController {
             self.warningType = .none
             self.shownoInternetConnection()
             return
-                //Return with the Error View of No InternetConnection
-                
-                Log.echo(key: "yud", text: "Yes I know internet is down")
-//            DispatchQueue.main.async {
-//
-//                self.dismiss(animated: false, completion: {
-//
-//                    let alert = UIAlertController(title: "Chatalyze", message: "Your internet connection is down", preferredStyle: UIAlertController.Style.alert)
-//
-//                    alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
-//
-//                    }))
-//
-//                    RootControllerManager().getCurrentController()?.present(alert, animated: false) {
-//                    }
-//                })
-//            }
-            return
         }
         
         self.speedLbl?.text = "Checking your system. This will just take a moment."
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
-            var speedMb = (speed ?? 0.0) * 8;
+            let speedMb = (speed ?? 0.0) * 8
+            Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
             DispatchQueue.main.async {
-                //self.loaderImage?.isHidden = true
+                
                 self.stopLoader()
                 if error == nil{
-                    if speed != nil{
-                        
-                        let speedStr = String(format: "%.2f", speed ?? 0.0)
-                        
+                    
                         //if (speed ?? 0.0) < 0.1875 {
                         //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
-                        if (speed ?? 0.0) < 0.13 {
+                        if (speedMb) < 1.5 {
                             
                             self.errorType = .SlowInternetError
                             self.warningType = .none
                             self.showSlowInternetError()
                             return
-                                
-                                //showSlowInternetError()
-                                //self.speedLbl?.textColor = UIColor.red
-                            
-                            //self.speedLbl?.text  =   "Fail"
-                            
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                                self.dismissAction()
-//                            }
-                            return
                         }
-                      //  else if (speed ?? 0.0) >= 0.1875 && (speed ?? 0.0) <= 0.25{
 
-                            
-                            /*Dropping this condition as it does not exist in the web.
-                            
-                            
-                        else if (speed ?? 0.0) >= 0.1 && (speed ?? 0.0) <= 0.3{
-                            
-                            self.errorType = .none
-                            self.warningType = .InternetAverage
-                            
-                            if self.isVersionWarningExists(){
-                                
-                                self.warningType = .versionOutdatedWithInternetAverage
-                                self.showWarning(warningType:self.warningType)
-                                return
-                            }
-                            
-                            self.showWarning(warningType:self.warningType)
-                            return
-                                
-                                //showSlowInternetError()
-                                //showWarning() of averageInternet
-
-                                //self.speedLbl?.textColor = UIColor.red
-                                //self.speedLbl?.text = "Fail"
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                                self.dismissAction()
-//                            }
-                            return
-                        }
- 
- 
- */
                         if self.isVersionWarningExists(){
                             
                             self.errorType = .none
@@ -358,26 +292,18 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         }
                         
                         //Check for outdated warning Too.
-                        
+                    
                         self.speedLbl?.text = "Success"
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.cameraTest(sender: nil)
                         }
                         return
-                    }
-                    
                 }else{
                     
                     self.errorType = .SlowInternetError
                     self.warningType = .none
                     self.showSlowInternetError()
                     return
-                    
-//                    self.speedLbl?.text = "Fail"
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self.dismissAction()
-//                    }
-//                    return
                 }
             }
         }
