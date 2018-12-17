@@ -13,6 +13,8 @@ class MediaPermissionAccess{
     private var controller : InterfaceExtendedController
     private var callback : ((_ success : Bool)->())?
     
+    private var separateCallBack:((_ cameraPermission:Bool,_ micPermission:Bool)->())?
+    
     init(controller : InterfaceExtendedController){
         self.controller = controller
     }
@@ -30,11 +32,28 @@ class MediaPermissionAccess{
             self.alertToProvideMediaAccess(callback : {
                  self.invokeCallback(success : success)
             })
-           
         }
-       
     }
     
+    func verifyMediaAccess(callback:((_ cameraPermission:Bool,_ micPermission:Bool)->())?){
+    
+   
+        Log.echo(key : "rotate", text : "verifyMediaAccess")
+        self.separateCallBack = callback
+        checkForMediaAccess { (cameraPermission,micPermission) in
+        self.separateCallBack?(cameraPermission,micPermission)
+
+        //    if(success){
+        //    self.invokeCallback(success : success)
+        //    return
+        //    }
+        //    self.alertToProvideMediaAccess(callback : {
+        //    self.invokeCallback(success : success)
+        //    })
+        
+        }
+    
+    }
     private func checkForMediaAccess(callback : ((_ success : Bool)->())?){
         
         Log.echo(key : "rotate", text : "checkForMediaAccess")
@@ -51,6 +70,27 @@ class MediaPermissionAccess{
             })
         }
     }
+    
+    private func checkForMediaAccess(callback : ((_ cameraPermission:Bool,_ micPermission:Bool)->())?){
+        
+        Log.echo(key : "rotate", text : "checkForMediaAccess")
+        checkForCameraAccess { (cameraAccess) in
+            Log.echo(key : "rotate", text : "checkForCameraAccess response")
+            self.checkforMicrophoneAccess(callback: { (microphoneAccess) in
+                Log.echo(key : "rotate", text : "check for Microphone Access response")
+                
+                callback?(cameraAccess,microphoneAccess)
+
+                //                if(cameraAccess && microphoneAccess){
+                //                    callback?(true)
+                //                    return
+                //                }
+                //                callback?(false)
+                //                return
+            })
+        }
+    }
+    
     
     private func checkForCameraAccess(callback : ((_ success : Bool)->())?){
         

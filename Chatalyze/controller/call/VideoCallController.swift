@@ -14,6 +14,15 @@ import SwiftyJSON
 
 class VideoCallController : InterfaceExtendedController {
     
+    enum permissionsCheck:Int{
+        
+        case micPermission = 0
+        case cameraPermission = 1
+        case slowInternet  = 2
+        case noInternet = 3
+        case none = 4
+    }
+    
     enum exitCode {
         
         case userAction
@@ -22,6 +31,10 @@ class VideoCallController : InterfaceExtendedController {
         case mediaAccess
         case undefined
     }
+    
+    //Required Permission
+    var requiredPermission:permissionsCheck?
+    
     
     //Implementing the eventDeleteListener
     var eventDeleteListener = EventDeletedListener()
@@ -95,6 +108,7 @@ class VideoCallController : InterfaceExtendedController {
             
             if self.eventId == deletedEventID{
                 self.exitAction()
+            
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
@@ -297,17 +311,90 @@ class VideoCallController : InterfaceExtendedController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
+    private func checkForInternet(){
+        
+        if !(InternetReachabilityCheck().isInternetAvailable()){
+            
+            self.requiredPermission = VideoCallController.permissionsCheck.noInternet
+            return
+        }
+       
+        self.showLoader()
+        CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
+            
+            let speedMb = (speed ?? 0.0) * 8
+            Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
+            
+                self.stopLoader()
+                if error == nil{
+                    
+                    //if (speed ?? 0.0) < 0.1875 {
+                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                    
+                    if (speedMb) < 1.5 {
+                       
+                        self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
+                        return
+                    }
+                    self.requiredPermission = VideoCallController.permissionsCheck.none
+                    return
+            }
+        }
+    }
+    
+    
+    private func showMediaAlert(alert:permissionsCheck?){
+        
+        guard let controller = MediaAlertController.instance() else {
+            return
+        }
+        controller.alert = requiredPermission ?? VideoCallController.permissionsCheck.none
+        
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(controller, animated: true, completion: {
+        })
+        
+    }
+    
     private func processPermission(){
         
         let accessManager = MediaPermissionAccess(controller: self)
         self.accessManager = accessManager
-        accessManager.verifyMediaAccess { (success) in
-            if(!success){
-                self.processExitAction(code : .mediaAccess)
+        
+        accessManager.verifyMediaAccess { (cameraAccess, micAccess) in
+            
+            if !cameraAccess{
+                
+                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission
+                self.showMediaAlert(alert:self.requiredPermission)
                 return
             }
+            
+            if !micAccess{
+                
+                self.requiredPermission = VideoCallController.permissionsCheck.micPermission
+                self.showMediaAlert(alert:self.requiredPermission)
+                return
+            }
+            
             self.initialization()
+            
+            //self.checkForInternet()
+            Log.echo(key: "yud", text: "Access Manager permission for camera is  \(cameraAccess) and for mic Access is \(micAccess)")
         }
+        
+//        accessManager.verifyMediaAccess { (success) in
+//
+//            if(!success){
+//                self.processExitAction(code : .mediaAccess)
+//                return
+//            }
+//            self.initialization()
+//
+//        }
     }
     
     var isActivated : Bool{

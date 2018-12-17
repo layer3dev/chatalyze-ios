@@ -50,6 +50,7 @@ class HandlingAppVersion:NSObject {
             guard let controller = ObsoleteAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the Obsolete version
@@ -70,6 +71,7 @@ class HandlingAppVersion:NSObject {
             guard let controller = DeprecationAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the Deprecated Version
@@ -90,6 +92,7 @@ class HandlingAppVersion:NSObject {
             guard let controller = UpdateAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the not latest Version
