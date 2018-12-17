@@ -44,6 +44,8 @@ class EditProfileRootview: ExtendedView {
  
     override func viewDidLayout() {
         super.viewDidLayout()
+      
+        paintInterface()
     }
     
     func initializeThroughController(){
@@ -52,7 +54,6 @@ class EditProfileRootview: ExtendedView {
         implementTapGestuePicker()
         initializeVariable()
         //fillInfo()
-        paintInterface()
         initializeImageCropper()
     }
     

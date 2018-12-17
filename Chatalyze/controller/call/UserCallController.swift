@@ -14,6 +14,7 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     
+    
     //variable and outlet responsible for the SelfieTimer
     
     var isSelfieTimerInitiated = false
@@ -88,6 +89,7 @@ class UserCallController: VideoCallController {
         processAutograph()
         updateLableAnimation()
     }
+    
     
     override func updateStatusMessage(){
         super.updateStatusMessage()
@@ -735,33 +737,9 @@ class UserCallController: VideoCallController {
                 return
         }
         
-//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
-        
-        if true {
-        
-            if self.presentedViewController != nil{
-                self.dismiss(animated: true) {
-                    
-                    guard let controller = EventDelayController.instance() else{
-                        return
-                    }
-                    controller.alert = EventDelayController.alertType.sessionNotStarted
-                    
-                    self.present(controller, animated: true, completion: {
-                    })
-                }
-                return
-            }
-            
-            
-            guard let controller = EventDelayController.instance() else{
-                return
-            }
-            
-            controller.alert = EventDelayController.alertType.sessionNotStarted
-            
-            self.present(controller, animated: true, completion: {
-            })
+        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
+          
+            setStatusMessage(type: .eventNotStarted)
             return
             // statusLbl?.text = "Session has not started yet."
         }
@@ -769,38 +747,16 @@ class UserCallController: VideoCallController {
         
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
             
-            if self.presentedViewController != nil{
-                self.dismiss(animated: true) {
-                    
-                    guard let controller = EventDelayController.instance() else{
-                        return
-                    }
-                    controller.alert = EventDelayController.alertType.sessionDelay
-                    
-                    self.present(controller, animated: true, completion: {
-                    })
-                }
-                return
-            }
-            
-            
-            guard let controller = EventDelayController.instance() else{
-                return
-            }
-            controller.alert = EventDelayController.alertType.sessionDelay
-            self.present(controller, animated: true, completion: {
-            })
+            setStatusMessage(type: .eventDelay)
             return
             // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
         }
         
         
+        
         if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
      
-            if self.presentedViewController != nil {
-                self.dismiss(animated: true) {
-                }
-            }
+            //loadInfo(completion: <#T##((Bool, EventScheduleInfo?) -> ())?##((Bool, EventScheduleInfo?) -> ())?##(Bool, EventScheduleInfo?) -> ()#>)
             //Event has updated
         }
     }

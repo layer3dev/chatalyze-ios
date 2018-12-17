@@ -25,6 +25,7 @@ class UpdateEventListener{
     func initializeListener(){
         
         UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
+           
             if(data.count <= 0){
                 return
             }
@@ -34,6 +35,11 @@ class UpdateEventListener{
             }
             
             self?.processNotificationForNewSlot(info: info)
+        })
+        
+        UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: { (data, emit) in
+            
+            self.listener?()
         })
     }
     
@@ -69,13 +75,9 @@ class UpdateEventListener{
         
         Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
-        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .analystJoined){
-            
+        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .analystJoined || activityType == .eventDelay){
             return
         }
-        
-        
-        
         listener?()
     }
 }
