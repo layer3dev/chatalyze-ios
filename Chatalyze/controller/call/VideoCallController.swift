@@ -104,8 +104,26 @@ class VideoCallController : InterfaceExtendedController {
         
         updatedEventScheduleListner.setListener {
            
-            self.fetchInfo(showLoader: false, completion: { (success) in
-            })
+            self.loadActivatedInfo {[weak self] (isActivated, info) in
+
+                Log.echo(key: "delay", text: "info received -> \(String(describing: info?.title))")
+                
+                guard let info = info
+                    else{
+                        return
+                }
+                
+                self?.processEventInfo(info: info)
+                self?.eventInfo = info
+                
+                self?.processEventInfo()
+                
+                Log.echo(key: "delay", text: "processed")
+                
+                if(isActivated){
+                    Log.echo(key: "delay", text: "event is activated")
+                }
+            }
         }
     }
     
@@ -194,9 +212,11 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         if(localMediaPackage.muteVideo){
+           
             localMediaPackage.muteVideo = false
             actionContainer?.videoView?.unmute()
         }else{
+           
             localMediaPackage.muteVideo = true
             actionContainer?.videoView?.mute()
         }
@@ -219,6 +239,7 @@ class VideoCallController : InterfaceExtendedController {
     func exit(code : exitCode){
         
         self.dismiss(animated: false) {[weak self] in
+            
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : code)
         }
@@ -226,7 +247,6 @@ class VideoCallController : InterfaceExtendedController {
     
     //This will be called after viewController is exited from the screen
     func onExit(code : exitCode){
-        
     }
     
     func showErrorScreen(){
@@ -249,7 +269,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func showFeedbackScreen(){
         
-        guard let presentingController =  self.lastPresentingController
+        guard let presentingController = self.lastPresentingController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
@@ -259,13 +279,12 @@ class VideoCallController : InterfaceExtendedController {
         }
         controller.eventInfo = eventInfo
         controller.dismissListner = {[weak self] in
+            
             self?.feedbackListener?(self?.eventInfo)
         }
         presentingController.present(controller, animated: false, completion:{
         })
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -292,6 +311,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     var isActivated : Bool{
+       
         guard let eventInfo = eventInfo
             else{
                 return false
@@ -325,9 +345,10 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.processEventInfo(info: info)
             self?.eventInfo = info
-            
-            Log.echo(key: "delay", text: "processed")
+           
             self?.processEventInfo()
+            Log.echo(key: "delay", text: "processed")
+            
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
             }
@@ -516,7 +537,6 @@ class VideoCallController : InterfaceExtendedController {
         
         eventSlotListener.setListener {
             self.fetchInfo(showLoader: false, completion: { (success) in
-                
             })
         }
     
@@ -531,6 +551,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func executeInterval(){
+        
         if(!isActivated){
             return
         }
@@ -538,6 +559,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func interval(){
+        
         updateStatusMessage()
     }
     
@@ -556,6 +578,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     var roomId : String?{
+        
         get{
             return self.eventInfo?.roomId
         }
@@ -585,6 +608,7 @@ class VideoCallController : InterfaceExtendedController {
    
     //to be overridden by child classes
     var isSlotRunning:Bool{
+        
         return false
     }
     
@@ -606,6 +630,7 @@ extension VideoCallController{
     }
     
     func acceptCallUpdate(){
+        
         self.rootView?.switchToCallAccept()
     }
 
@@ -641,9 +666,10 @@ extension VideoCallController{
                     return
             }
             
+            Log.echo(key: "yud", text: "The fetched the call result is success")
+            
             localEventInfo = self.transerState(info: localEventInfo)
             completion?(true, localEventInfo)
-            
             return
         }
     }
@@ -658,8 +684,6 @@ extension VideoCallController{
         loadInfo {[unowned self] (success, info) in
             
             self.eventInfo = info
-                
-                
             completion?(true)
             return
         }
@@ -754,7 +778,7 @@ extension VideoCallController{
         
         socketListener?.onEvent("multipleTabRequest", completion: { (json) in
             
-            Log.echo(key : "socket_client", text : "Multiplexing Error: \(json)")
+            Log.echo(key : "socket_client", text : "Multiplexing Error: \(String(describing: json))")
             
             if let dataDict = json?.dictionary{
                 if let str = dataDict["id"]?.string{
@@ -932,8 +956,6 @@ extension VideoCallController{
             return
         }
         
-
-        
         
 //        if type == .preConnectedSuccess{
 //
@@ -945,6 +967,7 @@ extension VideoCallController{
 //
 //            return
 //        }
+        
         
         if type == .connected {
             
