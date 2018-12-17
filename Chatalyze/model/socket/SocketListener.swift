@@ -154,12 +154,15 @@ class SocketListener : NSObject{
             else{
                 return
         }
+        
         Log.echo(key: "socket_client", text: "the the world that you are connected now")
         for (connectionCounter,callback) in  newConnectionCallbackList {
             Log.echo(key: "socket", text: "Hey i'm connected")
             let isConnected = socketClient.isSocketConnected
             callback(isConnected)
-            newConnectionCallbackList[connectionCounter] = nil
+            
+            //don't nullify listeners till released
+            //newConnectionCallbackList[connectionCounter] = nil
         }
     }
     

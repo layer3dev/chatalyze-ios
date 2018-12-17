@@ -26,7 +26,11 @@ class CallConnection: NSObject {
     var connectionStateListener : CallConnectionProtocol?
     
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
+    //This is used for re-connect purposes as well
     var isConnected : Bool = false
+    
+    //isStreaming is different from isConnected.
+    //This is used for tracking, if selfie-screenshot process can be initiated or not. Not used for re-connect purposes.
     var isStreaming : Bool = false
     
     //flag to see, if this connection is aborted and replaced by another connection
@@ -149,6 +153,7 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
+        
         if(state == .connected){
             self.controller?.acceptCallUpdate()
             isConnected = true
@@ -159,7 +164,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         if(state == .disconnected){
-            resetRemoteFrame()
+//            resetRemoteFrame()
             isStreaming = false
         }
         
@@ -241,6 +246,8 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)
+//        self.remoteTrack?.videoTrack?.source.
+        
         
         self.remoteTrack?.audioTrack?.isEnabled = true
         
@@ -257,11 +264,13 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     
+    
     private func resetRemoteFrame(){
         
         if(isAborted){
             return
         }
+        
         if(!isLinked){
             return
         }
