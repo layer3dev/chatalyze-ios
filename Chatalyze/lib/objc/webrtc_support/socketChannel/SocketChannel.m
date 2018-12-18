@@ -21,6 +21,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 @implementation SocketChannel{
     SocketClient *socketClient;
     SocketListener *socketListener;
+    CallLogger *callLogger;
     // TODO(tkchin): move these to a configuration object.
 }
 
@@ -38,6 +39,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 -(void)initialize{
     socketClient = [SocketClient sharedInstance];
     socketListener = [socketClient createListener];
+    callLogger = [[CallLogger alloc] initWithSessionId:self.eventId targetUserId:self.receiverId];
 }
 
 
@@ -92,12 +94,15 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 -(void)emitAnswer:(RTCSessionDescription *)sdp{
+    [callLogger logSdpWithType:@"answer" sdp:[sdp JSONDictionary]];
     [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
 }
 
 
 -(void)emitOffer:(RTCSessionDescription *)sdp{
+    [callLogger logSdpWithType:@"offer" sdp:[sdp JSONDictionary]];
     [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
+    
 }
 
 -(void)emitSDPWithAction:(NSString *)action andSDP:(RTCSessionDescription *)sdp{
@@ -114,7 +119,10 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 -(void)emitCandidate:(RTCIceCandidate *)candidate{
+    
+    
     NSDictionary *candidateInfo = [candidate JSONDictionary];
+    [callLogger logCandidateWithCandidate:candidateInfo];
     
     NSMutableDictionary *data = [NSMutableDictionary new];
     
@@ -122,7 +130,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     data[[self selfDesignation]] = self.userId;
     data[[self targetDesignation]] = self.receiverId;
     data[@"candidate"] = candidateInfo;
-    
     
     [self sendMessageWithAction:@"sendIceCandidate" andData:data];
 }

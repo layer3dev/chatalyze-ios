@@ -13,6 +13,9 @@
 @interface SocketChannel : NSObject
 @property(nonatomic, strong) NSString *userId;
 @property(nonatomic, strong) NSString *receiverId;
+
+@property(nonatomic, strong) NSString *eventId;
+
 @property(nonatomic, strong) NSString *roomId;
 @property(nonatomic, strong) id<SocketChannelListenerProtocol> listener;
 
