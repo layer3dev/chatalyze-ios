@@ -9,9 +9,6 @@
 import UIKit
 import Foundation
 import UserNotifications
-import GoogleSignIn
-//import Stripe
-import TwitterKit
 import FBSDKLoginKit
 import SwiftyJSON
 
@@ -30,19 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         test()
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
-        initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
         return true
     }
     
-    func initializeTwitterKit(){
-        
-        TWTRTwitter.sharedInstance().start(withConsumerKey: "N7JqWt4Sdhh8v7v2YoSsnFvCA", consumerSecret: "x1qgm8gLfTQpiWTtkwBJ6XQ2tXAs6yB9katZpguYG1LLQuhkRt")
-    }
+    
     
     fileprivate func test(){
         
         TimerSync.sharedInstance
+        
+        Log.echo(key : "hardware", text : "\(UIDevice.current)")
     }
     
     fileprivate func disableAppToSwitchIntoSleepMode(){
@@ -198,7 +193,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
         // (app, open: url, options: options)
-        return (GIDSignIn.sharedInstance().handle(url as URL?, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) || TWTRTwitter.sharedInstance().application(app,open:url,options:options)) || FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
+        return FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }
 

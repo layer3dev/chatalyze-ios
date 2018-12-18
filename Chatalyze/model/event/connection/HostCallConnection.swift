@@ -33,6 +33,19 @@ class HostCallConnection: CallConnection {
         }
     }
     
+    
+    //overridden
+    override var targetUserId : String?{
+        
+        get{
+            guard let userId = self.slotInfo?.user?.id
+                else{
+                    return nil
+            }
+            return userId
+        }
+    }
+    
     override func getWriteConnection() ->ARDAppClient?{
         guard let slotInfo = slotInfo
             else{
@@ -54,7 +67,7 @@ class HostCallConnection: CallConnection {
                 return nil
         }
         
-        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andRoomId : roomId, andDelegate:self, andLocalStream:self.localMediaPackage)
+        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andEventId : eventId, andDelegate:self, andLocalStream:self.localMediaPackage)
         
         return connection
         

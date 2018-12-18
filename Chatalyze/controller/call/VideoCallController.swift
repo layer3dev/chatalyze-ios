@@ -43,6 +43,8 @@ class VideoCallController : InterfaceExtendedController {
     
     private var accessManager : MediaPermissionAccess?
     
+    private var callLogger : CallLogger?
+    
     private var localTrack : RTCVideoTrack?
     
     //used for tracking the call time and auto-connect process
@@ -326,6 +328,7 @@ class VideoCallController : InterfaceExtendedController {
             
             Log.echo(key: "delay", text: "processed")
             self?.processEventInfo()
+            self?.updateToReadyState()
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
             }
@@ -389,8 +392,11 @@ class VideoCallController : InterfaceExtendedController {
         socketClient?.emit("disconnect", data)
     }
     
-    func registerForListeners(){
-
+    private func updateToReadyState(){
+        callLogger?.logSocketConnectionState()
+        callLogger?.logDeviceInfo()
+        
+        
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
             if(self?.socketClient == nil){
                 return
@@ -408,6 +414,9 @@ class VideoCallController : InterfaceExtendedController {
             param["data"] = data
             self?.socketClient?.emit(param)
         })
+    }
+    
+    func registerForListeners(){
         
         rootView?.hangupListener(listener: {
             
@@ -420,6 +429,7 @@ class VideoCallController : InterfaceExtendedController {
             if(self?.socketClient == nil){
                 return
             }
+            self?.callLogger?.logUpdatePeerList(rawInfo: json)
             self?.processUpdatePeerList(json: json)
         })
     }
@@ -497,6 +507,7 @@ class VideoCallController : InterfaceExtendedController {
     //isolated from eventInfo
     private func initializeVariable(){
         
+        callLogger = CallLogger(sessionId: eventId)
         appDelegate?.allowRotate = true
         lastPresentingController = self.presentingViewController
         

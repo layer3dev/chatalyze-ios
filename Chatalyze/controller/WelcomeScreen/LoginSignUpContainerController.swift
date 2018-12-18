@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import GoogleSignIn
-import TwitterKit
 
 
 class LoginSignUpContainerController: InterfaceExtendedController {
@@ -16,7 +14,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     var pageController:WelcomePageController?
     @IBOutlet var signInTab:LoginSignUpTabView?
     @IBOutlet var signUpTab:LoginSignUpTabView?
-    var googleSignInAction:(()->())?
     static var roleId = 0
     
     override func viewDidLayout() {
@@ -90,16 +87,10 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         })
     }
     
-    func setGoogleSignInAction(){
-     
-        //initializing Action in order to get the Google Sign in Action
-        googleSignIn()
-    }
+    
     
     func initializeVariable(){
         
-        initializeGoogleSignIn()
-        setGoogleSignInAction()
         
         signInTab?.tabAction(action: { (tab) in
            
@@ -129,25 +120,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     }
     
     
-    func googleSignIn(){
-        
-        self.pageController?.signinController?.googleSignInAction = {
-            
-            self.showWelcomeScreen(response: {
-                GIDSignIn.sharedInstance()?.signOut()
-                GIDSignIn.sharedInstance().signIn()
-            })
-        }
-        
-        
-        self.pageController?.signUpController?.googleSignInAction = {
-            
-            self.showWelcomeScreen(response: {
-                GIDSignIn.sharedInstance()?.signOut()
-                GIDSignIn.sharedInstance().signIn()
-            })
-        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -180,78 +152,6 @@ extension LoginSignUpContainerController{
     }
 }
 
-extension LoginSignUpContainerController: GIDSignInDelegate, GIDSignInUIDelegate{
-    
-    fileprivate func initializeGoogleSignIn(){
-        
-       
-        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance()?.serverClientID = "1084817921581-qihsa275kmr3s4g4qn5rclm9294h86ns.apps.googleusercontent.com"
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        
-        if (error == nil) {
-            
-            // Perform any operations on signed in user here.
-        
-            let userId = user.userID                  // For client-side use only!
-            let idToken = user.serverAuthCode
-            // Safe to send to the
-            //server
-            let idTokenAuth = user.authentication.accessToken
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-            
-            print(userId)
-            print(idToken)
-            print(idTokenAuth)
-            print(fullName)
-            print(givenName)
-            print(familyName)
-            print(email)
-            
-           // loginWithGoogle(data:user)
-            guard let token = idTokenAuth else{
-                return
-            }
-            googleSignProcessor(accessToken:token)
-            GIDSignIn.sharedInstance().signOut()
-            // ...
-        } else {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        
-        self.present(viewController, animated: true) {
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        
-        self.dismiss(animated: true) {
 
-            GIDSignIn.sharedInstance().signOut()
-        }
-    }    
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-    }
-    
-    func googleSignProcessor(accessToken:String){
-        
-        GoogleSignIn().signin(accessToken: accessToken) { (success, message, info) in
-            
-            Log.echo(key: "yud", text: "response")
-        }
-    }
-}
 
 
