@@ -1,49 +1,20 @@
 PODS:
   - CropViewController (2.3.8)
-  - GoogleSignIn (4.3.0):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
-    - GTMOAuth2 (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.4):
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-  - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
-    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
-    - GoogleToolboxForMac/Defines (= 2.1.4)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+  - DeviceKit (1.10.0)
   - GoogleWebRTC (1.1.25651)
-  - GTMOAuth2 (1.1.6):
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.2.0):
-    - GTMSessionFetcher/Full (= 1.2.0)
-  - GTMSessionFetcher/Core (1.2.0)
-  - GTMSessionFetcher/Full (1.2.0):
-    - GTMSessionFetcher/Core (= 1.2.0)
   - JTAppleCalendar (7.1.6)
-  - TwitterCore (3.1.0)
-  - TwitterKit (3.4.0):
-    - TwitterCore (>= 3.1.0)
 
 DEPENDENCIES:
   - CropViewController (from `https://github.com/TimOliver/TOCropViewController.git`)
-  - GoogleSignIn
-  - GoogleWebRTC
+  - DeviceKit (~> 1.3)
+  - GoogleWebRTC (= 1.1.25651)
   - JTAppleCalendar
-  - TwitterCore (= 3.1.0)
-  - TwitterKit (= 3.4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - GoogleSignIn
-    - GoogleToolboxForMac
+    - DeviceKit
     - GoogleWebRTC
-    - GTMOAuth2
-    - GTMSessionFetcher
     - JTAppleCalendar
-    - TwitterCore
-    - TwitterKit
 
 EXTERNAL SOURCES:
   CropViewController:
@@ -56,15 +27,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CropViewController: 624c1bc26845ac782f17c9765061f50088471cdc
-  GoogleSignIn: 11183592dc63e105475c7305a325045ff95e02b7
-  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  DeviceKit: 2a6cf0d1ec05e2ac7f9b24cdfdb3cb358900a247
   GoogleWebRTC: ba7b063ececfa10584748ef09acadb888daf06bb
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
-  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
-  TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
-  TwitterKit: bc7bd086b9b724a1d888745a054e1d0b1ecc4f3f
 
-PODFILE CHECKSUM: 17bca630ab22f3b5d48ed13fc6ceb651075bc093
+PODFILE CHECKSUM: b56827537ee0088514c5c584680d6d91c8fb6506
 
 COCOAPODS: 1.5.3

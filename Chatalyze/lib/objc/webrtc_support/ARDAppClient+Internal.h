@@ -38,7 +38,7 @@
 @property(nonatomic, assign) BOOL hasReceivedSdp;
 @property(nonatomic, readonly) BOOL hasJoinedRoomServerRoom;
 
-@property(nonatomic, strong) NSString *roomId;
+@property(nonatomic, strong) NSString *eventId;
 @property(nonatomic, strong) NSString *clientId;
 @property(nonatomic, assign) BOOL isInitiator;
 @property(nonatomic, strong) NSMutableArray *iceServers;
