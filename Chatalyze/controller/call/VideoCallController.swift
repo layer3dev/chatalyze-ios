@@ -75,7 +75,7 @@ class VideoCallController : InterfaceExtendedController {
     var isProhibited = false
     
     weak var lastPresentingController : UIViewController?
-
+    
     @IBOutlet var chatalyzeLogo:UIImageView?
     @IBOutlet var preConnectLbl:UILabel?
     
@@ -91,10 +91,10 @@ class VideoCallController : InterfaceExtendedController {
         super.viewDidLoad()
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-       
+            
             self.fontSizeBig = 24
         }else{
-          
+            
             self.fontSizeBig = 22
         }
         initializeListenrs()
@@ -108,7 +108,7 @@ class VideoCallController : InterfaceExtendedController {
             
             if self.eventId == deletedEventID{
                 self.exitAction()
-            
+                
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
@@ -117,9 +117,9 @@ class VideoCallController : InterfaceExtendedController {
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
-           
+            
             self.loadActivatedInfo {[weak self] (isActivated, info) in
-
+                
                 Log.echo(key: "delay", text: "info received -> \(String(describing: info?.title))")
                 
                 guard let info = info
@@ -197,8 +197,8 @@ class VideoCallController : InterfaceExtendedController {
     @IBAction private func audioMuteAction(){
         
         guard let localMediaPackage = self.localMediaPackage
-        else{
-            return
+            else{
+                return
         }
         
         if(localMediaPackage.isDisabled){
@@ -226,11 +226,11 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         if(localMediaPackage.muteVideo){
-           
+            
             localMediaPackage.muteVideo = false
             actionContainer?.videoView?.unmute()
         }else{
-           
+            
             localMediaPackage.muteVideo = true
             actionContainer?.videoView?.mute()
         }
@@ -302,7 +302,7 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
         //multipleVideoTabListner()
     }
     
@@ -319,28 +319,30 @@ class VideoCallController : InterfaceExtendedController {
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
             self.requiredPermission = VideoCallController.permissionsCheck.noInternet
+            self.showMediaAlert(alert:self.requiredPermission)
             return
         }
-       
+        
         self.showLoader()
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
             let speedMb = (speed ?? 0.0) * 8
             Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
             
-                self.stopLoader()
-                if error == nil{
+            self.stopLoader()
+            if error == nil{
+                
+                //if (speed ?? 0.0) < 0.1875 {
+                //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                
+                if (speedMb) < 1.5 {
                     
-                    //if (speed ?? 0.0) < 0.1875 {
-                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
-                    
-                    if (speedMb) < 1.5 {
-                       
-                        self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
-                        return
-                    }
-                    self.requiredPermission = VideoCallController.permissionsCheck.none
+                    self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
+                    self.showMediaAlert(alert:self.requiredPermission)
                     return
+                }
+                self.requiredPermission = VideoCallController.permissionsCheck.none
+                return
             }
         }
     }
@@ -348,15 +350,19 @@ class VideoCallController : InterfaceExtendedController {
     
     private func showMediaAlert(alert:permissionsCheck?){
         
-        guard let controller = MediaAlertController.instance() else {
-            return
-        }
-        controller.alert = requiredPermission ?? VideoCallController.permissionsCheck.none
-        
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.present(controller, animated: true, completion: {
-        })
-        
+        DispatchQueue.main.async {
+           
+            guard let controller = MediaAlertController.instance() else {
+                return
+            }
+            
+            controller.alert = self.requiredPermission ?? VideoCallController.permissionsCheck.none
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            
+            self.present(controller, animated: true, completion: {
+            })
+        }        
     }
     
     private func processPermission(){
@@ -381,24 +387,23 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self.initialization()
-            
-            //self.checkForInternet()
-            Log.echo(key: "yud", text: "Access Manager permission for camera is  \(cameraAccess) and for mic Access is \(micAccess)")
+            self.checkForInternet()
+            Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
         }
         
-//        accessManager.verifyMediaAccess { (success) in
-//
-//            if(!success){
-//                self.processExitAction(code : .mediaAccess)
-//                return
-//            }
-//            self.initialization()
-//
-//        }
+        //        accessManager.verifyMediaAccess { (success) in
+        //
+        //            if(!success){
+        //                self.processExitAction(code : .mediaAccess)
+        //                return
+        //            }
+        //            self.initialization()
+        //
+        //        }
     }
     
     var isActivated : Bool{
-       
+        
         guard let eventInfo = eventInfo
             else{
                 return false
@@ -410,9 +415,9 @@ class VideoCallController : InterfaceExtendedController {
         return true
     }
     
-
+    
     //overridden
-     func initialization(){
+    func initialization(){
         
         Log.echo(key : "test", text : "who dared to initialize me ??")
         initializeVariable()
@@ -432,7 +437,7 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.processEventInfo(info: info)
             self?.eventInfo = info
-           
+            
             self?.processEventInfo()
             Log.echo(key: "delay", text: "processed")
             
@@ -483,15 +488,15 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func updateUserOfExit(){
-       
+        
         guard let userId = SignedUserInfo.sharedInstance?.id
             else{
                 return
         }
         /*guard let targetId = self.slotInfo?.user?.hashedId
-            else{
-                return
-        }*/
+         else{
+         return
+         }*/
         
         var data = [String : Any]()
         data["userId"] = userId
@@ -500,7 +505,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func registerForListeners(){
-
+        
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
             if(self?.socketClient == nil){
                 return
@@ -579,7 +584,7 @@ class VideoCallController : InterfaceExtendedController {
         }
         return false
     }
-
+    
     func switchToCallAccept(){
         self.rootView?.confirmViewLoad(listener: {
             self.rootView?.switchToCallAccept()
@@ -626,7 +631,7 @@ class VideoCallController : InterfaceExtendedController {
             self.fetchInfo(showLoader: false, completion: { (success) in
             })
         }
-    
+        
     }
     
     private func startTimer(){
@@ -657,8 +662,9 @@ class VideoCallController : InterfaceExtendedController {
     private func acceptCall(){
         
         socketListener?.confirmConnect(completion: { [weak self] (success) in
-           
+            
             if(success){
+                
                 //self?.startAcceptCall()
             }
         })
@@ -692,7 +698,7 @@ class VideoCallController : InterfaceExtendedController {
     var isVideoCallInProgress : Bool{
         return false
     }
-   
+    
     //to be overridden by child classes
     var isSlotRunning:Bool{
         
@@ -701,7 +707,6 @@ class VideoCallController : InterfaceExtendedController {
     
     //To be overridden
     func checkForDelaySupport(){
-        
     }
 }
 
@@ -720,7 +725,7 @@ extension VideoCallController{
         
         self.rootView?.switchToCallAccept()
     }
-
+    
 }
 
 
@@ -728,7 +733,7 @@ extension VideoCallController{
 extension VideoCallController{
     
     func fetchInfoAfterActivatingEvent(){
- 
+        
         self.fetchInfo(showLoader: false, completion: { (success) in
         })
     }
@@ -763,7 +768,7 @@ extension VideoCallController{
     
     
     fileprivate func fetchInfo(showLoader : Bool, completion : ((_ success : Bool)->())?){
-   
+        
         if(showLoader){
             self.showLoader()
         }
@@ -776,7 +781,7 @@ extension VideoCallController{
         }
     }
     
-
+    
     func transerState(info : EventScheduleInfo)->EventScheduleInfo{
         
         let localEventInfo = info
@@ -804,8 +809,8 @@ extension VideoCallController{
         localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
             guard let localCapturer = capturer
-            else{
-                return
+                else{
+                    return
             }
             
             guard let localView = self?.rootView?.localVideoView
@@ -813,14 +818,14 @@ extension VideoCallController{
                     return
             }
             
-             let captureSession = localCapturer.captureSession
-//             localView.captureSession = captureSession
+            let captureSession = localCapturer.captureSession
+            //             localView.captureSession = captureSession
             
             
-             let settingsModel = ARDSettingsModel()
-             settingsModel.storeVideoResolutionSetting("1280x720")
-             self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-             self?.captureController?.startCapture()
+            let settingsModel = ARDSettingsModel()
+            settingsModel.storeVideoResolutionSetting("1280x720")
+            self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
+            self?.captureController?.startCapture()
         }
         
         guard let localView = rootView?.localVideoView
@@ -841,16 +846,16 @@ extension VideoCallController{
 }
 
 extension VideoCallController{
-
+    
     func mimicScreenShotFlash(){
         
         let flashView = UIView(frame: self.view.frame)
         flashView.backgroundColor = UIColor.white
         self.view.addSubview(flashView)
         self.view.layoutIfNeeded()
-
+        
         UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions.curveEaseInOut, animations: {() -> Void in
-           
+            
             flashView.alpha = 0.0
         }, completion: { (done) -> Void in
             
@@ -860,7 +865,7 @@ extension VideoCallController{
 }
 
 extension VideoCallController{
-   
+    
     func multipleVideoTabListner(){
         
         socketListener?.onEvent("multipleTabRequest", completion: { (json) in
@@ -880,9 +885,9 @@ extension VideoCallController{
 }
 
 extension VideoCallController{
-
+    
     func startLableAnimating(label:UILabel?){
-
+        
         guard let lable = label else{
             return
         }
@@ -891,49 +896,49 @@ extension VideoCallController{
         self.label.textColor = UIColor.red
         enlarge()
     }
-
+    
     func stopLableAnimation(){
-
+        
         shrink()
         self.label.textColor = UIColor.white
         self.isAnimate = false
     }
-
+    
     private func enlarge(){
-
+        
         if !isAnimate{
             return
         }
-
+        
         var biggerBounds = label.bounds
         label.font = label.font.withSize(fontSizeBig)
         biggerBounds.size = label.intrinsicContentSize
         label.transform = scaleTransform(from: biggerBounds.size, to: label.bounds.size)
         label.bounds = biggerBounds
-       
+        
         UIView.animate(withDuration: duration, animations: {
-
+            
             self.label.transform = .identity
         }) { (success) in
             self.shrink()
         }
         animateColorLable(label:self.label,color:.red)
     }
-
+    
     private func shrink(){
-
+        
         if !isAnimate{
             return
         }
-
+        
         let labelCopy = label.copyLabel()
         var smallerBounds = labelCopy.bounds
         labelCopy.font = label.font.withSize(fontSizeSmall)
         smallerBounds.size = labelCopy.intrinsicContentSize
         let shrinkTransform = scaleTransform(from: label.bounds.size, to: smallerBounds.size)
-
+        
         UIView.animate(withDuration: duration, animations: {
-
+            
             self.label.transform = shrinkTransform
         }, completion: { done in
             
@@ -945,23 +950,23 @@ extension VideoCallController{
         })
         animateColorLable(label:self.label,color:.white)
     }
-
+    
     private func scaleTransform(from: CGSize, to: CGSize) -> CGAffineTransform {
-
+        
         let scaleX = to.width / from.width
         let scaleY = to.height / from.height
         return CGAffineTransform(scaleX: scaleX, y: scaleY)
     }
     
     func animateColorLable(label:UILabel?,color:UIColor){
-     
+        
         guard let label = label else {
             return
         }
         UIView.transition(with:label , duration: 0.5, options: .showHideTransitionViews, animations: {
             
             DispatchQueue.main.asyncAfter(deadline: .now()+0.25, execute: {
-               label.textColor = color
+                label.textColor = color
             })
         }, completion:nil)
     }
@@ -970,7 +975,7 @@ extension VideoCallController{
 extension VideoCallController{
     
     enum callStatusMessage:Int{
-      
+        
         case ideal = 0
         case preConnectedSuccess = 1
         case userDidNotJoin  = 2
@@ -1013,7 +1018,7 @@ extension VideoCallController{
             preConnectLbl?.attributedText = secondAttributedString
             return
         }
-    
+        
         if type == .eventNotStarted{
             
             let requiredMessage = "Session is not started yet."
@@ -1025,7 +1030,7 @@ extension VideoCallController{
         }
         
         if type == .userDidNotJoin {
-          
+            
             let firstStr = (roomType == .user) ? "Host" : "Participant"
             
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
@@ -1044,16 +1049,16 @@ extension VideoCallController{
         }
         
         
-//        if type == .preConnectedSuccess{
-//
-//            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
-//
-//            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-//
-//            preConnectLbl?.attributedText = secondAttributedString
-//
-//            return
-//        }
+        //        if type == .preConnectedSuccess{
+        //
+        //            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
+        //
+        //            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+        //
+        //            preConnectLbl?.attributedText = secondAttributedString
+        //
+        //            return
+        //        }
         
         
         if type == .connected {
@@ -1086,7 +1091,5 @@ extension VideoCallController{
     }
 }
 
-
 extension VideoCallController{
-    
 }

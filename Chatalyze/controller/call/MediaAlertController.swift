@@ -22,6 +22,9 @@ class MediaAlertController: InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.clear
+        view.isOpaque = false
         hideAllAlert()
         showalert()        
         // Do any additional setup after loading the view.
@@ -39,6 +42,7 @@ class MediaAlertController: InterfaceExtendedController {
     func showalert(){
         
         if alert == .none{
+           
             hideAllAlert()
             return
         }
@@ -78,7 +82,7 @@ class MediaAlertController: InterfaceExtendedController {
     
     @IBAction func exit(sender:UIButton){
         
-        RootControllerManager().getCurrentController()?.dismiss(animated: true, completion: {            
+        self.dismiss(animated: true, completion: {
         })
     }
     

@@ -12,7 +12,9 @@ class UpdateAlertController: InterfaceExtendedController {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-    
+        
+        view.backgroundColor = UIColor.clear
+        view.isOpaque = false
     }
     
     @IBAction func exit(sender:UIButton){

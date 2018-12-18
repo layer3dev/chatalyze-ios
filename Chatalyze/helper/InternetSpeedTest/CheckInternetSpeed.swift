@@ -80,14 +80,14 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         if speedMBArray.count > 0{
             speedMB = Double(speedMBArray[0]) ?? 0.0
         }
-        print("formatted result: \(string)")
+        //print("formatted result: \(string)")
         
         let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(bytesReceived), countStyle: .file)
         
        //getTheRoundedInternetSpeed(timeDiffrence:elapsed)
         Log.echo(key: "yud", text: "Formatted result is \(getTheRoundedInternetSpeed(timeDiffrence:elapsed,bytesRecieved:Double(bytesReceived)))")
         
-        print("New formatted result: \(fileSizeWithUnit)")
+        //print("New formatted result: \(fileSizeWithUnit)")
         
         //        if error != nil{
         //            speedTestCompletionHandler(nil, error)
