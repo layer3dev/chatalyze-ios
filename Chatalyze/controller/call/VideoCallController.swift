@@ -6,7 +6,6 @@
 //  Copyright © 2018 netset. All rights reserved.
 //
 
-
 import UIKit
 import CallKit
 import Foundation
@@ -107,8 +106,8 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.setListener { (deletedEventID) in
             
             if self.eventId == deletedEventID{
-                self.exitAction()
-                
+
+                self.processExitAction(code: .userAction)
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
@@ -236,10 +235,9 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    @IBAction private func exitAction(){
-        
-        processExitAction(code: .userAction)
-    }
+   
+    
+   
     
     
     func processExitAction(code : exitCode){

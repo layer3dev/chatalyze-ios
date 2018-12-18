@@ -55,6 +55,8 @@ class UserCallController: VideoCallController {
         return false
     }
     
+    
+    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -266,6 +268,11 @@ class UserCallController: VideoCallController {
         
         let value = json["value"].boolValue
         hangup(hangup: value)
+    }
+    
+    @IBAction private func hangupCallAction(){
+
+        processExitAction(code: .userAction)
     }
     
     override func processExitAction(code : exitCode){
