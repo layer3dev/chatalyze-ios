@@ -42,7 +42,12 @@ class HandlingAppVersion:NSObject {
         
         if appVersion <= ObsoleteVersion{
             
-            if rootController?.presentedViewController != nil{
+            if rootController?.presentedViewController as? ObsoleteAlertController != nil{
+                Log.echo(key: "yud", text: "ObsoleteAlertController is already presented")
+                return
+            }
+            
+            if rootController?.presentedViewController != nil {
                 rootController?.presentedViewController?.dismiss(animated: false, completion: {
                 })
             }
@@ -50,6 +55,7 @@ class HandlingAppVersion:NSObject {
             guard let controller = ObsoleteAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the Obsolete version
@@ -57,7 +63,14 @@ class HandlingAppVersion:NSObject {
         }
         else if appVersion <= deprecatedVersion{
             
+            
+            
             if !isThisTimeToShowAlert(){
+                return
+            }
+            
+            if rootController?.presentedViewController as? DeprecationAlertController != nil{
+                Log.echo(key: "yud", text: "DeprecationAlertController is already presented")
                 return
             }
             
@@ -70,14 +83,21 @@ class HandlingAppVersion:NSObject {
             guard let controller = DeprecationAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the Deprecated Version
             return
         }
         else if appVersion < latestVersion{
-          
+            
             if !isThisTimeToShowAlert(){
+                return
+            }
+            
+            if rootController?.presentedViewController as? UpdateAlertController != nil{
+                
+                Log.echo(key: "yud", text: "UpdateAlertController is already presented")
                 return
             }
             
@@ -90,6 +110,7 @@ class HandlingAppVersion:NSObject {
             guard let controller = UpdateAlertController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
             //This is the not latest Version
@@ -106,13 +127,11 @@ class HandlingAppVersion:NSObject {
         if let lastSavedDate = UserDefaults.standard.value(forKey: "lastSavedTimeForAlert") as? Date{
             
             let timeDiffrence  = Date().timeIntervalSince(lastSavedDate)
+            Log.echo(key: "yud", text: "Time Difference in showing the alert is \(timeDiffrence)")            
             
-            Log.echo(key: "yud", text: "Time Difference in showing the alert is \(timeDiffrence)")
-            
-             
-                if timeDiffrence > 86400{
+            if timeDiffrence > 86400{
                 
-                    return true
+                return true
             }
             return false
         }
@@ -145,8 +164,6 @@ class HandlingAppVersion:NSObject {
         return ""
     }
     
-    
-   
     static func goToAppStoreForUpdate(){
         
         if let itunesUrl = URL(string:"https://itunes.apple.com/us/app/chatalyze/id1313197231?ls=1&mt=8"){

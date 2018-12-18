@@ -25,6 +25,7 @@ class SigninButtonContainer: ExtendedView {
     }
     
     fileprivate func initialization(){
+        
         layer.cornerRadius = 3.0
         clipsToBounds = true
     }

@@ -630,7 +630,7 @@ extension EditProfileRootview{
         
         if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
             
-            if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
+            if (mobileNumberField?.textField?.text?.count ?? 0) < 9{
                 
                 mobileNumberField?.showError(text: "Mobile number looks incorrect !")
                 return false

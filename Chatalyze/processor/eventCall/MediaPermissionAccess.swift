@@ -13,6 +13,8 @@ class MediaPermissionAccess{
     private var controller : InterfaceExtendedController
     private var callback : ((_ success : Bool)->())?
     
+    private var separateCallBack:((_ cameraPermission:Bool,_ micPermission:Bool)->())?
+    
     init(controller : InterfaceExtendedController){
         self.controller = controller
     }
@@ -30,17 +32,35 @@ class MediaPermissionAccess{
             self.alertToProvideMediaAccess(callback : {
                  self.invokeCallback(success : success)
             })
-           
         }
-       
     }
     
+    func verifyMediaAccess(callback:((_ cameraPermission:Bool,_ micPermission:Bool)->())?){
+    
+   
+        Log.echo(key : "rotate", text : "verifyMediaAccess")
+        self.separateCallBack = callback
+        checkForMediaAccess { (cameraPermission,micPermission) in
+        self.separateCallBack?(cameraPermission,micPermission)
+
+        //    if(success){
+        //    self.invokeCallback(success : success)
+        //    return
+        //    }
+        //    self.alertToProvideMediaAccess(callback : {
+        //    self.invokeCallback(success : success)
+        //    })
+        
+        }
+    
+    }
     private func checkForMediaAccess(callback : ((_ success : Bool)->())?){
+        
         Log.echo(key : "rotate", text : "checkForMediaAccess")
         checkForCameraAccess { (cameraAccess) in
             Log.echo(key : "rotate", text : "checkForCameraAccess response")
             self.checkforMicrophoneAccess(callback: { (microphoneAccess) in
-                Log.echo(key : "rotate", text : "checkforMicrophoneAccess response")
+                Log.echo(key : "rotate", text : "check for Microphone Access response")
                 if(cameraAccess && microphoneAccess){
                     callback?(true)
                     return
@@ -48,7 +68,26 @@ class MediaPermissionAccess{
                 callback?(false)
                 return
             })
-            
+        }
+    }
+    
+    private func checkForMediaAccess(callback : ((_ cameraPermission:Bool,_ micPermission:Bool)->())?){
+        
+        Log.echo(key : "rotate", text : "checkForMediaAccess")
+        checkForCameraAccess { (cameraAccess) in
+            Log.echo(key : "rotate", text : "checkForCameraAccess response")
+            self.checkforMicrophoneAccess(callback: { (microphoneAccess) in
+                Log.echo(key : "rotate", text : "check for Microphone Access response")
+                
+                callback?(cameraAccess,microphoneAccess)
+
+                //                if(cameraAccess && microphoneAccess){
+                //                    callback?(true)
+                //                    return
+                //                }
+                //                callback?(false)
+                //                return
+            })
         }
     }
     
@@ -73,7 +112,7 @@ class MediaPermissionAccess{
             // Prompting user for the permission to use the camera.
             AVCaptureDevice.requestAccess(for: cameraMediaType) { granted in
                 
-                Log.echo(key : "rotate", text : "AVCaptureDevice.requestAccess( \(granted)")
+                Log.echo(key : "rotate", text : "AVCaptureDevice.requestAccess (\(granted)")
                 
                 if granted {
                     callback?(true)
@@ -89,8 +128,9 @@ class MediaPermissionAccess{
     
     
     private func checkforMicrophoneAccess(callback : ((_ success : Bool)->())?){
+      
         let permission = AVAudioSession.sharedInstance().recordPermission
-        Log.echo(key : "rotate", text : "VudioSession.sharedInstance( \(permission)")
+        Log.echo(key : "rotate", text : "AudioSession.sharedInstance( \(permission)")
         switch permission{
         case AVAudioSession.RecordPermission.granted:
             callback?(true)
@@ -100,7 +140,9 @@ class MediaPermissionAccess{
             return
         case AVAudioSession.RecordPermission.undetermined:
             AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
+                
                 Log.echo(key : "rotate", text : "requestRecordPermission(( \(granted)")
+               
                 if !granted{
                     callback?(false)
                     return
@@ -112,12 +154,11 @@ class MediaPermissionAccess{
     }
     
     private func invokeCallback(success : Bool){
+        
         DispatchQueue.main.async {
             self.callback?(success)
         }
     }
-    
-    
     
     private func alertToProvideMediaAccess(callback : (()->())?){
         
@@ -133,5 +174,4 @@ class MediaPermissionAccess{
         controller.present(alert, animated: true) {
         }
     }
-    
 }

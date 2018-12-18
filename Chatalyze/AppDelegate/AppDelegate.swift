@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var allowRotate : Bool = false
+    var isRootInitialize:Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -32,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         initializeTwitterKit()
         UIApplication.shared.registerForRemoteNotifications()
+        Log.echo(key: "yud", text: "Did Finish is calling")
         return true
     }
     
@@ -52,8 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func initialization(){
         
-        _ = NavigationBarCustomizer()        
+        _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
+        
+            self.isRootInitialize = true
             Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
         _ = RTCConnectionInitializer()
@@ -80,9 +84,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
+        Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
+
         verifyingAccessToken()
-        fetchAppVersionInfoToServer()
-        
+        if self.isRootInitialize{
+            AppDelegate.fetchAppVersionInfoToServer()
+        }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
@@ -116,6 +123,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 self.getNotificationSettings()
             }
         }else{
+            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -135,7 +143,8 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 print("Notification settings Registered: \(settings)")
             }
         }else{
-            // Fallback on earlier versions
+            
+            //Fallback on earlier versions
         }
     }
     
@@ -212,9 +221,7 @@ extension AppDelegate{
         }
         
         AccessTokenValidator().validate { (success) in
-            
             if !success{
-                
                 RootControllerManager().signOut(completion: {
                 })
             }
@@ -222,16 +229,19 @@ extension AppDelegate{
         }
     }
     
-    func fetchAppVersionInfoToServer(){
+   static func fetchAppVersionInfoToServer(){
         
+        //This case handle the sencond time when app is open
         FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{
+               
                 HandlingAppVersion().checkForAlert()
                 return
             }
             
             Log.echo(key: "yud", text: "DICT IS \(response?.dictionary)")
+            
             if let dict = response?.dictionary{
                 
                 Log.echo(key: "yud", text: "latestVersion IS \(dict["current_app_version"]?.doubleValue)")

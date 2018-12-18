@@ -32,9 +32,13 @@ class RootControllerManager{
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
             showSigninScreen()
+            AppDelegate.fetchAppVersionInfoToServer()
+            //HandlingAppVersion().checkForAlert()
             return
         }
         showHomeScreen(didLoadWindow: didLoadWindow)
+        AppDelegate.fetchAppVersionInfoToServer()
+        //HandlingAppVersion().checkForAlert()
         return
     }
     
