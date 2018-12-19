@@ -33,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
-    
     fileprivate func test(){
         
         TimerSync.sharedInstance

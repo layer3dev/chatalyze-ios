@@ -88,6 +88,8 @@ class VideoCallController : InterfaceExtendedController {
         return (socketClient?.isConnected ?? false)
     }
     
+    var appDelegate : AppDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,6 +100,8 @@ class VideoCallController : InterfaceExtendedController {
             
             self.fontSizeBig = 22
         }
+        
+        appDelegate =  UIApplication.shared.delegate as? AppDelegate
         initializeListenrs()
         // Do any additional setup after loading the view.
     }
@@ -130,9 +134,7 @@ class VideoCallController : InterfaceExtendedController {
                 
                 self?.processEventInfo(info: info)
                 self?.eventInfo = info
-                
                 self?.processEventInfo()
-                
                 Log.echo(key: "delay", text: "processed")
                 
                 if(isActivated){
@@ -323,26 +325,28 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         
-        self.showLoader()
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
-            let speedMb = (speed ?? 0.0) * 8
-            Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
-            
-            self.stopLoader()
-            if error == nil{
+            DispatchQueue.main.async {
+             
+                let speedMb = (speed ?? 0.0) * 8
+                Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
                 
-                //if (speed ?? 0.0) < 0.1875 {
-                //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
-                
-                if (speedMb) < 1.5 {
+               // self.stopLoader()
+                if error == nil{
                     
-                    self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
-                    self.showMediaAlert(alert:self.requiredPermission)
+                    //if (speed ?? 0.0) < 0.1875 {
+                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                    
+                    if (speedMb) < 1.5 {
+                        
+                        self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
+                        self.showMediaAlert(alert:self.requiredPermission)
+                        return
+                    }
+                    self.requiredPermission = VideoCallController.permissionsCheck.none
                     return
                 }
-                self.requiredPermission = VideoCallController.permissionsCheck.none
-                return
             }
         }
     }
@@ -379,17 +383,15 @@ class VideoCallController : InterfaceExtendedController {
             if !cameraAccess{
                 
                 self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission
+             
                 self.showMediaAlert(alert:self.requiredPermission)
-                return
             }
             
             if !micAccess{
                 
                 self.requiredPermission = VideoCallController.permissionsCheck.micPermission
                 self.showMediaAlert(alert:self.requiredPermission)
-                return
             }
-            
             self.initialization()
             self.checkForInternet()
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
@@ -611,17 +613,7 @@ class VideoCallController : InterfaceExtendedController {
             self.rootView?.switchToCallRequest()
         })
     }
-    
-    var appDelegate : AppDelegate?{
-        
-        get{
-            guard let delegate =  UIApplication.shared.delegate as? AppDelegate
-                else{
-                    return nil
-            }
-            return delegate
-        }
-    }
+
     
     //isolated from eventInfo
     private func initializeVariable(){
