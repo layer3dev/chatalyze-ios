@@ -22,6 +22,7 @@
 -(void)emitOffer:(RTCSessionDescription *)sdp;
 -(void)emitAnswer:(RTCSessionDescription *)sdp;
 -(void)emitCandidate:(RTCIceCandidate *)candidate;
+- (instancetype)initWithEventId : (NSString *)eventId ;
 
 -(void)disconnect;
 

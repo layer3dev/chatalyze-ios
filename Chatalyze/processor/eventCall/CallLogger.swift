@@ -94,7 +94,7 @@ class CallLogger : NSObject {
     
     @objc func logCandidate(candidate : [String : Any]){
         
-        let type = "candidate";
+        let type = "ice_candidate";
         var meta = [String : Any]()
         meta["info"] = candidate
         meta["type"] = type
@@ -176,11 +176,7 @@ class CallLogger : NSObject {
     
     private func emit(info : [String : Any]){
          Log.echo(key: "json dict", text: "\(info)")
-         let param = info.JSONDescription()
-        
-        Log.echo(key: "json string", text: "\(param)")
-        
-        userSocket?.socket?.emit("log", param)
+         userSocket?.socket?.emit("log", info)
     }
     
     
