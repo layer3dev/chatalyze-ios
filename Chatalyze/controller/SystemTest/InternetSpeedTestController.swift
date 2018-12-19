@@ -279,11 +279,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
                         if (speedMb) < 1.5 {
-                            
-                            //case versionOutdated = 0
-                            //case InternetAverage = 1
-                            //case versionOutdatedWithInternetAverage = 2
-                            
+                        
                             self.errorType = .none
                             self.warningType = .InternetAverage
                             
