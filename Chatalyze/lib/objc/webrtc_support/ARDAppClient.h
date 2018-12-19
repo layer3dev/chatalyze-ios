@@ -75,7 +75,6 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 @property(nonatomic, strong) NSString *userId;
 @property(nonatomic, strong) NSString *receiverId;
 
-
 // If |shouldGetStats| is true, stats will be reported in 1s intervals through
 // the delegate.
 @property(nonatomic, assign) BOOL shouldGetStats;
@@ -87,7 +86,7 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 // in order to receive remote tracks.
 - (instancetype)initWithDelegate:(id<ARDAppClientDelegate>)delegate;
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage;
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andEventId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage;
 
 //temp
 - (void)initiateCall;

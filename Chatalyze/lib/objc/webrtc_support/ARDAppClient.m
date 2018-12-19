@@ -68,7 +68,7 @@ static int const kKbpsMultiplier = 1000;
 @synthesize factory = _factory;
 @synthesize isTurnComplete = _isTurnComplete;
 @synthesize hasReceivedSdp  = _hasReceivedSdp;
-@synthesize roomId = _roomId;
+@synthesize eventId = _eventId;
 @synthesize clientId = _clientId;
 @synthesize isInitiator = _isInitiator;
 @synthesize iceServers = _iceServers;
@@ -89,7 +89,7 @@ static int const kKbpsMultiplier = 1000;
   return [self initWithDelegate:nil];
 }
 
--(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andRoomId:(NSString *)roomId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage
+-(instancetype)initWithUserId:(NSString *)userId andReceiverId:(NSString *)receiverId andEventId:(NSString *)eventId andDelegate:(id<ARDAppClientDelegate>)delegate andLocalStream:(CallMediaTrack *)localMediaPackage
 {
     
     if (self = [super init]) {
@@ -97,7 +97,7 @@ static int const kKbpsMultiplier = 1000;
         NSURL *turnRequestURL = [NSURL URLWithString:kARDIceServerRequestUrl];
         self.userId = userId;
         self.receiverId = receiverId;
-        self.roomId = roomId;
+        self.eventId = eventId;
         self.localMediaPackage = localMediaPackage;
         [self configure];
         [self initialize];
@@ -126,7 +126,7 @@ static int const kKbpsMultiplier = 1000;
     [Log echoWithKey:@"user" text:[NSString stringWithFormat:@"receiverId --->  %@", self.receiverId]];
     _socketChannel.userId = self.userId;
     _socketChannel.receiverId = self.receiverId;
-    _socketChannel.roomId = self.roomId;
+    _socketChannel.eventId = self.eventId;
 }
 
 - (void)dealloc {
@@ -161,7 +161,7 @@ static int const kKbpsMultiplier = 1000;
     _channel = nil;
   }
     _clientId = nil;
-    _roomId = nil;
+    _eventId = nil;
     _isInitiator = NO;
     _hasReceivedSdp = NO;
     _localVideoTrack = nil;

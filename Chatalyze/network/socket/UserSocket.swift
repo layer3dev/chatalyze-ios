@@ -35,18 +35,6 @@ class UserSocket {
         }
         
         
-//        private var socket = SocketIOClient(socketURL: NSURL(string:  socketHostname,
-//                                                             options: [
-//                                                                **.Reconnects(true),**
-//                                                                    .ReconnectAttempts(50),
-//                                                                .ReconnectWait(3),
-//                                                                .Log(false),
-//                                                                .ForcePolling(false),
-//                                                                .ForceWebsockets(true),
-//                                                                .ForceNew(true), // this only happens when disconected
-//                                                                .Secure(true),
-//                                                                .SelfSigned(true)
-//            ]);
 
         let manager = SocketManager(socketURL: socketURL, config: [.log(false),.forceNew(true),.reconnects(true)])
         let socket = manager.defaultSocket
@@ -169,6 +157,7 @@ extension UserSocket{
             self.reconnect()
         }
         
+        
         socket?.onAny({ (data) in
             
             Log.echo(key: "user_socket", text: "onAny \(data)")
@@ -193,19 +182,8 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "param => \(param)")
         socket?.emit("login", param)
         
-        /*socket?.emitWithAck("login", param).timingOut(after: 8) {data in
-            if self.isRegisteredToServer != false{
-                Log.echo(key: "", text: "Yessss I got connect!!")
-            }else{
-                self.registerSocket()
-                Log.echo(key: "", text: "Oops Could not get connect Trying once again!!")
-            }
-         }*/
         
         Log.echo(key: "", text:"Connected and emitted")
-//        socket?.emitWithAck("dsfds", param).timingOut(after: 5, callback: { (data) in
-//            print("got ack in new TimeOut  with data: \(data)")
-//        })
     }
     
     func disconnect(){

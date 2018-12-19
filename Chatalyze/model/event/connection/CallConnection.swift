@@ -25,6 +25,8 @@ class CallConnection: NSObject {
     
     var connectionStateListener : CallConnectionProtocol?
     
+    private var callLogger : CallLogger?
+    
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     //This is used for re-connect purposes as well
     var isConnected : Bool = false
@@ -66,6 +68,15 @@ class CallConnection: NSObject {
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  connected state --> \(RTCIceConnectionState.connected.rawValue)")
     }
     
+    //overridden
+    var targetUserId : String?{
+        
+        get{
+            return nil
+        }
+    }
+    
+    //overridden
     var targetHashId : String?{
         
         get{
@@ -87,6 +98,11 @@ class CallConnection: NSObject {
     
     var isCallConnected:(()->())?
     
+    var eventId : String?{
+        let sessionId = eventInfo?.id ?? 0
+        return "\(sessionId)"
+        
+    }
     
     override init() {
         super.init()
@@ -101,7 +117,8 @@ class CallConnection: NSObject {
     }
     
     private func initVariable(){
-       
+        let eventId = eventInfo?.id ?? 0
+        callLogger = CallLogger(sessionId: "\(eventId)", targetUserId: targetUserId)
         self.connection = self.getWriteConnection()
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
@@ -147,6 +164,8 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
+        
+        callLogger?.logConnectionState(connectionState: state)
         if(isAborted){
             return
         }
