@@ -28,6 +28,11 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBOutlet var warningViewInternet:UIView?
     @IBOutlet var warningViewVersion:UIView?
     
+    
+    @IBOutlet var heightWarningViewInternetConstraint:NSLayoutConstraint?
+    @IBOutlet var heightwarningViewVersionConstraint:NSLayoutConstraint?
+
+    
     enum errorStatus:Int{
         
         case NoInternetConnectionError = 0
@@ -45,6 +50,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     var errorType = InternetSpeedTestController.errorStatus.none
     var warningType = InternetSpeedTestController.warningStatus.none
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -115,19 +121,30 @@ class InternetSpeedTestController: InterfaceExtendedController {
     func showWarning(warningType:warningStatus){
         
         if warningType == .versionOutdated{
-            
-            self.warningViewInternet?.isHidden = true
-            self.warningViewVersion?.isHidden = false
+         
+            self.heightWarningViewInternetConstraint?.priority = UILayoutPriority(999.0)
+            self.heightwarningViewVersionConstraint?.priority = UILayoutPriority(250.0)
+            self.view.layoutIfNeeded()
+
+//            self.warningViewInternet?.isHidden = true
+//            self.warningViewVersion?.isHidden = false
         }
         else if warningType == .versionOutdatedWithInternetAverage{
-            
-            self.warningViewInternet?.isHidden = false
-            self.warningViewVersion?.isHidden = false
+       
+            self.heightWarningViewInternetConstraint?.priority = UILayoutPriority(250.0)
+            self.heightwarningViewVersionConstraint?.priority = UILayoutPriority(250.0)
+            self.view.layoutIfNeeded()
+
+//            self.warningViewInternet?.isHidden = false
+//            self.warningViewVersion?.isHidden = false
         }
         else if warningType == .InternetAverage {
-            
-            self.warningViewInternet?.isHidden = false
-            self.warningViewVersion?.isHidden = true
+      
+            self.heightWarningViewInternetConstraint?.priority = UILayoutPriority(250.0)
+            self.heightwarningViewVersionConstraint?.priority = UILayoutPriority(999.0)
+            self.view.layoutIfNeeded()
+//            self.warningViewInternet?.isHidden = false
+//            self.warningViewVersion?.isHidden = true
         }
         self.systemTestView?.isHidden = true
         self.warningView?.isHidden = false
@@ -160,25 +177,11 @@ class InternetSpeedTestController: InterfaceExtendedController {
     }
     
     @IBAction func versionInfoAction(){
-       
+        
         self.appVersionAlert()
     }
     
-    
-    //    func systemTest(){
-    //
-    //        if InternetConnection is not Good {
-    //
-    //            //Show Error
-    //        }
-    //
-    //        if App version is out Date || Internet connection is slow {
-    //
-    //            //Show Warning
-    //            //CReate a method taking param type of warning
-    //        }
-    //    }
-    
+   
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(animated)
@@ -276,10 +279,16 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
                         if (speedMb) < 1.5 {
+                        
+                            self.errorType = .none
+                            self.warningType = .InternetAverage
                             
-                            self.errorType = .SlowInternetError
-                            self.warningType = .none
-                            self.showSlowInternetError()
+                            if self.isVersionWarningExists(){
+                                
+                                self.warningType = .versionOutdatedWithInternetAverage
+                            }
+                            
+                            self.showWarning(warningType:self.warningType)
                             return
                         }
 
@@ -300,9 +309,13 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         return
                 }else{
                     
-                    self.errorType = .SlowInternetError
-                    self.warningType = .none
-                    self.showSlowInternetError()
+                    self.errorType = .none
+                    self.warningType = .InternetAverage
+                    if self.isVersionWarningExists(){
+                     
+                        self.warningType = .versionOutdatedWithInternetAverage
+                    }
+                    self.showWarning(warningType:self.warningType)
                     return
                 }
             }

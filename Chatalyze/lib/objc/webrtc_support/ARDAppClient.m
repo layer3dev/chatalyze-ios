@@ -119,7 +119,7 @@ static int const kKbpsMultiplier = 1000;
 
 - (void)configure {
     _iceServers = [NSMutableArray array];
-    _socketChannel = [[SocketChannel alloc] init];
+    _socketChannel = [[SocketChannel alloc] initWithEventId : self.eventId];
     _socketChannel.listener = self;
     
      [Log echoWithKey:@"user" text:[NSString stringWithFormat:@"userId --->  %@", self.userId]];

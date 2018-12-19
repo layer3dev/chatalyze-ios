@@ -33,12 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
-    
     fileprivate func test(){
         
         TimerSync.sharedInstance
-        
         Log.echo(key : "hardware", text : "\(UIDevice.current)")
     }
     
@@ -118,7 +115,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 self.getNotificationSettings()
             }
         }else{
-            
+
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -191,6 +188,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
+            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
                 //PushNotificationHandler().handleNavigation(info: notification)

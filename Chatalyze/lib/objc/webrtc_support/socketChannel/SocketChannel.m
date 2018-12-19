@@ -26,6 +26,18 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 
+- (instancetype)initWithEventId : (NSString *)eventId {
+    if (self = [super init]) {
+        // Initialize self
+        self.eventId = eventId;
+        [self initialize];
+        [self registerListeners];
+        
+    }
+    return self;
+}
+
+
 - (instancetype)init {
     if (self = [super init]) {
         // Initialize self
