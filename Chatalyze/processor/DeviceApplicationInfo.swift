@@ -1,5 +1,3 @@
-
-
 //
 //  ApplicationDeviceInfo.swift
 //  Chatalyze
@@ -17,18 +15,28 @@ class DeviceApplicationInfo {
     func rawInfo()->[String : Any]{
         
         let device = Device()
-
+        let iOSVersion = UIDevice.current.systemVersion
         var info = [String : Any]()
-        var deviceInfo = [String : Any]()
-        deviceInfo["iOS"] = UIDevice.current.systemVersion
-        deviceInfo["model"] = "\(device)"
+        
+        var osInfo = [String : Any]()
+        osInfo["name"] = "iOS"
+        osInfo["version"] = iOSVersion
         
         var appInfo = [String : Any]()
         appInfo["version"] = AppInfoConfig.appversion
         appInfo["deviceId"] = UUID().uuidString
         
-        info["appInfo"] = appInfo
-        info["deviceInfo"] = deviceInfo
+        var deviceInfo = [String : Any]()
+        deviceInfo["version"] = iOSVersion
+        deviceInfo["model"] = "\(device)"
+        
+        
+        
+        
+        
+        info["app"] = appInfo
+        info["device"] = deviceInfo
+        info["os"] = osInfo
         
         return info
     }
