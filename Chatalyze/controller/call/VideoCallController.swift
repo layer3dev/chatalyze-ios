@@ -352,6 +352,10 @@ class VideoCallController : InterfaceExtendedController {
         
         DispatchQueue.main.async {
            
+            if self.presentedViewController as? MediaAlertController != nil{
+                return
+            }
+            
             guard let controller = MediaAlertController.instance() else {
                 return
             }
@@ -423,7 +427,6 @@ class VideoCallController : InterfaceExtendedController {
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()
-        
         showLoader()
         
         loadActivatedInfo {[weak self] (isActivated, info) in
@@ -442,7 +445,6 @@ class VideoCallController : InterfaceExtendedController {
 
             Log.echo(key: "delay", text: "processed")
             
-
             self?.updateToReadyState()
 
             if(isActivated){
