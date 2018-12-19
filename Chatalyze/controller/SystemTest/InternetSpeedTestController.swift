@@ -278,7 +278,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         //if (speed ?? 0.0) < 0.1875 {
                         //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
-                        if (speedMb) < 5.0 {
+                        if (speedMb) < 1.5 {
                             
                             //case versionOutdated = 0
                             //case InternetAverage = 1

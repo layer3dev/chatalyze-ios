@@ -239,11 +239,6 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-   
-    
-   
-    
-    
     func processExitAction(code : exitCode){
         
         timer.pauseTimer()
@@ -382,8 +377,7 @@ class VideoCallController : InterfaceExtendedController {
             
             if !cameraAccess{
                 
-                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission
-             
+                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission             
                 self.showMediaAlert(alert:self.requiredPermission)
             }
             
