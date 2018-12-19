@@ -31,6 +31,8 @@ class CallLogger : NSObject {
     
     
     func logDeviceInfo(){
+        
+       
         let deviceInfo = DeviceApplicationInfo().rawInfo()
         var meta = [String : Any]()
         meta["info"] = deviceInfo

@@ -13,15 +13,15 @@ class AppConnectionConfig {
     static let socketURL = "wss://peertopeer.chatalyze.com/oneonone"
     
 
-//    static let webServiceURL = "https://dev.chatalyze.com/api"
-    static let webServiceURL = "http://192.168.1.35:8080/api"
+    static let webServiceURL = "https://dev.chatalyze.com/api"
+//    static let webServiceURL = "http://192.168.1.35:8080/api"
     
     static let systemTestUrl = "https://dev.chatalyze.com"
     
     
     
-//    static let userSocketURL = "https://dev.chatalyze.com/"
-    static let userSocketURL = "http://192.168.1.35:8080/api/"
+    static let userSocketURL = "https://dev.chatalyze.com/"
+//    static let userSocketURL = "http://192.168.1.35:8080/api/"
     
     
 }
