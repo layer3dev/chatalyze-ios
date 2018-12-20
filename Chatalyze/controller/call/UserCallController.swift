@@ -528,6 +528,7 @@ class UserCallController: VideoCallController {
                 
                 let isExpired = slotInfo?.isExpired ?? true
                 if(!success && !isExpired){
+                    
                     slotInfo?.isScreenshotSaved = false
                     slotInfo?.isSelfieTimerInitiated = false
                     SlotFlagInfo.staticScreenShotSaved = false
@@ -748,6 +749,7 @@ class UserCallController: VideoCallController {
           
             setStatusMessage(type: .eventNotStarted)
             return
+          
             // statusLbl?.text = "Session has not started yet."
         }
         
@@ -756,6 +758,7 @@ class UserCallController: VideoCallController {
             
             setStatusMessage(type: .eventDelay)
             return
+         
             // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
         }
         

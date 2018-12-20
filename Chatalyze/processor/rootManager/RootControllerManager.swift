@@ -31,7 +31,7 @@ class RootControllerManager{
         updateNavigationBar()
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
-            showSigninScreen()
+            showSigninScreen(didLoadWindow: didLoadWindow)
             AppDelegate.fetchAppVersionInfoToServer()
             //HandlingAppVersion().checkForAlert()
             return
@@ -43,7 +43,7 @@ class RootControllerManager{
     }
     
     
-    private func showSigninScreen(){
+    private func showSigninScreen(didLoadWindow:(()->())?){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window        
@@ -51,6 +51,7 @@ class RootControllerManager{
             else{
                 return
         }
+        signinController.didLoad = didLoadWindow
         let signinNav : UINavigationController = ExtendedNavigationController()
         signinNav.viewControllers = [signinController]
         window?.rootViewController = signinNav
