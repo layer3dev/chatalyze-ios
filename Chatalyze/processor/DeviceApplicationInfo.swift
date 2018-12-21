@@ -29,11 +29,7 @@ class DeviceApplicationInfo {
         var deviceInfo = [String : Any]()
         deviceInfo["version"] = iOSVersion
         deviceInfo["model"] = "\(device)"
-        
-        
-        
-        
-        
+                
         info["app"] = appInfo
         info["device"] = deviceInfo
         info["os"] = osInfo

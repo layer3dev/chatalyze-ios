@@ -8,8 +8,8 @@ import Foundation
 
 class DevFlag : NSObject{
 
-    @objc static let key = "speedLogTest"
-    @objc static let showAll = false
+    @objc static let key = "yud"
+    @objc static let showAll = true
     @objc static let debug = true
 }
 

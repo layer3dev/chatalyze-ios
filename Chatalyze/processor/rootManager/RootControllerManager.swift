@@ -26,6 +26,15 @@ class RootControllerManager{
         }
     }
     
+    func isOnBoardShowed()->Bool{
+        
+        guard let onboardStatus =  UserDefaults.standard.value(forKey: "isOnBoardShowed") as? Bool else{
+            return false
+        }
+        return onboardStatus
+    }
+    
+    
     private func showRelevantScreen(didLoadWindow:(()->())?){
         
         updateNavigationBar()
@@ -36,11 +45,49 @@ class RootControllerManager{
             //HandlingAppVersion().checkForAlert()
             return
         }
+        if !isOnBoardShowed(){
+            showOnboardScreen(didLoadWindow:didLoadWindow)
+            return
+        }
         showHomeScreen(didLoadWindow: didLoadWindow)
         AppDelegate.fetchAppVersionInfoToServer()
         //HandlingAppVersion().checkForAlert()
         return
     }
+    
+    
+    private func showOnboardScreen(didLoadWindow:(()->())?){
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let window = appDelegate?.window
+        //let rootNav : UINavigationController = ExtendedNavigationController()
+        Log.echo(key: "yud", text: "Root is active")
+        let transition = CATransition()
+        transition.type = CATransitionType.fade
+        if let userInfo = SignedUserInfo.sharedInstance{
+            if userInfo.role == .analyst{
+                
+                guard let onboardController = OnBoardFlowController.instance() else {
+                    return
+                }
+                onboardController.didLoad = didLoadWindow
+                window?.set(rootViewController: onboardController, withTransition: transition)
+                window?.makeKeyAndVisible()
+                initializeAppConnection()
+                
+            }else{
+                
+                guard let onboardController = OnBoardFlowController.instance() else {
+                    return
+                }
+                onboardController.didLoad = didLoadWindow
+                window?.set(rootViewController: onboardController, withTransition: transition)
+                window?.makeKeyAndVisible()
+                initializeAppConnection()
+            }
+        }
+    }
+
     
     
     private func showSigninScreen(didLoadWindow:(()->())?){

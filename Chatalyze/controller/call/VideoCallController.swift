@@ -461,6 +461,7 @@ class VideoCallController : InterfaceExtendedController {
     //This will still return info - even if call not activated.
     //if not activated - success will be false and info will have valid data
     private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
+        
         loadInfo {[weak self] (success, info) in
             if(!success){
                 completion?(false, nil)
@@ -474,7 +475,7 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
-                if(!success){
+                if(!success){                    
                     completion?(false, info)
                     return
                 }
