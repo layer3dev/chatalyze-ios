@@ -42,14 +42,6 @@ class MediaPermissionAccess{
         self.separateCallBack = callback
         checkForMediaAccess { (cameraPermission,micPermission) in
         self.separateCallBack?(cameraPermission,micPermission)
-
-        //    if(success){
-        //    self.invokeCallback(success : success)
-        //    return
-        //    }
-        //    self.alertToProvideMediaAccess(callback : {
-        //    self.invokeCallback(success : success)
-        //    })
         
         }
     
