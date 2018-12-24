@@ -24,15 +24,25 @@ class OnBoardPageViewController: UIPageViewController {
         case fifth  =  4
     }
     
+    enum controllerObjectIndex:Int{
+     
+        case first  =  0
+        case second =  1
+        case third  =  2
+        case fourth =  3
+        case fifth  =  4
+    }
+    
+    
     var pageCustomDelegate:pageViewDelegate?
     
     var currentIndex = indexofPage.first
     
     var firstController:OnboardFirstController?
-    var secondController:OnboardSecondController?
-    var thirdController:OnboardThirdController?
-    var fourthController:OnboardFourthController?
-    var fifthController:OnboardFifthController?
+    var secondController:OnboardFirstController?
+    var thirdController:OnboardFirstController?
+    var fourthController:OnboardFirstController?
+    var fifthController:OnboardFirstController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,39 +66,88 @@ class OnBoardPageViewController: UIPageViewController {
     
     func getPreviousIndex(index:indexofPage)->indexofPage?{
         
-        if index == .first{
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
             return nil
         }
-        if index == .second{
-            return indexofPage.first
+        
+        if userType == .analyst{
+            
+            if index == .first{
+                return nil
+            }
+            if index == .second{
+                return indexofPage.first
+            }
+            if index == .third{
+                return indexofPage.second
+            }
+            if index == .fourth{
+                return indexofPage.third
+            }
+            if index == .fifth{
+                return indexofPage.fourth
+            }
+            return nil
         }
-        if index == .third{
-            return indexofPage.second
-        }
-        if index == .fourth{
-            return indexofPage.third
-        }
-        if index == .fifth{
-            return indexofPage.fourth
+        
+        if userType == .user{
+            
+            if index == .first{
+                return nil
+            }
+            if index == .second{
+                return indexofPage.first
+            }
+            if index == .third{
+                return indexofPage.second
+            }
+            if index == .fourth{
+                return indexofPage.third
+            }
+            return nil
         }
         return nil
     }
     
     func getNextIndex(index:indexofPage)->indexofPage?{
         
-        if index == .first{
-            return indexofPage.second
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
+            return nil
         }
-        if index == .second{
-            return indexofPage.third
+        
+        if userType == .analyst{
+           
+            if index == .first{
+                return indexofPage.second
+            }
+            if index == .second{
+                return indexofPage.third
+            }
+            if index == .third{
+                return indexofPage.fourth
+            }
+            if index == .fourth{
+                return indexofPage.fifth
+            }
+            if index == .fifth{
+                return nil
+            }
+            return nil
         }
-        if index == .third{
-            return indexofPage.fourth
-        }
-        if index == .fourth{
-            return indexofPage.fifth
-        }
-        if index == .fifth{
+        if userType == .user{
+            
+            if index == .first{
+                return indexofPage.second
+            }
+            if index == .second{
+                return indexofPage.third
+            }
+            if index == .third{
+                return indexofPage.fourth
+            }
+            if index == .fourth{
+                return nil
+            }
             return nil
         }
         return nil
@@ -126,6 +185,7 @@ class OnBoardPageViewController: UIPageViewController {
             guard let controller = OnboardFirstController.instance() else{
                 return nil
             }
+            controller.currentControllerIndex = .first
             self.firstController = controller
             return self.firstController
         }
@@ -134,9 +194,10 @@ class OnBoardPageViewController: UIPageViewController {
             if let controller = secondController{
                 return controller
             }
-            guard let controller = OnboardSecondController.instance() else{
+            guard let controller = OnboardFirstController.instance() else{
                 return nil
             }
+            controller.currentControllerIndex = .second
             self.secondController = controller
             return self.secondController
         }
@@ -145,9 +206,10 @@ class OnBoardPageViewController: UIPageViewController {
             if let controller = thirdController{
                 return controller
             }
-            guard let controller = OnboardThirdController.instance() else{
+            guard let controller = OnboardFirstController.instance() else{
                 return nil
             }
+            controller.currentControllerIndex = .third
             self.thirdController = controller
             return self.thirdController
         }
@@ -156,9 +218,10 @@ class OnBoardPageViewController: UIPageViewController {
             if let controller = fourthController{
                 return controller
             }
-            guard let controller = OnboardFourthController.instance() else{
+            guard let controller = OnboardFirstController.instance() else{
                 return nil
             }
+            controller.currentControllerIndex = .fourth
             self.fourthController = controller
             return self.fourthController
         }
@@ -167,9 +230,10 @@ class OnBoardPageViewController: UIPageViewController {
             if let controller = fifthController{
                 return controller
             }
-            guard let controller = OnboardFifthController.instance() else{
+            guard let controller = OnboardFirstController.instance() else{
                 return nil
             }
+            controller.currentControllerIndex = .fifth
             self.fifthController = controller
             return self.fifthController
         }

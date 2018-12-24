@@ -19,14 +19,36 @@ class OnBoardFlowController: UIViewController {
     @IBOutlet var fifthDot:PageViewDotsUIPaint?
     
     var onBoardPageViewController:OnBoardPageViewController?
-    
-    @IBOutlet var skipDoneLbl:UILabel?    
+    @IBOutlet var skipDoneLbl:UILabel?
+    @IBOutlet var pageViewControl:UIPageControl?    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.didLoad?()
+        setPageControl()
         // Do any additional setup after loading the view.
+    }
+    
+    func setPageControl(){
+        
+        guard let role = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if role == .user{
+           
+            pageViewControl?.currentPage = 0
+            pageViewControl?.numberOfPages = 4
+            pageViewControl?.transform = CGAffineTransform(scaleX: 2, y: 2)
+
+            return
+        }
+      
+        pageViewControl?.currentPage = 0
+        pageViewControl?.numberOfPages = 5
+        pageViewControl?.transform = CGAffineTransform(scaleX: 2, y: 2)
+    
     }
     
     @IBAction func skipAction(sender:UIButton){
@@ -48,6 +70,8 @@ class OnBoardFlowController: UIViewController {
         
         if index == .first{
            
+            pageViewControl?.currentPage = 0
+            
             reset()
             self.firstDot?.backgroundColor = UIColor(hexString: "#4a4a4a")
             self.secondDot?.backgroundColor = UIColor.white
@@ -58,6 +82,8 @@ class OnBoardFlowController: UIViewController {
             return
         }
         if index == .second{
+            
+            pageViewControl?.currentPage = 1
             
             reset()
             self.firstDot?.backgroundColor = UIColor.white
@@ -71,6 +97,9 @@ class OnBoardFlowController: UIViewController {
         }
         if index == .third{
            
+            pageViewControl?.currentPage = 2
+
+            
             reset()
             self.firstDot?.backgroundColor = UIColor.white
             self.secondDot?.backgroundColor = UIColor.white
@@ -83,6 +112,9 @@ class OnBoardFlowController: UIViewController {
         }
         if index == .fourth{
             
+            pageViewControl?.currentPage = 3
+
+            
             reset()
             self.firstDot?.backgroundColor = UIColor.white
             self.secondDot?.backgroundColor = UIColor.white
@@ -93,6 +125,9 @@ class OnBoardFlowController: UIViewController {
             return
         }
         if index == .fifth{
+            
+            pageViewControl?.currentPage = 4
+
             
             reset()
             self.firstDot?.backgroundColor = UIColor.white
@@ -138,6 +173,7 @@ extension OnBoardFlowController:pageViewDelegate{
    
     func indexofPage(index:OnBoardPageViewController.indexofPage){
         setPagerIndex(index:index)
+        
         Log.echo(key: "yud", text: "Current index is \(index.rawValue)")
     }
 }
