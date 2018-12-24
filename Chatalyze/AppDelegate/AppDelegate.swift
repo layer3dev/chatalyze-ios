@@ -79,9 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
 
         verifyingAccessToken()
+  
         if self.isRootInitialize{
+            
             AppDelegate.fetchAppVersionInfoToServer()
         }
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
@@ -214,7 +217,9 @@ extension AppDelegate{
         }
         
         AccessTokenValidator().validate { (success) in
+           
             if !success{
+              
                 RootControllerManager().signOut(completion: {
                 })
             }
