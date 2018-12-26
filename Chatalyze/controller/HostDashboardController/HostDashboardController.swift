@@ -90,16 +90,6 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
-        
-        guard let controller = OnBoardFlowController.instance() else{
-            return
-        }
-        self.navigationController?.pushViewController(controller, animated: false)
-        
-        
-        return
-        return
-        
         DispatchQueue.main.async {
             
             guard let controller = ScheduleSessionController.instance() else{
