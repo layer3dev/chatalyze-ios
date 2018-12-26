@@ -150,6 +150,8 @@ class ContainerController: NavChildController {
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
      
+        //recognizer.edges
+        
         if recognizer.state == .recognized {
             
             print("Screen edge swiped!")
@@ -682,7 +684,7 @@ extension ContainerController{
         }
         if state == .changed{
             
-            Log.echo(key: "yud", text: "change\(rview.center.x) and the view width is \(self.view.frame.size.width) toggle width is \(self.toggleView?.frame.size.width) and the toggleTrailing is \(toggleTrailing?.constant) and the test is \((self.view.frame.size.width-toggleWidth/2))")
+            Log.echo(key: "yud", text: "change\(rview.center.x) and the view width is \(self.view.frame.size.width) toggle width is \(self.toggleView?.frame.size.width) and the toggleTrailing is \(toggleTrailing?.constant) and the test is \((self.view.frame.size.width-toggleWidth/2))Translation x is \(recognizer.translation(in: view).x)")
             
             if rview.center.x + recognizer.translation(in: view).x < (self.view.frame.size.width-toggleWidth/2){
                 
@@ -692,6 +694,7 @@ extension ContainerController{
                 }
                 return
             }
+            
             rview.center.x = rview.center.x + recognizer.translation(in: view).x
             recognizer.setTranslation(CGPoint.zero, in: view)
         }

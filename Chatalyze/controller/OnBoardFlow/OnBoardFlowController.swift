@@ -122,6 +122,12 @@ class OnBoardFlowController: UIViewController {
             self.fourthDot?.backgroundColor = UIColor(hexString: "#4a4a4a")
             self.fifthDot?.backgroundColor = UIColor.white
             self.skipDoneLbl?.text = "Skip"
+
+            if let roleId = SignedUserInfo.sharedInstance?.role{
+                if roleId == .user{
+                   self.skipDoneLbl?.text = "Done"
+                }
+            }
             return
         }
         if index == .fifth{

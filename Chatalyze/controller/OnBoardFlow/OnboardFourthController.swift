@@ -29,7 +29,7 @@ class OnboardFourthController: UIViewController {
     
     func paintLableText(){
         
-        let firstText = "Countdown \n"
+        let firstText = "Count Down \n"
         let firstMutableStr = firstText.toMutableAttributedString(font: "OpenSans-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
         
         let scecondStr = "After entering your session, you'll see a countdown to its start time."
