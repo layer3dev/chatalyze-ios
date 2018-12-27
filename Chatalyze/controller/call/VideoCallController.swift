@@ -136,6 +136,10 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
+
+                //fixme: //why reconnecting to socket?
+                //self?.connectToRoom(info: info)
+
                 self?.eventInfo = info
                 self?.processEventInfo()
                 Log.echo(key: "delay", text: "processed")
@@ -402,15 +406,6 @@ class VideoCallController : InterfaceExtendedController {
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
         }
         
-        //        accessManager.verifyMediaAccess { (success) in
-        //
-        //            if(!success){
-        //                self.processExitAction(code : .mediaAccess)
-        //                return
-        //            }
-        //            self.initialization()
-        //
-        //        }
     }
     
     var isActivated : Bool{
@@ -464,8 +459,10 @@ class VideoCallController : InterfaceExtendedController {
     
     //overridden
     func processEventInfo(){
+
       
         self.checkForDelaySupport()
+
     }
     
     //This will still return info - even if call not activated.
@@ -497,7 +494,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    private func processEventInfo(info : EventScheduleInfo){
+    private func connectToRoom(info : EventScheduleInfo){
         
         socketClient?.connect(roomId: (info.roomId))
     }

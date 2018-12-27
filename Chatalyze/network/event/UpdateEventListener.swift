@@ -37,6 +37,7 @@ class UpdateEventListener{
             self?.processNotificationForNewSlot(info: info)
         })
         
+        //todo: fix analyst_joined bug
         UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: { (data, emit) in
             
             self.listener?()
