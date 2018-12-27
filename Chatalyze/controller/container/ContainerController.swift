@@ -403,8 +403,11 @@ class ContainerController: NavChildController {
             guard let controller = MemoriesController.instance() else{
                 return
             }
+            
             navController?.setViewControllers([rootController,controller], animated: true)
+            
             self.closeToggle()
+            
             //navController?.viewControllers = [controller]
             return
         }
@@ -416,7 +419,9 @@ class ContainerController: NavChildController {
             }
             
             navController?.setViewControllers([rootController], animated: true)
+            
             self.closeToggle()
+            
             //navController?.viewControllers = [controller]
             return
         }
@@ -432,6 +437,7 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
+            
             //navController?.viewControllers = [controller]
             return
         }
@@ -440,11 +446,15 @@ class ContainerController: NavChildController {
             guard let rootController = HostDashboardController.instance() else{
                 return
             }
+            
             guard let controller = EditProfileHostController.instance() else{
                 return
             }
+            
             navController?.setViewControllers([rootController,controller], animated: true)
+            
             self.closeToggle()
+            
             //navController?.viewControllers = [controller]
             return
         }
