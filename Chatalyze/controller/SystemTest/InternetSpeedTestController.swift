@@ -268,15 +268,17 @@ class InternetSpeedTestController: InterfaceExtendedController {
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
-            let speedMb = (speed ?? 0.0) * 8
-            Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
+            
             DispatchQueue.main.async {
                 
                 self.stopLoader()
                 if error == nil{
+                   
+                    let speedMb = (speed ?? 0.0) * 8
+                    Log.echo(key: "speedLogTest", text: "Speed in the Mbps is \(speedMb)")
                     
-                        //if (speed ?? 0.0) < 0.1875 {
-                        //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                    //if (speed ?? 0.0) < 0.1875 {
+                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                         
                         if (speedMb) < 1.5 {
                         
@@ -309,13 +311,11 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         return
                 }else{
                     
-                    self.errorType = .none
-                    self.warningType = .InternetAverage
-                    if self.isVersionWarningExists(){
-                     
-                        self.warningType = .versionOutdatedWithInternetAverage
-                    }
-                    self.showWarning(warningType:self.warningType)
+                   // Error Support in the Internet Test
+                    
+                    self.errorType = .SlowInternetError
+                    self.warningType = .none
+                    self.showSlowInternetError()
                     return
                 }
             }

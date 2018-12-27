@@ -83,7 +83,7 @@ class UserInfo: NSObject {
         email = info["email"]?.stringValue
         roleId = info["roleId"]?.stringValue
         let avatars = info["avatars"]
-        profileImage = avatars?["400X400"].stringValue        
+        profileImage = info["profilePic"]?.stringValue
         profileThumbnail = avatars?["200X200"].stringValue
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
@@ -93,7 +93,6 @@ class UserInfo: NSObject {
 }
 
 extension UserInfo{
-    
     
     @objc var genderType : genderType{
        
@@ -144,7 +143,7 @@ extension UserInfo{
         }
         
         let formattedDate  = DateParser.parseToFormattedData(joiningDate)
-        
+
         return formattedDate ?? ""
     }
     

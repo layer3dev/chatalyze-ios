@@ -11,6 +11,7 @@ import UIKit
 class TabContainerView: ExtendedView {
     
     enum tabType : Int {
+        
         case event = 0
         case greeting = 1
         case account = 2
@@ -25,9 +26,11 @@ class TabContainerView: ExtendedView {
     
     override func viewDidLayout(){
         super.viewDidLayout()
+        
         initialization()
     }
     private func initialization(){
+        
         initializeChild()
     }
     private func initializeChild(){
@@ -76,7 +79,9 @@ extension TabContainerView : TabElementInterface{
     }
     
     private func getElement(type : TabContainerView.tabType)->TabElementView?{
+
         switch type {
+            
         case .event:
             return eventTab
         case .greeting:
@@ -89,6 +94,7 @@ extension TabContainerView : TabElementInterface{
     }
     
     func setActionPending(isPending : Bool, type : TabContainerView.tabType){
+       
         let element = getElement(type: type)
         element?.isActionPending = isPending
     }    

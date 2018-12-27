@@ -112,7 +112,7 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.setListener { (deletedEventID) in
             
             if self.eventId == deletedEventID{
-
+                
                 self.processExitAction(code: .userAction)
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
@@ -299,7 +299,6 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         //multipleVideoTabListner()
     }
     
@@ -310,8 +309,9 @@ class VideoCallController : InterfaceExtendedController {
     
     
     
-    
     private func checkForInternet(){
+        
+        Log.echo(key: "yud", text: "CheckForInternet is calling")
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
@@ -323,13 +323,15 @@ class VideoCallController : InterfaceExtendedController {
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
             DispatchQueue.main.async {
-             
-                let speedMb = (speed ?? 0.0) * 8
-                Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
                 
-               // self.stopLoader()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                    
+                    self.checkForInternet()
+                }
+                
                 if error == nil{
                     
+                    let speedMb = (speed ?? 0.0) * 8
                     //if (speed ?? 0.0) < 0.1875 {
                     //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                     
@@ -350,7 +352,7 @@ class VideoCallController : InterfaceExtendedController {
     private func showMediaAlert(alert:permissionsCheck?){
         
         DispatchQueue.main.async {
-           
+            
             if self.presentedViewController as? MediaAlertController != nil{
                 return
             }
@@ -438,11 +440,11 @@ class VideoCallController : InterfaceExtendedController {
             self?.eventInfo = info
             
             self?.processEventInfo()
-
+            
             Log.echo(key: "delay", text: "processed")
             
             self?.updateToReadyState()
-
+            
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
             }
@@ -459,6 +461,7 @@ class VideoCallController : InterfaceExtendedController {
     //This will still return info - even if call not activated.
     //if not activated - success will be false and info will have valid data
     private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
+        
         loadInfo {[weak self] (success, info) in
             if(!success){
                 completion?(false, nil)
@@ -472,7 +475,7 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
-                if(!success){
+                if(!success){                    
                     completion?(false, info)
                     return
                 }
@@ -506,7 +509,7 @@ class VideoCallController : InterfaceExtendedController {
         socketClient?.emit("disconnect", data)
     }
     
-
+    
     private func updateToReadyState(){
         callLogger?.logSocketConnectionState()
         callLogger?.logDeviceInfo()
@@ -607,7 +610,7 @@ class VideoCallController : InterfaceExtendedController {
             self.rootView?.switchToCallRequest()
         })
     }
-
+    
     
     //isolated from eventInfo
     private func initializeVariable(){
