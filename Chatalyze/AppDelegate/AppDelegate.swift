@@ -202,7 +202,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
-        // (app, open: url, options: options)
+        //(app, open: url, options: options)
         return FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }

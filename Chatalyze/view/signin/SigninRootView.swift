@@ -25,11 +25,11 @@ class SigninRootView: ExtendedView {
     
     @IBAction fileprivate func fbLoginAction(){
         
-        showWelcomeScreen(response: {
+        //showWelcomeScreen(response: {
            
             self.resetErrorStatus()
             self.fbLogin()
-        })
+        //})
     }
     
     func showWelcomeScreen(response:@escaping (()->())){

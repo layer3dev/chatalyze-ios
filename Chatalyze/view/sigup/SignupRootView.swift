@@ -64,6 +64,9 @@ class SignupRootView:ExtendedView{
         EmailSigninHandler().signin(withEmail: email, password: password) { (success, error, info) in
             self.controller?.stopLoader()
             if success{
+                
+                //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up.
+                UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
                 RootControllerManager().updateRoot()
                 return
             }
@@ -218,9 +221,11 @@ extension SignupRootView{
     }
     
     fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
+        
         DispatchQueue.main.async(execute: {
             self.controller?.showLoader()
-            FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
+         
+            FacebookLogin().signup(accessToken: accessToken, completion: { (success, message, info) in
                 
                 self.controller?.stopLoader()
                 if(success){

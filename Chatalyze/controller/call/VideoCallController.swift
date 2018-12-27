@@ -136,7 +136,6 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
-                self?.processEventInfo(info: info)
                 self?.eventInfo = info
                 self?.processEventInfo()
                 Log.echo(key: "delay", text: "processed")
