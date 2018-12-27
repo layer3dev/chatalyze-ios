@@ -34,7 +34,6 @@ class RootControllerManager{
         return onboardStatus
     }
     
-    
     private func showRelevantScreen(didLoadWindow:(()->())?){
         
         updateNavigationBar()
@@ -45,7 +44,8 @@ class RootControllerManager{
             //HandlingAppVersion().checkForAlert()
             return
         }
-        if !isOnBoardShowed(){
+        if isOnBoardShowed(){
+            
             showOnboardScreen(didLoadWindow:didLoadWindow)
             return
         }

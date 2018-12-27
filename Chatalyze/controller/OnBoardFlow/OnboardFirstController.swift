@@ -24,16 +24,18 @@ class OnboardFirstController: InterfaceExtendedController {
 //    }
     
     
-    var hostHeadingTextArray = ["Welcome to Chatalyze \n","Schedule a Session \n","Share Your Page \n","Countdown \n","Chat \n"]
+    var hostHeadingTextArray = ["Welcome to Chatalyze \n","Schedule a Session \n","Share Your Page \n","Count Down \n","Chat \n"]
     
     var hostSubHeadingTextArray = ["Tap the big blue button in My Sessions to get started.","Set a date, start time, duration, 1:1 chat length, and price.","Post the link to your booking page so people can reserve chat slots.","After entering your session, you'll see a countdown to its start time.","We'll connect you to each person in the video chat queue, one-by-one."]
 
-    var userHeadingTextArray = ["Book a Chat\n","Receive a Ticket\n","Countdown\n","Chat\n"]
-    var userSubHeadingTextArray = ["Find a host's booking page on their social channels and book a chat.","Your ticket gets you into your chat when it comes time.","After joining your chat, you'll see a countdown to its start time.","When the countdown hits zero, you'll automatically connect to your chat!"]
+    var userHeadingTextArray = ["Welcome to Chatalyze \n","Book a Chat\n","Receive a Ticket\n","Count Down\n","Chat\n"]
+    
+    var userSubHeadingTextArray = ["Let's get you started!","Find a host's booking page on their social channels and book a chat.","Your ticket gets you into your chat when it comes time.","After joining your chat, you'll see a countdown to its start time.","When the countdown hits zero, you'll automatically connect to your chat!"]
     
     
-    var hostImageArray = ["hostPageOne","hostPageTwo","hostPageThree","hostPageThree","hostPageFive"]
-    var userImageArray = ["userPageOne","userPageTwo","userPageThree","userPageFour"]
+    var hostImageArray = ["hostPageOne","hostPageTwo","hostPageThree","hostPageFour","hostPageFive"]
+    
+    var userImageArray = ["userPageOne","userPageTwo","userPageThree","userPageFour","userPageFive"]
     
     var currentControllerIndex = OnBoardPageViewController.controllerObjectIndex.first
     
@@ -121,6 +123,11 @@ class OnboardFirstController: InterfaceExtendedController {
                 self.view.backgroundColor = UIColor(hexString: "#FAA579")
                 return
             }
+            if currentControllerIndex == .fifth{
+                
+                self.view.backgroundColor = UIColor(hexString: "#97cefa")
+                return
+            }
             return
         }
         return
@@ -194,6 +201,7 @@ class OnboardFirstController: InterfaceExtendedController {
         
         if userType == .user{
             
+            
             if currentControllerIndex == .first{
                 
                 return userImageArray[currentControllerIndex.rawValue]
@@ -210,6 +218,10 @@ class OnboardFirstController: InterfaceExtendedController {
                 
                 return userImageArray[currentControllerIndex.rawValue]
             }
+            if currentControllerIndex == .fifth{
+                
+                return userImageArray[currentControllerIndex.rawValue]
+            }
             return ""
         }
         return ""
@@ -223,6 +235,7 @@ class OnboardFirstController: InterfaceExtendedController {
         }
         
         if userType == .analyst{
+            
             
             if currentControllerIndex == .first{
                 
@@ -250,6 +263,7 @@ class OnboardFirstController: InterfaceExtendedController {
         
         if userType == .user{
             
+            
             if currentControllerIndex == .first{
                 
                 return userHeadingTextArray[currentControllerIndex.rawValue]
@@ -263,6 +277,10 @@ class OnboardFirstController: InterfaceExtendedController {
                 return userHeadingTextArray[currentControllerIndex.rawValue]
             }
             if currentControllerIndex == .fourth{
+                
+                return userHeadingTextArray[currentControllerIndex.rawValue]
+            }
+            if currentControllerIndex == .fifth{
                 
                 return userHeadingTextArray[currentControllerIndex.rawValue]
             }
@@ -323,6 +341,9 @@ class OnboardFirstController: InterfaceExtendedController {
                 
                 return userSubHeadingTextArray[currentControllerIndex.rawValue]
             }
+            if currentControllerIndex == .fifth{
+                return userSubHeadingTextArray[currentControllerIndex.rawValue]
+            }
             return ""
         }
         return ""
@@ -330,6 +351,7 @@ class OnboardFirstController: InterfaceExtendedController {
     }
     
     func paintLableText(){
+        
         
         for family in UIFont.familyNames.sorted() {
             let names = UIFont.fontNames(forFamilyName: family)
@@ -344,10 +366,7 @@ class OnboardFirstController: InterfaceExtendedController {
             return
         }
         
-        
-        
         let firstMutableStr = firstText.toMutableAttributedString(font: "OpenSans-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
-        
         
         let secondAtrStr = scecondStr.toAttributedString(font: "Open Sans", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
         
@@ -365,7 +384,6 @@ class OnboardFirstController: InterfaceExtendedController {
 
         infoLbl?.attributedText = firstMutableStr
     }
-    
     
 
     /*

@@ -49,6 +49,7 @@ class OnBoardPageViewController: UIPageViewController {
         
         self.dataSource = self
         self.delegate = self
+        self.view.backgroundColor = UIColor(hexString: "#97cefa")
         setFirstController()
         // Do any additional setup after loading the view.
     }
@@ -104,7 +105,11 @@ class OnBoardPageViewController: UIPageViewController {
             if index == .fourth{
                 return indexofPage.third
             }
+            if index == .fifth{
+                return indexofPage.fourth
+            }
             return nil
+
         }
         return nil
     }
@@ -146,6 +151,9 @@ class OnBoardPageViewController: UIPageViewController {
                 return indexofPage.fourth
             }
             if index == .fourth{
+                return indexofPage.fifth
+            }
+            if index == .fifth{
                 return nil
             }
             return nil
@@ -294,5 +302,4 @@ extension OnBoardPageViewController:UIPageViewControllerDelegate, UIPageViewCont
             Log.echo(key: "yud", text: "Transition is ended \(finished) and the current index is \(pageViewController.viewControllers?.first?.view.tag)")
         }
     }
-    
 }

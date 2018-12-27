@@ -31,7 +31,10 @@ class VideoCallController : InterfaceExtendedController {
         case undefined
     }
     
-    //Required Permission
+    //In order to stop the continuos Internet Test.
+    var shouldInternetTestStop = false
+    
+    //Required Permission.
     var requiredPermission:permissionsCheck?
     
     
@@ -71,6 +74,7 @@ class VideoCallController : InterfaceExtendedController {
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
     let updatedEventScheduleListner = UpdateEventListener()
+    
     
     //in case if user opens up 
     var isProhibited = false
@@ -132,7 +136,6 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
-                self?.processEventInfo(info: info)
                 self?.eventInfo = info
                 self?.processEventInfo()
                 Log.echo(key: "delay", text: "processed")
@@ -153,6 +156,8 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidRelease() {
         super.viewDidRelease()
+        
+        self.shouldInternetTestStop = true
         
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
@@ -326,12 +331,16 @@ class VideoCallController : InterfaceExtendedController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     
+                    if self.shouldInternetTestStop{
+                        return
+                    }
                     self.checkForInternet()
                 }
                 
                 if error == nil{
                     
                     let speedMb = (speed ?? 0.0) * 8
+                    
                     //if (speed ?? 0.0) < 0.1875 {
                     //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
                     
@@ -429,6 +438,7 @@ class VideoCallController : InterfaceExtendedController {
         
         loadActivatedInfo {[weak self] (isActivated, info) in
             self?.stopLoader()
+            
             Log.echo(key: "delay", text: "info received -> \(info?.title)")
             
             guard let info = info
@@ -446,15 +456,15 @@ class VideoCallController : InterfaceExtendedController {
             self?.updateToReadyState()
             
             if(isActivated){
+                
                 Log.echo(key: "delay", text: "event is activated")
             }
         }
     }
     
-    
     //overridden
     func processEventInfo(){
-        
+      
         self.checkForDelaySupport()
     }
     
@@ -489,7 +499,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func processEventInfo(info : EventScheduleInfo){
         
-        socketClient?.connect(roomId: (info.roomId ?? ""))
+        socketClient?.connect(roomId: (info.roomId))
     }
     
     private func updateUserOfExit(){
@@ -668,7 +678,6 @@ class VideoCallController : InterfaceExtendedController {
         socketListener?.confirmConnect(completion: { [weak self] (success) in
             
             if(success){
-                
                 //self?.startAcceptCall()
             }
         })

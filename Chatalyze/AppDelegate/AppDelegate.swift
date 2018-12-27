@@ -202,7 +202,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
-        // (app, open: url, options: options)
+        //(app, open: url, options: options)
         return FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }
@@ -229,7 +229,7 @@ extension AppDelegate{
     
    static func fetchAppVersionInfoToServer(){
         
-        //This case handle the sencond time when app is open
+        //This will handle the case when app will open second time and root is already initialized.
         FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{

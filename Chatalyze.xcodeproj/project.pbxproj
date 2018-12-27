@@ -650,6 +650,8 @@
 		47D0B1C521A6C4B5006376A8 /* chatalyze_terms_html.html in Resources */ = {isa = PBXBuildFile; fileRef = 47182596216B5A9C00216AEB /* chatalyze_terms_html.html */; };
 		47D0B1CE21A6C936006376A8 /* AppConnectioConfigForDev.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8B22F20A3086E00899731 /* AppConnectioConfigForDev.swift */; };
 		47D0B1CF21A6EE60006376A8 /* AppConnectionConfigForProduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8B23020A3087000899731 /* AppConnectionConfigForProduction.swift */; };
+		47D6D0C721D3926F006C70B5 /* AnalystEventJoinedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D6D0C621D3926F006C70B5 /* AnalystEventJoinedListener.swift */; };
+		47D6D0C821D3926F006C70B5 /* AnalystEventJoinedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D6D0C621D3926F006C70B5 /* AnalystEventJoinedListener.swift */; };
 		47D7CC0721BE72B100CAFCF1 /* AccessTokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D7CC0621BE72B100CAFCF1 /* AccessTokenValidator.swift */; };
 		47D7CC0A21BE7EC400CAFCF1 /* AccessTokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D7CC0621BE72B100CAFCF1 /* AccessTokenValidator.swift */; };
 		47D7CC0C21BE859800CAFCF1 /* DeprecationAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D7CC0B21BE859800CAFCF1 /* DeprecationAlertController.swift */; };
@@ -1152,6 +1154,7 @@
 		47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUserImage.swift; sourceTree = "<group>"; };
 		47D0B00421A6799F006376A8 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		47D0B1CC21A6C4B5006376A8 /* Chatalyze Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chatalyze Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47D6D0C621D3926F006C70B5 /* AnalystEventJoinedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalystEventJoinedListener.swift; sourceTree = "<group>"; };
 		47D790C121A2879E0093DA2B /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D790C421A28A8B0093DA2B /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 		47D790C621A28AD00093DA2B /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3856,6 +3859,7 @@
 				47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */,
 				47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */,
 				47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */,
+				47D6D0C621D3926F006C70B5 /* AnalystEventJoinedListener.swift */,
 				47B6EE0821AC174A009E155A /* New Group */,
 			);
 			path = event;
@@ -4586,6 +4590,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47D6D0C821D3926F006C70B5 /* AnalystEventJoinedListener.swift in Sources */,
 				47D0B00A21A6C4B5006376A8 /* ShadowView.swift in Sources */,
 				47D0B00B21A6C4B5006376A8 /* PaymentAdapter.swift in Sources */,
 				47D0B00C21A6C4B5006376A8 /* FetchProfileProcessor.swift in Sources */,
@@ -4998,6 +5003,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47D6D0C721D3926F006C70B5 /* AnalystEventJoinedListener.swift in Sources */,
 				4753BA05219013BF0060777B /* ShadowView.swift in Sources */,
 				47AD144020ADB013006AF9D6 /* PaymentAdapter.swift in Sources */,
 				47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */,
@@ -5644,7 +5650,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -5660,7 +5666,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5677,7 +5683,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -5693,7 +5699,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

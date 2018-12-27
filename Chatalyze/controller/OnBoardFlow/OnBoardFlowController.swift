@@ -32,28 +32,15 @@ class OnBoardFlowController: UIViewController {
     
     func setPageControl(){
         
-        guard let role = SignedUserInfo.sharedInstance?.role else{
-            return
-        }
-        
-        if role == .user{
-           
-            pageViewControl?.currentPage = 0
-            pageViewControl?.numberOfPages = 4
-            pageViewControl?.transform = CGAffineTransform(scaleX: 2, y: 2)
-
-            return
-        }
-      
         pageViewControl?.currentPage = 0
         pageViewControl?.numberOfPages = 5
         pageViewControl?.transform = CGAffineTransform(scaleX: 2, y: 2)
-    
     }
     
     @IBAction func skipAction(sender:UIButton){
 
-        UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
+        //UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
+        UserDefaults.standard.removeObject(forKey: "isOnBoardShowed")
         RootControllerManager().updateRoot()
     }
     
@@ -113,7 +100,6 @@ class OnBoardFlowController: UIViewController {
         if index == .fourth{
             
             pageViewControl?.currentPage = 3
-
             
             reset()
             self.firstDot?.backgroundColor = UIColor.white
@@ -122,6 +108,7 @@ class OnBoardFlowController: UIViewController {
             self.fourthDot?.backgroundColor = UIColor(hexString: "#4a4a4a")
             self.fifthDot?.backgroundColor = UIColor.white
             self.skipDoneLbl?.text = "Skip"
+           
             return
         }
         if index == .fifth{
