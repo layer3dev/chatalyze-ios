@@ -88,6 +88,7 @@ class VideoCallController : InterfaceExtendedController {
         return (socketClient?.isConnected ?? false)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,6 +116,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    
     func eventScheduleUpdatedAlert(){
         
         updatedEventScheduleListner.setListener {
@@ -128,7 +130,7 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
-                self?.processEventInfo(info: info)
+//                self?.processEventInfo(info: info)
                 self?.eventInfo = info
                 
                 self?.processEventInfo()
@@ -142,12 +144,14 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    
     override func viewAppeared(){
         super.viewAppeared()
         
         Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
         processPermission()
     }
+    
     
     override func viewDidRelease() {
         super.viewDidRelease()
@@ -166,13 +170,16 @@ class VideoCallController : InterfaceExtendedController {
         self.socketListener = nil
     }
     
+    
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
     }
     
+    
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
     }
+    
     
     //public - Need to be access by child
     var peerConnection : ARDAppClient?{
@@ -180,6 +187,7 @@ class VideoCallController : InterfaceExtendedController {
             return nil
         }
     }
+    
     
     func resetMuteActions(){
         
@@ -194,6 +202,7 @@ class VideoCallController : InterfaceExtendedController {
         localMediaPackage.muteAudio = false
         localMediaPackage.muteVideo = false
     }
+    
     
     @IBAction private func audioMuteAction(){
         
@@ -236,10 +245,6 @@ class VideoCallController : InterfaceExtendedController {
             actionContainer?.videoView?.mute()
         }
     }
-    
-   
-    
-   
     
     
     func processExitAction(code : exitCode){
@@ -435,7 +440,7 @@ class VideoCallController : InterfaceExtendedController {
                     return
             }
             
-            self?.processEventInfo(info: info)
+            self?.connectToRoom(info: info)
             self?.eventInfo = info
             
             self?.processEventInfo()
@@ -486,7 +491,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    private func processEventInfo(info : EventScheduleInfo){
+    private func connectToRoom(info : EventScheduleInfo){
         
         socketClient?.connect(roomId: (info.roomId ?? ""))
     }

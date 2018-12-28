@@ -797,6 +797,11 @@
 		FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F108210A044900D16F13 /* HangupActionView.swift */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
 		FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */; };
+		FA91054721D6195D00060AFF /* MediaAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054621D6195D00060AFF /* MediaAlertController.swift */; };
+		FA91054821D6195D00060AFF /* MediaAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054621D6195D00060AFF /* MediaAlertController.swift */; };
+		FA91054B21D61FB300060AFF /* LogNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054A21D61FB300060AFF /* LogNotification.swift */; };
+		FA91054C21D61FB300060AFF /* LogNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054A21D61FB300060AFF /* LogNotification.swift */; };
+		FA91054E21D6218200060AFF /* ProductionFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054D21D6218200060AFF /* ProductionFlag.swift */; };
 		FA912D9A20417DD9002891EC /* icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA912D9920417DD9002891EC /* icon.xcassets */; };
 		FA912D9E20418DFF002891EC /* SigninButtonContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */; };
 		FA912DA0204196CF002891EC /* InterfaceExtendedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */; };
@@ -843,7 +848,6 @@
 		FAA001C3203EDFF2003C8A74 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001BF203EDFF2003C8A74 /* Starscream.framework */; };
 		FAA001CF203EE2BC003C8A74 /* AppInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA001C9203EE2BC003C8A74 /* AppInfoConfig.swift */; };
 		FAA001D0203EE2BC003C8A74 /* AppThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA001CA203EE2BC003C8A74 /* AppThemeConfig.swift */; };
-		FAA001D1203EE2BC003C8A74 /* DevFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA001CC203EE2BC003C8A74 /* DevFlag.swift */; };
 		FAB68ADF211883AD00190442 /* SlotTimeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB68ADE211883AD00190442 /* SlotTimeInfo.swift */; };
 		FAB71CE520776C3000C24246 /* ActivateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB71CE420776C3000C24246 /* ActivateEvent.swift */; };
 		FAB71CE92077A57F00C24246 /* NotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB71CE72077A57F00C24246 /* NotificationInfo.swift */; };
@@ -1335,6 +1339,9 @@
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
 		FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackIdentifierInfo.swift; sourceTree = "<group>"; };
+		FA91054621D6195D00060AFF /* MediaAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaAlertController.swift; sourceTree = "<group>"; };
+		FA91054A21D61FB300060AFF /* LogNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogNotification.swift; sourceTree = "<group>"; };
+		FA91054D21D6218200060AFF /* ProductionFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionFlag.swift; sourceTree = "<group>"; };
 		FA912D9920417DD9002891EC /* icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = icon.xcassets; sourceTree = "<group>"; };
 		FA912D9D20418DFF002891EC /* SigninButtonContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninButtonContainer.swift; sourceTree = "<group>"; };
 		FA912D9F204196CE002891EC /* InterfaceExtendedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceExtendedController.swift; sourceTree = "<group>"; };
@@ -3160,6 +3167,7 @@
 		FA65F540206A589E006CE665 /* call */ = {
 			isa = PBXGroup;
 			children = (
+				FA91054621D6195D00060AFF /* MediaAlertController.swift */,
 				FA65F541206A589E006CE665 /* VideoCallController.swift */,
 				FA65F543206A58E3006CE665 /* UserCallController.swift */,
 				FA65F545206A58F2006CE665 /* HostCallController.swift */,
@@ -3478,6 +3486,14 @@
 			path = countdown;
 			sourceTree = "<group>";
 		};
+		FA91054921D61F5700060AFF /* debug */ = {
+			isa = PBXGroup;
+			children = (
+				FA91054A21D61FB300060AFF /* LogNotification.swift */,
+			);
+			path = debug;
+			sourceTree = "<group>";
+		};
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -3628,6 +3644,7 @@
 		FAA00171203ED471003C8A74 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				FA91054921D61F5700060AFF /* debug */,
 				47D7CC1521BE8A3D00CAFCF1 /* HandlingAppVersion */,
 				473E3B55211B1C0F00DC60BC /* CountDownProcessor */,
 				47F0D71120F8B51200A689FA /* countrypicker */,
@@ -3775,6 +3792,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA001CC203EE2BC003C8A74 /* DevFlag.swift */,
+				FA91054D21D6218200060AFF /* ProductionFlag.swift */,
 			);
 			path = configFlag;
 			sourceTree = "<group>";
@@ -4756,6 +4774,7 @@
 				47D0B0EB21A6C4B5006376A8 /* ARDMessageResponse.m in Sources */,
 				47D0B0EC21A6C4B5006376A8 /* MyTicketCellDelegate.swift in Sources */,
 				47D0B0ED21A6C4B5006376A8 /* EventListener.swift in Sources */,
+				FA91054821D6195D00060AFF /* MediaAlertController.swift in Sources */,
 				47D0B0EE21A6C4B5006376A8 /* EditProfileController.swift in Sources */,
 				47D0B0EF21A6C4B5006376A8 /* PageScrollerController.swift in Sources */,
 				47D0B0F021A6C4B5006376A8 /* ARDSignalingMessage.m in Sources */,
@@ -4822,6 +4841,7 @@
 				47D0B12B21A6C4B5006376A8 /* GoogleSignIn.swift in Sources */,
 				47D0B12C21A6C4B5006376A8 /* SyncTimer.swift in Sources */,
 				47D0B12D21A6C4B5006376A8 /* EventPaymentProcessor.swift in Sources */,
+				FA91054C21D61FB300060AFF /* LogNotification.swift in Sources */,
 				47D0B12E21A6C4B5006376A8 /* OpenCallAlertController.swift in Sources */,
 				47D0B12F21A6C4B5006376A8 /* SubmitCallReviewProcessor.swift in Sources */,
 				47D0B13021A6C4B5006376A8 /* NavigationBarCustomizer.swift in Sources */,
@@ -5017,7 +5037,6 @@
 				47B6526C20AAB43B0041496C /* EventProcessor.swift in Sources */,
 				FAE9EF7B206CE93700C45F8D /* EventTimeProtocol.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
-				FAA001D1203EE2BC003C8A74 /* DevFlag.swift in Sources */,
 				47FD6912217DE483001886A6 /* HangupController.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
@@ -5159,6 +5178,7 @@
 				47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */,
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */,
+				FA91054721D6195D00060AFF /* MediaAlertController.swift in Sources */,
 				470EEC102166201800DB705D /* PageScrollerController.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
 				4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */,
@@ -5225,6 +5245,7 @@
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */,
 				47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */,
+				FA91054B21D61FB300060AFF /* LogNotification.swift in Sources */,
 				47E2F02A20DBC1DD006BD93B /* SubmitCallReviewProcessor.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAB71CEA2077A57F00C24246 /* NotificationMetaInfo.swift in Sources */,
@@ -5320,6 +5341,7 @@
 				FA0077A2207E2CF9005F840D /* UserVideoLayoutView.swift in Sources */,
 				47F6CE46213EA45200BF79B2 /* PushNotificationHandler.swift in Sources */,
 				FA74B1512063A0B600983141 /* SocketListenerCallback.swift in Sources */,
+				FA91054E21D6218200060AFF /* ProductionFlag.swift in Sources */,
 				472D617C20BD4F290016A761 /* SystemRootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
