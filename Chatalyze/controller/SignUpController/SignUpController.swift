@@ -22,12 +22,9 @@ class SignUpController: InterfaceExtendedController {
     
     func maketextLinkable(){
         
-
         let attributeForFirstString = [NSAttributedString.Key.font:UIFont(name: "Questrial", size:18),NSAttributedString.Key.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedString.Key : Any]
         
         let attributeForSecondString = [NSAttributedString.Key.font:UIFont(name: "Poppins", size:18),NSAttributedString.Key.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedString.Key : Any]
-
-        
         
         let text = NSMutableAttributedString(string: "By signing up, you agree to our ")
         
@@ -65,7 +62,9 @@ class SignUpController: InterfaceExtendedController {
         guard let controller = TermsConditionController.instance() else {
             return
         }
-       controller.url = "https://dev.chatalyze.com/terms-app"
+        //controller.url = "https://dev.chatalyze.com/terms-app"
+        controller.url = AppConnectionConfig.systemTestUrl + "/terms-app"
+
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -83,7 +82,8 @@ class SignUpController: InterfaceExtendedController {
         guard let controller = TermsConditionController.instance() else {
             return
         }
-        controller.url = "https://dev.chatalyze.com/privacy-app"
+        controller.url = AppConnectionConfig.systemTestUrl + "/privacy-app"
+        //controller.url = "https://dev.chatalyze.com/privacy-app"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

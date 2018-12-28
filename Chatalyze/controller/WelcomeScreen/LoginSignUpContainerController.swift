@@ -15,13 +15,14 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     @IBOutlet var signInTab:LoginSignUpTabView?
     @IBOutlet var signUpTab:LoginSignUpTabView?
     static var roleId = 0
-    
+    var didLoad:(()->())?
     override func viewDidLayout() {
         super.viewDidLayout()
      
         initializeVariable()
         paintInterface()
         initializeForForGotPasswordNavigation()
+        self.didLoad?()
         //verifyRoleId()
     }
     func initializeForForGotPasswordNavigation(){

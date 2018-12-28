@@ -63,8 +63,6 @@ class HandlingAppVersion:NSObject {
         }
         else if appVersion <= deprecatedVersion{
             
-            
-            
             if !isThisTimeToShowAlert(){
                 return
             }

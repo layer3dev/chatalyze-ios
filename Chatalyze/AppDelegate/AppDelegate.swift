@@ -33,12 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
-    
     fileprivate func test(){
         
         TimerSync.sharedInstance
-        
         Log.echo(key : "hardware", text : "\(UIDevice.current)")
     }
     
@@ -82,9 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
 
         verifyingAccessToken()
+  
         if self.isRootInitialize{
+            
             AppDelegate.fetchAppVersionInfoToServer()
         }
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
@@ -118,7 +118,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 self.getNotificationSettings()
             }
         }else{
-            
+
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -191,6 +191,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
+            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
                 //PushNotificationHandler().handleNavigation(info: notification)
@@ -201,7 +202,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
         
-        // (app, open: url, options: options)
+        //(app, open: url, options: options)
         return FBSDKApplicationDelegate.sharedInstance().application(app,open:url,options:options)
     }
 }
@@ -216,7 +217,9 @@ extension AppDelegate{
         }
         
         AccessTokenValidator().validate { (success) in
+           
             if !success{
+              
                 RootControllerManager().signOut(completion: {
                 })
             }
@@ -226,7 +229,7 @@ extension AppDelegate{
     
    static func fetchAppVersionInfoToServer(){
         
-        //This case handle the sencond time when app is open
+        //This will handle the case when app will open second time and root is already initialized.
         FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{

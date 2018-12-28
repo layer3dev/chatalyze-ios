@@ -31,7 +31,10 @@ class VideoCallController : InterfaceExtendedController {
         case undefined
     }
     
-    //Required Permission
+    //In order to stop the continuos Internet Test.
+    var shouldInternetTestStop = false
+    
+    //Required Permission.
     var requiredPermission:permissionsCheck?
     
     
@@ -72,6 +75,7 @@ class VideoCallController : InterfaceExtendedController {
     
     let updatedEventScheduleListner = UpdateEventListener()
     
+    
     //in case if user opens up 
     var isProhibited = false
     
@@ -88,6 +92,9 @@ class VideoCallController : InterfaceExtendedController {
         return (socketClient?.isConnected ?? false)
     }
     
+
+    var appDelegate : AppDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +106,8 @@ class VideoCallController : InterfaceExtendedController {
             
             self.fontSizeBig = 22
         }
+        
+        appDelegate =  UIApplication.shared.delegate as? AppDelegate
         initializeListenrs()
         // Do any additional setup after loading the view.
     }
@@ -109,7 +118,7 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.setListener { (deletedEventID) in
             
             if self.eventId == deletedEventID{
-
+                
                 self.processExitAction(code: .userAction)
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
@@ -130,11 +139,14 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
-//                self?.processEventInfo(info: info)
+
+
+                //fixme: //why reconnecting to socket?
+                //self?.connectToRoom(info: info)
+
+
                 self?.eventInfo = info
-                
                 self?.processEventInfo()
-                
                 Log.echo(key: "delay", text: "processed")
                 
                 if(isActivated){
@@ -155,6 +167,8 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidRelease() {
         super.viewDidRelease()
+        
+        self.shouldInternetTestStop = true
         
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
@@ -246,7 +260,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
+
     func processExitAction(code : exitCode){
         
         timer.pauseTimer()
@@ -307,7 +321,6 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         //multipleVideoTabListner()
     }
     
@@ -318,8 +331,9 @@ class VideoCallController : InterfaceExtendedController {
     
     
     
-    
     private func checkForInternet(){
+        
+        Log.echo(key: "yud", text: "CheckForInternet is calling")
         
         if !(InternetReachabilityCheck().isInternetAvailable()){
             
@@ -328,26 +342,34 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         
-        self.showLoader()
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
-            let speedMb = (speed ?? 0.0) * 8
-            Log.echo(key: "yud", text: "Speed in the Mbps is \(speedMb)")
-            
-            self.stopLoader()
-            if error == nil{
+            DispatchQueue.main.async {
                 
-                //if (speed ?? 0.0) < 0.1875 {
-                //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
-                
-                if (speedMb) < 1.5 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     
-                    self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
-                    self.showMediaAlert(alert:self.requiredPermission)
+                    if self.shouldInternetTestStop{
+                        return
+                    }
+                    self.checkForInternet()
+                }
+                
+                if error == nil{
+                    
+                    let speedMb = (speed ?? 0.0) * 8
+                    
+                    //if (speed ?? 0.0) < 0.1875 {
+                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
+                    
+                    if (speedMb) < 1.5 {
+                        
+                        self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
+                        self.showMediaAlert(alert:self.requiredPermission)
+                        return
+                    }
+                    self.requiredPermission = VideoCallController.permissionsCheck.none
                     return
                 }
-                self.requiredPermission = VideoCallController.permissionsCheck.none
-                return
             }
         }
     }
@@ -356,7 +378,11 @@ class VideoCallController : InterfaceExtendedController {
     private func showMediaAlert(alert:permissionsCheck?){
         
         DispatchQueue.main.async {
-           
+            
+            if self.presentedViewController as? MediaAlertController != nil{
+                return
+            }
+            
             guard let controller = MediaAlertController.instance() else {
                 return
             }
@@ -379,32 +405,20 @@ class VideoCallController : InterfaceExtendedController {
             
             if !cameraAccess{
                 
-                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission
+                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission             
                 self.showMediaAlert(alert:self.requiredPermission)
-                return
             }
             
             if !micAccess{
                 
                 self.requiredPermission = VideoCallController.permissionsCheck.micPermission
                 self.showMediaAlert(alert:self.requiredPermission)
-                return
             }
-            
             self.initialization()
             self.checkForInternet()
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
         }
         
-        //        accessManager.verifyMediaAccess { (success) in
-        //
-        //            if(!success){
-        //                self.processExitAction(code : .mediaAccess)
-        //                return
-        //            }
-        //            self.initialization()
-        //
-        //        }
     }
     
     var isActivated : Bool{
@@ -428,11 +442,11 @@ class VideoCallController : InterfaceExtendedController {
         initializeVariable()
         audioManager = AudioManager()
         startLocalStream()
-        
         showLoader()
         
         loadActivatedInfo {[weak self] (isActivated, info) in
             self?.stopLoader()
+            
             Log.echo(key: "delay", text: "info received -> \(info?.title)")
             
             guard let info = info
@@ -444,28 +458,30 @@ class VideoCallController : InterfaceExtendedController {
             self?.eventInfo = info
             
             self?.processEventInfo()
-
+            
             Log.echo(key: "delay", text: "processed")
             
-
             self?.updateToReadyState()
-
+            
             if(isActivated){
+                
                 Log.echo(key: "delay", text: "event is activated")
             }
         }
     }
     
-    
     //overridden
     func processEventInfo(){
-        
+
+      
         self.checkForDelaySupport()
+
     }
     
     //This will still return info - even if call not activated.
     //if not activated - success will be false and info will have valid data
     private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
+        
         loadInfo {[weak self] (success, info) in
             if(!success){
                 completion?(false, nil)
@@ -479,7 +495,7 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
-                if(!success){
+                if(!success){                    
                     completion?(false, info)
                     return
                 }
@@ -493,7 +509,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func connectToRoom(info : EventScheduleInfo){
         
-        socketClient?.connect(roomId: (info.roomId ?? ""))
+        socketClient?.connect(roomId: (info.roomId))
     }
     
     private func updateUserOfExit(){
@@ -513,7 +529,7 @@ class VideoCallController : InterfaceExtendedController {
         socketClient?.emit("disconnect", data)
     }
     
-
+    
     private func updateToReadyState(){
         callLogger?.logSocketConnectionState()
         callLogger?.logDeviceInfo()
@@ -615,16 +631,6 @@ class VideoCallController : InterfaceExtendedController {
         })
     }
     
-    var appDelegate : AppDelegate?{
-        
-        get{
-            guard let delegate =  UIApplication.shared.delegate as? AppDelegate
-                else{
-                    return nil
-            }
-            return delegate
-        }
-    }
     
     //isolated from eventInfo
     private func initializeVariable(){
@@ -682,7 +688,6 @@ class VideoCallController : InterfaceExtendedController {
         socketListener?.confirmConnect(completion: { [weak self] (success) in
             
             if(success){
-                
                 //self?.startAcceptCall()
             }
         })

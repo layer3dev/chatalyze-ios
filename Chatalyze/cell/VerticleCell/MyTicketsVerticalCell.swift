@@ -125,17 +125,27 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         if let presenter = alertActionSheet.popoverPresentationController {
             
             alertActionSheet.popoverPresentationController?.sourceView =                 self.rootAdapter?.root?.controller?.view
-            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
+            alertActionSheet.popoverPresentationController?.sourceRect = joinButtonContainer?.frame ?? self.frame
         }
+        
+        
+//        if let presenter = alertActionSheet.popoverPresentationController {
+//
+//            alertActionSheet.popoverPresentationController?.sourceView =                 RootControllerManager().getCurrentController()?.view
+//            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
+//        }
+        
         
         self.rootAdapter?.root?.controller?.present(alertActionSheet, animated: true) {
-        }
-        
+        }        
         
         //self.root?.controller?.present
     }
     
     @IBAction func jointEvent(send:UIButton?){
+        
+      //  CGRect(
+        Log.echo(key: "yud", text: "Sener is \(send) and the self frame is \(self.frame)")
         
         if HandlingAppVersion().getAlertMessage() != "" {            
             showAlert(sender: send ?? UIButton())
