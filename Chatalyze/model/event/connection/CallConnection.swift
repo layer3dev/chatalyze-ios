@@ -154,7 +154,6 @@ class CallConnection: NSObject {
         self.socketListener = nil
         resetRemoteFrame()
     }
-    
 }
 
 
@@ -179,11 +178,12 @@ extension CallConnection : ARDAppClientDelegate{
             isStreaming = true
             isCallConnected?()
             renderIfLinked()
+            resetVideoBounds()
             return
         }
         
         if(state == .disconnected){
-//            resetRemoteFrame()
+            resetRemoteFrame()
             isStreaming = false
         }
         
@@ -233,6 +233,8 @@ extension CallConnection : ARDAppClientDelegate{
         renderRemoteTrack()
     }
     
+    
+    
     //only render if linked, but not if only pre-connected
     func renderIfLinked(){
         
@@ -241,6 +243,24 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         renderRemoteTrack()
+    }
+    
+    //Needed to recover from black screen
+    //once connection retreive from failure
+    func resetVideoBounds(){
+        if(!isLinked){
+            return
+        }
+        
+        if(isAborted){
+            return
+        }
+        guard let remoteView = rootView?.remoteVideoView
+            else{
+                return
+        }
+        
+        remoteView.resetBounds()
     }
     
     func renderRemoteTrack(){
