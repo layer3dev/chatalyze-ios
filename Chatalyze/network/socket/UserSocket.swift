@@ -14,7 +14,8 @@ class UserSocket {
     fileprivate static var _sharedInstance : UserSocket?
     var socketManager : SocketManager?
     var socket : SocketIOClient?
-    var isRegisteredToServer = false    
+    var isRegisteredToServer = false
+    private var notificationLogger = LogNotification()
     
     init(){
         initialization()
@@ -106,6 +107,8 @@ extension UserSocket{
         
         updateConnectionStatus(isConnected: false)
         socket?.on("connect") {data, ack in
+            
+            self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
@@ -124,7 +127,7 @@ extension UserSocket{
         }
         
         socket?.on("disconnect") {data, ack in
-            
+            self.notificationLogger.notify(text : "disconnected :(")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket error data (disconnect) => \(data)")
             self.updateConnectionStatus(isConnected: false)

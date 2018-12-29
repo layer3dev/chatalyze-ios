@@ -48,6 +48,10 @@ class VideoView: RTCEAGLVideoView {
 
 extension VideoView : RTCVideoViewDelegate{
     
+    func resetBounds(){
+        self.updateSize(size: self.trackSize)
+    }
+    
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
         Log.echo(key: "render", text: "didChangeVideoSize --> \(size)")
         if(size != CGSize.zero){
