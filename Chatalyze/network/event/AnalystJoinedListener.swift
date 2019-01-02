@@ -1,34 +1,34 @@
 //
-//  UpdateEventListener.swift
+//  AnalystJoinedListener.swift
 //  Chatalyze
 //
-//  Created by Mansa on 02/08/18.
-//  Copyright © 2018 Mansa Infotech. All rights reserved.
+//  Created by mansa infotech on 02/01/19.
+//  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import Foundation
 import SwiftyJSON
 
-class UpdateEventListener{
+class AnalystJoinedListener{
     
-    private var listener : (()->())?
+    private var listener : ((Int?)->())?
     
     init(){
         initializeListener()
     }
     
-    func setListener(listener : (()->())?){
-        
+    func setListener(listener : ((Int?)->())?){
         self.listener = listener
     }
     
     func initializeListener(){
         
         UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
-           
+            
             if(data.count <= 0){
                 return
             }
+            
             guard let info = data.first as? [String : Any]
                 else{
                     return
@@ -36,21 +36,19 @@ class UpdateEventListener{
             
             self?.processNotificationForNewSlot(info: info)
         })
-                
     }
     
     private func processNotificationForNewSlot(info : [String : Any]){
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "yud", text: "raw -> \(rawInfosString)")
+        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
-        
-        Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
+        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -69,11 +67,17 @@ class UpdateEventListener{
                 return
         }
         
-        Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
+        guard let callScheduleId  = metaInfo.callScheduleId
+            else{
+                return
+        }
         
-        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .analystJoined || activityType == .eventDelay){
+        Log.echo(key: "notification", text: "meta is  ==> \(activityType)")
+        
+        if(activityType != .slotBooked){
             return
         }
-        listener?()
+        
+        listener?(callScheduleId)
     }
 }
