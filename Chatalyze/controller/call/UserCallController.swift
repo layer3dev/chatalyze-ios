@@ -11,6 +11,9 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
   
+    
+    let anlaystJoinedListener = AnalystJoinedAndScheduleUpdatedListener()
+    
     //Animation Responsible
     var isAnimating = false
     
@@ -223,6 +226,16 @@ class UserCallController: VideoCallController {
         registerForListeners()
         self.selfieTimerView?.delegate = self
     }
+    
+    private func checkingForAnalystJoinedListener(){
+        
+        anlaystJoinedListener.setListener {
+            
+            self.reloadDataOnAnalystJoinedOrScheduleUpdated()
+        }
+        
+    }
+    
     
     override func registerForListeners(){
         super.registerForListeners()
