@@ -10,7 +10,10 @@ import UIKit
 
 class HostCallConnection: CallConnection {
     
+    
+    var signallingStartTimestamp : Date?
     var isInitiated = false
+    
     private var disposeListener : (()->())?
     
     override func callFailed(){
@@ -22,6 +25,49 @@ class HostCallConnection: CallConnection {
     func setDisposeListener(disposeListener : (()->())?){
         self.disposeListener = disposeListener
     }
+    
+    func interval(){
+        if(isReleased){
+            return
+        }
+        
+        resetIfBroken()
+    }
+    
+    private func resetIfBroken(){
+        let isSignallingBroken = isBroken()
+        if(!isSignallingBroken){
+            return
+        }
+        
+        signallingStartTimestamp = nil
+        initateHandshake()
+    }
+    
+    //dropped in between signalling
+    func isBroken() -> Bool{
+        guard let connection = connection
+            else{
+                return false
+        }
+        
+        //signalling not started
+        guard let timestamp = signallingStartTimestamp
+            else{
+                return false
+        }
+        
+        if(connection.isSignallingCompleted()){
+           return false
+        }
+        
+        if(timestamp.timeIntervalTillNow > 10){
+            return true
+        }
+        
+        return false
+    }
+
     
     override var targetHashId : String?{
         get{
@@ -123,18 +169,22 @@ class HostCallConnection: CallConnection {
         socketClient?.emit(id: "startConnecting", data: params)
     }
     
+    private func markSignallingAsStarted(){
+        signallingStartTimestamp = TimerSync.sharedInstance.getDate()
+    }
     
     func initateHandshake(){
+        markSignallingAsStarted()
         guard let slotInfo = self.slotInfo
             else{
                 return
         }
         isInitiated = true
-        sendHandshakeMessage(action: "receiveVideoRequest", slotInfo: slotInfo)
+        sendHandshakeMessage(slotInfo: slotInfo)
     }
     
     
-    private func sendHandshakeMessage(action : String, slotInfo : SlotInfo){
+    private func sendHandshakeMessage(slotInfo : SlotInfo){
         
         guard let targetId = slotInfo.user?.hashedId
             else{
@@ -150,7 +200,7 @@ class HostCallConnection: CallConnection {
         params["sender"] = targetId
         params["receiver"] = selfId
         
-        socketClient?.emit(id: action, data: params)
+        socketClient?.emit(id: "receiveVideoRequest", data: params)
     }
     
     override func disconnect(){

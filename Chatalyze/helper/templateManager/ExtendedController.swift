@@ -11,6 +11,8 @@ import UIKit
 class ExtendedController: UIViewController {
 
     private var isLoaded = false;
+    var isReleased = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +37,7 @@ class ExtendedController: UIViewController {
     
     func viewDidRelease(){
         Log.echo(key: "release", text: "viewDidRelease -> Extended")
+        isReleased = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {

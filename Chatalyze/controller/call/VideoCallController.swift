@@ -38,8 +38,7 @@ class VideoCallController : InterfaceExtendedController {
     var requiredPermission:permissionsCheck?
     
     
-    //Implementing the eventDeleteListener
-    var eventDeleteListener = EventDeletedListener()
+    
     
     //user for animatingLable
     var label = UILabel()
@@ -52,7 +51,7 @@ class VideoCallController : InterfaceExtendedController {
     
     var socketClient : SocketClient?
     var socketListener : SocketListener?
-    private let eventSlotListener = EventSlotListener()
+    
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
     var localMediaPackage : CallMediaTrack?
@@ -62,6 +61,11 @@ class VideoCallController : InterfaceExtendedController {
     private var callLogger : CallLogger?
     
     private var localTrack : RTCVideoTrack?
+    
+    private let eventSlotListener = EventSlotListener()
+    //Implementing the eventDeleteListener
+    var eventDeleteListener = EventDeletedListener()
+    let updatedEventScheduleListner = UpdateEventListener()
     
     //used for tracking the call time and auto-connect process
     var timer : SyncTimer = SyncTimer()
@@ -73,7 +77,7 @@ class VideoCallController : InterfaceExtendedController {
     var feedbackListener : ((EventScheduleInfo?)->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
-    let updatedEventScheduleListner = UpdateEventListener()
+    
     
     
     //in case if user opens up 
@@ -139,11 +143,6 @@ class VideoCallController : InterfaceExtendedController {
                         return
                 }
                 
-
-
-                //fixme: //why reconnecting to socket?
-                //self?.connectToRoom(info: info)
-
 
                 self?.eventInfo = info
                 self?.processEventInfo()
@@ -667,7 +666,9 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func executeInterval(){
-        
+        if(isReleased){
+            return
+        }
         if(!isActivated){
             return
         }

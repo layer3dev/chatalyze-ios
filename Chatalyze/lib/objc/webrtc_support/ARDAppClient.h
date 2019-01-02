@@ -95,4 +95,6 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 // Disconnects from the AppRTC servers and any connected clients.
 - (void)disconnect;
 
+-(Boolean)isSignallingCompleted;
+
 @end

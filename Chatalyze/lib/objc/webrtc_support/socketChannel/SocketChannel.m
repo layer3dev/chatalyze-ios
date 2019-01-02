@@ -22,6 +22,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     SocketClient *socketClient;
     SocketListener *socketListener;
     CallLogger *callLogger;
+    Boolean isSdpExchanged;
     // TODO(tkchin): move these to a configuration object.
 }
 
@@ -37,13 +38,16 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     return self;
 }
 
+-(Boolean)isSignallingCompleted{
+    return isSdpExchanged;
+}
+
 
 - (instancetype)init {
     if (self = [super init]) {
         // Initialize self
         [self initialize];
         [self registerListeners];
-        
     }
     return self;
 }
@@ -75,7 +79,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 -(void)registerListeners{
     
     [socketListener onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
-        if(socketClient == nil){
+        if(self->socketClient == nil){
             return;
         }
         [self processCandidate : data];
@@ -84,7 +88,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     [socketListener onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         
-        if(socketClient == nil){
+        if(self->socketClient == nil){
             return;
         }
         
@@ -100,12 +104,14 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
             [self processSDPOffer : packedData];
             return;
         }
+        self->isSdpExchanged = true;
         [self processSDPAnswer : packedData];
     }];
 
 }
 
 -(void)emitAnswer:(RTCSessionDescription *)sdp{
+    isSdpExchanged = true;
     [callLogger logSdpWithType:@"answer" sdp:[sdp JSONDictionary]];
     [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
 }
@@ -131,8 +137,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 -(void)emitCandidate:(RTCIceCandidate *)candidate{
-    
-    
     NSDictionary *candidateInfo = [candidate JSONDictionary];
     [callLogger logCandidateWithCandidate:candidateInfo];
     
@@ -142,7 +146,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     data[[self selfDesignation]] = self.userId;
     data[[self targetDesignation]] = self.receiverId;
     data[@"candidate"] = candidateInfo;
-    
     [self sendMessageWithAction:@"sendIceCandidate" andData:data];
 }
 

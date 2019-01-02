@@ -24,6 +24,8 @@
 -(void)emitCandidate:(RTCIceCandidate *)candidate;
 - (instancetype)initWithEventId : (NSString *)eventId ;
 
+-(Boolean)isSignallingCompleted;
+
 -(void)disconnect;
 
 @end

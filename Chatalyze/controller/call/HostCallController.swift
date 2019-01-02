@@ -285,7 +285,7 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
-        
+        triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -694,6 +694,13 @@ class HostCallController: VideoCallController {
         }
         
         self.processExitAction(code : .expired)
+    }
+    
+    //only two connections at maximum stay in queue at a time
+    private func triggerIntervalToChildConnections(){
+        for (_, connection) in connectionInfo {
+            connection.interval()
+        }
     }
     
     private func disconnectStaleConnection(){

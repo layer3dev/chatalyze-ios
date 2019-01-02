@@ -116,6 +116,10 @@ static int const kKbpsMultiplier = 1000;
   return self;
 }
 
+-(Boolean)isSignallingCompleted{
+    return [_socketChannel isSignallingCompleted];
+}
+
 
 - (void)configure {
     _iceServers = [NSMutableArray array];

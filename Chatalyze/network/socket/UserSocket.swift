@@ -106,6 +106,7 @@ extension UserSocket{
     fileprivate func initializeSocketConnection(){
         
         updateConnectionStatus(isConnected: false)
+        
         socket?.on("connect") {data, ack in
             
             self.notificationLogger.notify(text : "connected :)")

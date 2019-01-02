@@ -35,6 +35,9 @@ class CallConnection: NSObject {
     //This is used for tracking, if selfie-screenshot process can be initiated or not. Not used for re-connect purposes.
     var isStreaming : Bool = false
     
+    //if connection had been released
+    var isReleased : Bool = false
+    
     //flag to see, if this connection is aborted and replaced by another connection
     var isAborted = false
     
@@ -145,6 +148,7 @@ class CallConnection: NSObject {
     
     //follow all protocols of disconnect
     func disconnect(){
+        self.isReleased = true
         
         self.connection?.disconnect()
         self.remoteTrack = nil
