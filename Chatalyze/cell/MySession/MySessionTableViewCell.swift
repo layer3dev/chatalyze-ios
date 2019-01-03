@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 
 class MySessionTableViewCell: ExtendedTableCell {
     
@@ -18,6 +19,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     var enterSession:((EventInfo?)->())?
     @IBOutlet var sessionEventButton:UIButton?
     @IBOutlet var joinButton:UIButton?
+    let eventStore = EKEventStore()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -63,20 +65,20 @@ class MySessionTableViewCell: ExtendedTableCell {
         setDate()
         paintEnterSession()
     }
+    
     func paintEnterSession(){
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
             
             //Event is not started yet
             self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
-           self.sessionEventButton?.setTitleColor(UIColor(hexString: "#333333"), for: .normal)
+           self.sessionEventButton?.setTitleColor(UIColor(hexString: "#8C9597"), for: .normal)
             return
         }
-        self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor) 
-       
+        self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
         self.sessionEventButton?.setTitleColor(UIColor.white, for: .normal)
+        return
     }
-    
     
     func setDate(){
         
@@ -138,9 +140,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         //self.root?.controller?.present
     }
     
-    
-
-    
     func gotoSession(){
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
@@ -159,7 +158,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
     }
     
-    
     @IBAction func enterSessionAction(sender:UIButton?){
         
         if HandlingAppVersion().getAlertMessage() != "" {
@@ -168,4 +166,104 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         self.gotoSession()
     }
+    
+}
+
+extension MySessionTableViewCell{
+    
+    func addEventToCalendar(title: String, description: String?, startDate: Date, endDate: Date, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
+        
+        eventStore.requestAccess(to: .event, completion: { (granted, error) in
+            
+            if (granted) && (error == nil) {
+                
+                let event = EKEvent(eventStore: self.eventStore)
+                event.title = title
+                event.startDate = startDate
+                event.endDate = endDate
+                event.notes = description
+                event.calendar = self.eventStore.defaultCalendarForNewEvents
+                do {
+                    try self.eventStore.save(event, span: .thisEvent)
+                } catch let e as NSError {
+                    completion?(false, e)
+                    return
+                }
+                completion?(true, nil)
+            } else {
+                completion?(false, error as NSError?)
+            }
+        })
+    }
+    
+    func addEvent(){
+        
+        let startDate = DateParser.getDateTimeInUTCFromWeb(dateInString: self.info?.start, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? Date()
+        
+        let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString: self.info?.end , dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") ?? Date()
+        
+        RootControllerManager().getCurrentController()?.showLoader()
+        
+        addEventToCalendar(title: "Chatalyze Event", description: "Your session is officially scheduled. Now add the session to your calendar.", startDate: startDate, endDate: endDate) { (success, error) in
+            
+            DispatchQueue.main.async {
+                
+                RootControllerManager().getCurrentController()?.stopLoader()
+                
+                if success{
+                    
+                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+                    }))
+                    RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
+                    })
+                    return
+                }
+                self.noPermission()
+                return
+            }
+        }
+    }
+    
+    @IBAction func addToCalendarAction(sender:UIButton){
+        
+        sender.isUserInteractionEnabled = false
+        generateEvent()
+    }
+    func generateEvent() {
+        
+        let status = EKEventStore.authorizationStatus(for: EKEntityType.event)
+        switch (status)
+        {
+        case EKAuthorizationStatus.notDetermined:
+            addEvent()
+            break
+        case EKAuthorizationStatus.authorized:
+            addEvent()
+            break
+        case EKAuthorizationStatus.restricted, EKAuthorizationStatus.denied:
+            noPermission()
+            break
+        }
+    }
+    
+    
+    func noPermission(){
+        
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+            
+            if let settingUrl = URL(string:UIApplication.openSettingsURLString){
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(settingUrl)
+                } else {
+                    //Fallback on earlier versions
+                }
+            }
+        }))
+        RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
+        })
+    }
+
 }

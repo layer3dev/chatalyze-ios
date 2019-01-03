@@ -112,7 +112,7 @@ class SessionReviewRootView:ExtendedView{
             if let newdate = dateFormatter.date(from: date) {
                 
                 dateFormatter.timeZone = TimeZone.current
-                dateFormatter.dateFormat = "EEEE-MMM-dd , yyyy"
+                dateFormatter.dateFormat = "EEEE, MMM. dd, yyyy"
                 return dateFormatter.string(from: newdate)
             }
             return ""
@@ -180,9 +180,6 @@ class SessionReviewRootView:ExtendedView{
         
         scheduleAction()
     }
-    
-   
-    
     
     
     private func uploadImage(completion : ((_ success : Bool, _ info : JSON?)->())?){

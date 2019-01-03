@@ -10,6 +10,9 @@ import Foundation
 
 class MenuRootView:ExtendedView{
     
+    @IBOutlet var underLineLbl:UILabel?
+    var fontSize:CGFloat = 16.0
+    
     enum MenuType:Int{
         
         case mySessionAnalyst = 0
@@ -26,6 +29,7 @@ class MenuRootView:ExtendedView{
         case analystAccount = 12
         case events = 13
         case settings = 14
+        case test = 15
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
@@ -34,9 +38,35 @@ class MenuRootView:ExtendedView{
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        initializeFontSize()
+        underLineLable()
         adapter?.selectedSlideBarTab = self.selectedSlideBarTab
-//        adapter?.selectedSlideBarTab = { (response) in
-//            Log.echo(key: "yud", text: "Response is calling")
-//        }
+        //        adapter?.selectedSlideBarTab = { (response) in
+        //            Log.echo(key: "yud", text: "Response is calling")
+        //        }
+    }
+    
+    func initializeFontSize(){
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 22.0
+        }else{
+            fontSize = 16.0
+        }
+    }
+    
+    func underLineLable(){
+        
+        var testingText = "TEST MY PHONE"
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            testingText = "TEST MY IPAD"
+        }
+        
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Poppins", size: fontSize)] as? [NSAttributedString.Key : Any]{
+            
+            let underlineAttributedString = NSAttributedString(string: testingText, attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            underLineLbl?.attributedText = underlineAttributedString
+        }
     }
 }

@@ -36,7 +36,6 @@ class ContainerController: NavChildController {
     @IBOutlet var deprecationAlertView:UIView?
     @IBOutlet var obsoleteAlertView:UIView?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,10 +47,6 @@ class ContainerController: NavChildController {
         initializeToggleWidth()
         hideSocketVerifierOnAdhoc()
     }
-    
-    
-    
-    
     
     func hideSocketVerifierOnAdhoc(){
         
@@ -513,6 +508,19 @@ class ContainerController: NavChildController {
            
             //navController?.viewControllers = [controller]
             return
+        }
+        else if typeOfAction == .test{
+            
+            guard let controller = InternetSpeedTestController.instance() else{
+                return
+            }
+            
+            controller.onlySystemTest = true
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.navController?.present(controller, animated: false, completion: {
+            })
+            
         }
         
         //        var analystArray = ["My Sessions","Payments","Settings","Support"]
