@@ -676,9 +676,10 @@ class HostCallController: VideoCallController {
             return
         }
         
+        disconnectStaleConnection()
         preconnectUser()
         connectLiveUser()
-        disconnectStaleConnection()
+        
         verifyIfExpired()
     }
     
@@ -706,6 +707,11 @@ class HostCallController: VideoCallController {
     private func disconnectStaleConnection(){
     
         for (key, connection) in connectionInfo {
+            //remove connection if aborted
+            if(connection.isAborted){
+                connectionInfo[key] = nil
+                return
+            }
             
             guard let slotInfo = connection.slotInfo
                 else{
@@ -716,8 +722,12 @@ class HostCallController: VideoCallController {
                 connection.disconnect()
                 connectionInfo[key] = nil
             }
+            
+            
         }
     }
+    
+    
     
     private func preconnectUser(){
         

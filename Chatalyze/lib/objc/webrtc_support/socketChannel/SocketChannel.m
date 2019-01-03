@@ -156,21 +156,21 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(BOOL)verifyIfMessageForSelf:(NSDictionary *)data{
     
-    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"myId --> %@, receiverId => %@", self.userId, self.receiverId]];
+    [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"myId --> %@, receiverId => %@", self.userId, self.receiverId]];
     
     NSString *targetDesignation = [self targetDesignation];
-     [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"targetDesignation --> %@", targetDesignation]];
+     [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"targetDesignation --> %@", targetDesignation]];
     
     NSString *receivedSelfHashedId = data[@"sender"];
-    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"receivedSelfHashedId --> %@", receivedSelfHashedId]];
+    [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"receivedSelfHashedId --> %@", receivedSelfHashedId]];
     
     
     if(![self.receiverId isEqualToString:receivedSelfHashedId]){
-        [Log echoWithKey:@"socket_channel" text:@"message NOT FOR me"];
+        [Log echoWithKey:@"_connection_" text:@"message NOT FOR me"];
         return false;
     }
     
-    [Log echoWithKey:@"socket_channel" text:@"message for me"];
+    [Log echoWithKey:@"_connection_" text:@"message for me"];
     
     return true;
 }

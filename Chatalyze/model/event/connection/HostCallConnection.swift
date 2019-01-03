@@ -10,9 +10,11 @@ import UIKit
 
 class HostCallConnection: CallConnection {
     
-    
+    //This variable will store timestamp when signalling gets triggered from host and will be used as a timeout to restart signalling process after 10 seconds.
+    //no need to use synced time here
     var signallingStartTimestamp : Date?
     var isInitiated = false
+    
     
     private var disposeListener : (()->())?
     
@@ -32,6 +34,30 @@ class HostCallConnection: CallConnection {
         }
         
         resetIfBroken()
+        processTimeout()
+    }
+    
+    
+    private func processTimeout(){
+        if(!isSignallingCompleted){
+            return
+        }
+        
+        guard let lastDisconnect = lastDisconnect
+            else{
+                return
+        }
+        
+        Log.echo(key: "_connection_", text: "disconnect countdown \(lastDisconnect.timeIntervalSinceNow)")
+        
+        //no need to use synced time here
+        if(lastDisconnect.timeIntervalSinceNow > -2){
+            return
+        }
+        
+        Log.echo(key: "_connection_", text: "disconnect timedout")
+        self.lastDisconnect = nil
+        processCallFailure()
     }
     
     private func resetIfBroken(){
@@ -40,16 +66,28 @@ class HostCallConnection: CallConnection {
             return
         }
         
+        Log.echo(key: "_connection_", text: "signalling broken - resetting")
+        
         signallingStartTimestamp = nil
         initateHandshake()
     }
     
-    //dropped in between signalling
-    func isBroken() -> Bool{
+    var isSignallingCompleted : Bool{
+        if(signallingStartTimestamp == nil){
+            return false
+        }
+        
         guard let connection = connection
             else{
                 return false
         }
+        
+        return connection.isSignallingCompleted()
+        
+    }
+    
+    //dropped in between signalling
+    func isBroken() -> Bool{
         
         //signalling not started
         guard let timestamp = signallingStartTimestamp
@@ -57,13 +95,20 @@ class HostCallConnection: CallConnection {
                 return false
         }
         
-        if(connection.isSignallingCompleted()){
+        if(isSignallingCompleted){
            return false
         }
         
-        if(timestamp.timeIntervalTillNow > 10){
-            return true
+        Log.echo(key: "_connection_", text: "signalling countdown \(timestamp.timeIntervalSinceNow)")
+        
+        //no need to use synced time here
+        if(timestamp.timeIntervalSinceNow > -10){
+            return false
         }
+        
+        Log.echo(key: "_connection_", text: "signalling timedout")
+        return true
+    
         
         return false
     }
@@ -170,7 +215,7 @@ class HostCallConnection: CallConnection {
     }
     
     private func markSignallingAsStarted(){
-        signallingStartTimestamp = TimerSync.sharedInstance.getDate()
+        signallingStartTimestamp = Date()
     }
     
     func initateHandshake(){

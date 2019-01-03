@@ -297,9 +297,9 @@ extension SocketClient{
         
         self.socket?.onText = { (text: String) in
             
-            Log.echo(key: "timestamp", text: "text is \(text)")
+            Log.echo(key: "_connection_", text: "text is \(text)")
              DispatchQueue.main.async {
-                Log.echo(key : "timestamp", text : "Received text: \(text)")
+                Log.echo(key : "_connection_", text : "Received text: \(text)")
                 guard let data = text.data(using: .utf8)
                     else{
                         return
@@ -382,7 +382,7 @@ extension SocketClient{
     fileprivate func sendWrapped(_ data : [String : Any]?, waitForConnection : Bool = true){
         
         let jsonString = data?.JSONDescription() ?? ""
-        Log.echo(key : "timestamp", text : "sendWrapped: \(jsonString)")
+        Log.echo(key : "_connection_", text : "sendWrapped: \(jsonString)")
         
         if(!waitForConnection){
             self.socket?.write(string: jsonString)

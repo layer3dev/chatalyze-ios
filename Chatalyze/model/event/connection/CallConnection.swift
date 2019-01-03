@@ -27,6 +27,11 @@ class CallConnection: NSObject {
     
     private var callLogger : CallLogger?
     
+    //this variable will be used to speed up the re-connect. This will store last disconnect timestamp and will force to create a new connection after 2 seconds
+    //For now, will be used at host's end, but could be used for user in future
+    //no need to use synced time here
+    var lastDisconnect : Date?
+    
     //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
     //This is used for re-connect purposes as well
     var isConnected : Bool = false
@@ -77,6 +82,10 @@ class CallConnection: NSObject {
         get{
             return nil
         }
+    }
+    
+    var connectionState : RTCIceConnectionState?{
+        return connection?.getIceConnectionState();
     }
     
     //overridden
@@ -135,7 +144,7 @@ class CallConnection: NSObject {
     }
     
     func callFailed(){
-//        self.connection?.disconnect()
+       
     }
     
     //prevent screen reset
@@ -148,6 +157,7 @@ class CallConnection: NSObject {
     
     //follow all protocols of disconnect
     func disconnect(){
+        lastDisconnect = nil
         self.isReleased = true
         
         self.connection?.disconnect()
@@ -177,6 +187,7 @@ extension CallConnection : ARDAppClientDelegate{
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
         
         if(state == .connected){
+            lastDisconnect = nil
             self.controller?.acceptCallUpdate()
             isConnected = true
             isStreaming = true
@@ -187,17 +198,29 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         if(state == .disconnected){
+            //no need to use synced time here
+            lastDisconnect = Date()
             resetRemoteFrame()
             isStreaming = false
         }
         
         if(state == .failed){
-            callFailed()
-            isConnected = false
-            isStreaming = false
-            resetRemoteFrame()
+            processCallFailure()
             return
         }
+    }
+    
+    func processCallFailure(){
+        if(isReleased){
+            return
+        }
+        
+         abort()
+        
+        /*isConnected = false
+        isStreaming = false
+        resetRemoteFrame()
+        return*/
     }
     
     func appClient(_ client: ARDAppClient!, didCreateLocalSourceDelegate source: RTCVideoSource!) {

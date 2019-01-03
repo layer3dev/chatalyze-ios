@@ -51,6 +51,7 @@ didCreateLocalSourceDelegate:(RTCVideoSource *)source;
     didReceiveLocalVideoTrack:(RTCVideoTrack *)localVideoTrack;
 
 
+
 - (void)appClient:(ARDAppClient *)client
     didReceiveRemoteMediaTrack:(nullable CallMediaTrack *)remoteTrack;
 
@@ -90,7 +91,7 @@ didCreateLocalFileCapturer:(RTCFileVideoCapturer *)fileCapturer;
 
 //temp
 - (void)initiateCall;
-
+-(RTCIceConnectionState)getIceConnectionState;
 
 // Disconnects from the AppRTC servers and any connected clients.
 - (void)disconnect;
