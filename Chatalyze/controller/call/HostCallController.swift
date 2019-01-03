@@ -285,7 +285,7 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
-        
+        triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -676,9 +676,10 @@ class HostCallController: VideoCallController {
             return
         }
         
+        disconnectStaleConnection()
         preconnectUser()
         connectLiveUser()
-        disconnectStaleConnection()
+        
         verifyIfExpired()
     }
     
@@ -696,9 +697,21 @@ class HostCallController: VideoCallController {
         self.processExitAction(code : .expired)
     }
     
+    //only two connections at maximum stay in queue at a time
+    private func triggerIntervalToChildConnections(){
+        for (_, connection) in connectionInfo {
+            connection.interval()
+        }
+    }
+    
     private func disconnectStaleConnection(){
     
         for (key, connection) in connectionInfo {
+            //remove connection if aborted
+            if(connection.isAborted){
+                connectionInfo[key] = nil
+                return
+            }
             
             guard let slotInfo = connection.slotInfo
                 else{
@@ -709,8 +722,12 @@ class HostCallController: VideoCallController {
                 connection.disconnect()
                 connectionInfo[key] = nil
             }
+            
+            
         }
     }
+    
+    
     
     private func preconnectUser(){
         
