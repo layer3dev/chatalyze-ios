@@ -13,8 +13,6 @@ pod 'GoogleWebRTC', '1.1.25651'
 pod 'DeviceKit', '~> 1.3'
 pod 'CropViewController', :git => 'https://github.com/TimOliver/TOCropViewController.git'
 
-
-
 end
 
 

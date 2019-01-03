@@ -33,6 +33,7 @@ class FacebookLogin{
         }
         
         let url = AppConnectionConfig.webServiceURL + "/authenticate/oauth/facebook"
+        
         /*params["clientId"] = "1617857558307283"
          params["code"] = accessToken
          params["redirectUri"] = AppConnectionConfig.webServiceURL + "/"*/
@@ -48,7 +49,7 @@ class FacebookLogin{
         params["rememberMe"] = true
         params["preventSignUp"] = true
         
-        Log.echo(key: "yud", text: "My sended Dict is\(params)")
+        Log.echo(key: "yud", text: "My sended Dict is \(params)")
         
         params["roleId"] = LoginSignUpContainerController.roleId
         if let deviceInfo = SessionDeviceInfo.sharedInstance{
@@ -89,10 +90,6 @@ class FacebookLogin{
         completion(true, "", info)
         return
     }
-    
-    
-    
-    
     
     
     public func signup(accessToken : FacebookCore.AccessToken?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){

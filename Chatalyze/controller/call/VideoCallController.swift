@@ -144,12 +144,13 @@ class VideoCallController : InterfaceExtendedController {
                 }
                 
 
+
                 self?.eventInfo = info
                 self?.processEventInfo()
                 Log.echo(key: "delay", text: "processed")
                 
                 if(isActivated){
-                    Log.echo(key: "delay", text: "event is activated")
+                    Log.echo(key: "delay", text: "Event is activated")
                 }
             }
         }
@@ -472,7 +473,6 @@ class VideoCallController : InterfaceExtendedController {
     //overridden
     func processEventInfo(){
 
-      
         self.checkForDelaySupport()
 
     }
@@ -482,6 +482,7 @@ class VideoCallController : InterfaceExtendedController {
     private func loadActivatedInfo(completion : ((_ isActivated : Bool, _ info : EventScheduleInfo?)->())?){
         
         loadInfo {[weak self] (success, info) in
+            
             if(!success){
                 completion?(false, nil)
                 return
@@ -494,7 +495,8 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self?.verifyEventActivated(info: eventInfo, completion: { (success, info) in
-                if(!success){                    
+                
+                if(!success){
                     completion?(false, info)
                     return
                 }
@@ -502,9 +504,9 @@ class VideoCallController : InterfaceExtendedController {
                 self?.verifyScreenshotRequested()
                 completion?(true, info)
             })
-            
         }
     }
+    
     
     private func connectToRoom(info : EventScheduleInfo){
         
@@ -1116,4 +1118,25 @@ extension VideoCallController{
 }
 
 extension VideoCallController{
+    
+    func reloadDataOnAnalystJoinedOrScheduleUpdated(){
+        
+        self.loadActivatedInfo {[weak self] (isActivated, info) in
+            
+            Log.echo(key: "delay", text: "info received -> \(String(describing: info?.title))")
+            
+            guard let info = info
+                else{
+                    return
+            }
+            
+            self?.eventInfo = info
+            self?.processEventInfo()
+            Log.echo(key: "delay", text: "processed")
+            
+            if(isActivated){
+                Log.echo(key: "delay", text: "Event is activated")
+            }
+        }
+    }
 }
