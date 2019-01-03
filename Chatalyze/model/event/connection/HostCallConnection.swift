@@ -10,7 +10,12 @@ import UIKit
 
 class HostCallConnection: CallConnection {
     
+    //This variable will store timestamp when signalling gets triggered from host and will be used as a timeout to restart signalling process after 10 seconds.
+    //no need to use synced time here
+    var signallingStartTimestamp : Date?
     var isInitiated = false
+    
+    
     private var disposeListener : (()->())?
     
     override func callFailed(){
@@ -22,6 +27,96 @@ class HostCallConnection: CallConnection {
     func setDisposeListener(disposeListener : (()->())?){
         self.disposeListener = disposeListener
     }
+    
+    func interval(){
+        if(isReleased){
+            return
+        }
+        
+        resetIfBroken()
+        processTimeout()
+    }
+    
+    
+    private func processTimeout(){
+        if(!isSignallingCompleted){
+            return
+        }
+        
+        guard let lastDisconnect = lastDisconnect
+            else{
+                return
+        }
+        
+        Log.echo(key: "_connection_", text: "disconnect countdown \(lastDisconnect.timeIntervalSinceNow)")
+        
+        //no need to use synced time here
+        if(lastDisconnect.timeIntervalSinceNow > -2){
+            return
+        }
+        
+        Log.echo(key: "_connection_", text: "disconnect timedout")
+        self.lastDisconnect = nil
+        processCallFailure()
+    }
+    
+    private func resetIfBroken(){
+        let isSignallingBroken = isBroken()
+        if(!isSignallingBroken){
+            return
+        }
+        
+        Log.echo(key: "_connection_", text: "signalling broken - resetting")
+        
+        signallingStartTimestamp = nil
+        
+        //not able to recover from unstable state in this case
+//      initateHandshake()
+        
+        //need to reset everything and restart
+        processCallFailure()
+    }
+    
+    var isSignallingCompleted : Bool{
+        if(signallingStartTimestamp == nil){
+            return false
+        }
+        
+        guard let connection = connection
+            else{
+                return false
+        }
+        
+        return connection.isSignallingCompleted()
+        
+    }
+    
+    //dropped in between signalling
+    func isBroken() -> Bool{
+        
+        //signalling not started
+        guard let timestamp = signallingStartTimestamp
+            else{
+                return false
+        }
+        
+        if(isSignallingCompleted){
+           return false
+        }
+        
+        Log.echo(key: "_connection_", text: "signalling countdown \(timestamp.timeIntervalSinceNow)")
+        
+        //no need to use synced time here
+        if(timestamp.timeIntervalSinceNow > -10){
+            return false
+        }
+        
+        Log.echo(key: "_connection_", text: "signalling timedout")
+        return true
+
+        
+    }
+
     
     override var targetHashId : String?{
         get{
@@ -123,18 +218,22 @@ class HostCallConnection: CallConnection {
         socketClient?.emit(id: "startConnecting", data: params)
     }
     
+    private func markSignallingAsStarted(){
+        signallingStartTimestamp = Date()
+    }
     
     func initateHandshake(){
+        markSignallingAsStarted()
         guard let slotInfo = self.slotInfo
             else{
                 return
         }
         isInitiated = true
-        sendHandshakeMessage(action: "receiveVideoRequest", slotInfo: slotInfo)
+        sendHandshakeMessage(slotInfo: slotInfo)
     }
     
     
-    private func sendHandshakeMessage(action : String, slotInfo : SlotInfo){
+    private func sendHandshakeMessage(slotInfo : SlotInfo){
         
         guard let targetId = slotInfo.user?.hashedId
             else{
@@ -150,7 +249,7 @@ class HostCallConnection: CallConnection {
         params["sender"] = targetId
         params["receiver"] = selfId
         
-        socketClient?.emit(id: action, data: params)
+        socketClient?.emit(id: "receiveVideoRequest", data: params)
     }
     
     override func disconnect(){

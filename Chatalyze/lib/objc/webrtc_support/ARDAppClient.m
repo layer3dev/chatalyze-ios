@@ -116,6 +116,14 @@ static int const kKbpsMultiplier = 1000;
   return self;
 }
 
+-(Boolean)isSignallingCompleted{
+    return [_socketChannel isSignallingCompleted];
+}
+
+-(RTCIceConnectionState)getIceConnectionState{
+    return _peerConnection.iceConnectionState;
+}
+
 
 - (void)configure {
     _iceServers = [NSMutableArray array];
@@ -169,6 +177,7 @@ static int const kKbpsMultiplier = 1000;
     _socketChannel = nil;
 
     [_peerConnection close];
+    
     _peerConnection = nil;
 
 }

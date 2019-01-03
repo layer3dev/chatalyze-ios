@@ -285,7 +285,7 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
-        
+        triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
@@ -436,7 +436,6 @@ class HostCallController: VideoCallController {
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
         let timeRemaining = countdownTime.toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
-        
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
@@ -459,9 +458,7 @@ class HostCallController: VideoCallController {
         if let array = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName?.components(separatedBy: " "){
             
             if array.count >= 1{
-                
                 username = array[0]
-                
             }else{
                 
                 if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
@@ -676,9 +673,10 @@ class HostCallController: VideoCallController {
             return
         }
         
+        disconnectStaleConnection()
         preconnectUser()
         connectLiveUser()
-        disconnectStaleConnection()
+        
         verifyIfExpired()
     }
     
@@ -696,9 +694,21 @@ class HostCallController: VideoCallController {
         self.processExitAction(code : .expired)
     }
     
+    //only two connections at maximum stay in queue at a time
+    private func triggerIntervalToChildConnections(){
+        for (_, connection) in connectionInfo {
+            connection.interval()
+        }
+    }
+    
     private func disconnectStaleConnection(){
     
         for (key, connection) in connectionInfo {
+            //remove connection if aborted
+            if(connection.isReleased){
+                connectionInfo[key] = nil
+                return
+            }
             
             guard let slotInfo = connection.slotInfo
                 else{
@@ -709,8 +719,12 @@ class HostCallController: VideoCallController {
                 connection.disconnect()
                 connectionInfo[key] = nil
             }
+            
+            
         }
     }
+    
+    
     
     private func preconnectUser(){
         

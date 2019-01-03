@@ -22,6 +22,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     SocketClient *socketClient;
     SocketListener *socketListener;
     CallLogger *callLogger;
+    Boolean isSdpExchanged;
     // TODO(tkchin): move these to a configuration object.
 }
 
@@ -37,13 +38,16 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     return self;
 }
 
+-(Boolean)isSignallingCompleted{
+    return isSdpExchanged;
+}
+
 
 - (instancetype)init {
     if (self = [super init]) {
         // Initialize self
         [self initialize];
         [self registerListeners];
-        
     }
     return self;
 }
@@ -75,7 +79,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 -(void)registerListeners{
     
     [socketListener onEventSupportWithAction:@"iceCandidate" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
-        if(socketClient == nil){
+        if(self->socketClient == nil){
             return;
         }
         [self processCandidate : data];
@@ -84,7 +88,7 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     
     [socketListener onEventSupportWithAction:@"description" completion:^(NSDictionary<NSString *,id> * _Nullable data) {
         
-        if(socketClient == nil){
+        if(self->socketClient == nil){
             return;
         }
         
@@ -100,12 +104,14 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
             [self processSDPOffer : packedData];
             return;
         }
+        self->isSdpExchanged = true;
         [self processSDPAnswer : packedData];
     }];
 
 }
 
 -(void)emitAnswer:(RTCSessionDescription *)sdp{
+    isSdpExchanged = true;
     [callLogger logSdpWithType:@"answer" sdp:[sdp JSONDictionary]];
     [self emitSDPWithAction:@"sendDescription" andSDP:sdp];
 }
@@ -131,8 +137,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 }
 
 -(void)emitCandidate:(RTCIceCandidate *)candidate{
-    
-    
     NSDictionary *candidateInfo = [candidate JSONDictionary];
     [callLogger logCandidateWithCandidate:candidateInfo];
     
@@ -142,7 +146,6 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
     data[[self selfDesignation]] = self.userId;
     data[[self targetDesignation]] = self.receiverId;
     data[@"candidate"] = candidateInfo;
-    
     [self sendMessageWithAction:@"sendIceCandidate" andData:data];
 }
 
@@ -153,21 +156,21 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 
 -(BOOL)verifyIfMessageForSelf:(NSDictionary *)data{
     
-    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"myId --> %@, receiverId => %@", self.userId, self.receiverId]];
+    [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"myId --> %@, receiverId => %@", self.userId, self.receiverId]];
     
     NSString *targetDesignation = [self targetDesignation];
-     [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"targetDesignation --> %@", targetDesignation]];
+     [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"targetDesignation --> %@", targetDesignation]];
     
     NSString *receivedSelfHashedId = data[@"sender"];
-    [Log echoWithKey:@"socket_channel" text:[NSString stringWithFormat:@"receivedSelfHashedId --> %@", receivedSelfHashedId]];
+    [Log echoWithKey:@"_connection_" text:[NSString stringWithFormat:@"receivedSelfHashedId --> %@", receivedSelfHashedId]];
     
     
     if(![self.receiverId isEqualToString:receivedSelfHashedId]){
-        [Log echoWithKey:@"socket_channel" text:@"message NOT FOR me"];
+        [Log echoWithKey:@"_connection_" text:@"message NOT FOR me"];
         return false;
     }
     
-    [Log echoWithKey:@"socket_channel" text:@"message for me"];
+    [Log echoWithKey:@"_connection_" text:@"message for me"];
     
     return true;
 }
