@@ -155,6 +155,7 @@ class CallConnection: NSObject {
         disconnect()
     }
     
+    
     //follow all protocols of disconnect
     func disconnect(){
         lastDisconnect = nil

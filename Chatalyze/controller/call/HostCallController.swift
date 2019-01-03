@@ -436,7 +436,6 @@ class HostCallController: VideoCallController {
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
         let timeRemaining = countdownTime.toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
-        
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
@@ -459,9 +458,7 @@ class HostCallController: VideoCallController {
         if let array = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName?.components(separatedBy: " "){
             
             if array.count >= 1{
-                
                 username = array[0]
-                
             }else{
                 
                 if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
@@ -708,7 +705,7 @@ class HostCallController: VideoCallController {
     
         for (key, connection) in connectionInfo {
             //remove connection if aborted
-            if(connection.isAborted){
+            if(connection.isReleased){
                 connectionInfo[key] = nil
                 return
             }

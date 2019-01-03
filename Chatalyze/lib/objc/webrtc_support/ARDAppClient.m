@@ -177,6 +177,7 @@ static int const kKbpsMultiplier = 1000;
     _socketChannel = nil;
 
     [_peerConnection close];
+    
     _peerConnection = nil;
 
 }
