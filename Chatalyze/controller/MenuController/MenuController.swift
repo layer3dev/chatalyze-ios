@@ -15,12 +15,32 @@ class MenuController: InterfaceExtendedController {
     @IBOutlet var userName:UILabel?
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     
+    @IBOutlet var heightOfTestIPhonePriority:NSLayoutConstraint?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initialize()
         paintInterface()
+        setVisibilityOfTestMyIPhone()
     }
+    
+    func setVisibilityOfTestMyIPhone(){
+        
+        guard let roleId = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if roleId == .analyst{
+            
+            heightOfTestIPhonePriority?.priority = UILayoutPriority(rawValue: 250.0)
+            return
+        }
+        
+        heightOfTestIPhonePriority?.priority = UILayoutPriority(rawValue: 999.0)
+        return
+    }
+    
     
     func paintInterface(){
         
@@ -28,6 +48,12 @@ class MenuController: InterfaceExtendedController {
 //        self.userImage?.layer.masksToBounds = true
 //        self.userImage?.clipsToBounds = true
     }
+    
+    @IBAction func testMyAction(sender:UIButton){
+        
+        self.selectedSlideBarTab?(MenuRootView.MenuType.test)
+    }
+    
     
     private func initialize(){
         
