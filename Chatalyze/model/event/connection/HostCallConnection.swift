@@ -69,7 +69,12 @@ class HostCallConnection: CallConnection {
         Log.echo(key: "_connection_", text: "signalling broken - resetting")
         
         signallingStartTimestamp = nil
-        initateHandshake()
+        
+        //not able to recover from unstable state in this case
+//      initateHandshake()
+        
+        //need to reset everything and restart
+        processCallFailure()
     }
     
     var isSignallingCompleted : Bool{
@@ -108,9 +113,8 @@ class HostCallConnection: CallConnection {
         
         Log.echo(key: "_connection_", text: "signalling timedout")
         return true
-    
+
         
-        return false
     }
 
     

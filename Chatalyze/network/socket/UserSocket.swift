@@ -35,8 +35,6 @@ class UserSocket {
                 return
         }
         
-        
-
         let manager = SocketManager(socketURL: socketURL, config: [.log(false),.forceNew(true),.reconnects(true)])
         let socket = manager.defaultSocket
         self.socketManager = manager
@@ -108,7 +106,6 @@ extension UserSocket{
         updateConnectionStatus(isConnected: false)
         
         socket?.on("connect") {data, ack in
-            
             self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
@@ -119,7 +116,6 @@ extension UserSocket{
         }
         
         socket?.on("login") {data, ack in
-            
             Log.echo(key: "user_socket", text:"socket login data => \(data)")
             self.isRegisteredToServer = true
             self.updateConnectionStatus(isConnected: true)
@@ -174,7 +170,6 @@ extension UserSocket{
     fileprivate func registerSocket(){
         
         Log.echo(key: "user_socket", text:"socket registerSocket")
-       
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
                 return

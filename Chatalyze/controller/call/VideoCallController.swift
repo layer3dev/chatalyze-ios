@@ -144,7 +144,6 @@ class VideoCallController : InterfaceExtendedController {
                 }
                 
 
-
                 self?.eventInfo = info
                 self?.processEventInfo()
                 Log.echo(key: "delay", text: "processed")
@@ -410,10 +409,10 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             if !micAccess{
-                
                 self.requiredPermission = VideoCallController.permissionsCheck.micPermission
                 self.showMediaAlert(alert:self.requiredPermission)
             }
+            
             self.initialization()
             self.checkForInternet()
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")

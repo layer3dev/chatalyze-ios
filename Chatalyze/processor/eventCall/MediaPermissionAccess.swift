@@ -36,13 +36,12 @@ class MediaPermissionAccess{
     }
     
     func verifyMediaAccess(callback:((_ cameraPermission:Bool,_ micPermission:Bool)->())?){
-    
-   
         Log.echo(key : "rotate", text : "verifyMediaAccess")
         self.separateCallBack = callback
         checkForMediaAccess { (cameraPermission,micPermission) in
-        self.separateCallBack?(cameraPermission,micPermission)
-        
+            DispatchQueue.main.async {
+                self.separateCallBack?(cameraPermission,micPermission)
+            }
         }
     
     }
@@ -73,12 +72,7 @@ class MediaPermissionAccess{
                 
                 callback?(cameraAccess,microphoneAccess)
 
-                //                if(cameraAccess && microphoneAccess){
-                //                    callback?(true)
-                //                    return
-                //                }
-                //                callback?(false)
-                //                return
+                
             })
         }
     }
