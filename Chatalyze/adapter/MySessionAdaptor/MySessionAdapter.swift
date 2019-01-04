@@ -17,6 +17,7 @@ class MySessionAdapter: ExtendedView {
     var sessionTableView:UITableView?
     
     var enterSession:((EventInfo?)->())?
+    var sharedLinkListener:((EventInfo)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -27,6 +28,7 @@ class MySessionAdapter: ExtendedView {
     
     func initializeAdapter(table:UITableView?){
         
+        Log.echo(key: "yud", text: "ScheduleSession table is \(table)")
         sessionTableView = table
         self.sessionTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         sessionTableView?.dataSource = self
@@ -97,21 +99,19 @@ extension MySessionAdapter:UITableViewDelegate{
         return UITableView.automaticDimension
     }
     
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        guard let controller = GreetingInfoController.instance() else {
-    //            return
-    //        }
-    //        if indexPath.row < self.PaymentListingArray.count {
-    //
-    //            controller.info = self.PaymentListingArray[indexPath.row]
-    //        }
-    //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-    //    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        Log.echo(key: "yud", text: "Tble Is calling")
+        
+        if indexPath.row > (sessionListingArray.count-1){
+            return
+        }
+        self.sharedLinkListener?(sessionListingArray[indexPath.row])
+    }
+    
 }
 
 extension MySessionAdapter:UIScrollViewDelegate{
-    
-   
 }
 

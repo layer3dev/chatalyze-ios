@@ -14,15 +14,52 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     var testingText = ""
+    @IBOutlet var sharingTextFld:UITextField?
+    @IBOutlet var sharingLbl:UILabel?
+    var sharedLinkListener:((EventInfo)->())?
+    @IBOutlet var importantView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        initialize()
+        paint()
+    }
+    
+    func paint(){
+        
+        importantView?.layer.cornerRadius = 2
+        importantView?.layer.masksToBounds = true
+    }
+    
+    
+    func initialize(){
+      
+        sharingTextFld?.isEnabled = false
+        //sharingTextFld?.delegate = self
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Poppins", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
         initializeName()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.rootView?.adapter.sharedLinkListener = {(info) in
+            
+            var str = "https://chatalyze.com/"
+            str = str + "sessions/"
+            str = str + (info.title ?? "")
+            str = str + "/"
+            str = str + "\(info.id ?? 0)"
+            self.sharingTextFld?.text = str
+            self.sharingLbl?.text = str
+            //str  = str.replacingOccurrences(of: " ", with: "")
+            Log.echo(key: "yud", text: "url id is \(str)")
+        }
+    }
+    
     
     func initializeName(){
         
@@ -78,8 +115,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
-        if let presenter = alertActionSheet.popoverPresentationController {
-            
+        if let presenter = alertActionSheet.popoverPresentationController {            
             alertActionSheet.popoverPresentationController?.sourceView = self.view
             alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
         }
@@ -113,24 +149,28 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func systemTestAction(sender:UIButton){
       
-//        if HandlingAppVersion().getAlertMessage() != "" {
-//            
-//            showAlert(sender: sender)
-//            return
-//        }
         self.gotoSystemTest()
-    }    
-    
-    /*
-    // MARK: - Navigation
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+    
+    @IBAction func copyText(send:UIButton){
+        
+        if sharingLbl?.text == "Select session to get the shareable url."{
+            
+            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+            }
+            return
+        }
+        
+        //let copyString = sharingTextFld?.text ?? ""
+        let copyString = sharingLbl?.text ?? ""
+        let pasteBoard = UIPasteboard.general
+        pasteBoard.string = copyString
+        self.alert(withTitle: AppInfoConfig.appName, message: "Your session's shareable url is copied on the clipboard, you can share it to your social network.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+        return
+    }
+    
     
     override func updateScrollViewWithTable(height:CGFloat){
         
@@ -139,7 +179,6 @@ class HostDashboardController: MyScheduledSessionsController {
         self.updateViewConstraints()
         self.view.layoutIfNeeded()
     }
-    
    
     override class func instance()->HostDashboardController?{
         

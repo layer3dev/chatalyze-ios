@@ -127,7 +127,6 @@ class SessionDoneRootView:ExtendedView{
         self.controller?.present(alert, animated: false, completion: {
         })
     }
-    
 }
 
 

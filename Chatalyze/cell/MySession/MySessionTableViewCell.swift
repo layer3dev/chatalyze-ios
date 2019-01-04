@@ -72,7 +72,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             
             //Event is not started yet
             self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
-           self.sessionEventButton?.setTitleColor(UIColor(hexString: "#8C9597"), for: .normal)
+            self.sessionEventButton?.setTitleColor(UIColor(hexString: "#8C9597"), for: .normal)
             return
         }
         self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
@@ -265,5 +265,5 @@ extension MySessionTableViewCell{
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })
     }
-
+    
 }

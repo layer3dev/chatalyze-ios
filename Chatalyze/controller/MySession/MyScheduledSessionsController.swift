@@ -40,7 +40,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                     Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
                 }
             }
-            
         }
         
         chatCountUpdateListener.setListener{(callScheduleId) in
@@ -169,6 +168,5 @@ class MyScheduledSessionsController: InterfaceExtendedController {
 }
 
 extension MyScheduledSessionsController{
-    
 }
 
