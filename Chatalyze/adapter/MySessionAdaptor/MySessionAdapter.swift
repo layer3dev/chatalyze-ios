@@ -17,6 +17,7 @@ class MySessionAdapter: ExtendedView {
     var sessionTableView:UITableView?
     
     var enterSession:((EventInfo?)->())?
+    var sharedLinkListener:((String)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -78,6 +79,7 @@ extension MySessionAdapter:UITableViewDataSource{
         if indexPath.row < self.sessionListingArray.count{
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
             cell.enterSession = self.enterSession
+            cell.sharedLinkListener = self.sharedLinkListener
             //cell.controller = self.controller
             return cell
         }
@@ -96,6 +98,16 @@ extension MySessionAdapter:UITableViewDelegate{
         
         return UITableView.automaticDimension
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.row > (sessionListingArray.count-1){
+            return
+        }
+        self.sharedLinkListener?("\(String(describing: sessionListingArray[indexPath.row].id))")
+    }
+    
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     //

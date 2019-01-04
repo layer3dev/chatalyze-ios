@@ -20,6 +20,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var sessionEventButton:UIButton?
     @IBOutlet var joinButton:UIButton?
     let eventStore = EKEventStore()
+    var sharedLinkListener:((String)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()

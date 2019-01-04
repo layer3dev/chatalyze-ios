@@ -14,15 +14,32 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     var testingText = ""
+    @IBOutlet var SharingTextFld:UITextField?
+    var sharedLinkListener:((String)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        initialize()
+    }
+    
+    func initialize(){
+      
+        SharingTextFld?.isEnabled = false
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Poppins", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
         initializeName()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.rootView?.adapter.sharedLinkListener = {(link) in
+            Log.echo(key: "yud", text: "Link is \(link)")
+        }
+    }
+    
     
     func initializeName(){
         
@@ -113,24 +130,18 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func systemTestAction(sender:UIButton){
       
-//        if HandlingAppVersion().getAlertMessage() != "" {
-//            
-//            showAlert(sender: sender)
-//            return
-//        }
+
         self.gotoSystemTest()
-    }    
-    
-    /*
-    // MARK: - Navigation
-     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
+    
+    @IBAction func copyText(send:UIButton){
+        
+        let copyString = SharingTextFld?.text ?? ""
+        let pasteBoard = UIPasteboard.general
+        pasteBoard.string = copyString
+    }
+    
     
     override func updateScrollViewWithTable(height:CGFloat){
         

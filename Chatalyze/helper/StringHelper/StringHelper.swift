@@ -11,7 +11,6 @@ import Foundation
 extension String{
     
     //Attributes text always inserted to UILable with the main thread
-    
     func toAttributedStringLink(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false, url:String? = nil)->NSAttributedString{
         
         var  attributes =  [NSAttributedString.Key : Any]()
@@ -33,15 +32,15 @@ extension String{
     
     func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSAttributedString{
         
-      
+        
         var  attributes =  [NSAttributedString.Key : Any]()
         
         if isUnderLine{
             
-             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
+            attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
         }else{
             
-             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
+            attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
         }
         
         let attriutedText = NSAttributedString(string: self, attributes: attributes)
@@ -54,13 +53,13 @@ extension String{
         var attributes = [NSAttributedString.Key : Any]()
         
         if isUnderLine {
-          
+            
             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
         }else{
             
             attributes = [NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor: color] as [NSAttributedString.Key : Any]
         }
-     
+        
         let attriutedText = NSAttributedString(string: self, attributes: attributes)
         let mutableString = NSMutableAttributedString()
         mutableString.append(attriutedText)
@@ -162,7 +161,12 @@ extension UITextView {
         }
         
         //Line spacing attribute
-        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+       
+        if attributedString.string.count > 0{
+            
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        }
+        //attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         
         self.attributedText = attributedString
     }
