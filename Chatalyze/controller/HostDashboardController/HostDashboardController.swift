@@ -15,13 +15,23 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     var testingText = ""
     @IBOutlet var sharingTextFld:UITextField?
+    @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
+    @IBOutlet var importantView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initialize()
+        paint()
     }
+    
+    func paint(){
+        
+        importantView?.layer.cornerRadius = 2
+        importantView?.layer.masksToBounds = true
+    }
+    
     
     func initialize(){
       
@@ -44,6 +54,7 @@ class HostDashboardController: MyScheduledSessionsController {
             str = str + "/"
             str = str + "\(info.id ?? 0)"
             self.sharingTextFld?.text = str
+            self.sharingLbl?.text = str
             //str  = str.replacingOccurrences(of: " ", with: "")
             Log.echo(key: "yud", text: "url id is \(str)")
         }
@@ -138,23 +149,26 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func systemTestAction(sender:UIButton){
       
-
         self.gotoSystemTest()
     }
     
     
     @IBAction func copyText(send:UIButton){
         
-        if sharingTextFld?.text == ""{
+        if sharingLbl?.text == "Select session to get the shareable url."{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session in order to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
             }
             return
         }
         
-        let copyString = sharingTextFld?.text ?? ""
+        //let copyString = sharingTextFld?.text ?? ""
+        let copyString = sharingLbl?.text ?? ""
         let pasteBoard = UIPasteboard.general
         pasteBoard.string = copyString
+        self.alert(withTitle: AppInfoConfig.appName, message: "Your session's shareable url is copied on the clipboard, you can share it to your social network.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+        }
+        return
     }
     
     
