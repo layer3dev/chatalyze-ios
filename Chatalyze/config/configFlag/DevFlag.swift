@@ -8,8 +8,8 @@ import Foundation
 
 class DevFlag : NSObject{
 
-    @objc static let key = "_connection_"
+    @objc static let key = "yud"
     @objc static let showAll = true
-    @objc static let debug = false
+    @objc static let debug = true
 }
 

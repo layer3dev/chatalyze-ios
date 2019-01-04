@@ -17,7 +17,7 @@ class MySessionAdapter: ExtendedView {
     var sessionTableView:UITableView?
     
     var enterSession:((EventInfo?)->())?
-    var sharedLinkListener:((String)->())?
+    var sharedLinkListener:((EventInfo)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -28,6 +28,7 @@ class MySessionAdapter: ExtendedView {
     
     func initializeAdapter(table:UITableView?){
         
+        Log.echo(key: "yud", text: "ScheduleSession table is \(table)")
         sessionTableView = table
         self.sessionTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         sessionTableView?.dataSource = self
@@ -79,7 +80,6 @@ extension MySessionAdapter:UITableViewDataSource{
         if indexPath.row < self.sessionListingArray.count{
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
             cell.enterSession = self.enterSession
-            cell.sharedLinkListener = self.sharedLinkListener
             //cell.controller = self.controller
             return cell
         }
@@ -102,28 +102,16 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        Log.echo(key: "yud", text: "Tble Is calling")
+        
         if indexPath.row > (sessionListingArray.count-1){
             return
         }
-        self.sharedLinkListener?("\(String(describing: sessionListingArray[indexPath.row].id))")
+        self.sharedLinkListener?(sessionListingArray[indexPath.row])
     }
     
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        guard let controller = GreetingInfoController.instance() else {
-    //            return
-    //        }
-    //        if indexPath.row < self.PaymentListingArray.count {
-    //
-    //            controller.info = self.PaymentListingArray[indexPath.row]
-    //        }
-    //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-    //    }
 }
 
 extension MySessionAdapter:UIScrollViewDelegate{
-    
-   
 }
 

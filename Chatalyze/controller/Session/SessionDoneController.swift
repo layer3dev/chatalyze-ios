@@ -69,7 +69,9 @@ class SessionDoneController: InterfaceExtendedController {
         str = str + (self.eventInfo?.title ?? "")
         str = str + "/"
         str = str + "\(id)"
+        
         Log.echo(key: "yud", text: "url id is \(str)")
+        
         str  = str.replacingOccurrences(of: " ", with: "")
         var fontSize  = 16
         if UIDevice.current.userInterfaceIdiom == .pad{
@@ -83,7 +85,6 @@ class SessionDoneController: InterfaceExtendedController {
         linkGesture.delegate = self
         linkLbl?.isUserInteractionEnabled = true
         self.linkLbl?.addGestureRecognizer(linkGesture)
-        
     }
     
     @objc func tapOnLink(recognizer:UITapGestureRecognizer){
@@ -98,13 +99,13 @@ class SessionDoneController: InterfaceExtendedController {
         str = str + "/"
         str = str + "\(id)"
         Log.echo(key: "yud", text: "url id is \(str)")
+        
         str  = str.replacingOccurrences(of: " ", with: "")
         
         if let url = URL(string: str){
             UIApplication.shared.open(url, options: [:])
         }
     }
-    
     
     @IBAction func share(sender:UIButton){
         
@@ -150,17 +151,6 @@ class SessionDoneController: InterfaceExtendedController {
         super.didReceiveMemoryWarning()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension SessionDoneController{

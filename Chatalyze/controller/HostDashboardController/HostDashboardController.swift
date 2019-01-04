@@ -14,8 +14,8 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     var testingText = ""
-    @IBOutlet var SharingTextFld:UITextField?
-    var sharedLinkListener:((String)->())?
+    @IBOutlet var sharingTextFld:UITextField?
+    var sharedLinkListener:((EventInfo)->())?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -25,7 +25,8 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func initialize(){
       
-        SharingTextFld?.isEnabled = false
+        sharingTextFld?.isEnabled = false
+        //sharingTextFld?.delegate = self
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Poppins", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
@@ -35,8 +36,16 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.rootView?.adapter.sharedLinkListener = {(link) in
-            Log.echo(key: "yud", text: "Link is \(link)")
+        self.rootView?.adapter.sharedLinkListener = {(info) in
+            
+            var str = "https://chatalyze.com/"
+            str = str + "sessions/"
+            str = str + (info.title ?? "")
+            str = str + "/"
+            str = str + "\(info.id ?? 0)"
+            self.sharingTextFld?.text = str
+            //str  = str.replacingOccurrences(of: " ", with: "")
+            Log.echo(key: "yud", text: "url id is \(str)")
         }
     }
     
@@ -95,8 +104,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
-        if let presenter = alertActionSheet.popoverPresentationController {
-            
+        if let presenter = alertActionSheet.popoverPresentationController {            
             alertActionSheet.popoverPresentationController?.sourceView = self.view
             alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
         }
@@ -137,7 +145,14 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func copyText(send:UIButton){
         
-        let copyString = SharingTextFld?.text ?? ""
+        if sharingTextFld?.text == ""{
+            
+            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session in order to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+            }
+            return
+        }
+        
+        let copyString = sharingTextFld?.text ?? ""
         let pasteBoard = UIPasteboard.general
         pasteBoard.string = copyString
     }
@@ -150,7 +165,6 @@ class HostDashboardController: MyScheduledSessionsController {
         self.updateViewConstraints()
         self.view.layoutIfNeeded()
     }
-    
    
     override class func instance()->HostDashboardController?{
         
