@@ -21,7 +21,7 @@ class LogNotification{
     }
     
     func notify(text : String){
-        
+        return;
         if(!DevFlag.debug){
             return
         }
