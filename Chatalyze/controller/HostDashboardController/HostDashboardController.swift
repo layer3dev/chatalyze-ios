@@ -14,7 +14,6 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
     var testingText = ""
-    @IBOutlet var sharingTextFld:UITextField?
     @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
@@ -30,12 +29,25 @@ class HostDashboardController: MyScheduledSessionsController {
         
         importantView?.layer.cornerRadius = 2
         importantView?.layer.masksToBounds = true
+        setSharableUrlText()
+    }
+    
+    func setSharableUrlText(){
+        
+        var str = AppConnectionConfig.systemTestUrl
+        str = str + "/upcoming/"
+        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
+        str = str + "/"
+        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
+        self.sharingLbl?.text = str
+        //str  = str.replacingOccurrences(of: " ", with: "")
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
     }
     
     
     func initialize(){
       
-        sharingTextFld?.isEnabled = false
         //sharingTextFld?.delegate = self
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Poppins", size: 15)
@@ -48,15 +60,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         self.rootView?.adapter.sharedLinkListener = {(info) in
             
-            var str = "https://chatalyze.com/"
-            str = str + "sessions/"
-            str = str + (info.title ?? "")
-            str = str + "/"
-            str = str + "\(info.id ?? 0)"
-            self.sharingTextFld?.text = str
-            self.sharingLbl?.text = str
-            //str  = str.replacingOccurrences(of: " ", with: "")
-            Log.echo(key: "yud", text: "url id is \(str)")
+            
         }
     }
     
@@ -155,18 +159,39 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func copyText(send:UIButton){
         
-        if sharingLbl?.text == "Select session to get the shareable url."{
+        if sharingLbl?.text == "Select your session in order to get the shareable url."{
             
             self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
             }
             return
         }
         
-        //let copyString = sharingTextFld?.text ?? ""
-        let copyString = sharingLbl?.text ?? ""
-        let pasteBoard = UIPasteboard.general
-        pasteBoard.string = copyString
-        self.alert(withTitle: AppInfoConfig.appName, message: "Your session's shareable url is copied on the clipboard, you can share it to your social network.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
+        //str  = str.replacingOccurrences(of: " ", with: "")
+        guard var str = sharingLbl?.text else{
+            return
+        }
+        
+        str  = str.replacingOccurrences(of: " ", with: "")
+        
+        Log.echo(key: "yud", text: "url id is \(str)")
+        if let url = URL(string: str){
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url,shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self.view
+                activityVC.popoverPresentationController?.sourceRect = send.frame
+                self.present(activityVC, animated: false, completion: nil)
+                
+            }else{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url, shareText]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                self.present(activityVC, animated: false, completion: nil)
+            }
         }
         return
     }

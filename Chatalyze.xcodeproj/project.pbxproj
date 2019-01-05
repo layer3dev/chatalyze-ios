@@ -86,6 +86,8 @@
 		473BA9EF21BAA8DB00761EFC /* UpdateAlert.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 473BA9E921BAA84900761EFC /* UpdateAlert.storyboard */; };
 		473D059A2112D38500E121C4 /* UpdateEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D05992112D38500E121C4 /* UpdateEventListener.swift */; };
 		473D059C2113266000E121C4 /* EventDelayListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D059B2113266000E121C4 /* EventDelayListener.swift */; };
+		47409D9E21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */; };
+		47409D9F21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */; };
 		4743195E2133F13F0086FDEE /* SessionDoneRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */; };
 		474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474BF8A420D912580074EBBC /* SafariServices.framework */; };
 		4753B9FF21900F980060777B /* FAQ.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4753B9FE21900F980060777B /* FAQ.storyboard */; };
@@ -1035,6 +1037,7 @@
 		473BA9EC21BAA8C700761EFC /* UpdateAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAlertController.swift; sourceTree = "<group>"; };
 		473D05992112D38500E121C4 /* UpdateEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEventListener.swift; sourceTree = "<group>"; };
 		473D059B2113266000E121C4 /* EventDelayListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDelayListener.swift; sourceTree = "<group>"; };
+		47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFeedbackController.swift; sourceTree = "<group>"; };
 		4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneRootView.swift; sourceTree = "<group>"; };
 		474BF8A420D912580074EBBC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		4753B9FE21900F980060777B /* FAQ.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FAQ.storyboard; sourceTree = "<group>"; };
@@ -2292,6 +2295,15 @@
 			);
 			path = PaymentProtocol;
 			sourceTree = "<group>";
+		};
+		47409D9C21E0DF3C00F1524F /* HostFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */,
+			);
+			name = HostFeedback;
+			path = Chatalyze/controller/HostFeedback;
+			sourceTree = SOURCE_ROOT;
 		};
 		4753BA0021900FB90060777B /* FAQ */ = {
 			isa = PBXGroup;
@@ -3697,6 +3709,7 @@
 				473E3B44211B14AD00DC60BC /* TicketsController */,
 				473E3B45211B14CB00DC60BC /* TicketsPageController */,
 				473BA9EB21BAA86500761EFC /* UpdateAlert */,
+				47409D9C21E0DF3C00F1524F /* HostFeedback */,
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
 			);
 			path = controller;
@@ -4291,12 +4304,12 @@
 				ORGANIZATIONNAME = "Mansa Infotech";
 				TargetAttributes = {
 					47D0B00721A6C4B5006376A8 = {
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					FAFFFE93203D9C7F009B4F96 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4928,6 +4941,7 @@
 				47D0B13521A6C4B5006376A8 /* ProvisiningProfileStatus.swift in Sources */,
 				47D0B13621A6C4B5006376A8 /* GreetingTimeCell.swift in Sources */,
 				47D0B13721A6C4B5006376A8 /* StringHelper.swift in Sources */,
+				47409D9F21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */,
 				47D0B13821A6C4B5006376A8 /* UserVideoRootView.swift in Sources */,
 				47D0B13921A6C4B5006376A8 /* SignUpController.swift in Sources */,
 				47D0B13A21A6C4B5006376A8 /* EventRefreshProtocol.swift in Sources */,
@@ -5342,6 +5356,7 @@
 				47C7B9C42182D568000D311D /* StringHelper.swift in Sources */,
 				FADC84E42074E35600AD9D65 /* UserVideoRootView.swift in Sources */,
 				47B6525920AAB0420041496C /* SignUpController.swift in Sources */,
+				47409D9E21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */,
 				FAB71CEE2077BDD300C24246 /* EventRefreshProtocol.swift in Sources */,
 				47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */,
 				47B6524520AAB0000041496C /* ContainerController.swift in Sources */,
@@ -5493,8 +5508,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5527,8 +5542,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5672,9 +5687,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5688,7 +5703,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5705,9 +5720,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5721,7 +5736,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
