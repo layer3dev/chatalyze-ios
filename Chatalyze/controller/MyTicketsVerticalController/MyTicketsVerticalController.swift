@@ -14,7 +14,6 @@ class MyTicketsVerticalController: MyTicketsController{
     @IBOutlet var underLineLbl:UILabel?
     @IBOutlet var showView:UIView?
     var isShow = false
-    
     //Implementing the eventDeleteListener
     var eventDeleteListener = EventDeletedListener()  
     var testingText = ""

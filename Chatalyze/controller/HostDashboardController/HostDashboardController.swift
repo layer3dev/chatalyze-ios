@@ -17,6 +17,7 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
+    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -24,6 +25,18 @@ class HostDashboardController: MyScheduledSessionsController {
         initialize()
         paint()
     }
+    
+    override func showShareView(){
+       
+        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
+    }
+    
+    override func hideShareView(){
+        
+        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
+    }
+    
+
     
     func paint(){
         
@@ -59,11 +72,8 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewDidAppear(animated)
         
         self.rootView?.adapter.sharedLinkListener = {(info) in
-            
-            
         }
     }
-    
     
     func initializeName(){
         
@@ -179,7 +189,7 @@ class HostDashboardController: MyScheduledSessionsController {
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
                 let shareText = "Chatalyze"
-                let shareItems: [Any] = [url,shareText]
+                let shareItems: [Any] = [url]
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = self.view
                 activityVC.popoverPresentationController?.sourceRect = send.frame
@@ -188,7 +198,7 @@ class HostDashboardController: MyScheduledSessionsController {
             }else{
                 
                 let shareText = "Chatalyze"
-                let shareItems: [Any] = [url, shareText]
+                let shareItems: [Any] = [url]
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
                 self.present(activityVC, animated: false, completion: nil)
             }

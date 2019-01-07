@@ -20,12 +20,26 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var sessionEventButton:UIButton?
     @IBOutlet var joinButton:UIButton?
     let eventStore = EKEventStore()
+    var adapter:MySessionAdapter?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         painInterface()
     }
+    
+    @IBAction func editSession(sender:UIButton){
+        
+        Log.echo(key: "yud", text: "I am calling")
+        
+        guard let controller = EditHostSessionController.instance() else{
+            return
+        }
+        
+        controller.eventInfo = self.info
+        self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     
     func painInterface(){
         

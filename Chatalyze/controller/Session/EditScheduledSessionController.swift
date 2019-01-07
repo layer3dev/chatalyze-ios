@@ -25,9 +25,15 @@ class EditScheduledSessionController: InterfaceExtendedController {
     }
     
     @IBAction func doneEditingAction(sender:UIButton?){
+       
+        back()
+    }
+    
+    func back(){
         
         self.navigationController?.popViewController(animated: true)
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -81,10 +87,6 @@ class EditScheduledSessionController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
-}
-
-extension EditScheduledSessionController{
     
     class func instance()->EditScheduledSessionController?{
         
@@ -92,4 +94,6 @@ extension EditScheduledSessionController{
         let controller = storyboard.instantiateViewController(withIdentifier: "EditScheduledSession") as? EditScheduledSessionController
         return controller
     }
+
 }
+
