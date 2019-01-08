@@ -21,6 +21,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var joinButton:UIButton?
     let eventStore = EKEventStore()
     var adapter:MySessionAdapter?
+    @IBOutlet var editSessionLbl:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -43,6 +44,19 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     func painInterface(){
         
+        
+        DispatchQueue.main.async {
+            
+            var fontSize = 22
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                fontSize = 18
+            }
+            
+            let text = "EDIT PAGE"
+            let attrStr = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#97cefa"), isUnderLine: true)
+            self.editSessionLbl?.attributedText = attrStr
+        }
+        
         self.selectionStyle = .none
         
         if UIDevice.current.userInterfaceIdiom == .pad{
@@ -53,6 +67,8 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         joinButton?.layer.cornerRadius = 3
         joinButton?.layer.masksToBounds = true
+        
+       
     }
     
     func fillInfo(info:EventInfo?){

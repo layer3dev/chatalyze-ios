@@ -36,50 +36,57 @@ class EditHostSessionController: EditScheduledSessionController{
 
     override func back(){
         
+        Log.echo(key: "Selected image is", text: "\( rootView?.selectedImage == nil)")
+        
         guard let eventId = self.eventInfo?.id else{
             return
         }
         
         if rootView?.selectedImage != nil {
             
-            EditMySessionProcessor().uploadEventBannerImage(image: selectedImage,eventId: eventId,description:self.rootView?.info?.eventDescription ?? "") { (success, jsonInfo) in
-                
+            self.showLoader()
+            EditMySessionProcessor().uploadEventBannerImage(image: rootView?.selectedImage,eventId: eventId,description:self.rootView?.info?.eventDescription ?? "") { (success, jsonInfo) in
+              
+                self.stopLoader()
                 if success{
                     
                     self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                         
-                        self.navigationController?.popViewController(animated: true)
+                        ///self.navigationController?.popViewController(animated: true)
                     })
                     return
                 }
                 self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                     
-                    self.navigationController?.popViewController(animated: true)
+                    //self.navigationController?.popViewController(animated: true)
                 })
                 return
             }
         }else{
             
-            
+            self.showLoader()
             EditMySessionProcessor().uploadEventBanner(eventId: eventId,description:self.rootView?.info?.eventDescription ?? "") { (success, jsonInfo) in
-                
+                self.stopLoader()
                 if success{
                     
                     self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                         
-                        self.navigationController?.popViewController(animated: true)
+                        //self.navigationController?.popViewController(animated: true)
                     })
                     return
                 }
                 self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                     
-                    self.navigationController?.popViewController(animated: true)
+                    //self.navigationController?.popViewController(animated: true)
                 })
                 return
             }
         }
+    }
+    
+    @IBAction func backToMySession(sender:UIButton){
         
-        Log.echo(key: "Selected image is", text: "\( rootView?.selectedImage == nil)")
+        self.navigationController?.popViewController(animated: true)
     }
     
     /*

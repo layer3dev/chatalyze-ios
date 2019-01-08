@@ -53,8 +53,6 @@ class EditMySessionProcessor {
         
         url = url + "\(eventId)"
         
-        
-        
        
         var params = [String : Any]()
         //  params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"

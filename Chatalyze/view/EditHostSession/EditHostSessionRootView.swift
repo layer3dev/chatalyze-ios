@@ -16,9 +16,14 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         super.viewDidLayout()
     }
     
+    
     func setImage(info:EventInfo){
         
-        if let url = URL(string: info.eventBannerUrl ?? ""){
+        let bannerUrl = info.eventBannerUrl ?? ""
+        let requiredStr = bannerUrl.replacingOccurrences(of: "\\", with: "")
+        Log.echo(key: "updates info banner url is", text: "\(requiredStr)")
+        
+        if let url = URL(string: requiredStr){
             
             self.controller?.showLoader()
             SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
@@ -39,9 +44,11 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
                 self.checkForProfileImage()
                 return
             }
+        }else{
+            
+            self.checkForProfileImage()
+            return
         }
-        self.checkForProfileImage()
-        return
     }
     
     func checkForProfileImage(){
@@ -136,7 +143,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         let durate = Int(info.duration ?? 0.0)
         let numberofEvent = (self.totalTimeDuration/(durate))
         
-        if param["description"] == nil{
+        if info.eventDescription == ""{
             
             let txtStr = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
             
@@ -159,8 +166,11 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             
         }else{
             
+            let requiredstrOne = info.eventDescription?.replacingOccurrences(of: "<p>", with: "")
             
-            let attributedString = NSMutableAttributedString(string: info.description)
+            let requiredDescription = requiredstrOne?.replacingOccurrences(of: "</p>", with: "\n")
+            
+            let attributedString = NSMutableAttributedString(string: requiredDescription ?? "")
             
             // *** Create instance of `NSMutableParagraphStyle`
             let paragraphStyle = NSMutableParagraphStyle()
@@ -232,6 +242,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
     }
     
     override func fillInfo(info: [String : Any]?, totalDurationofEvent: Int, selectedImage: UIImage?) {
+        
         return
     }
     
@@ -294,8 +305,5 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         eventDetailInfo?.text = descriptionTextView?.text
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
-    }
-    
-    
-    
+    }    
 }
