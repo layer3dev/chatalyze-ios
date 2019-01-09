@@ -17,6 +17,7 @@ class EditHostSessionController: EditScheduledSessionController{
         
         DispatchQueue.main.async {
             
+            self.rootView?.rootController = self
             self.fillInfoToRoot()
         }
     }
@@ -35,8 +36,47 @@ class EditHostSessionController: EditScheduledSessionController{
     }
 
     override func back(){
+       
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func saveDescription(){
         
-        Log.echo(key: "Selected image is", text: "\( rootView?.selectedImage == nil)")
+        
+        guard let eventId = self.eventInfo?.id else{
+            return
+        }
+        
+        self.showLoader()
+        
+        //For inserting the paragraph
+        let paraText = self.rootView?.info?.eventDescription ?? ""
+        let ParaArray = paraText.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray {
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        EditMySessionProcessor().uploadEventBanner(eventId: eventId,description:requiredStr) { (success, jsonInfo) in
+            
+            self.stopLoader()
+            if success{
+                
+                self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                    
+                })
+                return
+            }
+            self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
+            })
+            return
+        }
+    }
+    
+    
+    func updateSessionBannerImage(){
+        
         
         guard let eventId = self.eventInfo?.id else{
             return
@@ -44,50 +84,73 @@ class EditHostSessionController: EditScheduledSessionController{
         
         if rootView?.selectedImage != nil {
             
-            self.showLoader()
-            EditMySessionProcessor().uploadEventBannerImage(image: rootView?.selectedImage,eventId: eventId,description:self.rootView?.info?.eventDescription ?? "") { (success, jsonInfo) in
-              
-                self.stopLoader()
-                if success{
-                    
-                    self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                        
-                        ///self.navigationController?.popViewController(animated: true)
-                    })
-                    return
-                }
-                self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                    
-                    //self.navigationController?.popViewController(animated: true)
-                })
-                return
+            //For inserting the paragraph
+            let paraText = self.rootView?.info?.eventDescription ?? ""
+            let ParaArray = paraText.components(separatedBy: "\n")
+            
+            var requiredStr = ""
+            for info in ParaArray {
+                requiredStr = requiredStr+"<p>"+info+"</p>"
             }
-        }else{
             
             self.showLoader()
-            EditMySessionProcessor().uploadEventBanner(eventId: eventId,description:self.rootView?.info?.eventDescription ?? "") { (success, jsonInfo) in
+            EditMySessionProcessor().uploadEventBannerImage(image: rootView?.selectedImage,eventId: eventId,description:requiredStr) { (success, jsonInfo) in
+                
                 self.stopLoader()
                 if success{
                     
                     self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                        
-                        //self.navigationController?.popViewController(animated: true)
+                    
                     })
                     return
                 }
                 self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                    
-                    //self.navigationController?.popViewController(animated: true)
+                
                 })
                 return
             }
         }
     }
     
-    @IBAction func backToMySession(sender:UIButton){
+    @IBAction func share(sender:UIButton){
         
-        self.navigationController?.popViewController(animated: true)
+        Log.echo(key: "yud", text: "info are \(self.eventInfo?.id) and the url is \(self.eventInfo?.title)")
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        
+        var str = "https://chatalyze.com/"
+        str = str + "sessions/"
+        str = str + (self.eventInfo?.title ?? "")
+        str = str + "/"
+        str = str + "\(id)"
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        if let url = URL(string: str) {
+            
+            Log.echo(key: "yud", text: "Successfully converted url \(str)")
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                activityVC.popoverPresentationController?.sourceView = self.view
+                activityVC.popoverPresentationController?.sourceRect = sender.frame
+                self.present(activityVC, animated: false, completion: nil)
+                
+            }else{
+                
+                let shareText = "Chatalyze"
+                let shareItems: [Any] = [url]
+                let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+                self.present(activityVC, animated: false, completion: nil)
+            }
+        }
     }
+    
+    
     
     /*
     // MARK: - Navigation

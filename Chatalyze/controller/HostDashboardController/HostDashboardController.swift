@@ -36,8 +36,6 @@ class HostDashboardController: MyScheduledSessionsController {
         heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
     }
     
-
-    
     func paint(){
         
         importantView?.layer.cornerRadius = 2
@@ -47,8 +45,10 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func setSharableUrlText(){
         
+        //https://dev.chatalyze.com/profile/NekBanda/485
+
         var str = AppConnectionConfig.systemTestUrl
-        str = str + "/upcoming/"
+        str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
         str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"

@@ -2635,13 +2635,13 @@
         <!--Edit Scheduled Session Controller-->
         <scene sceneID="XF2-I8-v6d">
             <objects>
-                <viewController storyboardIdentifier="EditScheduledSession" automaticallyAdjustsScrollViewInsets="NO" id="PCb-eE-Rzm" customClass="EditScheduledSessionController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditScheduledSession" id="PCb-eE-Rzm" customClass="EditScheduledSessionController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SAO-Ws-DQr" customClass="EditScheduledSessionRootView" customModule="Chatalyze" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7KQ-lg-lth" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="320" height="1980"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8K-M0-O8q">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="1649.5"/>
@@ -3686,7 +3686,7 @@
                             <constraint firstItem="7KQ-lg-lth" firstAttribute="leading" secondItem="G7T-Ue-1QM" secondAttribute="leading" id="5HH-ic-aO7"/>
                             <constraint firstItem="G7T-Ue-1QM" firstAttribute="trailing" secondItem="7KQ-lg-lth" secondAttribute="trailing" id="Ani-tF-2Vq"/>
                             <constraint firstItem="G7T-Ue-1QM" firstAttribute="bottom" secondItem="7KQ-lg-lth" secondAttribute="bottom" id="KFR-8o-6YW"/>
-                            <constraint firstItem="7KQ-lg-lth" firstAttribute="top" secondItem="G7T-Ue-1QM" secondAttribute="top" id="rjk-r3-tRf"/>
+                            <constraint firstItem="7KQ-lg-lth" firstAttribute="top" secondItem="SAO-Ws-DQr" secondAttribute="top" id="rjk-r3-tRf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G7T-Ue-1QM"/>
                         <connections>

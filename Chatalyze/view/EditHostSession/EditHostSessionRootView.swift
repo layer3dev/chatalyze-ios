@@ -11,11 +11,12 @@ import SDWebImage
 class EditHostSessionRootView:EditScheduledSessionRootView {
     
     var info:EventInfo?
+    var rootController:EditHostSessionController?
     
     override func viewDidLayout() {
         super.viewDidLayout()
     }
-    
+
     
     func setImage(info:EventInfo){
         
@@ -305,5 +306,12 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         eventDetailInfo?.text = descriptionTextView?.text
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
-    }    
+        self.rootController?.saveDescription()
+    }
+    
+    
+    override func updateEventBannerImage(){
+        
+        self.rootController?.updateSessionBannerImage()
+    }
 }

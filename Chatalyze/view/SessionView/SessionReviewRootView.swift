@@ -223,6 +223,7 @@ class SessionReviewRootView:ExtendedView{
             self?.controller?.stopLoader()
             completion!(success,info)
             if !success{
+                self?.showError(message: info?["message"].stringValue ?? "")
                 return
             }
         }

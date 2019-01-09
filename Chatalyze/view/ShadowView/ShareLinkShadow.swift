@@ -18,9 +18,13 @@ class ShareLinkShadow: UIView {
     
     private func setupShadow() {
         
-        self.layer.cornerRadius = 8
-        self.layer.shadowOffset = CGSize(width: 0, height: 3)
-        self.layer.shadowRadius = 3
+        var cornerSize:CGFloat = 3.0
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            cornerSize = 5.0
+        }
+        self.layer.cornerRadius = cornerSize
+        self.layer.shadowOffset = CGSize(width: 0, height: 1.5)
+        self.layer.shadowRadius = 1.5
         self.layer.shadowOpacity = 0.4
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 3, height: 3)).cgPath
         self.layer.shouldRasterize = true
