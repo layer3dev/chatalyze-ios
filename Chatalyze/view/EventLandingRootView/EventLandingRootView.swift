@@ -64,7 +64,9 @@ class EventLandingRootView:ExtendedView{
             requiredStr.append(secondStr)
 
             Log.echo(key: "yud", text: "price is requiered String \(requiredStr)")
+            
             costofEventLbl?.attributedText = requiredStr
+            
         }
         
 //        else{

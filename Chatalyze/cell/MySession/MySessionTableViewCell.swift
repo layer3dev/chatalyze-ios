@@ -20,6 +20,8 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var sessionEventButton:UIButton?
     @IBOutlet var joinButton:UIButton?
     let eventStore = EKEventStore()
+    var adapter:MySessionAdapter?
+    @IBOutlet var editSessionLbl:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -27,7 +29,32 @@ class MySessionTableViewCell: ExtendedTableCell {
         painInterface()
     }
     
+    @IBAction func editSession(sender:UIButton){
+        
+        Log.echo(key: "yud", text: "I am calling")
+        
+        guard let controller = EditHostSessionController.instance() else{
+            return
+        }
+        
+        controller.eventInfo = self.info
+        self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
     func painInterface(){
+        
+        DispatchQueue.main.async {
+            
+            var fontSize = 22
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                fontSize = 18
+            }
+            
+            let text = "EDIT PAGE"
+            let attrStr = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#97cefa"), isUnderLine: true)
+            self.editSessionLbl?.attributedText = attrStr
+        }
         
         self.selectionStyle = .none
         

@@ -65,8 +65,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
        
         //paintNavigationTitle(text: "ACCOUNT")
         //paintBackButton()
-        //paintHideBackButton()
-        
+        //paintHideBackButton()        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,10 +87,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         })
     }
     
-    
-    
     func initializeVariable(){
-        
         
         signInTab?.tabAction(action: { (tab) in
            

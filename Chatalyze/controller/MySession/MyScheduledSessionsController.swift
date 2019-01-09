@@ -97,18 +97,21 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        self.showShareView()
                         self.noeventLbl?.isHidden = true
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                        self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.rootView?.fillInfo(info: self.eventArray)
                     }
                     return
                 }
             }
+            self.hideShareView()
             self.noeventLbl?.isHidden = false
             self.rootView?.fillInfo(info: self.eventArray)
             return
@@ -128,18 +131,21 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        self.showShareView()
                         self.noeventLbl?.isHidden = true
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                        self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.rootView?.fillInfo(info: self.eventArray)
                     }
                     return
                 }
             }
+            self.hideShareView()
             self.noeventLbl?.isHidden = false
             self.rootView?.fillInfo(info: self.eventArray)
             return
@@ -157,6 +163,12 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         super.didReceiveMemoryWarning()
         
         //Dispose of any resources that can be recreated.
+    }
+    
+    func showShareView(){
+    }
+    
+    func hideShareView(){
     }
     
     class func instance()->MyScheduledSessionsController?{

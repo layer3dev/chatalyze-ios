@@ -80,6 +80,7 @@ extension MySessionAdapter:UITableViewDataSource{
         if indexPath.row < self.sessionListingArray.count{
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
             cell.enterSession = self.enterSession
+            cell.adapter = self
             //cell.controller = self.controller
             return cell
         }

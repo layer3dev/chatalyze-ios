@@ -412,7 +412,7 @@ class EditScheduledSessionRootView:ExtendedView{
     }
     
     
-    private func nextSessionTime(startDate:String,durate:Int)->String{
+     func nextSessionTime(startDate:String,durate:Int)->String{
         
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
@@ -612,6 +612,11 @@ class EditScheduledSessionRootView:ExtendedView{
     
     @IBAction func saveDescriptionAction(sender:UIButton?){
         
+        saveEditedDescription()
+    }
+    
+    func saveEditedDescription(){
+        
         //Verifying for title text to be empty.
         guard let descriptionText =  descriptionTextView?.text else {
             return
@@ -619,7 +624,7 @@ class EditScheduledSessionRootView:ExtendedView{
         let description = descriptionText.replacingOccurrences(of: " ", with: "")
         if description == ""{
             return
-        }        
+        }
         
         self.param["description"] = descriptionTextView?.text
         self.editedParam["description"] = descriptionTextView?.text
@@ -628,6 +633,7 @@ class EditScheduledSessionRootView:ExtendedView{
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
     }
+    
     
     func initializeVariable(){
         

@@ -107,6 +107,16 @@
 		47614F7D213ABBAB00CC9702 /* MySessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F7C213ABBAB00CC9702 /* MySessionRootView.swift */; };
 		47614F81213ABE4A00CC9702 /* MySessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F80213ABE4A00CC9702 /* MySessionTableViewCell.swift */; };
 		47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47614F83213ABFC000CC9702 /* MySessionsInfo.swift */; };
+		477A942321E3294C00517F3E /* ShareLinkShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A942221E3294C00517F3E /* ShareLinkShadow.swift */; };
+		477A942421E3294C00517F3E /* ShareLinkShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A942221E3294C00517F3E /* ShareLinkShadow.swift */; };
+		477A942621E33BDE00517F3E /* EditScheduleSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477A942521E33BDE00517F3E /* EditScheduleSession.storyboard */; };
+		477A942721E33BDE00517F3E /* EditScheduleSession.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477A942521E33BDE00517F3E /* EditScheduleSession.storyboard */; };
+		477A942A21E33DEA00517F3E /* EditHostSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A942921E33DEA00517F3E /* EditHostSessionController.swift */; };
+		477A942B21E33DEA00517F3E /* EditHostSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A942921E33DEA00517F3E /* EditHostSessionController.swift */; };
+		477A943121E33E5C00517F3E /* EditHostSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */; };
+		477A943221E33E5C00517F3E /* EditHostSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */; };
+		477A943521E389E200517F3E /* EditMySessionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943421E389E200517F3E /* EditMySessionProcessor.swift */; };
+		477A943621E389E200517F3E /* EditMySessionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943421E389E200517F3E /* EditMySessionProcessor.swift */; };
 		478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */; };
 		47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */; };
 		47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF22109E8A600F41630 /* AccountHostController.swift */; };
@@ -1057,6 +1067,11 @@
 		47614F7C213ABBAB00CC9702 /* MySessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionRootView.swift; sourceTree = "<group>"; };
 		47614F80213ABE4A00CC9702 /* MySessionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionTableViewCell.swift; sourceTree = "<group>"; };
 		47614F83213ABFC000CC9702 /* MySessionsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySessionsInfo.swift; sourceTree = "<group>"; };
+		477A942221E3294C00517F3E /* ShareLinkShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLinkShadow.swift; sourceTree = "<group>"; };
+		477A942521E33BDE00517F3E /* EditScheduleSession.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditScheduleSession.storyboard; sourceTree = "<group>"; };
+		477A942921E33DEA00517F3E /* EditHostSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostSessionController.swift; sourceTree = "<group>"; };
+		477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostSessionRootView.swift; sourceTree = "<group>"; };
+		477A943421E389E200517F3E /* EditMySessionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMySessionProcessor.swift; sourceTree = "<group>"; };
 		4780A5B620F8E852001C68AB /* CountryPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
 		478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSavedCardDetails.swift; sourceTree = "<group>"; };
 		478506CC20BFF6C400EC4524 /* FacebookShare.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = FacebookShare.framework.dSYM; path = Carthage/Build/iOS/FacebookShare.framework.dSYM; sourceTree = "<group>"; };
@@ -2318,6 +2333,7 @@
 			isa = PBXGroup;
 			children = (
 				4753BA04219013BF0060777B /* ShadowView.swift */,
+				477A942221E3294C00517F3E /* ShareLinkShadow.swift */,
 			);
 			path = ShadowView;
 			sourceTree = "<group>";
@@ -2384,6 +2400,30 @@
 				47614F83213ABFC000CC9702 /* MySessionsInfo.swift */,
 			);
 			path = MySessionInfo;
+			sourceTree = "<group>";
+		};
+		477A942821E33DC200517F3E /* EditHostSession */ = {
+			isa = PBXGroup;
+			children = (
+				477A942921E33DEA00517F3E /* EditHostSessionController.swift */,
+			);
+			path = EditHostSession;
+			sourceTree = "<group>";
+		};
+		477A942C21E33E1600517F3E /* EditHostSession */ = {
+			isa = PBXGroup;
+			children = (
+				477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */,
+			);
+			path = EditHostSession;
+			sourceTree = "<group>";
+		};
+		477A943321E389CD00517F3E /* EditSession */ = {
+			isa = PBXGroup;
+			children = (
+				477A943421E389E200517F3E /* EditMySessionProcessor.swift */,
+			);
+			path = EditSession;
 			sourceTree = "<group>";
 		};
 		4782822B2184366900A003F4 /* InternetAvailability */ = {
@@ -3513,6 +3553,7 @@
 				47C6951021539BC800BB13BF /* GoogleSignIn */,
 				47D7CC0521BE726B00CAFCF1 /* RefreshToken */,
 				47CE2A3D215FA9CA00A4C267 /* UploadUserImage */,
+				477A943321E389CD00517F3E /* EditSession */,
 				47D7CC1121BE898D00CAFCF1 /* FetchAppVersionInfo */,
 			);
 			path = network;
@@ -3601,6 +3642,7 @@
 				4753BA03219013A90060777B /* ShadowView */,
 				475B111B210B2CD400DADD39 /* PaymentSetupPaypal */,
 				47C05DA521A3E67C005A53C6 /* FutureSlotInfo */,
+				477A942C21E33E1600517F3E /* EditHostSession */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3659,6 +3701,7 @@
 				47B6521620AAADB20041496C /* Signup.storyboard */,
 				473BA9E921BAA84900761EFC /* UpdateAlert.storyboard */,
 				470F0B6921521D1F003F8EE7 /* Welcome.storyboard */,
+				477A942521E33BDE00517F3E /* EditScheduleSession.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -3711,6 +3754,7 @@
 				473BA9EB21BAA86500761EFC /* UpdateAlert */,
 				47409D9C21E0DF3C00F1524F /* HostFeedback */,
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
+				477A942821E33DC200517F3E /* EditHostSession */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4304,12 +4348,12 @@
 				ORGANIZATIONNAME = "Mansa Infotech";
 				TargetAttributes = {
 					47D0B00721A6C4B5006376A8 = {
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					FAFFFE93203D9C7F009B4F96 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4371,6 +4415,7 @@
 				FA91056B21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
 				47D0B1AC21A6C4B5006376A8 /* CallOverlayView.xib in Resources */,
 				47D0B1AD21A6C4B5006376A8 /* autograph.storyboard in Resources */,
+				477A942721E33BDE00517F3E /* EditScheduleSession.storyboard in Resources */,
 				47D0B1AE21A6C4B5006376A8 /* icon.xcassets in Resources */,
 				47D0B1AF21A6C4B5006376A8 /* LICENSE in Resources */,
 				47D0B1B021A6C4B5006376A8 /* launch_container.storyboard in Resources */,
@@ -4417,6 +4462,7 @@
 				FA91056A21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
 				FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */,
 				FADC84E92074EABD00AD9D65 /* autograph.storyboard in Resources */,
+				477A942621E33BDE00517F3E /* EditScheduleSession.storyboard in Resources */,
 				FA912D9A20417DD9002891EC /* icon.xcassets in Resources */,
 				FA74B14620639C7300983141 /* LICENSE in Resources */,
 				FAA0016D203ED2A7003C8A74 /* launch_container.storyboard in Resources */,
@@ -4715,6 +4761,7 @@
 				47D0B06021A6C4B5006376A8 /* BroadcastInfo.swift in Sources */,
 				47D0B06121A6C4B5006376A8 /* ReviewRootView.swift in Sources */,
 				47D0B06221A6C4B5006376A8 /* PeerMetaInfo.swift in Sources */,
+				477A942B21E33DEA00517F3E /* EditHostSessionController.swift in Sources */,
 				47D0B06321A6C4B5006376A8 /* EventProcessor.swift in Sources */,
 				47D0B06421A6C4B5006376A8 /* EventTimeProtocol.swift in Sources */,
 				47D0B06521A6C4B5006376A8 /* PlaceholderTextView.swift in Sources */,
@@ -4769,6 +4816,7 @@
 				47D0B09521A6C4B5006376A8 /* ExtendedLabel.swift in Sources */,
 				47D0B09621A6C4B5006376A8 /* UpdateEventListener.swift in Sources */,
 				47D0B09721A6C4B5006376A8 /* DateStringFormatter.swift in Sources */,
+				477A943221E33E5C00517F3E /* EditHostSessionRootView.swift in Sources */,
 				47D0B09821A6C4B5006376A8 /* AlertViewController.swift in Sources */,
 				47D0B09921A6C4B5006376A8 /* PaymentListingController.swift in Sources */,
 				47D0B09A21A6C4B5006376A8 /* EventCell.swift in Sources */,
@@ -4947,6 +4995,7 @@
 				47D0B13A21A6C4B5006376A8 /* EventRefreshProtocol.swift in Sources */,
 				47D0B13B21A6C4B5006376A8 /* MyTicketsRootView.swift in Sources */,
 				473BA9EE21BAA8D100761EFC /* UpdateAlertController.swift in Sources */,
+				477A942421E3294C00517F3E /* ShareLinkShadow.swift in Sources */,
 				47D0B13C21A6C4B5006376A8 /* ContainerController.swift in Sources */,
 				47D0B13D21A6C4B5006376A8 /* RequestAutographController.swift in Sources */,
 				47D0B13E21A6C4B5006376A8 /* UserSocket.swift in Sources */,
@@ -4999,6 +5048,7 @@
 				47D0B16A21A6C4B5006376A8 /* JoinCountdownLabel.swift in Sources */,
 				47D0B16B21A6C4B5006376A8 /* RTCMediaConstraints+JSON.m in Sources */,
 				47D0B16C21A6C4B5006376A8 /* UploadUserImage.swift in Sources */,
+				477A943621E389E200517F3E /* EditMySessionProcessor.swift in Sources */,
 				47D0B16D21A6C4B5006376A8 /* EventAdapter.swift in Sources */,
 				47D0B16E21A6C4B5006376A8 /* ScreenshotInfoFetch.swift in Sources */,
 				FADC0D5A21C9052D004358B2 /* DeviceApplicationInfo.swift in Sources */,
@@ -5057,6 +5107,7 @@
 				FA3B46AA21104D8F007EA72D /* RootHelper.swift in Sources */,
 				47F641A32187061400263DB6 /* ButtonCorners.swift in Sources */,
 				47B6527820AAB5030041496C /* CalendarCell.swift in Sources */,
+				477A942321E3294C00517F3E /* ShareLinkShadow.swift in Sources */,
 				4753BA0221900FE00060777B /* FAQController.swift in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
@@ -5129,6 +5180,7 @@
 				FA91055721D652E500060AFF /* OnboardFifthController.swift in Sources */,
 				47E3A76E20DA8A3E009347B6 /* ReviewRootView.swift in Sources */,
 				FAE9EF6A206CB26E00C45F8D /* PeerMetaInfo.swift in Sources */,
+				477A942A21E33DEA00517F3E /* EditHostSessionController.swift in Sources */,
 				47B6526C20AAB43B0041496C /* EventProcessor.swift in Sources */,
 				FAE9EF7B206CE93700C45F8D /* EventTimeProtocol.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
@@ -5183,6 +5235,7 @@
 				473D059A2112D38500E121C4 /* UpdateEventListener.swift in Sources */,
 				FAA00199203ED472003C8A74 /* DateStringFormatter.swift in Sources */,
 				FAA0019C203ED472003C8A74 /* AlertViewController.swift in Sources */,
+				477A943121E33E5C00517F3E /* EditHostSessionRootView.swift in Sources */,
 				47AD143720ADAEFD006AF9D6 /* PaymentListingController.swift in Sources */,
 				47B6527A20AAB5030041496C /* EventCell.swift in Sources */,
 				FA74B13920639B6400983141 /* CallerConnection.m in Sources */,
@@ -5414,6 +5467,7 @@
 				47CE2A3F215FA9DB00A4C267 /* UploadUserImage.swift in Sources */,
 				47B6525F20AAB3C20041496C /* EventAdapter.swift in Sources */,
 				FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */,
+				477A943521E389E200517F3E /* EditMySessionProcessor.swift in Sources */,
 				47F0D72220F8E55400A689FA /* CountryPicker.m in Sources */,
 				FADC0D5921C9052A004358B2 /* DeviceApplicationInfo.swift in Sources */,
 				47182595216B372500216AEB /* TermsConditionController.swift in Sources */,
@@ -5507,8 +5561,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5523,7 +5577,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -5541,8 +5595,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5557,7 +5611,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -5687,8 +5741,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5703,7 +5757,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5720,8 +5774,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5736,7 +5790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
