@@ -44,7 +44,6 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     func painInterface(){
         
-        
         DispatchQueue.main.async {
             
             var fontSize = 22
@@ -67,8 +66,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         joinButton?.layer.cornerRadius = 3
         joinButton?.layer.masksToBounds = true
-        
-       
     }
     
     func fillInfo(info:EventInfo?){
