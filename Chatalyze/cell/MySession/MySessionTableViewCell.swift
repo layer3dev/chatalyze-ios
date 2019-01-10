@@ -46,9 +46,10 @@ class MySessionTableViewCell: ExtendedTableCell {
         
         DispatchQueue.main.async {
             
-            var fontSize = 22
+            var fontSize = 14
+            
             if UIDevice.current.userInterfaceIdiom == .pad{
-                fontSize = 18
+                fontSize = 19
             }
             
             let text = "EDIT PAGE"
@@ -57,7 +58,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         
         self.selectionStyle = .none
-        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             joinButton?.layer.cornerRadius = 5
@@ -128,7 +128,6 @@ class MySessionTableViewCell: ExtendedTableCell {
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.timeLbl?.text = dateFormatter.string(from: date)
-            //self.timeLbl?.text = "dfhiadshfjkhdjksfhjkadhsfjkhadjkshfjkadhsjkfhjkasdhfjkhasdjkfhjkadshjkfhadsjkhfjadhsjkfhjkadshfjkdhsjkfhdjkshf"
         }
     }
     
@@ -202,7 +201,7 @@ extension MySessionTableViewCell{
         
         eventStore.requestAccess(to: .event, completion: { (granted, error) in
             
-            if (granted) && (error == nil) {
+            if (granted) && (error == nil){
                 
                 let event = EKEvent(eventStore: self.eventStore)
                 event.title = title

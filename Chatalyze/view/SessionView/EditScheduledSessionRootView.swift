@@ -644,6 +644,10 @@ class EditScheduledSessionRootView:ExtendedView{
         initializeCropper()
     }
     
+    func updateEventBannerImage(){
+        //Just to override
+    }
+    
     
     func initializeCropper(){
        
@@ -653,6 +657,7 @@ class EditScheduledSessionRootView:ExtendedView{
             self.uploadedImage?.contentMode = .scaleAspectFit
             self.uploadedImage?.image = croppedImage
             self.selectedImage = croppedImage
+            self.updateEventBannerImage()
             self.delegate?.selectedImage(image:self.selectedImage)
             self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
             self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)

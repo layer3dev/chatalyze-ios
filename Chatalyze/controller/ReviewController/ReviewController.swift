@@ -48,6 +48,7 @@ class ReviewController: InterfaceExtendedController{
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
+        
         //Dispose of any resources that can be recreated.
     }
     
@@ -124,5 +125,13 @@ extension ReviewController:UITextViewDelegate{
     func textViewDidChange(_ textView: UITextView){
         
         hieghtofTextView?.constant = textView.contentSize.height
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView.text == ""{
+            
+            reasonLable?.text = "Any comments?"
+        }
     }
 }
