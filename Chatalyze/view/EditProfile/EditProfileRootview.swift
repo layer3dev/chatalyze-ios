@@ -424,7 +424,7 @@ extension EditProfileRootview{
     
     @IBAction func deactivateAccount(sender:UIButton){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure to deactivate your Account", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to deactivate your account?", preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (alert) in
             

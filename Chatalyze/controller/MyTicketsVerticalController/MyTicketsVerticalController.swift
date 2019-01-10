@@ -18,6 +18,8 @@ class MyTicketsVerticalController: MyTicketsController{
     var eventDeleteListener = EventDeletedListener()  
     var testingText = ""
     
+    @IBOutlet var learnMoreLbl:UILabel?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -25,6 +27,7 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLable()
         getTheRequiredDate()
         initializeListenrs()
+        underLineLearnMore()
     }
     
     @IBAction func animateInfo(){
@@ -107,6 +110,24 @@ class MyTicketsVerticalController: MyTicketsController{
         }
     }
 
+    func underLineLearnMore(){
+        
+        let testingText = "LEARN MORE"
+        var fontSize:CGFloat = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 20
+        }
+        
+        if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "open sans", size: fontSize)] as? [NSAttributedString.Key : Any]{
+            
+            let underlineAttributedString = NSAttributedString(string: testingText, attributes: underlineAttribute as [NSAttributedString.Key : Any])
+            
+            learnMoreLbl?.attributedText = underlineAttributedString
+        }
+    }
+    
+    
+    
     func showAlert(sender:UIButton){
         
         let alertMessage = HandlingAppVersion().getAlertMessage()

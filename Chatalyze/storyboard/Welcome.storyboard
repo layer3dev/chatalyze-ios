@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
         <array key="Poppins-SemiBold.otf">
             <string>Poppins-SemiBold</string>
         </array>
@@ -23,31 +26,28 @@
             <objects>
                 <viewController storyboardIdentifier="Welcome" id="VAk-oV-gP6" customClass="WelcomeController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nSq-gc-4jc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2B-Ic-BG4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alf-oO-nRr">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <view autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZM-df-fvH">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_logo" translatesAutoresizingMaskIntoConstraints="NO" id="3km-Ye-ZOd">
-                                                        <rect key="frame" x="152.5" y="70" width="70" height="70"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcomeBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ZhV-zP-Zhi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="265"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="70" id="YxL-Yp-jqX">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
-                                                            </constraint>
-                                                            <constraint firstAttribute="width" constant="70" id="cwO-ay-Yj1">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                                            <constraint firstAttribute="height" constant="265" id="z2T-Pl-s12">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="315"/>
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKd-85-lv0">
-                                                        <rect key="frame" x="20" y="180" width="335" height="31"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Chatalyze!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKd-85-lv0">
+                                                        <rect key="frame" x="20" y="60" width="374" height="31"/>
                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -56,35 +56,35 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to host or attend Chatalyze sessions?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVa-L7-emc">
-                                                        <rect key="frame" x="40" y="231" width="295" height="41.5"/>
-                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
+                                                        <rect key="frame" x="40" y="110.99999999999999" width="334" height="49.333333333333329"/>
+                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="27"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="23"/>
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6J-F0-BET">
-                                                        <rect key="frame" x="28" y="342.5" width="319" height="50"/>
+                                                        <rect key="frame" x="30" y="295" width="354" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfy-qw-16x">
-                                                                <rect key="frame" x="135.5" y="12.5" width="48.5" height="25.5"/>
-                                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                                                <rect key="frame" x="153.33333333333334" y="12.666666666666687" width="47.333333333333343" height="24.666666666666671"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-Ok-J9e">
-                                                                <rect key="frame" x="0.0" y="0.0" width="319" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
                                                                     <action selector="hostActionWithSender:" destination="VAk-oV-gP6" eventType="touchUpInside" id="jK4-kp-hfW"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.41176470588235292" green="0.76470588235294112" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="qfy-qw-16x" firstAttribute="centerY" secondItem="E6J-F0-BET" secondAttribute="centerY" id="46C-PR-BW0"/>
                                                             <constraint firstAttribute="trailing" secondItem="PjR-Ok-J9e" secondAttribute="trailing" id="571-eL-sgt"/>
@@ -98,25 +98,25 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgK-Ku-UA7">
-                                                        <rect key="frame" x="28" y="412.5" width="319" height="50"/>
+                                                        <rect key="frame" x="30" y="365" width="354" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ATTEND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32d-vh-Pp1">
-                                                                <rect key="frame" x="125" y="12.5" width="69.5" height="25.5"/>
-                                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
-                                                                <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <rect key="frame" x="143.33333333333334" y="12.666666666666687" width="67.333333333333343" height="24.666666666666671"/>
+                                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNg-UE-PYH">
-                                                                <rect key="frame" x="0.0" y="0.0" width="319" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="50"/>
                                                                 <connections>
                                                                     <action selector="userActionWithSender:" destination="VAk-oV-gP6" eventType="touchUpInside" id="pgK-Rb-5vb"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" red="0.96862745098039216" green="0.57647058823529407" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="eNg-UE-PYH" secondAttribute="trailing" id="90f-vV-4bd"/>
                                                             <constraint firstAttribute="bottom" secondItem="eNg-UE-PYH" secondAttribute="bottom" id="JQv-ds-QPs"/>
@@ -129,36 +129,65 @@
                                                             <constraint firstItem="32d-vh-Pp1" firstAttribute="centerY" secondItem="lgK-Ku-UA7" secondAttribute="centerY" id="wAT-Ph-grc"/>
                                                         </constraints>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Host&quot; if you want to let members of your community book chats with you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCS-jc-9UV">
+                                                        <rect key="frame" x="60" y="475" width="294" height="29"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
+                                                        <color key="textColor" red="0.5607843137254902" green="0.5607843137254902" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Attend&quot; if you want to book chats with Hosts." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fT-02-1td">
+                                                        <rect key="frame" x="70" y="534" width="274" height="29"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
+                                                        <color key="textColor" red="0.5607843137254902" green="0.5607843137254902" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
+                                                        </variation>
+                                                    </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="3km-Ye-ZOd" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="77s-DR-zuq"/>
                                                     <constraint firstItem="YVa-L7-emc" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" constant="40" id="8K1-e5-b9R">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                     </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="ZhV-zP-Zhi" secondAttribute="trailing" id="8dA-TG-Mzp"/>
+                                                    <constraint firstItem="lgK-Ku-UA7" firstAttribute="trailing" secondItem="E6J-F0-BET" secondAttribute="trailing" id="DbG-Sy-NLO"/>
                                                     <constraint firstItem="oKd-85-lv0" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" constant="20" id="Gcn-uK-9dN">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="YVa-L7-emc" secondAttribute="trailing" constant="40" id="HLx-Kz-Uab">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="oKd-85-lv0" secondAttribute="trailing" constant="20" id="I2F-Dq-Bvz">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                                     </constraint>
-                                                    <constraint firstItem="E6J-F0-BET" firstAttribute="top" secondItem="YVa-L7-emc" secondAttribute="bottom" constant="70" id="MAc-09-qnJ"/>
-                                                    <constraint firstItem="3km-Ye-ZOd" firstAttribute="top" secondItem="yZM-df-fvH" secondAttribute="top" constant="70" id="Nu7-qZ-xXE">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
-                                                    </constraint>
-                                                    <constraint firstItem="oKd-85-lv0" firstAttribute="top" secondItem="3km-Ye-ZOd" secondAttribute="bottom" constant="40" id="Wqm-zy-noe">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
+                                                    <constraint firstItem="oKd-85-lv0" firstAttribute="top" secondItem="yZM-df-fvH" secondAttribute="top" constant="60" id="N76-hp-OzT"/>
+                                                    <constraint firstItem="1fT-02-1td" firstAttribute="leading" secondItem="vCS-jc-9UV" secondAttribute="leading" constant="10" id="TRV-HN-3ig"/>
+                                                    <constraint firstItem="lgK-Ku-UA7" firstAttribute="leading" secondItem="E6J-F0-BET" secondAttribute="leading" id="ZNS-ev-iVf"/>
+                                                    <constraint firstItem="ZhV-zP-Zhi" firstAttribute="top" secondItem="yZM-df-fvH" secondAttribute="top" id="bia-Mx-Kxt"/>
+                                                    <constraint firstItem="1fT-02-1td" firstAttribute="top" secondItem="vCS-jc-9UV" secondAttribute="bottom" constant="30" id="dEB-OG-uE6"/>
                                                     <constraint firstItem="lgK-Ku-UA7" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="dri-SG-Xfc"/>
+                                                    <constraint firstAttribute="trailing" secondItem="E6J-F0-BET" secondAttribute="trailing" constant="30" id="jpZ-mB-25p">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                                    </constraint>
                                                     <constraint firstItem="E6J-F0-BET" firstAttribute="centerX" secondItem="yZM-df-fvH" secondAttribute="centerX" id="l50-N3-8UJ"/>
+                                                    <constraint firstItem="1fT-02-1td" firstAttribute="trailing" secondItem="vCS-jc-9UV" secondAttribute="trailing" constant="-10" id="m1V-bF-akr"/>
+                                                    <constraint firstItem="ZhV-zP-Zhi" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" id="ovZ-Yi-uc1"/>
+                                                    <constraint firstItem="E6J-F0-BET" firstAttribute="top" secondItem="ZhV-zP-Zhi" secondAttribute="bottom" constant="30" id="pgT-6d-xsr"/>
+                                                    <constraint firstItem="vCS-jc-9UV" firstAttribute="top" secondItem="lgK-Ku-UA7" secondAttribute="bottom" constant="60" id="qkd-kd-32s"/>
+                                                    <constraint firstItem="vCS-jc-9UV" firstAttribute="trailing" secondItem="lgK-Ku-UA7" secondAttribute="trailing" constant="-30" id="rAg-I0-GZ2"/>
+                                                    <constraint firstItem="E6J-F0-BET" firstAttribute="leading" secondItem="yZM-df-fvH" secondAttribute="leading" constant="30" id="tOu-jS-kiB">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                                    </constraint>
                                                     <constraint firstItem="lgK-Ku-UA7" firstAttribute="top" secondItem="E6J-F0-BET" secondAttribute="bottom" constant="20" id="uMd-U2-WOf">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                                     </constraint>
+                                                    <constraint firstItem="vCS-jc-9UV" firstAttribute="leading" secondItem="lgK-Ku-UA7" secondAttribute="leading" constant="30" id="xXi-nw-wWx"/>
                                                     <constraint firstItem="YVa-L7-emc" firstAttribute="top" secondItem="oKd-85-lv0" secondAttribute="bottom" constant="20" id="zF5-5S-c5u">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                                     </constraint>
                                                 </constraints>
                                             </view>
@@ -189,8 +218,6 @@
                             <constraint firstItem="yZM-df-fvH" firstAttribute="height" secondItem="nSq-gc-4jc" secondAttribute="height" id="U4k-XT-la4"/>
                             <constraint firstItem="M2B-Ic-BG4" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="UyQ-nd-5OX"/>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="trailing" secondItem="M2B-Ic-BG4" secondAttribute="trailing" id="cFm-gL-IaL"/>
-                            <constraint firstItem="E6J-F0-BET" firstAttribute="width" secondItem="nSq-gc-4jc" secondAttribute="width" multiplier="0.85" id="tfb-cA-O5b"/>
-                            <constraint firstItem="lgK-Ku-UA7" firstAttribute="width" secondItem="nSq-gc-4jc" secondAttribute="width" multiplier="0.85" id="vFC-Fr-tmZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qaL-XR-Eq9"/>
                     </view>
@@ -201,27 +228,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcT-jD-WSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="247" y="-439"/>
+            <point key="canvasLocation" x="245.59999999999999" y="-439.43028485757122"/>
         </scene>
         <!--Login Sign Up Container Controller-->
         <scene sceneID="FMB-Rc-hNk">
             <objects>
                 <viewController storyboardIdentifier="LoginSignUpContainer" id="SQP-rI-eYr" customClass="LoginSignUpContainerController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JEt-XI-lhY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4M-GR-KQ1">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hbu-2e-qbD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="664-CI-vA8" customClass="LoginSignUpTabView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="207" height="55"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-wd-hvo">
-                                                        <rect key="frame" x="66.5" y="16.5" width="54.5" height="22.5"/>
+                                                        <rect key="frame" x="76.333333333333329" y="16.333333333333336" width="54.666666666666671" height="22.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
@@ -229,14 +256,14 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkW-s8-3Si">
-                                                        <rect key="frame" x="0.0" y="52" width="187.5" height="3"/>
+                                                        <rect key="frame" x="0.0" y="52" width="207" height="3"/>
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="3" id="iF0-P8-5Na"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txt-yt-xO6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="55"/>
                                                         <connections>
                                                             <action selector="tabActionWithSender:" destination="664-CI-vA8" eventType="touchUpInside" id="t8A-da-0lO"/>
                                                         </connections>
@@ -259,10 +286,10 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3N3-X6-UW2" customClass="LoginSignUpTabView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="55"/>
+                                                <rect key="frame" x="207" y="0.0" width="207" height="55"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-gp-gGS">
-                                                        <rect key="frame" x="63.5" y="16.5" width="61" height="22.5"/>
+                                                        <rect key="frame" x="73" y="16.333333333333336" width="61" height="22.666666666666664"/>
                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
@@ -270,14 +297,14 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wra-FP-Ua1">
-                                                        <rect key="frame" x="0.0" y="52" width="187.5" height="3"/>
+                                                        <rect key="frame" x="0.0" y="52" width="207" height="3"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="3" id="2nN-8N-uGR"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-Fe-t4w">
-                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="55"/>
                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="22"/>
@@ -311,7 +338,7 @@
                                         </constraints>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xj-6J-rFS">
-                                        <rect key="frame" x="0.0" y="55" width="375" height="592"/>
+                                        <rect key="frame" x="0.0" y="55" width="414" height="661"/>
                                         <connections>
                                             <segue destination="W4n-gb-pBe" kind="embed" identifier="welcome_segue" id="UNc-tJ-Lt7"/>
                                         </connections>
@@ -357,6 +384,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chatalyze_logo" width="75" height="75"/>
+        <image name="welcomeBackground" width="1242" height="900"/>
     </resources>
 </document>

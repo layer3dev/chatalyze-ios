@@ -1,14 +1,14 @@
 //
-//  ShareLinkShadow.swift
+//  SetScheduleSessionShadow.swift
 //  Chatalyze
 //
-//  Created by mansa infotech on 07/01/19.
+//  Created by mansa infotech on 10/01/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class ShareLinkShadow: UIView {
+class SetScheduleSessionShadow: UIView {
     
     override var bounds: CGRect {
         didSet {
@@ -26,8 +26,8 @@ class ShareLinkShadow: UIView {
         self.layer.shadowOffset = CGSize(width: 0, height: 1.5)
         self.layer.shadowRadius = 1.5
         self.layer.shadowOpacity = 1
-        self.layer.shadowColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-
+        self.layer.shadowColor = UIColor(red: 213.0/255.0, green: 227.0/255.0, blue: 233.0/255.0, alpha: 1).cgColor
+        
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 3, height: 3)).cgPath
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale

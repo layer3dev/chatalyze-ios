@@ -22,7 +22,7 @@ class MemoriesController: InterfaceExtendedController {
     @IBOutlet var rootView:MemoriesRootView?
     var memoriesListingArray = [MemoriesInfo]()
     
-    @IBOutlet var nogreetLbl:UILabel?
+    @IBOutlet var noMemoriesView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -65,7 +65,7 @@ class MemoriesController: InterfaceExtendedController {
             
             self.stopLoader()
             self.memoriesListingArray.removeAll()
-            self.nogreetLbl?.isHidden = true
+            self.noMemoriesView?.isHidden = true
             if success{
                 
                 if let array  = info{
@@ -75,16 +75,16 @@ class MemoriesController: InterfaceExtendedController {
                             self.memoriesListingArray.append(info)
                         }
                         self.rootView?.fillInfo(info: self.memoriesListingArray)
-                        self.nogreetLbl?.isHidden = true
+                        self.noMemoriesView?.isHidden = true
                         return
                     }else if array.count <= 0{
-                        self.nogreetLbl?.isHidden = false
+                        self.noMemoriesView?.isHidden = false
                         self.rootView?.fillInfo(info: self.memoriesListingArray)
                     }
                     return
                 }
             }
-            self.nogreetLbl?.isHidden = false
+            self.noMemoriesView?.isHidden = false
             self.rootView?.fillInfo(info: self.memoriesListingArray)
             return
         }
