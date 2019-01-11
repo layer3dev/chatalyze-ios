@@ -30,12 +30,25 @@ class MyTicketsVerticalController: MyTicketsController{
         underLineLearnMore()
     }
     
+    @IBAction func showUserAnimation(){
+        
+        guard let controller = OnBoardFlowController.instance() else{
+            return
+        }
+        controller.isComingFromDashboard = true
+        self.navigationController?.present(controller, animated: true, completion: {
+        })
+    }
+    
+    
+    
     @IBAction func animateInfo(){
         
         if isShow{
             
             isShow = false
             UIView.animate(withDuration: 0.35) {
+                
                 self.showView?.alpha = 0
                 self.view.layoutIfNeeded()
             }
@@ -43,6 +56,7 @@ class MyTicketsVerticalController: MyTicketsController{
         }
         isShow = true
         UIView.animate(withDuration: 0.35) {
+            
             self.showView?.alpha = 1
             self.view.layoutIfNeeded()
         }

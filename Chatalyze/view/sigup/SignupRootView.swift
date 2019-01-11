@@ -190,6 +190,7 @@ extension SignupRootView{
             firstName?.showError(text: "Firstname is required")
             return false
         }
+            
         else if !(FieldValidator.sharedInstance.validatePlainString(firstName?.textField?.text ?? "")){
             
             firstName?.showError(text: "Firstname looks incorrect !")
@@ -228,6 +229,7 @@ extension SignupRootView{
             FacebookLogin().signup(accessToken: accessToken, completion: { (success, message, info) in
                 
                 self.controller?.stopLoader()
+                
                 if(success){
                     RootControllerManager().updateRoot()
                     return

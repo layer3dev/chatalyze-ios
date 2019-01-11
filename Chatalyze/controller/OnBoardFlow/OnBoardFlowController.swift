@@ -11,6 +11,7 @@ import UIKit
 class OnBoardFlowController: UIViewController {
     
     var didLoad:(()->())?
+    var isComingFromDashboard:Bool = false
     
     @IBOutlet var firstDot:PageViewDotsUIPaint?
     @IBOutlet var secondDot:PageViewDotsUIPaint?
@@ -39,6 +40,12 @@ class OnBoardFlowController: UIViewController {
     
     @IBAction func skipAction(sender:UIButton){
 
+        if isComingFromDashboard{            
+            self.dismiss(animated: true) {
+            }
+            return
+        }
+        
         //UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
         UserDefaults.standard.removeObject(forKey: "isOnBoardShowed")
         RootControllerManager().updateRoot()
