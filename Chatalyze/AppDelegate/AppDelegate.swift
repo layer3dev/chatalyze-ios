@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func test(){
         
-        TimerSync.sharedInstance
-        Log.echo(key : "hardware", text : "\(UIDevice.current)")
+        let milli = Date().millisecondsSince1970
+        Log.echo(key : "milli", text : "milli -> \(milli)")
     }
     
     fileprivate func disableAppToSwitchIntoSleepMode(){
