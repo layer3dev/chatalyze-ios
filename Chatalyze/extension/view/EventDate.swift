@@ -28,10 +28,6 @@ public extension Date {
         let interval = self.timeIntervalSince1970
         let secondsNow = Double(TimerSync.sharedInstance.getSeconds())
         
-        Log.echo(key: "logging", text: "interval -> \(interval)")
-        Log.echo(key: "logging", text: "secondsNow -> \(secondsNow)")
-        Log.echo(key: "logging", text: "diff -> \(interval - secondsNow)")
-        
         return interval - secondsNow
     }
 }

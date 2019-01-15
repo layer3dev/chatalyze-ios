@@ -142,10 +142,8 @@ class TimerSync {
     
     func getSeconds()->Int{
         let milliSeconds = self.getTime()
-        Log.echo(key: "logging", text: "milliseconds -> \(milliSeconds)")
         let seconds = Int(milliSeconds/1000)
         
-        Log.echo(key: "logging", text: "getSeconds -> \(seconds)")
         return seconds
     }
     
