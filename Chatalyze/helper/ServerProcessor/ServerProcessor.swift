@@ -229,7 +229,9 @@ class ServerProcessor{
     private func extractToken(httpResponse : HTTPURLResponse?){
        
         let headerInfo = httpResponse?.allHeaderFields
+        
         Log.echo(key: "token", text: "headerInfo extracted ==>  \(headerInfo)")
+        
         guard let accessToken = headerInfo?["x-session-token"] as? String
             else{
                 Log.echo(key: "token", text: "accessToken not found")

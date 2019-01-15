@@ -9,8 +9,7 @@
 import Foundation
 
 class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
-    
-    
+        
     var startTime: CFAbsoluteTime?
     var stopTime: CFAbsoluteTime?
     var bytesReceived: Int!
