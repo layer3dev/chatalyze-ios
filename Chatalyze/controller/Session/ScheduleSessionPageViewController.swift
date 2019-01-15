@@ -39,8 +39,7 @@ class ScheduleSessionPageViewController: UIPageViewController {
             self.initializeVariable()
             self.setFirstController()
             self.initializeActiveControllersListner()
-        }
-       
+        }        
         //Do any additional setup after loading the view.
     }
     
