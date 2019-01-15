@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class TimeSyncInfo{
 
-    var timestamp : Int = 0
+    var timestamp : Int64 = 0
     var identifier : Int = 0
     
     init(){
@@ -27,7 +27,7 @@ class TimeSyncInfo{
             else{
                 return
         }
-        timestamp = info["timestamp"]?.intValue ?? 0
+        timestamp = info["timestamp"]?.int64Value ?? 0
         identifier = info["requestIdentifier"]?.intValue ?? 0
     }
     

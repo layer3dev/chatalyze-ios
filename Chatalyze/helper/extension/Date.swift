@@ -34,13 +34,14 @@ public extension Date {
         }
         
         formatted = formatted + "\(time.minutes) : \(time.seconds)"
-        
         return (true, formatted)
     }
+    
     
     func countdownTimeFromNow()->(isActive : Bool, hours : String, minutes : String, seconds : String)?{
         
         let totalSeconds = Int(self.timeIntervalTillNow)
+        print("logging", "total seconds ->  \(totalSeconds)")
         
         if(totalSeconds < 0){
             return (false, "00", "00", "00")
