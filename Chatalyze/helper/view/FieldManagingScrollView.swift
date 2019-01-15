@@ -108,6 +108,7 @@ extension FieldManagingScrollView{
     }
     
     fileprivate func scrollToIncreaseOffset(_ shouldIncreaseOffset : Bool, notification : Notification){
+    
         let keyboardHeight = adjustForKeyboard(notification, shouldIncreaseOffset: shouldIncreaseOffset)
         
         let screenSize = self.bounds.size
@@ -139,6 +140,5 @@ extension FieldManagingScrollView{
         if(!viewableAreaFrame.contains(activeFieldFrame)){
             self.contentOffset = CGPoint(x: CGFloat(0.0), y: scrollCount)
         }
-        
     }
 }

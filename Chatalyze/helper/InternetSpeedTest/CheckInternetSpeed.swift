@@ -93,7 +93,7 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         
         let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(bytesReceived), countStyle: .file)
         
-       //getTheRoundedInternetSpeed(timeDiffrence:elapsed)
+        //getTheRoundedInternetSpeed(timeDiffrence:elapsed)
         //Log.echo(key: "yud", text: "Formatted result is \(getTheRoundedInternetSpeed(timeDiffrence:elapsed,bytesRecieved:Double(bytesReceived)))")
         
         //print("New formatted result: \(fileSizeWithUnit)")
