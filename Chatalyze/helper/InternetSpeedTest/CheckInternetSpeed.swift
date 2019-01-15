@@ -9,11 +9,10 @@
 import Foundation
 
 class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
-    
-    
+
     var startTime: CFAbsoluteTime?
     var stopTime: CFAbsoluteTime?
-    var bytesReceived: Int!
+    var bytesReceived: Int = 0
     var isItisFirstByteofData = true
     
     private var speedTestCompletionHandler: ((_ megabytesPerSecond: Double?, _ error: Error?) -> ())!
@@ -35,13 +34,12 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
             return
         }
         
-        //Log.echo(key: "yud", text: "image url is \(url)")
+        Log.echo(key: "yud", text: "image url is \(url)")
         stopTime = 0.0
         startTime = 0.0
         bytesReceived = 0
         isItisFirstByteofData = true
         
-        //let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
         
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = 40.0
@@ -56,89 +54,46 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
             startTime = CFAbsoluteTimeGetCurrent()
             isItisFirstByteofData = false
         }
-        //Log.echo(key: "yud", text: "data is \(data)")
-        bytesReceived! += data.count
+        
+        bytesReceived += data.count
         stopTime = CFAbsoluteTimeGetCurrent()
     }
     
     internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
         if error != nil{
-            
             speedTestCompletionHandler(nil,error)
             return
         }
         
-        //Log.echo(key: "yud", text: "The start time is \(startTime)")
-        //Log.echo(key: "yud", text: "The EndTime is  \(stopTime)")
         
         let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
-        Log.echo(key: "speedLogTest", text: "ElapseTime is \(elapsed)")
-        Log.echo(key: "speedLogTest", text: "Recieved bytes are \(Double(bytesReceived))")
-        Log.echo(key: "speedLogTest", text: "Real Speed is in MBPS\(Double(bytesReceived) / elapsed / 1024.0 / 1024.0)")
-        Log.echo(key: "speedLogTest", text: "Real Speed is in MbPS\((Double(bytesReceived) / elapsed / 1024.0 / 1024.0)*8)")
         
-        let bcf = ByteCountFormatter()
-        bcf.allowedUnits = [.useMB]
-        bcf.countStyle = .file
-        let string = bcf.string(fromByteCount: Int64(bytesReceived))
-        let speedMBArray = bcf.string(fromByteCount: Int64(bytesReceived)).components(separatedBy: " ")
-        var speedMB = 0.0
-        if speedMBArray.count > 0{
-            speedMB = Double(speedMBArray[0]) ?? 0.0
-        }
+        Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
+        Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
         
-        Log.echo(key: "speedLogTest", text: "Manipulates by System MBPS \(speedMB)")
-        //print("formatted result: \(string)")
         
-        let fileSizeWithUnit = ByteCountFormatter.string(fromByteCount: Int64(bytesReceived), countStyle: .file)
-        
-       //getTheRoundedInternetSpeed(timeDiffrence:elapsed)
-        //Log.echo(key: "yud", text: "Formatted result is \(getTheRoundedInternetSpeed(timeDiffrence:elapsed,bytesRecieved:Double(bytesReceived)))")
-        
-        //print("New formatted result: \(fileSizeWithUnit)")
-        
-        //        if error != nil{
-        //            speedTestCompletionHandler(nil, error)
-        //            return
-        //        }
-        
-        if let aTempError = error as NSError?, aTempError.domain != NSURLErrorDomain && aTempError.code != NSURLErrorTimedOut && elapsed == 0  {
-            speedTestCompletionHandler(nil,error)
-            return
-        }
-        
-        let speed = elapsed != 0 ? Double(bytesReceived) / elapsed / 1024.0 / 1024.0 : -1
+        let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
+        Log.echo(key: "speed_logging", text: "speed is \(speed)")
         
         triedForInternet = triedForInternet + 1
-        //averageSpeedOnThreeTimes =  averageSpeedOnThreeTimes + speed
-        averageSpeedOnThreeTimes =  averageSpeedOnThreeTimes + speedMB
-        //Log.echo(key: "yud", text: "Tried chance is \(triedForInternet) and the average speed is \(averageSpeedOnThreeTimes)")
         
-        if triedForInternet >= 2{
-           
-            //speedTestCompletionHandler((speed),nil)
-            //Log.echo(key: "yud", text: "I am returning with the speed stamp  \(averageSpeedOnThreeTimes/2.0)")
-            speedTestCompletionHandler((averageSpeedOnThreeTimes/2.0),nil)
+        averageSpeedOnThreeTimes =  averageSpeedOnThreeTimes + speed
+        
+        
+        
+        if(triedForInternet < 2){
+            startDownload()
             return
         }
-        startDownload()
+        let averageSpeed = averageSpeedOnThreeTimes/2.0
+        let roundedAverageSpeed = averageSpeed.roundTo(places: 2)
+        
+        
+        Log.echo(key: "speed_logging", text: "averageSpeed is \(averageSpeed)")
+        Log.echo(key: "speed_logging", text: "roundedAverageSpeed is \(roundedAverageSpeed)")
+        
+        speedTestCompletionHandler(roundedAverageSpeed,nil)
     }
     
-    func getTheRoundedInternetSpeed(timeDiffrence:Double,bytesRecieved:Double)->Double{
-        
-        let duration = (timeDiffrence) / 1000
-        let bitsLoaded = bytesRecieved * 8
-        
-        let testspeedBps = (bitsLoaded/duration).roundTo(places: 3)
-        let speedBps = round(testspeedBps*100)/100
-        
-        var testspeedKbps = (speedBps / 1024).roundTo(places: 3)
-        var speedKbps = round(testspeedBps*100)/100
-        
-        var testspeedMbps = (speedKbps / 1024).roundTo(places: 3)
-        var speedMbps = round(testspeedMbps*100)/100
-        
-        return speedMbps;
-    }
 }

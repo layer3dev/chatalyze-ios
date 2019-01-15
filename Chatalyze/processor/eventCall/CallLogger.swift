@@ -94,6 +94,25 @@ class CallLogger : NSObject {
         emit(info: info)
     }
     
+    //var speedInfo = {maxSpeed : 0, minSpeed : 0, avgSpeed : 0};
+    func logSpeed(speed : Double?){
+        
+        var speedInfo = [String : Any]()
+        speedInfo["maxSpeed"] = speed
+        speedInfo["minSpeed"] = speed
+        speedInfo["avgSpeed"] = speed
+        
+        var info = [String : Any]()
+        info["callbookingId"] = sessionId
+        info["userId"] = userId
+        info["targetUserId"] = userId
+        info["log_type"] = "speed_logs"
+        info["speed"] = speed
+        info["meta"] = speedInfo
+        
+        emit(info: info)
+    }
+    
     @objc func logCandidate(candidate : [String : Any]){
         
         let type = "ice_candidate";

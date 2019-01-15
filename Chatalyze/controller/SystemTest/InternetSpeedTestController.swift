@@ -268,7 +268,6 @@ class InternetSpeedTestController: InterfaceExtendedController {
         //self.showLoader()        
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
-            
             DispatchQueue.main.async {
                 
                 self.stopLoader()
@@ -277,9 +276,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                     let speedMb = (speed ?? 0.0) * 8
                     Log.echo(key: "speedLogTest", text: "Speed in the Mbps is \(speedMb)")
                     
-                    //if (speed ?? 0.0) < 0.1875 {
-                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
-                        
+                    
                         if (speedMb) < 1.5 {
                         
                             self.errorType = .none

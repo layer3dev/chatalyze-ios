@@ -31,13 +31,8 @@ class VideoCallController : InterfaceExtendedController {
         case undefined
     }
     
-    //In order to stop the continuos Internet Test.
-    var shouldInternetTestStop = false
     
-    //Required Permission.
-    var requiredPermission:permissionsCheck?
-    
-    
+
     
     
     //user for animatingLable
@@ -77,7 +72,7 @@ class VideoCallController : InterfaceExtendedController {
     var feedbackListener : ((EventScheduleInfo?)->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
-    
+    private var speedHandler : InternetSpeedHandler?
     
     
     //in case if user opens up 
@@ -166,9 +161,7 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidRelease() {
         super.viewDidRelease()
-        
-        self.shouldInternetTestStop = true
-        
+        speedHandler?.release()
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
         
@@ -306,6 +299,7 @@ class VideoCallController : InterfaceExtendedController {
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
+        
         guard let controller = ReviewController.instance() else{
             return
         }
@@ -330,51 +324,15 @@ class VideoCallController : InterfaceExtendedController {
     
     
     
-    private func checkForInternet(){
-        
-        Log.echo(key: "yud", text: "CheckForInternet is calling")
-        
-        if !(InternetReachabilityCheck().isInternetAvailable()){
-            
-            self.requiredPermission = VideoCallController.permissionsCheck.noInternet
-            self.showMediaAlert(alert:self.requiredPermission)
-            return
-        }
-        
-        CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
-            
-            DispatchQueue.main.async {
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                    
-                    if self.shouldInternetTestStop{
-                        return
-                    }
-                    self.checkForInternet()
-                }
-                
-                if error == nil{
-                    
-                    let speedMb = (speed ?? 0.0) * 8
-                    
-                    //if (speed ?? 0.0) < 0.1875 {
-                    //Due to frequent error of Poor Internet we are reducing our threshold speed 0.1875 to 0.13
-                    
-                    if (speedMb) < 1.5 {
-                        
-                        self.requiredPermission = VideoCallController.permissionsCheck.slowInternet
-                        self.showMediaAlert(alert:self.requiredPermission)
-                        return
-                    }
-                    self.requiredPermission = VideoCallController.permissionsCheck.none
-                    return
-                }
-            }
-        }
+    private func logInternetSpeed(){
+        speedHandler?.setSpeedListener(listener: {[weak self] (speed) in
+            self?.callLogger?.logSpeed(speed: speed)
+        })
+        speedHandler?.startSpeedProcessing()        
     }
     
     
-    private func showMediaAlert(alert:permissionsCheck?){
+    private func showMediaAlert(alert : permissionsCheck?){
         
         DispatchQueue.main.async {
             
@@ -386,7 +344,7 @@ class VideoCallController : InterfaceExtendedController {
                 return
             }
             
-            controller.alert = self.requiredPermission ?? VideoCallController.permissionsCheck.none
+            controller.alert = alert ?? .none
             
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             
@@ -404,17 +362,17 @@ class VideoCallController : InterfaceExtendedController {
             
             if !cameraAccess{
                 
-                self.requiredPermission = VideoCallController.permissionsCheck.cameraPermission             
-                self.showMediaAlert(alert:self.requiredPermission)
+                let requiredPermission = VideoCallController.permissionsCheck.cameraPermission
+                self.showMediaAlert(alert:requiredPermission)
             }
             
             if !micAccess{
-                self.requiredPermission = VideoCallController.permissionsCheck.micPermission
-                self.showMediaAlert(alert:self.requiredPermission)
+                let requiredPermission = VideoCallController.permissionsCheck.micPermission
+                self.showMediaAlert(alert:requiredPermission)
             }
             
             self.initialization()
-            self.checkForInternet()
+            self.logInternetSpeed()
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
         }
         
@@ -636,6 +594,7 @@ class VideoCallController : InterfaceExtendedController {
     private func initializeVariable(){
         
         callLogger = CallLogger(sessionId: eventId)
+        speedHandler = InternetSpeedHandler(controller : self)
         appDelegate?.allowRotate = true
         lastPresentingController = self.presentingViewController
         
