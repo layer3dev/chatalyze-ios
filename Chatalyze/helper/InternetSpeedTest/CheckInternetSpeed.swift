@@ -66,12 +66,10 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
             return
         }
         
-        
         let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
         
         Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
         Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
-        
         
         let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
         Log.echo(key: "speed_logging", text: "speed is \(speed)")
@@ -80,15 +78,13 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         
         averageSpeedOnThreeTimes =  averageSpeedOnThreeTimes + speed
         
-        
-        
         if(triedForInternet < 2){
             startDownload()
             return
         }
+        
         let averageSpeed = averageSpeedOnThreeTimes/2.0
         let roundedAverageSpeed = averageSpeed.roundTo(places: 2)
-        
         
         Log.echo(key: "speed_logging", text: "averageSpeed is \(averageSpeed)")
         Log.echo(key: "speed_logging", text: "roundedAverageSpeed is \(roundedAverageSpeed)")

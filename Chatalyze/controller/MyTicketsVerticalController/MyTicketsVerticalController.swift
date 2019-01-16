@@ -126,7 +126,7 @@ class MyTicketsVerticalController: MyTicketsController{
 
     func underLineLearnMore(){
         
-        let testingText = "LEARN MORE"
+        let testingText = "HOW IT WORKS"
         var fontSize:CGFloat = 16
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 20
