@@ -67,6 +67,7 @@ class SignupRootView:ExtendedView{
                 
                 //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up.
                 UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
+                UserDefaults.standard.set(true, forKey: "isHostWelcomeScreenNeedToShow")
                 RootControllerManager().updateRoot()
                 return
             }

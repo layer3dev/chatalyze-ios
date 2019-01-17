@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad10_5" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -26,23 +26,23 @@
             <objects>
                 <viewController storyboardIdentifier="HostDashboard" automaticallyAdjustsScrollViewInsets="NO" id="3ya-P8-W06" customClass="HostDashboardController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8PE-5R-hIb" customClass="HostDashboardRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQF-bM-dNp">
-                                <rect key="frame" x="0.0" y="20" width="834" height="1092"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ldn-Y7-7lz">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="562"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="477"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0aH-rF-pGB">
-                                                <rect key="frame" x="0.0" y="0.0" width="834" height="165"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="105"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRs-98-gNh" customClass="SetScheduleSessionShadow" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="50" width="754" height="65"/>
+                                                        <rect key="frame" x="20" y="30" width="374" height="45"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+SCHEDULE A SESSION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEV-7M-CoK">
-                                                                <rect key="frame" x="255.5" y="17" width="243.5" height="31"/>
+                                                                <rect key="frame" x="98.666666666666686" y="11.333333333333337" width="177" height="22.666666666666671"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9N1-Z6-ED4">
-                                                                <rect key="frame" x="0.0" y="0.0" width="754" height="65"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                                 <connections>
                                                                     <action selector="scheduleSessionActionWithSender:" destination="3ya-P8-W06" eventType="touchUpInside" id="4gh-pU-ADS"/>
@@ -72,7 +72,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiN-dP-ulP">
-                                                        <rect key="frame" x="0.0" y="164" width="834" height="1"/>
+                                                        <rect key="frame" x="0.0" y="104" width="414" height="1"/>
                                                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="vpN-UQ-9uM"/>
@@ -99,10 +99,10 @@
                                                 </constraints>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiU-aV-ssc">
-                                                <rect key="frame" x="0.0" y="165" width="834" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="105" width="414" height="0.0"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share this link with your community" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBQ-9o-o3N">
-                                                        <rect key="frame" x="190" y="35" width="634" height="25.5"/>
+                                                        <rect key="frame" x="138" y="24" width="266" height="17"/>
                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
@@ -110,10 +110,10 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMu-0f-gS2">
-                                                        <rect key="frame" x="40" y="30" width="135" height="35"/>
+                                                        <rect key="frame" x="20" y="20" width="110" height="25"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPORTANT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPO-Su-Le2">
-                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="35"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -122,7 +122,7 @@
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gye-ei-BEZ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="35"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                             </button>
                                                         </subviews>
@@ -145,13 +145,13 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unQ-by-qGr" customClass="ShareLinkShadow" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="80" width="754" height="35"/>
+                                                        <rect key="frame" x="20" y="55" width="374" height="35"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXo-P0-j0j" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                                <rect key="frame" x="3" y="3" width="691" height="29"/>
+                                                                <rect key="frame" x="2" y="2" width="312" height="31"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your session in order to get the shareable url." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ0-5x-rHv">
-                                                                        <rect key="frame" x="10" y="14" width="681" height="1"/>
+                                                                        <rect key="frame" x="10" y="7" width="302" height="17"/>
                                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -170,10 +170,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Yh-Xa-Y1h" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                                <rect key="frame" x="694" y="0.0" width="60" height="35"/>
+                                                                <rect key="frame" x="314" y="0.0" width="60" height="35"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="copy" translatesAutoresizingMaskIntoConstraints="NO" id="U1n-Mw-TZL">
-                                                                        <rect key="frame" x="22.5" y="10" width="15" height="15"/>
+                                                                        <rect key="frame" x="22.666666666666686" y="10" width="15" height="15"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="15" id="YFE-uh-Jet"/>
                                                                             <constraint firstAttribute="width" constant="15" id="ytX-N2-o6h"/>
@@ -244,14 +244,14 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lo-3j-wuc">
-                                                <rect key="frame" x="0.0" y="165" width="834" height="1"/>
+                                                <rect key="frame" x="0.0" y="105" width="414" height="1"/>
                                                 <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="iQR-EP-ngY"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0Z-1z-llg">
-                                                <rect key="frame" x="40" y="189.5" width="137.5" height="36.5"/>
+                                                <rect key="frame" x="19.999999999999993" y="115.66666666666664" width="95.333333333333314" height="25.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -259,37 +259,37 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMK-u7-MH1">
-                                                <rect key="frame" x="0.0" y="231" width="834" height="1"/>
+                                                <rect key="frame" x="0.0" y="146" width="414" height="1"/>
                                                 <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="fOo-1r-UkX"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GRO-y7-cBp" customClass="MySessionAdapter" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="252" width="834" height="310"/>
+                                                <rect key="frame" x="0.0" y="167" width="414" height="310"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="It8-ZX-GO6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="834" height="290"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="290" id="1UG-65-Vac"/>
                                                         </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MySessionTableViewCell" rowHeight="286" id="sFl-yK-cTR" customClass="MySessionTableViewCell" customModule="Chatalyze" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28" width="834" height="286"/>
+                                                                <rect key="frame" x="0.0" y="28" width="414" height="286"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sFl-yK-cTR" id="Zkm-bo-seZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="286"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="286"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QWn-rI-441">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="768" height="286"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="286"/>
                                                                             <subviews>
-                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mT-sE-WSj">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="768" height="37.5"/>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mT-sE-WSj">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="37.666666666666664"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Date " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPx-4n-NS8">
-                                                                                            <rect key="frame" x="15" y="10" width="170" height="20"/>
+                                                                                            <rect key="frame" x="15" y="10" width="110" height="20"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="20" id="IZ2-k1-M73"/>
                                                                                                 <constraint firstAttribute="width" constant="110" id="Ymo-cu-5Ss">
@@ -302,8 +302,8 @@
                                                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                                                             </variation>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Fri, Sep 07" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7C-kc-D1M">
-                                                                                            <rect key="frame" x="225" y="12" width="371.5" height="15.5"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fri, Sep 07" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j7C-kc-D1M">
+                                                                                            <rect key="frame" x="165" y="12" width="144.33333333333337" height="15.666666666666664"/>
                                                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="15"/>
                                                                                             <color key="textColor" red="0.54901960780000003" green="0.58431372550000005" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -311,11 +311,11 @@
                                                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                                                                             </variation>
                                                                                         </label>
-                                                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIh-3r-BSd">
-                                                                                            <rect key="frame" x="601.5" y="7.5" width="86.5" height="25"/>
+                                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIh-3r-BSd">
+                                                                                            <rect key="frame" x="314.33333333333331" y="7.3333333333333321" width="59.666666666666686" height="24.999999999999996"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Session" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ae3-aW-HAV">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="86.5" height="35"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="59.666666666666664" height="25"/>
                                                                                                     <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="11"/>
                                                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <nil key="highlightedColor"/>
@@ -324,7 +324,7 @@
                                                                                                     </variation>
                                                                                                 </label>
                                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpG-1L-OOv">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="86.5" height="35"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="59.666666666666664" height="25"/>
                                                                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                                                                     <connections>
                                                                                                         <action selector="editSessionWithSender:" destination="sFl-yK-cTR" eventType="touchUpInside" id="9hk-sh-Rg5"/>
@@ -361,11 +361,11 @@
                                                                                         <constraint firstItem="hIh-3r-BSd" firstAttribute="centerY" secondItem="j7C-kc-D1M" secondAttribute="centerY" id="idm-ti-MDW"/>
                                                                                     </constraints>
                                                                                 </view>
-                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iTy-O7-0kS">
-                                                                                    <rect key="frame" x="0.0" y="37.5" width="768" height="37.5"/>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTy-O7-0kS">
+                                                                                    <rect key="frame" x="0.0" y="37.666666666666671" width="414" height="37.666666666666671"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Time " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNI-8w-2Jq">
-                                                                                            <rect key="frame" x="15" y="10" width="170" height="20"/>
+                                                                                            <rect key="frame" x="15" y="10" width="110" height="20"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="20" id="BZK-oa-vgm"/>
                                                                                                 <constraint firstAttribute="width" constant="110" id="bvS-lf-N6K">
@@ -378,8 +378,8 @@
                                                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                                                             </variation>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="4:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dix-ai-i7b">
-                                                                                            <rect key="frame" x="225" y="12" width="523" height="15.5"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4:00 PM" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dix-ai-i7b">
+                                                                                            <rect key="frame" x="165" y="12" width="229" height="15.666666666666664"/>
                                                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="15"/>
                                                                                             <color key="textColor" red="0.54901960780000003" green="0.58431372550000005" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -398,11 +398,11 @@
                                                                                         <constraint firstItem="Dix-ai-i7b" firstAttribute="top" secondItem="iTy-O7-0kS" secondAttribute="top" constant="12" id="r24-kb-FXh"/>
                                                                                     </constraints>
                                                                                 </view>
-                                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z6Z-E3-6JW">
-                                                                                    <rect key="frame" x="0.0" y="75" width="768" height="37.5"/>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6Z-E3-6JW">
+                                                                                    <rect key="frame" x="0.0" y="75.333333333333329" width="414" height="37.666666666666671"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Chats booked " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjM-k0-Yci">
-                                                                                            <rect key="frame" x="15" y="10" width="170" height="20"/>
+                                                                                            <rect key="frame" x="15" y="10" width="110" height="20"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="110" id="8Wf-Fu-Jb9">
                                                                                                     <variation key="heightClass=regular-widthClass=regular" constant="170"/>
@@ -415,8 +415,8 @@
                                                                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                                                                             </variation>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="0 of 20" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbN-tJ-j2w">
-                                                                                            <rect key="frame" x="225" y="12" width="523" height="15.5"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 of 20" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbN-tJ-j2w">
+                                                                                            <rect key="frame" x="165" y="12" width="229" height="15.666666666666664"/>
                                                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="15"/>
                                                                                             <color key="textColor" red="0.54901960780000003" green="0.58431372550000005" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -436,21 +436,21 @@
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vkm-Zu-5YV">
-                                                                                    <rect key="frame" x="0.0" y="285" width="768" height="1"/>
+                                                                                    <rect key="frame" x="0.0" y="285" width="414" height="1"/>
                                                                                     <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="1" id="fDh-1s-7ga"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmH-De-ItX">
-                                                                                    <rect key="frame" x="205" y="0.0" width="1" height="116"/>
+                                                                                    <rect key="frame" x="145" y="0.0" width="1" height="113"/>
                                                                                     <color key="backgroundColor" red="0.94509803921568625" green="0.94117647058823528" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="1" id="6cn-eO-OTz"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MuM-vG-0RO">
-                                                                                    <rect key="frame" x="80" y="146" width="608" height="65"/>
+                                                                                    <rect key="frame" x="40" y="128" width="334" height="45"/>
                                                                                     <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="480-O7-D1J">
@@ -469,7 +469,7 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSB-aj-X9O">
-                                                                                    <rect key="frame" x="80" y="211" width="608" height="65"/>
+                                                                                    <rect key="frame" x="40" y="173" width="334" height="45"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="Ag7-tx-P78">
@@ -550,7 +550,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No sessions scheduled." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRe-wc-jXI">
-                                                        <rect key="frame" x="20" y="144.5" width="794" height="21"/>
+                                                        <rect key="frame" x="20" y="146.66666666666669" width="374" height="16.666666666666657"/>
                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -630,32 +630,32 @@
             </objects>
             <point key="canvasLocation" x="-894.375" y="-856.69014084507046"/>
         </scene>
-        <!--View Controller-->
+        <!--Host Welcome Animation Controller-->
         <scene sceneID="MpM-oe-dDn">
             <objects>
-                <viewController id="YWn-cA-EaS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HostWelcomeAnimation" id="YWn-cA-EaS" customClass="HostWelcomeAnimationController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0mY-3a-7Sq">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="xLR-qc-feV">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zN-YL-Gg4">
-                                <rect key="frame" x="0.0" y="20" width="834" height="1092"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXU-fU-FlD">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="336.66666666666669"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="celebration" translatesAutoresizingMaskIntoConstraints="NO" id="poe-fB-TIR">
-                                                <rect key="frame" x="387" y="150" width="60" height="60"/>
+                                                <rect key="frame" x="177" y="80" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="5Q0-e3-xma"/>
                                                     <constraint firstAttribute="width" constant="60" id="i9O-ff-hBJ"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Chatalyze!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7I-1b-ZOm">
-                                                <rect key="frame" x="20" y="270" width="794" height="42"/>
+                                                <rect key="frame" x="20" y="190" width="374" height="31"/>
                                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -664,7 +664,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here's to the wonderful chats, smiles, and memories you're going to start creating with members of your online community!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfd-lc-fDG">
-                                                <rect key="frame" x="100" y="372" width="634" height="54.5"/>
+                                                <rect key="frame" x="40" y="250.99999999999997" width="334" height="65.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -692,23 +692,24 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="o7I-1b-ZOm" secondAttribute="trailing" constant="20" id="W97-ME-fRT"/>
+                                            <constraint firstAttribute="bottom" secondItem="Jfd-lc-fDG" secondAttribute="bottom" constant="20" id="kCw-8q-fzb"/>
                                             <constraint firstItem="o7I-1b-ZOm" firstAttribute="leading" secondItem="cXU-fU-FlD" secondAttribute="leading" constant="20" id="mIS-rA-vUd"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="cXU-fU-FlD" secondAttribute="bottom" constant="210" id="Ccr-Eo-9NK"/>
-                                    <constraint firstAttribute="trailing" secondItem="cXU-fU-FlD" secondAttribute="trailing" constant="40" id="YNy-0f-qWd"/>
+                                    <constraint firstAttribute="bottom" secondItem="cXU-fU-FlD" secondAttribute="bottom" id="Ccr-Eo-9NK"/>
+                                    <constraint firstAttribute="trailing" secondItem="cXU-fU-FlD" secondAttribute="trailing" id="YNy-0f-qWd"/>
                                     <constraint firstItem="cXU-fU-FlD" firstAttribute="top" secondItem="8zN-YL-Gg4" secondAttribute="top" id="dF7-eP-wil"/>
                                     <constraint firstItem="cXU-fU-FlD" firstAttribute="leading" secondItem="8zN-YL-Gg4" secondAttribute="leading" id="hA5-0t-ebD"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMH-OY-K1l" customClass="SetScheduleSessionShadow" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="40" y="1007" width="754" height="65"/>
+                                <rect key="frame" x="20" y="671" width="374" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET UP MY PROFILE →" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a42-7A-r3u">
-                                        <rect key="frame" x="273.5" y="19" width="207.5" height="27.5"/>
+                                        <rect key="frame" x="114.33333333333333" y="12.999999999999998" width="145.33333333333337" height="19.333333333333329"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -717,10 +718,10 @@
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJx-vk-CUD">
-                                        <rect key="frame" x="0.0" y="0.0" width="754" height="65"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                         <connections>
-                                            <action selector="scheduleSessionActionWithSender:" destination="3ya-P8-W06" eventType="touchUpInside" id="Oxc-wx-by6"/>
+                                            <action selector="setUpMyProfileWithSender:" destination="YWn-cA-EaS" eventType="touchUpInside" id="uJ2-09-0Xj"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -748,7 +749,6 @@
                             <constraint firstItem="QMH-OY-K1l" firstAttribute="leading" secondItem="ssK-7g-Lhf" secondAttribute="leading" constant="20" id="Dxn-2U-7Ox">
                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                             </constraint>
-                            <constraint firstItem="cXU-fU-FlD" firstAttribute="height" secondItem="0mY-3a-7Sq" secondAttribute="height" id="HhJ-0N-XXY"/>
                             <constraint firstItem="cXU-fU-FlD" firstAttribute="width" secondItem="0mY-3a-7Sq" secondAttribute="width" id="NQD-4M-r1Q"/>
                             <constraint firstItem="8zN-YL-Gg4" firstAttribute="top" secondItem="ssK-7g-Lhf" secondAttribute="top" id="Ohq-sg-Pph"/>
                             <constraint firstItem="xLR-qc-feV" firstAttribute="top" secondItem="0mY-3a-7Sq" secondAttribute="top" id="P0N-Tl-Hrq"/>

@@ -292,25 +292,7 @@ class VideoCallController : InterfaceExtendedController {
         return false
     }
     
-    func showFeedbackScreen(){
-        
-        guard let presentingController = self.lastPresentingController
-            else{
-                Log.echo(key: "_connection_", text: "presentingController is nil")
-                return
-        }
-        
-        guard let controller = ReviewController.instance() else{
-            return
-        }
-        controller.eventInfo = eventInfo
-        controller.dismissListner = {[weak self] in
-            
-            self?.feedbackListener?(self?.eventInfo)
-        }
-        presentingController.present(controller, animated: false, completion:{
-        })
-    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
