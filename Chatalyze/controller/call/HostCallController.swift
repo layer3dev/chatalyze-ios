@@ -83,7 +83,11 @@ class HostCallController: VideoCallController {
             return;
         }
         
-        showFeedbackScreen()
+        showEarningInformationScreen()
+    }
+    
+    func showEarningInformationScreen() {
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

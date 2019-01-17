@@ -664,12 +664,37 @@ class UserCallController: VideoCallController {
                 return
         }
         
+        //don't show feedback if event not activated and stop processing it.
+        if(!isActivated){
+            return
+        }
+        
         guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
                 showFeedbackScreen()
                 return
         }
         
+    }
+    
+     func showFeedbackScreen() {
+        
+        guard let presentingController = self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        
+        guard let controller = ReviewController.instance() else{
+            return
+        }
+        controller.eventInfo = eventInfo
+        controller.dismissListner = {[weak self] in
+            
+            self?.feedbackListener?(self?.eventInfo)
+        }
+        presentingController.present(controller, animated: false, completion:{
+        })
     }
     
     private func confirmCallLinked(){
