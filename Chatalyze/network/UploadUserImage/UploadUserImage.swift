@@ -104,7 +104,7 @@ class UploadUserImage{
                 return
         }
         
-        Log.echo(key: "yud", text: "uploading image url is \(url)")
+        Log.echo(key: "yud", text: "uploading image url is \(url) and the param is \(params)")
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 60
         let sessionManager = Alamofire.SessionManager(configuration: configuration)

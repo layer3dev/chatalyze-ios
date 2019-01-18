@@ -24,10 +24,20 @@ class HostDashboardController: MyScheduledSessionsController {
         
         initialize()
         paint()
-        //checkForShowingHostWelcomeAnimation()
+        checkForShowingHostWelcomeAnimation()
     }
     
     func checkForShowingHostWelcomeAnimation(){
+        
+        guard let controllers = HostWelcomeAnimationController.instance() else {
+            return
+        }
+        
+        self.present(controllers, animated: true, completion: {
+        })
+        
+        
+        return
         
         //This method is responsible to showing the new signUp animation for only Hosts.
         
