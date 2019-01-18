@@ -29,16 +29,17 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func checkForShowingHostWelcomeAnimation(){
         
-        //This method is responsible to showing the new signUp animation for only Hosts.
-        
-        guard let controller = HostWelcomeAnimationController.instance() else {
+        guard let controllers = HostWelcomeAnimationController.instance() else {
             return
         }
         
-        self.present(controller, animated: true, completion: {
+        self.present(controllers, animated: true, completion: {
         })
         
+        
         return
+        
+        //This method is responsible to showing the new signUp animation for only Hosts.
         
         guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
             return
@@ -48,7 +49,12 @@ class HostDashboardController: MyScheduledSessionsController {
             return
         }
         
+        guard let controller = HostWelcomeAnimationController.instance() else {
+            return
+        }
         
+        self.present(controller, animated: true, completion: {
+        })
     }
     
     
