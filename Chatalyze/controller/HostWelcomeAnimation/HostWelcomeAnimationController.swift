@@ -19,6 +19,7 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
 
     @IBAction func setUpMyProfile(sender:UIButton){
         
+        UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
         self.dismiss(animated: true) {
         }
         

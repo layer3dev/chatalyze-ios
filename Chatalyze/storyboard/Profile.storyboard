@@ -59,7 +59,7 @@
                                                 <color key="textColor" red="0.38431372549019605" green="0.38431372549019605" blue="0.38431372549019605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This picture will be visible to your community members who visit your profile." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neg-7F-CKg">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This picture will be visible to your community members who visit your profile." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neg-7F-CKg">
                                                 <rect key="frame" x="30" y="240" width="185" height="87.5"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,7 +77,7 @@
                                                 <color key="textColor" red="0.38431372549999998" green="0.38431372549999998" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This picture will be visible to your community members who visit your profile." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agl-YS-KCl">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This picture will be visible to your community members who visit your profile." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agl-YS-KCl">
                                                 <rect key="frame" x="30" y="465.5" width="305" height="65.5"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
@@ -148,8 +148,8 @@
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluePup" translatesAutoresizingMaskIntoConstraints="NO" id="tSl-TL-fiu">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     </imageView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PEn-rI-EZn">
-                                                        <rect key="frame" x="75" y="75" width="25" height="25"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plusIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PEn-rI-EZn">
+                                                        <rect key="frame" x="78" y="79" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="HdE-gg-jxC"/>
                                                             <constraint firstAttribute="width" constant="25" id="vRu-R5-gcB"/>
@@ -163,11 +163,11 @@
                                                 <constraints>
                                                     <constraint firstItem="jfz-v2-dhL" firstAttribute="leading" secondItem="bXZ-3b-dpK" secondAttribute="leading" id="DLP-GN-bOI"/>
                                                     <constraint firstItem="tSl-TL-fiu" firstAttribute="top" secondItem="bXZ-3b-dpK" secondAttribute="top" id="IbQ-DL-ina"/>
-                                                    <constraint firstAttribute="bottom" secondItem="PEn-rI-EZn" secondAttribute="bottom" id="Jmg-4a-uDh"/>
+                                                    <constraint firstAttribute="bottom" secondItem="PEn-rI-EZn" secondAttribute="bottom" constant="-4" id="Jmg-4a-uDh"/>
                                                     <constraint firstAttribute="height" constant="100" id="LKg-L6-8gL"/>
                                                     <constraint firstItem="jfz-v2-dhL" firstAttribute="top" secondItem="bXZ-3b-dpK" secondAttribute="top" id="Ld1-5y-Cwn"/>
                                                     <constraint firstItem="tSl-TL-fiu" firstAttribute="leading" secondItem="bXZ-3b-dpK" secondAttribute="leading" id="OGD-we-shu"/>
-                                                    <constraint firstAttribute="trailing" secondItem="PEn-rI-EZn" secondAttribute="trailing" id="QSi-ps-iQP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="PEn-rI-EZn" secondAttribute="trailing" constant="-3" id="QSi-ps-iQP"/>
                                                     <constraint firstAttribute="trailing" secondItem="jfz-v2-dhL" secondAttribute="trailing" id="UVz-4k-0GJ"/>
                                                     <constraint firstAttribute="width" constant="100" id="Y5E-bZ-Axn"/>
                                                     <constraint firstAttribute="trailing" secondItem="tSl-TL-fiu" secondAttribute="trailing" id="Zbe-rQ-0ny"/>
@@ -243,5 +243,6 @@
     </scenes>
     <resources>
         <image name="bluePup" width="800" height="800"/>
+        <image name="plusIcon" width="50" height="50"/>
     </resources>
 </document>
