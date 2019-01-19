@@ -11,15 +11,15 @@ import UIKit
 
 class FieldManagingScrollView: ExtendedScrollView {
     
-    var bottomContentOffset : NSLayoutConstraint?
+    @IBOutlet var bottomContentOffset : NSLayoutConstraint?
     var activeField : UIView?
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -108,7 +108,6 @@ extension FieldManagingScrollView{
     }
     
     fileprivate func scrollToIncreaseOffset(_ shouldIncreaseOffset : Bool, notification : Notification){
-    
         let keyboardHeight = adjustForKeyboard(notification, shouldIncreaseOffset: shouldIncreaseOffset)
         
         let screenSize = self.bounds.size
@@ -140,5 +139,6 @@ extension FieldManagingScrollView{
         if(!viewableAreaFrame.contains(activeFieldFrame)){
             self.contentOffset = CGPoint(x: CGFloat(0.0), y: scrollCount)
         }
+        
     }
 }
