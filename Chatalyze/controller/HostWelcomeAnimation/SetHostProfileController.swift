@@ -10,7 +10,6 @@ import UIKit
 
 class SetHostProfileController: InterfaceExtendedController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,12 +46,10 @@ class SetHostProfileController: InterfaceExtendedController {
         
         self.showLoader()
         
-        UploadUserImage().uploadImageFormatData(image: image, includeToken: true, params : param, progress: { (progress) in
-            
-            self.stopLoader()
-            
+        SetUpHostProfile().uploadImageFormatData(image: image, includeToken: true, params : param, progress: { (progress) in
         }) {(success) in
             
+            self.stopLoader()
             if success{
                 
                 DispatchQueue.main.async {
@@ -63,6 +60,8 @@ class SetHostProfileController: InterfaceExtendedController {
                 }
                 return
             }
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+            })
         }
     }
     
@@ -72,5 +71,4 @@ class SetHostProfileController: InterfaceExtendedController {
         let controller = storyboard.instantiateViewController(withIdentifier: "SetHostProfile") as? SetHostProfileController
         return controller
     }
-    
 }

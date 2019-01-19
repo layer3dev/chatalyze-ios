@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
         <array key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </array>
@@ -645,31 +648,31 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cXU-fU-FlD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="336.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="414.66666666666669"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="celebration" translatesAutoresizingMaskIntoConstraints="NO" id="poe-fB-TIR">
-                                                <rect key="frame" x="177" y="80" width="60" height="60"/>
+                                                <rect key="frame" x="167" y="90" width="80" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="5Q0-e3-xma"/>
-                                                    <constraint firstAttribute="width" constant="60" id="i9O-ff-hBJ"/>
+                                                    <constraint firstAttribute="height" constant="80" id="5Q0-e3-xma"/>
+                                                    <constraint firstAttribute="width" constant="80" id="i9O-ff-hBJ"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Chatalyze!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7I-1b-ZOm">
-                                                <rect key="frame" x="20" y="190" width="374" height="31"/>
-                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
+                                                <rect key="frame" x="20" y="220" width="374" height="35.666666666666657"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="26"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="30"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="36"/>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here's to the wonderful chats, smiles, and memories you're going to start creating with members of your online community!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfd-lc-fDG">
-                                                <rect key="frame" x="40" y="250.99999999999997" width="334" height="65.666666666666657"/>
-                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                                <rect key="frame" x="40" y="285.66666666666669" width="334" height="109"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="26"/>
                                                 </variation>
                                             </label>
                                         </subviews>
@@ -682,8 +685,8 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                             </constraint>
                                             <constraint firstItem="poe-fB-TIR" firstAttribute="centerX" secondItem="cXU-fU-FlD" secondAttribute="centerX" id="8uI-8G-YEp"/>
-                                            <constraint firstItem="poe-fB-TIR" firstAttribute="top" secondItem="cXU-fU-FlD" secondAttribute="top" constant="80" id="CBz-uw-0wP">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                            <constraint firstItem="poe-fB-TIR" firstAttribute="top" secondItem="cXU-fU-FlD" secondAttribute="top" constant="90" id="CBz-uw-0wP">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="175"/>
                                             </constraint>
                                             <constraint firstItem="Jfd-lc-fDG" firstAttribute="top" secondItem="o7I-1b-ZOm" secondAttribute="bottom" constant="30" id="IBl-rU-fGi">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
@@ -705,20 +708,20 @@
                                     <constraint firstItem="cXU-fU-FlD" firstAttribute="leading" secondItem="8zN-YL-Gg4" secondAttribute="leading" id="hA5-0t-ebD"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMH-OY-K1l" customClass="SetScheduleSessionShadow" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="20" y="671" width="374" height="45"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QMH-OY-K1l" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="20" y="666" width="374" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET UP MY PROFILE →" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a42-7A-r3u">
-                                        <rect key="frame" x="114.33333333333333" y="12.999999999999998" width="145.33333333333337" height="19.333333333333329"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                        <rect key="frame" x="104" y="14" width="166" height="22"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJx-vk-CUD">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                         <connections>
                                             <action selector="setUpMyProfileWithSender:" destination="YWn-cA-EaS" eventType="touchUpInside" id="uJ2-09-0Xj"/>
@@ -729,8 +732,8 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wJx-vk-CUD" secondAttribute="trailing" id="0L2-2j-3r5"/>
                                     <constraint firstItem="a42-7A-r3u" firstAttribute="centerY" secondItem="QMH-OY-K1l" secondAttribute="centerY" id="KAl-6T-XWH"/>
-                                    <constraint firstAttribute="height" constant="45" id="PBZ-IM-aed">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                    <constraint firstAttribute="height" constant="50" id="PBZ-IM-aed">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                     </constraint>
                                     <constraint firstItem="wJx-vk-CUD" firstAttribute="top" secondItem="QMH-OY-K1l" secondAttribute="top" id="k6C-me-nA5"/>
                                     <constraint firstItem="wJx-vk-CUD" firstAttribute="leading" secondItem="QMH-OY-K1l" secondAttribute="leading" id="ujW-IF-4YM"/>

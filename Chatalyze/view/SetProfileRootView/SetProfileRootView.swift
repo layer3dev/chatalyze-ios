@@ -18,6 +18,9 @@ class SetProfileRootView: ExtendedView {
     @IBOutlet private var setUpMyProfileContainer:UIView?
     @IBOutlet private var profileImage:UIImageView?
     private var isImageUploaded:Bool = false
+    @IBOutlet var scrollBottomConstraint:NSLayoutConstraint?
+    @IBOutlet var scrollFld:FieldManagingScrollView?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -25,6 +28,7 @@ class SetProfileRootView: ExtendedView {
         infoTextView?.delegate = self
         getSelectedImage()
         paintInfo()
+        scrollFld?.bottomContentOffset = scrollBottomConstraint
     }
     
     func paintInfo(){
@@ -108,4 +112,14 @@ extension SetProfileRootView:UITextViewDelegate{
         return profileImage?.image
     }
     
+}
+
+
+extension SetProfileRootView{
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        
+        scrollFld?.activeField = infoTextView
+        return true
+    }
 }

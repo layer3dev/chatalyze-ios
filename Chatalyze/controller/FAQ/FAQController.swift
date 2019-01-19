@@ -59,6 +59,11 @@ class FAQController: InterfaceExtendedController {
         paintBackButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showNavigationBar()
+    }
     
     @IBAction func influencerAction(){
         
