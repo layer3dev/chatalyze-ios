@@ -67,16 +67,15 @@ class RootControllerManager{
         if let userInfo = SignedUserInfo.sharedInstance{
             if userInfo.role == .analyst{
                 
-//                guard let onboardController = OnBoardFlowController.instance() else {
-//                    return
-//                }
-//                onboardController.didLoad = didLoadWindow
-//                window?.set(rootViewController: onboardController, withTransition: transition)
-//                window?.makeKeyAndVisible()
-//                initializeAppConnection()
+                guard let onboardController = OnBoardFlowController.instance() else {
+                    return
+                }
+                onboardController.didLoad = didLoadWindow
+                window?.set(rootViewController: onboardController, withTransition: transition)
+                window?.makeKeyAndVisible()
+                initializeAppConnection()
                 
-                showHomeScreen(didLoadWindow: didLoadWindow)
-                
+                //showHomeScreen(didLoadWindow: didLoadWindow)
             }else{
                 
                 guard let onboardController = OnBoardFlowController.instance() else {

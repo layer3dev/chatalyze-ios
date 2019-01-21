@@ -24,8 +24,14 @@ class HostDashboardController: MyScheduledSessionsController {
         
         initialize()
         paint()
-        checkForShowingHostWelcomeAnimation()
+        //checkForShowingHostWelcomeAnimation()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        hideNavigationBar()
+//    }
     
     func checkForShowingHostWelcomeAnimation(){
         
@@ -241,5 +247,10 @@ class HostDashboardController: MyScheduledSessionsController {
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
         return controller
+    }
+    
+    @IBAction func menuAction(sender:UIButton){
+        
+        self.toggle()
     }
 }

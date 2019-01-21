@@ -23,16 +23,14 @@ class AnalystJoinedAndScheduleUpdatedListener{
     
     func initializeListener(){
         
-        UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
+         UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
             
             self?.listener?()
         })
-        
         
         UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: {[weak self] (data, emitter) in
             
             self?.listener?()
         })
     }
-    
 }

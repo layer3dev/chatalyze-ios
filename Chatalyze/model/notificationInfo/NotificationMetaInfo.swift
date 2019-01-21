@@ -60,6 +60,7 @@ class NotificationMetaInfo{
 }
 
 extension NotificationMetaInfo{
+   
     var type : NotificationType{
         get{
             return parseNotificationType()
@@ -72,6 +73,7 @@ extension NotificationMetaInfo{
             else{
                 return .undefined
         }
+        
         switch(activityType){
             
         case "sign_request":
