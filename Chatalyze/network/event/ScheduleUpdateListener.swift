@@ -9,9 +9,16 @@
 import Foundation
 import SwiftyJSON
 
-class AnalystJoinedAndScheduleUpdatedListener{
+class ScheduleUpdateListener{
     
     private var listener : (()->())?
+    
+    private var isReleased = false
+    
+    func releaseListener(){
+        listener = nil
+        isReleased = true
+    }
     
     init(){
         initializeListener()
@@ -22,17 +29,24 @@ class AnalystJoinedAndScheduleUpdatedListener{
     }
     
     func initializeListener(){
-        
         UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
             
-            self?.listener?()
+            guard let weakSelf = self
+                else{
+                    return
+            }
+            
+            if(weakSelf.isReleased){
+                return
+            }
+            weakSelf.listener?()
         })
         
-        
-        UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: {[weak self] (data, emitter) in
+        //we don't need this
+        /*UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: {[weak self] (data, emitter) in
             
             self?.listener?()
-        })
+        })*/
     }
     
 }

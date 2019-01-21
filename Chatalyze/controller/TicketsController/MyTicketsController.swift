@@ -24,6 +24,7 @@ class MyTicketsController: InterfaceExtendedController{
     var ticketsArray:[EventSlotInfo] = [EventSlotInfo]()
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
+    let applicationStateListener = ApplicationStateListener()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -46,6 +47,10 @@ class MyTicketsController: InterfaceExtendedController{
             
             Log.echo(key: "yud", text:"New slot is booked")
             self.fetchInfoForListenr()
+        }
+        
+        applicationStateListener.setForegroundListener {[weak self] in
+            self?.fetchInfoForListenr()
         }
     }
     
@@ -169,6 +174,12 @@ class MyTicketsController: InterfaceExtendedController{
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        applicationStateListener.releaseListener()
     }
     
     class func instance()->MyTicketsController?{
