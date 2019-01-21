@@ -16,6 +16,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     let updatedEventScheduleListner = EventListener()
     let eventDeletedListener = EventDeletedListener()
     let chatCountUpdateListener = UpdateChatCountInSessionsListeners()
+    let applicationStateListener = ApplicationStateListener()
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,6 +27,10 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     }
     
     func eventListener(){
+        
+        applicationStateListener.setForegroundListener {[weak self] in
+            self?.fetchInfoForListener()
+        }
         
         updatedEventScheduleListner.setListener {
             self.fetchInfoForListener()
@@ -43,12 +48,9 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         }
         
         chatCountUpdateListener.setListener{(callScheduleId) in
-            
             for info in self.eventArray{
-                
                 Log.echo(key: "yud", text: "Event id is \(info.id)")
                 if info.id == (callScheduleId ?? 0){
-                    
                     self.fetchInfoForListener()
                     Log.echo(key: "yud", text: "matched call ScheduleId  Event Id is \(callScheduleId)")
                 }
@@ -165,10 +167,17 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         //Dispose of any resources that can be recreated.
     }
     
+    
     func showShareView(){
     }
     
     func hideShareView(){
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        applicationStateListener.releaseListener()
     }
     
     class func instance()->MyScheduledSessionsController?{

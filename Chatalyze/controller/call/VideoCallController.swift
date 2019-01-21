@@ -11,6 +11,10 @@ import CallKit
 import Foundation
 import SwiftyJSON
 
+
+//todo:
+//refresh procedure is being written redundantly
+
 class VideoCallController : InterfaceExtendedController {
     
     enum permissionsCheck:Int{
@@ -34,7 +38,6 @@ class VideoCallController : InterfaceExtendedController {
     
 
     
-    
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
@@ -54,13 +57,16 @@ class VideoCallController : InterfaceExtendedController {
     private var accessManager : MediaPermissionAccess?
     
     private var callLogger : CallLogger?
-    
     private var localTrack : RTCVideoTrack?
+    
+    
     
     private let eventSlotListener = EventSlotListener()
     //Implementing the eventDeleteListener
-    var eventDeleteListener = EventDeletedListener()
-    let updatedEventScheduleListner = UpdateEventListener()
+    private var eventDeleteListener = EventDeletedListener()
+    private let updatedEventScheduleListener = UpdateEventListener()
+    
+    let applicationStateListener = ApplicationStateListener()
     
     //used for tracking the call time and auto-connect process
     var timer : SyncTimer = SyncTimer()
@@ -69,6 +75,10 @@ class VideoCallController : InterfaceExtendedController {
     
     var eventId : String? //Expected param
     var eventInfo : EventScheduleInfo?
+    
+    
+    //todo: fix it
+    //there is no need of this callback
     var feedbackListener : ((EventScheduleInfo?)->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
@@ -107,47 +117,16 @@ class VideoCallController : InterfaceExtendedController {
         }
         
         appDelegate =  UIApplication.shared.delegate as? AppDelegate
-        initializeListenrs()
         // Do any additional setup after loading the view.
     }
     
     
-    func initializeListenrs(){
-        
-        eventDeleteListener.setListener { (deletedEventID) in
-            
-            if self.eventId == deletedEventID{
-                
-                self.processExitAction(code: .userAction)
-                Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
-            }
-        }
-    }
+  
     
     
     func eventScheduleUpdatedAlert(){
         
-        updatedEventScheduleListner.setListener {
-            
-            self.loadActivatedInfo {[weak self] (isActivated, info) in
-                
-                Log.echo(key: "delay", text: "info received -> \(String(describing: info?.title))")
-                
-                guard let info = info
-                    else{
-                        return
-                }
-                
-
-                self?.eventInfo = info
-                self?.processEventInfo()
-                Log.echo(key: "delay", text: "processed")
-                
-                if(isActivated){
-                    Log.echo(key: "delay", text: "Event is activated")
-                }
-            }
-        }
+        
     }
     
     
@@ -161,6 +140,8 @@ class VideoCallController : InterfaceExtendedController {
     
     override func viewDidRelease() {
         super.viewDidRelease()
+        
+        releaseListener()
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
@@ -174,6 +155,13 @@ class VideoCallController : InterfaceExtendedController {
         socketListener?.releaseListener()
         self.socketClient = nil
         self.socketListener = nil
+    }
+    
+    private func releaseListener(){
+        eventSlotListener.releaseListener()
+        eventDeleteListener.releaseListener()
+        updatedEventScheduleListener.releaseListener()
+        applicationStateListener.releaseListener()
     }
     
     
@@ -496,6 +484,8 @@ class VideoCallController : InterfaceExtendedController {
     
     func registerForListeners(){
         
+        registerForScheduleListener()
+        
         rootView?.hangupListener(listener: {
             
             self.processExitAction(code: .userAction)
@@ -510,6 +500,31 @@ class VideoCallController : InterfaceExtendedController {
             self?.callLogger?.logUpdatePeerList(rawInfo: json)
             self?.processUpdatePeerList(json: json)
         })
+    }
+    
+    private func registerForScheduleListener(){
+        eventSlotListener.setListener {[weak self] in
+            
+            self?.refreshScheduleInfo()
+            
+        }
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+            
+            if self.eventId == deletedEventID{
+                
+                self.processExitAction(code: .userAction)
+                Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
+            }
+        }
+        
+        updatedEventScheduleListener.setListener {[weak self] in
+            self?.refreshScheduleInfo()
+        }
+        
+        applicationStateListener.setForegroundListener {[weak self] in
+            self?.refreshScheduleInfo()
+        }
     }
     
     private func processUpdatePeerList(json : JSON?){
@@ -580,24 +595,16 @@ class VideoCallController : InterfaceExtendedController {
         appDelegate?.allowRotate = true
         lastPresentingController = self.presentingViewController
         
+        //update listener eventId
         eventSlotListener.eventId = self.eventId
-        registerForEvent()
         
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
-        eventScheduleUpdatedAlert()
     }
     
-    private func registerForEvent(){
-        
-        eventSlotListener.setListener {
-            self.fetchInfo(showLoader: false, completion: { (success) in
-            })
-        }
-        
-    }
+    
     
     private func startTimer(){
         timer.ping { [weak self] in
@@ -698,11 +705,7 @@ extension VideoCallController{
 //instance
 extension VideoCallController{
     
-    func fetchInfoAfterActivatingEvent(){
-        
-        self.fetchInfo(showLoader: false, completion: { (success) in
-        })
-    }
+    
     
     func loadInfo(completion : ((_ success : Bool, _ info : EventScheduleInfo? )->())?){
         
@@ -739,9 +742,11 @@ extension VideoCallController{
             self.showLoader()
         }
         
-        loadInfo {[unowned self] (success, info) in
-            
-            self.eventInfo = info
+        loadInfo {[weak self] (success, info) in
+            if(showLoader){
+                self?.stopLoader()
+            }
+            self?.eventInfo = info
             completion?(true)
             return
         }
@@ -987,7 +992,7 @@ extension VideoCallController{
         
         if type == .eventNotStarted{
             
-            let requiredMessage = "Session is not started yet."
+            let requiredMessage = "Session has not started."
             
             let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
             
@@ -1059,7 +1064,7 @@ extension VideoCallController{
 
 extension VideoCallController{
     
-    func reloadDataOnAnalystJoinedOrScheduleUpdated(){
+    func refreshScheduleInfo(){
         
         self.loadActivatedInfo {[weak self] (isActivated, info) in
             

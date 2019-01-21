@@ -69,7 +69,7 @@
 		4731E5D020F6125C00CB9D47 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193C2041647900D088F1 /* FBSDKCoreKit.framework */; };
 		4731E5D120F6125C00CB9D47 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA58193D2041647900D088F1 /* FBSDKLoginKit.framework */; };
 		4732C039217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732C038217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift */; };
-		4732C03B217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732C03A217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift */; };
+		4732C03B217F467700320B45 /* ScheduleUpdateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732C03A217F467700320B45 /* ScheduleUpdateListener.swift */; };
 		473328C12101FCCD00AB732D /* SelfieTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473328C02101FCCD00AB732D /* SelfieTimerView.swift */; };
 		47343B0121DCD94400F60FE5 /* AnalystJoinedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47343B0021DCD94400F60FE5 /* AnalystJoinedListener.swift */; };
 		47343B0221DCD94400F60FE5 /* AnalystJoinedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47343B0021DCD94400F60FE5 /* AnalystJoinedListener.swift */; };
@@ -459,7 +459,7 @@
 		47D0B0F321A6C4B5006376A8 /* EventRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6523220AAAF840041496C /* EventRootView.swift */; };
 		47D0B0F421A6C4B5006376A8 /* MyTicketsPageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ABE90320B59742002EEEB0 /* MyTicketsPageRootView.swift */; };
 		47D0B0F521A6C4B5006376A8 /* ReceiverConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B11F20639B6300983141 /* ReceiverConnection.m */; };
-		47D0B0F621A6C4B5006376A8 /* AnalystJoinedAndScheduleUpdatedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732C03A217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift */; };
+		47D0B0F621A6C4B5006376A8 /* ScheduleUpdateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732C03A217F467700320B45 /* ScheduleUpdateListener.swift */; };
 		47D0B0F721A6C4B5006376A8 /* SavedCardsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B90E7B21466E11004BA7A0 /* SavedCardsAdapter.swift */; };
 		47D0B0F821A6C4B5006376A8 /* Signupview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6522020AAAF680041496C /* Signupview.swift */; };
 		47D0B0F921A6C4B5006376A8 /* ARDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = FA74B11A20639B6300983141 /* ARDUtilities.m */; };
@@ -622,11 +622,7 @@
 		47D0B19721A6C4B5006376A8 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC83C7E2061354B005C8130 /* NVActivityIndicatorView.framework */; };
 		47D0B19821A6C4B5006376A8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA581942204164BE00D088F1 /* Bolts.framework */; };
 		47D0B19921A6C4B5006376A8 /* ImageLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001BC203EDFF1003C8A74 /* ImageLoader.framework */; };
-		47D0B19A21A6C4B5006376A8 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001BD203EDFF2003C8A74 /* SocketIO.framework */; };
 		47D0B19B21A6C4B5006376A8 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001BE203EDFF2003C8A74 /* SDWebImage.framework */; };
-		47D0B19C21A6C4B5006376A8 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001BF203EDFF2003C8A74 /* Starscream.framework */; };
-		47D0B19D21A6C4B5006376A8 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001B6203EDC13003C8A74 /* Alamofire.framework */; };
-		47D0B19E21A6C4B5006376A8 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA001B7203EDC13003C8A74 /* SwiftyJSON.framework */; };
 		47D0B1A321A6C4B5006376A8 /* signin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B6521B20AAAE800041496C /* signin.storyboard */; };
 		47D0B1A421A6C4B5006376A8 /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47B6521720AAADB20041496C /* Event.storyboard */; };
 		47D0B1A521A6C4B5006376A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFFFEA0203D9C80009B4F96 /* LaunchScreen.storyboard */; };
@@ -713,7 +709,6 @@
 		6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */; };
 		6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */; };
 		93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */; };
-		ED2382F9EAA47793D435DE8A /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D790C121A2879E0093DA2B /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
 		FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */; };
 		FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779F207E2B53005F840D /* CanvasContainer.swift */; };
@@ -816,6 +811,8 @@
 		FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA74B1522063A1C500983141 /* libicucore.tbd */; };
 		FA74B1552063A52800983141 /* no_event.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA74B1542063A52800983141 /* no_event.xib */; };
 		FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74B1592063AEFA00983141 /* BoldAttribute.swift */; };
+		FA7656E921F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7656E821F5DFC600C9B403 /* ApplicationStateListener.swift */; };
+		FA7656EA21F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7656E821F5DFC600C9B403 /* ApplicationStateListener.swift */; };
 		FA765FFE21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA765FFD21EDE56100737BA8 /* InternetSpeedHandler.swift */; };
 		FA765FFF21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA765FFD21EDE56100737BA8 /* InternetSpeedHandler.swift */; };
 		FA79F101210A032B00D16F13 /* VideoActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F100210A032A00D16F13 /* VideoActionContainer.swift */; };
@@ -1047,7 +1044,7 @@
 		47314AC8212ED496004104B6 /* SessionReviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionReviewController.swift; sourceTree = "<group>"; };
 		4731E5CA20F60B1100CB9D47 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../FacebookSDKs-iOS-obj_c/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		4732C038217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalystJoinedAndScheduleUpdated.swift; sourceTree = "<group>"; };
-		4732C03A217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalystJoinedAndScheduleUpdatedListener.swift; sourceTree = "<group>"; };
+		4732C03A217F467700320B45 /* ScheduleUpdateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleUpdateListener.swift; sourceTree = "<group>"; };
 		473328C02101FCCD00AB732D /* SelfieTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieTimerView.swift; sourceTree = "<group>"; };
 		47343B0021DCD94400F60FE5 /* AnalystJoinedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalystJoinedListener.swift; sourceTree = "<group>"; };
 		473566BE2107217700F62C97 /* EventSoldOutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSoldOutController.swift; sourceTree = "<group>"; };
@@ -1393,6 +1390,7 @@
 		FA74B1522063A1C500983141 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		FA74B1542063A52800983141 /* no_event.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = no_event.xib; sourceTree = "<group>"; };
 		FA74B1592063AEFA00983141 /* BoldAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoldAttribute.swift; sourceTree = "<group>"; };
+		FA7656E821F5DFC600C9B403 /* ApplicationStateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateListener.swift; sourceTree = "<group>"; };
 		FA765FFD21EDE56100737BA8 /* InternetSpeedHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetSpeedHandler.swift; sourceTree = "<group>"; };
 		FA79F100210A032A00D16F13 /* VideoActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionContainer.swift; sourceTree = "<group>"; };
 		FA79F102210A039600D16F13 /* HostVideoActionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostVideoActionContainer.swift; sourceTree = "<group>"; };
@@ -1561,11 +1559,7 @@
 				47D0B19721A6C4B5006376A8 /* NVActivityIndicatorView.framework in Frameworks */,
 				47D0B19821A6C4B5006376A8 /* Bolts.framework in Frameworks */,
 				47D0B19921A6C4B5006376A8 /* ImageLoader.framework in Frameworks */,
-				47D0B19A21A6C4B5006376A8 /* SocketIO.framework in Frameworks */,
 				47D0B19B21A6C4B5006376A8 /* SDWebImage.framework in Frameworks */,
-				47D0B19C21A6C4B5006376A8 /* Starscream.framework in Frameworks */,
-				47D0B19D21A6C4B5006376A8 /* Alamofire.framework in Frameworks */,
-				47D0B19E21A6C4B5006376A8 /* SwiftyJSON.framework in Frameworks */,
 				315B2A1C9B3A0D9231EB2E23 /* Pods_Chatalyze_Dev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1594,7 +1588,6 @@
 				FAA001BA203EDFF1003C8A74 /* Alamofire.framework in Frameworks */,
 				FAA001BB203EDFF1003C8A74 /* SwiftyJSON.framework in Frameworks */,
 				93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */,
-				ED2382F9EAA47793D435DE8A /* Pods_Chatalyze.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2759,13 +2752,6 @@
 			path = "greeting ";
 			sourceTree = "<group>";
 		};
-		47B6EE0821AC174A009E155A /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		47B80DBA20B3F1D6001F13CA /* My Tickets */ = {
 			isa = PBXGroup;
 			children = (
@@ -3149,6 +3135,7 @@
 		FA3B469E21104D19007EA72D /* processor */ = {
 			isa = PBXGroup;
 			children = (
+				FA7656E721F5DFB700C9B403 /* applicationState */,
 				FA5FD1702119CDB200172144 /* eventCall */,
 				473E3B5C211B1CD500DC60BC /* CacheImageLoader */,
 				FA3B46A021104D19007EA72D /* eventManager */,
@@ -3544,6 +3531,14 @@
 				FA74B1592063AEFA00983141 /* BoldAttribute.swift */,
 			);
 			path = attributedString;
+			sourceTree = "<group>";
+		};
+		FA7656E721F5DFB700C9B403 /* applicationState */ = {
+			isa = PBXGroup;
+			children = (
+				FA7656E821F5DFC600C9B403 /* ApplicationStateListener.swift */,
+			);
+			path = applicationState;
 			sourceTree = "<group>";
 		};
 		FA79F0FF210A032A00D16F13 /* callActionContainer */ = {
@@ -3983,12 +3978,11 @@
 				473D059B2113266000E121C4 /* EventDelayListener.swift */,
 				FAD9CD9D2063C17100A177AC /* CallSlotFetch.swift */,
 				4732C038217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift */,
-				4732C03A217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift */,
+				4732C03A217F467700320B45 /* ScheduleUpdateListener.swift */,
 				47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */,
 				47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */,
 				47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */,
 				47343B0021DCD94400F60FE5 /* AnalystJoinedListener.swift */,
-				47B6EE0821AC174A009E155A /* New Group */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -4397,11 +4391,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Mansa Infotech";
 				TargetAttributes = {
 					47D0B00721A6C4B5006376A8 = {
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					FAFFFE93203D9C7F009B4F96 = {
 						CreatedOnToolsVersion = 9.2;
@@ -4573,12 +4567,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ImageLoader.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Starscream.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SocketIO.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Bolts.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/InputMask.framework",
@@ -4622,17 +4612,25 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4670,19 +4668,27 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chatalyze Dev/Pods-Chatalyze Dev-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4960,6 +4966,7 @@
 				47D0B0E421A6C4B5006376A8 /* GreetingRootView.swift in Sources */,
 				47D0B0E521A6C4B5006376A8 /* UINib.swift in Sources */,
 				47D7CC1821BE8A5600CAFCF1 /* HandlingAppVersion.swift in Sources */,
+				FA7656EA21F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */,
 				47D0B0E621A6C4B5006376A8 /* EventCountDownLabel.swift in Sources */,
 				47D0B0E721A6C4B5006376A8 /* TestController.swift in Sources */,
 				47D0B0E821A6C4B5006376A8 /* EventTimer.swift in Sources */,
@@ -4981,7 +4988,7 @@
 				47D0B0F321A6C4B5006376A8 /* EventRootView.swift in Sources */,
 				47D0B0F421A6C4B5006376A8 /* MyTicketsPageRootView.swift in Sources */,
 				47D0B0F521A6C4B5006376A8 /* ReceiverConnection.m in Sources */,
-				47D0B0F621A6C4B5006376A8 /* AnalystJoinedAndScheduleUpdatedListener.swift in Sources */,
+				47D0B0F621A6C4B5006376A8 /* ScheduleUpdateListener.swift in Sources */,
 				47D0B0F721A6C4B5006376A8 /* SavedCardsAdapter.swift in Sources */,
 				47D0B0F821A6C4B5006376A8 /* Signupview.swift in Sources */,
 				47D0B0F921A6C4B5006376A8 /* ARDUtilities.m in Sources */,
@@ -5384,6 +5391,7 @@
 				FA91055F21D652E500060AFF /* OnBoardPageViewController.swift in Sources */,
 				FAA001A3203ED472003C8A74 /* UINib.swift in Sources */,
 				47D7CC1721BE8A5600CAFCF1 /* HandlingAppVersion.swift in Sources */,
+				FA7656E921F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */,
 				FAB71CF02077C0DE00C24246 /* EventCountDownLabel.swift in Sources */,
 				47B90E7821466D39004BA7A0 /* TestController.swift in Sources */,
 				FAA0019B203ED472003C8A74 /* EventTimer.swift in Sources */,
@@ -5404,7 +5412,7 @@
 				FA91055B21D652E500060AFF /* OnBoardFlowController.swift in Sources */,
 				47ABE90420B59742002EEEB0 /* MyTicketsPageRootView.swift in Sources */,
 				FA74B13A20639B6400983141 /* ReceiverConnection.m in Sources */,
-				4732C03B217F467700320B45 /* AnalystJoinedAndScheduleUpdatedListener.swift in Sources */,
+				4732C03B217F467700320B45 /* ScheduleUpdateListener.swift in Sources */,
 				47B90E7C21466E11004BA7A0 /* SavedCardsAdapter.swift in Sources */,
 				47B6522120AAAF680041496C /* Signupview.swift in Sources */,
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
@@ -5629,7 +5637,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5644,7 +5652,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -5663,7 +5671,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5678,7 +5686,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";

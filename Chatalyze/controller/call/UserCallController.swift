@@ -12,7 +12,7 @@ import SwiftyJSON
 class UserCallController: VideoCallController {
   
     
-    let anlaystJoinedListener = AnalystJoinedAndScheduleUpdatedListener()
+    let scheduleUpdateListener = ScheduleUpdateListener()
     
     //Animation Responsible
     var isAnimating = false
@@ -227,18 +227,17 @@ class UserCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
     }
     
-    private func checkingForAnalystJoinedListener(){
-        
-        anlaystJoinedListener.setListener {
-            
-            self.reloadDataOnAnalystJoinedOrScheduleUpdated()
+    private func registerForScheduleUpdateListener(){
+        scheduleUpdateListener.setListener {
+            self.refreshScheduleInfo()
         }
-        
     }
     
     
     override func registerForListeners(){
         super.registerForListeners()
+        
+        registerForScheduleUpdateListener()
         
         //call initiation
         
@@ -804,9 +803,17 @@ class UserCallController: VideoCallController {
         
         if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
      
-            //loadInfo(completion: <#T##((Bool, EventScheduleInfo?) -> ())?##((Bool, EventScheduleInfo?) -> ())?##(Bool, EventScheduleInfo?) -> ()#>)
+           
             //Event has updated
         }
+    }
+    
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        scheduleUpdateListener.releaseListener()
+        
     }
 }
 
@@ -1121,101 +1128,3 @@ extension UserCallController{
     }
 }
 
-//extension UserCallController{
-//
-//    override func refresh(){
-//        super.refresh()
-//
-//        guard let eventInfo = eventInfo
-//            else{
-//                return
-//        }
-//
-//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
-//
-//            showAlertMessage()
-//            statusLbl?.text = "Session has not started yet."
-//            return
-//        }
-//
-//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
-//
-//            showAlertMessage()
-//            statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
-//            return
-//        }
-//
-//        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
-//
-//            self.hideAlertMessage()
-//        }
-//
-//        self.hideAlertMessage()
-//
-//        guard let slotInfo = eventInfo.myValidSlot.slotInfo
-//            else{
-//                return
-//        }
-//
-//        if(slotInfo.isWholeConnectEligible){
-//
-//            guard let controller = UserCallController.instance()
-//                else{
-//                    return
-//            }
-//
-//            guard let eventId = self.eventInfo?.id
-//                else{
-//                    return
-//            }
-//            controller.eventInfo = eventInfo
-//            controller.eventId = "\(eventId)"
-//            self.viewDidRelease()
-//
-//            self.navigationController?.present(controller, animated: true, completion: {
-//
-//                self.navigationController?.popViewController(animated: false)
-//            })
-//        }
-//    }
-//}
-
-
-//extension UserCallController{
-//    
-//   override func checkForDelaySupport(){
-//    
-//        guard let eventInfo = eventInfo
-//            else{
-//                return
-//        }
-//        
-//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
-//            
-//            if self.presentedViewController != nil{
-//                self.dismiss(animated: true) {
-//                    
-//                    
-//                    
-//                }
-//            }
-//            
-//            
-//           // statusLbl?.text = "Session has not started yet."
-//            return
-//        }
-//    
-//    
-//        if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
-//            
-//            // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
-//            return
-//        }
-//    
-//        
-//        if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
-//            
-//           //Event has updated
-//        }
-//    }
-//}

@@ -13,6 +13,13 @@ class EventDeletedListener{
     
     private var listener : ((String?)->())?
     
+    private var isReleased = false
+    
+    func releaseListener(){
+        listener = nil
+        isReleased = true
+    }
+    
     init(){
         initializeListener()
     }
@@ -71,6 +78,10 @@ class EventDeletedListener{
         }
         
         if(activityType != .eventDeleted){
+            return
+        }
+        
+        if(isReleased){
             return
         }
 

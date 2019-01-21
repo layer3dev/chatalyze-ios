@@ -28,6 +28,6 @@ import Foundation
                 return
         }
         
-        print("\(Date()) \(key) -> \(textEx)")
+        print("\(DateParser.dateToString(Date())) \(key) -> \(textEx)")
     }
 }

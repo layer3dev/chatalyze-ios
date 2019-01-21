@@ -13,11 +13,12 @@ pod 'GoogleWebRTC', '1.1.25651'
 pod 'DeviceKit', '~> 1.3'
 pod 'CropViewController', :git => 'https://github.com/TimOliver/TOCropViewController.git'
 
+pod 'Alamofire', '~> 4.0'
+pod 'SwiftyJSON', '~> 4.0'
+pod 'Socket.IO-Client-Swift', '~> 14.0.0'
+pod 'Starscream', '~> 3.0'
+
 end
-
-
-
-
 
 
 
@@ -31,4 +32,3 @@ end
 target 'Chatalyze Dev' do
     pod_file
 end
-

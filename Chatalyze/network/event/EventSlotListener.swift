@@ -14,6 +14,14 @@ class EventSlotListener{
     var eventId : String?
     private var listener : (()->())?
     
+    private var isReleased = false
+    
+    func releaseListener(){
+        listener = nil
+        isReleased = true
+    }
+    
+    
     init(){
         initializeListener()
     }
@@ -90,6 +98,10 @@ class EventSlotListener{
         if(receivedEventIdString != eventId){
             return
         }
-        listener?()
+        
+        if(!isReleased){
+            listener?()
+        }
+        
     }
 }
