@@ -17,6 +17,7 @@ class UserSocket {
     var isRegisteredToServer = false
     private var notificationLogger = LogNotification()
     
+    
     init(){
         initialization()
     }
@@ -35,15 +36,13 @@ class UserSocket {
                 return
         }
         
-        let manager = SocketManager(socketURL: socketURL, config: [.log(false),.forceNew(true),.reconnects(true)])
+        let manager = SocketManager(socketURL: socketURL, config: [.log(false), .forceNew(true)])
         let socket = manager.defaultSocket
         self.socketManager = manager
         self.socket = socket
     }
     
     fileprivate func registerForAppState(){
-        
-        
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
@@ -51,9 +50,17 @@ class UserSocket {
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    @objc func appMovedToBackground() {
+    
+    fileprivate func unregisterForAppState(){
+        let notificationCenter = NotificationCenter.default
         
-        Log.echo(key: "user_socket", text:"appMovedToBackground")
+        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    
+    @objc func appMovedToBackground() {
+        Log.echo(key: "user_socket", text:"called appMovedToBackground")
         socket?.disconnect()
     }
     
@@ -62,19 +69,13 @@ class UserSocket {
         Log.echo(key: "user_socket", text:"appMovedToForeground")
         
         let userInfo = SignedUserInfo.sharedInstance
-        Log.echo(key: "", text: "userData is =>\(userInfo)")
+        Log.echo(key: "", text: "userData is =>\(String(describing: userInfo))")
         if(userInfo == nil){
            return
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socket?.connect()
         
-        //open func connect(timeoutAfter: Int, withHandler handler: (() -> Swift.Void)?)
-        
-//        socket?.connect(timeoutAfter: 5, withHandler: {
-//            print("I don't connect")
-//            self.appMovedToForeground()
-//        })
         
     }
     
@@ -92,10 +93,7 @@ class UserSocket {
         
         return UserSocket._sharedInstance
     }
-    
-//    func disconnect(){
-//        socket?.disconnect()
-//    }
+
     
 }
 
@@ -103,58 +101,42 @@ class UserSocket {
 extension UserSocket{
     fileprivate func initializeSocketConnection(){
         
-        updateConnectionStatus(isConnected: false)
         
-        socket?.on("connect") {data, ack in
+        socket?.on(clientEvent: .connect, callback: { (data, ack) in
             self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
                 self.registerSocket()
             }
-            
-        }
+        })
+        
+        socket?.on(clientEvent: .disconnect, callback: { (data, ack) in
+            self.notificationLogger.notify(text : "disconnected :(")
+            self.isRegisteredToServer = false
+            Log.echo(key: "user_socket", text:"socket  (disconnect) => \(data)")
+        })
+        
+        socket?.on(clientEvent: .error, callback: { (data, ack) in
+            Log.echo(key: "user_socket", text:"socket error data (error) => \(data)")
+        })
+        
+        socket?.on(clientEvent: .reconnectAttempt, callback: { (data, ack) in
+            Log.echo(key: "user_socket", text:"socket reconnect => \(data)")
+        })
+        
+        
         
         socket?.on("login") {data, ack in
             Log.echo(key: "user_socket", text:"socket login data => \(data)")
             self.isRegisteredToServer = true
-            self.updateConnectionStatus(isConnected: true)
             //Changing the color of online offline view
-            self.showConnect()
         }
         
-        socket?.on("disconnect") {data, ack in
-            self.notificationLogger.notify(text : "disconnected :(")
-            self.isRegisteredToServer = false
-            Log.echo(key: "user_socket", text:"socket error data (disconnect) => \(data)")
-            self.updateConnectionStatus(isConnected: false)
-            //Changing the color of online offline view
-            self.showDisconnect()
-        
-        }
-        
-        socket?.on("error") {data, ack in
-            
-            Log.echo(key: "user_socket", text:"socket error data (error) => \(data)")
-            self.updateConnectionStatus(isConnected: false, isError: true)
-            
-            //Changing the color of online offline view
-            self.showDisconnect()
-            self.reconnect()
-        }
         
         socket?.on("notification") {data, ack in
             
             Log.echo(key: "onAny", text:"socket notification => \(data)")
-        }
-        
-        socket?.on("reconnect"){data ,ack in
-            
-            self.isRegisteredToServer = false
-            Log.echo(key: "user_socket", text: "I got recconnected in ON \(data)")
-            //Changing the color of online offline view
-            self.showDisconnect()
-            self.reconnect()
         }
         
         
@@ -188,54 +170,12 @@ extension UserSocket{
     func disconnect(){
         
         socket?.disconnect()
+        socketManager?.disconnect()
         socket = nil
+        socketManager = nil
         UserSocket._sharedInstance = nil
-    }
-    
-    func reconnect(){
-    
-        socket?.connect()
-    }
-    
-    fileprivate func redColorTransparency(){
         
-        UINavigationBar.appearance().barStyle = .default
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().backgroundColor = UIColor.red
-        UINavigationBar.appearance().tintColor = UIColor.red
-    }
-    
-    fileprivate func grayColorTransparency(){
-        
-        UINavigationBar.appearance().barStyle = .black
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor
-        UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
-    }
-    
-    fileprivate func updateConnectionStatus(isConnected : Bool, isError : Bool = false){
-        
-        let themeColor =  AppThemeConfig.navigationBarColor
-        let color = isConnected ? themeColor : UIColor.red
-
-        UINavigationBar.appearance().backgroundColor = color
-        UINavigationBar.appearance().tintColor = color
-    }
-    
-    fileprivate func showDisconnect(){
-      
-        //Changing the color of online offline view
-        if let controller = RootControllerManager().getCurrentController(){
-            controller.socketVerifierView?.backgroundColor = UIColor.yellow
-        }
-    }
-    
-    fileprivate func showConnect(){
-        
-        //Changing the color of online offline view
-        if let controller = RootControllerManager().getCurrentController(){
-            controller.socketVerifierView?.backgroundColor = UIColor.green
-        }
+        unregisterForAppState()
     }
     
 }

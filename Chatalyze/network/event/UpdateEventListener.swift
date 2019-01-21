@@ -13,6 +13,13 @@ class UpdateEventListener{
     
     private var listener : (()->())?
     
+    private var isReleased = false
+    
+    func releaseListener(){
+        listener = nil
+        isReleased = true
+    }
+    
     init(){
         initializeListener()
     }
@@ -71,9 +78,15 @@ class UpdateEventListener{
         
         Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
-        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .analystJoined || activityType == .eventDelay){
+        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .eventDelay){
             return
         }
+        
+        if(isReleased){
+            return
+        }
+        
+        
         listener?()
     }
 }
