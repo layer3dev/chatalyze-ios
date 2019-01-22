@@ -24,14 +24,14 @@ class HostDashboardController: MyScheduledSessionsController {
         
         initialize()
         paint()
-        //checkForShowingHostWelcomeAnimation()
+        checkForShowingHostWelcomeAnimation()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        hideNavigationBar()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        hideNavigationBar()
+    }
     
     func checkForShowingHostWelcomeAnimation(){
         
@@ -55,12 +55,12 @@ class HostDashboardController: MyScheduledSessionsController {
     
     override func showShareView(){
        
-        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
+       // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
     override func hideShareView(){
         
-        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
+        //heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
     }
     
     func paint(){
