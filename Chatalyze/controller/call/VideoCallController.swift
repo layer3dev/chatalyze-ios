@@ -119,16 +119,7 @@ class VideoCallController : InterfaceExtendedController {
         appDelegate =  UIApplication.shared.delegate as? AppDelegate
         // Do any additional setup after loading the view.
     }
-    
-    
-  
-    
-    
-    func eventScheduleUpdatedAlert(){
         
-        
-    }
-    
     
     override func viewAppeared(){
         super.viewAppeared()

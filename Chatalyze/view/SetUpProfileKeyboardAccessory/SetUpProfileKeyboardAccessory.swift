@@ -18,8 +18,6 @@ class SetUpProfileKeyboardAccessory: XibTemplate {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        
     }
     
     

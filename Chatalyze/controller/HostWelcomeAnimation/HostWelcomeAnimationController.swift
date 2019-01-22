@@ -16,7 +16,6 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
         // Do any additional setup after loading the view.
     }
     
-
     @IBAction func setUpMyProfile(sender:UIButton){
 //
 //        UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")

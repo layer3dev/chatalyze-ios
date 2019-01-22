@@ -29,7 +29,6 @@ class ScheduleUpdateListener{
     }
     
     func initializeListener(){
-
         UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
             
             guard let weakSelf = self
