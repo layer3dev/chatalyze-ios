@@ -614,6 +614,11 @@ extension ContainerController : TabContainerViewInterface{
         self.tapAction(menuType: MenuRootView.MenuType.tickets)
     }
     
+    func showProfileScreen(){
+        
+        self.tapAction(menuType: MenuRootView.MenuType.settings)
+    }
+    
     func setAccountTabwithMySessionScreen(){
       
         tapAction(menuType: MenuRootView.MenuType.analystAccount)

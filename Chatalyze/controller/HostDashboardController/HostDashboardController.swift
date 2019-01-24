@@ -17,7 +17,7 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
-    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
+    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -67,13 +67,17 @@ class HostDashboardController: MyScheduledSessionsController {
         
         importantView?.layer.cornerRadius = 2
         importantView?.layer.masksToBounds = true
+        
+        noSessionView?.layer.borderWidth = 1
+        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        noSessionView?.layer.masksToBounds = true
+                
         setSharableUrlText()
     }
     
     func setSharableUrlText(){
         
         //https://dev.chatalyze.com/profile/NekBanda/485
-
         var str = AppConnectionConfig.systemTestUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
@@ -167,6 +171,8 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
+        Log.echo(key: "yud", text: "I am calling")
+        
         DispatchQueue.main.async {
             
             guard let controller = ScheduleSessionController.instance() else{
@@ -193,15 +199,12 @@ class HostDashboardController: MyScheduledSessionsController {
         self.gotoSystemTest()
     }
     
+    @IBAction func settingAction(sender:UIButton){
+        
+        RootControllerManager().getCurrentController()?.showProfileScreen()
+    }
     
     @IBAction func copyText(send:UIButton){
-        
-        if sharingLbl?.text == "Select your session in order to get the shareable url."{
-            
-            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
-            }
-            return
-        }
         
         //str  = str.replacingOccurrences(of: " ", with: "")
         guard var str = sharingLbl?.text else{

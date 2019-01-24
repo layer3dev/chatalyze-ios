@@ -556,7 +556,8 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
             return Set(priceStr).isSubset(of: nums)
         }
         return false
-    }
+    }    
+    
     func isExceedsMaximumPrice(text:String?)->Bool{
         
         if let priceStr = text{

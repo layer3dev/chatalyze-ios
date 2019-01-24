@@ -22,6 +22,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     let eventStore = EKEventStore()
     var adapter:MySessionAdapter?
     @IBOutlet var editSessionLbl:UILabel?
+    @IBOutlet var viewDetailView:ButtonCorners?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -43,6 +44,10 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     
     func painInterface(){
+        
+        
+        viewDetailView?.layer.borderWidth = 1
+        viewDetailView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
         DispatchQueue.main.async {
             
@@ -115,7 +120,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate{
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EE, MMM dd"
+            dateFormatter.dateFormat = "EEEE, MMMM dd"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.dateLbl?.text = "\(dateFormatter.string(from: date))"
@@ -127,8 +132,20 @@ class MySessionTableViewCell: ExtendedTableCell {
             dateFormatter.dateFormat = "hh:mm a"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
-            self.timeLbl?.text = dateFormatter.string(from: date)
+            let requireOne = dateFormatter.string(from: date)
+            
+            if let date = info.endDate{
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "hh:mm a"
+                dateFormatter.timeZone = TimeZone.current
+                dateFormatter.locale = Locale.current
+                self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
+                
+                Log.echo(key: "yud", text: "Locale abbrvation sis ")
+            }
         }
+        
     }
     
     func showAlert(sender:UIButton){
@@ -290,6 +307,5 @@ extension MySessionTableViewCell{
         }))
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })
-    }
-    
+    }    
 }

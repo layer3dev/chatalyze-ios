@@ -568,6 +568,7 @@ extension EditProfileRootview{
             newPasswordField?.showError(text: "New password field can't be left empty !")
             return false
         }
+        
         if let text = newPasswordField?.textField?.text {
             if (!text.containsNumbers()) || !(text.containsUpperCaseLetter()) || !(text.containsLowerCaseLetter()){
               
@@ -630,7 +631,7 @@ extension EditProfileRootview{
         
         if mobileNumberField?.textField?.text?.count  ?? 0 != 0{
             
-            if (mobileNumberField?.textField?.text?.count ?? 0) < 9{
+            if (mobileNumberField?.textField?.text?.count ?? 0) < 8{
                 
                 mobileNumberField?.showError(text: "Mobile number looks incorrect !")
                 return false
