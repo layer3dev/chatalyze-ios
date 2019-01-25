@@ -17,6 +17,7 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
     }
     
     @IBAction func setUpMyProfile(sender:UIButton){
+        
 //
 //        UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
 //        self.dismiss(animated: true) {
@@ -30,8 +31,6 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
     }
     
     
-    
-    
     /*
     // MARK: - Navigation
 
@@ -42,11 +41,11 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
     }
     */
 
+    
      class func instance()->HostWelcomeAnimationController?{
         
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostWelcomeAnimation") as? HostWelcomeAnimationController
         return controller
     }
-    
 }

@@ -26,13 +26,11 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+      
         painInterface()
     }
     
     @IBAction func editSession(sender:UIButton){
-        
-        Log.echo(key: "yud", text: "I am calling")
         
         guard let controller = EditHostSessionController.instance() else{
             return
@@ -42,9 +40,18 @@ class MySessionTableViewCell: ExtendedTableCell {
         self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @IBAction func viewSessionDetailAction(sender:UIButton){
+        
+        guard let controller = SessionDetailController.instance() else{
+            return
+        }
+        controller.eventInfo = self.info
+        self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
     
     func painInterface(){
-        
         
         viewDetailView?.layer.borderWidth = 1
         viewDetailView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor

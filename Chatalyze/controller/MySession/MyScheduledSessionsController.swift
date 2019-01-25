@@ -104,6 +104,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
                         self.noSessionView?.isHidden = true
@@ -114,22 +115,21 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                        
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.noSessionView?.isHidden = false
                         self.mySessionLbl?.isHidden = true
-
                         self.rootView?.fillInfo(info: self.eventArray)
                     }
                     return
                 }
             }
+            
             self.hideShareView()
             self.noeventLbl?.isHidden = false
             self.noSessionView?.isHidden = false
             self.mySessionLbl?.isHidden = true
-
-
             self.rootView?.fillInfo(info: self.eventArray)
             return
         }
@@ -151,6 +151,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
                         self.noSessionView?.isHidden = true
@@ -161,6 +162,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                       
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.noSessionView?.isHidden = false

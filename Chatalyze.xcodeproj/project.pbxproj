@@ -127,6 +127,12 @@
 		47931AF52109E8BA00F41630 /* AccountHostRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF42109E8BA00F41630 /* AccountHostRootView.swift */; };
 		47931AF82109EB9200F41630 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF72109EB9200F41630 /* SessionController.swift */; };
 		479A960D214A8079003C2F4C /* AccountContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479A960C214A8079003C2F4C /* AccountContainerView.swift */; };
+		47A33D7E21FB26C3006965E9 /* SessionDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */; };
+		47A33D7F21FB26C3006965E9 /* SessionDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */; };
+		47A33D8221FB2744006965E9 /* SessionDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8121FB2744006965E9 /* SessionDetailController.swift */; };
+		47A33D8321FB2744006965E9 /* SessionDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8121FB2744006965E9 /* SessionDetailController.swift */; };
+		47A33D8621FB2797006965E9 /* SessionDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */; };
+		47A33D8721FB2797006965E9 /* SessionDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */; };
 		47A4D44E21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */; };
 		47A4D44F21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */; };
 		47A4D45221F3580D00FCC5CC /* SetUpHostProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A4D45121F3580D00FCC5CC /* SetUpHostProfile.swift */; };
@@ -1102,6 +1108,9 @@
 		47931AF42109E8BA00F41630 /* AccountHostRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHostRootView.swift; sourceTree = "<group>"; };
 		47931AF72109EB9200F41630 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		479A960C214A8079003C2F4C /* AccountContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContainerView.swift; sourceTree = "<group>"; };
+		47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionDetail.storyboard; sourceTree = "<group>"; };
+		47A33D8121FB2744006965E9 /* SessionDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailController.swift; sourceTree = "<group>"; };
+		47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailRootView.swift; sourceTree = "<group>"; };
 		47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		47A4D45121F3580D00FCC5CC /* SetUpHostProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpHostProfile.swift; sourceTree = "<group>"; };
 		47A8F4202174B642007D345A /* DeleteMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMemory.swift; sourceTree = "<group>"; };
@@ -2584,6 +2593,22 @@
 			path = SessionController;
 			sourceTree = "<group>";
 		};
+		47A33D8021FB270C006965E9 /* SessionDetail */ = {
+			isa = PBXGroup;
+			children = (
+				47A33D8121FB2744006965E9 /* SessionDetailController.swift */,
+			);
+			path = SessionDetail;
+			sourceTree = "<group>";
+		};
+		47A33D8421FB2781006965E9 /* SessionDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */,
+			);
+			path = SessionDetailView;
+			sourceTree = "<group>";
+		};
 		47A4D45021F357F500FCC5CC /* SetUpHostProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -3719,6 +3744,7 @@
 				477A942C21E33E1600517F3E /* EditHostSession */,
 				473DD23E21F1F05F0063FEEB /* SetProfileRootView */,
 				47F689C421F5FDDB00DBDD72 /* SetUpProfileKeyboardAccessory */,
+				47A33D8421FB2781006965E9 /* SessionDetailView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3779,6 +3805,7 @@
 				470F0B6921521D1F003F8EE7 /* Welcome.storyboard */,
 				477A942521E33BDE00517F3E /* EditScheduleSession.storyboard */,
 				477F35EE21EF59F100688F2E /* Profile.storyboard */,
+				47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -3833,6 +3860,7 @@
 				470F0B6B215220EF003F8EE7 /* WelcomeScreen */,
 				477A942821E33DC200517F3E /* EditHostSession */,
 				47FFAF4D21F0B27F00D3B54D /* HostWelcomeAnimation */,
+				47A33D8021FB270C006965E9 /* SessionDetail */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4508,6 +4536,7 @@
 				47D0B1B521A6C4B5006376A8 /* Signup.storyboard in Resources */,
 				47D0B1B621A6C4B5006376A8 /* EditProfile.storyboard in Resources */,
 				477F35F021EF59F100688F2E /* Profile.storyboard in Resources */,
+				47A33D7F21FB26C3006965E9 /* SessionDetail.storyboard in Resources */,
 				47F689C321F5FDBF00DBDD72 /* SetUpProfileKeyboardAccessory.xib in Resources */,
 				473BA9EF21BAA8DB00761EFC /* UpdateAlert.storyboard in Resources */,
 				47D0B1B721A6C4B5006376A8 /* home.storyboard in Resources */,
@@ -4558,6 +4587,7 @@
 				47B6521920AAADB30041496C /* Signup.storyboard in Resources */,
 				47DF899620ABFF0800FEA916 /* EditProfile.storyboard in Resources */,
 				477F35EF21EF59F100688F2E /* Profile.storyboard in Resources */,
+				47A33D7E21FB26C3006965E9 /* SessionDetail.storyboard in Resources */,
 				47F689C221F5FDBF00DBDD72 /* SetUpProfileKeyboardAccessory.xib in Resources */,
 				473BA9EA21BAA84900761EFC /* UpdateAlert.storyboard in Resources */,
 				FA9858E620638A3A00989CBB /* home.storyboard in Resources */,
@@ -5052,6 +5082,7 @@
 				47D0B10F21A6C4B5006376A8 /* SettingController.swift in Sources */,
 				47D0B11021A6C4B5006376A8 /* HostDashboardController.swift in Sources */,
 				47D0B11121A6C4B5006376A8 /* AccountPageViewHostController.swift in Sources */,
+				47A33D8321FB2744006965E9 /* SessionDetailController.swift in Sources */,
 				47D0B11221A6C4B5006376A8 /* TabElementInterface.swift in Sources */,
 				47D0B11321A6C4B5006376A8 /* PaymentSetupPaypalRootView.swift in Sources */,
 				47D0B11421A6C4B5006376A8 /* MediaPermissionAccess.swift in Sources */,
@@ -5163,6 +5194,7 @@
 				47D0B17321A6C4B5006376A8 /* SelfieTimerView.swift in Sources */,
 				47D0B17421A6C4B5006376A8 /* SessionReviewRootView.swift in Sources */,
 				47D0B17521A6C4B5006376A8 /* FacebookResponse.swift in Sources */,
+				47A33D8721FB2797006965E9 /* SessionDetailRootView.swift in Sources */,
 				47D0B17621A6C4B5006376A8 /* ExtendedTableCell.swift in Sources */,
 				47D0B17721A6C4B5006376A8 /* NoEventContainerView.swift in Sources */,
 				47F689C721F5FDDB00DBDD72 /* SetUpProfileKeyboardAccessory.swift in Sources */,
@@ -5479,6 +5511,7 @@
 				47111CE62158BB3700DFBC08 /* HostDashboardController.swift in Sources */,
 				47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */,
 				47B6526620AAB4080041496C /* TabElementInterface.swift in Sources */,
+				47A33D8221FB2744006965E9 /* SessionDetailController.swift in Sources */,
 				475B111F210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift in Sources */,
 				FA5FD1722119CE0E00172144 /* MediaPermissionAccess.swift in Sources */,
 				FAFB7C84206E6E3D004804D2 /* EventQueueController.swift in Sources */,
@@ -5590,6 +5623,7 @@
 				FA3CC13E2046C0A2007438A3 /* FacebookResponse.swift in Sources */,
 				FAA001AE203ED472003C8A74 /* ExtendedTableCell.swift in Sources */,
 				FAD6BA41206502E100942F27 /* NoEventContainerView.swift in Sources */,
+				47A33D8621FB2797006965E9 /* SessionDetailRootView.swift in Sources */,
 				FAA001A0203ED472003C8A74 /* Double.swift in Sources */,
 				47B6EE0A21AC1768009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */,
 				47F689C621F5FDDB00DBDD72 /* SetUpProfileKeyboardAccessory.swift in Sources */,
