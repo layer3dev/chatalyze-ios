@@ -47,6 +47,7 @@ class EventInfo: NSObject {
     var serviceFee:Double?
     var callBookings:[JSON] = [JSON]()
     var isScreenShotAllowed:String?
+    var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
     
     override init(){
         super.init()
@@ -96,7 +97,13 @@ class EventInfo: NSObject {
 //        if (json["user"] != nil) { user = User(json: json["user"] as! NSDictionary) } //todo:
         href = json["href"].string
         if let  callBokingArray = json["callbookings"].array {
-            self.callBookings = callBokingArray            
+            self.callBookings = callBokingArray
+        }
+        
+        for info in self.callBookings{
+            
+            let info = SlotInfo(info: info)
+            self.slotsInfoLists.append(info)
         }
     }
     
@@ -106,9 +113,13 @@ class EventInfo: NSObject {
             return price
         }
         set{
+            
             let price = newValue ?? 0.0
             self.price = (price/60.0)*(self.duration ?? 0.0)
-            self.price = ((round((self.price ?? 0.0))*1000))/1000
+            self.price = self.price?.roundTo(places: 3)
+            Log.echo(key: "yud", text: "Round 3 price is \(self.price)")
+            self.price =  round((self.price ?? 0.0)*100)/100
+            Log.echo(key: "yud", text: "Round 2 price is \(self.price)")
             self.serviceFee = (((self.price ?? 0.0)+0.30)/0.971) - (self.price ?? 0.0)
             self.serviceFee = ((round((self.serviceFee ?? 0.0))*1000))/1000
         }

@@ -18,6 +18,10 @@ class MySessionRootView:ExtendedView{
         initializeVariable()
     }
     
+    
+    func paintNewUI(){
+        //to be override
+    }
     func initializeVariable(){
         
         adapter.root = self        

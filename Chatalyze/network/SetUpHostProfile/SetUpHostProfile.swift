@@ -89,20 +89,9 @@ class SetUpHostProfile{
     func updateDescription(params:[String:String],completion : @escaping (Bool)->()){
         
         self.edit(params: params) { (success, error, response) in
-        
-            self.updateProfile()
             completion(success)
         }
     }
-    
-    
-    func updateProfile(){
-        
-        FetchProfileProcessor().fetch(completion: { (success, error, reponse) in
-            
-        })
-    }
-    
 }
 
 

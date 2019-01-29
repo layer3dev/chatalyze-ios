@@ -25,11 +25,10 @@ class HostDashboardRootView: MySessionRootView {
         super.viewDidLayout()
       
         initializeFontSize()
-        underLineLable()
-        paintNewUI()
-        
+        underLineLable()        
         paintChatPupText()
     }
+    
     
     func paintChatPupText(){
         
@@ -51,10 +50,9 @@ class HostDashboardRootView: MySessionRootView {
             self.chatPupOne?.attributedText = textOneMutableAttr
             self.chatPupTwo?.attributedText = textTwoAttr            
         }
-    }
+    }    
     
-    
-    func paintNewUI(){
+    override func paintNewUI(){
         
         settingButtonContainer?.layer.borderWidth = 0.5
         settingButtonContainer?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor

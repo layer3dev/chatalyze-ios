@@ -50,7 +50,23 @@ class SetHostProfileController: InterfaceExtendedController {
         SetUpHostProfile().uploadImageFormatData(image: image, includeToken: true, params : param, progress: { (progress) in
         }) {(success) in
             
+            DispatchQueue.main.async {
+                
+                if !success{
+                    self.stopLoader()
+                    return
+                }
+                self.updateProfile()
+                return
+            }
+        }
+    }
+    
+    func updateProfile(){
+        
+        FetchProfileProcessor().fetch(completion: { (success, error, reponse) in
             self.stopLoader()
+           
             if success{
                 
                 DispatchQueue.main.async {
@@ -63,7 +79,8 @@ class SetHostProfileController: InterfaceExtendedController {
             }
             self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
             })
-        }
+            
+        })
     }
     
     class func instance()->SetHostProfileController?{

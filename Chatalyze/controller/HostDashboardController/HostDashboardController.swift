@@ -31,6 +31,7 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewWillAppear(animated)
 
         hideNavigationBar()
+        rootView?.paintNewUI()
     }
     
     func checkForShowingHostWelcomeAnimation(){
@@ -168,6 +169,22 @@ class HostDashboardController: MyScheduledSessionsController {
         self.present(alertActionSheet, animated: true) {
         }
     }
+    
+    @IBAction func copyTextOnClipboard(sender:UIButton){
+        
+        var str = AppConnectionConfig.systemTestUrl
+        str = str + "/profile/"
+        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
+        str = str + "/"
+        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
+        //str  = str.replacingOccurrences(of: " ", with: "")
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        UIPasteboard.general.string = str
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on the clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        }        
+    }
+    
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         

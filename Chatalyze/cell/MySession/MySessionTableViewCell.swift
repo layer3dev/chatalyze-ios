@@ -49,8 +49,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
     
-    
-    
     func painInterface(){
         
         viewDetailView?.layer.borderWidth = 1
@@ -111,7 +109,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             
             //Event is not started yet
             self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
-            self.sessionEventButton?.setTitleColor(UIColor(hexString: "#8C9597"), for: .normal)
+            self.sessionEventButton?.setTitleColor(UIColor(red: 76.0/255.0, green: 76.0/255.0, blue: 76.0/255.0, alpha: 1), for: .normal)
             return
         }
         self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
@@ -136,7 +134,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate{
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.dateFormat = "h:mm"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             let requireOne = dateFormatter.string(from: date)
@@ -144,7 +142,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             if let date = info.endDate{
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
+                dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
