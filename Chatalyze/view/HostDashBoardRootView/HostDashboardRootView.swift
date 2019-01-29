@@ -29,7 +29,6 @@ class HostDashboardRootView: MySessionRootView {
         paintChatPupText()
     }
     
-    
     func paintChatPupText(){
         
         DispatchQueue.main.async {
@@ -37,11 +36,9 @@ class HostDashboardRootView: MySessionRootView {
             let textOne = "Looks like you don't have any"
             let textOneMutableAttr = textOne.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17 , color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
             
-            
             let textTwo = "upcoming sessions."
             let textTwoAttr = textTwo.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17, color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
-            
-            
+                        
             let textThree = "Let's create one!"
             let textThreeAttr = textThree.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17, color: UIColor(red: 122.0/255.0, green: 202.0/255.0, blue: 250.0/255.0, alpha: 1), isUnderLine: false)
             

@@ -195,6 +195,9 @@ class HostDashboardController: MyScheduledSessionsController {
             guard let controller = ScheduleSessionController.instance() else{
                 return
             }
+//            guard let controller = SessionScheduleNewController.instance() else{
+//                return
+//            }
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }
@@ -209,7 +212,6 @@ class HostDashboardController: MyScheduledSessionsController {
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
-    
     
     @IBAction func systemTestAction(sender:UIButton){
       
@@ -252,7 +254,6 @@ class HostDashboardController: MyScheduledSessionsController {
         }
         return
     }
-    
     
     override func updateScrollViewWithTable(height:CGFloat){
         
