@@ -346,7 +346,7 @@ class SessionTimeDateRootView:ExtendedView{
         return dateValidated && timeValidated && durationValidation && isFutureTimeValidation
     }
     
-    fileprivate func validateDate()->Bool{
+     func validateDate()->Bool{
         
         if(dateField?.textField?.text == ""){
             

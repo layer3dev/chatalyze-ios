@@ -192,12 +192,12 @@ class HostDashboardController: MyScheduledSessionsController {
         
         DispatchQueue.main.async {
             
-            guard let controller = ScheduleSessionController.instance() else{
-                return
-            }
-//            guard let controller = SessionScheduleNewController.instance() else{
+//            guard let controller = ScheduleSessionController.instance() else{
 //                return
 //            }
+            guard let controller = SessionScheduleNewController.instance() else{
+                return
+            }
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

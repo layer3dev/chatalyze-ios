@@ -26,7 +26,21 @@ class SessionScheduleNewController: InterfaceExtendedController {
     
     @IBAction func backButton(sender:UIButton){
         
-        self.navigationController?.popToRootViewController(animated: true)
+        guard let currentStatus = pageViewController?.getCurrentPageController() else{
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
+            self.navigationController?.popToRootViewController(animated: true)
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.second {
+            pageViewController?.setFirstController()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.third {
+            pageViewController?.setSecondController()
+            return
+        }
     }
     
     
@@ -43,6 +57,7 @@ class SessionScheduleNewController: InterfaceExtendedController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
         self.pageViewController = segue.destination as? SessionScheduleNewPageController
+        self.pageViewController?.pageDelegate = self
     }
     
     class func instance()->SessionScheduleNewController?{
@@ -50,5 +65,13 @@ class SessionScheduleNewController: InterfaceExtendedController {
         let storyboard = UIStoryboard(name: "SessionScheduleNew", bundle:nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SessionScheduleNew") as? SessionScheduleNewController
         return controller
+    }
+}
+
+
+extension SessionScheduleNewController:SessionScheduleNewPageControllerDelegate{
+    
+    func getSchduleSessionInfo()->ScheduleSessionInfo?{
+        return self.scheduleInfo
     }
 }

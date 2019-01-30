@@ -8,18 +8,37 @@
 
 import UIKit
 
+protocol SessionNewDateRootViewDelegate {
+    func getSchduleSessionInfo()->ScheduleSessionInfo?
+    func goToNextScreen()
+}
+
 class SessionNewDateRootView: ExtendedView {
 
     private let datePickerContainer = DatePicker()
     fileprivate var isDatePickerIsShowing = false
-    @IBOutlet var dateFld:SigninFieldView?
+    @IBOutlet private var dateFld:SigninFieldView?
+    var delegate:SessionNewDateRootViewDelegate?
     
     override func viewDidLayout() {
         super.viewDidLayout()
-
+        
         initializeDatePicker()
     }
     
+    //MARK:- updating parameter
+    private func updatingParameters(){
+        
+        guard let date = dateFld?.textField?.text else{
+            return
+        }
+        delegate?.getSchduleSessionInfo()?.startDate = date
+    }
+    
+   
+    
+    
+    //MARK:- Button Actions
     @IBAction func birthDayAction(sender:UIButton){
         
         if isDatePickerIsShowing{
@@ -30,8 +49,38 @@ class SessionNewDateRootView: ExtendedView {
         return
     }
     
+    @IBAction func nextAction(sender:UIButton){
+        
+        if !validateFields(){
+            return
+        }
+        updatingParameters()
+        delegate?.goToNextScreen()
+        Log.echo(key: "yud", text: "way is clear")        
+    }
 }
 
+extension SessionNewDateRootView{
+   
+    //MARK:- Validations
+    func validateFields()->Bool{
+        
+        let dateValidated  = validateDate()
+        return dateValidated
+    }
+    
+    func validateDate()->Bool{
+        
+        if(dateFld?.textField?.text == ""){
+            
+            dateFld?.showError(text: "Date is required.")
+            return false
+        }
+        dateFld?.resetErrorStatus()
+        return true
+    }
+
+}
 
 extension SessionNewDateRootView:XibDatePickerDelegate{
     
@@ -102,10 +151,9 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
 //        Log.echo(key: "yud", text: "Parameter dob is \(dateInStr)")
 //        return dateInStr
 //    }
-    
-    
-    
+        
     //TODO:- Yet to implement BirthadyFieldScrolling
     func handleBirthadyFieldScrolling(){
     }
 }
+

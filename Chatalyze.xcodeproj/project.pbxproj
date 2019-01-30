@@ -239,6 +239,14 @@
 		47C05DA721A3E6EE005A53C6 /* FutureSessionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C05DA621A3E6EE005A53C6 /* FutureSessionInfoView.swift */; };
 		47C3373020D516B30078580E /* FetchProfileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3372F20D516B30078580E /* FetchProfileProcessor.swift */; };
 		47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */; };
+		47C67F092201AAD0006109F8 /* SessionNewTimeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F082201AAD0006109F8 /* SessionNewTimeRootView.swift */; };
+		47C67F0A2201AAD0006109F8 /* SessionNewTimeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F082201AAD0006109F8 /* SessionNewTimeRootView.swift */; };
+		47C67F0C2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F0B2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift */; };
+		47C67F0D2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F0B2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift */; };
+		47C67F0F2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F0E2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift */; };
+		47C67F102201CAFA006109F8 /* ScheduleSessionNewDurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F0E2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift */; };
+		47C67F122201CBB0006109F8 /* SessionNewDurationRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F112201CBB0006109F8 /* SessionNewDurationRootView.swift */; };
+		47C67F132201CBB0006109F8 /* SessionNewDurationRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C67F112201CBB0006109F8 /* SessionNewDurationRootView.swift */; };
 		47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C6951121539BE500BB13BF /* GoogleSignIn.swift */; };
 		47C7B9C42182D568000D311D /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7B9C32182D568000D311D /* StringHelper.swift */; };
 		47C9EF5E215509FA00478D85 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF5D215509FA00478D85 /* MenuController.swift */; };
@@ -1227,6 +1235,10 @@
 		47C05DA621A3E6EE005A53C6 /* FutureSessionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureSessionInfoView.swift; sourceTree = "<group>"; };
 		47C3372F20D516B30078580E /* FetchProfileProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProfileProcessor.swift; sourceTree = "<group>"; };
 		47C3373220D5269B0078580E /* ImageDownloadGalleryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadGalleryManager.swift; sourceTree = "<group>"; };
+		47C67F082201AAD0006109F8 /* SessionNewTimeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionNewTimeRootView.swift; sourceTree = "<group>"; };
+		47C67F0B2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionNewTimeController.swift; sourceTree = "<group>"; };
+		47C67F0E2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionNewDurationController.swift; sourceTree = "<group>"; };
+		47C67F112201CBB0006109F8 /* SessionNewDurationRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionNewDurationRootView.swift; sourceTree = "<group>"; };
 		47C6951121539BE500BB13BF /* GoogleSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignIn.swift; sourceTree = "<group>"; };
 		47C7B9C32182D568000D311D /* StringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		47C9EF5D215509FA00478D85 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -2900,6 +2912,8 @@
 				47BAEDA5220063780042588A /* SessionScheduleNewController.swift */,
 				47BAEDA8220064590042588A /* SessionScheduleNewPageController.swift */,
 				47BAEDAB220066390042588A /* ScheduleSessionNewDateController.swift */,
+				47C67F0B2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift */,
+				47C67F0E2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift */,
 			);
 			path = NewSessionScheduleUI;
 			sourceTree = "<group>";
@@ -2908,6 +2922,8 @@
 			isa = PBXGroup;
 			children = (
 				47BAEDAF22007AA20042588A /* SessionNewDateRootView.swift */,
+				47C67F082201AAD0006109F8 /* SessionNewTimeRootView.swift */,
+				47C67F112201CBB0006109F8 /* SessionNewDurationRootView.swift */,
 			);
 			path = NewSessionRootVIew;
 			sourceTree = "<group>";
@@ -4979,6 +4995,7 @@
 				47D0B04421A6C4B5006376A8 /* EventPaymentRootView.swift in Sources */,
 				47D0B04521A6C4B5006376A8 /* MemoriesInfo.swift in Sources */,
 				47D0B04621A6C4B5006376A8 /* ViewControllerT.m in Sources */,
+				47C67F0D2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift in Sources */,
 				47D0B04721A6C4B5006376A8 /* DeleteMemory.swift in Sources */,
 				47D0B04821A6C4B5006376A8 /* UserCallController.swift in Sources */,
 				47D0B04921A6C4B5006376A8 /* EFImageViewZoom.swift in Sources */,
@@ -5075,6 +5092,7 @@
 				47D0B09D21A6C4B5006376A8 /* AppDelegate.swift in Sources */,
 				47D0B09E21A6C4B5006376A8 /* AppThemeConfig.swift in Sources */,
 				47D0B09F21A6C4B5006376A8 /* HostCallConnection.swift in Sources */,
+				47C67F0A2201AAD0006109F8 /* SessionNewTimeRootView.swift in Sources */,
 				47D0B0A021A6C4B5006376A8 /* SaveMobileForEventReminder.swift in Sources */,
 				47D0B0A121A6C4B5006376A8 /* EventPaymentDelegte.swift in Sources */,
 				47D0B0A221A6C4B5006376A8 /* SignupProcessor.swift in Sources */,
@@ -5177,6 +5195,7 @@
 				47D0B0F821A6C4B5006376A8 /* Signupview.swift in Sources */,
 				47D0B0F921A6C4B5006376A8 /* ARDUtilities.m in Sources */,
 				47D0B0FA21A6C4B5006376A8 /* RemoteVideoContainerView.swift in Sources */,
+				47C67F102201CAFA006109F8 /* ScheduleSessionNewDurationController.swift in Sources */,
 				47BAEDA7220063780042588A /* SessionScheduleNewController.swift in Sources */,
 				47D0B0FB21A6C4B5006376A8 /* ContainerNavigationController.swift in Sources */,
 				47D0B0FC21A6C4B5006376A8 /* KeyBoardTool.swift in Sources */,
@@ -5277,6 +5296,7 @@
 				47D0B14F21A6C4B5006376A8 /* RequestAutograph.swift in Sources */,
 				47D0B15021A6C4B5006376A8 /* EventScheduleInfo.swift in Sources */,
 				47D0B15121A6C4B5006376A8 /* HostEventQueueController.swift in Sources */,
+				47C67F132201CBB0006109F8 /* SessionNewDurationRootView.swift in Sources */,
 				47D0B15221A6C4B5006376A8 /* ARDSettingsStore.m in Sources */,
 				47D0B15321A6C4B5006376A8 /* EventScheduleCoreInfo.swift in Sources */,
 				47D0B15421A6C4B5006376A8 /* submitContactUsRequest.swift in Sources */,
@@ -5418,6 +5438,7 @@
 				472D618320BD71850016A761 /* EventPaymentRootView.swift in Sources */,
 				472780EB20B02E0100D5AA1E /* MemoriesInfo.swift in Sources */,
 				FA74B0F120639A2C00983141 /* ViewControllerT.m in Sources */,
+				47C67F0C2201ABAA006109F8 /* ScheduleSessionNewTimeController.swift in Sources */,
 				47A8F4212174B642007D345A /* DeleteMemory.swift in Sources */,
 				FA65F544206A58E3006CE665 /* UserCallController.swift in Sources */,
 				FADC84E72074E9A800AD9D65 /* EFImageViewZoom.swift in Sources */,
@@ -5514,6 +5535,7 @@
 				FAE9EF6D206CD04D00C45F8D /* HostCallConnection.swift in Sources */,
 				4718425B20C57BE900C6FFD5 /* SaveMobileForEventReminder.swift in Sources */,
 				4718425620C51EEE00C6FFD5 /* EventPaymentDelegte.swift in Sources */,
+				47C67F092201AAD0006109F8 /* SessionNewTimeRootView.swift in Sources */,
 				47D0B1CF21A6EE60006376A8 /* AppConnectionConfigForProduction.swift in Sources */,
 				47B6526B20AAB43B0041496C /* SignupProcessor.swift in Sources */,
 				FA74B13420639B6400983141 /* ARDStatsBuilder.m in Sources */,
@@ -5616,6 +5638,7 @@
 				FA74B13820639B6400983141 /* ARDUtilities.m in Sources */,
 				FAE8B23720A318D400899731 /* RemoteVideoContainerView.swift in Sources */,
 				47111CEF2158E3A900DFBC08 /* ContainerNavigationController.swift in Sources */,
+				47C67F0F2201CAFA006109F8 /* ScheduleSessionNewDurationController.swift in Sources */,
 				47BAEDA6220063780042588A /* SessionScheduleNewController.swift in Sources */,
 				47EDCF62216E284300EC16BB /* KeyBoardTool.swift in Sources */,
 				FA680056218447E800B42383 /* ExtendedRootView.swift in Sources */,
@@ -5716,6 +5739,7 @@
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
 				FAE2D14C210B8A4D00CED3FA /* EventScheduleCoreInfo.swift in Sources */,
+				47C67F122201CBB0006109F8 /* SessionNewDurationRootView.swift in Sources */,
 				470A3AD22111E35B00988F1D /* submitContactUsRequest.swift in Sources */,
 				471C233220B6BD8C0040C2A8 /* MyTicketsInfo.swift in Sources */,
 				FA3AF1032044376C0084B154 /* SigninRootView.swift in Sources */,

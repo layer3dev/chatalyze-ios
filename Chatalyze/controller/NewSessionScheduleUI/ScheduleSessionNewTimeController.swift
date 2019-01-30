@@ -1,31 +1,30 @@
 //
-//  ScheduleSessionNewDateController.swift
+//  ScheduleSessionNewTimeController.swift
 //  Chatalyze
 //
-//  Created by mansa infotech on 29/01/19.
+//  Created by mansa infotech on 30/01/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-protocol ScheduleSessionNewDateControllerDelegate {
+protocol ScheduleSessionNewTimeControllerDelegate {
+    
+    func goToNextScreen()
     func getSchduleSessionInfo()->ScheduleSessionInfo?
-    func showNextScreen()
 }
 
-class ScheduleSessionNewDateController: InterfaceExtendedController {
+class ScheduleSessionNewTimeController: InterfaceExtendedController {
 
-    var delegate:ScheduleSessionNewDateControllerDelegate?
+    var delegate:ScheduleSessionNewTimeControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        rootView?.delegate = self
+        
         // Do any additional setup after loading the view.
-    }
-    
-    var rootView:SessionNewDateRootView?{
-        return self.view as? SessionNewDateRootView
+        
+        hideNavigationBar()
+        rootView?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +32,11 @@ class ScheduleSessionNewDateController: InterfaceExtendedController {
         hideNavigationBar()
     }
     
+    
+    var rootView:SessionNewTimeRootView?{
+        return self.view as? SessionNewTimeRootView
+    }
+
     /*
     // MARK: - Navigation
 
@@ -42,25 +46,23 @@ class ScheduleSessionNewDateController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
     
-    class func instance()-> ScheduleSessionNewDateController?{
+    class func instance()-> ScheduleSessionNewTimeController?{
         
         let storyboard = UIStoryboard(name: "SessionScheduleNew", bundle:nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionNewDate") as? ScheduleSessionNewDateController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionNewTime") as? ScheduleSessionNewTimeController
         return controller
     }
-    
+
 }
 
-extension ScheduleSessionNewDateController:SessionNewDateRootViewDelegate{
+extension ScheduleSessionNewTimeController:SessionNewTimeRootViewDelegate{
     
-    func getSchduleSessionInfo() -> ScheduleSessionInfo? {
+    func getSchduleSessionInfo() -> ScheduleSessionInfo? {    
         return delegate?.getSchduleSessionInfo()
     }
     
     func goToNextScreen(){
-        
-        delegate?.showNextScreen()
+        delegate?.goToNextScreen()
     }
 }
