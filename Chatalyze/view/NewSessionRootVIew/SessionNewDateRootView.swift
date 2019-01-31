@@ -35,9 +35,6 @@ class SessionNewDateRootView: ExtendedView {
         delegate?.getSchduleSessionInfo()?.startDate = date
     }
     
-   
-    
-    
     //MARK:- Button Actions
     @IBAction func birthDayAction(sender:UIButton){
         
@@ -55,7 +52,9 @@ class SessionNewDateRootView: ExtendedView {
             return
         }
         updatingParameters()
-        delegate?.goToNextScreen()
+        DispatchQueue.main.async {
+            self.delegate?.goToNextScreen()
+        }
         Log.echo(key: "yud", text: "way is clear")        
     }
 }

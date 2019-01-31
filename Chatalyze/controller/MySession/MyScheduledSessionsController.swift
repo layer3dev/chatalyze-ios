@@ -44,6 +44,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                 
                 Log.echo(key: "yud", text: "Event id is \(info.id)")
                 if info.id == Int(deletedEventID ?? "0"){
+                    
+                    self.fetchInfoForListener()
                     Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
                 }
             }

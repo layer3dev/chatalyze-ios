@@ -10,7 +10,7 @@ import UIKit
 
 protocol ScheduleSessionNewTimeControllerDelegate {
     
-    func goToNextScreen()
+    func goToDurationScreen()
     func getSchduleSessionInfo()->ScheduleSessionInfo?
 }
 
@@ -63,6 +63,8 @@ extension ScheduleSessionNewTimeController:SessionNewTimeRootViewDelegate{
     }
     
     func goToNextScreen(){
-        delegate?.goToNextScreen()
+        
+        Log.echo(key: "yud", text: "Next of the time is calling")
+        delegate?.goToDurationScreen()
     }
 }

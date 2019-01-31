@@ -52,7 +52,7 @@ class SessionNewTimeRootView:ExtendedView  {
         }
         updateParameters()
         delegate?.goToNextScreen()
-        Log.echo(key: "yud", text: "way is clear")
+        
     }
     
     func updateStartDateParam(){

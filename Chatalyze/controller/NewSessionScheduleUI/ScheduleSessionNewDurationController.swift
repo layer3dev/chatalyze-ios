@@ -11,6 +11,7 @@ import UIKit
 protocol ScheduleSessionNewDurationControllerDelegate {
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?
+    func goToChatCalculatorEarningScreen()
 }
 
 class ScheduleSessionNewDurationController: InterfaceExtendedController {
@@ -19,11 +20,15 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rootView?.delegate = self
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+        rootView?.fillData()
         hideNavigationBar()
     }
     
@@ -33,7 +38,7 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
     
     /*
     // MARK: - Navigation
-
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -57,5 +62,8 @@ extension ScheduleSessionNewDurationController:SessionNewDurationRootViewDelegat
     }
     
     func goToNextScreen(){
+        
+        Log.echo(key: "yud", text: "Next of the duration is calling")
+        delegate?.goToChatCalculatorEarningScreen()
     }
 }

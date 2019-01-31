@@ -12,7 +12,7 @@ protocol SessionScheduleNewPageControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
 }
 
-class SessionScheduleNewPageController: UIPageViewController {
+class SessionScheduleNewPageController: UIPageViewController,UIPageViewControllerDelegate {
 
     enum CurretController:Int{
         
@@ -28,17 +28,21 @@ class SessionScheduleNewPageController: UIPageViewController {
     private var firstController:ScheduleSessionNewDateController?
     private var secondController:ScheduleSessionNewTimeController?
     private var thirdController:ScheduleSessionNewDurationController?
+    private var fourthController:ScheduleSessionNewEarningController?
     var pageDelegate:SessionScheduleNewPageControllerDelegate?
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         
+        self.delegate = self
         setFirstController()
         //Do any additional setup after loading the view.
     }
     
+    
+    
     func setFirstController(){
-        
+
         guard let controller = getController(current: .first) else{
             return
         }
@@ -74,6 +78,17 @@ class SessionScheduleNewPageController: UIPageViewController {
         currentController = .third
     }
     
+    func setFourthController(){
+        
+        guard let controller = getController(current: .fourth) else{
+            return
+        }
+//        if currentController == .fourth{
+//            return
+//        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .fourth
+    }
     
     func getController(current:CurretController)->UIViewController?{
         
@@ -113,6 +128,18 @@ class SessionScheduleNewPageController: UIPageViewController {
             self.thirdController = controller
             return controller
         }
+        if current == .fourth {
+            
+            if let controller =  fourthController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewEarningController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.fourthController = controller
+            return controller
+        }
         return nil
     }
     
@@ -140,27 +167,35 @@ class SessionScheduleNewPageController: UIPageViewController {
 }
 
 extension SessionScheduleNewPageController:ScheduleSessionNewDateControllerDelegate{
+    
+    func goToTimeControllerScreen() {
+        setSecondController()
+    }
+    
   
     func getSchduleSessionInfo() -> ScheduleSessionInfo? {
         return pageDelegate?.getSchduleSessionInfo()
     }
-    
-    func showNextScreen(){
-        setSecondController()
-    }
-    
 }
 
 extension SessionScheduleNewPageController:ScheduleSessionNewTimeControllerDelegate{
     
-    func goToNextScreen() {
-        
+    func goToDurationScreen() {
         setThirdController()
     }
+    
 }
 
 extension SessionScheduleNewPageController: ScheduleSessionNewDurationControllerDelegate{
+   
+    func goToChatCalculatorEarningScreen(){
+        setFourthController()
+    }
 }
 
+
+extension SessionScheduleNewPageController:ScheduleSessionNewEarningControllerDelegate{
+
+}
 
 

@@ -41,6 +41,10 @@ class SessionScheduleNewController: InterfaceExtendedController {
             pageViewController?.setSecondController()
             return
         }
+        if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
+            pageViewController?.setThirdController()
+            return
+        }
     }
     
     

@@ -89,7 +89,8 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         Log.echo(key: "speed_logging", text: "averageSpeed is \(averageSpeed)")
         Log.echo(key: "speed_logging", text: "roundedAverageSpeed is \(roundedAverageSpeed)")
         
-        speedTestCompletionHandler(roundedAverageSpeed,nil)
+        //speedTestCompletionHandler(roundedAverageSpeed,nil)
+        speedTestCompletionHandler(0.2,nil)
     }
     
 }

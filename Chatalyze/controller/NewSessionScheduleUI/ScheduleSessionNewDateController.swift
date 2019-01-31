@@ -10,7 +10,7 @@ import UIKit
 
 protocol ScheduleSessionNewDateControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
-    func showNextScreen()
+    func goToTimeControllerScreen()
 }
 
 class ScheduleSessionNewDateController: InterfaceExtendedController {
@@ -61,6 +61,7 @@ extension ScheduleSessionNewDateController:SessionNewDateRootViewDelegate{
     
     func goToNextScreen(){
         
-        delegate?.showNextScreen()
+        Log.echo(key: "yud", text: "Next of the date is calling")
+        delegate?.goToTimeControllerScreen()
     }
 }

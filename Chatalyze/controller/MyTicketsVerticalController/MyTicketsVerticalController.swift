@@ -41,7 +41,6 @@ class MyTicketsVerticalController: MyTicketsController{
     }
     
     
-    
     @IBAction func animateInfo(){
         
         if isShow{
