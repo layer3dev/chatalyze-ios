@@ -19,7 +19,6 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -27,7 +26,6 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
         super.viewWillAppear(animated)
         hideNavigationBar()
     }
-    
     
     var rootView:SessionNewDurationRootView?{
         return self.view as? SessionNewDurationRootView
@@ -55,10 +53,9 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
 extension ScheduleSessionNewDurationController:SessionNewDurationRootViewDelegate{
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
-        
         return delegate?.getSchduleSessionInfo()
     }
+    
     func goToNextScreen(){
-        
     }
 }
