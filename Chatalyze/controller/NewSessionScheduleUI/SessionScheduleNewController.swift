@@ -45,6 +45,21 @@ class SessionScheduleNewController: InterfaceExtendedController {
             pageViewController?.setThirdController()
             return
         }
+        if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
+            pageViewController?.setFourthController()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
+            pageViewController?.setFifthController()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
+            pageViewController?.setSixthController()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.eighth {            
+            return
+        }
     }
     
     
@@ -78,4 +93,10 @@ extension SessionScheduleNewController:SessionScheduleNewPageControllerDelegate{
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
         return self.scheduleInfo
     }
+    
+    func backToRootController(){
+    
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }

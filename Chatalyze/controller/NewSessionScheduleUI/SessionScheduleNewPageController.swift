@@ -10,25 +10,34 @@ import UIKit
 
 protocol SessionScheduleNewPageControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
+    func backToRootController()
 }
 
 class SessionScheduleNewPageController: UIPageViewController,UIPageViewControllerDelegate {
 
     enum CurretController:Int{
-        
+       
+        case none = 100
         case first = 0
         case second = 1
         case third = 2
         case fourth = 3
         case fifth = 4
-        case none = 5
+        case sixth = 5
+        case seventh = 6
+        case eighth = 7
+        case ninth = 8
     }
     
     private var currentController = CurretController.none
     private var firstController:ScheduleSessionNewDateController?
     private var secondController:ScheduleSessionNewTimeController?
     private var thirdController:ScheduleSessionNewDurationController?
-    private var fourthController:ScheduleSessionNewEarningController?
+    private var fourthController:ScheduleSessionSingleChatDurationController?
+    private var fifthController:ScheduleSessionNewEarningController?
+    private var sixthController:ScheduleSessionScreenShotAllowController?
+    private var seventhController:ScheduleSessionNewReviewController?
+    private var eighthController:ScheduleSessionNewDoneController?
     var pageDelegate:SessionScheduleNewPageControllerDelegate?
     
     override func viewDidLoad(){
@@ -38,8 +47,6 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         setFirstController()
         //Do any additional setup after loading the view.
     }
-    
-    
     
     func setFirstController(){
 
@@ -83,11 +90,56 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         guard let controller = getController(current: .fourth) else{
             return
         }
-//        if currentController == .fourth{
-//            return
-//        }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .fourth
+    }
+    
+    func setFifthController(){
+        
+        guard let controller = getController(current: .fifth) else{
+            return
+        }
+        if currentController == .fifth{
+            return
+        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .fifth
+    }
+    
+    func setSixthController(){
+        
+        guard let controller = getController(current: .sixth) else{
+            return
+        }
+        if currentController == .sixth{
+            return
+        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .sixth
+    }
+    
+    func setSeventhController(){
+        
+        guard let controller = getController(current: .seventh) else{
+            return
+        }
+        if currentController == .seventh{
+            return
+        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .seventh
+    }
+    
+    func setEighthController(){
+        
+        guard let controller = getController(current: .eighth) else{
+            return
+        }
+        if currentController == .eighth{
+            return
+        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .eighth
     }
     
     func getController(current:CurretController)->UIViewController?{
@@ -133,11 +185,59 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
             if let controller =  fourthController {
                 return controller
             }
-            guard let controller = ScheduleSessionNewEarningController.instance() else{
+            guard let controller = ScheduleSessionSingleChatDurationController.instance() else{
                 return nil
             }
             controller.delegate = self
             self.fourthController = controller
+            return controller
+        }
+        if current == .fifth {
+            
+            if let controller = fifthController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewEarningController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.fifthController = controller
+            return controller
+        }
+        if current == .sixth {
+            
+            if let controller = sixthController {
+                return controller
+            }
+            guard let controller = ScheduleSessionScreenShotAllowController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.sixthController = controller
+            return controller
+        }
+        if current == .seventh {
+            
+            if let controller = seventhController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewReviewController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.seventhController = controller
+            return controller
+        }
+        if current == .eighth {
+            
+            if let controller = eighthController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewDoneController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.eighthController = controller
             return controller
         }
         return nil
@@ -188,14 +288,45 @@ extension SessionScheduleNewPageController:ScheduleSessionNewTimeControllerDeleg
 
 extension SessionScheduleNewPageController: ScheduleSessionNewDurationControllerDelegate{
    
-    func goToChatCalculatorEarningScreen(){
+    func goToSingleChatDurationScreen(){
         setFourthController()
     }
 }
 
 
-extension SessionScheduleNewPageController:ScheduleSessionNewEarningControllerDelegate{
+extension SessionScheduleNewPageController:ScheduleSessionSingleChatDurationControllerDelegate{
 
+    func goToEarningScreen(){
+        setFifthController()
+    }
 }
 
 
+extension SessionScheduleNewPageController:ScheduleSessionNewEarningControllerDelegate{
+   
+    func goToScreenShotScreen(){
+        setSixthController()
+    }
+}
+
+extension SessionScheduleNewPageController:ScheduleSessionScreenShotAllowControllerDelegate{
+    
+    func goToReviewScreen(){
+        setSeventhController()
+    }
+}
+
+
+extension SessionScheduleNewPageController:ScheduleSessionNewReviewControllerDelegate{
+    
+    func goToDoneScreen() {
+        setEighthController()
+    }
+}
+
+extension SessionScheduleNewPageController:ScheduleSessionNewDoneControllerDelegate{
+    
+    func backToRootController(){
+        pageDelegate?.backToRootController()
+    }
+}

@@ -10,7 +10,7 @@ import UIKit
 
 class EditScheduledSessionController: InterfaceExtendedController {
     
-    var  param:[String:Any]?
+    var param:[String:Any]?
     var totalDurationofEvent:Int = 0
     var selectedImage:UIImage?
     

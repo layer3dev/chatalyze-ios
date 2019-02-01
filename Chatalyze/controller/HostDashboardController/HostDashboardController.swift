@@ -72,7 +72,6 @@ class HostDashboardController: MyScheduledSessionsController {
         noSessionView?.layer.borderWidth = 1
         noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         noSessionView?.layer.masksToBounds = true
-                
         setSharableUrlText()
     }
     
@@ -192,12 +191,12 @@ class HostDashboardController: MyScheduledSessionsController {
         
         DispatchQueue.main.async {
             
-//            guard let controller = ScheduleSessionController.instance() else{
-//                return
-//            }
-            guard let controller = SessionScheduleNewController.instance() else{
+            guard let controller = ScheduleSessionController.instance() else{
                 return
             }
+            //            guard let controller = SessionScheduleNewController.instance() else{
+            //                return
+            //            }
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

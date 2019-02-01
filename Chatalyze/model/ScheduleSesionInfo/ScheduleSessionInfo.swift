@@ -15,16 +15,49 @@ class ScheduleSessionInfo:NSObject {
     var startDateTime:Date?
     var startDate:String?
     var startTime:String?
-    var price:Double?
+    var price:Int?
     var isFree:Bool = false
     var eventBAnnerInfo:Bool = false
-    var title:String?
+    var title:String? = "Chat Session"
     var eventDescription:String?
-    var duration:Double?
+    var duration:Int?
+    var isScreenShotAllow:Bool = false
+    var screenShotParam = "automatic"
+    var eventInfo:EventInfo?
     
 //    ["end": "2019-01-30T10:30:00.000+0000", "price": "11100", "isFree": false, "userId": "36", "start": "2019-01-30T09:30:00.000+0000", "eventBannerInfo": false, "title": "Chat Session", "description": "", "duration": 3]
 
     override init(){
         super.init()
     }
+    
+    var totalSlots:Int?{
+        get{
+            
+            guard let start = self.startDateTime else {
+                return nil
+            }
+            guard let end = self.endDateTime else {
+                return nil
+            }
+            guard let sinleChatTime = self.duration else {
+                return nil
+            }
+            let duration = end.timeIntervalSince(start)
+            return Int(Int((duration/60.0))/sinleChatTime)
+        }
+    }
+    
+    var totalTimeInMinutes:Int?{
+       
+        guard let start = self.startDateTime else {
+            return nil
+        }
+        guard let end = self.endDateTime else {
+            return nil
+        }
+        let duration = end.timeIntervalSince(start)
+        return Int((duration/60.0))
+    }
+    
 }

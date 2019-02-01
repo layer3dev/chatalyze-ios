@@ -1,22 +1,23 @@
 //
-//  ScheduleSessionNewEarningController.swift
+//  ScheduleSessionScreenShotAllowController.swift
 //  Chatalyze
 //
-//  Created by mansa infotech on 31/01/19.
+//  Created by mansa infotech on 01/02/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-protocol ScheduleSessionNewEarningControllerDelegate {
+protocol ScheduleSessionScreenShotAllowControllerDelegate {
+    
     func getSchduleSessionInfo()->ScheduleSessionInfo?
-    func goToScreenShotScreen()
+    func goToReviewScreen()
 }
 
-class ScheduleSessionNewEarningController: UIViewController {
-
-    var delegate:ScheduleSessionNewEarningControllerDelegate?
-   
+class ScheduleSessionScreenShotAllowController: UIViewController {
+    
+    var delegate:ScheduleSessionScreenShotAllowControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,14 +25,10 @@ class ScheduleSessionNewEarningController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //self.hideNavigationBar()
+    var rootView:ScheduleSessionScreenShotRootView?{
+        return self.view as? ScheduleSessionScreenShotRootView
     }
     
-    var rootView:ScheduleSessionEarningRootView?{
-        return self.view as? ScheduleSessionEarningRootView
-    }
 
     /*
     // MARK: - Navigation
@@ -43,22 +40,22 @@ class ScheduleSessionNewEarningController: UIViewController {
     }
     */
     
-    class func instance()->ScheduleSessionNewEarningController? {
-      
+    class func instance()-> ScheduleSessionScreenShotAllowController?{
+        
         let storyboard = UIStoryboard(name: "SessionScheduleNew", bundle:nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionNewEarning") as? ScheduleSessionNewEarningController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionScreenShotAllow") as? ScheduleSessionScreenShotAllowController
         return controller
     }
+
 }
 
-
-extension ScheduleSessionNewEarningController:ScheduleSessionEarningRootViewDelegate{
+extension ScheduleSessionScreenShotAllowController:ScheduleSessionScreenShotRootViewDelegate{
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
         return delegate?.getSchduleSessionInfo()
     }
-    
     func goToNextScreen(){
-        delegate?.goToScreenShotScreen()
+        
+        delegate?.goToReviewScreen()
     }
 }

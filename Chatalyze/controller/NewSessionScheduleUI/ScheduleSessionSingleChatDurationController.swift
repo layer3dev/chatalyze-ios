@@ -1,22 +1,22 @@
 //
-//  ScheduleSessionNewDurationController.swift
+//  ScheduleSessionSingleChatDurationController.swift
 //  Chatalyze
 //
-//  Created by mansa infotech on 30/01/19.
+//  Created by mansa infotech on 01/02/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-protocol ScheduleSessionNewDurationControllerDelegate {
+protocol ScheduleSessionSingleChatDurationControllerDelegate {
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?
-    func goToSingleChatDurationScreen()
+    func goToEarningScreen()
 }
 
-class ScheduleSessionNewDurationController: InterfaceExtendedController {
+class ScheduleSessionSingleChatDurationController: UIViewController {
 
-    var delegate:ScheduleSessionNewDurationControllerDelegate?
+    var delegate:ScheduleSessionSingleChatDurationControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,18 +27,17 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
-        rootView?.fillData()
-        hideNavigationBar()
+        
+        rootView?.paintRootWithExistingData()
     }
     
-    var rootView:SessionNewDurationRootView?{
-        return self.view as? SessionNewDurationRootView
+    var rootView:SingleChatDurationRootView?{
+        return self.view as? SingleChatDurationRootView
     }
-    
+
     /*
     // MARK: - Navigation
-     
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -46,24 +45,22 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
     }
     */
     
-    class func instance()-> ScheduleSessionNewDurationController?{
-        
+    class func instance()-> ScheduleSessionSingleChatDurationController?{
+     
         let storyboard = UIStoryboard(name: "SessionScheduleNew", bundle:nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionNewDuration") as? ScheduleSessionNewDurationController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionSingleChatDuration") as? ScheduleSessionSingleChatDurationController
         return controller
     }
-
 }
 
-extension ScheduleSessionNewDurationController:SessionNewDurationRootViewDelegate{
-    
+
+extension ScheduleSessionSingleChatDurationController: SingleChatDurationRootViewDelegate{
+ 
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
-        return delegate?.getSchduleSessionInfo()
+       return delegate?.getSchduleSessionInfo()
     }
     
     func goToNextScreen(){
-        
-        Log.echo(key: "yud", text: "Next of the duration is calling")
-        delegate?.goToSingleChatDurationScreen()
+        delegate?.goToEarningScreen()
     }
 }
