@@ -81,7 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         verifyingAccessToken()
   
         if self.isRootInitialize{
-            
             AppDelegate.fetchAppVersionInfoToServer()
         }
         

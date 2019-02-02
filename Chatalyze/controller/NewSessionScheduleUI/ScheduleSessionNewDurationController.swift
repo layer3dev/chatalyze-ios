@@ -14,7 +14,7 @@ protocol ScheduleSessionNewDurationControllerDelegate {
     func goToSingleChatDurationScreen()
 }
 
-class ScheduleSessionNewDurationController: InterfaceExtendedController {
+class ScheduleSessionNewDurationController: UIViewController {
 
     var delegate:ScheduleSessionNewDurationControllerDelegate?
     
@@ -29,7 +29,7 @@ class ScheduleSessionNewDurationController: InterfaceExtendedController {
         super.viewWillAppear(animated)
        
         rootView?.fillData()
-        hideNavigationBar()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     var rootView:SessionNewDurationRootView?{

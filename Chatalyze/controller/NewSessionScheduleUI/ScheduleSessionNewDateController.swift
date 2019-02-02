@@ -13,7 +13,7 @@ protocol ScheduleSessionNewDateControllerDelegate {
     func goToTimeControllerScreen()
 }
 
-class ScheduleSessionNewDateController: InterfaceExtendedController {
+class ScheduleSessionNewDateController: UIViewController {
 
     var delegate:ScheduleSessionNewDateControllerDelegate?
     
@@ -30,7 +30,7 @@ class ScheduleSessionNewDateController: InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hideNavigationBar()
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     /*

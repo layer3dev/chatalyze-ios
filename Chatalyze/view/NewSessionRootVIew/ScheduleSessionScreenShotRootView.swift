@@ -30,15 +30,33 @@ class ScheduleSessionScreenShotRootView: ExtendedRootView {
     @IBOutlet private var socialErrorLbl:UILabel?
     
     private var isSocialSelfieAllowed:isSelfieAllowed = .none
-
+    @IBOutlet private var nextView:UIView?
+    @IBOutlet private var chatPupView:ButtonContainerCorners?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+        paintLayers()
     }
     
     func resetSocialSelection(){
         
-        isSocialYesBtn?.backgroundColor = UIColor(hexString: "#F1F4F5")
-        isSocialNoBtn?.backgroundColor = UIColor(hexString: "#F1F4F5")
+        isSocialYesBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
+        isSocialNoBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
+        paintLayers()
+    }
+    
+    
+    func paintLayers(){
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
     }
     
     //MARK:- Button Action
@@ -98,6 +116,6 @@ class ScheduleSessionScreenShotRootView: ExtendedRootView {
         guard let info = delegate?.getSchduleSessionInfo() else{
             return
         }
-        info.isScreenShotAllow = true
+        info.isScreenShotAllow = self.isSocialSelfieAllowed == .yes ? true:false
     }
 }

@@ -20,11 +20,32 @@ class SessionNewTimeRootView:ExtendedView  {
     fileprivate var isTimePickerIsShowing = false
     @IBOutlet private var timeFld:SigninFieldView?
     var delegate:SessionNewTimeRootViewDelegate?
+    @IBOutlet private var nextView:UIView?
+    @IBOutlet private var chatPupView:ButtonContainerCorners?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initializeTimePicker()
+        paintLayers()
+    }
+    
+    func paintLayers(){
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        self.timeFld?.textFieldContainer?.layer.masksToBounds = true
+        self.timeFld?.textFieldContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.timeFld?.textFieldContainer?.layer.borderWidth = 1
+        self.timeFld?.textFieldContainer?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
     }
     
     //MARK:- updating parameter

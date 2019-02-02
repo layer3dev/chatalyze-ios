@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 protocol ScheduleSessionNewReviewRootViewDelegate {
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?
     func goToNextScreen()
     func scheduleSession()
+    func goToEditScheduleSession()
 }
 
 class ScheduleSessionNewReviewRootView: ExtendedRootView {
@@ -28,10 +30,27 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
     @IBOutlet var errorLabel:UILabel?
     private var selectedImage:UIImage?
     
+    @IBOutlet var chatPupView:ButtonContainerCorners?
+    @IBOutlet var nextView:UIView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        paintLayers()
     }
     
+    func paintLayers(){
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+    }
     func fillInfo(){
         
         guard let info = delegate?.getSchduleSessionInfo() else{
@@ -139,17 +158,23 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         param["duration"] = durate
         param["price"] = priceHourly
         param["isFree"] = false
-        param["screenshotAllow"] = info.isScreenShotAllow ? "\(info.screenShotParam)": ""
+        param["screenshotAllow"] = info.isScreenShotAllow ?  info.screenShotParam:nil
+        param["description"] = info.eventDescription
+        param["eventBannerInfo"] = info.bannerImage == nil ? false:true
+
         Log.echo(key: "yud", text: "PARAMS ARE \(param)")
         return param
     }
     
+    //MARK:- Button Action
     
+    @IBAction func editSchecduleAction(sender:UIButton?){
+        
+        delegate?.goToEditScheduleSession()
+    }
     
     @IBAction func scheduleAction(sender:UIButton?){
-        
-        delegate?.goToNextScreen()
-        return
+    
         
         self.resetErrorlabel()
         let isThisFutureTime = self.isThisFutureTime()
@@ -158,80 +183,11 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
             return
         }        
         if selectedImage != nil{
-            //scheduleActionWithImage()
+            delegate?.scheduleSession()
             return
         }
         delegate?.scheduleSession()
     }
-    
-    //
-    //    private func uploadImage(completion : ((_ success : Bool, _ info : JSON?)->())?){
-    //
-    //        guard let image = self.controller?.selectedImage else{
-    //            return
-    //        }
-    //        guard let data = image.jpegData(compressionQuality: 1.0)
-    //            else{
-    //                completion?(false, nil)
-    //                return
-    //        }
-    //
-    //        self.paramForUpload["eventBannerInfo"] = true
-    //        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
-    //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-    //        self.paramForUpload["eventBanner"] = imageBase64
-    //
-    //        var requiredParamForUpload = paramForUpload
-    //        requiredParamForUpload["selectedHourSlot"] = nil
-    //
-    //
-    //        //For inserting the paragraph
-    //        let paraText = requiredParamForUpload["description"] as? String
-    //        let ParaArray = paraText?.components(separatedBy: "\n")
-    //
-    //        var requiredStr = ""
-    //        for info in ParaArray ?? []{
-    //            requiredStr = requiredStr+"<p>"+info+"</p>"
-    //        }
-    //        requiredParamForUpload["description"] = requiredStr
-    //
-    //        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
-    //
-    //        self.controller?.showLoader()
-    //        resetErrorlabel()
-    //        SessionRequestWithImageProcessor().schedule(params: requiredParamForUpload) { [weak self] (success, info) in
-    //
-    //            Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: info))")
-    //
-    //            self?.controller?.stopLoader()
-    //            completion!(success,info)
-    //            if !success{
-    //                self?.showError(message: info?["message"].stringValue ?? "")
-    //                return
-    //            }
-    //        }
-    //    }
-    //
-    //    func scheduleActionWithImage(){
-    //
-    //        uploadImage { (success, response) in
-    //
-    //            if !success{
-    //                return
-    //            }
-    //
-    //            if let info = response{
-    //                let eventInfo = EventInfo(info: info)
-    //                self.eventInfo = eventInfo
-    //            }
-    //
-    //            Log.echo(key: "imageUploading", text: "Image uploading result is \(success) and the response is \(self.param)")
-    //
-    //            if let handler = self.successHandler{
-    //                handler()
-    //            }
-    //        }
-    //    }
     
     
     func resetErrorlabel(){

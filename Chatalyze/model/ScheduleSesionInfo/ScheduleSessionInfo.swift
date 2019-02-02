@@ -17,13 +17,13 @@ class ScheduleSessionInfo:NSObject {
     var startTime:String?
     var price:Int?
     var isFree:Bool = false
-    var eventBAnnerInfo:Bool = false
     var title:String? = "Chat Session"
     var eventDescription:String?
     var duration:Int?
     var isScreenShotAllow:Bool = false
     var screenShotParam = "automatic"
     var eventInfo:EventInfo?
+    var bannerImage:UIImage?
     
 //    ["end": "2019-01-30T10:30:00.000+0000", "price": "11100", "isFree": false, "userId": "36", "start": "2019-01-30T09:30:00.000+0000", "eventBannerInfo": false, "title": "Chat Session", "description": "", "duration": 3]
 

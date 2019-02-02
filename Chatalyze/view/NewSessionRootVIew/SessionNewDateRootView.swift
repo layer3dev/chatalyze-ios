@@ -19,12 +19,37 @@ class SessionNewDateRootView: ExtendedView {
     fileprivate var isDatePickerIsShowing = false
     @IBOutlet private var dateFld:SigninFieldView?
     var delegate:SessionNewDateRootViewDelegate?
+    @IBOutlet private var chatPupView:ButtonContainerCorners?
+    @IBOutlet private var nextView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         initializeDatePicker()
+        paintLayers()
     }
+    
+    func paintLayers(){        
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.dateFld?.textFieldContainer?.layer.masksToBounds = true
+        self.dateFld?.textFieldContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.dateFld?.textFieldContainer?.layer.borderWidth = 1
+        self.dateFld?.textFieldContainer?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+    }
+    
     
     //MARK:- updating parameter
     private func updatingParameters(){

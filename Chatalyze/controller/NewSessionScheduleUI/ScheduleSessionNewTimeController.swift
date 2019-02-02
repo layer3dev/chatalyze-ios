@@ -29,6 +29,7 @@ class ScheduleSessionNewTimeController: InterfaceExtendedController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
         hideNavigationBar()
     }
     

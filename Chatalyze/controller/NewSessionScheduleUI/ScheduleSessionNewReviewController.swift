@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+
 
 protocol ScheduleSessionNewReviewControllerDelegate {
     
@@ -51,11 +53,19 @@ class ScheduleSessionNewReviewController: UIViewController {
     
     func scheduleAction(){
         
+        guard let info = delegate?.getSchduleSessionInfo() else{
+            return
+        }
+        
+        if info.bannerImage != nil{
+            scheduleActionWithImage()
+            return
+        }
+        
         guard var paramForUpload = rootView?.getParam() else{
             return
         }
         
-        paramForUpload["eventBannerInfo"] = false
         self.showLoader()
         
         Log.echo(key: "yud", text: "Param sending to web \(paramForUpload)")
@@ -72,7 +82,7 @@ class ScheduleSessionNewReviewController: UIViewController {
         
         ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
             
-            Log.echo(key: "yud", text: "Response in succesful event creation is \(response)")
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: response))")
             
             DispatchQueue.main.async {
             
@@ -93,6 +103,82 @@ class ScheduleSessionNewReviewController: UIViewController {
         }
     }
     
+    private func uploadImage(completion : ((_ success :Bool, _ info : JSON?)->())?){
+        
+        guard let info = delegate?.getSchduleSessionInfo() else{
+            return
+        }
+        guard let image = info.bannerImage else{
+            return
+        }
+        guard var paramForUpload = rootView?.getParam() else{
+            return
+        }
+        guard let data = image.jpegData(compressionQuality: 1.0)
+            else{
+                completion?(false, nil)
+                return
+        }
+        
+        Log.echo(key: "imageUploading", text: "The parameteres that I am sending is \(paramForUpload)")
+        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        
+        paramForUpload["eventBanner"] = imageBase64
+        
+        var requiredParamForUpload = paramForUpload
+        requiredParamForUpload["selectedHourSlot"] = nil
+        
+        //For inserting the paragraph
+        let paraText = requiredParamForUpload["description"] as? String
+        let ParaArray = paraText?.components(separatedBy: "\n")
+        
+        var requiredStr = ""
+        for info in ParaArray ?? []{
+            requiredStr = requiredStr+"<p>"+info+"</p>"
+        }
+        requiredParamForUpload["description"] = requiredStr
+        
+        Log.echo(key: "yud", text: " \nRequired param sending to web \(requiredParamForUpload)")
+        
+        self.showLoader()
+        SessionRequestWithImageProcessor().schedule(params: requiredParamForUpload) { [weak self] (success, info) in
+            
+            Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: info))")
+            
+            DispatchQueue.main.async {
+              
+                self?.stopLoader()
+                if !success{
+                    self?.rootView?.showError(message: info?["message"].stringValue ?? "")
+                    completion?(success,info)
+                    return
+                }
+                completion?(success,info)
+            }
+        }
+    }
+    
+    func scheduleActionWithImage(){
+        
+        uploadImage { (success, response) in
+            
+            DispatchQueue.main.async {
+            
+                if !success{
+                    return
+                }
+                
+                if let info = response{
+                    
+                    let eventInfo = EventInfo(info: info)
+                    self.delegate?.getSchduleSessionInfo()?.eventInfo = eventInfo
+                }
+                self.delegate?.goToDoneScreen()
+            }
+        }
+    }
+    
+    
     class func instance()-> ScheduleSessionNewReviewController? {
         
         let storyboard = UIStoryboard(name: "SessionScheduleNew", bundle:nil)
@@ -103,6 +189,15 @@ class ScheduleSessionNewReviewController: UIViewController {
 }
 
 extension ScheduleSessionNewReviewController:ScheduleSessionNewReviewRootViewDelegate{
+    
+    func goToEditScheduleSession() {
+       
+        guard let controller = EditScheduleSessionNewController.instance() else{
+            return
+        }
+        controller.sessionInfo = delegate?.getSchduleSessionInfo()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
         
@@ -117,5 +212,6 @@ extension ScheduleSessionNewReviewController:ScheduleSessionNewReviewRootViewDel
     func scheduleSession() {
         scheduleAction()
     }
+
     
 }

@@ -40,8 +40,13 @@ class SingleChatDurationRootView:ExtendedView {
     @IBOutlet var chatCalculatorLbl:UILabel?
     @IBOutlet var chatTotalNumberOfSlots:UILabel?
     
+    @IBOutlet private var nextView:UIView?
+    @IBOutlet private var chatCalculatorView:UIView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        paintLayers()
     }
     
     func paintRootWithExistingData(){
@@ -49,6 +54,20 @@ class SingleChatDurationRootView:ExtendedView {
         paintChatCalculator()
     }
     
+    func paintLayers(){
+        
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.chatCalculatorView?.layer.masksToBounds = true
+        self.chatCalculatorView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatCalculatorView?.layer.borderWidth = 1
+        self.chatCalculatorView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+    }
     
     func resetDurationSelection(){
         
@@ -136,8 +155,9 @@ class SingleChatDurationRootView:ExtendedView {
     @IBAction func nextAction(sender:UIButton?){
         
         if(!validateFields()){
-            self.resetErrorStatus()
+            return
         }
+        self.resetErrorStatus()
         updateParamter()
         delegate?.goToNextScreen()
     }
@@ -190,7 +210,7 @@ extension SingleChatDurationRootView {
             let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " available 1:1 chats"
-            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: (normalFont-3), color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr

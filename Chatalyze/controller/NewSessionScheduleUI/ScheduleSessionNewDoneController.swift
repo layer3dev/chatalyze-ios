@@ -16,12 +16,30 @@ class ScheduleSessionNewDoneController: UIViewController {
 
     var delegate:ScheduleSessionNewDoneControllerDelegate?
     @IBOutlet private var sharingLbl:UILabel?
+    @IBOutlet private var nextView:UIView?
+    @IBOutlet private var chatPupView:ButtonContainerCorners?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         setSharableUrlText()
+        paintLayers()
+    }
+    
+    
+    func paintLayers(){
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
     }
     
     func setSharableUrlText(){
@@ -91,8 +109,6 @@ class ScheduleSessionNewDoneController: UIViewController {
     }
     
     
-    
-
     /*
     // MARK: - Navigation
 
@@ -109,5 +125,4 @@ class ScheduleSessionNewDoneController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionNewDone") as? ScheduleSessionNewDoneController
         return controller
     }
-
 }

@@ -11,6 +11,7 @@ import UIKit
 protocol SessionScheduleNewPageControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
     func backToRootController()
+    func updateProgress()
 }
 
 class SessionScheduleNewPageController: UIPageViewController,UIPageViewControllerDelegate {
@@ -58,6 +59,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
         currentController = .first
+        pageDelegate?.updateProgress()
     }
     
     
@@ -71,6 +73,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
         currentController = .second
+        pageDelegate?.updateProgress()
     }
     
     func setThirdController(){
@@ -83,6 +86,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
         currentController = .third
+        pageDelegate?.updateProgress()
     }
     
     func setFourthController(){
@@ -92,6 +96,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .fourth
+        pageDelegate?.updateProgress()
     }
     
     func setFifthController(){
@@ -104,6 +109,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .fifth
+        pageDelegate?.updateProgress()
     }
     
     func setSixthController(){
@@ -116,6 +122,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .sixth
+        pageDelegate?.updateProgress()
     }
     
     func setSeventhController(){
@@ -128,6 +135,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .seventh
+        pageDelegate?.updateProgress()
     }
     
     func setEighthController(){
@@ -140,6 +148,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .eighth
+        pageDelegate?.updateProgress()
     }
     
     func getController(current:CurretController)->UIViewController?{

@@ -94,6 +94,5 @@ class EditScheduledSessionController: InterfaceExtendedController {
         let controller = storyboard.instantiateViewController(withIdentifier: "EditScheduledSession") as? EditScheduledSessionController
         return controller
     }
-
 }
 

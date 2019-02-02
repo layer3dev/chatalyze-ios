@@ -27,14 +27,43 @@ class ScheduleSessionEarningRootView: ExtendedView{
     @IBOutlet var earningFormulaLbl:UILabel?
     @IBOutlet var totalEarningLabel:UILabel?
     
+    @IBOutlet private var nextView:UIView?
+    @IBOutlet private var chatPupView:ButtonContainerCorners?
+    @IBOutlet private var maxEarning:UIView?
+    
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         self.priceField?.textField?.doneAccessory = true
         self.priceField?.isCompleteBorderAllow = true
         initializeVariable()
+        paintLayers()
     }
     
+    func fillDataIfExists(){
+        paintMaximumEarningCalculator()
+    }
+    
+    func paintLayers(){        
+        
+        self.nextView?.layer.masksToBounds = true
+        self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.nextView?.layer.borderWidth = 1
+        self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.chatPupView?.layer.masksToBounds = true
+        self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.chatPupView?.layer.borderWidth = 1
+        self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
+        self.maxEarning?.layer.masksToBounds = true
+        self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.maxEarning?.layer.borderWidth = 1
+        self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+    }
     
     func initializeVariable(){
 
@@ -49,7 +78,7 @@ class ScheduleSessionEarningRootView: ExtendedView{
     @objc func textFieldDidChange(_ textField: UITextField) {
 
         paintMaximumEarningCalculator()
-        priceValidation()
+        let _ = priceValidation()
     }
     
     func updateParameter(){
@@ -251,7 +280,6 @@ extension ScheduleSessionEarningRootView{
     }
 
     func showError(message:String?){
-        
         //errorLbl?.text =  message ?? ""
     }
 }

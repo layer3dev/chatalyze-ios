@@ -27,6 +27,7 @@ class ScheduleSessionNewEarningController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //self.hideNavigationBar()
+        rootView?.fillDataIfExists()
     }
     
     var rootView:ScheduleSessionEarningRootView?{
