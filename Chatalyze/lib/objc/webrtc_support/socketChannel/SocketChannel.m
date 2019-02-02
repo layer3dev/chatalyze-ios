@@ -55,6 +55,8 @@ static NSString const *kARDWSSMessagePayloadKey = @"msg";
 -(void)initialize{
     socketClient = [SocketClient sharedInstance];
     socketListener = [socketClient createListener];
+    
+    //todo: sending hashedId, which is wrong would cause crash ?
     callLogger = [[CallLogger alloc] initWithSessionId:self.eventId targetUserId:self.receiverId];
 }
 
