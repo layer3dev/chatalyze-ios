@@ -42,11 +42,11 @@ class ScheduleUpdateListener{
             weakSelf.listener?()
         })
         
+
         //we don't need this
         /*UserSocket.sharedInstance?.socket?.on("analyst_joined", callback: {[weak self] (data, emitter) in
             
             self?.listener?()
         })*/
     }
-    
 }

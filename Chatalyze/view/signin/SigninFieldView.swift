@@ -42,6 +42,7 @@ class SigninFieldView: ExtendedView {
             return
         }        
         borderView?.backgroundColor = UIColor(hexString: AppThemeConfig.borderGrayColor)
+        self.layer.masksToBounds = true
     }
     
     func showError(text : String?){

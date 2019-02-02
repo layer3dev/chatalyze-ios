@@ -100,8 +100,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         startSystemTest()
     }
-    
-    
+        
     func showSystemTest(){
         
         self.systemTestView?.isHidden = false
@@ -160,7 +159,6 @@ class InternetSpeedTestController: InterfaceExtendedController {
         self.noInternetConnectionView?.isHidden = false
     }
     
-    
     @IBAction func poorInternetInfoAction(){
         
         self.slowInternetConnectionAlert()
@@ -180,8 +178,6 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         self.appVersionAlert()
     }
-    
-   
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(animated)

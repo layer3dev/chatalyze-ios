@@ -18,18 +18,14 @@ class MySessionRootView:ExtendedView{
         initializeVariable()
     }
     
+    
+    func paintNewUI(){
+        //to be override
+    }
     func initializeVariable(){
         
         adapter.root = self        
         adapter.enterSession = {(eventInfo) in            
-//            guard let controller = SessionController.instance() else{
-//                return
-//            }
-//
-//            controller.paintBackButton()
-//            controller.paintNavigationTitle(text: "Session")
-//
-//            self.controller?.navigationController?.pushViewController(controller, animated: true)
             
             guard let eventInfo = eventInfo
                 else{
@@ -48,43 +44,8 @@ class MySessionRootView:ExtendedView{
                 else{
                     return
             }
-            
             controller.eventId = String(eventId)
-            
             self.controller?.present(controller, animated: true, completion: nil)
-            
-//            self.isEventDelayed(eventId: "\(eventId)", completion: { (success) in
-//
-//
-//                if success{
-//
-//                    //Success will be true of event is true.
-//                    guard let controller = HostEventQueueController.instance()
-//                        else{
-//                            return
-//                    }
-//
-//                    controller.eventId = "\(eventId)"
-//                    self.controller?.navigationController?.pushViewController(controller, animated: true)
-//                    return
-//                }
-//
-//                if(!eventInfo.isPreconnectEligible && eventInfo.isFuture){
-//
-//                    guard let controller = HostEventQueueController.instance()
-//                        else{
-//                            return
-//                    }
-//
-//                    controller.eventId = "\(eventId)"
-//                    self.controller?.navigationController?.pushViewController(controller, animated: true)
-//                    return
-//                }
-//
-//
-//
-//            })
-            
         }
     }
     

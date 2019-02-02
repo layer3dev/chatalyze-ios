@@ -76,7 +76,6 @@ class RootControllerManager{
 //                initializeAppConnection()
                 
                 showHomeScreen(didLoadWindow: didLoadWindow)
-                
             }else{
                 
                 guard let onboardController = OnBoardFlowController.instance() else {

@@ -49,7 +49,6 @@ class MySessionAdapter: ExtendedView {
         
         Log.echo(key: "yud", text: "The height of the table is calling in adapter\(sessionTableView?.contentSize.height) ")
         
-        
         sessionTableView?.layer.removeAllAnimations()
         self.root?.controller?.updateScrollViewWithTable(height: sessionTableView?.contentSize.height ?? 0.0)        
 //        self.updateConstraints()
@@ -92,7 +91,7 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 286.0
+        return 180.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,13 +101,19 @@ extension MySessionAdapter:UITableViewDelegate{
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+                
+//        if indexPath.row > (sessionListingArray.count-1){
+//            return
+//        }
+//        self.sharedLinkListener?(sessionListingArray[indexPath.row])
         
-        Log.echo(key: "yud", text: "Tble Is calling")
         
-        if indexPath.row > (sessionListingArray.count-1){
+        guard let controller = EditHostSessionController.instance() else{
             return
         }
-        self.sharedLinkListener?(sessionListingArray[indexPath.row])
+        
+        controller.eventInfo = self.sessionListingArray[indexPath.row]
+        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

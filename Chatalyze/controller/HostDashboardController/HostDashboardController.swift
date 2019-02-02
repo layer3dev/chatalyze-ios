@@ -17,7 +17,7 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
-    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
+    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -25,6 +25,13 @@ class HostDashboardController: MyScheduledSessionsController {
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        hideNavigationBar()
+        rootView?.paintNewUI()
     }
     
     func checkForShowingHostWelcomeAnimation(){
@@ -49,25 +56,28 @@ class HostDashboardController: MyScheduledSessionsController {
     
     override func showShareView(){
        
-        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
+       // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
     override func hideShareView(){
         
-        heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
+        //heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
     }
     
     func paint(){
         
         importantView?.layer.cornerRadius = 2
         importantView?.layer.masksToBounds = true
+        
+        noSessionView?.layer.borderWidth = 1
+        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        noSessionView?.layer.masksToBounds = true
         setSharableUrlText()
     }
     
     func setSharableUrlText(){
         
         //https://dev.chatalyze.com/profile/NekBanda/485
-
         var str = AppConnectionConfig.systemTestUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
@@ -159,11 +169,32 @@ class HostDashboardController: MyScheduledSessionsController {
         }
     }
     
+    @IBAction func copyTextOnClipboard(sender:UIButton){
+        
+        var str = AppConnectionConfig.systemTestUrl
+        str = str + "/profile/"
+        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
+        str = str + "/"
+        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
+        //str  = str.replacingOccurrences(of: " ", with: "")
+        Log.echo(key: "yud", text: "url id is \(str)")
+        str  = str.replacingOccurrences(of: " ", with: "")
+        UIPasteboard.general.string = str
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on the clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        }        
+    }
+    
+    
     @IBAction func scheduleSessionAction(sender:UIButton){
+        
+        Log.echo(key: "yud", text: "I am calling")
         
         DispatchQueue.main.async {
             
-            guard let controller = ScheduleSessionController.instance() else{
+//            guard let controller = ScheduleSessionController.instance() else{
+//                return
+//            }
+            guard let controller = SessionScheduleNewController.instance() else{
                 return
             }
             self.navigationController?.pushViewController(controller, animated: false)
@@ -181,21 +212,17 @@ class HostDashboardController: MyScheduledSessionsController {
         })
     }
     
-    
     @IBAction func systemTestAction(sender:UIButton){
       
         self.gotoSystemTest()
     }
     
+    @IBAction func settingAction(sender:UIButton){
+        
+        RootControllerManager().getCurrentController()?.showProfileScreen()
+    }
     
     @IBAction func copyText(send:UIButton){
-        
-        if sharingLbl?.text == "Select your session in order to get the shareable url."{
-            
-            self.alert(withTitle: AppInfoConfig.appName, message: "Please select your session to get the shareable url of your session.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false) { (success) in
-            }
-            return
-        }
         
         //str  = str.replacingOccurrences(of: " ", with: "")
         guard var str = sharingLbl?.text else{
@@ -227,7 +254,6 @@ class HostDashboardController: MyScheduledSessionsController {
         return
     }
     
-    
     override func updateScrollViewWithTable(height:CGFloat){
         
         Log.echo(key: "yud", text: "The height of the table is \(height)")
@@ -241,5 +267,10 @@ class HostDashboardController: MyScheduledSessionsController {
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
         return controller
+    }
+    
+    @IBAction func menuAction(sender:UIButton){
+        
+        self.toggle()
     }
 }

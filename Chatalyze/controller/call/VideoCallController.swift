@@ -35,9 +35,6 @@ class VideoCallController : InterfaceExtendedController {
         case undefined
     }
     
-    
-
-    
     //user for animatingLable
     var label = UILabel()
     var isAnimate: Bool  = false
@@ -58,8 +55,6 @@ class VideoCallController : InterfaceExtendedController {
     
     private var callLogger : CallLogger?
     private var localTrack : RTCVideoTrack?
-    
-    
     
     private let eventSlotListener = EventSlotListener()
     //Implementing the eventDeleteListener
@@ -100,10 +95,8 @@ class VideoCallController : InterfaceExtendedController {
     var isSocketConnected : Bool{
         return (socketClient?.isConnected ?? false)
     }
-    
 
     var appDelegate : AppDelegate?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,25 +108,14 @@ class VideoCallController : InterfaceExtendedController {
             
             self.fontSizeBig = 22
         }
-        
         appDelegate =  UIApplication.shared.delegate as? AppDelegate
         // Do any additional setup after loading the view.
     }
     
-    
-  
-    
-    
-    func eventScheduleUpdatedAlert(){
-        
-        
-    }
-    
-    
     override func viewAppeared(){
         super.viewAppeared()
         
-        Log.echo(key : "rotate", text : "viewAppeared in VideoCallController")
+        Log.echo(key : "rotate", text : "ViewAppeared in VideoCallController")
         processPermission()
     }
     
@@ -251,8 +233,18 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
+        if self.presentedViewController != nil{
+            self.presentedViewController?.dismiss(animated: true, completion: {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false) {[weak self] in
+                        Log.echo(key: "log", text: "VideoCallController dismissed")
+                        self?.onExit(code : code)
+                    }
+                }
+            })
+            return
+        }
         self.dismiss(animated: false) {[weak self] in
-            
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : code)
         }

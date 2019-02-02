@@ -22,16 +22,15 @@ class MySessionTableViewCell: ExtendedTableCell {
     let eventStore = EKEventStore()
     var adapter:MySessionAdapter?
     @IBOutlet var editSessionLbl:UILabel?
+    @IBOutlet var viewDetailView:ButtonCorners?
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+      
         painInterface()
     }
     
     @IBAction func editSession(sender:UIButton){
-        
-        Log.echo(key: "yud", text: "I am calling")
         
         guard let controller = EditHostSessionController.instance() else{
             return
@@ -41,8 +40,19 @@ class MySessionTableViewCell: ExtendedTableCell {
         self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @IBAction func viewSessionDetailAction(sender:UIButton){
+        
+        guard let controller = SessionDetailController.instance() else{
+            return
+        }
+        controller.eventInfo = self.info
+        self.adapter?.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+    }
     
     func painInterface(){
+        
+        viewDetailView?.layer.borderWidth = 1
+        viewDetailView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
         DispatchQueue.main.async {
             
@@ -99,7 +109,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             
             //Event is not started yet
             self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
-            self.sessionEventButton?.setTitleColor(UIColor(hexString: "#8C9597"), for: .normal)
+            self.sessionEventButton?.setTitleColor(UIColor(red: 76.0/255.0, green: 76.0/255.0, blue: 76.0/255.0, alpha: 1), for: .normal)
             return
         }
         self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
@@ -115,7 +125,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate{
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EE, MMM dd"
+            dateFormatter.dateFormat = "EEEE, MMMM dd"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.dateLbl?.text = "\(dateFormatter.string(from: date))"
@@ -124,11 +134,23 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate{
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.dateFormat = "h:mm"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
-            self.timeLbl?.text = dateFormatter.string(from: date)
+            let requireOne = dateFormatter.string(from: date)
+            
+            if let date = info.endDate{
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "h:mm a"
+                dateFormatter.timeZone = TimeZone.current
+                dateFormatter.locale = Locale.current
+                self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
+                
+                Log.echo(key: "yud", text: "Locale abbrvation sis ")
+            }
         }
+        
     }
     
     func showAlert(sender:UIButton){
@@ -290,6 +312,5 @@ extension MySessionTableViewCell{
         }))
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })
-    }
-    
+    }    
 }

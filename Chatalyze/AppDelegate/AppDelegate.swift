@@ -81,7 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         verifyingAccessToken()
   
         if self.isRootInitialize{
-            
             AppDelegate.fetchAppVersionInfoToServer()
         }
         
@@ -138,7 +137,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 print("Notification settings Registered: \(settings)")
             }
         }else{
-            
             //Fallback on earlier versions
         }
     }
@@ -233,19 +231,17 @@ extension AppDelegate{
         FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{
-               
+                
                 HandlingAppVersion().checkForAlert()
                 return
             }
             
-            Log.echo(key: "yud", text: "DICT IS \(response?.dictionary)")
-            
             if let dict = response?.dictionary{
                 
-                Log.echo(key: "yud", text: "latestVersion IS \(dict["current_app_version"]?.doubleValue)")
                 let latestVersion = dict["current_app_version"]?.doubleValue
                 let deprecateVersion = dict["deprecated_version"]?.doubleValue
                 let obsoleteVersion = dict["obsolete_version"]?.doubleValue
+                
                 //let obsoleteVersion = 1.00
                 UserDefaults.standard.setValue(latestVersion ?? 0.0, forKey: "latestVersion")
                 UserDefaults.standard.setValue(deprecateVersion ?? 0.0, forKey: "deprecateVersion")

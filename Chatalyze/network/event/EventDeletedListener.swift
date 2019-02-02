@@ -30,7 +30,7 @@ class EventDeletedListener{
     
     func initializeListener(){
         
-        UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
+        let Myuuid = UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
             
             Log.echo(key: "yud", text: "Notification data on userSocket is \(data)")
             
@@ -43,6 +43,8 @@ class EventDeletedListener{
             }
             self?.processNotificationForNewSlot(info: info)
         })
+        
+        Log.echo(key: "yud", text: "my uuid is delete is \(Myuuid)")
     }
     
     private func processNotificationForNewSlot(info : [String : Any]){

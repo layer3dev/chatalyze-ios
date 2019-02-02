@@ -72,7 +72,7 @@ class UserInfo: NSObject {
         firstName = info["firstName"]?.stringValue
         middleName = info["middleName"]?.stringValue
         lastName = info["lastName"]?.stringValue
-        userDescription = info["userDescription"]?.stringValue
+        userDescription = info["description"]?.stringValue
         yob = info["yob"]?.stringValue
         gender = info["gender"]?.stringValue
         address = info["address"]?.stringValue

@@ -12,6 +12,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
 
     @IBOutlet var sessionListingTableView:UITableView?
     @IBOutlet var noeventLbl:UILabel?
+    @IBOutlet var noSessionView:ButtonContainerCorners?
+    @IBOutlet var mySessionLbl:UILabel?
     var eventArray:[EventInfo] = [EventInfo]()
     let updatedEventScheduleListner = EventListener()
     let eventDeletedListener = EventDeletedListener()
@@ -42,6 +44,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                 
                 Log.echo(key: "yud", text: "Event id is \(info.id)")
                 if info.id == Int(deletedEventID ?? "0"){
+                    
+                    self.fetchInfoForListener()
                     Log.echo(key: "yud", text: "Matched Event Id is \(deletedEventID)")
                 }
             }
@@ -96,25 +100,38 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.stopLoader()
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
+            self.noSessionView?.isHidden = true
+            self.mySessionLbl?.isHidden = false
+            
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
+                        self.noSessionView?.isHidden = true
+                        self.mySessionLbl?.isHidden = false
+
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                        
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
+                        self.noSessionView?.isHidden = false
+                        self.mySessionLbl?.isHidden = true
                         self.rootView?.fillInfo(info: self.eventArray)
                     }
                     return
                 }
             }
+            
             self.hideShareView()
             self.noeventLbl?.isHidden = false
+            self.noSessionView?.isHidden = false
+            self.mySessionLbl?.isHidden = true
             self.rootView?.fillInfo(info: self.eventArray)
             return
         }
@@ -130,18 +147,28 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
+            self.noSessionView?.isHidden = true
+            self.mySessionLbl?.isHidden = false
+
             if success{
                 if let array  = info{
                     if array.count > 0{
+                        
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
+                        self.noSessionView?.isHidden = true
+                        self.mySessionLbl?.isHidden = false
+
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0{
+                       
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
+                        self.noSessionView?.isHidden = false
+                        self.mySessionLbl?.isHidden = false
                         self.rootView?.fillInfo(info: self.eventArray)
                     }
                     return
@@ -149,6 +176,8 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             }
             self.hideShareView()
             self.noeventLbl?.isHidden = false
+            self.noSessionView?.isHidden = false
+            self.mySessionLbl?.isHidden = false
             self.rootView?.fillInfo(info: self.eventArray)
             return
         }

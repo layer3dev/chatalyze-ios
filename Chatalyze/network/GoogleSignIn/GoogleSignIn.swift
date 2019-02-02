@@ -60,7 +60,7 @@ class GoogleSignIn{
             return
         }
         
-        Log.echo(key: "token", text: "parse user info now")
+        Log.echo(key: "token", text: "Parse user info now")
         
         let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue

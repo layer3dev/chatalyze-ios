@@ -81,7 +81,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
         middleName = aDecoder.decodeObject(forKey: "middleName") as? String
         lastName = aDecoder.decodeObject(forKey: "lastName") as? String
-        userDescription = aDecoder.decodeObject(forKey: "userDescription") as? String
+        userDescription = aDecoder.decodeObject(forKey: "description") as? String
         yob = aDecoder.decodeObject(forKey: "yob") as? String
         gender = aDecoder.decodeObject(forKey: "gender") as? String
         address = aDecoder.decodeObject(forKey: "address") as? String
@@ -105,7 +105,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         aCoder.encode(firstName, forKey: "firstName")
         aCoder.encode(middleName, forKey: "middleName")
         aCoder.encode(lastName, forKey: "lastName")
-        aCoder.encode(userDescription, forKey: "userDescription")
+        aCoder.encode(userDescription, forKey: "description")
         aCoder.encode(yob, forKey: "yob")
         aCoder.encode(gender, forKey: "gender")
         aCoder.encode(address, forKey: "address")

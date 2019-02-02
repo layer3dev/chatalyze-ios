@@ -50,6 +50,7 @@ class InterfaceExtendedController : ExtendedController {
     
     //singular execution of viewDidAppear
     func viewAppeared(){
+        
          Log.echo(key : "rotate", text : "viewAppeared in InterfaceExtended-> \(self)")
     }
     
@@ -60,7 +61,6 @@ class InterfaceExtendedController : ExtendedController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         // Dispose of any resources that can be recreated.
     }
     
@@ -146,8 +146,7 @@ class InterfaceExtendedController : ExtendedController {
         Log.echo(key: "yud", text: "Toogle is calling")
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
-    
-    
+        
     func paintHideBackButton(){
         
         self.navigationItem.setHidesBackButton(true, animated:true)
@@ -221,7 +220,7 @@ extension InterfaceExtendedController:UIGestureRecognizerDelegate{
 }
 
 
-extension InterfaceExtendedController : NVActivityIndicatorViewable{
+extension UIViewController : NVActivityIndicatorViewable{
     
     func showLoader(text : String = "Loading..."){
         

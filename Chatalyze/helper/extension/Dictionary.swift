@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 public extension Dictionary {
     /// Merges the dictionary with dictionaries passed. The latter dictionaries will override
     /// values of the keys that are already set
