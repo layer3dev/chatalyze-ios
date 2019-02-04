@@ -7,22 +7,36 @@
 //
 
 import UIKit
+import YLProgressBar
 
-class SessionScheduleNewController: InterfaceExtendedController {
+class SessionScheduleNewController: UIViewController {
     
     var pageViewController:SessionScheduleNewPageController?
     var scheduleInfo = ScheduleSessionInfo()
-    @IBOutlet var progressBar:UIProgressView?
+    @IBOutlet var progressBar:YLProgressBar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
+        initializeGradient()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        hideNavigationBar()
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    func initializeGradient(){
+        
+        let tintColors = [UIColor(red: 249.0/255.0, green: 128.0/255.0, blue: 106/255.0, alpha: 1), UIColor(red: 248.0/255.0, green: 149.0/255.0, blue: 92/255.0, alpha: 1)]
+        progressBar?.type = YLProgressBarType.flat
+        progressBar?.progressTintColors = tintColors
+        progressBar?.hideStripes = true
+        progressBar?.hideTrack = true
+        progressBar?.behavior = YLProgressBarBehavior.default
+        progressBar?.setProgress(0.13, animated: true)
     }
     
     func paintProgressBar(){
@@ -32,35 +46,35 @@ class SessionScheduleNewController: InterfaceExtendedController {
         }
         
         if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
-            progressBar?.progress = 0.13
+            progressBar?.setProgress(0.13, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
-            progressBar?.progress = 0.26
+            progressBar?.setProgress(0.26, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
-            progressBar?.progress = 0.39
+            progressBar?.setProgress(0.39, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
-            progressBar?.progress = 0.52
+            progressBar?.setProgress(0.52, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
-            progressBar?.progress = 0.65
+            progressBar?.setProgress(0.65, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
-            progressBar?.progress = 0.78
+            progressBar?.setProgress(0.78, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
-            progressBar?.progress = 0.91
+            progressBar?.setProgress(0.91, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
-            progressBar?.progress = 1.0
+            progressBar?.setProgress(1.0, animated: true)
             return
         }
     }

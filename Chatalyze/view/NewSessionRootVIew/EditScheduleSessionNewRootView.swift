@@ -143,7 +143,6 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         
         //paintImageUploadBorder()
         paintEditChangeImagelbl()
-        
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
@@ -173,9 +172,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }else{
             
             //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
-            
             if isProfileImageChecked{
-                
             }else{
                 isProfileImageChecked = true
                 imageUploadingView?.isUserInteractionEnabled = false

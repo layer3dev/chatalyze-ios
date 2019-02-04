@@ -216,7 +216,7 @@ extension ScheduleSessionEarningRootView{
             normalFont = 18
         }
         
-        let calculatorStr = "\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
+        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         

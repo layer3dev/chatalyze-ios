@@ -78,7 +78,7 @@ class HostDashboardController: MyScheduledSessionsController {
     func setSharableUrlText(){
         
         //https://dev.chatalyze.com/profile/NekBanda/485
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
@@ -171,7 +171,7 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"

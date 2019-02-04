@@ -70,8 +70,8 @@ class SessionDetailRootView: ExtendedView {
             }
             
             self.priceLbl?.text = "$\(String(format: "%.2f", info.price ?? 0.0)) per chat"
+            self.durationLbl?.text = "\(Int(info.duration ?? 0.0)) min chats"
             
-            self.durationLbl?.text = "\(Int(info.duration ?? 0.0)) min chat"
             
             if let startDate = info.startDate{
                 if let endDate = info.endDate{
@@ -120,8 +120,9 @@ class SessionDetailRootView: ExtendedView {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
+                dateFormatter.amSymbol = "am"
+                dateFormatter.pmSymbol = "pm"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
-                
                 Log.echo(key: "yud", text: "Locale abbrevation is")
             }
         }

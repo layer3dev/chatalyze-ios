@@ -63,7 +63,7 @@ class SignUpController: InterfaceExtendedController {
             return
         }
         //controller.url = "https://dev.chatalyze.com/terms-app"
-        controller.url = AppConnectionConfig.systemTestUrl + "/terms-app"
+        controller.url = AppConnectionConfig.basicUrl + "/terms-app"
 
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -82,7 +82,7 @@ class SignUpController: InterfaceExtendedController {
         guard let controller = TermsConditionController.instance() else {
             return
         }
-        controller.url = AppConnectionConfig.systemTestUrl + "/privacy-app"
+        controller.url = AppConnectionConfig.basicUrl + "/privacy-app"
         //controller.url = "https://dev.chatalyze.com/privacy-app"
         self.navigationController?.pushViewController(controller, animated: true)
     }

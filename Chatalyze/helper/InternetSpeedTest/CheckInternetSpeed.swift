@@ -29,7 +29,7 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
     
     func startDownload(){
         
-        guard let url = URL(string: AppConnectionConfig.systemTestUrl+"/images/sample_image_medium.jpg?version=\(Int.random(in: 0..<999999))") else{
+        guard let url = URL(string: AppConnectionConfig.basicUrl+"/images/sample_image_medium.jpg?version=\(Int.random(in: 0..<999999))") else{
             //Log.echo(key: "yud", text: "url is incorrect")
             return
         }
@@ -89,8 +89,7 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         Log.echo(key: "speed_logging", text: "averageSpeed is \(averageSpeed)")
         Log.echo(key: "speed_logging", text: "roundedAverageSpeed is \(roundedAverageSpeed)")
         
-        //speedTestCompletionHandler(roundedAverageSpeed,nil)
-        speedTestCompletionHandler(0.2,nil)
+        speedTestCompletionHandler(roundedAverageSpeed,nil)        
     }
     
 }

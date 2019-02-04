@@ -145,9 +145,10 @@ class MySessionTableViewCell: ExtendedTableCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
+                dateFormatter.amSymbol = "am"
+                dateFormatter.pmSymbol = "pm"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
-                
-                Log.echo(key: "yud", text: "Locale abbrvation sis ")
+                Log.echo(key: "yud", text: "Locale abbrvation is ")
             }
         }
         
@@ -164,19 +165,18 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         
         let callRoomAction = UIAlertAction(title: "Continue to Session", style: UIAlertAction.Style.default) { (success) in
-            
             self.gotoSession()
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.destructive) { (success) in
         }
         
-        
         alertActionSheet.addAction(uploadAction)
         alertActionSheet.addAction(callRoomAction)
         alertActionSheet.addAction(cancel)
         
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        
         if let presenter = alertActionSheet.popoverPresentationController {
             
             alertActionSheet.popoverPresentationController?.sourceView =                 RootControllerManager().getCurrentController()?.view

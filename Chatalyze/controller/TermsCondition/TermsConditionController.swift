@@ -12,6 +12,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
 
     @IBOutlet var webView:UIWebView?
     var url = ""
+    @IBOutlet var headerLabel:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()

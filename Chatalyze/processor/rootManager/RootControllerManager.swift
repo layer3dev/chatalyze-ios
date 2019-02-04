@@ -110,7 +110,7 @@ class RootControllerManager{
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window
-        let rootNav : UINavigationController = ExtendedNavigationController()
+        let _ : UINavigationController = ExtendedNavigationController()
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
         transition.type = CATransitionType.fade

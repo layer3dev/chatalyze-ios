@@ -38,18 +38,16 @@ class EditScheduleSessionNewController: UIViewController {
         
         rootView?.paintImageUploadBorder()
     }
-    
-  
+      
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+      
         self.navigationController?.navigationBar.isHidden = true
     }
     
     
     func fillInfo(){
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

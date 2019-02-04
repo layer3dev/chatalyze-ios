@@ -140,6 +140,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func releaseListener(){
+        
         eventSlotListener.releaseListener()
         eventDeleteListener.releaseListener()
         updatedEventScheduleListener.releaseListener()
@@ -230,7 +231,6 @@ class VideoCallController : InterfaceExtendedController {
         updateUserOfExit()
     }
     
-    
     func exit(code : exitCode){
         
         if self.presentedViewController != nil{
@@ -255,6 +255,9 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func showErrorScreen(){
+        
+        
+        
         
         guard let controller = OpenCallAlertController.instance() else{
             return

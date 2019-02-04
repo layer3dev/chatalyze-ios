@@ -44,7 +44,7 @@ class ScheduleSessionNewDoneController: UIViewController {
     
     func setSharableUrlText(){
         
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
@@ -57,7 +57,7 @@ class ScheduleSessionNewDoneController: UIViewController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"

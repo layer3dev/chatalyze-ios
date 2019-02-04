@@ -23,6 +23,7 @@ class FAQWebController:TermsConditionController  {
         
         paintBackButton()
         paintNavigationTitle(text: nameofTitle)
+        headerLabel?.text = nameofTitle
     }
     
     

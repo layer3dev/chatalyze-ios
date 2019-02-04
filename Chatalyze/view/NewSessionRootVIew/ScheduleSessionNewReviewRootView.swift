@@ -79,7 +79,8 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         self.priceLbl?.text = "$"+"\(String(describing: info.price ?? 0))"
         self.isSelfieLbl?.text = info.isScreenShotAllow ? "YES":"NO"
         dateLbl?.text = getDate()
-        timeLbl?.text = getTime()
+        timeLbl?.text = "\(getTime()) \(String(describing: TimeZone.current.abbreviation() ?? ""))"
+        
     }
     
     func getDate()->String{
