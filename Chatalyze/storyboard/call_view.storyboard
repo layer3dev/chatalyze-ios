@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
         <array key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </array>
@@ -254,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBm-f4-JDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1622" y="-1765"/>
+            <point key="canvasLocation" x="1639" y="-1767"/>
         </scene>
         <!--User Call Controller-->
         <scene sceneID="lsO-s1-FcF">
@@ -280,14 +283,116 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0K-Qr-pEh">
+                                        <rect key="frame" x="20" y="167" width="280" height="174"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Delayed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14r-Y8-vv0">
+                                                <rect key="frame" x="0.0" y="30" width="280" height="25"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="18"/>
+                                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just waiting for the host to join. Don't go anywhere!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rH6-do-p9N">
+                                                <rect key="frame" x="30" y="70" width="220" height="74"/>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.94901960780000005" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="14r-Y8-vv0" firstAttribute="leading" secondItem="S0K-Qr-pEh" secondAttribute="leading" id="DgQ-vE-5Iy"/>
+                                            <constraint firstAttribute="trailing" secondItem="14r-Y8-vv0" secondAttribute="trailing" id="JUI-RB-8IP"/>
+                                            <constraint firstItem="rH6-do-p9N" firstAttribute="leading" secondItem="S0K-Qr-pEh" secondAttribute="leading" constant="30" id="Lbk-id-qiW">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="rH6-do-p9N" secondAttribute="trailing" constant="30" id="WjU-ch-1O5">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstItem="rH6-do-p9N" firstAttribute="top" secondItem="14r-Y8-vv0" secondAttribute="bottom" constant="15" id="cFw-AS-8xO">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                            </constraint>
+                                            <constraint firstAttribute="bottom" secondItem="rH6-do-p9N" secondAttribute="bottom" constant="30" id="fSn-op-DLE">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
+                                            <constraint firstItem="14r-Y8-vv0" firstAttribute="top" secondItem="S0K-Qr-pEh" secondAttribute="top" constant="30" id="xWh-Pf-7PT">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pq9-Eh-IbO">
+                                        <rect key="frame" x="20" y="118" width="280" height="272"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Cancelled" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QP-Ro-Bol">
+                                                <rect key="frame" x="0.0" y="30" width="280" height="25"/>
+                                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0x-6q-PD8">
+                                                <rect key="frame" x="30" y="70" width="220" height="172"/>
+                                                <string key="text">We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please contact us.</string>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.91764705879999997" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="8QP-Ro-Bol" firstAttribute="leading" secondItem="Pq9-Eh-IbO" secondAttribute="leading" id="5ak-gL-vRM"/>
+                                            <constraint firstItem="K0x-6q-PD8" firstAttribute="leading" secondItem="Pq9-Eh-IbO" secondAttribute="leading" constant="30" id="5g1-wW-RiU">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstItem="8QP-Ro-Bol" firstAttribute="top" secondItem="Pq9-Eh-IbO" secondAttribute="top" constant="30" id="7ec-dx-v5B">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="K0x-6q-PD8" secondAttribute="trailing" constant="30" id="Llr-th-XzN">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="8QP-Ro-Bol" secondAttribute="trailing" id="NZI-dw-ypV"/>
+                                            <constraint firstItem="K0x-6q-PD8" firstAttribute="top" secondItem="8QP-Ro-Bol" secondAttribute="bottom" constant="15" id="mbe-Pv-OmV">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                            </constraint>
+                                            <constraint firstAttribute="bottom" secondItem="K0x-6q-PD8" secondAttribute="bottom" constant="30" id="nhh-RD-GVf">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="4HO-qv-0AG" secondAttribute="trailing" constant="20" id="0Tl-vt-4c8"/>
                                     <constraint firstAttribute="trailing" secondItem="05F-Pn-HJb" secondAttribute="trailing" constant="40" id="9zt-71-sgY"/>
+                                    <constraint firstItem="S0K-Qr-pEh" firstAttribute="centerX" secondItem="w8v-wO-emD" secondAttribute="centerX" id="Npb-Z3-dOa"/>
                                     <constraint firstItem="05F-Pn-HJb" firstAttribute="centerY" secondItem="w8v-wO-emD" secondAttribute="centerY" id="PeG-ho-blC"/>
+                                    <constraint firstAttribute="trailing" secondItem="S0K-Qr-pEh" secondAttribute="trailing" constant="20" placeholder="YES" id="Ssc-VK-ucJ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="Pq9-Eh-IbO" secondAttribute="trailing" constant="20" id="VXB-1x-caZ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                    </constraint>
+                                    <constraint firstItem="S0K-Qr-pEh" firstAttribute="leading" secondItem="w8v-wO-emD" secondAttribute="leading" constant="20" id="XXt-lo-OrS">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                    </constraint>
+                                    <constraint firstItem="Pq9-Eh-IbO" firstAttribute="leading" secondItem="w8v-wO-emD" secondAttribute="leading" constant="20" id="hR9-Xc-bcf">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                    </constraint>
                                     <constraint firstItem="05F-Pn-HJb" firstAttribute="leading" secondItem="w8v-wO-emD" secondAttribute="leading" constant="40" id="ifs-Gd-447"/>
+                                    <constraint firstItem="S0K-Qr-pEh" firstAttribute="centerY" secondItem="w8v-wO-emD" secondAttribute="centerY" id="jcH-Eo-l76"/>
                                     <constraint firstItem="4HO-qv-0AG" firstAttribute="leading" secondItem="w8v-wO-emD" secondAttribute="leading" constant="20" id="kiz-mk-Ldo"/>
+                                    <constraint firstItem="Pq9-Eh-IbO" firstAttribute="centerY" secondItem="w8v-wO-emD" secondAttribute="centerY" id="pU0-8h-KDk"/>
                                     <constraint firstItem="4HO-qv-0AG" firstAttribute="centerY" secondItem="w8v-wO-emD" secondAttribute="centerY" id="v2y-an-87s"/>
                                     <constraint firstItem="4HO-qv-0AG" firstAttribute="centerX" secondItem="w8v-wO-emD" secondAttribute="centerX" id="xYR-HR-aFp"/>
                                 </constraints>
@@ -800,6 +905,9 @@
                     <connections>
                         <outlet property="chatalyzeLogo" destination="05F-Pn-HJb" id="dE5-pJ-WAU"/>
                         <outlet property="countDountAttrTimerLbl" destination="3yi-2S-ZcF" id="G5a-pn-MZt"/>
+                        <outlet property="eventCancelledAlertLbl" destination="K0x-6q-PD8" id="nC8-P9-GWq"/>
+                        <outlet property="eventCancelledAlertView" destination="Pq9-Eh-IbO" id="pGb-xc-QVj"/>
+                        <outlet property="eventDelayAlertView" destination="S0K-Qr-pEh" id="y48-rg-xEx"/>
                         <outlet property="futureSessionHeaderLbl" destination="iNt-tC-RBA" id="ejM-Hk-PUg"/>
                         <outlet property="futureSessionView" destination="ccG-Ux-JqL" id="ujs-sz-Gty"/>
                         <outlet property="preConnectLbl" destination="4HO-qv-0AG" id="se1-RP-zPG"/>
@@ -808,7 +916,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4v8-gh-Mf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2281.875" y="-1766.1971830985915"/>
+            <point key="canvasLocation" x="2319" y="-1767"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="zgB-UX-4on">
@@ -1377,7 +1485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zOk-BH-jLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2927" y="-1766"/>
+            <point key="canvasLocation" x="3013" y="-1767"/>
         </scene>
         <!--Media Alert Controller-->
         <scene sceneID="RaV-Ar-9cB">
@@ -1829,7 +1937,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ss3-vj-uFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3540" y="-1763"/>
+            <point key="canvasLocation" x="3711" y="-1767"/>
         </scene>
     </scenes>
     <resources>

@@ -228,7 +228,9 @@ class UserCallController: VideoCallController {
     }
     
     private func registerForScheduleUpdateListener(){
+        
         scheduleUpdateListener.setListener {
+         
             self.refreshScheduleInfo()
         }
     }
@@ -521,7 +523,6 @@ class UserCallController: VideoCallController {
             //for testing
             selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
-            
             //Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
     }
@@ -786,7 +787,6 @@ class UserCallController: VideoCallController {
           
             setStatusMessage(type: .eventNotStarted)
             return
-          
             // statusLbl?.text = "Session has not started yet."
         }
         
@@ -795,25 +795,24 @@ class UserCallController: VideoCallController {
             
             setStatusMessage(type: .eventDelay)
             return
-         
             // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
         }
         
-        
-        
         if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
-     
-           
             //Event has updated
         }
     }
     
+    override func eventCancelled(){
+        
+        setStatusMessage(type: .eventCancelled)
+        //Event Cancelled
+    }
     
     override func viewDidRelease() {
         super.viewDidRelease()
         
         scheduleUpdateListener.releaseListener()
-        
     }
 }
 
@@ -917,7 +916,6 @@ extension UserCallController{
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
         processController.setListener { (success, info, isDefault) in
-            
             self.processRequestAutograph(isDefault : success, info : info)
         }
         self.present(processController, animated: true) {
@@ -927,6 +925,7 @@ extension UserCallController{
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
         
         if(!isDefault){
+            
             self.serviceRequestAutograph(info : info)
             return
         }
@@ -937,6 +936,7 @@ extension UserCallController{
         }
         
         userRootView?.requestAutographButton?.showLoader()
+        
         CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in

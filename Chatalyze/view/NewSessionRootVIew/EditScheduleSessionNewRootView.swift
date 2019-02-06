@@ -222,18 +222,18 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             eventNameLbl?.attributedText = requiredStr
         }
         
-        if let price = info.price{
+        DispatchQueue.main.async {
             
-            //Book a 2-minute chat ($2121.00)
-            
-            //\(info["duration"] ?? 0.0)
-            
-            costofEventLbl?.isHidden = false
-            
-            let newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
-            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
-            
-            costofEventLbl?.attributedText = newAttrStr
+            if let price = info.price {
+                
+                self.costofEventLbl?.isHidden = false
+                var newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
+                if price == 0 {
+                    newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
+                }
+                let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+                self.costofEventLbl?.attributedText = newAttrStr
+            }
         }
         
         let dateFormatter = DateFormatter()

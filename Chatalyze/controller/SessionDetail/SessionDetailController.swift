@@ -42,6 +42,7 @@ class SessionDetailController: InterfaceExtendedController {
         CancelSessionProcessor().cancel(id: "\(id)") {(success, response) in
            
             DispatchQueue.main.async {
+                
                 self.stopLoader()
                 self.navigationController?.popViewController(animated: true)
             }

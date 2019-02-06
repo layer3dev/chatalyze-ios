@@ -76,11 +76,10 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
             self.durationLbl?.text = "1.5 hours"
         }
         
-        self.priceLbl?.text = "$"+"\(String(describing: info.price ?? 0))"
+        self.priceLbl?.text = (info.price ?? 0)  == 0 ? "Free":("$"+"\(String(describing: info.price ?? 0))")
         self.isSelfieLbl?.text = info.isScreenShotAllow ? "YES":"NO"
         dateLbl?.text = getDate()
         timeLbl?.text = "\(getTime()) \(String(describing: TimeZone.current.abbreviation() ?? ""))"
-        
     }
     
     func getDate()->String{
@@ -158,24 +157,20 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         param["userId"] = id
         param["duration"] = durate
         param["price"] = priceHourly
-        param["isFree"] = false
-        param["screenshotAllow"] = info.isScreenShotAllow ?  info.screenShotParam:nil
+        param["isFree"] = info.isFree
+        param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:nil
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
-
         Log.echo(key: "yud", text: "PARAMS ARE \(param)")
         return param
     }
     
     //MARK:- Button Action
-    
     @IBAction func editSchecduleAction(sender:UIButton?){
-        
         delegate?.goToEditScheduleSession()
     }
     
     @IBAction func scheduleAction(sender:UIButton?){
-    
         
         self.resetErrorlabel()
         let isThisFutureTime = self.isThisFutureTime()
@@ -192,12 +187,10 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
     
     
     func resetErrorlabel(){
-        
         self.errorLabel?.text = ""
     }
     
     func showError(message:String = ""){
-        
         self.errorLabel?.text = message
     }
     

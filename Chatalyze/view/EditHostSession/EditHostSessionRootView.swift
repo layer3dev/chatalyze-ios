@@ -118,7 +118,10 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             costofEventLbl?.isHidden = false
             showNamePriceInfoView()
             
-            let newFirstStr = "Book a \(Int(info.duration ?? 0.0))-minute chat ($\(price))"
+            var newFirstStr = "Book a \(Int(info.duration ?? 0.0))-minute chat ($\(price))"
+            if price == 0 {
+                newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
+            }
             
             let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
             

@@ -69,7 +69,7 @@ class SessionDetailRootView: ExtendedView {
                 self.title?.text = title
             }
             
-            self.priceLbl?.text = "$\(String(format: "%.2f", info.price ?? 0.0)) per chat"
+            self.priceLbl?.text =  (info.price ?? 0.0)  == 0.0 ? "Free": "$\(String(format: "%.2f", info.price ?? 0.0)) per chat"
             self.durationLbl?.text = "\(Int(info.duration ?? 0.0)) min chats"
             
             

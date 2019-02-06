@@ -46,18 +46,17 @@ class EventQueueController: InterfaceExtendedController {
         paintInterface()
         registerForEvent()
         registerForTimer()
-        
         loadInfoFromServer(showLoader : true)
         listenOnSocketConnect()
         startSync()
     }
     
     private func startSync(){
+        
         guard let eventId = self.eventId
             else{
                 return
         }
-        
         socketClient?.connect(roomId: eventId)
     }
     
@@ -67,7 +66,6 @@ class EventQueueController: InterfaceExtendedController {
             
             Log.echo(key: "yud", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
-                
                 self.loadInfoFromServer(showLoader : true)
             }
         }
@@ -76,22 +74,22 @@ class EventQueueController: InterfaceExtendedController {
     func loadInfoFromServer(showLoader : Bool){
       
         fetchInfo(showLoader: showLoader) { [weak self] (success) in
-          
+            
             if(!success){
                 return
             }
             self?.processEventInfo()
-        }    }
+        }
+    }
 
     
     override func viewDidRelease() {
         super.viewDidRelease()
       
         Log.echo(key: "release", text: "viewDidRelease -> EventQueue")
-        
         eventSlotListener.setListener(listener: nil)
         countdownListener.releaseListener()
-//        socketClient?.disconnect()
+        //socketClient?.disconnect()
     }
     
     

@@ -906,6 +906,11 @@ class HostCallController: VideoCallController {
         self.processExitAction(code : .prohibited)
         
     }
+    
+    override func eventCancelled(){
+        self.processExitAction(code: .userAction)
+        //Event Cancelled
+    }
 }
 
 //instance

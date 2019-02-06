@@ -47,7 +47,7 @@ class HostDashboardRootView: MySessionRootView {
             self.chatPupOne?.attributedText = textOneMutableAttr
             self.chatPupTwo?.attributedText = textTwoAttr            
         }
-    }    
+    }
     
     override func paintNewUI(){
         
