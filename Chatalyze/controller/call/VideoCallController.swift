@@ -32,6 +32,7 @@ class VideoCallController : InterfaceExtendedController {
         case prohibited
         case mediaAccess
         case undefined
+        case contactUs
     }
     
     // user for animating lable
@@ -88,7 +89,7 @@ class VideoCallController : InterfaceExtendedController {
     @IBOutlet var eventDelayAlertView:UIView?
     @IBOutlet var eventCancelledAlertView:UIView?
     @IBOutlet var eventCancelledAlertLbl:UILabel?
-    
+    @IBOutlet var alertContainerView:UIView?
     
     var roomType : UserInfo.roleType{
         return .user
@@ -97,7 +98,7 @@ class VideoCallController : InterfaceExtendedController {
     var isSocketConnected : Bool{
         return (socketClient?.isConnected ?? false)
     }
-
+    
     var appDelegate : AppDelegate?
     
     override func viewDidLoad() {
@@ -225,7 +226,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-
+    
     func processExitAction(code : exitCode){
         
         timer.pauseTimer()
@@ -273,7 +274,7 @@ class VideoCallController : InterfaceExtendedController {
     func isExpired()->Bool{
         return false
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //multipleVideoTabListner()
@@ -500,7 +501,7 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.setListener { (deletedEventID) in
             
             if self.eventId == deletedEventID{
-               
+                
                 self.eventCancelled()
                 
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
@@ -624,8 +625,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func acceptCall(){
         
-        socketListener?.confirmConnect(completion: { [weak self] (success) in
-            
+        socketListener?.confirmConnect(completion: { [weak self] (success) in            
             if(success){
                 //self?.startAcceptCall()
             }
@@ -777,8 +777,7 @@ extension VideoCallController{
             }
             
             let captureSession = localCapturer.captureSession
-            //             localView.captureSession = captureSession
-            
+            //localView.captureSession = captureSession
             
             let settingsModel = ARDSettingsModel()
             settingsModel.storeVideoResolutionSetting("1280x720")
@@ -949,11 +948,13 @@ extension VideoCallController{
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
+            self.hideAlertContainer()
             return
         }
         
         if(type == .connected){
             
+            self.hideAlertContainer()
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
             return
@@ -962,6 +963,7 @@ extension VideoCallController{
         self.hideChatalyzeLogo()
         self.hidePreConnectLabel()
         self.hideDelayAndCancelAlert()
+        self.hideAlertContainer()
         
         var fontSize = 18
         
@@ -971,8 +973,9 @@ extension VideoCallController{
         }
         
         if type == .eventDelay{
-           
+            
             // New Alert is implemented now on the place of the earlier message. So we are hiding earlier alerts and showing the new one.
+            self.showAlertContainer()
             self.showEventDelayAlert()
             return
         }
@@ -980,56 +983,38 @@ extension VideoCallController{
         if type == .eventCancelled{
             
             // Implemented alert for the cancel of the event.
+            self.showAlertContainer()
             self.showCancelEventAlert()
             return
         }
         
         if type == .eventNotStarted{
             
+            self.showAlertContainer()
             self.showPreConnectLabel()
-            
             let requiredMessage = "Session has not started."
-            
             let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
-            
             preConnectLbl?.attributedText = secondAttributedString
             return
         }
         
         if type == .userDidNotJoin {
             
+            self.showAlertContainer()
             self.showPreConnectLabel()
-            
             let firstStr = (roomType == .user) ? "Host" : "Participant"
-            
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
-            
             let secondStr = " hasn't joined the session."
-            
             let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-            
             firstMutableAttributedStr.append(secondAttributedString)
-            
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
-            
             preConnectLbl?.attributedText = firstMutableAttributedStr
-            
             return
         }
         
-        //        if type == .preConnectedSuccess{
-        //
-        //            let secondStr = "You've pre-connected successfully. \n\n Get ready to chat!"
-        //
-        //            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
-        //
-        //            preConnectLbl?.attributedText = secondAttributedString
-        //
-        //            return
-        //        }
-        
         if type == .connected {
             
+            self.hideAlertContainer()
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
             return
@@ -1048,6 +1033,13 @@ extension VideoCallController{
         chatalyzeLogo?.isHidden = true
     }
     
+    func hideAlertContainer(){
+        self.alertContainerView?.isHidden = true
+    }
+    func showAlertContainer(){
+        self.alertContainerView?.isHidden = false
+    }
+    
     func showEventDelayAlert(){
         
         self.eventDelayAlertView?.layer.borderWidth = 1
@@ -1060,13 +1052,9 @@ extension VideoCallController{
         
         let textOne = "We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please "
         let texttwo = "contact us."
-        
         let mutableAttrOne = textOne.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: false)
-        
         let attrTwo = texttwo.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: true)
-        
         mutableAttrOne.append(attrTwo)
-        
         self.eventCancelledAlertView?.layer.borderWidth = 1
         self.eventCancelledAlertView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.eventCancelledAlertView?.layer.borderColor = UIColor(red: 224.2/255.0, green: 102.0/255.0, blue: 102.0/255.0, alpha: 1).cgColor
@@ -1075,7 +1063,7 @@ extension VideoCallController{
     }
     
     func hideDelayAndCancelAlert(){
-      
+        
         self.eventDelayAlertView?.isHidden = true
         self.eventCancelledAlertView?.isHidden = true
     }
@@ -1094,19 +1082,28 @@ extension VideoCallController{
         self.loadActivatedInfo { [weak self] (isActivated, info) in
             
             Log.echo(key: "delay", text: "info received -> \(String(describing: info?.title))")
-            
             guard let info = info
                 else{
                     return
             }
-            
             self?.eventInfo = info
             self?.processEventInfo()
             Log.echo(key: "delay", text: "processed")
-            
             if(isActivated){
                 Log.echo(key: "delay", text: "Event is activated")
             }
+        }
+    }
+}
+
+
+extension VideoCallController{
+    
+    @IBAction func goToContactUsScreen(sender:UIButton){
+        
+        self.dismiss(animated: false) {[weak self] in
+            Log.echo(key: "log", text: "VideoCallController dismissed")
+            self?.onExit(code : .contactUs)
         }
     }
 }

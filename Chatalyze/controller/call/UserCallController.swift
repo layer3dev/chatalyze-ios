@@ -569,7 +569,6 @@ class UserCallController: VideoCallController {
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
-    
     func updateLableAnimation(){
         
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
@@ -654,6 +653,11 @@ class UserCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
+        if(code == .contactUs){
+            showContactUsScreen()
+            return
+        }
+        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -675,6 +679,11 @@ class UserCallController: VideoCallController {
                 return
         }
         
+    }
+    
+    func showContactUsScreen(){
+        
+        RootControllerManager().getCurrentController()?.showContactUs()
     }
     
      func showFeedbackScreen() {

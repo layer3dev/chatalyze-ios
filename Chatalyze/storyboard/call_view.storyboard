@@ -133,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4XC-9u-aiE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="971" y="-1767"/>
+            <point key="canvasLocation" x="1016" y="-1767"/>
         </scene>
         <!--Hangup Controller-->
         <scene sceneID="flL-Jo-35J">
@@ -257,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBm-f4-JDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1639" y="-1767"/>
+            <point key="canvasLocation" x="1658" y="-1767"/>
         </scene>
         <!--User Call Controller-->
         <scene sceneID="lsO-s1-FcF">
@@ -271,7 +271,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8v-wO-emD" userLabel="background_container">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKG-jl-gLG" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF0-kf-hbK" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="160" y="254" width="0.0" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" id="R3F-fs-Z6x"/>
+                                            <constraint firstAttribute="height" id="yjp-cz-f1N"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="yjp-cz-f1N" id="8jI-e7-HAr"/>
+                                            <outlet property="widthConstraint" destination="R3F-fs-Z6x" id="GYM-77-ycj"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="GF0-kf-hbK" firstAttribute="centerX" secondItem="gKG-jl-gLG" secondAttribute="centerX" id="GK6-NP-FnW"/>
+                                    <constraint firstItem="GF0-kf-hbK" firstAttribute="centerY" secondItem="gKG-jl-gLG" secondAttribute="centerY" id="YSl-rR-XtV"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="remoteVideoView" destination="GF0-kf-hbK" id="Xsj-2G-G2j"/>
+                                </connections>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8v-wO-emD" userLabel="background_container">
                                 <rect key="frame" x="0.0" y="60" width="320" height="508"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyzeHeader" translatesAutoresizingMaskIntoConstraints="NO" id="05F-Pn-HJb">
@@ -348,6 +373,16 @@
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
                                                 </variation>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Hc-Pc-rCK">
+                                                <rect key="frame" x="0.0" y="192" width="280" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Umi-gX-AzA"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="goToContactUsScreenWithSender:" destination="ddm-i3-FOl" eventType="touchUpInside" id="Bpk-0u-vLE"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -355,6 +390,7 @@
                                             <constraint firstItem="K0x-6q-PD8" firstAttribute="leading" secondItem="Pq9-Eh-IbO" secondAttribute="leading" constant="30" id="5g1-wW-RiU">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
+                                            <constraint firstItem="9Hc-Pc-rCK" firstAttribute="bottom" secondItem="K0x-6q-PD8" secondAttribute="bottom" id="6nv-oa-Ogl"/>
                                             <constraint firstItem="8QP-Ro-Bol" firstAttribute="top" secondItem="Pq9-Eh-IbO" secondAttribute="top" constant="30" id="7ec-dx-v5B">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
@@ -362,6 +398,8 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="8QP-Ro-Bol" secondAttribute="trailing" id="NZI-dw-ypV"/>
+                                            <constraint firstItem="9Hc-Pc-rCK" firstAttribute="leading" secondItem="Pq9-Eh-IbO" secondAttribute="leading" id="XeS-fK-xLt"/>
+                                            <constraint firstAttribute="trailing" secondItem="9Hc-Pc-rCK" secondAttribute="trailing" id="kKv-Pd-KY0"/>
                                             <constraint firstItem="K0x-6q-PD8" firstAttribute="top" secondItem="8QP-Ro-Bol" secondAttribute="bottom" constant="15" id="mbe-Pv-OmV">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="25"/>
                                             </constraint>
@@ -401,31 +439,6 @@
                                         <exclude reference="05F-Pn-HJb"/>
                                     </mask>
                                 </variation>
-                            </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKG-jl-gLG" userLabel="remoteContainer" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF0-kf-hbK" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="160" y="254" width="0.0" height="0.0"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" id="R3F-fs-Z6x"/>
-                                            <constraint firstAttribute="height" id="yjp-cz-f1N"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="heightConstraint" destination="yjp-cz-f1N" id="8jI-e7-HAr"/>
-                                            <outlet property="widthConstraint" destination="R3F-fs-Z6x" id="GYM-77-ycj"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="GF0-kf-hbK" firstAttribute="centerX" secondItem="gKG-jl-gLG" secondAttribute="centerX" id="GK6-NP-FnW"/>
-                                    <constraint firstItem="GF0-kf-hbK" firstAttribute="centerY" secondItem="gKG-jl-gLG" secondAttribute="centerY" id="YSl-rR-XtV"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="remoteVideoView" destination="GF0-kf-hbK" id="Xsj-2G-G2j"/>
-                                </connections>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X6y-Z9-AIW" customClass="CanvasContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
@@ -903,6 +916,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="alertContainerView" destination="w8v-wO-emD" id="UgY-Yo-qvP"/>
                         <outlet property="chatalyzeLogo" destination="05F-Pn-HJb" id="dE5-pJ-WAU"/>
                         <outlet property="countDountAttrTimerLbl" destination="3yi-2S-ZcF" id="G5a-pn-MZt"/>
                         <outlet property="eventCancelledAlertLbl" destination="K0x-6q-PD8" id="nC8-P9-GWq"/>
@@ -916,7 +930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4v8-gh-Mf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2319" y="-1767"/>
+            <point key="canvasLocation" x="2301" y="-1767"/>
         </scene>
         <!--Host Call Controller-->
         <scene sceneID="zgB-UX-4on">
@@ -1485,7 +1499,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zOk-BH-jLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3013" y="-1767"/>
+            <point key="canvasLocation" x="2949" y="-1767"/>
         </scene>
         <!--Media Alert Controller-->
         <scene sceneID="RaV-Ar-9cB">
@@ -1937,7 +1951,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ss3-vj-uFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3711" y="-1767"/>
+            <point key="canvasLocation" x="3594" y="-1767"/>
         </scene>
     </scenes>
     <resources>

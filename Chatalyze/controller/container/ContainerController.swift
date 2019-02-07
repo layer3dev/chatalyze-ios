@@ -31,7 +31,6 @@ class ContainerController: NavChildController {
     @IBOutlet var toggleTrailing:NSLayoutConstraint?
     var toggleWidth:CGFloat = 0.0
     @IBOutlet var shadowView:UIView?
-    
     @IBOutlet var updateAlertView:UIView?
     @IBOutlet var deprecationAlertView:UIView?
     @IBOutlet var obsoleteAlertView:UIView?
@@ -312,8 +311,7 @@ class ContainerController: NavChildController {
             guard let rootController = HostDashboardController.instance() else{
                 return
             }
-            
-            guard let controller = ScheduleSessionController.instance() else{
+            guard let controller = SessionScheduleNewController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)
@@ -340,7 +338,6 @@ class ContainerController: NavChildController {
             guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
-            
             guard let controller = ContactUsController.instance() else{
                 return
             }
@@ -619,36 +616,21 @@ extension ContainerController : TabContainerViewInterface{
         self.tapAction(menuType: MenuRootView.MenuType.settings)
     }
     
+    func showContactUs(){
+        
+        self.tapAction(menuType: MenuRootView.MenuType.contactUsUser)
+    }
+    
     func setAccountTabwithMySessionScreen(){
       
         tapAction(menuType: MenuRootView.MenuType.analystAccount)
-        
-//        tabContainerView?.selectTab(type : TabContainerView.tabType.account)
-//        tabController?.popToRootView(type :selectedTab)
-//        selectedTab = TabContainerView.tabType.account
-//        tabController?.selectedIndex = TabContainerView.tabType.account.rawValue
-//
-//        //Above code is responsible for the changing the tabs.
-//        //Below code is responsible for changing the controller to the tickets Controller.
-//
-//        if let accountControllerNav = tabController?.selectedViewController as? ExtendedNavigationController {
-//
-//            accountControllerNav.popToRootViewController(animated: true)
-//            if let accountController = accountControllerNav.topViewController as? AccountHostController{
-//                accountController.memoryAction()
-//                if let pageController = accountController.pageViewHostController {
-//                    if pageController.pagesHost.count >= 2 {
-//                        if let settingController = pageController.pagesHost[1] as? SettingController {
-//                            guard let controller = MyScheduledSessionsController.instance() else{
-//                                return
-//                            }
-//                            settingController.navigationController?.pushViewController(controller, animated: true)
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
+    
+    func setScheduleSession(){
+        
+        tapAction(menuType: MenuRootView.MenuType.scheduledSessionAnalyst)
+    }
+    
     
     func selectEventTabWithSessions(){
         

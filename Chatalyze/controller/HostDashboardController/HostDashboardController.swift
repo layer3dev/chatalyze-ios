@@ -27,8 +27,6 @@ class HostDashboardController: MyScheduledSessionsController {
         checkForShowingHostWelcomeAnimation()
     }
     
-  
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -189,13 +187,8 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
-        Log.echo(key: "yud", text: "I am calling")
-        
         DispatchQueue.main.async {
             
-//            guard let controller = ScheduleSessionController.instance() else{
-//                return
-//            }
             guard let controller = SessionScheduleNewController.instance() else{
                 return
             }

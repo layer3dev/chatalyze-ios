@@ -753,6 +753,10 @@
 		47F0D71A20F8E0C500A689FA /* IsoCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F0D71920F8E0C500A689FA /* IsoCountries.swift */; };
 		47F0D72220F8E55400A689FA /* CountryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F0D72120F8E55400A689FA /* CountryPicker.m */; };
 		47F3357421493D4F006A80D1 /* SelfieTimerStatisticsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F3357321493D4F006A80D1 /* SelfieTimerStatisticsInfo.swift */; };
+		47F51EA8220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F51EA7220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift */; };
+		47F51EA9220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F51EA7220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift */; };
+		47F51EAC220C50020070B112 /* SessionEarningInfoForHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F51EAB220C50020070B112 /* SessionEarningInfoForHost.swift */; };
+		47F51EAD220C50020070B112 /* SessionEarningInfoForHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F51EAB220C50020070B112 /* SessionEarningInfoForHost.swift */; };
 		47F5A9A920BEA4A800543529 /* MyTicketCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */; };
 		47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */; };
 		47F641A32187061400263DB6 /* ButtonCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F641A22187061400263DB6 /* ButtonCorners.swift */; };
@@ -1320,6 +1324,8 @@
 		47F0D71920F8E0C500A689FA /* IsoCountries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsoCountries.swift; sourceTree = "<group>"; };
 		47F0D72120F8E55400A689FA /* CountryPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountryPicker.m; sourceTree = "<group>"; };
 		47F3357321493D4F006A80D1 /* SelfieTimerStatisticsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieTimerStatisticsInfo.swift; sourceTree = "<group>"; };
+		47F51EA7220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSessionEarningForHostProcessor.swift; sourceTree = "<group>"; };
+		47F51EAB220C50020070B112 /* SessionEarningInfoForHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEarningInfoForHost.swift; sourceTree = "<group>"; };
 		47F5A9A820BEA4A800543529 /* MyTicketCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketCellDelegate.swift; sourceTree = "<group>"; };
 		47F5A9AA20BEBBDE00543529 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		47F5A9AC20BEBE1100543529 /* EventPaymentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPaymentProcessor.swift; sourceTree = "<group>"; };
@@ -3133,6 +3139,22 @@
 			path = SelfieTimerDataHelper;
 			sourceTree = "<group>";
 		};
+		47F51EA6220C4CC60070B112 /* FetchSessionEarningInfoProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				47F51EA7220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift */,
+			);
+			path = FetchSessionEarningInfoProcessor;
+			sourceTree = "<group>";
+		};
+		47F51EAA220C4FCD0070B112 /* SessionPriceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				47F51EAB220C50020070B112 /* SessionEarningInfoForHost.swift */,
+			);
+			path = SessionPriceInfo;
+			sourceTree = "<group>";
+		};
 		47F5A9A720BEA45D00543529 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -3407,6 +3429,7 @@
 				47614F82213ABFAE00CC9702 /* MySessionInfo */,
 				47BAED99220029E20042588A /* Empty Slot Info */,
 				47BAED9D2200574F0042588A /* ScheduleSesionInfo */,
+				47F51EAA220C4FCD0070B112 /* SessionPriceInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3825,6 +3848,7 @@
 				47A4D45021F357F500FCC5CC /* SetUpHostProfile */,
 				47D7CC1121BE898D00CAFCF1 /* FetchAppVersionInfo */,
 				47E6828A21FF214400A39DE0 /* CancelSession */,
+				47F51EA6220C4CC60070B112 /* FetchSessionEarningInfoProcessor */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -5115,6 +5139,7 @@
 				47D0B08121A6C4B5006376A8 /* ExtendedImageView.swift in Sources */,
 				47D0B08221A6C4B5006376A8 /* ImageCropper.swift in Sources */,
 				47D0B08321A6C4B5006376A8 /* MyTicketesVerticalAdapter.swift in Sources */,
+				47F51EAD220C50020070B112 /* SessionEarningInfoForHost.swift in Sources */,
 				47D0B08421A6C4B5006376A8 /* CameraTestController.swift in Sources */,
 				47FFAF5321F0B97100D3B54D /* SetHostProfileController.swift in Sources */,
 				47D0B08521A6C4B5006376A8 /* SessionController.swift in Sources */,
@@ -5220,6 +5245,7 @@
 				47D0B0DF21A6C4B5006376A8 /* LocalVideoContainerView.swift in Sources */,
 				47D0B0E021A6C4B5006376A8 /* SlotFlagInfo.swift in Sources */,
 				47D0B0E121A6C4B5006376A8 /* MenuCell.swift in Sources */,
+				47F51EA9220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift in Sources */,
 				47D0B0E221A6C4B5006376A8 /* QueueContainerView.swift in Sources */,
 				47D0B0E321A6C4B5006376A8 /* EventLandingController.swift in Sources */,
 				FA91056021D652E500060AFF /* OnBoardPageViewController.swift in Sources */,
@@ -5570,6 +5596,7 @@
 				471CC8682161E85700DB5E8C /* ImageCropper.swift in Sources */,
 				471CC8752162463C00DB5E8C /* MyTicketesVerticalAdapter.swift in Sources */,
 				47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */,
+				47F51EAC220C50020070B112 /* SessionEarningInfoForHost.swift in Sources */,
 				47931AF82109EB9200F41630 /* SessionController.swift in Sources */,
 				47FFAF5221F0B97100D3B54D /* SetHostProfileController.swift in Sources */,
 				FA1B36402064E22F00F2E6BC /* VideoRootView.swift in Sources */,
@@ -5675,6 +5702,7 @@
 				FAFDE4CF20A19E310098B9B2 /* LocalVideoContainerView.swift in Sources */,
 				FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */,
 				47C9EF6021550D1700478D85 /* MenuCell.swift in Sources */,
+				47F51EA8220C4CE20070B112 /* FetchSessionEarningForHostProcessor.swift in Sources */,
 				FAD6BA382064F6CF00942F27 /* QueueContainerView.swift in Sources */,
 				473566C1210722E100F62C97 /* EventLandingController.swift in Sources */,
 				47B6522E20AAAF710041496C /* GreetingRootView.swift in Sources */,

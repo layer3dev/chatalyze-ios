@@ -33,13 +33,13 @@ class HostDashboardRootView: MySessionRootView {
         
         DispatchQueue.main.async {
             
-            let textOne = "Looks like you don't have any"
+            let textOne = "Looks like you don't have"
             let textOneMutableAttr = textOne.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17 , color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
             
-            let textTwo = "upcoming sessions."
+            let textTwo = "any upcoming sessions."
             let textTwoAttr = textTwo.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17, color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
                         
-            let textThree = "Let's create one!"
+            let textThree = " Let's create one!"
             let textThreeAttr = textThree.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17, color: UIColor(red: 122.0/255.0, green: 202.0/255.0, blue: 250.0/255.0, alpha: 1), isUnderLine: false)
             
             textTwoAttr.append(textThreeAttr)
@@ -70,7 +70,9 @@ class HostDashboardRootView: MySessionRootView {
         }
         
         userNameLbl?.text = SignedUserInfo.sharedInstance?.fullName ?? ""
-        userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
+        //For now client asked not to show the description as it is not implemneted in the web.
+        //userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
+        userDescriptionLbl?.text = ""
     }    
     
     func initializeFontSize(){

@@ -52,6 +52,7 @@ class UserInfo: NSObject {
     var eventMobReminder:Bool = false
     var isOnline = false
     var countryCode:String = ""
+    var allowFreeSession:Bool? = false
     
     override init(){
         super.init()
@@ -88,6 +89,7 @@ class UserInfo: NSObject {
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
+        self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         updateSideMenuInfo()
     }
 }

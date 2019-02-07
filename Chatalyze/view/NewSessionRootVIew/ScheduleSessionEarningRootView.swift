@@ -145,6 +145,10 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
 
     func isPriceZero(text:String?)->Bool{
 
+        if SignedUserInfo.sharedInstance?.allowFreeSession  == true{
+            return false
+        }
+        
         if let priceStr = text{
 
             guard priceStr.count > 0 else { return true }
@@ -290,11 +294,11 @@ extension ScheduleSessionEarningRootView{
             priceField?.showError(text: "Price is required.")
             return false
         }
-//        else if isPriceZero(text: priceField?.textField?.text){
-//
-//            priceField?.showError(text: "Minimum price is $1")
-//            return false
-//        }
+        else if isPriceZero(text: priceField?.textField?.text){
+
+            priceField?.showError(text: "Minimum price is $1")
+            return false
+        }
         else if isExceedsMaximumPrice(text: priceField?.textField?.text){
             
             priceField?.showError(text: "Price can't be more than 9999.")

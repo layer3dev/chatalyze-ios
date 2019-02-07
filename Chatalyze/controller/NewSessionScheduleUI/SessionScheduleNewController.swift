@@ -19,7 +19,17 @@ class SessionScheduleNewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
         initializeGradient()
+        updateProfile()
+    }
+    
+    func updateProfile(){
+        
+        self.showLoader()
+        FetchProfileProcessor().fetch { (suucess, error, response) in
+            self.stopLoader()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

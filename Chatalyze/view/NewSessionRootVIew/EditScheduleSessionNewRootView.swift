@@ -488,10 +488,10 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }
         
         self.sessionInfo?.eventDescription = descriptionTextView?.text
+        fillInfo(info:self.sessionInfo)
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
     }
-    
     
     func initializeVariable(){
         

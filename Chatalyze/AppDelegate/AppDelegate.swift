@@ -214,11 +214,9 @@ extension AppDelegate{
         guard let userInfo = SignedUserInfo.sharedInstance?.id else {
             return
         }
-        
         AccessTokenValidator().validate { (success) in
-           
             if !success{
-              
+                
                 RootControllerManager().signOut(completion: {
                 })
             }

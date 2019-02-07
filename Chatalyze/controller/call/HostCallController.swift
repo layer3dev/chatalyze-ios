@@ -38,9 +38,7 @@ class HostCallController: VideoCallController {
         
         return false
     }
-    
-    
-    
+        
     //Using in order to prevent to showing the message "Participant did not join session before the slot start."
     override var isSlotRunning : Bool{
         
@@ -86,8 +84,18 @@ class HostCallController: VideoCallController {
         showEarningInformationScreen()
     }
     
-    func showEarningInformationScreen() {
+    func showEarningInformationScreen(){
         
+//        guard let controller = HostFeedbackController.instance() else{
+//            return
+//        }
+//        controller.sessionId = self.eventId
+//        guard let presentingController =  self.lastPresentingController
+//            else{
+//                Log.echo(key: "_connection_", text: "presentingController is nil")
+//                return
+//        }
+//        presentingController.present(controller, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,7 +130,6 @@ class HostCallController: VideoCallController {
         var isDisableHangup = false
         
         if self.eventInfo?.mergeSlotInfo?.currentSlot == nil{
-            
             isDisableHangup = true
         }
         
