@@ -233,7 +233,7 @@ extension ScheduleSessionEarningRootView{
             normalFont = 18
         }
         
-        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
+        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
@@ -288,7 +288,7 @@ extension ScheduleSessionEarningRootView{
     }
     
     fileprivate func priceValidation()->Bool{
-        
+
         if(priceField?.textField?.text == ""){
             
             priceField?.showError(text: "Price is required.")
