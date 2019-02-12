@@ -186,7 +186,7 @@ class HostDashboardController: MyScheduledSessionsController {
     
     
     @IBAction func scheduleSessionAction(sender:UIButton){
-        
+                    
         DispatchQueue.main.async {
             
             guard let controller = SessionScheduleNewController.instance() else{
