@@ -72,9 +72,7 @@ class ReviewController: InterfaceExtendedController{
             return
         }
         
-        //self.startAnimating()
         self.showLoader()
-        //SubmitCallReviewProcessor().submit(comments: "hello", rating: CGFloat(4.0) , callscheduleId: 2271, analystId: "36", userId: "50") { (success, message, response) in
         
         SubmitCallReviewProcessor().submit(comments: comment, rating:rating , callscheduleId: callScheduleId, analystId: analystId, userId: userId) { (success, message, response) in
             
@@ -83,6 +81,7 @@ class ReviewController: InterfaceExtendedController{
             self.dismiss()
         }
     }
+    
     
     @IBAction func dismiss(){
         

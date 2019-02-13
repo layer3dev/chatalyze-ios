@@ -31,6 +31,40 @@ class TippingConfirmationController: UIViewController {
         self.view.addGradientWithColor(colors: colors)
     }
     
+    @IBAction func cardInfoAction(sender:UIButton){
+        
+        guard let controller = TippingCardDetailInfoController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func dollorOneTipAction(sender:UIButton){
+        
+        guard let controller = TippingCardDetailInfoController.instance() else{
+            return
+        }
+        controller.tip  = TippingCardDetailInfoController.TipPrice.oneDollor
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func dollorTwoTipAction(sender:UIButton){
+        
+        guard let controller = TippingCardDetailInfoController.instance() else{
+            return
+        }
+        controller.tip  = TippingCardDetailInfoController.TipPrice.twoDollor
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func dollorFiveTipAction(sender:UIButton){
+        
+        guard let controller = TippingCardDetailInfoController.instance() else{
+            return
+        }
+        controller.tip  = TippingCardDetailInfoController.TipPrice.fiveDollor
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     
     /*
     // MARK: - Navigation
