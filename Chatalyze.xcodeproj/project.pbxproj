@@ -246,6 +246,7 @@
 		47B6EE0521ABFC63009E155A /* EventCreateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */; };
 		47B6EE0A21AC1768009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */; };
 		47B6EE0B21AC18A2009E155A /* UpdateChatCountInSessionsListeners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */; };
+		47B7E0CC22159F12005CFEC0 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B7E0CB22159F12005CFEC0 /* StoreKit.framework */; };
 		47B80DBE20B3F211001F13CA /* MyTicketsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */; };
 		47B80DC020B3F323001F13CA /* MyTicketesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */; };
 		47B80DC220B3F3ED001F13CA /* MyTicketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */; };
@@ -1272,6 +1273,7 @@
 		47B6EE0021ABF4C0009E155A /* EventDeletedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDeletedListener.swift; sourceTree = "<group>"; };
 		47B6EE0321ABFAF1009E155A /* EventCreateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateListener.swift; sourceTree = "<group>"; };
 		47B6EE0921AC1768009E155A /* UpdateChatCountInSessionsListeners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChatCountInSessionsListeners.swift; sourceTree = "<group>"; };
+		47B7E0CB22159F12005CFEC0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		47B80DBD20B3F211001F13CA /* MyTicketsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsRootView.swift; sourceTree = "<group>"; };
 		47B80DBF20B3F323001F13CA /* MyTicketesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketesAdapter.swift; sourceTree = "<group>"; };
 		47B80DC120B3F3ED001F13CA /* MyTicketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsCell.swift; sourceTree = "<group>"; };
@@ -1714,6 +1716,7 @@
 				FAA001BB203EDFF1003C8A74 /* SwiftyJSON.framework in Frameworks */,
 				93B43BF9D04856887D2C8E8D /* Pods_Chatalyze.framework in Frameworks */,
 				DBC243590EFB41304B7E4070 /* Pods_Chatalyze.framework in Frameworks */,
+				47B7E0CC22159F12005CFEC0 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4200,6 +4203,7 @@
 		FAA001B5203EDC13003C8A74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47B7E0CB22159F12005CFEC0 /* StoreKit.framework */,
 				47D790D021A28ECA0093DA2B /* JTAppleCalendar.framework */,
 				47D790C821A28B510093DA2B /* JTAppleCalendar.framework */,
 				47D790C621A28AD00093DA2B /* JTAppleCalendar.framework */,
@@ -4700,6 +4704,9 @@
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {

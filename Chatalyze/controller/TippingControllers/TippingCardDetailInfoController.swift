@@ -8,6 +8,7 @@
 
 import UIKit
 import InputMask
+import StoreKit
 
 class TippingCardDetailInfoController: UIViewController {
     
