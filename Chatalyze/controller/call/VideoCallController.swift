@@ -148,18 +148,15 @@ class VideoCallController : InterfaceExtendedController {
         eventDeleteListener.releaseListener()
         updatedEventScheduleListener.releaseListener()
         applicationStateListener.releaseListener()
-    }
-    
+    }    
     
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
     }
     
-    
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
     }
-    
     
     //public - Need to be access by child
     var peerConnection : ARDAppClient?{
@@ -167,7 +164,6 @@ class VideoCallController : InterfaceExtendedController {
             return nil
         }
     }
-    
     
     func resetMuteActions(){
         
