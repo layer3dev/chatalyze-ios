@@ -114,9 +114,10 @@ extension UserInfo{
         }
     }
     
+    //last name field is no longer used, but server is storing full name in first name field
     @objc var fullName : String{
         get{
-            return String(format : "%@ %@", self.firstName ?? "", self.lastName ?? "")
+            return self.firstName ?? ""
         }
     }
     

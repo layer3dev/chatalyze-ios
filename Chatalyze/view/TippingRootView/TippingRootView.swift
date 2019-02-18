@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TippingRootView: ExtendedView {
     
@@ -17,6 +18,8 @@ class TippingRootView: ExtendedView {
     @IBOutlet private var noTipView:UIView?
     @IBOutlet private var tipLabel:UILabel?
     @IBOutlet private var profileImage:UIImageView?
+    
+    private var scheduleInfo : EventScheduleInfo?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -45,8 +48,25 @@ class TippingRootView: ExtendedView {
         noTipView?.layer.masksToBounds = true
     }
     
-    func fillInfo(){
+    func fillInfo(scheduleInfo : EventScheduleInfo?){
+        self.scheduleInfo = scheduleInfo
         
-       //tipLabel?.text = "Would you like to support Jordan Winawer by giving a tip?"
+        guard let scheduleInfo = scheduleInfo
+            else{
+                return
+        }
+        let influencer = scheduleInfo.user
+        let influencerName = influencer?.fullName ?? ""
+        
+        tipLabel?.text = "Would you like to support \(influencerName) by giving a donation?"
+        
+        guard let image = influencer?.profileImage
+            else{
+                return
+        }
+        
+        profileImage?.sd_setImage(with: URL(string:image), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+        })
+        
     }
 }

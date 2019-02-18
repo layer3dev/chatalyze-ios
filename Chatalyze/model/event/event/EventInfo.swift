@@ -47,6 +47,7 @@ class EventInfo: NSObject {
     var serviceFee:Double?
     var callBookings:[JSON] = [JSON]()
     var isScreenShotAllowed:String?
+    var tipEnabled : Bool?
     var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
     
     override init(){
@@ -80,6 +81,7 @@ class EventInfo: NSObject {
         notified = json["notified"].string
         started = json["started"].string
         groupId = json["groupId"].string
+        
         paymentTransferred = json["paymentTransferred"].bool
         leadPageUrl = json["leadPageUrl"].string
         eventBannerUrl = json["eventBannerUrl"].string
@@ -90,6 +92,7 @@ class EventInfo: NSObject {
         createdAt = json["createdAt"].string
         updatedAt = json["updatedAt"].string
         deletedAt = json["deletedAt"].string
+        tipEnabled = json["tipEnabled"].bool
         isScreenShotAllowed = json["screenshotAllow"].string
         
         //autographAllow

@@ -293,6 +293,9 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
+        
+        //temp
+//        showExitScreen()
     }
     
     
@@ -569,8 +572,8 @@ class UserCallController: VideoCallController {
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
+    
     func updateLableAnimation(){
-        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 
@@ -675,18 +678,32 @@ class UserCallController: VideoCallController {
         
         guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
-                showFeedbackScreen()
+                showExitScreen()
                 return
         }
-        
     }
     
     func showContactUsScreen(){
-        
         RootControllerManager().getCurrentController()?.showContactUs()
     }
     
-     func showFeedbackScreen() {
+    private func showDonateScreen(){
+        guard let presentingController = self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        
+        guard let controller = TippingConfirmationController.instance()
+            else{
+                return
+        }
+        controller.scheduleInfo = eventInfo
+        
+        presentingController.present(controller, animated: false, completion:nil)
+    }
+    
+    private func showFeedbackScreen(){
         
         guard let presentingController = self.lastPresentingController
             else{
@@ -697,14 +714,23 @@ class UserCallController: VideoCallController {
         guard let controller = ReviewController.instance() else{
             return
         }
+        
         controller.eventInfo = eventInfo
-        controller.dismissListner = {[weak self] in
-            
-            self?.feedbackListener?(self?.eventInfo)
-        }
+        
         presentingController.present(controller, animated: false, completion:{
         })
     }
+    
+    func showExitScreen() {
+        let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+        if(isDonationEnabled){
+            showDonateScreen()
+            return
+        }
+        
+        showFeedbackScreen()
+    }
+    
     
     private func confirmCallLinked(){
                 
@@ -717,6 +743,7 @@ class UserCallController: VideoCallController {
             self.connection?.linkCall()
         }
     }
+    
     
     override func callFailed(){
         super.callFailed()

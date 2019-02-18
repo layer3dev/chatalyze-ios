@@ -74,7 +74,6 @@ class VideoCallController : InterfaceExtendedController {
     
     //todo: fix it
     //there is no need of this callback
-    var feedbackListener : ((EventScheduleInfo?)->())?
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
     private var speedHandler : InternetSpeedHandler?

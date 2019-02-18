@@ -199,9 +199,7 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
             else{
                 return
         }
-        controller.feedbackListener = {(eventInfo) in
-            self.root?.refreshData()
-        }
+        
         controller.eventId = String(eventId)
         self.root?.controller?.present(controller, animated: false, completion: nil)
     }
@@ -227,6 +225,5 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
     func refreshData(){
         
-        root?.refreshData()
     }
 }

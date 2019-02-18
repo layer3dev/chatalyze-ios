@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import StoreKit
 
-class TippingConfirmationController: UIViewController {
-
+class TippingConfirmationController: InterfaceExtendedController {
+    
+    var scheduleInfo : EventScheduleInfo?
+    
+    var donateProduct : DonateProduct?
+    var appStateManager : ApplicationConfirmForeground?
+    
+    private var isProcessingLastTransaction = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view
+        
+        donateProduct = DonateProduct(controller : self)
+        
+        rootView?.fillInfo(scheduleInfo: scheduleInfo)
     }
     
     var rootView:TippingRootView?{
@@ -24,46 +36,70 @@ class TippingConfirmationController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    func setGradientColors(){
-        
-        let colors = [UIColor(red: 239.0/255.0, green: 154.0/255.0, blue: 131.0/255.0, alpha: 1).cgColor,UIColor(red: 241.0/255.0, green: 170.0/255.0, blue: 120.0/255.0, alpha: 1).cgColor]
-        
-        self.view.addGradientWithColor(colors: colors)
+    @IBAction func noTipAction(){
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cardInfoAction(sender:UIButton){
-        
         guard let controller = TippingCardDetailInfoController.instance() else{
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    @IBAction func dollorOneTipAction(sender:UIButton){
-        
-        guard let controller = TippingCardDetailInfoController.instance() else{
-            return
-        }
-        controller.tip  = TippingCardDetailInfoController.TipPrice.oneDollor
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
+    //two dollar now
     @IBAction func dollorTwoTipAction(sender:UIButton){
+        donate(value : .two)
         
-        guard let controller = TippingCardDetailInfoController.instance() else{
-            return
-        }
-        controller.tip  = TippingCardDetailInfoController.TipPrice.twoDollor
-        self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    @IBAction func dollorFiveTipAction(sender:UIButton){
+    //six dollar now
+    @IBAction func dollorSixTipAction(sender:UIButton){
+        donate(value : .six)
         
-        guard let controller = TippingCardDetailInfoController.instance() else{
+    }
+    
+    //ten dollar now
+    @IBAction func dollorTenTipAction(sender:UIButton){
+        donate(value : .ten)
+        
+    }
+    
+    private func donate(value : DonateProductInfo.value){
+        if(isProcessingLastTransaction){
             return
         }
-        controller.tip  = TippingCardDetailInfoController.TipPrice.fiveDollor
-        self.navigationController?.pushViewController(controller, animated: true)
+        
+        isProcessingLastTransaction = true
+        donateProduct?.buy(value: value) {[weak self] (success, message, transaction) in
+            self?.isProcessingLastTransaction = false
+            Log.echo(key: "in_app_purchase", text: "success -> \(success), message -> \(String(describing: message)), transaction -> \(transaction) ")
+            
+            if(!success){
+                return
+            }
+            
+            let appStateManager = ApplicationConfirmForeground()
+            self?.appStateManager = appStateManager
+            appStateManager.confirmIfActive {
+                Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
+                self?.presentSuccess(value : value)
+            }
+            
+            
+        }
+    }
+    
+    private func presentSuccess(value : DonateProductInfo.value?){
+        
+        guard let controller = DonationSuccessController.instance()
+            else{
+                return
+        }
+        
+        controller.scheduleInfo = scheduleInfo
+        controller.price = value?.getValue()
+        self.present(controller, animated: true, completion: nil)
     }
     
     /*
@@ -85,14 +121,4 @@ class TippingConfirmationController: UIViewController {
 }
 
 
-extension UIView {
-    
-    func addGradientWithColor(colors: [CGColor]) {
-     
-        //It must be of cgcolor as layers always initialize with the cgcolor.
-        let gradient = CAGradientLayer()
-        gradient.frame = self.bounds
-        gradient.colors = colors
-        self.layer.insertSublayer(gradient, at: 0)
-    }
-}
+

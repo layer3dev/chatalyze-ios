@@ -86,11 +86,13 @@ class ReviewController: InterfaceExtendedController{
     @IBAction func dismiss(){
         
         DispatchQueue.main.async {
-            self.dismiss(animated: false) {
+            self.getRootPresentingController()?.dismiss(animated: true, completion: {
                 if let listner = self.dismissListner{
                     listner()
                 }
-            }
+            })
+            
+           
         }
     }
 }
