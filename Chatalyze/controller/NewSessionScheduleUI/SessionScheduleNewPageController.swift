@@ -62,7 +62,6 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
-    
     func setSecondController(){
         
         guard let controller = getController(current: .second) else{
@@ -75,6 +74,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .second
         pageDelegate?.updateProgress()
     }
+    
     
     func setThirdController(){
         
@@ -89,6 +89,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setFourthController(){
         
         guard let controller = getController(current: .fourth) else{
@@ -98,6 +99,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .fourth
         pageDelegate?.updateProgress()
     }
+    
     
     func setFifthController(){
         
@@ -112,6 +114,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setSixthController(){
         
         guard let controller = getController(current: .sixth) else{
@@ -124,6 +127,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .sixth
         pageDelegate?.updateProgress()
     }
+    
     
     func setSeventhController(){
         
@@ -138,6 +142,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setEighthController(){
         
         guard let controller = getController(current: .eighth) else{
@@ -150,6 +155,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .eighth
         pageDelegate?.updateProgress()
     }
+    
     
     func getController(current:CurretController)->UIViewController?{
         
@@ -256,7 +262,6 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         return self.currentController
     }
     
-    
     /*
     // MARK: - Navigation
      
@@ -265,7 +270,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+     */
     
     class func instance()-> SessionScheduleNewPageController?{
         
@@ -281,7 +286,6 @@ extension SessionScheduleNewPageController:ScheduleSessionNewDateControllerDeleg
         setSecondController()
     }
     
-  
     func getSchduleSessionInfo() -> ScheduleSessionInfo? {
         return pageDelegate?.getSchduleSessionInfo()
     }
@@ -292,7 +296,6 @@ extension SessionScheduleNewPageController:ScheduleSessionNewTimeControllerDeleg
     func goToDurationScreen() {
         setThirdController()
     }
-    
 }
 
 extension SessionScheduleNewPageController: ScheduleSessionNewDurationControllerDelegate{

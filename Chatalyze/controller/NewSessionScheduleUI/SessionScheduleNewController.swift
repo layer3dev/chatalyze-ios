@@ -149,7 +149,7 @@ class SessionScheduleNewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
-        self.pageViewController = segue.destination as? SessionScheduleNewPageController
+        self.pageViewController = seguSessionScheduleNewPageControllere.destination as?
         self.pageViewController?.pageDelegate = self
     }
     
