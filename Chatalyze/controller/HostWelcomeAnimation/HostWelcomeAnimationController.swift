@@ -18,16 +18,20 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
     
     @IBAction func setUpMyProfile(sender:UIButton){
         
-//
-//        UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
-//        self.dismiss(animated: true) {
-//        }
+        DispatchQueue.main.async {
+            
+            UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
+            self.dismiss(animated: true, completion: {
+            })
+        }
         
-        guard let controller = SetHostProfileController.instance() else {
-            return
-        }
-        self.present(controller, animated: true) {
-        }
+        //Commented as Jordan asked not to show this untill this will implemented on the Web
+        
+//        guard let controller = SetHostProfileController.instance() else {
+//            return
+//        }
+//        self.present(controller, animated: true) {
+//        }
     }
     
     

@@ -11,10 +11,27 @@ import UIKit
 class OpenCallAlertController: InterfaceExtendedController {
    
     var dismissHandler:(()->())?
+    private var eventDeleteListener = EventDeletedListener()
+
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+       
+        initializeDeleteListner()
     }
+    
+    func initializeDeleteListner(){
+        
+        eventDeleteListener.setListener { (deletedEventID) in
+            self.dismiss(animated: true, completion: {
+            })
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        eventDeleteListener.releaseListener()
+    }
+    
     
     @IBAction func dissmissAction(sender:UIButton){
         

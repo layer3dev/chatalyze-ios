@@ -78,7 +78,7 @@ class HostDashboardController: MyScheduledSessionsController {
     func setSharableUrlText(){
         
         //https://dev.chatalyze.com/profile/NekBanda/485
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
@@ -171,7 +171,7 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
-        var str = AppConnectionConfig.systemTestUrl
+        var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
@@ -180,20 +180,14 @@ class HostDashboardController: MyScheduledSessionsController {
         Log.echo(key: "yud", text: "url id is \(str)")
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
-        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on the clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
         }        
     }
     
     
     @IBAction func scheduleSessionAction(sender:UIButton){
-        
-        Log.echo(key: "yud", text: "I am calling")
-        
+                
         DispatchQueue.main.async {
-            
-//            guard let controller = ScheduleSessionController.instance() else{
-//                return
-//            }
             guard let controller = SessionScheduleNewController.instance() else{
                 return
             }

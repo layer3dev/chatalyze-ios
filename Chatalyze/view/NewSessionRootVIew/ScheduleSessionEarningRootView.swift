@@ -31,6 +31,8 @@ class ScheduleSessionEarningRootView: ExtendedView{
     @IBOutlet private var chatPupView:ButtonContainerCorners?
     @IBOutlet private var maxEarning:UIView?
     
+    @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -87,6 +89,14 @@ class ScheduleSessionEarningRootView: ExtendedView{
             return
         }
         info.price = Int(priceField?.textField?.text ?? "0")
+
+        if info.price == 0 {
+            info.isFree = true
+            return
+        }
+        info.isFree = false
+        return
+        
     }
     
     
@@ -135,6 +145,10 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
 
     func isPriceZero(text:String?)->Bool{
 
+        if SignedUserInfo.sharedInstance?.allowFreeSession  == true{
+            return false
+        }
+        
         if let priceStr = text{
 
             guard priceStr.count > 0 else { return true }
@@ -167,6 +181,7 @@ extension ScheduleSessionEarningRootView{
             return
         }
         
+        
         guard let info = delegate?.getSchduleSessionInfo() else{
             resetEarningCalculator()
             return
@@ -187,6 +202,8 @@ extension ScheduleSessionEarningRootView{
             return
         }
         
+        maxEarningHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+        
         let priceOfSingleChat = Double(price)
         let totalPriceOfChatwithoutTax = (priceOfSingleChat*Double(totalSlots))
         let paypalFeeofSingleChat = ((priceOfSingleChat*2.9)/100)+(0.30)
@@ -200,7 +217,7 @@ extension ScheduleSessionEarningRootView{
         let totalSeviceFee = clientShares + paypalFeeOfWholeChat + 0.25
         Log.echo(key: "yud", text: "Total Service fee is \(totalSeviceFee)")
         let totalEarning = (totalPriceOfChatwithoutTax-totalSeviceFee)
-        // let serviceFee = totalSeviceFee
+        //let serviceFee = totalSeviceFee
         
         let serviceFee = (round((totalSeviceFee*1000))/1000)
         let totalEarningRoundedPrice = (round((totalEarning*1000))/1000)
@@ -216,7 +233,7 @@ extension ScheduleSessionEarningRootView{
             normalFont = 18
         }
         
-        let calculatorStr = "\(totalSlots) chats * $\(price) per chat) - $\(String(format: "%.2f", serviceFee)) ="
+        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
@@ -228,6 +245,18 @@ extension ScheduleSessionEarningRootView{
     
     func resetEarningCalculator(){
         
+        if let priceValue = Int(priceField?.textField?.text ?? "0"){
+            if priceValue == 0 {
+                maxEarningHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                return
+            }
+        }
+        
+        if priceField?.textField?.text ?? "" == ""{
+            maxEarningHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+            return
+        }
+        
         var fontSizeTotalSlot = 30
         var normalFont = 20
         
@@ -236,8 +265,8 @@ extension ScheduleSessionEarningRootView{
             fontSizeTotalSlot = 26
             normalFont = 18
         }
-        
-        let calculatorStr = "(\(0) chats * $\(0) per chat) - $\(0) ="
+       
+        let calculatorStr = "(\(0) chats * $\(0) per chat) - fees ($\(0)) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Questrial", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
@@ -259,14 +288,14 @@ extension ScheduleSessionEarningRootView{
     }
     
     fileprivate func priceValidation()->Bool{
-        
+
         if(priceField?.textField?.text == ""){
             
             priceField?.showError(text: "Price is required.")
             return false
         }
         else if isPriceZero(text: priceField?.textField?.text){
-            
+
             priceField?.showError(text: "Minimum price is $1")
             return false
         }

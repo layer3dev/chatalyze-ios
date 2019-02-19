@@ -18,12 +18,8 @@ class FetchProfileProcessor{
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
-        
         url = url+id
-        
         var params = [String : Any]()
-        
-        
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
         ServerProcessor().request(.get, url, encoding: .defaultEncoding,authorize :false) { (success, response) in
@@ -56,8 +52,9 @@ class FetchProfileProcessor{
         }
         
         profileInfo.fillInfo(info: rawInfo)
-         RootControllerManager().getCurrentController()?.menuController?.updateMenuInfo()
-        
+        RootControllerManager().getCurrentController()?.menuController?.updateMenuInfo()
+
+        profileInfo.save()
         completion(true, "", rawInfo)
         return
     }

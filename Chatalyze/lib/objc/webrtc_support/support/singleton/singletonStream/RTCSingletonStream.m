@@ -54,6 +54,7 @@ static NSString * const kARDVideoTrackKind = @"video";
 
 
 - (CallMediaTrack *)createMediaSenders {
+    
     CallMediaTrack *mediaPackage = [CallMediaTrack new];
     RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
     RTCAudioSource *source = [_factory audioSourceWithConstraints:constraints];
@@ -92,7 +93,4 @@ static NSString * const kARDVideoTrackKind = @"video";
                                           optionalConstraints:nil];
     return constraints;
 }
-
-
-
 @end

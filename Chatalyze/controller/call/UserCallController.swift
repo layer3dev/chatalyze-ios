@@ -228,7 +228,9 @@ class UserCallController: VideoCallController {
     }
     
     private func registerForScheduleUpdateListener(){
+        
         scheduleUpdateListener.setListener {
+         
             self.refreshScheduleInfo()
         }
     }
@@ -291,6 +293,9 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
+        
+        //temp
+//        showExitScreen()
     }
     
     
@@ -521,7 +526,6 @@ class UserCallController: VideoCallController {
             //for testing
             selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
-            
             //Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
     }
@@ -570,7 +574,6 @@ class UserCallController: VideoCallController {
     
     
     func updateLableAnimation(){
-        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 
@@ -653,6 +656,11 @@ class UserCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
+        if(code == .contactUs){
+            showContactUsScreen()
+            return
+        }
+        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -670,13 +678,32 @@ class UserCallController: VideoCallController {
         
         guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
-                showFeedbackScreen()
+                showExitScreen()
+                return
+        }
+    }
+    
+    func showContactUsScreen(){
+        RootControllerManager().getCurrentController()?.showContactUs()
+    }
+    
+    private func showDonateScreen(){
+        guard let presentingController = self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
         
+        guard let controller = TippingConfirmationController.instance()
+            else{
+                return
+        }
+        controller.scheduleInfo = eventInfo
+        controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
+        presentingController.present(controller, animated: false, completion:nil)
     }
     
-     func showFeedbackScreen() {
+    private func showFeedbackScreen(){
         
         guard let presentingController = self.lastPresentingController
             else{
@@ -687,14 +714,23 @@ class UserCallController: VideoCallController {
         guard let controller = ReviewController.instance() else{
             return
         }
+        
         controller.eventInfo = eventInfo
-        controller.dismissListner = {[weak self] in
-            
-            self?.feedbackListener?(self?.eventInfo)
-        }
+        
         presentingController.present(controller, animated: false, completion:{
         })
     }
+    
+    func showExitScreen() {
+        let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+        if(isDonationEnabled){
+            showDonateScreen()
+            return
+        }
+        
+        showFeedbackScreen()
+    }
+    
     
     private func confirmCallLinked(){
                 
@@ -707,6 +743,7 @@ class UserCallController: VideoCallController {
             self.connection?.linkCall()
         }
     }
+    
     
     override func callFailed(){
         super.callFailed()
@@ -786,7 +823,6 @@ class UserCallController: VideoCallController {
           
             setStatusMessage(type: .eventNotStarted)
             return
-          
             // statusLbl?.text = "Session has not started yet."
         }
         
@@ -795,25 +831,24 @@ class UserCallController: VideoCallController {
             
             setStatusMessage(type: .eventDelay)
             return
-         
             // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
         }
         
-        
-        
         if ((eventInfo.started ?? "") != "") && ((eventInfo.notified ?? "") == "schedule_updated"){
-     
-           
             //Event has updated
         }
     }
     
+    override func eventCancelled(){
+        
+        setStatusMessage(type: .eventCancelled)
+        //Event Cancelled
+    }
     
     override func viewDidRelease() {
         super.viewDidRelease()
         
         scheduleUpdateListener.releaseListener()
-        
     }
 }
 
@@ -917,7 +952,6 @@ extension UserCallController{
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
         processController.setListener { (success, info, isDefault) in
-            
             self.processRequestAutograph(isDefault : success, info : info)
         }
         self.present(processController, animated: true) {
@@ -927,6 +961,7 @@ extension UserCallController{
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
         
         if(!isDefault){
+            
             self.serviceRequestAutograph(info : info)
             return
         }
@@ -937,6 +972,7 @@ extension UserCallController{
         }
         
         userRootView?.requestAutographButton?.showLoader()
+        
         CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in

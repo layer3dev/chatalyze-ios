@@ -10,6 +10,7 @@
 import Foundation
 import UIKit
 
+//Obsolete
 class MyTicketsPageAdapter: MyTicketesAdapter {
 
     override func initializeCollectionFlowLayout(){

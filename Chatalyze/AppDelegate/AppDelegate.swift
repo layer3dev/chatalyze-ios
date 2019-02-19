@@ -11,6 +11,8 @@ import Foundation
 import UserNotifications
 import FBSDKLoginKit
 import SwiftyJSON
+import StoreKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
+
+        
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
@@ -30,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
         Log.echo(key: "yud", text: "Did Finish is calling")
+        
         return true
     }
     
@@ -90,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        SKPaymentQueue.default().remove(InAppPurchaseObserver.sharedInstance)
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
@@ -213,11 +220,9 @@ extension AppDelegate{
         guard let userInfo = SignedUserInfo.sharedInstance?.id else {
             return
         }
-        
         AccessTokenValidator().validate { (success) in
-           
             if !success{
-              
+                
                 RootControllerManager().signOut(completion: {
                 })
             }

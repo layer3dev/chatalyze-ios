@@ -14,7 +14,7 @@ protocol ScheduleSessionNewTimeControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
 }
 
-class ScheduleSessionNewTimeController: InterfaceExtendedController {
+class ScheduleSessionNewTimeController: UIViewController {
 
     var delegate:ScheduleSessionNewTimeControllerDelegate?
     
@@ -22,15 +22,13 @@ class ScheduleSessionNewTimeController: InterfaceExtendedController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        hideNavigationBar()
         rootView?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
-        hideNavigationBar()
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     

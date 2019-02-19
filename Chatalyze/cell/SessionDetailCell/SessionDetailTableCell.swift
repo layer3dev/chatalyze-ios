@@ -46,6 +46,8 @@ class SessionDetailTableCell: ExtendedTableCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
+                dateFormatter.amSymbol = "am"
+                dateFormatter.pmSymbol = "pm"
                 self.slotTime?.text = "\(requireOne) - \(dateFormatter.string(from: date))"
             }
         }

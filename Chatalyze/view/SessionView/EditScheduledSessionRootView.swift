@@ -239,7 +239,8 @@ class EditScheduledSessionRootView:ExtendedView{
             
             costofEventLbl?.isHidden = false
             
-            let newFirstStr = "Book a \(info["duration"] ?? 0.0)-minute chat ($\(price))"
+            var newFirstStr = "Book a \(info["duration"] ?? 0.0)-minute chat ($\(price))"
+            
             let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
             
             costofEventLbl?.attributedText = newAttrStr

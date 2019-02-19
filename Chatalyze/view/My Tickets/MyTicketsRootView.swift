@@ -30,7 +30,5 @@ class MyTicketsRootView:ExtendedView{
     func initializeLayout(){
     }
     
-    func refreshData(){
-        //controller?.refreshData()
-    }
+   
 }

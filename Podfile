@@ -16,7 +16,7 @@ pod 'Alamofire', '~> 4.0'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Socket.IO-Client-Swift', '~> 14.0.0'
 pod 'Starscream', '~> 3.0'
-
+pod 'YLProgressBar', '~> 3.11.0'
 
 end
 

@@ -143,7 +143,6 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         
         //paintImageUploadBorder()
         paintEditChangeImagelbl()
-        
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
@@ -173,9 +172,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }else{
             
             //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
-            
             if isProfileImageChecked{
-                
             }else{
                 isProfileImageChecked = true
                 imageUploadingView?.isUserInteractionEnabled = false
@@ -225,18 +222,18 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             eventNameLbl?.attributedText = requiredStr
         }
         
-        if let price = info.price{
+        DispatchQueue.main.async {
             
-            //Book a 2-minute chat ($2121.00)
-            
-            //\(info["duration"] ?? 0.0)
-            
-            costofEventLbl?.isHidden = false
-            
-            let newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
-            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
-            
-            costofEventLbl?.attributedText = newAttrStr
+            if let price = info.price {
+                
+                self.costofEventLbl?.isHidden = false
+                var newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
+                if price == 0 {
+                    newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
+                }
+                let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+                self.costofEventLbl?.attributedText = newAttrStr
+            }
         }
         
         let dateFormatter = DateFormatter()
@@ -491,10 +488,10 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }
         
         self.sessionInfo?.eventDescription = descriptionTextView?.text
+        fillInfo(info:self.sessionInfo)
         hideEditDescriptionInfoView()
         showDescriptionInfoView()
     }
-    
     
     func initializeVariable(){
         

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//Obsolete
 class MyTicketesAdapter: ExtendedView {
     
     @IBOutlet var myTicketsCollectionView:UICollectionView?
@@ -133,81 +134,14 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
                 return
         }
         
-//        //Verify for delay and not started
-//
-//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//            return
-//        }
-//
-//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//
-//            return
-//        }
-//
-//        //End
-//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//
-//            return
-//        }
-//
-//        guard let controller = UserCallController.instance()
-//            else{
-//                return
-//        }
-//
-//        controller.feedbackListener = {(eventInfo) in
-//
-//            guard let controller = ReviewController.instance() else{
-//                return
-//            }
-//
-//            controller.eventInfo = eventInfo
-//
-//            controller.dismissListner = {
-//                self.root?.refreshData()
-//            }
-//
-//            self.root?.controller?.present(controller, animated: false, completion:{
-//            })
-//
-//        }
-//        controller.eventId = String(eventId)
-//
-//        self.root?.controller?.present(controller, animated: false, completion: nil)
-//
-//
-//        //
+
         
         guard let controller = UserCallController.instance()
             else{
                 return
         }
         
-        controller.feedbackListener = {(eventInfo) in
+        /*controller.feedbackListener = {(eventInfo) in
             
             guard let controller = ReviewController.instance() else{
                 return
@@ -222,7 +156,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             self.root?.controller?.present(controller, animated: false, completion:{
             })
             
-        }
+        }*/
         controller.eventId = String(eventId)
         
         self.root?.controller?.present(controller, animated: false, completion: nil)        
@@ -251,8 +185,5 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
     
     func refreshData(){
         
-        root?.refreshData()
     }
 }
-
-

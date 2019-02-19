@@ -52,6 +52,7 @@ class UserInfo: NSObject {
     var eventMobReminder:Bool = false
     var isOnline = false
     var countryCode:String = ""
+    var allowFreeSession:Bool? = false
     
     override init(){
         super.init()
@@ -88,6 +89,7 @@ class UserInfo: NSObject {
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
+        self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         updateSideMenuInfo()
     }
 }
@@ -112,9 +114,10 @@ extension UserInfo{
         }
     }
     
+    //last name field is no longer used, but server is storing full name in first name field
     @objc var fullName : String{
         get{
-            return String(format : "%@ %@", self.firstName ?? "", self.lastName ?? "")
+            return self.firstName ?? ""
         }
     }
     

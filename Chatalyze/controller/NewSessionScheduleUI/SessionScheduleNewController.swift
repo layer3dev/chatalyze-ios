@@ -7,22 +7,46 @@
 //
 
 import UIKit
+import YLProgressBar
 
-class SessionScheduleNewController: InterfaceExtendedController {
+class SessionScheduleNewController: UIViewController {
     
     var pageViewController:SessionScheduleNewPageController?
     var scheduleInfo = ScheduleSessionInfo()
-    @IBOutlet var progressBar:UIProgressView?
+    @IBOutlet var progressBar:YLProgressBar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
+        
+        initializeGradient()
+        updateProfile()
+    }
+    
+    func updateProfile(){
+        
+        self.showLoader()
+        FetchProfileProcessor().fetch { (suucess, error, response) in
+            self.stopLoader()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        hideNavigationBar()
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    func initializeGradient(){
+        
+        let tintColors = [UIColor(red: 249.0/255.0, green: 128.0/255.0, blue: 106/255.0, alpha: 1), UIColor(red: 248.0/255.0, green: 149.0/255.0, blue: 92/255.0, alpha: 1)]
+        progressBar?.type = YLProgressBarType.flat
+        progressBar?.progressTintColors = tintColors
+        progressBar?.hideStripes = true
+        progressBar?.hideTrack = true
+        progressBar?.behavior = YLProgressBarBehavior.default
+        progressBar?.setProgress(0.11, animated: true)
     }
     
     func paintProgressBar(){
@@ -32,35 +56,39 @@ class SessionScheduleNewController: InterfaceExtendedController {
         }
         
         if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
-            progressBar?.progress = 0.13
+            progressBar?.setProgress(0.11, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
-            progressBar?.progress = 0.26
+            progressBar?.setProgress(0.22, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
-            progressBar?.progress = 0.39
+            progressBar?.setProgress(0.33, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
-            progressBar?.progress = 0.52
+            progressBar?.setProgress(0.44, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
-            progressBar?.progress = 0.65
+            progressBar?.setProgress(0.55, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
-            progressBar?.progress = 0.78
+            progressBar?.setProgress(0.66, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
-            progressBar?.progress = 0.91
+            progressBar?.setProgress(0.77, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
-            progressBar?.progress = 1.0
+            progressBar?.setProgress(0.88, animated: true)
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.ninth {
+            progressBar?.setProgress(1.0, animated: true)
             return
         }
     }
@@ -72,41 +100,54 @@ class SessionScheduleNewController: InterfaceExtendedController {
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
+            
             paintProgressBar()
             self.navigationController?.popToRootViewController(animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
+            
             paintProgressBar()
             pageViewController?.setFirstController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
+            
             paintProgressBar()
             pageViewController?.setSecondController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
+            
             paintProgressBar()
             pageViewController?.setThirdController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
+            
             paintProgressBar()
             pageViewController?.setFourthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
+            
             paintProgressBar()
             pageViewController?.setFifthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
+            
             paintProgressBar()
             pageViewController?.setSixthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
+            
+            pageViewController?.setSeventhController()
+            paintProgressBar()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.ninth {
             paintProgressBar()
             return
         }
@@ -145,12 +186,10 @@ extension SessionScheduleNewController:SessionScheduleNewPageControllerDelegate{
     }
     
     func backToRootController(){
-    
         self.navigationController?.popViewController(animated: true)
     }
     
     func updateProgress(){
-       
         paintProgressBar()
     }
     
