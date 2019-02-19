@@ -61,7 +61,10 @@ class UserSocket {
     
     @objc func appMovedToBackground() {
         Log.echo(key: "user_socket", text:"called appMovedToBackground")
-        socket?.disconnect()
+        
+        socketManager?.disconnect()
+        
+//        socket?.disconnect()
     }
     
     @objc func appMovedToForeground() {
@@ -74,7 +77,8 @@ class UserSocket {
            return
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
-        socket?.connect()
+        socketManager?.connect()
+//        socket?.connect()
         
         
     }
@@ -146,6 +150,7 @@ extension UserSocket{
         })
         
         Log.echo(key: "user_socket", text:"connect request in initializeSocketConnection")
+        
         socket?.connect()
     }
 
@@ -171,6 +176,8 @@ extension UserSocket{
         
         socket?.disconnect()
         socketManager?.disconnect()
+        
+        
         socket = nil
         socketManager = nil
         UserSocket._sharedInstance = nil

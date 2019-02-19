@@ -21,8 +21,8 @@ class InAppPurchaseObserver : NSObject{
     
 }
 
-// MARK: - SKPaymentTransactionObserver
 
+// MARK: - SKPaymentTransactionObserver
 extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -43,25 +43,23 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
                 Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> deferred")
                 break
             case .purchasing:
-                Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> purchasing")
+                Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> purchasing --> \(String(describing: transaction.transactionIdentifier))")
                 break
             }
         }
     }
     
+    
     private func complete(transaction: SKPaymentTransaction) {
-        Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete")
+        Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
         
         validateReceipt(transaction : transaction)
-        
-        
     }
     
     
     private func restore(transaction: SKPaymentTransaction) {
         Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> restore")
         
-        SKPaymentQueue.default().finishTransaction(transaction)
         callCompletion(success: true, message: "successful", transaction: transaction)
     }
     
@@ -81,6 +79,7 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
         SKPaymentQueue.default().finishTransaction(transaction)
         callCompletion(success: false, message: error, transaction: transaction)
     }
+    
     
     private func callCompletion(success : Bool, message : String, transaction : SKPaymentTransaction?){
         
@@ -104,7 +103,6 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
         if(!isPresent){
             return
         }
-        
         
         
         guard let receipt = NSData(contentsOf: receiptUrl)
