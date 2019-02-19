@@ -12,6 +12,7 @@ import StoreKit
 class TippingConfirmationController: InterfaceExtendedController {
     
     var scheduleInfo : EventScheduleInfo?
+    var slotId : Int?
     
     var donateProduct : DonateProduct?
     var appStateManager : ApplicationConfirmForeground?
@@ -23,7 +24,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         
         // Do any additional setup after loading the view
         
-        donateProduct = DonateProduct(controller : self)
+        
         
         rootView?.fillInfo(scheduleInfo: scheduleInfo)
     }
@@ -71,22 +72,61 @@ class TippingConfirmationController: InterfaceExtendedController {
         }
         
         isProcessingLastTransaction = true
-        donateProduct?.buy(value: value) {[weak self] (success, message, transaction) in
+        showLoader()
+        createTransaction(value: value) {[weak self] (transactionId) in
+            self?.stopLoader()
+            guard let transactionId = transactionId
+                else{
+                    return
+            }
+            
+            self?.initiatePurchaseProcess(transactionId: transactionId, value: value)
+        }
+    }
+    
+    private func initiatePurchaseProcess(transactionId : String, value : DonateProductInfo.value){
+        
+        let donateProduct = DonateProduct(controller : self)
+        self.donateProduct = donateProduct
+        donateProduct.buy(value: value, transactionId: transactionId) {[weak self] (success) in
             self?.isProcessingLastTransaction = false
-            Log.echo(key: "in_app_purchase", text: "success -> \(success), message -> \(String(describing: message)), transaction -> \(transaction) ")
+            Log.echo(key: "in_app_purchase", text: "success -> \(success) ")
             
             if(!success){
                 return
             }
-            
-            let appStateManager = ApplicationConfirmForeground()
-            self?.appStateManager = appStateManager
-            appStateManager.confirmIfActive {
-                Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
-                self?.presentSuccess(value : value)
-            }
-            
-            
+            self?.showSuccessScreen(value : value)
+            return
+        }
+    }
+    
+    private func showSuccessScreen(value : DonateProductInfo.value){
+        let appStateManager = ApplicationConfirmForeground()
+        self.appStateManager = appStateManager
+        
+        appStateManager.confirmIfActive {[weak self] in
+            Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
+            self?.presentSuccess(value : value)
+        }
+    }
+    
+    
+    
+    private func createTransaction(value : DonateProductInfo.value, completion : @escaping (_ transactionId : String?)->()){
+        
+        guard let sessionId = scheduleInfo?.id
+            else{
+                completion(nil)
+                return
+        }
+        guard let slotId = slotId
+            else{
+                completion(nil)
+                return
+        }
+        
+        DonateCreateTransaction().createTransaction(value: value, sessionId: sessionId, slotId: slotId) { (success, transactionId) in
+            completion(transactionId)
         }
     }
     

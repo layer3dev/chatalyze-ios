@@ -12,6 +12,7 @@ import StoreKit
 class DonateProduct{
     
     private var controller : InterfaceExtendedController
+    private var listener : ((_ success: Bool) -> ())?
     
     init(controller : InterfaceExtendedController){
         self.controller = controller
@@ -21,16 +22,22 @@ class DonateProduct{
     private var productPurchase: InAppPurchaseProduct?
     private let infoManager : DonateProductValueFetch = DonateProductValueFetch()
     
+    var value : DonateProductInfo.value?
+    var transactionId : String?
     
     
-    func buy(value : DonateProductInfo.value, completionListener: @escaping (_ success: Bool, _ message : String?, _ transaction:SKPaymentTransaction?) -> ()) {
+    func buy(value : DonateProductInfo.value, transactionId : String, completionListener: @escaping (_ success: Bool) -> ()) {
+        
+        self.value = value
+        self.transactionId = transactionId
+        self.listener = completionListener
         
         Log.echo(key: "in_app_purchase", text: "init buy")
         
         let isPaymentAllowed = SKPaymentQueue.canMakePayments()
         if(!isPaymentAllowed){
             Log.echo(key: "in_app_purchase", text: "In App Purchase is disabled on this device.")
-            completionListener(false, "In App Purchase is disabled on this device.", nil)
+            callCompletion(false)
             return
         }
         
@@ -41,18 +48,54 @@ class DonateProduct{
             Log.echo(key: "in_app_purchase", text: "Info fetched.")
             guard let info = info
                 else{
-                    completionListener(false, "Invalid Payment.", nil)
+                    self?.callCompletion(false)
                     return
             }
             
-            let productPurchase = InAppPurchaseProduct()
-            self?.productPurchase = productPurchase
-            
-            productPurchase.buy(product: info.productInfo, completionListener: completionListener)
+        
+            self?.buyProduct(info : info)
+            return
+           
         }
     }
     
-
+    private func buyProduct(info: DonateProductInfo){
+        
+        let productPurchase = InAppPurchaseProduct()
+        
+        self.productPurchase = productPurchase
+        productPurchase.buy(product: info.productInfo, completionListener: {[weak self] (success, message, transaction) in
+            if(!success){
+                self?.callCompletion(false)
+                return
+            }
+            self?.completeTransaction()
+            
+        })
+    }
+    
+    private func callCompletion(_ success: Bool){
+        listener?(success)
+        listener = nil
+    }
+    
+    
+    
+    private func completeTransaction(){
+        
+        guard let transactionId = transactionId, let value = value
+            else{
+                callCompletion(false)
+                return
+        }
+        
+        DonateCompleteTransaction().process(transactionId: transactionId, planId: value.getProductId(), completion: {[weak self] (success) in
+                self?.callCompletion(success)
+            
+            
+        })
+        
+    }
     
 }
 

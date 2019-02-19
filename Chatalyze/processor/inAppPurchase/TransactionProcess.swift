@@ -35,14 +35,14 @@ class TransactionProcess{
     
     func createTransactionId(value : DonateProductInfo.value, transactionId : String){
         transactionState = .registrationInProcess
-        createTransactionHandler.createTransaction(value: value, transactionId: transactionId) {[weak self] (success) in
+        /*createTransactionHandler.createTransaction(value: value, transactionId: transactionId) {[weak self] (success) in
             if(!success){
                 self?.transactionState = .ideal
                 return
             }
             self?.transactionState = .registered
             self?.listener?(true)
-        }
+        }*/
     }
     
     
