@@ -10,7 +10,7 @@ import UIKit
 
 protocol ScheduleSessionNewEarningControllerDelegate {
     func getSchduleSessionInfo()->ScheduleSessionInfo?
-    func goToScreenShotScreen()
+    func goToDonationScreen()
 }
 
 class ScheduleSessionNewEarningController: UIViewController {
@@ -60,6 +60,6 @@ extension ScheduleSessionNewEarningController:ScheduleSessionEarningRootViewDele
     }
     
     func goToNextScreen(){
-        delegate?.goToScreenShotScreen()
+        delegate?.goToDonationScreen()
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 protocol SessionScheduleNewPageControllerDelegate {
+   
     func getSchduleSessionInfo()->ScheduleSessionInfo?
     func backToRootController()
     func updateProgress()
@@ -36,9 +37,10 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
     private var thirdController:ScheduleSessionNewDurationController?
     private var fourthController:ScheduleSessionSingleChatDurationController?
     private var fifthController:ScheduleSessionNewEarningController?
-    private var sixthController:ScheduleSessionScreenShotAllowController?
-    private var seventhController:ScheduleSessionNewReviewController?
-    private var eighthController:ScheduleSessionNewDoneController?
+    private var sixthController:ScheduleSessionDonationController?
+    private var seventhController:ScheduleSessionScreenShotAllowController?
+    private var eighthController:ScheduleSessionNewReviewController?
+    private var ninthController:ScheduleSessionNewDoneController?
     var pageDelegate:SessionScheduleNewPageControllerDelegate?
     
     override func viewDidLoad(){
@@ -47,6 +49,12 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         self.delegate = self
         setFirstController()
         //Do any additional setup after loading the view.
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        Log.echo(key: "yud", text: "Current Controller is \(pageViewController.viewControllers?.first)")
+        
     }
     
     func setFirstController(){
@@ -62,7 +70,6 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
-    
     func setSecondController(){
         
         guard let controller = getController(current: .second) else{
@@ -75,6 +82,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .second
         pageDelegate?.updateProgress()
     }
+    
     
     func setThirdController(){
         
@@ -89,6 +97,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setFourthController(){
         
         guard let controller = getController(current: .fourth) else{
@@ -98,6 +107,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .fourth
         pageDelegate?.updateProgress()
     }
+    
     
     func setFifthController(){
         
@@ -112,6 +122,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setSixthController(){
         
         guard let controller = getController(current: .sixth) else{
@@ -125,6 +136,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         pageDelegate?.updateProgress()
     }
     
+    
     func setSeventhController(){
         
         guard let controller = getController(current: .seventh) else{
@@ -135,6 +147,19 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         }
         setViewControllers([controller], direction: .forward, animated: true, completion: nil)
         currentController = .seventh
+        pageDelegate?.updateProgress()
+    }
+    
+    func setNinthController(){
+        
+        guard let controller = getController(current: .ninth) else{
+            return
+        }
+        if currentController == .ninth{
+            return
+        }
+        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        currentController = .ninth
         pageDelegate?.updateProgress()
     }
     
@@ -150,6 +175,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         currentController = .eighth
         pageDelegate?.updateProgress()
     }
+    
     
     func getController(current:CurretController)->UIViewController?{
         
@@ -218,19 +244,21 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
             if let controller = sixthController {
                 return controller
             }
-            guard let controller = ScheduleSessionScreenShotAllowController.instance() else{
+            guard let controller = ScheduleSessionDonationController.instance() else{
                 return nil
             }
             controller.delegate = self
             self.sixthController = controller
             return controller
+            
         }
         if current == .seventh {
-            
+    
             if let controller = seventhController {
                 return controller
             }
-            guard let controller = ScheduleSessionNewReviewController.instance() else{
+            
+            guard let controller = ScheduleSessionScreenShotAllowController.instance() else{
                 return nil
             }
             controller.delegate = self
@@ -242,11 +270,24 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
             if let controller = eighthController {
                 return controller
             }
-            guard let controller = ScheduleSessionNewDoneController.instance() else{
+            
+            guard let controller = ScheduleSessionNewReviewController.instance() else{
                 return nil
             }
             controller.delegate = self
             self.eighthController = controller
+            return controller
+        }
+        if current == .ninth {
+            
+            if let controller = ninthController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewDoneController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.ninthController = controller
             return controller
         }
         return nil
@@ -256,7 +297,6 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         return self.currentController
     }
     
-    
     /*
     // MARK: - Navigation
      
@@ -265,7 +305,7 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+     */
     
     class func instance()-> SessionScheduleNewPageController?{
         
@@ -281,7 +321,6 @@ extension SessionScheduleNewPageController:ScheduleSessionNewDateControllerDeleg
         setSecondController()
     }
     
-  
     func getSchduleSessionInfo() -> ScheduleSessionInfo? {
         return pageDelegate?.getSchduleSessionInfo()
     }
@@ -292,12 +331,12 @@ extension SessionScheduleNewPageController:ScheduleSessionNewTimeControllerDeleg
     func goToDurationScreen() {
         setThirdController()
     }
-    
 }
 
 extension SessionScheduleNewPageController: ScheduleSessionNewDurationControllerDelegate{
    
     func goToSingleChatDurationScreen(){
+        
         setFourthController()
     }
 }
@@ -312,8 +351,8 @@ extension SessionScheduleNewPageController:ScheduleSessionSingleChatDurationCont
 
 
 extension SessionScheduleNewPageController:ScheduleSessionNewEarningControllerDelegate{
-   
-    func goToScreenShotScreen(){
+    
+    func goToDonationScreen(){
         setSixthController()
     }
 }
@@ -321,21 +360,30 @@ extension SessionScheduleNewPageController:ScheduleSessionNewEarningControllerDe
 extension SessionScheduleNewPageController:ScheduleSessionScreenShotAllowControllerDelegate{
     
     func goToReviewScreen(){
-        setSeventhController()
+        setEighthController()
     }
 }
 
 
 extension SessionScheduleNewPageController:ScheduleSessionNewReviewControllerDelegate{
     
-    func goToDoneScreen() {
-        setEighthController()
+    func goToDoneScreen(){
+     
+       setNinthController()
     }
 }
 
 extension SessionScheduleNewPageController:ScheduleSessionNewDoneControllerDelegate{
     
     func backToRootController(){
+        
         pageDelegate?.backToRootController()
+    }
+}
+
+extension SessionScheduleNewPageController:ScheduleSessionDonationControllerDelegate{
+    
+    func goToScreenShotScreen(){
+        setSeventhController()
     }
 }

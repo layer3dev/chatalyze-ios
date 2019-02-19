@@ -304,7 +304,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         return
                 }else{
                     
-                   // Error Support in the Internet Test
+                    //Error Support in the Internet Test
                     
                     self.errorType = .SlowInternetError
                     self.warningType = .none
