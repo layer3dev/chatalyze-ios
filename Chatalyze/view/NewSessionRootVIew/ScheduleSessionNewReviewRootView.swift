@@ -161,6 +161,7 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:nil
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
+        param["tipEnabled"] = info.tipEnabled
         Log.echo(key: "yud", text: "PARAMS ARE \(param)")
         return param
     }

@@ -46,7 +46,7 @@ class SessionScheduleNewController: UIViewController {
         progressBar?.hideStripes = true
         progressBar?.hideTrack = true
         progressBar?.behavior = YLProgressBarBehavior.default
-        progressBar?.setProgress(0.13, animated: true)
+        progressBar?.setProgress(0.11, animated: true)
     }
     
     func paintProgressBar(){
@@ -56,34 +56,38 @@ class SessionScheduleNewController: UIViewController {
         }
         
         if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
-            progressBar?.setProgress(0.13, animated: true)
+            progressBar?.setProgress(0.11, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
-            progressBar?.setProgress(0.26, animated: true)
+            progressBar?.setProgress(0.22, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
-            progressBar?.setProgress(0.39, animated: true)
+            progressBar?.setProgress(0.33, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
-            progressBar?.setProgress(0.52, animated: true)
+            progressBar?.setProgress(0.44, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
-            progressBar?.setProgress(0.65, animated: true)
+            progressBar?.setProgress(0.55, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
-            progressBar?.setProgress(0.78, animated: true)
+            progressBar?.setProgress(0.66, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
-            progressBar?.setProgress(0.91, animated: true)
+            progressBar?.setProgress(0.77, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
+            progressBar?.setProgress(0.88, animated: true)
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.ninth {
             progressBar?.setProgress(1.0, animated: true)
             return
         }
@@ -96,41 +100,54 @@ class SessionScheduleNewController: UIViewController {
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
+            
             paintProgressBar()
             self.navigationController?.popToRootViewController(animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
+            
             paintProgressBar()
             pageViewController?.setFirstController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
+            
             paintProgressBar()
             pageViewController?.setSecondController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
+            
             paintProgressBar()
             pageViewController?.setThirdController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
+            
             paintProgressBar()
             pageViewController?.setFourthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
+            
             paintProgressBar()
             pageViewController?.setFifthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
+            
             paintProgressBar()
             pageViewController?.setSixthController()
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
+            
+            pageViewController?.setSeventhController()
+            paintProgressBar()
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.ninth {
             paintProgressBar()
             return
         }
@@ -149,7 +166,7 @@ class SessionScheduleNewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         
-        self.pageViewController = seguSessionScheduleNewPageControllere.destination as?
+        self.pageViewController = segue.destination as? SessionScheduleNewPageController
         self.pageViewController?.pageDelegate = self
     }
     
@@ -169,12 +186,10 @@ extension SessionScheduleNewController:SessionScheduleNewPageControllerDelegate{
     }
     
     func backToRootController(){
-    
         self.navigationController?.popViewController(animated: true)
     }
     
     func updateProgress(){
-       
         paintProgressBar()
     }
     
