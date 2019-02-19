@@ -295,7 +295,7 @@ class UserCallController: VideoCallController {
         connection?.disconnect()
         
         //temp
-        showExitScreen()
+//        showExitScreen()
     }
     
     
