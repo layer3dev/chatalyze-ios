@@ -370,6 +370,9 @@ class VideoCallController : InterfaceExtendedController {
                     return
             }
             
+                           
+            self?.updateToReadyState()
+                           
             self?.connectToRoom(info: info)
             self?.eventInfo = info
             
@@ -377,7 +380,7 @@ class VideoCallController : InterfaceExtendedController {
             
             Log.echo(key: "delay", text: "processed")
             
-            self?.updateToReadyState()
+            
             
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
@@ -445,11 +448,16 @@ class VideoCallController : InterfaceExtendedController {
     
     
     private func updateToReadyState(){
-        callLogger?.logSocketConnectionState()
+        
+        
+        
         callLogger?.logDeviceInfo()
         
         
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
+                                                           
+            self?.callLogger?.logSocketConnectionState()
+                                                           
             if(self?.socketClient == nil){
                 return
             }
