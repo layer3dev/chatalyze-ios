@@ -54,6 +54,7 @@ extension ScheduleSessionScreenShotAllowController:ScheduleSessionScreenShotRoot
     func getSchduleSessionInfo()->ScheduleSessionInfo?{
         return delegate?.getSchduleSessionInfo()
     }
+    
     func goToNextScreen(){
         
         delegate?.goToReviewScreen()

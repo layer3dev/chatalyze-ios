@@ -27,14 +27,12 @@ class ScheduleSessionNewDoneController: UIViewController {
         paintLayers()
     }
     
-    
     func paintLayers(){
         
         self.nextView?.layer.masksToBounds = true
         self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.nextView?.layer.borderWidth = 1
         self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
         self.chatPupView?.layer.masksToBounds = true
         self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -66,7 +64,7 @@ class ScheduleSessionNewDoneController: UIViewController {
         Log.echo(key: "yud", text: "url id is \(str)")
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
-        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on the clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
         }
     }
 
@@ -103,15 +101,14 @@ class ScheduleSessionNewDoneController: UIViewController {
         return
     }
     
-    
     @IBAction func backToSession(sender:UIButton){
+        
         delegate?.backToRootController()
     }
     
-    
     /*
     // MARK: - Navigation
-
+     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.

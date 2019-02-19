@@ -8,7 +8,6 @@
 
 import Foundation
 
-class ScheduleSessionNewDoneRootView: ExtendedRootView {
-        
+class ScheduleSessionNewDoneRootView: ScheduleSessionScreenShotRootView {
     
 }
