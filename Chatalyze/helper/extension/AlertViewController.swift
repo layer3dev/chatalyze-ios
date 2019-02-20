@@ -29,9 +29,6 @@ extension UIViewController {
         }
         
         
-        
-        
-        
         let successAction = UIAlertAction(title: successTitle, style: .default) { (action) in
             completion?(true)
             return
