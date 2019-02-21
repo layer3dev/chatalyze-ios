@@ -114,7 +114,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoL-TM-lPs">
                                                 <rect key="frame" x="0.0" y="320" width="768" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to support Jordan Winawer by giving a donation?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeH-m7-8fH">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to support analyst by giving a donation?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeH-m7-8fH">
                                                         <rect key="frame" x="40" y="0.0" width="688" height="30"/>
                                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,17 +123,27 @@
                                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
                                                         </variation>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2p-rP-lBv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                                                        <connections>
+                                                            <action selector="infoAlertWithSender:" destination="Q5k-VW-yXm" eventType="touchUpInside" id="Sxn-Va-eea"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="zeH-m7-8fH" secondAttribute="trailing" constant="40" id="6Z4-lM-wDL">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="J2p-rP-lBv" secondAttribute="trailing" id="DtA-5j-D7Y"/>
                                                     <constraint firstItem="zeH-m7-8fH" firstAttribute="top" secondItem="yoL-TM-lPs" secondAttribute="top" id="Iu4-rh-QQC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="J2p-rP-lBv" secondAttribute="bottom" id="NuN-3b-bWu"/>
                                                     <constraint firstItem="zeH-m7-8fH" firstAttribute="centerX" secondItem="yoL-TM-lPs" secondAttribute="centerX" id="O5y-M7-CHe"/>
                                                     <constraint firstItem="zeH-m7-8fH" firstAttribute="leading" secondItem="yoL-TM-lPs" secondAttribute="leading" constant="40" id="a6O-vc-JZz">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
+                                                    <constraint firstItem="J2p-rP-lBv" firstAttribute="top" secondItem="yoL-TM-lPs" secondAttribute="top" id="j1J-py-qj4"/>
+                                                    <constraint firstItem="J2p-rP-lBv" firstAttribute="leading" secondItem="yoL-TM-lPs" secondAttribute="leading" id="l0u-7r-Yfe"/>
                                                     <constraint firstAttribute="bottom" secondItem="zeH-m7-8fH" secondAttribute="bottom" id="sBi-PW-GXw">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                                     </constraint>
@@ -486,7 +496,7 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBY-OD-Trd">
-                                        <rect key="frame" x="328" y="330" width="112" height="41"/>
+                                        <rect key="frame" x="327" y="330" width="114.5" height="35"/>
                                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -495,7 +505,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You just tipped Jordan Winawer $0.99. You're awesome!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l40-fx-flu">
-                                        <rect key="frame" x="30" y="421" width="708" height="35.5"/>
+                                        <rect key="frame" x="30" y="415" width="708" height="30.5"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -504,7 +514,7 @@
                                         </variation>
                                     </label>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wm8-bL-QPF" customClass="DonateActionButtonView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="234" y="536.5" width="300" height="80"/>
+                                        <rect key="frame" x="234" y="525.5" width="300" height="80"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Close" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7h-As-0Cl">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
@@ -578,8 +588,8 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="AFY-5e-NTp"/>
-                                        <exclude reference="nhj-kD-Leu"/>
                                         <exclude reference="TSH-8c-rKd"/>
+                                        <exclude reference="nhj-kD-Leu"/>
                                         <exclude reference="ZUP-oB-F0n"/>
                                     </mask>
                                 </variation>
@@ -587,10 +597,10 @@
                                     <mask key="constraints">
                                         <exclude reference="14Q-ch-Q3G"/>
                                         <include reference="AFY-5e-NTp"/>
-                                        <exclude reference="Nmd-dX-0Z4"/>
-                                        <include reference="nhj-kD-Leu"/>
                                         <include reference="TSH-8c-rKd"/>
                                         <exclude reference="adD-hs-hes"/>
+                                        <exclude reference="Nmd-dX-0Z4"/>
+                                        <include reference="nhj-kD-Leu"/>
                                         <exclude reference="A57-mW-aTB"/>
                                         <include reference="ZUP-oB-F0n"/>
                                     </mask>

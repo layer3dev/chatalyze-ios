@@ -190,6 +190,14 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
+        guard let controller = TippingConfirmationController.instance() else{
+            return
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        return
+        return
+            
         DispatchQueue.main.async {
             
             guard let controller = SessionScheduleNewController.instance() else{

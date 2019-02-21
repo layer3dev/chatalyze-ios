@@ -21,6 +21,8 @@ class TippingRootView: ExtendedView {
     
     private var scheduleInfo : EventScheduleInfo?
     
+    var controller:TippingConfirmationController?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -51,6 +53,8 @@ class TippingRootView: ExtendedView {
     func fillInfo(scheduleInfo : EventScheduleInfo?){
         self.scheduleInfo = scheduleInfo
         
+        tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
+        
         guard let scheduleInfo = scheduleInfo
             else{
                 return
@@ -59,7 +63,8 @@ class TippingRootView: ExtendedView {
         let influencerName = influencer?.fullName ?? ""
         
         tipLabel?.text = "Would you like to support \(influencerName) by giving a donation?"
-        
+    
+        tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
             else{
                 return
@@ -67,6 +72,15 @@ class TippingRootView: ExtendedView {
         
         profileImage?.sd_setImage(with: URL(string:image), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
         })
-        
     }
+    
+    @IBAction func infoAlert(sender:UIButton){
+        
+        let ac = UIAlertController(title: "", message: "Transaction and In-app purchase fees (if payment is made through the Chatalyze mobile app) will automatically be deducted before your donation is transferred to the host.", preferredStyle: .actionSheet)
+        let popover = ac.popoverPresentationController
+        popover?.sourceView = sender
+        popover?.sourceRect = sender.frame
+        controller?.present(ac, animated: true)
+    }
+    
 }

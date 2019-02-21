@@ -13,7 +13,6 @@ class TippingConfirmationController: InterfaceExtendedController {
     
     var scheduleInfo : EventScheduleInfo?
     var slotId : Int?
-    
     var donateProduct : DonateProduct?
     var appStateManager : ApplicationConfirmForeground?
     
@@ -22,14 +21,13 @@ class TippingConfirmationController: InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view
-        
-        
-        
+        // Do any additional setup after loading the view.
+        rootView?.controller = self
         rootView?.fillInfo(scheduleInfo: scheduleInfo)
     }
     
     var rootView:TippingRootView?{
+       
         return self.view as? TippingRootView
     }
     
@@ -38,10 +36,12 @@ class TippingConfirmationController: InterfaceExtendedController {
     }
     
     @IBAction func noTipAction(){
+        
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cardInfoAction(sender:UIButton){
+        
         guard let controller = TippingCardDetailInfoController.instance() else{
             return
         }
@@ -50,20 +50,20 @@ class TippingConfirmationController: InterfaceExtendedController {
     
     //two dollar now
     @IBAction func dollorTwoTipAction(sender:UIButton){
-        donate(value : .two)
         
+        donate(value : .two)
     }
     
     //six dollar now
     @IBAction func dollorSixTipAction(sender:UIButton){
-        donate(value : .six)
         
+        donate(value : .six)
     }
     
     //ten dollar now
     @IBAction func dollorTenTipAction(sender:UIButton){
-        donate(value : .ten)
         
+        donate(value : .ten)
     }
     
     private func donate(value : DonateProductInfo.value){
@@ -81,8 +81,6 @@ class TippingConfirmationController: InterfaceExtendedController {
                     self?.isProcessingLastTransaction = false
                     return
             }
-            
-            
             
             self?.initiatePurchaseProcess(transactionId: transactionId, value: value, completion: {
                 self?.stopLoader()
