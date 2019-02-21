@@ -11,6 +11,15 @@ import StoreKit
 
 class InAppPurchaseObserver : NSObject{
     
+    private var detachedTransactionManager : DetachedTransactionHandler?
+    
+    override init() {
+        super.init()
+        
+        let transactionId = DonateTransactionTokenSession.sharedInstance?.token ?? ""
+        Log.echo(key: "in_app_purchase", text: "last transactionid ->  -- \(transactionId)")
+    }
+    
     static let sharedInstance = InAppPurchaseObserver()
     
     private var completionListener : ((_ success: Bool, _ message : String?, _ transaction:SKPaymentTransaction?) -> ())?
@@ -51,22 +60,44 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func complete(transaction: SKPaymentTransaction) {
-        Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
         
         
-        completionListener?(true, "successful", transaction)
-        SKPaymentQueue.default().finishTransaction(transaction)
+        
+        DispatchQueue.main.async {[weak self] in
+            Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
+            
+            if(self?.completionListener == nil){
+                self?.handleDetached(transaction: transaction)
+                return
+            }
+            
+            self?.completionListener?(true, "successful", transaction)
+            self?.completionListener = nil
+        }
+        
+        
         /*if(isProcessed){
             SKPaymentQueue.default().finishTransaction(transaction)
         }*/
-        completionListener = nil
+        
 //        validateReceipt(transaction : transaction)
     }
     
     
+    private func handleDetached(transaction : SKPaymentTransaction){
+        let detachedHandler = DetachedTransactionHandler()
+        self.detachedTransactionManager = detachedHandler
+        
+        detachedHandler.processDetached(transaction: transaction) { (success) in
+            if(success){
+                SKPaymentQueue.default().finishTransaction(transaction)
+            }
+        }
+    }
+    
     private func restore(transaction: SKPaymentTransaction) {
         Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> restore")
-        
+        SKPaymentQueue.default().finishTransaction(transaction)
         callCompletion(success: true, message: "successful", transaction: transaction)
     }
     
@@ -89,12 +120,12 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func callCompletion(success : Bool, message : String, transaction : SKPaymentTransaction?){
+        DispatchQueue.main.async {[weak self] in
+            self?.completionListener?(success, message, transaction)
+            self?.completionListener = nil
+        }
         
-        completionListener?(success, message, transaction)
-        completionListener = nil
+        
     }
-    
-    
-    
     
 }
