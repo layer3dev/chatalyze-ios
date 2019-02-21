@@ -699,7 +699,7 @@ class UserCallController: VideoCallController {
                 return
         }
         controller.scheduleInfo = eventInfo
-        
+        controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         presentingController.present(controller, animated: false, completion:nil)
     }
     

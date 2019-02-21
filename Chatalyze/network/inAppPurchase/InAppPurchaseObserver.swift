@@ -51,9 +51,20 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func complete(transaction: SKPaymentTransaction) {
-        Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
         
-        validateReceipt(transaction : transaction)
+        DispatchQueue.main.async {[weak self] in
+            Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
+            SKPaymentQueue.default().finishTransaction(transaction)
+            self?.completionListener?(true, "successful", transaction)
+            self?.completionListener = nil
+        }
+        
+        
+        /*if(isProcessed){
+            SKPaymentQueue.default().finishTransaction(transaction)
+        }*/
+        
+//        validateReceipt(transaction : transaction)
     }
     
     
@@ -82,48 +93,12 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func callCompletion(success : Bool, message : String, transaction : SKPaymentTransaction?){
-        
-        completionListener?(success, message, transaction)
-        completionListener = nil
-    }
-    
-    
-    
-    private func validateReceipt(transaction: SKPaymentTransaction) {
-        let mainBundle = Bundle.main
-        guard let receiptUrl = mainBundle.appStoreReceiptURL
-            else{
-                return
-        }
-        guard let isPresent = try? receiptUrl.checkResourceIsReachable()
-            else{
-                return
+        DispatchQueue.main.async {[weak self] in
+            self?.completionListener?(success, message, transaction)
+            self?.completionListener = nil
         }
         
-        if(!isPresent){
-            return
-        }
-        
-        
-        guard let receipt = NSData(contentsOf: receiptUrl)
-            else{
-                return
-        }
-        
-        let receiptData = receipt.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-        
-        configureValidationRequest(receiptData: receiptData) { (success) in
-            if(!success){
-                return
-            }
-            SKPaymentQueue.default().finishTransaction(transaction) // finish transaction only when response from server is received
-            callCompletion(success: true, message: "successful", transaction: transaction)
-        }
         
     }
     
-    private func configureValidationRequest(receiptData: String, completion: (_ success : Bool) -> ()) {
-        Log.echo(key : "in_app_purchase", text : "receiptData -> \(receiptData)")
-        completion(true)
-    }
 }

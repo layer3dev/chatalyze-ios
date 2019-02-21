@@ -337,6 +337,34 @@ class EventScheduleCoreInfo: EventInfo {
         return nil
     }
     
+    var myLastCompletedSlot : SlotInfo?{
+        guard let slotInfos = self.slotInfos
+            else{
+                return nil
+        }
+        
+        if(slotInfos.count <= 0){
+            return nil
+        }
+        guard let selfId = SignedUserInfo.sharedInstance?.id
+            else{
+                return nil
+        }
+        
+        for index in (0..<slotInfos.count).reversed(){
+            let slotInfo = slotInfos[index]
+            let slotUserId = slotInfo.user?.id ?? "0"
+            if(slotInfo.isExpired && selfId == slotUserId){
+                return slotInfo
+            }
+            
+        }
+
+        return nil
+        
+        
+    }
+    
     
     var myValidSlot : (slotNumber : Int, slotInfo : SlotInfo?){
         guard let slotInfos = self.slotInfos
