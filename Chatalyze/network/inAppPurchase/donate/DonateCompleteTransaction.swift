@@ -46,8 +46,7 @@ class DonateCompleteTransaction{
         
         Log.echo(key: "signininfo", text: "raw info ==>  \(response)" )
         
-        //temp
-        completion(true)
+        completion(success)
         return
     }
     

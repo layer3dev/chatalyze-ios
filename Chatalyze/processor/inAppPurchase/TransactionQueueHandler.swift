@@ -8,6 +8,7 @@
 
 import Foundation
 
+//deprecated
 class TransactionQueueHandler{
     
     static let sharedInstance = TransactionQueueHandler()

@@ -74,7 +74,6 @@ class TippingConfirmationController: InterfaceExtendedController {
         isProcessingLastTransaction = true
         showLoader()
         createTransaction(value: value) {[weak self] (transactionId) in
-            
             guard let transactionId = transactionId
                 else{
                     self?.stopLoader()
@@ -92,7 +91,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         
         let donateProduct = DonateProduct(controller : self)
         self.donateProduct = donateProduct
-        donateProduct.buy(value: value, transactionId: transactionId) {[weak self] (success) in
+        donateProduct.buy(value: value, transactionId: transactionId) {[weak self] (success, transaction) in
             self?.isProcessingLastTransaction = false
             Log.echo(key: "in_app_purchase", text: "success -> \(success) ")
             
@@ -100,7 +99,17 @@ class TippingConfirmationController: InterfaceExtendedController {
                 completion()
                 return
             }
+            guard let transaction = transaction
+                else{
+                    completion()
+                    return
+            }
+            
+            //Completed transaction need to be marked as finished, after confirming with server
+            //todo:need better management.
+            SKPaymentQueue.default().finishTransaction(transaction)
             completion()
+            
             self?.showSuccessScreen(value : value)
             return
         }
@@ -109,13 +118,13 @@ class TippingConfirmationController: InterfaceExtendedController {
     private func showSuccessScreen(value : DonateProductInfo.value){
         let appStateManager = ApplicationConfirmForeground()
         self.appStateManager = appStateManager
+        self.presentSuccess(value : value)
         
-        appStateManager.confirmIfActive {[weak self] in
+        /*appStateManager.confirmIfActive {[weak self] in
             Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
-            self?.presentSuccess(value : value)
-        }
+            
+        }*/
     }
-    
     
     
     private func createTransaction(value : DonateProductInfo.value, completion : @escaping (_ transactionId : String?)->()){
