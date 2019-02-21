@@ -8,6 +8,7 @@
 
 import Foundation
 
+//deprecated
 class TransactionProcess{
     
     enum state {

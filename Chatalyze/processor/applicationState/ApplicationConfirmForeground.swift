@@ -47,11 +47,14 @@ class ApplicationConfirmForeground{
    
     
     @objc func appMovedToForeground() {
-        if(isReleased){
-            return
+        DispatchQueue.main.async {[weak self] in
+            if(self?.isReleased ?? false){
+                return
+            }
+            
+            self?.stateListener?()
+            self?.releaseListener()
         }
-        stateListener?()
-        releaseListener()
     }
     
     func releaseListener(){
