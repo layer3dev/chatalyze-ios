@@ -27,7 +27,6 @@ class DonateProduct{
     
     
     func buy(value : DonateProductInfo.value, transactionId : String, completionListener: @escaping (_ success: Bool) -> ()) {
-        
         self.value = value
         self.transactionId = transactionId
         self.listener = completionListener
@@ -41,9 +40,8 @@ class DonateProduct{
             return
         }
         
-        controller.showLoader()
+        
         infoManager.requestInfo(value: value) {[weak self] (info) in
-            self?.controller.stopLoader()
             
             Log.echo(key: "in_app_purchase", text: "Info fetched.")
             guard let info = info
@@ -89,9 +87,7 @@ class DonateProduct{
                 return
         }
         
-        controller.showLoader()
         DonateCompleteTransaction().process(transactionId: transactionId, planId: value.getProductId(), completion: {[weak self] (success) in
-                self?.controller.stopLoader()
                 self?.callCompletion(success)
             
             

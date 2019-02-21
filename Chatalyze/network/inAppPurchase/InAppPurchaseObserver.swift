@@ -51,15 +51,19 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func complete(transaction: SKPaymentTransaction) {
-        Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
+        
+        DispatchQueue.main.async {[weak self] in
+            Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
+            SKPaymentQueue.default().finishTransaction(transaction)
+            self?.completionListener?(true, "successful", transaction)
+            self?.completionListener = nil
+        }
         
         
-        completionListener?(true, "successful", transaction)
-        SKPaymentQueue.default().finishTransaction(transaction)
         /*if(isProcessed){
             SKPaymentQueue.default().finishTransaction(transaction)
         }*/
-        completionListener = nil
+        
 //        validateReceipt(transaction : transaction)
     }
     
@@ -89,12 +93,12 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     
     private func callCompletion(success : Bool, message : String, transaction : SKPaymentTransaction?){
+        DispatchQueue.main.async {[weak self] in
+            self?.completionListener?(success, message, transaction)
+            self?.completionListener = nil
+        }
         
-        completionListener?(success, message, transaction)
-        completionListener = nil
+        
     }
-    
-    
-    
     
 }

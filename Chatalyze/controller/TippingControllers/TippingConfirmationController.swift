@@ -74,17 +74,23 @@ class TippingConfirmationController: InterfaceExtendedController {
         isProcessingLastTransaction = true
         showLoader()
         createTransaction(value: value) {[weak self] (transactionId) in
-            self?.stopLoader()
+            
             guard let transactionId = transactionId
                 else{
+                    self?.stopLoader()
+                    self?.isProcessingLastTransaction = false
                     return
             }
             
-            self?.initiatePurchaseProcess(transactionId: transactionId, value: value)
+            
+            
+            self?.initiatePurchaseProcess(transactionId: transactionId, value: value, completion: {
+                self?.stopLoader()
+            })
         }
     }
     
-    private func initiatePurchaseProcess(transactionId : String, value : DonateProductInfo.value){
+    private func initiatePurchaseProcess(transactionId : String, value : DonateProductInfo.value, completion : @escaping ()->()){
         
         let donateProduct = DonateProduct(controller : self)
         self.donateProduct = donateProduct
@@ -93,8 +99,10 @@ class TippingConfirmationController: InterfaceExtendedController {
             Log.echo(key: "in_app_purchase", text: "success -> \(success) ")
             
             if(!success){
+                completion()
                 return
             }
+            completion()
             self?.showSuccessScreen(value : value)
             return
         }
