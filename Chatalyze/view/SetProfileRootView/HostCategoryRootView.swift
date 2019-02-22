@@ -33,6 +33,8 @@ class HostCategoryRootView:ExtendedView {
     @IBOutlet var usernameLabel:UILabel?
     @IBOutlet var categoryTableView:UITableView?
     var categoryList:[HostCategoryListInfo] = [HostCategoryListInfo]()
+    @IBOutlet var tableViewHeight:NSLayoutConstraint?
+    var selectedIndex:Int = -1
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -40,14 +42,28 @@ class HostCategoryRootView:ExtendedView {
         roundToRevealView()
     }
     
+    
     func fillInfo(){
         
         usernameLabel?.text = ""
         guard let name = SignedUserInfo.sharedInstance?.firstName else{
             return
         }
+        categoryTableView?.dataSource = self
+        categoryTableView?.delegate = self
+        self.categoryTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         usernameLabel?.text = name
     }
+    
+    func reloadTableWithData(data:[HostCategoryListInfo]?){
+        
+        guard let info = data else{
+            return
+        }
+        self.categoryList = info
+        self.categoryTableView?.reloadData()
+    }
+    
     
     func roundToRevealView(){
      
@@ -121,23 +137,51 @@ extension HostCategoryRootView:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = categoryTableView?.dequeueReusableCell(withIdentifier: "HostCategoryCell", for: indexPath) as? HostCategoryCell else {
+            return UITableViewCell()
+        }
+        if indexPath.row < categoryList.count {
+            
+            cell.currentIndex = indexPath.row
+            cell.selectedIndex = { selectedCellIndex in
+                self.selectedIndex = selectedCellIndex
+                self.categoryTableView?.reloadData()
+            }
+            if indexPath.row == selectedIndex {
+                cell.isCellSelected = true
+            }else{
+                cell.isCellSelected = false
+            }
+            cell.fillInfo(info: categoryList[indexPath.row])
+            return cell
+        }
         return UITableViewCell()
     }
     
-    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        DispatchQueue.main.async {
+            
+            self.categoryTableView?.layer.removeAllAnimations()
+            self.tableViewHeight?.constant = self.categoryTableView?.contentSize.height ?? 0.0
+        }
+    }
 }
 
 extension HostCategoryRootView:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 51
+        
+        return 64
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
-    
 }

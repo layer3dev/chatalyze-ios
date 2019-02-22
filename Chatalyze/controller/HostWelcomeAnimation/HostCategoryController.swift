@@ -23,7 +23,9 @@ class HostCategoryController: InterfaceExtendedController{
         
         self.showLoader()
         FetchHostCategoryProcessor().fetchInfo { (success, listInfo) in
-            self.stopLoader()            
+            self.stopLoader()
+            
+            self.rootView?.reloadTableWithData(data:listInfo)
             for info in listInfo ?? [HostCategoryListInfo](){
                 
                 Log.echo(key: "yud", text: "name \(info.name)")

@@ -58,12 +58,10 @@ class HostDashboardController: MyScheduledSessionsController {
     }    
     
     override func showShareView(){
-       
        // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
     override func hideShareView(){
-        
         //heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
     }
     
@@ -189,6 +187,14 @@ class HostDashboardController: MyScheduledSessionsController {
     
     
     @IBAction func scheduleSessionAction(sender:UIButton){
+        
+        guard let controller = HostCategoryController.instance() else{
+            return
+        }
+
+        self.navigationController?.pushViewController(controller, animated: true)
+        return
+        return
         
         DispatchQueue.main.async {
             
