@@ -9,7 +9,7 @@
 import Foundation
 
 class DonateProductConfig {
-    static let dollarTwoDonationIdentifier = "com.chatalyze.donate.two_dev"
-    static let dollarSixDonationIdentifier = "com.chatalyze.donate.six_dev"
-    static let dollarTenDonationIdentifier = "com.chatalyze.donate.ten_dev"
+    static let dollarTwoDonationIdentifier = "com.chatalyze.donate.two"
+    static let dollarSixDonationIdentifier = "com.chatalyze.donate.six"
+    static let dollarTenDonationIdentifier = "com.chatalyze.donate.ten"
 }

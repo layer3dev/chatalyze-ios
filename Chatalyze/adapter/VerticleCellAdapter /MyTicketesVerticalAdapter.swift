@@ -110,32 +110,7 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
-    //
-    //    //    private func verifyForEventDelay(){
-    //    //
-    //    //        guard let slotInfo = slotInfo else{
-    //    //            return
-    //    //        }
-    //    //
-    //    //Verifying that event is delayed or not started yet
-    //
-    //    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-    //    //
-    //    //            showAlertMessage()
-    //    //            statusLbl?.text = "Session has not started yet."
-    //    //            return
-    //    //        }
-    //    //
-    //    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-    //    //
-    //    //            showAlertMessage()
-    //    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-    //    //            return
-    //    //        }
-    //    //    }
-    //    //
-    
-    
+ 
     
     func jointEvent(info:SlotInfo?){
         
@@ -150,48 +125,6 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
             else{
                 return
         }
-        
-        //Verify for delay and not started
-        
-//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//            return
-//        }
-//
-//        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//            return
-//        }
-//
-//        //End
-//        if(!slotInfo.isPreconnectEligible && slotInfo.isFuture){
-//
-//            guard let controller = HostEventQueueController.instance()
-//                else{
-//                    return
-//            }
-//
-//            controller.eventId = "\(eventId)"
-//            self.root?.controller?.navigationController?.pushViewController(controller, animated: false)
-//            return
-//        }
-//
-       
         
         
         
