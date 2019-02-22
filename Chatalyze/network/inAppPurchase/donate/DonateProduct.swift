@@ -40,9 +40,7 @@ class DonateProduct{
             return
         }
         
-        
         infoManager.requestInfo(value: value) {[weak self] (info) in
-            
             Log.echo(key: "in_app_purchase", text: "Info fetched.")
             guard let info = info
                 else{
@@ -50,31 +48,24 @@ class DonateProduct{
                     return
             }
             
-            
             //store transactionId in session.
             _ = DonateTransactionTokenSession.initSharedInstance(token: transactionId)
             
             self?.buyProduct(info : info)
             return
-           
         }
     }
     
     private func buyProduct(info: DonateProductInfo){
-        
         let productPurchase = InAppPurchaseProduct()
-        
         self.productPurchase = productPurchase
-        
-        
-        
+
         productPurchase.buy(product: info.productInfo, completionListener: {[weak self] (success, message, transaction) in
             if(!success){
                 self?.callCompletion(false, transaction)
                 return
             }
             self?.completeTransaction(transaction: transaction)
-            
         })
     }
     
@@ -95,8 +86,6 @@ class DonateProduct{
         
         DonateCompleteTransaction().process(transactionId: transactionId, planId: value.getProductId(), completion: {[weak self] (success) in
                 self?.callCompletion(success, transaction)
-            
-            
         })
         
     }
