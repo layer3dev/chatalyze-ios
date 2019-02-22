@@ -25,12 +25,20 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
 //            })
 //        }
         
-        
-        guard let controller = HostCategoryController.instance() else {
+        guard let controller = SetHostProfileController.instance() else {
             return
         }
+        
         self.present(controller, animated: true) {
         }
+        
+        // We are not releasing this feature with this version of release on AppStore
+        
+//        guard let controller = HostCategoryController.instance() else {
+//            return
+//        }
+//        self.present(controller, animated: true) {
+//        }
         
     }
     
