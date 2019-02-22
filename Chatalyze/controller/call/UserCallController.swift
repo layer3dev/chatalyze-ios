@@ -294,9 +294,9 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
-        
         //temp
-        showExitScreen()
+
+        //        showExitScreen()
     }
     
     
@@ -782,7 +782,6 @@ class UserCallController: VideoCallController {
         ScreenshotInfoFetch().fetchInfo(slotId: slotId) {[weak self] (success, infos)  in
             
             Log.echo(key: "yud", text: "Finally I am veryfying slot")
-            
             self?.verifySlot(slotInfo: activeSlot, screenshotInfos: infos)
             self?.isScreenshotStatusLoaded = true
         }
@@ -793,18 +792,15 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "I AM VERIFYING")
         
         for screenshotInfo in screenshotInfos {
-            
             if(screenshotInfo.requestedAutograph ?? false){
-                
                 slotInfo.isAutographRequested = true
             }
             if(!(screenshotInfo.defaultImage ?? true)){
-                
                 slotInfo.isScreenshotSaved = true
             }
         }
         
-        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isScreenshotSaved)")
+        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(String(describing: myLiveUnMergedSlot?.id))\(String(describing: self.myLiveUnMergedSlot?.isScreenshotSaved))")
         
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
     }

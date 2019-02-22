@@ -37,6 +37,8 @@
 		47121068221E8A49009F3A09 /* HostCategoryListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47121066221E8A49009F3A09 /* HostCategoryListInfo.swift */; };
 		4712106B221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4712106A221E9CAA009F3A09 /* HostCategoryCell.swift */; };
 		4712106C221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4712106A221E9CAA009F3A09 /* HostCategoryCell.swift */; };
+		4712106D221EC186009F3A09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B7E0CB22159F12005CFEC0 /* StoreKit.framework */; };
+		4712106F221ED351009F3A09 /* TippingAlertShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4712106E221ED351009F3A09 /* TippingAlertShadow.swift */; };
 		47127B1221524C6000E1250B /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47127B1121524C6000E1250B /* WelcomePageController.swift */; };
 		47127B1421524E4A00E1250B /* LoginSignUpContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47127B1321524E4A00E1250B /* LoginSignUpContainerController.swift */; };
 		47127B162152532C00E1250B /* LoginSignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47127B152152532C00E1250B /* LoginSignUpTabView.swift */; };
@@ -1144,6 +1146,7 @@
 		47121062221E8953009F3A09 /* FetchHostCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHostCategory.swift; sourceTree = "<group>"; };
 		47121066221E8A49009F3A09 /* HostCategoryListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCategoryListInfo.swift; sourceTree = "<group>"; };
 		4712106A221E9CAA009F3A09 /* HostCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCategoryCell.swift; sourceTree = "<group>"; };
+		4712106E221ED351009F3A09 /* TippingAlertShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TippingAlertShadow.swift; sourceTree = "<group>"; };
 		47127B1121524C6000E1250B /* WelcomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageController.swift; sourceTree = "<group>"; };
 		47127B1321524E4A00E1250B /* LoginSignUpContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpContainerController.swift; sourceTree = "<group>"; };
 		47127B152152532C00E1250B /* LoginSignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpTabView.swift; sourceTree = "<group>"; };
@@ -1761,6 +1764,7 @@
 				47D0B19721A6C4B5006376A8 /* NVActivityIndicatorView.framework in Frameworks */,
 				47D0B19821A6C4B5006376A8 /* Bolts.framework in Frameworks */,
 				47D0B19921A6C4B5006376A8 /* ImageLoader.framework in Frameworks */,
+				4712106D221EC186009F3A09 /* StoreKit.framework in Frameworks */,
 				47D0B19B21A6C4B5006376A8 /* SDWebImage.framework in Frameworks */,
 				315B2A1C9B3A0D9231EB2E23 /* Pods_Chatalyze_Dev.framework in Frameworks */,
 			);
@@ -2608,6 +2612,7 @@
 			children = (
 				4753BA04219013BF0060777B /* ShadowView.swift */,
 				477A942221E3294C00517F3E /* ShareLinkShadow.swift */,
+				4712106E221ED351009F3A09 /* TippingAlertShadow.swift */,
 			);
 			path = ShadowView;
 			sourceTree = "<group>";
@@ -4878,6 +4883,14 @@
 				TargetAttributes = {
 					47D0B00721A6C4B5006376A8 = {
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					FAFFFE93203D9C7F009B4F96 = {
 						CreatedOnToolsVersion = 9.2;
@@ -6113,6 +6126,7 @@
 				FA3CC1402046C9A6007438A3 /* FacebookLogin.swift in Sources */,
 				FA128688221804FB000A6560 /* DonateProduct.swift in Sources */,
 				FA74B12F20639B6400983141 /* ARDJoinResponse.m in Sources */,
+				4712106F221ED351009F3A09 /* TippingAlertShadow.swift in Sources */,
 				47D7CC0C21BE859800CAFCF1 /* DeprecationAlertController.swift in Sources */,
 				FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */,
 				FAD2017D207611F90004E10E /* RequestAutograph.swift in Sources */,
@@ -6257,7 +6271,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6273,7 +6287,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -6291,7 +6305,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6307,7 +6321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
