@@ -117,12 +117,30 @@ class HostCategoryRootView:ExtendedView {
     
     @IBAction func revealMyProfileAction(sender:UIButton){
        
-        if selectedCategory == .none {
+        if selectedIndex == -1 {
             errorLabel?.text = "Please select the category."
             return
         }
         errorLabel?.text = ""
         controller?.nextScreen()
+    }
+    
+    func getParam()->[String:Any]?{
+        
+        if selectedIndex == -1 || selectedIndex >= categoryList.count{
+            return nil
+        }
+        
+        var param = [String:Any]()
+        var nestedParam = [String:String]()
+        nestedParam["id"] = categoryList[selectedIndex].id ?? ""
+        nestedParam["categoryType"] = categoryList[selectedIndex].categoryType ?? ""
+        nestedParam["categoryId"] = categoryList[selectedIndex].categoryId ?? ""
+        nestedParam["name"] = categoryList[selectedIndex].name ?? ""
+        param["category"] = nestedParam
+        
+        Log.echo(key: "yud", text: "parameters selected are \(param)")
+        return param
     }
 }
 
@@ -145,6 +163,7 @@ extension HostCategoryRootView:UITableViewDataSource{
             
             cell.currentIndex = indexPath.row
             cell.selectedIndex = { selectedCellIndex in
+                Log.echo(key: "yud", text: "selected cell is \(selectedCellIndex)")
                 self.selectedIndex = selectedCellIndex
                 self.categoryTableView?.reloadData()
             }

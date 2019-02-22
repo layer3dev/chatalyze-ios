@@ -12,7 +12,7 @@ class HostCategoryController: InterfaceExtendedController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         initilaizeRootView()
         fetchCategoryInfo()
         // Do any additional setup after loading the view.
@@ -47,25 +47,33 @@ class HostCategoryController: InterfaceExtendedController{
     
     func nextScreen(){
         
-        guard let controller = SetHostProfileController.instance() else {
+        guard let params = rootView?.getParam() else{
             return
         }
-        self.present(controller, animated: true) {
+        self.showLoader()
+        UploadHostCategory().upload(param: params) { (success) in
+            DispatchQueue.main.async {
+                self.stopLoader()
+                
+                UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
+                self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+                })
+            }
         }
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     class func instance()->HostCategoryController?{
-
+        
         let storyboard = UIStoryboard(name: "Profile", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostCategory") as? HostCategoryController
         return controller
