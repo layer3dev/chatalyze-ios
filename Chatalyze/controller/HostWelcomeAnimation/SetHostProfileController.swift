@@ -72,14 +72,13 @@ class SetHostProfileController: InterfaceExtendedController {
                 DispatchQueue.main.async {
                     
                     UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
-                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+                    self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
                     })
                 }
                 return
             }
-            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
             })
-            
         })
     }
     

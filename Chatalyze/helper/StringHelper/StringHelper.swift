@@ -214,3 +214,38 @@ extension StringProtocol {
         return String(first).capitalized + dropFirst()
     }
 }
+
+
+extension UILabel
+{
+    func addImage(imageName: String, afterLabel bolAfterLabel: Bool = false)
+    {
+        self.text?.append(" ")
+        let attachment: NSTextAttachment = NSTextAttachment()
+        attachment.image = UIImage(named: imageName)
+        attachment.bounds = CGRect(x: self.frame.size.width
+            , y: -4, width: 20, height: 20)
+        let attachmentString: NSAttributedString = NSAttributedString(attachment: attachment)
+        
+        if (bolAfterLabel)
+        {
+            let strLabelText: NSMutableAttributedString = NSMutableAttributedString(string: self.text ?? "")
+            strLabelText.append(attachmentString)
+            self.attributedText = strLabelText
+        }
+        else
+        {
+            let strLabelText: NSAttributedString = NSAttributedString(string: self.text ?? "")
+            let mutableAttachmentString: NSMutableAttributedString = NSMutableAttributedString(attributedString: attachmentString)
+            mutableAttachmentString.append(strLabelText)
+            self.attributedText = mutableAttachmentString
+        }
+    }
+    
+    func removeImage()
+    {
+        let text = self.text
+        self.attributedText = nil
+        self.text = text
+    }
+}

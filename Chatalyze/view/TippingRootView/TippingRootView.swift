@@ -20,6 +20,10 @@ class TippingRootView: ExtendedView {
     @IBOutlet private var profileImage:UIImageView?
     
     private var scheduleInfo : EventScheduleInfo?
+    var controller:TippingConfirmationController?
+    
+    var isAlertShowing = false
+    @IBOutlet var alertCustomView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -28,6 +32,8 @@ class TippingRootView: ExtendedView {
     }
     
     func paintView(){
+        
+        alertCustomView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 8:5
        
         profileImage?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 55:45
         profileImage?.layer.masksToBounds = true
@@ -43,7 +49,7 @@ class TippingRootView: ExtendedView {
 
         customTipView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 35:25
         customTipView?.layer.masksToBounds = true
-
+        
         noTipView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 35:25
         noTipView?.layer.masksToBounds = true
     }
@@ -55,11 +61,13 @@ class TippingRootView: ExtendedView {
             else{
                 return
         }
+        
         let influencer = scheduleInfo.user
         let influencerName = influencer?.fullName ?? ""
         
         tipLabel?.text = "Would you like to support \(influencerName) by giving a donation?"
-        
+    
+        tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
             else{
                 return
@@ -67,6 +75,37 @@ class TippingRootView: ExtendedView {
         
         profileImage?.sd_setImage(with: URL(string:image), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
         })
+    }
+    
+    @IBAction func infoAlert(sender:UIButton){
         
+        if isAlertShowing{
+            
+            UIView.animate(withDuration: 0.35) {
+                
+                self.alertCustomView?.alpha = 0
+            }
+            self.layoutIfNeeded()
+            isAlertShowing = false
+            return
+        }
+        
+        UIView.animate(withDuration: 0.35) {
+            
+            self.alertCustomView?.alpha = 1
+        }
+        self.layoutIfNeeded()
+        isAlertShowing = true
+        return
+        
+//        let ac = UIAlertController(title: "", message: "Transaction and In-app purchase fees (if payment is made through the Chatalyze mobile app) will automatically be deducted before your donation is transferred to the host.", preferredStyle: .actionSheet)
+//        let popover = ac.popoverPresentationController
+//        if UIDevice.current.userInterfaceIdiom == .phone{
+//            popover?.delegate = self
+//        }
+//        popover?.sourceView = sender
+//        popover?.sourceRect = sender.frame
+//        controller?.present(ac, animated: true)
     }
 }
+
