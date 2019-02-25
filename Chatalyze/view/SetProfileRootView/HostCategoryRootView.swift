@@ -35,24 +35,46 @@ class HostCategoryRootView:ExtendedView {
     var categoryList:[HostCategoryListInfo] = [HostCategoryListInfo]()
     @IBOutlet var tableViewHeight:NSLayoutConstraint?
     var selectedIndex:Int = -1
+    @IBOutlet var otherField:SigninFieldView?
+    @IBOutlet var heightOfTextFieldView:NSLayoutConstraint?
+    @IBOutlet var scrollView:FieldManagingScrollView?
+    @IBOutlet var contentBottomConstraint:NSLayoutConstraint?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         roundToRevealView()
+        initialization()
+    }
+    func showOtherFeield(){
+        
+        heightOfTextFieldView?.constant = UIDevice.current.userInterfaceIdiom == .pad ? 70 : 50
+    }
+    
+    func hideOtherField(){
+        
+        heightOfTextFieldView?.constant = 0
+    }
+    
+    func initialization(){
+        
+        self.scrollView?.bottomContentOffset = contentBottomConstraint
+        self.otherField?.textField?.doneAccessory = true
+        self.otherField?.isCompleteBorderAllow = true
+        self.otherField?.textField?.delegate = self
     }
     
     
     func fillInfo(){
         
         usernameLabel?.text = ""
-        guard let name = SignedUserInfo.sharedInstance?.firstName else{
+        guard let name = SignedUserInfo.sharedInstance?.firstName else {
             return
         }
         categoryTableView?.dataSource = self
         categoryTableView?.delegate = self
         self.categoryTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
-        usernameLabel?.text = name
+        usernameLabel?.text = name.firstCapitalized
     }
     
     func reloadTableWithData(data:[HostCategoryListInfo]?){
@@ -63,7 +85,6 @@ class HostCategoryRootView:ExtendedView {
         self.categoryList = info
         self.categoryTableView?.reloadData()
     }
-    
     
     func roundToRevealView(){
      
@@ -113,11 +134,34 @@ class HostCategoryRootView:ExtendedView {
         reset()
         selectedCategory = .other
         otherView?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        showOtherFeield()
+        
+        
+        //In order to reset the table fields field.
+        selectedIndex = -1
+        self.categoryTableView?.reloadData()
+        self.errorLabel?.text = ""
     }
     
     @IBAction func revealMyProfileAction(sender:UIButton){
        
-        if selectedIndex == -1 {
+        if selectedCategory == .other{
+            
+            if otherField?.textField?.text?.replacingOccurrences(of: " ", with: "") == ""{
+                
+                otherField?.showError(text: "Category is required.")
+                
+            }else{
+                
+                otherField?.showError(text: "")
+                controller?.nextScreen()
+                
+            }
+            return
+        }
+        
+        if selectedIndex == -1 && self.categoryList.count > 0{
+            
             errorLabel?.text = "Please select the category."
             return
         }
@@ -127,12 +171,21 @@ class HostCategoryRootView:ExtendedView {
     
     func getParam()->[String:Any]?{
         
-        if selectedIndex == -1 || selectedIndex >= categoryList.count{
+        var param = [String:Any]()
+        var nestedParam = [String:String]()
+        
+        if selectedCategory == .other{
+            
+            nestedParam["name"] = otherField?.textField?.text ?? ""
+            param["category"] = nestedParam
+            //{"category":{"name":"hello filling other"}}
+            return param
+        }
+        
+        if selectedIndex == -1 {
             return nil
         }
         
-        var param = [String:Any]()
-        var nestedParam = [String:String]()
         nestedParam["id"] = categoryList[selectedIndex].id ?? ""
         nestedParam["categoryType"] = categoryList[selectedIndex].categoryType ?? ""
         nestedParam["categoryId"] = categoryList[selectedIndex].categoryId ?? ""
@@ -164,8 +217,17 @@ extension HostCategoryRootView:UITableViewDataSource{
             cell.currentIndex = indexPath.row
             cell.selectedIndex = { selectedCellIndex in
                 Log.echo(key: "yud", text: "selected cell is \(selectedCellIndex)")
+                
+                
                 self.selectedIndex = selectedCellIndex
                 self.categoryTableView?.reloadData()
+                
+                //In order to hide the price Field.
+                
+                self.selectedCategory = .none
+                self.reset()
+                self.hideOtherField()
+                self.otherField?.showError(text: "")
             }
             if indexPath.row == selectedIndex {
                 cell.isCellSelected = true
@@ -191,16 +253,28 @@ extension HostCategoryRootView:UITableViewDataSource{
 extension HostCategoryRootView:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return 64
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+}
+
+extension HostCategoryRootView:UITextFieldDelegate{
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
+        scrollView?.activeField = otherField
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return false
     }
 }

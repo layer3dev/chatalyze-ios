@@ -205,6 +205,7 @@ extension Bool{
 }
 
 extension StringProtocol {
+    
     var firstUppercased: String {
         guard let first = first else { return "" }
         return String(first).uppercased() + dropFirst()
@@ -247,5 +248,16 @@ extension UILabel
         let text = self.text
         self.attributedText = nil
         self.text = text
+    }
+}
+
+extension String {
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
     }
 }

@@ -62,7 +62,6 @@ class HostDashboardRootView: MySessionRootView {
         profileImage?.layer.cornerRadius =   UIDevice.current.userInterfaceIdiom == .pad  ? 5 : 3
         profileImage?.layer.borderColor = UIColor.white.cgColor
         
-        
         if let imageStr = SignedUserInfo.sharedInstance?.profileImage{
             
             profileImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
@@ -70,7 +69,6 @@ class HostDashboardRootView: MySessionRootView {
         }
         
         userNameLbl?.text = SignedUserInfo.sharedInstance?.fullName ?? ""
-        
         userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
     }
     

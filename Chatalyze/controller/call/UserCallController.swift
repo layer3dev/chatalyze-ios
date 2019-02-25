@@ -293,10 +293,11 @@ class UserCallController: VideoCallController {
     override func processExitAction(code : exitCode){
         super.processExitAction(code : code)
         
-        connection?.disconnect()
+        connection?.disconnect()    
         //temp
 
-        //        showExitScreen()
+        //TODO:- Need to Comment
+        //showExitScreen()
     }
     
     
@@ -445,7 +446,6 @@ class UserCallController: VideoCallController {
             }
         }
         
-        
         if !isScreenshotStatusLoaded{
             return
         }
@@ -567,7 +567,7 @@ class UserCallController: VideoCallController {
         if(currentSlot.isFuture){
             
             updateNewHeaderInfoForSession(slot : currentSlot)
-//            updateCallHeaderForFuture(slot : currentSlot)
+            // updateCallHeaderForFuture(slot : currentSlot)
             return
         }       
         updateCallHeaderForLiveCall(slot: currentSlot)
@@ -575,6 +575,7 @@ class UserCallController: VideoCallController {
     
     
     func updateLableAnimation(){
+        
         guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 

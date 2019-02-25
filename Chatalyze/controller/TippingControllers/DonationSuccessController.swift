@@ -18,15 +18,15 @@ class DonationSuccessController: InterfaceExtendedController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         rootView?.fillInfo(price: (price ?? 0.00), scheduleInfo: scheduleInfo)
     }
-    
+
     var rootView : DonationSuccessRootView?{
         return self.view as? DonationSuccessRootView
     }
     
     @IBAction private func close(){
+        
         showFeedback()
     }
     
@@ -37,9 +37,8 @@ class DonationSuccessController: InterfaceExtendedController {
         }
         controller.eventInfo = scheduleInfo
         present(controller, animated: false, completion:nil)
-
     }
-
+    
     /*
     // MARK: - Navigation
 
@@ -49,15 +48,15 @@ class DonationSuccessController: InterfaceExtendedController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
 
 extension DonationSuccessController{
+   
     class func instance()->DonationSuccessController?{
         
         let storyboard = UIStoryboard(name: "Tipping", bundle:nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "donation_success") as? DonationSuccessController
         return controller
     }
-
 }

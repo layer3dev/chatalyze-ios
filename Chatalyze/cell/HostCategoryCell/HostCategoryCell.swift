@@ -24,7 +24,6 @@ class HostCategoryCell: ExtendedTableCell {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        
         self.selectionStyle = .none
     }
     
@@ -37,7 +36,7 @@ class HostCategoryCell: ExtendedTableCell {
         guard let info = info else{
             return
         }
-        self.name?.text = info.name
+        self.name?.text = info.name?.firstCapitalized
         if isCellSelected{
             
             selectionView?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)

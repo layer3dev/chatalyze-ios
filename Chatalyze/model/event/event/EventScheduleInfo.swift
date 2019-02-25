@@ -37,6 +37,7 @@ class EventScheduleInfo : EventScheduleCoreInfo{
         
         var lastSlot = slotInfos[0]
         for slotInfo in slotInfos {
+            
             guard let currentSlot = slotInfo.copy() as? SlotInfo
                 else{
                     continue
@@ -66,8 +67,8 @@ class EventScheduleInfo : EventScheduleCoreInfo{
         for slot in slotInfos {
             
             Log.echo(key: "merge", text: "slot \(slot.slotNo)")
-            Log.echo(key: "merge", text: "slot \(slot.start)")
-            Log.echo(key: "merge", text: "slot \(slot.end)")
+            Log.echo(key: "merge", text: "slot \(String(describing: slot.start))")
+            Log.echo(key: "merge", text: "slot \(String(describing: slot.end))")
         }
     }
     

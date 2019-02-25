@@ -50,10 +50,6 @@ class SetHostProfileController: InterfaceExtendedController {
             
             DispatchQueue.main.async {
                 
-                if !success{
-                    self.stopLoader()
-                    return
-                }
                 self.updateProfile()
                 return
             }
@@ -74,14 +70,18 @@ class SetHostProfileController: InterfaceExtendedController {
                     }
                     self.present(controller, animated: true, completion: {
                     })
+                    return
                 }
-                return
             }
-            guard let controller = HostCategoryController.instance() else{
-                return
+            
+            DispatchQueue.main.async {
+                
+                guard let controller = HostCategoryController.instance() else{
+                    return
+                }
+                self.present(controller, animated: true, completion: {
+                })
             }
-            self.present(controller, animated: true, completion: {
-            })
         })
     }
     

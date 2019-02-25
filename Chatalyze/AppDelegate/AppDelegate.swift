@@ -24,8 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
-
-        
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
@@ -35,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
         Log.echo(key: "yud", text: "Did Finish is calling")
-        
         return true
     }
     
@@ -83,13 +80,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
-
         verifyingAccessToken()
-  
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
-        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     

@@ -10,6 +10,8 @@ import UIKit
 
 class HostCategoryController: InterfaceExtendedController{
     
+    
+    var currentListInfo = [HostCategoryListInfo]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,14 +27,16 @@ class HostCategoryController: InterfaceExtendedController{
         FetchHostCategoryProcessor().fetchInfo { (success, listInfo) in
             self.stopLoader()
             
+            self.currentListInfo.removeAll()
+            self.currentListInfo = listInfo ?? [HostCategoryListInfo]()
             self.rootView?.reloadTableWithData(data:listInfo)
-            for info in listInfo ?? [HostCategoryListInfo](){
-                
-                Log.echo(key: "yud", text: "name \(info.name)")
-                Log.echo(key: "yud", text: "categoryId \(info.categoryId)")
-                Log.echo(key: "yud", text: "id \(info.id)")
-                Log.echo(key: "yud", text: "categoryType \(info.categoryType)")
-            }
+//            for info in listInfo ?? [HostCategoryListInfo](){
+//
+//                Log.echo(key: "yud", text: "name \(info.name)")
+//                Log.echo(key: "yud", text: "categoryId \(info.categoryId)")
+//                Log.echo(key: "yud", text: "id \(info.id)")
+//                Log.echo(key: "yud", text: "categoryType \(info.categoryType)")
+//            }
         }
     }
     func initilaizeRootView(){
@@ -41,7 +45,7 @@ class HostCategoryController: InterfaceExtendedController{
         rootView?.fillInfo()
     }
     
-    var rootView:HostCategoryRootView?{
+    var rootView:HostCategoryRootView?{        
         return self.view as? HostCategoryRootView
     }
     
@@ -50,7 +54,9 @@ class HostCategoryController: InterfaceExtendedController{
         guard let params = rootView?.getParam() else{
             return
         }
+        
         self.showLoader()
+        
         UploadHostCategory().upload(param: params) { (success) in
             DispatchQueue.main.async {
                 self.stopLoader()

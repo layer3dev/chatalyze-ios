@@ -30,7 +30,7 @@ class HostCategoryListInfo: NSObject {
     
     func fillInfo(data:JSON?){
         
-        guard let info = data?.dictionary else{
+        guard let info = data?.dictionary else {
             return
         }
         self.id = info["id"]?.stringValue

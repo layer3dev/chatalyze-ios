@@ -37,7 +37,11 @@ class TippingConfirmationController: InterfaceExtendedController {
     
     @IBAction func noTipAction(){
         
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        guard let controller = ReviewController.instance() else{
+            return
+        }
+        controller.eventInfo = scheduleInfo
+        present(controller, animated: false, completion:nil)
     }
     
     @IBAction func cardInfoAction(sender:UIButton){
@@ -67,6 +71,7 @@ class TippingConfirmationController: InterfaceExtendedController {
     }
     
     private func donate(value : DonateProductInfo.value){
+      
         if(isProcessingLastTransaction){
             return
         }

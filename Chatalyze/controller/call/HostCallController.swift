@@ -12,7 +12,6 @@ import SwiftyJSON
 class HostCallController: VideoCallController {
     
     //Outlet for sessioninfo
-    
     @IBOutlet var sessionHeaderLbl:UILabel?
     @IBOutlet var sessionRemainingTimeLbl:UILabel?
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
@@ -39,7 +38,8 @@ class HostCallController: VideoCallController {
         return false
     }
         
-    //Using in order to prevent to showing the message "Participant did not join session before the slot start."
+    // Using in order to prevent to showing the message "Participant did not join session before the slot start."
+    
     override var isSlotRunning : Bool{
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
