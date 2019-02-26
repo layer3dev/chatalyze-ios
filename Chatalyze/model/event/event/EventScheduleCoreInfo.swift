@@ -158,8 +158,6 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     
-    
-    
     var currentSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
         guard let slotInfos = self.slotInfos
             else{
@@ -170,14 +168,13 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     private func getCurrentSlotInfo(slotInfos : [SlotInfo])->(index : Int, slotInfo : SlotInfo?)?{
+       
         for index in 0..<slotInfos.count{
             let slotInfo = slotInfos[index]
             if(slotInfo.isLIVE){
                 return (index,slotInfo)
             }
         }
-        
-        
         return nil
     }
     
@@ -226,16 +223,8 @@ class EventScheduleCoreInfo: EventInfo {
             else{
                 return nil
         }
-        
         return info.slotInfo
-        
     }
-    
-    
-    
-
-    
-    
     
     //this will return
     //LIVE slot OR Preconnect Slot or Future Slot.

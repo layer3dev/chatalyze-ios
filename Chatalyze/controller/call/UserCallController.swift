@@ -127,10 +127,9 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        
         if(!isAvailableInRoom(hashId: hostId)){
             setStatusMessage(type : .userDidNotJoin)
-            return;
+            return
         }
         
         if(activeSlot.isPreconnectEligible){
@@ -146,11 +145,13 @@ class UserCallController: VideoCallController {
         
        guard let connection = connection
         else{
+            
             setStatusMessage(type: .ideal)
             return
         }
         
         if(connection.isStreaming){
+            
             setStatusMessage(type: .preConnectedSuccess)
             return
         }
@@ -275,6 +276,7 @@ class UserCallController: VideoCallController {
     }
     
     private func processHangupEvent(data : JSON?){
+    
         guard let json = data
             else{
                 return
@@ -302,10 +304,10 @@ class UserCallController: VideoCallController {
     
     
     func hangup(hangup : Bool){
+       
         if(!hangup){
             resetMuteActions()
         }
-        
         localMediaPackage?.isDisabled = hangup
     }
     
@@ -690,6 +692,7 @@ class UserCallController: VideoCallController {
     }
     
     private func showDonateScreen(){
+        
         guard let presentingController = self.lastPresentingController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
@@ -824,7 +827,6 @@ class UserCallController: VideoCallController {
             // statusLbl?.text = "Session has not started yet."
         }
         
-        
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
             
             setStatusMessage(type: .eventDelay)
@@ -839,6 +841,7 @@ class UserCallController: VideoCallController {
     
     override func eventCancelled(){
         
+        self.eventInfo = nil
         setStatusMessage(type: .eventCancelled)
         //Event Cancelled
     }
@@ -865,7 +868,7 @@ extension UserCallController{
     }
 }
 
-//instance
+//Instance
 extension UserCallController{
     
     class func instance()->UserCallController?{

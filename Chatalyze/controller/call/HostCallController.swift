@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class HostCallController: VideoCallController {
-    
+        
     //Outlet for sessioninfo
     @IBOutlet var sessionHeaderLbl:UILabel?
     @IBOutlet var sessionRemainingTimeLbl:UILabel?
@@ -296,6 +296,8 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
+      
+        test()
         triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
@@ -303,6 +305,39 @@ class HostCallController: VideoCallController {
         refresh()
         updateLableAnimation()
     }
+    
+    func test(){
+        
+        guard let isFuture = self.eventInfo?.isFuture else{
+            return
+        }
+        
+        if isFuture{
+            return
+        }
+        
+        if self.presentedViewController == nil{
+          
+            guard let controller = EarlyViewController.instance() else {
+                return
+            }
+            
+            controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            
+            self.present(controller, animated: true, completion: {
+            })
+            
+        }else{
+            
+        }
+        
+        
+        
+        
+        //TODO:- Need to remove
+        //Log.echo(key: "yud", text: "Upcoming slot is \(self.eventInfo?.upcomingSlot)")
+    }
+    
     
     override func updateStatusMessage(){
         super.updateStatusMessage()

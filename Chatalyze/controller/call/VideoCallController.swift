@@ -100,6 +100,8 @@ class VideoCallController : InterfaceExtendedController {
     
     var appDelegate : AppDelegate?
     
+    var isEventCancelled = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -498,11 +500,12 @@ class VideoCallController : InterfaceExtendedController {
             self?.refreshScheduleInfo()
         }
         
-        eventDeleteListener.setListener { (deletedEventID) in
+        eventDeleteListener.setListener { [weak self] (deletedEventID) in
             
-            if self.eventId == deletedEventID {
+            if self?.eventId == deletedEventID {
                 
-                self.eventCancelled()
+                self?.isEventCancelled = true
+                self?.eventCancelled()
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
@@ -515,6 +518,10 @@ class VideoCallController : InterfaceExtendedController {
             self?.refreshScheduleInfo()
         }
     }
+    
+    
+    
+    
     
     private func processUpdatePeerList(json : JSON?){
         
@@ -592,8 +599,6 @@ class VideoCallController : InterfaceExtendedController {
         multipleVideoTabListner()
         startTimer()
     }
-    
-    
     
     private func startTimer(){
         timer.ping { [weak self] in
@@ -1038,6 +1043,7 @@ extension VideoCallController{
         self.alertContainerView?.isHidden = true
     }
     func showAlertContainer() {
+        
         self.alertContainerView?.isHidden = false
     }
     

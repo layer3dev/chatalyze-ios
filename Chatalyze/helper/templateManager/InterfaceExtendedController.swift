@@ -238,7 +238,8 @@ extension UIViewController : NVActivityIndicatorViewable{
         self.stopAnimating()
     }
     
-    func getRootPresentingController() -> UIViewController?{
+    func getRootPresentingController()-> UIViewController?{
+        
         var presenting : UIViewController? = self.presentingViewController
         while(true){
             if let root = presenting?.presentingViewController{
@@ -248,7 +249,5 @@ extension UIViewController : NVActivityIndicatorViewable{
                 return presenting
             }
         }
-        
-        
     }
 }
