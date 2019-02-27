@@ -10,13 +10,30 @@ import UIKit
 
 class EarlyViewController: UIViewController {
 
+    var closeRegistration:(()->())?
+    var keepRegistration:(()->())?
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.isOpaque = false
+        self.view.backgroundColor = UIColor.clear
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func closeRegistrationEndSession(sender:UIButton){
+   
+        closeRegistration?()
+        self.dismiss(animated: true) {
+        }
+    }
+    
+    @IBAction func keepRegistration(sender:UIButton){
+        
+        keepRegistration?()
+        self.dismiss(animated: true) {
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -26,6 +43,7 @@ class EarlyViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
     
     class func instance()->EarlyViewController?{
         

@@ -250,4 +250,21 @@ extension UIViewController : NVActivityIndicatorViewable{
             }
         }
     }
+    
+    func getTopMostPresentedController()-> UIViewController?{
+        
+        //If no controller is presented then it will return itself.
+        if self.presentedViewController == nil {
+            return self
+        }
+        var presented : UIViewController? = self.presentedViewController
+        while(true){
+            if let root = presented?.presentedViewController{
+                presented = root
+            }
+            else{
+                return presented
+            }
+        }
+    }
 }
