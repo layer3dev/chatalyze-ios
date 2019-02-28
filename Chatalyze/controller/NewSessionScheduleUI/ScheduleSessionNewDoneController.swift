@@ -64,7 +64,7 @@ class ScheduleSessionNewDoneController: UIViewController {
         Log.echo(key: "yud", text: "url id is \(str)")
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
-        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied on clipboard", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
         }
     }
 

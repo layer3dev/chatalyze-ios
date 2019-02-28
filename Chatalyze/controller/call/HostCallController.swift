@@ -12,7 +12,7 @@ import SwiftyJSON
 class HostCallController: VideoCallController {
     
     //In order to maintain the refrence for the Early Controller.
-    var earlyControllerRefrence:EarlyViewController?
+    var earlyControllerReference:EarlyViewController?
     
     //Outlet for sessioninfo.
     @IBOutlet var sessionHeaderLbl:UILabel?
@@ -314,12 +314,20 @@ class HostCallController: VideoCallController {
         
         if self.eventInfo?.upcomingSlot != nil {
          
-            //As we want to show the Alert again as soon as no future event is present.
-            self.earlyControllerRefrence = nil
+            // As we want to show the Alert again as soon as no future event is present.
+            
+            if earlyControllerReference != nil{
+            
+                // Dismissing as soon as we get to know that we have the upcoming slot.
+                self.earlyControllerReference?.dismiss(animated: false, completion: nil)
+                self.earlyControllerReference = nil
+                return
+            }
+            self.earlyControllerReference = nil
             return
         }
         
-        if earlyControllerRefrence != nil {
+        if earlyControllerReference != nil {
             return
         }
         
@@ -327,7 +335,7 @@ class HostCallController: VideoCallController {
             return
         }
         
-        earlyControllerRefrence = controller
+        earlyControllerReference = controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
            
