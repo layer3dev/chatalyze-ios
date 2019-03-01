@@ -12,6 +12,7 @@ class EarlyViewController: UIViewController {
 
     var closeRegistration:(()->())?
     var keepRegistration:(()->())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,8 +24,6 @@ class EarlyViewController: UIViewController {
     @IBAction func closeRegistrationEndSession(sender:UIButton){
    
         closeRegistration?()
-        self.dismiss(animated: true) {
-        }
     }
     
     @IBAction func keepRegistration(sender:UIButton){

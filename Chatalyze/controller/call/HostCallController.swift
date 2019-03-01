@@ -67,8 +67,12 @@ class HostCallController: VideoCallController {
         super.onExit(code: code)
         
         if(code == .prohibited){
-            
             showErrorScreen()
+            return
+        }
+        
+        if(code == .earlyExit){
+            showEarningInformationScreen()
             return
         }
         
@@ -87,18 +91,16 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
-        
-        //        guard let controller = HostFeedbackController.instance() else{
-        //            return
-        //        }
-        //        controller.sessionId = self.eventId
-        //        guard let presentingController =  self.lastPresentingController
-        //            else{
-        //                Log.echo(key: "_connection_", text: "presentingController is nil")
-        //                return
-        //        }
-        //        presentingController.present(controller, animated: true, completion: nil)
-        
+        guard let controller = HostFeedbackController.instance() else{
+            return
+        }
+        controller.sessionId = self.eventId
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        presentingController.present(controller, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -158,7 +160,6 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
-        
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
         })
@@ -301,21 +302,19 @@ class HostCallController: VideoCallController {
         updateLableAnimation()
     }
     
+    func verifyForPostSessionEarningScreen() {
+    }
+    
     func verifyForEarlyFeature(){
-        
-        //TODO:- Need to remove
+    
         //Log.echo(key: "yud", text: "Upcoming slot is \(self.eventInfo?.upcomingSlot)")
-        
-       // Log.echo(key: "yud", text: "Event Started to testing and the future event status is \(self.eventInfo?.upcomingSlot) presented controller is \(self.getTopMostPresentedController())")
+        // Log.echo(key: "yud", text: "Event Started to testing and the future event status is \(self.eventInfo?.upcomingSlot) presented controller is \(self.getTopMostPresentedController())")
         
         if self.eventInfo?.isLIVE ?? false  == false{
             return
         }
-        
         if self.eventInfo?.upcomingSlot != nil {
-         
             // As we want to show the Alert again as soon as no future event is present.
-            
             if earlyControllerReference != nil{
             
                 // Dismissing as soon as we get to know that we have the upcoming slot.
@@ -326,15 +325,12 @@ class HostCallController: VideoCallController {
             self.earlyControllerReference = nil
             return
         }
-        
         if earlyControllerReference != nil {
             return
         }
-        
         guard let controller = EarlyViewController.instance() else {
             return
         }
-        
         earlyControllerReference = controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
@@ -502,7 +498,7 @@ class HostCallController: VideoCallController {
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
-         
+            
             //This info will only be show if slots are greater than one.
             return
         }
@@ -718,7 +714,6 @@ class HostCallController: VideoCallController {
         disconnectStaleConnection()
         preconnectUser()
         connectLiveUser()
-        
         verifyIfExpired()
     }
     
@@ -1070,7 +1065,7 @@ extension HostCallController{
             self.stopLoader()
            
             if success{
-                self.eventCancelled()
+                self.processExitAction(code : .earlyExit)                
                 return
             }
             return

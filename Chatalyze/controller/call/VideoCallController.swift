@@ -33,6 +33,8 @@ class VideoCallController : InterfaceExtendedController {
         case mediaAccess
         case undefined
         case contactUs
+        case earlyExit
+        case hostEarningScreen
     }
     
     // user for animating lable
@@ -233,21 +235,26 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
-        if self.presentedViewController != nil{
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false) {[weak self] in
-                        Log.echo(key: "log", text: "VideoCallController dismissed")
-                        self?.onExit(code : code)
-                    }
-                }
-            })
-            return
-        }
-        self.dismiss(animated: false) {[weak self] in
-            Log.echo(key: "log", text: "VideoCallController dismissed")
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {[weak self] in
+            
             self?.onExit(code : code)
-        }
+        })
+        
+//        if self.presentedViewController != nil{
+//            self.presentedViewController?.dismiss(animated: true, completion: {
+//                DispatchQueue.main.async {
+//                    self.dismiss(animated: false) {[weak self] in
+//                        Log.echo(key: "log", text: "VideoCallController dismissed")
+//
+//                    }
+//                }
+//            })
+//            return
+//        }
+//        self.dismiss(animated: false) {[weak self] in
+//            Log.echo(key: "log", text: "VideoCallController dismissed")
+//            self?.onExit(code : code)
+//        }
     }
     
     //This will be called after viewController is exited from the screen
