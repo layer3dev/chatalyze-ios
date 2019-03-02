@@ -13,11 +13,14 @@ class EarlyViewController: UIViewController {
     var closeRegistration:(()->())?
     var keepRegistration:(()->())?
     
+    @IBOutlet var closeRegistrationView:UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.isOpaque = false
         self.view.backgroundColor = UIColor.clear
+        closeRegistrationView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 3:5
         // Do any additional setup after loading the view.
     }
     

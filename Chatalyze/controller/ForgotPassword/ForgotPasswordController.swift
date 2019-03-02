@@ -20,6 +20,12 @@ class ForgotPasswordController: InterfaceExtendedController {
         initializeVariable()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+    
     fileprivate func initializeVariable(){
         
         rootView?.controller = self

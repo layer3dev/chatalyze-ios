@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Poppins-SemiBold.otf">
-            <string>Poppins-SemiBold</string>
-        </array>
         <array key="Questrial-Regular.otf">
             <string>Questrial-Regular</string>
         </array>
@@ -26,14 +23,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="J3N-js-LEr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app is only available to registered  Chatalyze users. Learn more" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAZ-7C-39E">
+                                <rect key="frame" x="40" y="529" width="240" height="29"/>
+                                <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
+                                </variation>
+                            </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhn-qQ-gYN" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqY-XA-gh3" userLabel="container_view">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="382.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="446.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kev-wh-JXH" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="40" width="260" height="45"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign into your account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-jx-m6A">
+                                                <rect key="frame" x="40" y="40" width="240" height="21"/>
+                                                <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="26"/>
+                                                </variation>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kev-wh-JXH" userLabel="signin_button">
+                                                <rect key="frame" x="30" y="101" width="260" height="45"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Py-f2-bM6">
                                                         <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
@@ -45,7 +63,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.050980392156862744" green="0.27450980392156865" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.12156862745098039" green="0.28235294117647058" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="1ss-k8-wxW" secondAttribute="bottom" id="5aT-ss-ZnJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="1ss-k8-wxW" secondAttribute="trailing" id="T6e-OL-QGW"/>
@@ -183,9 +201,9 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-Sz-0CY" userLabel="or_label">
-                                                <rect key="frame" x="30" y="105" width="260" height="14.5"/>
+                                                <rect key="frame" x="30" y="166" width="260" height="14.5"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
                                                         <rect key="frame" x="0.0" y="7" width="48" height="1"/>
                                                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -195,13 +213,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-gD-cWI">
                                                         <rect key="frame" x="68" y="0.0" width="124" height="14.5"/>
                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
-                                                        <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBU-ma-Uyn" userLabel="line_right">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBU-ma-Uyn" userLabel="line_right">
                                                         <rect key="frame" x="212" y="7" width="48" height="1"/>
                                                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -223,32 +241,43 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXC-fy-Deb" userLabel="field_container">
-                                                <rect key="frame" x="30" y="139.5" width="260" height="96"/>
+                                                <rect key="frame" x="30" y="200.5" width="260" height="104"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="260" height="33"/>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="260" height="44"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="euf-68-IS9">
-                                                                <rect key="frame" x="5" y="0.0" width="247" height="30"/>
+                                                            <view opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIP-a0-8jX" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="Goy-NN-rPp"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="siJ-Pn-qYe">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="euf-68-IS9">
+                                                                <rect key="frame" x="10" y="0.0" width="242" height="45"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="45" id="Goy-NN-rPp">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                     <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                                 </variation>
                                                             </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-sU-X2A" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="30" width="260" height="1"/>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-sU-X2A" userLabel="line_bottom">
+                                                                <rect key="frame" x="0.0" y="45" width="260" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="Mto-Jq-Or0"/>
+                                                                    <constraint firstAttribute="height" id="Mto-Jq-Or0"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U68-8H-raV" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="33" width="253" height="0.0"/>
+                                                                <rect key="frame" x="2" y="44" width="253" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -257,17 +286,20 @@
                                                                 </variation>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="U68-8H-raV" firstAttribute="leading" secondItem="k8i-fD-pYg" secondAttribute="leading" constant="2" id="2Tq-DI-eEM"/>
                                                             <constraint firstItem="ncf-sU-X2A" firstAttribute="leading" secondItem="k8i-fD-pYg" secondAttribute="leading" id="3te-vD-jHv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="TIP-a0-8jX" secondAttribute="trailing" id="5Kd-82-0Rn"/>
                                                             <constraint firstAttribute="bottom" secondItem="U68-8H-raV" secondAttribute="bottom" id="Dl0-r8-Vl2"/>
-                                                            <constraint firstItem="euf-68-IS9" firstAttribute="leading" secondItem="k8i-fD-pYg" secondAttribute="leading" constant="5" id="XUj-DF-em8"/>
+                                                            <constraint firstItem="TIP-a0-8jX" firstAttribute="top" secondItem="k8i-fD-pYg" secondAttribute="top" id="KjY-q0-Quj"/>
+                                                            <constraint firstItem="TIP-a0-8jX" firstAttribute="leading" secondItem="k8i-fD-pYg" secondAttribute="leading" id="QYn-jb-Uub"/>
+                                                            <constraint firstItem="euf-68-IS9" firstAttribute="leading" secondItem="k8i-fD-pYg" secondAttribute="leading" constant="10" id="XUj-DF-em8"/>
                                                             <constraint firstAttribute="trailing" secondItem="U68-8H-raV" secondAttribute="trailing" constant="5" id="a9P-13-Z84"/>
                                                             <constraint firstItem="ncf-sU-X2A" firstAttribute="top" secondItem="euf-68-IS9" secondAttribute="bottom" id="dcY-ZE-icK">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="4"/>
                                                             </constraint>
-                                                            <constraint firstItem="U68-8H-raV" firstAttribute="top" secondItem="ncf-sU-X2A" secondAttribute="bottom" constant="2" id="fkS-IZ-gez"/>
+                                                            <constraint firstItem="U68-8H-raV" firstAttribute="top" secondItem="ncf-sU-X2A" secondAttribute="bottom" constant="-1" id="fkS-IZ-gez"/>
                                                             <constraint firstAttribute="trailing" secondItem="euf-68-IS9" secondAttribute="trailing" constant="8" id="ida-vd-fz5"/>
                                                             <constraint firstItem="euf-68-IS9" firstAttribute="top" secondItem="k8i-fD-pYg" secondAttribute="top" id="wuc-12-kcE"/>
                                                             <constraint firstAttribute="trailing" secondItem="ncf-sU-X2A" secondAttribute="trailing" id="xv0-dT-FHt"/>
@@ -278,30 +310,41 @@
                                                             <outlet property="textField" destination="euf-68-IS9" id="ZzX-eC-O0x"/>
                                                         </connections>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOb-CP-mah" userLabel="password_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="63" width="260" height="33"/>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOb-CP-mah" userLabel="password_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="59" width="260" height="45"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Brb-he-JqO">
-                                                                <rect key="frame" x="5" y="0.0" width="247" height="30"/>
+                                                            <view opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQI-CS-pqw" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="45"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="yaO-4G-pUI"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="dRP-lr-k6q">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
                                                                 </constraints>
-                                                                <nil key="textColor"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Brb-he-JqO">
+                                                                <rect key="frame" x="10" y="0.0" width="242" height="45"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="45" id="yaO-4G-pUI">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                     <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                                 </variation>
                                                             </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSS-db-yKG" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="30" width="260" height="1"/>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSS-db-yKG" userLabel="line_bottom">
+                                                                <rect key="frame" x="0.0" y="45" width="260" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="g4q-hO-WOz"/>
+                                                                    <constraint firstAttribute="height" id="g4q-hO-WOz"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kp3-wL-blm" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="33" width="253" height="0.0"/>
+                                                                <rect key="frame" x="2" y="45" width="253" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -310,20 +353,23 @@
                                                                 </variation>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="rSS-db-yKG" firstAttribute="top" secondItem="Brb-he-JqO" secondAttribute="bottom" id="1th-p8-Stf">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="4"/>
                                                             </constraint>
                                                             <constraint firstAttribute="trailing" secondItem="Brb-he-JqO" secondAttribute="trailing" constant="8" id="7sU-gj-eRd"/>
-                                                            <constraint firstItem="Kp3-wL-blm" firstAttribute="top" secondItem="rSS-db-yKG" secondAttribute="bottom" constant="2" id="8Yl-VM-g4r"/>
+                                                            <constraint firstItem="Kp3-wL-blm" firstAttribute="top" secondItem="rSS-db-yKG" secondAttribute="bottom" id="8Yl-VM-g4r"/>
                                                             <constraint firstAttribute="bottom" secondItem="Kp3-wL-blm" secondAttribute="bottom" id="8zB-n8-IGc"/>
                                                             <constraint firstItem="Kp3-wL-blm" firstAttribute="leading" secondItem="AOb-CP-mah" secondAttribute="leading" constant="2" id="AMr-1L-aFW"/>
                                                             <constraint firstAttribute="trailing" secondItem="Kp3-wL-blm" secondAttribute="trailing" constant="5" id="DkV-o0-v2E"/>
-                                                            <constraint firstItem="Brb-he-JqO" firstAttribute="leading" secondItem="AOb-CP-mah" secondAttribute="leading" constant="5" id="Nva-Cr-Udg"/>
+                                                            <constraint firstItem="Brb-he-JqO" firstAttribute="leading" secondItem="AOb-CP-mah" secondAttribute="leading" constant="10" id="Nva-Cr-Udg"/>
                                                             <constraint firstItem="Brb-he-JqO" firstAttribute="top" secondItem="AOb-CP-mah" secondAttribute="top" id="kaa-vk-SCY"/>
                                                             <constraint firstAttribute="trailing" secondItem="rSS-db-yKG" secondAttribute="trailing" id="lnX-4f-OMz"/>
+                                                            <constraint firstItem="uQI-CS-pqw" firstAttribute="top" secondItem="AOb-CP-mah" secondAttribute="top" id="nBA-Yk-G1b"/>
+                                                            <constraint firstAttribute="trailing" secondItem="uQI-CS-pqw" secondAttribute="trailing" id="nfV-Rd-wIX"/>
                                                             <constraint firstItem="rSS-db-yKG" firstAttribute="leading" secondItem="AOb-CP-mah" secondAttribute="leading" id="pWa-aE-Ldk"/>
+                                                            <constraint firstItem="uQI-CS-pqw" firstAttribute="leading" secondItem="AOb-CP-mah" secondAttribute="leading" id="w7D-e0-v6y"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="borderView" destination="rSS-db-yKG" id="Dpd-a7-2dK"/>
@@ -335,8 +381,8 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="k8i-fD-pYg" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="top" id="8B8-pR-IRc"/>
-                                                    <constraint firstItem="AOb-CP-mah" firstAttribute="top" secondItem="k8i-fD-pYg" secondAttribute="bottom" constant="30" id="FUk-wx-QT1">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                                    <constraint firstItem="AOb-CP-mah" firstAttribute="top" secondItem="k8i-fD-pYg" secondAttribute="bottom" constant="15" id="FUk-wx-QT1">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="AOb-CP-mah" secondAttribute="trailing" id="NY8-Ns-dER"/>
                                                     <constraint firstAttribute="bottom" secondItem="AOb-CP-mah" secondAttribute="bottom" id="Qbu-sN-ohu"/>
@@ -345,16 +391,16 @@
                                                     <constraint firstItem="k8i-fD-pYg" firstAttribute="leading" secondItem="HXC-fy-Deb" secondAttribute="leading" id="rf1-DG-vcW"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="275.5" width="260" height="45"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button">
+                                                <rect key="frame" x="30" y="339.5" width="260" height="45"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN IN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
-                                                        <rect key="frame" x="101" y="11.5" width="58.5" height="22.5"/>
-                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
+                                                        <rect key="frame" x="103.5" y="13" width="53.5" height="19"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDF-0P-hEx">
@@ -364,7 +410,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.58823543787002563" green="0.80784326791763306" blue="0.98039227724075317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="OQK-eI-kBI" firstAttribute="centerX" secondItem="a8e-R9-tgU" secondAttribute="centerX" id="NTp-9i-CcC"/>
                                                     <constraint firstAttribute="trailing" secondItem="hDF-0P-hEx" secondAttribute="trailing" id="chl-7p-MMt"/>
@@ -378,7 +424,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-9i-LL8" userLabel="error_label">
-                                                <rect key="frame" x="5" y="325.5" width="310" height="0.0"/>
+                                                <rect key="frame" x="5" y="389.5" width="310" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -387,15 +433,15 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-gj-jhO" userLabel="forgot_password">
-                                                <rect key="frame" x="60" y="332.5" width="200" height="30"/>
+                                                <rect key="frame" x="60" y="396.5" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-ik-gjO">
-                                                        <rect key="frame" x="47.5" y="0.0" width="105" height="13.5"/>
-                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="13"/>
-                                                        <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <rect key="frame" x="43.5" y="0.0" width="113" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93m-m9-jyy">
@@ -421,12 +467,12 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXt-2N-n7m" userLabel="forgot_password">
-                                                <rect key="frame" x="60" y="422.5" width="200" height="30"/>
+                                                <rect key="frame" x="60" y="486.5" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C34-r8-ptv">
                                                         <rect key="frame" x="15.5" y="13.5" width="169.5" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
-                                                        <color key="textColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
@@ -451,12 +497,12 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yub-cQ-D52" userLabel="signin_button" customClass="Signupview" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="457.5" width="260" height="40"/>
+                                                <rect key="frame" x="30" y="521.5" width="260" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-Vw-eRN">
                                                         <rect key="frame" x="99" y="12" width="62" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
-                                                        <color key="textColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="24"/>
@@ -482,13 +528,14 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="HXC-fy-Deb" secondAttribute="trailing" constant="30" id="1LE-Iq-9t8">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="40" id="4j8-hv-RR4">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            <constraint firstItem="mOa-jx-m6A" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="40" id="48Y-Fd-yw1"/>
+                                            <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="35" id="4j8-hv-RR4">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="a8e-R9-tgU" secondAttribute="trailing" constant="30" id="6Co-u5-jsQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
@@ -509,9 +556,7 @@
                                             <constraint firstItem="HXC-fy-Deb" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="MSB-co-Vix">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="MWZ-jZ-Nyg">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
-                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="mOa-jx-m6A" secondAttribute="trailing" constant="40" id="MdX-b2-3yV"/>
                                             <constraint firstAttribute="trailing" secondItem="Kev-wh-JXH" secondAttribute="trailing" constant="30" id="NS7-lk-uOT">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -537,6 +582,9 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="top" secondItem="jXt-2N-n7m" secondAttribute="bottom" constant="5" id="iAH-G7-7I6"/>
+                                            <constraint firstItem="mOa-jx-m6A" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="l7L-pW-Bwo">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="DSF-9i-LL8" secondAttribute="trailing" constant="5" id="njT-TO-vSP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -544,6 +592,9 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="hPR-gj-jhO" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="oqG-6c-WlX"/>
+                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="top" secondItem="mOa-jx-m6A" secondAttribute="bottom" constant="40" id="sLu-vT-Unk">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
                                             <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="a8e-R9-tgU" secondAttribute="bottom" constant="5" id="svs-1D-JpF"/>
                                             <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="JPB-V4-VB2" secondAttribute="bottom" constant="30" id="tq9-7V-03v">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
@@ -559,6 +610,7 @@
                                         </variation>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="JqY-XA-gh3" secondAttribute="trailing" id="BKz-eY-8OF"/>
                                     <constraint firstItem="JqY-XA-gh3" firstAttribute="leading" secondItem="Nhn-qQ-gYN" secondAttribute="leading" id="K6g-XC-nTe"/>
@@ -570,31 +622,48 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2DS-Ex-5f5" firstAttribute="bottom" secondItem="ZAZ-7C-39E" secondAttribute="bottom" constant="10" id="9MX-Ug-rRO"/>
                             <constraint firstItem="Nhn-qQ-gYN" firstAttribute="top" secondItem="2DS-Ex-5f5" secondAttribute="top" id="Mfx-aA-0QL"/>
+                            <constraint firstItem="ZAZ-7C-39E" firstAttribute="leading" secondItem="2DS-Ex-5f5" secondAttribute="leading" constant="40" id="TrU-AF-F7E">
+                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                            </constraint>
                             <constraint firstAttribute="trailing" secondItem="Nhn-qQ-gYN" secondAttribute="trailing" id="Vmx-q3-iU5"/>
+                            <constraint firstItem="2DS-Ex-5f5" firstAttribute="bottom" secondItem="J3N-js-LEr" secondAttribute="bottom" id="ZST-oL-I4I"/>
                             <constraint firstItem="Nhn-qQ-gYN" firstAttribute="leading" secondItem="30p-YF-ADJ" secondAttribute="leading" id="bE6-8w-ACJ"/>
+                            <constraint firstItem="J3N-js-LEr" firstAttribute="leading" secondItem="2DS-Ex-5f5" secondAttribute="leading" id="idA-pu-kL5"/>
+                            <constraint firstItem="2DS-Ex-5f5" firstAttribute="trailing" secondItem="J3N-js-LEr" secondAttribute="trailing" id="kGc-dN-7cl"/>
                             <constraint firstAttribute="bottom" secondItem="Nhn-qQ-gYN" secondAttribute="bottom" id="mEC-XR-igr"/>
+                            <constraint firstItem="J3N-js-LEr" firstAttribute="top" secondItem="30p-YF-ADJ" secondAttribute="top" id="q6s-FK-oTX"/>
+                            <constraint firstItem="2DS-Ex-5f5" firstAttribute="trailing" secondItem="ZAZ-7C-39E" secondAttribute="trailing" constant="40" id="ujH-0v-pF6">
+                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                            </constraint>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2DS-Ex-5f5"/>
                         <connections>
                             <outlet property="emailField" destination="k8i-fD-pYg" id="DNc-vR-hdg"/>
                             <outlet property="errorLabel" destination="DSF-9i-LL8" id="w9u-Fi-T8I"/>
+                            <outlet property="facebookView" destination="Kev-wh-JXH" id="VgF-dn-ZC1"/>
                             <outlet property="passwordField" destination="AOb-CP-mah" id="XVJ-OA-LOq"/>
                             <outlet property="scrollContentBottomOffset" destination="ssE-i0-Kod" id="Y57-ry-B9M"/>
                             <outlet property="scrollView" destination="Nhn-qQ-gYN" id="kh7-qX-HBg"/>
+                            <outlet property="signInView" destination="a8e-R9-tgU" id="3wR-ab-OIX"/>
                             <outlet property="signUpView" destination="Yub-cQ-D52" id="8z6-HL-E9P"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="unavailableSignUpAlertLabel" destination="ZAZ-7C-39E" id="Crf-xS-Fqe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvd-3O-Efu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="278" y="-327"/>
+            <point key="canvasLocation" x="277.5" y="-327.46478873239437"/>
         </scene>
     </scenes>
     <resources>
         <image name="facebook_new" width="50" height="50"/>
         <image name="fbImage" width="260" height="45"/>
         <image name="google_new" width="50" height="50"/>
+        <image name="gradientImage" width="1242" height="2208"/>
         <image name="pateron" width="50" height="50"/>
         <image name="twitter_new" width="50" height="50"/>
     </resources>

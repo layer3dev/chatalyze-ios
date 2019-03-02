@@ -95,7 +95,12 @@ class RootControllerManager{
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let window = appDelegate?.window        
-        guard let signinController = LoginSignUpContainerController.instance()
+
+        //        guard let signinController = LoginSignUpContainerController.instance()
+        //            else{
+        //                return
+        //        }
+        guard let signinController = SigninController.instance()
             else{
                 return
         }
@@ -177,9 +182,6 @@ class RootControllerManager{
         let root = appDelegate?.window?.rootViewController as? ContainerController
         return root
     }
-    
-    
-    
     
     func setMyTicketsScreenForNavigation(){
         

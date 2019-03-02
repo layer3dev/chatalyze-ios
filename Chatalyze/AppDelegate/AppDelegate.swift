@@ -13,7 +13,6 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

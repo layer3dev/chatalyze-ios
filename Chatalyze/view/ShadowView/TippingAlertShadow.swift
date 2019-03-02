@@ -18,8 +18,9 @@ class TippingAlertShadow: UIView {
     }
 
     private func setupShadow() {
+        
         //Log.echo(key: "yud", text: "Bounds changed")
-        self.dropShadow(color: UIColor.lightGray, opacity: 0.5, offSet: CGSize.zero, radius: 8, scale: true)
+        self.dropShadow(color: UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1), opacity: 1, offSet: CGSize.zero, radius: 8, scale: true)
     }
 }
 

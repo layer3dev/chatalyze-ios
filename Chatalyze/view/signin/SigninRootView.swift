@@ -23,6 +23,10 @@ class SigninRootView: ExtendedView {
     
     @IBOutlet fileprivate var signUpView:Signupview?
     
+    @IBOutlet fileprivate var signInView:UIView?
+    @IBOutlet fileprivate var facebookView:UIView?
+    
+    
     @IBAction fileprivate func fbLoginAction(){
         
         //showWelcomeScreen(response: {
@@ -30,6 +34,15 @@ class SigninRootView: ExtendedView {
             self.resetErrorStatus()
             self.fbLogin()
         //})
+    }
+    
+    func paintCurveSignInView(){
+        
+        signInView?.layer.cornerRadius = (UIDevice.current.userInterfaceIdiom == .phone ? 22.5:32.5)
+        signInView?.layer.masksToBounds = true
+        
+        facebookView?.layer.cornerRadius = (UIDevice.current.userInterfaceIdiom == .phone ? 22.5:32.5)
+        facebookView?.layer.masksToBounds = true
     }
     
     func showWelcomeScreen(response:@escaping (()->())){
@@ -66,6 +79,7 @@ class SigninRootView: ExtendedView {
         super.viewDidLayout()
         
         initialization()
+        
     }
     
     fileprivate func initialization(){
@@ -75,9 +89,15 @@ class SigninRootView: ExtendedView {
     
     fileprivate func initializeVariable(){
         
+        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email",
+                                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password",
+                                                                          attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         emailField?.textField?.delegate = self
         passwordField?.textField?.delegate = self
         scrollView?.bottomContentOffset = scrollContentBottomOffset
+        paintCurveSignInView()
     }
 }
 

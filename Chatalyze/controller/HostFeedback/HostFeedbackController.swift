@@ -13,6 +13,8 @@ class HostFeedbackController: InterfaceExtendedController {
     @IBOutlet var priceLabel:UILabel?
     weak var lastPresentingController: UIViewController?
     var sessionId:String?
+    @IBOutlet var scheduleSessionContainerView:UIView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +23,26 @@ class HostFeedbackController: InterfaceExtendedController {
         lastPresentingController = self.presentingViewController
         paintInterface()
         earningInfo()
+        paintCurve()
     }
+    
+    func paintCurve(){
+        
+        scheduleSessionContainerView?.layer.cornerRadius = (self.scheduleSessionContainerView?.frame.size.height ?? (UIDevice.current.userInterfaceIdiom == .pad ? 22.5:32.5))/2
+        scheduleSessionContainerView?.layer.masksToBounds = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        paintCurve()
+    }
+    
+    
     
     func earningInfo(){
         
-        guard let id = sessionId else{
+        guard let id = sessionId else {
             return
         }
         
