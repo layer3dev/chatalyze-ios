@@ -98,6 +98,15 @@ class SigninController: InterfaceExtendedController {
     var rootView : SigninRootView?{
         return self.view as? SigninRootView
     }
+    
+    @IBAction func learnMoreAction(sender:UIButton){
+        
+        guard let controller = SignInLearnMoreController.instance() else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 extension SigninController{
