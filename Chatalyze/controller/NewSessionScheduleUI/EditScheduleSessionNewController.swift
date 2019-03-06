@@ -26,6 +26,7 @@ class EditScheduleSessionNewController: UIViewController {
     }
     
     @IBAction func doneEditingAction(sender:UIButton?){
+       
         back()
     }
     
