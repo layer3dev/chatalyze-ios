@@ -56,8 +56,7 @@ class SignInLearnMoreController: InterfaceExtendedController {
     }
     
     @IBAction func learnMoreAction(sender:UIButton){
-                
-        self.navigationController?.popViewController(animated: true)
+        
         guard let controller = ContactUsWithoutUserIdController.instance() else{
             return
         }

@@ -27,7 +27,6 @@ class ContactUsWithoutUserIdController:ContactUsController {
         
         hideNavigationBar()
     }
-    
     override func submit(){
         
         guard let email = emailField?.text else {
@@ -45,13 +44,13 @@ class ContactUsWithoutUserIdController:ContactUsController {
         }
         
         if email == ""{
-           
+            
             self.alert(withTitle: AppInfoConfig.appName, message: "Email field can't be left empty.", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
             }
         }
         
         let emailValidator = FieldValidator().validateEmailFormat(email)
-       
+        
         if !emailValidator{
             
             self.alert(withTitle: AppInfoConfig.appName, message: "Email looks incorrect.", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
@@ -99,6 +98,7 @@ class ContactUsWithoutUserIdController:ContactUsController {
             })
         }
     }
+
     
     /*
     // MARK: - Navigation

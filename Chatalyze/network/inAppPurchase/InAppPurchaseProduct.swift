@@ -13,7 +13,6 @@ class InAppPurchaseProduct : NSObject{
     
     private var completionListener : ((_ success: Bool, _ message : String?, _ transaction:SKPaymentTransaction?) -> ())?
     
-    
     func buy(product : SKProduct , completionListener: @escaping (_ success: Bool, _ message : String?, _ transaction:SKPaymentTransaction?) -> ()) {
         self.completionListener = completionListener
         
@@ -26,7 +25,6 @@ class InAppPurchaseProduct : NSObject{
         let payment = SKPayment(product: product)
         SKPaymentQueue.default().add(payment)
     }
-    
 }
 
 
