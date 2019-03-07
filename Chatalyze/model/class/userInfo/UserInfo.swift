@@ -17,6 +17,7 @@ class UserInfo: NSObject {
     }
     
     @objc enum roleType : Int {
+    
         case user = 0
         case analyst = 1
         
@@ -53,6 +54,7 @@ class UserInfo: NSObject {
     var isOnline = false
     var countryCode:String = ""
     var allowFreeSession:Bool? = false
+    var shouldAskForPlan:Bool? = false
     
     override init(){
         super.init()
@@ -60,6 +62,7 @@ class UserInfo: NSObject {
     
     init(userInfoJSON : JSON?){
         super.init()
+    
         fillInfo(info: userInfoJSON)
     }
     
@@ -90,6 +93,9 @@ class UserInfo: NSObject {
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
+        if let meta = info["meta"]?.dictionary{
+            self.shouldAskForPlan = meta["askPlan"]?.boolValue
+        }
         updateSideMenuInfo()
     }
 }

@@ -517,8 +517,22 @@ class ContainerController: NavChildController {
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.navController?.present(controller, animated: false, completion: {
             })
-            
+            return
         }
+            
+        else if typeOfAction == .proFeature{
+            
+            guard let rootController = HostDashboardController.instance() else{
+                return
+            }
+            guard let controller = ProFeatureInfoController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            self.closeToggle()
+            return
+        }
+        
         
         //        var analystArray = ["My Sessions","Payments","Settings","Support"]
         //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]

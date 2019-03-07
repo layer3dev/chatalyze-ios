@@ -97,6 +97,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         eventMobReminder = aDecoder.decodeBool(forKey: "eventMobReminder")
         countryCode = (aDecoder.decodeObject(forKey: "countryCode") as? String) ?? ""
         allowFreeSession = (aDecoder.decodeObject(forKey: "allowFreeSession") as? Bool)
+        shouldAskForPlan = (aDecoder.decodeObject(forKey: "shouldAskForPlan") as? Bool)
     }
         
     func encode(with aCoder: NSCoder) {
@@ -122,6 +123,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         aCoder.encode(eventMobReminder, forKey: "eventMobReminder")
         aCoder.encode(countryCode, forKey: "countryCode")
         aCoder.encode(allowFreeSession, forKey: "allowFreeSession")
+        aCoder.encode(shouldAskForPlan, forKey: "shouldAskForPlan")
     }
     
     func clear(){
