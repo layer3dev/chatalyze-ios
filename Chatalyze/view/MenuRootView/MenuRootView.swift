@@ -30,6 +30,7 @@ class MenuRootView:ExtendedView{
         case events = 13
         case settings = 14
         case test = 15
+        case proFeature = 16
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?

@@ -32,7 +32,30 @@ class HostDashboardController: MyScheduledSessionsController {
 
         hideNavigationBar()
         rootView?.paintNewUI()
+        askForStarterPlan()
     }
+    
+    
+    func askForStarterPlan(){
+        
+        Log.echo(key: "hostDashboard", text: "Should Ask for plan is \(SignedUserInfo.sharedInstance?.shouldAskForPlan)")
+        
+        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+            return
+        }
+        
+        if !shouldAskForPlan{
+            return
+        }
+        
+        guard let controller = ProFeatureEndTrialController.instance() else{
+            return
+        }
+        
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
+    }
+    
     
     func checkForShowingHostWelcomeAnimation(){
         
@@ -55,11 +78,13 @@ class HostDashboardController: MyScheduledSessionsController {
     }    
     
     override func showShareView(){
-       // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
+        
+        // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
     override func hideShareView(){
-        //heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
+        
+        // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 999)
     }
     
     func paint(){
@@ -69,6 +94,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         noSessionView?.layer.borderWidth = 1
         noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
         noSessionView?.layer.masksToBounds = true
         setSharableUrlText()
     }
@@ -158,7 +184,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
-        if let presenter = alertActionSheet.popoverPresentationController {            
+        if let presenter = alertActionSheet.popoverPresentationController {
             alertActionSheet.popoverPresentationController?.sourceView = self.view
             alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
         }
@@ -182,8 +208,8 @@ class HostDashboardController: MyScheduledSessionsController {
         }        
     }
     
-    @IBAction func scheduleSessionAction(sender:UIButton){
-
+    @IBAction func scheduleSessionAction(sender:UIButton){           
+            
         DispatchQueue.main.async {
             
             guard let controller = SessionScheduleNewController.instance() else{

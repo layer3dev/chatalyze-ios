@@ -80,6 +80,10 @@ class MenuCell: ExtendedTableCell {
                 else if selectedIndexName == "Settings"{
                     return MenuRootView.MenuType.settings
                 }
+                else if selectedIndexName == "Chatalyze Pro"{
+                    return MenuRootView.MenuType.proFeature
+                }
+                
                 return MenuRootView.MenuType.none
             }
             

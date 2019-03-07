@@ -91,6 +91,10 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
+        if self.eventInfo?.slotInfos?.count ?? 0 == 0 || self.eventInfo?.isPrivate ?? false{
+            return
+        }
+        
         guard let controller = HostFeedbackController.instance() else{
             return
         }
