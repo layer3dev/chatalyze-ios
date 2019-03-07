@@ -17,7 +17,6 @@ class FetchHostCategoryProcessor{
         let params = [String:Any]()
         
         Log.echo(key: "yud", text:"url in the payment fetch is \(url)")
-        
         ServerProcessor().request(.get, url, parameters : params, encoding: .queryString, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }

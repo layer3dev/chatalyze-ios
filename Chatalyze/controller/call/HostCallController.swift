@@ -11,15 +11,17 @@ import SwiftyJSON
 
 class HostCallController: VideoCallController {
     
-    //Outlet for sessioninfo
+    //In order to maintain the refrence for the Early Controller.
+    var earlyControllerReference:EarlyViewController?
     
+    //Outlet for sessioninfo.
     @IBOutlet var sessionHeaderLbl:UILabel?
     @IBOutlet var sessionRemainingTimeLbl:UILabel?
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
     
-    //For animation
+    //For animation.
     var isAnimating = false
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -31,28 +33,25 @@ class HostCallController: VideoCallController {
             else{
                 return false
         }
-        
         if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            return true;
+            return true
         }
-        
         return false
     }
         
-    //Using in order to prevent to showing the message "Participant did not join session before the slot start."
-    override var isSlotRunning : Bool{
+    // Using in order to prevent to showing the message "Participant did not join session before the slot start."
+    
+    override var isSlotRunning : Bool {
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 return false
         }
-        
         if(activeSlot.isLIVE){
             return true
         }
         return false
     }
-    
     
     override var roomType : UserInfo.roleType{
         return .analyst
@@ -72,30 +71,36 @@ class HostCallController: VideoCallController {
             return
         }
         
+        if(code == .earlyExit){
+            showEarningInformationScreen()
+            return
+        }
+        
         guard let eventInfo = eventInfo
             else{
                 return
         }
         
         if(!eventInfo.isExpired){
-            return;
+            return
         }
         
         showEarningInformationScreen()
     }
     
+    
     func showEarningInformationScreen(){
         
-//        guard let controller = HostFeedbackController.instance() else{
-//            return
-//        }
-//        controller.sessionId = self.eventId
-//        guard let presentingController =  self.lastPresentingController
-//            else{
-//                Log.echo(key: "_connection_", text: "presentingController is nil")
-//                return
-//        }
-//        presentingController.present(controller, animated: true, completion: nil)
+        guard let controller = HostFeedbackController.instance() else{
+            return
+        }
+        controller.sessionId = self.eventId
+        guard let presentingController =  self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        presentingController.present(controller, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,7 +160,6 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
-        
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
         })
@@ -258,15 +262,7 @@ class HostCallController: VideoCallController {
                         
                         Log.echo(key: "yud", text: "Date of the CountDown is \(requiredDate)")
                         
-                        
                         Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
-                        
-                        
-                        //                        guard let connection = self.getActiveConnection() else{
-                        //                            return
-                        //                        }
-                        
-                        //if connection.isConnected{
                         
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -296,12 +292,57 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
+      
+        verifyForEarlyFeature()
         triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
+    }
+    
+    func verifyForPostSessionEarningScreen() {
+    }
+    
+    func verifyForEarlyFeature(){
+    
+        //Log.echo(key: "yud", text: "Upcoming slot is \(self.eventInfo?.upcomingSlot)")
+        // Log.echo(key: "yud", text: "Event Started to testing and the future event status is \(self.eventInfo?.upcomingSlot) presented controller is \(self.getTopMostPresentedController())")
+        
+        if self.eventInfo?.isLIVE ?? false  == false{
+            return
+        }
+        if self.eventInfo?.upcomingSlot != nil {
+            // As we want to show the Alert again as soon as no future event is present.
+            if earlyControllerReference != nil{
+            
+                // Dismissing as soon as we get to know that we have the upcoming slot.
+                self.earlyControllerReference?.dismiss(animated: false, completion: nil)
+                self.earlyControllerReference = nil
+                return
+            }
+            self.earlyControllerReference = nil
+            return
+        }
+        if earlyControllerReference != nil {
+            return
+        }
+        guard let controller = EarlyViewController.instance() else {
+            return
+        }
+        earlyControllerReference = controller
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.closeRegistration = {
+           
+            //Event's Registration is closed
+            //Self.earlyControllerRefrence = nil
+            self.makeRegistrationClose()
+        }
+        controller.keepRegistration = {
+        }
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
     }
     
     override func updateStatusMessage(){
@@ -314,7 +355,9 @@ class HostCallController: VideoCallController {
         }
         
         //Is event strictly in preconnect state - startTime < 30 AND startTime > 0
+        
         //if yes, Just show it as pre-connected
+        
         if(eventInfo.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
             return
@@ -455,7 +498,7 @@ class HostCallController: VideoCallController {
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
-         
+            
             //This info will only be show if slots are greater than one.
             return
         }
@@ -650,22 +693,6 @@ class HostCallController: VideoCallController {
         }
     }
     
-    //    func animateUIlabel(){
-    //
-    //        var bounds = (hostRootView?.callInfoContainer?.timer?.bounds) ?? CGRect()
-    //        bounds.size = (hostRootView?.callInfoContainer?.timer?.intrinsicContentSize) ?? CGSize()
-    //        let scaleX = bounds.size.width / ((hostRootView?.callInfoContainer?.timer?.frame.size.width) ?? 0.0)
-    //        let scaleY = bounds.size.height / ((hostRootView?.callInfoContainer?.timer?.frame.size.height) ?? 0.0)
-    //        UIView.animate(withDuration: 1.0, animations: {
-    //            self.hostRootView?.callInfoContainer?.timer?.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-    //        }, completion: { done in
-    //            self.hostRootView?.callInfoContainer?.timer?.font = labelCopy.font
-    //            self.hostRootView?.callInfoContainer?.timer?.transform = .identity
-    //            self.hostRootView?.callInfoContainer?.timer?.bounds = bounds
-    //        })
-    //    }
-    
-    
     private func processEvent(){
         Log.echo(key : "delay", text : "processEvent")
         
@@ -687,7 +714,6 @@ class HostCallController: VideoCallController {
         disconnectStaleConnection()
         preconnectUser()
         connectLiveUser()
-        
         verifyIfExpired()
     }
     
@@ -900,9 +926,6 @@ class HostCallController: VideoCallController {
         })
     }
     
-    
-    
-    
     var isCallStreaming: Bool{
         
         return (self.getActiveConnection()?.isStreaming ?? false)
@@ -987,6 +1010,7 @@ extension HostCallController{
         let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
+        
         var username = ""
         
         if let array = slot.user?.firstName?.components(separatedBy: " "){
@@ -1008,7 +1032,6 @@ extension HostCallController{
         }
         
         //End
-        
         if let slotUserName = slot.user?.firstName{
             username = slotUserName
         }
@@ -1028,5 +1051,24 @@ extension HostCallController{
         totalAttrText.append(totalSlots)
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
+    }
+}
+
+
+extension HostCallController{
+    
+    func makeRegistrationClose(){
+        
+        Log.echo(key: "yud", text: "Registration is closing")
+        self.showLoader()
+        CloseRegistration().close(eventId: self.eventId ?? "") { (success) in
+            self.stopLoader()
+           
+            if success{
+                self.processExitAction(code : .earlyExit)                
+                return
+            }
+            return
+        }
     }
 }

@@ -36,6 +36,7 @@ class ServerProcessor{
         case post
         case put
         case delete
+        case patch
         
         public func libHttpMethod()->Alamofire.HTTPMethod{
             switch self {
@@ -48,6 +49,8 @@ class ServerProcessor{
                 return Alamofire.HTTPMethod.put
             case .delete:
                 return Alamofire.HTTPMethod.delete
+            case .patch:           
+                return Alamofire.HTTPMethod.patch
             }
         }
     }

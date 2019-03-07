@@ -13,6 +13,27 @@ class SigninController: InterfaceExtendedController {
     
     var googleSignInAction:(()->())?
     var signUpHandler:(()->())?
+    var didLoad:(()->())?
+    
+    @IBOutlet var unavailableSignUpAlertLabel:UILabel?
+    
+    func paintUnavailableSignUpAlertLabel(){
+        
+        DispatchQueue.main.async {
+           
+            let firstStr = "This app is only available to registered Chatalyze users. "
+            
+            let secondStr = "Learn more"
+            
+            let firstMuatbleStr = firstStr.toMutableAttributedString(font: "Questrial",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white , isUnderLine: false)
+            
+            let secondAttrStr = secondStr.toMutableAttributedString(font: "Questrial",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: true)
+            
+            firstMuatbleStr.append(secondAttrStr)
+            
+            self.unavailableSignUpAlertLabel?.attributedText = firstMuatbleStr
+        }
+    }
     
     @IBAction fileprivate func signinAction(){
        
@@ -46,6 +67,7 @@ class SigninController: InterfaceExtendedController {
         super.viewDidLoad()
         
         initialization()
+        didLoad?()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,11 +91,21 @@ class SigninController: InterfaceExtendedController {
     fileprivate func paintInterface(){
         
         paintNavigationTitle(text: "SIGN IN")
+        paintUnavailableSignUpAlertLabel()
         //paintBackButton()
     }
     
     var rootView : SigninRootView?{
         return self.view as? SigninRootView
+    }
+    
+    @IBAction func learnMoreAction(sender:UIButton){
+        
+        guard let controller = SignInLearnMoreController.instance() else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

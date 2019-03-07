@@ -14,7 +14,7 @@ import SDWebImage
 
 
 class EditScheduleSessionNewRootView:ExtendedView  {
-        
+    
     var isProfileImageChecked = false
     
     let imagePicker = UIImagePickerController()
@@ -50,46 +50,27 @@ class EditScheduleSessionNewRootView:ExtendedView  {
     var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
     
     @IBOutlet var hostnameLbl:UILabel?
-    
     @IBOutlet var eventNameLbl:UILabel?
-    
     @IBOutlet var costofEventLbl:UILabel?
-    
     @IBOutlet var dateTimeLbl:UILabel?
-    
     @IBOutlet var eventInfoLbl:UILabel?
-    
     @IBOutlet var eventDetailInfo:UILabel?
-    
     @IBOutlet var descriptionBackLbl:UILabel?
-    
     @IBOutlet var descriptionEditLbl:UILabel?
-    
     @IBOutlet var sessionNameField:SigninFieldView?
-    
     @IBOutlet var descriptionEditTextViewContainer:UIView?
-    
     @IBOutlet var descriptionTextView:UITextView?
-    
     @IBOutlet var scrollView:FieldManagingScrollView?
-    
     @IBOutlet var contentBottomOffsetConstraints:NSLayoutConstraint?
-    
     var delegate:UpdateForEditScheduleSessionDelgete?
     var totalTimeDuration = 0
     
     @IBOutlet var imageUploadingView:UIView?
-    
     @IBOutlet var uploadedImage:UIImageView?
-    
     @IBOutlet var heightOfUploadImageConstraint:NSLayoutConstraint?
-    
     @IBOutlet var heightOfuploadedImageConstraint:NSLayoutConstraint?
-    
     @IBOutlet var editImageLbl:UILabel?
-    
-    var selectedImage:UIImage?
-    
+    var selectedImage:UIImage?    
     var sessionInfo:ScheduleSessionInfo?
     
     override func viewDidLayout() {
@@ -113,7 +94,6 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         let textStrNew = "Description "
         let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
         
-        
         let textBackStr = "Back"
         let textBackStrAttr = textBackStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
         
@@ -123,12 +103,11 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         descriptionEditLbl?.attributedText = textStrMutable
     }
     
-    
     func paintImageUploadBorder(){
         
         imagePicker.delegate = self
-        //        imageUploadingView?.layer.borderWidth = 2.0
-        //        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
+        //imageUploadingView?.layer.borderWidth = 2.0
+        //imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
         let yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
         yourViewBorder.lineDashPattern = [8, 4]
@@ -138,15 +117,13 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         imageUploadingView?.layer.addSublayer(yourViewBorder)
     }
     
-    
     func paintInerface(){
         
         //paintImageUploadBorder()
         paintEditChangeImagelbl()
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
-        descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
-        
+        descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor        
         //eventDetailInfo?.lin
     }
     
@@ -154,7 +131,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         
         //Log.echo(key: "yud", text: "The current time zone ios \(Locale.current.identifier)\(Locale.current.regionCode)")
         
-        Log.echo(key: "yud", text: "The info is \(info)")
+        Log.echo(key: "yud", text: "The info is \(String(describing: info))")
         
         guard let info = info else {
             return
@@ -169,16 +146,20 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             uploadedImage?.image = selectedImage
             self.heightOfUploadImageConstraint?.priority = UILayoutPriority(999.0)
             self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
+            
         }else{
             
-            //Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
+            // Disable Interaction of Upload View and check for profile Image If it exists,then show and set the variable to set happening same as when uploading the image through image Picker that else enable View.
+            
             if isProfileImageChecked{
             }else{
+                
                 isProfileImageChecked = true
                 imageUploadingView?.isUserInteractionEnabled = false
                 if let userProfilePic = SignedUserInfo.sharedInstance?.profileImage{
                     if let url = URL(string: userProfilePic){
                         uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
+                            
                             if error == nil{
                                 
                                 self.uploadedImage?.contentMode = .scaleAspectFit
@@ -189,6 +170,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
                                 self.heightOfuploadedImageConstraint?.priority = UILayoutPriority(250.0)
                                 self.imageUploadingView?.isUserInteractionEnabled = true
                             }else{
+                                
                                 self.imageUploadingView?.isUserInteractionEnabled = true
                             }
                         })
@@ -227,7 +209,8 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             if let price = info.price {
                 
                 self.costofEventLbl?.isHidden = false
-                var newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
+                //var newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(price))"
+                var newFirstStr = "Book a \(info.duration ?? 0)-minute chat ($\(String(format: "%.2f", Double(price))))"
                 if price == 0 {
                     newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
                 }
@@ -242,9 +225,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
         dateFormatter.string(from: info.startDateTime ??  Date())
         self.dateTimeLbl?.text = dateFormatter.string(from: info.startDateTime ??  Date())
-        
         eventInfoLbl?.text = "\(info.duration ?? 0)-minutes"
-        
         if info.eventDescription == nil{
             
             //            I’m hosting 15 private one-on-one video chats during this session. Want to meet with me for 2 minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!
@@ -278,7 +259,6 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             //            descriptionTextView?.text = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate ?? 0) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
         }else{
             
-            
             let attributedString = NSMutableAttributedString(string: info.eventDescription ?? "")
             
             // *** Create instance of `NSMutableParagraphStyle`
@@ -291,6 +271,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
             attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
             
             eventDetailInfo?.attributedText = attributedString
+            
             descriptionTextView?.attributedText = attributedString
         }
         
@@ -302,6 +283,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }
         
         nextSlotTime?.text  = "\(getnextSlotInitialTime())-\(getNextSlotTime()) \(TimeZone.current.abbreviation() ?? "")"
+        
     }
     
     

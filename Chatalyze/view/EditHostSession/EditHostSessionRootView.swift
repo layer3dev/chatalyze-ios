@@ -118,7 +118,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             costofEventLbl?.isHidden = false
             showNamePriceInfoView()
             
-            var newFirstStr = "Book a \(Int(info.duration ?? 0.0))-minute chat ($\(price))"
+            var newFirstStr = "Book a \(Int(info.duration ?? 0.0))-minute chat ($\(String(format: "%.2f", Double(price))))"
             if price == 0 {
                 newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
             }
@@ -147,7 +147,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         let durate = Int(info.duration ?? 0.0)
         let numberofEvent = (self.totalTimeDuration/(durate))
         
-        if info.eventDescription == ""{
+        if info.eventDescription == "" {
             
             let txtStr = "I’m hosting \(numberofEvent) private one-on-one video chats during this session. Want to meet with me for \(durate) minutes to ask specific questions or get my advice about something? Click the “purchase a chat” button to reserve your time slot. Looking forward to speaking with you!"
             
@@ -168,7 +168,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             eventDetailInfo?.attributedText = attributedString
             descriptionTextView?.attributedText = attributedString
             
-        }else{
+        }else {
             
             let requiredstrOne = info.eventDescription?.replacingOccurrences(of: "<p>", with: "")
             
@@ -184,7 +184,6 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             
             // *** Apply attribute to string ***
             attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
-            
             
             eventDetailInfo?.attributedText = attributedString
             descriptionTextView?.attributedText = attributedString

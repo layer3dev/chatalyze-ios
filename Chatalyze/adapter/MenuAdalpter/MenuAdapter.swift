@@ -15,16 +15,8 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-    var analystArray = ["My Sessions","Payments","Settings","Contact Us","Version \(AppInfoConfig.appversion)"]
-    var userArray = ["My Tickets","Memories","Payment History", "Settings","Version \(AppInfoConfig.appversion)"]
-    
-    //var userArray = ["My Tickets","Memories","Purchase","Purchase History", "Settings"]
-    
-    //(a)For the host, the menu options should be My Sessions, Payments, Settings, Support, and Sign Out at the bottom.
-    
-    //(b)For the user, the menu options should be My Tickets, Memories, Purchase.
-    
-    //History, Settings, and Sign Out at the bottom.
+    var analystArray = ["My Sessions","Settings","Contact Us","Version \(AppInfoConfig.appversion)"]
+    var userArray = ["My Tickets","Memories", "Settings","Version \(AppInfoConfig.appversion)"]
     
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     

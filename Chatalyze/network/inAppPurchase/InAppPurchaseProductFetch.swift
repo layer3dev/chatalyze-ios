@@ -2,7 +2,7 @@
 //
 //  InAppPurchaseProductFetch.swift
 //  Chatalyze
-//
+
 //  Created by Sumant Handa on 16/02/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
@@ -13,8 +13,7 @@ import StoreKit
 class InAppPurchaseProductFetch : NSObject{
     
     private var productsRequest: SKProductsRequest?
-    private var completionListener : ((_ success: Bool, _ products: [SKProduct]?) -> ())?
-    
+    private var completionListener : ((_ success: Bool, _ products: [SKProduct]?) -> ())?    
     
     func requestProducts(identifiers : [String], completionListener: @escaping (_ success: Bool, _ products: [SKProduct]?) -> ()) {
         self.completionListener = completionListener

@@ -93,7 +93,6 @@ class SessionScheduleNewController: UIViewController {
         }
     }
     
-    
     @IBAction func backButton(sender:UIButton){
         
         guard let currentStatus = pageViewController?.getCurrentPageController() else{
@@ -108,42 +107,42 @@ class SessionScheduleNewController: UIViewController {
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
             
             paintProgressBar()
-            pageViewController?.setFirstController()
+            pageViewController?.setFirstController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
             
             paintProgressBar()
-            pageViewController?.setSecondController()
+            pageViewController?.setSecondController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
             
             paintProgressBar()
-            pageViewController?.setThirdController()
+            pageViewController?.setThirdController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
             
             paintProgressBar()
-            pageViewController?.setFourthController()
+            pageViewController?.setFourthController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
             
             paintProgressBar()
-            pageViewController?.setFifthController()
+            pageViewController?.setFifthController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
             
             paintProgressBar()
-            pageViewController?.setSixthController()
+            pageViewController?.setSixthController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
             
-            pageViewController?.setSeventhController()
+            pageViewController?.setSeventhController(direction: .reverse)
             paintProgressBar()
             return
         }
@@ -192,5 +191,4 @@ extension SessionScheduleNewController:SessionScheduleNewPageControllerDelegate{
     func updateProgress(){
         paintProgressBar()
     }
-    
 }

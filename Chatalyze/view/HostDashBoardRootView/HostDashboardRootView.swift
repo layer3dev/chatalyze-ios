@@ -33,10 +33,10 @@ class HostDashboardRootView: MySessionRootView {
         
         DispatchQueue.main.async {
             
-            let textOne = "Looks like you don't have"
+            let textOne = "Looks like you don't have any"
             let textOneMutableAttr = textOne.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17 , color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
             
-            let textTwo = "any upcoming sessions."
+            let textTwo = "upcoming sessions."
             let textTwoAttr = textTwo.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .phone ? 13 : 17, color: UIColor(red: 157.0/255.0, green: 157.0/255.0, blue: 157.0/255.0, alpha: 1), isUnderLine: false)
                         
             let textThree = " Let's create one!"
@@ -62,7 +62,6 @@ class HostDashboardRootView: MySessionRootView {
         profileImage?.layer.cornerRadius =   UIDevice.current.userInterfaceIdiom == .pad  ? 5 : 3
         profileImage?.layer.borderColor = UIColor.white.cgColor
         
-        
         if let imageStr = SignedUserInfo.sharedInstance?.profileImage{
             
             profileImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
@@ -70,10 +69,8 @@ class HostDashboardRootView: MySessionRootView {
         }
         
         userNameLbl?.text = SignedUserInfo.sharedInstance?.fullName ?? ""
-        //For now client asked not to show the description as it is not implemneted in the web.
-        //userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
-        userDescriptionLbl?.text = ""
-    }    
+        userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
+    }
     
     func initializeFontSize(){
         

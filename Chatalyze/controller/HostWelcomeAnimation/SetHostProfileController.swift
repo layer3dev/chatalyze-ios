@@ -14,14 +14,12 @@ class SetHostProfileController: InterfaceExtendedController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         rootView?.controller = self
     }
     
     var rootView:SetProfileRootView?{
         return self.view as? SetProfileRootView
     }
-    
     
     /*
      // MARK: - Navigation
@@ -52,10 +50,6 @@ class SetHostProfileController: InterfaceExtendedController {
             
             DispatchQueue.main.async {
                 
-                if !success{
-                    self.stopLoader()
-                    return
-                }
                 self.updateProfile()
                 return
             }
@@ -71,14 +65,23 @@ class SetHostProfileController: InterfaceExtendedController {
                 
                 DispatchQueue.main.async {
                     
-                    UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
-                    self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+                    guard let controller = HostCategoryController.instance() else{
+                        return
+                    }
+                    self.present(controller, animated: true, completion: {
                     })
+                    return
                 }
-                return
             }
-            self.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
-            })
+            
+            DispatchQueue.main.async {
+                
+                guard let controller = HostCategoryController.instance() else{
+                    return
+                }
+                self.present(controller, animated: true, completion: {
+                })
+            }
         })
     }
     

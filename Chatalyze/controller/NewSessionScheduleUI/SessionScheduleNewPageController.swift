@@ -53,11 +53,10 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        Log.echo(key: "yud", text: "Current Controller is \(pageViewController.viewControllers?.first)")
-        
+        Log.echo(key: "yud", text: "Current Controller is \(pageViewController.viewControllers?.first)")        
     }
     
-    func setFirstController(){
+    func setFirstController(direction:NavigationDirection = NavigationDirection.forward){
 
         guard let controller = getController(current: .first) else{
             return
@@ -65,12 +64,12 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .first{
             return
         }
-        setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .first
         pageDelegate?.updateProgress()
     }
     
-    func setSecondController(){
+    func setSecondController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .second) else{
             return
@@ -78,13 +77,13 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .second{
             return
         }
-        setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .second
         pageDelegate?.updateProgress()
     }
     
     
-    func setThirdController(){
+    func setThirdController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .third) else{
             return
@@ -92,24 +91,24 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .third{
             return
         }
-        setViewControllers([controller], direction: UIPageViewController.NavigationDirection.forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .third
         pageDelegate?.updateProgress()
     }
     
     
-    func setFourthController(){
+    func setFourthController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .fourth) else{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .fourth
         pageDelegate?.updateProgress()
     }
     
     
-    func setFifthController(){
+    func setFifthController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .fifth) else{
             return
@@ -117,13 +116,13 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .fifth{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .fifth
         pageDelegate?.updateProgress()
     }
     
     
-    func setSixthController(){
+    func setSixthController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .sixth) else{
             return
@@ -131,13 +130,13 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .sixth{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .sixth
         pageDelegate?.updateProgress()
     }
     
     
-    func setSeventhController(){
+    func setSeventhController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .seventh) else{
             return
@@ -145,12 +144,12 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .seventh{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .seventh
         pageDelegate?.updateProgress()
     }
     
-    func setNinthController(){
+    func setNinthController(direction:NavigationDirection = NavigationDirection.forward){
         
         guard let controller = getController(current: .ninth) else{
             return
@@ -158,20 +157,20 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         if currentController == .ninth{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .ninth
         pageDelegate?.updateProgress()
     }
     
-    func setEighthController(){
-        
+    func setEighthController(direction:NavigationDirection = NavigationDirection.forward){
+
         guard let controller = getController(current: .eighth) else{
             return
         }
         if currentController == .eighth{
             return
         }
-        setViewControllers([controller], direction: .forward, animated: true, completion: nil)
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
         currentController = .eighth
         pageDelegate?.updateProgress()
     }

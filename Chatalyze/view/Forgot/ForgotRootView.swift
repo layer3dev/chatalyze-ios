@@ -51,7 +51,8 @@ class ForgotRootView:ExtendedView{
     }
     
     @IBAction func  cancelAction(){
-    self.controller?.navigationController?.popToRootViewController(animated: true)
+        
+        self.controller?.navigationController?.popToRootViewController(animated: true)
     }
     
     

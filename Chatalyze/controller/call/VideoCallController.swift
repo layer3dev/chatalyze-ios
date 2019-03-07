@@ -33,6 +33,8 @@ class VideoCallController : InterfaceExtendedController {
         case mediaAccess
         case undefined
         case contactUs
+        case earlyExit
+        case hostEarningScreen
     }
     
     // user for animating lable
@@ -99,6 +101,8 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     var appDelegate : AppDelegate?
+    
+    var isEventCancelled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,21 +235,26 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
-        if self.presentedViewController != nil{
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false) {[weak self] in
-                        Log.echo(key: "log", text: "VideoCallController dismissed")
-                        self?.onExit(code : code)
-                    }
-                }
-            })
-            return
-        }
-        self.dismiss(animated: false) {[weak self] in
-            Log.echo(key: "log", text: "VideoCallController dismissed")
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {[weak self] in
+            
             self?.onExit(code : code)
-        }
+        })
+        
+//        if self.presentedViewController != nil{
+//            self.presentedViewController?.dismiss(animated: true, completion: {
+//                DispatchQueue.main.async {
+//                    self.dismiss(animated: false) {[weak self] in
+//                        Log.echo(key: "log", text: "VideoCallController dismissed")
+//
+//                    }
+//                }
+//            })
+//            return
+//        }
+//        self.dismiss(animated: false) {[weak self] in
+//            Log.echo(key: "log", text: "VideoCallController dismissed")
+//            self?.onExit(code : code)
+//        }
     }
     
     //This will be called after viewController is exited from the screen
@@ -448,10 +457,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func updateToReadyState(){
         
-        
-        
         callLogger?.logDeviceInfo()
-        
         
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
                                                            
@@ -501,12 +507,12 @@ class VideoCallController : InterfaceExtendedController {
             self?.refreshScheduleInfo()
         }
         
-        eventDeleteListener.setListener { (deletedEventID) in
+        eventDeleteListener.setListener { [weak self] (deletedEventID) in
             
-            if self.eventId == deletedEventID{
+            if self?.eventId == deletedEventID {
                 
-                self.eventCancelled()
-                
+                self?.isEventCancelled = true
+                self?.eventCancelled()
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
@@ -519,6 +525,10 @@ class VideoCallController : InterfaceExtendedController {
             self?.refreshScheduleInfo()
         }
     }
+    
+    
+    
+    
     
     private func processUpdatePeerList(json : JSON?){
         
@@ -596,8 +606,6 @@ class VideoCallController : InterfaceExtendedController {
         multipleVideoTabListner()
         startTimer()
     }
-    
-    
     
     private func startTimer(){
         timer.ping { [weak self] in
@@ -934,7 +942,7 @@ extension VideoCallController{
 
 extension VideoCallController{
     
-    enum callStatusMessage:Int{
+    enum callStatusMessage:Int {
         
         case ideal = 0
         case preConnectedSuccess = 1
@@ -945,9 +953,11 @@ extension VideoCallController{
         case eventCancelled = 6
     }
     
-    func setStatusMessage(type : callStatusMessage){
+    func setStatusMessage(type : callStatusMessage) {
         
-        if(type == .ideal || type == .preConnectedSuccess){
+        Log.echo(key: "yud", text: "Setting up a status type \(type)")        
+        
+        if(type == .ideal || type == .preConnectedSuccess) {
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
@@ -955,7 +965,7 @@ extension VideoCallController{
             return
         }
         
-        if(type == .connected){
+        if(type == .connected) {
             
             self.hideAlertContainer()
             self.hideChatalyzeLogo()
@@ -975,7 +985,7 @@ extension VideoCallController{
             fontSize = 26
         }
         
-        if type == .eventDelay{
+        if type == .eventDelay {
             
             // New Alert is implemented now on the place of the earlier message. So we are hiding earlier alerts and showing the new one.
             self.showAlertContainer()
@@ -983,7 +993,7 @@ extension VideoCallController{
             return
         }
         
-        if type == .eventCancelled{
+        if type == .eventCancelled {
             
             // Implemented alert for the cancel of the event.
             self.showAlertContainer()
@@ -991,7 +1001,7 @@ extension VideoCallController{
             return
         }
         
-        if type == .eventNotStarted{
+        if type == .eventNotStarted {
             
             self.showAlertContainer()
             self.showPreConnectLabel()
@@ -1024,26 +1034,27 @@ extension VideoCallController{
         }
     }
     
-    func hidePreConnectLabel(){
+    func hidePreConnectLabel() {
         self.preConnectLbl?.isHidden = true
     }
     
-    private func showPreConnectLabel(){
+    private func showPreConnectLabel() {
         self.preConnectLbl?.isHidden = false
     }
     
-    func hideChatalyzeLogo(){
+    func hideChatalyzeLogo() {
         chatalyzeLogo?.isHidden = true
     }
     
-    func hideAlertContainer(){
+    func hideAlertContainer() {
         self.alertContainerView?.isHidden = true
     }
-    func showAlertContainer(){
+    func showAlertContainer() {
+        
         self.alertContainerView?.isHidden = false
     }
     
-    func showEventDelayAlert(){
+    func showEventDelayAlert() {
         
         self.eventDelayAlertView?.layer.borderWidth = 1
         self.eventDelayAlertView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -1051,7 +1062,7 @@ extension VideoCallController{
         self.eventDelayAlertView?.isHidden = false
     }
     
-    func showCancelEventAlert(){
+    func showCancelEventAlert() {
         
         let textOne = "We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please "
         let texttwo = "contact us."
@@ -1065,22 +1076,22 @@ extension VideoCallController{
         self.eventCancelledAlertView?.isHidden = false
     }
     
-    func hideDelayAndCancelAlert(){
+    func hideDelayAndCancelAlert() {
         
         self.eventDelayAlertView?.isHidden = true
         self.eventCancelledAlertView?.isHidden = true
     }
     
-    func showChatalyzeLogo(){
+    func showChatalyzeLogo() {
         
         chatalyzeLogo?.isHidden = false
         hidePreConnectLabel()
     }
 }
 
-extension VideoCallController{
+extension VideoCallController {
     
-    func refreshScheduleInfo(){
+    func refreshScheduleInfo() {
         
         self.loadActivatedInfo { [weak self] (isActivated, info) in
             
@@ -1100,9 +1111,9 @@ extension VideoCallController{
 }
 
 
-extension VideoCallController{
+extension VideoCallController {
     
-    @IBAction func goToContactUsScreen(sender:UIButton){
+    @IBAction func goToContactUsScreen(sender:UIButton) {
         
         self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")

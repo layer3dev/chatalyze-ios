@@ -10,13 +10,18 @@ import UIKit
 
 class ContactUsController: InterfaceExtendedController {
     
-       
     @IBOutlet var subjectView:UIView?
     @IBOutlet var subjectTextField:UITextField?
     @IBOutlet var messageView:UIView?
     @IBOutlet var contactTextView:UITextView?
     @IBOutlet var contactPlaceholderLbl:UILabel?
     @IBOutlet var scrollView:FieldManagingScrollView?
+    @IBOutlet var emailField:UITextField?
+    @IBOutlet var nameField:UITextField?
+    
+    @IBOutlet var emailFieldView:UIView?
+    @IBOutlet var nameFieldView:UIView?
+    
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
     
     override func viewDidLayout() {
@@ -25,6 +30,12 @@ class ContactUsController: InterfaceExtendedController {
         painteInterface()
         paintTextfieldPlaceHolder()
     }
+    
+    @IBAction func backAction(sender:UIButton?){
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
    
     func paintTextfieldPlaceHolder(){
         
@@ -35,6 +46,13 @@ class ContactUsController: InterfaceExtendedController {
         
         subjectTextField?.attributedPlaceholder =
             NSAttributedString(string: "Subject", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+        
+        emailField?.attributedPlaceholder =
+            NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+        
+        nameField?.attributedPlaceholder =
+            NSAttributedString(string: "Full name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+        
     }
     
     func painteInterface(){
@@ -46,11 +64,17 @@ class ContactUsController: InterfaceExtendedController {
         paintBorder()
     }
     
-    
     func paintBorder(){
+        
+        emailFieldView?.layer.borderWidth = 1
+        emailFieldView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
+        
+        nameFieldView?.layer.borderWidth = 1
+        nameFieldView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
         
         subjectView?.layer.borderWidth = 1
         subjectView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
+        
         messageView?.layer.borderWidth = 1
         messageView?.layer.borderColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1).cgColor
     }
@@ -61,8 +85,12 @@ class ContactUsController: InterfaceExtendedController {
         contactTextView?.delegate = self
     }
     
-    
     @IBAction private func submitAction(){
+        
+        submit()
+    }
+    
+    func submit(){
         
         let text  = contactTextView?.text.replacingOccurrences(of: " ", with: "")
         
@@ -87,8 +115,7 @@ class ContactUsController: InterfaceExtendedController {
             return
         }
         
-        
-        self.showLoader()        
+        self.showLoader()
         submitContactUsRequest().contactUs(email: getemail, message: getmessage, name: getname) { (success) in
             self.stopLoader()
             if(!success){
@@ -115,9 +142,6 @@ class ContactUsController: InterfaceExtendedController {
             })
         }
     }
-}
-
-extension ContactUsController{
     
     class func instance()->ContactUsController?{
         
@@ -126,7 +150,6 @@ extension ContactUsController{
         return controller
     }
 }
-
 
 extension ContactUsController:UITextViewDelegate{
     
