@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="OpenSans-Regular.ttf">
-            <string>OpenSans</string>
+        <array key="Nunito-Regular.ttf">
+            <string>Nunito-Regular</string>
         </array>
-        <array key="OpenSans-SemiBold.ttf">
-            <string>OpenSans-SemiBold</string>
+        <array key="Nunito-SemiBold.ttf">
+            <string>Nunito-SemiBold</string>
         </array>
         <array key="Questrial-Regular.otf">
             <string>Questrial-Regular</string>
@@ -22,23 +26,23 @@
             <objects>
                 <viewController storyboardIdentifier="TippingConfirmation" automaticallyAdjustsScrollViewInsets="NO" id="2NV-Py-McO" customClass="TippingConfirmationController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q5k-VW-yXm" customClass="TippingRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="SEx-Pe-muz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EA7-PI-Mn3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgC-9q-gDB">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="520"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="534"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDK-CL-Ng7">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tippingStar" translatesAutoresizingMaskIntoConstraints="NO" id="rZP-Km-IcE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="130" id="1le-a3-9rD">
@@ -47,7 +51,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="MUp-vb-zUq">
-                                                        <rect key="frame" x="255" y="60" width="90" height="90"/>
+                                                        <rect key="frame" x="142.5" y="60" width="90" height="90"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="90" id="8dG-fK-z5i">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="110"/>
@@ -74,19 +78,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOM-0Y-f0i">
-                                                <rect key="frame" x="0.0" y="160" width="600" height="60"/>
+                                                <rect key="frame" x="0.0" y="160" width="375" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPn-dp-ila">
-                                                        <rect key="frame" x="232.5" y="0.0" width="135.5" height="60"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="20"/>
+                                                        <rect key="frame" x="120" y="0.0" width="135" height="60"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smiley" translatesAutoresizingMaskIntoConstraints="NO" id="bI4-4s-QZS">
-                                                        <rect key="frame" x="378" y="15" width="30" height="30"/>
+                                                        <rect key="frame" x="265" y="15" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="M7m-fN-oQo">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
@@ -108,19 +112,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoL-TM-lPs">
-                                                <rect key="frame" x="0.0" y="230" width="600" height="30"/>
+                                                <rect key="frame" x="0.0" y="230" width="375" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to support analyst by giving a donation?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeH-m7-8fH">
-                                                        <rect key="frame" x="40" y="0.0" width="520" height="30"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                                        <rect key="frame" x="40" y="0.0" width="295" height="44"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="22"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2p-rP-lBv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                         <connections>
                                                             <action selector="infoAlertWithSender:" destination="Q5k-VW-yXm" eventType="touchUpInside" id="Sxn-Va-eea"/>
                                                         </connections>
@@ -146,23 +150,23 @@
                                                 </constraints>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ze-39-YJV">
-                                                <rect key="frame" x="30" y="300" width="166.5" height="50"/>
+                                                <rect key="frame" x="30" y="314" width="91.5" height="50"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGa-lE-PW7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1.99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3oH-Lt-WGQ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ayo-AF-7LE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
                                                         <connections>
                                                             <action selector="dollorTwoTipActionWithSender:" destination="2NV-Py-McO" eventType="touchUpInside" id="RyX-mD-dPS"/>
                                                         </connections>
@@ -189,23 +193,23 @@
                                                 </constraints>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZg-1D-Rgh">
-                                                <rect key="frame" x="216.5" y="300" width="167" height="50"/>
+                                                <rect key="frame" x="141.5" y="314" width="92" height="50"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1JA-hp-PbC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5.99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nO-0R-CeW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="50"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQF-82-kcl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92" height="50"/>
                                                         <connections>
                                                             <action selector="dollorSixTipActionWithSender:" destination="2NV-Py-McO" eventType="touchUpInside" id="Xsx-f8-gsx"/>
                                                         </connections>
@@ -232,23 +236,23 @@
                                                 </constraints>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJW-oZ-J6x">
-                                                <rect key="frame" x="403.5" y="300" width="166.5" height="50"/>
+                                                <rect key="frame" x="253.5" y="314" width="91.5" height="50"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pc4-MA-A0Y">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9.99" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q92-xc-amk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5G-mJ-MCm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="166.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="91.5" height="50"/>
                                                         <connections>
                                                             <action selector="dollorTenTipActionWithSender:" destination="2NV-Py-McO" eventType="touchUpInside" id="j17-gy-iLI"/>
                                                         </connections>
@@ -275,23 +279,23 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pp2-5H-q7d">
-                                                <rect key="frame" x="30" y="350" width="540" height="0.0"/>
+                                                <rect key="frame" x="30" y="364" width="315" height="0.0"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQY-yl-iLg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="0.0"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom tip" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtu-hd-6eC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="0.0"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dC5-D3-KQa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="0.0"/>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -315,23 +319,23 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcZ-4Y-RbP">
-                                                <rect key="frame" x="30" y="450" width="540" height="50"/>
+                                                <rect key="frame" x="30" y="464" width="315" height="50"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqv-Of-kJg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Donation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec6-Na-c0j">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SM-Mq-i3Q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                         <connections>
                                                             <action selector="noTipAction" destination="2NV-Py-McO" eventType="touchUpInside" id="s7Q-0L-JiV"/>
                                                         </connections>
@@ -358,20 +362,20 @@
                                                 </constraints>
                                             </view>
                                             <view opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Gy-rl-Pf8" customClass="TippingAlertShadow" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="50" y="270" width="500" height="83"/>
+                                                <rect key="frame" x="50" y="284" width="275" height="126.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9yN-xz-AMr">
-                                                        <rect key="frame" x="10" y="30" width="480" height="33"/>
+                                                        <rect key="frame" x="10" y="30" width="255" height="76.5"/>
                                                         <string key="text">A Chatalyze service fee, third-party processing fees, and App Store fees will be deducted before your donation is transferred to the host.</string>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.35294117650000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                         </variation>
                                                     </label>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEy-zk-UK4">
-                                                        <rect key="frame" x="400" y="0.0" width="100" height="100"/>
+                                                        <rect key="frame" x="175" y="0.0" width="100" height="100"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackcross" translatesAutoresizingMaskIntoConstraints="NO" id="QkF-aH-Grs">
                                                                 <rect key="frame" x="75" y="10" width="15" height="15"/>
@@ -510,24 +514,24 @@
             <objects>
                 <viewController storyboardIdentifier="donation_success" automaticallyAdjustsScrollViewInsets="NO" id="nN2-ss-EPt" customClass="DonationSuccessController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vhl-Gh-eNI" customClass="DonationSuccessRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="I3G-dc-lXZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tippingStar" translatesAutoresizingMaskIntoConstraints="NO" id="NbN-3x-rsG">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="w2E-ZV-aut"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ZF-eu-QCJ" customClass="DonationSuccessRootView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smiley" translatesAutoresizingMaskIntoConstraints="NO" id="b7g-pr-Knv">
-                                        <rect key="frame" x="262.5" y="80" width="75" height="75"/>
+                                        <rect key="frame" x="150" y="80" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="52A-Q8-lfD"/>
                                             <constraint firstAttribute="width" constant="120" id="GN4-7T-R0L">
@@ -554,33 +558,33 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBY-OD-Trd">
-                                        <rect key="frame" x="254" y="180" width="92" height="28"/>
-                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="24"/>
+                                        <rect key="frame" x="143.5" y="180" width="88" height="33"/>
+                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="30"/>
+                                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="30"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You just tipped Jordan Winawer $0.99. You're awesome!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l40-fx-flu">
-                                        <rect key="frame" x="30" y="233" width="540" height="19"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                                        <rect key="frame" x="30" y="238" width="315" height="44"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="26"/>
+                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="26"/>
                                         </variation>
                                     </label>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wm8-bL-QPF" customClass="DonateActionButtonView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="225" y="292" width="150" height="45"/>
+                                        <rect key="frame" x="112.5" y="322" width="150" height="45"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Close" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7h-As-0Cl">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="45"/>
-                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyj-IY-ggZ">
@@ -645,20 +649,20 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="TSH-8c-rKd"/>
                                         <exclude reference="AFY-5e-NTp"/>
                                         <exclude reference="nhj-kD-Leu"/>
-                                        <exclude reference="TSH-8c-rKd"/>
                                         <exclude reference="ZUP-oB-F0n"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
+                                        <include reference="TSH-8c-rKd"/>
+                                        <exclude reference="adD-hs-hes"/>
                                         <exclude reference="14Q-ch-Q3G"/>
                                         <include reference="AFY-5e-NTp"/>
                                         <exclude reference="Nmd-dX-0Z4"/>
                                         <include reference="nhj-kD-Leu"/>
-                                        <include reference="TSH-8c-rKd"/>
-                                        <exclude reference="adD-hs-hes"/>
                                         <exclude reference="A57-mW-aTB"/>
                                         <include reference="ZUP-oB-F0n"/>
                                     </mask>
@@ -696,23 +700,23 @@
             <objects>
                 <viewController storyboardIdentifier="TippingCardDetailInfo" automaticallyAdjustsScrollViewInsets="NO" id="LXt-xY-m1G" customClass="TippingCardDetailInfoController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DJd-2v-gV1" customClass="TippingCardInfoRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="LlN-Fc-QYh">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4a-DE-TNN">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vkw-30-7ag">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="533.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="538.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hu9-a9-o5s">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tippingStar" translatesAutoresizingMaskIntoConstraints="NO" id="lMz-fv-qbj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="130"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="130" id="LQl-U0-Mcl">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="160"/>
@@ -720,7 +724,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="IbN-75-ET8">
-                                                        <rect key="frame" x="255" y="60" width="90" height="90"/>
+                                                        <rect key="frame" x="142.5" y="60" width="90" height="90"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="90" id="4ji-lZ-M43">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="110"/>
@@ -747,15 +751,15 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZe-Wq-llO">
-                                                <rect key="frame" x="0.0" y="160" width="600" height="60"/>
+                                                <rect key="frame" x="0.0" y="160" width="375" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jordan Winawer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSe-zC-NoH">
-                                                        <rect key="frame" x="235" y="0.0" width="130.5" height="60"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="120.5" y="0.0" width="134" height="60"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="22"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="22"/>
                                                         </variation>
                                                     </label>
                                                 </subviews>
@@ -768,15 +772,15 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eK8-u5-RAP">
-                                                <rect key="frame" x="0.0" y="220" width="600" height="30.5"/>
+                                                <rect key="frame" x="0.0" y="220" width="375" height="35.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip: $1.0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MG-Wj-buw">
-                                                        <rect key="frame" x="40" y="0.0" width="520" height="30.5"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="26"/>
+                                                        <rect key="frame" x="40" y="0.0" width="295" height="35.5"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="26"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="34"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="34"/>
                                                         </variation>
                                                     </label>
                                                 </subviews>
@@ -796,13 +800,13 @@
                                                 </constraints>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gcA-Pk-GL7">
-                                                <rect key="frame" x="0.0" y="280.5" width="600" height="163"/>
+                                                <rect key="frame" x="0.0" y="285.5" width="375" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc0-GU-cCU" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="30" y="20" width="540" height="53"/>
+                                                        <rect key="frame" x="30" y="20" width="315" height="53"/>
                                                         <subviews>
                                                             <view opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgB-WH-LXl">
-                                                                <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="d1q-pa-aGJ">
@@ -811,10 +815,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01b-aT-CnR">
-                                                                <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2OP-fX-BOa">
-                                                                        <rect key="frame" x="20" y="0.0" width="515" height="50"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="290" height="50"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="next"/>
@@ -835,7 +839,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-Kr-BuW" userLabel="error_label">
-                                                                <rect key="frame" x="10" y="53" width="525" height="0.0"/>
+                                                                <rect key="frame" x="10" y="53" width="300" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -863,10 +867,10 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v3B-sk-JHf" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="30" y="93" width="260" height="50"/>
+                                                        <rect key="frame" x="30" y="93" width="147.5" height="50"/>
                                                         <subviews>
                                                             <view opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Ak-N1D">
-                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="50"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="T8I-3j-Qiq">
@@ -875,10 +879,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6F-eh-79t">
-                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="50"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expiry: MM/YY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9dq-mq-Sml">
-                                                                        <rect key="frame" x="20" y="0.0" width="235" height="50"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="122.5" height="50"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="s27-kn-WYv">
                                                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
@@ -903,7 +907,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfa-I7-K7g" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="50" width="253" height="0.0"/>
+                                                                <rect key="frame" x="2" y="50" width="140.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -912,7 +916,7 @@
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ybw-cz-926">
-                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
                                                                     <action selector="dateActionWithSender:" destination="DJd-2v-gV1" eventType="touchUpInside" id="rc5-ix-odZ"/>
@@ -942,10 +946,10 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PkZ-Zu-Bwk" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="310" y="93" width="260" height="50"/>
+                                                        <rect key="frame" x="197.5" y="93" width="147.5" height="50"/>
                                                         <subviews>
                                                             <view opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMI-db-rLi">
-                                                                <rect key="frame" x="0.0" y="0.0" width="193.5" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="50"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="aaK-kb-8Xq">
@@ -954,10 +958,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZJ-KQ-Gvh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="147.5" height="50"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVC" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lKD-hN-Bbz">
-                                                                        <rect key="frame" x="20" y="0.0" width="235" height="50"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="122.5" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
@@ -979,7 +983,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="what's this?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mo-IV-kG0" userLabel="error_label">
-                                                                <rect key="frame" x="198.5" y="19" width="54" height="12"/>
+                                                                <rect key="frame" x="87.5" y="20" width="52.5" height="10.5"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -988,7 +992,7 @@
                                                                 </variation>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4do-Zd-tTK" userLabel="error_label">
-                                                                <rect key="frame" x="10" y="50" width="245" height="0.0"/>
+                                                                <rect key="frame" x="10" y="50" width="132.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1041,23 +1045,23 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sO-Ad-Mlm">
-                                                <rect key="frame" x="30" y="463.5" width="540" height="50"/>
+                                                <rect key="frame" x="30" y="468.5" width="315" height="50"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cY-vz-kC5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay now" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdR-09-iFk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
-                                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="24"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBl-kz-3xv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1156,7 +1160,7 @@
         <image name="blackcross" width="256" height="256"/>
         <image name="gradientImage" width="1242" height="2208"/>
         <image name="smiley" width="800" height="800"/>
-        <image name="tippingStar" width="1536" height="864"/>
+        <image name="tippingStar" width="320" height="180"/>
         <image name="user_placeholder" width="300" height="300"/>
     </resources>
 </document>

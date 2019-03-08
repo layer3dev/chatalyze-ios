@@ -58,11 +58,16 @@ class RemoteVideoView: VideoView {
         Log.echo(key: "remote", text: "containerSize ->> \(containerSize)")
         Log.echo(key: "remote", text: "streamSize ->> \(streamSize)")
         
+        
+        // Initially implemented:-
         // let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        // let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        //updateViewSize(size : aspectSize.size)
         
-        let aspectSize = AVMakeRect(aspectRatio: containerSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
         
-        updateViewSize(size : aspectSize.size)
+        //Updated code Yudh :-
+        let newContainerSizeAfterFill = aspectFill(aspectRatio: streamSize, minimumSize: containerSize)
+        updateViewSize(size : newContainerSizeAfterFill)
     }
     
     private func updateViewSize(size: CGSize){
@@ -76,5 +81,25 @@ class RemoteVideoView: VideoView {
         }) { (success) in
             
         }
+    }
+    
+    
+    //Created by yudh
+    
+    
+    func aspectFill(aspectRatio :CGSize, minimumSize: CGSize) -> CGSize {
+        
+        var minimumSize = minimumSize
+        let mW = minimumSize.width / aspectRatio.width;
+        let mH = minimumSize.height / aspectRatio.height;
+        
+        if( mH > mW ) {
+            minimumSize.width = minimumSize.height / aspectRatio.height * aspectRatio.width;
+        }
+        else if( mW > mH ) {
+            minimumSize.height = minimumSize.width / aspectRatio.width * aspectRatio.height;
+        }
+        
+        return minimumSize;
     }
 }
