@@ -30,10 +30,10 @@ class OnboardThirdController: UIViewController {
     func paintLableText(){
         
         let firstText = "Share Your Page \n"
-        let firstMutableStr = firstText.toMutableAttributedString(font: "OpenSans-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
+        let firstMutableStr = firstText.toMutableAttributedString(font: "Nunito-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
         
         let scecondStr = "Post the link to your booking page so people can reserve chat slots."
-        let secondAtrStr = scecondStr.toAttributedString(font: "Open Sans", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
+        let secondAtrStr = scecondStr.toAttributedString(font: "Nunito-Regular", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
         
         firstMutableStr.append(secondAtrStr)
         

@@ -10,6 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+        <array key="Nunito-Regular.ttf">
+            <string>Nunito-Regular</string>
+        </array>
         <array key="Poppins-SemiBold.otf">
             <string>Poppins-SemiBold</string>
         </array>
@@ -23,14 +29,14 @@
             <objects>
                 <viewController storyboardIdentifier="EditProfile" automaticallyAdjustsScrollViewInsets="NO" id="e8s-3K-7Df" customClass="EditProfileController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pp2-jo-jce" customClass="EditProfileRootview" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2N1-gT-bmd" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="1980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ee1-b0-rG4">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1483"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1568.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irF-bi-xSP">
                                                 <rect key="frame" x="15" y="15" width="345" height="502"/>
@@ -973,8 +979,43 @@
                                                     <constraint firstItem="Xhh-gw-Xay" firstAttribute="trailing" secondItem="HFa-a7-BnS" secondAttribute="trailing" id="lXl-V1-FZ0"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3j-cc-14J">
+                                                <rect key="frame" x="15" y="1240.5" width="345" height="65.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSK-S8-Pbg">
+                                                        <rect key="frame" x="20" y="20" width="69.5" height="25.5"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                                        <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="26"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8G-6j-Tjz">
+                                                        <rect key="frame" x="325" y="33" width="0.0" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="18"/>
+                                                        <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="26"/>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="OSK-S8-Pbg" firstAttribute="top" secondItem="A3j-cc-14J" secondAttribute="top" constant="20" id="C7e-1z-4xo">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                    </constraint>
+                                                    <constraint firstItem="l8G-6j-Tjz" firstAttribute="centerY" secondItem="OSK-S8-Pbg" secondAttribute="centerY" id="Mba-Nj-eYo"/>
+                                                    <constraint firstAttribute="trailing" secondItem="l8G-6j-Tjz" secondAttribute="trailing" constant="20" id="NIJ-AS-hLV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="OSK-S8-Pbg" secondAttribute="bottom" constant="20" id="mTH-yn-yVL">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                    </constraint>
+                                                    <constraint firstItem="OSK-S8-Pbg" firstAttribute="leading" secondItem="A3j-cc-14J" secondAttribute="leading" constant="20" id="wpd-Pc-2AU"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFU-dC-ohW">
-                                                <rect key="frame" x="15" y="1240.5" width="345" height="222.5"/>
+                                                <rect key="frame" x="15" y="1326" width="345" height="222.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disable Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJi-HZ-MpQ">
                                                         <rect key="frame" x="20" y="20" width="315" height="25.5"/>
@@ -1069,7 +1110,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4e-wX-loK">
-                                                <rect key="frame" x="20" y="1353" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="1438.5" width="335" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deactivate account" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qoc-Mp-3AZ">
                                                         <rect key="frame" x="97" y="14.5" width="141" height="16.5"/>
@@ -1101,7 +1142,7 @@
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RB2-uk-GmA">
-                                                <rect key="frame" x="20" y="1398" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="1483.5" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="0.7725490196" green="0.1263323146" blue="0.105862427" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1110,7 +1151,7 @@
                                                 </variation>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3T-0h-OGw">
-                                                <rect key="frame" x="20" y="1418" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="1503.5" width="335" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwx-el-sF8">
                                                         <rect key="frame" x="149.5" y="14.5" width="36" height="16.5"/>
@@ -1142,7 +1183,7 @@
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA3-SD-a83">
-                                                <rect key="frame" x="20" y="1463" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="1548.5" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="0.77254901960784317" green="0.12549019607843137" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1157,6 +1198,7 @@
                                             <constraint firstAttribute="trailing" secondItem="P4e-wX-loK" secondAttribute="trailing" constant="20" id="6be-lO-eb5">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="A3j-cc-14J" secondAttribute="trailing" constant="15" id="72I-2d-rxF"/>
                                             <constraint firstAttribute="trailing" secondItem="FFU-dC-ohW" secondAttribute="trailing" constant="15" id="Csb-2V-iAT"/>
                                             <constraint firstItem="yO0-Da-YJG" firstAttribute="top" secondItem="irF-bi-xSP" secondAttribute="bottom" constant="20" id="Eqf-e9-poJ"/>
                                             <constraint firstAttribute="trailing" secondItem="D3T-0h-OGw" secondAttribute="trailing" constant="20" id="GP3-fn-J3Z">
@@ -1174,6 +1216,8 @@
                                             <constraint firstItem="X9T-ZL-6J3" firstAttribute="top" secondItem="yO0-Da-YJG" secondAttribute="bottom" id="fua-Fw-3eW"/>
                                             <constraint firstItem="irF-bi-xSP" firstAttribute="leading" secondItem="ee1-b0-rG4" secondAttribute="leading" constant="15" id="fxg-DF-THI"/>
                                             <constraint firstItem="irF-bi-xSP" firstAttribute="top" secondItem="ee1-b0-rG4" secondAttribute="top" constant="15" id="g5r-tw-YFc"/>
+                                            <constraint firstItem="A3j-cc-14J" firstAttribute="top" secondItem="bSa-DB-TLl" secondAttribute="bottom" constant="20" id="i9e-Nr-qnl"/>
+                                            <constraint firstItem="FFU-dC-ohW" firstAttribute="top" secondItem="A3j-cc-14J" secondAttribute="bottom" constant="20" id="k5m-46-iCR"/>
                                             <constraint firstAttribute="trailing" secondItem="X9T-ZL-6J3" secondAttribute="trailing" constant="15" id="kAA-M0-j1N"/>
                                             <constraint firstItem="bSa-DB-TLl" firstAttribute="leading" secondItem="ee1-b0-rG4" secondAttribute="leading" constant="15" id="mtt-oy-r7N"/>
                                             <constraint firstAttribute="bottom" secondItem="FFU-dC-ohW" secondAttribute="bottom" constant="20" id="rcG-R3-2dL"/>
@@ -1186,7 +1230,7 @@
                                             <constraint firstItem="D3T-0h-OGw" firstAttribute="leading" secondItem="ee1-b0-rG4" secondAttribute="leading" constant="20" id="tLm-6y-kLR">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                             </constraint>
-                                            <constraint firstItem="FFU-dC-ohW" firstAttribute="top" secondItem="bSa-DB-TLl" secondAttribute="bottom" constant="20" id="v6K-eI-5Qm"/>
+                                            <constraint firstItem="A3j-cc-14J" firstAttribute="leading" secondItem="ee1-b0-rG4" secondAttribute="leading" constant="15" id="ua7-Z6-yAd"/>
                                             <constraint firstItem="RB2-uk-GmA" firstAttribute="leading" secondItem="P4e-wX-loK" secondAttribute="leading" id="vBN-ug-GeX"/>
                                             <constraint firstAttribute="bottom" secondItem="nA3-SD-a83" secondAttribute="bottom" constant="20" id="vtc-bP-h0v"/>
                                             <constraint firstItem="RB2-uk-GmA" firstAttribute="top" secondItem="P4e-wX-loK" secondAttribute="bottom" id="xIT-J1-B4c"/>
@@ -1203,7 +1247,7 @@
                                 </constraints>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aif-Ll-zJo">
-                                <rect key="frame" x="0.0" y="452" width="375" height="215"/>
+                                <rect key="frame" x="0.0" y="1785" width="375" height="215"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxE-6d-fXh" customClass="CountryPicker">
                                         <rect key="frame" x="0.0" y="-1" width="375" height="216"/>
@@ -1289,9 +1333,11 @@
                             <outlet property="scrollView" destination="2N1-gT-bmd" id="SDK-9b-1pH"/>
                             <outlet property="uploadImageViewHeightConstant" destination="e0J-Tg-mIO" id="LMt-Vs-cbl"/>
                             <outlet property="userImage" destination="FA9-Bh-yK8" id="zUJ-Vc-1kX"/>
+                            <outlet property="versionNumber" destination="l8G-6j-Tjz" id="xMQ-hY-sgy"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <size key="freeformSize" width="375" height="2000"/>
                     <connections>
                         <outlet property="rootView" destination="Pp2-jo-jce" id="Lfv-Py-XA9"/>
                     </connections>
@@ -1312,7 +1358,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="1980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIW-8d-DR2">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1483"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1568"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="88D-tj-KCD">
                                                 <rect key="frame" x="15" y="15" width="345" height="502"/>
@@ -2255,8 +2301,43 @@
                                                     <constraint firstAttribute="bottom" secondItem="nSy-zC-Cqn" secondAttribute="bottom" constant="30" id="xgm-1d-XVA"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-43-mty">
+                                                <rect key="frame" x="15" y="1240.5" width="345" height="65"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cJ-g9-7cd">
+                                                        <rect key="frame" x="20" y="20" width="62.5" height="25"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
+                                                        <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="26"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSp-xN-358">
+                                                        <rect key="frame" x="325" y="32.5" width="0.0" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
+                                                        <color key="textColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="26"/>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="2cJ-g9-7cd" secondAttribute="bottom" constant="20" id="5k8-Vq-4KM">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                    </constraint>
+                                                    <constraint firstItem="iSp-xN-358" firstAttribute="centerY" secondItem="2cJ-g9-7cd" secondAttribute="centerY" id="CIN-wo-Fsl"/>
+                                                    <constraint firstItem="2cJ-g9-7cd" firstAttribute="top" secondItem="ee8-43-mty" secondAttribute="top" constant="20" id="TAB-Kd-IVJ">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="iSp-xN-358" secondAttribute="trailing" constant="20" id="cmG-zY-8ma"/>
+                                                    <constraint firstItem="2cJ-g9-7cd" firstAttribute="leading" secondItem="ee8-43-mty" secondAttribute="leading" constant="20" id="pqJ-qf-iJD"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qh-SU-8FK">
-                                                <rect key="frame" x="15" y="1240.5" width="345" height="222.5"/>
+                                                <rect key="frame" x="15" y="1325.5" width="345" height="222.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disable Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCY-yc-NdQ">
                                                         <rect key="frame" x="20" y="20" width="315" height="25.5"/>
@@ -2351,7 +2432,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G69-jF-yil">
-                                                <rect key="frame" x="20" y="1353" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="1438" width="335" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deactivate account" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klf-c2-NvF">
                                                         <rect key="frame" x="97" y="14.5" width="141" height="16.5"/>
@@ -2383,7 +2464,7 @@
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruo-fH-svz">
-                                                <rect key="frame" x="20" y="1398" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="1483" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="0.7725490196" green="0.1263323146" blue="0.105862427" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2392,7 +2473,7 @@
                                                 </variation>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xno-bN-dih">
-                                                <rect key="frame" x="20" y="1418" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="1503" width="335" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4w-Ur-kvo">
                                                         <rect key="frame" x="149.5" y="14.5" width="36" height="16.5"/>
@@ -2424,7 +2505,7 @@
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bU-sf-Rkk">
-                                                <rect key="frame" x="20" y="1463" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="1548" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="16"/>
                                                 <color key="textColor" red="0.7725490196" green="0.12549019610000001" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2438,7 +2519,6 @@
                                             <constraint firstItem="BdQ-QU-iHd" firstAttribute="leading" secondItem="QIW-8d-DR2" secondAttribute="leading" constant="15" id="12l-0b-L6q"/>
                                             <constraint firstItem="0bU-sf-Rkk" firstAttribute="top" secondItem="xno-bN-dih" secondAttribute="bottom" id="41a-Mo-cwU"/>
                                             <constraint firstItem="5Qh-SU-8FK" firstAttribute="leading" secondItem="QIW-8d-DR2" secondAttribute="leading" constant="15" id="AOF-iR-0ZU"/>
-                                            <constraint firstItem="5Qh-SU-8FK" firstAttribute="top" secondItem="mZ2-h1-sao" secondAttribute="bottom" constant="20" id="Brv-BL-JZh"/>
                                             <constraint firstItem="xno-bN-dih" firstAttribute="leading" secondItem="QIW-8d-DR2" secondAttribute="leading" constant="20" id="C5y-5j-yDs">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                             </constraint>
@@ -2446,6 +2526,7 @@
                                             <constraint firstAttribute="trailing" secondItem="mZ2-h1-sao" secondAttribute="trailing" constant="15" id="JWh-J8-9Dv"/>
                                             <constraint firstAttribute="trailing" secondItem="H9m-6R-i8N" secondAttribute="trailing" constant="15" id="MWz-Jx-pTm"/>
                                             <constraint firstItem="ruo-fH-svz" firstAttribute="leading" secondItem="G69-jF-yil" secondAttribute="leading" id="Nh0-dD-e1q"/>
+                                            <constraint firstItem="ee8-43-mty" firstAttribute="leading" secondItem="QIW-8d-DR2" secondAttribute="leading" constant="15" id="Siv-sX-nve"/>
                                             <constraint firstItem="88D-tj-KCD" firstAttribute="top" secondItem="QIW-8d-DR2" secondAttribute="top" constant="15" id="TLC-dy-eIs"/>
                                             <constraint firstAttribute="trailing" secondItem="BdQ-QU-iHd" secondAttribute="trailing" constant="15" id="VfI-le-qfd"/>
                                             <constraint firstAttribute="bottom" secondItem="0bU-sf-Rkk" secondAttribute="bottom" constant="20" id="Vk6-gv-0KV"/>
@@ -2464,7 +2545,9 @@
                                             <constraint firstItem="xno-bN-dih" firstAttribute="top" secondItem="ruo-fH-svz" secondAttribute="bottom" constant="20" id="i3L-VI-Xa0">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="ee8-43-mty" secondAttribute="trailing" constant="15" id="iWx-ZO-gD7"/>
                                             <constraint firstItem="0bU-sf-Rkk" firstAttribute="leading" secondItem="xno-bN-dih" secondAttribute="leading" id="kOX-CI-6Kh"/>
+                                            <constraint firstItem="ee8-43-mty" firstAttribute="top" secondItem="mZ2-h1-sao" secondAttribute="bottom" constant="20" id="nt1-oo-djd"/>
                                             <constraint firstItem="H9m-6R-i8N" firstAttribute="top" secondItem="BdQ-QU-iHd" secondAttribute="bottom" id="sJB-57-Nhm"/>
                                             <constraint firstItem="G69-jF-yil" firstAttribute="leading" secondItem="QIW-8d-DR2" secondAttribute="leading" constant="20" id="tzx-WV-YzP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
@@ -2472,6 +2555,7 @@
                                             <constraint firstAttribute="trailing" secondItem="xno-bN-dih" secondAttribute="trailing" constant="20" id="vrB-Pk-Zu1">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="80"/>
                                             </constraint>
+                                            <constraint firstItem="5Qh-SU-8FK" firstAttribute="top" secondItem="ee8-43-mty" secondAttribute="bottom" constant="20" id="xY6-3B-b4Z"/>
                                             <constraint firstItem="0bU-sf-Rkk" firstAttribute="trailing" secondItem="xno-bN-dih" secondAttribute="trailing" id="zvb-g6-gpu"/>
                                         </constraints>
                                     </view>
@@ -2571,6 +2655,7 @@
                             <outlet property="scrollView" destination="wJc-Gu-JIa" id="FDg-CD-GbG"/>
                             <outlet property="uploadImageViewHeightConstant" destination="1lF-pJ-req" id="yGX-mg-zf4"/>
                             <outlet property="userImage" destination="CXr-1K-ygo" id="c1z-GS-5Wm"/>
+                            <outlet property="versionNumber" destination="iSp-xN-358" id="wqP-tL-Kss"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
@@ -2581,7 +2666,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Glf-Wm-uNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-692" y="-1242"/>
+            <point key="canvasLocation" x="-692" y="-1242.2788605697153"/>
         </scene>
     </scenes>
     <resources>

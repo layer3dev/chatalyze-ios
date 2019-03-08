@@ -22,11 +22,23 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        printTheFamilyNames()
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
     }
+    
+    func printTheFamilyNames(){
         
+        for family in UIFont.familyNames {
+            print("Family names are \(family)")
+            
+            for name in UIFont.fontNames(forFamilyName: family) {
+                print("font name are\(name)")
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -34,7 +46,6 @@ class HostDashboardController: MyScheduledSessionsController {
         rootView?.paintNewUI()
         askForStarterPlan()
     }
-    
     
     func askForStarterPlan(){
         

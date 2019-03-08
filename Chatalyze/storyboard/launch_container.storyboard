@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uQl-dn-cuY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uQl-dn-cuY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="59e-hK-9Ly">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chatalyze_logo" translatesAutoresizingMaskIntoConstraints="NO" id="yx3-cG-U2X">
                                 <rect key="frame" x="150" y="296" width="75" height="75"/>
                                 <constraints>
@@ -30,9 +33,13 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98039215686274506" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="59e-hK-9Ly" firstAttribute="leading" secondItem="Xrd-rv-VcZ" secondAttribute="leading" id="Osf-Og-7kJ"/>
+                            <constraint firstItem="59e-hK-9Ly" firstAttribute="top" secondItem="Kom-0B-6bJ" secondAttribute="top" id="UOW-NH-iNo"/>
+                            <constraint firstItem="Xrd-rv-VcZ" firstAttribute="trailing" secondItem="59e-hK-9Ly" secondAttribute="trailing" id="WU7-MH-Bpn"/>
                             <constraint firstItem="yx3-cG-U2X" firstAttribute="centerY" secondItem="Kom-0B-6bJ" secondAttribute="centerY" id="eO0-iF-eGs"/>
+                            <constraint firstItem="Xrd-rv-VcZ" firstAttribute="bottom" secondItem="59e-hK-9Ly" secondAttribute="bottom" id="ilG-6U-OFu"/>
                             <constraint firstItem="yx3-cG-U2X" firstAttribute="centerX" secondItem="Kom-0B-6bJ" secondAttribute="centerX" id="uZ1-hl-Hge"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xrd-rv-VcZ"/>
@@ -45,5 +52,6 @@
     </scenes>
     <resources>
         <image name="chatalyze_logo" width="75" height="75"/>
+        <image name="gradientImage" width="1242" height="2208"/>
     </resources>
 </document>

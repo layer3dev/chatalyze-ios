@@ -27,23 +27,27 @@ class RemoteVideoView: VideoView {
     */
     
     func updateContainerSize(containerSize : CGSize){
+       
         Log.echo(key: "remote", text: "updateContainerSize ->> \(containerSize)")
         self.containerSize = containerSize
         refreshRendererSize()
     }
     
     override func updateSize(size: CGSize){
+        
         Log.echo(key: "remote", text: "updateSize ->> \(size)")
         self.streamSize = size
         refreshRendererSize()
     }
     
     func refreshRendererSize(){
+        
         guard let containerSize = self.containerSize
             else{
                 Log.echo(key: "remote", text: "containerSize ->> nil")
                 return
         }
+        
         guard let streamSize = self.streamSize
             else{
                 Log.echo(key: "remote", text: "streamSize ->> nil")
@@ -54,7 +58,9 @@ class RemoteVideoView: VideoView {
         Log.echo(key: "remote", text: "containerSize ->> \(containerSize)")
         Log.echo(key: "remote", text: "streamSize ->> \(streamSize)")
         
-        let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        // let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        
+        let aspectSize = AVMakeRect(aspectRatio: containerSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
         
         updateViewSize(size : aspectSize.size)
     }

@@ -39,9 +39,9 @@ class EditProfileRootview: ExtendedView {
     
     @IBOutlet var uploadImageViewHeightConstant:NSLayoutConstraint?
     @IBOutlet var changeImageViewHeightConstant:NSLayoutConstraint?
-    
     @IBOutlet var accountPhotoView:UIView?
- 
+    @IBOutlet var versionNumber:UILabel?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -133,6 +133,7 @@ class EditProfileRootview: ExtendedView {
             return
         }
         
+        versionNumber?.text = AppInfoConfig.appversion
         nameField?.textField?.text = info.firstName
         emailField?.textField?.text = info.email
         mobileNumberField?.textField?.text = info.phone
