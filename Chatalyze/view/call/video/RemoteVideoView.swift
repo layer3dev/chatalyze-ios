@@ -57,17 +57,35 @@ class RemoteVideoView: VideoView {
         Log.echo(key: "remote", text: "update aspect ->> nil")
         Log.echo(key: "remote", text: "containerSize ->> \(containerSize)")
         Log.echo(key: "remote", text: "streamSize ->> \(streamSize)")
+        Log.echo(key: "remote", text: "Stream way is \(isPortrait(size: streamSize))")
         
+        if let isStreamPortrait = isPortrait(size: streamSize) {
+            if let isContainerPortrait = isPortrait(size: containerSize){
+                if isStreamPortrait && isContainerPortrait{
+                    
+                    //Developer Y
+                    //If stream and device both are portrait then video must be aspect fill.
+                    let newContainerSizeAfterFill = aspectFill(aspectRatio: streamSize, minimumSize: containerSize)
+                    updateViewSize(size : newContainerSizeAfterFill)
+                    return
+                }
+                
+                //If stream and device both are landscape then video must be aspect fill.
+                if !isStreamPortrait && !isContainerPortrait{
+                    
+                    //Developer Y
+                    let newContainerSizeAfterFill = aspectFill(aspectRatio: streamSize, minimumSize: containerSize)
+                    updateViewSize(size : newContainerSizeAfterFill)
+                    return
+                }
+            }
+        }
         
-        // Initially implemented:-
-        // let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
-        // let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
-        //updateViewSize(size : aspectSize.size)
+        //Initially implemented:-
+        let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
+        updateViewSize(size : aspectSize.size)
+        return
         
-        
-        //Updated code Yudh :-
-        let newContainerSizeAfterFill = aspectFill(aspectRatio: streamSize, minimumSize: containerSize)
-        updateViewSize(size : newContainerSizeAfterFill)
     }
     
     private func updateViewSize(size: CGSize){
@@ -83,9 +101,24 @@ class RemoteVideoView: VideoView {
         }
     }
     
+    //Developer Y
     
-    //Created by yudh
+    func isPortrait(size:CGSize)->Bool?{
+        
+        let minimumSize = size
+        let mW = minimumSize.width
+        let mH = minimumSize.height
+        
+        if( mH > mW ) {
+            return true
+        }
+        else if( mW > mH ) {
+            return false
+        }
+        return nil
+    }
     
+    //Developer Y
     
     func aspectFill(aspectRatio :CGSize, minimumSize: CGSize) -> CGSize {
         

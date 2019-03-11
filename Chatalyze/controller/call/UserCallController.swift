@@ -1161,7 +1161,7 @@ extension UserCallController{
         
         futureSessionHeaderLbl?.text = "Chat starts in:"
         
-        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
 

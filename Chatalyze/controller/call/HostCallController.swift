@@ -493,7 +493,7 @@ class HostCallController: VideoCallController {
         
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
-        let timeRemaining = countdownTime.toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
@@ -508,7 +508,7 @@ class HostCallController: VideoCallController {
         }
         
         let currentSlotText = "Chat \(currentSlot+1): "
-        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
         var username = ""
@@ -532,16 +532,16 @@ class HostCallController: VideoCallController {
         
         //End
         
-        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
         sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
         
         //Editing for the total Chats
         let totatlNumberOfSlotsText = "Total chats: "
-        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         totalAttrText.append(totalSlots)
         
@@ -1004,14 +1004,14 @@ extension HostCallController{
         
         //Editing For the remaining time
         
-        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
         
         let currentSlotText = "Chat \(currentSlot+1): "
-        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
         
@@ -1040,7 +1040,7 @@ extension HostCallController{
             username = slotUserName
         }
         
-        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
         sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
@@ -1048,9 +1048,9 @@ extension HostCallController{
         //Editing for the total Chats
         
         let totatlNumberOfSlotsText = "Total chats: "
-        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         totalAttrText.append(totalSlots)
         

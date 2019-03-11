@@ -1006,7 +1006,7 @@ extension VideoCallController{
             self.showAlertContainer()
             self.showPreConnectLabel()
             let requiredMessage = "Session has not started."
-            let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
+            let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.white)
             preConnectLbl?.attributedText = secondAttributedString
             return
         }
@@ -1016,9 +1016,9 @@ extension VideoCallController{
             self.showAlertContainer()
             self.showPreConnectLabel()
             let firstStr = (roomType == .user) ? "Host" : "Participant"
-            let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
+            let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             let secondStr = " hasn't joined the session."
-            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+            let secondAttributedString = secondStr.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             firstMutableAttributedStr.append(secondAttributedString)
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
             preConnectLbl?.attributedText = firstMutableAttributedStr

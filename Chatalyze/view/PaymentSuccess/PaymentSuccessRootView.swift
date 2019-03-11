@@ -67,9 +67,9 @@ class PaymentSuccessRootView: ExtendedView {
         //create attributed string        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
-            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 24)]
+            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: 24)]
             
-            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 24)]
+            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: 24)]
             
             let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
             
@@ -99,9 +99,9 @@ class PaymentSuccessRootView: ExtendedView {
             
         }else{
             
-            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Poppins", size: 18)]
+            let greenAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: 18)]
             
-            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 18)]
+            let grayAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#B7B7B7"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: 18)]
             
             let firstStr = NSMutableAttributedString(string: "Thank you for your purchase! You have ", attributes: grayAttribute)
             

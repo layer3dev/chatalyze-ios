@@ -41,13 +41,13 @@ class EditScheduleSessionNewRootView:ExtendedView  {
     
     @IBOutlet var nextSlotTime:UILabel?
     
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial", size: 15)]
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: 15)]
     
-    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Poppins", size: 22)]
+    var titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: 22)]
     
-    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: 16)]
     
-    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Questrial", size: 16)]
+    var editChatattributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: AppThemeConfig.themeColor),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: 16)]
     
     @IBOutlet var hostnameLbl:UILabel?
     @IBOutlet var eventNameLbl:UILabel?
@@ -84,18 +84,18 @@ class EditScheduleSessionNewRootView:ExtendedView  {
     func paintBackAndEditDescription(){
         
         let textStr = "Description "
-        let textStrMutable = textStr.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        let textStrMutable = textStr.toMutableAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
         
         let textEditStr = "Edit"
-        let textEditStrMutable = textEditStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        let textEditStrMutable = textEditStr.toAttributedString(font: "Nunito-Regular", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
         
         textStrMutable.append(textEditStrMutable)
         
         let textStrNew = "Description "
-        let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+        let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
         
         let textBackStr = "Back"
-        let textBackStrAttr = textBackStr.toAttributedString(font: "Questrial", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
+        let textBackStrAttr = textBackStr.toAttributedString(font: "Nunito-Regular", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
         
         textStrNewMutable.append(textBackStrAttr)
         
@@ -214,7 +214,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
                 if price == 0 {
                     newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
                 }
-                let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+                let newAttrStr = newFirstStr.toAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
                 self.costofEventLbl?.attributedText = newAttrStr
             }
         }
@@ -513,7 +513,7 @@ class EditScheduleSessionNewRootView:ExtendedView  {
         }
         
         let text = "Change picture"
-        editImageLbl?.attributedText = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#Faa579"), isUnderLine: true)
+        editImageLbl?.attributedText = text.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#Faa579"), isUnderLine: true)
     }
     
     func implementGestureOnEditSessionName(){

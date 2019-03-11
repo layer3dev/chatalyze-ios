@@ -33,20 +33,20 @@ class FAQController: InterfaceExtendedController {
         }
         
         let firstText = "Hosts\n"
-        let firstMutableAttributedStr = firstText.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor.black)
+        let firstMutableAttributedStr = firstText.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.black)
         
         let secondStr =  "Browse FAQs"
-        let secondAttributesStr = secondStr.toAttributedString(font: "Questrial", size: browserTextFontSize, color: UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
+        let secondAttributesStr = secondStr.toAttributedString(font: "Nunito-Regular", size: browserTextFontSize, color: UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         firstMutableAttributedStr.append(secondAttributesStr)
         
         influencerLbl?.attributedText = firstMutableAttributedStr
         
         let firstFanText = "Participants \n"
-        let firstFanMutableAttributedStr = firstFanText.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor.black)
+        let firstFanMutableAttributedStr = firstFanText.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.black)
         
         let secondFanStr =  "Browse FAQs"
-        let secondFanAttributesStr = secondFanStr.toAttributedString(font: "Questrial", size: browserTextFontSize, color:UIColor(hexString:AppThemeConfig.themeColor),isUnderLine:true)
+        let secondFanAttributesStr = secondFanStr.toAttributedString(font: "Nunito-Regular", size: browserTextFontSize, color:UIColor(hexString:AppThemeConfig.themeColor),isUnderLine:true)
         
         firstFanMutableAttributedStr.append(secondFanAttributesStr)
         

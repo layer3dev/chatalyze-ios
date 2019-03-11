@@ -13,7 +13,8 @@ class UserVideoRootView: UserVideoLayoutView {
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
-
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -21,7 +22,6 @@ class UserVideoRootView: UserVideoLayoutView {
         // Drawing code
     }
     */
-    
     
     
     func getSnapshot()->UIImage?{

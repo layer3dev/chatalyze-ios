@@ -207,10 +207,10 @@ extension SingleChatDurationRootView {
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
             
-            let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Poppins", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+            let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " available 1:1 chats"
-            let nextAttrStr  = nextStr.toAttributedString(font: "Questrial", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
+            let nextAttrStr  = nextStr.toAttributedString(font: "Nunito-Regular", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr

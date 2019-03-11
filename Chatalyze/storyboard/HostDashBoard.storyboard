@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
         <array key="Nunito-Regular.ttf">
             <string>Nunito-Regular</string>
         </array>
@@ -18,9 +21,6 @@
         </array>
         <array key="Poppins-SemiBold.otf">
             <string>Poppins-SemiBold</string>
-        </array>
-        <array key="Questrial-Regular.otf">
-            <string>Questrial-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -64,7 +64,7 @@
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTt-cG-31s">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="25"/>
-                                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
@@ -176,7 +176,7 @@
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-J1-GGz">
                                                                         <rect key="frame" x="0.0" y="0.0" width="108.5" height="35"/>
-                                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
                                                                             <action selector="copyTextWithSend:" destination="9fr-z3-4Se" eventType="touchUpInside" id="701-DX-1Gb"/>
                                                                         </connections>
@@ -232,7 +232,7 @@
                                                                     </view>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guM-Xz-3w8">
                                                                         <rect key="frame" x="0.0" y="0.0" width="108" height="35"/>
-                                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
                                                                             <action selector="copyTextWithSend:" destination="9fr-z3-4Se" eventType="touchUpInside" id="ovJ-3t-FPU"/>
                                                                         </connections>
@@ -283,7 +283,7 @@
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QgV-gp-lX0">
                                                                         <rect key="frame" x="0.0" y="0.0" width="108.5" height="35"/>
-                                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
                                                                             <action selector="copyTextOnClipboardWithSender:" destination="9fr-z3-4Se" eventType="touchUpInside" id="9ge-hL-ryp"/>
                                                                         </connections>
@@ -376,17 +376,17 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UfP-51-Syd">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="131"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="570" height="131"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-0b-a9v">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="2"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="2"/>
                                                                                     <color key="backgroundColor" red="0.96862745098039216" green="0.57647058823529407" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="2" id="C1r-f6-rW3"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Date " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoI-HK-Z6f">
-                                                                                    <rect key="frame" x="20" y="30" width="175" height="20.5"/>
+                                                                                    <rect key="frame" x="20" y="30" width="400" height="20.5"/>
                                                                                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="15"/>
                                                                                     <color key="textColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -395,10 +395,10 @@
                                                                                     </variation>
                                                                                 </label>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zs-yF-H5l">
-                                                                                    <rect key="frame" x="0.0" y="60.5" width="195" height="20.5"/>
+                                                                                    <rect key="frame" x="0.0" y="60.5" width="420" height="20.5"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Time " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BJ-Og-U85">
-                                                                                            <rect key="frame" x="20" y="0.0" width="175" height="20.5"/>
+                                                                                            <rect key="frame" x="20" y="0.0" width="400" height="20.5"/>
                                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="15"/>
                                                                                             <color key="textColor" red="0.67843137254901964" green="0.67843137254901964" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -416,7 +416,7 @@
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsb-Pg-Lgp" customClass="ButtonCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                                                    <rect key="frame" x="205" y="43" width="120" height="45"/>
+                                                                                    <rect key="frame" x="430" y="43" width="120" height="45"/>
                                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="120" id="CdO-fn-xUv">
@@ -438,10 +438,10 @@
                                                                                     </connections>
                                                                                 </button>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPg-h7-96d">
-                                                                                    <rect key="frame" x="20" y="81" width="175" height="29"/>
+                                                                                    <rect key="frame" x="20" y="81" width="400" height="29"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Add to calendar" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ni6-Cl-lnt">
-                                                                                            <rect key="frame" x="0.0" y="10" width="175" height="19"/>
+                                                                                            <rect key="frame" x="0.0" y="10" width="400" height="19"/>
                                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="13"/>
                                                                                             <color key="textColor" red="0.61568627450980395" green="0.84705882352941175" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -450,7 +450,7 @@
                                                                                             </variation>
                                                                                         </label>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PD5-xX-WQS">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="175" height="29"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="400" height="29"/>
                                                                                             <connections>
                                                                                                 <action selector="addToCalendarActionWithSender:" destination="HFY-9m-BYa" eventType="touchUpInside" id="PUW-vL-tH5"/>
                                                                                             </connections>
@@ -469,7 +469,7 @@
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJF-0p-3XY">
-                                                                                    <rect key="frame" x="0.0" y="130" width="345" height="1"/>
+                                                                                    <rect key="frame" x="0.0" y="130" width="570" height="1"/>
                                                                                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="1" id="fSC-ty-daC"/>
@@ -499,19 +499,19 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgr-SC-FHM">
-                                                                            <rect key="frame" x="0.0" y="131" width="345" height="45"/>
+                                                                            <rect key="frame" x="0.0" y="131" width="570" height="45"/>
                                                                             <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="45" id="pQz-Lx-lm7">
                                                                                     <variation key="heightClass=regular-widthClass=regular" constant="65"/>
                                                                                 </constraint>
                                                                             </constraints>
-                                                                            <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="15"/>
+                                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                             <state key="normal" title="ENTER SESSION">
                                                                                 <color key="titleColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <variation key="heightClass=regular-widthClass=regular">
-                                                                                <fontDescription key="fontDescription" name="Questrial-Regular" family="Questrial" pointSize="20"/>
+                                                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                                             </variation>
                                                                             <connections>
                                                                                 <action selector="enterSessionActionWithSender:" destination="HFY-9m-BYa" eventType="touchUpInside" id="qgh-Nv-AlO"/>
@@ -708,7 +708,7 @@
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucE-Pb-8df">
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="35"/>
-                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                 <connections>
                                                     <action selector="menuActionWithSender:" destination="9fr-z3-4Se" eventType="touchUpInside" id="bwH-5h-hdi"/>
                                                 </connections>
@@ -768,7 +768,7 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxZ-0g-ZN6">
                                                 <rect key="frame" x="0.0" y="0.0" width="77" height="35"/>
-                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                 <connections>
                                                     <action selector="settingActionWithSender:" destination="9fr-z3-4Se" eventType="touchUpInside" id="RNl-bc-LZw"/>
                                                 </connections>
@@ -853,11 +853,11 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jig-DI-eCp">
                                         <rect key="frame" x="15" y="60" width="350" height="25.5"/>
-                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="26"/>
+                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="26"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social media influncer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkS-uI-5Tb">

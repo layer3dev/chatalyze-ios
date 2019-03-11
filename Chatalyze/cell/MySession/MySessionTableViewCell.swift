@@ -63,7 +63,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             }
             
             let text = "EDIT PAGE"
-            let attrStr = text.toAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#97cefa"), isUnderLine: true)
+            let attrStr = text.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#97cefa"), isUnderLine: true)
             self.editSessionLbl?.attributedText = attrStr
         }
         

@@ -129,7 +129,7 @@ class HostDashboardController: MyScheduledSessionsController {
       
         //sharingTextFld?.delegate = self
         roundSessionButton()
-        testingLabel?.font = UIFont(name: "Poppins", size: 15)
+        testingLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
         initializeName()
     }

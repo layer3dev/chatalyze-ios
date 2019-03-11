@@ -10,8 +10,6 @@ import UIKit
 
 class VideoRootView: ExtendedView {
     
-
-    
     @IBOutlet var actionContainer : VideoActionContainer?
     @IBOutlet var localVideoView : LocalVideoView?
     
@@ -65,6 +63,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintInterface(){
+        
 //        paintOverlay()
 //        self.actionContainer?.isHidden = true
     }
