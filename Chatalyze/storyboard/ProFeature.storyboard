@@ -583,7 +583,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2c-Rv-SV5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="523.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="548"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tippingStar" translatesAutoresizingMaskIntoConstraints="NO" id="CsZ-Io-hRz">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -613,14 +613,14 @@
                                                 </variation>
                                             </label>
                                             <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wio-K2-TJL" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="275.5" width="315" height="143"/>
+                                                <rect key="frame" x="30" y="275.5" width="315" height="167.5"/>
                                                 <subviews>
                                                     <view opaque="NO" alpha="0.34999999403953552" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKL-YI-n0v" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="143"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="167.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Chatalyze service fee" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSA-mj-gqI">
-                                                        <rect key="frame" x="57.5" y="20" width="200.5" height="25"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Chatalyze service fee on paid chats and donations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSA-mj-gqI">
+                                                        <rect key="frame" x="20" y="20" width="275" height="49.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -628,8 +628,8 @@
                                                             <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(that's right, 0%) " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6E-6W-tOo">
-                                                        <rect key="frame" x="86.5" y="43" width="142.5" height="25"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(20% fee on Starter Plan)." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6E-6W-tOo">
+                                                        <rect key="frame" x="51.5" y="67.5" width="212.5" height="25"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -638,7 +638,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlimited free chat time " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZ4-VQ-PIF">
-                                                        <rect key="frame" x="57.5" y="98" width="200" height="25"/>
+                                                        <rect key="frame" x="57.5" y="122.5" width="200" height="25"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -663,13 +663,15 @@
                                                     <constraint firstAttribute="bottom" secondItem="wZ4-VQ-PIF" secondAttribute="bottom" constant="20" id="pNh-5O-atJ">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                                     </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="ZSA-mj-gqI" secondAttribute="trailing" constant="20" id="qTn-7y-yKg"/>
+                                                    <constraint firstItem="ZSA-mj-gqI" firstAttribute="leading" secondItem="wio-K2-TJL" secondAttribute="leading" constant="20" id="sCS-sX-WnM"/>
                                                     <constraint firstItem="wZ4-VQ-PIF" firstAttribute="centerX" secondItem="wio-K2-TJL" secondAttribute="centerX" id="sVI-78-HHb"/>
                                                     <constraint firstItem="h6E-6W-tOo" firstAttribute="top" secondItem="ZSA-mj-gqI" secondAttribute="bottom" constant="-2" id="shV-AR-MIK"/>
                                                     <constraint firstAttribute="trailing" secondItem="TKL-YI-n0v" secondAttribute="trailing" id="srR-Rt-ldg"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*You can't upgrade to Pro in app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kQ-Vb-aQg">
-                                                <rect key="frame" x="20" y="478.5" width="335" height="25"/>
+                                                <rect key="frame" x="20" y="503" width="335" height="25"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>

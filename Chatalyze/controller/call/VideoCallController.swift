@@ -107,6 +107,11 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
+//        UIApplication.shared.isStatusBarHidden = true
+//        setNeedsStatusBarAppearanceUpdate()
+                
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             self.fontSizeBig = 24
@@ -685,10 +690,10 @@ class VideoCallController : InterfaceExtendedController {
     func eventCancelled(){
         //To be overridden by the UserCallController and videoCallController
     }
+    
 }
 
-
-//actionButtons
+//Action Buttons
 extension VideoCallController{
 }
 
@@ -1119,5 +1124,21 @@ extension VideoCallController {
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : .contactUs)
         }
+    }
+}
+
+
+extension VideoCallController:VideoViewStatusBarAnimationInterface{
+    
+    func visibleAnimateStatusBar() {
+        
+        
+        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
+        
+    }
+    
+    func hidingAnimateStatusBar() {
+        
+        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.fade)
     }
 }

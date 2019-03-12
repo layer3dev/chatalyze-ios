@@ -22,7 +22,7 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        printTheFamilyNames()
+        //printTheFamilyNames()
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()

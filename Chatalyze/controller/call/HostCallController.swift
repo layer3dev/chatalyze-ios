@@ -211,7 +211,6 @@ class HostCallController: VideoCallController {
         socketClient?.emit(param)
     }
     
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -225,6 +224,7 @@ class HostCallController: VideoCallController {
     
     private func initializeVariable(){
         
+        self.hostRootView?.delegateCutsom = self
         self.registerForTimerNotification()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
@@ -976,7 +976,7 @@ extension HostCallController:GetisHangedUpDelegate{
 }
 
 
-extension HostCallController{
+extension HostCallController {
     
     private func updateNewHeaderInfoForFutureSession(slot : SlotInfo){
         
@@ -1076,3 +1076,6 @@ extension HostCallController{
         }
     }
 }
+
+
+

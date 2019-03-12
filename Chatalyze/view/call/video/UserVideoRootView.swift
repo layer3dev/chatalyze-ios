@@ -126,4 +126,22 @@ class UserVideoRootView: UserVideoLayoutView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    override func animateHeader() {
+        
+        if self.headerView?.alpha == 0 {
+            self.delegateCutsom?.visibleAnimateStatusBar()
+            UIView.animate(withDuration: 0.45) {
+                self.headerView?.alpha = 1
+            }
+            self.layoutIfNeeded()
+            return
+        }
+        
+        self.delegateCutsom?.hidingAnimateStatusBar()
+        UIView.animate(withDuration: 0.45) {
+            self.headerView?.alpha = 0
+        }
+        self.layoutIfNeeded()
+    }
 }

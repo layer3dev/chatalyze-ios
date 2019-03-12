@@ -85,7 +85,6 @@ class RemoteVideoView: VideoView {
         let aspectSize = AVMakeRect(aspectRatio: streamSize, insideRect: CGRect(origin: CGPoint.zero, size: containerSize))
         updateViewSize(size : aspectSize.size)
         return
-        
     }
     
     private func updateViewSize(size: CGSize){
@@ -101,8 +100,7 @@ class RemoteVideoView: VideoView {
         }
     }
     
-    //Developer Y
-    
+    //Developer Y    
     func isPortrait(size:CGSize)->Bool?{
         
         let minimumSize = size

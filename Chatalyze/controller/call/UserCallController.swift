@@ -226,6 +226,7 @@ class UserCallController: VideoCallController {
         initializeGetCommondForTakeScreenShot()
         registerForListeners()
         self.selfieTimerView?.delegate = self
+        self.userRootView?.delegateCutsom = self
     }
     
     private func registerForScheduleUpdateListener(){
