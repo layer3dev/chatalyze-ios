@@ -84,7 +84,6 @@ class TippingConfirmationController: InterfaceExtendedController {
             guard let transactionId = transactionId
                 else{
                    
-                    Log.echo(key: "yud", text: "stopping in first phase")
                     self?.stopLoader()
                     self?.isProcessingLastTransaction = false
                     return
@@ -92,7 +91,6 @@ class TippingConfirmationController: InterfaceExtendedController {
             
             self?.initiatePurchaseProcess(transactionId: transactionId, value: value, completion: {
                 
-                Log.echo(key: "yud", text: "stopping in second phase")
                 self?.stopLoader()
             })
         }
@@ -109,6 +107,7 @@ class TippingConfirmationController: InterfaceExtendedController {
             Log.echo(key: "in_app_purchase", text: "success -> \(success)")
             
             if(!success){
+                
                 completion()
                 return
             }
@@ -123,8 +122,9 @@ class TippingConfirmationController: InterfaceExtendedController {
             //todo:need better management.
             
             SKPaymentQueue.default().finishTransaction(transaction)
-            completion()
+            Log.echo(key: "yud", text: "Completion three")
             
+            completion()
             self?.showSuccessScreen(value : value)
             return
         }

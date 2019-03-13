@@ -1131,8 +1131,7 @@ extension VideoCallController {
 extension VideoCallController:VideoViewStatusBarAnimationInterface{
     
     func visibleAnimateStatusBar() {
-        
-        
+                
         UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
         
     }

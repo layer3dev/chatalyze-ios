@@ -297,10 +297,11 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()    
+       
         //temp
-
-        //TODO:- Need to Comment
-        //showExitScreen()
+        
+        // TODO:- Need to Comment
+        // showExitScreen()
     }
     
     

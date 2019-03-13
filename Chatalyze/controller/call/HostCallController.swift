@@ -98,12 +98,15 @@ class HostCallController: VideoCallController {
         guard let controller = HostFeedbackController.instance() else{
             return
         }
+        
         controller.sessionId = self.eventId
+        
         guard let presentingController =  self.lastPresentingController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
+        
         presentingController.present(controller, animated: true, completion: nil)
     }
     

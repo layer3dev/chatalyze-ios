@@ -24,21 +24,14 @@ class HostVideoRootView: VideoRootView {
     
     override func animateHeader() {
         
-        if self.headerView?.alpha == 0 {
-            UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
+        if isStatusBarhiddenDuringAnimation == false {
+            
             self.delegateCutsom?.visibleAnimateStatusBar()
-            UIView.animate(withDuration: 0.45) {
-                self.headerView?.alpha = 1
-            }
-            self.layoutIfNeeded()
+            isStatusBarhiddenDuringAnimation = true
             return
         }
         
+        isStatusBarhiddenDuringAnimation = false
         self.delegateCutsom?.hidingAnimateStatusBar()
-        UIView.animate(withDuration: 0.45) {
-            self.headerView?.alpha = 0
-        }
-        self.layoutIfNeeded()
-    }
-    
+    }    
 }

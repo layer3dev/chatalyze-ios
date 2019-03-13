@@ -114,7 +114,7 @@ extension ScheduleSessionTitleRootView{
     
     fileprivate func titleValidation()->Bool{
         
-        if(titleField?.textField?.text == ""){
+        if(titleField?.textField?.text?.replacingOccurrences(of: " ", with: "") ?? "" == ""){
             
             titleField?.showError(text: "Title is required.")
             return false

@@ -177,11 +177,10 @@ extension UserSocket{
         socket?.disconnect()
         socketManager?.disconnect()
         
-        
         socket = nil
         socketManager = nil
         UserSocket._sharedInstance = nil
-        
+
         unregisterForAppState()
     }
     
