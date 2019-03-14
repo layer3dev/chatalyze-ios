@@ -108,14 +108,15 @@ class VideoRootView: ExtendedView {
     
     
     @objc func toggleContainer(gesture: UITapGestureRecognizer){
+      
         actionContainer?.toggleContainer()
         animateHeader()
     }
     
     
     func animateHeader(){
-        //TO be overridden in order to hide and show the topmost Header
         
+        //TO be overridden in order to hide and show the topmost Header
     }
     
 }

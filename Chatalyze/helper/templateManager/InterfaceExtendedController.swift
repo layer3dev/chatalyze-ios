@@ -235,6 +235,7 @@ extension UIViewController : NVActivityIndicatorViewable{
     
     func stopLoader(){
         
+        Log.echo(key: "interface_extended", text: "loader is stopping")
         self.stopAnimating()
     }
     

@@ -301,7 +301,7 @@ class UserCallController: VideoCallController {
         //temp
         
         // TODO:- Need to Comment
-        // showExitScreen()
+        //showExitScreen()
     }
     
     
@@ -383,8 +383,8 @@ class UserCallController: VideoCallController {
     }
     
     //ONLY LIVE - MERGED
-
     private func disposeCurrentConnection(){
+        
         guard let currentConnection = self.connection
             else{
                 return
