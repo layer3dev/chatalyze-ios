@@ -33,5 +33,7 @@ class HostVideoRootView: VideoRootView {
         
         isStatusBarhiddenDuringAnimation = false
         self.delegateCutsom?.hidingAnimateStatusBar()
-    }    
+    }
+    
+    
 }

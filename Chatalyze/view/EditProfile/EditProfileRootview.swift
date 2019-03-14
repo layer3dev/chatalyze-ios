@@ -42,6 +42,12 @@ class EditProfileRootview: ExtendedView {
     @IBOutlet var accountPhotoView:UIView?
     @IBOutlet var versionNumber:UILabel?
     
+    @IBOutlet var shortBioTextView:UITextView?
+    @IBOutlet var shortBioErrorLbl:UILabel?
+    
+    @IBOutlet var shortBioView:SigninFieldView?
+    @IBOutlet var shortbioCountLbl:UILabel?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -70,7 +76,7 @@ class EditProfileRootview: ExtendedView {
     
     
     func paintInterface(){
-        
+                
         paintButton()
         nameField?.isCompleteBorderAllow = true
         emailField?.isCompleteBorderAllow = true
@@ -79,6 +85,7 @@ class EditProfileRootview: ExtendedView {
         confirmPasswordField?.isCompleteBorderAllow = true
         mobileNumberField?.isCompleteBorderAllow = true
         countryCodeField?.isCompleteBorderAllow = true
+        shortBioView?.isCompleteBorderAllow = true
     }
     
     func paintButton(){
@@ -113,6 +120,8 @@ class EditProfileRootview: ExtendedView {
         oldPasswordField?.textField?.delegate = self
         newPasswordField?.textField?.delegate = self
         confirmPasswordField?.textField?.delegate = self
+        shortBioTextView?.delegate = self
+        shortBioTextView?.textColor = UIColor(red: 195.0/255.0, green: 195.0/255.0, blue: 200.0/255.0, alpha: 1)
     }
     
     func implementTapGestuePicker(){
@@ -127,12 +136,23 @@ class EditProfileRootview: ExtendedView {
         initializeCountryPicker()
     }
     
+    func fillBio(description:String){
+        
+        if description == ""{
+            return
+        }
+        shortbioCountLbl?.text = "\(description.count) of 140"
+        shortBioTextView?.textColor = UIColor.black
+        shortBioTextView?.text = description
+    }
+    
     func fillInfo() {
         
         guard let info =  SignedUserInfo.sharedInstance else {
             return
         }
         
+        fillBio(description: info.userDescription ?? "")
         versionNumber?.text = AppInfoConfig.appversion
         nameField?.textField?.text = info.firstName
         emailField?.textField?.text = info.email
@@ -358,6 +378,7 @@ extension EditProfileRootview{
             
             param["mobile"] = mobileNumberField?.textField?.text
             param["countryCode"] = countryCode
+            
         }else{
             
             param["mobile"] = NSNull()
@@ -366,6 +387,7 @@ extension EditProfileRootview{
         param["firstName"] = nameField?.textField?.text
         param["email"] = emailField?.textField?.text
         param["eventMobReminder"] = chatUpdates
+        param["description"] = shortBioTextView?.text
         
         Log.echo(key: "yud", text: "params are \(param)")
         
@@ -464,7 +486,8 @@ extension EditProfileRootview{
         let nameValidate = validateName()
         let emailValidated  = validateEmail()
         let mobileValidate = validateMobileNumber()
-        return nameValidate && emailValidated && mobileValidate
+        let bioValidate = validateBio()
+        return nameValidate && emailValidated && mobileValidate && bioValidate
     }
     
     func validateChangePassword()->Bool{
@@ -490,6 +513,7 @@ extension EditProfileRootview{
             let recieveEventValidate = validateRecieveEvent()
             
             return nameValidate && emailValidated && oldPasswordValidate && newPassword && confirmPasswordValidate && codeValidate && mobileValidate && recieveEventValidate
+            
         }else{
             
             let nameValidate = validateName()
@@ -497,7 +521,7 @@ extension EditProfileRootview{
             let codeValidate = validateCountryCode()
             let mobileValidate = validateMobileNumber()
             let recieveEventValidate = validateRecieveEvent()
-            
+
             return nameValidate && emailValidated && codeValidate && mobileValidate && recieveEventValidate
         }
     }
@@ -512,6 +536,7 @@ extension EditProfileRootview{
         confirmPasswordField?.resetErrorStatus()
         mobileNumberField?.resetErrorStatus()
         countryCodeField?.resetErrorStatus()
+        shortBioErrorLbl?.text = ""
     }
     
     func resetMainInfoError(){
@@ -529,7 +554,6 @@ extension EditProfileRootview{
         oldPasswordField?.resetErrorStatus()
         newPasswordField?.resetErrorStatus()
     }
-    
     
     func showError(text : String?){
         
@@ -655,11 +679,22 @@ extension EditProfileRootview{
     fileprivate func validateRecieveEvent()->Bool{
         
         if (mobileNumberField?.textField?.text?.count ?? 0) == 0 && chatUpdates{
-        
+            
             mobileNumberField?.showError(text: "Please fill mobile number")
             return false
         }
         mobileNumberField?.resetErrorStatus()
+        return true
+    }
+    
+    fileprivate func validateBio()->Bool{
+        
+        if(shortBioTextView?.text == "Short bio") || shortBioTextView?.text.replacingOccurrences(of: " ", with: "") == "" || ((shortBioTextView?.text.replacingOccurrences(of: "\n", with: "")) == ""){
+
+            shortBioErrorLbl?.text = "Short bio is required."
+            return false
+        }
+        shortBioErrorLbl?.text = ""
         return true
     }
 }
@@ -796,5 +831,46 @@ extension EditProfileRootview{
             }
             self.controller?.stopLoader()
         }
+    }
+}
+
+
+extension EditProfileRootview:UITextViewDelegate{
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if textView.text.count + text.count > 140 {
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+        shortbioCountLbl?.text = "\(textView.text.count) of 140"
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        scrollView?.activeField = textView
+        if shortBioTextView?.text == "Short bio"{
+           
+            shortBioTextView?.text = ""
+            shortBioTextView?.textColor = UIColor.black
+            return
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+       
+        if shortBioTextView?.text == ""{
+           
+            shortBioTextView?.text = "Short bio"
+            shortBioTextView?.textColor = UIColor(red: 195.0/255.0, green: 195.0/255.0, blue: 200.0/255.0, alpha: 1)
+            return
+        }
+        shortBioTextView?.textColor = UIColor.black
+        return
     }
 }

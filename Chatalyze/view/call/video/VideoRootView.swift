@@ -10,6 +10,7 @@ import UIKit
 
 class VideoRootView: ExtendedView {
    
+    @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
     var delegateCutsom:VideoViewStatusBarAnimationInterface?
