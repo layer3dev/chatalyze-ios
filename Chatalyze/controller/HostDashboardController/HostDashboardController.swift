@@ -44,7 +44,8 @@ class HostDashboardController: MyScheduledSessionsController {
 
         hideNavigationBar()
         rootView?.paintNewUI()
-        askForStarterPlan()
+        //TODO:-Need to uncomment for pro feature 
+        //askForStarterPlan()
     }
     
     func askForStarterPlan(){
