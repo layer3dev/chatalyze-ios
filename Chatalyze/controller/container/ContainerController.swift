@@ -59,7 +59,7 @@ class ContainerController: NavChildController {
     
     func showShadowView(){
         
-        fetchProfile()
+        //fetchProfile()
         UIView.animate(withDuration: 0.3) {
             self.shadowView?.alpha = 1
         }
