@@ -28,12 +28,20 @@ class HostVideoRootView: VideoRootView {
             
             self.delegateCutsom?.visibleAnimateStatusBar()
             isStatusBarhiddenDuringAnimation = true
+            UIView.animate(withDuration: 0.25) {
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+                self.layoutIfNeeded()
+            }
             return
         }
         
         isStatusBarhiddenDuringAnimation = false
         self.delegateCutsom?.hidingAnimateStatusBar()
-    }
-    
-    
+        UIView.animate(withDuration: 0.25) {
+            
+            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+            self.layoutIfNeeded()
+        }
+    }    
 }

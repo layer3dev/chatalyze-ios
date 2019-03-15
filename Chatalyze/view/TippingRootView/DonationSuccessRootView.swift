@@ -22,12 +22,9 @@ class DonationSuccessRootView: ExtendedView {
     
     override func viewDidLayout(){
         super.viewDidLayout()
-        
-        
     }
     
     private func initialization(){
-        
     }
     
     func fillInfo(price : Double, scheduleInfo : EventScheduleInfo?){
@@ -38,8 +35,6 @@ class DonationSuccessRootView: ExtendedView {
         }
         let influencer = scheduleInfo.user
         let influencerName = influencer?.fullName ?? ""
-        
-        
         successMessageLabel?.text = "Your donation of $\(price) was placed successfully. You're awesome!"
     }
 

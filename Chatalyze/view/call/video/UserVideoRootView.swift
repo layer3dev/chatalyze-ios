@@ -22,7 +22,6 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     */
     
-    
     func getSnapshot()->UIImage?{
         
         guard let remoteView = remoteVideoView
@@ -132,10 +131,20 @@ class UserVideoRootView: UserVideoLayoutView {
             
             self.delegateCutsom?.visibleAnimateStatusBar()
             isStatusBarhiddenDuringAnimation = true
+            UIView.animate(withDuration: 0.25) {
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+                self.layoutIfNeeded()
+            }
             return
         }
         
         isStatusBarhiddenDuringAnimation = false
         self.delegateCutsom?.hidingAnimateStatusBar()
+        UIView.animate(withDuration: 0.25) {
+            
+            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+            self.layoutIfNeeded()
+        }
     }
 }

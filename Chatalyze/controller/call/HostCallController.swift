@@ -96,7 +96,13 @@ class HostCallController: VideoCallController {
             return
         }
       
+        Log.echo(key: "yud", text: "Final test post session screen \(self.eventInfo?.isPrivate)")
+        
         if self.eventInfo?.isPrivate ?? false{
+            return
+        }
+        
+        if self.eventInfo?.isFree ?? false{
             return
         }
       
@@ -527,6 +533,7 @@ class HostCallController: VideoCallController {
             }else{
                 
                 if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
+                    
                     username  = name
                 }
             }
