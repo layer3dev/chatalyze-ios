@@ -55,6 +55,9 @@ class UserInfo: NSObject {
     var countryCode:String = ""
     var allowFreeSession:Bool? = false
     var shouldAskForPlan:Bool? = false
+    var planIdentifier:String?
+    var planId:String?
+    var isTrialPlanActive:Bool?
     
     override init(){
         super.init()
@@ -96,6 +99,16 @@ class UserInfo: NSObject {
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
         }
+        
+        if let userSubscriptionPlan = info["userSubscriptionPlan"]?.dictionary {
+            self.isTrialPlanActive = info["isTrial"]?.boolValue
+            if let subscriptionPlan = userSubscriptionPlan["subscriptionPlan"]?.dictionary{
+                
+                self.planIdentifier = subscriptionPlan["identifier"]?.stringValue
+                self.planId = subscriptionPlan["id"]?.stringValue
+            }
+        }
+        
         updateSideMenuInfo()
     }
 }

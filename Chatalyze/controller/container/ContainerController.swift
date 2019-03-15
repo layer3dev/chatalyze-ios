@@ -59,6 +59,7 @@ class ContainerController: NavChildController {
     
     func showShadowView(){
         
+        fetchProfile()
         UIView.animate(withDuration: 0.3) {
             self.shadowView?.alpha = 1
         }
@@ -84,10 +85,15 @@ class ContainerController: NavChildController {
         self.toggleTrailing?.constant = -(toggleWidth)
     }
     
+    func fetchProfile(){
+        
+        FetchProfileProcessor().fetch { (success, message, response) in
+            self.menuController?.rootView?.adapter?.reloadDataAfterFetchingData()
+        }
+    }
+    
     func toggleAnimation(){
-        
-        Log.echo(key: "yud", text: "Toogle is calling")
-        
+      
         if isOpen{
             
             isOpen = false
@@ -95,7 +101,6 @@ class ContainerController: NavChildController {
                 
                 self.toggleTrailing?.constant = -(self.toggleWidth)
                 self.hideShadowView()
-
             }
             self.view.layoutIfNeeded()
             return
@@ -105,7 +110,6 @@ class ContainerController: NavChildController {
             
             self.toggleTrailing?.constant = 0
             self.showShadowView()
-
         }
         self.view.layoutIfNeeded()
     }
@@ -170,9 +174,6 @@ class ContainerController: NavChildController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.shadowView?.addGestureRecognizer(swipeRight)
-//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-//        swipeRight.direction = UISwipeGestureRecognizerDirection.left
-//        self.toggleView?.addGestureRecognizer(swipeLeft)
     }
     
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {

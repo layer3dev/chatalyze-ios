@@ -24,9 +24,38 @@ class MenuAdapter: ExtendedView {
     override func viewDidLayout(){
         super.viewDidLayout()
         
+        updateSideBarWithList()
         initialize()
     }
     
+    func updateSideBarWithList(){
+        
+        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == false{
+            analystArray = ["My Sessions","Settings","Contact Us"]
+        }else{
+            analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
+        }
+    }
+    
+    func reloadDataAfterFetchingData(){
+  
+        Log.echo(key: "MenuAdapter", text: "Reloading my self")
+        updateSideBarWithList()
+        guard let roleId = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        if roleId == .analyst{
+            
+            currentArray = analystArray
+        }else{
+            
+            currentArray = userArray
+        }
+        
+        menuTableView?.dataSource = self
+        menuTableView?.delegate = self
+        menuTableView?.reloadData()
+    }
     func initialize(){
         
         guard let roleId = SignedUserInfo.sharedInstance?.role else{
@@ -39,6 +68,7 @@ class MenuAdapter: ExtendedView {
             
             currentArray = userArray
         }
+        
         menuTableView?.dataSource = self
         menuTableView?.delegate = self
         menuTableView?.reloadData()        

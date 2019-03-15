@@ -156,13 +156,17 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         param["end"] = "\(endDate)"
         param["userId"] = id
         param["duration"] = durate
-        param["price"] = priceHourly
+        if info.isFree{
+            //param["price"] = priceHourly
+        }else{
+            param["price"] = priceHourly
+        }
         param["isFree"] = info.isFree
         param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:nil
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
-        Log.echo(key: "yud", text: "PARAMS ARE \(param)")
+        Log.echo(key: "yud", text: "Param are \(param)")
         return param
     }
     

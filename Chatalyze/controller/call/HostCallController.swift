@@ -66,6 +66,7 @@ class HostCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
+        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -91,22 +92,25 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
-        if self.eventInfo?.slotInfos?.count ?? 0 == 0 || self.eventInfo?.isPrivate ?? false{
+        if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
         }
-        
+      
+        if self.eventInfo?.isPrivate ?? false{
+            return
+        }
+      
         guard let controller = HostFeedbackController.instance() else{
             return
         }
-        
+      
         controller.sessionId = self.eventId
-        
+       
         guard let presentingController =  self.lastPresentingController
             else{
-                Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
-        
+      
         presentingController.present(controller, animated: true, completion: nil)
     }
     
