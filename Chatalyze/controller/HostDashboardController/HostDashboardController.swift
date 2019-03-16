@@ -43,37 +43,43 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewWillAppear(animated)
 
         hideNavigationBar()
-        rootView?.paintNewUI()        
-        if SignedUserInfo.sharedInstance?.planId ?? "" != "" && SignedUserInfo.sharedInstance?.planIdentifier ?? "" != ""{
-            askForStarterPlan()
-        }
+        rootView?.paintNewUI()
+        askForStarterPlan()
+        
     }
     
     func askForStarterPlan(){
         
-        Log.echo(key: "hostDashboard", text: "Should Ask for plan is \(SignedUserInfo.sharedInstance?.shouldAskForPlan)")
-        
-        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+        if SignedUserInfo.sharedInstance?.isSubscriptionPlanExists ?? false == false {
             return
         }
         
-        if !shouldAskForPlan{
+        if SignedUserInfo.sharedInstance?.isTrialPlanActive ?? false{
             return
         }
         
-        guard let controller = ProFeatureEndTrialController.instance() else{
-            return
+        if SignedUserInfo.sharedInstance?.isTrialPlanActive ?? false == false && SignedUserInfo.sharedInstance?.planIdentifier == ""{
+            
+            guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+                return
+            }
+            
+            if !shouldAskForPlan{
+                return
+            }
+            
+            guard let controller = ProFeatureEndTrialController.instance() else{
+                return
+            }
+            
+            self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+            })
         }
-        
-        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
-        })
     }
-    
     
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
-        
         guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
             return
         }

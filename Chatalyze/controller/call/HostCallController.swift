@@ -95,8 +95,6 @@ class HostCallController: VideoCallController {
         if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
         }
-      
-        Log.echo(key: "yud", text: "Final test post session screen \(self.eventInfo?.isPrivate)")
         
         if self.eventInfo?.isPrivate ?? false{
             return

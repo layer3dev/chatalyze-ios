@@ -58,8 +58,7 @@ class ContainerController: NavChildController {
     }
     
     func showShadowView(){
-        
-        //fetchProfile()
+      
         UIView.animate(withDuration: 0.3) {
             self.shadowView?.alpha = 1
         }
@@ -94,6 +93,9 @@ class ContainerController: NavChildController {
     
     func toggleAnimation(){
       
+        // This method will execute only once if the side bar will open by tapping on the MenuButton.
+        
+        self.fetchProfile()
         if isOpen{
             
             isOpen = false
@@ -127,7 +129,7 @@ class ContainerController: NavChildController {
     }
     
     func openToggle(){
-       
+
         isOpen = true
         UIView.animate(withDuration: 0.35) {
             
@@ -148,8 +150,8 @@ class ContainerController: NavChildController {
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
      
-        //recognizer.edges
         
+        //recognizer.edges
         if recognizer.state == .recognized {
             
             print("Screen edge swiped!")
@@ -157,6 +159,8 @@ class ContainerController: NavChildController {
         }
         if recognizer.state == .began{
             
+            // This will execute only once as the edge gesture initiaite.
+            self.fetchProfile()
             recognizer.view?.center.x = (self.view.frame.size.width+40)
             recognizer.setTranslation(CGPoint.zero, in: view)
             Log.echo(key: "yud", text: "Edge Gesture Begun")

@@ -98,6 +98,10 @@ class SignedUserInfo: UserInfo , NSCoding{
         countryCode = (aDecoder.decodeObject(forKey: "countryCode") as? String) ?? ""
         allowFreeSession = (aDecoder.decodeObject(forKey: "allowFreeSession") as? Bool)
         shouldAskForPlan = (aDecoder.decodeObject(forKey: "shouldAskForPlan") as? Bool)
+        planIdentifier = aDecoder.decodeObject(forKey: "planIdentifier") as? String
+        planId = aDecoder.decodeObject(forKey: "planId") as? String
+        shouldAskForPlan = (aDecoder.decodeObject(forKey: "isTrialPlanActive") as? Bool)
+        isSubscriptionPlanExists = (aDecoder.decodeObject(forKey:"isSubscriptionPlanExists") as? Bool)
     }
         
     func encode(with aCoder: NSCoder) {
@@ -124,6 +128,10 @@ class SignedUserInfo: UserInfo , NSCoding{
         aCoder.encode(countryCode, forKey: "countryCode")
         aCoder.encode(allowFreeSession, forKey: "allowFreeSession")
         aCoder.encode(shouldAskForPlan, forKey: "shouldAskForPlan")
+        aCoder.encode(planIdentifier, forKey: "planIdentifier")
+        aCoder.encode(planId, forKey: "planId")
+        aCoder.encode(isTrialPlanActive, forKey: "isTrialPlanActive")
+        aCoder.encode(isSubscriptionPlanExists, forKey: "isSubscriptionPlanExists")
     }
     
     func clear(){

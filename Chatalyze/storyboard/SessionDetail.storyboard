@@ -191,7 +191,7 @@
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJv-nQ-Ho5">
-                                                                            <rect key="frame" x="20" y="10" width="540" height="0.0"/>
+                                                                            <rect key="frame" x="20" y="10" width="315" height="0.0"/>
                                                                             <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="14"/>
                                                                             <color key="textColor" red="0.38431372549019605" green="0.38431372549019605" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -200,7 +200,7 @@
                                                                             </variation>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zP2-OH-k55">
-                                                                            <rect key="frame" x="580" y="10" width="0.0" height="0.0"/>
+                                                                            <rect key="frame" x="355" y="10" width="0.0" height="0.0"/>
                                                                             <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="14"/>
                                                                             <color key="textColor" red="0.38431372549019605" green="0.38431372549019605" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -355,19 +355,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F3N-7v-5yb" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="140" width="345" height="274"/>
+                                        <rect key="frame" x="15" y="140" width="345" height="243.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu2-rh-fby">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm cancellation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu2-rh-fby">
                                                 <rect key="frame" x="30" y="30" width="285" height="27.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
-                                                <color key="textColor" red="0.078431372550000003" green="0.078431372550000003" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="26"/>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're about to cancel this session and issue refunds. This action cannot be undone." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-AU-KwG">
-                                                <rect key="frame" x="30" y="82.5" width="285" height="35.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibP-AU-KwG">
+                                                <rect key="frame" x="30" y="82.5" width="285" height="71"/>
+                                                <string key="text">You’re about to cancel this session. This action cannot be undone. Refunds will automatically be issued if any chats were purchased (no refunds necessary if chats are free).</string>
                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="13"/>
                                                 <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -375,83 +376,89 @@
                                                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="17"/>
                                                 </variation>
                                             </label>
-                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3N7-jC-RAx" customClass="ButtonCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="60" y="143" width="225" height="45"/>
+                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3N7-jC-RAx">
+                                                <rect key="frame" x="230" y="178.5" width="100" height="45"/>
                                                 <color key="backgroundColor" red="0.40784313725490196" green="0.76470588235294112" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="225" id="KqN-WR-bgg">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="350"/>
+                                                    <constraint firstAttribute="width" constant="100" id="KqN-WR-bgg">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="150"/>
                                                     </constraint>
                                                     <constraint firstAttribute="height" constant="45" id="dSc-2y-yxW">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
                                                     </constraint>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
-                                                <state key="normal" title="WAIT - KEEP IT">
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
+                                                <state key="normal" title="Confirm">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 </variation>
                                                 <connections>
-                                                    <action selector="keepITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="h4a-In-57e"/>
+                                                    <action selector="cancelITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="Sh1-h6-Tef"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NqU-sg-4gQ" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="85" y="203" width="175" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NqU-sg-4gQ">
+                                                <rect key="frame" x="120" y="178.5" width="100" height="45"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CANCEL IT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rH-FR-ffR">
-                                                        <rect key="frame" x="47" y="14" width="81" height="22"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rH-FR-ffR">
+                                                        <rect key="frame" x="21" y="11.5" width="58.5" height="22"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
-                                                        <color key="textColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
                                                         </variation>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X6A-iB-fvo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="175" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <connections>
-                                                            <action selector="cancelITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="ySt-nY-dRH"/>
+                                                            <action selector="keepITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="TX6-cm-SAo"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="X6A-iB-fvo" firstAttribute="top" secondItem="NqU-sg-4gQ" secondAttribute="top" id="Fnp-hI-nqd"/>
                                                     <constraint firstItem="1rH-FR-ffR" firstAttribute="centerX" secondItem="NqU-sg-4gQ" secondAttribute="centerX" id="Jz4-st-nR9"/>
                                                     <constraint firstAttribute="bottom" secondItem="X6A-iB-fvo" secondAttribute="bottom" id="Kfc-6k-Gcj"/>
-                                                    <constraint firstAttribute="width" constant="175" id="P6b-vR-w40"/>
+                                                    <constraint firstAttribute="width" constant="100" id="P6b-vR-w40">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                                    </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="X6A-iB-fvo" secondAttribute="trailing" id="chM-Rl-jHQ"/>
                                                     <constraint firstItem="1rH-FR-ffR" firstAttribute="centerY" secondItem="NqU-sg-4gQ" secondAttribute="centerY" id="o3d-dP-fwL"/>
-                                                    <constraint firstAttribute="height" constant="50" id="pGT-2h-GtR"/>
+                                                    <constraint firstAttribute="height" constant="45" id="pGT-2h-GtR">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    </constraint>
                                                     <constraint firstItem="X6A-iB-fvo" firstAttribute="leading" secondItem="NqU-sg-4gQ" secondAttribute="leading" id="qEI-Y3-PyP"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="NqU-sg-4gQ" firstAttribute="centerX" secondItem="3N7-jC-RAx" secondAttribute="centerX" id="1Ki-J8-ktt"/>
-                                            <constraint firstItem="3N7-jC-RAx" firstAttribute="centerX" secondItem="F3N-7v-5yb" secondAttribute="centerX" id="3R4-7X-C7P"/>
                                             <constraint firstItem="yu2-rh-fby" firstAttribute="leading" secondItem="F3N-7v-5yb" secondAttribute="leading" constant="30" id="3y9-QU-CfA"/>
-                                            <constraint firstAttribute="trailing" secondItem="ibP-AU-KwG" secondAttribute="trailing" constant="30" id="Asd-PX-VLq"/>
-                                            <constraint firstItem="NqU-sg-4gQ" firstAttribute="top" secondItem="3N7-jC-RAx" secondAttribute="bottom" constant="15" id="EU0-eF-kQM">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                            <constraint firstAttribute="trailing" secondItem="3N7-jC-RAx" secondAttribute="trailing" constant="15" id="AYc-HW-5Kz">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="ibP-AU-KwG" secondAttribute="trailing" constant="30" id="Asd-PX-VLq"/>
                                             <constraint firstItem="ibP-AU-KwG" firstAttribute="top" secondItem="yu2-rh-fby" secondAttribute="bottom" constant="25" id="JW8-T7-Fyo">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="3N7-jC-RAx" firstAttribute="top" secondItem="ibP-AU-KwG" secondAttribute="bottom" constant="25" id="TVr-wM-4D9">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="yu2-rh-fby" firstAttribute="top" secondItem="F3N-7v-5yb" secondAttribute="top" constant="30" id="YIT-Yr-LGf">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="ibP-AU-KwG" firstAttribute="leading" secondItem="F3N-7v-5yb" secondAttribute="leading" constant="30" id="iWc-MZ-8Px"/>
                                             <constraint firstAttribute="trailing" secondItem="yu2-rh-fby" secondAttribute="trailing" constant="30" id="iiF-ph-wSf"/>
-                                            <constraint firstAttribute="bottom" secondItem="NqU-sg-4gQ" secondAttribute="bottom" constant="21" id="jF8-MR-fdO">
+                                            <constraint firstAttribute="bottom" secondItem="NqU-sg-4gQ" secondAttribute="bottom" constant="20" id="jF8-MR-fdO">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="26"/>
+                                            </constraint>
+                                            <constraint firstItem="NqU-sg-4gQ" firstAttribute="top" secondItem="3N7-jC-RAx" secondAttribute="top" id="msg-Bg-T78"/>
+                                            <constraint firstItem="3N7-jC-RAx" firstAttribute="leading" secondItem="NqU-sg-4gQ" secondAttribute="trailing" constant="10" id="nHZ-rV-mn8">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                                             </constraint>
                                         </constraints>
                                     </view>
@@ -472,7 +479,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVi-Xk-ts7">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <connections>
-                                                    <action selector="keepITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="fEF-Xa-0g3"/>
+                                                    <action selector="keepITActionWithSender:" destination="zxV-Yn-bkX" eventType="touchUpInside" id="HmE-S1-ndn"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -524,10 +531,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YAR-Vj-9IB"/>
                         <connections>
-                            <outlet property="cancelItLbl" destination="1rH-FR-ffR" id="tnz-hW-xF0"/>
                             <outlet property="cancelSessionView" destination="uLi-He-PFe" id="2Uw-an-0ht"/>
+                            <outlet property="confirmButton" destination="3N7-jC-RAx" id="tAN-O6-zg4"/>
                             <outlet property="dateLbl" destination="zt7-dS-ZzG" id="lN2-MX-L7g"/>
                             <outlet property="durationLbl" destination="Xhy-UP-hHS" id="tTl-V9-PVW"/>
+                            <outlet property="goBackButtonContainer" destination="NqU-sg-4gQ" id="zSp-Hd-O62"/>
                             <outlet property="heightOfAdapter" destination="6oD-pG-tMF" id="zZj-T8-ZM5"/>
                             <outlet property="priceLbl" destination="rJx-Yq-oT2" id="zQS-wn-lvB"/>
                             <outlet property="slotListing" destination="id3-Re-NSD" id="haz-eU-5YV"/>
