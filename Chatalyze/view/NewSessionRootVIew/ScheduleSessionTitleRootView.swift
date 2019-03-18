@@ -31,6 +31,7 @@ class ScheduleSessionTitleRootView: ExtendedView{
         
         self.titleField?.textField?.doneAccessory = true
         self.titleField?.isCompleteBorderAllow = true
+        self.titleField?.textField?.delegate = self
         initializeVariable()
         paintLayers()
     }

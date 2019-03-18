@@ -33,7 +33,6 @@ class ScheduleSessionEarningRootView: ExtendedView{
     
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     
-    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -44,6 +43,7 @@ class ScheduleSessionEarningRootView: ExtendedView{
     }
     
     func fillDataIfExists(){
+        
         paintMaximumEarningCalculator()
     }
     
@@ -54,12 +54,10 @@ class ScheduleSessionEarningRootView: ExtendedView{
         self.nextView?.layer.borderWidth = 1
         self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
-        
         self.chatPupView?.layer.masksToBounds = true
         self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.chatPupView?.layer.borderWidth = 1
         self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
         self.maxEarning?.layer.masksToBounds = true
         self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -89,19 +87,16 @@ class ScheduleSessionEarningRootView: ExtendedView{
             return
         }
         info.price = Int(priceField?.textField?.text ?? "0")
-
         if info.price == 0 {
             info.isFree = true
             return
         }
         info.isFree = false
         return
-        
     }
     
     
     //MARK:- Button Action
-    
     @IBAction func nextAction(sender:UIButton?){
 
         if(!validateFields()){
@@ -145,18 +140,45 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
 
     func isPriceZero(text:String?)->Bool{
 
-        if SignedUserInfo.sharedInstance?.allowFreeSession  == true{
-            return false
-        }
-        
-        if let priceStr = text{
-
-            guard priceStr.count > 0 else { return true }
-            let nums: Set<Character> = ["0"]
-            return Set(priceStr).isSubset(of: nums)
+        if let requiredPrice = Int(text ?? "0"){
+            if requiredPrice == 0 {
+                return true
+            }
         }
         return false
+        
+//        if SignedUserInfo.sharedInstance?.allowFreeSession  == true{
+//            //Min. plan amount will override this if amount is greater than zero dollor
+//            return false
+//        }
+//
+//
+//
+//
+//        if let priceStr = text{
+//
+//            guard priceStr.count > 0 else { return true }
+//            let nums: Set<Character> = ["0"]
+//            return Set(priceStr).isSubset(of: nums)
+//        }
+//        return false
     }
+    
+    func isSatisFyingMinimumPlanAmount(text:String?)->Bool{
+        
+        if delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0 <= 0.0{
+            return true
+        }
+        
+        if let priceInt = Int(text ?? "0"){
+            
+            if Double(priceInt) < delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0{
+                return false
+            }
+        }
+        return true 
+    }
+    
 
     func isExceedsMaximumPrice(text:String?)->Bool{
 
@@ -294,7 +316,7 @@ extension ScheduleSessionEarningRootView{
             priceField?.showError(text: "Price is required.")
             return false
         }
-        else if isPriceZero(text: priceField?.textField?.text){
+        else if !isPriceZero(text: priceField?.textField?.text){
 
             priceField?.showError(text: "Minimum price is $1")
             return false

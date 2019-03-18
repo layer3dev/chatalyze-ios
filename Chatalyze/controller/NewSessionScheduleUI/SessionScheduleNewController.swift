@@ -22,6 +22,7 @@ class SessionScheduleNewController: UIViewController {
         
         initializeGradient()
         updateProfile()
+        fetchMinimumPlanPriceToScheuleIfExists()
     }
     
     func updateProfile(){
@@ -31,6 +32,26 @@ class SessionScheduleNewController: UIViewController {
             self.stopLoader()
         }
     }
+    
+    func fetchMinimumPlanPriceToScheuleIfExists(){
+        
+            GetPlanRequestProcessor().fetch { (success,error,response) in
+                
+                if !success {
+                    return
+                }
+                guard let response = response else{
+                    return
+                }
+                let info = PlanInfo(info: response)
+                self.scheduleInfo.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
+                
+                Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice)")
+                
+            }
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
