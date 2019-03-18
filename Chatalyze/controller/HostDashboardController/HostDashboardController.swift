@@ -44,38 +44,7 @@ class HostDashboardController: MyScheduledSessionsController {
 
         hideNavigationBar()
         rootView?.paintNewUI()
-        askForStarterPlan()
-        
-    }
-    
-    func askForStarterPlan(){
-        
-        if SignedUserInfo.sharedInstance?.isSubscriptionPlanExists ?? false == false {
-            return
-        }
-        
-        if SignedUserInfo.sharedInstance?.isTrialPlanActive ?? false{
-            return
-        }
-        
-        if SignedUserInfo.sharedInstance?.isTrialPlanActive ?? false == false && SignedUserInfo.sharedInstance?.planIdentifier == ""{
-            
-            guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
-                return
-            }
-            
-            if !shouldAskForPlan{
-                return
-            }
-            
-            guard let controller = ProFeatureEndTrialController.instance() else{
-                return
-            }
-            
-            self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
-            })
-        }
-    }
+    }    
     
     func checkForShowingHostWelcomeAnimation(){
         

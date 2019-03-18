@@ -99,6 +99,8 @@ class UserInfo: NSObject {
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
+        }else{
+            self.shouldAskForPlan = false
         }
         
         if let userSubscriptionPlan = info["userSubscriptionPlan"]?.dictionary {

@@ -100,7 +100,7 @@ class SignedUserInfo: UserInfo , NSCoding{
         shouldAskForPlan = (aDecoder.decodeObject(forKey: "shouldAskForPlan") as? Bool)
         planIdentifier = aDecoder.decodeObject(forKey: "planIdentifier") as? String
         planId = aDecoder.decodeObject(forKey: "planId") as? String
-        shouldAskForPlan = (aDecoder.decodeObject(forKey: "isTrialPlanActive") as? Bool)
+        isTrialPlanActive = (aDecoder.decodeObject(forKey: "isTrialPlanActive") as? Bool)
         isSubscriptionPlanExists = (aDecoder.decodeObject(forKey:"isSubscriptionPlanExists") as? Bool)
     }
         

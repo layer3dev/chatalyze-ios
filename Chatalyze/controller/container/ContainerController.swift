@@ -84,10 +84,40 @@ class ContainerController: NavChildController {
         self.toggleTrailing?.constant = -(toggleWidth)
     }
     
+    func askForStarterPlanIfNotAskedYet(){
+        
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if userType == .user{
+            return
+        }
+        
+        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+            return
+        }
+        
+        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+        
+        if !shouldAskForPlan {
+            return
+        }
+        
+        guard let controller = ProFeatureEndTrialController.instance() else{
+            return
+        }
+        
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
+    }
+
     func fetchProfile(){
         
         FetchProfileProcessor().fetch { (success, message, response) in
+            
             self.menuController?.rootView?.adapter?.reloadDataAfterFetchingData()
+            self.askForStarterPlanIfNotAskedYet()
         }
     }
     
@@ -297,6 +327,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .paymentAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -311,6 +342,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .scheduledSessionAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -324,6 +356,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .editProfileAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -338,6 +371,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .contactUsUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -351,6 +385,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .contactUsAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -365,6 +400,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .editProfileUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -379,6 +415,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .paymentUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -393,6 +430,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .autograph{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -410,6 +448,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .tickets{
             
             //This id the home controller for the user in the User side.            
@@ -424,6 +463,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .userAccount{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -440,6 +480,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .analystAccount{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -457,6 +498,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .settings{
             
             guard let roleId = SignedUserInfo.sharedInstance?.role else{
