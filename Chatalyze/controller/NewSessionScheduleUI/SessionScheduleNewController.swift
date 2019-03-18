@@ -25,11 +25,41 @@ class SessionScheduleNewController: UIViewController {
         fetchMinimumPlanPriceToScheuleIfExists()
     }
     
+    func askForStarterPlanIfNotAskedYet(){
+        
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if userType == .user{
+            return
+        }
+        
+        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+            return
+        }
+        
+        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+        
+        if !shouldAskForPlan {
+            return
+        }
+        
+        guard let controller = ProFeatureEndTrialController.instance() else{
+            return
+        }
+        
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
+    }
+    
     func updateProfile(){
         
         self.showLoader()
         FetchProfileProcessor().fetch { (suucess, error, response) in
+            
             self.stopLoader()
+            self.askForStarterPlanIfNotAskedYet()
         }
     }
     
@@ -45,9 +75,7 @@ class SessionScheduleNewController: UIViewController {
                 }
                 let info = PlanInfo(info: response)
                 self.scheduleInfo.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
-                
                 Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice)")
-                
             }
         
     }

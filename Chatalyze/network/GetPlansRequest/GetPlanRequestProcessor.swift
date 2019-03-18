@@ -22,8 +22,6 @@ class GetPlanRequestProcessor{
         }
         url = url+id
         url = url+"/analysts/plan"
-        var params = [String : Any]()
-        Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
         ServerProcessor().request(.get, url, encoding: .defaultEncoding,authorize :false) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)

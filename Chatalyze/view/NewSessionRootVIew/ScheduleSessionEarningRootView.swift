@@ -318,8 +318,11 @@ extension ScheduleSessionEarningRootView{
         }
         else if !isPriceZero(text: priceField?.textField?.text){
 
-            priceField?.showError(text: "Minimum price is $1")
-            return false
+            if !isSatisFyingMinimumPlanAmount(text: priceField?.textField?.text){
+             
+                priceField?.showError(text: "Minimum price is $\(self.delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0)")
+                return false
+            }
         }
         else if isExceedsMaximumPrice(text: priceField?.textField?.text){
             
