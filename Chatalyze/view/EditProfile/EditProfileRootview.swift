@@ -383,7 +383,9 @@ extension EditProfileRootview{
             
             param["mobile"] = NSNull()
             param["countryCode"] = NSNull()
+            
         }
+        
         param["firstName"] = nameField?.textField?.text
         param["email"] = emailField?.textField?.text
         param["eventMobReminder"] = chatUpdates

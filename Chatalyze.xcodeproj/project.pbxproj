@@ -177,6 +177,10 @@
 		479F16892202F7D1007B08FC /* ScheduleSessionNewEarningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F16872202F7D1007B08FC /* ScheduleSessionNewEarningController.swift */; };
 		479F168B2202FA68007B08FC /* ScheduleSessionEarningRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */; };
 		479F168C2202FA68007B08FC /* ScheduleSessionEarningRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */; };
+		479FB74C2240F76100408229 /* EditSessionFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74B2240F76100408229 /* EditSessionFormController.swift */; };
+		479FB74D2240F76100408229 /* EditSessionFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74B2240F76100408229 /* EditSessionFormController.swift */; };
+		479FB74F2240FBF100408229 /* EditSessionFormRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */; };
+		479FB7502240FBF100408229 /* EditSessionFormRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */; };
 		47A1EA56221D831800A4B1DF /* HostCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1EA55221D831800A4B1DF /* HostCategoryController.swift */; };
 		47A1EA57221D831800A4B1DF /* HostCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1EA55221D831800A4B1DF /* HostCategoryController.swift */; };
 		47A1EA59221D839900A4B1DF /* HostCategoryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1EA58221D839900A4B1DF /* HostCategoryRootView.swift */; };
@@ -1312,6 +1316,8 @@
 		479A960C214A8079003C2F4C /* AccountContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContainerView.swift; sourceTree = "<group>"; };
 		479F16872202F7D1007B08FC /* ScheduleSessionNewEarningController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionNewEarningController.swift; sourceTree = "<group>"; };
 		479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionEarningRootView.swift; sourceTree = "<group>"; };
+		479FB74B2240F76100408229 /* EditSessionFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionFormController.swift; sourceTree = "<group>"; };
+		479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionFormRootView.swift; sourceTree = "<group>"; };
 		47A1EA55221D831800A4B1DF /* HostCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCategoryController.swift; sourceTree = "<group>"; };
 		47A1EA58221D839900A4B1DF /* HostCategoryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCategoryRootView.swift; sourceTree = "<group>"; };
 		47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionDetail.storyboard; sourceTree = "<group>"; };
@@ -2922,6 +2928,23 @@
 			path = SessionController;
 			sourceTree = "<group>";
 		};
+		479FB7422240F46100408229 /* EditScheduleSessionNewController */ = {
+			isa = PBXGroup;
+			children = (
+				479FB74B2240F76100408229 /* EditSessionFormController.swift */,
+			);
+			path = EditScheduleSessionNewController;
+			sourceTree = "<group>";
+		};
+		479FB7462240F55100408229 /* EditScheduleSessionNew */ = {
+			isa = PBXGroup;
+			children = (
+				479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */,
+			);
+			name = EditScheduleSessionNew;
+			path = Chatalyze/view/EditScheduleSessionNew;
+			sourceTree = SOURCE_ROOT;
+		};
 		47A33D8021FB270C006965E9 /* SessionDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -4328,6 +4351,7 @@
 				47A33D8421FB2781006965E9 /* SessionDetailView */,
 				47BAEDAE22007A6B0042588A /* NewSessionRootVIew */,
 				47310D0A2212F5A8009D049C /* TippingRootView */,
+				479FB7462240F55100408229 /* EditScheduleSessionNew */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4451,6 +4475,7 @@
 				47310D062212D764009D049C /* TippingControllers */,
 				4787237C222574CD007994FC /* EarlyController */,
 				47E3722E2230F493000B99F9 /* ProFeatureController */,
+				479FB7422240F46100408229 /* EditScheduleSessionNewController */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -5756,6 +5781,7 @@
 				FAA8C5B0221843F500E9937B /* DonationSuccessRootView.swift in Sources */,
 				47D0B0FD21A6C4B5006376A8 /* ExtendedRootView.swift in Sources */,
 				47BAEDAA220064590042588A /* SessionScheduleNewPageController.swift in Sources */,
+				479FB74D2240F76100408229 /* EditSessionFormController.swift in Sources */,
 				47D0B0FE21A6C4B5006376A8 /* CallOverlayView.swift in Sources */,
 				47D0B0FF21A6C4B5006376A8 /* UIView.swift in Sources */,
 				47D0B10021A6C4B5006376A8 /* MyScheduledSessionsController.swift in Sources */,
@@ -5800,6 +5826,7 @@
 				47D0B12121A6C4B5006376A8 /* SlotTimeInfo.swift in Sources */,
 				47D0B12221A6C4B5006376A8 /* PaymentListingInfo.swift in Sources */,
 				47D0B12321A6C4B5006376A8 /* ScheduleSessionPageInterface.swift in Sources */,
+				479FB7502240FBF100408229 /* EditSessionFormRootView.swift in Sources */,
 				47D0B12421A6C4B5006376A8 /* EventInfoExtension.swift in Sources */,
 				47B6EE0521ABFC63009E155A /* EventCreateListener.swift in Sources */,
 				47D0B12521A6C4B5006376A8 /* EditProfileRootview.swift in Sources */,
@@ -6256,6 +6283,7 @@
 				FA680056218447E800B42383 /* ExtendedRootView.swift in Sources */,
 				FA1B36392064E22F00F2E6BC /* CallOverlayView.swift in Sources */,
 				47BAEDA9220064590042588A /* SessionScheduleNewPageController.swift in Sources */,
+				479FB74C2240F76100408229 /* EditSessionFormController.swift in Sources */,
 				FAA001A4203ED472003C8A74 /* UIView.swift in Sources */,
 				47614F77213AB9B500CC9702 /* MyScheduledSessionsController.swift in Sources */,
 				FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */,
@@ -6300,6 +6328,7 @@
 				FAB68ADF211883AD00190442 /* SlotTimeInfo.swift in Sources */,
 				47AD144720ADB52C006AF9D6 /* PaymentListingInfo.swift in Sources */,
 				4702A3FF2136BE820046EA21 /* ScheduleSessionPageInterface.swift in Sources */,
+				479FB74F2240FBF100408229 /* EditSessionFormRootView.swift in Sources */,
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
 				47B6EE0421ABFAF1009E155A /* EventCreateListener.swift in Sources */,
 				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,

@@ -350,6 +350,21 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
+    //ready state to determine if interval is ready to execute
+    //or if it should wait before everything is ready
+    var isReady : Bool{
+        if(!isActivated){
+            return false
+        }
+        
+        if(!TimerSync.sharedInstance.isSynced){
+            return false
+        }
+        
+        return true
+    }
+    
+    //to check, if event is activated
     var isActivated : Bool{
         
         guard let eventInfo = eventInfo
@@ -613,20 +628,22 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func startTimer(){
+        
         timer.ping { [weak self] in
             self?.executeInterval()
         }
-        
         timer.startTimer()
     }
     
+    
     private func executeInterval(){
+       
         if(isReleased){
             return
         }
-        if(!isActivated){
+        if(!isReady){
             return
-        }
+        }        
         interval()
     }
     

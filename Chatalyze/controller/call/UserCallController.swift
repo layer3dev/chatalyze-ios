@@ -87,14 +87,12 @@ class UserCallController: VideoCallController {
         super.interval()
         
         Log.echo(key: "yud", text: "Interval timer is working")
-        
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
         processAutograph()
         updateLableAnimation()
     }
-    
     
     override func updateStatusMessage(){
         super.updateStatusMessage()
@@ -466,13 +464,13 @@ class UserCallController: VideoCallController {
         }
         
         //if current slot id is nil then return
-        if self.myLiveUnMergedSlot?.id == nil{
+        if self.myLiveUnMergedSlot?.id == nil {
             return
         }
         
         //Server response for screenShot saved
         if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
-            if isScreenShotSaved{                
+            if isScreenShotSaved {
                 return
             }
         }
@@ -480,12 +478,12 @@ class UserCallController: VideoCallController {
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
         
         if let slotId = self.myLiveUnMergedSlot?.id{
-            if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated){
+            if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated) {
                 return
             }
         }
         
-//        //Once the selfie timer has been come
+// Once the selfie timer has been come
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
@@ -811,6 +809,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
     }
     
+  
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
     }

@@ -328,6 +328,7 @@ class HostCallController: VideoCallController {
         if self.eventInfo?.isLIVE ?? false  == false{
             return
         }
+        
         if self.eventInfo?.upcomingSlot != nil {
             // As we want to show the Alert again as soon as no future event is present.
             if earlyControllerReference != nil{
@@ -349,7 +350,7 @@ class HostCallController: VideoCallController {
         earlyControllerReference = controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
-           
+
             //Event's Registration is closed
             //Self.earlyControllerRefrence = nil
             self.makeRegistrationClose()

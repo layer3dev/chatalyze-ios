@@ -17,7 +17,7 @@ class MenuAdapter: ExtendedView {
     var currentArray = [String]()
     //var analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
     var analystArray = ["My Sessions","Settings","Contact Us"]
-    var userArray = ["My Tickets","Memories", "Settings","Version \(AppInfoConfig.appversion)"]
+    var userArray = ["My Tickets","Memories", "Settings"]
     
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
     
@@ -39,9 +39,9 @@ class MenuAdapter: ExtendedView {
             return
         }
         
-        //For new starter user
+        // For new starter user
         
-        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == true{
+        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == true {
           
             analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
             return

@@ -101,6 +101,15 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let controller = EditSessionFormController.instance() else{
+            return
+        }
+        
+        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        
+        
 //        if indexPath.row > (sessionListingArray.count-1){
 //            return
 //        }
