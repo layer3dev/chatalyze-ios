@@ -59,8 +59,7 @@ class SetProfileRootView: ExtendedView {
             self.verifySetUpProfileButton()
         }
     }
-    
-    
+        
     @IBAction func changeImage(sender:UIButton){
         Log.echo(key: "yud", text: "Asking to show")
         cropper.show(controller: self.controller)

@@ -19,7 +19,6 @@ class ScheduleSessionTitleRootView: ExtendedView{
     var delegate:ScheduleSessionTitleRootViewDelegate?
     
     @IBOutlet var titleField:SigninFieldView?
-    
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
     

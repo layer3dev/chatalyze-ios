@@ -10,10 +10,15 @@ import UIKit
 
 class EditSessionFormController: InterfaceExtendedController {
 
+    var eventInfo:EventInfo?
+    
+    @IBOutlet var scrollViewCustom:FieldManagingScrollView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        rootView?.paintInteface()
         paintInterface()
     }
     
@@ -44,5 +49,6 @@ class EditSessionFormController: InterfaceExtendedController {
         let controller = storyboard.instantiateViewController(withIdentifier: "EditSessionForm") as? EditSessionFormController
         return controller
     }
-    
+
 }
+
