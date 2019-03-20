@@ -30,8 +30,7 @@ class ScheduleSessionNewTimeController: UIViewController {
        
         self.navigationController?.isNavigationBarHidden = true
     }
-    
-    
+        
     var rootView:SessionNewTimeRootView?{
         return self.view as? SessionNewTimeRootView
     }

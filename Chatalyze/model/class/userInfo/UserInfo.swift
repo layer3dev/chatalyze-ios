@@ -55,6 +55,10 @@ class UserInfo: NSObject {
     var countryCode:String = ""
     var allowFreeSession:Bool? = false
     var shouldAskForPlan:Bool? = false
+    var planIdentifier:String?
+    var planId:String?
+    var isTrialPlanActive:Bool?
+    var isSubscriptionPlanExists:Bool?
     
     override init(){
         super.init()
@@ -95,7 +99,22 @@ class UserInfo: NSObject {
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
+        }else{
+            self.shouldAskForPlan = false
         }
+        
+        if let userSubscriptionPlan = info["userSubscriptionPlan"]?.dictionary {
+           
+            self.isSubscriptionPlanExists = true
+            self.isTrialPlanActive = userSubscriptionPlan["isTrial"]?.boolValue
+            if let subscriptionPlan = userSubscriptionPlan["subscriptionPlan"]?.dictionary{
+                
+                self.planIdentifier = subscriptionPlan["identifier"]?.stringValue
+                self.planId = subscriptionPlan["id"]?.stringValue
+            }
+        }else{
+            isSubscriptionPlanExists = false
+        }        
         updateSideMenuInfo()
     }
 }

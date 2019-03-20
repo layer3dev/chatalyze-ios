@@ -66,6 +66,7 @@ class HostCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
+        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -91,19 +92,29 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
-        if self.eventInfo?.slotInfos?.count ?? 0 == 0 || self.eventInfo?.isPrivate ?? false{
+        if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
         }
         
+        if self.eventInfo?.isPrivate ?? false{
+            return
+        }
+        
+        if self.eventInfo?.isFree ?? false{
+            return
+        }
+      
         guard let controller = HostFeedbackController.instance() else{
             return
         }
+      
         controller.sessionId = self.eventId
+       
         guard let presentingController =  self.lastPresentingController
             else{
-                Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
+      
         presentingController.present(controller, animated: true, completion: nil)
     }
     
@@ -211,7 +222,6 @@ class HostCallController: VideoCallController {
         socketClient?.emit(param)
     }
     
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         get{
@@ -225,6 +235,7 @@ class HostCallController: VideoCallController {
     
     private func initializeVariable(){
         
+        self.hostRootView?.delegateCutsom = self
         self.registerForTimerNotification()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
@@ -317,6 +328,7 @@ class HostCallController: VideoCallController {
         if self.eventInfo?.isLIVE ?? false  == false{
             return
         }
+        
         if self.eventInfo?.upcomingSlot != nil {
             // As we want to show the Alert again as soon as no future event is present.
             if earlyControllerReference != nil{
@@ -338,7 +350,7 @@ class HostCallController: VideoCallController {
         earlyControllerReference = controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
-           
+
             //Event's Registration is closed
             //Self.earlyControllerRefrence = nil
             self.makeRegistrationClose()
@@ -493,7 +505,7 @@ class HostCallController: VideoCallController {
         
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
-        let timeRemaining = countdownTime.toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
@@ -508,7 +520,7 @@ class HostCallController: VideoCallController {
         }
         
         let currentSlotText = "Chat \(currentSlot+1): "
-        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
         var username = ""
@@ -520,6 +532,7 @@ class HostCallController: VideoCallController {
             }else{
                 
                 if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName{
+                    
                     username  = name
                 }
             }
@@ -532,16 +545,16 @@ class HostCallController: VideoCallController {
         
         //End
         
-        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
         sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
         
         //Editing for the total Chats
         let totatlNumberOfSlotsText = "Total chats: "
-        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         totalAttrText.append(totalSlots)
         
@@ -976,7 +989,7 @@ extension HostCallController:GetisHangedUpDelegate{
 }
 
 
-extension HostCallController{
+extension HostCallController {
     
     private func updateNewHeaderInfoForFutureSession(slot : SlotInfo){
         
@@ -1004,14 +1017,14 @@ extension HostCallController{
         
         //Editing For the remaining time
         
-        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Poppins", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let timeRemaining = "\(counddownInfo.time)".toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
         
         let currentSlotText = "Chat \(currentSlot+1): "
-        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
         
@@ -1040,7 +1053,7 @@ extension HostCallController{
             username = slotUserName
         }
         
-        let slotUserNameAttrStr = username.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
         sessionCurrentSlotLbl?.attributedText = currentMutatedSlotText
@@ -1048,9 +1061,9 @@ extension HostCallController{
         //Editing for the total Chats
         
         let totatlNumberOfSlotsText = "Total chats: "
-        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Questrial", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Poppins", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         totalAttrText.append(totalSlots)
         
@@ -1076,3 +1089,6 @@ extension HostCallController{
         }
     }
 }
+
+
+

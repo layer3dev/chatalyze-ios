@@ -28,6 +28,7 @@ class LocalVideoView: VideoView {
 
     override func viewDidLayout() {
         super.viewDidLayout()
+       
         initialization()
     }
     
@@ -63,6 +64,7 @@ class LocalVideoView: VideoView {
     }
 
     private func updateForPortrait(){
+        
         topConstraint?.isActive = true
         bottomConstraint?.isActive = false
         if(isIPad){
@@ -77,6 +79,7 @@ class LocalVideoView: VideoView {
     }
     
     private func updateForLandscape(){
+       
         topConstraint?.isActive = false
         bottomConstraint?.isActive = true
         if(isIPad){
@@ -89,8 +92,4 @@ class LocalVideoView: VideoView {
         widthConstraint?.constant = 128
         return
     }
-    
-    
-   
-    
 }

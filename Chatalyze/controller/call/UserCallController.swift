@@ -87,14 +87,12 @@ class UserCallController: VideoCallController {
         super.interval()
         
         Log.echo(key: "yud", text: "Interval timer is working")
-        
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
         processAutograph()
         updateLableAnimation()
     }
-    
     
     override func updateStatusMessage(){
         super.updateStatusMessage()
@@ -226,6 +224,7 @@ class UserCallController: VideoCallController {
         initializeGetCommondForTakeScreenShot()
         registerForListeners()
         self.selfieTimerView?.delegate = self
+        self.userRootView?.delegateCutsom = self
     }
     
     private func registerForScheduleUpdateListener(){
@@ -296,9 +295,10 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()    
+       
         //temp
-
-        //TODO:- Need to Comment
+        
+        // TODO:- Need to Comment
         //showExitScreen()
     }
     
@@ -381,8 +381,8 @@ class UserCallController: VideoCallController {
     }
     
     //ONLY LIVE - MERGED
-
     private func disposeCurrentConnection(){
+        
         guard let currentConnection = self.connection
             else{
                 return
@@ -464,13 +464,13 @@ class UserCallController: VideoCallController {
         }
         
         //if current slot id is nil then return
-        if self.myLiveUnMergedSlot?.id == nil{
+        if self.myLiveUnMergedSlot?.id == nil {
             return
         }
         
         //Server response for screenShot saved
         if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
-            if isScreenShotSaved{                
+            if isScreenShotSaved {
                 return
             }
         }
@@ -478,12 +478,12 @@ class UserCallController: VideoCallController {
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
         
         if let slotId = self.myLiveUnMergedSlot?.id{
-            if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated){
+            if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated) {
                 return
             }
         }
         
-//        //Once the selfie timer has been come
+// Once the selfie timer has been come
 //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
 //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
@@ -809,6 +809,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
     }
     
+  
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
     }
@@ -1161,7 +1162,7 @@ extension UserCallController{
         
         futureSessionHeaderLbl?.text = "Chat starts in:"
         
-        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
 

@@ -77,7 +77,7 @@ class SessionDoneController: InterfaceExtendedController {
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 20
         }
-        let attrStr = str.toAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: "#faa579"), isUnderLine: true)
+        let attrStr = str.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#faa579"), isUnderLine: true)
         linkLbl?.attributedText  = attrStr
         
         let linkGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOnLink))

@@ -30,10 +30,10 @@ class OnboardSecondController: UIViewController {
     func paintLableText(){
         
         let firstText = "Schedule a Session \n"
-        let firstMutableStr = firstText.toMutableAttributedString(font: "OpenSans-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
+        let firstMutableStr = firstText.toMutableAttributedString(font: "Nunito-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
         
         let scecondStr = "Set a date, start time, duration, 1:1 chat length, and price."
-        let secondAtrStr = scecondStr.toAttributedString(font: "Open Sans", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
+        let secondAtrStr = scecondStr.toAttributedString(font: "Nunito-Regular", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
         
         firstMutableStr.append(secondAtrStr)
         

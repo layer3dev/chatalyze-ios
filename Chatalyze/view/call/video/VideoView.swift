@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class VideoView: RTCEAGLVideoView {
     
     private var trackSize : CGSize = CGSize.zero
@@ -35,8 +34,16 @@ class VideoView: RTCEAGLVideoView {
     func viewDidLayout(){
         
         initialization()
+        paintInterface()
     }
 
+    func paintInterface(){
+        
+        self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.layer.masksToBounds = true
+    }
+    
+    
     private func initialization(){
         
          self.delegate = self
@@ -53,6 +60,7 @@ extension VideoView : RTCVideoViewDelegate{
     }
     
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
+        
         Log.echo(key: "render", text: "didChangeVideoSize --> \(size)")
         if(size != CGSize.zero){
             self.trackSize = size

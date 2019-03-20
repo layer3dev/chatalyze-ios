@@ -58,7 +58,7 @@ class ContainerController: NavChildController {
     }
     
     func showShadowView(){
-        
+      
         UIView.animate(withDuration: 0.3) {
             self.shadowView?.alpha = 1
         }
@@ -84,10 +84,48 @@ class ContainerController: NavChildController {
         self.toggleTrailing?.constant = -(toggleWidth)
     }
     
+    func askForStarterPlanIfNotAskedYet(){
+        
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if userType == .user{
+            return
+        }
+        
+        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+            return
+        }
+        
+        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+        
+        if !shouldAskForPlan {
+            return
+        }
+        
+        guard let controller = ProFeatureEndTrialController.instance() else{
+            return
+        }
+        
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
+    }
+
+    func fetchProfile(){
+        
+        FetchProfileProcessor().fetch { (success, message, response) in
+            
+            self.menuController?.rootView?.adapter?.reloadDataAfterFetchingData()
+            self.askForStarterPlanIfNotAskedYet()
+        }
+    }
+    
     func toggleAnimation(){
+      
+        // This method will execute only once if the side bar will open by tapping on the MenuButton.
         
-        Log.echo(key: "yud", text: "Toogle is calling")
-        
+        self.fetchProfile()
         if isOpen{
             
             isOpen = false
@@ -95,7 +133,6 @@ class ContainerController: NavChildController {
                 
                 self.toggleTrailing?.constant = -(self.toggleWidth)
                 self.hideShadowView()
-
             }
             self.view.layoutIfNeeded()
             return
@@ -105,7 +142,6 @@ class ContainerController: NavChildController {
             
             self.toggleTrailing?.constant = 0
             self.showShadowView()
-
         }
         self.view.layoutIfNeeded()
     }
@@ -123,7 +159,7 @@ class ContainerController: NavChildController {
     }
     
     func openToggle(){
-       
+
         isOpen = true
         UIView.animate(withDuration: 0.35) {
             
@@ -144,8 +180,8 @@ class ContainerController: NavChildController {
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
      
-        //recognizer.edges
         
+        //recognizer.edges
         if recognizer.state == .recognized {
             
             print("Screen edge swiped!")
@@ -153,6 +189,8 @@ class ContainerController: NavChildController {
         }
         if recognizer.state == .began{
             
+            // This will execute only once as the edge gesture initiaite.
+            self.fetchProfile()
             recognizer.view?.center.x = (self.view.frame.size.width+40)
             recognizer.setTranslation(CGPoint.zero, in: view)
             Log.echo(key: "yud", text: "Edge Gesture Begun")
@@ -170,9 +208,6 @@ class ContainerController: NavChildController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.shadowView?.addGestureRecognizer(swipeRight)
-//        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-//        swipeRight.direction = UISwipeGestureRecognizerDirection.left
-//        self.toggleView?.addGestureRecognizer(swipeLeft)
     }
     
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -292,6 +327,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .paymentAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -306,6 +342,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .scheduledSessionAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -319,6 +356,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .editProfileAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -333,6 +371,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .contactUsUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -346,6 +385,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .contactUsAnalyst{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -360,6 +400,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .editProfileUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -374,6 +415,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .paymentUser{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -388,6 +430,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .autograph{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -405,6 +448,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .tickets{
             
             //This id the home controller for the user in the User side.            
@@ -419,6 +463,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .userAccount{
             
             guard let rootController = MyTicketsVerticalController.instance() else{
@@ -435,6 +480,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .analystAccount{
             
             guard let rootController = HostDashboardController.instance() else{
@@ -452,6 +498,7 @@ class ContainerController: NavChildController {
             //navController?.viewControllers = [controller]
             return
         }
+            
         else if typeOfAction == .settings{
             
             guard let roleId = SignedUserInfo.sharedInstance?.role else{

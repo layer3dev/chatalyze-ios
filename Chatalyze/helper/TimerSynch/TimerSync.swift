@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class TimerSync {
+    
     private var syncTime : Date?
 
     var timeDiff : Int64 = Int64(0);
@@ -30,6 +31,7 @@ class TimerSync {
     private var socketListener : SocketListener?
     
    static var sharedInstance : TimerSync{
+    
         get{
             if let shared = _sharedInstance{
                 return shared

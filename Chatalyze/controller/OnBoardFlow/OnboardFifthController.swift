@@ -30,10 +30,11 @@ class OnboardFifthController: UIViewController {
     func paintLableText(){
         
         let firstText = "Chat \n"
-        let firstMutableStr = firstText.toMutableAttributedString(font: "OpenSans-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
+        let firstMutableStr = firstText.toMutableAttributedString(font: "Nunito-SemiBold", size: headingFontSize, color: UIColor.white, isUnderLine: false)
         
         let scecondStr = "We'll connect you to each person in the video chat queue, one-by-one."
-        let secondAtrStr = scecondStr.toAttributedString(font: "Open Sans", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
+        
+        let secondAtrStr = scecondStr.toAttributedString(font: "Nunito-Regular", size: subHeadingFontSize, color: UIColor.white, isUnderLine: false)
         
         firstMutableStr.append(secondAtrStr)
         

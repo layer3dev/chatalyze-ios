@@ -22,45 +22,33 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        //printTheFamilyNames()
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
     }
+    
+    func printTheFamilyNames(){
         
+        for family in UIFont.familyNames {
+            print("Family names are \(family)")
+            
+            for name in UIFont.fontNames(forFamilyName: family) {
+                print("font name are\(name)")
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         hideNavigationBar()
         rootView?.paintNewUI()
-        askForStarterPlan()
-    }
-    
-    
-    func askForStarterPlan(){
-        
-        Log.echo(key: "hostDashboard", text: "Should Ask for plan is \(SignedUserInfo.sharedInstance?.shouldAskForPlan)")
-        
-        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
-            return
-        }
-        
-        if !shouldAskForPlan{
-            return
-        }
-        
-        guard let controller = ProFeatureEndTrialController.instance() else{
-            return
-        }
-        
-        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
-        })
-    }
-    
+    }    
     
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
-        
         guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
             return
         }
@@ -118,7 +106,7 @@ class HostDashboardController: MyScheduledSessionsController {
       
         //sharingTextFld?.delegate = self
         roundSessionButton()
-        testingLabel?.font = UIFont(name: "Poppins", size: 15)
+        testingLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
         initializeName()
     }
@@ -208,13 +196,14 @@ class HostDashboardController: MyScheduledSessionsController {
         }        
     }
     
-    @IBAction func scheduleSessionAction(sender:UIButton){           
-            
+    @IBAction func scheduleSessionAction(sender:UIButton){
+        
         DispatchQueue.main.async {
             
             guard let controller = SessionScheduleNewController.instance() else{
                 return
             }
+            
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }
@@ -229,6 +218,7 @@ class HostDashboardController: MyScheduledSessionsController {
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
+    
     
     @IBAction func systemTestAction(sender:UIButton){
       

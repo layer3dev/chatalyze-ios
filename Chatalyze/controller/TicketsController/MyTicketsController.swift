@@ -101,7 +101,6 @@ class MyTicketsController: InterfaceExtendedController{
                 self.rootview?.adapter?.initializeCollectionFlowLayout()
                 
                 self.rootview?.fillInfo(info: self.ticketsArray)
-                self.stopLoader()
                 
                 if !success{
                     

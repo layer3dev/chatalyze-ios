@@ -41,7 +41,6 @@ class SessionNewTimeRootView:ExtendedView  {
         self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.chatPupView?.layer.borderWidth = 1
         self.chatPupView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         self.timeFld?.textFieldContainer?.layer.masksToBounds = true
         self.timeFld?.textFieldContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.timeFld?.textFieldContainer?.layer.borderWidth = 1
@@ -73,7 +72,6 @@ class SessionNewTimeRootView:ExtendedView  {
         }
         updateParameters()
         delegate?.goToNextScreen()
-        
     }
     
     func updateStartDateParam(){
@@ -124,14 +122,15 @@ extension SessionNewTimeRootView{
             dateFormatter.timeZone = TimeZone(identifier: "UTC")
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            if let date = dateFormatter.date(from: startDate){
+            if let date = dateFormatter.date(from: startDate) {
                 
                 Log.echo(key: "yud", text: "Diffrenece between the current time is \(date.timeIntervalSinceNow)")
                 
                 if date.timeIntervalSinceNow <=  0{
+                    
                     timeFld?.showError(text: "Please select the future time")
                     return false
-                }else{
+                }else{                   
                     timeFld?.resetErrorStatus()
                     return true
                 }

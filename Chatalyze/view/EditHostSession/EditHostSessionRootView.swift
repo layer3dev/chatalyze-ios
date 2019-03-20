@@ -123,7 +123,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
                 newFirstStr = "Book a \(info.duration ?? 0)-minute chat"
             }
             
-            let newAttrStr = newFirstStr.toAttributedString(font: "Poppins", size: 15, color: UIColor.black, isUnderLine: false)
+            let newAttrStr = newFirstStr.toAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
             
             costofEventLbl?.attributedText = newAttrStr
         }

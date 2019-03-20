@@ -11,10 +11,10 @@ import StoreKit
 
 class TippingConfirmationController: InterfaceExtendedController {
     
-    var scheduleInfo : EventScheduleInfo?
-    var slotId : Int?
-    var donateProduct : DonateProduct?
-    var appStateManager : ApplicationConfirmForeground?
+    var scheduleInfo:EventScheduleInfo?
+    var slotId:Int?
+    var donateProduct:DonateProduct?
+    var appStateManager:ApplicationConfirmForeground?
     
     private var isProcessingLastTransaction = false
     
@@ -78,15 +78,19 @@ class TippingConfirmationController: InterfaceExtendedController {
         
         isProcessingLastTransaction = true
         showLoader()
-        createTransaction(value: value) {[weak self] (transactionId) in
+        createTransaction(value: value) {[weak self] (transactionId)
+            in
+            
             guard let transactionId = transactionId
                 else{
+                   
                     self?.stopLoader()
                     self?.isProcessingLastTransaction = false
                     return
             }
             
             self?.initiatePurchaseProcess(transactionId: transactionId, value: value, completion: {
+                
                 self?.stopLoader()
             })
         }
@@ -96,31 +100,38 @@ class TippingConfirmationController: InterfaceExtendedController {
         
         let donateProduct = DonateProduct(controller : self)
         self.donateProduct = donateProduct
+        
         donateProduct.buy(value: value, transactionId: transactionId) {[weak self] (success, transaction) in
+            
             self?.isProcessingLastTransaction = false
-            Log.echo(key: "in_app_purchase", text: "success -> \(success) ")
+            Log.echo(key: "in_app_purchase", text: "success -> \(success)")
             
             if(!success){
+                
                 completion()
                 return
             }
+            
             guard let transaction = transaction
                 else{
                     completion()
                     return
             }
             
-            //Completed transaction need to be marked as finished, after confirming with server
+            //Completed transaction need to be marked as finished, after confirming with server.
             //todo:need better management.
-            SKPaymentQueue.default().finishTransaction(transaction)
-            completion()
             
+            SKPaymentQueue.default().finishTransaction(transaction)
+            Log.echo(key: "yud", text: "Completion three")
+            
+            completion()
             self?.showSuccessScreen(value : value)
             return
         }
     }
     
     private func showSuccessScreen(value : DonateProductInfo.value){
+       
         let appStateManager = ApplicationConfirmForeground()
         self.appStateManager = appStateManager
         self.presentSuccess(value : value)
@@ -128,7 +139,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         /*appStateManager.confirmIfActive {[weak self] in
             Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
             
-        }*/
+        }*/        
     }
     
     
@@ -139,6 +150,7 @@ class TippingConfirmationController: InterfaceExtendedController {
                 completion(nil)
                 return
         }
+        
         guard let slotId = slotId
             else{
                 completion(nil)

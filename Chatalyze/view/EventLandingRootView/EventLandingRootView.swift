@@ -19,8 +19,8 @@ class EventLandingRootView:ExtendedView{
     @IBOutlet var eventDetailInfo:UILabel?
     var iseventsold = false
     var info:EventInfo?
-    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Questrial-Regular", size: 17)]
-    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Questrial-Regular", size: 16)]
+    var priceAttribute = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font:UIFont(name: "Nunito-Regular-Regular", size: 17)]
+    var numberOfUnitAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8C9DA1"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular-Regular", size: 16)]
     
     override func viewDidLayout() {
         super.viewDidLayout()

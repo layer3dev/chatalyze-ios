@@ -29,6 +29,7 @@ class HostCallConnection: CallConnection {
     }
     
     func interval(){
+        
         if(isReleased){
             return
         }

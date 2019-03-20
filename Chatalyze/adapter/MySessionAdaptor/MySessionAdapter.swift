@@ -99,23 +99,33 @@ extension MySessionAdapter:UITableViewDelegate{
         return UITableView.automaticDimension
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                
+        
+        guard let controller = EditSessionFormController.instance() else{
+            return
+        }
+        
+        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        
+        
 //        if indexPath.row > (sessionListingArray.count-1){
 //            return
 //        }
 //        self.sharedLinkListener?(sessionListingArray[indexPath.row])
         
-        
+        /*
+         
         guard let controller = EditHostSessionController.instance() else{
             return
         }
-        
-        controller.eventInfo = self.sessionListingArray[indexPath.row]
+         
+         controller.eventInfo = self.sessionListingArray[indexPath.row]
         self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+         
+         */
     }
-    
 }
 
 extension MySessionAdapter:UIScrollViewDelegate{

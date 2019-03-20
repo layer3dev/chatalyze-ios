@@ -41,7 +41,6 @@ class VideoActionContainer: ExtendedView {
     
     private func animateContainerVisibility(){
         
-        
         guard let bottomSpace = self.bottomSpace
             else{
                 return

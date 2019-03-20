@@ -81,13 +81,13 @@ class CameraTestController: InterfaceExtendedController {
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
         let forthStr = "FAQs "
-        let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
+        let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Nunito-Regular" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let fifthStr = "or "
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         let sixthStr = "contact us"
-        let sixthAttributesStr = sixthStr.toAttributedStringLink(font: "Questrial" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
+        let sixthAttributesStr = sixthStr.toAttributedStringLink(font: "Nunito-Regular" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
         let seventhStr = " for support."
         let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))

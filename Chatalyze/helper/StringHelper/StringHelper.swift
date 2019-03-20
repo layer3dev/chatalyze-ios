@@ -32,7 +32,6 @@ extension String{
     
     func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSAttributedString{
         
-        
         var  attributes =  [NSAttributedString.Key : Any]()
         
         if isUnderLine{
@@ -261,3 +260,6 @@ extension String {
         self = self.capitalizingFirstLetter()
     }
 }
+
+
+

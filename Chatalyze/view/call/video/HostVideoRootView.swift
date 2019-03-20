@@ -13,7 +13,7 @@ import UIKit
 class HostVideoRootView: VideoRootView {
     
     @IBOutlet var callInfoContainer : HostCallInfoContainerView?
-
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -21,5 +21,27 @@ class HostVideoRootView: VideoRootView {
         // Drawing code
     }
     */
-
+    
+    override func animateHeader() {
+        
+        if isStatusBarhiddenDuringAnimation == false {
+            
+            self.delegateCutsom?.visibleAnimateStatusBar()
+            isStatusBarhiddenDuringAnimation = true
+            UIView.animate(withDuration: 0.25) {
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+                self.layoutIfNeeded()
+            }
+            return
+        }
+        
+        isStatusBarhiddenDuringAnimation = false
+        self.delegateCutsom?.hidingAnimateStatusBar()
+        UIView.animate(withDuration: 0.25) {
+            
+            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+            self.layoutIfNeeded()
+        }
+    }    
 }

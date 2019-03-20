@@ -22,15 +22,64 @@ class SessionScheduleNewController: UIViewController {
         
         initializeGradient()
         updateProfile()
+        fetchMinimumPlanPriceToScheuleIfExists()
+    }
+    
+    func askForStarterPlanIfNotAskedYet(){
+        
+        guard let userType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if userType == .user{
+            return
+        }
+        
+        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+            return
+        }
+        
+        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+        
+        if !shouldAskForPlan {
+            return
+        }
+        
+        guard let controller = ProFeatureEndTrialController.instance() else{
+            return
+        }
+        
+        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+        })
     }
     
     func updateProfile(){
         
         self.showLoader()
         FetchProfileProcessor().fetch { (suucess, error, response) in
+            
             self.stopLoader()
+            self.askForStarterPlanIfNotAskedYet()
         }
     }
+    
+    func fetchMinimumPlanPriceToScheuleIfExists(){
+        
+            GetPlanRequestProcessor().fetch { (success,error,response) in
+                
+                if !success {
+                    return
+                }
+                guard let response = response else{
+                    return
+                }
+                let info = PlanInfo(info: response)
+                self.scheduleInfo.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
+                Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice)")
+            }
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,36 +104,41 @@ class SessionScheduleNewController: UIViewController {
             return
         }
         
-        if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
-            progressBar?.setProgress(0.11, animated: true)
+        if currentStatus == SessionScheduleNewPageController.CurretController.title || currentStatus == SessionScheduleNewPageController.CurretController.none{
+            progressBar?.setProgress(0.10, animated: true)
+            return
+        }
+        
+        if currentStatus == SessionScheduleNewPageController.CurretController.first{
+            progressBar?.setProgress(0.20, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {
-            progressBar?.setProgress(0.22, animated: true)
+            progressBar?.setProgress(0.30, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.third {
-            progressBar?.setProgress(0.33, animated: true)
+            progressBar?.setProgress(0.40, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fourth {
-            progressBar?.setProgress(0.44, animated: true)
+            progressBar?.setProgress(0.50, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.fifth {
-            progressBar?.setProgress(0.55, animated: true)
+            progressBar?.setProgress(0.60, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.sixth {
-            progressBar?.setProgress(0.66, animated: true)
+            progressBar?.setProgress(0.70, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.seventh {
-            progressBar?.setProgress(0.77, animated: true)
+            progressBar?.setProgress(0.80, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.eighth {
-            progressBar?.setProgress(0.88, animated: true)
+            progressBar?.setProgress(0.90, animated: true)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.ninth {
@@ -98,10 +152,16 @@ class SessionScheduleNewController: UIViewController {
         guard let currentStatus = pageViewController?.getCurrentPageController() else{
             return
         }
-        if currentStatus == SessionScheduleNewPageController.CurretController.first || currentStatus == SessionScheduleNewPageController.CurretController.none{
+        if currentStatus == SessionScheduleNewPageController.CurretController.title || currentStatus == SessionScheduleNewPageController.CurretController.none{
             
             paintProgressBar()
             self.navigationController?.popToRootViewController(animated: true)
+            return
+        }
+        if currentStatus == SessionScheduleNewPageController.CurretController.first{
+            
+            paintProgressBar()
+            pageViewController?.setTitleController(direction: .reverse)
             return
         }
         if currentStatus == SessionScheduleNewPageController.CurretController.second {

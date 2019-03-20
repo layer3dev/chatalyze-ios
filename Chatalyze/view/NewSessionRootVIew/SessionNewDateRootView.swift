@@ -9,6 +9,7 @@
 import UIKit
 
 protocol SessionNewDateRootViewDelegate {
+    
     func getSchduleSessionInfo()->ScheduleSessionInfo?
     func goToNextScreen()
 }
@@ -47,7 +48,6 @@ class SessionNewDateRootView: ExtendedView {
         self.dateFld?.textFieldContainer?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
     }
     
-    
     //MARK:- updating parameter
     private func updatingParameters(){
         
@@ -77,7 +77,7 @@ class SessionNewDateRootView: ExtendedView {
         DispatchQueue.main.async {
             self.delegate?.goToNextScreen()
         }
-        Log.echo(key: "yud", text: "way is clear")        
+        Log.echo(key: "yud", text: "Way is clear")
     }
 }
 
@@ -90,6 +90,7 @@ extension SessionNewDateRootView{
         return dateValidated
     }
     
+    
     func validateDate()->Bool{
         
         if(dateFld?.textField?.text == ""){
@@ -100,7 +101,6 @@ extension SessionNewDateRootView{
         dateFld?.resetErrorStatus()
         return true
     }
-
 }
 
 extension SessionNewDateRootView:XibDatePickerDelegate{
@@ -119,6 +119,7 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
         self.addSubview(datePickerContainer)
     }
     
+    
     func doneTapped(selectedDate:Date?){
         
         hidePicker()
@@ -133,6 +134,7 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
         //birthDay = selectedDate
     }
     
+    
     func pickerAction(selectedDate:Date?){
         
         guard let pickerDate = selectedDate else{
@@ -146,6 +148,7 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
         //birthDay = selectedDate
     }
     
+    
     private func showDatePicker(){
         
         handleBirthadyFieldScrolling()
@@ -153,12 +156,14 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
         self.datePickerContainer.isHidden = false
     }
     
+    
     private func hidePicker(){
         
         handleBirthadyFieldScrolling()
         self.isDatePickerIsShowing = false
         self.datePickerContainer.isHidden = true
     }
+    
     
 //    private func getBirthDayDateForParam()->String{
 //
@@ -171,8 +176,8 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
 //        let dateInStr = dateFormatter.string(from: date)
 //        Log.echo(key: "yud", text: "Parameter dob is \(dateInStr)")
 //        return dateInStr
-//    }
-        
+//    }    
+
     //TODO:- Yet to implement BirthadyFieldScrolling
     func handleBirthadyFieldScrolling(){
     }

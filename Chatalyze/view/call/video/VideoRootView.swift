@@ -9,9 +9,12 @@
 import UIKit
 
 class VideoRootView: ExtendedView {
-    
-
-    
+   
+    @IBOutlet var headerTopConstraint:NSLayoutConstraint?
+    var isStatusBarhiddenDuringAnimation = true
+    @IBOutlet var headerView:UIView?
+    var delegateCutsom:VideoViewStatusBarAnimationInterface?
+   
     @IBOutlet var actionContainer : VideoActionContainer?
     @IBOutlet var localVideoView : LocalVideoView?
     
@@ -65,6 +68,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintInterface(){
+        
 //        paintOverlay()
 //        self.actionContainer?.isHidden = true
     }
@@ -93,6 +97,7 @@ class VideoRootView: ExtendedView {
     }
     
     func addToogleGesture(){
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleContainer(gesture:)))
         tapGesture.numberOfTapsRequired = 1
         self.addGestureRecognizer(tapGesture)
@@ -104,7 +109,15 @@ class VideoRootView: ExtendedView {
     
     
     @objc func toggleContainer(gesture: UITapGestureRecognizer){
+      
         actionContainer?.toggleContainer()
+        animateHeader()
+    }
+    
+    
+    func animateHeader(){
+        
+        //TO be overridden in order to hide and show the topmost Header
     }
     
 }

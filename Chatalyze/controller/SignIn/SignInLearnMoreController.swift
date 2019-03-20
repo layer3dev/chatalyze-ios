@@ -40,13 +40,13 @@ class SignInLearnMoreController: InterfaceExtendedController {
         DispatchQueue.main.async {
             
             let firstStr = "Have specific questions? Feel free to "
-            let firstMutableStr = firstStr.toMutableAttributedString(font: "OpenSans", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 126.0/255.0, green: 126.0/255.0, blue: 126.0/255.0, alpha: 1), isUnderLine: false)
+            let firstMutableStr = firstStr.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 126.0/255.0, green: 126.0/255.0, blue: 126.0/255.0, alpha: 1), isUnderLine: false)
             
             let secondStr = "contact us"
-            let secondAttrStr = secondStr.toAttributedString(font: "OpenSans", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 175.0/255.0, green: 216.0/255.0, blue: 249.0/255.0, alpha: 1), isUnderLine: true)
+            let secondAttrStr = secondStr.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 175.0/255.0, green: 216.0/255.0, blue: 249.0/255.0, alpha: 1), isUnderLine: true)
             
             let thirdStr = ". We’ll be happy to help!"
-            let thirdAttrStr = thirdStr.toAttributedString(font: "OpenSans", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 126.0/255.0, green: 126.0/255.0, blue: 126.0/255.0, alpha: 1), isUnderLine: false)
+            let thirdAttrStr = thirdStr.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20 : 16, color: UIColor(red: 126.0/255.0, green: 126.0/255.0, blue: 126.0/255.0, alpha: 1), isUnderLine: false)
             
             firstMutableStr.append(secondAttrStr)
             firstMutableStr.append(thirdAttrStr)

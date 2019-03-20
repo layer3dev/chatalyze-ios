@@ -13,7 +13,7 @@ class UserVideoRootView: UserVideoLayoutView {
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
-
+        
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -21,8 +21,6 @@ class UserVideoRootView: UserVideoLayoutView {
         // Drawing code
     }
     */
-    
-    
     
     func getSnapshot()->UIImage?{
         
@@ -125,5 +123,28 @@ class UserVideoRootView: UserVideoLayoutView {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    override func animateHeader() {
+        
+        if isStatusBarhiddenDuringAnimation == false {
+            
+            self.delegateCutsom?.visibleAnimateStatusBar()
+            isStatusBarhiddenDuringAnimation = true
+            UIView.animate(withDuration: 0.25) {
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+                self.layoutIfNeeded()
+            }
+            return
+        }
+        
+        isStatusBarhiddenDuringAnimation = false
+        self.delegateCutsom?.hidingAnimateStatusBar()
+        UIView.animate(withDuration: 0.25) {
+            
+            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+            self.layoutIfNeeded()
+        }
     }
 }

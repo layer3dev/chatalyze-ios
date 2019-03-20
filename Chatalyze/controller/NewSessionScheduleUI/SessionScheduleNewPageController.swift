@@ -29,9 +29,11 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         case seventh = 6
         case eighth = 7
         case ninth = 8
+        case title = 9
     }
     
     private var currentController = CurretController.none
+    private var titleController:ScheduleSessionNewTitleController?
     private var firstController:ScheduleSessionNewDateController?
     private var secondController:ScheduleSessionNewTimeController?
     private var thirdController:ScheduleSessionNewDurationController?
@@ -47,13 +49,26 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
         super.viewDidLoad()
         
         self.delegate = self
-        setFirstController()
+        setTitleController()
         //Do any additional setup after loading the view.
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         Log.echo(key: "yud", text: "Current Controller is \(pageViewController.viewControllers?.first)")        
+    }
+    
+    func setTitleController(direction:NavigationDirection = NavigationDirection.forward){
+        
+        guard let controller = getController(current: .title) else{
+            return
+        }
+        if currentController == .title{
+            return
+        }
+        setViewControllers([controller], direction: direction, animated: true, completion: nil)
+        currentController = .title
+        pageDelegate?.updateProgress()
     }
     
     func setFirstController(direction:NavigationDirection = NavigationDirection.forward){
@@ -177,6 +192,19 @@ class SessionScheduleNewPageController: UIPageViewController,UIPageViewControlle
     
     
     func getController(current:CurretController)->UIViewController?{
+      
+        if current == .title {
+            
+            if let controller =  titleController {
+                return controller
+            }
+            guard let controller = ScheduleSessionNewTitleController.instance() else{
+                return nil
+            }
+            controller.delegate = self
+            self.titleController = controller
+            return controller
+        }
         
         if current == .first {
             
@@ -384,5 +412,13 @@ extension SessionScheduleNewPageController:ScheduleSessionDonationControllerDele
     
     func goToScreenShotScreen(){
         setSeventhController()
+    }
+}
+
+
+extension SessionScheduleNewPageController:ScheduleSessionNewTitleControllerDelegate{
+    
+    func goToDateController(){
+        setFirstController()
     }
 }

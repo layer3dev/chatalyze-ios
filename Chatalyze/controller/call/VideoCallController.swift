@@ -107,6 +107,11 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
+        
+//        UIApplication.shared.isStatusBarHidden = true
+//        setNeedsStatusBarAppearanceUpdate()
+                
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             self.fontSizeBig = 24
@@ -345,6 +350,21 @@ class VideoCallController : InterfaceExtendedController {
         
     }
     
+    //ready state to determine if interval is ready to execute
+    //or if it should wait before everything is ready
+    var isReady : Bool{
+        if(!isActivated){
+            return false
+        }
+        
+        if(!TimerSync.sharedInstance.isSynced){
+            return false
+        }
+        
+        return true
+    }
+    
+    //to check, if event is activated
     var isActivated : Bool{
         
         guard let eventInfo = eventInfo
@@ -608,20 +628,22 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func startTimer(){
+        
         timer.ping { [weak self] in
             self?.executeInterval()
         }
-        
         timer.startTimer()
     }
     
+    
     private func executeInterval(){
+       
         if(isReleased){
             return
         }
-        if(!isActivated){
+        if(!isReady){
             return
-        }
+        }        
         interval()
     }
     
@@ -685,10 +707,10 @@ class VideoCallController : InterfaceExtendedController {
     func eventCancelled(){
         //To be overridden by the UserCallController and videoCallController
     }
+    
 }
 
-
-//actionButtons
+//Action Buttons
 extension VideoCallController{
 }
 
@@ -1006,7 +1028,7 @@ extension VideoCallController{
             self.showAlertContainer()
             self.showPreConnectLabel()
             let requiredMessage = "Session has not started."
-            let secondAttributedString = requiredMessage.toAttributedString(font: "Questrial", size: fontSize, color: UIColor.white)
+            let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.white)
             preConnectLbl?.attributedText = secondAttributedString
             return
         }
@@ -1016,9 +1038,9 @@ extension VideoCallController{
             self.showAlertContainer()
             self.showPreConnectLabel()
             let firstStr = (roomType == .user) ? "Host" : "Participant"
-            let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Poppins", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
+            let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
             let secondStr = " hasn't joined the session."
-            let secondAttributedString = secondStr.toAttributedString(font: "Poppins", size: fontSize, color: UIColor.white)
+            let secondAttributedString = secondStr.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             firstMutableAttributedStr.append(secondAttributedString)
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
             preConnectLbl?.attributedText = firstMutableAttributedStr
@@ -1066,8 +1088,8 @@ extension VideoCallController{
         
         let textOne = "We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please "
         let texttwo = "contact us."
-        let mutableAttrOne = textOne.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: false)
-        let attrTwo = texttwo.toMutableAttributedString(font: "Open Sans", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: true)
+        let mutableAttrOne = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: false)
+        let attrTwo = texttwo.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: true)
         mutableAttrOne.append(attrTwo)
         self.eventCancelledAlertView?.layer.borderWidth = 1
         self.eventCancelledAlertView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -1119,5 +1141,20 @@ extension VideoCallController {
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : .contactUs)
         }
+    }
+}
+
+
+extension VideoCallController:VideoViewStatusBarAnimationInterface{
+    
+    func visibleAnimateStatusBar() {
+                
+        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
+        
+    }
+    
+    func hidingAnimateStatusBar() {
+        
+        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.fade)
     }
 }

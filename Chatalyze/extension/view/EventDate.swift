@@ -25,9 +25,9 @@ public extension Date {
     
     
     var timeIntervalTillNow : TimeInterval{
+        
         let interval = self.timeIntervalSince1970
         let secondsNow = Double(TimerSync.sharedInstance.getSeconds())
-        
         return interval - secondsNow
     }
 }

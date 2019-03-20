@@ -62,13 +62,13 @@ class TippingCardInfoRootView: ExtendedView {
         }
         
         cardField?.textField?.attributedPlaceholder =
-            NSAttributedString(string: "Card number", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+            NSAttributedString(string: "Card number", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
         
         dateMonthField?.textField?.attributedPlaceholder =
-            NSAttributedString(string: "Expiry: MM/YY", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+            NSAttributedString(string: "Expiry: MM/YY", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
         
         cvcField?.textField?.attributedPlaceholder =
-            NSAttributedString(string: "CVC", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Questrial", size: fontSize)])
+            NSAttributedString(string: "CVC", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white,NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
     }
     
     func initialize(){

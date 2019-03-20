@@ -70,10 +70,7 @@ class SettingController : InterfaceExtendedController {
         if let roleId = SignedUserInfo.sharedInstance?.role{
             
             if roleId == .analyst{
-                
-                //                ScheduleHeightPriority?.priority = UILayoutPriority(250.0)
-                //                MySessionHeightConstraint?.priority = UILayoutPriority(250.0)
-                
+                             
                 ScheduleHeightPriority?.priority = UILayoutPriority(999.0)
                 MySessionHeightConstraint?.priority = UILayoutPriority(999.0)
                 
@@ -138,7 +135,6 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func scheduleAction(sender:UIButton?){
         
-        
         guard let controller = ScheduleSessionController.instance() else{
             return
         }
@@ -147,7 +143,6 @@ class SettingController : InterfaceExtendedController {
     }
     
     @IBAction func myScheduleSessions(sender:UIButton?){
-        
         
         guard let controller = MyScheduledSessionsController.instance() else{
             return
@@ -158,29 +153,10 @@ class SettingController : InterfaceExtendedController {
     
     @IBAction func aboutAction(sender:UIButton){
         
-        //        guard let controller = MyTicketsVerticalController.instance() else{
-        //            return
-        //        }
-        //
-        //        self.navigationController?.pushViewController(controller, animated: true)
-        
-        //       guard let controller = HostDashboardController.instance() else{
-        //            return
-        //        }
-        //        self.navigationController?.pushViewController(controller, animated: true)
-        
-        
         guard let controller = ContactUsController.instance() else{
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)
-        
-        
-        //        guard let controller = WelcomeController.instance() else{
-        //            return
-        //        }
-        //
-        //        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

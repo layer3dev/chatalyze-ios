@@ -25,9 +25,9 @@ class SigninController: InterfaceExtendedController {
             
             let secondStr = "Learn more"
             
-            let firstMuatbleStr = firstStr.toMutableAttributedString(font: "Questrial",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white , isUnderLine: false)
+            let firstMuatbleStr = firstStr.toMutableAttributedString(font: "Nunito-Regular",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white , isUnderLine: false)
             
-            let secondAttrStr = secondStr.toMutableAttributedString(font: "Questrial",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: true)
+            let secondAttrStr = secondStr.toMutableAttributedString(font: "Nunito-Regular",size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: true)
             
             firstMuatbleStr.append(secondAttrStr)
             

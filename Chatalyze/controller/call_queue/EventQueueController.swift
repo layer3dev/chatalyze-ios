@@ -18,16 +18,13 @@ class EventQueueController: InterfaceExtendedController {
     @IBOutlet var bottomLine:UIView?
     private var countdownListener : CountdownListener =
         CountdownListener()
-
     private var socketClient : SocketClient?
     private var timerSync = TimerSync.sharedInstance
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         intialization()
-        
     }
     
     var rootView : CallQueueRootView?{
@@ -95,10 +92,10 @@ class EventQueueController: InterfaceExtendedController {
     
     
     private func registerForTimer(){
+       
         countdownListener.add { [weak self] in
             self?.refresh()
         }
-        
     }
     
     private func registerForEvent(){
@@ -139,7 +136,7 @@ class EventQueueController: InterfaceExtendedController {
       
         paintSettingButton()
         paintNavigationBar()
-        //edgesForExtendedLayout =  [UIRectEdge.bottom]
+        //edgesForExtendedLayout = [UIRectEdge.bottom]
     }
         
     private func paintNavigationBar(){
@@ -176,6 +173,8 @@ class EventQueueController: InterfaceExtendedController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+       
+        
         // Dispose of any resources that can be recreated.
     }
     
