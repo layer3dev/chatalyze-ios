@@ -26,6 +26,7 @@ class ScheduleSessionInfo:NSObject {
     var bannerImage:UIImage?
     var tipEnabled:Bool = false
     var minimumPlanPriceToSchedule:Double = 0.0
+    var doublePrice:Double?
     
     //["end": "2019-01-30T10:30:00.000+0000", "price": "11100", "isFree": false, "userId": "36", "start": "2019-01-30T09:30:00.000+0000", "eventBannerInfo": false, "title": "Chat Session", "description": "", "duration": 3]
     
@@ -34,6 +35,7 @@ class ScheduleSessionInfo:NSObject {
     }
     
     var totalSlots:Int?{
+       
         get{
             
             guard let start = self.startDateTime else {
