@@ -9,9 +9,11 @@
 import UIKit
 
 class EditSessionFormController: InterfaceExtendedController {
-
+    
     var eventInfo:EventInfo?
     @IBOutlet var scrollViewCustom:FieldManagingScrollView?
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()

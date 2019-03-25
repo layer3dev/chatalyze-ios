@@ -8,7 +8,13 @@
 
 import UIKit
 
-class EditSessionFormRootView:ExtendedView{
+class EditSessionFormRootView:ExtendedView {
+    
+    @IBOutlet var donationInfoLabel:UILabel?
+    @IBOutlet var screenShotInfoLabel:UILabel?
+    
+    @IBOutlet var donationCustomSwitch:EditCustomSwitch?
+    @IBOutlet var screenShotCustomSwitch:EditCustomSwitch?
     
     @IBOutlet var earningFormulaLbl:UILabel?
     @IBOutlet var totalEarningLabel:UILabel?
@@ -33,7 +39,6 @@ class EditSessionFormRootView:ExtendedView{
         case thirty = 5
         case none = 6
     }
-    
     
     enum totalChatDuration:Int{
         
@@ -179,8 +184,7 @@ class EditSessionFormRootView:ExtendedView{
         self.freeField?.isCompleteBorderAllow = true
         self.priceField?.isCompleteBorderAllow = true
         self.roundToEditSessionButton()
-        
-        
+                
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
         
@@ -189,13 +193,69 @@ class EditSessionFormRootView:ExtendedView{
         
     }
     
+    func initializeCustomSwitch(){
+        
+        donationCustomSwitch?.toggleAction = {[weak self] in
+            
+            if self?.donationCustomSwitch?.isOn ?? false{
+                
+                self?.donationLabel?.text = "ON"
+                self?.donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
+                self?.scheduleInfo?.tipEnabled = true
+
+                UIView.animate(withDuration: 0.15, animations: {
+                    
+                    self?.donationInfoLabel?.alpha = 1
+                    self?.layoutIfNeeded()
+                })
+                return
+            }
+            
+            self?.scheduleInfo?.tipEnabled = false
+            UIView.animate(withDuration: 0.15, animations: {
+                
+                self?.donationInfoLabel?.alpha = 0
+                self?.layoutIfNeeded()
+            })
+            self?.donationInfoLabel?.text = ""
+            self?.donationLabel?.text = "OFF"
+            return
+        }
+        
+        screenShotCustomSwitch?.toggleAction = {[weak self] in
+            
+            if self?.screenShotCustomSwitch?.isOn ?? false {
+              
+                self?.screenShotLabel?.text = "ON"
+                self?.screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
+                self?.scheduleInfo?.isScreenShotAllow = true
+                UIView.animate(withDuration: 0.15, animations: {
+                    self?.screenShotInfoLabel?.alpha = 1
+                    self?.layoutIfNeeded()
+                })
+                return
+
+            }else{
+                
+                self?.screenShotLabel?.text = "OFF"
+                self?.scheduleInfo?.isScreenShotAllow = false
+                UIView.animate(withDuration: 0.15, animations: {
+                    self?.screenShotInfoLabel?.alpha = 0
+                    self?.layoutIfNeeded()
+                })
+                self?.screenShotInfoLabel?.text = ""
+                return
+            }
+        }
+    }
+    
     func initializeVariable(){
         
+        initializeCustomSwitch()
         initializeDatePicker()
         initializeTimePicker()
         initializeChatLengthPicker()
         initializeSessionLengthPicker()
-        
         
         self.titleField?.textField?.delegate = self
         self.dateField?.textField?.delegate = self
@@ -220,6 +280,11 @@ class EditSessionFormRootView:ExtendedView{
         
         
         self.eventInfo = eventInfo
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            slotIdentifiedDisbaleView()
+        }
+        
         self.titleField?.textField?.text = eventInfo.title
         self.dateField?.textField?.text = desiredDate
         self.timeField?.textField?.text = desiredTime
@@ -284,24 +349,30 @@ class EditSessionFormRootView:ExtendedView{
         
         if eventInfo.tipEnabled == true {
             
-            donationSwitch?.setOn(true, animated: true)
+            donationCustomSwitch?.setOn()
             donationLabel?.text = "ON"
+            donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
+            //donationSwitch?.setOn(true, animated: true)
         }else{
             
-            donationSwitch?.setOn(false, animated: true)
+            donationCustomSwitch?.setOff()
+            donationInfoLabel?.text = ""
             donationLabel?.text = "OFF"
+            //donationSwitch?.setOn(false, animated: true)
         }
         
         if eventInfo.isScreenShotAllowed != "automatic"{
-           
-            screenShotSwitch?.setOn(false, animated: true)
+         
+            //screenShotSwitch?.setOn(false, animated: true)
+            screenShotCustomSwitch?.setOff()
             screenShotLabel?.text = "OFF"
- 
+            screenShotInfoLabel?.text = ""
         }else{
 
-            screenShotSwitch?.setOn(true, animated: true)
+            //screenShotSwitch?.setOn(true, animated: true)
+            screenShotCustomSwitch?.setOn()
             screenShotLabel?.text = "ON"
-            
+            screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
         }
         
         if eventInfo.isFree ?? false{
@@ -315,7 +386,6 @@ class EditSessionFormRootView:ExtendedView{
         }
         
         updatescheduleInfo()
-        
     }
     
     
@@ -1165,7 +1235,7 @@ extension EditSessionFormRootView{
             self.scheduleInfo?.duration = chatDuration
         }
         
-        if donationSwitch?.isOn == true{
+        if donationCustomSwitch?.isOn == true{
             
             self.scheduleInfo?.tipEnabled = true
             
@@ -1175,7 +1245,7 @@ extension EditSessionFormRootView{
             
         }
         
-        if screenShotSwitch?.isOn == true{
+        if screenShotCustomSwitch?.isOn == true{
             
             self.scheduleInfo?.isScreenShotAllow = true
         }else{
@@ -1292,7 +1362,6 @@ extension EditSessionFormRootView{
         param["userId"] = id
         param["duration"] = durate
         if info.isFree{
-            
             //param["price"] = priceHourly
         }else{
             param["price"] = priceHourly
@@ -1340,7 +1409,7 @@ extension EditSessionFormRootView{
             self.controller?.stopLoader()
             if success{
                 
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                     
                     self.controller?.navigationController?.popToRootViewController(animated: true)
                 })
@@ -1348,9 +1417,31 @@ extension EditSessionFormRootView{
             }
             self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                 
-                
             })
             return
         }
     }
+}
+
+
+extension EditSessionFormRootView{
+
+
+    func slotIdentifiedDisbaleView(){
+        
+        dateField?.isUserInteractionEnabled = false
+        timeField?.isUserInteractionEnabled = false
+        sessionLength?.isUserInteractionEnabled = false
+        chatLength?.isUserInteractionEnabled = false
+        freeField?.isUserInteractionEnabled = false
+        priceField?.isUserInteractionEnabled = false
+        priceAmountField?.isUserInteractionEnabled = false
+        screenShotCustomSwitch?.isUserInteractionEnabled = false
+
+        dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+    }
+    
 }

@@ -366,8 +366,6 @@ extension EventPaymentRootView{
     
     @IBAction func submitPayment(sender:UIButton){
         
-        Log.echo(key: "yud", text: "is Card Selecetd is \(isCardSelected) and the card last Digit is \(self.currentcardInfo?.lastDigitAccount)")
-        
         
         if isCardSelected{
             
