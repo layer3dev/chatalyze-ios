@@ -15,6 +15,7 @@ class PlanInfo: NSObject {
     var name:String?
     var isTrial:Bool?
     var minPrice:Double?
+    var chatalyzeFee:Int?
     
     override init(){
         super.init()
@@ -51,7 +52,7 @@ class PlanInfo: NSObject {
         fillInfo(data:info)
     }
     
-    func fillInfo(data:JSON?){
+    func fillInfo(data:JSON?) {
         
         guard let info = data?.dictionary else {
             return
@@ -61,6 +62,12 @@ class PlanInfo: NSObject {
         self.minPrice = info["minAmt"]?.doubleValue
         if let subscriptionInfo = info["subscription"]?.dictionary{
             self.isTrial = subscriptionInfo["isTrial"]?.boolValue
+        }
+        if let subscriptionInfo = info["subscription"]?.dictionary{
+            self.isTrial = subscriptionInfo["isTrial"]?.boolValue
+        }
+        if let rule = info["rule"]?.dictionary{            
+            self.chatalyzeFee = rule["chatalyzeShare"]?.int
         }
     }
 }

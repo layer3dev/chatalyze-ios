@@ -37,7 +37,8 @@ class EditSessionFormRootView:ExtendedView {
         case ten = 3
         case fifteen = 4
         case thirty = 5
-        case none = 6
+        case sixty = 6
+        case none = 7
     }
     
     enum totalChatDuration:Int{
@@ -60,6 +61,8 @@ class EditSessionFormRootView:ExtendedView {
     
     //***
     var scheduleInfo:ScheduleSessionInfo? = ScheduleSessionInfo()
+    
+    var planInfo:PlanInfo?
     
     enum pickerType:Int {
         
@@ -92,7 +95,7 @@ class EditSessionFormRootView:ExtendedView {
     fileprivate var isTimePickerIsShowing = false
     
     var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
-    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins"]
+    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
     
     let chatLengthPicker = CustomPicker()
     let sessionLengthPicker = CustomPicker()
@@ -318,6 +321,11 @@ class EditSessionFormRootView:ExtendedView {
            
             slotSelected = .thirty
             self.chatLength?.textField?.text =  chatLengthArray[5]
+        }
+        if eventInfo.duration == 60{
+            
+            slotSelected = .sixty
+            self.chatLength?.textField?.text =  chatLengthArray[6]
         }
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
@@ -560,13 +568,15 @@ extension EditSessionFormRootView{
         let isFutureTimeValidation = isFutureTime()
         let durationValidated = validateSlotTime()
         let priceValidated  = priceValidation()
+        let lengthBalanceValidate = validateBalanceBetweenSessionAndChatLength()
         
         Log.echo(key: "yud", text: "titleValidated \(titleValidated) dateValidated\(dateValidated) timeValidated\(timeValidated) isFutureTimeValidation\(isFutureTimeValidation) durationValidated\(durationValidated) priceValidated \(priceValidated)")
         
-        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated
+        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate
     }
     
     fileprivate func titleValidation()->Bool {
+        
         if(titleField?.textField?.text?.replacingOccurrences(of: " ", with: "") ?? "" == ""){
             
             titleField?.showError(text: "Title is required.")
@@ -586,11 +596,20 @@ extension EditSessionFormRootView {
     func validateDate()->Bool {
         
         if(dateField?.textField?.text == ""){
-            
             dateField?.showError(text: "Date is required.")
             return false
         }
         dateField?.resetErrorStatus()
+        return true
+    }
+    
+    func validateBalanceBetweenSessionAndChatLength()->Bool{
+        
+        if slotSelected == .sixty && totalTimeOfChat == .thirtyMinutes{
+            sessionLength?.showError(text: "Session length must be greater or equal to the chat length.")
+            return false
+        }
+        sessionLength?.resetErrorStatus()
         return true
     }
 }
@@ -601,6 +620,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     func initializeDatePicker(){
         
         datePickerContainer.frame = self.frame
+        datePickerContainer.frame.origin.y = datePickerContainer.frame.origin.y - CGFloat(64)
         datePickerContainer.timePicker?.datePickerMode = .date
         datePickerContainer.delegate = self
         datePickerContainer.timePicker?.minimumDate = Date()
@@ -693,6 +713,7 @@ extension EditSessionFormRootView{
     func initializeTimePicker(){
         
         timePickerContainer.frame = self.frame
+        timePickerContainer.frame.origin.y = timePickerContainer.frame.origin.y - CGFloat(64)
         timePickerContainer.timePicker?.datePickerMode = .time
         timePickerContainer.delegate = self
         timePickerContainer.timePicker?.minuteInterval = 30
@@ -791,6 +812,7 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     func initializeChatLengthPicker(){
         
         chatLengthPicker.frame = self.frame
+        chatLengthPicker.frame.origin.y = chatLengthPicker.frame.origin.y - CGFloat(64)
         chatLengthPicker.delegate = self
         chatLengthPicker.currentType = .chatLength
         chatLengthPicker.picker?.delegate = self
@@ -805,12 +827,12 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     func initializeSessionLengthPicker(){
         
         sessionLengthPicker.frame = self.frame
+        sessionLengthPicker.frame.origin.y = sessionLengthPicker.frame.origin.y - CGFloat(64)
         sessionLengthPicker.delegate = self
         sessionLengthPicker.currentType = .sessionLength
         sessionLengthPicker.picker?.delegate = self
         sessionLengthPicker.picker?.dataSource = self
         chatLengthPicker.picker?.reloadAllComponents()
-        
         //TODO:- Implement the minimum date
         //datePicker.timePicker?.minimumDate
         sessionLengthPicker.isHidden = true
@@ -872,7 +894,9 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
             if row == 5{
                 slotSelected = .thirty
             }
-            
+            if row == 6{
+                slotSelected = .sixty
+            }
             return
         }
         
@@ -1065,11 +1089,11 @@ extension EditSessionFormRootView{
             return
         }
         
-        if price > 9999.0{
+        if price > 9999.0 {
             return
         }
         
-        if price == 0.0{
+        if price == 0.0 {
             resetEarningCalculator()
             return
         }
@@ -1084,13 +1108,19 @@ extension EditSessionFormRootView{
         Log.echo(key: "yud", text: "Paypal fee of the Single chat is \(roundedPaypalFeeofSingleChat) rounded exact i s\(roundedPaypalFeeofSingleChat.rounded())")
         let paypalFeeOfWholeChat = (roundedPaypalFeeofSingleChat*Double(totalSlots))
         Log.echo(key: "yud", text: "Paypal fee of the whole chat is \(paypalFeeOfWholeChat)")
-        let clientShares = (totalPriceOfChatwithoutTax/10)
+        let partOfShare = ((Double(self.planInfo?.chatalyzeFee ?? 10))/100.0)
+        Log.echo(key: "yud", text: "Part of the share is \(partOfShare)")
+        var clientShares = 0.0
+        if partOfShare == 0.0 {
+            //Client share should remain to $ 0.0
+        }else {
+            clientShares = (totalPriceOfChatwithoutTax*(partOfShare))
+        }
         Log.echo(key: "yud", text: "Client shares are \(clientShares)")
         let totalSeviceFee = clientShares + paypalFeeOfWholeChat + 0.25
         Log.echo(key: "yud", text: "Total Service fee is \(totalSeviceFee)")
         let totalEarning = (totalPriceOfChatwithoutTax-totalSeviceFee)
         //let serviceFee = totalSeviceFee
-        
         let serviceFee = (round((totalSeviceFee*1000))/1000)
         let totalEarningRoundedPrice = (round((totalEarning*1000))/1000)
         
@@ -1098,13 +1128,10 @@ extension EditSessionFormRootView{
         
         var fontSizeTotalSlot = 30
         var normalFont = 20
-        
         if UIDevice.current.userInterfaceIdiom == .phone {
-            
             fontSizeTotalSlot = 26
             normalFont = 18
         }
-        
         let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Nunito-Regular", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
@@ -1318,6 +1345,9 @@ extension EditSessionFormRootView{
             }
             if slotSelected == .thirty{
                 return 30
+            }
+            if slotSelected == .sixty{
+                return 60
             }
             return nil
         }

@@ -27,7 +27,6 @@ import Foundation
                 print("\(key) -> nil")
                 return
         }
-        
         print("\(DateParser.dateToString(Date())) \(key) -> \(textEx)")
     }
 }

@@ -12,6 +12,7 @@ class FreeEventPaymentController: InterfaceExtendedController {
     
     var info:EventInfo?
     @IBOutlet var errorLable:UILabel?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
     }

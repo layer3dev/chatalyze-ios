@@ -1133,7 +1133,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iuk-Th-2Zo" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="Iuk-Th-2Zo" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhO-s0-CF4">
@@ -1486,7 +1486,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="35k-4O-oO1" secondAttribute="trailing" id="9xh-Su-5jV"/>
                                                     <constraint firstAttribute="trailing" secondItem="8bu-aK-zu6" secondAttribute="trailing" id="AhN-nC-dgK"/>
                                                     <constraint firstItem="35k-4O-oO1" firstAttribute="top" secondItem="DDq-hA-29G" secondAttribute="top" id="QiP-80-EAL"/>
-                                                    <constraint firstItem="113-Ar-okE" firstAttribute="centerY" secondItem="DDq-hA-29G" secondAttribute="centerY" id="U9i-GQ-XQM"/>
+                                                    <constraint firstItem="113-Ar-okE" firstAttribute="centerY" secondItem="8bu-aK-zu6" secondAttribute="centerY" id="c7l-tu-JNS"/>
                                                     <constraint firstItem="ulB-U1-vrN" firstAttribute="top" secondItem="8bu-aK-zu6" secondAttribute="bottom" id="e4P-5z-Yl3"/>
                                                     <constraint firstAttribute="bottom" secondItem="ulB-U1-vrN" secondAttribute="bottom" id="hql-gx-nsg"/>
                                                     <constraint firstAttribute="bottom" secondItem="35k-4O-oO1" secondAttribute="bottom" id="sPm-kT-bKH"/>
@@ -1858,7 +1858,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xaE-8C-zWo">
-                                                                <rect key="frame" x="8" y="0.0" width="30" height="0.0"/>
+                                                                <rect key="frame" x="15" y="0.0" width="30" height="0.0"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="Tg7-jn-o9F"/>
                                                                 </constraints>
@@ -1870,7 +1870,7 @@
                                                                 </variation>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xG3-sT-r0D">
-                                                                <rect key="frame" x="25" y="0.0" width="312" height="0.0"/>
+                                                                <rect key="frame" x="32" y="0.0" width="305" height="0.0"/>
                                                                 <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -1884,12 +1884,12 @@
                                                             <constraint firstAttribute="bottom" secondItem="xaE-8C-zWo" secondAttribute="bottom" id="3ln-3T-xmU"/>
                                                             <constraint firstItem="xaE-8C-zWo" firstAttribute="top" secondItem="dLb-aI-2tZ" secondAttribute="top" id="OeX-qc-jdu"/>
                                                             <constraint firstItem="xG3-sT-r0D" firstAttribute="top" secondItem="dLb-aI-2tZ" secondAttribute="top" id="Ouh-75-oFg"/>
-                                                            <constraint firstItem="xG3-sT-r0D" firstAttribute="leading" secondItem="dLb-aI-2tZ" secondAttribute="leading" constant="25" id="ULx-xU-01e">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="27"/>
+                                                            <constraint firstItem="xG3-sT-r0D" firstAttribute="leading" secondItem="dLb-aI-2tZ" secondAttribute="leading" constant="32" id="ULx-xU-01e">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="36"/>
                                                             </constraint>
                                                             <constraint firstAttribute="height" id="aSA-Lq-847"/>
                                                             <constraint firstAttribute="trailing" secondItem="xG3-sT-r0D" secondAttribute="trailing" constant="8" id="beB-ju-4vT"/>
-                                                            <constraint firstItem="xaE-8C-zWo" firstAttribute="leading" secondItem="dLb-aI-2tZ" secondAttribute="leading" constant="8" id="nAO-hd-Whp"/>
+                                                            <constraint firstItem="xaE-8C-zWo" firstAttribute="leading" secondItem="dLb-aI-2tZ" secondAttribute="leading" constant="15" id="nAO-hd-Whp"/>
                                                             <constraint firstAttribute="bottom" secondItem="xG3-sT-r0D" secondAttribute="bottom" id="xq6-VV-0xM"/>
                                                         </constraints>
                                                     </view>
@@ -2036,7 +2036,7 @@
                                                 <rect key="frame" x="15" y="858" width="70" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ch-7c-lwH">
-                                                        <rect key="frame" x="12" y="6.5" width="22" height="22"/>
+                                                        <rect key="frame" x="8" y="6.5" width="22" height="22"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="33J-LD-e4s"/>
@@ -2057,9 +2057,9 @@
                                                     <constraint firstAttribute="height" constant="35" id="6VG-OO-SJO"/>
                                                     <constraint firstAttribute="bottom" secondItem="KeU-JT-hcJ" secondAttribute="bottom" id="DPn-Hs-wUF"/>
                                                     <constraint firstAttribute="trailing" secondItem="KeU-JT-hcJ" secondAttribute="trailing" id="GTJ-qP-HUc"/>
-                                                    <constraint firstAttribute="trailing" secondItem="7Ch-7c-lwH" secondAttribute="trailing" priority="750" constant="12" id="Loa-c6-ACW"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7Ch-7c-lwH" secondAttribute="trailing" priority="750" constant="8" id="Loa-c6-ACW"/>
                                                     <constraint firstAttribute="width" constant="70" id="WHa-zH-Jww"/>
-                                                    <constraint firstItem="7Ch-7c-lwH" firstAttribute="leading" secondItem="jHT-Ij-1Kq" secondAttribute="leading" priority="999" constant="12" id="YKQ-rE-Nms"/>
+                                                    <constraint firstItem="7Ch-7c-lwH" firstAttribute="leading" secondItem="jHT-Ij-1Kq" secondAttribute="leading" priority="999" constant="8" id="YKQ-rE-Nms"/>
                                                     <constraint firstItem="KeU-JT-hcJ" firstAttribute="top" secondItem="jHT-Ij-1Kq" secondAttribute="top" id="pk0-sa-C08"/>
                                                 </constraints>
                                                 <connections>
@@ -2111,7 +2111,7 @@
                                                 <rect key="frame" x="15" y="1018" width="70" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KY0-gc-alE">
-                                                        <rect key="frame" x="12" y="6.5" width="22" height="22"/>
+                                                        <rect key="frame" x="8" y="6.5" width="22" height="22"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="22" id="SlR-7c-uY3"/>
@@ -2131,11 +2131,11 @@
                                                     <constraint firstAttribute="width" constant="70" id="Eog-AF-Sxk"/>
                                                     <constraint firstItem="UgV-S1-QM7" firstAttribute="top" secondItem="zpi-1W-nnJ" secondAttribute="top" id="OFz-Zt-WmM"/>
                                                     <constraint firstAttribute="trailing" secondItem="UgV-S1-QM7" secondAttribute="trailing" id="eDV-1i-itr"/>
-                                                    <constraint firstItem="KY0-gc-alE" firstAttribute="leading" secondItem="zpi-1W-nnJ" secondAttribute="leading" priority="999" constant="12" id="k8w-BT-AIy"/>
+                                                    <constraint firstItem="KY0-gc-alE" firstAttribute="leading" secondItem="zpi-1W-nnJ" secondAttribute="leading" priority="999" constant="8" id="k8w-BT-AIy"/>
                                                     <constraint firstAttribute="height" constant="35" id="maX-OF-cQd"/>
                                                     <constraint firstItem="KY0-gc-alE" firstAttribute="centerY" secondItem="zpi-1W-nnJ" secondAttribute="centerY" id="mjQ-6h-IDv"/>
                                                     <constraint firstItem="UgV-S1-QM7" firstAttribute="leading" secondItem="zpi-1W-nnJ" secondAttribute="leading" id="xG2-Aw-YOV"/>
-                                                    <constraint firstAttribute="trailing" secondItem="KY0-gc-alE" secondAttribute="trailing" priority="750" constant="12" id="zg8-dl-x6J"/>
+                                                    <constraint firstAttribute="trailing" secondItem="KY0-gc-alE" secondAttribute="trailing" priority="750" constant="8" id="zg8-dl-x6J"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="circleView" destination="KY0-gc-alE" id="6fA-2W-3xf"/>
@@ -2162,7 +2162,7 @@
                                             </label>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3g-QI-MWQ">
                                                 <rect key="frame" x="210" y="1158" width="150" height="45"/>
-                                                <color key="backgroundColor" red="0.40784313729999999" green="0.76470588240000004" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.58823529411764708" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="WDD-6G-TWG">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="200"/>
@@ -2171,12 +2171,12 @@
                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
                                                     </constraint>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                 <state key="normal" title="Done editing">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
                                                 </variation>
                                                 <connections>
                                                     <action selector="doneEditing" destination="BxE-zg-hvx" eventType="touchUpInside" id="JND-eW-ESS"/>
@@ -2402,7 +2402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xlu-9E-wdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3660" y="209"/>
+            <point key="canvasLocation" x="3639" y="209"/>
         </scene>
     </scenes>
     <resources>

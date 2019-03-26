@@ -27,7 +27,7 @@ class EditCustomSwitch: ExtendedView {
     func paintInterface(){
         
         self.layer.cornerRadius = 17.5
-        self.layer.borderWidth = 1
+        self.layer.borderWidth = 1.5
         self.layer.borderColor = UIColor(red: 250.0/255.0, green: 165.0/255.0, blue: 122.0/255.0, alpha: 1).cgColor
         self.layer.masksToBounds = true
         circleView?.layer.cornerRadius = 11

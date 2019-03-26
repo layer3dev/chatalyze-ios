@@ -31,6 +31,7 @@ class EditScheduleSessionNewController: UIViewController {
     }
     
     func back(){
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -42,7 +43,7 @@ class EditScheduleSessionNewController: UIViewController {
       
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
+        
         self.navigationController?.navigationBar.isHidden = true
     }
     
@@ -52,6 +53,7 @@ class EditScheduleSessionNewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         //Dispose of any resources that can be recreated.
     }
     

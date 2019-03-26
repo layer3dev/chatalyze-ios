@@ -234,7 +234,14 @@ extension ScheduleSessionEarningRootView{
         Log.echo(key: "yud", text: "Paypal fee of the Single chat is \(roundedPaypalFeeofSingleChat) rounded exact i s\(roundedPaypalFeeofSingleChat.rounded())")
         let paypalFeeOfWholeChat = (roundedPaypalFeeofSingleChat*Double(totalSlots))
         Log.echo(key: "yud", text: "Paypal fee of the whole chat is \(paypalFeeOfWholeChat)")
-        let clientShares = (totalPriceOfChatwithoutTax/10)
+        let partOfShare = ((Double(self.delegate?.getSchduleSessionInfo()?.chatalyzeFeePercent ?? 10))/100.0)
+        Log.echo(key: "yud", text: "Part of the share is \(partOfShare)")
+        var clientShares = 0.0
+        if partOfShare == 0.0 {
+            //Client share should remain to $0.0
+        }else {
+            clientShares = (totalPriceOfChatwithoutTax*(partOfShare))
+        }
         Log.echo(key: "yud", text: "Client shares are \(clientShares)")
         let totalSeviceFee = clientShares + paypalFeeOfWholeChat + 0.25
         Log.echo(key: "yud", text: "Total Service fee is \(totalSeviceFee)")
