@@ -105,6 +105,13 @@ extension MySessionAdapter:UITableViewDelegate{
             return
         }
         
+        if indexPath.row > (sessionListingArray.count-1){
+            return
+        }
+        
+        controller.eventInfo = self.sessionListingArray[indexPath.row]
+        
+        
         self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
         
         

@@ -30,7 +30,7 @@ class HandlingAppVersion:NSObject {
         guard let appVersion  = Double(AppInfoConfig.appversion) else{
             return
         }
-        
+        Log.echo(key: "yud", text: "App version is \(appVersion)")
         var rootController:UIViewController?
         //If user is not logged in
         let appDelegate = UIApplication.shared.delegate as? AppDelegate

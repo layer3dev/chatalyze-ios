@@ -66,7 +66,25 @@ class EditMySessionProcessor {
         }
     }
     
+    func editInfo(eventId:Int,param:[String:Any],completion : @escaping ((_ success : Bool, _ info : JSON?)->())){
+        
+        //https://dev.chatalyze.com/api/schedules/calls/6336        
+        var url = AppConnectionConfig.webServiceURL + "/schedules/calls/"
+        url = url + "\(eventId)"
+        var params = [String : Any]()
+        params = param
+        
+        Log.echo(key: "yud", text: "uploading image url is \(url) and the params are \(params)")
+        
+        ServerProcessor().request(.put, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in
+            
+            self.handleResponse(withSuccess: success, response: response, completion: completion)
+        }
+    }
+    
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : ((_ success : Bool, _ info : JSON?)->())){
+        
+         Log.echo(key: "yud", text: "Upload image response is \(response)")
         
         if(!success){
             completion(false, nil)

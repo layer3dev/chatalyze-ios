@@ -31,7 +31,7 @@ class FetchAppVersionInfo {
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "Resonse of Fetch payment is  \(response)")
+        Log.echo(key: "yud", text: "Response of Fetch payment is  \(response)")
         
         if(!success){
             completion(false, nil)

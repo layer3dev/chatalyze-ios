@@ -48,6 +48,7 @@ class SessionNewDateRootView: ExtendedView {
         self.dateFld?.textFieldContainer?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
     }
     
+    
     //MARK:- updating parameter
     private func updatingParameters(){
         
@@ -56,6 +57,7 @@ class SessionNewDateRootView: ExtendedView {
         }
         delegate?.getSchduleSessionInfo()?.startDate = date
     }
+    
     
     //MARK:- Button Actions
     @IBAction func birthDayAction(sender:UIButton){

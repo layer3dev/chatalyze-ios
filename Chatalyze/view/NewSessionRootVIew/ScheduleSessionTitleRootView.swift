@@ -19,7 +19,6 @@ class ScheduleSessionTitleRootView: ExtendedView{
     var delegate:ScheduleSessionTitleRootViewDelegate?
     
     @IBOutlet var titleField:SigninFieldView?
-    
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
     
@@ -42,7 +41,6 @@ class ScheduleSessionTitleRootView: ExtendedView{
         self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.nextView?.layer.borderWidth = 1
         self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
         self.chatPupView?.layer.masksToBounds = true
         self.chatPupView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3

@@ -75,6 +75,7 @@ class SessionScheduleNewController: UIViewController {
                 }
                 let info = PlanInfo(info: response)
                 self.scheduleInfo.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
+                self.scheduleInfo.chatalyzeFeePercent = info.chatalyzeFee ?? nil
                 Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice)")
             }
         

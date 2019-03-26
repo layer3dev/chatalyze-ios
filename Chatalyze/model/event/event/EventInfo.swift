@@ -129,6 +129,7 @@ class EventInfo: NSObject {
     }
     
     var start : String?{
+        
         get{
             return _start
         }
@@ -161,9 +162,9 @@ class EventInfo: NSObject {
             return "call-\(self.id ?? 0)"
         }
     }
-    
-    
+        
     var isLIVE : Bool{
+      
         get{
             guard let startDate = startDate
                 else{

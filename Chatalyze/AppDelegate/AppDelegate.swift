@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillResignActive(_ application: UIApplication) {
         
-        
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -67,14 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         
-        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
         
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
@@ -93,13 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         
-        
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         SKPaymentQueue.default().remove(InAppPurchaseObserver.sharedInstance)
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
-        
         
         if(allowRotate){
             return .allButUpsideDown
@@ -124,7 +119,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 self.getNotificationSettings()
             }
         }else{
-
+            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }
@@ -133,14 +128,15 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func getNotificationSettings() {
         
         if #available(iOS 10.0, *) {
+           
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 
-                print("Notification settings: \(settings)")
+                //print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-                print("Notification settings Registered: \(settings)")
+                //print("Notification settings Registered: \(settings)")
             }
         }else{
             //Fallback on earlier versions
@@ -171,7 +167,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         _ = SessionDeviceInfo.getSharedIstance(deviceToken: token)
         // call function for the token Update
         self.updateToken()
-        // print("Device Token is : \(token)")
+        print("Device Token is : \(token)")
     }
     
     func updateToken(){
@@ -181,7 +177,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             if !success{
                 return
             }
-            Log.echo(key: "yud", text: "Device token is updated successfully")
+            Log.echo(key: "yud", text: "Device token is updated successfully.")
         }
     }
     
@@ -219,8 +215,10 @@ extension AppDelegate{
         guard let userInfo = SignedUserInfo.sharedInstance?.id else {
             return
         }
+        
         AccessTokenValidator().validate { (success) in
-            if !success{
+            
+            if !success {
                 
                 RootControllerManager().signOut(completion: {
                 })
@@ -232,7 +230,7 @@ extension AppDelegate{
    static func fetchAppVersionInfoToServer(){
         
         //This will handle the case when app will open second time and root is already initialized.
-        FetchAppVersionInfo().fetchInfo { (success, response) in
+    FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{
                 
@@ -242,9 +240,13 @@ extension AppDelegate{
             
             if let dict = response?.dictionary{
                 
-                let latestVersion = dict["current_app_version"]?.doubleValue
-                let deprecateVersion = dict["deprecated_version"]?.doubleValue
-                let obsoleteVersion = dict["obsolete_version"]?.doubleValue
+                let strLatestVersion = dict["current_app_version"]?.stringValue
+                let strDeprecateVersion = dict["deprecated_version"]?.stringValue
+                let strObsoleteVersion = dict["obsolete_version"]?.stringValue
+                
+                let latestVersion = Double(strLatestVersion ?? "")
+                let deprecateVersion = Double(strDeprecateVersion ?? "")
+                let obsoleteVersion = Double(strObsoleteVersion ?? "")
                 
                 //let obsoleteVersion = 1.00
                 UserDefaults.standard.setValue(latestVersion ?? 0.0, forKey: "latestVersion")

@@ -104,6 +104,7 @@ class EditScheduledSessionRootView:ExtendedView{
     
     func paintBackAndEditDescription(){
         
+        
         let textStr = "Description "
         let textStrMutable = textStr.toMutableAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
         
@@ -114,7 +115,6 @@ class EditScheduledSessionRootView:ExtendedView{
         
         let textStrNew = "Description "
         let textStrNewMutable = textStrNew.toMutableAttributedString(font: "Nunito-ExtraBold", size: 15, color: UIColor.black, isUnderLine: false)
-        
         
         let textBackStr = "Back"
         let textBackStrAttr = textBackStr.toAttributedString(font: "Nunito-Regular", size: 14, color: UIColor(hexString: "#FAA579"), isUnderLine: true)
@@ -129,8 +129,6 @@ class EditScheduledSessionRootView:ExtendedView{
     func paintImageUploadBorder(){
         
         imagePicker.delegate = self
-//        imageUploadingView?.layer.borderWidth = 2.0
-//        imageUploadingView?.layer.borderColor = UIColor(hexString: "#27B879").cgColor
         let yourViewBorder = CAShapeLayer()
         yourViewBorder.strokeColor = UIColor(hexString: AppThemeConfig.themeColor).cgColor
         yourViewBorder.lineDashPattern = [8, 4]
@@ -142,14 +140,12 @@ class EditScheduledSessionRootView:ExtendedView{
     
     
     func paintInerface(){
-    
+        
         //paintImageUploadBorder()
         paintEditChangeImagelbl()
-        
         imagePicker.navigationBar.barTintColor = UIColor.black
         descriptionEditTextViewContainer?.layer.borderWidth = 0.5
         descriptionEditTextViewContainer?.layer.borderColor = UIColor.lightGray.cgColor
-        
         //eventDetailInfo?.lin
     }
     
