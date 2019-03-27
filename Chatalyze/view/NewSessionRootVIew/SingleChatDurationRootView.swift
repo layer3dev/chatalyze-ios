@@ -25,7 +25,8 @@ class SingleChatDurationRootView:ExtendedView {
         case ten = 3
         case fifteen = 4
         case thirty = 5
-        case none = 6
+        case sixty = 6
+        case none = 7
     }
     
     @IBOutlet var twoMinutesBtn:UIButton?
@@ -34,6 +35,7 @@ class SingleChatDurationRootView:ExtendedView {
     @IBOutlet var tenMinutesBtn:UIButton?
     @IBOutlet var fifteenMinutesBtn:UIButton?
     @IBOutlet var thirtyMinutesBtn:UIButton?
+    @IBOutlet var sixtyMinutesBtn:UIButton?
     
     var slotSelected:slotDurationMin = .none
     @IBOutlet var slotDurationErrorLbl:UILabel?
@@ -56,12 +58,10 @@ class SingleChatDurationRootView:ExtendedView {
     
     func paintLayers(){
         
-        
         self.nextView?.layer.masksToBounds = true
         self.nextView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.nextView?.layer.borderWidth = 1
         self.nextView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
         self.chatCalculatorView?.layer.masksToBounds = true
         self.chatCalculatorView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -77,6 +77,7 @@ class SingleChatDurationRootView:ExtendedView {
         tenMinutesBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
         fifteenMinutesBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
         thirtyMinutesBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
+        sixtyMinutesBtn?.backgroundColor = UIColor(hexString: "#F3E2DA")
     }
     
     @IBAction func chatSlotDurationAction(sender:UIButton){
@@ -117,6 +118,23 @@ class SingleChatDurationRootView:ExtendedView {
             sender.backgroundColor = UIColor(hexString: "#E1E4E6")
             self.slotSelected = .thirty
         }
+        else if sender.tag == 6 {
+            
+            if let startDate = self.delegate?.getSchduleSessionInfo()?.startDateTime{
+                if let endDate = self.delegate?.getSchduleSessionInfo()?.endDateTime{
+                    
+                    let timeDiffrence = endDate.timeIntervalSince(startDate)
+                    if timeDiffrence < 3600{
+                        
+                        slotDurationErrorLbl?.text = "Session length must be of minimum one hour in order to select the sixty minutes of single chat."
+                        return
+                    }
+                }
+            }
+            resetDurationSelection()
+            sender.backgroundColor = UIColor(hexString: "#E1E4E6")
+            self.slotSelected = .sixty
+        }
         paintChatCalculator()
         let _ = validateSlotTime()
     }
@@ -146,6 +164,9 @@ class SingleChatDurationRootView:ExtendedView {
             }
             if slotSelected == .thirty{
                 return 30
+            }
+            if slotSelected == .sixty{
+                return 60
             }
             return nil
         }
@@ -201,9 +222,7 @@ extension SingleChatDurationRootView {
             normalFont = 18
         }
         
-        if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0{
-            
-            Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
+        if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
             
@@ -215,7 +234,6 @@ extension SingleChatDurationRootView {
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
         }
-        Log.echo(key: "yud", text: "total number of the slot is \(totalSlots)")
     }
     
     func resetErrorStatus(){
@@ -235,6 +253,17 @@ extension SingleChatDurationRootView {
             
             slotDurationErrorLbl?.text = "Chat duration is required."
             return false
+        }
+        if let startDate = self.delegate?.getSchduleSessionInfo()?.startDateTime{
+            if let endDate = self.delegate?.getSchduleSessionInfo()?.endDateTime{
+                
+                let timeDiffrence = endDate.timeIntervalSince(startDate)
+                if timeDiffrence < 3600 && slotSelected == .sixty{
+                    
+                    slotDurationErrorLbl?.text = "Session length must be of minimum one hour in order to select the sixty minutes of single chat."
+                    return false
+                }
+            }
         }
         slotDurationErrorLbl?.text = ""
         return true

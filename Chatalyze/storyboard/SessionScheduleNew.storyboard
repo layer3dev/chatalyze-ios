@@ -156,10 +156,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZL-ap-PB0">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="473.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="538.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zpm-1P-jSl">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="340.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="405.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How long do you want each 1:1 chat to be?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am2-Ou-igp">
                                                         <rect key="frame" x="20" y="40" width="280" height="49.5"/>
@@ -171,7 +171,7 @@
                                                         </variation>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="5mv-PE-lKW">
-                                                        <rect key="frame" x="20" y="129.5" width="280" height="180"/>
+                                                        <rect key="frame" x="20" y="129.5" width="280" height="245"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="I1v-Sd-vLc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
@@ -362,10 +362,70 @@
                                                                     </view>
                                                                 </subviews>
                                                             </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6PQ-b7-W0u">
+                                                                <rect key="frame" x="0.0" y="195" width="280" height="50"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlW-sT-5ww" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2a-vg-yS3" userLabel="60 mins">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
+                                                                                <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
+                                                                                <state key="normal" title="   60 mins">
+                                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </state>
+                                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
+                                                                                </variation>
+                                                                                <connections>
+                                                                                    <action selector="chatSlotDurationActionWithSender:" destination="9If-Za-o1L" eventType="touchUpInside" id="DuB-mV-fvO"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="y2a-vg-yS3" firstAttribute="top" secondItem="IlW-sT-5ww" secondAttribute="top" id="hLg-a4-zyk"/>
+                                                                            <constraint firstItem="y2a-vg-yS3" firstAttribute="leading" secondItem="IlW-sT-5ww" secondAttribute="leading" id="jbx-3h-CCv"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="y2a-vg-yS3" secondAttribute="trailing" id="kId-dB-Wye"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="y2a-vg-yS3" secondAttribute="bottom" id="lXJ-eK-lE1"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="oSP-6L-fgR">
+                                                                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                                                            </constraint>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qo8-jK-BQE" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                                        <rect key="frame" x="150" y="0.0" width="130" height="50"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-x8-rgC" userLabel="30 mins">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
+                                                                                <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
+                                                                                <state key="normal" title="   30 mins">
+                                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                </state>
+                                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
+                                                                                </variation>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="trailing" secondItem="LgD-x8-rgC" secondAttribute="trailing" id="1UW-Vb-0cg"/>
+                                                                            <constraint firstItem="LgD-x8-rgC" firstAttribute="leading" secondItem="Qo8-jK-BQE" secondAttribute="leading" id="LNg-nc-WI0"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="SvF-bR-yoZ">
+                                                                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                                                            </constraint>
+                                                                            <constraint firstItem="LgD-x8-rgC" firstAttribute="top" secondItem="Qo8-jK-BQE" secondAttribute="top" id="TiC-sx-3sv"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="LgD-x8-rgC" secondAttribute="bottom" id="kHa-3p-lBa"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quv-ee-kzb">
-                                                        <rect key="frame" x="20" y="310.5" width="280" height="0.0"/>
+                                                        <rect key="frame" x="20" y="375.5" width="280" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.6528530749" green="0.036630069930000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -374,7 +434,7 @@
                                                         </variation>
                                                     </label>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgc-qE-iVB">
-                                                        <rect key="frame" x="20" y="340" width="280" height="0.5"/>
+                                                        <rect key="frame" x="20" y="405" width="280" height="0.5"/>
                                                         <color key="backgroundColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="0.5" id="Xty-OI-LOm"/>
@@ -405,7 +465,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fc-Tg-mqu">
-                                                <rect key="frame" x="20" y="355.5" width="280" height="98"/>
+                                                <rect key="frame" x="20" y="420.5" width="280" height="98"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHAT CALCULATOR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUG-QN-FJr">
                                                         <rect key="frame" x="13" y="10" width="267" height="19.5"/>
@@ -599,6 +659,7 @@
                             <outlet property="fifteenMinutesBtn" destination="I9Q-ne-Ar5" id="T9e-34-dJO"/>
                             <outlet property="fiveMinutesBtn" destination="cxx-Si-yLI" id="YUT-sc-4W4"/>
                             <outlet property="nextView" destination="n5V-I8-yCn" id="qsR-uG-IBa"/>
+                            <outlet property="sixtyMinutesBtn" destination="y2a-vg-yS3" id="aYy-9p-8Mg"/>
                             <outlet property="slotDurationErrorLbl" destination="quv-ee-kzb" id="piv-bb-YOU"/>
                             <outlet property="tenMinutesBtn" destination="Jk3-uu-ago" id="sfa-no-bUr"/>
                             <outlet property="thirtyMinutesBtn" destination="UmA-6H-BUb" id="H9Z-HF-mow"/>
@@ -4272,7 +4333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFl-Rr-6EI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4139" y="1246"/>
+            <point key="canvasLocation" x="7003" y="134"/>
         </scene>
         <!--Schedule Session Donation Controller-->
         <scene sceneID="9c2-fw-qGF">
