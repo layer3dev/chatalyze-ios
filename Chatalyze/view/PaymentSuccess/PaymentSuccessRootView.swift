@@ -408,7 +408,6 @@ extension PaymentSuccessRootView{
     }
 }
 
-
 extension PaymentSuccessRootView:UIGestureRecognizerDelegate{
 }
 

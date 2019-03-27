@@ -10,7 +10,9 @@ import UIKit
 import SDWebImage
 
 class EditProfileRootview: ExtendedView {
-   
+       
+    @IBOutlet var notificationErrorLabel:UILabel?
+    var isEmailNotificationsAllowed = false
     let imageCropper = ImageCropper()
     @IBOutlet var scrollView:FieldManagingScrollView?
     @IBOutlet var scrollContentBottomOffset:NSLayoutConstraint?
@@ -22,6 +24,7 @@ class EditProfileRootview: ExtendedView {
     var isCountryPickerHidden = true
     @IBOutlet var newUpadteImage:UIImageView?
     @IBOutlet var chatUpdatesImage:UIImageView?
+    @IBOutlet var emailNotificationImage:UIImageView?
     @IBOutlet var userImage:UIImageView?
     @IBOutlet var nameField:SigninFieldView?
     @IBOutlet var emailField:SigninFieldView?
@@ -212,6 +215,113 @@ class EditProfileRootview: ExtendedView {
             pickerContainer?.isHidden = true
         }
     }
+    
+    func saveMainInfo(){
+        
+        var param = [String:Any]()
+        
+        if isMobileNumberActive(){
+            
+            param["mobile"] = mobileNumberField?.textField?.text
+            param["countryCode"] = countryCode
+            
+        }else{
+            
+            param["mobile"] = NSNull()
+            param["countryCode"] = NSNull()
+        }
+        
+        param["firstName"] = nameField?.textField?.text
+        param["email"] = emailField?.textField?.text
+        param["eventMobReminder"] = chatUpdates
+        param["description"] = shortBioTextView?.text
+        
+        Log.echo(key: "yud", text: "params are \(param)")
+        
+        self.controller?.showLoader()
+        EditProfileProcessor().edit(params: param) { (success, message, response) in
+            
+            self.controller?.stopLoader()
+            Log.echo(key: "yud", text: "the velue of the success is \(success)")
+            
+            if !success{
+                
+                self.controller?.stopLoader()
+                self.mainInfoError?.text = message
+                return
+            }
+            
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
+                self.fetchProfile()
+            })
+        }
+        Log.echo(key: "yud", text: "Please save the mainInfo data acces granted!!")
+        
+    }
+    
+    func validateMainInfo()->Bool{
+        
+        resetMainInfoError()
+        let nameValidate = validateName()
+        let emailValidated  = validateEmail()
+        let mobileValidate = validateMobileNumber()
+        let bioValidate = validateBio()
+        return nameValidate && emailValidated && mobileValidate && bioValidate
+    }
+    
+    func saveNotificationInfo(){
+        
+        var param = [String:Any]()
+        
+        if isMobileNumberActive(){
+            
+            param["mobile"] = mobileNumberField?.textField?.text
+            param["countryCode"] = countryCode
+            
+        }else{
+            
+            param["mobile"] = NSNull()
+            param["countryCode"] = NSNull()
+        }
+        
+        param["eventMobReminder"] = chatUpdates
+
+        //Make the param for the email notification
+        //param["description"] = isEmailNotificationsAllowed
+        
+        Log.echo(key: "yud", text: "params are \(param)")
+        
+        self.controller?.showLoader()
+        EditProfileProcessor().edit(params: param) { (success, message, response) in
+            
+            self.controller?.stopLoader()
+            Log.echo(key: "yud", text: "the velue of the success is \(success) and the message is ")
+            
+            if !success{
+                
+                self.controller?.stopLoader()
+                self.notificationErrorLabel?.text = message
+                return
+            }
+            
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
+                self.fetchProfile()
+            })
+        }
+        Log.echo(key: "yud", text: "Please save the mainInfo data acces granted!!")
+        
+    }
+    
+    @IBAction func notificationAction(sender:UIButton){
+        
+        if !validateNotifications(){
+            return
+        }
+        saveNotificationInfo()
+        notificationErrorLabel?.text = ""
+    }
 }
 
 extension EditProfileRootview:CountryPickerDelegate{
@@ -262,6 +372,20 @@ extension EditProfileRootview{
         chatUpdates = true
         chatUpdatesImage?.image = UIImage(named: "tick")
     }
+    
+    @IBAction func emailNoificationAction(sender:UIButton){
+        
+        if isEmailNotificationsAllowed{
+            
+            isEmailNotificationsAllowed = false
+            emailNotificationImage?.image = UIImage(named: "untick")
+            return
+        }
+        isEmailNotificationsAllowed = true
+        emailNotificationImage?.image = UIImage(named: "tick")
+    }
+    
+    
 }
 
 extension EditProfileRootview{
@@ -370,50 +494,7 @@ extension EditProfileRootview{
     }
     
     
-    func saveMainInfo(){
-        
-        var param = [String:Any]()
-        
-        if isMobileNumberActive(){
-            
-            param["mobile"] = mobileNumberField?.textField?.text
-            param["countryCode"] = countryCode
-            
-        }else{
-            
-            param["mobile"] = NSNull()
-            param["countryCode"] = NSNull()
-            
-        }
-        
-        param["firstName"] = nameField?.textField?.text
-        param["email"] = emailField?.textField?.text
-        param["eventMobReminder"] = chatUpdates
-        param["description"] = shortBioTextView?.text
-        
-        Log.echo(key: "yud", text: "params are \(param)")
-        
-        self.controller?.showLoader()
-        EditProfileProcessor().edit(params: param) { (success, message, response) in
-            
-            self.controller?.stopLoader()
-            Log.echo(key: "yud", text: "the velue of the success is \(success)")
-          
-            if !success{
-                
-                self.controller?.stopLoader()
-                self.mainInfoError?.text = message
-                return
-            }
-            
-            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                
-                self.fetchProfile()
-            })
-        }
-        Log.echo(key: "yud", text: "Please save the mainInfo data acces granted!!")
-        
-    }
+
     
     func savePasswordInfo(){
       
@@ -460,7 +541,6 @@ extension EditProfileRootview{
         }))
         
         self.controller?.present(alert, animated: true, completion: {
-            
         })
     }
     
@@ -482,14 +562,17 @@ extension EditProfileRootview{
 
 extension EditProfileRootview{
     
-    func validateMainInfo()->Bool{
+    func resetNotificationErrors(){
         
-        resetMainInfoError()
-        let nameValidate = validateName()
-        let emailValidated  = validateEmail()
+        notificationErrorLabel?.text = ""
+        mobileNumberField?.showError(text: "")
+    }
+    
+    func validateNotifications()->Bool{
+       
+        resetNotificationErrors()
         let mobileValidate = validateMobileNumber()
-        let bioValidate = validateBio()
-        return nameValidate && emailValidated && mobileValidate && bioValidate
+        return mobileValidate
     }
     
     func validateChangePassword()->Bool{
@@ -528,6 +611,8 @@ extension EditProfileRootview{
         }
     }
     
+    
+    
     func resetErrorStatus(){
         
         errorLabel?.text = ""
@@ -545,8 +630,7 @@ extension EditProfileRootview{
         
         mainInfoError?.text = ""
         emailField?.resetErrorStatus()
-        nameField?.resetErrorStatus()
-        mobileNumberField?.resetErrorStatus()
+        nameField?.resetErrorStatus()        
         countryCodeField?.resetErrorStatus()
     }
     
@@ -562,7 +646,7 @@ extension EditProfileRootview{
         errorLabel?.text = text
     }
     
-    fileprivate func validateEmail()->Bool{
+     func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
             emailField?.showError(text: "Email field can't be left empty !")
@@ -576,7 +660,7 @@ extension EditProfileRootview{
         return true
     }
     
-    fileprivate func validateOldPassword()->Bool{
+     func validateOldPassword()->Bool{
         
         if(oldPasswordField?.textField?.text == ""){
        
@@ -588,7 +672,7 @@ extension EditProfileRootview{
     }
     
     
-    fileprivate func validateNewPassword()->Bool{
+     func validateNewPassword()->Bool{
         
         if(newPasswordField?.textField?.text == ""){
         
@@ -608,7 +692,7 @@ extension EditProfileRootview{
     }
     
     
-    fileprivate func valiadteConfirmPassword()->Bool{
+     func valiadteConfirmPassword()->Bool{
         
         if(confirmPasswordField?.textField?.text == ""){
             
@@ -625,7 +709,7 @@ extension EditProfileRootview{
     }
     
     
-    fileprivate func validateName()->Bool{
+     func validateName()->Bool{
         
         if(nameField?.textField?.text == ""){
             nameField?.showError(text: "Name field can't be left empty !")
@@ -639,7 +723,7 @@ extension EditProfileRootview{
         return true
     }
     
-    fileprivate func validateCountryCode()->Bool{
+     func validateCountryCode()->Bool{
         
         if(countryCodeField?.textField?.text == ""){
             countryCodeField?.showError(text: "CountryCode field can't be left empty !")
@@ -649,7 +733,7 @@ extension EditProfileRootview{
         return true
     }
     
-    fileprivate func validateMobileNumber()->Bool{
+     func validateMobileNumber()->Bool{
         
         //        if(mobileNumberField?.textField?.text == ""){
         //            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
@@ -678,7 +762,7 @@ extension EditProfileRootview{
     }
     
     
-    fileprivate func validateRecieveEvent()->Bool{
+     func validateRecieveEvent()->Bool{
         
         if (mobileNumberField?.textField?.text?.count ?? 0) == 0 && chatUpdates{
             
@@ -689,7 +773,7 @@ extension EditProfileRootview{
         return true
     }
     
-    fileprivate func validateBio()->Bool{
+     func validateBio()->Bool{
         
         if(shortBioTextView?.text == "Short bio") || shortBioTextView?.text.replacingOccurrences(of: " ", with: "") == "" || ((shortBioTextView?.text.replacingOccurrences(of: "\n", with: "")) == ""){
 
@@ -745,6 +829,22 @@ extension EditProfileRootview:UIGestureRecognizerDelegate{
 
 extension EditProfileRootview:UITextFieldDelegate{
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == mobileNumberField?.textField{
+        
+            if string == ""{
+                //Approving the backspace
+                return true
+            }
+            if string.isNumeric{
+                return true
+            }
+            return false
+        }
+        return true
+    }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         scrollView?.activeField = textField
         return true
@@ -754,14 +854,19 @@ extension EditProfileRootview:UITextFieldDelegate{
         
         textField.resignFirstResponder()
         if textField == nameField?.textField{
+            
             emailField?.textField?.becomeFirstResponder()
         }else if textField == emailField?.textField{
+            
             oldPasswordField?.textField?.becomeFirstResponder()
         }else  if textField == oldPasswordField?.textField{
+            
             newPasswordField?.textField?.becomeFirstResponder()
         }else  if textField == newPasswordField?.textField{
+            
             confirmPasswordField?.textField?.becomeFirstResponder()
         }else if textField == confirmPasswordField?.textField{
+            
             mobileNumberField?.textField?.returnKeyType = UIReturnKeyType.done
             mobileNumberField?.textField?.becomeFirstResponder()
         }else{
@@ -838,7 +943,6 @@ extension EditProfileRootview{
 
 
 extension EditProfileRootview:UITextViewDelegate{
-    
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
