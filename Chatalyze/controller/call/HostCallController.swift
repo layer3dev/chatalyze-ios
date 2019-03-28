@@ -92,6 +92,7 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
+        
         if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
         }
@@ -114,7 +115,7 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-      
+        
         presentingController.present(controller, animated: true, completion: nil)
     }
     
