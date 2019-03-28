@@ -92,6 +92,7 @@ class HostCallController: VideoCallController {
     
     func showEarningInformationScreen(){
         
+        
         if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
         }
@@ -114,7 +115,7 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-      
+        
         presentingController.present(controller, animated: true, completion: nil)
     }
     
@@ -717,6 +718,7 @@ class HostCallController: VideoCallController {
             Log.echo(key : "delay", text : "processEvent socket NOT connected")
             return
         }
+        
         guard let eventInfo = self.eventInfo
             else{
                 Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")

@@ -625,10 +625,12 @@ class ContainerController: NavChildController {
             guard let rootController = HostDashboardController.instance() else{
                 return
             }
-            
-            guard let controller = FAQController.instance() else{
+            guard let controller = FAQWebController.instance() else{
                 return
             }
+            controller.url = "https://support.chatalyze.com/hc/en-us"
+            controller.nameofTitle = "Help Center"
+            
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
@@ -639,9 +641,12 @@ class ContainerController: NavChildController {
                 return
             }
             
-            guard let controller = FAQController.instance() else{
+            guard let controller = FAQWebController.instance() else{
                 return
             }
+            controller.url = "https://support.chatalyze.com/hc/en-us"
+            controller.nameofTitle = "Help Center"
+            
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()

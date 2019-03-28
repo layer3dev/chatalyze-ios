@@ -228,7 +228,7 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
 
 extension PaymentSetupPaypalController{
     
-    class func instance()->PaymentSetupPaypalController?{
+    class func instance()->PaymentSetupPaypalController? {
                 
         let storyboard = UIStoryboard(name: "Account", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PaymentSetupPaypal") as? PaymentSetupPaypalController

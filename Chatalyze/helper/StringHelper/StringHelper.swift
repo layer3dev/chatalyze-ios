@@ -15,10 +15,11 @@ extension String{
         
         var  attributes =  [NSAttributedString.Key : Any]()
         
-        if isUnderLine{
+        if isUnderLine {
             
             attributes = [NSAttributedString.Key.link:URL(string: url ?? "https://www.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color,NSAttributedString.Key.underlineStyle:NSUnderlineStyle.single.rawValue] as [NSAttributedString.Key : Any]
-        }else{
+            
+        }else {
             
             attributes = [NSAttributedString.Key.link:URL(string: url ?? "https://www.google.com"),NSAttributedString.Key.font:UIFont(name: font, size:CGFloat(size)),NSAttributedString.Key.foregroundColor:color] as [NSAttributedString.Key : Any]
         }
@@ -27,8 +28,6 @@ extension String{
         
         return attriutedText
     }
-    
-    
     
     func toAttributedString(font:String = AppThemeConfig.defaultFont , size:Int = 16 , color:UIColor = UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:Bool = false)->NSAttributedString{
         
