@@ -95,7 +95,8 @@ class EditSessionFormRootView:ExtendedView {
     fileprivate var isTimePickerIsShowing = false
     
     var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
-    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
+    //var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
+    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins"]
     
     let chatLengthPicker = CustomPicker()
     let sessionLengthPicker = CustomPicker()
@@ -317,15 +318,18 @@ class EditSessionFormRootView:ExtendedView {
             slotSelected = .fifteen
             self.chatLength?.textField?.text =  chatLengthArray[4]
         }
-        if eventInfo.duration == 30{
+        if eventInfo.duration == 30 {
            
             slotSelected = .thirty
             self.chatLength?.textField?.text =  chatLengthArray[5]
         }
-        if eventInfo.duration == 60{
+        if eventInfo.duration == 60 {
             
-            slotSelected = .sixty
-            self.chatLength?.textField?.text =  chatLengthArray[6]
+            if chatLengthArray.count > 6 {
+                
+                slotSelected = .sixty
+                self.chatLength?.textField?.text =  chatLengthArray[6]
+            }
         }
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
