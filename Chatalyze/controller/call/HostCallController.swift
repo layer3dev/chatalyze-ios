@@ -718,6 +718,7 @@ class HostCallController: VideoCallController {
             Log.echo(key : "delay", text : "processEvent socket NOT connected")
             return
         }
+        
         guard let eventInfo = self.eventInfo
             else{
                 Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")

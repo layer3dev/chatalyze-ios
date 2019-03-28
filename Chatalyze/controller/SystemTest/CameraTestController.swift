@@ -80,10 +80,10 @@ class CameraTestController: InterfaceExtendedController {
         let thirdStr = "your phone passes the test. If not, please check our "
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let forthStr = "FAQs "
+        let forthStr = "Help Center"
         let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Nunito-Regular" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
-        let fifthStr = "or "
+        let fifthStr = " or "
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         let sixthStr = "contact us"
@@ -126,7 +126,7 @@ class CameraTestController: InterfaceExtendedController {
                 
                 if tap.didTapAttributedTextInLabel(label: msglabel, inRange: range) {
                     
-                    Log.echo(key: "yud",text: "Sub string is tapped countct is ()")
+                    Log.echo(key: "yud",text: "Sub string is tapped contact is ")
                     
 //                    DispatchQueue.main.async {
 //
@@ -178,8 +178,6 @@ class CameraTestController: InterfaceExtendedController {
             }
         }
     }
-    
-    
     
     
     @objc func appBecomeActiveAgain() {
@@ -699,6 +697,12 @@ extension CameraTestController:UITextViewDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         Log.echo(key: "yud", text: "interacting with url")
+       
+        if characterRange == testTextView?.text?.range(of: "if the answer to both")?.nsRange {
+            
+            Log.echo(key: "yud", text: "interacting with if the answer to both")
+        }
+        
         
         if characterRange == testTextView?.text?.range(of: "contact us")?.nsRange {
             
@@ -733,7 +737,7 @@ extension CameraTestController:UITextViewDelegate{
             Log.echo(key: "yud", text: "contact us is called")
         }
         
-        if  characterRange == testTextView?.text?.range(of: "FAQs ")?.nsRange {
+        if  characterRange == testTextView?.text?.range(of: "Help Center")?.nsRange {
             
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: {

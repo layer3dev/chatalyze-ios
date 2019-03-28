@@ -45,11 +45,11 @@ class ScheduleSessionInfo:NSObject {
             guard let end = self.endDateTime else {
                 return nil
             }
-            guard let sinleChatTime = self.duration else {
+            guard let singleChatTime = self.duration else {
                 return nil
             }
             let duration = end.timeIntervalSince(start)
-            return Int(Int((duration/60.0))/sinleChatTime)
+            return Int(Int((duration/60.0))/singleChatTime)
         }
     }
     
