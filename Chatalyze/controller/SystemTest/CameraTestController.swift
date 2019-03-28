@@ -650,7 +650,7 @@ class CameraTestController: InterfaceExtendedController {
     }
 }
 
-extension CameraTestController{
+extension CameraTestController {
     
     class func instance()->CameraTestController?{
         
@@ -666,7 +666,7 @@ fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Categ
 }
 
 
-extension CameraTestController:UITextViewDelegate{
+extension CameraTestController:UITextViewDelegate {
     
     func initializeLink(){
      

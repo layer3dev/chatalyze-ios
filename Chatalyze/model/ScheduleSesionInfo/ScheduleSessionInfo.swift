@@ -15,7 +15,7 @@ class ScheduleSessionInfo:NSObject {
     var startDateTime:Date?
     var startDate:String?
     var startTime:String?
-    var price:Int?
+    var price:Double?
     var isFree:Bool = false
     var title:String? = "Chat Session"
     var eventDescription:String?
