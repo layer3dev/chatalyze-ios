@@ -109,12 +109,10 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var screenShotLabel:UILabel?
     
     var eventInfo:EventInfo?
-    
     var isPricingEnable:Bool = false
-    
     var controller:EditSessionFormController?
     
-    var desiredDate:String{
+    var desiredDate:String {
     
         guard let date = self.eventInfo?.startDate else{
             return ""
@@ -191,7 +189,6 @@ class EditSessionFormRootView:ExtendedView {
                 
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
-        
         
         priceAmountField?.textField?.keyboardType = UIKeyboardType.numberPad
         
@@ -284,10 +281,6 @@ class EditSessionFormRootView:ExtendedView {
         
         
         self.eventInfo = eventInfo
-        
-        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
-            slotIdentifiedDisbaleView()
-        }
         
         self.titleField?.textField?.text = eventInfo.title
         self.dateField?.textField?.text = desiredDate
@@ -395,6 +388,10 @@ class EditSessionFormRootView:ExtendedView {
             
             showHeightPriceFllingField()
             self.priceAmountField?.textField?.text = "\((eventInfo.price ?? 0.0))"
+        }
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            slotIdentifiedDisbaleView()
         }
         
         updatescheduleInfo()
@@ -565,6 +562,12 @@ extension EditSessionFormRootView{
     }
     
     func validateFields()->Bool {
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            
+            let titleValidated  = titleValidation()
+            return titleValidated
+        }
         
         let titleValidated  = titleValidation()
         let dateValidated  = validateDate()
@@ -1358,9 +1361,7 @@ extension EditSessionFormRootView{
     }
     
     
-    func getParam()->[String:Any]?{
-        
-        //        {"start":"2019-02-07T19:30:00+05:30","end":"2019-02-07T20:30:00+05:30","userId":36,"duration":15,"price":88,"isFree":false,"eventFeedbackInfo":null,"youtubeURL":null,"emptySlots":null,"screenshotAllow":"automatic"}
+    func getParam()->[String:Any]? {
         
         updatescheduleInfo()
         
@@ -1389,6 +1390,13 @@ extension EditSessionFormRootView{
         }
         
         var param = [String:Any]()
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            
+            param["title"] = info.title
+            param["tipEnabled"] = info.tipEnabled
+            return param
+        }
         
         param["title"] = info.title
         param["start"] = "\(startDate)"
@@ -1460,7 +1468,6 @@ extension EditSessionFormRootView{
 
 extension EditSessionFormRootView{
 
-
     func slotIdentifiedDisbaleView(){
         
         dateField?.isUserInteractionEnabled = false
@@ -1471,11 +1478,29 @@ extension EditSessionFormRootView{
         priceField?.isUserInteractionEnabled = false
         priceAmountField?.isUserInteractionEnabled = false
         screenShotCustomSwitch?.isUserInteractionEnabled = false
-
+        
         dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        
+        
+        
+        if self.eventInfo?.isFree ?? false {
+          
+            freeField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
+            
+            priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            
+            freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        } else{
+            
+            priceField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
+            
+            priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            
+            freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+        }
     }
     
 }

@@ -32,7 +32,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     @IBAction func editSession(sender:UIButton){
         
-        guard let controller = EditHostSessionController.instance() else{
+        guard let controller = EditSessionFormController.instance() else{
             return
         }
         
