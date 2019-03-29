@@ -28,6 +28,7 @@ class TurnServerInfo: NSObject {
     }
     
     private func instance(info : JSON)->RTCIceServer?{
+        
         guard let url = info["url"].string
             else{
                 return nil

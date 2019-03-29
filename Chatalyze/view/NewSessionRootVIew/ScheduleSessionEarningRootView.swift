@@ -22,13 +22,16 @@ class ScheduleSessionEarningRootView: ExtendedView{
     @IBOutlet var priceField:SigninFieldView?
 
     @IBOutlet var scrollView:FieldManagingScrollView?
+    
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
 
     @IBOutlet var earningFormulaLbl:UILabel?
     @IBOutlet var totalEarningLabel:UILabel?
     
     @IBOutlet private var nextView:UIView?
+    
     @IBOutlet private var chatPupView:ButtonContainerCorners?
+    
     @IBOutlet private var maxEarning:UIView?
     
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
@@ -69,7 +72,7 @@ class ScheduleSessionEarningRootView: ExtendedView{
 
         scrollView?.bottomContentOffset = scrollContentBottonOffset
         priceField?.textField?.delegate = self
-        priceField?.textField?.keyboardType = UIKeyboardType.numberPad
+        priceField?.textField?.keyboardType = UIKeyboardType.decimalPad
         //priceField?.textField?.addTarget(self, action: "textFieldDidChange:", for: UIControl.Event.EditingChanged)
         priceField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
@@ -170,6 +173,12 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
         
         if let digits = text{
             let digitsArray = digits.components(separatedBy: ".")
+            
+            Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")            
+            if digitsArray.count >= 3{
+                //This is preventing user to insert multiple decimal digits in the app.
+                return true
+            }
             if digitsArray.count > 1{
                 Log.echo(key: "yud", text: "decimal digits are \( digitsArray[1])")
                 if digitsArray[1].count > 2 {

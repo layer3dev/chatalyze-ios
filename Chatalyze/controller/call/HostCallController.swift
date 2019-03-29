@@ -411,7 +411,6 @@ class HostCallController: VideoCallController {
             return;
         }
         
-        
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
             return
@@ -503,7 +502,6 @@ class HostCallController: VideoCallController {
         }
         
         //Editing For the remaining time
-        
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
         let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
@@ -544,8 +542,6 @@ class HostCallController: VideoCallController {
             }
         }
         
-        //End
-        
         let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
@@ -566,23 +562,24 @@ class HostCallController: VideoCallController {
         
         //Above code is responsible for handling the status if event is not started yet.
         
+        Log.echo(key: "yud", text: "empty slot count is \(self.eventInfo?.mergeSlotInfo?.upcomingSlot?.callscheduleId)")
+        
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
                 return
         }
-        
+                
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
-                
+              
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
-                
             }else{
-                
+              
                 hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
             }
         }else{
-            
+           
             hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
@@ -590,11 +587,15 @@ class HostCallController: VideoCallController {
         //updateNewHeaderInfoForSession(slot : slotInfo)
         
         if(slotInfo.isFuture){
+   
+            //when call is not running but we have the slot in the future
             
             updateTimeRamaingCallHeaderForUpcomingSlot()
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
-            //updateCallHeaderForFuture(slot : slotInfo)
-        }else{
+        }
+        else{
+          
+            //Updating the info text when the call is live.
             
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)

@@ -22,6 +22,8 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        Log.echo(key: "yud", text: "the value of the text is \u{0001F389}")
+        
         //printTheFamilyNames()
         initialize()
         paint()
@@ -49,6 +51,7 @@ class HostDashboardController: MyScheduledSessionsController {
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
+        
         guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
             return
         }

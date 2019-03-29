@@ -202,13 +202,13 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         self.errorLabel?.text = message
     }
     
-    func caluclateHourlyPrice()->Double?{
+    func caluclateHourlyPrice()->Int?{
         
         if let duration = delegate?.getSchduleSessionInfo()?.duration{
             let hourlySlots = (60/duration)
             if let singleChatPriceStr = delegate?.getSchduleSessionInfo()?.price{
                 let hourlyPrice = (singleChatPriceStr*Double(hourlySlots))
-                return hourlyPrice
+                return Int(hourlyPrice)
             }
         }
         return nil

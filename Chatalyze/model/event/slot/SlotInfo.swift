@@ -132,6 +132,7 @@ class SlotInfo: SlotTimeInfo {
     var isExpired : Bool{
         
         get{
+            
             guard let startDate = startDate
                 else{
                     return false
@@ -171,6 +172,7 @@ class SlotInfo: SlotTimeInfo {
     var isPreconnectEligible : Bool{
         
         get{
+            
             guard let startDate = startDate
                 else{
                     return false

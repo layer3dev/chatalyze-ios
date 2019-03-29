@@ -36,7 +36,7 @@ class EventInfo: NSObject {
     var leadPageUrl : String?
     var eventBannerUrl : String?
     var isPrivate : Bool?
-    //var tag : Tag? //:todo    
+    //var tag : Tag? //:todo
     var isFree : Bool?
     var eventFeedbackInfo : String?
     var createdAt : String?
@@ -86,6 +86,7 @@ class EventInfo: NSObject {
         leadPageUrl = json["leadPageUrl"].string
         eventBannerUrl = json["eventBannerUrl"].string
         isPrivate = json["isPrivate"].bool
+        
         //        if (json["tag"] != nil) { tag = Tag(json: json["tag"] as! NSDictionary) } //todo:
         isFree = json["isFree"].boolValue
         eventFeedbackInfo = json["eventFeedbackInfo"].string

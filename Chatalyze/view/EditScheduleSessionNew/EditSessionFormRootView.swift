@@ -574,7 +574,7 @@ extension EditSessionFormRootView{
         let timeValidated = validateTime()
         let isFutureTimeValidation = isFutureTime()
         let durationValidated = validateSlotTime()
-        let priceValidated  = priceValidation()
+        let priceValidated = priceValidation()
         let lengthBalanceValidate = validateBalanceBetweenSessionAndChatLength()
         
         Log.echo(key: "yud", text: "titleValidated \(titleValidated) dateValidated\(dateValidated) timeValidated\(timeValidated) isFutureTimeValidation\(isFutureTimeValidation) durationValidated\(durationValidated) priceValidated \(priceValidated)")
@@ -1003,17 +1003,17 @@ extension EditSessionFormRootView {
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
         }
-        Log.echo(key: "yud", text: "total number of the slot is \(totalSlots)")
+        Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
     
     fileprivate func validateSlotTime()->Bool{
         
         if(slotSelected == .none){
             
-            slotDurationErrorLbl?.text = "Chat duration is required."
+            chatLength?.showError(text:"Chat length is required.")
             return false
         }
-        slotDurationErrorLbl?.text = ""
+        chatLength?.resetErrorStatus()
         return true
     }
 }
@@ -1064,7 +1064,13 @@ extension EditSessionFormRootView{
         
         if let digits = text{
             let digitsArray = digits.components(separatedBy: ".")
+            Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")
+            if digitsArray.count >= 3{                
+                //This is preventing user to insert multiple decimal digits in textfield.
+                return true
+            }
             if digitsArray.count > 1{
+                
                 Log.echo(key: "yud", text: "decimal digits are \( digitsArray[1])")
                 if digitsArray[1].count > 2 {
                     return true
@@ -1409,7 +1415,7 @@ extension EditSessionFormRootView{
             param["price"] = priceHourly
         }
         param["isFree"] = info.isFree
-        param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:nil
+        param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:NSNull()
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
@@ -1417,7 +1423,7 @@ extension EditSessionFormRootView{
         return param
     }
     
-    func caluclateHourlyPrice()->String?{
+    func caluclateHourlyPrice()->Int?{
         
         if let duration = self.scheduleInfo?.duration{
             let hourlySlots = (60/duration)
@@ -1426,7 +1432,7 @@ extension EditSessionFormRootView{
                 let hourlyPrice = (singleChatPriceStr*(Double(hourlySlots)))
                 let truncate = hourlyPrice.roundTo(places: 3)
                 let roundOffTwoDigits = (round(truncate*100)/100)
-                return "\(Int(roundOffTwoDigits))"
+                return Int(roundOffTwoDigits)
             }
         }
         return nil
@@ -1447,6 +1453,7 @@ extension EditSessionFormRootView{
         
         self.controller?.showLoader()
         EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
+            
             
             self.controller?.stopLoader()
             if success{
@@ -1478,28 +1485,24 @@ extension EditSessionFormRootView{
         priceField?.isUserInteractionEnabled = false
         priceAmountField?.isUserInteractionEnabled = false
         screenShotCustomSwitch?.isUserInteractionEnabled = false
-        
+
         dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-        
-        
-        
+
         if self.eventInfo?.isFree ?? false {
-          
+            
             freeField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
-            
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            priceField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             
-            freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-        } else{
+        }else{
             
             priceField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
-            
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-            
             freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            
         }
     }
     

@@ -501,11 +501,11 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .settings{
             
-            guard let roleId = SignedUserInfo.sharedInstance?.role else{
+            guard let roleId = SignedUserInfo.sharedInstance?.role else {
                 return
             }
             
-            if roleId == .analyst{
+            if roleId == .analyst {
                 
                 guard let rootController = HostDashboardController.instance() else{
                     return
