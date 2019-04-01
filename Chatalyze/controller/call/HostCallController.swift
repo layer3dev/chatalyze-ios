@@ -87,13 +87,11 @@ class HostCallController: VideoCallController {
         if(!eventInfo.isExpired){
             return
         }
-        
         showEarningInformationScreen()
     }
     
     
     func showEarningInformationScreen(){
-        
         
         if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
@@ -278,9 +276,6 @@ class HostCallController: VideoCallController {
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
-                        Log.echo(key: "yud", text: "Date of the CountDown is \(requiredDate)")
-                        
-                        Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
                         
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -408,7 +403,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !activeSlot.isBreak){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
@@ -474,6 +469,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
+        
         guard let startDate = self.eventInfo?.startDate
             else{
                 return
@@ -492,8 +488,7 @@ class HostCallController: VideoCallController {
             return
         }
                 
-        //Below code is responsible befor the event start.
-        
+        // Below code is responsible befor the event start.
         sessionHeaderLbl?.text = "Session starts in:"
         
         var fontSize = 18
@@ -515,7 +510,6 @@ class HostCallController: VideoCallController {
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
-            
             //This info will only be show if slots are greater than one.
             return
         }
@@ -562,16 +556,24 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderAfterEventStart(){
         
+        //Editing For the remaining time
         //Above code is responsible for handling the status if event is not started yet.
-        
-        Log.echo(key: "yud", text: "empty slot count is \(self.eventInfo?.mergeSlotInfo?.upcomingSlot?.callscheduleId)")
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
                 return
         }
-                
+        
+        
+//        Log.echo(key: "yud" ,text: "COUNTDOWN TIME IS \(countdownTime)")
+//
+//        if slotInfo.isBreak{
+//
+//            updateCallHeaderForBreakSlot()
+//            return
+//        }
+        
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
               
@@ -591,14 +593,12 @@ class HostCallController: VideoCallController {
         if(slotInfo.isFuture){
    
             //when call is not running but we have the slot in the future
-            
             updateTimeRamaingCallHeaderForUpcomingSlot()
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
         }
         else{
-          
-            //Updating the info text when the call is live.
             
+            //Updating the info text when the call is live.
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
@@ -613,6 +613,19 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""        
+    }
+    
+    private func updateCallHeaderForBreakSlot(){
+      
+        let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
+        
+        hostRootView?.callInfoContainer?.slotUserName?.text = ""
+        hostRootView?.callInfoContainer?.timer?.text = ""
+        hostRootView?.callInfoContainer?.slotCount?.text = ""
+        sessionCurrentSlotLbl?.text = "Break"
+        sessionTotalSlotNumLbl?.text = ""
+        sessionHeaderLbl?.text = ""
+        sessionRemainingTimeLbl?.text = ""
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -644,9 +657,7 @@ class HostCallController: VideoCallController {
         }
         
         Log.echo(key: "yud", text: "updating the live call")
-        
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
-        
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //don't use merged slot for count
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0

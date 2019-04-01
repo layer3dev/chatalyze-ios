@@ -30,7 +30,7 @@ class EventScheduleInfo : EventScheduleCoreInfo{
                 return
         }
         
-        var mergeInfos = [SlotInfo]()
+        var mergeInfos = [SlotInfo]()        
         if(slotInfos.count <= 0){
             return
         }
@@ -42,18 +42,25 @@ class EventScheduleInfo : EventScheduleCoreInfo{
                 else{
                     continue
             }
+            
             let isMerged = mergeSlot(lastSlot: lastSlot, currentSlot: currentSlot)
             
             if(!isMerged){
+
+                if currentSlot.id == nil {
+                    //This was implementing in the parseEmptySlots but now we have to implement it here. done by yudh.
+                    currentSlot.isBreak = true
+                }
                 mergeInfos.append(currentSlot)
                 lastSlot = currentSlot
             }
         }
+        
         self.mergeSlotInfo = EventScheduleCoreInfo()
         self.mergeSlotInfo?.slotInfos = mergeInfos
         
-        Log.echo(key: "merge", text: "mergeSlotInfos -> count \(mergeInfos.count)")
-        printMerge()
+        //Log.echo(key: "merge", text: "mergeSlotInfos -> count \(mergeInfos.count)")
+        //printMerge()
     }
     
     
@@ -66,13 +73,15 @@ class EventScheduleInfo : EventScheduleCoreInfo{
         
         for slot in slotInfos {
             
-            Log.echo(key: "merge", text: "slot \(slot.slotNo)")
-            Log.echo(key: "merge", text: "slot \(String(describing: slot.start))")
-            Log.echo(key: "merge", text: "slot \(String(describing: slot.end))")
+            Log.echo(key: "merge", text: "After merge slot \(String(describing: slot.slotNo))")
+            Log.echo(key: "merge", text: "After merge slot \(String(describing: slot.isBreak))")
+            Log.echo(key: "merge", text: "After merge slot \(String(describing: slot.start))")
+            Log.echo(key: "merge", text: "After merge slot \(String(describing: slot.end))")
         }
     }
     
     private func mergeSlot(lastSlot : SlotInfo, currentSlot : SlotInfo)->Bool{
+        
         guard let lastSlotId = lastSlot.id
             else{
                 return false
