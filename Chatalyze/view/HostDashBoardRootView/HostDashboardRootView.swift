@@ -20,6 +20,7 @@ class HostDashboardRootView: MySessionRootView {
     @IBOutlet var userDescriptionLbl:UILabel?
     @IBOutlet var chatPupOne:UILabel?
     @IBOutlet var chatPupTwo:UILabel?
+    @IBOutlet var createSessionView:UIView?
 
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -53,6 +54,9 @@ class HostDashboardRootView: MySessionRootView {
         
         settingButtonContainer?.layer.borderWidth = 0.5
         settingButtonContainer?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
+        
+        createSessionView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5
+        createSessionView?.layer.masksToBounds = true
         
         urlBorderView?.layer.borderWidth = 0.5
         urlBorderView?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor

@@ -13,6 +13,7 @@ class SessionScheduleNewController: UIViewController {
     
     var pageViewController:SessionScheduleNewPageController?
     var scheduleInfo = ScheduleSessionInfo()
+    
     @IBOutlet var progressBar:YLProgressBar?
     
     override func viewDidLoad() {

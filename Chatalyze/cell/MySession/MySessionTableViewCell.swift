@@ -11,13 +11,14 @@ import EventKit
 
 class MySessionTableViewCell: ExtendedTableCell {
     
+    @IBOutlet var mainView:UIView?
     @IBOutlet var dateLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
     @IBOutlet var title:UILabel?
     @IBOutlet var ticketsBooked:UILabel?
     var info:EventInfo?
     var enterSession:((EventInfo?)->())?
-    @IBOutlet var sessionEventButton:UIButton?
+    @IBOutlet var sessionEventButton:UIView?
     @IBOutlet var joinButton:UIButton?
     let eventStore = EKEventStore()
     var adapter:MySessionAdapter?
@@ -28,6 +29,14 @@ class MySessionTableViewCell: ExtendedTableCell {
         super.viewDidLayout()
       
         painInterface()
+        roundToMainView()
+    }
+    
+    func roundToMainView(){
+        
+        mainView?.layer.cornerRadius = 5
+        mainView?.layer.borderWidth = 1
+        mainView?.layer.borderColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
     }
     
     @IBAction func editSession(sender:UIButton){
@@ -95,7 +104,7 @@ class MySessionTableViewCell: ExtendedTableCell {
                 Log.echo(key: "yud", text: "The total time of the session is \(timeDiffrence)")
                 if let durate  = info.duration{
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots) "
+                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots) booked"
                 }
             }
         }
@@ -105,15 +114,13 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     func paintEnterSession(){
         
+        sessionEventButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:22.5
+        
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
             
             //Event is not started yet
-            self.sessionEventButton?.backgroundColor = UIColor(red: 240.0/255.0, green: 241.0/255.0, blue: 245.0/255.0, alpha: 1)
-            self.sessionEventButton?.setTitleColor(UIColor(red: 76.0/255.0, green: 76.0/255.0, blue: 76.0/255.0, alpha: 1), for: .normal)
             return
         }
-        self.sessionEventButton?.backgroundColor = UIColor(hexString: AppThemeConfig.themeColor)
-        self.sessionEventButton?.setTitleColor(UIColor.white, for: .normal)
         return
     }
     
