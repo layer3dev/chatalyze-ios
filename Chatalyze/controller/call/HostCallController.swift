@@ -20,6 +20,8 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
+    @IBOutlet var breakView:breakFeatureView?
+        
     
     //For animation.
     var isAnimating = false
