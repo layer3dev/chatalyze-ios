@@ -14,14 +14,14 @@ class breakFeatureView : ExtendedView {
     @IBOutlet var nextChatLabel:UILabel?
     @IBOutlet var timeLabel:UILabel?
     
-    func startBreakShowing(){
+    func startBreakShowing(time:String){
         
-        headingLabel?.text = ""
-        nextChatLabel?.text = ""
-        timeLabel?.text = ""
+        headingLabel?.text = "BREAK"
+        nextChatLabel?.text = "Next chat starts in: "
+        timeLabel?.text = time
     }
     
-    func disableBreakFeture(){
+    func disableBreakFeature(){
       
         headingLabel?.text = ""
         nextChatLabel?.text = ""

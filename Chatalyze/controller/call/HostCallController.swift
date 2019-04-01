@@ -369,7 +369,6 @@ class HostCallController: VideoCallController {
         }
         
         //Is event strictly in preconnect state - startTime < 30 AND startTime > 0
-        
         //if yes, Just show it as pre-connected
         
         if(eventInfo.isPreconnectEligible){
@@ -564,15 +563,12 @@ class HostCallController: VideoCallController {
                 updateCallHeaderForEmptySlot()
                 return
         }
-        
-        
-//        Log.echo(key: "yud" ,text: "COUNTDOWN TIME IS \(countdownTime)")
-//
-//        if slotInfo.isBreak{
-//
-//            updateCallHeaderForBreakSlot()
-//            return
-//        }
+    
+        if slotInfo.isBreak{
+
+            updateCallHeaderForBreakSlot()
+            return
+        }
         
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
@@ -606,6 +602,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderForEmptySlot(){
         
+        updateForEmptyBreak()
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -615,21 +612,28 @@ class HostCallController: VideoCallController {
         sessionHeaderLbl?.text = ""        
     }
     
+    private func updateForEmptyBreak(){
+        
+        breakView?.disableBreakFeature()
+    }
+    
     private func updateCallHeaderForBreakSlot(){
       
-        let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
-        
+        //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
+      
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
-        sessionCurrentSlotLbl?.text = "Break"
+        sessionRemainingTimeLbl?.text = ""
+        sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
-        sessionRemainingTimeLbl?.text = ""
+        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.upcomingSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
+        updateForEmptyBreak()
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -637,6 +641,7 @@ class HostCallController: VideoCallController {
     
     private func updateFutureCallHeaderForEmptySlot(){
         
+        updateForEmptyBreak()
         sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
