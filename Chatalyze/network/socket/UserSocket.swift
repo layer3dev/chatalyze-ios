@@ -9,6 +9,7 @@
 import UIKit
 import SocketIO
 
+
 class UserSocket {
     
     fileprivate static var _sharedInstance : UserSocket?
@@ -16,11 +17,13 @@ class UserSocket {
     var socket : SocketIOClient?
     var isRegisteredToServer = false
     private var notificationLogger = LogNotification()
+    private var registrationTimeout = UserSocketRegistrationTimeout()
     
     
     init(){
         initialization()
     }
+    
     
     fileprivate func initialization(){
         
@@ -97,14 +100,12 @@ class UserSocket {
         
         return UserSocket._sharedInstance
     }
-
-    
 }
+
 
 //SOCKET CONNECTION
 extension UserSocket{
     fileprivate func initializeSocketConnection(){
-        
         
         socket?.on(clientEvent: .connect, callback: { (data, ack) in
             self.notificationLogger.notify(text : "connected :)")
@@ -125,15 +126,18 @@ extension UserSocket{
             Log.echo(key: "user_socket", text:"socket error data (error) => \(data)")
         })
         
+        
         socket?.on(clientEvent: .reconnectAttempt, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket reconnect => \(data)")
         })
         
         
-        
-        socket?.on("login") {data, ack in
+        socket?.on("login") {[weak self] data, ack  in
             Log.echo(key: "user_socket", text:"socket login data => \(data)")
-            self.isRegisteredToServer = true
+            self?.isRegisteredToServer = true
+            
+            //
+            self?.registrationTimeout.cancelTimeout()
             //Changing the color of online offline view
         }
         
@@ -154,8 +158,8 @@ extension UserSocket{
         socket?.connect()
     }
 
-    fileprivate func registerSocket(){
-        
+    
+    func registerSocket(){
         Log.echo(key: "user_socket", text:"socket registerSocket")
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
@@ -167,6 +171,18 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "info => " + info)
         Log.echo(key: "user_socket", text: "param => \(param)")
         socket?.emit("login", param)
+        
+        registrationTimeout.registerForTimeout(seconds: 3.0) {[weak self] in
+            
+            guard let weakSelf = self
+                else{
+                    return
+            }
+            
+            Log.echo(key: "user_socket", text: "re-register - Socket")
+            //recursive call
+            weakSelf.registerSocket()
+        }
         
         
         Log.echo(key: "", text:"Connected and emitted")
