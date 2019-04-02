@@ -144,6 +144,8 @@ class InterfaceExtendedController : ExtendedController {
     @objc func toggle(){
         
         Log.echo(key: "yud", text: "Toogle is calling")
+        
+//        UserSocket.sharedInstance?.registerSocket()
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
         
