@@ -9,13 +9,19 @@
 import UIKit
 
 class MySessionAdapter: ExtendedView {
+
+    enum scrollDirection:Int{
+        
+        case up = 0
+        case down = 1
+    }
     
+    var lastContentOffset: CGFloat = 0
     var root:MySessionRootView?
     var sessionListingArray = [EventInfo]()
     var spinner = UIActivityIndicatorView(style: .gray)
     var controller:MyScheduledSessionsController?
     var sessionTableView:UITableView?
-    
     var enterSession:((EventInfo?)->())?
     var sharedLinkListener:((EventInfo)->())?
     
@@ -29,8 +35,8 @@ class MySessionAdapter: ExtendedView {
     func initializeAdapter(table:UITableView?){
         
         Log.echo(key: "yud", text: "ScheduleSession table is \(table)")
-        sessionTableView = table
-        self.sessionTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        sessionTableView = table       
+        //self.sessionTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         sessionTableView?.dataSource = self
         sessionTableView?.delegate = self
         sessionTableView?.reloadData()
@@ -47,12 +53,15 @@ class MySessionAdapter: ExtendedView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        Log.echo(key: "yud", text: "The height of the table is calling in adapter\(sessionTableView?.contentSize.height) ")
+        Log.echo(key: "yud", text: "The height of the table is calling in adapter\(String(describing: sessionTableView?.contentSize.height))")
         
-        sessionTableView?.layer.removeAllAnimations()
-        self.root?.controller?.updateScrollViewWithTable(height: sessionTableView?.contentSize.height ?? 0.0)        
-//        self.updateConstraints()
-//        self.layoutIfNeeded()
+//        sessionTableView?.layer.removeAllAnimations()
+//        if self.root?.controller?.currentEventShowing == .past{
+//            if sessionTableView?.contentSize.height ?? CGFloat(0.0) > CGFloat(400.0){
+//                return
+//            }
+//        }
+//        self.root?.controller?.updateScrollViewWithTable(height: sessionTableView?.contentSize.height ?? 0.0)
     }
 }
 
@@ -85,6 +94,19 @@ extension MySessionAdapter:UITableViewDataSource{
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == self.sessionListingArray.count-1{
+            
+            if root?.controller?.currentEventShowing == .past{
+                Log.echo(key: "yud", text: "Fetching the past events from will display indexpath is \(indexPath.row) and the listing array count is               \(self.sessionListingArray.count)")
+                root?.controller?.FetchEventsForPast()
+            }
+            //ask for more cells
+        }
+        //
+    }
 }
 
 extension MySessionAdapter:UITableViewDelegate{
@@ -101,7 +123,7 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let controller = EditSessionFormController.instance() else{
+        guard let controller = SessionDetailController.instance() else{
             return
         }
         
@@ -111,30 +133,38 @@ extension MySessionAdapter:UITableViewDelegate{
         
         controller.eventInfo = self.sessionListingArray[indexPath.row]
         
-        
         self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-        
-        
-        
-        
-//        if indexPath.row > (sessionListingArray.count-1){
-//            return
-//        }
-//        self.sharedLinkListener?(sessionListingArray[indexPath.row])
-        
-        /*
-         
-        guard let controller = EditHostSessionController.instance() else{
-            return
-        }
-         
-         controller.eventInfo = self.sessionListingArray[indexPath.row]
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-         
-         */
     }
 }
 
 extension MySessionAdapter:UIScrollViewDelegate{
+    
+    //we set a variable to hold the contentOffSet before scroll view scrolls
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+       
+        //Begin scrolling
+        self.lastContentOffset = scrollView.contentOffset.y
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        //scroling
+        if (self.lastContentOffset < scrollView.contentOffset.y) {
+            
+            self.root?.controller?.handleScrollingHeader(direction:.up)
+            // did move up
+        } else if (self.lastContentOffset > scrollView.contentOffset.y) {
+            
+            self.root?.controller?.handleScrollingHeader(direction:.down)
+            // did move down
+        } else {
+            // didn't move
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.root?.controller?.handleScrollingHeaderOnEndDragging(direction: .up)
+        //Verify that header needs to permanent open or close.
+    }
 }
 

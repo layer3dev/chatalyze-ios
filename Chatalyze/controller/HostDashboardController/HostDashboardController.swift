@@ -17,7 +17,7 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var sharingLbl:UILabel?
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
-    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?    
+    @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -30,11 +30,82 @@ class HostDashboardController: MyScheduledSessionsController {
         checkForShowingHostWelcomeAnimation()
     }
     
+    override func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){
+        
+        DispatchQueue.main.async {
+            
+            guard let topConstant = self.topScrollHeaderConstraint else {
+                return
+            }
+            
+            guard let tableHeight = self.tableHeight else{
+                return
+            }
+            
+            if direction == .up{
+                
+                if topConstant.constant <= CGFloat(-154.0){
+                    topConstant.constant = -154.0
+                    tableHeight.constant = 290.0+154.0
+                    return
+                }
+                topConstant.constant = topConstant.constant-CGFloat(1.0)
+                tableHeight.constant = tableHeight.constant+1
+                return
+            }
+            
+            if direction == .down{
+                
+                if topConstant.constant >= CGFloat(0.0){
+                    topConstant.constant = 0.0
+                    tableHeight.constant = 290.0
+                    return
+                }
+                topConstant.constant = topConstant.constant+CGFloat(1.0)
+                tableHeight.constant = tableHeight.constant-1
+                return
+            }
+            
+        }
+    }
+    
+    override func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
+        
+        Log.echo(key: "end", text: "end draging is calling")
+        
+        DispatchQueue.main.async {
+            
+            guard let topConstant = self.topScrollHeaderConstraint else {
+                return
+            }
+            
+            guard let tableHeight = self.tableHeight else {
+                return
+            }
+            
+            if topConstant.constant <=  CGFloat(-75){
+                
+                topConstant.constant = -154.0
+                tableHeight.constant = 290.0+154.0
+                return
+                // hide header
+            }
+            
+            if topConstant.constant >  CGFloat(-75){
+                
+                topConstant.constant = 0
+                tableHeight.constant = 290.0
+                // show header
+            }
+        }
+    }
+    
+    
     func printTheFamilyNames(){
         
         for family in UIFont.familyNames {
-            print("Family names are \(family)")
             
+            print("Family names are \(family)")
             for name in UIFont.fontNames(forFamilyName: family) {
                 print("font name are\(name)")
             }
@@ -89,6 +160,7 @@ class HostDashboardController: MyScheduledSessionsController {
         noSessionView?.layer.masksToBounds = true
         setSharableUrlText()
     }
+    
     
     func setSharableUrlText(){
         
@@ -183,6 +255,39 @@ class HostDashboardController: MyScheduledSessionsController {
         self.present(alertActionSheet, animated: true) {
         }
     }
+    
+    
+    @IBAction func showPastEvents(sender:UIButton){
+     
+        resetUpcomingData()
+        FetchEventsForPast()
+        currentEventShowing = .past
+    }
+    
+    @IBAction func showUpcomingEvents(sender:UIButton){
+        
+        resetPastData()
+        fetchInfo()
+        currentEventShowing = .upcoming
+    }
+    
+    func resetPastData(){
+     
+        self.pastEventsArray.removeAll()
+        self.rootView?.fillInfo(info: self.pastEventsArray)
+        isPastEventsFetching = false
+        isFetchingPastEventCompleted = false
+    }
+    
+    func resetUpcomingData(){
+        
+        self.eventArray.removeAll()
+        self.rootView?.fillInfo(info: self.eventArray)
+    }
+    
+    
+    
+    
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
