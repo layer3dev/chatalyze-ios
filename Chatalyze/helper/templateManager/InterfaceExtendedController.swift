@@ -145,7 +145,7 @@ class InterfaceExtendedController : ExtendedController {
         
         Log.echo(key: "yud", text: "Toogle is calling")
         
-        UserSocket.sharedInstance?.registerSocket()
+//        UserSocket.sharedInstance?.registerSocket()
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
         
