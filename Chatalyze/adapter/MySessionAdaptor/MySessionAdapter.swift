@@ -74,18 +74,35 @@ extension MySessionAdapter:UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        //return memoriesListingArray.count
+       
+        if root?.controller?.currentEventShowing == .past{
+            return sessionListingArray.count+1
+        }
         return sessionListingArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MySessionTableViewCell", for: indexPath) as? MySessionTableViewCell else {
-            
             return UITableViewCell()
         }
         if indexPath.row < self.sessionListingArray.count{
+            if root?.controller?.currentEventShowing == .past{
+                cell.isPastEvents = true
+                if indexPath.row == self.sessionListingArray.count-1 {
+                    if !(self.root?.controller?.isFetchingPastEventCompleted ?? false) {
+                        
+                        guard let loaderCell = tableView.dequeueReusableCell(withIdentifier: "MySessionLoaderCell", for: indexPath) as? MySessionLoaderCell else {
+                            return UITableViewCell()
+                        }
+                        loaderCell.startAnimating()
+                        return loaderCell
+                    }
+                    return UITableViewCell()
+                }
+            }else{
+                 cell.isPastEvents = false 
+            }
             cell.fillInfo(info:self.sessionListingArray[indexPath.row])
             cell.enterSession = self.enterSession
             cell.adapter = self
@@ -98,10 +115,10 @@ extension MySessionAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if indexPath.row == self.sessionListingArray.count-1{
-            
-            if root?.controller?.currentEventShowing == .past{
+            if root?.controller?.currentEventShowing == .past {
+                
                 Log.echo(key: "yud", text: "Fetching the past events from will display indexpath is \(indexPath.row) and the listing array count is               \(self.sessionListingArray.count)")
-                root?.controller?.FetchEventsForPast()
+                root?.controller?.FetchEventsForPastForPagination()
             }
             //ask for more cells
         }
@@ -112,7 +129,17 @@ extension MySessionAdapter:UITableViewDataSource{
 extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+        if self.root?.controller?.currentEventShowing == .past{
+            if (self.root?.controller?.isFetchingPastEventCompleted ?? false){
+                if indexPath.row == self.sessionListingArray.count-1{
+                    return 0
+                }
+            }else{
+                if indexPath.row == self.sessionListingArray.count-1{
+                    return 20
+                }
+            }
+        }
         return 180.0
     }
     

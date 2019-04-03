@@ -24,13 +24,36 @@ class MySessionTableViewCell: ExtendedTableCell {
     var adapter:MySessionAdapter?
     @IBOutlet var editSessionLbl:UILabel?
     @IBOutlet var viewDetailView:ButtonCorners?
+    @IBOutlet var enterSessionLabel:UILabel?
+    
+    var isPastEvents = false
+    
+    @IBOutlet var editView:UIView?
+    @IBOutlet var addToCalender:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
       
         painInterface()
         roundToMainView()
+        
     }
+    
+    func paintPastFields(){
+        
+        if isPastEvents{
+            
+            self.sessionEventButton?.isHidden = true
+            self.editView?.isHidden = true
+            self.addToCalender?.isHidden = true
+            return
+        }
+        self.sessionEventButton?.isHidden = false
+        self.editView?.isHidden = false
+        self.addToCalender?.isHidden = false
+        return
+    }
+    
     
     func roundToMainView(){
         
@@ -93,6 +116,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             return
         }
         self.info = info
+        paintPastFields()
         if let title = info.title{
             
             self.title?.text = title
@@ -116,11 +140,15 @@ class MySessionTableViewCell: ExtendedTableCell {
         
         sessionEventButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:22.5
         
-        if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
+        if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0 {
             
-            //Event is not started yet
+            sessionEventButton?.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
+            enterSessionLabel?.textColor = UIColor.darkGray
+            // Event is not started yet
             return
         }
+        sessionEventButton?.backgroundColor = UIColor(red: 150.0/255.0, green: 206.0/255.0, blue: 247.0/255.0, alpha: 1)
+        enterSessionLabel?.textColor = UIColor.white
         return
     }
     
@@ -158,7 +186,6 @@ class MySessionTableViewCell: ExtendedTableCell {
                 Log.echo(key: "yud", text: "Locale abbrvation is ")
             }
         }
-        
     }
     
     func showAlert(sender:UIButton){
@@ -200,7 +227,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
             
             Log.echo(key: "yud", text: "You'll be able to enter your session 30 minutes before it starts")
-            
             RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "You'll be able to enter your session 30 minutes before it starts", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
                 
                 self.enterSession?(nil)
@@ -212,6 +238,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             session(self.info)
         }
     }
+    
     
     @IBAction func enterSessionAction(sender:UIButton?){
         

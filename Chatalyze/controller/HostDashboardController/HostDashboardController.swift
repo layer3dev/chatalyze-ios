@@ -18,12 +18,13 @@ class HostDashboardController: MyScheduledSessionsController {
     var sharedLinkListener:((EventInfo)->())?
     @IBOutlet var importantView:UIView?
     @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
+    @IBOutlet var upcomingLabel:UILabel?
+    @IBOutlet var pastLabel:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         Log.echo(key: "yud", text: "the value of the text is \u{0001F389}")
-        
         //printTheFamilyNames()
         initialize()
         paint()
@@ -32,72 +33,84 @@ class HostDashboardController: MyScheduledSessionsController {
     
     override func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){
         
-        DispatchQueue.main.async {
-            
-            guard let topConstant = self.topScrollHeaderConstraint else {
-                return
-            }
-            
-            guard let tableHeight = self.tableHeight else{
-                return
-            }
-            
-            if direction == .up{
-                
-                if topConstant.constant <= CGFloat(-154.0){
-                    topConstant.constant = -154.0
-                    tableHeight.constant = 290.0+154.0
-                    return
-                }
-                topConstant.constant = topConstant.constant-CGFloat(1.0)
-                tableHeight.constant = tableHeight.constant+1
-                return
-            }
-            
-            if direction == .down{
-                
-                if topConstant.constant >= CGFloat(0.0){
-                    topConstant.constant = 0.0
-                    tableHeight.constant = 290.0
-                    return
-                }
-                topConstant.constant = topConstant.constant+CGFloat(1.0)
-                tableHeight.constant = tableHeight.constant-1
-                return
-            }
-            
-        }
+//        DispatchQueue.main.async {
+//
+//            guard let topConstant = self.topScrollHeaderConstraint else {
+//                return
+//            }
+//
+//            guard let tableHeight = self.tableHeight else{
+//                return
+//            }
+//
+//            if direction == .up{
+//
+//                if topConstant.constant <= CGFloat(-154.0){
+//                    topConstant.constant = -154.0
+//                    tableHeight.constant = 290.0+154.0
+//                    self.updateViewConstraints()
+//                    self.view.layoutIfNeeded()
+//                    return
+//                }
+//                topConstant.constant = topConstant.constant-CGFloat(1.0)
+//                tableHeight.constant = tableHeight.constant+1
+//                self.updateViewConstraints()
+//                self.view.layoutIfNeeded()
+//                return
+//            }
+//
+//            if direction == .down{
+//
+//                if topConstant.constant >= CGFloat(0.0){
+//                    topConstant.constant = 0.0
+//                    tableHeight.constant = 290.0
+//                    self.updateViewConstraints()
+//                    self.view.layoutIfNeeded()
+//                    return
+//                }
+//                topConstant.constant = topConstant.constant+CGFloat(1.0)
+//                tableHeight.constant = tableHeight.constant-1
+//                self.updateViewConstraints()
+//                self.view.layoutIfNeeded()
+//                return
+//            }
+//
+//        }
     }
     
     override func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
         
-        Log.echo(key: "end", text: "end draging is calling")
-        
-        DispatchQueue.main.async {
-            
-            guard let topConstant = self.topScrollHeaderConstraint else {
-                return
-            }
-            
-            guard let tableHeight = self.tableHeight else {
-                return
-            }
-            
-            if topConstant.constant <=  CGFloat(-75){
-                
-                topConstant.constant = -154.0
-                tableHeight.constant = 290.0+154.0
-                return
-                // hide header
-            }
-            
-            if topConstant.constant >  CGFloat(-75){
-                
-                topConstant.constant = 0
-                tableHeight.constant = 290.0
-                // show header
-            }
-        }
+//        Log.echo(key: "end", text: "end draging is calling")
+//
+//        DispatchQueue.main.async {
+//
+//            guard let topConstant = self.topScrollHeaderConstraint else {
+//                return
+//            }
+//
+//            guard let tableHeight = self.tableHeight else {
+//                return
+//            }
+//
+//            if topConstant.constant <=  CGFloat(-75){
+//
+//                topConstant.constant = -154.0
+//                tableHeight.constant = 290.0+154.0
+//                self.updateViewConstraints()
+//                self.view.layoutIfNeeded()
+//                return
+//                // hide header
+//            }
+//
+//            if topConstant.constant >  CGFloat(-75){
+//
+//                topConstant.constant = 0
+//                tableHeight.constant = 290.0
+//                self.updateViewConstraints()
+//                self.view.layoutIfNeeded()
+//                // show header
+//            }
+//        }
     }
     
     
@@ -115,6 +128,7 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        //showUpcomingEvents(sender: nil)
         hideNavigationBar()
         rootView?.paintNewUI()
     }    
@@ -256,23 +270,26 @@ class HostDashboardController: MyScheduledSessionsController {
         }
     }
     
-    
-    @IBAction func showPastEvents(sender:UIButton){
-     
+    @IBAction func showPastEvents(sender:UIButton?){
+        
+        currentEventShowing = .past
         resetUpcomingData()
         FetchEventsForPast()
-        currentEventShowing = .past
     }
     
-    @IBAction func showUpcomingEvents(sender:UIButton){
+    @IBAction func showUpcomingEvents(sender:UIButton?){
         
+        currentEventShowing = .upcoming
         resetPastData()
         fetchInfo()
-        currentEventShowing = .upcoming
     }
     
     func resetPastData(){
-     
+       
+        self.upcomingLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+        
+        self.pastLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+       
         self.pastEventsArray.removeAll()
         self.rootView?.fillInfo(info: self.pastEventsArray)
         isPastEventsFetching = false
@@ -281,13 +298,11 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func resetUpcomingData(){
         
+        self.upcomingLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.pastLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
         self.eventArray.removeAll()
         self.rootView?.fillInfo(info: self.eventArray)
     }
-    
-    
-    
-    
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
