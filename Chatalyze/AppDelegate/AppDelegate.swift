@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
+        //initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
         test()
         registerForPushNotifications()
@@ -34,6 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.echo(key: "yud", text: "Did Finish is calling")
         return true
     }
+    
+    fileprivate func initializeSegmentIO(){
+        
+        let configuration = SEGAnalyticsConfiguration.init(writeKey: "need to be written yet")
+        configuration.trackApplicationLifecycleEvents = true
+        configuration.recordScreenViews = true
+        SEGAnalytics.setup(with: configuration)
+    }
+    
     
     fileprivate func test(){
         

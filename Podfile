@@ -17,6 +17,7 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'Socket.IO-Client-Swift', '~> 14.0.0'
 pod 'Starscream', '~> 3.0'
 pod 'YLProgressBar', '~> 3.11.0'
+pod "Analytics", "3.6.10"
 
 end
 

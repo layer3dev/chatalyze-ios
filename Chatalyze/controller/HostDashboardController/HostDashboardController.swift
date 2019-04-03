@@ -29,6 +29,7 @@ class HostDashboardController: MyScheduledSessionsController {
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
+        SEGAnalytics.shared().track("My Session Page")
     }
     
     override func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){

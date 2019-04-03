@@ -20,7 +20,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     let chatCountUpdateListener = UpdateChatCountInSessionsListeners()
     let applicationStateListener = ApplicationStateListener()
     @IBOutlet var chatPupHeightConstraint:NSLayoutConstraint?
-    
     //Past Data fetching Info
     var pastEventsArray = [EventInfo]()
     var isPastEventsFetching = false
@@ -83,27 +82,18 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         rootView?.initializeAdapter(table:self.sessionListingTableView)
     }
     
-    
     func showUpcoming(){
         
     }
     
-    
-    
     func updateScrollViewWithTable(height:CGFloat){
     }
     
-    
     func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){
-        
     }
     
     func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
-        
-      
-        
     }
-    
     
     
     func paintInterface(){
@@ -135,7 +125,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-            self.tableTopConstraint?.constant = -30.0
+            self.tableTopConstraint?.constant = -22.0
             self.mySessionLbl?.isHidden = false
             
             if success{
@@ -146,7 +136,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.noeventLbl?.isHidden = true
                         self.mySessionLbl?.isHidden = false
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                        self.tableTopConstraint?.constant = -30.0
+                        self.tableTopConstraint?.constant = -22.0
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
@@ -189,7 +179,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-            self.tableTopConstraint?.constant = -30.0
+            self.tableTopConstraint?.constant = -22.0
             self.mySessionLbl?.isHidden = false
 
             if success{
@@ -199,7 +189,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                        self.tableTopConstraint?.constant = -30.0
+                        self.tableTopConstraint?.constant = -22.0
                         self.mySessionLbl?.isHidden = false
 
                         for info in array{
@@ -295,7 +285,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         if array.count >= self.limit {
                             
                             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                            self.tableTopConstraint?.constant = -30.0
+                            self.tableTopConstraint?.constant = -22.0
                             for info in array{
                                 self.pastEventsArray.append(info)
                                 self.rootView?.fillInfo(info: self.pastEventsArray)
