@@ -36,7 +36,6 @@ class MySessionTableViewCell: ExtendedTableCell {
       
         painInterface()
         roundToMainView()
-        
     }
     
     func paintPastFields(){
@@ -53,7 +52,6 @@ class MySessionTableViewCell: ExtendedTableCell {
         self.addToCalender?.isHidden = false
         return
     }
-    
     
     func roundToMainView(){
         

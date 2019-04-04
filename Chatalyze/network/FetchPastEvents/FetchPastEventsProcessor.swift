@@ -13,9 +13,7 @@ class FetchPastEventsProcessor{
     
     public func fetch(offset:Int, completion : @escaping ((_ success : Bool, _ error : String, _ response : [EventInfo]?)->())){
         
-        //https://dev.chatalyze.com/api/schedules/calls/pastEventAnalyst?limit=5&offset=0&order=start&order=desc&past=true&userId=36
-        
-        var url = AppConnectionConfig.webServiceURL + "/schedules/calls/pastEventAnalyst"
+        let url = AppConnectionConfig.webServiceURL + "/schedules/calls/pastEventAnalyst"
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
             completion(false,"Anlayst id is missing.", nil)
@@ -23,11 +21,11 @@ class FetchPastEventsProcessor{
         }
         
         var param = [String:Any]()
-        param["limit"] = 8
+        param["limit"] = 50
         param["offset"] = offset
         param["order"] = ["start","desc"]
         param["past"] = true
-        param["userId"] = 36
+        param["userId"] = id
         
         Log.echo(key: "yud", text: "params are \(param)")
         

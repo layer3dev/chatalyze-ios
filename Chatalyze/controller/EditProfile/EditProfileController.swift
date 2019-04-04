@@ -17,24 +17,6 @@ class EditProfileController: InterfaceExtendedController {
         
         painInterface()
         SEGAnalytics.shared().track("Profile Edit")
-        
-        //        [[SEGAnalytics sharedAnalytics] track:@"Pro Trial SignUp"];
-        //
-        //        analytics.track('Session Schedule');
-        //        analytics.track('Action: Schedule Session - Add Title)'
-        //            analytics.track('Action: Schedule Session - Select Date)'
-        //                analytics.track('Action: Schedule Session - Select Start Time)'
-        //                    analytics.track('Action: Schedule Session - Select Session Length)'
-        //                        analytics.track('Action: Schedule Session - Select 1:1 Chat Length)'
-        //                            analytics.track('Action: Schedule Session - Select Chat Price)'
-        //                                analytics.track('Session Scheduled');
-        //                                analytics.track('Session Enter Host');
-        //                                analytics.track('My Tickets Page');
-        //                                analytics.track('Chat Enter Attendee')
-        //                                analytics.track('System Test');
-        //                                analytics.track('My Memories Page');
-        //
-
     }
     
     override func viewAppeared() {

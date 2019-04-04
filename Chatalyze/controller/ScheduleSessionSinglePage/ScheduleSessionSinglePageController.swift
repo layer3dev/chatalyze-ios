@@ -1,66 +1,35 @@
 //
-//  EditSessionFormController.swift
+//  ScheduleSessionSinglePageController.swift
 //  Chatalyze
 //
-//  Created by mansa infotech on 19/03/19.
+//  Created by mansa infotech on 04/04/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class EditSessionFormController: InterfaceExtendedController {
-    
-    var eventInfo:EventInfo?
-    @IBOutlet var scrollViewCustom:FieldManagingScrollView?
-    
+class ScheduleSessionSinglePageController: EditSessionFormController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        load()
+
         // Do any additional setup after loading the view.
     }
     
-    
-    func load(){
-       
-        self.showLoader()
-        self.rootView?.controller = self
-        fetchMinimumPlanPriceToScheuleIfExists()
-        paintInterface()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        rootInitialization()
-    }
-    
-    
-    func rootInitialization() {
+    override func rootInitialization() {
         
         DispatchQueue.main.async {
             
             self.rootView?.initializeVariable()
-            self.rootView?.fillInfo(info:self.eventInfo)
-            self.stopLoader()
+            //self.rootView?.fillInfo(info:self.eventInfo)
         }
     }
     
-    func paintInterface(){
+    override func fetchMinimumPlanPriceToScheuleIfExists(){
         
-        rootView?.paintInteface()
-        paintBackButton()
-        paintNavigationTitle(text: "Edit Session")
-    }
-
-    var rootView:EditSessionFormRootView?{
-        return self.view as? EditSessionFormRootView
-    }    
-    
-    func fetchMinimumPlanPriceToScheuleIfExists(){
-        
+        self.showLoader()
         GetPlanRequestProcessor().fetch { (success,error,response) in
-         
+            self.stopLoader()
             if !success {
                 return
             }
@@ -73,11 +42,30 @@ class EditSessionFormController: InterfaceExtendedController {
             self.rootView?.scheduleInfo?.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
             
             self.rootView?.planInfo = info
-           
+            
             Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
         }
     }
     
+    
+    override func load(){
+        
+        self.rootView?.controller = self
+        fetchMinimumPlanPriceToScheuleIfExists()
+        paintInterface()
+    }
+    
+   override func paintInterface(){
+        
+        rootView?.paintInteface()
+        paintBackButton()
+        paintNavigationTitle(text: "Schedule a Session")
+    }
+    
+    override var rootView:ScheduleSessionSinglePageRootView?{
+        return self.view as? ScheduleSessionSinglePageRootView
+    }
+
     /*
     // MARK: - Navigation
 
@@ -88,12 +76,11 @@ class EditSessionFormController: InterfaceExtendedController {
     }
     */
     
-    
-    class func instance()->EditSessionFormController?{
+    override class func instance()->ScheduleSessionSinglePageController?{
         
-        let storyboard = UIStoryboard(name: "EditScheduleSession", bundle:nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "EditSessionForm") as? EditSessionFormController
+        let storyboard = UIStoryboard(name: "ScheduleSessionSinglePage", bundle:nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ScheduleSessionSinglePage") as? ScheduleSessionSinglePageController
         return controller
     }
-}
 
+}

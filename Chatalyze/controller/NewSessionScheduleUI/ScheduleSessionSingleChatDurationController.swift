@@ -22,7 +22,7 @@ class ScheduleSessionSingleChatDurationController: UIViewController {
         super.viewDidLoad()
         
         rootView?.delegate = self
-        // Do any additional setup after loading the view.
+        SEGAnalytics.shared().track("Action: Schedule Session - Select 1:1 Chat Length)")        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -979,6 +979,12 @@ class HostCallController: VideoCallController {
         self.processExitAction(code: .userAction)
         //Event Cancelled
     }
+    
+    override func hitEventOnSegmentIO(){
+      
+        SEGAnalytics.shared().track("Session Enter Host")
+    }
+    
 }
 
 //instance

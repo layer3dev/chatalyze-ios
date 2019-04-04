@@ -24,6 +24,7 @@ class SystemTestController:InterfaceExtendedController {
         rootView?.isOpaque = false
         initializeVariable()
         paintInterface()
+        SEGAnalytics.shared().track("System Test")
     }
     
     func paintInterface(){

@@ -324,7 +324,12 @@ class HostDashboardController: MyScheduledSessionsController {
         
         DispatchQueue.main.async {
             
-            guard let controller = SessionScheduleNewController.instance() else{
+//            guard let controller = SessionScheduleNewController.instance() else{
+//                return
+//            }
+            
+            
+            guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
             

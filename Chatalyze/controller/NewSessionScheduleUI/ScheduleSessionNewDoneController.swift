@@ -25,6 +25,7 @@ class ScheduleSessionNewDoneController: UIViewController {
         // Do any additional setup after loading the view.
         setSharableUrlText()
         paintLayers()
+        SEGAnalytics.shared().track("Session Scheduled")        
     }
     
     func paintLayers(){

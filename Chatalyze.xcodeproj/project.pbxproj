@@ -159,6 +159,12 @@
 		477A943221E33E5C00517F3E /* EditHostSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */; };
 		477A943521E389E200517F3E /* EditMySessionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943421E389E200517F3E /* EditMySessionProcessor.swift */; };
 		477A943621E389E200517F3E /* EditMySessionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477A943421E389E200517F3E /* EditMySessionProcessor.swift */; };
+		477B4A9322560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477B4A9222560B3B001051F6 /* ScheduleSessionSinglePage.storyboard */; };
+		477B4A9422560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477B4A9222560B3B001051F6 /* ScheduleSessionSinglePage.storyboard */; };
+		477B4A9722560C52001051F6 /* ScheduleSessionSinglePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B4A9622560C52001051F6 /* ScheduleSessionSinglePageController.swift */; };
+		477B4A9822560C52001051F6 /* ScheduleSessionSinglePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B4A9622560C52001051F6 /* ScheduleSessionSinglePageController.swift */; };
+		477B4A9B22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B4A9A22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift */; };
+		477B4A9C22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477B4A9A22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift */; };
 		477F35EF21EF59F100688F2E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477F35EE21EF59F100688F2E /* Profile.storyboard */; };
 		477F35F021EF59F100688F2E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477F35EE21EF59F100688F2E /* Profile.storyboard */; };
 		4781441B2204096E005398F8 /* ScheduleSessionSingleChatDurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4781441A2204096E005398F8 /* ScheduleSessionSingleChatDurationController.swift */; };
@@ -1316,6 +1322,9 @@
 		477A942921E33DEA00517F3E /* EditHostSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostSessionController.swift; sourceTree = "<group>"; };
 		477A943021E33E5C00517F3E /* EditHostSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHostSessionRootView.swift; sourceTree = "<group>"; };
 		477A943421E389E200517F3E /* EditMySessionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMySessionProcessor.swift; sourceTree = "<group>"; };
+		477B4A9222560B3B001051F6 /* ScheduleSessionSinglePage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScheduleSessionSinglePage.storyboard; sourceTree = "<group>"; };
+		477B4A9622560C52001051F6 /* ScheduleSessionSinglePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionSinglePageController.swift; sourceTree = "<group>"; };
+		477B4A9A22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionSinglePageRootView.swift; sourceTree = "<group>"; };
 		477F35EE21EF59F100688F2E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		4780A5B620F8E852001C68AB /* CountryPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountryPicker.h; sourceTree = "<group>"; };
 		4781441A2204096E005398F8 /* ScheduleSessionSingleChatDurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionSingleChatDurationController.swift; sourceTree = "<group>"; };
@@ -2859,6 +2868,22 @@
 				477A943421E389E200517F3E /* EditMySessionProcessor.swift */,
 			);
 			path = EditSession;
+			sourceTree = "<group>";
+		};
+		477B4A9522560C2C001051F6 /* ScheduleSessionSinglePage */ = {
+			isa = PBXGroup;
+			children = (
+				477B4A9622560C52001051F6 /* ScheduleSessionSinglePageController.swift */,
+			);
+			path = ScheduleSessionSinglePage;
+			sourceTree = "<group>";
+		};
+		477B4A9922560C88001051F6 /* ScheduleSessionSinglePageRootView */ = {
+			isa = PBXGroup;
+			children = (
+				477B4A9A22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift */,
+			);
+			path = ScheduleSessionSinglePageRootView;
 			sourceTree = "<group>";
 		};
 		4782822B2184366900A003F4 /* InternetAvailability */ = {
@@ -4436,6 +4461,7 @@
 				479FB7462240F55100408229 /* EditScheduleSessionNew */,
 				47DD7F162248DBDD0052F38D /* CustomSwitch */,
 				47658A722252094F00ECA7D7 /* BreakView */,
+				477B4A9922560C88001051F6 /* ScheduleSessionSinglePageRootView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4498,6 +4524,7 @@
 				477F35EE21EF59F100688F2E /* Profile.storyboard */,
 				47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */,
 				47BAEDA122005A720042588A /* SessionScheduleNew.storyboard */,
+				477B4A9222560B3B001051F6 /* ScheduleSessionSinglePage.storyboard */,
 				47310D032212D149009D049C /* Tipping.storyboard */,
 				4713358B222FFA4B002E2994 /* ProFeature.storyboard */,
 			);
@@ -4560,6 +4587,7 @@
 				4787237C222574CD007994FC /* EarlyController */,
 				47E3722E2230F493000B99F9 /* ProFeatureController */,
 				479FB7422240F46100408229 /* EditScheduleSessionNewController */,
+				477B4A9522560C2C001051F6 /* ScheduleSessionSinglePage */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -5294,6 +5322,7 @@
 				47E372432230F946000B99F9 /* Nunito-Black.ttf in Resources */,
 				47D0B1C221A6C4B5006376A8 /* CountryPicker.bundle in Resources */,
 				47E372472230F946000B99F9 /* Nunito-Bold.ttf in Resources */,
+				477B4A9422560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */,
 				47D0B1C321A6C4B5006376A8 /* setting.storyboard in Resources */,
 				47D0B1C421A6C4B5006376A8 /* OpenSans-Regular.ttf in Resources */,
 				47D0B1C521A6C4B5006376A8 /* chatalyze_terms_html.html in Resources */,
@@ -5364,6 +5393,7 @@
 				47E372422230F946000B99F9 /* Nunito-Black.ttf in Resources */,
 				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
 				47E372462230F946000B99F9 /* Nunito-Bold.ttf in Resources */,
+				477B4A9322560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */,
 				FA1B36242064C77D00F2E6BC /* setting.storyboard in Resources */,
 				47D0B00521A679A0006376A8 /* OpenSans-Regular.ttf in Resources */,
 				47182597216B5A9D00216AEB /* chatalyze_terms_html.html in Resources */,
@@ -5609,6 +5639,7 @@
 				47D0B02B21A6C4B5006376A8 /* ExtendedTextView.swift in Sources */,
 				47D0B02C21A6C4B5006376A8 /* CacheImageLoader.swift in Sources */,
 				47D0B02D21A6C4B5006376A8 /* EditProfileHostRootView.swift in Sources */,
+				477B4A9C22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */,
 				47D0B02E21A6C4B5006376A8 /* ExtendedScrollView.swift in Sources */,
 				47D0B02F21A6C4B5006376A8 /* AccountController.swift in Sources */,
 				47D0B03021A6C4B5006376A8 /* AccountHostRootView.swift in Sources */,
@@ -5653,6 +5684,7 @@
 				47D0B05221A6C4B5006376A8 /* AppVersionLabel.swift in Sources */,
 				47D0B05321A6C4B5006376A8 /* GreetingBookingProcessor.swift in Sources */,
 				47D0B05421A6C4B5006376A8 /* EventQueueFlowLayout.swift in Sources */,
+				477B4A9822560C52001051F6 /* ScheduleSessionSinglePageController.swift in Sources */,
 				47D0B05521A6C4B5006376A8 /* RequestAutographRootView.swift in Sources */,
 				47D0B05621A6C4B5006376A8 /* EditProfileProcessor.swift in Sources */,
 				47D0B05721A6C4B5006376A8 /* MemoriesRootView.swift in Sources */,
@@ -6117,6 +6149,7 @@
 				FAA001B0203ED472003C8A74 /* ExtendedTextView.swift in Sources */,
 				FA3B46A521104D19007EA72D /* CacheImageLoader.swift in Sources */,
 				475B1118210B26E600DADD39 /* EditProfileHostRootView.swift in Sources */,
+				477B4A9B22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */,
 				FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */,
 				473646EB20AEDF8500D684FE /* AccountController.swift in Sources */,
 				47931AF52109E8BA00F41630 /* AccountHostRootView.swift in Sources */,
@@ -6161,6 +6194,7 @@
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
 				47B226A420AAF461001DD204 /* GreetingBookingProcessor.swift in Sources */,
 				FAFB7C80206E6B84004804D2 /* EventQueueFlowLayout.swift in Sources */,
+				477B4A9722560C52001051F6 /* ScheduleSessionSinglePageController.swift in Sources */,
 				FA3FAA0C2076046400CC4AF8 /* RequestAutographRootView.swift in Sources */,
 				47AD143320AD662C006AF9D6 /* EditProfileProcessor.swift in Sources */,
 				472780E620B02D2B00D5AA1E /* MemoriesRootView.swift in Sources */,
@@ -6817,7 +6851,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6833,7 +6867,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -6850,7 +6884,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6866,7 +6900,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

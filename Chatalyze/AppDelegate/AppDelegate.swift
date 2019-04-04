@@ -22,12 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isRootInitialize:Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
-        //initializeSegmentIO()
+        initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
         test()
         registerForPushNotifications()
@@ -39,9 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func initializeSegmentIO(){
         
-        let configuration = SEGAnalyticsConfiguration.init(writeKey: "need to be written yet")
+        let configuration = SEGAnalyticsConfiguration.init(writeKey:AppConnectionConfig.segmentIOKey)
         configuration.trackApplicationLifecycleEvents = true
-        configuration.recordScreenViews = true
+        configuration.recordScreenViews = false 
         SEGAnalytics.setup(with: configuration)
     }
     

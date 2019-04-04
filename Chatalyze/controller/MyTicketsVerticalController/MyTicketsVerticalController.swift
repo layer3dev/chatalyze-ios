@@ -28,6 +28,12 @@ class MyTicketsVerticalController: MyTicketsController{
         getTheRequiredDate()
         initializeListenrs()
         underLineLearnMore()
+        hitEventOnSegmentIO()
+    }
+    
+    func hitEventOnSegmentIO(){
+        
+        SEGAnalytics.shared().track("My Tickets Page")
     }
     
     @IBAction func showUserAnimation(){

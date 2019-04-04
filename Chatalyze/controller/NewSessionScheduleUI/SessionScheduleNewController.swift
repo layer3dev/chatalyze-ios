@@ -24,6 +24,7 @@ class SessionScheduleNewController: UIViewController {
         initializeGradient()
         updateProfile()
         fetchMinimumPlanPriceToScheuleIfExists()
+        SEGAnalytics.shared().track("Session a Schedule")
     }
     
     func askForStarterPlanIfNotAskedYet(){
