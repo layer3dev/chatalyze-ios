@@ -28,6 +28,12 @@ class MyTicketsVerticalController: MyTicketsController{
         getTheRequiredDate()
         initializeListenrs()
         underLineLearnMore()
+        hitEventOnSegmentIO()
+    }
+    
+    func hitEventOnSegmentIO(){
+        
+        SEGAnalytics.shared().track("My Tickets Page")
     }
     
     @IBAction func showUserAnimation(){
@@ -76,25 +82,9 @@ class MyTicketsVerticalController: MyTicketsController{
     func getTheRequiredDate(){
     
         let dateFormatter = DateFormatter()
-        
-//        dateFormatter.timeZone = TimeZone.init(abbreviation: "GMT")
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
-//        print("Required date is \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
-        
         let date = Date()
-        
-        //dateFormatter.timeZone = TimeZone.init(abbreviation: "UTC")
-        //dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        //dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        //let str = dateFormatter.string(from: date)
-        //print("String date is \(dateFormatter.string(from: date))")
-        
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "E, d MMM yyyy "
-        
-        print("Extented date is \(dateFormatter.string(from: date))")
-        print("Date from str is  \(dateFormatter.date(from: "Thu, 25 Oct 2018 11:20:15 GMT"))")
     }
     
     func initializeFontSize(){

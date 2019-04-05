@@ -21,6 +21,7 @@ class ScheduleSessionNewTitleController: UIViewController {
         super.viewDidLoad()
         
         rootView?.delegate = self
+        SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
         // Do any additional setup after loading the view.
     }
     

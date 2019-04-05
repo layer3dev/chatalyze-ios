@@ -31,7 +31,7 @@ class SessionDetailRootView: ExtendedView {
     var delegate:SessionDetailRootViewDelegate?
     @IBOutlet var goBackButtonContainer:UIView?
     @IBOutlet var confirmButton:UIButton?
-    
+    @IBOutlet var cancelView:ButtonContainerCorners?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -79,8 +79,16 @@ class SessionDetailRootView: ExtendedView {
             }
             self.info = info
             self.reloadAdapter()
+            
+            Log.echo(key: "yud", text: "Time difference ibetween the ens and current time  \(Date().timeIntervalSince(info.endDate ?? Date()))")
+            
+            if Date().timeIntervalSince(info.endDate ?? Date()) > 0.0{
+                self.cancelView?.isHidden = true
+            }else{
+                self.cancelView?.isHidden = false
+            }
+            
             if let title = info.title{
-                
                 self.title?.text = title
             }
             

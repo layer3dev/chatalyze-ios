@@ -57,6 +57,9 @@ class InternetSpeedTestController: InterfaceExtendedController {
         
         //self.speedLbl?.text = "Checking your system. This will just take a moment."
         //rotateImage(breakMethod:true)
+        
+        
+        SEGAnalytics.shared().track("System Test")
         startSystemTest()
     }
     

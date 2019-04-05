@@ -1032,6 +1032,55 @@
                                     <constraint firstItem="dnj-2B-o0s" firstAttribute="top" secondItem="0Sw-Jz-egg" secondAttribute="bottom" constant="15" id="vT6-Rm-ova"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9u-WN-E0S" customClass="breakFeatureView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgZ-Br-2TG">
+                                        <rect key="frame" x="15" y="328.5" width="345" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="28"/>
+                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="34"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAz-e7-ku3">
+                                        <rect key="frame" x="15" y="333.5" width="345" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
+                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="30"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMm-uz-Lpn">
+                                        <rect key="frame" x="15" y="363.5" width="345" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="32"/>
+                                        <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="38"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GAz-e7-ku3" secondAttribute="trailing" constant="15" id="8Yt-2v-Cqb"/>
+                                    <constraint firstItem="GAz-e7-ku3" firstAttribute="centerY" secondItem="B9u-WN-E0S" secondAttribute="centerY" id="9AG-z3-zv0"/>
+                                    <constraint firstAttribute="trailing" secondItem="jMm-uz-Lpn" secondAttribute="trailing" constant="15" id="Icc-qQ-fqH"/>
+                                    <constraint firstItem="jMm-uz-Lpn" firstAttribute="leading" secondItem="B9u-WN-E0S" secondAttribute="leading" constant="15" id="V0z-65-1AN"/>
+                                    <constraint firstItem="jMm-uz-Lpn" firstAttribute="top" secondItem="GAz-e7-ku3" secondAttribute="bottom" constant="30" id="grq-ob-rSU"/>
+                                    <constraint firstItem="GAz-e7-ku3" firstAttribute="top" secondItem="NgZ-Br-2TG" secondAttribute="bottom" constant="5" id="k17-Oh-m2k"/>
+                                    <constraint firstAttribute="trailing" secondItem="NgZ-Br-2TG" secondAttribute="trailing" constant="15" id="l9q-j7-4CN"/>
+                                    <constraint firstItem="GAz-e7-ku3" firstAttribute="leading" secondItem="B9u-WN-E0S" secondAttribute="leading" constant="15" id="rCj-Sd-fNd"/>
+                                    <constraint firstItem="NgZ-Br-2TG" firstAttribute="leading" secondItem="B9u-WN-E0S" secondAttribute="leading" constant="15" id="xig-7R-hOU"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="headingLabel" destination="NgZ-Br-2TG" id="iJL-5s-cOd"/>
+                                    <outlet property="nextChatLabel" destination="GAz-e7-ku3" id="faE-D2-M7i"/>
+                                    <outlet property="timeLabel" destination="jMm-uz-Lpn" id="2Cg-DZ-WFM"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7b-gI-ZIs" customClass="RemoteVideoContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -1438,6 +1487,7 @@
                             <constraint firstAttribute="trailing" secondItem="sGS-ax-ird" secondAttribute="trailing" id="8At-V7-CnB"/>
                             <constraint firstItem="sGS-ax-ird" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" id="9SP-fG-aFe"/>
                             <constraint firstItem="eeA-KO-1SA" firstAttribute="top" secondItem="KpN-xB-ARm" secondAttribute="top" id="BV7-y3-F6f"/>
+                            <constraint firstItem="B9u-WN-E0S" firstAttribute="top" secondItem="KpN-xB-ARm" secondAttribute="top" id="G4Q-xa-MFZ"/>
                             <constraint firstItem="sGS-ax-ird" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" id="Hxi-DA-g3h"/>
                             <constraint firstItem="eeA-KO-1SA" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" id="Jb6-cG-IgO"/>
                             <constraint firstItem="h7b-gI-ZIs" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" id="NMh-bb-rvm"/>
@@ -1448,15 +1498,18 @@
                             <constraint firstItem="BAW-EJ-MS8" firstAttribute="top" secondItem="WWc-oc-0Js" secondAttribute="bottom" id="TPl-As-2iB" userLabel="local_bottom"/>
                             <constraint firstItem="BAW-EJ-MS8" firstAttribute="top" secondItem="h7b-gI-ZIs" secondAttribute="bottom" id="TVc-Bs-usu"/>
                             <constraint firstAttribute="trailing" secondItem="h7b-gI-ZIs" secondAttribute="trailing" id="Tzz-JB-ZLS"/>
+                            <constraint firstItem="B9u-WN-E0S" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" id="WT1-HT-8yN"/>
                             <constraint firstItem="WWc-oc-0Js" firstAttribute="leading" secondItem="AIh-yb-NX5" secondAttribute="trailing" id="Xd5-1Z-tgP"/>
                             <constraint firstItem="h7b-gI-ZIs" firstAttribute="top" secondItem="KpN-xB-ARm" secondAttribute="top" id="YzX-36-dd0"/>
                             <constraint firstItem="IjC-nE-6gQ" firstAttribute="leading" secondItem="KpN-xB-ARm" secondAttribute="leading" constant="8" id="Zfi-yw-gIN" userLabel="container_leading"/>
                             <constraint firstItem="d18-yn-Nkv" firstAttribute="centerX" secondItem="KpN-xB-ARm" secondAttribute="centerX" id="aE0-PQ-MwK"/>
+                            <constraint firstItem="BAW-EJ-MS8" firstAttribute="top" secondItem="B9u-WN-E0S" secondAttribute="bottom" id="eJu-Dt-Vyd"/>
                             <constraint firstAttribute="trailing" secondItem="wxF-iw-i0G" secondAttribute="trailing" id="lKh-P4-twn"/>
                             <constraint firstAttribute="bottom" secondItem="d18-yn-Nkv" secondAttribute="bottom" constant="15" id="o6T-ik-OEX">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
                             <constraint firstItem="IjC-nE-6gQ" firstAttribute="centerY" secondItem="KpN-xB-ARm" secondAttribute="centerY" id="p7A-Ja-Gzn"/>
+                            <constraint firstAttribute="trailing" secondItem="B9u-WN-E0S" secondAttribute="trailing" id="sXu-Mt-dRn"/>
                             <constraint firstItem="wxF-iw-i0G" firstAttribute="top" secondItem="KpN-xB-ARm" secondAttribute="top" id="vI4-qv-eFL"/>
                             <constraint firstItem="WWc-oc-0Js" firstAttribute="top" secondItem="wxF-iw-i0G" secondAttribute="bottom" constant="13" id="vuk-Jf-Lpd" userLabel="local_top_constraint">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
@@ -1492,6 +1545,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
+                        <outlet property="breakView" destination="B9u-WN-E0S" id="Fg6-6D-wb6"/>
                         <outlet property="chatalyzeLogo" destination="P99-wv-JdK" id="Qzg-zg-zlz"/>
                         <outlet property="preConnectLbl" destination="VJX-fD-I6U" id="y2x-4j-ryn"/>
                         <outlet property="selfieTimerView" destination="eeA-KO-1SA" id="Cfu-Qn-r9q"/>

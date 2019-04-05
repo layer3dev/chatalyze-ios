@@ -55,7 +55,6 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var chatCalculatorLbl:UILabel?
     @IBOutlet var chatTotalNumberOfSlots:UILabel?
     @IBOutlet private var chatCalculatorView:UIView?
-    
 
     var totalTimeOfChat:totalChatDuration = .none
     
@@ -95,7 +94,8 @@ class EditSessionFormRootView:ExtendedView {
     fileprivate var isTimePickerIsShowing = false
     
     var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
-    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
+    //var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
+    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins"]
     
     let chatLengthPicker = CustomPicker()
     let sessionLengthPicker = CustomPicker()
@@ -108,12 +108,10 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var screenShotLabel:UILabel?
     
     var eventInfo:EventInfo?
-    
-    var isPricingEnable:Bool = false
-    
+    var isPricingEnable:Bool? = nil
     var controller:EditSessionFormController?
     
-    var desiredDate:String{
+    var desiredDate:String {
     
         guard let date = self.eventInfo?.startDate else{
             return ""
@@ -191,9 +189,7 @@ class EditSessionFormRootView:ExtendedView {
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
         
-        
-        priceAmountField?.textField?.keyboardType = UIKeyboardType.numberPad
-        
+        priceAmountField?.textField?.keyboardType = UIKeyboardType.decimalPad        
     }
     
     func initializeCustomSwitch(){
@@ -284,10 +280,6 @@ class EditSessionFormRootView:ExtendedView {
         
         self.eventInfo = eventInfo
         
-        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
-            slotIdentifiedDisbaleView()
-        }
-        
         self.titleField?.textField?.text = eventInfo.title
         self.dateField?.textField?.text = desiredDate
         self.timeField?.textField?.text = desiredTime
@@ -317,15 +309,18 @@ class EditSessionFormRootView:ExtendedView {
             slotSelected = .fifteen
             self.chatLength?.textField?.text =  chatLengthArray[4]
         }
-        if eventInfo.duration == 30{
+        if eventInfo.duration == 30 {
            
             slotSelected = .thirty
             self.chatLength?.textField?.text =  chatLengthArray[5]
         }
-        if eventInfo.duration == 60{
+        if eventInfo.duration == 60 {
             
-            slotSelected = .sixty
-            self.chatLength?.textField?.text =  chatLengthArray[6]
+            if chatLengthArray.count > 6 {
+                
+                slotSelected = .sixty
+                self.chatLength?.textField?.text =  chatLengthArray[6]
+            }
         }
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
@@ -391,6 +386,10 @@ class EditSessionFormRootView:ExtendedView {
             
             showHeightPriceFllingField()
             self.priceAmountField?.textField?.text = "\((eventInfo.price ?? 0.0))"
+        }
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            slotIdentifiedDisbaleView()
         }
         
         updatescheduleInfo()
@@ -493,6 +492,35 @@ class EditSessionFormRootView:ExtendedView {
         Log.echo(key: "yud", text: "Final para are \(getParam())")
     }
     
+    func save(){
+        
+        guard let eventId = self.controller?.eventInfo?.id else{
+            return
+        }
+        
+        guard let params = getParam() else{
+            return
+        }
+        
+        self.controller?.showLoader()
+        EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
+            
+            self.controller?.stopLoader()
+            if success{
+                
+                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                    
+                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                })
+                return
+            }
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                
+            })
+            return
+        }
+    }
+    
 }
 
 extension EditSessionFormRootView:UITextFieldDelegate{
@@ -562,17 +590,24 @@ extension EditSessionFormRootView{
     
     func validateFields()->Bool {
         
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            
+            let titleValidated  = titleValidation()
+            return titleValidated
+        }
+        
         let titleValidated  = titleValidation()
         let dateValidated  = validateDate()
         let timeValidated = validateTime()
         let isFutureTimeValidation = isFutureTime()
         let durationValidated = validateSlotTime()
-        let priceValidated  = priceValidation()
+        let priceValidated = priceValidation()
         let lengthBalanceValidate = validateBalanceBetweenSessionAndChatLength()
+        let sessionLengthValidation = validateSessionLength()
         
         Log.echo(key: "yud", text: "titleValidated \(titleValidated) dateValidated\(dateValidated) timeValidated\(timeValidated) isFutureTimeValidation\(isFutureTimeValidation) durationValidated\(durationValidated) priceValidated \(priceValidated)")
         
-        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate
+        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation
     }
     
     fileprivate func titleValidation()->Bool {
@@ -607,6 +642,16 @@ extension EditSessionFormRootView {
         
         if slotSelected == .sixty && totalTimeOfChat == .thirtyMinutes{
             sessionLength?.showError(text: "Session length must be greater or equal to the chat length.")
+            return false
+        }
+        sessionLength?.resetErrorStatus()
+        return true
+    }
+    
+    func validateSessionLength()->Bool{
+        
+        if totalTimeOfChat == .none{
+            sessionLength?.showError(text: "Session length is required.")
             return false
         }
         sessionLength?.resetErrorStatus()
@@ -672,7 +717,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
                 return
             }
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMMM, yyyy"
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
@@ -996,17 +1041,17 @@ extension EditSessionFormRootView {
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
         }
-        Log.echo(key: "yud", text: "total number of the slot is \(totalSlots)")
+        Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
     
     fileprivate func validateSlotTime()->Bool{
         
         if(slotSelected == .none){
             
-            slotDurationErrorLbl?.text = "Chat duration is required."
+            chatLength?.showError(text:"Chat length is required.")
             return false
         }
-        slotDurationErrorLbl?.text = ""
+        chatLength?.resetErrorStatus()
         return true
     }
 }
@@ -1057,7 +1102,13 @@ extension EditSessionFormRootView{
         
         if let digits = text{
             let digitsArray = digits.components(separatedBy: ".")
+            Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")
+            if digitsArray.count >= 3{                
+                //This is preventing user to insert multiple decimal digits in textfield.
+                return true
+            }
             if digitsArray.count > 1{
+                
                 Log.echo(key: "yud", text: "decimal digits are \( digitsArray[1])")
                 if digitsArray[1].count > 2 {
                     return true
@@ -1178,7 +1229,12 @@ extension EditSessionFormRootView{
     
     fileprivate func priceValidation()->Bool{
         
-        if !self.isPricingEnable{
+        if self.isPricingEnable == nil {
+            priceAmountField?.showError(text: "Please select the pricing options.")
+            return false
+        }
+        
+        if !(self.isPricingEnable ?? false) {
             return true
         }
         
@@ -1307,7 +1363,7 @@ extension EditSessionFormRootView{
         
         let requiredDate = date+" "+(self.scheduleInfo?.startTime ?? "")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, yyyy hh:mm a"
+        dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         
         if  let newDate = dateFormatter.date(from: requiredDate){
@@ -1354,9 +1410,7 @@ extension EditSessionFormRootView{
     }
     
     
-    func getParam()->[String:Any]?{
-        
-        //        {"start":"2019-02-07T19:30:00+05:30","end":"2019-02-07T20:30:00+05:30","userId":36,"duration":15,"price":88,"isFree":false,"eventFeedbackInfo":null,"youtubeURL":null,"emptySlots":null,"screenshotAllow":"automatic"}
+    func getParam()->[String:Any]? {
         
         updatescheduleInfo()
         
@@ -1386,6 +1440,13 @@ extension EditSessionFormRootView{
         
         var param = [String:Any]()
         
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+            
+            param["title"] = info.title
+            param["tipEnabled"] = info.tipEnabled
+            return param
+        }
+        
         param["title"] = info.title
         param["start"] = "\(startDate)"
         param["end"] = "\(endDate)"
@@ -1397,7 +1458,7 @@ extension EditSessionFormRootView{
             param["price"] = priceHourly
         }
         param["isFree"] = info.isFree
-        param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:nil
+        param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:NSNull()
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
@@ -1405,7 +1466,7 @@ extension EditSessionFormRootView{
         return param
     }
     
-    func caluclateHourlyPrice()->String?{
+    func caluclateHourlyPrice()->Int?{
         
         if let duration = self.scheduleInfo?.duration{
             let hourlySlots = (60/duration)
@@ -1414,7 +1475,7 @@ extension EditSessionFormRootView{
                 let hourlyPrice = (singleChatPriceStr*(Double(hourlySlots)))
                 let truncate = hourlyPrice.roundTo(places: 3)
                 let roundOffTwoDigits = (round(truncate*100)/100)
-                return "\(Int(roundOffTwoDigits))"
+                return Int(roundOffTwoDigits)
             }
         }
         return nil
@@ -1423,39 +1484,11 @@ extension EditSessionFormRootView{
 
 extension EditSessionFormRootView{
     
-    func save(){
-        
-        guard let eventId = self.controller?.eventInfo?.id else{
-            return
-        }
-        
-        guard let params = getParam() else{
-            return
-        }
-        
-        self.controller?.showLoader()
-        EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
-            
-            self.controller?.stopLoader()
-            if success{
-                
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                    
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
-                })
-                return
-            }
-            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                
-            })
-            return
-        }
-    }
+
 }
 
 
 extension EditSessionFormRootView{
-
 
     func slotIdentifiedDisbaleView(){
         
@@ -1472,6 +1505,19 @@ extension EditSessionFormRootView{
         timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+
+        if self.eventInfo?.isFree ?? false {
+            
+            freeField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
+            priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            priceField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            
+        }else{
+            
+            priceField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
+            priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
+            
+        }
     }
-    
 }

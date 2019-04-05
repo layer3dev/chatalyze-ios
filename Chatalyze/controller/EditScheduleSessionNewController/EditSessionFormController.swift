@@ -13,16 +13,20 @@ class EditSessionFormController: InterfaceExtendedController {
     var eventInfo:EventInfo?
     @IBOutlet var scrollViewCustom:FieldManagingScrollView?
     
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        load()
+        // Do any additional setup after loading the view.
+    }
+    
+    
+    func load(){
+       
         self.showLoader()
         self.rootView?.controller = self
         fetchMinimumPlanPriceToScheuleIfExists()
         paintInterface()
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -30,6 +34,7 @@ class EditSessionFormController: InterfaceExtendedController {
         
         rootInitialization()
     }
+    
     
     func rootInitialization() {
         

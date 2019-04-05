@@ -10,7 +10,7 @@ import UIKit
 
 class ExtendedTableCell: UITableViewCell {
 
-    private var isLoaded = false
+     var isLoaded = false
     override func awakeFromNib() {
         super.awakeFromNib()
         //Initialization code

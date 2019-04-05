@@ -20,6 +20,8 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionCurrentSlotLbl:UILabel?
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
+    @IBOutlet var breakView:breakFeatureView?
+        
     
     //For animation.
     var isAnimating = false
@@ -85,13 +87,11 @@ class HostCallController: VideoCallController {
         if(!eventInfo.isExpired){
             return
         }
-        
         showEarningInformationScreen()
     }
     
     
     func showEarningInformationScreen(){
-        
         
         if self.eventInfo?.slotInfos?.count ?? 0 == 0 {
             return
@@ -276,9 +276,6 @@ class HostCallController: VideoCallController {
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
-                        Log.echo(key: "yud", text: "Date of the CountDown is \(requiredDate)")
-                        
-                        Log.echo(key: "yud", text: "connection status and the \(requiredDate)")
                         
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -372,7 +369,6 @@ class HostCallController: VideoCallController {
         }
         
         //Is event strictly in preconnect state - startTime < 30 AND startTime > 0
-        
         //if yes, Just show it as pre-connected
         
         if(eventInfo.isPreconnectEligible){
@@ -406,11 +402,10 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !activeSlot.isBreak){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
-        
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
@@ -473,6 +468,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderInfo(){
         
+        
         guard let startDate = self.eventInfo?.startDate
             else{
                 return
@@ -491,8 +487,7 @@ class HostCallController: VideoCallController {
             return
         }
                 
-        //Below code is responsible befor the event start.
-        
+        // Below code is responsible befor the event start.
         sessionHeaderLbl?.text = "Session starts in:"
         
         var fontSize = 18
@@ -503,7 +498,6 @@ class HostCallController: VideoCallController {
         }
         
         //Editing For the remaining time
-        
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
         let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
@@ -515,7 +509,6 @@ class HostCallController: VideoCallController {
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
-            
             //This info will only be show if slots are greater than one.
             return
         }
@@ -544,8 +537,6 @@ class HostCallController: VideoCallController {
             }
         }
         
-        //End
-        
         let slotUserNameAttrStr = username.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         currentMutatedSlotText.append(slotUserNameAttrStr)
@@ -564,6 +555,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderAfterEventStart(){
         
+        //Editing For the remaining time
         //Above code is responsible for handling the status if event is not started yet.
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
@@ -571,18 +563,23 @@ class HostCallController: VideoCallController {
                 updateCallHeaderForEmptySlot()
                 return
         }
+    
+        if slotInfo.isBreak{
+
+            updateCallHeaderForBreakSlot()
+            return
+        }
         
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
-                
+              
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
-                
             }else{
-                
+              
                 hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
             }
         }else{
-            
+           
             hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
@@ -590,12 +587,14 @@ class HostCallController: VideoCallController {
         //updateNewHeaderInfoForSession(slot : slotInfo)
         
         if(slotInfo.isFuture){
-            
+   
+            //when call is not running but we have the slot in the future
             updateTimeRamaingCallHeaderForUpcomingSlot()
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
-            //updateCallHeaderForFuture(slot : slotInfo)
-        }else{
+        }
+        else{
             
+            //Updating the info text when the call is live.
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
@@ -603,6 +602,7 @@ class HostCallController: VideoCallController {
     
     private func updateCallHeaderForEmptySlot(){
         
+        updateForEmptyBreak()
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -612,8 +612,28 @@ class HostCallController: VideoCallController {
         sessionHeaderLbl?.text = ""        
     }
     
+    private func updateForEmptyBreak(){
+        
+        breakView?.disableBreakFeature()
+    }
+    
+    private func updateCallHeaderForBreakSlot(){
+      
+        //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
+      
+        hostRootView?.callInfoContainer?.slotUserName?.text = ""
+        hostRootView?.callInfoContainer?.timer?.text = ""
+        hostRootView?.callInfoContainer?.slotCount?.text = ""
+        sessionRemainingTimeLbl?.text = ""
+        sessionCurrentSlotLbl?.text = ""
+        sessionTotalSlotNumLbl?.text = ""
+        sessionHeaderLbl?.text = ""
+        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.upcomingSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
+    }
+    
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
+        updateForEmptyBreak()
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -621,6 +641,7 @@ class HostCallController: VideoCallController {
     
     private func updateFutureCallHeaderForEmptySlot(){
         
+        updateForEmptyBreak()
         sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
@@ -641,9 +662,7 @@ class HostCallController: VideoCallController {
         }
         
         Log.echo(key: "yud", text: "updating the live call")
-        
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
-        
         hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //don't use merged slot for count
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
@@ -960,6 +979,12 @@ class HostCallController: VideoCallController {
         self.processExitAction(code: .userAction)
         //Event Cancelled
     }
+    
+    override func hitEventOnSegmentIO(){
+      
+        SEGAnalytics.shared().track("Session Enter Host")
+    }
+    
 }
 
 //instance

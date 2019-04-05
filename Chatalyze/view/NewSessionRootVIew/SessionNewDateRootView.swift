@@ -143,7 +143,7 @@ extension SessionNewDateRootView:XibDatePickerDelegate{
             return
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, yyyy"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         let dateInStr = dateFormatter.string(from: pickerDate)
         dateFld?.textField?.text = dateInStr

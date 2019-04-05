@@ -60,6 +60,7 @@ class EmailSigninHandler{
         
         Log.echo(key: "token", text: "token ==>  \(token)")
         info.save()
+        SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
         completion(true, "", info)
         return
     }

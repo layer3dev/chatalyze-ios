@@ -107,11 +107,6 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
-//        UIApplication.shared.isStatusBarHidden = true
-//        setNeedsStatusBarAppearanceUpdate()
-                
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             self.fontSizeBig = 24
@@ -120,7 +115,12 @@ class VideoCallController : InterfaceExtendedController {
             self.fontSizeBig = 22
         }
         appDelegate =  UIApplication.shared.delegate as? AppDelegate
+        hitEventOnSegmentIO()
         // Do any additional setup after loading the view.
+    }
+    
+    func hitEventOnSegmentIO(){
+        //To be overriden
     }
     
     override func viewAppeared(){

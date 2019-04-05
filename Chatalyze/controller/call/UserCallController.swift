@@ -852,6 +852,11 @@ class UserCallController: VideoCallController {
         
         scheduleUpdateListener.releaseListener()
     }
+    
+    override func hitEventOnSegmentIO(){
+        
+        SEGAnalytics.shared().track("Chat Enter Attendee")
+    }
 }
 
 extension UserCallController{

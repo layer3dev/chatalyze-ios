@@ -22,13 +22,16 @@ class ScheduleSessionEarningRootView: ExtendedView{
     @IBOutlet var priceField:SigninFieldView?
 
     @IBOutlet var scrollView:FieldManagingScrollView?
+    
     @IBOutlet var scrollContentBottonOffset:NSLayoutConstraint?
 
     @IBOutlet var earningFormulaLbl:UILabel?
     @IBOutlet var totalEarningLabel:UILabel?
     
     @IBOutlet private var nextView:UIView?
+    
     @IBOutlet private var chatPupView:ButtonContainerCorners?
+    
     @IBOutlet private var maxEarning:UIView?
     
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
@@ -69,7 +72,7 @@ class ScheduleSessionEarningRootView: ExtendedView{
 
         scrollView?.bottomContentOffset = scrollContentBottonOffset
         priceField?.textField?.delegate = self
-        priceField?.textField?.keyboardType = UIKeyboardType.numberPad
+        priceField?.textField?.keyboardType = UIKeyboardType.decimalPad
         //priceField?.textField?.addTarget(self, action: "textFieldDidChange:", for: UIControl.Event.EditingChanged)
         priceField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
@@ -86,7 +89,7 @@ class ScheduleSessionEarningRootView: ExtendedView{
         guard let info = delegate?.getSchduleSessionInfo() else{
             return
         }
-        info.price = Int(priceField?.textField?.text ?? "0")
+        info.price = Double(priceField?.textField?.text ?? "0.0")
         if info.price == 0 {
             info.isFree = true
             return
@@ -125,44 +128,69 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        if (((textField.text?.count) ?? 0)+(string.count)) > 4{
+        if textField == priceField?.textField {
+            
+            let str1 = textField.text ?? ""
+            let str2 = string
+            let concatenated = str1+str2
+            Log.echo(key: "yud", text: "str1 \(str1) str2 \(str2) concatenated \(str1+str2)")
+            
+            if string == "" {
+                
+                //Approving the backspace
+                return true
+            }
+            
+            if isDecimalDigitsExceeds(text: concatenated) {
+                return false
+            }
+            
+            if isExceedsMaximumPrice(text: concatenated) {
+                return false
+            }
+            
+            if string.isDouble {
+                return true
+            }
+            
             return false
         }
-        if string == ""{
-            //Approving the backspace
-            return true
-        }
-        if string.isNumeric{
-            return true
-        }
-        return false
+        return true
     }
 
     func isPriceZero(text:String?)->Bool{
 
-        if let requiredPrice = Int(text ?? "0"){
-            if requiredPrice == 0 {
+        if let requiredPrice = Double(text ?? "0.0"){
+            if requiredPrice == 0.0 {
                 return true
             }
         }
         return false
-        
-//        if SignedUserInfo.sharedInstance?.allowFreeSession  == true{
-//            //Min. plan amount will override this if amount is greater than zero dollor
-//            return false
-//        }
-//
-//
-//
-//
-//        if let priceStr = text{
-//
-//            guard priceStr.count > 0 else { return true }
-//            let nums: Set<Character> = ["0"]
-//            return Set(priceStr).isSubset(of: nums)
-//        }
-//        return false
     }
+    
+    
+    func isDecimalDigitsExceeds(text:String?)->Bool {
+        
+        if let digits = text{
+            let digitsArray = digits.components(separatedBy: ".")
+            
+            Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")            
+            if digitsArray.count >= 3{
+                //This is preventing user to insert multiple decimal digits in the app.
+                return true
+            }
+            if digitsArray.count > 1{
+                Log.echo(key: "yud", text: "decimal digits are \( digitsArray[1])")
+                if digitsArray[1].count > 2 {
+                    return true
+                }
+                return false
+            }
+            return false
+        }
+        return false
+    }
+    
     
     func isSatisFyingMinimumPlanAmount(text:String?)->Bool{
         
@@ -170,7 +198,7 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
             return true
         }
         
-        if let priceInt = Int(text ?? "0"){
+        if let priceInt = Double(text ?? "0.0"){
             
             if Double(priceInt) < delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0{
                 return false
@@ -183,8 +211,8 @@ extension ScheduleSessionEarningRootView:UITextFieldDelegate{
     func isExceedsMaximumPrice(text:String?)->Bool{
 
         if let priceStr = text{
-            if let price = Int64(priceStr){
-                if price > 9999{
+            if let price = Double(priceStr){
+                if price > 9999.0{
                     return true
                 }
             }
@@ -198,7 +226,7 @@ extension ScheduleSessionEarningRootView{
     
     func paintMaximumEarningCalculator(){
         
-        guard let price = Int(priceField?.textField?.text ?? "0") else{
+        guard let price = Double(priceField?.textField?.text ?? "0.0") else{
             resetEarningCalculator()
             return
         }
@@ -215,18 +243,18 @@ extension ScheduleSessionEarningRootView{
         }
         
         
-        if price > 9999{
+        if price > 9999.0{
             return
         }
         
-        if price == 0{
+        if price == 0.0{
             resetEarningCalculator()
             return
         }
         
         maxEarningHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
         
-        let priceOfSingleChat = Double(price)
+        let priceOfSingleChat = price
         let totalPriceOfChatwithoutTax = (priceOfSingleChat*Double(totalSlots))
         let paypalFeeofSingleChat = ((priceOfSingleChat*2.9)/100)+(0.30)
         let roundedPaypalFeeofSingleChatThreeDecimalPlace = paypalFeeofSingleChat.roundTo(places: 3)
@@ -274,8 +302,8 @@ extension ScheduleSessionEarningRootView{
     
     func resetEarningCalculator(){
         
-        if let priceValue = Int(priceField?.textField?.text ?? "0"){
-            if priceValue == 0 {
+        if let priceValue = Double(priceField?.textField?.text ?? "0.0"){
+            if priceValue == 0.0 {
                 maxEarningHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
                 return
             }

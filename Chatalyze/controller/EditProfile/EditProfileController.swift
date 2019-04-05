@@ -16,6 +16,7 @@ class EditProfileController: InterfaceExtendedController {
         super.viewDidLayout()
         
         painInterface()
+        SEGAnalytics.shared().track("Profile Edit")
     }
     
     override func viewAppeared() {

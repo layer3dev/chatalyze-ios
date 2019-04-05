@@ -13,6 +13,7 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -21,11 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isRootInitialize:Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
+        initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
         test()
         registerForPushNotifications()
@@ -34,6 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.echo(key: "yud", text: "Did Finish is calling")
         return true
     }
+    
+    fileprivate func initializeSegmentIO(){
+        
+        let configuration = SEGAnalyticsConfiguration.init(writeKey:AppConnectionConfig.segmentIOKey)
+        configuration.trackApplicationLifecycleEvents = true
+        configuration.recordScreenViews = false 
+        SEGAnalytics.setup(with: configuration)
+    }
+    
     
     fileprivate func test(){
         

@@ -13,6 +13,7 @@ class SessionScheduleNewController: UIViewController {
     
     var pageViewController:SessionScheduleNewPageController?
     var scheduleInfo = ScheduleSessionInfo()
+    
     @IBOutlet var progressBar:YLProgressBar?
     
     override func viewDidLoad() {
@@ -23,6 +24,7 @@ class SessionScheduleNewController: UIViewController {
         initializeGradient()
         updateProfile()
         fetchMinimumPlanPriceToScheuleIfExists()
+        SEGAnalytics.shared().track("Session a Schedule")
     }
     
     func askForStarterPlanIfNotAskedYet(){

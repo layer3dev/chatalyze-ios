@@ -49,6 +49,7 @@ class SlotInfo: SlotTimeInfo {
     
     //This should be used instead of default constructor, so that nil value gets returned in case of invalid JSON or invalid Slot
     class func instance(info : JSON?)->SlotInfo?{
+        
         let slotInfo = SlotInfo(info : info)
         if(slotInfo.slotNo == nil){
             return nil
@@ -132,6 +133,7 @@ class SlotInfo: SlotTimeInfo {
     var isExpired : Bool{
         
         get{
+            
             guard let startDate = startDate
                 else{
                     return false
@@ -171,6 +173,7 @@ class SlotInfo: SlotTimeInfo {
     var isPreconnectEligible : Bool{
         
         get{
+            
             guard let startDate = startDate
                 else{
                     return false

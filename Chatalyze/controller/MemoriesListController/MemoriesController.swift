@@ -29,6 +29,7 @@ class MemoriesController: InterfaceExtendedController {
         
         paintInterface()
         initializeVariable()
+        SEGAnalytics.shared().track("My Memories Page")
     }
     
     func paintInterface(){

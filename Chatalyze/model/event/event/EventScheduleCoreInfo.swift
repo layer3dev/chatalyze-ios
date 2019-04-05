@@ -37,7 +37,6 @@ class EventScheduleCoreInfo: EventInfo {
         var localSlotInfos = parseCallSlot(bookingInfos : bookingInfos)
         let localEmptySlotInfos = parseEmptySlot(bookingInfos : emptySlotInfos)
         
-        
         localSlotInfos.append(contentsOf: localEmptySlotInfos)
         localSlotInfos = sortSlots(slotInfos: localSlotInfos)
         
@@ -45,8 +44,8 @@ class EventScheduleCoreInfo: EventInfo {
         slotsUpdated()
     }
     
-    
     private func parseCallSlot(bookingInfos : [JSON]?) -> [SlotInfo]{
+    
         var localSlotInfos = [SlotInfo]()
         guard let bookingInfos = bookingInfos
             else{
@@ -115,6 +114,7 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     private func sortSlots(slotInfos : [SlotInfo])->[SlotInfo]{
+        
         let infos = slotInfos.sorted { (slotOne, slotTwo) -> Bool in
             let slotOneNo = slotOne.slotNo ?? 0
             let slotTwoNo = slotTwo.slotNo ?? 0
@@ -179,20 +179,19 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     //this will return active slots while ignoring break slots
-    var activeSlotCount : Int{
+    var activeSlotCount : Int {
+        
         var count = 0
         guard let slotInfos = slotInfos
             else{
                 return count
-        }
-        
+        }        
         for slotInfo in slotInfos {
             if(slotInfo.isBreak){
                continue
             }
             count = count + 1
         }
-        
         return count
     }
     
@@ -255,7 +254,6 @@ class EventScheduleCoreInfo: EventInfo {
         return myUpcomingSlotInfo?.slotInfo
     }
     
-    
     //this will return
     //LIVE slot OR Preconnect Slot or Future Slot.
     var upcomingSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
@@ -267,7 +265,7 @@ class EventScheduleCoreInfo: EventInfo {
             
             for index in 0 ..< slotInfos.count{
                 let slotInfo = slotInfos[index]
-                if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture){
+                if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture) {
                      return (index, slotInfo)
                 }
             }
@@ -280,12 +278,14 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     var preConnectSlotInfo : (index : Int, slotInfo : SlotInfo?)?{
+        
         guard let slotInfos = self.slotInfos
             else{
                 return nil
         }
         
         for index in 0..<slotInfos.count{
+            
             let slotInfo = slotInfos[index]
             if(slotInfo.isPreconnectEligible){
                 return (index, slotInfo)
@@ -297,12 +297,14 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     var preConnectSlot : SlotInfo?{
+        
         guard let slotInfos = self.slotInfos
             else{
                 return nil
         }
         
         for slotInfo in slotInfos {
+            
             if(slotInfo.isPreconnectEligible){
                 return slotInfo
             }
@@ -312,6 +314,7 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     var wholeConnectSlot : SlotInfo?{
+        
         guard let slotInfos = self.slotInfos
             else{
                 return nil
@@ -327,6 +330,7 @@ class EventScheduleCoreInfo: EventInfo {
     }
     
     var myLastCompletedSlot : SlotInfo?{
+        
         guard let slotInfos = self.slotInfos
             else{
                 return nil

@@ -23,6 +23,7 @@ class ScheduleSessionNewTimeController: UIViewController {
         
         // Do any additional setup after loading the view.
         rootView?.delegate = self
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
     }
     
     override func viewWillAppear(_ animated: Bool) {

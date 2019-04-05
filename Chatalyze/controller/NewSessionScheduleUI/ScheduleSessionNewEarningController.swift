@@ -21,7 +21,7 @@ class ScheduleSessionNewEarningController: UIViewController {
         super.viewDidLoad()
         
         rootView?.delegate = self
-        // Do any additional setup after loading the view.
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price")        
     }
     
     

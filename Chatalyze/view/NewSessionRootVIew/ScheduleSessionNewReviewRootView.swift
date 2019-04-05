@@ -20,6 +20,7 @@ protocol ScheduleSessionNewReviewRootViewDelegate {
 class ScheduleSessionNewReviewRootView: ExtendedRootView {
     
     var delegate:ScheduleSessionNewReviewRootViewDelegate?
+    
     @IBOutlet var titleLbl:UILabel?
     @IBOutlet var dateLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -28,6 +29,7 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
     @IBOutlet var priceLbl:UILabel?
     @IBOutlet var isSelfieLbl:UILabel?
     @IBOutlet var errorLabel:UILabel?
+    
     private var selectedImage:UIImage?
     
     @IBOutlet var chatPupView:ButtonContainerCorners?
@@ -172,6 +174,7 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
     
     //MARK:- Button Action
     @IBAction func editSchecduleAction(sender:UIButton?){
+       
         delegate?.goToEditScheduleSession()
     }
     
@@ -199,13 +202,13 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         self.errorLabel?.text = message
     }
     
-    func caluclateHourlyPrice()->String?{
+    func caluclateHourlyPrice()->Int?{
         
         if let duration = delegate?.getSchduleSessionInfo()?.duration{
             let hourlySlots = (60/duration)
             if let singleChatPriceStr = delegate?.getSchduleSessionInfo()?.price{
-                let hourlyPrice = (singleChatPriceStr*hourlySlots)
-                return "\(hourlyPrice)"
+                let hourlyPrice = (singleChatPriceStr*Double(hourlySlots))
+                return Int(hourlyPrice)
             }
         }
         return nil
