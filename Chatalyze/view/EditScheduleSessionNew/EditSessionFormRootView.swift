@@ -717,7 +717,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
                 return
             }
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMMM, yyyy"
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
@@ -1363,7 +1363,7 @@ extension EditSessionFormRootView{
         
         let requiredDate = date+" "+(self.scheduleInfo?.startTime ?? "")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, yyyy hh:mm a"
+        dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         
         if  let newDate = dateFormatter.date(from: requiredDate){

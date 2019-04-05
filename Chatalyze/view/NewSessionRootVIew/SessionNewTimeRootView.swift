@@ -152,7 +152,7 @@ extension SessionNewTimeRootView{
         
         let requiredDate = date+" "+(timeFld?.textField?.text ?? "")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, yyyy hh:mm a"
+        dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         
         if  let newDate = dateFormatter.date(from: requiredDate){

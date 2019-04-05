@@ -22,7 +22,7 @@ class ProFeatureEndTrialController: InterfaceExtendedController {
     
     func initialize(){
         
-        starterPlanView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5: 22.5
+        starterPlanView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5: 22.5        
         starterPlanView?.layer.masksToBounds = true
     }
     

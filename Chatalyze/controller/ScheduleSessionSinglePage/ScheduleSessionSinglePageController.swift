@@ -12,8 +12,14 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        SEGAnalytics.shared().track("Session Schedule")
+        SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Date")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Session Length")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select 1:1 Chat Length)")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price") 
     }
     
     override func rootInitialization() {
@@ -43,7 +49,7 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
             
             self.rootView?.planInfo = info
             
-            Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
+            //Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
         }
     }
     
@@ -65,6 +71,100 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
     override var rootView:ScheduleSessionSinglePageRootView?{
         return self.view as? ScheduleSessionSinglePageRootView
     }
+    
+    @IBAction func moreDetailTitleAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .title
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
+    @IBAction func moreDetailDateAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .date
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
+    @IBAction func moreDetailTimeAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .time
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    
+    @IBAction func moreDetailSessionLengthAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .sessionLength
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    
+    @IBAction func moreDetailChatLengthAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .singleChatLength
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func moreDetailChatTypeAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .chatPrice
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func moreDetaildonationAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .donation
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func screenShotAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .screenShot
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+   
 
     /*
     // MARK: - Navigation
