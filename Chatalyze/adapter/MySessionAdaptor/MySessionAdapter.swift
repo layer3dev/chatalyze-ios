@@ -62,6 +62,7 @@ class MySessionAdapter: ExtendedView {
 //            }
 //        }
 //        self.root?.controller?.updateScrollViewWithTable(height: sessionTableView?.contentSize.height ?? 0.0)
+        
     }
 }
 
@@ -103,6 +104,7 @@ extension MySessionAdapter:UITableViewDataSource{
         }
         
         Log.echo(key: "yud", text: "I am returning empty cell with indexpath \(indexPath.row) and teh session array count is \(self.sessionListingArray.count)")
+        
         if self.root?.controller?.currentEventShowing == .past{
           
             guard let loaderCell = tableView.dequeueReusableCell(withIdentifier: "MySessionLoaderCell", for: indexPath) as? MySessionLoaderCell else {
@@ -143,17 +145,17 @@ extension MySessionAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let controller = SessionDetailController.instance() else{
-            return
-        }
-        
-        if indexPath.row > (sessionListingArray.count-1){
-            return
-        }
-        
-        controller.eventInfo = self.sessionListingArray[indexPath.row]
-        
-        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
+//        guard let controller = SessionDetailController.instance() else{
+//            return
+//        }
+//        
+//        if indexPath.row > (sessionListingArray.count-1){
+//            return
+//        }
+//        
+//        controller.eventInfo = self.sessionListingArray[indexPath.row]
+//        
+//        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

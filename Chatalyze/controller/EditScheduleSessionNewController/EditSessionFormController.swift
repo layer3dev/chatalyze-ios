@@ -13,12 +13,119 @@ class EditSessionFormController: InterfaceExtendedController {
     var eventInfo:EventInfo?
     @IBOutlet var scrollViewCustom:FieldManagingScrollView?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showNavigationBar()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         load()
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func moreDetailTitleAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .title
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
+    @IBAction func moreDetailDateAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .date
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
+    @IBAction func moreDetailTimeAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .time
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    
+    @IBAction func moreDetailSessionLengthAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .sessionLength
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    
+    @IBAction func moreDetailChatLengthAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .singleChatLength
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func moreDetailChatTypeAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .chatPrice
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func moreDetaildonationAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .donation
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
+    @IBAction func screenShotAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .screenShot
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
     
     
     func load(){
@@ -51,6 +158,7 @@ class EditSessionFormController: InterfaceExtendedController {
         rootView?.paintInteface()
         paintBackButton()
         paintNavigationTitle(text: "Edit Session")
+        showNavigationBar()
     }
 
     var rootView:EditSessionFormRootView?{
