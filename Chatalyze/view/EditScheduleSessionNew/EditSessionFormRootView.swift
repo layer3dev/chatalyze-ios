@@ -117,7 +117,7 @@ class EditSessionFormRootView:ExtendedView {
             return ""
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM, yyyy"
+        dateFormatter.dateFormat = "MMM dd, yyyy"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         let dateInStr = dateFormatter.string(from: date)
         dateField?.textField?.text = dateInStr
@@ -135,6 +135,17 @@ class EditSessionFormRootView:ExtendedView {
         let dateInStr = dateFormatter.string(from: startDate)
         return dateInStr
     }
+    
+    
+    
+    //MARK:- Tracking checks
+    var isTitleTracked = false
+    var isDateTracked = false
+    var isTimeTracked = false
+    var isChatLengthTracked = false
+    var isSessionLengthTracked = false
+    var isPriceFieldTracked = false
+    
     
     @IBAction func donationSwitchAction(_ sender: Any) {
         
@@ -405,7 +416,13 @@ class EditSessionFormRootView:ExtendedView {
     //MARK:- Button Actions
     @IBAction func sessionDateAction(sender:UIButton){
         
+        if !isDateTracked{
+            
+            SEGAnalytics.shared().track("Action: Schedule Session - Select Date")
+            isDateTracked = true
+        }
         if isDatePickerIsShowing{
+            
             hidePicker()
             return
         }
@@ -415,6 +432,12 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     @IBAction func timeAction(sender:UIButton){
+        
+        if !isTimeTracked{
+            
+            SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
+            isTimeTracked = true
+        }
         
         if isTimePickerIsShowing{
             hidePicker()
@@ -427,6 +450,13 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func chatLengthAction(sender:UIButton){
         
+        if !isChatLengthTracked{
+            
+            SEGAnalytics.shared()
+                .track("Action: Schedule Session - Select 1:1 Chat Length)")
+            isChatLengthTracked = true
+        }
+        
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -437,6 +467,12 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func sessionLengthAction(sender:UIButton){
         
+       
+        if !isSessionLengthTracked{
+          
+            SEGAnalytics.shared().track("Action: Schedule Session - Select Session Length")
+            isSessionLengthTracked = true
+        }
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -538,6 +574,23 @@ extension EditSessionFormRootView:UITextFieldDelegate{
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == titleField?.textField{
+            if !isTitleTracked {
+                
+                SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
+                isTitleTracked = true
+            }
+        }
+        
+        if textField == priceField?.textField{
+            if !isPriceFieldTracked {
+                
+                SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price")
+                isPriceFieldTracked = true
+            }
+        }
+        
         
         if textField == priceAmountField?.textField {
             
@@ -683,7 +736,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
                 return
             }
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMM, yyyy"
+            dateFormatter.dateFormat = "MMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
@@ -717,7 +770,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
                 return
             }
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            dateFormatter.dateFormat = "MMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
@@ -1027,7 +1080,7 @@ extension EditSessionFormRootView {
             normalFont = 18
         }
         
-        if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0{
+        if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
             
@@ -1071,8 +1124,6 @@ extension EditSessionFormRootView{
     
     func isSatisFyingMinimumPlanAmount(text:String?)->Bool{
         
-        Log.echo(key: "yud", text: "min pricerequired is \(self.scheduleInfo?.minimumPlanPriceToSchedule)")
-        
         if  self.scheduleInfo?.minimumPlanPriceToSchedule ?? 0.0 <= 0.0{
             return true
         }
@@ -1089,8 +1140,8 @@ extension EditSessionFormRootView{
     func isExceedsMaximumPrice(text:String?)->Bool{
         
         if let priceStr = text{
-            if let price = Int64(priceStr){
-                if price > 9999{
+            if let price = Double(priceStr){
+                if price > 9999.0{
                     return true
                 }
             }
@@ -1121,7 +1172,7 @@ extension EditSessionFormRootView{
     }
 }
 
-extension EditSessionFormRootView{
+extension EditSessionFormRootView {
     
     func paintMaximumEarningCalculator(){
         
@@ -1230,6 +1281,7 @@ extension EditSessionFormRootView{
     fileprivate func priceValidation()->Bool{
         
         if self.isPricingEnable == nil {
+            
             priceAmountField?.showError(text: "Please select the pricing options.")
             return false
         }
@@ -1321,11 +1373,9 @@ extension EditSessionFormRootView{
         if donationCustomSwitch?.isOn == true{
             
             self.scheduleInfo?.tipEnabled = true
-            
         }else{
-            
+        
             self.scheduleInfo?.tipEnabled = false
-            
         }
         
         if screenShotCustomSwitch?.isOn == true{
@@ -1363,7 +1413,7 @@ extension EditSessionFormRootView{
         
         let requiredDate = date+" "+(self.scheduleInfo?.startTime ?? "")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy hh:mm a"
+        dateFormatter.dateFormat = "MMM dd, yyyy hh:mm a"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         
         if  let newDate = dateFormatter.date(from: requiredDate){

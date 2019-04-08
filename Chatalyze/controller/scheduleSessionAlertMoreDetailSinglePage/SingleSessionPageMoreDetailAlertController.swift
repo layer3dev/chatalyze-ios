@@ -10,6 +10,8 @@ import UIKit
 
 class SingleSessionPageMoreDetailAlertController: UIViewController {
     
+    var controller:EditSessionFormController?
+    
     @IBOutlet var threeEdgesView:UIView?
     @IBOutlet var titleScroll:UIScrollView?
     @IBOutlet var dateScroll:UIScrollView?
@@ -35,11 +37,47 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     
     var currentInfo = infoType.none
     
+    //Session length Label for send us and what is next Session
+    @IBOutlet var sessionLengthBottomTextView:UITextView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         paintInterface()
+        paintUI()
     }
+    
+    func paintUI(){
+        //self.sessionLengthBottomLabel?.text =
+        
+        DispatchQueue.main.async {
+       
+           
+            
+            let textOne = "For more details, check out our "
+            let textOneMutableAttr = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "929292"), isUnderLine: false)
+            
+            let textTwo = "What is a chat session"
+            let textTwoAttr = textTwo.toAttributedStringLink(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "8EC3F2"), isUnderLine: true, url: "www.google.com")
+            
+            let textThree = " post or feel free to "
+            let textThreeAttr = textThree.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "929292"), isUnderLine: false)
+            
+            let textFour = "contact us!"
+            let textFourAttr = textFour.toAttributedStringLink(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "8EC3F2"), isUnderLine: true, url: "www.google.com")
+            
+            textOneMutableAttr.append(textTwoAttr)
+            textOneMutableAttr.append(textThreeAttr)
+            textOneMutableAttr.append(textFourAttr)
+            
+            self.sessionLengthBottomTextView?.attributedText = textOneMutableAttr
+            
+             self.initializeLink()
+        }
+        
+        //For more details, check out our What is a chat session post or feel free to contact us!
+    }
+    
     
     
     func paintInterface(){
@@ -96,10 +134,15 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     }
     
     @IBAction func showContactUsScreen(sender:UIButton?){
-       
-        self.dismiss(animated: false) {
-            RootControllerManager().getCurrentController()?.showContactUsAnalyst()
-        }        
+        
+        DispatchQueue.main.async {
+            self.dismiss(animated: true) {
+                guard let controller = ContactUsController.instance() else{
+                    return
+                }
+                self.controller?.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
     }
     
     
@@ -140,5 +183,70 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         let storyboard = UIStoryboard(name: "ScheduleSessionSinglePage", bundle:nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SingleSessionPageMoreDetailAlert") as? SingleSessionPageMoreDetailAlertController
         return controller
+    }
+}
+
+extension SingleSessionPageMoreDetailAlertController:UITextViewDelegate {
+    
+    func initializeLink(){
+        
+        self.sessionLengthBottomTextView?.delegate = self
+        self.sessionLengthBottomTextView?.isSelectable = true
+        self.sessionLengthBottomTextView?.isEditable = false
+        self.sessionLengthBottomTextView?.dataDetectorTypes = .link
+        self.sessionLengthBottomTextView?.isUserInteractionEnabled = true
+        self.sessionLengthBottomTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if range == textView.text?.range(of: "What is a chat session")?.nsRange {
+            Log.echo(key: "yud", text: "contact us is called")
+        }
+        
+        if  range == textView.text?.range(of: "contact us!")?.nsRange {
+            Log.echo(key: "yud", text: "FAQ is called")
+        }
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        Log.echo(key: "yud", text: "interacting with url")
+        
+        if characterRange == self.sessionLengthBottomTextView?.text?.range(of: "What is a chat session")?.nsRange {
+            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {                    
+                    Log.echo(key: "yud", text: "What is a chat session executed")
+                    guard let controller = FAQWebController.instance() else{
+                        return
+                    }
+                    controller.nameofTitle = "What is a chat session"
+                    controller.url = "https://support.chatalyze.com/hc/en-us/articles/360019256433-What-is-a-chat-session"
+                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+                    return
+                }
+            }
+        }
+        
+        if characterRange == self.sessionLengthBottomTextView?.text?.range(of: "contact us!")?.nsRange {
+            
+            Log.echo(key: "yud", text: "contact us! executed")
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) {
+                    guard let controller = ContactUsController.instance() else{
+                        return
+                    }
+                    self.controller?.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+            return false
+        }
+        return false
     }
 }
