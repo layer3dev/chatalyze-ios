@@ -23,7 +23,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var screenShotScroll:UIScrollView?
     
     enum infoType:Int{
-    
+        
         case title = 0
         case date = 1
         case time = 2
@@ -48,11 +48,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     }
     
     func paintUI(){
-        //self.sessionLengthBottomLabel?.text =
         
         DispatchQueue.main.async {
-       
-           
             
             let textOne = "For more details, check out our "
             let textOneMutableAttr = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "929292"), isUnderLine: false)
@@ -72,7 +69,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             
             self.sessionLengthBottomTextView?.attributedText = textOneMutableAttr
             
-             self.initializeLink()
+            self.initializeLink()
         }
         
         //For more details, check out our What is a chat session post or feel free to contact us!
@@ -158,25 +155,23 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.screenShotScroll?.isHidden = true
     }
     
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         self.threeEdgesView?.roundCorners(corners: [.bottomRight,.topLeft,.topRight], radius: 25)
     }
     
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     
     class func instance()->SingleSessionPageMoreDetailAlertController?{
         
