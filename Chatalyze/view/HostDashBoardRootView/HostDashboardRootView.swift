@@ -21,7 +21,7 @@ class HostDashboardRootView: MySessionRootView {
     @IBOutlet var chatPupOne:UILabel?
     @IBOutlet var chatPupTwo:UILabel?
     @IBOutlet var createSessionView:UIView?
-
+    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -30,7 +30,7 @@ class HostDashboardRootView: MySessionRootView {
         paintChatPupText()
     }
     
-    func paintChatPupText(){
+    func paintChatPupText() {
         
         DispatchQueue.main.async {
             
@@ -50,7 +50,7 @@ class HostDashboardRootView: MySessionRootView {
         }
     }
     
-    override func paintNewUI(){
+    override func paintNewUI() {
         
         settingButtonContainer?.layer.borderWidth = 0.5
         settingButtonContainer?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
@@ -76,7 +76,7 @@ class HostDashboardRootView: MySessionRootView {
         userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
     }
     
-    func initializeFontSize(){
+    func initializeFontSize() {
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 22.0
@@ -85,7 +85,7 @@ class HostDashboardRootView: MySessionRootView {
         }
     }
     
-    func underLineLable(){
+    func underLineLable() {
         
         var testingText = "TEST MY PHONE"
         

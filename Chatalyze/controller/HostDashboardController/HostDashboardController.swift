@@ -328,6 +328,10 @@ class HostDashboardController: MyScheduledSessionsController {
                 return
             }
             
+//            guard let controller = BreakController.instance() else{
+//                return
+//            }
+            
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }
@@ -394,8 +398,8 @@ class HostDashboardController: MyScheduledSessionsController {
         self.view.layoutIfNeeded()
     }
    
-    override class func instance()->HostDashboardController?{
-        
+    override class func instance()-> HostDashboardController? {
+
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
         return controller

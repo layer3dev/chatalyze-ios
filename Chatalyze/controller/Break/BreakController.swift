@@ -32,7 +32,7 @@ class BreakController: UIViewController {
         let heightOfSpaces = ((30.0/4.0)*10)+15.0
         let totalHeight = heightOfCells+heightOfSpaces
         
-        //self.heightOfCollectionViewConstraint = CGFloat(totalHeight)
+        self.heightOfCollectionViewConstraint?.constant = CGFloat(totalHeight)
     }
     
     class func instance()->BreakController?{

@@ -136,9 +136,8 @@ class EditSessionFormRootView:ExtendedView {
         return dateInStr
     }
     
-    
-    
     //MARK:- Tracking checks
+    
     var isTitleTracked = false
     var isDateTracked = false
     var isTimeTracked = false
@@ -146,6 +145,69 @@ class EditSessionFormRootView:ExtendedView {
     var isSessionLengthTracked = false
     var isPriceFieldTracked = false
     
+    //MARK:- Segment.io Tracking Methods
+    //To be overridden
+    
+    func titleTracking(){
+    }
+    
+    func dateTracking(){
+    }
+    
+    func timeTracking(){
+    }
+    
+    func ChatLengthTracking(){
+    }
+    
+    func SessionLengthTracking(){
+    }
+    
+    func priceFieldTracking(){
+    }
+    
+    //For cancel session
+    
+    @IBOutlet var cancelSessionView:UIView?
+    var isCancelSessionVisible = false
+    @IBOutlet var goBackButtonContainer:UIView?
+    @IBOutlet var confirmButton:UIButton?
+    
+    @IBAction func cancelAction(sender:UIButton){
+        
+        if self.isCancelSessionVisible{
+            
+            self.layoutIfNeeded()
+            self.isCancelSessionVisible = false
+            UIView.animate(withDuration: 0.35) {
+                self.cancelSessionView?.alpha = 0
+            }
+            return
+        }
+        
+        self.isCancelSessionVisible = true
+        self.layoutIfNeeded()
+        UIView.animate(withDuration: 0.35) {
+            self.cancelSessionView?.alpha = 1
+        }
+        return
+    }
+        
+    @IBAction func keepITAction(sender:UIButton){
+        
+        self.layoutIfNeeded()
+        self.isCancelSessionVisible = false
+        UIView.animate(withDuration: 0.35) {
+            self.cancelSessionView?.alpha = 0
+        }
+        return
+    }
+    
+    @IBAction func cancelITAction(sender:UIButton){
+        
+        self.controller?.cancelSession()
+        //service for cancel Session
+    }
     
     @IBAction func donationSwitchAction(_ sender: Any) {
         
@@ -175,18 +237,23 @@ class EditSessionFormRootView:ExtendedView {
     
     func paintInteface() {        
         
+        goBackButtonContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
+        
+        confirmButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
+        
+        goBackButtonContainer?.layer.masksToBounds = true
+        confirmButton?.layer.masksToBounds = true
+        
         self.chatCalculatorView?.layer.masksToBounds = true
         self.chatCalculatorView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.chatCalculatorView?.layer.borderWidth = 1
         self.chatCalculatorView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         self.titleField?.textField?.addDoneButtonOnKeyboard()
         
-        
         self.maxEarning?.layer.masksToBounds = true
         self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.maxEarning?.layer.borderWidth = 1
         self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
         self.titleField?.isCompleteBorderAllow = true
         self.dateField?.isCompleteBorderAllow = true
@@ -196,7 +263,7 @@ class EditSessionFormRootView:ExtendedView {
         self.freeField?.isCompleteBorderAllow = true
         self.priceField?.isCompleteBorderAllow = true
         self.roundToEditSessionButton()
-                
+        
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
         
@@ -418,7 +485,7 @@ class EditSessionFormRootView:ExtendedView {
         
         if !isDateTracked{
             
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Date")
+            dateTracking()
             isDateTracked = true
         }
         if isDatePickerIsShowing{
@@ -435,7 +502,7 @@ class EditSessionFormRootView:ExtendedView {
         
         if !isTimeTracked{
             
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
+            self.timeTracking()
             isTimeTracked = true
         }
         
@@ -452,8 +519,7 @@ class EditSessionFormRootView:ExtendedView {
         
         if !isChatLengthTracked{
             
-            SEGAnalytics.shared()
-                .track("Action: Schedule Session - Select 1:1 Chat Length)")
+            self.ChatLengthTracking()
             isChatLengthTracked = true
         }
         
@@ -470,7 +536,7 @@ class EditSessionFormRootView:ExtendedView {
        
         if !isSessionLengthTracked{
           
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Session Length")
+            SessionLengthTracking()
             isSessionLengthTracked = true
         }
         if isCustomPickerShowing{
@@ -578,15 +644,15 @@ extension EditSessionFormRootView:UITextFieldDelegate{
         if textField == titleField?.textField{
             if !isTitleTracked {
                 
-                SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
+                self.titleTracking()
                 isTitleTracked = true
             }
         }
         
-        if textField == priceField?.textField{
+        if textField == priceAmountField?.textField{
             if !isPriceFieldTracked {
                 
-                SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price")
+                priceFieldTracking()
                 isPriceFieldTracked = true
             }
         }
@@ -1049,15 +1115,28 @@ extension EditSessionFormRootView:CustomPickerDelegate{
 
 extension EditSessionFormRootView {
     
+    func hidePaintChatCalculator(){
+        
+        chatCalculatorHeightConstrait?.priority = UILayoutPriority(rawValue: 999.0)
+    }
+    
+    func showPaintChatCalculator(){
+        
+        chatCalculatorHeightConstrait?.priority = UILayoutPriority(rawValue: 250.0)
+    }
+    
     func paintChatCalculator(){
         
         guard let info = scheduleInfo else{
+            hidePaintChatCalculator()
             return
         }
         guard let startDate = info.startDateTime else{
+            hidePaintChatCalculator()
             return
         }
         guard let endDate = info.endDateTime else{
+            hidePaintChatCalculator()
             return
         }
         
@@ -1066,6 +1145,7 @@ extension EditSessionFormRootView {
         var totalSlots = 0
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
+            hidePaintChatCalculator()
             return
         }
         
@@ -1082,6 +1162,8 @@ extension EditSessionFormRootView {
         
         if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
+            showPaintChatCalculator()
+
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
@@ -1093,7 +1175,11 @@ extension EditSessionFormRootView {
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
+            
+            return
         }
+        
+        hidePaintChatCalculator()
         Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
     
@@ -1154,7 +1240,8 @@ extension EditSessionFormRootView{
         if let digits = text{
             let digitsArray = digits.components(separatedBy: ".")
             Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")
-            if digitsArray.count >= 3{                
+            if digitsArray.count >= 3{
+                
                 //This is preventing user to insert multiple decimal digits in textfield.
                 return true
             }

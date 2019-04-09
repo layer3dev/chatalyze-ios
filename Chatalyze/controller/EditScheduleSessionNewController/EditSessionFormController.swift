@@ -186,6 +186,23 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    
+    func cancelSession(){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        self.showLoader()
+        CancelSessionProcessor().cancel(id: "\(id)") {(success, response) in
+            
+            DispatchQueue.main.async {
+                
+                self.stopLoader()
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
