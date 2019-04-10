@@ -136,15 +136,6 @@ class EditSessionFormRootView:ExtendedView {
         return dateInStr
     }
     
-    //MARK:- Tracking checks
-    
-    var isTitleTracked = false
-    var isDateTracked = false
-    var isTimeTracked = false
-    var isChatLengthTracked = false
-    var isSessionLengthTracked = false
-    var isPriceFieldTracked = false
-    
     //MARK:- Segment.io Tracking Methods
     //To be overridden
     
@@ -466,7 +457,7 @@ class EditSessionFormRootView:ExtendedView {
             self.priceAmountField?.textField?.text = "\((eventInfo.price ?? 0.0))"
         }
         
-        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+        if self.eventInfo?.startDate?.timeIntervalSince(Date()) ?? 0.0 > 0.0{
             slotIdentifiedDisbaleView()
         }
         
@@ -483,11 +474,7 @@ class EditSessionFormRootView:ExtendedView {
     //MARK:- Button Actions
     @IBAction func sessionDateAction(sender:UIButton){
         
-        if !isDateTracked{
-            
-            dateTracking()
-            isDateTracked = true
-        }
+        dateTracking()
         if isDatePickerIsShowing{
             
             hidePicker()
@@ -500,12 +487,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func timeAction(sender:UIButton){
         
-        if !isTimeTracked{
-            
-            self.timeTracking()
-            isTimeTracked = true
-        }
-        
+        timeTracking()
         if isTimePickerIsShowing{
             hidePicker()
             return
@@ -517,12 +499,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func chatLengthAction(sender:UIButton){
         
-        if !isChatLengthTracked{
-            
-            self.ChatLengthTracking()
-            isChatLengthTracked = true
-        }
-        
+        ChatLengthTracking()
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -533,12 +510,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func sessionLengthAction(sender:UIButton){
         
-       
-        if !isSessionLengthTracked{
-          
-            SessionLengthTracking()
-            isSessionLengthTracked = true
-        }
+        SessionLengthTracking()
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -632,6 +604,22 @@ extension EditSessionFormRootView:UITextFieldDelegate{
         scrollView?.activeField = textField
         return true
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == priceAmountField?.textField {
+            
+            Log.echo(key: "yud", text: "priceAmountField event is fired")
+            self.priceFieldTracking()
+            return
+        }
+        
+        if textField == titleField?.textField {
+            
+            Log.echo(key: "yud", text: "title event is fired")
+            self.titleTracking()
+            return
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -641,28 +629,7 @@ extension EditSessionFormRootView:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == titleField?.textField{
-            if !isTitleTracked {
-                
-                self.titleTracking()
-                isTitleTracked = true
-            }
-        }
-        
-        if textField == priceAmountField?.textField{
-            if !isPriceFieldTracked {
-                
-                priceFieldTracking()
-                isPriceFieldTracked = true
-            }
-        }
-        
-        
         if textField == priceAmountField?.textField {
-            
-//            if (((textField.text?.count) ?? 0)+(string.count)) > 4{
-//                return false
-//            }
             
             let str1 = textField.text ?? ""
             let str2 = string
@@ -698,6 +665,7 @@ extension EditSessionFormRootView:UITextFieldDelegate{
         paintMaximumEarningCalculator()
         let _ = priceValidation()
     }
+    
 }
 
 extension EditSessionFormRootView{
@@ -806,12 +774,10 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
-            //birthDay = selectedDate
         }
         
         if selectedPickerType == .time {
-            
-            
+
             guard let pickerDate = selectedDate else{
                 return
             }

@@ -33,7 +33,7 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
         painInterface()
         roundToMainView()
     }
@@ -246,12 +246,75 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         self.gotoSession()
     }
-    
 }
 
 extension MySessionTableViewCell{
     
-    func addEventToCalendar(title: String, description: String?, startDate: Date, endDate: Date, completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
+    func checkStatusAndGetAllEvents() {
+        
+        let currentStatus = EKEventStore.authorizationStatus(for: EKEntityType.event)
+        switch currentStatus {
+        case .authorized:
+            self.getEvents(startDate:self.info?.startDate, endDate:self.info?.endDate)
+        case .notDetermined:
+            //print("notDetermined")
+            eventStore.requestAccess(to: .event) { accessGranted, error in
+                if accessGranted {
+                    self.getEvents(startDate:self.info?.startDate, endDate:self.info?.endDate)
+                    return
+                } else {
+                    self.noPermission()
+                    return
+                    //                    print("Change Settings to Allow Access")
+                }
+            }
+        case .restricted:
+            noPermission()
+            return
+        case .denied:
+            noPermission()
+            return
+        }
+    }
+    
+    
+    private func getEvents(startDate:Date?, endDate:Date?) {
+        
+        guard let start = startDate else{
+            return
+        }
+        
+        guard let end = endDate else {
+            return
+        }
+        
+        let calendars = eventStore.calendars(for: .event)
+        
+        for calendar in calendars {
+            
+            guard calendar.allowsContentModifications else {
+                continue
+            }
+            let predicate = eventStore.predicateForEvents(withStart: start, end: end, calendars: [calendar])
+            let events = eventStore.events(matching: predicate)
+            for event in events {
+                if  "\(self.info?.id ?? 0 )" == "\(event.notes ?? "")"{
+                    self.alreadyExisitingEventError()
+                    return
+                }
+                
+                //                print("title: \(event.title!)")
+                //                print("startDate: \(event.startDate!)")
+                //                print("EndDate: \(event.endDate!)")
+                //               print("notes are : \(String(describing: event.notes ?? ""))")
+            }
+            addEvent()
+        }
+    }
+    
+    
+    
+    func addEventToCalendar(title: String, description: String?, startDate: Date, endDate: Date,id:String? = "", completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil) {
         
         eventStore.requestAccess(to: .event, completion: { (granted, error) in
             
@@ -261,7 +324,7 @@ extension MySessionTableViewCell{
                 event.title = title
                 event.startDate = startDate
                 event.endDate = endDate
-                event.notes = description
+                event.notes = "\(self.info?.id ?? 0)"
                 event.calendar = self.eventStore.defaultCalendarForNewEvents
                 do {
                     try self.eventStore.save(event, span: .thisEvent)
@@ -293,8 +356,10 @@ extension MySessionTableViewCell{
                 if success{
                     
                     let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                    
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
                     }))
+                    
                     RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
                     })
                     return
@@ -307,8 +372,8 @@ extension MySessionTableViewCell{
     
     @IBAction func addToCalendarAction(sender:UIButton){
         
-        sender.isUserInteractionEnabled = false
-        generateEvent()
+        //sender.isUserInteractionEnabled = false
+        checkStatusAndGetAllEvents()
     }
     func generateEvent() {
         
@@ -344,5 +409,16 @@ extension MySessionTableViewCell{
         }))
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })
-    }    
+    }
+    
+    
+    func alreadyExisitingEventError(){
+        
+        let alert = UIAlertController(title: "Chatalyze", message: "Event is already added to the calendar.", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+        }))
+        RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
+        })
+    }
 }

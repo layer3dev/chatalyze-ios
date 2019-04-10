@@ -16,7 +16,6 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
     override func viewDidLayout() {
         super.viewDidLayout()
     }
-
     
     func setImage(info:EventInfo){
         
