@@ -19,9 +19,8 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
     override func rootInitialization() {
         
         DispatchQueue.main.async {
-            
+        
             self.rootView?.initializeVariable()
-            //self.rootView?.fillInfo(info:self.eventInfo)
         }
     }
     
@@ -42,8 +41,6 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
             self.rootView?.scheduleInfo?.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
             
             self.rootView?.planInfo = info
-            
-            //Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
         }
     }
     

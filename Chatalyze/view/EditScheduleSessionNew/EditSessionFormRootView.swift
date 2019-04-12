@@ -10,6 +10,9 @@ import UIKit
 
 class EditSessionFormRootView:ExtendedView {
     
+    var emptySlotList = [EmptySlotInfo]()
+    @IBOutlet var breakAdapter:BreakAdapter?
+    
     @IBOutlet var donationInfoLabel:UILabel?
     @IBOutlet var screenShotInfoLabel:UILabel?
     
@@ -20,7 +23,10 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var totalEarningLabel:UILabel?
     
     @IBOutlet private var maxEarning:UIView?
+   
+    var isBreakShowing = false
     
+    @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     
     //********
@@ -71,6 +77,9 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     var selectedPickerType:pickerType = .none
+
+    @IBOutlet var breakField:SigninFieldView?
+
     
     @IBOutlet var titleField:SigninFieldView?
     @IBOutlet var dateField:SigninFieldView?
@@ -246,6 +255,11 @@ class EditSessionFormRootView:ExtendedView {
         self.maxEarning?.layer.borderWidth = 1
         self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
+        self.breakAdapter?.layer.masksToBounds = true
+        self.breakAdapter?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.breakAdapter?.layer.borderWidth = 1
+        self.breakAdapter?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
         self.titleField?.isCompleteBorderAllow = true
         self.dateField?.isCompleteBorderAllow = true
         self.timeField?.isCompleteBorderAllow = true
@@ -253,6 +267,7 @@ class EditSessionFormRootView:ExtendedView {
         self.chatLength?.isCompleteBorderAllow = true
         self.freeField?.isCompleteBorderAllow = true
         self.priceField?.isCompleteBorderAllow = true
+        self.breakField?.isCompleteBorderAllow = true
         self.roundToEditSessionButton()
         
         self.priceAmountField?.textField?.doneAccessory = true
@@ -265,7 +280,7 @@ class EditSessionFormRootView:ExtendedView {
         
         donationCustomSwitch?.toggleAction = {[weak self] in
             
-            if self?.donationCustomSwitch?.isOn ?? false{
+            if self?.donationCustomSwitch?.isOn ?? false {
                 
                 self?.donationLabel?.text = "ON"
                 self?.donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
@@ -293,7 +308,6 @@ class EditSessionFormRootView:ExtendedView {
         screenShotCustomSwitch?.toggleAction = {[weak self] in
             
             if self?.screenShotCustomSwitch?.isOn ?? false {
-              
                 self?.screenShotLabel?.text = "ON"
                 self?.screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
                 self?.scheduleInfo?.isScreenShotAllow = true
@@ -475,7 +489,33 @@ class EditSessionFormRootView:ExtendedView {
         editSessionButton?.layer.masksToBounds = true
     }
     
+    func showBreak(){
+        
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
+        isBreakShowing = true
+    }
+    
+    func hideBreak(){
+       
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
+        isBreakShowing = false
+    }
+    
     //MARK:- Button Actions
+    
+    @IBAction func breakSlotAction(sender:UIButton){
+        
+        if isBreakShowing{
+            
+            breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
+            isBreakShowing = false
+            return
+        }
+        
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
+        isBreakShowing = true
+    }
+    
     @IBAction func sessionDateAction(sender:UIButton){
         
         dateTracking()
@@ -1099,14 +1139,17 @@ extension EditSessionFormRootView {
         
         guard let info = scheduleInfo else{
             hidePaintChatCalculator()
+            hideBreak()
             return
         }
         guard let startDate = info.startDateTime else{
             hidePaintChatCalculator()
+            hideBreak()
             return
         }
         guard let endDate = info.endDateTime else{
             hidePaintChatCalculator()
+            hideBreak()
             return
         }
         
@@ -1116,6 +1159,8 @@ extension EditSessionFormRootView {
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
             hidePaintChatCalculator()
+            hideBreak()
+
             return
         }
         
@@ -1145,13 +1190,60 @@ extension EditSessionFormRootView {
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
-            
+            createEmptySlots()
             return
         }
-        
+        hideBreak()
         hidePaintChatCalculator()
         Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
+        
+    func createEmptySlots(){
+        
+        guard let info = scheduleInfo else{
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        
+        guard let startTime = info.startDateTime else {
+            hideBreak()
+            return
+        }
+        
+        guard let endTime = info.endDateTime else {
+            hideBreak()
+            return
+        }
+        
+        let timeDiffreneceOfSlots = endTime.timeIntervalSince(startTime)
+        
+        let totalminutes = (timeDiffreneceOfSlots/60)
+        
+        guard let duration = self.scheduleInfo?.duration else {
+            hideBreak()
+            return
+        }
+        
+        let totalSlots = Int(totalminutes/Double(duration))
+        self.emptySlotList.removeAll()
+        for i in 0..<totalSlots {
+            
+            let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+            let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+            self.emptySlotList.append(emptySlotObj)
+        }
+        if emptySlotList.count > 0 {
+            
+            self.breakAdapter?.update(emptySlots: emptySlotList)
+            showBreak()
+            return
+        }
+        hideBreak()
+    }
+    
+    
     
     fileprivate func validateSlotTime()->Bool{
         

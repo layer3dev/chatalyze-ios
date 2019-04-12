@@ -30,6 +30,12 @@ class HostDashboardRootView: MySessionRootView {
         paintChatPupText()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.createSessionView?.dropShadow(color: UIColor.black, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 3:2, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5)
+    }
+    
     func paintChatPupText() {
         
         DispatchQueue.main.async {
@@ -55,16 +61,20 @@ class HostDashboardRootView: MySessionRootView {
         settingButtonContainer?.layer.borderWidth = 0.5
         settingButtonContainer?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
         
+        
         createSessionView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5
         createSessionView?.layer.masksToBounds = true
         
+        
         urlBorderView?.layer.borderWidth = 0.5
         urlBorderView?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
+        
         
         profileImage?.layer.borderWidth = 1
         profileImage?.layer.borderColor = UIColor.white.cgColor
         profileImage?.layer.cornerRadius =   UIDevice.current.userInterfaceIdiom == .pad  ? 5 : 3
         profileImage?.layer.borderColor = UIColor.white.cgColor
+        
         
         if let imageStr = SignedUserInfo.sharedInstance?.profileImage{
             

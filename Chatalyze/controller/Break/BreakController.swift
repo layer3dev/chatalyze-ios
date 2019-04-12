@@ -11,29 +11,17 @@ import UIKit
 class BreakController: UIViewController {
 
     @IBOutlet var breakCollection:UICollectionView?
-    @IBOutlet var heightOfCollectionViewConstraint:NSLayoutConstraint?
     private let sectionInsets = UIEdgeInsets(top: 0.0,left: 10.0,bottom: 0.0,right: 10.0)
     let itemsPerRow = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initialisation()
+        //initialisation()
         // Do any additional setup after loading the view.
     }
     
-    func initialisation(){
-        
-        self.breakCollection?.dataSource = self
-        self.breakCollection?.delegate = self
-        self.breakCollection?.reloadData()
-        
-        let heightOfCells = ceil(((30.0/4.0)*60.0))
-        let heightOfSpaces = ((30.0/4.0)*10)+15.0
-        let totalHeight = heightOfCells+heightOfSpaces
-        
-        self.heightOfCollectionViewConstraint?.constant = CGFloat(totalHeight)
-    }
+    
     
     class func instance()->BreakController?{
         
@@ -101,7 +89,6 @@ extension BreakController:UICollectionViewDataSource,UICollectionViewDelegate,UI
         
         return sectionInsets.left
     }
-    
     
 }
 

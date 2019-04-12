@@ -13,6 +13,7 @@ class EmptySlotInfo:NSObject {
     var startDate:Date?
     var endDate:Date?
     var slotInfo:SlotInfo?
+    var isSelected = false 
 
     override init() {
         super.init()
