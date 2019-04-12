@@ -344,7 +344,7 @@ class EditSessionFormRootView:ExtendedView {
         
         //Printing whole Info
         
-        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(eventInfo.duration) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
+        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
         
         
         self.eventInfo = eventInfo
@@ -457,7 +457,11 @@ class EditSessionFormRootView:ExtendedView {
             self.priceAmountField?.textField?.text = "\((eventInfo.price ?? 0.0))"
         }
         
-        if self.eventInfo?.startDate?.timeIntervalSince(Date()) ?? 0.0 > 0.0{
+        
+        Log.echo(key: "yud", text: "Time Differences is ttt \(Date().timeIntervalSince(self.eventInfo?.startDate ?? Date()))")
+        
+        
+        if Date().timeIntervalSince(self.eventInfo?.startDate ?? Date()) >= 0.0 || self.eventInfo?.slotsInfoLists.count ?? 0 > 0 {
             slotIdentifiedDisbaleView()
         }
         
