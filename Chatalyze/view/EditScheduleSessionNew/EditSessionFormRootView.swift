@@ -339,6 +339,7 @@ class EditSessionFormRootView:ExtendedView {
         initializeChatLengthPicker()
         initializeSessionLengthPicker()
         
+        self.breakAdapter?.root = self
         self.titleField?.textField?.delegate = self
         self.dateField?.textField?.delegate = self
         self.timeField?.textField?.delegate = self
@@ -424,7 +425,6 @@ class EditSessionFormRootView:ExtendedView {
              
                 totalTimeOfChat = .oneAndHalfHour
                 self.sessionLength?.textField?.text = sessionArray[2]
-
             }
             if minutes == 120{
                 
@@ -491,15 +491,43 @@ class EditSessionFormRootView:ExtendedView {
     
     func showBreak(){
         
+        //Must be used only in PaintChat calculator
         breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
+        self.breakField?.textField?.text = ""
         isBreakShowing = true
     }
     
     func hideBreak(){
-       
+        
+        //Must be used only in PaintChat calculator
         breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
+        self.breakAdapter?.update(emptySlots: [EmptySlotInfo]())
+        self.breakField?.textField?.text = ""
         isBreakShowing = false
     }
+    
+    
+    func showSelectedIndex(){
+        
+        Log.echo(key: "yud", text: "Selected adapter empty slots are \(breakAdapter?.emptySlots)")
+    
+        if let selectedBreakArray = breakAdapter?.emptySlots {
+            
+            var str = ""
+            for index in 0..<selectedBreakArray.count {
+                if str == "" && selectedBreakArray[index].isSelected{
+                    str.append("\(index+1)")
+                    continue
+                }
+                if str != "" && selectedBreakArray[index].isSelected{
+                   str.append(",\(index+1)")
+                    continue
+                }
+            }
+            breakField?.textField?.text = str
+        }
+    }
+    
     
     //MARK:- Button Actions
     
@@ -619,6 +647,7 @@ class EditSessionFormRootView:ExtendedView {
         guard let params = getParam() else{
             return
         }
+    
         
         self.controller?.showLoader()
         EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
@@ -681,7 +710,6 @@ extension EditSessionFormRootView:UITextFieldDelegate{
             Log.echo(key: "yud", text: "str1 \(str1) str2 \(str2) concatenated \(str1+str2)")
             
             if string == "" {
-                
                 //Approving the backspace
                 return true
             }
@@ -709,7 +737,6 @@ extension EditSessionFormRootView:UITextFieldDelegate{
         paintMaximumEarningCalculator()
         let _ = priceValidation()
     }
-    
 }
 
 extension EditSessionFormRootView{
@@ -779,7 +806,7 @@ extension EditSessionFormRootView {
         return true
     }
     
-    func validateSessionLength()->Bool{
+    func validateSessionLength()->Bool {
         
         if totalTimeOfChat == .none{
             sessionLength?.showError(text: "Session length is required.")
@@ -808,7 +835,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     
     func doneTapped(selectedDate:Date?) {
         
-        if selectedPickerType == .date{
+        if selectedPickerType == .date {
             
             guard let pickerDate = selectedDate else{
                 return
@@ -832,6 +859,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             timeField?.textField?.text = dateInStr
             //birthDay = selectedDate
         }
+        
         hidePicker()
         updatescheduleInfo()
         paintChatCalculator()
@@ -840,7 +868,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     
     func pickerAction(selectedDate:Date?){
         
-        if selectedPickerType == .date{
+        if selectedPickerType == .date {
             
             guard let pickerDate = selectedDate else{
                 return
@@ -869,7 +897,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
         }
     }
     
-    private func showDatePicker(){
+    private func showDatePicker() {
         
         handleBirthadyFieldScrolling()
         self.isDatePickerIsShowing = true
@@ -884,7 +912,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
 extension EditSessionFormRootView{
     
     //MARK:- PICKER INITILIZATION
-    func initializeTimePicker(){
+    func initializeTimePicker() {
         
         timePickerContainer.frame = self.frame
         timePickerContainer.frame.origin.y = timePickerContainer.frame.origin.y - CGFloat(64)
@@ -1217,9 +1245,8 @@ extension EditSessionFormRootView {
         }
         
         let timeDiffreneceOfSlots = endTime.timeIntervalSince(startTime)
-        
+
         let totalminutes = (timeDiffreneceOfSlots/60)
-        
         guard let duration = self.scheduleInfo?.duration else {
             hideBreak()
             return
@@ -1234,8 +1261,9 @@ extension EditSessionFormRootView {
             let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
             self.emptySlotList.append(emptySlotObj)
         }
+        
         if emptySlotList.count > 0 {
-            
+        
             self.breakAdapter?.update(emptySlots: emptySlotList)
             showBreak()
             return
@@ -1243,6 +1271,34 @@ extension EditSessionFormRootView {
         hideBreak()
     }
     
+    func fillEmptySlotSelectionInfo(){
+        
+        if emptySlotList.count > 0 {
+            
+            if self.eventInfo != nil {
+                if let emptySlotArray = self.eventInfo?.emptySlotsArray {
+                    if emptySlotArray.count > 0 {
+                        for i in 0..<emptySlotArray.count {
+                            if let dict = emptySlotArray[i].dictionary {
+                                if let slotNumber = dict["slotNo"]?.int {
+                                    if slotNumber <= 0 {
+                                        continue
+                                    }
+                                    if slotNumber <= self.emptySlotList.count {
+                                        self.emptySlotList[slotNumber-1].isSelected = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            showBreak()
+            self.breakAdapter?.update(emptySlots: emptySlotList)
+            self.showSelectedIndex()
+            return
+        }
+    }
     
     
     fileprivate func validateSlotTime()->Bool{
@@ -1548,6 +1604,7 @@ extension EditSessionFormRootView{
         
         paintChatCalculator()
         paintMaximumEarningCalculator()
+        fillEmptySlotSelectionInfo()
     }
     
     func getRequiredDateInStr()->String?{
@@ -1609,9 +1666,92 @@ extension EditSessionFormRootView{
     }
     
     
+    
+    func updatescheduleInfoForGetParams(){
+        
+        self.scheduleInfo?.title = titleField?.textField?.text
+        self.scheduleInfo?.startDate = self.dateField?.textField?.text
+        self.scheduleInfo?.startTime = self.timeField?.textField?.text
+        updateStartDateParamForGetParams()
+    }
+    
+    func updateStartDateParamForGetParams(){
+        
+        guard let startDate = getRequiredDateInStr() else {
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if let date = dateFormatter.date(from: startDate){
+            self.scheduleInfo?.startDateTime = date
+        }
+        
+        if let newDate = self.scheduleInfo?.startDateTime{
+            
+            let calendar = Calendar.current
+            var date:Date?
+            if  totalTimeOfChat == .thirtyMinutes{
+                
+                date = calendar.date(byAdding: .minute, value: 30, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .oneHour{
+                
+                date = calendar.date(byAdding: .minute, value: 60, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .oneAndHalfHour{
+                
+                date = calendar.date(byAdding: .minute, value: 90, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .twoHour{
+                
+                date = calendar.date(byAdding: .minute, value: 120, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            self.scheduleInfo?.duration = chatDuration
+        }
+        
+        if donationCustomSwitch?.isOn == true{
+            
+            self.scheduleInfo?.tipEnabled = true
+        }else{
+            
+            self.scheduleInfo?.tipEnabled = false
+        }
+        
+        if screenShotCustomSwitch?.isOn == true{
+            
+            self.scheduleInfo?.isScreenShotAllow = true
+        }else{
+            
+            self.scheduleInfo?.isScreenShotAllow = false
+        }
+        
+        if self.priceAmountField?.textField?.text ?? "" != "" {
+            
+            self.scheduleInfo?.doublePrice = Double(self.priceAmountField?.textField?.text ??
+                "0.0")
+            self.scheduleInfo?.isFree = false
+        }else{
+            
+            self.scheduleInfo?.isFree = true
+            self.scheduleInfo?.doublePrice = 0.0
+        }
+        
+//        paintChatCalculator()
+//        paintMaximumEarningCalculator()
+    }
+    
+    
     func getParam()->[String:Any]? {
         
-        updatescheduleInfo()
+        updatescheduleInfoForGetParams()
         
         guard let info = self.scheduleInfo else{
             return nil
@@ -1661,6 +1801,21 @@ extension EditSessionFormRootView{
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
+        
+        var paramsForSlots = [[String:Any]]()
+        if let selectedArray = self.breakAdapter?.emptySlots{
+            for index in 0..<selectedArray.count{
+                if selectedArray[index].isSelected{
+                    if let startDate = selectedArray[index].startDate{
+                        if let endDate = selectedArray[index].endDate{
+                            let info = ["start":"\(startDate)","end":"\(endDate)","slotNo":index+1] as [String : Any]
+                            paramsForSlots.append(info)
+                        }
+                    }
+                }
+            }
+        }
+        param["emptySlots"] = paramsForSlots
         Log.echo(key: "yud", text: "Param are \(param)")
         return param
     }

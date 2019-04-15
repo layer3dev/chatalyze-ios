@@ -21,6 +21,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var chatPriceScroll:UIScrollView?
     @IBOutlet var donationScroll:UIScrollView?
     @IBOutlet var screenShotScroll:UIScrollView?
+    @IBOutlet var breakScrollView:UIScrollView?
     
     enum infoType:Int{
         
@@ -32,7 +33,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         case chatPrice = 5
         case donation = 6
         case screenShot = 7
-        case none = 8
+        case breakScroll = 8
+        case none = 9
     }
     
     var currentInfo = infoType.none
@@ -122,6 +124,11 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.screenShotScroll?.isHidden = false
             return
         }
+        if currentInfo == .breakScroll {
+            hideAll()
+            self.breakScrollView?.isHidden = false
+            return
+        }
     }
     
     @IBAction func dismissAction(sender:UIButton?){
@@ -153,6 +160,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.chatPriceScroll?.isHidden = true
         self.donationScroll?.isHidden = true
         self.screenShotScroll?.isHidden = true
+        self.breakScrollView?.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {

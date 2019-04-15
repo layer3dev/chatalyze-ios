@@ -126,6 +126,19 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    @IBAction func moreDetailBreakAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .breakScroll
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
     
     
     func load(){

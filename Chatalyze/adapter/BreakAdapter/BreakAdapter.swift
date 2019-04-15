@@ -17,12 +17,14 @@ class BreakAdapter: ExtendedView {
     let itemsPerRow = 4
     let screenSize = UIScreen.main.bounds
     var emptySlots = [EmptySlotInfo]()
-    
-    
+    var root:EditSessionFormRootView?
+    @IBOutlet var heightOfCollection:NSLayoutConstraint?
+        
     override func layoutSubviews() {
         super.layoutSubviews()
        
         initialisation()
+        updateHeightOfCell()
     }
     
     func initialisation(){
@@ -39,7 +41,24 @@ class BreakAdapter: ExtendedView {
         }
     
         self.emptySlots = slots
+        updateHeightOfCell()
         initialisation()
+    }
+    
+    func updateHeightOfCell(){
+        
+        let cellCount = (Double(self.emptySlots.count)/4.0)
+        let requiredHeightConstant = cellCount.rounded(.up)
+        let heightOfCells = (CGFloat(requiredHeightConstant)*CGFloat(UIDevice.current.userInterfaceIdiom == .pad ? 60.0:45.0))
+        let paddingSpace = (CGFloat(requiredHeightConstant+1)*sectionInsets.left)
+        let totalHeightOfCollectionIs = heightOfCells+paddingSpace
+        
+        Log.echo(key: "yud", text: "Required Height Constraint is \(requiredHeightConstant) height of the cell is \(heightOfCells) total height of the collection is \(totalHeightOfCollectionIs)")
+        
+        Log.echo(key: "yud", text: "Collection height contraint is \(String(describing: heightOfCollection))")
+        
+        heightOfCollection?.constant = totalHeightOfCollectionIs
+        self.layoutIfNeeded()
     }
 }
 
@@ -100,11 +119,16 @@ extension BreakAdapter:UICollectionViewDataSource,UICollectionViewDelegate,UICol
         
         if indexPath.item < self.emptySlots.count{
             if self.emptySlots[indexPath.item].isSelected == false {
+                
                 self.emptySlots[indexPath.item].isSelected = true
+                self.root?.emptySlotList[indexPath.item].isSelected = true
+                root?.showSelectedIndex()
                 self.breakCollection?.reloadData()
                 return
             }
             self.emptySlots[indexPath.item].isSelected = false
+            self.root?.emptySlotList[indexPath.item].isSelected = false
+            root?.showSelectedIndex()
             self.breakCollection?.reloadData()
         }
     }

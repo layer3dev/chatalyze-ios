@@ -21,7 +21,7 @@ class EmptySlotsCells:ExtendedCollectionCell {
         
         self.cellView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.cellView?.layer.borderWidth = 1
-        self.cellView?.layer.borderColor = UIColor(red: 140.0/255.0, green: 140.0/255.0, blue: 140.0/255.0, alpha: 1).cgColor
+        self.cellView?.layer.borderColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
         self.cellView?.layer.masksToBounds = true
     }
     func fillInfo(info:EmptySlotInfo?,index:IndexPath){

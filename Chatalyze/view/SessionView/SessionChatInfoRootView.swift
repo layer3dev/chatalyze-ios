@@ -453,7 +453,7 @@ class SessionChatInfoRootView:ExtendedView{
         priceField?.resetErrorStatus()
     }
     
-    func validateFields()->Bool{
+    func validateFields()->Bool {
       
         let priceValidated  = priceValidation()
         let durationValidated = validateSlotTime()
@@ -461,7 +461,7 @@ class SessionChatInfoRootView:ExtendedView{
         return priceValidated && socialValidation && durationValidated
     }
     
-    fileprivate func priceValidation()->Bool{
+    fileprivate func priceValidation()->Bool {
         
         if(priceField?.textField?.text == ""){
             
@@ -482,7 +482,7 @@ class SessionChatInfoRootView:ExtendedView{
         return true
     }
     
-    fileprivate func validateSlotTime()->Bool{
+    fileprivate func validateSlotTime()->Bool {
         
         if(slotSelected == .none){
             
@@ -493,7 +493,7 @@ class SessionChatInfoRootView:ExtendedView{
         return true
     }
     
-    fileprivate func validateSocialSharing()->Bool{
+    fileprivate func validateSocialSharing()->Bool {
         
         if(isSocialSelfieAllowed == .none){
             
@@ -504,8 +504,7 @@ class SessionChatInfoRootView:ExtendedView{
         return true
     }
     
-    func showError(message:String?){
-        
+    func showError(message:String?) {
         //errorLbl?.text =  message ?? ""
     }
 }
@@ -534,14 +533,14 @@ extension SessionChatInfoRootView:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if (((textField.text?.count) ?? 0)+(string.count)) > 4{
+        if (((textField.text?.count) ?? 0)+(string.count)) > 4 {
             return false
         }
-        if string == ""{
+        if string == "" {
             //Approving the backspace
             return true
         }
-        if string.isNumeric{
+        if string.isNumeric {
             return true
         }
         return false
