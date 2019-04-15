@@ -66,6 +66,8 @@ class ScheduleSessionEarningRootView: ExtendedView{
         self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.maxEarning?.layer.borderWidth = 1
         self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        
+        
     }
     
     func initializeVariable(){

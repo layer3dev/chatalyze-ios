@@ -84,40 +84,40 @@ class ContainerController: NavChildController {
         self.toggleTrailing?.constant = -(toggleWidth)
     }
     
-    func askForStarterPlanIfNotAskedYet(){
-        
-        guard let userType = SignedUserInfo.sharedInstance?.role else{
-            return
-        }
-        
-        if userType == .user{
-            return
-        }
-        
-        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
-            return
-        }
-        
-        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
-        
-        if !shouldAskForPlan {
-            return
-        }
-        
-        guard let controller = ProFeatureEndTrialController.instance() else{
-            return
-        }
-        
-        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
-        })
-    }
+//    func askForStarterPlanIfNotAskedYet(){
+//        
+//        guard let userType = SignedUserInfo.sharedInstance?.role else{
+//            return
+//        }
+//        
+//        if userType == .user{
+//            return
+//        }
+//        
+//        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+//            return
+//        }
+//        
+//        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+//        
+//        if !shouldAskForPlan {
+//            return
+//        }
+//        
+//        guard let controller = ProFeatureEndTrialController.instance() else{
+//            return
+//        }
+//        
+//        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+//        })
+//    }
 
     func fetchProfile(){
         
         FetchProfileProcessor().fetch { (success, message, response) in
             
-            self.menuController?.rootView?.adapter?.reloadDataAfterFetchingData()
-            self.askForStarterPlanIfNotAskedYet()
+            //self.menuController?.rootView?.adapter?.reloadDataAfterFetchingData()
+           // self.askForStarterPlanIfNotAskedYet()
         }
     }
     
@@ -569,13 +569,13 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .proFeature{
             
-            guard let rootController = HostDashboardController.instance() else{
-                return
-            }
-            guard let controller = ProFeatureInfoController.instance() else{
-                return
-            }
-            navController?.setViewControllers([rootController,controller], animated: true)
+//            guard let rootController = HostDashboardController.instance() else{
+//                return
+//            }
+//            guard let controller = ProFeatureInfoController.instance() else{
+//                return
+//            }
+//            navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
             return
         }

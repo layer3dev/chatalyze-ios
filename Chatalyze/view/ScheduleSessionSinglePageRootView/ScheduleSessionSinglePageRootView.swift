@@ -39,4 +39,36 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
             }
         }
     }
+    
+    // MARK:- Segment.io Tracking Method.
+    
+    override func titleTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
+    }
+    
+    override func dateTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Date")
+    }
+    
+    override func timeTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
+    }
+    
+    override func ChatLengthTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Select 1:1 Chat Length)")
+    }
+    
+    override func SessionLengthTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Session Length")
+    }
+    
+    override func priceFieldTracking(){
+        
+        SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price")
+    }
 }

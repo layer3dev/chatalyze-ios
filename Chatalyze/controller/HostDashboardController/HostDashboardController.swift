@@ -32,88 +32,6 @@ class HostDashboardController: MyScheduledSessionsController {
         SEGAnalytics.shared().track("My Session Page")
     }
     
-    override func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){
-        
-//        DispatchQueue.main.async {
-//
-//            guard let topConstant = self.topScrollHeaderConstraint else {
-//                return
-//            }
-//
-//            guard let tableHeight = self.tableHeight else{
-//                return
-//            }
-//
-//            if direction == .up{
-//
-//                if topConstant.constant <= CGFloat(-154.0){
-//                    topConstant.constant = -154.0
-//                    tableHeight.constant = 290.0+154.0
-//                    self.updateViewConstraints()
-//                    self.view.layoutIfNeeded()
-//                    return
-//                }
-//                topConstant.constant = topConstant.constant-CGFloat(1.0)
-//                tableHeight.constant = tableHeight.constant+1
-//                self.updateViewConstraints()
-//                self.view.layoutIfNeeded()
-//                return
-//            }
-//
-//            if direction == .down{
-//
-//                if topConstant.constant >= CGFloat(0.0){
-//                    topConstant.constant = 0.0
-//                    tableHeight.constant = 290.0
-//                    self.updateViewConstraints()
-//                    self.view.layoutIfNeeded()
-//                    return
-//                }
-//                topConstant.constant = topConstant.constant+CGFloat(1.0)
-//                tableHeight.constant = tableHeight.constant-1
-//                self.updateViewConstraints()
-//                self.view.layoutIfNeeded()
-//                return
-//            }
-//
-//        }
-    }
-    
-    override func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
-        
-//        Log.echo(key: "end", text: "end draging is calling")
-//
-//        DispatchQueue.main.async {
-//
-//            guard let topConstant = self.topScrollHeaderConstraint else {
-//                return
-//            }
-//
-//            guard let tableHeight = self.tableHeight else {
-//                return
-//            }
-//
-//            if topConstant.constant <=  CGFloat(-75){
-//
-//                topConstant.constant = -154.0
-//                tableHeight.constant = 290.0+154.0
-//                self.updateViewConstraints()
-//                self.view.layoutIfNeeded()
-//                return
-//                // hide header
-//            }
-//
-//            if topConstant.constant >  CGFloat(-75){
-//
-//                topConstant.constant = 0
-//                tableHeight.constant = 290.0
-//                self.updateViewConstraints()
-//                self.view.layoutIfNeeded()
-//                // show header
-//            }
-//        }
-    }
-    
     
     func printTheFamilyNames(){
         
@@ -321,17 +239,16 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     @IBAction func scheduleSessionAction(sender:UIButton){
-        
+            
         DispatchQueue.main.async {
-            
-//            guard let controller = SessionScheduleNewController.instance() else{
-//                return
-//            }
-            
             
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
+            
+//            guard let controller = BreakController.instance() else{
+//                return
+//            }
             
             self.navigationController?.pushViewController(controller, animated: false)
         }
@@ -399,8 +316,8 @@ class HostDashboardController: MyScheduledSessionsController {
         self.view.layoutIfNeeded()
     }
    
-    override class func instance()->HostDashboardController?{
-        
+    override class func instance()-> HostDashboardController? {
+
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
         return controller

@@ -49,6 +49,7 @@ class EventInfo: NSObject {
     var isScreenShotAllowed:String?
     var tipEnabled : Bool?
     var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
+    var emptySlotsArray:[JSON]? = [JSON]()
     
     override init(){
         super.init()
@@ -87,7 +88,7 @@ class EventInfo: NSObject {
         eventBannerUrl = json["eventBannerUrl"].string
         isPrivate = json["isPrivate"].bool
         
-        //        if (json["tag"] != nil) { tag = Tag(json: json["tag"] as! NSDictionary) } //todo:
+        // if (json["tag"] != nil) { tag = Tag(json: json["tag"] as! NSDictionary) } //todo:
         isFree = json["isFree"].boolValue
         eventFeedbackInfo = json["eventFeedbackInfo"].string
         createdAt = json["createdAt"].string
@@ -95,6 +96,8 @@ class EventInfo: NSObject {
         deletedAt = json["deletedAt"].string
         tipEnabled = json["tipEnabled"].bool
         isScreenShotAllowed = json["screenshotAllow"].string
+        
+        emptySlotsArray = json["emptySlots"].array
         
         //autographAllow
         user = UserInfo(userInfoJSON: json["user"])

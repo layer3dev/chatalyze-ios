@@ -21,9 +21,10 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var chatPriceScroll:UIScrollView?
     @IBOutlet var donationScroll:UIScrollView?
     @IBOutlet var screenShotScroll:UIScrollView?
+    @IBOutlet var breakScrollView:UIScrollView?
     
     enum infoType:Int{
-    
+        
         case title = 0
         case date = 1
         case time = 2
@@ -32,7 +33,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         case chatPrice = 5
         case donation = 6
         case screenShot = 7
-        case none = 8
+        case breakScroll = 8
+        case none = 9
     }
     
     var currentInfo = infoType.none
@@ -48,11 +50,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     }
     
     func paintUI(){
-        //self.sessionLengthBottomLabel?.text =
         
         DispatchQueue.main.async {
-       
-           
             
             let textOne = "For more details, check out our "
             let textOneMutableAttr = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(hexString: "929292"), isUnderLine: false)
@@ -72,7 +71,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             
             self.sessionLengthBottomTextView?.attributedText = textOneMutableAttr
             
-             self.initializeLink()
+            self.initializeLink()
         }
         
         //For more details, check out our What is a chat session post or feel free to contact us!
@@ -125,6 +124,11 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.screenShotScroll?.isHidden = false
             return
         }
+        if currentInfo == .breakScroll {
+            hideAll()
+            self.breakScrollView?.isHidden = false
+            return
+        }
     }
     
     @IBAction func dismissAction(sender:UIButton?){
@@ -156,27 +160,26 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.chatPriceScroll?.isHidden = true
         self.donationScroll?.isHidden = true
         self.screenShotScroll?.isHidden = true
+        self.breakScrollView?.isHidden = true
     }
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
         self.threeEdgesView?.roundCorners(corners: [.bottomRight,.topLeft,.topRight], radius: 25)
     }
     
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     
     class func instance()->SingleSessionPageMoreDetailAlertController?{
         

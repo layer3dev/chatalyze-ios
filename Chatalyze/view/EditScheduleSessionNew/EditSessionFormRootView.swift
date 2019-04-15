@@ -10,6 +10,9 @@ import UIKit
 
 class EditSessionFormRootView:ExtendedView {
     
+    var emptySlotList = [EmptySlotInfo]()
+    @IBOutlet var breakAdapter:BreakAdapter?
+    
     @IBOutlet var donationInfoLabel:UILabel?
     @IBOutlet var screenShotInfoLabel:UILabel?
     
@@ -20,7 +23,10 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var totalEarningLabel:UILabel?
     
     @IBOutlet private var maxEarning:UIView?
+   
+    var isBreakShowing = false
     
+    @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     
     //********
@@ -71,6 +77,9 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     var selectedPickerType:pickerType = .none
+
+    @IBOutlet var breakField:SigninFieldView?
+
     
     @IBOutlet var titleField:SigninFieldView?
     @IBOutlet var dateField:SigninFieldView?
@@ -136,16 +145,69 @@ class EditSessionFormRootView:ExtendedView {
         return dateInStr
     }
     
+    //MARK:- Segment.io Tracking Methods
+    //To be overridden
     
+    func titleTracking(){
+    }
     
-    //MARK:- Tracking checks
-    var isTitleTracked = false
-    var isDateTracked = false
-    var isTimeTracked = false
-    var isChatLengthTracked = false
-    var isSessionLengthTracked = false
-    var isPriceFieldTracked = false
+    func dateTracking(){
+    }
     
+    func timeTracking(){
+    }
+    
+    func ChatLengthTracking(){
+    }
+    
+    func SessionLengthTracking(){
+    }
+    
+    func priceFieldTracking(){
+    }
+    
+    //For cancel session
+    
+    @IBOutlet var cancelSessionView:UIView?
+    var isCancelSessionVisible = false
+    @IBOutlet var goBackButtonContainer:UIView?
+    @IBOutlet var confirmButton:UIButton?
+    
+    @IBAction func cancelAction(sender:UIButton){
+        
+        if self.isCancelSessionVisible{
+            
+            self.layoutIfNeeded()
+            self.isCancelSessionVisible = false
+            UIView.animate(withDuration: 0.35) {
+                self.cancelSessionView?.alpha = 0
+            }
+            return
+        }
+        
+        self.isCancelSessionVisible = true
+        self.layoutIfNeeded()
+        UIView.animate(withDuration: 0.35) {
+            self.cancelSessionView?.alpha = 1
+        }
+        return
+    }
+        
+    @IBAction func keepITAction(sender:UIButton){
+        
+        self.layoutIfNeeded()
+        self.isCancelSessionVisible = false
+        UIView.animate(withDuration: 0.35) {
+            self.cancelSessionView?.alpha = 0
+        }
+        return
+    }
+    
+    @IBAction func cancelITAction(sender:UIButton){
+        
+        self.controller?.cancelSession()
+        //service for cancel Session
+    }
     
     @IBAction func donationSwitchAction(_ sender: Any) {
         
@@ -175,18 +237,28 @@ class EditSessionFormRootView:ExtendedView {
     
     func paintInteface() {        
         
+        goBackButtonContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
+        
+        confirmButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
+        
+        goBackButtonContainer?.layer.masksToBounds = true
+        confirmButton?.layer.masksToBounds = true
+        
         self.chatCalculatorView?.layer.masksToBounds = true
         self.chatCalculatorView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.chatCalculatorView?.layer.borderWidth = 1
         self.chatCalculatorView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         self.titleField?.textField?.addDoneButtonOnKeyboard()
         
-        
         self.maxEarning?.layer.masksToBounds = true
         self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.maxEarning?.layer.borderWidth = 1
         self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
+        self.breakAdapter?.layer.masksToBounds = true
+        self.breakAdapter?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.breakAdapter?.layer.borderWidth = 1
+        self.breakAdapter?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
         self.titleField?.isCompleteBorderAllow = true
         self.dateField?.isCompleteBorderAllow = true
@@ -195,8 +267,9 @@ class EditSessionFormRootView:ExtendedView {
         self.chatLength?.isCompleteBorderAllow = true
         self.freeField?.isCompleteBorderAllow = true
         self.priceField?.isCompleteBorderAllow = true
+        self.breakField?.isCompleteBorderAllow = true
         self.roundToEditSessionButton()
-                
+        
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
         
@@ -207,7 +280,7 @@ class EditSessionFormRootView:ExtendedView {
         
         donationCustomSwitch?.toggleAction = {[weak self] in
             
-            if self?.donationCustomSwitch?.isOn ?? false{
+            if self?.donationCustomSwitch?.isOn ?? false {
                 
                 self?.donationLabel?.text = "ON"
                 self?.donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
@@ -235,7 +308,6 @@ class EditSessionFormRootView:ExtendedView {
         screenShotCustomSwitch?.toggleAction = {[weak self] in
             
             if self?.screenShotCustomSwitch?.isOn ?? false {
-              
                 self?.screenShotLabel?.text = "ON"
                 self?.screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
                 self?.scheduleInfo?.isScreenShotAllow = true
@@ -267,6 +339,7 @@ class EditSessionFormRootView:ExtendedView {
         initializeChatLengthPicker()
         initializeSessionLengthPicker()
         
+        self.breakAdapter?.root = self
         self.titleField?.textField?.delegate = self
         self.dateField?.textField?.delegate = self
         self.timeField?.textField?.delegate = self
@@ -286,7 +359,7 @@ class EditSessionFormRootView:ExtendedView {
         
         //Printing whole Info
         
-        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(eventInfo.duration) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
+        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
         
         
         self.eventInfo = eventInfo
@@ -352,7 +425,6 @@ class EditSessionFormRootView:ExtendedView {
              
                 totalTimeOfChat = .oneAndHalfHour
                 self.sessionLength?.textField?.text = sessionArray[2]
-
             }
             if minutes == 120{
                 
@@ -399,7 +471,11 @@ class EditSessionFormRootView:ExtendedView {
             self.priceAmountField?.textField?.text = "\((eventInfo.price ?? 0.0))"
         }
         
-        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+        
+        Log.echo(key: "yud", text: "Time Differences is ttt \(Date().timeIntervalSince(self.eventInfo?.startDate ?? Date()))")
+        
+        
+        if Date().timeIntervalSince(self.eventInfo?.startDate ?? Date()) >= 0.0 || self.eventInfo?.slotsInfoLists.count ?? 0 > 0 {
             slotIdentifiedDisbaleView()
         }
         
@@ -413,14 +489,64 @@ class EditSessionFormRootView:ExtendedView {
         editSessionButton?.layer.masksToBounds = true
     }
     
+    func showBreak(){
+        
+        //Must be used only in PaintChat calculator
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
+        self.breakField?.textField?.text = ""
+        isBreakShowing = true
+    }
+    
+    func hideBreak(){
+        
+        //Must be used only in PaintChat calculator
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
+        self.breakAdapter?.update(emptySlots: [EmptySlotInfo]())
+        self.breakField?.textField?.text = ""
+        isBreakShowing = false
+    }
+    
+    
+    func showSelectedIndex(){
+        
+        Log.echo(key: "yud", text: "Selected adapter empty slots are \(breakAdapter?.emptySlots)")
+    
+        if let selectedBreakArray = breakAdapter?.emptySlots {
+            
+            var str = ""
+            for index in 0..<selectedBreakArray.count {
+                if str == "" && selectedBreakArray[index].isSelected{
+                    str.append("\(index+1)")
+                    continue
+                }
+                if str != "" && selectedBreakArray[index].isSelected{
+                   str.append(",\(index+1)")
+                    continue
+                }
+            }
+            breakField?.textField?.text = str
+        }
+    }
+    
+    
     //MARK:- Button Actions
+    
+    @IBAction func breakSlotAction(sender:UIButton){
+        
+        if isBreakShowing{
+            
+            breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
+            isBreakShowing = false
+            return
+        }
+        
+        breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
+        isBreakShowing = true
+    }
+    
     @IBAction func sessionDateAction(sender:UIButton){
         
-        if !isDateTracked{
-            
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Date")
-            isDateTracked = true
-        }
+        dateTracking()
         if isDatePickerIsShowing{
             
             hidePicker()
@@ -433,12 +559,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func timeAction(sender:UIButton){
         
-        if !isTimeTracked{
-            
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Start Time")
-            isTimeTracked = true
-        }
-        
+        timeTracking()
         if isTimePickerIsShowing{
             hidePicker()
             return
@@ -450,13 +571,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func chatLengthAction(sender:UIButton){
         
-        if !isChatLengthTracked{
-            
-            SEGAnalytics.shared()
-                .track("Action: Schedule Session - Select 1:1 Chat Length)")
-            isChatLengthTracked = true
-        }
-        
+        ChatLengthTracking()
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -467,12 +582,7 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func sessionLengthAction(sender:UIButton){
         
-       
-        if !isSessionLengthTracked{
-          
-            SEGAnalytics.shared().track("Action: Schedule Session - Select Session Length")
-            isSessionLengthTracked = true
-        }
+        SessionLengthTracking()
         if isCustomPickerShowing{
             hidePicker()
             return
@@ -537,6 +647,7 @@ class EditSessionFormRootView:ExtendedView {
         guard let params = getParam() else{
             return
         }
+    
         
         self.controller?.showLoader()
         EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
@@ -566,6 +677,22 @@ extension EditSessionFormRootView:UITextFieldDelegate{
         scrollView?.activeField = textField
         return true
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == priceAmountField?.textField {
+            
+            Log.echo(key: "yud", text: "priceAmountField event is fired")
+            self.priceFieldTracking()
+            return
+        }
+        
+        if textField == titleField?.textField {
+            
+            Log.echo(key: "yud", text: "title event is fired")
+            self.titleTracking()
+            return
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -575,28 +702,7 @@ extension EditSessionFormRootView:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == titleField?.textField{
-            if !isTitleTracked {
-                
-                SEGAnalytics.shared().track("Action: Schedule Session - Add Title")
-                isTitleTracked = true
-            }
-        }
-        
-        if textField == priceField?.textField{
-            if !isPriceFieldTracked {
-                
-                SEGAnalytics.shared().track("Action: Schedule Session - Select Chat Price")
-                isPriceFieldTracked = true
-            }
-        }
-        
-        
         if textField == priceAmountField?.textField {
-            
-//            if (((textField.text?.count) ?? 0)+(string.count)) > 4{
-//                return false
-//            }
             
             let str1 = textField.text ?? ""
             let str2 = string
@@ -604,7 +710,6 @@ extension EditSessionFormRootView:UITextFieldDelegate{
             Log.echo(key: "yud", text: "str1 \(str1) str2 \(str2) concatenated \(str1+str2)")
             
             if string == "" {
-                
                 //Approving the backspace
                 return true
             }
@@ -701,7 +806,7 @@ extension EditSessionFormRootView {
         return true
     }
     
-    func validateSessionLength()->Bool{
+    func validateSessionLength()->Bool {
         
         if totalTimeOfChat == .none{
             sessionLength?.showError(text: "Session length is required.")
@@ -730,7 +835,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     
     func doneTapped(selectedDate:Date?) {
         
-        if selectedPickerType == .date{
+        if selectedPickerType == .date {
             
             guard let pickerDate = selectedDate else{
                 return
@@ -740,12 +845,10 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
-            //birthDay = selectedDate
         }
         
         if selectedPickerType == .time {
-            
-            
+
             guard let pickerDate = selectedDate else{
                 return
             }
@@ -756,6 +859,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             timeField?.textField?.text = dateInStr
             //birthDay = selectedDate
         }
+        
         hidePicker()
         updatescheduleInfo()
         paintChatCalculator()
@@ -764,7 +868,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     
     func pickerAction(selectedDate:Date?){
         
-        if selectedPickerType == .date{
+        if selectedPickerType == .date {
             
             guard let pickerDate = selectedDate else{
                 return
@@ -793,7 +897,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
         }
     }
     
-    private func showDatePicker(){
+    private func showDatePicker() {
         
         handleBirthadyFieldScrolling()
         self.isDatePickerIsShowing = true
@@ -808,7 +912,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
 extension EditSessionFormRootView{
     
     //MARK:- PICKER INITILIZATION
-    func initializeTimePicker(){
+    func initializeTimePicker() {
         
         timePickerContainer.frame = self.frame
         timePickerContainer.frame.origin.y = timePickerContainer.frame.origin.y - CGFloat(64)
@@ -1049,15 +1153,31 @@ extension EditSessionFormRootView:CustomPickerDelegate{
 
 extension EditSessionFormRootView {
     
+    func hidePaintChatCalculator(){
+        
+        chatCalculatorHeightConstrait?.priority = UILayoutPriority(rawValue: 999.0)
+    }
+    
+    func showPaintChatCalculator(){
+        
+        chatCalculatorHeightConstrait?.priority = UILayoutPriority(rawValue: 250.0)
+    }
+    
     func paintChatCalculator(){
         
         guard let info = scheduleInfo else{
+            hidePaintChatCalculator()
+            hideBreak()
             return
         }
         guard let startDate = info.startDateTime else{
+            hidePaintChatCalculator()
+            hideBreak()
             return
         }
         guard let endDate = info.endDateTime else{
+            hidePaintChatCalculator()
+            hideBreak()
             return
         }
         
@@ -1066,6 +1186,9 @@ extension EditSessionFormRootView {
         var totalSlots = 0
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
+            hidePaintChatCalculator()
+            hideBreak()
+
             return
         }
         
@@ -1082,6 +1205,8 @@ extension EditSessionFormRootView {
         
         if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
+            showPaintChatCalculator()
+
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
@@ -1093,9 +1218,88 @@ extension EditSessionFormRootView {
             
             mutableStr.append(nextAttrStr)
             chatTotalNumberOfSlots?.attributedText = mutableStr
+            createEmptySlots()
+            return
         }
+        hideBreak()
+        hidePaintChatCalculator()
         Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
+        
+    func createEmptySlots(){
+        
+        guard let info = scheduleInfo else{
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        
+        guard let startTime = info.startDateTime else {
+            hideBreak()
+            return
+        }
+        
+        guard let endTime = info.endDateTime else {
+            hideBreak()
+            return
+        }
+        
+        let timeDiffreneceOfSlots = endTime.timeIntervalSince(startTime)
+
+        let totalminutes = (timeDiffreneceOfSlots/60)
+        guard let duration = self.scheduleInfo?.duration else {
+            hideBreak()
+            return
+        }
+        
+        let totalSlots = Int(totalminutes/Double(duration))
+        self.emptySlotList.removeAll()
+        for i in 0..<totalSlots {
+            
+            let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+            let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+            self.emptySlotList.append(emptySlotObj)
+        }
+        
+        if emptySlotList.count > 0 {
+        
+            self.breakAdapter?.update(emptySlots: emptySlotList)
+            showBreak()
+            return
+        }
+        hideBreak()
+    }
+    
+    func fillEmptySlotSelectionInfo(){
+        
+        if emptySlotList.count > 0 {
+            
+            if self.eventInfo != nil {
+                if let emptySlotArray = self.eventInfo?.emptySlotsArray {
+                    if emptySlotArray.count > 0 {
+                        for i in 0..<emptySlotArray.count {
+                            if let dict = emptySlotArray[i].dictionary {
+                                if let slotNumber = dict["slotNo"]?.int {
+                                    if slotNumber <= 0 {
+                                        continue
+                                    }
+                                    if slotNumber <= self.emptySlotList.count {
+                                        self.emptySlotList[slotNumber-1].isSelected = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            showBreak()
+            self.breakAdapter?.update(emptySlots: emptySlotList)
+            self.showSelectedIndex()
+            return
+        }
+    }
+    
     
     fileprivate func validateSlotTime()->Bool{
         
@@ -1154,7 +1358,8 @@ extension EditSessionFormRootView{
         if let digits = text{
             let digitsArray = digits.components(separatedBy: ".")
             Log.echo(key: "yud", text: "decimal digits count is \( digitsArray.count)")
-            if digitsArray.count >= 3{                
+            if digitsArray.count >= 3{
+                
                 //This is preventing user to insert multiple decimal digits in textfield.
                 return true
             }
@@ -1399,6 +1604,7 @@ extension EditSessionFormRootView{
         
         paintChatCalculator()
         paintMaximumEarningCalculator()
+        fillEmptySlotSelectionInfo()
     }
     
     func getRequiredDateInStr()->String?{
@@ -1460,9 +1666,92 @@ extension EditSessionFormRootView{
     }
     
     
+    
+    func updatescheduleInfoForGetParams(){
+        
+        self.scheduleInfo?.title = titleField?.textField?.text
+        self.scheduleInfo?.startDate = self.dateField?.textField?.text
+        self.scheduleInfo?.startTime = self.timeField?.textField?.text
+        updateStartDateParamForGetParams()
+    }
+    
+    func updateStartDateParamForGetParams(){
+        
+        guard let startDate = getRequiredDateInStr() else {
+            return
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        if let date = dateFormatter.date(from: startDate){
+            self.scheduleInfo?.startDateTime = date
+        }
+        
+        if let newDate = self.scheduleInfo?.startDateTime{
+            
+            let calendar = Calendar.current
+            var date:Date?
+            if  totalTimeOfChat == .thirtyMinutes{
+                
+                date = calendar.date(byAdding: .minute, value: 30, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .oneHour{
+                
+                date = calendar.date(byAdding: .minute, value: 60, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .oneAndHalfHour{
+                
+                date = calendar.date(byAdding: .minute, value: 90, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+                
+            }else if totalTimeOfChat == .twoHour{
+                
+                date = calendar.date(byAdding: .minute, value: 120, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            self.scheduleInfo?.duration = chatDuration
+        }
+        
+        if donationCustomSwitch?.isOn == true{
+            
+            self.scheduleInfo?.tipEnabled = true
+        }else{
+            
+            self.scheduleInfo?.tipEnabled = false
+        }
+        
+        if screenShotCustomSwitch?.isOn == true{
+            
+            self.scheduleInfo?.isScreenShotAllow = true
+        }else{
+            
+            self.scheduleInfo?.isScreenShotAllow = false
+        }
+        
+        if self.priceAmountField?.textField?.text ?? "" != "" {
+            
+            self.scheduleInfo?.doublePrice = Double(self.priceAmountField?.textField?.text ??
+                "0.0")
+            self.scheduleInfo?.isFree = false
+        }else{
+            
+            self.scheduleInfo?.isFree = true
+            self.scheduleInfo?.doublePrice = 0.0
+        }
+        
+//        paintChatCalculator()
+//        paintMaximumEarningCalculator()
+    }
+    
+    
     func getParam()->[String:Any]? {
         
-        updatescheduleInfo()
+        updatescheduleInfoForGetParams()
         
         guard let info = self.scheduleInfo else{
             return nil
@@ -1512,6 +1801,21 @@ extension EditSessionFormRootView{
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
+        
+        var paramsForSlots = [[String:Any]]()
+        if let selectedArray = self.breakAdapter?.emptySlots{
+            for index in 0..<selectedArray.count{
+                if selectedArray[index].isSelected{
+                    if let startDate = selectedArray[index].startDate{
+                        if let endDate = selectedArray[index].endDate{
+                            let info = ["start":"\(startDate)","end":"\(endDate)","slotNo":index+1] as [String : Any]
+                            paramsForSlots.append(info)
+                        }
+                    }
+                }
+            }
+        }
+        param["emptySlots"] = paramsForSlots
         Log.echo(key: "yud", text: "Param are \(param)")
         return param
     }

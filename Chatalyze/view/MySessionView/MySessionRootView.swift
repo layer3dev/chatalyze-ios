@@ -17,13 +17,7 @@ class MySessionRootView:ExtendedView{
         
         initializeVariable()
     }
-    
-    func handleScrollingHeader(direction:MySessionAdapter.scrollDirection){        
-    }
-    
-    func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
-    }
-    
+
     
     func paintNewUI(){
         //to be override

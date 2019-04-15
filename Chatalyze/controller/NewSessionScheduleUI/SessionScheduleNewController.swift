@@ -27,33 +27,33 @@ class SessionScheduleNewController: UIViewController {
         SEGAnalytics.shared().track("Session a Schedule")
     }
     
-    func askForStarterPlanIfNotAskedYet(){
-        
-        guard let userType = SignedUserInfo.sharedInstance?.role else{
-            return
-        }
-        
-        if userType == .user{
-            return
-        }
-        
-        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
-            return
-        }
-        
-        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
-        
-        if !shouldAskForPlan {
-            return
-        }
-        
-        guard let controller = ProFeatureEndTrialController.instance() else{
-            return
-        }
-        
-        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
-        })
-    }
+//    func askForStarterPlanIfNotAskedYet(){
+//        
+//        guard let userType = SignedUserInfo.sharedInstance?.role else{
+//            return
+//        }
+//        
+//        if userType == .user{
+//            return
+//        }
+//        
+//        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
+//            return
+//        }
+//        
+//        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
+//        
+//        if !shouldAskForPlan {
+//            return
+//        }
+//        
+//        guard let controller = ProFeatureEndTrialController.instance() else{
+//            return
+//        }
+//        
+//        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
+//        })
+//    }
     
     func updateProfile(){
         
@@ -61,7 +61,7 @@ class SessionScheduleNewController: UIViewController {
         FetchProfileProcessor().fetch { (suucess, error, response) in
             
             self.stopLoader()
-            self.askForStarterPlanIfNotAskedYet()
+            //self.askForStarterPlanIfNotAskedYet()
         }
     }
     

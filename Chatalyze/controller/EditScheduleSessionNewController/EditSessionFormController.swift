@@ -126,6 +126,19 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    @IBAction func moreDetailBreakAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .breakScroll
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
     
     
     func load(){
@@ -183,6 +196,23 @@ class EditSessionFormController: InterfaceExtendedController {
             self.rootView?.planInfo = info
            
             Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
+        }
+    }
+    
+    
+    func cancelSession(){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        self.showLoader()
+        CancelSessionProcessor().cancel(id: "\(id)") {(success, response) in
+            
+            DispatchQueue.main.async {
+                
+                self.stopLoader()
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     

@@ -83,7 +83,6 @@ class MyTicketsController: InterfaceExtendedController{
     }
     
     func refreshData(){
-        
         fetchInfo()
     }
     

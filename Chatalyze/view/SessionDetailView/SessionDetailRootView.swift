@@ -80,7 +80,7 @@ class SessionDetailRootView: ExtendedView {
             self.info = info
             self.reloadAdapter()
             
-            Log.echo(key: "yud", text: "Time difference ibetween the ens and current time  \(Date().timeIntervalSince(info.endDate ?? Date()))")
+            Log.echo(key: "yud", text: " Time difference in between the end and current time \(Date().timeIntervalSince(info.endDate ?? Date()))")
             
             if Date().timeIntervalSince(info.endDate ?? Date()) > 0.0{
                 self.cancelView?.isHidden = true

@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 
 class SignedUserInfo: UserInfo , NSCoding{
+
+    
     var accessToken : String?
     var notificationCount : Int = 0
     private static var _sharedInstance : SignedUserInfo?
