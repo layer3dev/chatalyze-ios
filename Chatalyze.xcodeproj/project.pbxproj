@@ -74,6 +74,8 @@
 		471CC86D216243AC00DB5E8C /* MyTicketsVerticalRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471CC86C216243AC00DB5E8C /* MyTicketsVerticalRootView.swift */; };
 		471CC86F216243FB00DB5E8C /* MyTicketsVerticalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471CC86E216243FB00DB5E8C /* MyTicketsVerticalCell.swift */; };
 		471CC8752162463C00DB5E8C /* MyTicketesVerticalAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471CC8742162463C00DB5E8C /* MyTicketesVerticalAdapter.swift */; };
+		4723081C2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4723081B2264B3CE00B4540E /* UserTicketUI.storyboard */; };
+		4723081D2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4723081B2264B3CE00B4540E /* UserTicketUI.storyboard */; };
 		47269C1122422546000327FD /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47269C0F22422546000327FD /* CustomPicker.swift */; };
 		47269C1222422546000327FD /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47269C0F22422546000327FD /* CustomPicker.swift */; };
 		47269C1322422546000327FD /* CustomPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47269C1022422546000327FD /* CustomPicker.xib */; };
@@ -1268,6 +1270,7 @@
 		471CC86C216243AC00DB5E8C /* MyTicketsVerticalRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsVerticalRootView.swift; sourceTree = "<group>"; };
 		471CC86E216243FB00DB5E8C /* MyTicketsVerticalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketsVerticalCell.swift; sourceTree = "<group>"; };
 		471CC8742162463C00DB5E8C /* MyTicketesVerticalAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTicketesVerticalAdapter.swift; sourceTree = "<group>"; };
+		4723081B2264B3CE00B4540E /* UserTicketUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserTicketUI.storyboard; sourceTree = "<group>"; };
 		47269C0F22422546000327FD /* CustomPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		47269C1022422546000327FD /* CustomPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPicker.xib; sourceTree = "<group>"; };
 		472780E520B02D2B00D5AA1E /* MemoriesRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesRootView.swift; sourceTree = "<group>"; };
@@ -4582,6 +4585,7 @@
 				47BAEDA122005A720042588A /* SessionScheduleNew.storyboard */,
 				477B4A9222560B3B001051F6 /* ScheduleSessionSinglePage.storyboard */,
 				47310D032212D149009D049C /* Tipping.storyboard */,
+				4723081B2264B3CE00B4540E /* UserTicketUI.storyboard */,
 				4713358B222FFA4B002E2994 /* ProFeature.storyboard */,
 			);
 			path = storyboard;
@@ -5333,6 +5337,7 @@
 				47D0B1A821A6C4B5006376A8 /* Main.storyboard in Resources */,
 				47D0B1A921A6C4B5006376A8 /* Welcome.storyboard in Resources */,
 				47D0B1AA21A6C4B5006376A8 /* ScheduleSession.storyboard in Resources */,
+				4723081D2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */,
 				47A4D44F21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */,
 				47D0B1AB21A6C4B5006376A8 /* beep.aiff in Resources */,
 				FA91056B21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
@@ -5404,6 +5409,7 @@
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
 				470F0B6A21521D1F003F8EE7 /* Welcome.storyboard in Resources */,
 				47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */,
+				4723081C2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */,
 				47A4D44E21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */,
 				47E233652105F40300468412 /* beep.aiff in Resources */,
 				FA91056A21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
@@ -6741,7 +6747,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6757,7 +6763,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -6775,7 +6781,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6791,7 +6797,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";

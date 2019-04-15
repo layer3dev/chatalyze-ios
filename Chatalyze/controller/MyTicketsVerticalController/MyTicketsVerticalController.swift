@@ -240,6 +240,4 @@ extension MyTicketsVerticalController{
             }
         }
     }
-    
-    
 }

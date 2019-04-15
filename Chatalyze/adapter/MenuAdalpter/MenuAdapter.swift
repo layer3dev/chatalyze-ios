@@ -15,7 +15,6 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-    //var analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
     var analystArray = ["My Sessions","Settings","Contact Us"]
     var userArray = ["My Tickets","Memories", "Settings"]
     
@@ -24,66 +23,68 @@ class MenuAdapter: ExtendedView {
     override func viewDidLayout(){
         super.viewDidLayout()
         
-        updateSideBarWithList()
+        //updateSideBarWithList()
         initialize()
     }
     
-    func updateSideBarWithList(){
-        
-//        Log.echo(key: "yud", text: "Does this plan exists \(SignedUserInfo.sharedInstance?.isSubscriptionPlanExists) Subscription plan identifier is \(SignedUserInfo.sharedInstance?.planIdentifier) and the subscription plan id is \(SignedUserInfo.sharedInstance?.planId) is trial activated  \(SignedUserInfo.sharedInstance?.isTrialPlanActive)")
-        
-        //For old user
-        if SignedUserInfo.sharedInstance?.isSubscriptionPlanExists ?? false == false {
-            
-            analystArray = ["My Sessions","Settings","Contact Us"]
-            return
-        }
-        
-        // For new starter user
-        
-        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == true {
-          
-            analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
-            return
-        }
-        
-        //For new pro users
-        
-        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == false{
-            
-            analystArray = ["My Sessions","Settings","Contact Us"]
-            return
-        }
-        
-        //For the users who have any other plan othe than pro.
-        
-        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" != "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == false{
-            
-            analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
-            return
-        }
+//    func updateSideBarWithList(){
+//
+////        Log.echo(key: "yud", text: "Does this plan exists \(SignedUserInfo.sharedInstance?.isSubscriptionPlanExists) Subscription plan identifier is \(SignedUserInfo.sharedInstance?.planIdentifier) and the subscription plan id is \(SignedUserInfo.sharedInstance?.planId) is trial activated  \(SignedUserInfo.sharedInstance?.isTrialPlanActive)")
+//
+//        //For old user
+//        if SignedUserInfo.sharedInstance?.isSubscriptionPlanExists ?? false == false {
+//
+//            analystArray = ["My Sessions","Settings","Contact Us"]
+//            return
+//        }
+//
+//        // For new starter user
+//
+//        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == true {
+//
+//            analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
+//            return
+//        }
+//
+//        //For new pro users
+//
+//        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" == "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == false{
+//
+//            analystArray = ["My Sessions","Settings","Contact Us"]
+//            return
+//        }
+//
+//        //For the users who have any other plan othe than pro.
+//
+//        if SignedUserInfo.sharedInstance?.planIdentifier ?? "" != "pro" && SignedUserInfo.sharedInstance?.isTrialPlanActive == false{
+//
+//            analystArray = ["My Sessions","Settings","Contact Us","Chatalyze Pro"]
+//            return
+//        }
+//
+//    }
     
-    }
+//    func reloadDataAfterFetchingData(){
+//
+//        Log.echo(key: "MenuAdapter", text: "Reloading my self")
+//        updateSideBarWithList()
+//        guard let roleId = SignedUserInfo.sharedInstance?.role else{
+//            return
+//        }
+//        if roleId == .analyst{
+//
+//            currentArray = analystArray
+//        }else{
+//
+//            currentArray = userArray
+//        }
+//
+//        menuTableView?.dataSource = self
+//        menuTableView?.delegate = self
+//        menuTableView?.reloadData()
+//    }
     
-    func reloadDataAfterFetchingData(){
-  
-        Log.echo(key: "MenuAdapter", text: "Reloading my self")
-        updateSideBarWithList()
-        guard let roleId = SignedUserInfo.sharedInstance?.role else{
-            return
-        }
-        if roleId == .analyst{
-            
-            currentArray = analystArray
-        }else{
-            
-            currentArray = userArray
-        }
-        
-        menuTableView?.dataSource = self
-        menuTableView?.delegate = self
-        menuTableView?.reloadData()
-    }
+    
     func initialize(){
         
         guard let roleId = SignedUserInfo.sharedInstance?.role else{

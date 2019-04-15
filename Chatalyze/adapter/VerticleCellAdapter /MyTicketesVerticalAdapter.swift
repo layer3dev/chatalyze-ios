@@ -66,7 +66,6 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return ticketsListingArray.count
-        //return ticketsListingArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
