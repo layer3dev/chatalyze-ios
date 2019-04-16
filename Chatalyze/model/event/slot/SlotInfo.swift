@@ -188,6 +188,7 @@ class SlotInfo: SlotTimeInfo {
 }
 
 extension SlotInfo : NSCopying{
+    
     func copy(with zone: NSZone? = nil) -> Any {
         let copy = SlotInfo(info: self.json)
         return copy
