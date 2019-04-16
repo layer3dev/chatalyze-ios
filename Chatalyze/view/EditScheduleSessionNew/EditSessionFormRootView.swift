@@ -34,18 +34,6 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBOutlet var priceAmountHieghtConstrait:NSLayoutConstraint?
     
-    enum slotDurationMin:Int{
-        
-        case two = 0
-        case three = 1
-        case five = 2
-        case ten = 3
-        case fifteen = 4
-        case thirty = 5
-        case sixty = 6
-        case none = 7
-    }
-    
     enum totalChatDuration:Int{
         
         case thirtyMinutes = 0
@@ -55,7 +43,7 @@ class EditSessionFormRootView:ExtendedView {
         case none = 4
     }
     
-    var slotSelected:slotDurationMin = .none
+    var slotSelected:Int?
     @IBOutlet var slotDurationErrorLbl:UILabel?
     @IBOutlet var chatCalculatorLbl:UILabel?
     @IBOutlet var chatTotalNumberOfSlots:UILabel?
@@ -100,8 +88,7 @@ class EditSessionFormRootView:ExtendedView {
     fileprivate var isTimePickerIsShowing = false
     
     var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
-
-    var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins"]
+    var chatLengthArray = [String]()
     
     let chatLengthPicker = CustomPicker()
     let sessionLengthPicker = CustomPicker()
@@ -363,43 +350,12 @@ class EditSessionFormRootView:ExtendedView {
         self.dateField?.textField?.text = desiredDate
         self.timeField?.textField?.text = desiredTime
         
-        if eventInfo.duration == 2{
-            
-            slotSelected = .two
-            self.chatLength?.textField?.text =  chatLengthArray[0]
-        }
-        if eventInfo.duration == 3{
-            
-            slotSelected = .three
-            self.chatLength?.textField?.text =  chatLengthArray[1]
-        }
-        if eventInfo.duration == 5{
-           
-            slotSelected = .five
-            self.chatLength?.textField?.text =  chatLengthArray[2]
-        }
-        if eventInfo.duration == 10{
-            
-            slotSelected = .ten
-            self.chatLength?.textField?.text =  chatLengthArray[3]
-        }
-        if eventInfo.duration == 15{
-           
-            slotSelected = .fifteen
-            self.chatLength?.textField?.text =  chatLengthArray[4]
-        }
-        if eventInfo.duration == 30 {
-           
-            slotSelected = .thirty
-            self.chatLength?.textField?.text =  chatLengthArray[5]
-        }
-        if eventInfo.duration == 60 {
-            
-            if chatLengthArray.count > 6 {
-                
-                slotSelected = .sixty
-                self.chatLength?.textField?.text =  chatLengthArray[6]
-            }
+        slotSelected = Int(eventInfo.duration ?? 0.0)
+     
+        if slotSelected ?? 0 <= 1 {
+            self.chatLength?.textField?.text = "\(slotSelected ?? 0) min"
+        }else{
+            self.chatLength?.textField?.text = "\(slotSelected ?? 0) mins"
         }
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
@@ -504,12 +460,11 @@ class EditSessionFormRootView:ExtendedView {
     
     func showSelectedIndex(){
         
-        Log.echo(key: "yud", text: "Selected adapter empty slots are \(breakAdapter?.emptySlots)")
-    
         if let selectedBreakArray = breakAdapter?.emptySlots {
             
             var str = ""
             for index in 0..<selectedBreakArray.count {
+                
                 if str == "" && selectedBreakArray[index].isSelected{
                     str.append("\(index+1)")
                     continue
@@ -793,7 +748,8 @@ extension EditSessionFormRootView {
     
     func validateBalanceBetweenSessionAndChatLength()->Bool{
         
-        if slotSelected == .sixty && totalTimeOfChat == .thirtyMinutes{
+        if slotSelected == 60 && totalTimeOfChat == .thirtyMinutes{
+            
             sessionLength?.showError(text: "Session length must be greater or equal to the chat length.")
             return false
         }
@@ -1006,7 +962,7 @@ extension EditSessionFormRootView{
 
 extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     
-    func initializeChatLengthPicker(){
+    func  initializeChatLengthPicker(){
         
         chatLengthPicker.frame = self.frame
         chatLengthPicker.frame.origin.y = chatLengthPicker.frame.origin.y - CGFloat(64)
@@ -1057,7 +1013,7 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == chatLengthPicker.picker {
-            return chatLengthArray[row] as String
+            return (chatLengthArray[row]+"\(Int(chatLengthArray[row]) ?? 0 <= 1 ? " min":" mins")") as String
         }
         
         if pickerView == sessionLengthPicker.picker {
@@ -1070,30 +1026,19 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if pickerView == chatLengthPicker.picker {
+
+            if chatLengthArray.count <= 0 {
+                return
+            }
             
-            chatLength?.textField?.text = chatLengthArray[row]
-            
-            if row == 0{
-                slotSelected = .two
+            if Int(chatLengthArray[row]) ?? 0 <= 1 {
+                
+                chatLength?.textField?.text = chatLengthArray[row] + " min"
+            }else{
+               
+                chatLength?.textField?.text = chatLengthArray[row] + " mins"
             }
-            if row == 1{
-                slotSelected = .three
-            }
-            if row == 2{
-                slotSelected = .five
-            }
-            if row == 3{
-                slotSelected = .ten
-            }
-            if row == 4{
-                slotSelected = .fifteen
-            }
-            if row == 5{
-                slotSelected = .thirty
-            }
-            if row == 6{
-                slotSelected = .sixty
-            }
+            slotSelected = Int(chatLengthArray[row])
             return
         }
         
@@ -1134,11 +1079,20 @@ extension EditSessionFormRootView:CustomPickerDelegate{
         if type == .chatLength{
             
             if chatLengthPicker.picker?.selectedRow(inComponent: 0) == 0 {
-                chatLength?.textField?.text = chatLengthArray[0]
-                slotSelected = .two
+//                chatLength?.textField?.text = chatLengthArray[0]
+//                slotSelected = Int(chatLengthArray[0])
+                
+                if chatLengthArray.count >= 1 {
+                   
+                    if Int(chatLengthArray[0]) ?? 0 <= 1 {
+                        chatLength?.textField?.text = chatLengthArray[0] + " min"
+                    }else{
+                        chatLength?.textField?.text = chatLengthArray[0] + " mins"
+                    }
+                    slotSelected = Int(chatLengthArray[0])
+                }
             }
         }
-        
         hidePicker()
         updatescheduleInfo()
         paintChatCalculator()
@@ -1181,9 +1135,9 @@ extension EditSessionFormRootView {
         var totalSlots = 0
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
+           
             hidePaintChatCalculator()
             hideBreak()
-
             return
         }
         
@@ -1298,7 +1252,7 @@ extension EditSessionFormRootView {
     
     fileprivate func validateSlotTime()->Bool{
         
-        if(slotSelected == .none){
+        if(slotSelected == 0){
             
             chatLength?.showError(text:"Chat length is required.")
             return false
@@ -1629,38 +1583,10 @@ extension EditSessionFormRootView{
     }
     
     var chatDuration:Int?{
-        
         get{
-            
-            if slotSelected == .none {
-                return nil
-            }
-            if slotSelected == .two {
-                return 2
-            }
-            if slotSelected == .three {
-                return 3
-            }
-            if slotSelected == .five {
-                return 5
-            }
-            if slotSelected == .ten {
-                return 10
-            }
-            if slotSelected == .fifteen {
-                return 15
-            }
-            if slotSelected == .thirty {
-                return 30
-            }
-            if slotSelected == .sixty {
-                return 60
-            }
-            return nil
+            return self.slotSelected
         }
     }
-    
-    
     
     func updatescheduleInfoForGetParams(){
         

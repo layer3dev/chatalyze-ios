@@ -28,7 +28,8 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
         
         self.showLoader()
         GetPlanRequestProcessor().fetch { (success,error,response) in
-            self.stopLoader()
+        
+            self.fetchSupportedChats()
             if !success {
                 return
             }
@@ -39,8 +40,33 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
             
             let info = PlanInfo(info: response)
             self.rootView?.scheduleInfo?.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
-            
             self.rootView?.planInfo = info
+        }
+    }
+    
+    override func fetchSupportedChats(){
+        
+        FetchSupportedChats().fetch { (success,error,response) in
+            
+            DispatchQueue.main.async {
+                
+                self.stopLoader()
+                if !success{
+                    return
+                }
+                guard let info = response else {
+                    return
+                }
+                let supportedChatsJSONArray = info.arrayValue
+                var requiredChats = [String]()
+                for info in supportedChatsJSONArray{
+                    if let existInfo = info.string{
+                        requiredChats.append(existInfo)
+                    }
+                }
+                self.rootView?.chatLengthArray = requiredChats                
+                self.rootInitialization()
+            }
         }
     }
     
@@ -65,7 +91,7 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
         showNavigationBar()
     }
     
-    override var rootView:ScheduleSessionSinglePageRootView?{
+    override var rootView:ScheduleSessionSinglePageRootView? {
         return self.view as? ScheduleSessionSinglePageRootView
     }
    

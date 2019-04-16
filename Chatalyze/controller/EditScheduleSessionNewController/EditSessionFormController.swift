@@ -140,7 +140,6 @@ class EditSessionFormController: InterfaceExtendedController {
     
     func load(){
        
-        self.showLoader()
         self.rootView?.controller = self
         fetchMinimumPlanPriceToScheuleIfExists()
         paintInterface()
@@ -149,7 +148,7 @@ class EditSessionFormController: InterfaceExtendedController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        rootInitialization()
+        
     }
     
     
@@ -159,7 +158,6 @@ class EditSessionFormController: InterfaceExtendedController {
             
             self.rootView?.initializeVariable()
             self.rootView?.fillInfo(info:self.eventInfo)
-            self.stopLoader()
         }
     }
     
@@ -172,13 +170,17 @@ class EditSessionFormController: InterfaceExtendedController {
     }
 
     var rootView:EditSessionFormRootView?{
+        
         return self.view as? EditSessionFormRootView
     }    
     
-    func fetchMinimumPlanPriceToScheuleIfExists(){
+    func fetchMinimumPlanPriceToScheuleIfExists() {
         
+        self.showLoader()
         GetPlanRequestProcessor().fetch { (success,error,response) in
-         
+            
+            self.fetchSupportedChats()
+            
             if !success {
                 return
             }
@@ -189,10 +191,35 @@ class EditSessionFormController: InterfaceExtendedController {
             
             let info = PlanInfo(info: response)
             self.rootView?.scheduleInfo?.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
-            
             self.rootView?.planInfo = info
-           
+            
             Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
+        }
+    }
+    
+    func fetchSupportedChats(){
+        
+        FetchSupportedChats().fetch { (success,error,response) in
+            
+            DispatchQueue.main.async {
+             
+                self.stopLoader()
+                if !success{
+                    return
+                }
+                guard let info = response else {
+                    return
+                }
+                let supportedChatsJSONArray = info.arrayValue
+                var requiredChats = [String]()
+                for info in supportedChatsJSONArray{
+                    if let existInfo = info.string{
+                        requiredChats.append(existInfo)
+                    }
+                }
+                self.rootView?.chatLengthArray = requiredChats
+                self.rootInitialization()
+            }
         }
     }
     
