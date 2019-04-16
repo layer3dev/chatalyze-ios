@@ -136,10 +136,7 @@ class EditSessionFormController: InterfaceExtendedController {
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: true) {
         }
-        
     }
-    
-    
     
     func load(){
        

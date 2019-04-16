@@ -28,6 +28,12 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     var fromattedEndDate:String?
     
     @IBOutlet var joinButtonContainer:UIView?
+    @IBOutlet var joinButtonLayerView:UIView?
+    @IBOutlet var mainView:UIView?
+    
+    @IBOutlet var profileImage:UIImageView?
+    
+    @IBOutlet var hostName:UILabel?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -36,27 +42,72 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     }
     
     func paintInterface(){
-                
-        self.separatorInset.bottom = 20
+        
+        self.separatorInset.bottom = 2
         self.selectionStyle = .none
-        self.borderView?.layer.borderWidth = 4
-        self.borderView?.layer.borderColor = UIColor(red: 241.0/255.0, green: 244.0/255.0, blue: 245.0/255.0, alpha: 1).cgColor
-        self.joinButtonContainer?.layer.cornerRadius = 5
-        self.joinButtonContainer?.layer.masksToBounds = true
+        self.profileImage?.layer.borderWidth = UIDevice.current.userInterfaceIdiom == .pad ? 2:1
+        self.profileImage?.layer.borderColor = UIColor.white.cgColor
+        self.profileImage?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 3:2
+        self.profileImage?.layer.masksToBounds = true
+        
     }
     
+    func paintGradientColorOnJoinSessionButton(){
+        
+        let reqLayer = CAGradientLayer()
+        reqLayer.colors = [UIColor(red: 65.0/255.0, green: 166.0/255.0, blue: 248.0/255.0, alpha: 1).cgColor,UIColor(red: 100.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1).cgColor,UIColor(red: 148.0/255.0, green: 205.0/255.0, blue: 250.0/255.0, alpha: 1).cgColor]
+        reqLayer.frame = self.joinButtonContainer?.bounds ?? CGRect.zero
+        reqLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
+        reqLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        self.joinButtonLayerView?.layer.addSublayer(reqLayer)
+        self.joinButtonContainer?.layer.cornerRadius = (self.joinButtonContainer?.frame.size.height ?? 0.0)/2
+        self.joinButtonContainer?.layer.masksToBounds = true
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        paintGradientColorOnJoinSessionButton()
+        self.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 6:3, scale: true, layerCornerRadius: 0.0)
+    }
     
     func fillInfo(info:EventSlotInfo?){
         
-        guard let info = info else{
+        guard let info = info else {
             return
         }
         self.info = info
         self.chatnumberLbl?.text = String(info.slotNo ?? 0)
         initializeDesiredDatesFormat(info:info)
-//      self.title?.text = "Chat with \(info.eventTitle ?? "")"
         self.title?.text = "\(info.eventTitle ?? "")"
+        self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
+        if let bannerUrl = info.callschedule?.eventBannerUrl{
+            if let url = URL(string:bannerUrl){
+                
+                profileImage?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                })
+                return
+            }
+            fetchProfileImage()
+            return
+        }
+        fetchProfileImage()
     }
+        
+    func fetchProfileImage(){
+        
+        if let profileImage = info?.callschedule?.user?.profileImage{
+            if let url = URL(string:profileImage){
+                
+                self.profileImage?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                })
+                return
+            }
+            return
+        }
+    }
+    
     
     func initializeDesiredDatesFormat(info:EventSlotInfo){
         
@@ -66,7 +117,6 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.startDateLbl?.text = self.formattedStartDate
     }
     
-    
     var _formattedStartTime:String?{
         
         get{
@@ -75,11 +125,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            
             formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
-            
-            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
-            
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEE, MMM dd, yyyy")
             formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
         }
     }
@@ -104,7 +151,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
         let uploadAction = UIAlertAction(title: "Update App", style: UIAlertAction.Style.default) { (success) in
-           
+            
             HandlingAppVersion.goToAppStoreForUpdate()
         }
         
@@ -120,7 +167,6 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         alertActionSheet.addAction(callRoomAction)
         alertActionSheet.addAction(cancel)
         
-        //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
         if let presenter = alertActionSheet.popoverPresentationController {
             
@@ -128,30 +174,16 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             alertActionSheet.popoverPresentationController?.sourceRect = joinButtonContainer?.frame ?? self.frame
         }
         
-        
-//        if let presenter = alertActionSheet.popoverPresentationController {
-//
-//            alertActionSheet.popoverPresentationController?.sourceView =                 RootControllerManager().getCurrentController()?.view
-//            alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
-//        }
-        
-        
         self.rootAdapter?.root?.controller?.present(alertActionSheet, animated: true) {
-        }        
-        
-        //self.root?.controller?.present
+        }
     }
     
     @IBAction func jointEvent(send:UIButton?){
-        
-      //  CGRect(
-        Log.echo(key: "yud", text: "Sener is \(send) and the self frame is \(self.frame)")
         
         if HandlingAppVersion().getAlertMessage() != "" {            
             showAlert(sender: send ?? UIButton())
             return
         }
-        Log.echo(key: "yud", text: "Joint Event is calling!!")        
         delegate?.jointEvent(info:self.info)
     }
     

@@ -202,7 +202,7 @@ class MyTicketsVerticalController: MyTicketsController{
     
     override class func instance()->MyTicketsVerticalController?{
         
-        let storyboard = UIStoryboard(name: "Account", bundle: nil)
+        let storyboard = UIStoryboard(name: "UserTicketUI", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "MyTicketsVertical") as? MyTicketsVerticalController
         return controller
     }

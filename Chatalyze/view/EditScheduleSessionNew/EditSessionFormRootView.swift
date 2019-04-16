@@ -27,9 +27,8 @@ class EditSessionFormRootView:ExtendedView {
     var isBreakShowing = false
     
     @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
-    @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     
-    //********
+    @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
     
@@ -64,7 +63,6 @@ class EditSessionFormRootView:ExtendedView {
 
     var totalTimeOfChat:totalChatDuration = .none
     
-    //***
     var scheduleInfo:ScheduleSessionInfo? = ScheduleSessionInfo()
     
     var planInfo:PlanInfo?
@@ -79,7 +77,6 @@ class EditSessionFormRootView:ExtendedView {
     var selectedPickerType:pickerType = .none
 
     @IBOutlet var breakField:SigninFieldView?
-
     
     @IBOutlet var titleField:SigninFieldView?
     @IBOutlet var dateField:SigninFieldView?
@@ -103,7 +100,7 @@ class EditSessionFormRootView:ExtendedView {
     fileprivate var isTimePickerIsShowing = false
     
     var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
-    //var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins","60 mins"]
+
     var chatLengthArray = ["2 mins","3 mins","5 mins","10 mins","15 mins","30 mins"]
     
     let chatLengthPicker = CustomPicker()
@@ -133,7 +130,7 @@ class EditSessionFormRootView:ExtendedView {
         return dateInStr
     }
     
-    var desiredTime:String{
+    var desiredTime:String {
         
         guard let startDate = self.eventInfo?.startDate else{
             return ""
@@ -146,8 +143,6 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     //MARK:- Segment.io Tracking Methods
-    //To be overridden
-    
     func titleTracking(){
     }
     
@@ -1637,28 +1632,28 @@ extension EditSessionFormRootView{
         
         get{
             
-            if slotSelected == .none{
+            if slotSelected == .none {
                 return nil
             }
-            if slotSelected == .two{
+            if slotSelected == .two {
                 return 2
             }
-            if slotSelected == .three{
+            if slotSelected == .three {
                 return 3
             }
-            if slotSelected == .five{
+            if slotSelected == .five {
                 return 5
             }
-            if slotSelected == .ten{
+            if slotSelected == .ten {
                 return 10
             }
-            if slotSelected == .fifteen{
+            if slotSelected == .fifteen {
                 return 15
             }
-            if slotSelected == .thirty{
+            if slotSelected == .thirty {
                 return 30
             }
-            if slotSelected == .sixty{
+            if slotSelected == .sixty {
                 return 60
             }
             return nil
