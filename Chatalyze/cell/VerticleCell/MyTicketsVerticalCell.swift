@@ -13,7 +13,7 @@ import SDWebImage
 class MyTicketsVerticalCell: ExtendedTableCell {
     
     var rootAdapter:MyTicketesVerticalAdapter?
-    
+
     @IBOutlet var borderView:UIView?
     @IBOutlet var chatnumberLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -32,7 +32,6 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     @IBOutlet var mainView:UIView?
     
     @IBOutlet var profileImage:UIImageView?
-    
     @IBOutlet var hostName:UILabel?
     
     override func viewDidLayout() {
@@ -41,7 +40,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         paintInterface()
     }
     
-    func paintInterface(){
+    func paintInterface() {
         
         self.separatorInset.bottom = 2
         self.selectionStyle = .none
@@ -49,10 +48,9 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.profileImage?.layer.borderColor = UIColor.white.cgColor
         self.profileImage?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 3:2
         self.profileImage?.layer.masksToBounds = true
-        
     }
     
-    func paintGradientColorOnJoinSessionButton(){
+    func paintGradientColorOnJoinSessionButton() {
         
         let reqLayer = CAGradientLayer()
         reqLayer.colors = [UIColor(red: 65.0/255.0, green: 166.0/255.0, blue: 248.0/255.0, alpha: 1).cgColor,UIColor(red: 100.0/255.0, green: 183.0/255.0, blue: 250.0/255.0, alpha: 1).cgColor,UIColor(red: 148.0/255.0, green: 205.0/255.0, blue: 250.0/255.0, alpha: 1).cgColor]
@@ -62,14 +60,20 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.joinButtonLayerView?.layer.addSublayer(reqLayer)
         self.joinButtonContainer?.layer.cornerRadius = (self.joinButtonContainer?.frame.size.height ?? 0.0)/2
         self.joinButtonContainer?.layer.masksToBounds = true
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         paintGradientColorOnJoinSessionButton()
-        self.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 6:3, scale: true, layerCornerRadius: 0.0)
+        
+        self.contentView.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:6, scale: true, layerCornerRadius: 0.0)
+        
+        mainView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        
+        mainView?.layer.masksToBounds = true
+        
+        //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
     }
     
     func fillInfo(info:EventSlotInfo?){
@@ -127,7 +131,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             let date = newValue
             formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
             formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEE, MMM dd, yyyy")
-            formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
+            formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "") \(TimeZone.current.abbreviation() ?? "")"
         }
     }
     

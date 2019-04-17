@@ -246,7 +246,7 @@ class HostDashboardController: MyScheduledSessionsController {
                 return
             }
             
-//            guard let controller = BreakController.instance() else{
+//            guard let controller = ScheduleSessionSinglePageDoneController.instance() else{
 //                return
 //            }
             
