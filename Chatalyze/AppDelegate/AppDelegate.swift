@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.default().remove(InAppPurchaseObserver.sharedInstance)
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask{
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask {
         
         if(allowRotate){
             return .allButUpsideDown
@@ -118,7 +118,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func registerForPushNotifications() {
-        
         
         if #available(iOS 10.0, *){
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
