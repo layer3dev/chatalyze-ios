@@ -20,15 +20,9 @@ class MyTicketsRootView:ExtendedView{
     }    
     
     func fillInfo(info:[EventSlotInfo]?){
-        
-//        guard let info = info else {
-//            return
-//        }
-//        adapter?.initailizeAdapter(info:info)
     }
     
     func initializeLayout(){
     }
     
-   
 }

@@ -44,7 +44,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         
         self.separatorInset.bottom = 2
         self.selectionStyle = .none
-        self.profileImage?.layer.borderWidth = UIDevice.current.userInterfaceIdiom == .pad ? 2:1
+        self.profileImage?.layer.borderWidth = UIDevice.current.userInterfaceIdiom == .pad ? 3:2
         self.profileImage?.layer.borderColor = UIColor.white.cgColor
         self.profileImage?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 3:2
         self.profileImage?.layer.masksToBounds = true
@@ -67,12 +67,11 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         
         paintGradientColorOnJoinSessionButton()
         
-        self.contentView.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:6, scale: true, layerCornerRadius: 0.0)
+        self.contentView.dropShadow(color: UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1), opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:6, scale: true, layerCornerRadius: 0.0)
         
         mainView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
         
         mainView?.layer.masksToBounds = true
-        
         //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
     }
     

@@ -30,7 +30,8 @@ class ScheduleSessionSinglePageDoneController: InterfaceExtendedController {
         copyView?.layer.borderWidth = 1
         copyView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
         
-        dataView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        dataView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
+        
         
         self.paintText()
         self.setSharableUrlText()
@@ -41,6 +42,12 @@ class ScheduleSessionSinglePageDoneController: InterfaceExtendedController {
         backToMyProfile?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         backToMyProfile?.layer.masksToBounds = true
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        dataView?.dropShadow(color: UIColor.lightGray, opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:5, scale: true , layerCornerRadius: UIDevice.current.userInterfaceIdiom == .pad ? 7:5)
     }
     
     func paintInterface(){

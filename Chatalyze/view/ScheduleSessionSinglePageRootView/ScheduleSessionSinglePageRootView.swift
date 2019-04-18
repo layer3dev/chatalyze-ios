@@ -33,9 +33,16 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
                     return
                 }
                 SEGAnalytics.shared().track("Session Scheduled")
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session created successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in                    
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
-                })
+
+                //self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session created successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                //
+                //                })
+                
+                guard let controller = ScheduleSessionSinglePageDoneController.instance() else{
+                    return
+                }
+                
+                self.controller?.navigationController?.pushViewController(controller, animated: true)
             }
         }
     }

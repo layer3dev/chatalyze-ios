@@ -112,7 +112,6 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func initialize(){
       
-        //sharingTextFld?.delegate = self
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
@@ -246,10 +245,6 @@ class HostDashboardController: MyScheduledSessionsController {
                 return
             }
             
-//            guard let controller = ScheduleSessionSinglePageDoneController.instance() else{
-//                return
-//            }
-            
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }
@@ -327,4 +322,5 @@ class HostDashboardController: MyScheduledSessionsController {
         
         self.toggle()
     }
+    
 }

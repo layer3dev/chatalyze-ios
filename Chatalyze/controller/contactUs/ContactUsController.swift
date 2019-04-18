@@ -52,7 +52,6 @@ class ContactUsController: InterfaceExtendedController {
         
         nameField?.attributedPlaceholder =
             NSAttributedString(string: "Full name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
-        
     }
     
     func painteInterface(){
