@@ -319,7 +319,6 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     @IBAction func menuAction(sender:UIButton){
-        
         self.toggle()
     }
     
