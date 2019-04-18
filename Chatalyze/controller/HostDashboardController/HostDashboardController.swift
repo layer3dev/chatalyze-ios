@@ -245,7 +245,12 @@ class HostDashboardController: MyScheduledSessionsController {
                 return
             }
             
+//            guard let controller = AchievmentsController.instance() else{
+//                return
+//            }
+            
             self.navigationController?.pushViewController(controller, animated: false)
+
         }
     }
     
