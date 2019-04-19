@@ -33,9 +33,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        
         self.myTicketsVerticalTableView?.layer.removeAllAnimations()
-        
         self.heightOfTableViewContainer?.constant = myTicketsVerticalTableView?.contentSize.height ?? 0.0
         self.updateConstraints()
         self.layoutIfNeeded()
@@ -94,7 +92,6 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
         
         return UITableView.automaticDimension
     }
-    
 }
 
 
@@ -130,14 +127,14 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
+        
         controller.onlySystemTest = true
         
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
     
     func refreshData() {
-        
     }
 }

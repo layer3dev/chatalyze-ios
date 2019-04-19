@@ -92,7 +92,7 @@ class ScheduleSessionSinglePageDoneController: InterfaceExtendedController {
             let textOne = "Important:"
             let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
             
-            let textTwo = " Sessions are not discoverable unless you share your profile link."
+            let textTwo = " Sessions aren't discoverable unless you share your profile link."
             let texttwoAttr = textTwo.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
             
             textOneMutable.append(texttwoAttr)

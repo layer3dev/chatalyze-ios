@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class HostDashboardController: MyScheduledSessionsController {
     
     @IBOutlet var testingLabel:UILabel?
@@ -109,7 +108,6 @@ class HostDashboardController: MyScheduledSessionsController {
         str  = str.replacingOccurrences(of: " ", with: "")
     }
     
-    
     func initialize(){
       
         roundSessionButton()
@@ -143,7 +141,6 @@ class HostDashboardController: MyScheduledSessionsController {
             scheduleSessionBtnContainer?.layer.masksToBounds = true
             return
         }
-        
         scheduleSessionBtnContainer?.layer.cornerRadius = 3
         scheduleSessionBtnContainer?.layer.masksToBounds = true
     }
@@ -240,17 +237,21 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBAction func scheduleSessionAction(sender:UIButton){
             
         DispatchQueue.main.async {
-            
+
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
             
-//            guard let controller = AchievmentsController.instance() else{
+//            guard let controller = ScheduleSessionSinglePageDoneController.instance() else {
+//                return
+//            }
+//
+            
+            //            guard let controller = AchievmentsController.instance() else {
 //                return
 //            }
             
             self.navigationController?.pushViewController(controller, animated: false)
-
         }
     }
     
