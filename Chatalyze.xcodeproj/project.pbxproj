@@ -20,6 +20,8 @@
 		47032F862205A26000119D42 /* EditScheduleSessionNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47032F842205A26000119D42 /* EditScheduleSessionNewController.swift */; };
 		47032F882205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47032F872205A28400119D42 /* EditScheduleSessionNewRootView.swift */; };
 		47032F892205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47032F872205A28400119D42 /* EditScheduleSessionNewRootView.swift */; };
+		470391A92269EF5D008F2CF0 /* FetchAchievementsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470391A82269EF5C008F2CF0 /* FetchAchievementsProcessor.swift */; };
+		470391AA2269EF5D008F2CF0 /* FetchAchievementsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470391A82269EF5C008F2CF0 /* FetchAchievementsProcessor.swift */; };
 		470A3ACE2111B99A00988F1D /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A3ACD2111B99A00988F1D /* ContactUsController.swift */; };
 		470A3AD02111BA3300988F1D /* ContactUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 470A3ACF2111BA3300988F1D /* ContactUs.storyboard */; };
 		470A3AD22111E35B00988F1D /* submitContactUsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */; };
@@ -1238,6 +1240,7 @@
 		4702A3FE2136BE820046EA21 /* ScheduleSessionPageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionPageInterface.swift; sourceTree = "<group>"; };
 		47032F842205A26000119D42 /* EditScheduleSessionNewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleSessionNewController.swift; sourceTree = "<group>"; };
 		47032F872205A28400119D42 /* EditScheduleSessionNewRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleSessionNewRootView.swift; sourceTree = "<group>"; };
+		470391A82269EF5C008F2CF0 /* FetchAchievementsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAchievementsProcessor.swift; sourceTree = "<group>"; };
 		470A3ACD2111B99A00988F1D /* ContactUsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsController.swift; sourceTree = "<group>"; };
 		470A3ACF2111BA3300988F1D /* ContactUs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContactUs.storyboard; sourceTree = "<group>"; };
 		470A3AD12111E35B00988F1D /* submitContactUsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = submitContactUsRequest.swift; sourceTree = "<group>"; };
@@ -2008,6 +2011,14 @@
 				47019256218D872900930FF7 /* ProvisiningProfileStatus.swift */,
 			);
 			path = ProvisiningStatus;
+			sourceTree = "<group>";
+		};
+		470391A72269EEE6008F2CF0 /* FetchAchievements */ = {
+			isa = PBXGroup;
+			children = (
+				470391A82269EF5C008F2CF0 /* FetchAchievementsProcessor.swift */,
+			);
+			path = FetchAchievements;
 			sourceTree = "<group>";
 		};
 		470A3ACC2111B96200988F1D /* contactUs */ = {
@@ -4478,6 +4489,7 @@
 				47668BED2253482D002BA2E4 /* FetchPastEvents */,
 				47FFCB17223FA3C800B23049 /* GetPlansRequest */,
 				472419C52265F47E00CC1AFE /* FetchSupportedChats */,
+				470391A72269EEE6008F2CF0 /* FetchAchievements */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -5962,6 +5974,7 @@
 				47D0B0C421A6C4B5006376A8 /* GreetingInfoButtonContainer.swift in Sources */,
 				47D0B0C521A6C4B5006376A8 /* TabContainerViewInterface.swift in Sources */,
 				FAC19020221ADEE0000E2832 /* DonateCreateTransaction.swift in Sources */,
+				470391AA2269EF5D008F2CF0 /* FetchAchievementsProcessor.swift in Sources */,
 				47FFCB1E223FAE4B00B23049 /* PlanInfo.swift in Sources */,
 				47D0B0C621A6C4B5006376A8 /* EditScheduledSessionController.swift in Sources */,
 				47D0B0C721A6C4B5006376A8 /* EventQueueAdapter.swift in Sources */,
@@ -6482,6 +6495,7 @@
 				FAC1901F221ADEE0000E2832 /* DonateCreateTransaction.swift in Sources */,
 				47B6522B20AAAF710041496C /* GreetingInfoButtonContainer.swift in Sources */,
 				47B6526520AAB4080041496C /* TabContainerViewInterface.swift in Sources */,
+				470391A92269EF5D008F2CF0 /* FetchAchievementsProcessor.swift in Sources */,
 				47FFCB1D223FAE4B00B23049 /* PlanInfo.swift in Sources */,
 				6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */,
 				FAFB7C81206E6B84004804D2 /* EventQueueAdapter.swift in Sources */,
@@ -6822,7 +6836,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6838,7 +6852,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -6856,7 +6870,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6872,7 +6886,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -7002,7 +7016,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7018,7 +7032,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7035,7 +7049,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7051,7 +7065,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;

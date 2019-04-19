@@ -14,11 +14,76 @@ class AchievmentsController: InterfaceExtendedController {
         super.viewDidLoad()
         
         self.paintInterface()
+        self.fetchInfo()
     }
+    
+    var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
     
     @IBAction func backAction(sender:UIButton?){        
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    func fetchInfo(){
+        
+        self.showLoader()
+        FetchAchievementsProcessor().fetch { (success, error, response) in
+            self.stopLoader()
+            
+            if !success{
+                return
+            }
+            
+            guard let infoArray = response?.array else{
+                return
+            }
+            
+            for info in infoArray {
+                
+                Log.echo(key: "yud", text: "achieved string is \(info["achievement"].stringValue)")
+
+                
+//                if info["achievement"].stringValue == "BOOKED_FIRST_CHAT"{
+//                    self.chekpointsArray[0] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "RECIEVED_FIRST_MEMORY"{
+//                    self.chekpointsArray[1] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "TWO_CHAT_WITH_SAME_HOST"{
+//                    self.chekpointsArray[4] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "BOOKED_FIVE_CHATS"{
+//                    self.chekpointsArray[5] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "THIRD_POST_CHAT_DONATION"{
+//                    self.chekpointsArray[7] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "BOOKED_TEN_CHATS"{
+//                    self.chekpointsArray[8] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "BOOKED_TWENTY_CHATS"{
+//                    self.chekpointsArray[9] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "SPONSORED_THREE_SESSIONS"{
+//                    self.chekpointsArray[6] = true
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "BOOKED_FIRST_CHAT"{
+//                    continue
+//                }
+//                if info["achievement"].stringValue == "BOOKED_FIRST_CHAT"{
+//                    continue
+//                }
+            }
+        }
+    }
+    
     
     func paintInterface(){
         

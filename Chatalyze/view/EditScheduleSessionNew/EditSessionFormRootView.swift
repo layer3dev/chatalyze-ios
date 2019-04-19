@@ -1759,14 +1759,11 @@ extension EditSessionFormRootView{
 }
 
 extension EditSessionFormRootView{
-    
-
 }
-
 
 extension EditSessionFormRootView{
 
-    func slotIdentifiedDisbaleView(){
+    func slotIdentifiedDisbaleView() {
         
         dateField?.isUserInteractionEnabled = false
         timeField?.isUserInteractionEnabled = false
@@ -1777,20 +1774,20 @@ extension EditSessionFormRootView{
         priceAmountField?.isUserInteractionEnabled = false
         screenShotCustomSwitch?.isUserInteractionEnabled = false
         breakField?.isUserInteractionEnabled = false
-
+        
         breakField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-
+        
         if self.eventInfo?.isFree ?? false {
             
             freeField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             priceField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             
-        }else{
+        }else {
             
             priceField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)

@@ -110,6 +110,9 @@ class MenuCell: ExtendedTableCell {
             else if selectedIndexName == "Settings"{
                 return MenuRootView.MenuType.settings
             }
+            else if selectedIndexName == "Achievements"{
+                return MenuRootView.MenuType.achievements
+            }
             return MenuRootView.MenuType.none
         }
         return MenuRootView.MenuType.none

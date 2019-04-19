@@ -12,7 +12,7 @@ class AchievementsAdapter: ExtendedView {
 
     @IBOutlet var achievementCollection:UICollectionView?
     private let sectionInsets = UIEdgeInsets(top: 10.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0,bottom: 30.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0)
-    var itemsPerRow:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4:3
+    var itemsPerRow:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4:4
     
     override func viewDidLayout() {
         super.viewDidLayout()

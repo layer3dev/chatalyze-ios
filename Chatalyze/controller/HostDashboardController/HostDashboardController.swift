@@ -72,7 +72,7 @@ class HostDashboardController: MyScheduledSessionsController {
     }    
     
     override func showShareView(){
-        
+
         // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
@@ -177,6 +177,7 @@ class HostDashboardController: MyScheduledSessionsController {
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
         if let presenter = alertActionSheet.popoverPresentationController {
+            
             alertActionSheet.popoverPresentationController?.sourceView = self.view
             alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
         }
@@ -241,15 +242,6 @@ class HostDashboardController: MyScheduledSessionsController {
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
-//            guard let controller = ScheduleSessionSinglePageDoneController.instance() else {
-//                return
-//            }
-//
-            
-            //            guard let controller = AchievmentsController.instance() else {
-//                return
-//            }
             
             self.navigationController?.pushViewController(controller, animated: false)
         }
