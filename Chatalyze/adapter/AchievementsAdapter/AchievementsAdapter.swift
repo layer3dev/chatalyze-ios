@@ -13,6 +13,8 @@ class AchievementsAdapter: ExtendedView {
     @IBOutlet var achievementCollection:UICollectionView?
     private let sectionInsets = UIEdgeInsets(top: 10.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0,bottom: 30.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0)
     var itemsPerRow:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4:4
+    private var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
+    var controller:AchievmentsController?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,25 +28,32 @@ class AchievementsAdapter: ExtendedView {
         self.achievementCollection?.delegate = self
         self.achievementCollection?.reloadData()
     }
+    func updateAchievements(array:[Bool]){
+    
+       
+        self.chekpointsArray = array
+        Log.echo(key: "yud", text: "The current array is \(array) and the collection is \(self.achievementCollection)")
+        self.achievementCollection?.reloadData()
+    }
 }
 
 extension AchievementsAdapter:UICollectionViewDataSource{
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
+    func numberOfSections(in collectionView: UICollectionView) -> Int {        
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 10
+        return chekpointsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementsCollectionCell", for: indexPath) as? AchievementsCollectionCell else{
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AchievementsCollectionCell", for: indexPath) as? AchievementsCollectionCell else {
             return UICollectionViewCell()
         }
+        cell.root = self
+        cell.fillInfo(isAchieved:chekpointsArray[indexPath.row],currentIndex:indexPath.item)
         return cell
     }
 }
