@@ -21,7 +21,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         
         let bannerUrl = info.eventBannerUrl ?? ""
         let requiredStr = bannerUrl.replacingOccurrences(of: "\\", with: "")
-        Log.echo(key: "updates info banner url is", text: "\(requiredStr)")
+        Log.echo(key: "Updates info banner url is", text: "\(requiredStr)")
         
         if let url = URL(string: requiredStr){
             
@@ -45,7 +45,6 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
                 return
             }
         }else{
-            
             self.checkForProfileImage()
             return
         }
@@ -58,9 +57,10 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
             if let url = URL(string: userProfilePic){
                 self.controller?.showLoader()
                 self.uploadedImage?.sd_setImage(with: url, completed: { (image, error, cache, url) in
+                  
                     self.controller?.stopLoader()
                     if error == nil{
-                        
+
                         self.uploadedImage?.contentMode = .scaleAspectFit
                         self.uploadedImage?.image = image
                         self.selectedImage = image

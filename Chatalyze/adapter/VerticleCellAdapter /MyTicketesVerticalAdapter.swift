@@ -33,9 +33,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        
         self.myTicketsVerticalTableView?.layer.removeAllAnimations()
-        
         self.heightOfTableViewContainer?.constant = myTicketsVerticalTableView?.contentSize.height ?? 0.0
         self.updateConstraints()
         self.layoutIfNeeded()
@@ -86,30 +84,19 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
 extension MyTicketesVerticalAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 520.0
+        
+        return 550.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return UITableView.automaticDimension
     }
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //
-    //        guard let controller = GreetingInfoController.instance() else {
-    //            return
-    //        }
-    //        if indexPath.row < self.PaymentListingArray.count {
-    //
-    //            controller.info = self.PaymentListingArray[indexPath.row]
-    //        }
-    //        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-    //    }
 }
 
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
- 
     
     func jointEvent(info:SlotInfo?){
         
@@ -125,37 +112,29 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
                 return
         }
         
-        
-        
         guard let controller = UserCallController.instance()
             else{
                 return
         }
         
         controller.eventId = String(eventId)
+        
         self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
     func systemTest(){
         
-        //        guard let controller = SystemTestController.instance() else { return }
-        //
-        //        controller.isOnlySystemTest = true
-        //        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: {
-        //        })
-        
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
+        
         controller.onlySystemTest = true
         
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
-        
     }
     
-    func refreshData(){
-        
+    func refreshData() {
     }
 }

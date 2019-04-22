@@ -61,12 +61,10 @@ class EditHostSessionController: EditScheduledSessionController{
             if success{
                 
                 self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                    
                 })
                 return
             }
             self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                
             })
             return
         }

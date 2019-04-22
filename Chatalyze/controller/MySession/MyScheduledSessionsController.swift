@@ -83,7 +83,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     }
     
     func showUpcoming(){
-        
     }
     
     func updateScrollViewWithTable(height:CGFloat){
@@ -94,7 +93,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     
     func handleScrollingHeaderOnEndDragging(direction:MySessionAdapter.scrollDirection){
     }
-    
     
     func paintInterface(){
         
@@ -229,6 +227,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         if isFetchingPastEventCompleted{
             return
         }
+        
         self.isPastEventsFetching = true
         FetchPastEventsProcessor().fetch(offset: self.pastEventsArray.count) { (success, message, info) in
             

@@ -580,6 +580,19 @@ class ContainerController: NavChildController {
             return
         }
         
+        else if typeOfAction == .achievements{
+            
+            guard let rootController = MyTicketsVerticalController.instance() else{
+                return
+            }            
+            guard let controller = AchievmentsController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            self.closeToggle()
+            return
+        }
+        
         
         //        var analystArray = ["My Sessions","Payments","Settings","Support"]
         //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]

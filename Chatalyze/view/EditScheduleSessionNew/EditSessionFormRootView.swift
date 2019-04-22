@@ -444,7 +444,6 @@ class EditSessionFormRootView:ExtendedView {
         
         //Must be used only in PaintChat calculator
         breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 250)
-        self.breakField?.textField?.text = ""
         isBreakShowing = true
     }
     
@@ -606,6 +605,7 @@ class EditSessionFormRootView:ExtendedView {
             if success{
                 
                 self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+        
                     
                     self.controller?.navigationController?.popToRootViewController(animated: true)
                 })
@@ -1068,7 +1068,7 @@ extension EditSessionFormRootView:CustomPickerDelegate{
     
     func pickerDoneTapped(type: CustomPicker.pickerType) {
         
-        if type == .sessionLength{
+        if type == .sessionLength {
             
             if sessionLengthPicker.picker?.selectedRow(inComponent: 0) == 0 {
                 sessionLength?.textField?.text = sessionArray[0]
@@ -1079,8 +1079,6 @@ extension EditSessionFormRootView:CustomPickerDelegate{
         if type == .chatLength{
             
             if chatLengthPicker.picker?.selectedRow(inComponent: 0) == 0 {
-//                chatLength?.textField?.text = chatLengthArray[0]
-//                slotSelected = Int(chatLengthArray[0])
                 
                 if chatLengthArray.count >= 1 {
                    
@@ -1176,6 +1174,9 @@ extension EditSessionFormRootView {
     }
         
     func createEmptySlots(){
+                
+        //removing the text from the textField as by calling this function means fetching the new Data for empty Slots.
+        self.breakField?.textField?.text = ""
         
         guard let info = scheduleInfo else{
             hidePaintChatCalculator()
@@ -1214,10 +1215,10 @@ extension EditSessionFormRootView {
         if emptySlotList.count > 0 {
         
             self.breakAdapter?.update(emptySlots: emptySlotList)
-            showBreak()
+            //showBreak()
             return
         }
-        hideBreak()
+        //hideBreak()
     }
     
     func fillEmptySlotSelectionInfo(){
@@ -1242,7 +1243,7 @@ extension EditSessionFormRootView {
                     }
                 }
             }
-            showBreak()
+            //showBreak()
             self.breakAdapter?.update(emptySlots: emptySlotList)
             self.showSelectedIndex()
             return
@@ -1758,14 +1759,11 @@ extension EditSessionFormRootView{
 }
 
 extension EditSessionFormRootView{
-    
-
 }
-
 
 extension EditSessionFormRootView{
 
-    func slotIdentifiedDisbaleView(){
+    func slotIdentifiedDisbaleView() {
         
         dateField?.isUserInteractionEnabled = false
         timeField?.isUserInteractionEnabled = false
@@ -1775,24 +1773,25 @@ extension EditSessionFormRootView{
         priceField?.isUserInteractionEnabled = false
         priceAmountField?.isUserInteractionEnabled = false
         screenShotCustomSwitch?.isUserInteractionEnabled = false
-
+        breakField?.isUserInteractionEnabled = false
+        
+        breakField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         timeField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         sessionLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         chatLength?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-
+        
         if self.eventInfo?.isFree ?? false {
             
             freeField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             priceField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             
-        }else{
+        }else {
             
             priceField?.backgroundColor = UIColor(red: 254.0/255.0, green: 203.0/255.0, blue: 170.0/255.0, alpha: 1)
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
-            
         }
     }
 }

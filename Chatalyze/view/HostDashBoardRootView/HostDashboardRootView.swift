@@ -33,7 +33,7 @@ class HostDashboardRootView: MySessionRootView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.createSessionView?.dropShadow(color: UIColor(red: 72.0/255.0, green: 72.0/255.0, blue: 72.0/255.0, alpha: 1), offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 3:2, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5)
+        self.createSessionView?.dropShadow(color: UIColor.lightGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 10:8, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5)
     }
     
     func paintChatPupText() {
@@ -58,7 +58,7 @@ class HostDashboardRootView: MySessionRootView {
     
     override func paintNewUI() {
         
-        settingButtonContainer?.layer.borderWidth = 0.5
+        settingButtonContainer?.layer.borderWidth = 0.5        
         settingButtonContainer?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
         
         createSessionView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5

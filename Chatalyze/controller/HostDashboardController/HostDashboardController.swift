@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class HostDashboardController: MyScheduledSessionsController {
     
     @IBOutlet var testingLabel:UILabel?
@@ -73,7 +72,7 @@ class HostDashboardController: MyScheduledSessionsController {
     }    
     
     override func showShareView(){
-        
+
         // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
@@ -109,10 +108,8 @@ class HostDashboardController: MyScheduledSessionsController {
         str  = str.replacingOccurrences(of: " ", with: "")
     }
     
-    
     func initialize(){
       
-        //sharingTextFld?.delegate = self
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 15)
         Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
@@ -144,7 +141,6 @@ class HostDashboardController: MyScheduledSessionsController {
             scheduleSessionBtnContainer?.layer.masksToBounds = true
             return
         }
-        
         scheduleSessionBtnContainer?.layer.cornerRadius = 3
         scheduleSessionBtnContainer?.layer.masksToBounds = true
     }
@@ -181,6 +177,7 @@ class HostDashboardController: MyScheduledSessionsController {
         //alertActionSheet.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         
         if let presenter = alertActionSheet.popoverPresentationController {
+            
             alertActionSheet.popoverPresentationController?.sourceView = self.view
             alertActionSheet.popoverPresentationController?.sourceRect = sender.frame
         }
@@ -241,14 +238,10 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBAction func scheduleSessionAction(sender:UIButton){
             
         DispatchQueue.main.async {
-            
+
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
-//            guard let controller = BreakController.instance() else{
-//                return
-//            }
             
             self.navigationController?.pushViewController(controller, animated: false)
         }
@@ -324,7 +317,7 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     @IBAction func menuAction(sender:UIButton){
-        
         self.toggle()
     }
+    
 }

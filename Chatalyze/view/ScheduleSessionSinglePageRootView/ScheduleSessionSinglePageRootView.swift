@@ -13,9 +13,9 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
         
         guard let paramForUpload = self.getParam() else{
             return
-        }
-        
-        self.controller?.showLoader()
+        }    
+    
+        self.controller?.showLoader()    
         ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
             
             Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: response))")
@@ -32,10 +32,13 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
                     })
                     return
                 }
+                
                 SEGAnalytics.shared().track("Session Scheduled")
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session created successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in                    
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
-                })
+                guard let controller = ScheduleSessionSinglePageDoneController.instance() else{
+                    return
+                }
+                
+                self.controller?.navigationController?.pushViewController(controller, animated: true)
             }
         }
     }
@@ -59,7 +62,7 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
     
     override func ChatLengthTracking(){
         
-        SEGAnalytics.shared().track("Action: Schedule Session - Select 1:1 Chat Length)")
+        SEGAnalytics.shared().track("Action: Schedule Session - Select 1:1 Chat Length")
     }
     
     override func SessionLengthTracking(){
