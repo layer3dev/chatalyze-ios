@@ -13,7 +13,7 @@ import SDWebImage
 class MyTicketsVerticalCell: ExtendedTableCell {
     
     var rootAdapter:MyTicketesVerticalAdapter?
-
+    @IBOutlet var headerImage:UIImageView?
     @IBOutlet var borderView:UIView?
     @IBOutlet var chatnumberLbl:UILabel?
     @IBOutlet var timeLbl:UILabel?
@@ -85,6 +85,13 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         initializeDesiredDatesFormat(info:info)
         self.title?.text = "\(info.eventTitle ?? "")"
         self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
+        
+        if info.sponserId == nil{
+            self.headerImage?.image = UIImage(named: "userTicketTopBannerImage")
+        }else{
+            self.headerImage?.image = UIImage(named: "officialSponserFull")
+        }
+        
         if let bannerUrl = info.callschedule?.eventBannerUrl{
             if let url = URL(string:bannerUrl){
                 

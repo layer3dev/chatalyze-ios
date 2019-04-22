@@ -39,6 +39,7 @@ class SlotInfo: SlotTimeInfo {
     
     var price:String?
     var eventTitle:String?
+    var sponserId:Int?
     
     override init(info : JSON?){
         super.init(info : info)
@@ -63,7 +64,10 @@ class SlotInfo: SlotTimeInfo {
             else{
                 return
         }
-        id = json["id"].int        
+        id = json["id"].int
+        if let sponsor = json["sponsor"].dictionary{
+            self.sponserId = sponsor["id"]?.int
+        }
         slotNo = json["slotNo"].int
         callscheduleId = json["callscheduleId"].int
         userId = json["userId"].int
