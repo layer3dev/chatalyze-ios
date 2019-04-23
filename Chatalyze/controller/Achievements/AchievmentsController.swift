@@ -24,7 +24,7 @@ class AchievmentsController: InterfaceExtendedController {
     
     var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
     
-    @IBAction func backAction(sender:UIButton?){        
+    @IBAction func backAction(sender:UIButton?){
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -42,9 +42,7 @@ class AchievmentsController: InterfaceExtendedController {
                 return
             }
             
-            for info in infoArray {
-                
-                Log.echo(key: "yud", text: "achieved string is \(info["achievement"].stringValue)")
+            for info in infoArray {               
                 
                 if info["achievement"].stringValue == "BOOKED_FIRST_CHAT"{
                    
@@ -54,6 +52,16 @@ class AchievmentsController: InterfaceExtendedController {
                 if info["achievement"].stringValue == "RECIEVED_FIRST_MEMORY"{
                     
                     self.chekpointsArray[1] = true
+                    continue
+                }
+                if info["achievement"].stringValue == "SPONSORED_FIRST_SESSION"{
+                    
+                    self.chekpointsArray[2] = true
+                    continue
+                }
+                if info["achievement"].stringValue == "FIRST_POST_CHAT_DONATION"{
+                    
+                    self.chekpointsArray[3] = true
                     continue
                 }
                 if info["achievement"].stringValue == "TWO_CHAT_WITH_SAME_HOST"{

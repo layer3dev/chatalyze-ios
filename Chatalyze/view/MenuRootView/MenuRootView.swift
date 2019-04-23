@@ -32,6 +32,7 @@ class MenuRootView:ExtendedView{
         case test = 15
         case proFeature = 16
         case achievements = 17
+        case referAndEarn = 18
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?

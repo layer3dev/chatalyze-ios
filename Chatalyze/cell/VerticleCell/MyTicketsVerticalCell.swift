@@ -34,6 +34,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     @IBOutlet var profileImage:UIImageView?
     @IBOutlet var hostName:UILabel?
     
+    @IBOutlet var sponsorView:UIView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -86,10 +88,10 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.title?.text = "\(info.eventTitle ?? "")"
         self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
         
-        if info.sponserId == nil{
-            self.headerImage?.image = UIImage(named: "userTicketTopBannerImage")
+        if info.sponserId == nil{            
+            self.sponsorView?.isHidden = true
         }else{
-            self.headerImage?.image = UIImage(named: "officialSponserFull")
+            self.sponsorView?.isHidden = false
         }
         
         if let bannerUrl = info.callschedule?.eventBannerUrl{

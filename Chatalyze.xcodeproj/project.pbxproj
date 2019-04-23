@@ -144,6 +144,12 @@
 		4753BA0221900FE00060777B /* FAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA0121900FE00060777B /* FAQController.swift */; };
 		4753BA05219013BF0060777B /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA04219013BF0060777B /* ShadowView.swift */; };
 		4753BA0721902EFF0060777B /* FAQWebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA0621902EFF0060777B /* FAQWebController.swift */; };
+		47559311226F1CB300C4E40C /* Referral.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47559310226F1CB200C4E40C /* Referral.storyboard */; };
+		47559312226F1CB300C4E40C /* Referral.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47559310226F1CB200C4E40C /* Referral.storyboard */; };
+		47559315226F1D2600C4E40C /* ReferralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47559314226F1D2600C4E40C /* ReferralController.swift */; };
+		47559316226F1D2600C4E40C /* ReferralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47559314226F1D2600C4E40C /* ReferralController.swift */; };
+		47559319226F1E2700C4E40C /* ReferralRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47559318226F1E2700C4E40C /* ReferralRootView.swift */; };
+		4755931A226F1E2700C4E40C /* ReferralRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47559318226F1E2700C4E40C /* ReferralRootView.swift */; };
 		475B1115210B260400DADD39 /* EditProfileHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1114210B260400DADD39 /* EditProfileHostController.swift */; };
 		475B1118210B26E600DADD39 /* EditProfileHostRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1117210B26E600DADD39 /* EditProfileHostRootView.swift */; };
 		475B111A210B2C9C00DADD39 /* PaymentSetupPaypalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B1119210B2C9C00DADD39 /* PaymentSetupPaypalController.swift */; };
@@ -1336,6 +1342,9 @@
 		4753BA0121900FE00060777B /* FAQController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQController.swift; sourceTree = "<group>"; };
 		4753BA04219013BF0060777B /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		4753BA0621902EFF0060777B /* FAQWebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQWebController.swift; sourceTree = "<group>"; };
+		47559310226F1CB200C4E40C /* Referral.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Referral.storyboard; sourceTree = "<group>"; };
+		47559314226F1D2600C4E40C /* ReferralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralController.swift; sourceTree = "<group>"; };
+		47559318226F1E2700C4E40C /* ReferralRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferralRootView.swift; sourceTree = "<group>"; };
 		475B1114210B260400DADD39 /* EditProfileHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHostController.swift; sourceTree = "<group>"; };
 		475B1117210B26E600DADD39 /* EditProfileHostRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHostRootView.swift; sourceTree = "<group>"; };
 		475B1119210B2C9C00DADD39 /* PaymentSetupPaypalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSetupPaypalController.swift; sourceTree = "<group>"; };
@@ -2836,6 +2845,22 @@
 				4712106E221ED351009F3A09 /* TippingAlertShadow.swift */,
 			);
 			path = ShadowView;
+			sourceTree = "<group>";
+		};
+		47559313226F1D0D00C4E40C /* Referral */ = {
+			isa = PBXGroup;
+			children = (
+				47559314226F1D2600C4E40C /* ReferralController.swift */,
+			);
+			path = Referral;
+			sourceTree = "<group>";
+		};
+		47559317226F1E0F00C4E40C /* ReferralRootView */ = {
+			isa = PBXGroup;
+			children = (
+				47559318226F1E2700C4E40C /* ReferralRootView.swift */,
+			);
+			path = ReferralRootView;
 			sourceTree = "<group>";
 		};
 		475B1113210B25CB00DADD39 /* EditProfileHost */ = {
@@ -4589,6 +4614,7 @@
 				47658A722252094F00ECA7D7 /* BreakView */,
 				477C351D2257728800732495 /* ThreeSideRoundedView */,
 				477B4A9922560C88001051F6 /* ScheduleSessionSinglePageRootView */,
+				47559317226F1E0F00C4E40C /* ReferralRootView */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4656,6 +4682,7 @@
 				4723081B2264B3CE00B4540E /* UserTicketUI.storyboard */,
 				4713358B222FFA4B002E2994 /* ProFeature.storyboard */,
 				47A8B835226887CE00996ACA /* Achievements.storyboard */,
+				47559310226F1CB200C4E40C /* Referral.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -4720,6 +4747,7 @@
 				47F46A3C22571CE400D344F4 /* scheduleSessionAlertMoreDetailSinglePage */,
 				47353C46225B69430067C400 /* Break */,
 				47A8B8312268871700996ACA /* Achievements */,
+				47559313226F1D0D00C4E40C /* Referral */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -5453,6 +5481,7 @@
 				47A8B837226887CE00996ACA /* Achievements.storyboard in Resources */,
 				47D0B1BD21A6C4B5006376A8 /* no_event.xib in Resources */,
 				47A8B8422268A02F00996ACA /* Emoji.xcassets in Resources */,
+				47559312226F1CB300C4E40C /* Referral.storyboard in Resources */,
 				47269C1422422546000327FD /* CustomPicker.xib in Resources */,
 				47E3725D2230F946000B99F9 /* Nunito-SemiBoldItalic.ttf in Resources */,
 				47D0B1BE21A6C4B5006376A8 /* ContactUs.storyboard in Resources */,
@@ -5527,6 +5556,7 @@
 				47A8B836226887CE00996ACA /* Achievements.storyboard in Resources */,
 				FA74B1552063A52800983141 /* no_event.xib in Resources */,
 				47A8B8412268A02F00996ACA /* Emoji.xcassets in Resources */,
+				47559311226F1CB300C4E40C /* Referral.storyboard in Resources */,
 				47269C1322422546000327FD /* CustomPicker.xib in Resources */,
 				47E3725C2230F946000B99F9 /* Nunito-SemiBoldItalic.ttf in Resources */,
 				470A3AD02111BA3300988F1D /* ContactUs.storyboard in Resources */,
@@ -5982,6 +6012,7 @@
 				47D0B0C821A6C4B5006376A8 /* SigninController.swift in Sources */,
 				47D0B0C921A6C4B5006376A8 /* PaymentSuccessDelegate.swift in Sources */,
 				47D0B0CA21A6C4B5006376A8 /* MemoriesAdapter.swift in Sources */,
+				47559316226F1D2600C4E40C /* ReferralController.swift in Sources */,
 				47D0B0CB21A6C4B5006376A8 /* FreeEventPaymentController.swift in Sources */,
 				47D0B0CC21A6C4B5006376A8 /* SessionChatInfoRootView.swift in Sources */,
 				47D0B0CD21A6C4B5006376A8 /* Array.swift in Sources */,
@@ -6198,6 +6229,7 @@
 				47D0B16021A6C4B5006376A8 /* DeactivateAccountProcessor.swift in Sources */,
 				47A8B83B22688A3000996ACA /* AchievementsCollectionCell.swift in Sources */,
 				47D0B16121A6C4B5006376A8 /* FacebookProfileFetch.swift in Sources */,
+				4755931A226F1E2700C4E40C /* ReferralRootView.swift in Sources */,
 				47D0B16221A6C4B5006376A8 /* VideoActionContainer.swift in Sources */,
 				47D0B16321A6C4B5006376A8 /* FieldManagingScrollViewInterface.swift in Sources */,
 				47D0B16421A6C4B5006376A8 /* MemoriesFetchProcessor.swift in Sources */,
@@ -6503,6 +6535,7 @@
 				FA91055D21D652E500060AFF /* OnboardFourthController.swift in Sources */,
 				4718425420C51ED800C6FFD5 /* PaymentSuccessDelegate.swift in Sources */,
 				472780E820B02DA900D5AA1E /* MemoriesAdapter.swift in Sources */,
+				47559315226F1D2600C4E40C /* ReferralController.swift in Sources */,
 				47B3D9662119C59E0099FA05 /* FreeEventPaymentController.swift in Sources */,
 				47B4F4B5211C5A6D00299686 /* SessionChatInfoRootView.swift in Sources */,
 				FAA0019D203ED472003C8A74 /* Array.swift in Sources */,
@@ -6719,6 +6752,7 @@
 				4781443322044EC0005398F8 /* ScheduleSessionNewDoneRootView.swift in Sources */,
 				47A8B83A22688A3000996ACA /* AchievementsCollectionCell.swift in Sources */,
 				FA79F101210A032B00D16F13 /* VideoActionContainer.swift in Sources */,
+				47559319226F1E2700C4E40C /* ReferralRootView.swift in Sources */,
 				FA3AF1012044334F0084B154 /* FieldManagingScrollViewInterface.swift in Sources */,
 				472780EF20B02FA400D5AA1E /* MemoriesFetchProcessor.swift in Sources */,
 				FA24BAC8206F6B2C0064F94F /* CountdownProcessor.swift in Sources */,

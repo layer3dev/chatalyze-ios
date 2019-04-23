@@ -288,7 +288,6 @@ class ContainerController: NavChildController {
             initialTabInstance = ContainerController.initialTab
             tabController?.initialTab = initialTabInstance
             if(ContainerController.initialTab != .event){
-                //ContainerController.initialTab = .profile
             }
         }
         
@@ -324,9 +323,21 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
+        else if typeOfAction == .referAndEarn{
+            
+            guard let rootController = HostDashboardController.instance() else{
+                return
+            }
+            guard let controller = ReferralController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,controller], animated: true)
+            self.closeToggle()
+            return
+        }
+            
             
         else if typeOfAction == .paymentAnalyst{
             
@@ -339,7 +350,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -353,7 +363,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -368,7 +377,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -382,7 +390,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -397,7 +404,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -412,7 +418,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -427,7 +432,6 @@ class ContainerController: NavChildController {
             }
             navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -444,14 +448,11 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
-            
-            //navController?.viewControllers = [controller]
             return
         }
             
         else if typeOfAction == .tickets{
             
-            //This id the home controller for the user in the User side.            
             guard let rootController = MyTicketsVerticalController.instance() else{
                 return
             }
@@ -459,8 +460,6 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController], animated: true)
             
             self.closeToggle()
-            
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -476,8 +475,6 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
-            
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -494,8 +491,6 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
-            
-            //navController?.viewControllers = [controller]
             return
         }
             
@@ -549,8 +544,6 @@ class ContainerController: NavChildController {
             navController?.setViewControllers([rootController,controller], animated: true)
             
             self.closeToggle()
-           
-            //navController?.viewControllers = [controller]
             return
         }
         else if typeOfAction == .test{
@@ -569,13 +562,6 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .proFeature{
             
-//            guard let rootController = HostDashboardController.instance() else{
-//                return
-//            }
-//            guard let controller = ProFeatureInfoController.instance() else{
-//                return
-//            }
-//            navController?.setViewControllers([rootController,controller], animated: true)
             self.closeToggle()
             return
         }
@@ -593,9 +579,6 @@ class ContainerController: NavChildController {
             return
         }
         
-        
-        //        var analystArray = ["My Sessions","Payments","Settings","Support"]
-        //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
     }
     
     
@@ -603,23 +586,6 @@ class ContainerController: NavChildController {
         
         tabContainerView?.setActionPending(isPending: isPending, type: type)
     }
-    
-//    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-//        
-//        if let selected = tabController {
-//            return selected.supportedInterfaceOrientations
-//        }
-//        return super.supportedInterfaceOrientations
-//    }
-//    
-//    open override var shouldAutorotate: Bool {
-//        
-//        if let selected = tabController {
-//            return selected.shouldAutorotate
-//        }
-//        return super.shouldAutorotate
-//    }
-    
     
     func selectTab(type : TabContainerView.tabType){
         

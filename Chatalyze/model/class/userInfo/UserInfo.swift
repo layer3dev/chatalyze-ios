@@ -51,6 +51,7 @@ class UserInfo: NSObject {
     var profileThumbnail : String?
     var defaultImage : HostDefaultScreenshot?
     var eventMobReminder:Bool = false
+    var emailNotification:Bool = false
     var isOnline = false
     var countryCode:String = ""
     var allowFreeSession:Bool? = false
@@ -95,6 +96,7 @@ class UserInfo: NSObject {
         profileThumbnail = avatars?["200X200"].stringValue
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
+        self.emailNotification  = info["emailNot"]?.boolValue ?? false 
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         if let meta = info["meta"]?.dictionary{
@@ -121,7 +123,7 @@ class UserInfo: NSObject {
 
 extension UserInfo{
     
-    @objc var genderType : genderType{
+    @objc var genderType : genderType {
        
         get{
             if(gender == "female"){

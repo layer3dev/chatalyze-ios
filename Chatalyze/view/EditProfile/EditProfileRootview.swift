@@ -167,6 +167,12 @@ class EditProfileRootview: ExtendedView {
             chatUpdatesImage?.image = UIImage(named: "tick")
         }
         
+        if info.emailNotification == true{
+            
+            isEmailNotificationsAllowed = true
+            emailNotificationImage?.image = UIImage(named: "tick")
+        }
+        
         var code = info.countryCode
         code = code.replacingOccurrences(of: "+", with: "")
         code = "+"+code
@@ -234,6 +240,7 @@ class EditProfileRootview: ExtendedView {
         param["firstName"] = nameField?.textField?.text
         param["email"] = emailField?.textField?.text
         param["eventMobReminder"] = chatUpdates
+        param["emailNot"] = isEmailNotificationsAllowed
         param["description"] = shortBioTextView?.text
         
         Log.echo(key: "yud", text: "params are \(param)")
@@ -286,6 +293,7 @@ class EditProfileRootview: ExtendedView {
         }
         
         param["eventMobReminder"] = chatUpdates
+        param["emailNot"] = isEmailNotificationsAllowed
 
         //Make the param for the email notification
         //param["description"] = isEmailNotificationsAllowed

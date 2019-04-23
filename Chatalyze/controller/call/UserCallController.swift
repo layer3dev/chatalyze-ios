@@ -727,12 +727,12 @@ class UserCallController: VideoCallController {
     }
     
     func showExitScreen() {
+        
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if(isDonationEnabled){
             showDonateScreen()
             return
         }
-        
         showFeedbackScreen()
     }
     

@@ -83,12 +83,12 @@ class MenuCell: ExtendedTableCell {
                 else if selectedIndexName == "Chatalyze Pro"{
                     return MenuRootView.MenuType.proFeature
                 }
-                
+                else if selectedIndexName == "Refer friends and earn"{
+                    return MenuRootView.MenuType.referAndEarn
+                }                
                 return MenuRootView.MenuType.none
             }
             
-//            var analystArray = ["My Sessions","Payments","Settings","Support"]
-            //Implement For the user
             if selectedIndexName == "Contact Us"{
                 return MenuRootView.MenuType.contactUsUser
             }
@@ -113,6 +113,7 @@ class MenuCell: ExtendedTableCell {
             else if selectedIndexName == "Achievements"{
                 return MenuRootView.MenuType.achievements
             }
+            
             return MenuRootView.MenuType.none
         }
         return MenuRootView.MenuType.none

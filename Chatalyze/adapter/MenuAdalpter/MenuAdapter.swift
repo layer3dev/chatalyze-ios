@@ -15,7 +15,7 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-    var analystArray = ["My Sessions","Settings","Contact Us"]
+    var analystArray = ["My Sessions","Settings","Contact Us","Refer friends and earn"]
     var userArray = ["My Tickets","Memories","Achievements","Settings"]
     
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
