@@ -159,7 +159,7 @@ class UserCallController: VideoCallController {
     
     override func isExpired()->Bool{
         
-        guard let myValidSlot = eventInfo?.mergeSlotInfo?.myUpcomingSlot
+        guard let _ = eventInfo?.mergeSlotInfo?.myUpcomingSlot
             else{
                 return true
         }
@@ -680,7 +680,7 @@ class UserCallController: VideoCallController {
             return
         }
         
-        guard let _ = eventInfo.mergeSlotInfo?.upcomingSlot
+        guard let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot
             else{
                 showExitScreen()
                 return
@@ -1171,4 +1171,3 @@ extension UserCallController{
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
-
