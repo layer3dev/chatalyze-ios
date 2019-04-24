@@ -30,7 +30,7 @@ class MenuAdapter: ExtendedView {
     
 //    func updateSideBarWithList(){
 //
-////        Log.echo(key: "yud", text: "Does this plan exists \(SignedUserInfo.sharedInstance?.isSubscriptionPlanExists) Subscription plan identifier is \(SignedUserInfo.sharedInstance?.planIdentifier) and the subscription plan id is \(SignedUserInfo.sharedInstance?.planId) is trial activated  \(SignedUserInfo.sharedInstance?.isTrialPlanActive)")
+///Log.echo(key: "yud", text: "Does this plan exists \(SignedUserInfo.sharedInstance?.isSubscriptionPlanExists) Subscription plan identifier is \(SignedUserInfo.sharedInstance?.planIdentifier) and the subscription plan id is \(SignedUserInfo.sharedInstance?.planId) is trial activated  \(SignedUserInfo.sharedInstance?.isTrialPlanActive)")
 //
 //        //For old user
 //        if SignedUserInfo.sharedInstance?.isSubscriptionPlanExists ?? false == false {

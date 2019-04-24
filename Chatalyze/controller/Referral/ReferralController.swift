@@ -41,7 +41,7 @@ class ReferralController: InterfaceExtendedController {
         backToMyProfile?.layer.borderWidth = 1
         backToMyProfile?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         backToMyProfile?.layer.masksToBounds = true
-      
+        
         roundViewToInviteButton()
     }
     
@@ -55,7 +55,7 @@ class ReferralController: InterfaceExtendedController {
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
     
-   @IBAction func backToPreviousController(){
+    @IBAction func backToPreviousController(){
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -85,7 +85,7 @@ class ReferralController: InterfaceExtendedController {
         
         self.navigationController?.popToRootViewController(animated: true)
     }
-
+    
     func setSharableUrlText(){
         
         var str = AppConnectionConfig.basicUrl
@@ -100,13 +100,13 @@ class ReferralController: InterfaceExtendedController {
     func paintText(){
         
         DispatchQueue.main.async {
-           
+            
             // Invite a friend and get 5% of their earning for a year. Terms apply
             let textOne = "Invite a friend and get 5% of their earning for a year. "
-            let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 17:13, color: UIColor.white, isUnderLine: false)
+            let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 19:15, color: UIColor.white, isUnderLine: false)
             
             let textTwo = "Terms apply "
-            let texttwoAttr = textTwo.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 17:13, color: UIColor.white, isUnderLine: true)
+            let texttwoAttr = textTwo.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 19:15, color: UIColor.white, isUnderLine: true)
             
             textOneMutable.append(texttwoAttr)
             self.importantTextLabel?.attributedText = textOneMutable

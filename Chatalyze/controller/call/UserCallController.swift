@@ -688,6 +688,7 @@ class UserCallController: VideoCallController {
     }
     
     func showContactUsScreen(){
+        
         RootControllerManager().getCurrentController()?.showContactUs()
     }
     
@@ -727,8 +728,6 @@ class UserCallController: VideoCallController {
     }
     
     func showExitScreen() {
-        
-        
         
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if(isDonationEnabled){

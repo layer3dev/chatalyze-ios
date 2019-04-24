@@ -205,14 +205,16 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
             }
         }
     }
-}
-
-
-extension PageScrollerController{
     
     class func instance()->PageScrollerController?{
         let storyboard = UIStoryboard(name: "Account", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PageScrollerController") as? PageScrollerController
         return controller
     }
+}
+
+
+extension PageScrollerController{
+    
+    
 }

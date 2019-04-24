@@ -267,6 +267,19 @@ class AchievmentsController: InterfaceExtendedController {
     }
     */
     
+    
+    @IBAction func jumpToScroller(){
+        
+        guard let controller = AchievementImageController.instance() else{
+            return
+        }
+        controller.showingImage = self.achievementImage?.image
+        controller.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.present(controller, animated: true, completion: {
+        })
+    }
+    
+    
     class func instance()->AchievmentsController?{
         
         let storyboard = UIStoryboard(name: "Achievements", bundle:nil)
