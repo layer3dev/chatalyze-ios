@@ -1137,10 +1137,13 @@ extension VideoCallController {
     
     @IBAction func goToContactUsScreen(sender:UIButton) {
         
-        self.dismiss(animated: false) {[weak self] in
+        
+        exit(code : .contactUs)
+        
+        /*self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : .contactUs)
-        }
+        }*/
     }
 }
 
