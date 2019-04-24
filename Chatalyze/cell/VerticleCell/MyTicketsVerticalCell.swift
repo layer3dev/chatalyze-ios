@@ -69,11 +69,9 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         
         paintGradientColorOnJoinSessionButton()
         
-        self.contentView.dropShadow(color: UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1), opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:6, scale: true, layerCornerRadius: 0.0)
+        self.borderView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        self.borderView?.layer.masksToBounds = true
         
-        mainView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
-        
-        mainView?.layer.masksToBounds = true
         //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
     }
     
