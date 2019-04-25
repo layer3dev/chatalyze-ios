@@ -14,8 +14,7 @@ class MyTicketsVerticalController: MyTicketsController{
     @IBOutlet var underLineLbl:UILabel?
     @IBOutlet var showView:UIView?
     var isShow = false
-    //Implementing the eventDeleteListener
-    var eventDeleteListener = EventDeletedListener()  
+    var eventDeleteListener = EventDeletedListener()
     var testingText = ""
     
     @IBOutlet var learnMoreLbl:UILabel?
@@ -129,8 +128,6 @@ class MyTicketsVerticalController: MyTicketsController{
         }
     }
     
-    
-    
     func showAlert(sender:UIButton){
         
         let alertMessage = HandlingAppVersion().getAlertMessage()
@@ -191,14 +188,14 @@ class MyTicketsVerticalController: MyTicketsController{
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // MARK: - Navigation
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
     */
+    
     
     override class func instance()->MyTicketsVerticalController?{
         
@@ -212,12 +209,11 @@ class MyTicketsVerticalController: MyTicketsController{
 extension MyTicketsVerticalController{
     
     func initializeListenrs(){
-        
+      
         UserSocket.sharedInstance?.socket?.on("DeletedChatalyzeEvent", callback: { (data, emit) in
             
             self.fetchInfoForListenr()
             return
-                Log.echo(key: "yud", text: "Got the deleted event having the deletedEventID")
         })
         
         eventDeleteListener.setListener { (deletedEventID) in
@@ -225,17 +221,16 @@ extension MyTicketsVerticalController{
             self.fetchInfoForListenr()
             return
                 
-                Log.echo(key: "yud", text: "Got the deleted event having the deletedEventID is\(deletedEventID)")
             
             for events in self.ticketsArray{
                 
-                Log.echo(key: "yud", text: "Matched Event Id is \(events.callschedule?.id ?? 0) and coming from server is \(Int(deletedEventID ?? "0"))")
+                Log.echo(key: "yud", text: "Matched Event Id is \(events.callschedule?.id ?? 0) and coming from server is \(String(describing: Int(deletedEventID ?? "0")))")
                 
                 if events.callschedule?.id ?? 0 == Int(deletedEventID ?? "0"){
                     
                     //  fetchInfo()
                     //self.exitAction()
-                    Log.echo(key: "yud", text: "Yes I got matched \(deletedEventID)")
+                    Log.echo(key: "yud", text: "Yes I got matched \(String(describing: deletedEventID))")
                 }
             }
         }

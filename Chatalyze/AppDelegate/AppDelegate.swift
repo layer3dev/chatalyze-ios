@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self

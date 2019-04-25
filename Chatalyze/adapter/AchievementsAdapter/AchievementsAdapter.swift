@@ -11,9 +11,9 @@ import UIKit
 class AchievementsAdapter: ExtendedView {
 
     @IBOutlet var achievementCollection:UICollectionView?
-    private let sectionInsets = UIEdgeInsets(top: 10.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0,bottom: 30.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:10.0)
+    private let sectionInsets = UIEdgeInsets(top: 10.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:5.0,bottom: 30.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:5.0)
     var itemsPerRow:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4:4
-    private var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
+    private var checkpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
     var controller:AchievmentsController?
     
     override func viewDidLayout() {
@@ -28,23 +28,22 @@ class AchievementsAdapter: ExtendedView {
         self.achievementCollection?.delegate = self
         self.achievementCollection?.reloadData()
     }
-    func updateAchievements(array:[Bool]){
     
-       
-        self.chekpointsArray = array
-        Log.echo(key: "yud", text: "The current array is \(array) and the collection is \(self.achievementCollection)")
+    func updateAchievements(array:[Bool]){
+        
+        self.checkpointsArray = array
         self.achievementCollection?.reloadData()
     }
 }
 
 extension AchievementsAdapter:UICollectionViewDataSource{
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {        
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chekpointsArray.count
+        return checkpointsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,7 +52,7 @@ extension AchievementsAdapter:UICollectionViewDataSource{
             return UICollectionViewCell()
         }
         cell.root = self
-        cell.fillInfo(isAchieved:chekpointsArray[indexPath.row],currentIndex:indexPath.item)
+        cell.fillInfo(isAchieved:checkpointsArray[indexPath.row],currentIndex:indexPath.item)
         return cell
     }
 }
@@ -65,7 +64,7 @@ extension AchievementsAdapter:UICollectionViewDelegate {
 }
 
 extension AchievementsAdapter: UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
@@ -83,6 +82,6 @@ extension AchievementsAdapter: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return UIDevice.current.userInterfaceIdiom == .pad ? 40.0:30.0
+        return UIDevice.current.userInterfaceIdiom == .pad ? 60.0:45.0
     }
 }

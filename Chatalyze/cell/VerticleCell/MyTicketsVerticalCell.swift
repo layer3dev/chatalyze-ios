@@ -12,6 +12,7 @@ import SDWebImage
 
 class MyTicketsVerticalCell: ExtendedTableCell {
     
+    var isJoinDisabel = false 
     var rootAdapter:MyTicketesVerticalAdapter?
     @IBOutlet var headerImage:UIImageView?
     @IBOutlet var borderView:UIView?
@@ -33,6 +34,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     
     @IBOutlet var profileImage:UIImageView?
     @IBOutlet var hostName:UILabel?
+    
+    @IBOutlet var sponsorView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -67,11 +70,9 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         
         paintGradientColorOnJoinSessionButton()
         
-        self.contentView.dropShadow(color: UIColor(red: 221.0/255.0, green: 221.0/255.0, blue: 221.0/255.0, alpha: 1), opacity: 0.5, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 8:6, scale: true, layerCornerRadius: 0.0)
+        self.borderView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        self.borderView?.layer.masksToBounds = true
         
-        mainView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
-        
-        mainView?.layer.masksToBounds = true
         //self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0))
     }
     
@@ -81,15 +82,24 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             return
         }
         self.info = info
+        
+        if isJoinDisabel{
+          
+            self.joinButtonContainer?.isUserInteractionEnabled = false
+        }else{
+            self.joinButtonContainer?.isUserInteractionEnabled = true 
+        }
+        
+        
         self.chatnumberLbl?.text = String(info.slotNo ?? 0)
         initializeDesiredDatesFormat(info:info)
         self.title?.text = "\(info.eventTitle ?? "")"
         self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
         
-        if info.sponserId == nil{
-            self.headerImage?.image = UIImage(named: "userTicketTopBannerImage")
+        if info.sponserId == nil{            
+            self.sponsorView?.isHidden = true
         }else{
-            self.headerImage?.image = UIImage(named: "officialSponserFull")
+            self.sponsorView?.isHidden = false
         }
         
         if let bannerUrl = info.callschedule?.eventBannerUrl{

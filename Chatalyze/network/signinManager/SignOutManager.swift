@@ -32,6 +32,7 @@ class SignOutManager{
         }
         
         params["userId"] = userInfo.id
+        params["appType"] = AppInfoConfig.appType
         
         ServerProcessor().request(.post, url, parameters: params, encoding: .defaultEncoding, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)

@@ -87,6 +87,20 @@ extension MyTicketesAdapter:UICollectionViewDataSource{
         cell.fillInfo(info: ticketsListingArray[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == self.ticketsListingArray.count-1{
+            if root?.controller?.currentEventShowing == .past {
+                
+                Log.echo(key: "yud", text: "Fetching the past events from will display indexpath is \(indexPath.row) and the listing array count is \(self.ticketsListingArray.count)")
+                // FetchEventsForPastForPagination automatically denied if the events are fetched completely
+                root?.controller?.fetchPreviousTicketsInfoForPagination()
+            }
+            //ask for more cells
+        }
+        //
+    }
 }
 
 extension MyTicketesAdapter:UICollectionViewDelegate{

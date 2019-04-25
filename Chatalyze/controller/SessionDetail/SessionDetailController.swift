@@ -9,7 +9,7 @@
 import UIKit
 
 class SessionDetailController: InterfaceExtendedController {
-
+    
     var eventInfo:EventInfo?
     var emptySlotList = [EmptySlotInfo]()
     
@@ -40,7 +40,7 @@ class SessionDetailController: InterfaceExtendedController {
         }
         self.showLoader()
         CancelSessionProcessor().cancel(id: "\(id)") {(success, response) in
-           
+            
             DispatchQueue.main.async {
                 
                 self.stopLoader()
@@ -80,25 +80,6 @@ class SessionDetailController: InterfaceExtendedController {
             if let alreadyBookedInfo = self.eventInfo?.slotsInfoLists{
                 for info in alreadyBookedInfo {
                     if info.startDate?.timeIntervalSince(requiredStartDate ?? Date()) == 0.0 && info.endDate?.timeIntervalSince(requiredEndDate ?? Date()) == 0.0{
-                        
-//                        Log.echo(key: "yud", text: "Yes event is matched with the time")
-//                        if let date = requiredStartDate {
-//
-//                            let dateFormatter = DateFormatter()
-//                            dateFormatter.dateFormat = "h:mm"
-//                            dateFormatter.timeZone = TimeZone.current
-//                            dateFormatter.locale = Locale.current
-//                            let requireOne = dateFormatter.string(from: date)
-//
-//                            if let date = requiredEndDate{
-//
-//                                let dateFormatter = DateFormatter()
-//                                dateFormatter.dateFormat = "h:mm a"
-//                                dateFormatter.timeZone = TimeZone.current
-//                                dateFormatter.locale = Locale.current
-//                                Log.echo(key: "yud", text: " \(requireOne) - \(dateFormatter.string(from: date))")
-//                            }
-//                        }
                         emptySlotObj.slotInfo = info
                         break
                     }
@@ -109,19 +90,19 @@ class SessionDetailController: InterfaceExtendedController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     func menuAction(){
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
-
+    
     func backToHostDashboard(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -140,5 +121,5 @@ extension SessionDetailController:SessionDetailRootViewDelegate{
     func getEmptySlots()->[EmptySlotInfo]?{
         return self.emptySlotList
     }
-
+    
 }

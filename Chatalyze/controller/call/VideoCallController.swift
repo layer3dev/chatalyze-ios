@@ -747,7 +747,7 @@ extension VideoCallController{
                     return
             }
             
-            Log.echo(key: "yud", text: "The fetched the call result is success")
+            Log.echo(key: "yud", text: "The fetched the call result is success.")
             
             localEventInfo = self.transerState(info: localEventInfo)
             completion?(true, localEventInfo)
@@ -776,7 +776,7 @@ extension VideoCallController{
     func transerState(info : EventScheduleInfo)->EventScheduleInfo{
         
         let localEventInfo = info
-        //new event is updated with the old event local Parameters
+        //new event is updated with the old event local Parameters.
         if let newSlotInfo = localEventInfo.slotInfos{
             for newinfo in newSlotInfo{
                 if let oldSlotInfo = self.eventInfo?.slotInfos{
@@ -795,7 +795,7 @@ extension VideoCallController{
 
 extension VideoCallController{
     
-    func startLocalStream(){
+    func startLocalStream() {
         
         localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
@@ -860,12 +860,10 @@ extension VideoCallController{
         
         socketListener?.onEvent("multipleTabRequest", completion: { (json) in
             
-            Log.echo(key : "socket_client", text : "Multiplexing Error: \(String(describing: json))")
-            
             if let dataDict = json?.dictionary{
                 if let str = dataDict["id"]?.string{
                     if str == "multipleTabRequest"{
-                        Log.echo(key: "socket_client", text: "Multiplexing Request accepted")
+                        
                         self.handleMultipleTabOpening()
                     }
                 }
@@ -1057,18 +1055,22 @@ extension VideoCallController{
     }
     
     func hidePreConnectLabel() {
+        
         self.preConnectLbl?.isHidden = true
     }
     
     private func showPreConnectLabel() {
+        
         self.preConnectLbl?.isHidden = false
     }
     
     func hideChatalyzeLogo() {
+        
         chatalyzeLogo?.isHidden = true
     }
     
     func hideAlertContainer() {
+        
         self.alertContainerView?.isHidden = true
     }
     func showAlertContainer() {

@@ -669,7 +669,7 @@ class UserCallController: VideoCallController {
             showErrorScreen()
             return
         }
-        
+                
         guard let eventInfo = eventInfo
             else{
                 return
@@ -688,6 +688,7 @@ class UserCallController: VideoCallController {
     }
     
     func showContactUsScreen(){
+        
         RootControllerManager().getCurrentController()?.showContactUs()
     }
     
@@ -727,12 +728,12 @@ class UserCallController: VideoCallController {
     }
     
     func showExitScreen() {
+        
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if(isDonationEnabled){
             showDonateScreen()
             return
         }
-        
         showFeedbackScreen()
     }
     
@@ -959,6 +960,7 @@ extension UserCallController{
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
         processController.setListener { (success, info, isDefault) in
+            
             self.processRequestAutograph(isDefault : success, info : info)
         }
         self.present(processController, animated: true) {
@@ -1068,7 +1070,7 @@ extension UserCallController{
     }
 }
 
-extension UserCallController{
+extension UserCallController {
     
     func registerForAutographListener(){
         
@@ -1132,8 +1134,7 @@ extension UserCallController{
 
 extension UserCallController:GetisHangedUpDelegate{
     
-    func restartSelfie() {
-     
+    func restartSelfie(){
         SlotFlagInfo.staticIsTimerInitiated = false
     }
     

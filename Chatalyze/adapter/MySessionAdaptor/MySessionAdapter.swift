@@ -144,49 +144,6 @@ extension MySessionAdapter:UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        guard let controller = SessionDetailController.instance() else{
-//            return
-//        }
-//        
-//        if indexPath.row > (sessionListingArray.count-1){
-//            return
-//        }
-//        
-//        controller.eventInfo = self.sessionListingArray[indexPath.row]
-//        
-//        self.root?.controller?.navigationController?.pushViewController(controller, animated: true)
-    }
-}
-
-extension MySessionAdapter:UIScrollViewDelegate{
-    
-    //we set a variable to hold the contentOffSet before scroll view scrolls
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-       
-        //Begin scrolling
-        self.lastContentOffset = scrollView.contentOffset.y
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-        //scroling
-        if (self.lastContentOffset < scrollView.contentOffset.y) {
-            
-            self.root?.controller?.handleScrollingHeader(direction:.up)
-            // did move up
-        } else if (self.lastContentOffset > scrollView.contentOffset.y) {
-            
-            self.root?.controller?.handleScrollingHeader(direction:.down)
-            // did move down
-        } else {
-            // didn't move
-        }
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.root?.controller?.handleScrollingHeaderOnEndDragging(direction: .up)
-        //Verify that header needs to permanent open or close.
     }
 }
 

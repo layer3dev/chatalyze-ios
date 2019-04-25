@@ -25,6 +25,24 @@ class MyTicketsController: InterfaceExtendedController{
     var callTimerTest = Timer()
     let eventSlotListiner = TicketSlotListener()
     let applicationStateListener = ApplicationStateListener()
+   
+    @IBOutlet var topOfHeaderConstraint:NSLayoutConstraint?
+
+    //Past Data fetching Info
+    var pastSlotsArray = [EventSlotInfo]()
+    var isPastEventsFetching = false
+    var isFetchingPastEventCompleted = false
+    var limit = 8
+    enum eventTypes:Int{
+        case upcoming = 0
+        case past = 1
+    }
+    var currentEventShowing = eventTypes.upcoming
+    @IBOutlet var upcomingLabel:UILabel?
+    @IBOutlet var pastLabel:UILabel?
+    @IBOutlet var upcomingBorder:UIView?
+    @IBOutlet var pastBorder:UIView?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -36,6 +54,50 @@ class MyTicketsController: InterfaceExtendedController{
         registerEventSlotListner()       
     }
     
+    
+    @IBAction func showPastEvents(sender:UIButton?){
+        
+        currentEventShowing = .past
+        resetUpcomingData()
+        fetchPreviousTicketsInfo()
+    }
+    
+    @IBAction func showUpcomingEvents(sender:UIButton?){
+        
+        currentEventShowing = .upcoming
+        resetPastData()
+        fetchInfo()
+    }
+    
+    func resetPastData(){
+        
+        self.upcomingLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+        self.upcomingBorder?.backgroundColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+        
+        
+        self.pastLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.pastBorder?.backgroundColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        
+        self.pastSlotsArray.removeAll()
+        self.rootview?.fillInfo(info: self.pastSlotsArray)
+        isPastEventsFetching = false
+        isFetchingPastEventCompleted = false
+    }
+    
+    func resetUpcomingData(){
+        
+        self.upcomingLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.upcomingBorder?.backgroundColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        
+        
+        self.pastLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+        self.pastBorder?.backgroundColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+       
+        self.ticketsArray.removeAll()
+        self.rootview?.fillInfo(info: self.ticketsArray)
+    }
+
+    
     func registerEventSlotListner(){
         
         guard let id = SignedUserInfo.sharedInstance?.id else {
@@ -44,8 +106,6 @@ class MyTicketsController: InterfaceExtendedController{
         
         eventSlotListiner.userId = id
         eventSlotListiner.setListener {
-            
-            Log.echo(key: "yud", text:"New slot is booked")
             self.fetchInfoForListenr()
         }
         
@@ -129,6 +189,10 @@ class MyTicketsController: InterfaceExtendedController{
     
     func fetchInfo(){
         
+        if self.currentEventShowing == .past{
+            return
+        }
+        
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
@@ -167,6 +231,104 @@ class MyTicketsController: InterfaceExtendedController{
                 }
             }
         }
+    }
+    
+    func fetchPreviousTicketsInfo(){
+        
+        if self.currentEventShowing == .upcoming {
+            return
+        }
+        
+        guard let id = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        
+        self.showLoader()
+        FetchOldTicketsProcessor().fetchInfos(offset:0,limit: self.limit, completion: {(success, info) in
+            self.stopLoader()
+        
+            DispatchQueue.main.async {
+        
+                self.pastSlotsArray.removeAll()
+                self.rootview?.adapter?.initializeCollectionFlowLayout()
+                self.rootview?.fillInfo(info: self.pastSlotsArray)
+                self.stopLoader()
+                
+                if !success{
+                    
+                    self.noTicketLbl?.isHidden = false
+                    self.noTicketView?.isHidden = false
+                    return
+                }
+                
+                if let info = info{
+                    
+                    if info.count <= 0{
+                        
+                        self.noTicketLbl?.isHidden = false
+                        self.noTicketView?.isHidden = false
+                        self.rootview?.fillInfo(info: self.pastSlotsArray)
+                        return
+                    }
+                    self.pastSlotsArray = info
+                    self.noTicketLbl?.isHidden = true
+                    self.noTicketView?.isHidden = true
+                    self.rootview?.fillInfo(info: info)
+                }
+            }
+        })
+    }
+    
+    func fetchPreviousTicketsInfoForPagination(){
+        
+        Log.echo(key: "yud", text: "calling is failed")
+
+        guard let id = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        
+        if currentEventShowing == .upcoming {
+            return
+        }
+        
+        if isPastEventsFetching {
+            return
+        }
+        
+        if isFetchingPastEventCompleted {
+            return
+        }
+        
+        self.isPastEventsFetching = true
+        
+        Log.echo(key: "yud", text: "calling is passed")
+        
+        FetchOldTicketsProcessor().fetchInfos(offset:self.pastSlotsArray.count,limit: self.limit, completion: {(success, info) in
+            
+            DispatchQueue.main.async {
+                
+                self.isPastEventsFetching = false
+                if success{
+                    if let array = info {
+                        if array.count >= self.limit {
+                            
+                            for info in array{
+                                self.pastSlotsArray.append(info)
+                                self.rootview?.fillInfo(info: self.pastSlotsArray)
+                            }
+                        }else if array.count < self.limit {
+                            
+                            self.isFetchingPastEventCompleted = true
+                            self.rootview?.fillInfo(info: self.pastSlotsArray)
+                        }
+                        return
+                    }
+                }
+                self.isFetchingPastEventCompleted = true
+                self.rootview?.fillInfo(info: self.pastSlotsArray)
+                return
+            }
+        })
     }
         
     
