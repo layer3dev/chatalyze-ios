@@ -12,6 +12,7 @@ import SDWebImage
 
 class MyTicketsVerticalCell: ExtendedTableCell {
     
+    var isJoinDisabel = false 
     var rootAdapter:MyTicketesVerticalAdapter?
     @IBOutlet var headerImage:UIImageView?
     @IBOutlet var borderView:UIView?
@@ -81,6 +82,15 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             return
         }
         self.info = info
+        
+        if isJoinDisabel{
+          
+            self.joinButtonContainer?.isUserInteractionEnabled = false
+        }else{
+            self.joinButtonContainer?.isUserInteractionEnabled = true 
+        }
+        
+        
         self.chatnumberLbl?.text = String(info.slotNo ?? 0)
         initializeDesiredDatesFormat(info:info)
         self.title?.text = "\(info.eventTitle ?? "")"

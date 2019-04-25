@@ -24,11 +24,14 @@ class MyTicketesVerticalAdapter: ExtendedView {
         myTicketsVerticalTableView?.delegate = self
         initializeForTableContentHeight()
         myTicketsVerticalTableView?.reloadData()
+        
+        let requiredHeight = UIScreen.main.bounds.height - (UIDevice.current.userInterfaceIdiom == .pad ? 134:95)
+        self.heightOfTableViewContainer?.constant = requiredHeight
     }
     
     func initializeForTableContentHeight(){
         
-        self.myTicketsVerticalTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        //self.myTicketsVerticalTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -44,6 +47,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
         DispatchQueue.main.async {
             
             guard let info = info else {
+                
                 self.ticketsListingArray.removeAll()
                 self.myTicketsVerticalTableView?.reloadData()
                 return
@@ -57,27 +61,62 @@ class MyTicketesVerticalAdapter: ExtendedView {
 extension MyTicketesVerticalAdapter:UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if root?.controller?.currentEventShowing == .past{
+            if self.root?.controller?.isFetchingPastEventCompleted ?? false || self.ticketsListingArray.count == 0{
+                return ticketsListingArray.count
+            }
+            return ticketsListingArray.count+1
+        }
         return ticketsListingArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTicketsVerticalCell", for: indexPath) as? MyTicketsVerticalCell else {            
-            return UITableViewCell()
+        if indexPath.row < self.ticketsListingArray.count{
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTicketsVerticalCell", for: indexPath) as? MyTicketsVerticalCell else {
+                return UITableViewCell()
+            }
+            cell.rootAdapter = self
+            cell.delegate = self
+            if self.root?.controller?.currentEventShowing == .past{
+                cell.isJoinDisabel = true
+            }else{
+                cell.isJoinDisabel = false
+            }
+            cell.fillInfo(info: ticketsListingArray[indexPath.row])
+            return cell
         }
-        cell.rootAdapter = self
-        cell.delegate = self
-        if indexPath.row >= ticketsListingArray.count{
-            return UITableViewCell()
+        
+        //Log.echo(key: "yud", text: "I am returning empty cell with indexpath \(indexPath.row) and teh session array count is \(self.sessionListingArray.count)")
+        
+        if self.root?.controller?.currentEventShowing == .past{
+            
+            guard let loaderCell = tableView.dequeueReusableCell(withIdentifier: "MySessionLoaderCell", for: indexPath) as? MySessionLoaderCell else {
+                return UITableViewCell()
+            }
+            loaderCell.startAnimating()
+            return loaderCell
         }
-        cell.fillInfo(info: ticketsListingArray[indexPath.row])
-        return cell
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row == self.ticketsListingArray.count-1{
+            if root?.controller?.currentEventShowing == .past {
+                
+                // FetchEventsForPastForPagination automatically denied if the events are fetched completely
+                root?.controller?.fetchPreviousTicketsInfoForPagination()
+            }
+            //ask for more cells
+        }
+        //
     }
 }
 
@@ -92,11 +131,29 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
         
         return UITableView.automaticDimension
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+      
+        Log.echo(key: "yud", text: "scroll content offset is \(scrollView.contentOffset.y)")
+        
+        if scrollView.contentOffset.y <= (UIDevice.current.userInterfaceIdiom == .pad ? 90:75) {
+            
+            if scrollView.contentOffset.y < 0.0{
+                self.root?.controller?.topOfHeaderConstraint?.constant = 0
+                return
+            }
+            self.root?.controller?.topOfHeaderConstraint?.constant = -scrollView.contentOffset.y
+            return
+        }
+        if scrollView.contentOffset.y > (UIDevice.current.userInterfaceIdiom == .pad ? 90:75){
+            self.root?.controller?.topOfHeaderConstraint?.constant = -(UIDevice.current.userInterfaceIdiom == .pad ? 90:75)
+        }
+    }
 }
 
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
-    
     
     func jointEvent(info:SlotInfo?){
         

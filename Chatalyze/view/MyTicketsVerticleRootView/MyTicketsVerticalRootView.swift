@@ -18,6 +18,7 @@ class MyTicketsVerticalRootView:MyTicketsRootView {
         tableAdapter?.root = self
     }
     
+    
     override func fillInfo(info:[EventSlotInfo]?){
         
         DispatchQueue.main.async {
