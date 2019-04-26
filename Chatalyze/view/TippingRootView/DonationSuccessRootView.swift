@@ -11,7 +11,7 @@ import UIKit
 class DonationSuccessRootView: ExtendedView {
     
     @IBOutlet private var successMessageLabel : UILabel?
-
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -35,7 +35,6 @@ class DonationSuccessRootView: ExtendedView {
         }
         let influencer = scheduleInfo.user
         let influencerName = influencer?.fullName ?? ""
-        successMessageLabel?.text = "Your donation of $\(price) was placed successfully. You're awesome!"
+        successMessageLabel?.text = "Your tip of $\(price) was placed successfully. You're awesome!"
     }
-
 }

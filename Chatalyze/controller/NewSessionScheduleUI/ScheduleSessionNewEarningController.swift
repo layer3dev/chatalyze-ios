@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ScheduleSessionNewEarningControllerDelegate {
+  
     func getSchduleSessionInfo()->ScheduleSessionInfo?
     func goToDonationScreen()
 }
@@ -61,7 +62,7 @@ extension ScheduleSessionNewEarningController:ScheduleSessionEarningRootViewDele
         return delegate?.getSchduleSessionInfo()
     }
     
-    func goToNextScreen(){
+    func goToNextScreen(){       
         delegate?.goToDonationScreen()
     }
 }

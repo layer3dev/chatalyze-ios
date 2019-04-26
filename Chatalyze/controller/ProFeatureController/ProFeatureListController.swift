@@ -37,7 +37,7 @@ class ProFeatureListController: InterfaceExtendedController {
     
     @IBAction func serviceFeeAction(){
         
-        infoLabel?.text = "Chatalyze will retain 20% of your chat and donation revenue."
+        infoLabel?.text = "Chatalyze will retain 20% of your chat and tip revenue."
         UIView.animate(withDuration: 0.25) {
             
             self.infoAlertView?.alpha = 1
@@ -58,7 +58,7 @@ class ProFeatureListController: InterfaceExtendedController {
     
     @IBAction func postChatDonation(){
         
-        infoLabel?.text = "You can enable post-chat donations so people can show their support after they chat with you. Note: donations made through the iOS app are subject to the App Store's 30% transaction fee."
+        infoLabel?.text = "You can enable post-chat tips so people can show their support after they chat with you. Note: tips made through the iOS app are subject to the App Store's 30% transaction fee."
         
         UIView.animate(withDuration: 0.25) {
             

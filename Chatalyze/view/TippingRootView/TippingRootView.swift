@@ -65,7 +65,8 @@ class TippingRootView: ExtendedView {
         let influencer = scheduleInfo.user
         let influencerName = influencer?.fullName ?? ""
         
-        tipLabel?.text = "Would you like to support \(influencerName) by giving a donation?"
+    
+        tipLabel?.text = "Would you like to say thanks to \(influencerName) by leaving a tip?"
     
         tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
@@ -97,15 +98,6 @@ class TippingRootView: ExtendedView {
         self.layoutIfNeeded()
         isAlertShowing = true
         return
-        
-//        let ac = UIAlertController(title: "", message: "Transaction and In-app purchase fees (if payment is made through the Chatalyze mobile app) will automatically be deducted before your donation is transferred to the host.", preferredStyle: .actionSheet)
-//        let popover = ac.popoverPresentationController
-//        if UIDevice.current.userInterfaceIdiom == .phone{
-//            popover?.delegate = self
-//        }
-//        popover?.sourceView = sender
-//        popover?.sourceRect = sender.frame
-//        controller?.present(ac, animated: true)
     }
 }
 

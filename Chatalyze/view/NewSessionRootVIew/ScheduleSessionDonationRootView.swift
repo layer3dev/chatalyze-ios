@@ -104,7 +104,7 @@ class ScheduleSessionDonationRootView: ExtendedRootView {
         
         if(isDonationAllowed == .none){
             
-            socialErrorLbl?.text = "Please specify whether you want to enable donation after their chat."
+            socialErrorLbl?.text = "Please specify whether you want to enable tip after their chat."
             return false
         }
         socialErrorLbl?.text = ""

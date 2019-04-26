@@ -53,7 +53,7 @@ class DonationSuccessController: InterfaceExtendedController {
 
 extension DonationSuccessController{
    
-    class func instance()->DonationSuccessController?{
+    class func instance()->DonationSuccessController? {
         
         let storyboard = UIStoryboard(name: "Tipping", bundle:nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "donation_success") as? DonationSuccessController

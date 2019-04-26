@@ -10,6 +10,7 @@ import UIKit
 
 class SessionDetailTableCell: ExtendedTableCell {
     
+    var isBreak = false
     @IBOutlet var attendessNameLbl:UILabel?
     @IBOutlet var slotTime:UILabel?
     var emptySlotInfo:EmptySlotInfo?
@@ -30,7 +31,13 @@ class SessionDetailTableCell: ExtendedTableCell {
         self.emptySlotInfo = info
         self.index = index
         
-        self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  \(self.emptySlotInfo?.slotInfo?.user?.firstName?.firstCapitalized ?? "")"
+        if isBreak {
+          
+            self.attendessNameLbl?.text = "\((self.index ?? 0)+1). Break"
+        }else{
+          
+            self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  \(self.emptySlotInfo?.slotInfo?.user?.firstName?.firstCapitalized ?? "")"
+        }
         
         if let date = self.emptySlotInfo?.startDate {
             

@@ -123,10 +123,9 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let startDate = info.startDate{
             if let endDate = info.endDate{
                 let timeDiffrence = endDate.timeIntervalSince(startDate)
-                Log.echo(key: "yud", text: "The total time of the session is \(timeDiffrence)")
                 if let durate  = info.duration{
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots) booked"
+                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(info.emptySlotsArray?.count ?? 0)) booked"
                 }
             }
         }

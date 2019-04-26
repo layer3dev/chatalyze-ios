@@ -94,22 +94,7 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
     func handleCellSelection(view: JTAppleCell?, cellState: CellState) {
         
         guard let myCustomCell = view as? CalendarCell else {return }
-        
-        //        switch cellState.selectedPosition() {
-        //        case .full:
-        //            myCustomCell.backgroundColor = .green
-        //        case .left:
-        //            myCustomCell.backgroundColor = .yellow
-        //        case .right:
-        //            myCustomCell.backgroundColor = .red
-        //        case .middle:
-        //            myCustomCell.backgroundColor = .blue
-        //        case .none:
-        //            myCustomCell.backgroundColor = nil
-        //        }
-        //
         if cellState.isSelected {
-            
         } else {
         }
     }
