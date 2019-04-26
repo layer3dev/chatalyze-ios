@@ -47,6 +47,7 @@ class SessionDetailRootView: ExtendedView {
         confirmButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
         
         goBackButtonContainer?.layer.masksToBounds = true
+        
         confirmButton?.layer.masksToBounds = true
     }
     
@@ -78,6 +79,7 @@ class SessionDetailRootView: ExtendedView {
                 return
             }
             self.info = info
+            self.adpater.info = self.info
             self.reloadAdapter()
             
             Log.echo(key: "yud", text: " Time difference in between the end and current time \(Date().timeIntervalSince(info.endDate ?? Date()))")
@@ -101,7 +103,7 @@ class SessionDetailRootView: ExtendedView {
                     Log.echo(key: "yud", text: "The total time of the session is \(timeDiffrence)")
                     if let durate  = info.duration{
                         let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots) chats booked "
+                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.info?.emptySlotsArray?.count ?? 0)) chats booked "
                     }
                 }
             }

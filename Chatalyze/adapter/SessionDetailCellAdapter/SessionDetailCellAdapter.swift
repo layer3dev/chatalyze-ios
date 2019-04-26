@@ -19,6 +19,7 @@ class SessionDetailCellAdapter: ExtendedView {
     var delegate:SessionDetailCellAdapterProtocols?
     var emptySlotInfo = [EmptySlotInfo]()
     var tableView:UITableView?
+    var info:EventInfo?
     
     func initilaize(tableView:UITableView?){
         
@@ -77,6 +78,14 @@ extension SessionDetailCellAdapter:UITableViewDataSource{
         
         if indexPath.row < self.emptySlotInfo.count {
         
+            for info in self.info?.emptySlotsArray ?? []{
+                if info["slotNo"].intValue == (indexPath.row+1){
+                    cell.isBreak = true
+                    break
+                }else{
+                    cell.isBreak = false
+                }
+            }
             cell.fillInfo(info: self.emptySlotInfo[indexPath.row],index:indexPath.row)
             return cell
         }

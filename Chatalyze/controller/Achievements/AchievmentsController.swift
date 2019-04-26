@@ -167,11 +167,11 @@ class AchievmentsController: InterfaceExtendedController {
             if self.chekpointsArray[3] == true {
                 
                 self.achievementImage?.image = UIImage(named: "EmojiFirstDonation")
-                self.achievementText?.text = "Gave your first donation!"
+                self.achievementText?.text = "Gave your first tip!"
                 return
             }
             self.achievementImage?.image = UIImage(named: "EmojiLock")
-            self.achievementText?.text = "Gave your first donation!"
+            self.achievementText?.text = "Gave your first tip!"
             return
         }
         if index == 4 {
@@ -215,11 +215,11 @@ class AchievmentsController: InterfaceExtendedController {
             if self.chekpointsArray[7] == true{
                 
                 self.achievementImage?.image = UIImage(named: "EmojiThreeDonation")
-                self.achievementText?.text = "Gave 3 donations!"
+                self.achievementText?.text = "Gave 3 tips!"
                 return
             }
             self.achievementImage?.image = UIImage(named: "EmojiLock")
-            self.achievementText?.text = "Gave 3 donations!"
+            self.achievementText?.text = "Gave 3 tips!"
             return
         }
         if index == 8 {

@@ -48,9 +48,9 @@ class CountdownProcessor{
                 else{
                     return
             }
+            
             let seconds = timerSync.getSeconds()
             let lastRefresh = weakSelf.lastRefresh
-            
             let diff = seconds - lastRefresh
             
             if(diff <= 0){

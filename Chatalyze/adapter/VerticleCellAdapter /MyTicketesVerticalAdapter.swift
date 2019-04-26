@@ -107,14 +107,10 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if indexPath.row == self.ticketsListingArray.count-1{
-            if root?.controller?.currentEventShowing == .past {
-                
-                // FetchEventsForPastForPagination automatically denied if the events are fetched completely
+            if root?.controller?.currentEventShowing == .past {                
                 root?.controller?.fetchPreviousTicketsInfoForPagination()
             }
-            //ask for more cells
         }
-        //
     }
 }
 
@@ -155,25 +151,19 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
     func jointEvent(info:SlotInfo?){
         
-        Log.echo(key: "yud", text: "Joint Event is calling in adapter!!")
-        
         guard let slotInfo = info
             else{
                 return
         }
-        
         guard let eventId = slotInfo.callscheduleId
             else{
                 return
         }
-        
         guard let controller = UserCallController.instance()
             else{
                 return
         }
-        
         controller.eventId = String(eventId)
-        
         self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
@@ -182,11 +172,9 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         guard let controller = InternetSpeedTestController.instance() else{
             return
         }
-        
         controller.onlySystemTest = true
-        
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
     

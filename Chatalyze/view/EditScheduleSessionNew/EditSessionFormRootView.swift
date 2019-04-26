@@ -265,7 +265,7 @@ class EditSessionFormRootView:ExtendedView {
             if self?.donationCustomSwitch?.isOn ?? false {
                 
                 self?.donationLabel?.text = "ON"
-                self?.donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
+                self?.donationInfoLabel?.text = "People will have the option to give you a tip after their chats."
                 self?.scheduleInfo?.tipEnabled = true
 
                 UIView.animate(withDuration: 0.15, animations: {
@@ -388,7 +388,7 @@ class EditSessionFormRootView:ExtendedView {
             
             donationCustomSwitch?.setOn()
             donationLabel?.text = "ON"
-            donationInfoLabel?.text = "People will have the option to give you a donation after their chats."
+            donationInfoLabel?.text = "People will have the option to give you a tip after their chats."
             //donationSwitch?.setOn(true, animated: true)
         }else{
             

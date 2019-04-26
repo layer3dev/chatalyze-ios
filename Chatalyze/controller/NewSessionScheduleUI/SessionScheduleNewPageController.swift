@@ -410,7 +410,7 @@ extension SessionScheduleNewPageController:ScheduleSessionNewDoneControllerDeleg
 
 extension SessionScheduleNewPageController:ScheduleSessionDonationControllerDelegate{
     
-    func goToScreenShotScreen(){
+    func goToScreenShotScreen(){    
         setSeventhController()
     }
 }

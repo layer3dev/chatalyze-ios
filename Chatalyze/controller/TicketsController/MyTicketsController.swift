@@ -74,12 +74,12 @@ class MyTicketsController: InterfaceExtendedController{
         self.upcomingLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
         self.upcomingBorder?.backgroundColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
         
-        
         self.pastLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
-        self.pastBorder?.backgroundColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.pastBorder?.backgroundColor = UIColor.clear
         
         self.pastSlotsArray.removeAll()
         self.rootview?.fillInfo(info: self.pastSlotsArray)
+        
         isPastEventsFetching = false
         isFetchingPastEventCompleted = false
     }
@@ -87,8 +87,7 @@ class MyTicketsController: InterfaceExtendedController{
     func resetUpcomingData(){
         
         self.upcomingLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
-        self.upcomingBorder?.backgroundColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
-        
+        self.upcomingBorder?.backgroundColor = UIColor.clear
         
         self.pastLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
         self.pastBorder?.backgroundColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
