@@ -30,8 +30,6 @@ class MyTicketesVerticalAdapter: ExtendedView {
     }
     
     func initializeForTableContentHeight(){
-        
-        //self.myTicketsVerticalTableView?.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
