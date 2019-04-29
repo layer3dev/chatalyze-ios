@@ -395,5 +395,44 @@ class EventScheduleCoreInfo: EventInfo {
         return (0, nil)
     }
     
+    
+    //
+    var isBreakSlotAvailableInFuture : Bool{
+        
+        get{
+            for info in self.emptySlotsArray ?? []{
+                if let endDateInStr = info["end"].string{
+                    if let utcEndDate = DateParser.UTCStringToDate(endDateInStr){
+                  
+                        Log.echo(key: "yud", text: "Time difference is future slots are \(utcEndDate.timeIntervalSince(Date()))")
+                        if utcEndDate.timeIntervalSince(Date()) >= 0{
+                            return true
+                        }
+                    }
+                }
+            }
+            return false
+        }
+    }
+    
+    var isCurrenrSlotisBreak:Bool{
+        
+        for info in self.emptySlotsArray ?? []{
+            if let endDateInStr = info["end"].string{
+                if let utcEndDate = DateParser.UTCStringToDate(endDateInStr){
+                    if let startDateInStr = info["start"].string{
+                        if let utcStartDate = DateParser.UTCStringToDate(startDateInStr){
+                            Log.echo(key: "yud", text: "start difference is \(utcStartDate.timeIntervalSince(Date())) and the end differnrce is \(utcEndDate.timeIntervalSince(Date()))")
+                            if utcEndDate.timeIntervalSince(Date()) >= 0 && utcStartDate.timeIntervalSince(Date()) < 0{
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
 }
 

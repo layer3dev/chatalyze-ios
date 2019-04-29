@@ -99,9 +99,7 @@ class EventInfo: NSObject {
         
         emptySlotsArray = json["emptySlots"].array
         
-        //autographAllow
         user = UserInfo(userInfoJSON: json["user"])
-//        if (json["user"] != nil) { user = User(json: json["user"] as! NSDictionary) } //todo:
         href = json["href"].string
         if let  callBokingArray = json["callbookings"].array {
             self.callBookings = callBokingArray

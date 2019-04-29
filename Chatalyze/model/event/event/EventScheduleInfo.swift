@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class EventScheduleInfo : EventScheduleCoreInfo{
+class EventScheduleInfo : EventScheduleCoreInfo {
     
     var mergeSlotInfo : EventScheduleCoreInfo?
     
@@ -48,6 +48,7 @@ class EventScheduleInfo : EventScheduleCoreInfo{
             if(!isMerged){
 
                 if currentSlot.id == nil {
+                   
                     //This was implementing in the parseEmptySlots but now we have to implement it here. done by yudh.
                     currentSlot.isBreak = true
                 }
