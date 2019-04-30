@@ -266,7 +266,7 @@ class EventScheduleCoreInfo: EventInfo {
             for index in 0 ..< slotInfos.count{
                 let slotInfo = slotInfos[index]
                 if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture) {
-                     return (index, slotInfo)
+                    return (index, slotInfo)
                 }
             }
             return nil
@@ -384,30 +384,28 @@ class EventScheduleCoreInfo: EventInfo {
             let slotInfo = slotInfos[index]
             let slotUserId = slotInfo.user?.id ?? "0"
             if(slotInfo.isWholeConnectEligible && selfId == slotUserId){
-                //                Log.echo(key: "myValidSlot", text: "Here is your slot and index -> \(index)")
                 return (index, slotInfo)
             }
-            
         }
-        
-        //        Log.echo(key: "myValidSlot", text: "no valid slot found")
-        
         return (0, nil)
     }
     
     
-    //
-    var isBreakSlotAvailableInFuture : Bool{
-        
+    
+    //this will return
+    //Bool if valid slot is future.
+    //using on the host side.
+    var isValidSlotAvailable : Bool{
         get{
-            for info in self.emptySlotsArray ?? []{
-                if let endDateInStr = info["end"].string{
-                    if let utcEndDate = DateParser.UTCStringToDate(endDateInStr){
-                  
-                        Log.echo(key: "yud", text: "Time difference is future slots are \(utcEndDate.timeIntervalSince(Date()))")
-                        if utcEndDate.timeIntervalSince(Date()) >= 0{
-                            return true
-                        }
+            guard let slotInfos = slotInfos
+                else{
+                    return false
+            }
+            for index in 0 ..< slotInfos.count{
+                let slotInfo = slotInfos[index]
+                if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture) {
+                    if slotInfo.id != nil{
+                        return true
                     }
                 }
             }
@@ -415,20 +413,21 @@ class EventScheduleCoreInfo: EventInfo {
         }
     }
     
-    var isCurrenrSlotisBreak:Bool{
+    var isCurrentSlotIsBreak:Bool{
+      
+        if let _ = self.currentSlot?.slotNo{
+            if self.currentSlot?.id == nil{
+                return true
+            }
+        }
+        return false
+    }
+    
+    var isCurrentSlotIsEmptySlot:Bool{
         
-        for info in self.emptySlotsArray ?? []{
-            if let endDateInStr = info["end"].string{
-                if let utcEndDate = DateParser.UTCStringToDate(endDateInStr){
-                    if let startDateInStr = info["start"].string{
-                        if let utcStartDate = DateParser.UTCStringToDate(startDateInStr){
-                            Log.echo(key: "yud", text: "start difference is \(utcStartDate.timeIntervalSince(Date())) and the end differnrce is \(utcEndDate.timeIntervalSince(Date()))")
-                            if utcEndDate.timeIntervalSince(Date()) >= 0 && utcStartDate.timeIntervalSince(Date()) < 0{
-                                return true
-                            }
-                        }
-                    }
-                }
+        if self.currentSlot?.slotNo == nil{
+            if self.currentSlot?.id == nil{
+                return true
             }
         }
         return false

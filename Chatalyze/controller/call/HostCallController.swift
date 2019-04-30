@@ -319,18 +319,12 @@ class HostCallController: VideoCallController {
     
     func verifyForEarlyFeature(){
     
-        //Log.echo(key: "yud", text: "Upcoming slot is \(self.eventInfo?.upcomingSlot)")
-        // Log.echo(key: "yud", text: "Event Started to testing and the future event status is \(self.eventInfo?.upcomingSlot) presented controller is \(self.getTopMostPresentedController())")
         
         if self.eventInfo?.isLIVE ?? false == false {
             return
         }
         
-        if self.eventInfo?.isBreakSlotAvailableInFuture ?? false == true {
-            return
-        }
-        
-        if self.eventInfo?.upcomingSlot != nil {
+        if self.eventInfo?.isValidSlotAvailable != false {
             
             // As we want to show the Alert again as soon as no future event is present.
             if earlyControllerReference != nil {
@@ -406,7 +400,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !activeSlot.isBreak){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
@@ -485,8 +479,7 @@ class HostCallController: VideoCallController {
         
         if(!countdownInfo.isActive){
             
-            //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
-            
+            // countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
             updateCallHeaderAfterEventStart()
             return
         }
@@ -509,7 +502,7 @@ class HostCallController: VideoCallController {
         
         //Editing  for the current Chat
 
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
+        let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
@@ -561,6 +554,7 @@ class HostCallController: VideoCallController {
         
         //Editing For the remaining time
         //Above code is responsible for handling the status if event is not started yet.
+        ///MergeSlotInfo includes both the break slots and the live call.
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
@@ -568,10 +562,14 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        Log.echo(key: "yud", text: "this event is break event \(self.eventInfo?.mergeSlotInfo?.emptySlotsArray?.count)")
+        if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false  {
+            
+            updateCallHeaderForEmptySlot()
+            return
+            
+        }
         
-        if slotInfo.isBreak{
-
+        if self.eventInfo?.isCurrentSlotIsBreak ?? false{
             updateCallHeaderForBreakSlot()
             return
         }
@@ -626,7 +624,7 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderForBreakSlot(){
       
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
-      
+        
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -634,7 +632,7 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
-        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.upcomingSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
+        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -800,8 +798,6 @@ class HostCallController: VideoCallController {
                 connection.disconnect()
                 connectionInfo[key] = nil
             }
-            
-            
         }
     }
     
