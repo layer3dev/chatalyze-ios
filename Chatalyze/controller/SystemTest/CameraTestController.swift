@@ -569,9 +569,7 @@ class CameraTestController: InterfaceExtendedController {
                 guard let controller = FreeEventPaymentController.instance() else{
                     return
                 }
-                
-                controller.info = self.info
-                
+                controller.info = self.info                
                 DispatchQueue.main.async {
                     RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                     })
