@@ -151,19 +151,20 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     func setDate(){
         
-        guard let info = self.info else{
+        guard let info = self.info else {
             return
         }
-        if let date = info.startDate{
+        
+        if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE, MMMM dd"
+            dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.dateLbl?.text = "\(dateFormatter.string(from: date))"
         }
         
-        if let date = info.startDate{
+        if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm"
@@ -185,7 +186,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
     }
     
-    func showAlert(sender:UIButton){
+    func showAlert(sender:UIButton) {
         
         let alertMessage = HandlingAppVersion().getAlertMessage()
         

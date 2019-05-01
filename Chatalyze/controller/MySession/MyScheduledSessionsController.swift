@@ -194,7 +194,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
-                    }else if array.count <= 0{
+                    }else if array.count <= 0 {
                        
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
@@ -260,18 +260,21 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     
     func FetchEventsForPast(){
         
-        if currentEventShowing == .upcoming{
+        if currentEventShowing == .upcoming {
             return
         }
         
-        if isPastEventsFetching{
+        if isPastEventsFetching {
             return
         }
-        if isFetchingPastEventCompleted{
+        
+        if isFetchingPastEventCompleted {
             return
         }
+        
         self.isPastEventsFetching = true
         self.showLoader()
+        
         FetchPastEventsProcessor().fetch(offset: self.pastEventsArray.count) { (success, message, info) in
             
             // Log.echo(key: "yud", text: "past events counts are \(info?.count)")
@@ -287,14 +290,31 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                             self.tableTopConstraint?.constant = -22.0
                             for info in array{
                                 self.pastEventsArray.append(info)
-                                self.rootView?.fillInfo(info: self.pastEventsArray)
                             }
+                            self.rootView?.fillInfo(info: self.pastEventsArray)
                         }else if array.count < self.limit {
                             
                             self.isFetchingPastEventCompleted = true
-                            self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-                            self.tableTopConstraint?.constant = 10.0
+                            
+                            for info in array{
+                                self.pastEventsArray.append(info)
+                            }
                             self.rootView?.fillInfo(info: self.pastEventsArray)
+                            
+                            if self.pastEventsArray.count == 0 {
+                                
+                                self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                                self.tableTopConstraint?.constant = 10.0
+                                
+                            }else{
+                                
+                                self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                                self.tableTopConstraint?.constant = -22.0
+                            }
+                            
+                            return
+                        }else if array.count == 0{
+                            
                         }
                         return
                     }

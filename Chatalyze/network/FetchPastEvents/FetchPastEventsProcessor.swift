@@ -21,7 +21,7 @@ class FetchPastEventsProcessor{
         }
         
         var param = [String:Any]()
-        param["limit"] = 50
+        param["limit"] = 8
         param["offset"] = offset
         param["order"] = ["start","desc"]
         param["past"] = true
@@ -29,7 +29,7 @@ class FetchPastEventsProcessor{
         
         Log.echo(key: "yud", text: "params are \(param)")
         
-        ServerProcessor().request(.get, url,parameters: param, encoding: .queryString,authorize :false) { (success, response) in
+        ServerProcessor().request(.get, url,parameters: param, encoding: .customGETEncoding,authorize :false) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }
@@ -37,7 +37,7 @@ class FetchPastEventsProcessor{
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : [EventInfo]?)->())){
         
         Log.echo(key: "yud", text: "past events are ==>  \(response)")
-
+        
         
         if(!success){
             completion(false,"",nil)

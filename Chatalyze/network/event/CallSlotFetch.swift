@@ -56,10 +56,10 @@ class CallSlotFetch{
         params["limit"] = 100
         params["offset"] = 0
         params["removePrevious"] = true
+        params["futureBookings"] = true
         params["start"] = DateParser.dateToStringInServerFormat(formattedDate)
         params["userId"] = userId
-        
-        
+                
         ServerProcessor().request(.get, url, parameters : params, encoding: .queryString, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }

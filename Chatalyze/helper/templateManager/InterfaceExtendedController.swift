@@ -270,3 +270,17 @@ extension UIViewController : NVActivityIndicatorViewable{
         }
     }
 }
+
+extension InterfaceExtendedController{
+    
+    func changeOrientationToPortrait(){
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+            
+            appDelegate.allowRotate = false
+            UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+        }
+        
+    }
+    
+}

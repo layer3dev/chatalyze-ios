@@ -68,7 +68,6 @@ class HostCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
-        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -87,9 +86,9 @@ class HostCallController: VideoCallController {
         if(!eventInfo.isExpired){
             return
         }
+        
         showEarningInformationScreen()
     }
-    
     
     func showEarningInformationScreen(){
         
@@ -246,7 +245,9 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
+        changeOrientationToPortrait()
     }
+    
     
     
     private func registerForTimerNotification(){
@@ -562,8 +563,8 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false  {
-            
+        if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
+            //this will execute only if we do not have the future tickets and current slot is not the break slot.
             updateCallHeaderForEmptySlot()
             return
             

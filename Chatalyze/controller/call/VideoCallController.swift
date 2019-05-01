@@ -134,6 +134,8 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
+        Log.echo(key : "yud", text : "Successfully reverted the code")
+        
         releaseListener()
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()
