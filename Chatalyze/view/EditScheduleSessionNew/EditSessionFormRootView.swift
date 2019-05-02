@@ -99,6 +99,8 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var screenShotSwitch:UISwitch?
     @IBOutlet var donationLabel:UILabel?
     @IBOutlet var screenShotLabel:UILabel?
+    @IBOutlet var sponsorshipViewHeightConstraintForFreeSession:NSLayoutConstraint?
+    @IBOutlet var sponsorShipLabel:UILabel?
     
     var eventInfo:EventInfo?
     var isPricingEnable:Bool? = nil
@@ -154,6 +156,28 @@ class EditSessionFormRootView:ExtendedView {
     var isCancelSessionVisible = false
     @IBOutlet var goBackButtonContainer:UIView?
     @IBOutlet var confirmButton:UIButton?
+    
+    
+    func implementSponsorShip(){
+        
+        DispatchQueue.main.async {
+            
+            let textOne = "Fans will have the option to sponsor this session. Learn more about sponsorship "
+            
+            let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Semibold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
+            
+            let textTwo =  "here."
+            
+            let textTwoAtrributed = textTwo.toAttributedString(font: "Nunito-Semibold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: true)
+            
+            textOneMutable.append(textTwoAtrributed)
+            
+            self.sponsorShipLabel?.attributedText = textOneMutable
+        }
+    }
+    
+    
+    
     
     @IBAction func cancelAction(sender:UIButton){
         
@@ -315,11 +339,13 @@ class EditSessionFormRootView:ExtendedView {
     
     func initializeVariable(){
         
+        
         initializeCustomSwitch()
         initializeDatePicker()
         initializeTimePicker()
         initializeChatLengthPicker()
         initializeSessionLengthPicker()
+        implementSponsorShip()
         
         self.breakAdapter?.root = self
         self.titleField?.textField?.delegate = self
@@ -545,6 +571,17 @@ class EditSessionFormRootView:ExtendedView {
         hidePriceFillingField()
     }
     
+    func showSponserView(){
+        
+        self.sponsorshipViewHeightConstraintForFreeSession?.priority = UILayoutPriority(250.0)
+    }
+    
+    func hideSponsorShipView(){
+        
+        self.sponsorshipViewHeightConstraintForFreeSession?.priority = UILayoutPriority(999.0)
+    }
+    
+    
     func hidePriceFillingField(){
    
         self.freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
@@ -558,16 +595,18 @@ class EditSessionFormRootView:ExtendedView {
         self.priceAmountField?.textField?.text = ""
         self.priceAmountField?.resetErrorStatus()
         paintMaximumEarningCalculator()
+        showSponserView()
     }
     
     @IBAction func paidActionAction(sender:UIButton){
         
-        showHeightPriceFllingField()
-        //Show Price Field existing price
+        showHeightPriceFllingField()        
+        // Show Price Field existing price
     }
     
     func showHeightPriceFllingField(){
         
+        hideSponsorShipView()
         self.isPricingEnable = true
         self.priceField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
         self.freeField?.backgroundColor = UIColor.white
@@ -584,7 +623,7 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
         save()
-        Log.echo(key: "yud", text: "Final para are \(getParam())")
+        Log.echo(key: "yud", text: "Final param are \(getParam())")
     }
     
     func save(){
@@ -1793,5 +1832,19 @@ extension EditSessionFormRootView{
             priceAmountField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
             freeField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         }
+    }
+}
+
+
+extension EditSessionFormRootView{
+    
+    @IBAction func openPaymentPage(sender:UIButton?){
+        
+        guard let controller = FAQWebController.instance() else{
+            return
+        }
+        controller.nameofTitle = "Payments"
+        controller.url = "https://www.chatalyze.com/payments"
+        self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
 }
