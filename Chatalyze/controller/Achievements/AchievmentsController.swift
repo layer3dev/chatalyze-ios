@@ -18,8 +18,14 @@ class AchievmentsController: InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.trackSegment()
         self.paintInterface()
         self.fetchInfo()
+    }
+    
+    func trackSegment(){
+        
+        SEGAnalytics.shared().track("Attendee Achievements Page")
     }
     
     var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
