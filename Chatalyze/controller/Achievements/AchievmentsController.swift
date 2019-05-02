@@ -30,7 +30,7 @@ class AchievmentsController: InterfaceExtendedController {
     
     var chekpointsArray:[Bool] = [false,false,false,false,false,false,false,false,false,false]
     
-    @IBAction func backAction(sender:UIButton?){
+    @IBAction func backAction(sender:UIButton?){     
         self.navigationController?.popToRootViewController(animated: true)
     }
     

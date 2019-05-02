@@ -21,7 +21,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
     @IBOutlet var breakView:breakFeatureView?
-        
+    @IBOutlet var earlyEndSessionView:UIView?
     
     //For animation.
     var isAnimating = false
@@ -437,7 +437,7 @@ class HostCallController: VideoCallController {
         return connection
     }
     
-    private func getPreConnectConnection()->HostCallConnection?{
+    private func getPreConnectConnection()->HostCallConnection? {
         
         guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
@@ -611,10 +611,35 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
-        sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
-        sessionHeaderLbl?.text = ""        
+        
+        guard let endDate = self.eventInfo?.endDate
+            else{
+                return
+        }
+        
+        guard let countdownInfo = endDate.countdownTimeFromNow()
+            else{
+                return
+        }
+        
+        // Below code is responsible befor the event start.
+        sessionHeaderLbl?.text = "Session ends in:"
+        
+        var fontSize = 18
+        var remainingTimeFontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+            remainingTimeFontSize = 26
+        }
+        
+        //Editing For the remaining time
+        let countdownTime = "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        
+        let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        sessionRemainingTimeLbl?.attributedText = timeRemaining
+        self.earlyEndSessionView?.isHidden = false
     }
     
     private func updateForEmptyBreak(){
@@ -633,7 +658,9 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
+        self.earlyEndSessionView?.isHidden = true
         breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
+        
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -642,6 +669,7 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
+        self.earlyEndSessionView?.isHidden = true
     }
     
     private func updateFutureCallHeaderForEmptySlot(){
@@ -651,6 +679,7 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
+        self.earlyEndSessionView?.isHidden = true
     }
     
     
@@ -1122,3 +1151,23 @@ extension HostCallController{
 
 
 
+extension HostCallController{
+    
+    // End session early button Action
+    
+    @IBAction func endSessionEarly(sender:UIButton?){
+        
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end the session early or you want keep the registration open?", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "End session early", style: .default, handler: { (success) in
+            
+            self.makeRegistrationClose()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Keep registration open", style: .cancel, handler: { (success) in
+        }))
+        
+        self.present(alert, animated: true) {
+        }
+    }
+}
