@@ -35,4 +35,13 @@ class FieldValidator {
         let success = predicate.evaluate(with: text)
         return success
     }
+    
+    func validateYouTubeUrl(_ text : String)->Bool{
+        
+        let laxString = "^(http(s)??\\:\\/\\/)?(www\\.)?(((m.)youtube\\.com\\/watch\\?v=)|(youtu.be\\/))([a-zA-Z0-9\\-_])+"
+        let youTubeRegix = laxString;
+        let emailTest:NSPredicate = NSPredicate(format:"SELF MATCHES %@", youTubeRegix)
+        return emailTest.evaluate(with: text)        
+    }
+    
 }
