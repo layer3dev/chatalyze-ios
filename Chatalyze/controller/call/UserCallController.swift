@@ -173,9 +173,10 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
         self.selfieTimerView?.reset()
+        changeOrientationToPortrait()
         DispatchQueue.main.async {
             
-            if !SlotFlagInfo.staticScreenShotSaved{
+            if !SlotFlagInfo.staticScreenShotSaved {
                 SlotFlagInfo.staticIsTimerInitiated = false
             }
             guard let isScreenshotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved else {

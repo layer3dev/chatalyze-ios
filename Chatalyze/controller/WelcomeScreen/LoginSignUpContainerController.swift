@@ -23,12 +23,25 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         paintInterface()
         initializeForForGotPasswordNavigation()
         self.didLoad?()
+        initializeForSignIn()
         //verifyRoleId()
     }
+    
+    func initializeForSignIn(){
+      
+        pageController?.signUpController?.signInAction = {
+            
+            self.pageController?.setSignInTab()
+            self.signInTab?.select()
+            self.signUpTab?.reset()
+        }
+    }
+    
+    
     func initializeForForGotPasswordNavigation(){
      
         pageController?.signinController?.signUpHandler =  {
-        
+            
             self.pageController?.setSignUpTab()
             self.signInTab?.reset()
             self.signUpTab?.select()
@@ -124,7 +137,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        
         pageController = segue.destination as? WelcomePageController
     }
     
@@ -139,7 +151,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
     */
 }
 
-extension LoginSignUpContainerController{
+extension LoginSignUpContainerController {
     
     class func instance()->LoginSignUpContainerController?{
         

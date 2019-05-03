@@ -23,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
-        //Calling the delegate methods to the local notifications
         UNUserNotificationCenter.current().delegate = self
         initialization()
         initializeSegmentIO()
@@ -34,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
-        Log.echo(key: "yud", text: "Did Finish is calling")
         return true
     }
     
@@ -84,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
@@ -219,9 +216,9 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
 }
 
 
-extension AppDelegate{
+extension AppDelegate {
     
-    func verifyingAccessToken(){
+    func verifyingAccessToken() {
         
         guard let userInfo = SignedUserInfo.sharedInstance?.id else {
             return

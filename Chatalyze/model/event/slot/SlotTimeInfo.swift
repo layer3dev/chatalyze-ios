@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class SlotTimeInfo: SlotFlagInfo {
+    
     var _start : String?
     var startDate : Date?
     var endDate : Date?

@@ -52,13 +52,14 @@ class ReferralController: InterfaceExtendedController {
     }
     
     @IBAction func menuAction(){
+        
         RootControllerManager().getCurrentController()?.toggleAnimation()
     }
     
     @IBAction func backToPreviousController(){
+        
         self.navigationController?.popViewController(animated: true)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -81,12 +82,12 @@ class ReferralController: InterfaceExtendedController {
         showNavigationBar()
     }
     
-    @IBAction func backToMySession(sender:UIButton){
+    @IBAction func backToMySession(sender:UIButton) {
         
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func setSharableUrlText(){
+    func setSharableUrlText() {
         
         var str = AppConnectionConfig.basicUrl
         str = str + "/profile/"
@@ -117,7 +118,7 @@ class ReferralController: InterfaceExtendedController {
     @IBAction func copyText(send:UIButton){
         
         //str  = str.replacingOccurrences(of: " ", with: "")
-        guard var str = sharingLbl?.text else{
+        guard var str = sharingLbl?.text else {
             return
         }
         

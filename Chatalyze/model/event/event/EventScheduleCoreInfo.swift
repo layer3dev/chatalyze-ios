@@ -266,7 +266,7 @@ class EventScheduleCoreInfo: EventInfo {
             for index in 0 ..< slotInfos.count{
                 let slotInfo = slotInfos[index]
                 if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture) {
-                     return (index, slotInfo)
+                    return (index, slotInfo)
                 }
             }
             return nil
@@ -384,15 +384,53 @@ class EventScheduleCoreInfo: EventInfo {
             let slotInfo = slotInfos[index]
             let slotUserId = slotInfo.user?.id ?? "0"
             if(slotInfo.isWholeConnectEligible && selfId == slotUserId){
-                //                Log.echo(key: "myValidSlot", text: "Here is your slot and index -> \(index)")
                 return (index, slotInfo)
             }
-            
         }
-        
-        //        Log.echo(key: "myValidSlot", text: "no valid slot found")
-        
         return (0, nil)
+    }
+    
+    
+    
+    //this will return
+    //Bool if valid slot is future.
+    //using on the host side.
+    var isValidSlotAvailable : Bool{
+        get{
+            guard let slotInfos = slotInfos
+                else{
+                    return false
+            }
+            for index in 0 ..< slotInfos.count{
+                let slotInfo = slotInfos[index]
+                if(slotInfo.isLIVE || slotInfo.isPreconnectEligible || slotInfo.isFuture) {
+                    if slotInfo.id != nil{
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+    }
+    
+    var isCurrentSlotIsBreak:Bool{
+      
+        if let _ = self.currentSlot?.slotNo{
+            if self.currentSlot?.id == nil{
+                return true
+            }
+        }
+        return false
+    }
+    
+    var isCurrentSlotIsEmptySlot:Bool{
+        
+        if self.currentSlot?.slotNo == nil{
+            if self.currentSlot?.id == nil{
+                return true
+            }
+        }
+        return false
     }
     
 }

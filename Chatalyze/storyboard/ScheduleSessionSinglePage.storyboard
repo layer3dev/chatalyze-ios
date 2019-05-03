@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="2000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ykC-wi-XGe">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1125"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lcq-XV-1wV">
                                                 <rect key="frame" x="15" y="30" width="285" height="25"/>
@@ -1113,8 +1113,53 @@
                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qaL-cU-1l9" secondAttribute="bottom" priority="750" constant="15" id="rOn-jk-evT"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-VI-nzK">
+                                                <rect key="frame" x="15" y="621" width="290" height="0.0"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fans will have the option to sponsor this session. Learn more about sponsorship here." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yv8-mi-YHi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
+                                                        <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
+                                                        </variation>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ad-hr-W5p">
+                                                        <rect key="frame" x="0.0" y="0.0" width="290" height="0.0"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YY6-V2-KsG">
+                                                                <rect key="frame" x="0.0" y="0.0" width="290" height="0.0"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <connections>
+                                                                    <action selector="openPaymentPageWithSender:" destination="WzO-Hy-DrV" eventType="touchUpInside" id="PQx-g6-3dE"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="YY6-V2-KsG" firstAttribute="top" secondItem="0Ad-hr-W5p" secondAttribute="top" id="M6L-Ra-2e1"/>
+                                                            <constraint firstAttribute="trailing" secondItem="YY6-V2-KsG" secondAttribute="trailing" id="OzN-nB-LHb"/>
+                                                            <constraint firstAttribute="bottom" secondItem="YY6-V2-KsG" secondAttribute="bottom" id="UfA-Mj-PGO"/>
+                                                            <constraint firstItem="YY6-V2-KsG" firstAttribute="leading" secondItem="0Ad-hr-W5p" secondAttribute="leading" id="ihw-sy-Jcm"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="yv8-mi-YHi" firstAttribute="top" secondItem="Z9o-VI-nzK" secondAttribute="top" id="3fN-yS-YWd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="0Ad-hr-W5p" secondAttribute="bottom" id="Du2-bG-gdK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yv8-mi-YHi" secondAttribute="bottom" id="UKA-Wv-u82"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0Ad-hr-W5p" secondAttribute="trailing" id="fvv-Op-Yhv"/>
+                                                    <constraint firstItem="0Ad-hr-W5p" firstAttribute="top" secondItem="Z9o-VI-nzK" secondAttribute="top" id="jJV-Uv-pPA"/>
+                                                    <constraint firstAttribute="height" priority="999" id="nmT-pl-Y9Q"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yv8-mi-YHi" secondAttribute="trailing" id="t9K-ZM-Sjo"/>
+                                                    <constraint firstItem="0Ad-hr-W5p" firstAttribute="leading" secondItem="Z9o-VI-nzK" secondAttribute="leading" id="vpm-zE-Ap6"/>
+                                                    <constraint firstItem="yv8-mi-YHi" firstAttribute="leading" secondItem="Z9o-VI-nzK" secondAttribute="leading" id="xIy-ch-aOq"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQ1-HN-sf7">
-                                                <rect key="frame" x="15" y="636" width="290" height="25"/>
+                                                <rect key="frame" x="15" y="641" width="290" height="25"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuY-J5-gCF">
                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="25"/>
@@ -1170,7 +1215,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idN-wU-gTS" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="664" width="290" height="50"/>
+                                                <rect key="frame" x="15" y="669" width="290" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43h-9O-7h3">
                                                         <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
@@ -1244,7 +1289,7 @@
                                                 </connections>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tx9-Tc-dab" customClass="BreakAdapter" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="718" width="290" height="0.0"/>
+                                                <rect key="frame" x="15" y="723" width="290" height="0.0"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Tap the slots that you want to reserve as breaks" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="4l4-67-2ZW">
                                                         <rect key="frame" x="9" y="20" width="266" height="0.0"/>
@@ -1279,7 +1324,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="155" height="63"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yc3-uz-Xxh">
-                                                                                    <rect key="frame" x="2" y="5" width="151" height="16.5"/>
+                                                                                    <rect key="frame" x="2" y="5" width="151" height="14"/>
                                                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="12"/>
                                                                                     <color key="textColor" red="0.28235294117647058" green="0.28235294117647058" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -1288,7 +1333,7 @@
                                                                                     </variation>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:00 - 7:05 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="LM3-ze-2Fa">
-                                                                                    <rect key="frame" x="0.0" y="23.5" width="155" height="14"/>
+                                                                                    <rect key="frame" x="0.0" y="21" width="155" height="12"/>
                                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="10"/>
                                                                                     <color key="textColor" red="0.66774696111679077" green="0.66776293516159058" blue="0.66775429248809814" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -1348,7 +1393,7 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSu-9Q-Mft">
-                                                <rect key="frame" x="15" y="733" width="285" height="25"/>
+                                                <rect key="frame" x="15" y="738" width="285" height="25"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVi-qX-qwk">
                                                         <rect key="frame" x="0.0" y="0.0" width="285" height="25"/>
@@ -1404,7 +1449,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DwU-qQ-a4t" customClass="EditCustomSwitch" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="764" width="70" height="35"/>
+                                                <rect key="frame" x="15" y="769" width="70" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2j-9o-VMh">
                                                         <rect key="frame" x="8" y="6.5" width="22" height="22"/>
@@ -1439,7 +1484,7 @@
                                                 </connections>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YK-Jq-fh5">
-                                                <rect key="frame" x="92" y="772" width="21.5" height="19.5"/>
+                                                <rect key="frame" x="92" y="777" width="21.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1448,7 +1493,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="People will have the option to give you a tip after their chats. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXt-nm-O5P">
-                                                <rect key="frame" x="15" y="810" width="290" height="44"/>
+                                                <rect key="frame" x="15" y="815" width="290" height="44"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1457,7 +1502,7 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yx4-Wz-7LZ">
-                                                <rect key="frame" x="15" y="884" width="285" height="25"/>
+                                                <rect key="frame" x="15" y="889" width="285" height="25"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screenshots " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fs-n8-N63">
                                                         <rect key="frame" x="0.0" y="0.0" width="285" height="25"/>
@@ -1513,7 +1558,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1n-79-MJO" customClass="EditCustomSwitch" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="915" width="70" height="35"/>
+                                                <rect key="frame" x="15" y="920" width="70" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJd-uR-ogH">
                                                         <rect key="frame" x="8" y="6.5" width="22" height="22"/>
@@ -1548,7 +1593,7 @@
                                                 </connections>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAe-6I-cqi">
-                                                <rect key="frame" x="92" y="923" width="21.5" height="19.5"/>
+                                                <rect key="frame" x="92" y="928" width="21.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1557,7 +1602,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A screenshot will automatically capture for each person you chat with. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axU-W0-hU8">
-                                                <rect key="frame" x="15" y="961" width="290" height="44"/>
+                                                <rect key="frame" x="15" y="966" width="290" height="44"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1566,7 +1611,7 @@
                                                 </variation>
                                             </label>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FBw-zJ-YPK">
-                                                <rect key="frame" x="125" y="1055" width="180" height="45"/>
+                                                <rect key="frame" x="125" y="1060" width="180" height="45"/>
                                                 <color key="backgroundColor" red="0.58823529409999997" green="0.80784313730000001" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="180" id="APV-ei-Bj5">
@@ -1632,9 +1677,6 @@
                                             </constraint>
                                             <constraint firstItem="hx0-2I-5o3" firstAttribute="top" secondItem="sC7-wa-3o1" secondAttribute="bottom" constant="3" id="DKK-Hu-9bI"/>
                                             <constraint firstItem="GbJ-kO-W9M" firstAttribute="top" secondItem="q57-U1-rpb" secondAttribute="bottom" constant="3" id="Df0-HF-LEp"/>
-                                            <constraint firstItem="sQ1-HN-sf7" firstAttribute="top" secondItem="Nh4-lF-wJL" secondAttribute="bottom" constant="15" id="EJ7-Ba-Xtz">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
-                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="4dF-Ca-Wek" secondAttribute="trailing" constant="15" id="EKg-F6-SSb">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -1652,12 +1694,16 @@
                                             <constraint firstItem="ysi-PJ-wkO" firstAttribute="leading" secondItem="Xux-rl-9Gm" secondAttribute="trailing" constant="20" id="JTJ-a2-muB">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
+                                            <constraint firstItem="Z9o-VI-nzK" firstAttribute="top" secondItem="Nh4-lF-wJL" secondAttribute="bottom" id="Jgx-OH-mdN"/>
                                             <constraint firstAttribute="trailing" secondItem="Tx9-Tc-dab" secondAttribute="trailing" constant="15" id="JkH-4B-lU4">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="yx4-Wz-7LZ" firstAttribute="top" secondItem="XXt-nm-O5P" secondAttribute="bottom" constant="30" id="MxI-qe-LIY"/>
                                             <constraint firstAttribute="trailing" secondItem="7xC-Z3-SaZ" secondAttribute="trailing" constant="20" id="Nwt-Fs-Q68">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                            <constraint firstItem="Z9o-VI-nzK" firstAttribute="leading" secondItem="ykC-wi-XGe" secondAttribute="leading" constant="15" id="O1Z-dc-SBK">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="7xC-Z3-SaZ" firstAttribute="leading" secondItem="ykC-wi-XGe" secondAttribute="leading" constant="15" id="OID-NG-Tko">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
@@ -1670,6 +1716,9 @@
                                             </constraint>
                                             <constraint firstItem="ytd-Rq-GWW" firstAttribute="leading" secondItem="qDx-Go-lMk" secondAttribute="leading" id="RSI-hN-KbQ"/>
                                             <constraint firstItem="6YK-Jq-fh5" firstAttribute="centerY" secondItem="DwU-qQ-a4t" secondAttribute="centerY" id="SGV-Tu-7E1"/>
+                                            <constraint firstItem="sQ1-HN-sf7" firstAttribute="top" secondItem="Z9o-VI-nzK" secondAttribute="bottom" constant="20" id="U5v-q2-uDH">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
                                             <constraint firstItem="sQ1-HN-sf7" firstAttribute="leading" secondItem="ykC-wi-XGe" secondAttribute="leading" constant="15" id="UEP-R1-3vE">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -1781,6 +1830,9 @@
                                             <constraint firstAttribute="trailing" secondItem="sC7-wa-3o1" secondAttribute="trailing" constant="20" id="vsS-Mg-tdb">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="Z9o-VI-nzK" secondAttribute="trailing" constant="15" id="xbu-g0-Gyf">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
                                             <constraint firstItem="XXt-nm-O5P" firstAttribute="top" secondItem="DwU-qQ-a4t" secondAttribute="bottom" constant="11" id="xxE-41-Hab"/>
                                             <constraint firstAttribute="trailing" secondItem="sQ1-HN-sf7" secondAttribute="trailing" constant="15" id="ylO-KD-7lo">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
@@ -1836,6 +1888,8 @@
                             <outlet property="screenShotLabel" destination="iAe-6I-cqi" id="Fgg-Cm-H0E"/>
                             <outlet property="scrollView" destination="Ydw-G2-PDr" id="ME3-Fc-CZV"/>
                             <outlet property="sessionLength" destination="hx0-2I-5o3" id="xN3-gu-im9"/>
+                            <outlet property="sponsorShipLabel" destination="yv8-mi-YHi" id="RXY-8E-kSd"/>
+                            <outlet property="sponsorshipViewHeightConstraintForFreeSession" destination="nmT-pl-Y9Q" id="s7C-70-NKk"/>
                             <outlet property="timeField" destination="vTG-ae-FVw" id="woR-w6-CZO"/>
                             <outlet property="titleField" destination="a0o-BW-4Ui" id="RNc-Vx-zzm"/>
                             <outlet property="totalEarningLabel" destination="qaL-cU-1l9" id="hbo-Ah-4oX"/>
@@ -3165,339 +3219,6 @@
                                     <constraint firstItem="ETh-Fr-qNC" firstAttribute="leading" secondItem="ykQ-WI-6D5" secondAttribute="leading" id="Jnu-l5-YQZ"/>
                                     <constraint firstAttribute="trailing" secondItem="ETh-Fr-qNC" secondAttribute="trailing" id="YSY-Ux-Jdm"/>
                                     <constraint firstItem="ETh-Fr-qNC" firstAttribute="top" secondItem="ykQ-WI-6D5" secondAttribute="top" id="cU3-bS-Rcm"/>
-                                </constraints>
-                            </scrollView>
-                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ui-1M-XIF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSQ-fw-3vy">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="627"/>
-                                        <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfs-vr-TBF">
-                                                <rect key="frame" x="250" y="0.0" width="70" height="70"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackcross" translatesAutoresizingMaskIntoConstraints="NO" id="Rl2-jr-gqH">
-                                                        <rect key="frame" x="25" y="30" width="20" height="20"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="IE7-5g-TQs">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                                            </constraint>
-                                                            <constraint firstAttribute="height" constant="20" id="VZE-hf-TsR">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                                            </constraint>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGz-O9-Jau">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                        <connections>
-                                                            <action selector="dismissActionWithSender:" destination="c5e-aA-O2E" eventType="touchUpInside" id="Slf-e6-tM2"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="XGz-O9-Jau" secondAttribute="trailing" id="5aX-jw-ZOf"/>
-                                                    <constraint firstItem="XGz-O9-Jau" firstAttribute="leading" secondItem="dfs-vr-TBF" secondAttribute="leading" id="7Yr-9u-fAv"/>
-                                                    <constraint firstItem="XGz-O9-Jau" firstAttribute="top" secondItem="dfs-vr-TBF" secondAttribute="top" id="IJY-my-exl"/>
-                                                    <constraint firstAttribute="bottom" secondItem="XGz-O9-Jau" secondAttribute="bottom" id="Vlu-s9-RVg"/>
-                                                    <constraint firstAttribute="width" constant="70" id="eYD-LA-7vZ"/>
-                                                    <constraint firstAttribute="height" constant="70" id="grk-X4-4d9"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Rl2-jr-gqH" secondAttribute="bottom" constant="20" id="icr-mm-Wx2"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Rl2-jr-gqH" secondAttribute="trailing" constant="25" id="qJY-jP-pkO"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGO-Pq-7uB">
-                                                <rect key="frame" x="20" y="80" width="290.5" height="50"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluePup" translatesAutoresizingMaskIntoConstraints="NO" id="2V8-r9-jm2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="50" id="8Hr-24-Kkh">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                            </constraint>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAp-x5-cvC" customClass="ThreeSidedRoundedView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="60" y="0.0" width="230.5" height="50"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZJ-a6-qAr">
-                                                                <rect key="frame" x="10" y="0.0" width="210.5" height="50"/>
-                                                                <attributedString key="attributedText">
-                                                                    <fragment content="Selecting Your Chat Type">
-                                                                        <attributes>
-                                                                            <color key="NSColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <font key="NSFont" size="18" name="Nunito-Bold"/>
-                                                                            <real key="NSKern" value="0.0"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="26" defaultTabInterval="36" tighteningFactorForTruncation="0.0" headerLevel="2">
-                                                                                <tabStops/>
-                                                                            </paragraphStyle>
-                                                                            <color key="NSStrokeColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <real key="NSStrokeWidth" value="0.0"/>
-                                                                        </attributes>
-                                                                    </fragment>
-                                                                </attributedString>
-                                                                <nil key="highlightedColor"/>
-                                                                <variation key="heightClass=regular-widthClass=regular">
-                                                                    <attributedString key="attributedText">
-                                                                        <fragment content="Selecting Your Chat Type">
-                                                                            <attributes>
-                                                                                <color key="NSColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <font key="NSFont" size="22" name="Nunito-Bold"/>
-                                                                                <real key="NSKern" value="0.0"/>
-                                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="26" defaultTabInterval="36" tighteningFactorForTruncation="0.0" headerLevel="2">
-                                                                                    <tabStops/>
-                                                                                </paragraphStyle>
-                                                                                <color key="NSStrokeColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <real key="NSStrokeWidth" value="0.0"/>
-                                                                            </attributes>
-                                                                        </fragment>
-                                                                    </attributedString>
-                                                                </variation>
-                                                            </label>
-                                                        </subviews>
-                                                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstItem="FZJ-a6-qAr" firstAttribute="leading" secondItem="PAp-x5-cvC" secondAttribute="leading" constant="10" id="5rP-Fu-m6Z">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
-                                                            </constraint>
-                                                            <constraint firstAttribute="bottom" secondItem="FZJ-a6-qAr" secondAttribute="bottom" id="DaW-gI-hw1"/>
-                                                            <constraint firstAttribute="trailing" secondItem="FZJ-a6-qAr" secondAttribute="trailing" constant="10" id="KSG-ab-soX">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
-                                                            </constraint>
-                                                            <constraint firstItem="FZJ-a6-qAr" firstAttribute="top" secondItem="PAp-x5-cvC" secondAttribute="top" id="sEs-gX-Qae"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="07C-Om-vES">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
-                                                    <constraint firstAttribute="bottom" secondItem="2V8-r9-jm2" secondAttribute="bottom" id="IHx-aA-j6h"/>
-                                                    <constraint firstAttribute="trailing" secondItem="PAp-x5-cvC" secondAttribute="trailing" id="JFG-bv-NSm"/>
-                                                    <constraint firstItem="2V8-r9-jm2" firstAttribute="leading" secondItem="DGO-Pq-7uB" secondAttribute="leading" id="bDy-D1-cOa"/>
-                                                    <constraint firstItem="PAp-x5-cvC" firstAttribute="leading" secondItem="2V8-r9-jm2" secondAttribute="trailing" constant="10" id="gzT-wi-8oa"/>
-                                                    <constraint firstItem="2V8-r9-jm2" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="top" id="jy0-lL-iVV"/>
-                                                    <constraint firstAttribute="bottom" secondItem="PAp-x5-cvC" secondAttribute="bottom" id="qn2-Bz-Q9c"/>
-                                                    <constraint firstItem="PAp-x5-cvC" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="top" id="vr4-DN-TFh"/>
-                                                </constraints>
-                                            </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The chat type you select determines how people will book chats with you." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geZ-i3-3MG">
-                                                <rect key="frame" x="15" y="160" width="290" height="44"/>
-                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
-                                                <color key="textColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Here's a guide for picking the right 1:1 chat length:">
-                                                            <attributes>
-                                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <real key="NSKern" value="0.0"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" minimumLineHeight="20" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                                    <tabStops/>
-                                                                </paragraphStyle>
-                                                                <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <real key="NSStrokeWidth" value="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
-                                                </variation>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoQ-CD-Oo7">
-                                                <rect key="frame" x="15" y="234" width="290" height="87.5"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Free:">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            <integer key="NSUnderline" value="1"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" If you choose to host free chats, people will not be charged to chat with you. Chats will be limited to one per person.">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Free:">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                <integer key="NSUnderline" value="1"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" If you choose to host free chats, people will not be charged to chat with you. Chats will be limited to one per person.">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </variation>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhy-Ge-Y1o">
-                                                <rect key="frame" x="15" y="336.5" width="290" height="175"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Paid:">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            <integer key="NSUnderline" value="1"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment>
-                                                        <string key="content"> If you choose to host paid chats, you will set your chat price that each person will be charged when they book a chat with you. You will receive your earnings (net of any applicable payment processing, payout, and Chatalyze service fees) 48 hours after the completion of your session</string>
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Paid:">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                <integer key="NSUnderline" value="1"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment>
-                                                            <string key="content"> If you choose to host paid chats, you will set your chat price that each person will be charged when they book a chat with you. You will receive your earnings (net of any applicable payment processing, payout, and Chatalyze service fees) 48 hours after the completion of your session</string>
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </variation>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sS9-61-ah3">
-                                                <rect key="frame" x="15" y="541.5" width="290" height="65.5"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Need help? ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Send us">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.55686274509803924" green="0.76470588235294112" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" your questions and we'll help you pick the best chat type to help you reach your objectives.">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Need help? ">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="Send us">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.55686274509803924" green="0.76470588235294112" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" your questions and we'll help you pick the best chat type to help you reach your objectives.">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </variation>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhi-Pg-ZvM">
-                                                <rect key="frame" x="15" y="541.5" width="290" height="65.5"/>
-                                                <connections>
-                                                    <action selector="showContactUsScreenWithSender:" destination="c5e-aA-O2E" eventType="touchUpInside" id="Ttl-hl-nLP"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="sS9-61-ah3" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="0wa-5a-FyB">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="Rhy-Ge-Y1o" secondAttribute="trailing" constant="15" id="4CN-LC-RqJ">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="DGO-Pq-7uB" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="20" id="6v2-Ha-RjS">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="geZ-i3-3MG" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="bottom" constant="30" id="7mA-3z-ia9"/>
-                                            <constraint firstItem="geZ-i3-3MG" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="8Cy-tQ-3ol">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="Rhy-Ge-Y1o" firstAttribute="top" secondItem="yoQ-CD-Oo7" secondAttribute="bottom" constant="15" id="AIb-Cx-ENi"/>
-                                            <constraint firstItem="yoQ-CD-Oo7" firstAttribute="top" secondItem="geZ-i3-3MG" secondAttribute="bottom" constant="30" id="F9V-7q-btQ"/>
-                                            <constraint firstItem="Rhy-Ge-Y1o" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="Ho4-cD-tJj">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="trailing" secondItem="sS9-61-ah3" secondAttribute="trailing" id="NXc-FF-p3S"/>
-                                            <constraint firstItem="dfs-vr-TBF" firstAttribute="top" secondItem="FSQ-fw-3vy" secondAttribute="top" id="Pki-vs-2X5">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="dfs-vr-TBF" secondAttribute="trailing" id="QLu-bV-mav"/>
-                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="bottom" secondItem="sS9-61-ah3" secondAttribute="bottom" id="St9-bW-Phd"/>
-                                            <constraint firstItem="sS9-61-ah3" firstAttribute="top" secondItem="Rhy-Ge-Y1o" secondAttribute="bottom" constant="30" id="Zab-S2-ScK"/>
-                                            <constraint firstAttribute="trailing" secondItem="sS9-61-ah3" secondAttribute="trailing" constant="15" id="c9G-Du-vif">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="top" secondItem="sS9-61-ah3" secondAttribute="top" id="cPC-ph-Tyg"/>
-                                            <constraint firstAttribute="bottom" secondItem="sS9-61-ah3" secondAttribute="bottom" constant="20" id="cZc-44-Xxn"/>
-                                            <constraint firstItem="yoQ-CD-Oo7" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="e7j-fX-HWI">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="leading" secondItem="sS9-61-ah3" secondAttribute="leading" id="m5S-AX-Gv3"/>
-                                            <constraint firstItem="DGO-Pq-7uB" firstAttribute="top" secondItem="dfs-vr-TBF" secondAttribute="bottom" constant="10" id="nhg-8O-Ysa"/>
-                                            <constraint firstAttribute="trailing" secondItem="yoQ-CD-Oo7" secondAttribute="trailing" constant="15" id="rfj-9G-UlV">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="geZ-i3-3MG" secondAttribute="trailing" constant="15" id="ung-yy-tb7">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="FSQ-fw-3vy" secondAttribute="trailing" id="8eZ-7t-ib2"/>
-                                    <constraint firstItem="FSQ-fw-3vy" firstAttribute="top" secondItem="2ui-1M-XIF" secondAttribute="top" id="KZD-RQ-l1A"/>
-                                    <constraint firstItem="FSQ-fw-3vy" firstAttribute="leading" secondItem="2ui-1M-XIF" secondAttribute="leading" id="aiV-aA-8vy"/>
-                                    <constraint firstAttribute="bottom" secondItem="FSQ-fw-3vy" secondAttribute="bottom" id="reo-H0-e93"/>
                                 </constraints>
                             </scrollView>
                             <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3b-F2-xwd">
@@ -5141,6 +4862,649 @@
                                     <constraint firstAttribute="bottom" secondItem="n5i-dg-J0I" secondAttribute="bottom" id="UN5-aR-Dt9"/>
                                     <constraint firstAttribute="trailing" secondItem="n5i-dg-J0I" secondAttribute="trailing" id="ipH-7b-2ck"/>
                                     <constraint firstItem="n5i-dg-J0I" firstAttribute="top" secondItem="vuQ-UE-Jrw" secondAttribute="top" id="scB-O0-bxD"/>
+                                </constraints>
+                            </scrollView>
+                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ui-1M-XIF">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSQ-fw-3vy">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="744.5"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfs-vr-TBF">
+                                                <rect key="frame" x="250" y="0.0" width="70" height="70"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackcross" translatesAutoresizingMaskIntoConstraints="NO" id="Rl2-jr-gqH">
+                                                        <rect key="frame" x="25" y="30" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="IE7-5g-TQs">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                            </constraint>
+                                                            <constraint firstAttribute="height" constant="20" id="VZE-hf-TsR">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                                            </constraint>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGz-O9-Jau">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                        <connections>
+                                                            <action selector="dismissActionWithSender:" destination="c5e-aA-O2E" eventType="touchUpInside" id="Slf-e6-tM2"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="XGz-O9-Jau" secondAttribute="trailing" id="5aX-jw-ZOf"/>
+                                                    <constraint firstItem="XGz-O9-Jau" firstAttribute="leading" secondItem="dfs-vr-TBF" secondAttribute="leading" id="7Yr-9u-fAv"/>
+                                                    <constraint firstItem="XGz-O9-Jau" firstAttribute="top" secondItem="dfs-vr-TBF" secondAttribute="top" id="IJY-my-exl"/>
+                                                    <constraint firstAttribute="bottom" secondItem="XGz-O9-Jau" secondAttribute="bottom" id="Vlu-s9-RVg"/>
+                                                    <constraint firstAttribute="width" constant="70" id="eYD-LA-7vZ"/>
+                                                    <constraint firstAttribute="height" constant="70" id="grk-X4-4d9"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Rl2-jr-gqH" secondAttribute="bottom" constant="20" id="icr-mm-Wx2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Rl2-jr-gqH" secondAttribute="trailing" constant="25" id="qJY-jP-pkO"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGO-Pq-7uB">
+                                                <rect key="frame" x="20" y="80" width="165" height="50"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluePup" translatesAutoresizingMaskIntoConstraints="NO" id="2V8-r9-jm2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="8Hr-24-Kkh">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                            </constraint>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAp-x5-cvC" customClass="ThreeSidedRoundedView" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="60" y="0.0" width="105" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZJ-a6-qAr">
+                                                                <rect key="frame" x="10" y="0.0" width="85" height="50"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="Chat price">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <font key="NSFont" size="18" name="Nunito-Bold"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
+                                                                <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <attributedString key="attributedText">
+                                                                        <fragment content="Chat price">
+                                                                            <attributes>
+                                                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                                                <font key="NSFont" size="22" name="Nunito-Bold"/>
+                                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            </attributes>
+                                                                        </fragment>
+                                                                    </attributedString>
+                                                                </variation>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="FZJ-a6-qAr" firstAttribute="leading" secondItem="PAp-x5-cvC" secondAttribute="leading" constant="10" id="5rP-Fu-m6Z">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                                            </constraint>
+                                                            <constraint firstAttribute="bottom" secondItem="FZJ-a6-qAr" secondAttribute="bottom" id="DaW-gI-hw1"/>
+                                                            <constraint firstAttribute="trailing" secondItem="FZJ-a6-qAr" secondAttribute="trailing" constant="10" id="KSG-ab-soX">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                                            </constraint>
+                                                            <constraint firstItem="FZJ-a6-qAr" firstAttribute="top" secondItem="PAp-x5-cvC" secondAttribute="top" id="sEs-gX-Qae"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="07C-Om-vES">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="bottom" secondItem="2V8-r9-jm2" secondAttribute="bottom" id="IHx-aA-j6h"/>
+                                                    <constraint firstAttribute="trailing" secondItem="PAp-x5-cvC" secondAttribute="trailing" id="JFG-bv-NSm"/>
+                                                    <constraint firstItem="2V8-r9-jm2" firstAttribute="leading" secondItem="DGO-Pq-7uB" secondAttribute="leading" id="bDy-D1-cOa"/>
+                                                    <constraint firstItem="PAp-x5-cvC" firstAttribute="leading" secondItem="2V8-r9-jm2" secondAttribute="trailing" constant="10" id="gzT-wi-8oa"/>
+                                                    <constraint firstItem="2V8-r9-jm2" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="top" id="jy0-lL-iVV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="PAp-x5-cvC" secondAttribute="bottom" id="qn2-Bz-Q9c"/>
+                                                    <constraint firstItem="PAp-x5-cvC" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="top" id="vr4-DN-TFh"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geZ-i3-3MG">
+                                                <rect key="frame" x="15" y="160" width="290" height="44"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="You have the option to set a price for your chats or offer them for free. ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.57255" green="0.57255" blue="0.57255" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops>
+                                                                    <textTab alignment="left" location="28">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="56">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="84">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="112">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="140">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="168">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="196">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="224">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="252">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="280">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="308">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="336">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                </tabStops>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="You have the option to set a price for your chats or offer them for free. ">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoQ-CD-Oo7">
+                                                <rect key="frame" x="15" y="234" width="290" height="131"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Setting a price:">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <integer key="NSUnderline" value="1"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">You can set a chat price that each person will be charged when they book a chat with you. You will receive your earnings (net of service and processing fees) 48 hours after the session.</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <real key="NSStrokeWidth" value="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Setting a price:">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <integer key="NSUnderline" value="1"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment>
+                                                            <string key="content">You can set a chat price that each person will be charged when they book a chat with you. You will receive your earnings (net of service and processing fees) 48 hours after the session.</string>
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <real key="NSKern" value="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <real key="NSStrokeWidth" value="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhy-Ge-Y1o">
+                                                <rect key="frame" x="15" y="380" width="290" height="196.5"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Free chats:">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <integer key="NSUnderline" value="1"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="I">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <font key="NSOriginalFont" size="11" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">f you host free chats, each person who books will have the option to become a session sponsor* to receive special perks, such as an official sponsorship sticker on their ticket. The base sponsorship fee is $3.00. You will receive any applicable sponsorship payment (net of service and processing fees) 48 hours after the session</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="11" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <real key="NSStrokeWidth" value="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=".">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="11" name="Nunito-Regular"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <font key="NSOriginalFont" size="11" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <real key="NSStrokeWidth" value="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Free chats:">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <integer key="NSUnderline" value="1"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content="I">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <font key="NSOriginalFont" size="11" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment>
+                                                            <string key="content">f you host free chats, each person who books will have the option to become a session sponsor* to receive special perks, such as an official sponsorship sticker on their ticket. The base sponsorship fee is $3.00. You will receive any applicable sponsorship payment (net of service and processing fees) 48 hours after the session.</string>
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <real key="NSKern" value="0.0"/>
+                                                                <font key="NSOriginalFont" size="11" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <real key="NSStrokeWidth" value="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPj-Rp-In2">
+                                                <rect key="frame" x="15" y="606.5" width="290" height="44"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="*The sponsorship option will not be available if you set a chat price.">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="*The sponsorship option will not be available if you set a chat price.">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sS9-61-ah3">
+                                                <rect key="frame" x="15" y="680.5" width="290" height="44"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Need help? ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.57255" green="0.57255" blue="0.57255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops>
+                                                                    <textTab alignment="left" location="28">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="56">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="84">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="112">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="140">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="168">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="196">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="224">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="252">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="280">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="308">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="336">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                </tabStops>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Send us">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.55686000000000002" green="0.76471" blue="0.92157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops>
+                                                                    <textTab alignment="left" location="28">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="56">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="84">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="112">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="140">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="168">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="196">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="224">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="252">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="280">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="308">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="336">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                </tabStops>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.57255" green="0.57255" blue="0.57255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops>
+                                                                    <textTab alignment="left" location="28">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="56">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="84">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="112">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="140">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="168">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="196">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="224">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="252">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="280">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="308">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="336">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                </tabStops>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="your questions and we'll help you set a price!">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.57255" green="0.57255" blue="0.57255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <real key="NSKern" value="0.0"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops>
+                                                                    <textTab alignment="left" location="28">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="56">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="84">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="112">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="140">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="168">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="196">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="224">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="252">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="280">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="308">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                    <textTab alignment="left" location="336">
+                                                                        <options/>
+                                                                    </textTab>
+                                                                </tabStops>
+                                                            </paragraphStyle>
+                                                            <color key="NSStrokeColor" red="0.57255" green="0.57255" blue="0.57255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Need help? ">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content="Send us">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.55686274509803924" green="0.76470588235294112" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content="your questions and we'll help you set a price!">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Regular"/>
+                                                                <real key="NSKern" value="0.0"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <color key="NSStrokeColor" red="0.5725490196078431" green="0.5725490196078431" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <real key="NSStrokeWidth" value="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </variation>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhi-Pg-ZvM">
+                                                <rect key="frame" x="15" y="680.5" width="290" height="44"/>
+                                                <connections>
+                                                    <action selector="showContactUsScreenWithSender:" destination="c5e-aA-O2E" eventType="touchUpInside" id="Ttl-hl-nLP"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="sS9-61-ah3" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="0wa-5a-FyB">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="sS9-61-ah3" firstAttribute="top" secondItem="pPj-Rp-In2" secondAttribute="bottom" constant="30" id="3gI-bA-fNp">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="Rhy-Ge-Y1o" secondAttribute="trailing" constant="15" id="4CN-LC-RqJ">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="DGO-Pq-7uB" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="20" id="6v2-Ha-RjS">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="geZ-i3-3MG" firstAttribute="top" secondItem="DGO-Pq-7uB" secondAttribute="bottom" constant="30" id="7mA-3z-ia9"/>
+                                            <constraint firstItem="geZ-i3-3MG" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="8Cy-tQ-3ol">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="Rhy-Ge-Y1o" firstAttribute="top" secondItem="yoQ-CD-Oo7" secondAttribute="bottom" constant="15" id="AIb-Cx-ENi"/>
+                                            <constraint firstItem="yoQ-CD-Oo7" firstAttribute="top" secondItem="geZ-i3-3MG" secondAttribute="bottom" constant="30" id="F9V-7q-btQ"/>
+                                            <constraint firstItem="Rhy-Ge-Y1o" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="Ho4-cD-tJj">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="trailing" secondItem="sS9-61-ah3" secondAttribute="trailing" id="NXc-FF-p3S"/>
+                                            <constraint firstItem="dfs-vr-TBF" firstAttribute="top" secondItem="FSQ-fw-3vy" secondAttribute="top" id="Pki-vs-2X5">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="dfs-vr-TBF" secondAttribute="trailing" id="QLu-bV-mav"/>
+                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="bottom" secondItem="sS9-61-ah3" secondAttribute="bottom" id="St9-bW-Phd"/>
+                                            <constraint firstAttribute="trailing" secondItem="sS9-61-ah3" secondAttribute="trailing" constant="15" id="c9G-Du-vif">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="top" secondItem="sS9-61-ah3" secondAttribute="top" id="cPC-ph-Tyg"/>
+                                            <constraint firstAttribute="bottom" secondItem="sS9-61-ah3" secondAttribute="bottom" constant="20" id="cZc-44-Xxn"/>
+                                            <constraint firstItem="pPj-Rp-In2" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="dZk-wT-OVy">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="yoQ-CD-Oo7" firstAttribute="leading" secondItem="FSQ-fw-3vy" secondAttribute="leading" constant="15" id="e7j-fX-HWI">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="pPj-Rp-In2" secondAttribute="trailing" constant="15" id="eWb-gc-SbH">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="zhi-Pg-ZvM" firstAttribute="leading" secondItem="sS9-61-ah3" secondAttribute="leading" id="m5S-AX-Gv3"/>
+                                            <constraint firstItem="DGO-Pq-7uB" firstAttribute="top" secondItem="dfs-vr-TBF" secondAttribute="bottom" constant="10" id="nhg-8O-Ysa"/>
+                                            <constraint firstAttribute="trailing" secondItem="yoQ-CD-Oo7" secondAttribute="trailing" constant="15" id="rfj-9G-UlV">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                            <constraint firstItem="pPj-Rp-In2" firstAttribute="top" secondItem="Rhy-Ge-Y1o" secondAttribute="bottom" constant="30" id="s63-v5-XXx">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="geZ-i3-3MG" secondAttribute="trailing" constant="15" id="ung-yy-tb7">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="FSQ-fw-3vy" secondAttribute="trailing" id="8eZ-7t-ib2"/>
+                                    <constraint firstItem="FSQ-fw-3vy" firstAttribute="top" secondItem="2ui-1M-XIF" secondAttribute="top" id="KZD-RQ-l1A"/>
+                                    <constraint firstItem="FSQ-fw-3vy" firstAttribute="leading" secondItem="2ui-1M-XIF" secondAttribute="leading" id="aiV-aA-8vy"/>
+                                    <constraint firstAttribute="bottom" secondItem="FSQ-fw-3vy" secondAttribute="bottom" id="reo-H0-e93"/>
                                 </constraints>
                             </scrollView>
                         </subviews>

@@ -147,6 +147,10 @@ class MyTicketsController: InterfaceExtendedController{
     
     func fetchInfoForListenr(){
      
+        if self.currentEventShowing == .past{
+            return
+        }
+        
         guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
@@ -227,7 +231,11 @@ class MyTicketsController: InterfaceExtendedController{
                     self.noTicketLbl?.isHidden = true
                     self.noTicketView?.isHidden = true
                     self.rootview?.fillInfo(info: info)
+                    return
                 }
+                self.noTicketLbl?.isHidden = false
+                self.noTicketView?.isHidden = false
+                return
             }
         }
     }
@@ -253,16 +261,16 @@ class MyTicketsController: InterfaceExtendedController{
                 self.rootview?.fillInfo(info: self.pastSlotsArray)
                 self.stopLoader()
                 
-                if !success{
+                if !success {
                     
                     self.noTicketLbl?.isHidden = false
                     self.noTicketView?.isHidden = false
                     return
                 }
                 
-                if let info = info{
+                if let info = info {
                     
-                    if info.count <= 0{
+                    if info.count <= 0 {
                         
                         self.noTicketLbl?.isHidden = false
                         self.noTicketView?.isHidden = false
@@ -273,7 +281,11 @@ class MyTicketsController: InterfaceExtendedController{
                     self.noTicketLbl?.isHidden = true
                     self.noTicketView?.isHidden = true
                     self.rootview?.fillInfo(info: info)
+                    return
                 }
+                self.noTicketLbl?.isHidden = false
+                self.noTicketView?.isHidden = false
+                return
             }
         })
     }

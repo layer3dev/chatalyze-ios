@@ -21,7 +21,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionTotalSlotNumLbl:UILabel?
     @IBOutlet var sessionSlotView:UIView?
     @IBOutlet var breakView:breakFeatureView?
-        
+    @IBOutlet var earlyEndSessionView:UIView?
     
     //For animation.
     var isAnimating = false
@@ -68,7 +68,6 @@ class HostCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
-        
         if(code == .prohibited){
             showErrorScreen()
             return
@@ -87,9 +86,9 @@ class HostCallController: VideoCallController {
         if(!eventInfo.isExpired){
             return
         }
+        
         showEarningInformationScreen()
     }
-    
     
     func showEarningInformationScreen(){
         
@@ -173,8 +172,7 @@ class HostCallController: VideoCallController {
         }
         
         controller.isDisableHangup = isDisableHangup
-        
-        Log.echo(key: "yud", text: "Hang up status is \(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp)")
+
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
@@ -247,7 +245,9 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
+        changeOrientationToPortrait()
     }
+    
     
     
     private func registerForTimerNotification(){
@@ -320,17 +320,16 @@ class HostCallController: VideoCallController {
     
     func verifyForEarlyFeature(){
     
-        //Log.echo(key: "yud", text: "Upcoming slot is \(self.eventInfo?.upcomingSlot)")
-        // Log.echo(key: "yud", text: "Event Started to testing and the future event status is \(self.eventInfo?.upcomingSlot) presented controller is \(self.getTopMostPresentedController())")
         
-        if self.eventInfo?.isLIVE ?? false  == false{
+        if self.eventInfo?.isLIVE ?? false == false {
             return
         }
         
-        if self.eventInfo?.upcomingSlot != nil {
-            // As we want to show the Alert again as soon as no future event is present.
-            if earlyControllerReference != nil{
+        if self.eventInfo?.isValidSlotAvailable != false {
             
+            // As we want to show the Alert again as soon as no future event is present.
+            if earlyControllerReference != nil {
+                
                 // Dismissing as soon as we get to know that we have the upcoming slot.
                 self.earlyControllerReference?.dismiss(animated: false, completion: nil)
                 self.earlyControllerReference = nil
@@ -402,7 +401,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !activeSlot.isBreak){
+        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
             setStatusMessage(type : .userDidNotJoin)
             return;
         }
@@ -438,7 +437,7 @@ class HostCallController: VideoCallController {
         return connection
     }
     
-    private func getPreConnectConnection()->HostCallConnection?{
+    private func getPreConnectConnection()->HostCallConnection? {
         
         guard let slot = eventInfo?.mergeSlotInfo?.preConnectSlot
             else{
@@ -481,8 +480,7 @@ class HostCallController: VideoCallController {
         
         if(!countdownInfo.isActive){
             
-            //            countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
-            
+            // countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
             updateCallHeaderAfterEventStart()
             return
         }
@@ -505,7 +503,7 @@ class HostCallController: VideoCallController {
         
         //Editing  for the current Chat
 
-        let slotCount = self.eventInfo?.slotInfos?.count ?? 0
+        let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
@@ -557,15 +555,22 @@ class HostCallController: VideoCallController {
         
         //Editing For the remaining time
         //Above code is responsible for handling the status if event is not started yet.
+        ///MergeSlotInfo includes both the break slots and the live call.
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
                 updateCallHeaderForEmptySlot()
                 return
         }
-    
-        if slotInfo.isBreak{
-
+        
+        if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
+            //this will execute only if we do not have the future tickets and current slot is not the break slot.
+            updateCallHeaderForEmptySlot()
+            return
+            
+        }
+        
+        if self.eventInfo?.isCurrentSlotIsBreak ?? false{
             updateCallHeaderForBreakSlot()
             return
         }
@@ -606,10 +611,35 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
-        sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
-        sessionHeaderLbl?.text = ""        
+        
+        guard let endDate = self.eventInfo?.endDate
+            else{
+                return
+        }
+        
+        guard let countdownInfo = endDate.countdownTimeFromNow()
+            else{
+                return
+        }
+        
+        // Below code is responsible befor the event start.
+        sessionHeaderLbl?.text = "Session ends in:"
+        
+        var fontSize = 18
+        var remainingTimeFontSize = 20
+        if  UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+            remainingTimeFontSize = 26
+        }
+        
+        //Editing For the remaining time
+        let countdownTime = "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        
+        let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        sessionRemainingTimeLbl?.attributedText = timeRemaining
+        self.earlyEndSessionView?.isHidden = false
     }
     
     private func updateForEmptyBreak(){
@@ -620,7 +650,7 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderForBreakSlot(){
       
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
-      
+        
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
@@ -628,7 +658,9 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
-        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.upcomingSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
+        self.earlyEndSessionView?.isHidden = true
+        breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
+        
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -637,6 +669,7 @@ class HostCallController: VideoCallController {
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
         hostRootView?.callInfoContainer?.timer?.text = ""
         hostRootView?.callInfoContainer?.slotCount?.text = ""
+        self.earlyEndSessionView?.isHidden = true
     }
     
     private func updateFutureCallHeaderForEmptySlot(){
@@ -646,6 +679,7 @@ class HostCallController: VideoCallController {
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
+        self.earlyEndSessionView?.isHidden = true
     }
     
     
@@ -794,8 +828,6 @@ class HostCallController: VideoCallController {
                 connection.disconnect()
                 connectionInfo[key] = nil
             }
-            
-            
         }
     }
     
@@ -1119,3 +1151,23 @@ extension HostCallController{
 
 
 
+extension HostCallController{
+    
+    // End session early button Action
+    
+    @IBAction func endSessionEarly(sender:UIButton?){
+        
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end the session early or you want keep the registration open?", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "End session early", style: .default, handler: { (success) in
+            
+            self.makeRegistrationClose()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Keep registration open", style: .cancel, handler: { (success) in
+        }))
+        
+        self.present(alert, animated: true) {
+        }
+    }
+}

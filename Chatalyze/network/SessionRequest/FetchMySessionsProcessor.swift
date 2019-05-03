@@ -64,9 +64,10 @@ class FetchMySessionsProcessor{
             eventArray.append(obj)
         }
         var runningEvent = [EventInfo]()
-        for info in eventArray{
+        for info in eventArray{          
             if let currentDateInUTC = DateParser.getCurrentDateInUTC(){
                 if let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString:info.end,dateFormat:"yyyy-MM-dd'T'HH:mm:ss.SSSZ"){
+                    Log.echo(key: "yud", text: "current date is \(currentDateInUTC) and the endDate is \(endDate)")
                     if currentDateInUTC.timeIntervalSince(endDate) < 0.0{
                         runningEvent.append(info)
                     }

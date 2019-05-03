@@ -29,7 +29,6 @@ class WelcomePageController: UIPageViewController {
     }
     
     func initializeVariable(){
-        
     }
     
     private func setFirstController(){
