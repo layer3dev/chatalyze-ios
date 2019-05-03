@@ -26,6 +26,20 @@ class SignupRootView:ExtendedView{
         
         initializeVariable()
         paintInterface()
+        changePlaceHolderColor()
+    }
+    
+    
+    fileprivate func changePlaceHolderColor(){
+        
+        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email",
+                                                                          attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password",
+                                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+      
+        firstName?.textField?.attributedPlaceholder = NSAttributedString(string: "Full Name",
+                                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
     @IBAction fileprivate func signupAction(sender:UIButton){

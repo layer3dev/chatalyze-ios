@@ -26,14 +26,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="auk-6B-kf4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIe-pW-tlL" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aX-A4-lz5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="491"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="605.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-yQ-mbW" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="50" width="315" height="45"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-86-aLF">
+                                                <rect key="frame" x="40" y="30" width="295" height="27.5"/>
+                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="26"/>
+                                                </variation>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-yQ-mbW" userLabel="signin_button" customClass="RoundCornerViews" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="30" y="77.5" width="315" height="45"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-Vt-1il">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
@@ -45,7 +57,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.050980392159999999" green="0.27450980390000002" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.12156862745098039" green="0.28235294117647058" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="9Mn-Vt-1il" secondAttribute="bottom" id="8jF-OB-thS"/>
                                                     <constraint firstAttribute="trailing" secondItem="9Mn-Vt-1il" secondAttribute="trailing" id="EDP-P2-Lcx"/>
@@ -183,18 +195,18 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-oR-jbh">
-                                                <rect key="frame" x="20" y="125" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="142.5" width="335" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GM-IL-4iR">
                                                         <rect key="frame" x="0.0" y="19.5" width="71" height="1"/>
-                                                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="m38-aT-9Y3"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lU-jN-NFm">
                                                         <rect key="frame" x="264.5" y="19.5" width="69.5" height="1"/>
-                                                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="a6d-jA-lkx"/>
                                                         </constraints>
@@ -202,7 +214,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign up with email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thK-Ic-irZ">
                                                         <rect key="frame" x="101" y="10.5" width="133.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
-                                                        <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
@@ -223,17 +235,28 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-pb-cqo">
-                                                <rect key="frame" x="20" y="185" width="335" height="161"/>
+                                                <rect key="frame" x="20" y="202.5" width="335" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7z-Zg-ehs" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="47"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uIh-x2-pSF">
-                                                                <rect key="frame" x="5" y="0.0" width="322" height="30"/>
+                                                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HhQ-VO-nE5" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="2Aj-Rc-SzE"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="lhC-dG-I49">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uIh-x2-pSF">
+                                                                <rect key="frame" x="10" y="0.0" width="317" height="45"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="45" id="2Aj-Rc-SzE">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -241,14 +264,14 @@
                                                                 </variation>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM7-kI-6Yi" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="30" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="45" width="335" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="gcE-vU-5bM"/>
+                                                                    <constraint firstAttribute="height" id="gcE-vU-5bM"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6c-Go-n8h" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="33" width="328" height="0.0"/>
+                                                                <rect key="frame" x="2" y="47" width="328" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -257,7 +280,7 @@
                                                                 </variation>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="uIh-x2-pSF" secondAttribute="trailing" constant="8" id="9rf-2K-FCS"/>
                                                             <constraint firstItem="fM7-kI-6Yi" firstAttribute="top" secondItem="uIh-x2-pSF" secondAttribute="bottom" id="ASb-jk-e43">
@@ -266,11 +289,14 @@
                                                             <constraint firstAttribute="bottom" secondItem="b6c-Go-n8h" secondAttribute="bottom" id="FNm-jU-MGX"/>
                                                             <constraint firstItem="fM7-kI-6Yi" firstAttribute="leading" secondItem="J7z-Zg-ehs" secondAttribute="leading" id="JUd-uz-wgH"/>
                                                             <constraint firstItem="b6c-Go-n8h" firstAttribute="top" secondItem="fM7-kI-6Yi" secondAttribute="bottom" constant="2" id="S0M-Em-8z9"/>
+                                                            <constraint firstAttribute="trailing" secondItem="HhQ-VO-nE5" secondAttribute="trailing" id="Vct-ZU-6hR"/>
                                                             <constraint firstAttribute="trailing" secondItem="fM7-kI-6Yi" secondAttribute="trailing" id="WNe-iI-XQP"/>
                                                             <constraint firstAttribute="trailing" secondItem="b6c-Go-n8h" secondAttribute="trailing" constant="5" id="Yi7-AI-I5i"/>
                                                             <constraint firstItem="b6c-Go-n8h" firstAttribute="leading" secondItem="J7z-Zg-ehs" secondAttribute="leading" constant="2" id="d0j-mB-nDl"/>
+                                                            <constraint firstItem="HhQ-VO-nE5" firstAttribute="leading" secondItem="J7z-Zg-ehs" secondAttribute="leading" id="e4D-ZO-IOp"/>
+                                                            <constraint firstItem="HhQ-VO-nE5" firstAttribute="top" secondItem="J7z-Zg-ehs" secondAttribute="top" id="fur-Cy-M5d"/>
                                                             <constraint firstItem="uIh-x2-pSF" firstAttribute="top" secondItem="J7z-Zg-ehs" secondAttribute="top" id="rKd-f0-jed"/>
-                                                            <constraint firstItem="uIh-x2-pSF" firstAttribute="leading" secondItem="J7z-Zg-ehs" secondAttribute="leading" constant="5" id="y7f-zx-NIp"/>
+                                                            <constraint firstItem="uIh-x2-pSF" firstAttribute="leading" secondItem="J7z-Zg-ehs" secondAttribute="leading" constant="10" id="y7f-zx-NIp"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="borderView" destination="fM7-kI-6Yi" id="9D9-xO-2a4"/>
@@ -279,14 +305,25 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Py-O6-uT5" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="63" width="335" height="33"/>
+                                                        <rect key="frame" x="0.0" y="57" width="335" height="47"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YwL-fZ-u4z">
-                                                                <rect key="frame" x="5" y="0.0" width="322" height="30"/>
+                                                            <view alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LzE-NT-ZrQ" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="PJ6-ih-FGO"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="Sui-g8-Ah9">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YwL-fZ-u4z">
+                                                                <rect key="frame" x="10" y="0.0" width="317" height="45"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="45" id="PJ6-ih-FGO">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -294,14 +331,14 @@
                                                                 </variation>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPU-FX-WQf" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="30" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="45" width="335" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="9sK-QO-54O"/>
+                                                                    <constraint firstAttribute="height" id="9sK-QO-54O"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Bl-MQ-bXr" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="33" width="328" height="0.0"/>
+                                                                <rect key="frame" x="2" y="47" width="328" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -310,11 +347,12 @@
                                                                 </variation>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="3Bl-MQ-bXr" secondAttribute="bottom" id="1UD-Oh-pV7"/>
                                                             <constraint firstItem="YwL-fZ-u4z" firstAttribute="top" secondItem="2Py-O6-uT5" secondAttribute="top" id="Bah-JV-NVE"/>
                                                             <constraint firstAttribute="trailing" secondItem="zPU-FX-WQf" secondAttribute="trailing" id="ENp-HS-rZ2"/>
+                                                            <constraint firstItem="LzE-NT-ZrQ" firstAttribute="leading" secondItem="2Py-O6-uT5" secondAttribute="leading" id="JmB-jb-gs3"/>
                                                             <constraint firstItem="zPU-FX-WQf" firstAttribute="top" secondItem="YwL-fZ-u4z" secondAttribute="bottom" id="LQd-dX-86A">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="4"/>
                                                             </constraint>
@@ -322,8 +360,10 @@
                                                             <constraint firstItem="3Bl-MQ-bXr" firstAttribute="leading" secondItem="2Py-O6-uT5" secondAttribute="leading" constant="2" id="NYi-lv-i2g"/>
                                                             <constraint firstAttribute="trailing" secondItem="YwL-fZ-u4z" secondAttribute="trailing" constant="8" id="OKj-l5-1Kd"/>
                                                             <constraint firstAttribute="trailing" secondItem="3Bl-MQ-bXr" secondAttribute="trailing" constant="5" id="S2r-0q-Ywk"/>
-                                                            <constraint firstItem="YwL-fZ-u4z" firstAttribute="leading" secondItem="2Py-O6-uT5" secondAttribute="leading" constant="5" id="amK-Ru-A3O"/>
+                                                            <constraint firstItem="YwL-fZ-u4z" firstAttribute="leading" secondItem="2Py-O6-uT5" secondAttribute="leading" constant="10" id="amK-Ru-A3O"/>
+                                                            <constraint firstAttribute="trailing" secondItem="LzE-NT-ZrQ" secondAttribute="trailing" id="jwf-2V-b2b"/>
                                                             <constraint firstItem="3Bl-MQ-bXr" firstAttribute="top" secondItem="zPU-FX-WQf" secondAttribute="bottom" constant="2" id="lVF-1P-Lkf"/>
+                                                            <constraint firstItem="LzE-NT-ZrQ" firstAttribute="top" secondItem="2Py-O6-uT5" secondAttribute="top" id="nw3-8C-Nkc"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="borderView" destination="zPU-FX-WQf" id="fXg-xL-MDA"/>
@@ -332,14 +372,25 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Xg-uh-x01" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="126" width="335" height="35"/>
+                                                        <rect key="frame" x="0.0" y="114" width="335" height="49"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="siv-4n-eN0">
-                                                                <rect key="frame" x="5" y="0.0" width="322" height="30"/>
+                                                            <view alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-b0-RSd" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="nzS-sI-vqx"/>
+                                                                    <constraint firstAttribute="height" constant="45" id="MHu-X5-hWn">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="siv-4n-eN0">
+                                                                <rect key="frame" x="10" y="0.0" width="317" height="45"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="45" id="nzS-sI-vqx">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" secureTextEntry="YES"/>
                                                                 <variation key="heightClass=regular-widthClass=regular">
@@ -347,14 +398,14 @@
                                                                 </variation>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBz-qT-kfT" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="32" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="47" width="335" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="s3f-05-qDl"/>
+                                                                    <constraint firstAttribute="height" id="s3f-05-qDl"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ab4-Mo-Ms7" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="35" width="328" height="0.0"/>
+                                                                <rect key="frame" x="2" y="49" width="328" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -363,19 +414,22 @@
                                                                 </variation>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="ab4-Mo-Ms7" firstAttribute="top" secondItem="tBz-qT-kfT" secondAttribute="bottom" constant="2" id="CRo-HG-yjf"/>
                                                             <constraint firstAttribute="trailing" secondItem="siv-4n-eN0" secondAttribute="trailing" constant="8" id="Jhl-fX-fm1"/>
                                                             <constraint firstAttribute="trailing" secondItem="ab4-Mo-Ms7" secondAttribute="trailing" constant="5" id="Mij-wB-whx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="pa9-b0-RSd" secondAttribute="trailing" id="PBU-7L-lNF"/>
                                                             <constraint firstAttribute="trailing" secondItem="tBz-qT-kfT" secondAttribute="trailing" id="RaR-7j-f4F"/>
                                                             <constraint firstItem="tBz-qT-kfT" firstAttribute="top" secondItem="siv-4n-eN0" secondAttribute="bottom" constant="2" id="XE2-KC-SKD">
                                                                 <variation key="heightClass=regular-widthClass=regular" constant="4"/>
                                                             </constraint>
+                                                            <constraint firstItem="pa9-b0-RSd" firstAttribute="top" secondItem="9Xg-uh-x01" secondAttribute="top" id="YGx-Or-hx8"/>
+                                                            <constraint firstItem="pa9-b0-RSd" firstAttribute="leading" secondItem="9Xg-uh-x01" secondAttribute="leading" id="a9t-Ej-nfw"/>
                                                             <constraint firstItem="siv-4n-eN0" firstAttribute="top" secondItem="9Xg-uh-x01" secondAttribute="top" id="ht0-9f-ftn"/>
                                                             <constraint firstAttribute="bottom" secondItem="ab4-Mo-Ms7" secondAttribute="bottom" id="nPf-f0-bLb"/>
                                                             <constraint firstItem="ab4-Mo-Ms7" firstAttribute="leading" secondItem="9Xg-uh-x01" secondAttribute="leading" constant="2" id="poK-wM-nEZ"/>
-                                                            <constraint firstItem="siv-4n-eN0" firstAttribute="leading" secondItem="9Xg-uh-x01" secondAttribute="leading" constant="5" id="r3I-Fr-gTz"/>
+                                                            <constraint firstItem="siv-4n-eN0" firstAttribute="leading" secondItem="9Xg-uh-x01" secondAttribute="leading" constant="10" id="r3I-Fr-gTz"/>
                                                             <constraint firstItem="tBz-qT-kfT" firstAttribute="leading" secondItem="9Xg-uh-x01" secondAttribute="leading" id="wQ8-co-UAf"/>
                                                         </constraints>
                                                         <connections>
@@ -385,50 +439,59 @@
                                                         </connections>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="9Xg-uh-x01" secondAttribute="trailing" id="9V3-9N-AO5"/>
                                                     <constraint firstAttribute="trailing" secondItem="2Py-O6-uT5" secondAttribute="trailing" id="AJv-Sv-eIJ"/>
                                                     <constraint firstItem="J7z-Zg-ehs" firstAttribute="top" secondItem="rEI-pb-cqo" secondAttribute="top" id="IQM-g7-MWf"/>
                                                     <constraint firstItem="9Xg-uh-x01" firstAttribute="leading" secondItem="rEI-pb-cqo" secondAttribute="leading" id="Iav-0y-g00"/>
-                                                    <constraint firstItem="9Xg-uh-x01" firstAttribute="top" secondItem="2Py-O6-uT5" secondAttribute="bottom" constant="30" id="Phh-51-rQc">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                                    <constraint firstItem="9Xg-uh-x01" firstAttribute="top" secondItem="2Py-O6-uT5" secondAttribute="bottom" constant="10" id="Phh-51-rQc">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                                                     </constraint>
                                                     <constraint firstAttribute="trailing" secondItem="J7z-Zg-ehs" secondAttribute="trailing" id="gOb-Pe-D6E"/>
-                                                    <constraint firstItem="2Py-O6-uT5" firstAttribute="top" secondItem="J7z-Zg-ehs" secondAttribute="bottom" constant="30" id="mVi-A0-oqI">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                                    <constraint firstItem="2Py-O6-uT5" firstAttribute="top" secondItem="J7z-Zg-ehs" secondAttribute="bottom" constant="10" id="mVi-A0-oqI">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                                                     </constraint>
                                                     <constraint firstItem="2Py-O6-uT5" firstAttribute="leading" secondItem="rEI-pb-cqo" secondAttribute="leading" id="nn7-b3-L2t"/>
                                                     <constraint firstAttribute="bottom" secondItem="9Xg-uh-x01" secondAttribute="bottom" id="pjh-HR-NcY"/>
                                                     <constraint firstItem="J7z-Zg-ehs" firstAttribute="leading" secondItem="rEI-pb-cqo" secondAttribute="leading" id="sac-Mz-g3P"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-LW-djS">
-                                                <rect key="frame" x="20" y="376" width="335" height="45"/>
-                                                <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-LW-djS" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="395.5" width="335" height="55"/>
+                                                <color key="backgroundColor" red="0.58823529411764708" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="4wV-0z-6b0">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    <constraint firstAttribute="height" constant="55" id="4wV-0z-6b0">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="75"/>
                                                     </constraint>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
-                                                <state key="normal" title="SIGN UP">
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
+                                                <state key="normal" title="Sign up">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
                                                 </variation>
                                                 <connections>
                                                     <action selector="signupActionWithSender:" destination="lbB-pR-cYQ" eventType="touchUpInside" id="j03-Tc-YMz"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-9G-PX1">
-                                                <rect key="frame" x="20" y="439" width="335" height="16"/>
+                                                <rect key="frame" x="20" y="468.5" width="335" height="44"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="By signing up, you agree to our Terms of Service ">
+                                                    <fragment content="By signing up, you agree to our ">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.44706000000000001" green="0.52549000000000001" blue="0.56471000000000005" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" metaFont="system"/>
+                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Terms of Service ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Bold"/>
+                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                         </attributes>
                                                     </fragment>
@@ -436,46 +499,41 @@
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
-                                                        <fragment content="By signing up, you agree to our ">
+                                                        <fragment content="By signing up, you agree to our Terms of Service ">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="Terms of Service">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
-                                                                <font key="NSOriginalFont" size="18" name="HelveticaNeue-Bold"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Bold"/>
+                                                                <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-sw-lXw">
-                                                <rect key="frame" x="20" y="455" width="335" height="16"/>
+                                                <rect key="frame" x="20" y="512.5" width="335" height="22"/>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="and">
+                                                    <fragment content="and ">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" metaFont="system"/>
-                                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content=" Privacy Policy. ">
+                                                    <fragment content="Privacy Policy.">
                                                         <attributes>
-                                                            <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" metaFont="system"/>
+                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Bold"/>
+                                                            <font key="NSOriginalFont" size="16" name="Nunito-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
+                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -485,104 +543,87 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="and">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="24" name="Nunito-Regular"/>
+                                                                <font key="NSOriginalFont" size="24" name="Nunito-Regular"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
-                                                        <fragment content=" ">
+                                                        <fragment content=" Privacy Policy. ">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="Privacy Policy">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
-                                                                <font key="NSOriginalFont" size="18" name="HelveticaNeue-Bold"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=".">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="24"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.44705882349999998" green="0.52549019610000003" blue="0.56470588239999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="24" name="Nunito-Bold"/>
+                                                                <font key="NSOriginalFont" size="24" name="Nunito-Bold"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </variation>
                                             </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-z4-1eZ" userLabel="Already have an account? Sign in">
-                                                <rect key="frame" x="37.5" y="436" width="300" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account? Sign in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-z4-1eZ" userLabel="Already have an account? Sign in">
+                                                <rect key="frame" x="77.5" y="554.5" width="220" height="22"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="300" id="20b-TX-gjH">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                                    <constraint firstAttribute="width" constant="220" id="20b-TX-gjH">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="350"/>
                                                     </constraint>
                                                 </constraints>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Already have an account? ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Sign in">
-                                                        <attributes>
-                                                            <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="NSColor" red="0.15294117647058825" green="0.72156862745098038" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.15294117647058825" green="0.72156862745098038" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Already have an account? ">
+                                                        <fragment content="Have an account? Sign in">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.51764705879999995" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="Sign in">
-                                                            <attributes>
-                                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="NSColor" red="0.15294117647058825" green="0.72156862745098038" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.15294117647058825" green="0.72156862745098038" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="20" name="Nunito-Bold"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                    <tabStops>
+                                                                        <textTab alignment="left" location="28">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="56">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="84">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="112">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="140">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="168">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="196">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="224">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="252">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="280">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="308">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                        <textTab alignment="left" location="336">
+                                                                            <options/>
+                                                                        </textTab>
+                                                                    </tabStops>
+                                                                </paragraphStyle>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IY-lkz">
-                                                <rect key="frame" x="30" y="424" width="315" height="0.0"/>
+                                                <rect key="frame" x="30" y="453.5" width="315" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -590,29 +631,27 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 </variation>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoV-ui-4cW">
-                                                <rect key="frame" x="257.5" y="431" width="80" height="30"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoV-ui-4cW">
+                                                <rect key="frame" x="217.5" y="545.5" width="80" height="40"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="KPt-Bt-8SU">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="120"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="height" constant="30" id="iT6-H8-7g8"/>
+                                                    <constraint firstAttribute="height" constant="40" id="iT6-H8-7g8"/>
                                                 </constraints>
                                                 <connections>
                                                     <action selector="signinActionWithSender:" destination="10E-j5-GEd" eventType="touchUpInside" id="t8f-0X-Bsy"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="lMo-9G-PX1" firstAttribute="leading" secondItem="Jgg-LW-djS" secondAttribute="leading" id="0Ct-fk-kvE"/>
-                                            <constraint firstItem="XQX-yQ-mbW" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="50" id="1nC-0j-Lti">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
-                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="c9Q-IY-lkz" secondAttribute="trailing" constant="30" id="22i-8e-bXe">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
+                                            <constraint firstItem="bRA-86-aLF" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="30" id="2qX-OX-KBv"/>
                                             <constraint firstItem="Jgg-LW-djS" firstAttribute="top" secondItem="rEI-pb-cqo" secondAttribute="bottom" constant="30" id="3q6-6F-5O8">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
@@ -625,13 +664,13 @@
                                             <constraint firstItem="DA2-oR-jbh" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="20" id="7YY-Ch-rF9">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstAttribute="bottom" secondItem="oY5-sw-lXw" secondAttribute="bottom" constant="20" id="7m5-Z7-JDM"/>
                                             <constraint firstAttribute="trailing" secondItem="Jgg-LW-djS" secondAttribute="trailing" constant="20" id="Aex-cA-m0y">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="DA2-oR-jbh" firstAttribute="top" secondItem="sTm-iI-XM2" secondAttribute="bottom" constant="20" id="BG4-hl-41Z">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
+                                            <constraint firstItem="o2w-z4-1eZ" firstAttribute="top" secondItem="oY5-sw-lXw" secondAttribute="bottom" constant="20" id="BgD-Xp-7SZ"/>
                                             <constraint firstAttribute="trailing" secondItem="DA2-oR-jbh" secondAttribute="trailing" constant="20" id="C0t-e1-tmD">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -642,7 +681,7 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="VoV-ui-4cW" firstAttribute="trailing" secondItem="o2w-z4-1eZ" secondAttribute="trailing" id="EpB-qE-voO"/>
-                                            <constraint firstAttribute="bottom" secondItem="VoV-ui-4cW" secondAttribute="bottom" priority="1" constant="30" id="Hlj-pP-RIw"/>
+                                            <constraint firstAttribute="bottom" secondItem="VoV-ui-4cW" secondAttribute="bottom" constant="20" id="Hlj-pP-RIw"/>
                                             <constraint firstItem="Jgg-LW-djS" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="20" id="LMt-Ci-Hl7">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -652,10 +691,11 @@
                                             </constraint>
                                             <constraint firstItem="sTm-iI-XM2" firstAttribute="centerX" secondItem="8aX-A4-lz5" secondAttribute="centerX" id="Qdc-oX-KeZ"/>
                                             <constraint firstItem="VoV-ui-4cW" firstAttribute="centerY" secondItem="o2w-z4-1eZ" secondAttribute="centerY" id="SwA-ge-Owa"/>
+                                            <constraint firstItem="bRA-86-aLF" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="40" id="T3n-sh-Rga"/>
                                             <constraint firstItem="lMo-9G-PX1" firstAttribute="trailing" secondItem="Jgg-LW-djS" secondAttribute="trailing" id="TDB-OD-k7i"/>
                                             <constraint firstItem="oY5-sw-lXw" firstAttribute="trailing" secondItem="lMo-9G-PX1" secondAttribute="trailing" id="WEw-eK-tlu"/>
-                                            <constraint firstItem="DA2-oR-jbh" firstAttribute="top" secondItem="XQX-yQ-mbW" secondAttribute="bottom" constant="30" id="bbM-13-Jxv">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            <constraint firstItem="DA2-oR-jbh" firstAttribute="top" secondItem="XQX-yQ-mbW" secondAttribute="bottom" constant="20" id="bbM-13-Jxv">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="oY5-sw-lXw" firstAttribute="leading" secondItem="lMo-9G-PX1" secondAttribute="leading" id="e3N-8t-u1b"/>
                                             <constraint firstItem="lMo-9G-PX1" firstAttribute="top" secondItem="c9Q-IY-lkz" secondAttribute="bottom" constant="15" id="jNZ-da-0TS">
@@ -665,6 +705,8 @@
                                             <constraint firstItem="c9Q-IY-lkz" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="30" id="oUk-BF-TGR">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="bRA-86-aLF" secondAttribute="trailing" constant="40" id="px9-L6-qoG"/>
+                                            <constraint firstItem="XQX-yQ-mbW" firstAttribute="top" secondItem="bRA-86-aLF" secondAttribute="bottom" constant="20" id="qa3-rZ-3xB"/>
                                             <constraint firstItem="rEI-pb-cqo" firstAttribute="top" secondItem="DA2-oR-jbh" secondAttribute="bottom" constant="20" id="rD4-fv-vPQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
@@ -677,7 +719,7 @@
                                         </variation>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="8aX-A4-lz5" secondAttribute="trailing" id="CtK-S0-Jqw"/>
                                     <constraint firstAttribute="bottom" secondItem="8aX-A4-lz5" secondAttribute="bottom" id="TGP-XF-Kdt"/>
@@ -688,11 +730,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="VbS-v7-2mU" firstAttribute="bottom" secondItem="auk-6B-kf4" secondAttribute="bottom" id="1JI-8g-dpE"/>
                             <constraint firstItem="8aX-A4-lz5" firstAttribute="width" secondItem="lbB-pR-cYQ" secondAttribute="width" id="Bv9-0z-tkS"/>
                             <constraint firstItem="VbS-v7-2mU" firstAttribute="trailing" secondItem="ZIe-pW-tlL" secondAttribute="trailing" id="IDN-3p-s26"/>
+                            <constraint firstItem="auk-6B-kf4" firstAttribute="top" secondItem="lbB-pR-cYQ" secondAttribute="top" id="XuT-iX-NWo"/>
                             <constraint firstItem="ZIe-pW-tlL" firstAttribute="leading" secondItem="VbS-v7-2mU" secondAttribute="leading" id="brC-sH-aRv"/>
                             <constraint firstItem="VbS-v7-2mU" firstAttribute="bottom" secondItem="ZIe-pW-tlL" secondAttribute="bottom" id="iI8-Sl-qn3"/>
+                            <constraint firstItem="auk-6B-kf4" firstAttribute="leading" secondItem="VbS-v7-2mU" secondAttribute="leading" id="iwI-UH-YNc"/>
                             <constraint firstItem="ZIe-pW-tlL" firstAttribute="top" secondItem="VbS-v7-2mU" secondAttribute="top" id="shG-XW-HkU"/>
+                            <constraint firstItem="VbS-v7-2mU" firstAttribute="trailing" secondItem="auk-6B-kf4" secondAttribute="trailing" id="yfZ-mL-fw0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VbS-v7-2mU"/>
                         <connections>
@@ -701,18 +747,19 @@
                             <outlet property="firstName" destination="J7z-Zg-ehs" id="al7-jK-i3q"/>
                             <outlet property="passwordField" destination="9Xg-uh-x01" id="AA6-ou-fhj"/>
                             <outlet property="scrollView" destination="ZIe-pW-tlL" id="9Ba-aF-SlH"/>
-                            <outlet property="signUpBtn" destination="Jgg-LW-djS" id="mKn-CH-Ybr"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="headerLabel" destination="bRA-86-aLF" id="qEp-5f-qrD"/>
                         <outlet property="privacyLbl" destination="oY5-sw-lXw" id="5GY-xi-kym"/>
                         <outlet property="rootView" destination="lbB-pR-cYQ" id="tSY-Rg-v2J"/>
+                        <outlet property="signInLabel" destination="o2w-z4-1eZ" id="Pot-oM-9hQ"/>
                         <outlet property="termsLbl" destination="lMo-9G-PX1" id="Q8q-73-Lc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-nh-UzU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2618" y="-1182"/>
+            <point key="canvasLocation" x="2616.8000000000002" y="-1182.4587706146926"/>
         </scene>
         <!--Forgot Password Controller-->
         <scene sceneID="iOy-1U-WiG">
@@ -1078,6 +1125,7 @@
         <image name="facebook_new" width="50" height="50"/>
         <image name="fbImage" width="260" height="45"/>
         <image name="google_new" width="50" height="50"/>
+        <image name="gradientImage" width="1242" height="2208"/>
         <image name="pateron" width="50" height="50"/>
         <image name="twitter_new" width="50" height="50"/>
     </resources>

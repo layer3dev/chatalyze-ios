@@ -14,39 +14,57 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var rootView:SignupRootView?
     @IBOutlet var termsLbl:UILabel?
     @IBOutlet var privacyLbl:UILabel?
+    @IBOutlet var signInLabel:UILabel?
+    var signInAction:(()->())?
+    @IBOutlet var headerLabel:UILabel?
     
     @IBAction func signinAction(sender:UIButton){
         
-        self.navigationController?.popToRootViewController(animated: true)
+       self.signInAction?()
+        //self.navigationController?.popToRootViewController(animated: true)
     }
     
     func maketextLinkable(){
         
-        let attributeForFirstString = [NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size:18),NSAttributedString.Key.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedString.Key : Any]
-        
-        let attributeForSecondString = [NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size:18),NSAttributedString.Key.foregroundColor: UIColor(hexString: "#728690")] as [NSAttributedString.Key : Any]
-        
-        let text = NSMutableAttributedString(string: "By signing up, you agree to our ")
-        
-        text.addAttributes(attributeForFirstString, range: NSMakeRange(0,text.length))
-        
-        let text1 = NSMutableAttributedString(string: "Terms of Service ")
-        text1.addAttributes(attributeForSecondString, range: NSMakeRange(0, text1.length))
-        
-        
-        let text2 = NSMutableAttributedString(string: "and")
-        text2.addAttributes(attributeForFirstString, range: NSMakeRange(0, text2.length))
-        
-        
-        let text3 = NSMutableAttributedString(string: "Privacy Policy.")
-        text3.addAttributes(attributeForSecondString, range: NSMakeRange(0, text3.length))
-        
-        text.append(text1)
-        text.append(text2)
-        text.append(text3)
-        
-        termsLbl?.attributedText = text
-        termsLbl?.isUserInteractionEnabled = true
+        DispatchQueue.main.async {
+            
+            let text = "By signing up, you agree to our "
+            
+            let textOneMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            let text1 = "Terms of Service "
+            
+            let textTwoMutable = text1.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            let text2 = "and"
+            
+            let textThreeMutable = text2.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            
+            let text3 = "Privacy Policy."
+            
+            let textFourMutable = text3.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            textOneMutable.append(textTwoMutable)
+            textOneMutable.append(textThreeMutable)
+            //textOneMutable.append(textFourMutable)
+            
+            self.termsLbl?.attributedText = textOneMutable
+            self.termsLbl?.isUserInteractionEnabled = true
+            
+            let privacyTextOne = "Have an account? "
+            let privacyTextTwo = "Sign in"
+            
+            let privacyMutableText = privacyTextOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            let privacyAttrText = privacyTextTwo.toAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            
+            privacyMutableText.append(privacyAttrText)
+            
+            self.privacyLbl?.attributedText = textFourMutable
+            
+            self.signInLabel?.attributedText = privacyMutableText
+        }
     }
     
     func tapActionTermsLbl(){
@@ -90,11 +108,20 @@ class SignUpController: InterfaceExtendedController {
     override func viewDidLayout() {
         super.viewDidLayout()
      
+        
+        if LoginSignUpContainerController.roleId == 3 {
+            self.headerLabel?.text = "Fan sign up"
+        }
+        
+        if LoginSignUpContainerController.roleId == 2{
+            self.headerLabel?.text = "Creator sign up"
+        }
+        
         paintInterface()
         initialization()
         tapActionTermsLbl()
         tapActionPrivacyLbl()
-        
+        maketextLinkable()
     }
     
     func initialization(){
