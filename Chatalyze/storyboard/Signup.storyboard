@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,10 +33,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aX-A4-lz5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="605.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="613.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-86-aLF">
-                                                <rect key="frame" x="40" y="30" width="295" height="27.5"/>
+                                                <rect key="frame" x="40" y="40" width="295" height="27.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-yQ-mbW" userLabel="signin_button" customClass="RoundCornerViews" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="77.5" width="315" height="45"/>
+                                                <rect key="frame" x="30" y="107.5" width="315" height="45"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-Vt-1il">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
@@ -195,7 +195,7 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-oR-jbh">
-                                                <rect key="frame" x="20" y="142.5" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="172.5" width="335" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GM-IL-4iR">
                                                         <rect key="frame" x="0.0" y="19.5" width="71" height="1"/>
@@ -235,7 +235,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-pb-cqo">
-                                                <rect key="frame" x="20" y="202.5" width="335" height="163"/>
+                                                <rect key="frame" x="20" y="232.5" width="335" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7z-Zg-ehs" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="47"/>
@@ -458,7 +458,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-LW-djS" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="395.5" width="335" height="55"/>
+                                                <rect key="frame" x="20" y="425.5" width="335" height="55"/>
                                                 <color key="backgroundColor" red="0.58823529411764708" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="4wV-0z-6b0">
@@ -476,26 +476,10 @@
                                                     <action selector="signupActionWithSender:" destination="lbB-pR-cYQ" eventType="touchUpInside" id="j03-Tc-YMz"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-9G-PX1">
-                                                <rect key="frame" x="20" y="468.5" width="335" height="44"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="By signing up, you agree to our ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Terms of Service ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Bold"/>
-                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree to our Terms of Service " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-9G-PX1">
+                                                <rect key="frame" x="20" y="498.5" width="335" height="22"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
@@ -510,34 +494,10 @@
                                                     </attributedString>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-sw-lXw">
-                                                <rect key="frame" x="20" y="512.5" width="335" height="22"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="and ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="Privacy Policy.">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Bold"/>
-                                                            <font key="NSOriginalFont" size="16" name="Nunito-Bold"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content=" ">
-                                                        <attributes>
-                                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="16" name="Nunito-Regular"/>
-                                                            <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and Privacy Policy. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-sw-lXw">
+                                                <rect key="frame" x="20" y="520.5" width="335" height="22"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
@@ -561,7 +521,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account? Sign in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-z4-1eZ" userLabel="Already have an account? Sign in">
-                                                <rect key="frame" x="77.5" y="554.5" width="220" height="22"/>
+                                                <rect key="frame" x="77.5" y="562.5" width="220" height="22"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="220" id="20b-TX-gjH">
@@ -577,53 +537,14 @@
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <font key="NSFont" size="20" name="Nunito-Bold"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                    <tabStops>
-                                                                        <textTab alignment="left" location="28">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="56">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="84">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="112">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="140">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="168">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="196">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="224">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="252">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="280">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="308">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                        <textTab alignment="left" location="336">
-                                                                            <options/>
-                                                                        </textTab>
-                                                                    </tabStops>
-                                                                </paragraphStyle>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IY-lkz">
-                                                <rect key="frame" x="30" y="453.5" width="315" height="0.0"/>
+                                                <rect key="frame" x="30" y="483.5" width="315" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -632,7 +553,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoV-ui-4cW">
-                                                <rect key="frame" x="217.5" y="545.5" width="80" height="40"/>
+                                                <rect key="frame" x="217.5" y="553.5" width="80" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="KPt-Bt-8SU">
@@ -651,7 +572,9 @@
                                             <constraint firstAttribute="trailing" secondItem="c9Q-IY-lkz" secondAttribute="trailing" constant="30" id="22i-8e-bXe">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="bRA-86-aLF" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="30" id="2qX-OX-KBv"/>
+                                            <constraint firstItem="bRA-86-aLF" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="40" id="2qX-OX-KBv">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
                                             <constraint firstItem="Jgg-LW-djS" firstAttribute="top" secondItem="rEI-pb-cqo" secondAttribute="bottom" constant="30" id="3q6-6F-5O8">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
@@ -706,7 +629,9 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="bRA-86-aLF" secondAttribute="trailing" constant="40" id="px9-L6-qoG"/>
-                                            <constraint firstItem="XQX-yQ-mbW" firstAttribute="top" secondItem="bRA-86-aLF" secondAttribute="bottom" constant="20" id="qa3-rZ-3xB"/>
+                                            <constraint firstItem="XQX-yQ-mbW" firstAttribute="top" secondItem="bRA-86-aLF" secondAttribute="bottom" constant="40" id="qa3-rZ-3xB">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
                                             <constraint firstItem="rEI-pb-cqo" firstAttribute="top" secondItem="DA2-oR-jbh" secondAttribute="bottom" constant="20" id="rD4-fv-vPQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>

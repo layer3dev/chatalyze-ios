@@ -132,7 +132,7 @@ class ServerProcessor{
         //Todo: Fix the issue with callback
     }
     
-    fileprivate func getAuthorizationToken()->String{
+     func getAuthorizationToken()->String{
         
         guard let info = SignedUserInfo.sharedInstance
             else{

@@ -78,8 +78,11 @@ class HostDashboardRootView: MySessionRootView {
             })
         }
         
-        userNameLbl?.text = SignedUserInfo.sharedInstance?.fullName ?? ""
-        userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
+        DispatchQueue.main.async {
+            
+            self.userNameLbl?.text = SignedUserInfo.sharedInstance?.fullName ?? ""
+            self.userDescriptionLbl?.text = SignedUserInfo.sharedInstance?.userDescription ?? ""
+        }
     }
     
     func initializeFontSize() {

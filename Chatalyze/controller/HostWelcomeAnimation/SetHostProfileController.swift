@@ -61,27 +61,32 @@ class SetHostProfileController: InterfaceExtendedController {
         FetchProfileProcessor().fetch(completion: { (success, error, reponse) in
             self.stopLoader()
            
-            if success{
-                
-                DispatchQueue.main.async {
-                    
-                    guard let controller = HostCategoryController.instance() else{
-                        return
-                    }
-                    self.present(controller, animated: true, completion: {
-                    })
-                    return
-                }
-            }
+            UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")          
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+            })
             
-            DispatchQueue.main.async {
-                
-                guard let controller = HostCategoryController.instance() else{
-                    return
-                }
-                self.present(controller, animated: true, completion: {
-                })
-            }
+            
+//            if success{
+//
+//                DispatchQueue.main.async {
+//
+//                    guard let controller = HostCategoryController.instance() else{
+//                        return
+//                    }
+//                    self.present(controller, animated: true, completion: {
+//                    })
+//                    return
+//                }
+//            }
+//
+//            DispatchQueue.main.async {
+//
+//                guard let controller = HostCategoryController.instance() else{
+//                    return
+//                }
+//                self.present(controller, animated: true, completion: {
+//                })
+//            }
         })
     }
     

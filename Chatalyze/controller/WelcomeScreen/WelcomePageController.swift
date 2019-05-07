@@ -47,6 +47,7 @@ class WelcomePageController: UIPageViewController {
     func setSignUpTab(){
         
         setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
+        self.signUpController?.updateSigUpHeaderInfo()
     }
     
 
