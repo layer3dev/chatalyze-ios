@@ -10,6 +10,9 @@ import UIKit
 
 class ReferralController: InterfaceExtendedController {
     
+    
+    
+    
     @IBOutlet var dataView:UIView?
     @IBOutlet var linkView:UIView?
     @IBOutlet var copyView:UIView?
@@ -20,13 +23,22 @@ class ReferralController: InterfaceExtendedController {
     @IBOutlet var backToMyProfile:UIButton?
     @IBOutlet var inviteButtonView:UIView?
     
+    @IBOutlet var inviteEmailView:UIView?
+    
+    @IBOutlet var emailAddress:UITextField?
+    @IBOutlet var errorLabel:UILabel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         paintInterface()
         
         linkView?.layer.borderWidth = 1
         linkView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        
+        inviteEmailView?.layer.borderWidth = 1
+        inviteEmailView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
         
         copyView?.layer.borderWidth = 1
         copyView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
@@ -34,16 +46,70 @@ class ReferralController: InterfaceExtendedController {
         dataView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
         
         self.paintText()
+      
         self.setSharableUrlText()
         
         backToMyProfile?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:22.5
         
         backToMyProfile?.layer.borderWidth = 1
         backToMyProfile?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
+        
         backToMyProfile?.layer.masksToBounds = true
         
         roundViewToInviteButton()
     }
+    
+    func validateEmail()->Bool{
+        
+        if emailAddress?.text == ""{
+            
+            errorLabel?.text = "Please fill email address to refer link on your referrer's email address."
+            return false
+        }
+        
+        if !(FieldValidator().validateEmailFormat(emailAddress?.text ?? "")){
+            
+            errorLabel?.text = "Please fill correct email address."
+            return false
+        }
+        
+        errorLabel?.text = ""
+        return true
+    }
+    
+    
+    @IBAction func sendInvites(sender:UIButton){
+        
+        if !validateEmail(){
+            return
+        }
+        let text:[String] = ["\(emailAddress?.text ?? "")"]
+        
+        self.showLoader()
+       
+        SendRefrerrelInvitation().send(param: ["members":text]) { (success,response) in
+            
+            self.stopLoader()
+            
+            let resp = response?.dictionary
+            let message = resp?["message"]?.stringValue
+            
+            Log.echo(key: "yud", text: "success is \(success)")
+            
+            if  message == ""{
+                
+                self.errorLabel?.text = message
+                return
+            }
+            self.alert(withTitle: AppInfoConfig.appName, message: "Invitaion sent successfully at the email address.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
+                
+                self.navigationController?.popViewController(animated: true)
+            })
+        }
+    }
+    
+    
+    
     
     func roundViewToInviteButton(){
         
@@ -89,13 +155,27 @@ class ReferralController: InterfaceExtendedController {
     
     func setSharableUrlText() {
         
-        var str = AppConnectionConfig.basicUrl
-        str = str + "/profile/"
-        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
-        str = str + "/"
-        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
-        self.sharingLbl?.text = str
-        str  = str.replacingOccurrences(of: " ", with: "")
+        self.showLoader()
+        FetchReferralUrl().fetch() { (success, response) in
+          
+            self.stopLoader()
+
+            Log.echo(key: "yud", text: "Repo is \(response)")
+            
+            if success{
+                self.sharingLbl?.text = response ?? ""
+                return
+            }
+            self.sharingLbl?.text = ""
+        }
+        
+//        var str = AppConnectionConfig.basicUrl
+//        str = str + "/profile/"
+//        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
+//        str = str + "/"
+//        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
+//        //self.sharingLbl?.text = str
+//        str  = str.replacingOccurrences(of: " ", with: "")
     }
     
     func paintText(){

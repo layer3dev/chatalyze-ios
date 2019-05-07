@@ -55,7 +55,6 @@ class WelcomeController: InterfaceExtendedController {
     
     @IBAction func hostAction(sender:UIButton){
         
-        
         LoginSignUpContainerController.roleId = 2
         DispatchQueue.main.async {
             self.dismiss(animated: true) {

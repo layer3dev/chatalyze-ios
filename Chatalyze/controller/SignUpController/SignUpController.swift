@@ -107,15 +107,6 @@ class SignUpController: InterfaceExtendedController {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-     
-        
-        if LoginSignUpContainerController.roleId == 3 {
-            self.headerLabel?.text = "Fan sign up"
-        }
-        
-        if LoginSignUpContainerController.roleId == 2{
-            self.headerLabel?.text = "Creator sign up"
-        }
         
         paintInterface()
         initialization()
@@ -138,8 +129,21 @@ class SignUpController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        updateSigUpHeaderInfo()
         hideNavigationBar()
     }
+    
+    func updateSigUpHeaderInfo(){
+        
+        if LoginSignUpContainerController.roleId == 3 {
+            self.headerLabel?.text = "Fan sign up"
+        }
+        
+        if LoginSignUpContainerController.roleId == 2{
+            self.headerLabel?.text = "Creator sign up"
+        }
+    }
+    
     
     @IBAction func googleSignIn(){
         

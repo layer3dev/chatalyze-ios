@@ -24,7 +24,6 @@ class LoginSignUpContainerController: InterfaceExtendedController {
         initializeForForGotPasswordNavigation()
         self.didLoad?()
         initializeForSignIn()
-        //verifyRoleId()
     }
     
     func initializeForSignIn(){
@@ -44,7 +43,7 @@ class LoginSignUpContainerController: InterfaceExtendedController {
             
             self.pageController?.setSignUpTab()
             self.signInTab?.reset()
-            self.signUpTab?.select()
+            self.signUpTab?.select()            
             self.showWelcomeScreen(response: {
             })
         }

@@ -135,7 +135,7 @@ class FacebookLogin{
     
     private func handleResponseSignup(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
         
-        Log.echo(key: "token", text: "raw info ==>  \(response)")
+        Log.echo(key: "token", text: "raw info ==>  \(String(describing: response))")
         
         guard let rawInfo = response
             else{

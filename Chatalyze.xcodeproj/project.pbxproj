@@ -139,6 +139,10 @@
 		47409D9E21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */; };
 		47409D9F21E0DF6E00F1524F /* HostFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */; };
 		4743195E2133F13F0086FDEE /* SessionDoneRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */; };
+		474AA3DE2281A62B005ACBB4 /* FetchReferralUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AA3DD2281A62B005ACBB4 /* FetchReferralUrl.swift */; };
+		474AA3DF2281A62B005ACBB4 /* FetchReferralUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AA3DD2281A62B005ACBB4 /* FetchReferralUrl.swift */; };
+		474AA3E12281B5E2005ACBB4 /* SendRefrerrelInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AA3E02281B5E2005ACBB4 /* SendRefrerrelInvitation.swift */; };
+		474AA3E22281B5E2005ACBB4 /* SendRefrerrelInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AA3E02281B5E2005ACBB4 /* SendRefrerrelInvitation.swift */; };
 		474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474BF8A420D912580074EBBC /* SafariServices.framework */; };
 		4753B9FF21900F980060777B /* FAQ.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4753B9FE21900F980060777B /* FAQ.storyboard */; };
 		4753BA0221900FE00060777B /* FAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA0121900FE00060777B /* FAQController.swift */; };
@@ -1347,6 +1351,8 @@
 		473DD23F21F1F07C0063FEEB /* SetProfileRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileRootView.swift; sourceTree = "<group>"; };
 		47409D9D21E0DF6E00F1524F /* HostFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostFeedbackController.swift; sourceTree = "<group>"; };
 		4743195D2133F13F0086FDEE /* SessionDoneRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneRootView.swift; sourceTree = "<group>"; };
+		474AA3DD2281A62B005ACBB4 /* FetchReferralUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchReferralUrl.swift; sourceTree = "<group>"; };
+		474AA3E02281B5E2005ACBB4 /* SendRefrerrelInvitation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRefrerrelInvitation.swift; sourceTree = "<group>"; };
 		474BF8A420D912580074EBBC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		4753B9FE21900F980060777B /* FAQ.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FAQ.storyboard; sourceTree = "<group>"; };
 		4753BA0121900FE00060777B /* FAQController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQController.swift; sourceTree = "<group>"; };
@@ -2842,6 +2848,15 @@
 			name = HostFeedback;
 			path = Chatalyze/controller/HostFeedback;
 			sourceTree = SOURCE_ROOT;
+		};
+		474AA3DC2281A452005ACBB4 /* FetchReferralUrl  */ = {
+			isa = PBXGroup;
+			children = (
+				474AA3DD2281A62B005ACBB4 /* FetchReferralUrl.swift */,
+				474AA3E02281B5E2005ACBB4 /* SendRefrerrelInvitation.swift */,
+			);
+			path = "FetchReferralUrl ";
+			sourceTree = "<group>";
 		};
 		4753BA0021900FB90060777B /* FAQ */ = {
 			isa = PBXGroup;
@@ -4550,6 +4565,7 @@
 				472419C52265F47E00CC1AFE /* FetchSupportedChats */,
 				470391A72269EEE6008F2CF0 /* FetchAchievements */,
 				47D7539922719B440069F629 /* FetchOldTickets */,
+				474AA3DC2281A452005ACBB4 /* FetchReferralUrl  */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -6174,6 +6190,7 @@
 				47D0B10F21A6C4B5006376A8 /* SettingController.swift in Sources */,
 				47D0B11021A6C4B5006376A8 /* HostDashboardController.swift in Sources */,
 				47D0B11121A6C4B5006376A8 /* AccountPageViewHostController.swift in Sources */,
+				474AA3E22281B5E2005ACBB4 /* SendRefrerrelInvitation.swift in Sources */,
 				47A33D8321FB2744006965E9 /* SessionDetailController.swift in Sources */,
 				47D0B11221A6C4B5006376A8 /* TabElementInterface.swift in Sources */,
 				47D0B11321A6C4B5006376A8 /* PaymentSetupPaypalRootView.swift in Sources */,
@@ -6283,6 +6300,7 @@
 				47D0B15C21A6C4B5006376A8 /* SignupRootView.swift in Sources */,
 				47F93A9022707337007A6EDB /* AchievementImageController.swift in Sources */,
 				47BAED9C220029FE0042588A /* EmptySlotInfo.swift in Sources */,
+				474AA3DF2281A62B005ACBB4 /* FetchReferralUrl.swift in Sources */,
 				47D0B15D21A6C4B5006376A8 /* CallEventInfo.swift in Sources */,
 				47D0B15E21A6C4B5006376A8 /* TimerSync.swift in Sources */,
 				47D0B15F21A6C4B5006376A8 /* Date.swift in Sources */,
@@ -6702,6 +6720,7 @@
 				47111CE62158BB3700DFBC08 /* HostDashboardController.swift in Sources */,
 				47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */,
 				47B6526620AAB4080041496C /* TabElementInterface.swift in Sources */,
+				474AA3E12281B5E2005ACBB4 /* SendRefrerrelInvitation.swift in Sources */,
 				47A33D8221FB2744006965E9 /* SessionDetailController.swift in Sources */,
 				FAC19018221AADD3000E2832 /* InAppPurchaseObserver.swift in Sources */,
 				475B111F210B2D0E00DADD39 /* PaymentSetupPaypalRootView.swift in Sources */,
@@ -6811,6 +6830,7 @@
 				FA15C573206B6761009FA707 /* CallEventInfo.swift in Sources */,
 				47F93A8F22707337007A6EDB /* AchievementImageController.swift in Sources */,
 				FA72A0B22085F7CF00C3C7AE /* TimerSync.swift in Sources */,
+				474AA3DE2281A62B005ACBB4 /* FetchReferralUrl.swift in Sources */,
 				47BAED9B220029FE0042588A /* EmptySlotInfo.swift in Sources */,
 				FAA0019E203ED472003C8A74 /* Date.swift in Sources */,
 				47AD143120AD57D9006AF9D6 /* DeactivateAccountProcessor.swift in Sources */,

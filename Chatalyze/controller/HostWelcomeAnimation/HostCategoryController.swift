@@ -10,7 +10,6 @@ import UIKit
 
 class HostCategoryController: InterfaceExtendedController{
     
-    
     var currentListInfo = [HostCategoryListInfo]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +29,15 @@ class HostCategoryController: InterfaceExtendedController{
             self.currentListInfo.removeAll()
             self.currentListInfo = listInfo ?? [HostCategoryListInfo]()
             self.rootView?.reloadTableWithData(data:listInfo)
+            
 //            for info in listInfo ?? [HostCategoryListInfo](){
-//
+            
 //                Log.echo(key: "yud", text: "name \(info.name)")
 //                Log.echo(key: "yud", text: "categoryId \(info.categoryId)")
 //                Log.echo(key: "yud", text: "id \(info.id)")
 //                Log.echo(key: "yud", text: "categoryType \(info.categoryType)")
 //            }
+            
         }
     }
     func initilaizeRootView(){

@@ -47,6 +47,7 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewWillAppear(animated)
 
         //showUpcomingEvents(sender: nil)
+        Log.echo(key: "yud", text: "yes i got it I am calling")
         hideNavigationBar()
         rootView?.paintNewUI()
     }    
@@ -242,7 +243,7 @@ class HostDashboardController: MyScheduledSessionsController {
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
+
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }
