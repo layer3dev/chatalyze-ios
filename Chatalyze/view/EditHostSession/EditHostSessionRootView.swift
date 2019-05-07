@@ -26,7 +26,7 @@ class EditHostSessionRootView:EditScheduledSessionRootView {
         if let url = URL(string: requiredStr){
             
             self.controller?.showLoader()
-            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
+            SDWebImageManager.shared.loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in
                 
                 self.controller?.stopLoader()

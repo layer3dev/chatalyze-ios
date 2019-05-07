@@ -199,7 +199,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         if let notification = launch?[.remoteNotification] as? [AnyHashable: AnyObject] {
             
             PushNotificationHandler().handleNavigation(info: notification)
-            
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
                 //PushNotificationHandler().handleNavigation(info: notification)

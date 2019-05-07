@@ -10,8 +10,8 @@
 import Foundation
 import UIKit
 import SDWebImage
-import FBSDKShareKit
-import FacebookShare
+//import FBSDKShareKit
+//import FacebookShare
 
 
 class MemoriesCell: ExtendedTableCell {
@@ -87,38 +87,38 @@ class MemoriesCell: ExtendedTableCell {
             return
         }
         
-        var url = "https://chatalyze.com/api/screenshots/"
-        url = url+id
-        url = url+"/url/chatalyze.png"
-        
-        Log.echo(key: "yud", text: "Image url is \(url)")
-        
-        do{
-            guard let image1 = self.memoryImage?.image else{
-                return
-            }
-            let photo = Photo(image: image1, userGenerated: true)
-            var contentImage = PhotoShareContent(photos: [photo])
-            contentImage.url = URL(string: url)
-            do{
-                guard let controller = self.controller else {
-                    return
-                }
-                try ShareDialog.show(from: controller, content: contentImage) { (result) in
-                }
-            }catch{
-                
-                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
-                }))
-                
-                self.controller?.present(alert, animated: true, completion: {
-                })
-            }
-        }catch{
-            print("Unable to load data: \(error)")
-        }
+//        var url = "https://chatalyze.com/api/screenshots/"
+//        url = url+id
+//        url = url+"/url/chatalyze.png"
+//        
+//        Log.echo(key: "yud", text: "Image url is \(url)")
+//        
+//        do{
+//            guard let image1 = self.memoryImage?.image else{
+//                return
+//            }
+//            let photo = Photo(image: image1, userGenerated: true)
+//            var contentImage = PhotoShareContent(photos: [photo])
+//            contentImage.url = URL(string: url)
+//            do{
+//                guard let controller = self.controller else {
+//                    return
+//                }
+//                try ShareDialog.show(from: controller, content: contentImage) { (result) in
+//                }
+//            }catch{
+//                
+//                let alert = UIAlertController(title: AppInfoConfig.appName, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+//                
+//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (action) in
+//                }))
+//                
+//                self.controller?.present(alert, animated: true, completion: {
+//                })
+//            }
+//        }catch{
+//            print("Unable to load data: \(error)")
+//        }
     }
     
     @IBAction func saveImageInGallery(sender:UIButton){
