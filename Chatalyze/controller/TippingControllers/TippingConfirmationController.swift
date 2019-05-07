@@ -105,23 +105,24 @@ class TippingConfirmationController: InterfaceExtendedController {
             
             self?.isProcessingLastTransaction = false
             Log.echo(key: "in_app_purchase", text: "success -> \(success)")
-            
-            if(!success){
-                
-                completion()
-                return
-            }
-            
             guard let transaction = transaction
                 else{
                     completion()
                     return
             }
             
+            SKPaymentQueue.default().finishTransaction(transaction)
+            if(!success){
+                completion()
+                return
+            }
+            
+            
+            
             //Completed transaction need to be marked as finished, after confirming with server.
             //todo:need better management.
             
-            SKPaymentQueue.default().finishTransaction(transaction)
+            
             Log.echo(key: "yud", text: "Completion three")
             
             completion()

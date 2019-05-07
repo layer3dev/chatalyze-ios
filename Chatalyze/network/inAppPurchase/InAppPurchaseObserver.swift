@@ -35,9 +35,9 @@ class InAppPurchaseObserver : NSObject{
 extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        
+        Log.echo(key: "in_app_purchase", text: "paymentQueue -> triggerred")
         for transaction in transactions {
-            
+             Log.echo(key: "in_app_purchase", text: "paymentQueue -> looping triggerred -> \(transaction.transactionState)")
             switch (transaction.transactionState) {
             case .purchased:
                 complete(transaction: transaction)
@@ -67,10 +67,11 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
             Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
             
             if(self?.completionListener == nil){
+                Log.echo(key: "in_app_purchase", text: "complete but detached --)")
                 self?.handleDetached(transaction: transaction)
                 return
             }
-            
+            Log.echo(key: "in_app_purchase", text: "complete and attached --)")
             self?.completionListener?(true, "successful", transaction)
             self?.completionListener = nil
         }
@@ -90,6 +91,11 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
         
         detachedHandler.processDetached(transaction: transaction) { (success) in
             if(success){
+                SKPaymentQueue.default().finishTransaction(transaction)
+            }else{
+                //temp
+                //todo
+                //need to be handled with fallback logging
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
         }

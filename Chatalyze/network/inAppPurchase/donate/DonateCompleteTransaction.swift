@@ -44,7 +44,7 @@ class DonateCompleteTransaction{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool)->())){
         
-        Log.echo(key: "signininfo", text: "raw info ==>  \(response)" )
+        Log.echo(key: "donation_confirm", text: "raw info ==>  \(response)" )
         
         completion(success)
         return
