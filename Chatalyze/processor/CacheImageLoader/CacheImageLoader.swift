@@ -28,7 +28,7 @@ class CacheImageLoader : NSObject{
                 completionBlock(false, nil)
                 return
         }
-        let manager = SDWebImageManager.shared()
+        let manager = SDWebImageManager.shared
         guard let url = URL(string: urlString)
             else{
                 completionBlock(false, nil)

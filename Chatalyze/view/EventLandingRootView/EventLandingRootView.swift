@@ -44,7 +44,7 @@ class EventLandingRootView:ExtendedView{
         eventImage?.image = UIImage(named: "event_placeholder")
         
         if let url = URL(string: info.user?.profileImage ?? ""){
-            SDWebImageManager.shared().loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
+            SDWebImageManager.shared.loadImage(with: url, options: SDWebImageOptions.highPriority, progress: { (m, n, g) in
             }) { (image, data, error, chache, status, url) in
                 if error == nil{
                     self.eventImage?.image = image

@@ -6,4 +6,6 @@
 #import "CountryPicker.h"
 //#import "YLProgressBar.h"
 #import <Analytics/SEGAnalytics.h>
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>

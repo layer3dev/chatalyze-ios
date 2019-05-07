@@ -9,6 +9,9 @@
 import UIKit
 import FacebookCore
 import FacebookLogin
+import FBSDKCoreKit
+import FBSDKLoginKit
+
 
 class SigninRootView: ExtendedView {
     
@@ -186,6 +189,7 @@ extension SigninRootView{
             }
         }
     }
+    
     
     fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
         

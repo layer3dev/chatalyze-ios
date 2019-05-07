@@ -18,6 +18,17 @@ pod 'Socket.IO-Client-Swift', '~> 14.0.0'
 pod 'Starscream', '~> 3.0'
 pod 'YLProgressBar', '~> 3.11.0'
 pod "Analytics", "3.6.10"
+pod 'HCSStarRatingView', '~> 1.5'
+pod 'ImageLoader'
+pod 'SDWebImage'
+pod 'NVActivityIndicatorView'
+pod 'InputMask'
+pod 'FacebookLogin', '~> 0.5.0'
+pod 'FacebookShare', '~> 0.5.0'
+pod 'FacebookCore', '~> 0.5.0'
+
+
+
 
 end
 

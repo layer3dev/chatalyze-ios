@@ -13,7 +13,7 @@ protocol getSettingScrollInstet {
 }
 
 import UIKit
-import FacebookShare
+//import FacebookShare
 import FBSDKShareKit
 import SDWebImage
 //import TwitterKit

@@ -9,6 +9,8 @@
 import Foundation
 import FacebookCore
 import FacebookLogin
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class SignupRootView:ExtendedView{
     
