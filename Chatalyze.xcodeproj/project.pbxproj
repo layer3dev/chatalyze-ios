@@ -201,6 +201,12 @@
 		478506CB20BFCCE700EC4524 /* FetchSavedCardDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478506CA20BFCCE700EC4524 /* FetchSavedCardDetails.swift */; };
 		4787237E222574EF007994FC /* EarlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4787237D222574EF007994FC /* EarlyViewController.swift */; };
 		4787237F222574EF007994FC /* EarlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4787237D222574EF007994FC /* EarlyViewController.swift */; };
+		478C31472282C1B40081CC38 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C31462282C1B40081CC38 /* FBSDKCoreKit.framework */; };
+		478C31492282C2290081CC38 /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C31482282C2290081CC38 /* FacebookCore.framework */; };
+		478C314B2282C2290081CC38 /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C314A2282C2290081CC38 /* FacebookLogin.framework */; };
+		478C314D2282C2290081CC38 /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C314C2282C2290081CC38 /* FacebookShare.framework */; };
+		478C314F2282C2290081CC38 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C314E2282C2290081CC38 /* FBSDKLoginKit.framework */; };
+		478C31512282C2290081CC38 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 478C31502282C2290081CC38 /* FBSDKShareKit.framework */; };
 		47931AED2109DA8100F41630 /* AccountPageViewHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */; };
 		47931AF32109E8A600F41630 /* AccountHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF22109E8A600F41630 /* AccountHostController.swift */; };
 		47931AF52109E8BA00F41630 /* AccountHostRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47931AF42109E8BA00F41630 /* AccountHostRootView.swift */; };
@@ -1372,6 +1378,13 @@
 		478506CE20BFF71100EC4524 /* FacebookShare.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookShare.framework; path = Carthage/Build/iOS/FacebookShare.framework; sourceTree = "<group>"; };
 		478506D120BFFE5500EC4524 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Carthage/Build/iOS/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		4787237D222574EF007994FC /* EarlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyViewController.swift; sourceTree = "<group>"; };
+		478C31462282C1B40081CC38 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C31482282C2290081CC38 /* FacebookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C314A2282C2290081CC38 /* FacebookLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C314C2282C2290081CC38 /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C314E2282C2290081CC38 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C31502282C2290081CC38 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		478C31522282C3740081CC38 /* FBSDKCoreKit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = FBSDKCoreKit.modulemap; path = Pods/FBSDKCoreKit/FBSDKCoreKit/FBSDKCoreKit/Basics/FBSDKCoreKit.modulemap; sourceTree = "<group>"; };
 		47931AEC2109DA8100F41630 /* AccountPageViewHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPageViewHostController.swift; sourceTree = "<group>"; };
 		47931AF22109E8A600F41630 /* AccountHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHostController.swift; sourceTree = "<group>"; };
 		47931AF42109E8BA00F41630 /* AccountHostRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHostRootView.swift; sourceTree = "<group>"; };
@@ -1919,6 +1932,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				478C31492282C2290081CC38 /* FacebookCore.framework in Frameworks */,
+				478C314B2282C2290081CC38 /* FacebookLogin.framework in Frameworks */,
+				478C314D2282C2290081CC38 /* FacebookShare.framework in Frameworks */,
+				478C314F2282C2290081CC38 /* FBSDKLoginKit.framework in Frameworks */,
+				478C31512282C2290081CC38 /* FBSDKShareKit.framework in Frameworks */,
+				478C31472282C1B40081CC38 /* FBSDKCoreKit.framework in Frameworks */,
 				47D0B18C21A6C4B5006376A8 /* UserNotifications.framework in Frameworks */,
 				47D0B19321A6C4B5006376A8 /* SafariServices.framework in Frameworks */,
 				47D0B19421A6C4B5006376A8 /* Accounts.framework in Frameworks */,
@@ -1961,6 +1980,12 @@
 		0293E8890A9781616FB95EB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				478C31482282C2290081CC38 /* FacebookCore.framework */,
+				478C314A2282C2290081CC38 /* FacebookLogin.framework */,
+				478C314C2282C2290081CC38 /* FacebookShare.framework */,
+				478C314E2282C2290081CC38 /* FBSDKLoginKit.framework */,
+				478C31502282C2290081CC38 /* FBSDKShareKit.framework */,
+				478C31462282C1B40081CC38 /* FBSDKCoreKit.framework */,
 				C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */,
 				183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */,
 			);
@@ -5195,6 +5220,7 @@
 		FAFFFE8B203D9C7F009B4F96 = {
 			isa = PBXGroup;
 			children = (
+				478C31522282C3740081CC38 /* FBSDKCoreKit.modulemap */,
 				FAFFFE96203D9C80009B4F96 /* Chatalyze */,
 				FAFFFEAB203D9C80009B4F96 /* ChatalyzeTests */,
 				FAFFFEB6203D9C80009B4F96 /* ChatalyzeUITests */,
@@ -6883,6 +6909,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
 				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -6917,6 +6944,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
 				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Chatalyze-Swift.h";
@@ -6981,6 +7009,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -7035,6 +7064,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
@@ -7065,6 +7095,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
 				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -7098,6 +7129,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
 				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
