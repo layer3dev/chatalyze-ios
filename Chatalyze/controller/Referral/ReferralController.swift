@@ -10,9 +10,6 @@ import UIKit
 
 class ReferralController: InterfaceExtendedController {
     
-    
-    
-    
     @IBOutlet var dataView:UIView?
     @IBOutlet var linkView:UIView?
     @IBOutlet var copyView:UIView?
@@ -59,11 +56,24 @@ class ReferralController: InterfaceExtendedController {
         roundViewToInviteButton()
     }
     
+    @IBAction func terms(sender:UIButton?){
+        
+        guard let controller = FAQWebController.instance() else {
+            return
+        }
+        
+        controller.headerLabel?.text = ""
+        
+        controller.url = AppConnectionConfig.basicUrl + "/referral-program-terms"        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
     func validateEmail()->Bool{
         
         if emailAddress?.text == ""{
             
-            errorLabel?.text = "Please fill email address to refer link on your referrer's email address."
+            errorLabel?.text = "Please enter valid email address."
             return false
         }
         
@@ -101,7 +111,7 @@ class ReferralController: InterfaceExtendedController {
                 self.errorLabel?.text = message
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Invitaion sent successfully at the email address.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Invitation sent successfully.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
                 
                 self.navigationController?.popViewController(animated: true)
             })
@@ -229,14 +239,8 @@ class ReferralController: InterfaceExtendedController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
-        var str = AppConnectionConfig.basicUrl
-        str = str + "/profile/"
-        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
-        str = str + "/"
-        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
-        //str  = str.replacingOccurrences(of: " ", with: "")
-        Log.echo(key: "yud", text: "url id is \(str)")
-        str  = str.replacingOccurrences(of: " ", with: "")
+        var str = self.sharingLbl?.text
+        str  = str?.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
         self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
         }
