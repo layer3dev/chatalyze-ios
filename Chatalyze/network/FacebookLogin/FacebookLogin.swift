@@ -10,6 +10,8 @@
 import Foundation
 import SwiftyJSON
 import FacebookCore
+import FBSDKCoreKit
+import FacebookLogin
 
 
 class FacebookLogin{
@@ -24,7 +26,7 @@ class FacebookLogin{
      parameterInfo[@"accessToken"] = parameter;
      */
     
-    public func signin(accessToken : FacebookCore.AccessToken?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
+    public func signin(accessToken : AccessToken?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
         
         guard let accessToken = accessToken
             else{
@@ -41,7 +43,7 @@ class FacebookLogin{
         var params = [String : Any]()
         
         var rawParam = [String : String]()
-        rawParam["access_token"] = accessToken.authenticationToken
+        rawParam["access_token"] = accessToken.tokenString
         rawParam["token_type"] = "Bearer"
         rawParam["expires_in"] = String(accessToken.expirationDate.timeIntervalSinceNow)
         
@@ -93,7 +95,7 @@ class FacebookLogin{
     }
     
     
-    public func signup(accessToken : FacebookCore.AccessToken?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
+    public func signup(accessToken : AccessToken?, completion : @escaping ((_ success : Bool, _ error : String, _ response : SignedUserInfo?)->())){
         
         guard let accessToken = accessToken
             else{
@@ -109,7 +111,7 @@ class FacebookLogin{
         var params = [String : Any]()
         
         var rawParam = [String : String]()
-        rawParam["access_token"] = accessToken.authenticationToken
+        rawParam["access_token"] = accessToken.tokenString
         rawParam["token_type"] = "Bearer"
         rawParam["expires_in"] = String(accessToken.expirationDate.timeIntervalSinceNow)
         

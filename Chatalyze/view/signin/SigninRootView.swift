@@ -169,10 +169,11 @@ extension SigninRootView{
     fileprivate func fbLogin(){
         
         let loginManager = LoginManager()
-        
-        loginManager.logOut() 
-        
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile,ReadPermission.email], viewController: controller) { [weak self] (loginResult) in
+
+        loginManager.logOut()
+
+        loginManager.logIn(permissions: [Permission.publicProfile,Permission.email], viewController: controller) { [weak self] (loginResult) in
+            
             Log.echo(key: "yud", text: "loginResult in the facebook is \(loginResult)")
             
             switch loginResult {
@@ -191,7 +192,7 @@ extension SigninRootView{
     }
     
     
-    fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
+    fileprivate func fetchFBUserInfo(accessToken :AccessToken?){
         
         DispatchQueue.main.async(execute: {
             self.controller?.showLoader()

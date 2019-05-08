@@ -226,7 +226,7 @@ extension SignupRootView{
         
         let loginManager = LoginManager()
         loginManager.logOut() 
-        loginManager.logIn(readPermissions: [ ReadPermission.publicProfile , ReadPermission.email], viewController: controller) { [weak self] (loginResult) in
+        loginManager.logIn(permissions: [Permission.publicProfile , Permission.email], viewController: controller) { [weak self] (loginResult) in
             
             switch loginResult {
             case .failed(let error):
@@ -240,7 +240,7 @@ extension SignupRootView{
         }
     }
     
-    fileprivate func fetchFBUserInfo(accessToken : FacebookCore.AccessToken?){
+    fileprivate func fetchFBUserInfo(accessToken : AccessToken?){
         
         DispatchQueue.main.async(execute: {
             self.controller?.showLoader()

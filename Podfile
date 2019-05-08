@@ -23,10 +23,12 @@ pod 'ImageLoader'
 pod 'SDWebImage'
 pod 'NVActivityIndicatorView'
 pod 'InputMask'
-pod 'FacebookLogin', '~> 0.5.0'
-pod 'FacebookShare', '~> 0.5.0'
-pod 'FacebookCore', '~> 0.5.0'
-
+pod 'FacebookLogin'
+pod 'FacebookShare'
+pod 'FacebookCore'
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
 
 
 
