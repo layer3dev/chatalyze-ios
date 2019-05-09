@@ -68,7 +68,10 @@ class UserVideoRootView: UserVideoLayoutView {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         remote.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        local.draw(in: CGRect(x: (size.width - aspectSize.width), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+       
+        //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+        
+        local.draw(in: CGRect(x: (size.width - aspectSize.width-20), y: 40, width: aspectSize.width, height: aspectSize.height))
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

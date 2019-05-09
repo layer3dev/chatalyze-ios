@@ -55,9 +55,9 @@ class EventLandingRootView:ExtendedView{
 
             costofEventLbl?.isHidden = false
             
-            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute)
+            let firstStr = NSMutableAttributedString(string: "$ \(price)", attributes: self.priceAttribute as [NSAttributedString.Key : Any])
 
-            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes)
+            let secondStr = NSMutableAttributedString(string: " per chat", attributes: numberOfUnitAttributes as [NSAttributedString.Key : Any])
 
             let requiredStr = NSMutableAttributedString()
             requiredStr.append(firstStr)

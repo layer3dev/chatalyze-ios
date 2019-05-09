@@ -10,9 +10,6 @@ import UIKit
 
 class ReferralController: InterfaceExtendedController {
     
-    
-    
-    
     @IBOutlet var dataView:UIView?
     @IBOutlet var linkView:UIView?
     @IBOutlet var copyView:UIView?
@@ -35,10 +32,10 @@ class ReferralController: InterfaceExtendedController {
         paintInterface()
         
         linkView?.layer.borderWidth = 1
-        linkView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        linkView?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         
         inviteEmailView?.layer.borderWidth = 1
-        inviteEmailView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        inviteEmailView?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         
         copyView?.layer.borderWidth = 1
         copyView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
@@ -59,11 +56,24 @@ class ReferralController: InterfaceExtendedController {
         roundViewToInviteButton()
     }
     
+    @IBAction func terms(sender:UIButton?){
+        
+        guard let controller = FAQWebController.instance() else {
+            return
+        }
+        
+        controller.headerLabel?.text = ""
+        
+        controller.url = AppConnectionConfig.basicUrl + "/referral-program-terms"        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
     func validateEmail()->Bool{
         
         if emailAddress?.text == ""{
             
-            errorLabel?.text = "Please fill email address to refer link on your referrer's email address."
+            errorLabel?.text = "Please enter valid email address."
             return false
         }
         
@@ -83,7 +93,10 @@ class ReferralController: InterfaceExtendedController {
         if !validateEmail(){
             return
         }
-        let text:[String] = ["\(emailAddress?.text ?? "")"]
+        let email = emailAddress?.text ?? ""
+        var text:[String] = [String]()
+        text.removeAll()
+        text.append(email)
         
         self.showLoader()
        
@@ -101,15 +114,13 @@ class ReferralController: InterfaceExtendedController {
                 self.errorLabel?.text = message
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Invitaion sent successfully at the email address.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Invitation sent successfully.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
                 
-                self.navigationController?.popViewController(animated: true)
+                self.emailAddress?.text  = ""
             })
         }
     }
-    
-    
-    
+       
     
     func roundViewToInviteButton(){
         
@@ -229,14 +240,8 @@ class ReferralController: InterfaceExtendedController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
-        var str = AppConnectionConfig.basicUrl
-        str = str + "/profile/"
-        str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
-        str = str + "/"
-        str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
-        //str  = str.replacingOccurrences(of: " ", with: "")
-        Log.echo(key: "yud", text: "url id is \(str)")
-        str  = str.replacingOccurrences(of: " ", with: "")
+        var str = self.sharingLbl?.text
+        str  = str?.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
         self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
         }

@@ -8,31 +8,24 @@ def pod_file
 
   # Pods for Chatalyze
 
-pod 'JTAppleCalendar'
-pod 'GoogleWebRTC', '1.1.25651'
-pod 'DeviceKit', '~> 1.3'
-pod 'CropViewController', '~> 2.4.0'
-pod 'Alamofire', '~> 4.0'
-pod 'SwiftyJSON', '~> 4.2.0'
-pod 'Socket.IO-Client-Swift', '~> 14.0.0'
-pod 'Starscream', '~> 3.0'
-pod 'YLProgressBar', '~> 3.11.0'
-pod "Analytics", "3.6.10"
-pod 'HCSStarRatingView', '~> 1.5'
-pod 'ImageLoader'
-pod 'SDWebImage'
-pod 'NVActivityIndicatorView'
-pod 'InputMask'
-pod 'FacebookLogin', '~> 0.5.0'
-pod 'FacebookShare', '~> 0.5.0'
-pod 'FacebookCore', '~> 0.5.0'
-
-
-
-
+  pod 'JTAppleCalendar'
+  pod 'GoogleWebRTC', '1.1.25651'
+  pod 'DeviceKit', '~> 1.3'
+  pod 'CropViewController', '~> 2.4.0'
+  pod 'Alamofire', '~> 4.0'
+  pod 'SwiftyJSON', '~> 4.2.0'
+  pod 'Starscream', '~> 3.0'
+  pod 'Socket.IO-Client-Swift', '~> 14.0.0'
+  pod 'YLProgressBar', '~> 3.11.0'
+  pod 'Analytics', '3.6.10'
+  pod 'HCSStarRatingView', '~> 1.5'
+  pod 'ImageLoader'
+  pod 'SDWebImage'
+  pod 'NVActivityIndicatorView'
+  pod 'InputMask'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
 end
-
-
 
 target 'Chatalyze' do
  # Pods for Chatalyze

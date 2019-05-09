@@ -164,11 +164,11 @@ class EditSessionFormRootView:ExtendedView {
             
             let textOne = "Fans will have the option to sponsor this session. Learn more about sponsorship "
             
-            let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Semibold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
+            let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
             
             let textTwo =  "here."
             
-            let textTwoAtrributed = textTwo.toAttributedString(font: "Nunito-Semibold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: true)
+            let textTwoAtrributed = textTwo.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: true)
             
             textOneMutable.append(textTwoAtrributed)
             

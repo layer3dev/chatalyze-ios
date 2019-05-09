@@ -118,7 +118,7 @@ extension CalendarWrapper:JTAppleCalendarViewDataSource,JTAppleCalendarViewDeleg
             myCustomCell.dayLabel?.textColor = UIColor.white
             myCustomCell.selectedView?.backgroundColor = UIColor.red
             return
-            Log.echo(key: "yud", text: "Current day is \(components.day)")
+            
         }
         
         
