@@ -14,7 +14,7 @@ protocol getSettingScrollInstet {
 
 import UIKit
 //import FacebookShare
-import FBSDKShareKit
+//import FBSDKShareKit
 import SDWebImage
 //import TwitterKit
 //import TwitterShareExtensionUI
@@ -27,7 +27,6 @@ class SettingController : InterfaceExtendedController {
     
     @IBOutlet var ScheduleHeightPriority:NSLayoutConstraint?
     @IBOutlet var MySessionHeightConstraint:NSLayoutConstraint?
-    
     
     @IBAction private func signoutAction(){
         
@@ -124,11 +123,12 @@ class SettingController : InterfaceExtendedController {
                 return
             }
             self.navigationController?.pushViewController(controller, animated: true)
+            
         }else{
             
             guard let controller = PaymentListingController.instance() else {
                 return
-            }            
+            }
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

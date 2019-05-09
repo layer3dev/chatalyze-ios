@@ -19,7 +19,7 @@ class FetchProfileProcessor{
             return
         }
         url = url+id
-        var params = [String : Any]()
+        let params = [String : Any]()
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
         ServerProcessor().request(.get, url, encoding: .defaultEncoding,authorize :false) { (success, response) in

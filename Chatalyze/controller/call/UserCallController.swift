@@ -431,7 +431,7 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
+//        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
@@ -771,7 +771,7 @@ class UserCallController: VideoCallController {
     
     override func verifyScreenshotRequested(){
         
-        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
+//        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
             else{
@@ -806,9 +806,10 @@ class UserCallController: VideoCallController {
             }
         }
         
-        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(String(describing: myLiveUnMergedSlot?.id))\(String(describing: self.myLiveUnMergedSlot?.isScreenshotSaved))")
+//        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(String(describing: myLiveUnMergedSlot?.id))\(String(describing: self.myLiveUnMergedSlot?.isScreenshotSaved))")
+//
+//        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
         
-        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
     }
     
   

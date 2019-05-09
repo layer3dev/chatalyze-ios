@@ -32,10 +32,10 @@ class ReferralController: InterfaceExtendedController {
         paintInterface()
         
         linkView?.layer.borderWidth = 1
-        linkView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        linkView?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         
         inviteEmailView?.layer.borderWidth = 1
-        inviteEmailView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
+        inviteEmailView?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
         
         copyView?.layer.borderWidth = 1
         copyView?.layer.borderColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 1).cgColor
@@ -93,7 +93,10 @@ class ReferralController: InterfaceExtendedController {
         if !validateEmail(){
             return
         }
-        let text:[String] = ["\(emailAddress?.text ?? "")"]
+        let email = emailAddress?.text ?? ""
+        var text:[String] = [String]()
+        text.removeAll()
+        text.append(email)
         
         self.showLoader()
        
@@ -113,13 +116,11 @@ class ReferralController: InterfaceExtendedController {
             }
             self.alert(withTitle: AppInfoConfig.appName, message: "Invitation sent successfully.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
                 
-                self.navigationController?.popViewController(animated: true)
+                self.emailAddress?.text  = ""
             })
         }
     }
-    
-    
-    
+       
     
     func roundViewToInviteButton(){
         
