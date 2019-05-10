@@ -564,10 +564,16 @@ class HostCallController: VideoCallController {
         }
         
         if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
+           
             //this will execute only if we do not have the future tickets and current slot is not the break slot.
             updateCallHeaderForEmptySlot()
             return
             
+        }
+        
+        if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
+            updateCallHeaderForBreakSlot()
+            return
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false{

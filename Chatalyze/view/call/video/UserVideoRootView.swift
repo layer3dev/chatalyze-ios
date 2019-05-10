@@ -22,7 +22,7 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     */
     
-    func getSnapshot()->UIImage?{
+    func getSnapshot(info:EventInfo?)->UIImage?{
         
         guard let remoteView = remoteVideoView
             else{
@@ -52,7 +52,20 @@ class UserVideoRootView: UserVideoLayoutView {
         
         Log.echo(key: "remote", text: "final image > \(finalImage)")
         
-        return finalImage
+        let testView = MemoryFrame()
+        testView.frame.size = finalImage.size
+        testView.screenShotPic?.image = finalImage
+        testView.userPic?.image = RootControllerManager().getCurrentController()?.menuController?.userImage?.image
+        testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")       
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        let comingDate = info?.startDate ?? Date()
+        let requireDate = dateFormatter.string(from: comingDate)
+        testView.date?.text = "\(requireDate)"
+        return getSnapshot(view: testView)
+       // return finalImage
     }
     
     
@@ -71,7 +84,7 @@ class UserVideoRootView: UserVideoLayoutView {
        
         //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
         
-        local.draw(in: CGRect(x: (size.width - aspectSize.width-20), y: 40, width: aspectSize.width, height: aspectSize.height))
+        local.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
