@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
   
+    var memoryImage:UIImage?
     
     let scheduleUpdateListener = ScheduleUpdateListener()
     
@@ -539,6 +540,7 @@ class UserCallController: VideoCallController {
         selfieTimerView?.screenShotListner = {
             
             let image = self.userRootView?.getSnapshot(info: self.eventInfo)
+            self.memoryImage = image
             self.mimicScreenShotFlash()
             self.myLiveUnMergedSlot?.isScreenshotSaved = true
             self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
@@ -718,14 +720,42 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        guard let controller = ReviewController.instance() else{
+//        guard let controller = ReviewController.instance() else{
+//            return
+//        }
+//
+//        controller.eventInfo = eventInfo
+//
+//        presentingController.present(controller, animated: false, completion:{
+//        })
+        
+//        let isScreenShotEnabled = self.eventInfo?.isScreenShotAllowed ?? ""
+//        if isScreenShotEnabled == "Automatic"{
+//
+//            guard let controller = MemoryAnimationController.instance() else{
+//                return
+//            }
+//
+//            controller.eventInfo = eventInfo
+//            controller.lastPresentingController = presentingController
+//            presentingController.present(controller, animated: false, completion:{
+//            })
+//            return
+//        }
+        
+        
+        guard let controller = MemoryAnimationController.instance() else{
             return
         }
         
         controller.eventInfo = eventInfo
-        
+        controller.memoryImage = self.memoryImage
+        controller.lastPresentingController = presentingController
         presentingController.present(controller, animated: false, completion:{
         })
+        //Go to feedback controller
+        
+        
     }
     
     func showExitScreen() {
@@ -770,8 +800,8 @@ class UserCallController: VideoCallController {
     
     
     override func verifyScreenshotRequested(){
-        
-//        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
+                
+        //Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
             else{

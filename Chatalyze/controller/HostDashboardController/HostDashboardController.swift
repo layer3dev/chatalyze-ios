@@ -243,14 +243,6 @@ class HostDashboardController: MyScheduledSessionsController {
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
-            
-            //            guard let controller = TestController.instance() else{
-            //                return
-            //            }
-
-
-
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

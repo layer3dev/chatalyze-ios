@@ -70,6 +70,7 @@ class UserVideoRootView: UserVideoLayoutView {
     
     
     private func mergeImage(remote : UIImage, local : UIImage)->UIImage?{
+        
         let size = remote.size
         let localSize = local.size
         
@@ -129,7 +130,7 @@ class UserVideoRootView: UserVideoLayoutView {
         }
         return CGSize.zero
     }
-
+    
     
     private func getSnapshot(view : UIView)->UIImage?{
 
