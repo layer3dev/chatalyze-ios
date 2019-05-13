@@ -538,7 +538,7 @@ class UserCallController: VideoCallController {
         
         selfieTimerView?.screenShotListner = {
             
-            let image = self.userRootView?.getSnapshot()
+            let image = self.userRootView?.getSnapshot(info: self.eventInfo)
             self.mimicScreenShotFlash()
             self.myLiveUnMergedSlot?.isScreenshotSaved = true
             self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
@@ -1026,7 +1026,7 @@ extension UserCallController{
     
     func takeScreenshot(){
         
-        let image = userRootView?.getSnapshot()
+        let image = userRootView?.getSnapshot(info: self.eventInfo)
         guard let controller = AutographPreviewController.instance()
             else{
                 return
