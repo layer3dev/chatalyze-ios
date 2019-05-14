@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isRootInitialize:Bool = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-                
+       
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
@@ -42,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configuration.recordScreenViews = false 
         SEGAnalytics.setup(with: configuration)
     }
-    
     
     fileprivate func test(){
         

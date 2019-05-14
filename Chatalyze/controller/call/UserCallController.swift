@@ -720,14 +720,14 @@ class UserCallController: VideoCallController {
                 return
         }
         
-//        guard let controller = ReviewController.instance() else{
-//            return
-//        }
-//
-//        controller.eventInfo = eventInfo
-//
-//        presentingController.present(controller, animated: false, completion:{
-//        })
+        guard let controller = ReviewController.instance() else{
+            return
+        }
+
+        controller.eventInfo = eventInfo
+
+        presentingController.present(controller, animated: false, completion:{
+        })
         
 //        let isScreenShotEnabled = self.eventInfo?.isScreenShotAllowed ?? ""
 //        if isScreenShotEnabled == "Automatic"{
@@ -744,15 +744,15 @@ class UserCallController: VideoCallController {
 //        }
         
         
-        guard let controller = MemoryAnimationController.instance() else{
-            return
-        }
-        
-        controller.eventInfo = eventInfo
-        controller.memoryImage = self.memoryImage
-        controller.lastPresentingController = presentingController
-        presentingController.present(controller, animated: false, completion:{
-        })
+//        guard let controller = MemoryAnimationController.instance() else{
+//            return
+//        }
+//
+//        controller.eventInfo = eventInfo
+//        controller.memoryImage = self.memoryImage
+//        controller.lastPresentingController = presentingController
+//        presentingController.present(controller, animated: false, completion:{
+//        })
         //Go to feedback controller
         
         

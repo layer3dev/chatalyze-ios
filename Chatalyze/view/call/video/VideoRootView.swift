@@ -26,11 +26,8 @@ class VideoRootView: ExtendedView {
         }
     }
     
-    
     private var hangupListener : (()->())?
-    
     private var loadListener : (()->())?
-    
     
     var callOverlayView : CallOverlayView?
 

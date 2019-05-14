@@ -559,6 +559,7 @@ class HostCallController: VideoCallController {
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
+                
                 updateCallHeaderForEmptySlot()
                 return
         }
@@ -568,15 +569,16 @@ class HostCallController: VideoCallController {
             //this will execute only if we do not have the future tickets and current slot is not the break slot.
             updateCallHeaderForEmptySlot()
             return
-            
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
-            updateCallHeaderForBreakSlot()
+            
+            updateCallHeaderForEmptySlot()
             return
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false{
+            
             updateCallHeaderForBreakSlot()
             return
         }
@@ -639,6 +641,7 @@ class HostCallController: VideoCallController {
             fontSize = 24
             remainingTimeFontSize = 26
         }
+        
         
         //Editing For the remaining time
         let countdownTime = "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
@@ -1163,7 +1166,7 @@ extension HostCallController{
     
     @IBAction func endSessionEarly(sender:UIButton?){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end the session early or you want keep the registration open?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end your session?", preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "End session early", style: .default, handler: { (success) in
             

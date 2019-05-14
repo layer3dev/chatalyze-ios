@@ -44,15 +44,17 @@ class UserVideoRootView: UserVideoLayoutView {
                 return nil
         }
         
-        
         guard let finalImage = mergeImage(remote: remoteImage, local: localImage)
             else{
             return nil
         }
         
-        Log.echo(key: "remote", text: "final image > \(finalImage)")
+        let isPortraitInSize = isPortrait(size: finalImage.size)
+        
+        Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
         
         let testView = MemoryFrame()
+        testView.isPortraitInSize = isPortraitInSize
         testView.frame.size = finalImage.size
         testView.screenShotPic?.image = finalImage
         testView.userPic?.image = RootControllerManager().getCurrentController()?.menuController?.userImage?.image
@@ -163,5 +165,21 @@ class UserVideoRootView: UserVideoLayoutView {
             self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
             self.layoutIfNeeded()
         }
+    }
+    
+    //Developer Y
+    func isPortrait(size:CGSize)->Bool?{
+        
+        let minimumSize = size
+        let mW = minimumSize.width
+        let mH = minimumSize.height
+        
+        if( mH > mW ) {
+            return true
+        }
+        else if( mW > mH ) {
+            return false
+        }
+        return nil
     }
 }
