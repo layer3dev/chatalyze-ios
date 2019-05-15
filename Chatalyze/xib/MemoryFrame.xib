@@ -25,6 +25,9 @@
                 <outlet property="memory" destination="s0s-Kf-fPM" id="3Tx-F5-wH2"/>
                 <outlet property="name" destination="hXG-Cv-jA8" id="FVF-91-l7Y"/>
                 <outlet property="screenShotPic" destination="75G-Tx-KN0" id="AOA-CD-ZFa"/>
+                <outlet property="stickerBottom" destination="Px5-JK-uSh" id="5mg-s9-fbe"/>
+                <outlet property="stickerLeading" destination="cZ6-Uk-rmU" id="FJS-l9-Ksa"/>
+                <outlet property="stickerView" destination="g1G-LT-iru" id="FLl-Kd-0bO"/>
                 <outlet property="userPic" destination="CbJ-X0-8xg" id="ZgM-HU-6P8"/>
                 <outlet property="widthOfStamp" destination="rS6-vn-pDw" id="Gy9-Yw-4VQ"/>
                 <outlet property="widthOfUserPic" destination="4yQ-0b-kRu" id="Nl0-hS-odv"/>
@@ -38,34 +41,34 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="75G-Tx-KN0">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                 </imageView>
-                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1G-LT-iru" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                    <rect key="frame" x="3" y="422" width="210" height="55"/>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1G-LT-iru">
+                    <rect key="frame" x="3" y="404" width="255" height="73"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="iUK-ke-mAf">
-                            <rect key="frame" x="0.0" y="0.0" width="210" height="55"/>
+                            <rect key="frame" x="0.0" y="0.0" width="255" height="73"/>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CbJ-X0-8xg">
-                            <rect key="frame" x="5" y="5" width="45" height="45"/>
+                            <rect key="frame" x="5" y="5" width="63" height="63"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="45" id="4yQ-0b-kRu"/>
-                                <constraint firstAttribute="height" constant="45" id="TaZ-Bd-uf1"/>
+                                <constraint firstAttribute="width" constant="63" id="4yQ-0b-kRu"/>
+                                <constraint firstAttribute="height" constant="63" id="TaZ-Bd-uf1"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat with Jordan " lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-Cv-jA8">
-                            <rect key="frame" x="55" y="0.0" width="155" height="16.5"/>
-                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="12"/>
+                            <rect key="frame" x="73" y="0.0" width="182" height="25"/>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SML-nC-U58">
-                            <rect key="frame" x="55" y="18.5" width="155" height="16.5"/>
-                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="12"/>
+                            <rect key="frame" x="73" y="27" width="182" height="20.5"/>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Memory made on Chatalyze" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-Kf-fPM">
-                            <rect key="frame" x="55" y="37" width="155" height="15.5"/>
-                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="11"/>
+                            <rect key="frame" x="73" y="49.5" width="182" height="18"/>
+                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="13"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -87,7 +90,7 @@
                         <constraint firstItem="s0s-Kf-fPM" firstAttribute="top" secondItem="SML-nC-U58" secondAttribute="bottom" constant="2" id="ovo-rj-3Nb"/>
                         <constraint firstAttribute="trailing" secondItem="s0s-Kf-fPM" secondAttribute="trailing" id="pQ2-lr-AdU"/>
                         <constraint firstItem="s0s-Kf-fPM" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="5" id="qSs-cy-Ov7"/>
-                        <constraint firstAttribute="width" constant="210" id="rS6-vn-pDw"/>
+                        <constraint firstAttribute="width" constant="255" id="rS6-vn-pDw"/>
                         <constraint firstAttribute="trailing" secondItem="iUK-ke-mAf" secondAttribute="trailing" id="uaa-Op-9I3"/>
                     </constraints>
                 </view>
@@ -102,7 +105,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="75G-Tx-KN0" secondAttribute="trailing" id="urF-GI-Lnw"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="47.826086956521742" y="61.141304347826093"/>
+            <point key="canvasLocation" x="66" y="-199"/>
         </view>
     </objects>
     <resources>
