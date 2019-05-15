@@ -26,18 +26,17 @@ class UserVideoRootView: UserVideoLayoutView {
      */
 
     
-//    func getSnapshot(info:EventInfo?)->UIImage?{
-//
-//        //imageDownload
-//
-//        testView.userPic?.sd_setImageLoad(with: info.user?.profilePic, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-//
-//            DispatchQueue.main.async {
-//
-//                return getPostImageSnapshot(info:info, hostImage : image)
-//            }
-//        })
-//    }
+    func getSnapshot(info:EventInfo?)->UIImage?{
+        
+        //imageDownload
+        testView.userPic?.sd_setImageLoad(with: info.user?.profilePic, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+
+            DispatchQueue.main.async {
+
+                return getPostImageSnapshot(info:info, hostImage : image)
+            }
+        })
+    }
     
     func getPostImageSnapshot(info:EventInfo?, hostImage : UIImage?)->UIImage?{
         
