@@ -32,6 +32,12 @@ class LocalVideoView: VideoView {
         initialization()
     }
     
+    override func paintInterface() {
+        
+        self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+        self.layer.masksToBounds = true
+    }
+    
     
     private func initialization(){
         self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);

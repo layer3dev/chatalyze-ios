@@ -26,43 +26,47 @@ class UserVideoRootView: UserVideoLayoutView {
      */
 
     
-    func getSnapshot(info:EventInfo?)->UIImage?{
+    func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
         
-        //imageDownload
-        testView.userPic?.sd_setImageLoad(with: info.user?.profilePic, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-
+        testView.userPic?.sd_setImage(with: URL(string: (info?.user?.profileImage ?? "")), placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             DispatchQueue.main.async {
-
-                return getPostImageSnapshot(info:info, hostImage : image)
+                self.getPostImageSnapshot(info: info,hostImage:image) { (image) in
+                    completion(image)
+                }
             }
         })
     }
     
-    func getPostImageSnapshot(info:EventInfo?, hostImage : UIImage?)->UIImage?{
+    func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
         
         guard let remoteView = remoteVideoView
             else{
-                return nil
+                completion(nil)
+                return
         }
         
         guard let localView = localVideoView
             else{
-                return nil
+                completion(nil)
+                return
         }
         
         guard let localImage = getSnapshot(view : localView)
             else{
-                return nil
+                completion(nil)
+                return
         }
         
         guard let remoteImage = getSnapshot(view : remoteView)
             else{
-                return nil
+                completion(nil)
+                return
         }
         
         guard let finalImage = mergeImage(remote: remoteImage, local: localImage)
             else{
-            return nil
+                completion(nil)
+                return
         }
         
         let isPortraitInSize = isPortrait(size: finalImage.size)
@@ -81,7 +85,7 @@ class UserVideoRootView: UserVideoLayoutView {
         let comingDate = info?.startDate ?? Date()
         let requireDate = dateFormatter.string(from: comingDate)
         testView.date?.text = "\(requireDate)"
-        return getSnapshot(view: testView)
+        completion(getSnapshot(view: testView))
        // return finalImage
     }
     

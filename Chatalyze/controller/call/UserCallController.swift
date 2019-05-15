@@ -539,26 +539,28 @@ class UserCallController: VideoCallController {
         
         selfieTimerView?.screenShotListner = {
             
-            let image = self.userRootView?.getSnapshot(info: self.eventInfo)
-            self.memoryImage = image
-            self.mimicScreenShotFlash()
-            self.myLiveUnMergedSlot?.isScreenshotSaved = true
-            self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
-            SlotFlagInfo.staticScreenShotSaved = true
-            let slotInfo = self.myLiveUnMergedSlot
-            self.uploadImage(image: image, completion: { (success, info) in
+            _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                let isExpired = slotInfo?.isExpired ?? true
-                if(!success && !isExpired){
+                self.memoryImage = image
+                self.mimicScreenShotFlash()
+                self.myLiveUnMergedSlot?.isScreenshotSaved = true
+                self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
+                SlotFlagInfo.staticScreenShotSaved = true
+                let slotInfo = self.myLiveUnMergedSlot
+                self.uploadImage(image: image, completion: { (success, info) in
                     
-                    slotInfo?.isScreenshotSaved = false
-                    slotInfo?.isSelfieTimerInitiated = false
-                    SlotFlagInfo.staticScreenShotSaved = false
-                    return
-                }
-                if success{
-                }
-                self.screenshotInfo = info
+                    let isExpired = slotInfo?.isExpired ?? true
+                    if(!success && !isExpired){
+                        
+                        slotInfo?.isScreenshotSaved = false
+                        slotInfo?.isSelfieTimerInitiated = false
+                        SlotFlagInfo.staticScreenShotSaved = false
+                        return
+                    }
+                    if success{
+                    }
+                    self.screenshotInfo = info
+                })
             })
         }
     }
@@ -1056,21 +1058,24 @@ extension UserCallController{
     
     func takeScreenshot(){
         
-        let image = userRootView?.getSnapshot(info: self.eventInfo)
-        guard let controller = AutographPreviewController.instance()
-            else{
-                return
-        }
-        controller.image = image
-        controller.onResult { [weak self] (image) in
+        userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+           
+            guard let controller = AutographPreviewController.instance()
+                else{
+                    return
+            }
+            controller.image = image
+            controller.onResult { [weak self] (image) in
+                
+                self?.myLiveUnMergedSlot?.isScreenshotSaved = true
+                self?.uploadImage(image: image, completion: { (success, info) in
+                    self?.screenshotInfo = info
+                })
+            }
+            self.present(controller, animated: true) {
+            }
             
-            self?.myLiveUnMergedSlot?.isScreenshotSaved = true
-            self?.uploadImage(image: image, completion: { (success, info) in
-                self?.screenshotInfo = info
-            })
-        }
-        self.present(controller, animated: true) {
-        }
+        })        
     }
     
     private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){

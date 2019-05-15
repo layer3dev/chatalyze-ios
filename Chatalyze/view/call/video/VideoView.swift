@@ -37,10 +37,7 @@ class VideoView: RTCEAGLVideoView {
         paintInterface()
     }
 
-    func paintInterface(){
-        
-        self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
-        self.layer.masksToBounds = true
+    func paintInterface(){        
     }
     
     
