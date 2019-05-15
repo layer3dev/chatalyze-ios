@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class UserVideoRootView: UserVideoLayoutView {
-    
+ 
+    let testView = MemoryFrame()
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
@@ -20,9 +22,24 @@ class UserVideoRootView: UserVideoLayoutView {
     override func draw(_ rect: CGRect) {
         // Drawing code
     }
-    */
     
-    func getSnapshot(info:EventInfo?)->UIImage?{
+     */
+
+    
+//    func getSnapshot(info:EventInfo?)->UIImage?{
+//
+//        //imageDownload
+//
+//        testView.userPic?.sd_setImageLoad(with: info.user?.profilePic, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+//
+//            DispatchQueue.main.async {
+//
+//                return getPostImageSnapshot(info:info, hostImage : image)
+//            }
+//        })
+//    }
+    
+    func getPostImageSnapshot(info:EventInfo?, hostImage : UIImage?)->UIImage?{
         
         guard let remoteView = remoteVideoView
             else{
@@ -53,11 +70,10 @@ class UserVideoRootView: UserVideoLayoutView {
         
         Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
         
-        let testView = MemoryFrame()
         testView.isPortraitInSize = isPortraitInSize
         testView.frame.size = finalImage.size
         testView.screenShotPic?.image = finalImage
-        testView.userPic?.image = RootControllerManager().getCurrentController()?.menuController?.userImage?.image
+        testView.userPic?.image = hostImage
         testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")       
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
