@@ -40,13 +40,6 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
     }
     
     
-//    @IBAction func deleteMemory(sender:UIButton?){
-//
-//        if let delete = self.deleteCell{
-//            delete()
-//        }
-//    }
-    
     
     @IBAction func twitterShareAction(sender:UIButton){
         
@@ -96,7 +89,7 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
             self.pageScroller?.setZoomScale(minZoomScale, animated: true)
         }
         else{
-            self.pageScroller?.setZoomScale(4.0, animated: true)
+            self.pageScroller?.setZoomScale(2.0, animated: true)
         }
     }
     @IBAction private func closeController(){
@@ -118,7 +111,7 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
         scrollViewWidth = superViewWidth
         scrollViewHeight = superViewHeight - 60
         self.pageScroller?.minimumZoomScale = 1.0
-        self.pageScroller?.maximumZoomScale = 10.0
+        self.pageScroller?.maximumZoomScale = 5.0
         self.scrollImageOne = UIImageView(frame: CGRect(x:(xofTheImage*scrollViewWidth), y:0,width:scrollViewWidth, height:scrollViewHeight))
         
             if let image = self.showingImage{

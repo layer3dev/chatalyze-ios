@@ -65,18 +65,18 @@ class MemoryFrame:XibTemplate{
         stickerBottom?.constant = 6
         name?.font = UIFont(name: "Nunito-Bold", size: 18)
         date?.font = UIFont(name: "Nunito-Bold", size: 15)
-        memory?.font = UIFont(name: "Nunito-Regular", size: 13)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 13)
     }
     
     func setUIForLandscape(){
         
-        heightOfUserPic?.constant = 36
-        widthOfUserPic?.constant = 36
-        widthOfStamp?.constant = 165
+        heightOfUserPic?.constant = 43
+        widthOfUserPic?.constant = 43
+        widthOfStamp?.constant = 200
         stickerLeading?.constant = 3
         stickerBottom?.constant = 3
-        name?.font = UIFont(name: "Nunito-Bold", size: 11)
-        date?.font = UIFont(name: "Nunito-Bold", size: 9)
-        memory?.font = UIFont(name: "Nunito-Regular", size: 8)
+        name?.font = UIFont(name: "Nunito-Bold", size: 13)
+        date?.font = UIFont(name: "Nunito-Bold", size: 11)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 10)
     }
 }
