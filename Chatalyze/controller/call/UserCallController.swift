@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
   
+    var memoryImage:UIImage?
     
     let scheduleUpdateListener = ScheduleUpdateListener()
     
@@ -538,25 +539,28 @@ class UserCallController: VideoCallController {
         
         selfieTimerView?.screenShotListner = {
             
-            let image = self.userRootView?.getSnapshot(info: self.eventInfo)
-            self.mimicScreenShotFlash()
-            self.myLiveUnMergedSlot?.isScreenshotSaved = true
-            self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
-            SlotFlagInfo.staticScreenShotSaved = true
-            let slotInfo = self.myLiveUnMergedSlot
-            self.uploadImage(image: image, completion: { (success, info) in
+            _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                let isExpired = slotInfo?.isExpired ?? true
-                if(!success && !isExpired){
+                self.memoryImage = image
+                self.mimicScreenShotFlash()
+                self.myLiveUnMergedSlot?.isScreenshotSaved = true
+                self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
+                SlotFlagInfo.staticScreenShotSaved = true
+                let slotInfo = self.myLiveUnMergedSlot
+                self.uploadImage(image: image, completion: { (success, info) in
                     
-                    slotInfo?.isScreenshotSaved = false
-                    slotInfo?.isSelfieTimerInitiated = false
-                    SlotFlagInfo.staticScreenShotSaved = false
-                    return
-                }
-                if success{
-                }
-                self.screenshotInfo = info
+                    let isExpired = slotInfo?.isExpired ?? true
+                    if(!success && !isExpired){
+                        
+                        slotInfo?.isScreenshotSaved = false
+                        slotInfo?.isSelfieTimerInitiated = false
+                        SlotFlagInfo.staticScreenShotSaved = false
+                        return
+                    }
+                    if success{
+                    }
+                    self.screenshotInfo = info
+                })
             })
         }
     }
@@ -721,11 +725,39 @@ class UserCallController: VideoCallController {
         guard let controller = ReviewController.instance() else{
             return
         }
-        
+
         controller.eventInfo = eventInfo
-        
+
         presentingController.present(controller, animated: false, completion:{
         })
+        
+//        let isScreenShotEnabled = self.eventInfo?.isScreenShotAllowed ?? ""
+//        if isScreenShotEnabled == "Automatic"{
+//
+//            guard let controller = MemoryAnimationController.instance() else{
+//                return
+//            }
+//
+//            controller.eventInfo = eventInfo
+//            controller.lastPresentingController = presentingController
+//            presentingController.present(controller, animated: false, completion:{
+//            })
+//            return
+//        }
+        
+        
+//        guard let controller = MemoryAnimationController.instance() else{
+//            return
+//        }
+//
+//        controller.eventInfo = eventInfo
+//        controller.memoryImage = self.memoryImage
+//        controller.lastPresentingController = presentingController
+//        presentingController.present(controller, animated: false, completion:{
+//        })
+        //Go to feedback controller
+        
+        
     }
     
     func showExitScreen() {
@@ -770,8 +802,8 @@ class UserCallController: VideoCallController {
     
     
     override func verifyScreenshotRequested(){
-        
-//        Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
+                
+        //Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
             else{
@@ -1026,21 +1058,24 @@ extension UserCallController{
     
     func takeScreenshot(){
         
-        let image = userRootView?.getSnapshot(info: self.eventInfo)
-        guard let controller = AutographPreviewController.instance()
-            else{
-                return
-        }
-        controller.image = image
-        controller.onResult { [weak self] (image) in
+        userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+           
+            guard let controller = AutographPreviewController.instance()
+                else{
+                    return
+            }
+            controller.image = image
+            controller.onResult { [weak self] (image) in
+                
+                self?.myLiveUnMergedSlot?.isScreenshotSaved = true
+                self?.uploadImage(image: image, completion: { (success, info) in
+                    self?.screenshotInfo = info
+                })
+            }
+            self.present(controller, animated: true) {
+            }
             
-            self?.myLiveUnMergedSlot?.isScreenshotSaved = true
-            self?.uploadImage(image: image, completion: { (success, info) in
-                self?.screenshotInfo = info
-            })
-        }
-        self.present(controller, animated: true) {
-        }
+        })        
     }
     
     private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){

@@ -25,6 +25,8 @@ def pod_file
   pod 'InputMask'
   pod 'FacebookCore'
   pod 'FacebookLogin'
+  pod "SAConfettiView"
+
 end
 
 target 'Chatalyze' do
