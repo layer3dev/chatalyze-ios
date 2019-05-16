@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class UserCallController: VideoCallController {
-  
+    
     var memoryImage:UIImage?
     
     let scheduleUpdateListener = ScheduleUpdateListener()
@@ -30,11 +30,11 @@ class UserCallController: VideoCallController {
     
     //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     var isScreenshotStatusLoaded = false
-
+    
     //Ends
     //This is webRTC connection responsible for signalling and handling the reconnect
     
-
+    
     override var roomType : UserInfo.roleType{
         return .user
     }
@@ -136,17 +136,17 @@ class UserCallController: VideoCallController {
             return;
         }
         
-       
+        
         if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
             return;
         }
         
-       guard let connection = connection
-        else{
-            
-            setStatusMessage(type: .ideal)
-            return
+        guard let connection = connection
+            else{
+                
+                setStatusMessage(type: .ideal)
+                return
         }
         
         if(connection.isStreaming){
@@ -222,7 +222,7 @@ class UserCallController: VideoCallController {
     }
     
     private func initializeVariable(){
-       
+        
         initializeGetCommondForTakeScreenShot()
         registerForListeners()
         self.selfieTimerView?.delegate = self
@@ -232,7 +232,7 @@ class UserCallController: VideoCallController {
     private func registerForScheduleUpdateListener(){
         
         scheduleUpdateListener.setListener {
-         
+            
             self.refreshScheduleInfo()
         }
     }
@@ -277,7 +277,7 @@ class UserCallController: VideoCallController {
     }
     
     private func processHangupEvent(data : JSON?){
-    
+        
         guard let json = data
             else{
                 return
@@ -288,7 +288,7 @@ class UserCallController: VideoCallController {
     }
     
     @IBAction private func hangupCallAction(){
-
+        
         processExitAction(code: .userAction)
     }
     
@@ -296,8 +296,7 @@ class UserCallController: VideoCallController {
     override func processExitAction(code : exitCode){
         super.processExitAction(code : code)
         
-        connection?.disconnect()    
-       
+        connection?.disconnect()
         //temp
         
         // TODO:- Need to Comment
@@ -306,7 +305,7 @@ class UserCallController: VideoCallController {
     
     
     func hangup(hangup : Bool){
-       
+        
         if(!hangup){
             resetMuteActions()
         }
@@ -339,7 +338,7 @@ class UserCallController: VideoCallController {
         params["data"] = data
         socketClient?.emit(params)
     }
-
+    
     //{"id":"startConnecting","data":{"sender":"jgefjedaafbecahc"}}
     private func processHandshakeResponse(data : JSON?){
         
@@ -432,7 +431,7 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-//        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
+        //        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
@@ -485,9 +484,9 @@ class UserCallController: VideoCallController {
             }
         }
         
-// Once the selfie timer has been come
-//        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
-//        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
+        // Once the selfie timer has been come
+        //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
+        //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
         if(!isCallConnected){ return }
         
@@ -496,7 +495,7 @@ class UserCallController: VideoCallController {
         }
         
         if isHangUp{
-           return
+            return
         }
         
         //here it is need to send the ping to host for the screenshot
@@ -601,7 +600,7 @@ class UserCallController: VideoCallController {
                 return
             }
             if endDate <= 0.0{
-
+                
                 isAnimating = false
                 stopLableAnimation()
                 return
@@ -630,7 +629,7 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
-    
+        
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
     
@@ -674,7 +673,7 @@ class UserCallController: VideoCallController {
             showErrorScreen()
             return
         }
-                
+        
         guard let eventInfo = eventInfo
             else{
                 return
@@ -711,6 +710,7 @@ class UserCallController: VideoCallController {
         }
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
+        controller.memoryImage = self.memoryImage
         presentingController.present(controller, animated: false, completion:nil)
     }
     
@@ -722,41 +722,38 @@ class UserCallController: VideoCallController {
                 return
         }
         
+        
         guard let controller = ReviewController.instance() else{
             return
         }
-
+        
         controller.eventInfo = eventInfo
-
         presentingController.present(controller, animated: false, completion:{
         })
+        return
+    }
+    
+    
+    private func showMemoryScreen(){
         
-//        let isScreenShotEnabled = self.eventInfo?.isScreenShotAllowed ?? ""
-//        if isScreenShotEnabled == "Automatic"{
-//
-//            guard let controller = MemoryAnimationController.instance() else{
-//                return
-//            }
-//
-//            controller.eventInfo = eventInfo
-//            controller.lastPresentingController = presentingController
-//            presentingController.present(controller, animated: false, completion:{
-//            })
-//            return
-//        }
+        guard let presentingController = self.lastPresentingController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
         
         
-//        guard let controller = MemoryAnimationController.instance() else{
-//            return
-//        }
-//
-//        controller.eventInfo = eventInfo
-//        controller.memoryImage = self.memoryImage
-//        controller.lastPresentingController = presentingController
-//        presentingController.present(controller, animated: false, completion:{
-//        })
-        //Go to feedback controller
+        guard let controller = MemoryAnimationController.instance() else{
+            return
+        }
         
+        controller.eventInfo = eventInfo
+        
+        
+        controller.memoryImage = self.memoryImage
+        presentingController.present(controller, animated: false, completion:{
+        })
+        return
         
     }
     
@@ -767,18 +764,23 @@ class UserCallController: VideoCallController {
             showDonateScreen()
             return
         }
-        showFeedbackScreen()
+        if self.memoryImage == nil{
+            showFeedbackScreen()
+            return
+        }
+        showMemoryScreen()
+        
     }
     
     
     private func confirmCallLinked(){
-                
+        
         guard let slot = myCurrentUserSlot
             else{
                 return
         }
         if(slot.isLIVE){
-         
+            
             self.connection?.linkCall()
         }
     }
@@ -802,7 +804,7 @@ class UserCallController: VideoCallController {
     
     
     override func verifyScreenshotRequested(){
-                
+        
         //Log.echo(key: "yud", text: "Cross Verify ScreenShot Requested is activeSlot\(myLiveUnMergedSlot) and the slotId is \(myLiveUnMergedSlot?.id)")
         
         guard let activeSlot = myLiveUnMergedSlot
@@ -838,13 +840,13 @@ class UserCallController: VideoCallController {
             }
         }
         
-//        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(String(describing: myLiveUnMergedSlot?.id))\(String(describing: self.myLiveUnMergedSlot?.isScreenshotSaved))")
-//
-//        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
+        //        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status having Id \(String(describing: myLiveUnMergedSlot?.id))\(String(describing: self.myLiveUnMergedSlot?.isScreenshotSaved))")
+        //
+        //        Log.echo(key: "yud", text: "My Active Slot screenShot saved Status timer status  \(myLiveUnMergedSlot?.id)\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated)")
         
     }
     
-  
+    
     override func handleMultipleTabOpening(){
         self.processExitAction(code : .prohibited)
     }
@@ -857,7 +859,7 @@ class UserCallController: VideoCallController {
         }
         
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
-          
+            
             setStatusMessage(type: .eventNotStarted)
             return
             // statusLbl?.text = "Session has not started yet."
@@ -1059,7 +1061,7 @@ extension UserCallController{
     func takeScreenshot(){
         
         userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
-           
+            
             guard let controller = AutographPreviewController.instance()
                 else{
                     return
@@ -1100,7 +1102,7 @@ extension UserCallController{
         params["file"] = imageBase64
         userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
-
+            
             self?.userRootView?.requestAutographButton?.hideLoader()
             completion?(success, info)
         }
@@ -1117,7 +1119,7 @@ extension UserCallController {
             self.prepateCanvas(info : self.canvasInfo)
         })
         
-
+        
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
@@ -1161,7 +1163,7 @@ extension UserCallController {
     }
     
     var isCallConnected : Bool{
-         return (self.connection?.isConnected ?? false)
+        return (self.connection?.isConnected ?? false)
     }
     
     var isCallStreaming: Bool{
@@ -1191,7 +1193,7 @@ extension UserCallController{
             else{
                 return
         }
-                
+        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return

@@ -73,8 +73,8 @@ class MemoryFrame:XibTemplate{
         heightOfUserPic?.constant = 43
         widthOfUserPic?.constant = 43
         widthOfStamp?.constant = 200
-        stickerLeading?.constant = 3
-        stickerBottom?.constant = 3
+        stickerLeading?.constant = 6
+        stickerBottom?.constant = 6
         name?.font = UIFont(name: "Nunito-Bold", size: 13)
         date?.font = UIFont(name: "Nunito-Bold", size: 11)
         memory?.font = UIFont(name: "Nunito-Bold", size: 10)

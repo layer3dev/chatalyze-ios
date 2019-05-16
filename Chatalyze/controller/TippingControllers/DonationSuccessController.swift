@@ -13,6 +13,7 @@ class DonationSuccessController: InterfaceExtendedController {
     
     var price : Double?
     var scheduleInfo : EventScheduleInfo?
+    var memoryImage:UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,11 @@ class DonationSuccessController: InterfaceExtendedController {
     
     @IBAction private func close(){
         
-        showFeedback()
+        if self.memoryImage == nil {
+            self.showFeedback()
+            return
+        }
+        self.showMemoryScreen()
     }
     
     private func showFeedback(){
@@ -36,6 +41,17 @@ class DonationSuccessController: InterfaceExtendedController {
             return
         }
         controller.eventInfo = scheduleInfo
+        present(controller, animated: false, completion:nil)
+    }
+    
+    
+    private func showMemoryScreen(){
+        
+        guard let controller = MemoryAnimationController.instance() else{
+            return
+        }
+        controller.eventInfo = scheduleInfo
+        controller.memoryImage = self.memoryImage
         present(controller, animated: false, completion:nil)
     }
     

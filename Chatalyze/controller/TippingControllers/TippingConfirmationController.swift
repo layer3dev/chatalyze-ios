@@ -15,6 +15,7 @@ class TippingConfirmationController: InterfaceExtendedController {
     var slotId:Int?
     var donateProduct:DonateProduct?
     var appStateManager:ApplicationConfirmForeground?
+    var memoryImage:UIImage?
     
     private var isProcessingLastTransaction = false
     
@@ -37,11 +38,24 @@ class TippingConfirmationController: InterfaceExtendedController {
     
     @IBAction func noTipAction(){
         
-        guard let controller = ReviewController.instance() else{
+        if memoryImage == nil{
+           
+            guard let controller = ReviewController.instance() else{
+                return
+            }
+            controller.eventInfo = scheduleInfo
+            present(controller, animated: false, completion:nil)
+            return
+        }
+        
+        guard let controller = MemoryAnimationController.instance() else{
             return
         }
         controller.eventInfo = scheduleInfo
+        controller.memoryImage = self.memoryImage
         present(controller, animated: false, completion:nil)
+        return
+        
     }
     
     @IBAction func cardInfoAction(sender:UIButton){
@@ -172,6 +186,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         
         controller.scheduleInfo = scheduleInfo
         controller.price = value?.getValue()
+        controller.memoryImage = self.memoryImage
         self.present(controller, animated: true, completion: nil)
     }
     

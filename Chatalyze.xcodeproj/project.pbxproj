@@ -94,6 +94,10 @@
 		472D6A33213FC2C000D8FF03 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 472D6A32213FC2C000D8FF03 /* UserNotifications.framework */; };
 		472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D932110772D00C7BAEF /* TicketSlotListener.swift */; };
 		472F2D962110923000C7BAEF /* FetchPaypalEmailHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */; };
+		4730A370228D767A00241831 /* MemoryAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730A36F228D767A00241831 /* MemoryAnimationView.swift */; };
+		4730A371228D767A00241831 /* MemoryAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730A36F228D767A00241831 /* MemoryAnimationView.swift */; };
+		4730A373228D836F00241831 /* MemoryShareShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730A372228D836F00241831 /* MemoryShareShadowView.swift */; };
+		4730A374228D836F00241831 /* MemoryShareShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730A372228D836F00241831 /* MemoryShareShadowView.swift */; };
 		4730C76121302F3C002EFAC9 /* SessionReviewRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730C76021302F3C002EFAC9 /* SessionReviewRootView.swift */; };
 		4730C76421304B49002EFAC9 /* ScheduleSessionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4730C76321304B49002EFAC9 /* ScheduleSessionRequest.swift */; };
 		47310D042212D149009D049C /* Tipping.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47310D032212D149009D049C /* Tipping.storyboard */; };
@@ -1306,6 +1310,8 @@
 		472D6A32213FC2C000D8FF03 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		472F2D932110772D00C7BAEF /* TicketSlotListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSlotListener.swift; sourceTree = "<group>"; };
 		472F2D952110923000C7BAEF /* FetchPaypalEmailHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPaypalEmailHost.swift; sourceTree = "<group>"; };
+		4730A36F228D767A00241831 /* MemoryAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAnimationView.swift; sourceTree = "<group>"; };
+		4730A372228D836F00241831 /* MemoryShareShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryShareShadowView.swift; sourceTree = "<group>"; };
 		4730C76021302F3C002EFAC9 /* SessionReviewRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionReviewRootView.swift; sourceTree = "<group>"; };
 		4730C76321304B49002EFAC9 /* ScheduleSessionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionRequest.swift; sourceTree = "<group>"; };
 		47310D032212D149009D049C /* Tipping.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tipping.storyboard; sourceTree = "<group>"; };
@@ -2222,6 +2228,16 @@
 			);
 			path = eventpayment;
 			sourceTree = "<group>";
+		};
+		4730A36E228D765A00241831 /* MemoryAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				4730A36F228D767A00241831 /* MemoryAnimationView.swift */,
+				4730A372228D836F00241831 /* MemoryShareShadowView.swift */,
+			);
+			name = MemoryAnimation;
+			path = Chatalyze/view/MemoryAnimation;
+			sourceTree = SOURCE_ROOT;
 		};
 		4730C76221304B2F002EFAC9 /* SessionRequest */ = {
 			isa = PBXGroup;
@@ -4648,6 +4664,7 @@
 				477B4A9922560C88001051F6 /* ScheduleSessionSinglePageRootView */,
 				47559317226F1E0F00C4E40C /* ReferralRootView */,
 				47E8116C227044E5003FB02F /* ticketsMainView */,
+				4730A36E228D765A00241831 /* MemoryAnimation */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5912,6 +5929,7 @@
 				47D0B06321A6C4B5006376A8 /* EventProcessor.swift in Sources */,
 				47D0B06421A6C4B5006376A8 /* EventTimeProtocol.swift in Sources */,
 				47D0B06521A6C4B5006376A8 /* PlaceholderTextView.swift in Sources */,
+				4730A371228D767A00241831 /* MemoryAnimationView.swift in Sources */,
 				47D0B06621A6C4B5006376A8 /* DevFlag.swift in Sources */,
 				47D0B06721A6C4B5006376A8 /* HangupController.swift in Sources */,
 				47D0B06821A6C4B5006376A8 /* VideoCallController.swift in Sources */,
@@ -6097,6 +6115,7 @@
 				47D0B0EC21A6C4B5006376A8 /* MyTicketCellDelegate.swift in Sources */,
 				47D0B0ED21A6C4B5006376A8 /* EventListener.swift in Sources */,
 				FA91054821D6195D00060AFF /* MediaAlertController.swift in Sources */,
+				4730A374228D836F00241831 /* MemoryShareShadowView.swift in Sources */,
 				47D0B0EE21A6C4B5006376A8 /* EditProfileController.swift in Sources */,
 				4781442822044E36005398F8 /* ScheduleSessionNewReviewController.swift in Sources */,
 				47FFAF5021F0B2AE00D3B54D /* HostWelcomeAnimationController.swift in Sources */,
@@ -6444,6 +6463,7 @@
 				47B6526C20AAB43B0041496C /* EventProcessor.swift in Sources */,
 				FAE9EF7B206CE93700C45F8D /* EventTimeProtocol.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
+				4730A370228D767A00241831 /* MemoryAnimationView.swift in Sources */,
 				47FD6912217DE483001886A6 /* HangupController.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
@@ -6629,6 +6649,7 @@
 				FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */,
 				47DF899820AC16AF00FEA916 /* EditProfileController.swift in Sources */,
 				FA91054721D6195D00060AFF /* MediaAlertController.swift in Sources */,
+				4730A373228D836F00241831 /* MemoryShareShadowView.swift in Sources */,
 				470EEC102166201800DB705D /* PageScrollerController.swift in Sources */,
 				4781442722044E36005398F8 /* ScheduleSessionNewReviewController.swift in Sources */,
 				47FFAF4F21F0B2AE00D3B54D /* HostWelcomeAnimationController.swift in Sources */,
@@ -6918,7 +6939,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6935,7 +6956,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -6956,7 +6977,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -6973,7 +6994,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
