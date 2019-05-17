@@ -161,7 +161,6 @@ class FacebookLogin{
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         info.save()
-        SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
         completion(true, "", info)
         return
     }
