@@ -118,7 +118,7 @@ class UserVideoRootView: UserVideoLayoutView {
                 
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
         var localInfo = (size : local.size, orientation : VideoView.orientation.undefined)
-        
+
         let targetSize = CGSize(width: remoteInfo.size.width/4, height: remoteInfo.size.height/4)
         
         if(remoteInfo.size.width > remoteInfo.size.height){

@@ -150,17 +150,19 @@ class FacebookLogin{
             completion(false, message, nil)
             return
         }
-        
         Log.echo(key: "token", text: "parse user info now")
-        
         //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up  through facebook. Facebook always treated as the new signUp.
-        
         UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
         UserDefaults.standard.set(true, forKey: "isHostWelcomeScreenNeedToShow")
         let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         info.save()
+        if let id = info.id {
+            
+            Log.echo(key: "yud", text: "Alias is calling")
+            SEGAnalytics.shared().alias(id)
+        }
         SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
         completion(true, "", info)
         return

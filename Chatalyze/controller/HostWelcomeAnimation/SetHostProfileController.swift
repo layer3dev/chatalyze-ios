@@ -13,7 +13,7 @@ class SetHostProfileController: InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        SEGAnalytics.shared().track("Profile Setup Host Page")
         rootView?.controller = self
     }
     

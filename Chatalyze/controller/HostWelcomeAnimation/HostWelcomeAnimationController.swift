@@ -12,7 +12,8 @@ class HostWelcomeAnimationController: InterfaceExtendedController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        SEGAnalytics.shared().track("Welcome Host Page")
         // Do any additional setup after loading the view.
     }
     

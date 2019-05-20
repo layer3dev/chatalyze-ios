@@ -9,6 +9,7 @@
 import Foundation
 import SwiftyJSON
 
+
 class SignupProcessor{
     
     public func signup(withEmail email : String, password : String,name:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
@@ -35,18 +36,27 @@ class SignupProcessor{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "raw Email Signin Handler info ==>  \(response)")
+        Log.echo(key: "yud", text: "Raw Email Signin Handler info ==>  \(String(describing: response))")
         
-        Log.echo(key: "token", text: "Email Signin ==>  \(success)")
+        Log.echo(key: "token", text: "Email Signin ==>  \(success)")        
+        
         guard let rawInfo = response
             else{
                 completion(false, "",  nil)
                 return
         }
+        
         if(!success){
+         
             let message = rawInfo["message"].stringValue
             completion(false, message, nil)
             return
+        }
+        
+        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+        if let id = info.id {
+            Log.echo(key: "yud", text: "Alias is calling")
+            SEGAnalytics.shared().alias(id)
         }
         completion(true, "", nil)
         return
