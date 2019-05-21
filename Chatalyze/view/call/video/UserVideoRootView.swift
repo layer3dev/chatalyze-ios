@@ -75,6 +75,7 @@ class UserVideoRootView: UserVideoLayoutView {
         
         testView.isPortraitInSize = isPortraitInSize
         testView.frame.size = finalImage.size
+        //testView.frame.size = CGSize(width: 1024, height: 576)
         testView.screenShotPic?.image = finalImage
         testView.userPic?.image = hostImage
         testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")       

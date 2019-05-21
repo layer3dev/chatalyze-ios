@@ -240,7 +240,7 @@ class HostDashboardController: MyScheduledSessionsController {
             
         DispatchQueue.main.async {
 
-            guard let controller = MemoryAnimationController.instance() else{
+            guard let controller = TestController.instance() else{
                 return
             }
             

@@ -26,7 +26,6 @@
                 <outlet property="stickerLeading" destination="cZ6-Uk-rmU" id="FJS-l9-Ksa"/>
                 <outlet property="stickerView" destination="g1G-LT-iru" id="FLl-Kd-0bO"/>
                 <outlet property="userPic" destination="CbJ-X0-8xg" id="ZgM-HU-6P8"/>
-                <outlet property="widthOfStamp" destination="rS6-vn-pDw" id="Gy9-Yw-4VQ"/>
                 <outlet property="widthOfUserPic" destination="4yQ-0b-kRu" id="Nl0-hS-odv"/>
             </connections>
         </placeholder>
@@ -39,11 +38,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                 </imageView>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1G-LT-iru">
-                    <rect key="frame" x="6" y="399" width="255" height="75"/>
+                    <rect key="frame" x="6" y="399" width="314" height="75"/>
                     <subviews>
-                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="iUK-ke-mAf">
-                            <rect key="frame" x="0.0" y="0.0" width="255" height="75"/>
-                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUl-Fo-Zr6" customClass="StickerView" customModule="Chatalyze" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="314" height="75"/>
+                            <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CbJ-X0-8xg">
                             <rect key="frame" x="6" y="6" width="63" height="63"/>
                             <constraints>
@@ -51,20 +51,20 @@
                                 <constraint firstAttribute="height" constant="63" id="TaZ-Bd-uf1"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat with Jordan Winawe" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-Cv-jA8">
-                            <rect key="frame" x="74" y="0.0" width="175" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat with Jordan Winahsdjkfhjkadshfjhadjkshfhadsjkfhjkds" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-Cv-jA8">
+                            <rect key="frame" x="74" y="0.0" width="234" height="25"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SML-nC-U58">
-                            <rect key="frame" x="74" y="23" width="175" height="17.5"/>
+                            <rect key="frame" x="74" y="27" width="234" height="20.5"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Memory made on Chatalyze" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-Kf-fPM">
-                            <rect key="frame" x="74" y="42.5" width="175" height="15.5"/>
+                            <rect key="frame" x="74" y="49.5" width="234" height="18"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="13"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -72,23 +72,22 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="iUK-ke-mAf" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" id="2pr-uc-dWD"/>
+                        <constraint firstItem="nUl-Fo-Zr6" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" id="5hG-SG-V4Z"/>
                         <constraint firstItem="SML-nC-U58" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="5" id="9e8-Xp-kpj"/>
-                        <constraint firstAttribute="bottom" secondItem="iUK-ke-mAf" secondAttribute="bottom" id="DjF-Mv-ugt"/>
+                        <constraint firstAttribute="bottom" secondItem="nUl-Fo-Zr6" secondAttribute="bottom" id="E7h-1M-pvv"/>
                         <constraint firstAttribute="bottom" secondItem="CbJ-X0-8xg" secondAttribute="bottom" constant="6" id="IDq-5Q-kuC"/>
                         <constraint firstItem="CbJ-X0-8xg" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" constant="6" id="LhN-iw-vfO"/>
                         <constraint firstItem="CbJ-X0-8xg" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" constant="6" id="S5u-af-n1D"/>
-                        <constraint firstAttribute="trailing" secondItem="hXG-Cv-jA8" secondAttribute="trailing" constant="6" id="Xro-u8-fyX"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hXG-Cv-jA8" secondAttribute="trailing" constant="6" id="Xro-u8-fyX"/>
                         <constraint firstItem="hXG-Cv-jA8" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="5" id="Yht-jf-5Sq"/>
                         <constraint firstItem="SML-nC-U58" firstAttribute="top" secondItem="hXG-Cv-jA8" secondAttribute="bottom" constant="2" id="aLW-HH-cWq"/>
-                        <constraint firstItem="iUK-ke-mAf" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" id="dk2-AS-fAh"/>
+                        <constraint firstAttribute="trailing" secondItem="nUl-Fo-Zr6" secondAttribute="trailing" id="cj7-Ga-E9t"/>
                         <constraint firstAttribute="trailing" secondItem="SML-nC-U58" secondAttribute="trailing" constant="6" id="eTw-dv-VJC"/>
                         <constraint firstItem="hXG-Cv-jA8" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" id="ejC-BN-Qnt"/>
+                        <constraint firstItem="nUl-Fo-Zr6" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" id="lfM-xQ-AVu"/>
                         <constraint firstItem="s0s-Kf-fPM" firstAttribute="top" secondItem="SML-nC-U58" secondAttribute="bottom" constant="2" id="ovo-rj-3Nb"/>
                         <constraint firstAttribute="trailing" secondItem="s0s-Kf-fPM" secondAttribute="trailing" constant="6" id="pQ2-lr-AdU"/>
                         <constraint firstItem="s0s-Kf-fPM" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="5" id="qSs-cy-Ov7"/>
-                        <constraint firstAttribute="width" constant="255" id="rS6-vn-pDw"/>
-                        <constraint firstAttribute="trailing" secondItem="iUK-ke-mAf" secondAttribute="trailing" id="uaa-Op-9I3"/>
                     </constraints>
                 </view>
             </subviews>
@@ -98,6 +97,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="75G-Tx-KN0" secondAttribute="bottom" id="GY2-g1-g0H"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="g1G-LT-iru" secondAttribute="bottom" constant="6" id="Px5-JK-uSh"/>
                 <constraint firstItem="g1G-LT-iru" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="6" id="cZ6-Uk-rmU"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g1G-LT-iru" secondAttribute="trailing" id="puA-cc-n2x"/>
                 <constraint firstItem="75G-Tx-KN0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="qO2-Bq-E8U"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="75G-Tx-KN0" secondAttribute="trailing" id="urF-GI-Lnw"/>
             </constraints>
@@ -105,7 +105,4 @@
             <point key="canvasLocation" x="65.625" y="-200"/>
         </view>
     </objects>
-    <resources>
-        <image name="newSplash" width="1080" height="1080"/>
-    </resources>
 </document>

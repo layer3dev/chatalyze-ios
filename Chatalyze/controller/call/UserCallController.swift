@@ -12,28 +12,23 @@ import SwiftyJSON
 class UserCallController: VideoCallController {
     
     var memoryImage:UIImage?
-    
     let scheduleUpdateListener = ScheduleUpdateListener()
     
     //Animation Responsible
     var isAnimating = false
-    
-    
+
     //variable and outlet responsible for the SelfieTimer
-    
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
     @IBOutlet var countDountAttrTimerLbl:UILabel?
     @IBOutlet var futureSessionView:UIView?
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     
-    
-    //isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
+    // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     var isScreenshotStatusLoaded = false
     
     //Ends
     //This is webRTC connection responsible for signalling and handling the reconnect
-    
     
     override var roomType : UserInfo.roleType{
         return .user
@@ -692,8 +687,7 @@ class UserCallController: VideoCallController {
     }
     
     func showContactUsScreen(){
-        
-        RootControllerManager().getCurrentController()?.showContactUs()
+         RootControllerManager().getCurrentController()?.showContactUs()
     }
     
     private func showDonateScreen(){
