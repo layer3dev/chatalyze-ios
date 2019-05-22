@@ -51,7 +51,8 @@ class MemoryAnimationController: InterfaceExtendedController {
                 confettiView.stopConfetti()
             })            
         }
-        paintImageView()
+        corniiRadiusToMemoryImage()
+        //paintImageView()
         // Do any additional setup after loading the view.
     }
     
@@ -75,6 +76,15 @@ class MemoryAnimationController: InterfaceExtendedController {
         
         self.memoryImageView?.image = memoryImage
         self.memoryLandscapeImageView?.image = memoryImage
+    }
+    
+    func corniiRadiusToMemoryImage(){
+        
+        self.memoryImageView?.layer.cornerRadius = 4
+        self.memoryLandscapeImageView?.layer.cornerRadius = 4
+        
+        self.memoryImageView?.layer.masksToBounds = true
+        self.memoryLandscapeImageView?.layer.masksToBounds = true
     }
     
     @IBAction func jumpToScroller(){

@@ -74,8 +74,11 @@ class UserVideoRootView: UserVideoLayoutView {
         Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
         
         testView.isPortraitInSize = isPortraitInSize
-        testView.frame.size = finalImage.size
-        //testView.frame.size = CGSize(width: 1024, height: 576)
+        if isPortraitInSize ?? true{
+            testView.frame.size = CGSize(width: 636, height: 1130)
+        }else{
+            testView.frame.size = CGSize(width: 1024, height: 576)
+        }
         testView.screenShotPic?.image = finalImage
         testView.userPic?.image = hostImage
         testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")       
@@ -203,3 +206,4 @@ class UserVideoRootView: UserVideoLayoutView {
         return nil
     }
 }
+

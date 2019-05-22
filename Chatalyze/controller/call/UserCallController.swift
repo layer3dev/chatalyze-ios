@@ -1204,3 +1204,23 @@ extension UserCallController{
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
+
+
+extension UserCallController{
+    
+    
+    @IBAction func takeSelfie(sender:UIButton){
+        
+        userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+            
+            guard let controller = AchievementImageController.instance()
+                else{
+                    return
+            }
+            controller.showingImage = image
+            self.present(controller, animated: true) {
+            }            
+        })
+        
+    }
+}
