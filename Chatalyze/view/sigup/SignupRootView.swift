@@ -81,6 +81,7 @@ class SignupRootView:ExtendedView{
             self.controller?.stopLoader()
             if success{
                 
+                self.registerWithSegmentAnalytics(info : info)
                 //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up.
                 UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
                 if SignedUserInfo.sharedInstance?.role == .analyst{
@@ -90,6 +91,23 @@ class SignupRootView:ExtendedView{
                 return
             }
         }
+    }
+    
+    private func registerWithSegmentAnalytics(info : SignedUserInfo?){
+        guard let info = info
+            else{
+                return
+        }
+        
+        //shouldn't happen but can't let sky fall if it happens
+        guard let userId = info.id
+            else{
+                return
+        }
+        
+        //alias don't seem to have any option to share user's information so both alias and identify will be called consecutively
+        SEGAnalytics.shared().alias(userId)
+        SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
     }
     
     @IBAction fileprivate func fbLoginAction(){
@@ -250,6 +268,9 @@ extension SignupRootView{
                 self.controller?.stopLoader()
                 
                 if(success){
+                    
+                    self.registerWithSegmentAnalytics(info : info)
+                    
                     RootControllerManager().updateRoot()
                     return
                 }

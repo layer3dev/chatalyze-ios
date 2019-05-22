@@ -199,6 +199,7 @@ extension SigninRootView{
             FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
                 self.controller?.stopLoader()
                 if(success){
+                    self.registerWithSegmentAnalytics(info : info)
                     RootControllerManager().updateRoot()
                     return
                 }
@@ -216,10 +217,16 @@ extension SigninRootView{
         let password = passwordField?.textField?.text ?? ""
         self.controller?.showLoader()
         
-        signInRequest(email: email, password: password) { [weak self] (success, message)  in
+        signInRequest(email: email, password: password) { [weak self] (success, message, info)  in
             
             self?.controller?.stopLoader()
             if(success){
+                
+                
+                
+                self?.registerWithSegmentAnalytics(info : info)
+                
+                
                 RootControllerManager().updateRoot()
                 return
             }
@@ -228,10 +235,24 @@ extension SigninRootView{
         }
     }
     
-    func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String)->())?){
+    private func registerWithSegmentAnalytics(info : SignedUserInfo?){
+        guard let info = info
+            else{
+                return
+        }
+        
+        //shouldn't happen but can't let sky fall if it happens
+        guard let userId = info.id
+            else{
+                return
+        }
+        SEGAnalytics.shared().identify(userId, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
+    }
+    
+    func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String, _ response : SignedUserInfo?)->())?){
         
         EmailSigninHandler().signin(withEmail: email, password: password) { (success, error, info) in
-            completion?(success, error)
+            completion?(success, error, info)
         }
     }
     
