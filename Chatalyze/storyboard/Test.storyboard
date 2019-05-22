@@ -24,17 +24,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="54e-G7-Xk9">
                                 <rect key="frame" x="0.0" y="636" width="414" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VlL-sX-gju" userLabel="ONe">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VlL-sX-gju" userLabel="ONe">
                                         <rect key="frame" x="0.0" y="0.0" width="103.66666666666667" height="100"/>
-                                        <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.58823529409999997" green="0.80784313730000001" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="One"/>
                                         <connections>
-                                            <action selector="showImageWithSender:" destination="olc-3H-yhM" eventType="touchUpInside" id="Wag-ij-8nx"/>
+                                            <action selector="showFirstImageWithSender:" destination="olc-3H-yhM" eventType="touchUpInside" id="CfZ-qX-4An"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NY1-MS-alZ">
                                         <rect key="frame" x="103.66666666666669" y="0.0" width="103.33333333333331" height="100"/>
                                         <state key="normal" title="Two"/>
+                                        <connections>
+                                            <action selector="showSecondFirstImageWithSender:" destination="olc-3H-yhM" eventType="touchUpInside" id="5He-jc-RUI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCY-nM-FKL">
                                         <rect key="frame" x="206.99999999999997" y="0.0" width="103.66666666666666" height="100"/>
@@ -48,7 +51,7 @@
                                 <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.3411764706" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="sc7-fW-2dv" firstAttribute="trailing" secondItem="54e-G7-Xk9" secondAttribute="trailing" id="FEt-xW-kut"/>
                             <constraint firstItem="sc7-fW-2dv" firstAttribute="bottom" secondItem="mtJ-n0-XS9" secondAttribute="bottom" constant="100" id="GQv-dZ-w01"/>

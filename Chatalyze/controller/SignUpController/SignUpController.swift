@@ -40,7 +40,6 @@ class SignUpController: InterfaceExtendedController {
             
             let textThreeMutable = text2.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
             
-            
             let text3 = "Privacy Policy."
             
             let textFourMutable = text3.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
@@ -60,9 +59,7 @@ class SignUpController: InterfaceExtendedController {
             let privacyAttrText = privacyTextTwo.toAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
             
             privacyMutableText.append(privacyAttrText)
-            
             self.privacyLbl?.attributedText = textFourMutable
-            
             self.signInLabel?.attributedText = privacyMutableText
         }
     }
@@ -131,6 +128,7 @@ class SignUpController: InterfaceExtendedController {
         
         updateSigUpHeaderInfo()
         hideNavigationBar()
+        SEGAnalytics.shared().track("SignUp Page")
     }
     
     func updateSigUpHeaderInfo(){

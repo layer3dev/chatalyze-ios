@@ -74,7 +74,11 @@ class UserVideoRootView: UserVideoLayoutView {
         Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
         
         testView.isPortraitInSize = isPortraitInSize
-        testView.frame.size = finalImage.size
+        if isPortraitInSize ?? true{
+            testView.frame.size = CGSize(width: 636, height: 1130)
+        }else{
+            testView.frame.size = CGSize(width: 1024, height: 576)
+        }
         testView.screenShotPic?.image = finalImage
         testView.userPic?.image = hostImage
         testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")       
@@ -118,7 +122,7 @@ class UserVideoRootView: UserVideoLayoutView {
                 
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
         var localInfo = (size : local.size, orientation : VideoView.orientation.undefined)
-        
+
         let targetSize = CGSize(width: remoteInfo.size.width/4, height: remoteInfo.size.height/4)
         
         if(remoteInfo.size.width > remoteInfo.size.height){
@@ -202,3 +206,4 @@ class UserVideoRootView: UserVideoLayoutView {
         return nil
     }
 }
+

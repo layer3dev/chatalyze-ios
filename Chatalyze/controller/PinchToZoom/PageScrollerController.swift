@@ -178,7 +178,7 @@ class PageScrollerController: InterfaceExtendedController,UIScrollViewDelegate {
     
     func deleteImage(){
         
-        guard let memoryId = self.info?.id else{
+        guard let memoryId = self.info?.id else {
             return
         }
         

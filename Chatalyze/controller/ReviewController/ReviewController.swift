@@ -91,8 +91,6 @@ class ReviewController: InterfaceExtendedController{
                     listner()
                 }
             })
-            
-           
         }
     }
 }

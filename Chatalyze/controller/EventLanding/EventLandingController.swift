@@ -51,11 +51,7 @@ class EventLandingController: InterfaceExtendedController {
     }
     
     @IBAction func share(sender:UIButton){
-        
-        Log.echo(key: "yud", text: "info are \(self.info?.id) and the url is \(self.info?.title)")
-        
-        
-        
+                
         guard let id = self.info?.id else{
             return
         }

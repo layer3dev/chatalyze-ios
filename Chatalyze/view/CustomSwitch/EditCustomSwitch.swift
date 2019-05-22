@@ -21,6 +21,7 @@ class EditCustomSwitch: ExtendedView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
+        
         paintInterface()
     }
     
