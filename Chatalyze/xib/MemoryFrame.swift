@@ -27,6 +27,17 @@ class MemoryFrame:XibTemplate{
     @IBOutlet var stickerLeading:NSLayoutConstraint?
     @IBOutlet var stickerBottom:NSLayoutConstraint?
 
+    @IBOutlet var analystImageLeading:NSLayoutConstraint?
+    @IBOutlet var analystImageTop:NSLayoutConstraint?
+    @IBOutlet var analystImageBottom:NSLayoutConstraint?
+
+    @IBOutlet var userNameLead:NSLayoutConstraint?
+    @IBOutlet var userNameTrail:NSLayoutConstraint?
+    @IBOutlet var dateTrail:NSLayoutConstraint?
+    @IBOutlet var dateLead:NSLayoutConstraint?
+    @IBOutlet var memoryTrail:NSLayoutConstraint?
+    @IBOutlet var memoryLead:NSLayoutConstraint?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
        
@@ -43,10 +54,9 @@ class MemoryFrame:XibTemplate{
         stickerView?.layer.masksToBounds = true
     }
     
-    
     func handleUI(){
         
-        guard let inPortrait = isPortraitInSize else{
+        guard let inPortrait = isPortraitInSize else {
             return
         }        
         if inPortrait{
@@ -58,25 +68,52 @@ class MemoryFrame:XibTemplate{
     
     func setUIForPortrait(){
         
-        heightOfUserPic?.constant = 63
-        widthOfUserPic?.constant = 63
-        widthOfStamp?.constant = 255
-        stickerLeading?.constant = 6
-        stickerBottom?.constant = 6
-        name?.font = UIFont(name: "Nunito-Bold", size: 18)
-        date?.font = UIFont(name: "Nunito-Bold", size: 15)
-        memory?.font = UIFont(name: "Nunito-Bold", size: 13)
+        heightOfUserPic?.constant = 80
+        widthOfUserPic?.constant = 80
+        stickerLeading?.constant = 10
+        stickerBottom?.constant = 10
+        
+        analystImageLeading?.constant = 10
+        analystImageTop?.constant = 10
+        analystImageBottom?.constant = 10
+        
+        userNameLead?.constant = 10
+        userNameTrail?.constant = 10
+        
+        dateTrail?.constant = 10
+        dateLead?.constant = 10
+        
+        memoryTrail?.constant = 10
+        memoryLead?.constant = 10
+        
+        name?.font = UIFont(name: "Nunito-Bold", size: 20)
+        date?.font = UIFont(name: "Nunito-Bold", size: 18)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 17)
     }
     
     func setUIForLandscape(){
         
-        heightOfUserPic?.constant = 43
-        widthOfUserPic?.constant = 43
-        widthOfStamp?.constant = 200
-        stickerLeading?.constant = 3
-        stickerBottom?.constant = 3
-        name?.font = UIFont(name: "Nunito-Bold", size: 13)
-        date?.font = UIFont(name: "Nunito-Bold", size: 11)
-        memory?.font = UIFont(name: "Nunito-Bold", size: 10)
+        heightOfUserPic?.constant = 120
+        widthOfUserPic?.constant = 120
+
+        stickerLeading?.constant = 13
+        stickerBottom?.constant = 13
+                
+        analystImageLeading?.constant = 13
+        analystImageTop?.constant = 13
+        analystImageBottom?.constant = 13
+        
+        userNameLead?.constant = 13
+        userNameTrail?.constant = 13
+        
+        dateTrail?.constant = 13
+        dateLead?.constant = 13
+        
+        memoryTrail?.constant = 13
+        memoryLead?.constant = 13
+        
+        name?.font = UIFont(name: "Nunito-Bold", size: 30)
+        date?.font = UIFont(name: "Nunito-Bold", size: 28)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 26)
     }
 }
