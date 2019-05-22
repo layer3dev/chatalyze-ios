@@ -52,7 +52,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             })            
         }
         corniiRadiusToMemoryImage()
-        //paintImageView()
+        paintImageView()
         // Do any additional setup after loading the view.
     }
     
