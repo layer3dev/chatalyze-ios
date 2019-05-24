@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Bugsnag
+
 class HostDashboardController: MyScheduledSessionsController {
     
     @IBOutlet var testingLabel:UILabel?
@@ -23,13 +25,14 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        Log.echo(key: "yud", text: "the value of the text is \u{0001F389}")
-        //printTheFamilyNames()
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
         SEGAnalytics.shared().track("My Session Page")
     }
+    
+    
+    
     
     
     func printTheFamilyNames(){
@@ -237,7 +240,9 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     @IBAction func scheduleSessionAction(sender:UIButton){
-            
+        
+//        Bugsnag.notifyError(NSError(domain:"com.firstCrash", code:408, userInfo:nil))
+        
         DispatchQueue.main.async {
             
             guard let controller = ScheduleSessionSinglePageController.instance() else{
