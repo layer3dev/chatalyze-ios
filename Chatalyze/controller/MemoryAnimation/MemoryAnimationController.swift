@@ -14,14 +14,13 @@ class MemoryAnimationController: InterfaceExtendedController {
     @IBOutlet var portraitShadowView:UIView?
     @IBOutlet var landscapeShadowView:UIView?
     
-    
     @IBOutlet var rotationalView:UIView?
     @IBOutlet var landscapeRotationalView:UIView?
-
+    
     var memoryImage:UIImage?
     @IBOutlet var memoryImageView:UIImageView?
     @IBOutlet var memoryLandscapeImageView:UIImageView?
-
+    
     var eventInfo:EventScheduleInfo?
     @IBOutlet var shareView:UIView?
     @IBOutlet var confettiContainer:UIView?
@@ -29,14 +28,15 @@ class MemoryAnimationController: InterfaceExtendedController {
     @IBOutlet var heightOfLayerImage:NSLayoutConstraint?
     @IBOutlet var portraitView:UIView?
     @IBOutlet var landscapeView:UIView?
-
     
     @IBOutlet var memoryLandscapeHeight:NSLayoutConstraint?
     @IBOutlet var memoryLandscapeWidth:NSLayoutConstraint?
     
     @IBOutlet var memoryPortraitHeight:NSLayoutConstraint?
     @IBOutlet var memoryPortraitWidth:NSLayoutConstraint?
-
+    
+    @IBOutlet var heightOfLayer:NSLayoutConstraint?
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -48,21 +48,28 @@ class MemoryAnimationController: InterfaceExtendedController {
         self.memoryPortraitHeight?.constant = newRectP?.height ?? 0.0
         self.memoryPortraitWidth?.constant = newRectP?.width ?? 0.0
         
-        self.landscapeShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
+        if let image = self.memoryImage{
+            if self.isPortrait(size: image.size) ?? true {
+                
+                self.heightOfLayer?.constant  = (((self.memoryImageView?.frame.origin.y ?? 0.0) + (newRectP?.height ?? 0.0)) - 40)
+            }else {
+                
+                self.heightOfLayerImage?.constant  = (((self.memoryLandscapeImageView?.frame.origin.y ?? 0.0) + (newRectP?.height ?? 0.0)) - 20)
+            }
+        }
         
-        self.portraitShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
-        
-        corniiRadiusToMemoryImage()
-        Log.echo(key: "yu)d", text: "clipiping recxt is \(self.memoryImageView?.contentClippingRect)")
+        self.corniiRadiusToMemoryImage()
+        self.view.updateConstraints()
+        self.view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //paintImageView()
+        paintImageView()
         self.rotationalView?.rotate(angle: -5)
         self.landscapeRotationalView?.rotate(angle: -5)
-
+        
         if let image = self.memoryImage{
             if isPortrait(size: image.size) ?? true{
                 
@@ -79,20 +86,27 @@ class MemoryAnimationController: InterfaceExtendedController {
         confettiView.intensity = 0.95
         confettiView.startConfetti()
         self.view.addSubview(confettiView)
+        
         DispatchQueue.main.asyncAfter(deadline: .now()+2.50) {
+            
             UIView.animate(withDuration: 1, animations: {
                 confettiView.alpha = 0
             }, completion: { (success) in
                 confettiView.removeFromSuperview()
                 confettiView.stopConfetti()
-            })            
+            })
         }
+        
         corniiRadiusToMemoryImage()
-        // Do any additional setup after loading the view.
+        //Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
+        super.viewDidAppear(animated)
+        
+        self.landscapeShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
+        
+        self.portraitShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
     }
     
     
@@ -175,16 +189,16 @@ class MemoryAnimationController: InterfaceExtendedController {
         self.present(controller, animated: true, completion: {
         })
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     
     class func instance()->MemoryAnimationController?{
@@ -201,6 +215,8 @@ extension UIImageView {
         guard let image = image else { return bounds }
         guard contentMode == .scaleAspectFit else { return bounds }
         guard image.size.width > 0 && image.size.height > 0 else { return bounds }
+        
+        Log.echo(key: "yud", text: "self width and height is \(bounds.width) am is \(bounds.height)")
         
         let scale: CGFloat
         if image.size.width > image.size.height {

@@ -240,13 +240,9 @@ class HostDashboardController: MyScheduledSessionsController {
             
         DispatchQueue.main.async {
             
-            
-            
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
-            
             
             self.navigationController?.pushViewController(controller, animated: false)
         }

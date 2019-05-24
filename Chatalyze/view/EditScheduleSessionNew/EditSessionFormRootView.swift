@@ -1866,6 +1866,13 @@ extension EditSessionFormRootView{
             
             param["title"] = info.title
             param["tipEnabled"] = info.tipEnabled
+           
+            if info.isFree{
+                
+                param["sponsorshipAmount"] = info.isSponsorEnable
+            }else{
+                param["sponsorshipAmount"] = false
+            }
             return param
         }
         

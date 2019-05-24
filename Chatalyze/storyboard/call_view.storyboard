@@ -840,18 +840,6 @@
                                     <outlet property="videoView" destination="pcC-X9-R1p" id="hhh-Xq-rvG"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nL6-OK-biP">
-                                <rect key="frame" x="36" y="120" width="150" height="50"/>
-                                <color key="backgroundColor" red="1" green="1" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="DrZ-lr-kqr"/>
-                                    <constraint firstAttribute="height" constant="50" id="VOH-Ob-byh"/>
-                                </constraints>
-                                <state key="normal" title="Capture"/>
-                                <connections>
-                                    <action selector="takeSelfieWithSender:" destination="ddm-i3-FOl" eventType="touchUpInside" id="8d9-6P-r0G"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -891,11 +879,9 @@
                             <constraint firstItem="3ww-fe-4Gf" firstAttribute="centerX" secondItem="Wkh-om-R74" secondAttribute="centerX" id="dxH-92-lYX"/>
                             <constraint firstItem="ccG-Ux-JqL" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="10" id="eWS-fU-V8h"/>
                             <constraint firstItem="gKG-jl-gLG" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="eco-5k-r21"/>
-                            <constraint firstItem="nL6-OK-biP" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leadingMargin" constant="20" id="t5V-WO-CAj"/>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="X6y-Z9-AIW" secondAttribute="bottom" priority="999" id="u6w-ad-RhL" userLabel="canvas_bottom_root"/>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="SrS-mz-6Sq" secondAttribute="bottom" constant="12" id="uyT-p7-6gO"/>
                             <constraint firstItem="fgE-qL-xbk" firstAttribute="top" secondItem="Wkh-om-R74" secondAttribute="top" id="wYC-pZ-cXW"/>
-                            <constraint firstItem="nL6-OK-biP" firstAttribute="top" secondItem="ccG-Ux-JqL" secondAttribute="bottom" constant="20" id="wzB-cp-Auc"/>
                             <constraint firstAttribute="trailing" secondItem="SrS-mz-6Sq" secondAttribute="trailing" constant="15" id="zm9-ou-qsT"/>
                         </constraints>
                         <variation key="default">
@@ -912,10 +898,10 @@
                         <variation key="heightClass=compact">
                             <mask key="constraints">
                                 <include reference="3tt-Ao-Zda"/>
-                                <exclude reference="SJS-tz-KdS"/>
                                 <exclude reference="4OB-Ox-Ciw"/>
                                 <include reference="EbQ-DL-YTo"/>
                                 <exclude reference="zm9-ou-qsT"/>
+                                <exclude reference="SJS-tz-KdS"/>
                                 <include reference="Fde-RH-kLc"/>
                             </mask>
                         </variation>
