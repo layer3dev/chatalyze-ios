@@ -1176,7 +1176,7 @@ extension UserCallController:GetisHangedUpDelegate{
     }
 }
 
-extension UserCallController{
+extension UserCallController {
     
     private func updateNewHeaderInfoForSession(slot : SlotInfo){
         
@@ -1195,7 +1195,7 @@ extension UserCallController{
         
         let remainingTime = "\(counddownInfo.time)"
         var fontSize = 20
-        if  UIDevice.current.userInterfaceIdiom == .pad{
+        if  UIDevice.current.userInterfaceIdiom == .pad {
             fontSize = 26
         }
         
@@ -1206,21 +1206,3 @@ extension UserCallController{
 }
 
 
-extension UserCallController{
-    
-    
-    @IBAction func takeSelfie(sender:UIButton){
-        
-        userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
-            
-            guard let controller = AchievementImageController.instance()
-                else{
-                    return
-            }
-            controller.showingImage = image
-            self.present(controller, animated: true) {
-            }            
-        })
-        
-    }
-}

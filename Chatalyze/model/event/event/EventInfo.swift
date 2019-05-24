@@ -50,6 +50,7 @@ class EventInfo: NSObject {
     var tipEnabled : Bool?
     var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
     var emptySlotsArray:[JSON]? = [JSON]()
+    var isSponsorEnable = false 
     
     override init(){
         super.init()
@@ -95,6 +96,10 @@ class EventInfo: NSObject {
         updatedAt = json["updatedAt"].string
         deletedAt = json["deletedAt"].string
         tipEnabled = json["tipEnabled"].bool
+        if json["sponsorshipAmount"].intValue > 0{
+            isSponsorEnable = true
+        }
+
         isScreenShotAllowed = json["screenshotAllow"].string
         
         emptySlotsArray = json["emptySlots"].array

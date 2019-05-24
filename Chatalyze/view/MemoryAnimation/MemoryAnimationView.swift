@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemoryAnimationView:UIView{
+class MemoryAnimationView:UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()

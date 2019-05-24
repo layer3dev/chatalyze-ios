@@ -25,6 +25,7 @@ class ScheduleSessionInfo:NSObject {
     var eventInfo:EventInfo?
     var bannerImage:UIImage?
     var tipEnabled:Bool = false
+    var isSponsorEnable = false 
     var minimumPlanPriceToSchedule:Double = 0.0
     var doublePrice:Double?
     var chatalyzeFeePercent:Int? 

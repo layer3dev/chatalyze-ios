@@ -157,6 +157,13 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var goBackButtonContainer:UIView?
     @IBOutlet var confirmButton:UIButton?
     
+    @IBOutlet var sponsorShipToggle:EditCustomSwitch?
+    @IBOutlet var heightOfSponserConstraint:NSLayoutConstraint?
+
+    @IBOutlet var sponsorShipStatusLabel:UILabel?
+    @IBOutlet var sponsorShipInfoLabel:UILabel?
+    var isSponsorEnable = true
+    
     
     func implementSponsorShip(){
         
@@ -175,8 +182,6 @@ class EditSessionFormRootView:ExtendedView {
             self.sponsorShipLabel?.attributedText = textOneMutable
         }
     }
-    
-    
     
     
     @IBAction func cancelAction(sender:UIButton){
@@ -279,11 +284,42 @@ class EditSessionFormRootView:ExtendedView {
         self.priceAmountField?.textField?.doneAccessory = true
         self.priceAmountField?.isCompleteBorderAllow = true
         
-        priceAmountField?.textField?.keyboardType = UIKeyboardType.decimalPad        
+        priceAmountField?.textField?.keyboardType = UIKeyboardType.decimalPad
+        self.switchONSponsor()
     }
     
     func initializeCustomSwitch(){
         
+        sponsorShipToggle?.toggleAction = {[weak self] in
+            
+            if self?.sponsorShipToggle?.isOn ?? false {
+                
+                self?.sponsorShipStatusLabel?.text = "ON"
+                self?.sponsorShipInfoLabel?.text = "People can pay $3 to become a session sponsor and receive special perks."
+                self?.scheduleInfo?.isSponsorEnable = true
+                self?.isSponsorEnable = true
+                
+                UIView.animate(withDuration: 0.15, animations: {
+                    
+                    self?.sponsorShipInfoLabel?.alpha = 1
+                    self?.layoutIfNeeded()
+                })
+                return
+            }
+            
+            self?.scheduleInfo?.isSponsorEnable = false
+            UIView.animate(withDuration: 0.15, animations: {
+                
+                self?.sponsorShipInfoLabel?.alpha = 0
+                self?.layoutIfNeeded()
+            })
+            self?.sponsorShipInfoLabel?.text = ""
+            self?.sponsorShipStatusLabel?.text = "OFF"
+            self?.isSponsorEnable = false
+            return
+        }
+        
+        //************
         donationCustomSwitch?.toggleAction = {[weak self] in
             
             if self?.donationCustomSwitch?.isOn ?? false {
@@ -367,7 +403,7 @@ class EditSessionFormRootView:ExtendedView {
         
         //Printing whole Info
         
-        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
+//        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
         
         
         self.eventInfo = eventInfo
@@ -438,10 +474,11 @@ class EditSessionFormRootView:ExtendedView {
             screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
         }
         
+        handleSponsorToggle()
+
         if eventInfo.isFree ?? false{
             
             hidePriceFillingField()
-            
         }else{
             
             showHeightPriceFllingField()
@@ -457,6 +494,48 @@ class EditSessionFormRootView:ExtendedView {
         }
         
         updatescheduleInfo()
+    }
+    
+    func handleSponsorToggle(){
+        
+        if self.eventInfo?.isFree ?? false {
+            
+            heightOfSponserConstraint?.priority = UILayoutPriority(250.0)
+            
+        }else{
+            
+            heightOfSponserConstraint?.priority = UILayoutPriority(999.0)
+        }
+        
+        if self.eventInfo?.isSponsorEnable ?? false {
+            
+            self.sponsorShipStatusLabel?.text = "ON"
+            self.sponsorShipInfoLabel?.text = "People can pay $3 to become a session sponsor and receive special perks."
+            self.sponsorShipToggle?.setOn()
+            self.scheduleInfo?.isSponsorEnable = true
+            self.isSponsorEnable = true
+            
+            UIView.animate(withDuration: 0.15, animations: {
+                
+                self.sponsorShipInfoLabel?.alpha = 1
+                self.layoutIfNeeded()
+            })
+        }else{
+           
+            self.sponsorShipToggle?.setOff()
+            self.scheduleInfo?.isSponsorEnable = false
+            UIView.animate(withDuration: 0.15, animations: {
+                
+                self.sponsorShipInfoLabel?.alpha = 0
+                self.layoutIfNeeded()
+            })
+            self.isSponsorEnable = false
+            self.sponsorShipInfoLabel?.text = ""
+            self.sponsorShipStatusLabel?.text = "OFF"
+            
+        }
+        
+        
     }
     
     
@@ -568,16 +647,46 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func freeAction(sender:UIButton){
         
+        showSponserView()
         hidePriceFillingField()
+    }
+    
+    
+    func switchOffSponsor(){
+    
+        self.scheduleInfo?.isSponsorEnable = false
+        self.isSponsorEnable = false
+        UIView.animate(withDuration: 0.15, animations: {
+            
+            self.sponsorShipInfoLabel?.alpha = 0
+            self.layoutIfNeeded()
+        })
+        self.sponsorShipInfoLabel?.text = ""
+        self.sponsorShipStatusLabel?.text = "OFF"
+    }
+    
+    func switchONSponsor(){
+        
+        self.sponsorShipStatusLabel?.text = "ON"
+        self.sponsorShipInfoLabel?.text = "People can pay $3 to become a session sponsor and receive special perks."
+        self.scheduleInfo?.isSponsorEnable = true
+        self.isSponsorEnable = true
+        UIView.animate(withDuration: 0.15, animations: {
+            
+            self.sponsorShipInfoLabel?.alpha = 1
+            self.layoutIfNeeded()
+        })
     }
     
     func showSponserView(){
         
-        self.sponsorshipViewHeightConstraintForFreeSession?.priority = UILayoutPriority(250.0)
+       self.heightOfSponserConstraint?.priority = UILayoutPriority(250.0)
+       self.sponsorshipViewHeightConstraintForFreeSession?.priority = UILayoutPriority(250.0)
     }
     
     func hideSponsorShipView(){
         
+         self.heightOfSponserConstraint?.priority = UILayoutPriority(999.0)
         self.sponsorshipViewHeightConstraintForFreeSession?.priority = UILayoutPriority(999.0)
     }
     
@@ -598,8 +707,13 @@ class EditSessionFormRootView:ExtendedView {
         showSponserView()
     }
     
+    
+    
+    
+    
     @IBAction func paidActionAction(sender:UIButton){
         
+        hideSponsorShipView()
         showHeightPriceFllingField()        
         // Show Price Field existing price
     }
@@ -1699,8 +1813,16 @@ extension EditSessionFormRootView{
             self.scheduleInfo?.doublePrice = Double(self.priceAmountField?.textField?.text ??
                 "0.0")
             self.scheduleInfo?.isFree = false
+            self.scheduleInfo?.isSponsorEnable = false
         }else{
             
+            if sponsorShipToggle?.isOn == true{
+                
+                self.scheduleInfo?.isSponsorEnable = true
+            }else{
+                
+                self.scheduleInfo?.isSponsorEnable = false
+            }
             self.scheduleInfo?.isFree = true
             self.scheduleInfo?.doublePrice = 0.0
         }
@@ -1744,6 +1866,13 @@ extension EditSessionFormRootView{
             
             param["title"] = info.title
             param["tipEnabled"] = info.tipEnabled
+           
+            if info.isFree{
+                
+                param["sponsorshipAmount"] = info.isSponsorEnable
+            }else{
+                param["sponsorshipAmount"] = false
+            }
             return param
         }
         
@@ -1762,7 +1891,7 @@ extension EditSessionFormRootView{
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
-        
+        param["sponsorshipAmount"] = info.isSponsorEnable
         var paramsForSlots = [[String:Any]]()
         if let selectedArray = self.breakAdapter?.emptySlots{
             for index in 0..<selectedArray.count{

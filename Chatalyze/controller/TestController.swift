@@ -10,15 +10,15 @@ import UIKit
 
 class TestController: UIViewController {
 
+    @IBOutlet var rotationalView:UIView?
     @IBOutlet var mainImageView:UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.rotationalView?.rotate(angle: -10)
         // Do any additional setup after loading the view.
     }
-    
-    
     
     private func getSnapshot(view : UIView)->UIImage?{
         
@@ -29,8 +29,7 @@ class TestController: UIViewController {
         UIGraphicsEndImageContext()
         return image
     }
-    
-
+        
     
     
 //    func getSnapshot()->UIImage?{
@@ -275,4 +274,23 @@ extension UIImage {
         
         return scaledImage!
     }
+}
+
+
+// MARK: - UIView Extension -
+
+extension UIView {
+    
+    /**
+     Rotate a view by specified degrees
+     
+     - parameter angle: angle in degrees
+     */
+    func rotate(angle: CGFloat) {
+        
+        let radians = angle / 180.0 * CGFloat.pi
+        let rotation = self.transform.rotated(by: radians)
+        self.transform = rotation
+    }
+    
 }
