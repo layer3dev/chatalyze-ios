@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -23,11 +23,11 @@
             <objects>
                 <viewController storyboardIdentifier="MemoryAnimation" id="ivB-iV-M6Z" customClass="MemoryAnimationController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="grc-Qw-Iuj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rvt-0u-yqF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MemoryImageAnimation" translatesAutoresizingMaskIntoConstraints="NO" id="1gH-ab-hFk">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="433.5"/>
@@ -36,7 +36,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z4j-LC-5qd">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4D2-xR-h0x">
@@ -56,23 +56,23 @@
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47x-GU-HnZ">
-                                        <rect key="frame" x="15" y="198.5" width="290" height="280"/>
+                                        <rect key="frame" x="-15" y="198.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="iOs-G7-Jnv">
-                                        <rect key="frame" x="15" y="198.5" width="290" height="280"/>
+                                        <rect key="frame" x="-15" y="198.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="290" id="RIT-vj-mgm">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="650"/>
+                                            <constraint firstAttribute="width" constant="350" id="RIT-vj-mgm">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="700"/>
                                             </constraint>
-                                            <constraint firstAttribute="height" constant="280" id="nw9-ke-fWS">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="400"/>
+                                            <constraint firstAttribute="height" constant="350" id="nw9-ke-fWS">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="500"/>
                                             </constraint>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqn-w8-AIh">
-                                        <rect key="frame" x="15" y="198.5" width="290" height="280"/>
+                                        <rect key="frame" x="-15" y="198.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="jumpToScroller" destination="ivB-iV-M6Z" eventType="touchUpInside" id="Q0U-Y2-oaN"/>
@@ -112,14 +112,14 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-Rv-5jj" customClass="MemoryShareShadowView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="493.5" width="290" height="55"/>
+                                        <rect key="frame" x="-15" y="563.5" width="350" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAO-tr-heT" customClass="MemoryAnimationView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVd-oE-Qzr">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -128,7 +128,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI9-9X-1k3">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
                                                 <connections>
                                                     <action selector="ShareActionWithSender:" destination="ivB-iV-M6Z" eventType="touchUpInside" id="LCA-AW-q4k"/>
                                                 </connections>
@@ -192,10 +192,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKc-FH-SpF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ma-a3-gy7">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="lEC-Nc-sfk">
@@ -223,23 +223,23 @@
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7g-gu-255">
-                                        <rect key="frame" x="27.5" y="158.5" width="265" height="350"/>
+                                        <rect key="frame" x="27.5" y="158.5" width="265" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="0XL-gu-w9e">
-                                        <rect key="frame" x="27.5" y="158.5" width="265" height="350"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="port" translatesAutoresizingMaskIntoConstraints="NO" id="0XL-gu-w9e">
+                                        <rect key="frame" x="27.5" y="158.5" width="265" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="265" id="SOI-FJ-NDg">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="480"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="600"/>
                                             </constraint>
-                                            <constraint firstAttribute="height" constant="350" id="lMd-HR-hvb">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="640"/>
+                                            <constraint firstAttribute="height" constant="375" id="lMd-HR-hvb">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="600"/>
                                             </constraint>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ix-bn-f8R">
-                                        <rect key="frame" x="27.5" y="158.5" width="265" height="350"/>
+                                        <rect key="frame" x="27.5" y="158.5" width="265" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="jumpToScroller" destination="ivB-iV-M6Z" eventType="touchUpInside" id="HbL-GI-tkU"/>
@@ -279,7 +279,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IrG-Xu-hHV" customClass="MemoryShareShadowView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="27.5" y="528.5" width="265" height="55"/>
+                                        <rect key="frame" x="27.5" y="553.5" width="265" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5y-uw-9Ra" customClass="MemoryAnimationView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="265" height="55"/>
@@ -397,6 +397,7 @@
         <image name="MemoryImageAnimation" width="320" height="150"/>
         <image name="cross" width="256" height="256"/>
         <image name="newSplash" width="1080" height="1080"/>
+        <image name="port" width="1272" height="2260"/>
         <image name="user_placeholder" width="300" height="300"/>
     </resources>
 </document>

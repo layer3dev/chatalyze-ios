@@ -241,14 +241,13 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
-//        Bugsnag.notifyError(NSError(domain:"com.firstCrash", code:408, userInfo:nil))
+      // Bugsnag.notifyError(NSError(domain:"com.firstCrash", code:408, userInfo:nil))
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async {        
             
             guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
-            
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

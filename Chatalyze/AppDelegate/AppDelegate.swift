@@ -187,7 +187,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func updateToken(){
         
         RefreshDeviceToken().update { (success, message, response) in
-            
             if !success{
                 return
             }
@@ -207,15 +206,13 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             PushNotificationHandler().handleNavigation(info: notification)
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
-                //PushNotificationHandler().handleNavigation(info: notification)
                 Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        //(app, open: url, options: options)
         return ApplicationDelegate.shared.application(app,open:url,options:options)
     }
 }

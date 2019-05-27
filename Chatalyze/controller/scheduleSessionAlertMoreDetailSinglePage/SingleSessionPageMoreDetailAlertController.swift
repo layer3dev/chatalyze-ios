@@ -22,6 +22,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var donationScroll:UIScrollView?
     @IBOutlet var screenShotScroll:UIScrollView?
     @IBOutlet var breakScrollView:UIScrollView?
+    @IBOutlet var sponsorScroll:UIScrollView?
     
     enum infoType:Int{
         
@@ -34,13 +35,15 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         case donation = 6
         case screenShot = 7
         case breakScroll = 8
-        case none = 9
+        case sponsor = 9
+        case none = 10
     }
     
     var currentInfo = infoType.none
     
     //Session length Label for send us and what is next Session
     @IBOutlet var sessionLengthBottomTextView:UITextView?
+    @IBOutlet var priceLabel:UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +51,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         paintInterface()
         paintUI()
     }
+    
     
     func paintUI(){
         
@@ -72,6 +76,20 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.sessionLengthBottomTextView?.attributedText = textOneMutableAttr
             
             self.initializeLink()
+            
+            let sizeOFFont  = UIDevice.current.userInterfaceIdiom == .pad ? 20:16
+            
+            let textOneNew = "You can set a ticket price or offer them for free – it's totally your call! If you set a price, you will receive your earnings (net of service and processing fees) 48 hours after the session. "
+            
+            let textOneMutable = textOneNew.toMutableAttributedString(font: "Nunito-Regular", size: sizeOFFont, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
+            
+            let textTwoNew = "Please note that the no-show rate is much higher for free chats than it is for paid chats."
+            
+            let textTwoAttrNew = textTwoNew.toAttributedString(font: "Nunito-ExtraBold", size: sizeOFFont, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
+            
+            textOneMutable.append(textTwoAttrNew)
+            
+            self.priceLabel?.attributedText = textOneMutable
         }
         
         //For more details, check out our What is a chat session post or feel free to contact us!
@@ -129,6 +147,11 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.breakScrollView?.isHidden = false
             return
         }
+        if currentInfo == .sponsor {
+            hideAll()
+            self.sponsorScroll?.isHidden = false
+            return
+        }
     }
     
     @IBAction func dismissAction(sender:UIButton?){
@@ -161,6 +184,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.donationScroll?.isHidden = true
         self.screenShotScroll?.isHidden = true
         self.breakScrollView?.isHidden = true
+        self.sponsorScroll?.isHidden = true 
     }
     
     override func viewDidAppear(_ animated: Bool) {

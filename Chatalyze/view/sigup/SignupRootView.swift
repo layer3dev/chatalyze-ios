@@ -11,6 +11,7 @@ import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Bugsnag
 
 class SignupRootView:ExtendedView{
     
@@ -108,6 +109,8 @@ class SignupRootView:ExtendedView{
         //alias don't seem to have any option to share user's information so both alias and identify will be called consecutively
         SEGAnalytics.shared().alias(userId)
         SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
+        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+                                         andEmail:info.email ?? "")
     }
     
     @IBAction fileprivate func fbLoginAction(){
