@@ -17,7 +17,7 @@ class MemoryAnimationController: InterfaceExtendedController {
     @IBOutlet var rotationalView:UIView?
     @IBOutlet var landscapeRotationalView:UIView?
     
-    var memoryImage:UIImage?
+    var memoryImage:UIImage? = UIImage(named: "land")
     @IBOutlet var memoryImageView:UIImageView?
     @IBOutlet var memoryLandscapeImageView:UIImageView?
     
@@ -40,6 +40,7 @@ class MemoryAnimationController: InterfaceExtendedController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        
         let newRect = self.memoryLandscapeImageView?.contentClippingRect
         self.memoryLandscapeHeight?.constant = newRect?.height ?? 0.0
         self.memoryLandscapeWidth?.constant = newRect?.width ?? 0.0
@@ -52,6 +53,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             if self.isPortrait(size: image.size) ?? true {
                 
                 self.heightOfLayer?.constant  = (((self.memoryImageView?.frame.origin.y ?? 0.0) + (newRectP?.height ?? 0.0)) - 40)
+                
             }else {
                 
                 self.heightOfLayerImage?.constant  = (((self.memoryLandscapeImageView?.frame.origin.y ?? 0.0) + (newRectP?.height ?? 0.0)) - 20)
@@ -59,12 +61,40 @@ class MemoryAnimationController: InterfaceExtendedController {
         }
         
         self.corniiRadiusToMemoryImage()
+        
+        self.landscapeShadowView?.frame.size.height = newRect?.height ?? 0.0
+        self.landscapeShadowView?.frame.size.width = newRect?.width ?? 0.0
+        
+        self.portraitShadowView?.frame.size.height = newRectP?.height ?? 0.0
+        self.portraitShadowView?.frame.size.width = newRectP?.width ?? 0.0
+
+        self.landscapeShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:18, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
+        
+        self.portraitShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:18, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
+        
         self.view.updateConstraints()
         self.view.layoutIfNeeded()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        let widthOfImageViewP:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 600:265
+        
+        let heightOfImageViewP:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 600:400
+        
+        
+        let widthOfImageViewL:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 700:340
+        let heightOfImageViewL:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 500:340
+        
+        self.memoryLandscapeImageView?.frame.size = CGSize(width: widthOfImageViewL, height: heightOfImageViewL)
+        
+        self.memoryImageView?.frame.size = CGSize(width: widthOfImageViewP, height: heightOfImageViewP)
+               
+        
+        //******
         
         paintImageView()
         self.rotationalView?.rotate(angle: -5)
@@ -212,6 +242,7 @@ class MemoryAnimationController: InterfaceExtendedController {
 extension UIImageView {
     
     var contentClippingRect: CGRect {
+        
         guard let image = image else { return bounds }
         guard contentMode == .scaleAspectFit else { return bounds }
         guard image.size.width > 0 && image.size.height > 0 else { return bounds }

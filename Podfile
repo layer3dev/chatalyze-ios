@@ -25,7 +25,9 @@ def pod_file
   pod 'InputMask'
   pod 'FacebookCore'
   pod 'FacebookLogin'
-  pod "SAConfettiView"
+  pod 'SAConfettiView'
+  pod 'Bugsnag'
+
 
 end
 

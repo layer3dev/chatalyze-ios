@@ -12,6 +12,7 @@ import UserNotifications
 import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
+import Bugsnag
 
 
 @UIApplicationMain
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
+        bugSnagInitialization()
         initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
         test()
@@ -33,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
         return true
+    }
+    
+    fileprivate func bugSnagInitialization(){
+        Bugsnag.start(withApiKey: "ad58414db7ea062a861a66c71474e6fb")
     }
     
     fileprivate func initializeSegmentIO(){
@@ -181,7 +187,6 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func updateToken(){
         
         RefreshDeviceToken().update { (success, message, response) in
-            
             if !success{
                 return
             }
@@ -201,15 +206,13 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             PushNotificationHandler().handleNavigation(info: notification)
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
                 
-                //PushNotificationHandler().handleNavigation(info: notification)
                 Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {        
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        //(app, open: url, options: options)
         return ApplicationDelegate.shared.application(app,open:url,options:options)
     }
 }

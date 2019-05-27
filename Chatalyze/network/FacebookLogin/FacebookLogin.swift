@@ -12,7 +12,7 @@ import SwiftyJSON
 import FacebookCore
 import FBSDKCoreKit
 import FacebookLogin
-
+import Bugsnag
 
 class FacebookLogin{
     
@@ -165,6 +165,8 @@ class FacebookLogin{
             SEGAnalytics.shared().alias(id)
         }
         SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
+        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+                                         andEmail:info.email ?? "")
         completion(true, "", info)
         return
     }

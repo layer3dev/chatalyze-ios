@@ -77,6 +77,18 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    @IBAction func moreDetailSponsorAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .sponsor
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
     
     @IBAction func moreDetailChatLengthAction(sender:UIButton){
         

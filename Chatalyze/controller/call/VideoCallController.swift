@@ -242,8 +242,7 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
-        self.getRootPresentingController()?.dismiss(animated: true, completion: {[weak self] in
-            
+        self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
             self?.onExit(code : code)
         })
         
@@ -1141,9 +1140,7 @@ extension VideoCallController {
     
     @IBAction func goToContactUsScreen(sender:UIButton) {
         
-        
         exit(code : .contactUs)
-        
         /*self.dismiss(animated: false) {[weak self] in
             Log.echo(key: "log", text: "VideoCallController dismissed")
             self?.onExit(code : .contactUs)
@@ -1155,9 +1152,8 @@ extension VideoCallController {
 extension VideoCallController:VideoViewStatusBarAnimationInterface{
     
     func visibleAnimateStatusBar() {
-                
-        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
         
+        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
     }
     
     func hidingAnimateStatusBar() {

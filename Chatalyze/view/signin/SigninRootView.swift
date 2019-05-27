@@ -11,6 +11,7 @@ import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Bugsnag
 
 
 class SigninRootView: ExtendedView {
@@ -247,6 +248,8 @@ extension SigninRootView{
                 return
         }
         SEGAnalytics.shared().identify(userId, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
+        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+                                         andEmail:info.email ?? "")
     }
     
     func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String, _ response : SignedUserInfo?)->())?){
