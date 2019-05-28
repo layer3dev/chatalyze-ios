@@ -51,7 +51,7 @@ class HostDashboardController: MyScheduledSessionsController {
 
         //showUpcomingEvents(sender: nil)
         Log.echo(key: "yud", text: "yes i got it I am calling")
-        hideNavigationBar()
+        //hideNavigationBar()
         rootView?.paintNewUI()
     }    
     
@@ -87,13 +87,17 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func paint(){
         
+        
+        paintNavigationTitle(text: "My sessions")
+        paintBackButton()
+        
         importantView?.layer.cornerRadius = 2
         importantView?.layer.masksToBounds = true
         
-        noSessionView?.layer.borderWidth = 1
-        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
-        noSessionView?.layer.masksToBounds = true
+//        noSessionView?.layer.borderWidth = 1
+//        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+//
+//        noSessionView?.layer.masksToBounds = true
         setSharableUrlText()
     }
     
@@ -241,13 +245,16 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func scheduleSessionAction(sender:UIButton){
         
-      // Bugsnag.notifyError(NSError(domain:"com.firstCrash", code:408, userInfo:nil))
-
-        DispatchQueue.main.async {        
+        
+        DispatchQueue.main.async {
             
-            guard let controller = ScheduleSessionSinglePageController.instance() else{
+            guard let controller = HostDashboardNewUIController.instance() else{
                 return
             }
+            
+//            guard let controller = ScheduleSessionSinglePageController.instance() else{
+//                return
+//            }
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

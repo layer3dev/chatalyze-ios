@@ -25,6 +25,7 @@ class TabContainerController: UITabBarController {
     }
     
     private func initialization(){
+        
         initializeRootController()
     }
     
@@ -39,7 +40,8 @@ class TabContainerController: UITabBarController {
         let greetingNav : UINavigationController = ExtendedNavigationController()
         greetingNav.viewControllers = [greetingController]
         
-        guard let eventController = EventController.instance()            else{
+        guard let eventController = EventController.instance()
+            else{
                 return
         }
         
@@ -101,6 +103,7 @@ class TabContainerController: UITabBarController {
         let containerController = self.parent as? ContainerController
         containerController?.setActionPending(isPending: isPending, type: type)
     }
+    
     func popToRootView(type : TabContainerView.tabType){
         
         guard let navigationArray = self.viewControllers else {

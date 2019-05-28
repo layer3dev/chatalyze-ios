@@ -238,8 +238,10 @@ extension AppDelegate {
     }
     
    static func fetchAppVersionInfoToServer(){
-        
-        //This will handle the case when app will open second time and root is already initialized.
+    
+    
+    //This will handle the case when app will open second time and root is already initialized.
+    
     FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{

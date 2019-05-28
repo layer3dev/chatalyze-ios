@@ -31,6 +31,8 @@ class MySessionTableViewCell: ExtendedTableCell {
     @IBOutlet var editView:UIView?
     @IBOutlet var addToCalender:UIView?
     
+    @IBOutlet var purpleImage:UIImageView?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -135,16 +137,18 @@ class MySessionTableViewCell: ExtendedTableCell {
     
     func paintEnterSession(){
         
-        sessionEventButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:22.5
+        sessionEventButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0 {
             
             sessionEventButton?.backgroundColor = UIColor(red: 244.0/255.0, green: 244.0/255.0, blue: 244.0/255.0, alpha: 1)
-            enterSessionLabel?.textColor = UIColor.darkGray
+            self.purpleImage?.isHidden = true
+            enterSessionLabel?.textColor = UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)
             // Event is not started yet
             return
         }
         sessionEventButton?.backgroundColor = UIColor(red: 150.0/255.0, green: 206.0/255.0, blue: 247.0/255.0, alpha: 1)
+        self.purpleImage?.isHidden = false
         enterSessionLabel?.textColor = UIColor.white
         return
     }
