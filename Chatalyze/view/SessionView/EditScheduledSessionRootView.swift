@@ -158,8 +158,7 @@ class EditScheduledSessionRootView:ExtendedView{
         guard let info = info else {
             return
         }
-        
-        
+                
         self.param = info
         //self.totalTimeDuration = totalDurationofEvent
         self.selectedImage = selectedImage

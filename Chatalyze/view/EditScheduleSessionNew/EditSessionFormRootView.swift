@@ -169,15 +169,9 @@ class EditSessionFormRootView:ExtendedView {
         
         DispatchQueue.main.async {
             
-            let textOne = "Fans will have the option to sponsor this session. Learn more about sponsorship "
+            let textOne = "The no-show rate is much higher for free sessions."
             
             let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
-            
-            let textTwo =  "here."
-            
-            let textTwoAtrributed = textTwo.toAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: true)
-            
-            textOneMutable.append(textTwoAtrributed)
             
             self.sponsorShipLabel?.attributedText = textOneMutable
         }
