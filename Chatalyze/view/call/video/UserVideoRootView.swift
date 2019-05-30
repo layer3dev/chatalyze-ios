@@ -24,14 +24,23 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     
      */
-
     
     func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
         
         testView.userPic?.sd_setImage(with: URL(string: (info?.user?.profileImage ?? "")), placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             DispatchQueue.main.async {
-                self.getPostImageSnapshot(info: info,hostImage:image) { (image) in
-                    completion(image)
+                
+                if error == nil {
+                    
+                    self.getPostImageSnapshot(info: info,hostImage:image) { (image) in
+                        completion(image)
+                    }
+                    
+                }else{
+                    
+                    self.getPostImageSnapshot(info: info,hostImage:UIImage(named: "orangePup")) { (image) in
+                        completion(image)
+                    }
                 }
             }
         })
@@ -118,6 +127,7 @@ class UserVideoRootView: UserVideoLayoutView {
         return finalImage
     }
     
+    
     private func getTargetSize(remote : UIImage, local : UIImage)->CGSize{
                 
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
@@ -155,7 +165,6 @@ class UserVideoRootView: UserVideoLayoutView {
         }
         return CGSize.zero
     }
-    
     
     private func getSnapshot(view : UIView)->UIImage?{
 

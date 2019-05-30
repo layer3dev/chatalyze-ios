@@ -46,7 +46,7 @@ class MemoriesController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
     
-        paintNavigationTitle(text: "My Memories")
+        paintNavigationTitle(text: "Chat Screenshots")
         getPaymentInfo()
     }
     

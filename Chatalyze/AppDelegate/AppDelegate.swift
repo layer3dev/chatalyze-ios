@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func bugSnagInitialization(){
-        Bugsnag.start(withApiKey: "ad58414db7ea062a861a66c71474e6fb")
+        Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
     }
     
     fileprivate func initializeSegmentIO(){

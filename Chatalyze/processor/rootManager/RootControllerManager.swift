@@ -36,6 +36,7 @@ class RootControllerManager{
     
     private func showRelevantScreen(didLoadWindow:(()->())?){
         
+        let _ =  NavigationBarCustomizer()
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
             showSigninScreen(didLoadWindow: didLoadWindow)

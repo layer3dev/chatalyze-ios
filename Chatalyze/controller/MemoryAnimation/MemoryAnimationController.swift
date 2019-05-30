@@ -177,7 +177,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             return
         }
         controller.showingImage = self.memoryImage
-        controller.modalPresentationStyle = .overCurrentContext
+        //controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: true, completion: {
         })
     }

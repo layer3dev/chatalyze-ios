@@ -167,8 +167,10 @@ class InterfaceExtendedController : ExtendedController {
     
     func paintBackButton(){
         
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))        
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        
         let imageView = UIImageView(frame: CGRect(x: 0, y: 5, width: 25, height: 25))
+        
         if SignedUserInfo.sharedInstance?.role  == .user{
             imageView.image = UIImage(named : "back_white")
         }else{

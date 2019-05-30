@@ -54,8 +54,8 @@ class NavigationBarCustomizer{
         navigationBarAppearace.tintColor = AppThemeConfig.navigationBarColor
         navigationBarAppearace.barTintColor = AppThemeConfig.navigationBarColor
         
-        navigationBarAppearace.tintColor = UIColor.white
-        navigationBarAppearace.barTintColor = UIColor.white
+//        navigationBarAppearace.tintColor = UIColor.white
+//        navigationBarAppearace.barTintColor = UIColor.white
         navigationBarAppearace.isTranslucent = false
         
         //change navigation item title color

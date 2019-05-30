@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Bugsnag
 
 class HostDashboardNewUIController: InterfaceExtendedController {
 
@@ -16,10 +17,15 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         paintUI()
     }
     
+    var rootView:HostNewUIRootView?{
+        return self.view as? HostNewUIRootView
+    }
+    
     func paintUI(){
         
         paintNavigationTitle(text: "Dashboard")
         paintSettingButton()
+        rootView?.paintInterface()
         //paintBackButton()
     }
     
@@ -33,9 +39,54 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     }
     
    
+    @IBAction func scheduleSessionAction(sender:UIButton?){
+        
+        guard let controller  = ScheduleSessionSinglePageController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     
     
-
+    @IBAction func payOutDetailsAction(sender:UIButton?){
+        
+        guard let controller = PaymentSetupPaypalController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func chatScreenShotAction(sender:UIButton?){
+        
+        guard let controller = MemoriesController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func getInTouchAction(sender:UIButton?){
+        
+        guard let controller = ContactUsController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func referFriendAndEarnAction(sender:UIButton?){
+        
+        guard let controller = ReferralController.instance() else{
+            return
+        }
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

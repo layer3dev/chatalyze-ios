@@ -389,6 +389,8 @@
 		47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6321550D3900478D85 /* MenuInfo.swift */; };
 		47C9EF6621550D4F00478D85 /* MenuRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9EF6521550D4F00478D85 /* MenuRootView.swift */; };
 		47CE2A3F215FA9DB00A4C267 /* UploadUserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */; };
+		47CFD70C229FF95400D96B25 /* HostNewUIRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CFD70B229FF95400D96B25 /* HostNewUIRootView.swift */; };
+		47CFD70D229FF95400D96B25 /* HostNewUIRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CFD70B229FF95400D96B25 /* HostNewUIRootView.swift */; };
 		47D0B00521A679A0006376A8 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47D0B00421A6799F006376A8 /* OpenSans-Regular.ttf */; };
 		47D0B00A21A6C4B5006376A8 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4753BA04219013BF0060777B /* ShadowView.swift */; };
 		47D0B00B21A6C4B5006376A8 /* PaymentAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD143F20ADB013006AF9D6 /* PaymentAdapter.swift */; };
@@ -1544,6 +1546,7 @@
 		47C9EF6321550D3900478D85 /* MenuInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInfo.swift; sourceTree = "<group>"; };
 		47C9EF6521550D4F00478D85 /* MenuRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRootView.swift; sourceTree = "<group>"; };
 		47CE2A3E215FA9DB00A4C267 /* UploadUserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUserImage.swift; sourceTree = "<group>"; };
+		47CFD70B229FF95400D96B25 /* HostNewUIRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostNewUIRootView.swift; sourceTree = "<group>"; };
 		47D0B00421A6799F006376A8 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		47D0B1CC21A6C4B5006376A8 /* Chatalyze Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chatalyze Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47D0E4F62231285800FEA95D /* ProFeatureListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFeatureListController.swift; sourceTree = "<group>"; };
@@ -3590,6 +3593,14 @@
 			path = UploadUserImage;
 			sourceTree = "<group>";
 		};
+		47CFD70A229FF93500D96B25 /* HostNewUI */ = {
+			isa = PBXGroup;
+			children = (
+				47CFD70B229FF95400D96B25 /* HostNewUIRootView.swift */,
+			);
+			path = HostNewUI;
+			sourceTree = "<group>";
+		};
 		47D2D55F223790C40067C13D /* callView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4702,6 +4713,7 @@
 				47559317226F1E0F00C4E40C /* ReferralRootView */,
 				47E8116C227044E5003FB02F /* ticketsMainView */,
 				4730A36E228D765A00241831 /* MemoryAnimation */,
+				47CFD70A229FF93500D96B25 /* HostNewUI */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -6202,6 +6214,7 @@
 				4781442522044396005398F8 /* ScheduleSessionScreenShotRootView.swift in Sources */,
 				47D0B10321A6C4B5006376A8 /* Dictionary.swift in Sources */,
 				47D0B10421A6C4B5006376A8 /* SocketRootProtocol.swift in Sources */,
+				47CFD70D229FF95400D96B25 /* HostNewUIRootView.swift in Sources */,
 				47D0B10521A6C4B5006376A8 /* CallQueueCell.swift in Sources */,
 				FADC0D5721C8F392004358B2 /* CallLogger.swift in Sources */,
 				47D0B10621A6C4B5006376A8 /* TabContainerController.swift in Sources */,
@@ -6741,6 +6754,7 @@
 				4781442422044396005398F8 /* ScheduleSessionScreenShotRootView.swift in Sources */,
 				FA97A3CC218D8C7F0010907A /* SocketRootProtocol.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
+				47CFD70C229FF95400D96B25 /* HostNewUIRootView.swift in Sources */,
 				47B6524720AAB0000041496C /* TabContainerController.swift in Sources */,
 				FADC0D5521C8F328004358B2 /* CallLogger.swift in Sources */,
 				6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */,
@@ -7187,7 +7201,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7203,7 +7217,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7221,7 +7235,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7237,7 +7251,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dev_1.01;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_dist_1.03;
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
