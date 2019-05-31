@@ -29,7 +29,7 @@ class MemoriesController: InterfaceExtendedController {
         
         paintInterface()
         initializeVariable()
-        SEGAnalytics.shared().track("My Memories Page")
+        SEGAnalytics.shared().track("Chat Screenshots")
     }
     
     func paintInterface(){
@@ -46,7 +46,7 @@ class MemoriesController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
     
-        paintNavigationTitle(text: "My Memories")
+        paintNavigationTitle(text: "Chat Screenshots")
         getPaymentInfo()
     }
     

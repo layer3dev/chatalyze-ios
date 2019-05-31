@@ -36,7 +36,7 @@ class RootControllerManager{
     
     private func showRelevantScreen(didLoadWindow:(()->())?){
         
-        updateNavigationBar()
+        let _ =  NavigationBarCustomizer()
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
             showSigninScreen(didLoadWindow: didLoadWindow)
@@ -139,13 +139,6 @@ class RootControllerManager{
         }
     }
     
-    private func updateNavigationBar(){
-        
-        UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().backgroundColor = AppThemeConfig.navigationBarColor
-        UINavigationBar.appearance().tintColor = AppThemeConfig.navigationBarColor
-        UINavigationBar.appearance().barStyle = .black
-    }
     
     fileprivate func delayLaunchScreen(completion : @escaping (()->())){
         

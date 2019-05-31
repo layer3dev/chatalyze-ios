@@ -14,7 +14,7 @@ class MemoryShareShadowView:UIView {
         super.layoutSubviews()
         
         self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
-                
+        
         self.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
     }
 }

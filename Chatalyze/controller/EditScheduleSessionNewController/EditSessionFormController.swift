@@ -207,13 +207,33 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    func fetchNewInfo(){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        
+        CallEventInfo().fetchInfo(eventId:"\(id)") { (success, info) in
+            
+            DispatchQueue.main.async {
+                
+                self.stopLoader()
+                if let newInfo = info{
+                    self.eventInfo = newInfo
+                }
+                self.rootInitialization()
+                return
+            }
+        }
+    }
+    
     func fetchSupportedChats(){
         
         FetchSupportedChats().fetch { (success,error,response) in
             
             DispatchQueue.main.async {
-             
-                self.stopLoader()
+                
+                self.fetchNewInfo()
                 if !success{
                     return
                 }
@@ -228,7 +248,7 @@ class EditSessionFormController: InterfaceExtendedController {
                     }
                 }
                 self.rootView?.chatLengthArray = requiredChats
-                self.rootInitialization()
+                
             }
         }
     }

@@ -10,16 +10,10 @@ import UIKit
 
 class ButtonContainerCorners:UIView{
     
-    var isLoaded = false
     override func layoutSubviews(){
         super.layoutSubviews()
-        
-        if isLoaded{
-            return
-        }
-        isLoaded = true
+       
         paintInterface()
-        return
     }
     
     

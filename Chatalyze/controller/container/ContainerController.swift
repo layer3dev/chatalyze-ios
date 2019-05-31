@@ -312,22 +312,25 @@ class ContainerController: NavChildController {
             return
         }
         
-        if typeOfAction == .none{
+        if typeOfAction == .none {
             return
         }
         
         else if typeOfAction == .mySessionAnalyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
-            navController?.setViewControllers([rootController], animated: true)
+            guard let firstController = HostDashboardController.instance() else{
+                return
+            }
+            navController?.setViewControllers([rootController,firstController], animated: true)
             self.closeToggle()
             return
         }
         else if typeOfAction == .referAndEarn{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             guard let controller = ReferralController.instance() else{
@@ -341,7 +344,7 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .paymentAnalyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             
@@ -355,7 +358,7 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .scheduledSessionAnalyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             guard let controller = SessionScheduleNewController.instance() else{
@@ -368,7 +371,7 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .editProfileAnalyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             
@@ -395,7 +398,7 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .contactUsAnalyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             
@@ -480,7 +483,7 @@ class ContainerController: NavChildController {
             
         else if typeOfAction == .analystAccount{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             
@@ -502,7 +505,7 @@ class ContainerController: NavChildController {
             
             if roleId == .analyst {
                 
-                guard let rootController = HostDashboardController.instance() else{
+                guard let rootController = HostDashboardNewUIController.instance() else{
                     return
                 }
                 
@@ -601,7 +604,7 @@ class ContainerController: NavChildController {
         
         if roleId == .analyst{
             
-            guard let rootController = HostDashboardController.instance() else{
+            guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
             guard let controller = FAQWebController.instance() else{

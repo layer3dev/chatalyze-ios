@@ -17,7 +17,7 @@ class MemoryAnimationController: InterfaceExtendedController {
     @IBOutlet var rotationalView:UIView?
     @IBOutlet var landscapeRotationalView:UIView?
     
-    var memoryImage:UIImage? = UIImage(named: "land")
+    var memoryImage:UIImage?
     @IBOutlet var memoryImageView:UIImageView?
     @IBOutlet var memoryLandscapeImageView:UIImageView?
     
@@ -80,7 +80,6 @@ class MemoryAnimationController: InterfaceExtendedController {
         super.viewDidLoad()
         
         
-        
         let widthOfImageViewP:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 600:265
         
         let heightOfImageViewP:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 600:400
@@ -92,7 +91,6 @@ class MemoryAnimationController: InterfaceExtendedController {
         self.memoryLandscapeImageView?.frame.size = CGSize(width: widthOfImageViewL, height: heightOfImageViewL)
         
         self.memoryImageView?.frame.size = CGSize(width: widthOfImageViewP, height: heightOfImageViewP)
-               
         
         //******
         
@@ -179,7 +177,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             return
         }
         controller.showingImage = self.memoryImage
-        controller.modalPresentationStyle = .overCurrentContext
+        //controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: true, completion: {
         })
     }

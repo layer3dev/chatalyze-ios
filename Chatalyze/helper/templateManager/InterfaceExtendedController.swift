@@ -126,7 +126,14 @@ class InterfaceExtendedController : ExtendedController {
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         
         let imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 30, height: 30))
-        imageView.image = UIImage(named : "menuBar")
+        
+
+        if SignedUserInfo.sharedInstance?.role  == .analyst{
+            imageView.image = UIImage(named : "menuBlack")
+        }else{
+            imageView.image = UIImage(named : "menuBar")
+        }
+        
         imageView.contentMode = .scaleAspectFit
         containerView.addSubview(imageView)
         
@@ -163,7 +170,13 @@ class InterfaceExtendedController : ExtendedController {
         let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 5, width: 25, height: 25))
-        imageView.image = UIImage(named : "back_white")
+        
+        if SignedUserInfo.sharedInstance?.role  == .user{
+            imageView.image = UIImage(named : "back_white")
+        }else{
+            imageView.image = UIImage(named : "back_black")
+        }
+        
         imageView.contentMode = .scaleAspectFit
         containerView.addSubview(imageView)
         
@@ -280,7 +293,5 @@ extension InterfaceExtendedController{
             appDelegate.allowRotate = false
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
-        
     }
-    
 }

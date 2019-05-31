@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func bugSnagInitialization(){
-        Bugsnag.start(withApiKey: "ad58414db7ea062a861a66c71474e6fb")
+        Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
     }
     
     fileprivate func initializeSegmentIO(){
@@ -238,8 +238,10 @@ extension AppDelegate {
     }
     
    static func fetchAppVersionInfoToServer(){
-        
-        //This will handle the case when app will open second time and root is already initialized.
+    
+    
+    //This will handle the case when app will open second time and root is already initialized.
+    
     FetchAppVersionInfo().fetchInfo { (success, response) in
             
             if !success{

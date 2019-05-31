@@ -14,6 +14,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     @IBOutlet var emailField :SigninFieldView?
     @IBOutlet var msgTextView:UITextView?
     @IBOutlet var saveBtn:UIButton?
+    @IBOutlet var saveImage:UIImageView?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -22,7 +24,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
-        //setUpGestureOnLabel()
         initializeLink()
     }
     
@@ -30,13 +31,15 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         saveBtn?.layer.cornerRadius = 3
         saveBtn?.layer.masksToBounds = true
+        saveImage?.layer.cornerRadius = 3
+        saveImage?.layer.masksToBounds = true
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "Payments")
+        paintNavigationTitle(text: "Payout Details")
     }
     
     func paintInterface(){
@@ -117,23 +120,23 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 24
         }
+        //To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below.
+        let text = "If you don't have a PayPal account, you can create one "
         
-        let text = "To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one "
+        let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.black, isUnderLine: false)
+        let text1 = " (you'll be directed to PayPal's website)"
         
-        let text1 = " (you'll be directed to Paypal's website)"
+        let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.black, isUnderLine: false)
-        
-        let selectablePart = "HERE".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+2, color: UIColor(hexString: "#FAA579"), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        let selectablePart = "HERE.".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
         textMutable.append(selectablePart)
-        textMutable.append(text1Attr)
+       // textMutable.append(text1Attr)
         // Center the text (optional)
         
         msgTextView?.attributedText = textMutable
-        msgTextView?.setLineSpacing(lineSpacing: 5.0)
+        msgTextView?.setLineSpacing(lineSpacing: 2.0)
         msgTextView?.isUserInteractionEnabled = true
     }
     
@@ -199,6 +202,8 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         return false
     }
     
+    
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if range == textView.text?.range(of: "HERE")?.nsRange {
@@ -222,6 +227,7 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         }
          return true
     }
+    
 }
 
 

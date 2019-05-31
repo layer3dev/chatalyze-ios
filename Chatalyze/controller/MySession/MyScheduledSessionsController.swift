@@ -97,7 +97,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
     func paintInterface(){
         
         paintSettingButton()
-        paintHideBackButton()
+        //paintHideBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {

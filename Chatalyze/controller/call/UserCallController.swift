@@ -25,6 +25,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
+
     var isScreenshotStatusLoaded = false
     
     //Ends
@@ -535,7 +536,7 @@ class UserCallController: VideoCallController {
             
             _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                self.memoryImage = image
+                //self.memoryImage = image
                 self.mimicScreenShotFlash()
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
@@ -755,9 +756,11 @@ class UserCallController: VideoCallController {
         
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if(isDonationEnabled){
+    
             showDonateScreen()
             return
         }
+        
         if self.memoryImage == nil{
             showFeedbackScreen()
             return
@@ -1011,7 +1014,6 @@ extension UserCallController{
         }
         
         userRootView?.requestAutographButton?.showLoader()
-        
         CacheImageLoader.sharedInstance.loadImage(screenshotInfo.screenshot, token: { () -> (Int) in
             return 0
         }) { [weak self] (success, image) in

@@ -24,7 +24,7 @@ class ContainerNavigationController: UINavigationController {
             return
         }
         
-        guard let hostDashBoardController = HostDashboardController.instance()
+        guard let hostDashBoardController = HostDashboardNewUIController.instance()
             else{
                 return
         }
