@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Bugsnag
 
 class MyTicketsVerticalController: MyTicketsController{
+    
     
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
@@ -22,6 +24,7 @@ class MyTicketsVerticalController: MyTicketsController{
     override func viewDidLayout() {
         super.viewDidLayout()
         
+        Bugsnag.notifyError(NSError(domain:"com.customCrash:MyTickets", code:408, userInfo:nil))        
         initializeFontSize()
         underLineLable()
         getTheRequiredDate()

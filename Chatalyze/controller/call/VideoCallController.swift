@@ -243,8 +243,12 @@ class VideoCallController : InterfaceExtendedController {
     func exit(code : exitCode){
         
         self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
+            
             self?.onExit(code : code)
         })
+       
+
+        
         
 //        if self.presentedViewController != nil{
 //            self.presentedViewController?.dismiss(animated: true, completion: {
@@ -261,6 +265,7 @@ class VideoCallController : InterfaceExtendedController {
 //            Log.echo(key: "log", text: "VideoCallController dismissed")
 //            self?.onExit(code : code)
 //        }
+        
     }
     
     //This will be called after viewController is exited from the screen

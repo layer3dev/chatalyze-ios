@@ -64,13 +64,11 @@ class ScheduleSessionSinglePageDoneController: InterfaceExtendedController {
        
         showNavigationBar()
     }
-        
-    
     
     
     @IBAction func backToMySession(sender:UIButton){
         
-        self.navigationController?.popToRootViewController(animated: true)
+        RootControllerManager().getCurrentController()?.tapAction(menuType: MenuRootView.MenuType.mySessionAnalyst)
     }
     
     func setSharableUrlText(){

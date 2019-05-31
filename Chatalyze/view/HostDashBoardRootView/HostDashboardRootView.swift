@@ -24,7 +24,9 @@ class HostDashboardRootView: MySessionRootView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
+        
+        
         initializeFontSize()
         underLineLable()        
         paintChatPupText()

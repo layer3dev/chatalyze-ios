@@ -56,7 +56,7 @@ class NavigationBarCustomizer{
         
 //        navigationBarAppearace.tintColor = UIColor.white
 //        navigationBarAppearace.barTintColor = UIColor.white
-        navigationBarAppearace.isTranslucent = false
+        navigationBarAppearace.isTranslucent = true
         
         //change navigation item title color
         navigationBarAppearace.titleTextAttributes =  [NSAttributedString.Key.foregroundColor:UIColor.white]
@@ -64,6 +64,6 @@ class NavigationBarCustomizer{
     
     func updateStatusBar(){
         
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
     }
 }

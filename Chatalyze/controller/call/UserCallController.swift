@@ -717,14 +717,15 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        
         guard let controller = ReviewController.instance() else{
             return
         }
         
         controller.eventInfo = eventInfo
+        
         presentingController.present(controller, animated: false, completion:{
         })
+        
         return
     }
     
@@ -736,14 +737,12 @@ class UserCallController: VideoCallController {
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
-        
-        
+                
         guard let controller = MemoryAnimationController.instance() else{
             return
         }
         
         controller.eventInfo = eventInfo
-        
         
         controller.memoryImage = self.memoryImage
         presentingController.present(controller, animated: false, completion:{
