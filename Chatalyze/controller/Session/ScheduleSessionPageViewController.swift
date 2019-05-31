@@ -54,6 +54,7 @@ class ScheduleSessionPageViewController: UIPageViewController {
         reviewController?.rootView?.activeControllerListner = {(activatedController) in
             self.activeControllerListner?(activatedController)
         }
+        
         //doneController
         //activeControllerListner
     }

@@ -13,7 +13,9 @@ class HostDashboardNewUIController: InterfaceExtendedController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
+        Bugsnag.notifyError(NSError(domain:"com.customCrash:HostDashboard", code:408, userInfo:nil))
+
         paintUI()
     }
     
@@ -28,6 +30,24 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         rootView?.paintInterface()
         //paintBackButton()
     }
+    
+    @IBAction func testmyPhone(sender:UIButton?){
+        
+        self.gotoSystemTest()
+    }
+    
+    func gotoSystemTest(){
+        
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+        controller.onlySystemTest = true
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
+    }
+    
+    
     
     @IBAction func mySessionAction(sender:UIButton?){
         

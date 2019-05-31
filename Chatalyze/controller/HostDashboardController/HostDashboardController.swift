@@ -21,18 +21,18 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var heightOfShareViewHeightConstraint:NSLayoutConstraint?
     @IBOutlet var upcomingLabel:UILabel?
     @IBOutlet var pastLabel:UILabel?
+    @IBOutlet var upcomingUnderLineView:UIView?
+    @IBOutlet var pastUnderLineView:UIView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+       
+        Bugsnag.notifyError(NSError(domain:"com.customCrash:MySession", code:408, userInfo:nil))
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
         SEGAnalytics.shared().track("My Session Page")
     }
-    
-    
-    
     
     
     func printTheFamilyNames(){
@@ -48,6 +48,8 @@ class HostDashboardController: MyScheduledSessionsController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
+        paintNavigationTitle(text: "My sessions")
 
         //showUpcomingEvents(sender: nil)
         Log.echo(key: "yud", text: "yes i got it I am calling")
@@ -87,8 +89,6 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func paint(){
         
-        
-        paintNavigationTitle(text: "My sessions")
         paintBackButton()
         
         importantView?.layer.cornerRadius = 2
@@ -212,7 +212,10 @@ class HostDashboardController: MyScheduledSessionsController {
        
         self.upcomingLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
         
+        self.upcomingUnderLineView?.backgroundColor = UIColor(hexString: "#FAA579")
+        
         self.pastLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.pastUnderLineView?.backgroundColor = UIColor.clear
        
         self.pastEventsArray.removeAll()
         self.rootView?.fillInfo(info: self.pastEventsArray)
@@ -223,7 +226,13 @@ class HostDashboardController: MyScheduledSessionsController {
     func resetUpcomingData(){
         
         self.upcomingLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        
+        self.upcomingUnderLineView?.backgroundColor = UIColor.clear
+        
         self.pastLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
+        
+        self.pastUnderLineView?.backgroundColor = UIColor(hexString: "#FAA579")
+
         self.eventArray.removeAll()
         self.rootView?.fillInfo(info: self.eventArray)
     }
@@ -244,7 +253,6 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     @IBAction func scheduleSessionAction(sender:UIButton){
-        
         
         DispatchQueue.main.async {
             

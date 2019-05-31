@@ -19,8 +19,9 @@ class SubmitButtonShadow: UIView {
     
     private func setupShadow() {
         
-        let radius:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 6:4        
+        let radius:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        
         //Log.echo(key: "yud", text: "Bounds changed")
-        self.dropShadow(color: UIColor.lightGray, opacity: 1, offSet: CGSize.zero, radius: radius, scale: true)
+        self.dropShadow(color: UIColor(red: 192.0/255.0, green: 192.0/255.0, blue: 192.0/255.0, alpha: 1), opacity: 1, offSet: CGSize.zero, radius: radius, scale: true)
     }
 }
