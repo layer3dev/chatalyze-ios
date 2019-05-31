@@ -149,12 +149,13 @@ class TippingConfirmationController: InterfaceExtendedController {
        
         let appStateManager = ApplicationConfirmForeground()
         self.appStateManager = appStateManager
-        self.presentSuccess(value : value)
         
-        /*appStateManager.confirmIfActive {[weak self] in
+        //wait for application to be in foreground before presenting next screen.
+        //this is needed to prevent issue, where user stays in on tipping screen, if payment is processed while app being in background
+        appStateManager.confirmIfActive {[weak self] in
             Log.echo(key: "in_app_purchase", text: "confirmIfActive -> active")
-            
-        }*/        
+            self?.presentSuccess(value : value)
+        }
     }
     
     
