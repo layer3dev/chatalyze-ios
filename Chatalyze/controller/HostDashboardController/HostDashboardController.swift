@@ -11,6 +11,8 @@ import Bugsnag
 
 class HostDashboardController: MyScheduledSessionsController {
     
+    @IBOutlet var arrowForNoScheduleAlert:UIImageView?
+    @IBOutlet var topofNoScheduleConstraint:NSLayoutConstraint?
     @IBOutlet var testingLabel:UILabel?
     @IBOutlet var tableHeight:NSLayoutConstraint?
     @IBOutlet var scheduleSessionBtnContainer:UIView?
@@ -34,6 +36,29 @@ class HostDashboardController: MyScheduledSessionsController {
         SEGAnalytics.shared().track("My Session Page")
     }
     
+    func animate(){
+        
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.35, animations: {
+                
+                if self.topofNoScheduleConstraint?.priority.rawValue == 999.0{
+                    
+                    self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                    //self.arrowForNoScheduleAlert?.alpha = 0.25
+                }else{
+                    
+                    self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                   // self.arrowForNoScheduleAlert?.alpha = 1
+                }
+                self.view.layoutIfNeeded()
+                }, completion: { (success) in
+                    
+                   self.animate()
+                })
+            }
+    }
+    
     
     func printTheFamilyNames(){
         
@@ -50,10 +75,6 @@ class HostDashboardController: MyScheduledSessionsController {
         super.viewWillAppear(animated)
        
         paintNavigationTitle(text: "My sessions")
-
-        //showUpcomingEvents(sender: nil)
-        Log.echo(key: "yud", text: "yes i got it I am calling")
-        //hideNavigationBar()
         rootView?.paintNewUI()
     }    
     
@@ -129,6 +150,8 @@ class HostDashboardController: MyScheduledSessionsController {
         
         self.rootView?.adapter.sharedLinkListener = {(info) in
         }
+        
+        self.animate()
     }
     
     func initializeName(){

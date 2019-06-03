@@ -242,30 +242,32 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
-        self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
+        Log.echo(key: "yud", text: "exit code is \(code)")
+        if SignedUserInfo.sharedInstance?.role == .user{
+            if code == .expired{
+                
+                if self.presentedViewController == nil {
+                    self.onExit(code : code)
+                    return
+                }
+                self.presentedViewController?.dismiss(animated: false, completion: {
+                    self.onExit(code : code)
+                    return
+                })
+                return
+            }
+            self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
+                self?.onExit(code : code)
+            })
+            return
+        }else{
             
-            self?.onExit(code : code)
-        })
-       
-
-        
-        
-//        if self.presentedViewController != nil{
-//            self.presentedViewController?.dismiss(animated: true, completion: {
-//                DispatchQueue.main.async {
-//                    self.dismiss(animated: false) {[weak self] in
-//                        Log.echo(key: "log", text: "VideoCallController dismissed")
-//
-//                    }
-//                }
-//            })
-//            return
-//        }
-//        self.dismiss(animated: false) {[weak self] in
-//            Log.echo(key: "log", text: "VideoCallController dismissed")
-//            self?.onExit(code : code)
-//        }
-        
+            self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
+                
+                self?.onExit(code : code)
+            })
+            return
+        }
     }
     
     //This will be called after viewController is exited from the screen
@@ -303,6 +305,7 @@ class VideoCallController : InterfaceExtendedController {
     
     
     private func logInternetSpeed(){
+        
         speedHandler?.setSpeedListener(listener: {[weak self] (speed) in
             self?.callLogger?.logSpeed(speed: speed)
         })

@@ -47,34 +47,34 @@
                     <rect key="frame" x="0.0" y="0.0" width="1024" height="576"/>
                 </imageView>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1G-LT-iru">
-                    <rect key="frame" x="6" y="438" width="410" height="132"/>
+                    <rect key="frame" x="6" y="470" width="302" height="100"/>
                     <subviews>
                         <view opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUl-Fo-Zr6" customClass="StickerView" customModule="Chatalyze" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="410" height="132"/>
+                            <rect key="frame" x="0.0" y="0.0" width="302" height="100"/>
                             <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="CbJ-X0-8xg">
-                            <rect key="frame" x="13" y="6" width="120" height="120"/>
+                            <rect key="frame" x="10" y="10" width="80" height="80"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="120" id="CVb-gR-Rsi"/>
-                                <constraint firstAttribute="height" constant="120" id="wfE-53-KVv"/>
+                                <constraint firstAttribute="width" constant="80" id="CVb-gR-Rsi"/>
+                                <constraint firstAttribute="height" constant="80" id="wfE-53-KVv"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SML-nC-U58">
-                            <rect key="frame" x="141" y="49" width="261" height="38.5"/>
-                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="28"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Memory made on Chatalyze" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-Kf-fPM">
-                            <rect key="frame" x="141" y="89.5" width="256" height="27.5"/>
+                            <rect key="frame" x="100" y="45" width="192" height="27.5"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Memory made on Chatalyze" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0s-Kf-fPM">
+                            <rect key="frame" x="100" y="74.5" width="192" height="20.5"/>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat with " lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-Cv-jA8">
-                            <rect key="frame" x="146" y="6" width="143.5" height="41"/>
-                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="30"/>
+                            <rect key="frame" x="100" y="10" width="115" height="33"/>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -82,21 +82,21 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="nUl-Fo-Zr6" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" id="5hG-SG-V4Z"/>
-                        <constraint firstItem="SML-nC-U58" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="8" id="9e8-Xp-kpj"/>
+                        <constraint firstItem="SML-nC-U58" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="10" id="9e8-Xp-kpj"/>
                         <constraint firstAttribute="bottom" secondItem="nUl-Fo-Zr6" secondAttribute="bottom" id="E7h-1M-pvv"/>
                         <constraint firstItem="hXG-Cv-jA8" firstAttribute="top" secondItem="CbJ-X0-8xg" secondAttribute="top" id="GsX-2B-2Cy"/>
-                        <constraint firstAttribute="bottom" secondItem="CbJ-X0-8xg" secondAttribute="bottom" constant="6" id="IDq-5Q-kuC"/>
-                        <constraint firstItem="CbJ-X0-8xg" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" constant="6" id="LhN-iw-vfO"/>
-                        <constraint firstItem="CbJ-X0-8xg" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" constant="13" id="S5u-af-n1D"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hXG-Cv-jA8" secondAttribute="trailing" constant="13" id="Xro-u8-fyX"/>
-                        <constraint firstItem="hXG-Cv-jA8" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="13" id="Yht-jf-5Sq"/>
+                        <constraint firstAttribute="bottom" secondItem="CbJ-X0-8xg" secondAttribute="bottom" constant="10" id="IDq-5Q-kuC"/>
+                        <constraint firstItem="CbJ-X0-8xg" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" constant="10" id="LhN-iw-vfO"/>
+                        <constraint firstItem="CbJ-X0-8xg" firstAttribute="leading" secondItem="g1G-LT-iru" secondAttribute="leading" constant="10" id="S5u-af-n1D"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hXG-Cv-jA8" secondAttribute="trailing" constant="10" id="Xro-u8-fyX"/>
+                        <constraint firstItem="hXG-Cv-jA8" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="10" id="Yht-jf-5Sq"/>
                         <constraint firstItem="SML-nC-U58" firstAttribute="top" secondItem="hXG-Cv-jA8" secondAttribute="bottom" constant="2" id="aLW-HH-cWq"/>
                         <constraint firstAttribute="trailing" secondItem="nUl-Fo-Zr6" secondAttribute="trailing" id="cj7-Ga-E9t"/>
-                        <constraint firstAttribute="trailing" secondItem="SML-nC-U58" secondAttribute="trailing" constant="8" id="eTw-dv-VJC"/>
+                        <constraint firstAttribute="trailing" secondItem="SML-nC-U58" secondAttribute="trailing" constant="10" id="eTw-dv-VJC"/>
                         <constraint firstItem="nUl-Fo-Zr6" firstAttribute="top" secondItem="g1G-LT-iru" secondAttribute="top" id="lfM-xQ-AVu"/>
                         <constraint firstItem="s0s-Kf-fPM" firstAttribute="top" secondItem="SML-nC-U58" secondAttribute="bottom" constant="2" id="ovo-rj-3Nb"/>
-                        <constraint firstAttribute="trailing" secondItem="s0s-Kf-fPM" secondAttribute="trailing" constant="13" id="pQ2-lr-AdU"/>
-                        <constraint firstItem="s0s-Kf-fPM" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="8" id="qSs-cy-Ov7"/>
+                        <constraint firstAttribute="trailing" secondItem="s0s-Kf-fPM" secondAttribute="trailing" constant="10" id="pQ2-lr-AdU"/>
+                        <constraint firstItem="s0s-Kf-fPM" firstAttribute="leading" secondItem="CbJ-X0-8xg" secondAttribute="trailing" constant="10" id="qSs-cy-Ov7"/>
                     </constraints>
                 </view>
             </subviews>

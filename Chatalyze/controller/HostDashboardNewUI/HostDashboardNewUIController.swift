@@ -28,7 +28,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         paintNavigationTitle(text: "Dashboard")
         paintSettingButton()
         rootView?.paintInterface()
-        //paintBackButton()
     }
     
     @IBAction func testmyPhone(sender:UIButton?){
@@ -54,7 +53,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller  = HostDashboardController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -64,7 +62,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller  = ScheduleSessionSinglePageController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -74,7 +71,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = PaymentSetupPaypalController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -83,7 +79,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = MemoriesController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -92,7 +87,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = ContactUsController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -101,7 +95,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = ReferralController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
