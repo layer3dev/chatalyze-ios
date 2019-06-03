@@ -86,9 +86,9 @@ class MemoryFrame:XibTemplate{
         memoryTrail?.constant = 10
         memoryLead?.constant = 10
         
-        name?.font = UIFont(name: "Nunito-Bold", size: 20)
-        date?.font = UIFont(name: "Nunito-Bold", size: 18)
-        memory?.font = UIFont(name: "Nunito-Bold", size: 17)
+        name?.font = UIFont(name: "Nunito-Bold", size: 24)
+        date?.font = UIFont(name: "Nunito-Bold", size: 20)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 15)
     }
     
     func setUIForLandscape(){
@@ -112,8 +112,8 @@ class MemoryFrame:XibTemplate{
         memoryTrail?.constant = 13
         memoryLead?.constant = 13
         
-        name?.font = UIFont(name: "Nunito-Bold", size: 30)
+        name?.font = UIFont(name: "Nunito-Bold", size: 34)
         date?.font = UIFont(name: "Nunito-Bold", size: 28)
-        memory?.font = UIFont(name: "Nunito-Bold", size: 26)
+        memory?.font = UIFont(name: "Nunito-Bold", size: 20)
     }
 }

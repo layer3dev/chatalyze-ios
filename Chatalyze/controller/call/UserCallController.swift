@@ -536,7 +536,7 @@ class UserCallController: VideoCallController {
             
             _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                //self.memoryImage = image
+                self.memoryImage = image
                 self.mimicScreenShotFlash()
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
@@ -625,7 +625,6 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
-        
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
     
@@ -706,7 +705,8 @@ class UserCallController: VideoCallController {
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         controller.memoryImage = self.memoryImage
-        presentingController.present(controller, animated: false, completion:nil)
+        //presentingController.present(controller, animated: false, completion:nil)
+        self.present(controller, animated: false, completion:nil)
     }
     
     private func showFeedbackScreen(){
@@ -723,9 +723,10 @@ class UserCallController: VideoCallController {
         
         controller.eventInfo = eventInfo
         
-        presentingController.present(controller, animated: false, completion:{
+//        presentingController.present(controller, animated: false, completion:{
+//        })
+        self.present(controller, animated: false, completion:{
         })
-        
         return
     }
     
@@ -745,7 +746,11 @@ class UserCallController: VideoCallController {
         controller.eventInfo = eventInfo
         
         controller.memoryImage = self.memoryImage
-        presentingController.present(controller, animated: false, completion:{
+        
+//        presentingController.present(controller, animated: false, completion:{
+//        })
+        
+        self.present(controller, animated: false, completion:{
         })
         return
         
