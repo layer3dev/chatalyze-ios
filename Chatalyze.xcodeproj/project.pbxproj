@@ -244,6 +244,10 @@
 		47A33D8321FB2744006965E9 /* SessionDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8121FB2744006965E9 /* SessionDetailController.swift */; };
 		47A33D8621FB2797006965E9 /* SessionDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */; };
 		47A33D8721FB2797006965E9 /* SessionDetailRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */; };
+		47A47DF622A691C1008C942D /* FetchBillingDetailProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A47DF522A691C1008C942D /* FetchBillingDetailProcessor.swift */; };
+		47A47DF722A691C1008C942D /* FetchBillingDetailProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A47DF522A691C1008C942D /* FetchBillingDetailProcessor.swift */; };
+		47A47DFA22A69397008C942D /* BillingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A47DF922A69397008C942D /* BillingInfo.swift */; };
+		47A47DFB22A69397008C942D /* BillingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A47DF922A69397008C942D /* BillingInfo.swift */; };
 		47A4D44E21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */; };
 		47A4D44F21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */; };
 		47A4D45221F3580D00FCC5CC /* SetUpHostProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A4D45121F3580D00FCC5CC /* SetUpHostProfile.swift */; };
@@ -1435,6 +1439,8 @@
 		47A33D7D21FB26C3006965E9 /* SessionDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionDetail.storyboard; sourceTree = "<group>"; };
 		47A33D8121FB2744006965E9 /* SessionDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailController.swift; sourceTree = "<group>"; };
 		47A33D8521FB2797006965E9 /* SessionDetailRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailRootView.swift; sourceTree = "<group>"; };
+		47A47DF522A691C1008C942D /* FetchBillingDetailProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchBillingDetailProcessor.swift; sourceTree = "<group>"; };
+		47A47DF922A69397008C942D /* BillingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingInfo.swift; sourceTree = "<group>"; };
 		47A4D44D21F3466800FCC5CC /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		47A4D45121F3580D00FCC5CC /* SetUpHostProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpHostProfile.swift; sourceTree = "<group>"; };
 		47A64223229675D700E74C85 /* MemoryImageShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryImageShadow.swift; sourceTree = "<group>"; };
@@ -3215,6 +3221,22 @@
 			path = SessionDetailView;
 			sourceTree = "<group>";
 		};
+		47A47DF422A6919C008C942D /* FetchBillingDetails */ = {
+			isa = PBXGroup;
+			children = (
+				47A47DF522A691C1008C942D /* FetchBillingDetailProcessor.swift */,
+			);
+			path = FetchBillingDetails;
+			sourceTree = "<group>";
+		};
+		47A47DF822A69385008C942D /* BillingInfo */ = {
+			isa = PBXGroup;
+			children = (
+				47A47DF922A69397008C942D /* BillingInfo.swift */,
+			);
+			path = BillingInfo;
+			sourceTree = "<group>";
+		};
 		47A4D45021F357F500FCC5CC /* SetUpHostProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -4185,6 +4207,7 @@
 				47F51EAA220C4FCD0070B112 /* SessionPriceInfo */,
 				47121065221E8A2F009F3A09 /* HostCategoryList */,
 				47FFCB1B223FAE3600B23049 /* PlanInfo */,
+				47A47DF822A69385008C942D /* BillingInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4619,6 +4642,7 @@
 				470391A72269EEE6008F2CF0 /* FetchAchievements */,
 				47D7539922719B440069F629 /* FetchOldTickets */,
 				474AA3DC2281A452005ACBB4 /* FetchReferralUrl  */,
+				47A47DF422A6919C008C942D /* FetchBillingDetails */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -5970,6 +5994,7 @@
 				47D0B04D21A6C4B5006376A8 /* TabContainerView.swift in Sources */,
 				47D0B04E21A6C4B5006376A8 /* HostVideoActionContainer.swift in Sources */,
 				47D0B04F21A6C4B5006376A8 /* GreetingDateCell.swift in Sources */,
+				47A47DF722A691C1008C942D /* FetchBillingDetailProcessor.swift in Sources */,
 				47D0B05021A6C4B5006376A8 /* EventSlotNumberLabel.swift in Sources */,
 				47D0B05121A6C4B5006376A8 /* FetchMySessionsProcessor.swift in Sources */,
 				47D0B05221A6C4B5006376A8 /* AppVersionLabel.swift in Sources */,
@@ -6345,6 +6370,7 @@
 				47D0B15721A6C4B5006376A8 /* LoginSignUpTabView.swift in Sources */,
 				47D0B15821A6C4B5006376A8 /* EventDate.swift in Sources */,
 				47D0B15921A6C4B5006376A8 /* VideoActionView.swift in Sources */,
+				47A47DFB22A69397008C942D /* BillingInfo.swift in Sources */,
 				47310D092212D78F009D049C /* TippingConfirmationController.swift in Sources */,
 				47D7539F22719DB40069F629 /* FetchOldTicketsProcessor.swift in Sources */,
 				47D0B15A21A6C4B5006376A8 /* SRWebSocket.m in Sources */,
@@ -6512,6 +6538,7 @@
 				47B6523D20AAAFA40041496C /* TabContainerView.swift in Sources */,
 				FA79F103210A039600D16F13 /* HostVideoActionContainer.swift in Sources */,
 				47B6527B20AAB5030041496C /* GreetingDateCell.swift in Sources */,
+				47A47DF622A691C1008C942D /* FetchBillingDetailProcessor.swift in Sources */,
 				FA416811207237C000789E22 /* EventSlotNumberLabel.swift in Sources */,
 				47117478213D087B00253AB8 /* FetchMySessionsProcessor.swift in Sources */,
 				FA1B36292064DE7A00F2E6BC /* AppVersionLabel.swift in Sources */,
@@ -6887,6 +6914,7 @@
 				FA79F106210A042600D16F13 /* VideoActionView.swift in Sources */,
 				4787237E222574EF007994FC /* EarlyViewController.swift in Sources */,
 				FA74B14720639C7300983141 /* SRWebSocket.m in Sources */,
+				47A47DFA22A69397008C942D /* BillingInfo.swift in Sources */,
 				47614F7A213ABAA100CC9702 /* MySessionAdapter.swift in Sources */,
 				47D7539E22719DB40069F629 /* FetchOldTicketsProcessor.swift in Sources */,
 				47310D082212D78F009D049C /* TippingConfirmationController.swift in Sources */,
@@ -7022,7 +7050,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7039,7 +7067,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7060,7 +7088,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7077,7 +7105,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";

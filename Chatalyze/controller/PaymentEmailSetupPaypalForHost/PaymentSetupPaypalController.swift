@@ -15,7 +15,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     @IBOutlet var msgTextView:UITextView?
     @IBOutlet var saveBtn:UIButton?
     @IBOutlet var saveImage:UIImageView?
-    
+    @IBOutlet var scroll:FieldManagingScrollView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -46,6 +46,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         paintBackButton()
         paintSettingButton()
+        scroll?.delegate = self
+        emailField?.textField?.delegate = self
     }
     
     func validateFields()->Bool{
@@ -86,8 +88,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         self.showLoader()
         FetchPaypalEmailHost().fetchInfo { (success, response) in
+            self.fetchBillingInfo()
             
-            self.stopLoader()
             if success{
                 
                 guard let res = response else{
@@ -99,6 +101,19 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
                         self.emailField?.textField?.text = email
                     }
                 }
+            }
+        }
+    }
+    
+    
+    func fetchBillingInfo(){
+        
+        FetchBillingDetailProcessor().fetch { (success, message, info) in
+           
+            DispatchQueue.main.async {
+                self.stopLoader()
+                
+                self.rootView?.fillBiilingInfo(info:info)
             }
         }
     }
@@ -120,16 +135,18 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 24
         }
-        //To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below.
-        let text = "If you don't have a PayPal account, you can create one "
+        
+        //Link your PayPal account to Chatalyze so you can receive payouts. More details
+        
+        let text = "Link your PayPal account to Chatalyze so you can receive payouts. "
         
         let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let text1 = " (you'll be directed to PayPal's website)"
+        let text1 = "More details"
         
         let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let selectablePart = "HERE.".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        let selectablePart = "More details".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
         textMutable.append(selectablePart)
        // textMutable.append(text1Attr)
@@ -243,3 +260,13 @@ extension PaymentSetupPaypalController{
 }
 
 
+extension PaymentSetupPaypalController:UITextFieldDelegate{
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        scroll?.activeField = emailField
+        return true
+    }
+    
+    
+}

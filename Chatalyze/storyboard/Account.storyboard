@@ -5820,11 +5820,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bL-VL-wgf">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bL-VL-wgf" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Idf-OA-P9G">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="761"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7i-9B-Egi">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
@@ -5835,7 +5835,7 @@
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="s1b-DF-vnj">
                                                                 <rect key="frame" x="0.0" y="0.0" width="111.5" height="75"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$51.276" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="wfi-lP-QWK">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="wfi-lP-QWK">
                                                                 <rect key="frame" x="2" y="10" width="107.5" height="27.5"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5865,12 +5865,16 @@
                                                             <constraint firstItem="wfi-lP-QWK" firstAttribute="leading" secondItem="fvN-3E-fhT" secondAttribute="leading" constant="2" id="IyM-Sm-wnV"/>
                                                             <constraint firstItem="s1b-DF-vnj" firstAttribute="leading" secondItem="fvN-3E-fhT" secondAttribute="leading" id="K3J-Ez-KhS"/>
                                                             <constraint firstAttribute="height" constant="75" id="O7E-Ef-rjo">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                             </constraint>
                                                             <constraint firstItem="eTP-EF-gv0" firstAttribute="leading" secondItem="fvN-3E-fhT" secondAttribute="leading" constant="3" id="S5d-JP-kt3"/>
                                                             <constraint firstAttribute="trailing" secondItem="s1b-DF-vnj" secondAttribute="trailing" id="X3x-72-Pon"/>
-                                                            <constraint firstItem="eTP-EF-gv0" firstAttribute="top" secondItem="wfi-lP-QWK" secondAttribute="bottom" id="XHY-PK-MF6"/>
-                                                            <constraint firstItem="wfi-lP-QWK" firstAttribute="top" secondItem="fvN-3E-fhT" secondAttribute="top" constant="10" id="a64-cf-0AR"/>
+                                                            <constraint firstItem="eTP-EF-gv0" firstAttribute="top" secondItem="wfi-lP-QWK" secondAttribute="bottom" id="XHY-PK-MF6">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="2"/>
+                                                            </constraint>
+                                                            <constraint firstItem="wfi-lP-QWK" firstAttribute="top" secondItem="fvN-3E-fhT" secondAttribute="top" constant="10" id="a64-cf-0AR">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                                            </constraint>
                                                             <constraint firstItem="s1b-DF-vnj" firstAttribute="top" secondItem="fvN-3E-fhT" secondAttribute="top" id="cQb-Ch-rsL"/>
                                                             <constraint firstItem="FDe-40-au2" firstAttribute="leading" secondItem="fvN-3E-fhT" secondAttribute="leading" id="g4V-8q-zj2"/>
                                                             <constraint firstAttribute="trailing" secondItem="wfi-lP-QWK" secondAttribute="trailing" constant="2" id="sGI-gO-M42"/>
@@ -5884,7 +5888,7 @@
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purplebackground" translatesAutoresizingMaskIntoConstraints="NO" id="7Wx-2g-m2X">
                                                                 <rect key="frame" x="0.0" y="0.0" width="112" height="75"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$51.276" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Lfi-l5-tFZ">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Lfi-l5-tFZ">
                                                                 <rect key="frame" x="2" y="10" width="108" height="27.5"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5915,12 +5919,16 @@
                                                             <constraint firstItem="7Wx-2g-m2X" firstAttribute="leading" secondItem="rLH-Yh-RNX" secondAttribute="leading" id="9Kx-wX-qOC"/>
                                                             <constraint firstAttribute="trailing" secondItem="Lfi-l5-tFZ" secondAttribute="trailing" constant="2" id="Akf-it-GWZ"/>
                                                             <constraint firstItem="AHV-Y6-EUN" firstAttribute="leading" secondItem="rLH-Yh-RNX" secondAttribute="leading" constant="3" id="D8T-6b-Nkd"/>
-                                                            <constraint firstItem="AHV-Y6-EUN" firstAttribute="top" secondItem="Lfi-l5-tFZ" secondAttribute="bottom" id="KH3-5P-3uy"/>
+                                                            <constraint firstItem="AHV-Y6-EUN" firstAttribute="top" secondItem="Lfi-l5-tFZ" secondAttribute="bottom" id="KH3-5P-3uy">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="2"/>
+                                                            </constraint>
                                                             <constraint firstAttribute="height" constant="75" id="NEj-eY-dzq">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                             </constraint>
                                                             <constraint firstAttribute="bottom" secondItem="vkH-uW-BCA" secondAttribute="bottom" id="OTR-zQ-kdI"/>
-                                                            <constraint firstItem="Lfi-l5-tFZ" firstAttribute="top" secondItem="rLH-Yh-RNX" secondAttribute="top" constant="10" id="bj5-j2-053"/>
+                                                            <constraint firstItem="Lfi-l5-tFZ" firstAttribute="top" secondItem="rLH-Yh-RNX" secondAttribute="top" constant="10" id="bj5-j2-053">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                                            </constraint>
                                                             <constraint firstAttribute="trailing" secondItem="AHV-Y6-EUN" secondAttribute="trailing" constant="3" id="bjY-2K-2Po"/>
                                                             <constraint firstAttribute="bottom" secondItem="7Wx-2g-m2X" secondAttribute="bottom" id="jbt-6a-nmS"/>
                                                             <constraint firstAttribute="trailing" secondItem="7Wx-2g-m2X" secondAttribute="trailing" id="nBY-tE-iR7"/>
@@ -5933,7 +5941,7 @@
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bluebackground" translatesAutoresizingMaskIntoConstraints="NO" id="XQP-5X-9Mf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="111.5" height="75"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$51.276" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ncY-JK-zIQ">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ncY-JK-zIQ">
                                                                 <rect key="frame" x="2" y="10" width="107.5" height="27.5"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5961,7 +5969,7 @@
                                                             <constraint firstItem="4We-x1-vpn" firstAttribute="top" secondItem="AoF-5o-miY" secondAttribute="top" id="8CG-yg-JfR"/>
                                                             <constraint firstAttribute="bottom" secondItem="4We-x1-vpn" secondAttribute="bottom" id="CdB-bI-apZ"/>
                                                             <constraint firstAttribute="height" constant="75" id="DjN-oq-Gnw">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                                             </constraint>
                                                             <constraint firstAttribute="trailing" secondItem="XQP-5X-9Mf" secondAttribute="trailing" id="NTA-Da-pDK"/>
                                                             <constraint firstItem="XQP-5X-9Mf" firstAttribute="top" secondItem="AoF-5o-miY" secondAttribute="top" id="Oos-Lk-4P9"/>
@@ -5969,11 +5977,15 @@
                                                             <constraint firstItem="ofG-tr-AJT" firstAttribute="leading" secondItem="AoF-5o-miY" secondAttribute="leading" constant="3" id="Z10-lV-lLX"/>
                                                             <constraint firstAttribute="trailing" secondItem="ncY-JK-zIQ" secondAttribute="trailing" constant="2" id="fok-gu-Q2d"/>
                                                             <constraint firstAttribute="trailing" secondItem="ofG-tr-AJT" secondAttribute="trailing" constant="3" id="gOO-kF-uK8"/>
-                                                            <constraint firstItem="ofG-tr-AJT" firstAttribute="top" secondItem="ncY-JK-zIQ" secondAttribute="bottom" id="lCR-db-fI4"/>
+                                                            <constraint firstItem="ofG-tr-AJT" firstAttribute="top" secondItem="ncY-JK-zIQ" secondAttribute="bottom" id="lCR-db-fI4">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="2"/>
+                                                            </constraint>
                                                             <constraint firstItem="ncY-JK-zIQ" firstAttribute="leading" secondItem="AoF-5o-miY" secondAttribute="leading" constant="2" id="pfQ-zL-hAc"/>
                                                             <constraint firstItem="XQP-5X-9Mf" firstAttribute="leading" secondItem="AoF-5o-miY" secondAttribute="leading" id="v8F-0l-axN"/>
                                                             <constraint firstAttribute="trailing" secondItem="4We-x1-vpn" secondAttribute="trailing" id="wri-Cw-CfK"/>
-                                                            <constraint firstItem="ncY-JK-zIQ" firstAttribute="top" secondItem="AoF-5o-miY" secondAttribute="top" constant="10" id="yuK-KU-eW0"/>
+                                                            <constraint firstItem="ncY-JK-zIQ" firstAttribute="top" secondItem="AoF-5o-miY" secondAttribute="top" constant="10" id="yuK-KU-eW0">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                                            </constraint>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fZ-wx-c7U">
@@ -6095,21 +6107,33 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PayPal account" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxJ-Tr-LWL">
-                                                <rect key="frame" x="30" y="220" width="315" height="22"/>
-                                                <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                                                <rect key="frame" x="30" y="220" width="315" height="27.5"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="22"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
                                                 </variation>
                                             </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website)." translatesAutoresizingMaskIntoConstraints="NO" id="U9F-tV-7rw">
+                                                <rect key="frame" x="30" y="257.5" width="315" height="90"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="90" id="dXf-Zz-VIj">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="130"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZ9-HX-cOG" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="410" width="315" height="55"/>
+                                                <rect key="frame" x="30" y="363" width="315" height="57"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qR-rp-hnZ" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="48"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="55"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="PayPal email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8G7-ap-7yn">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email of PayPal account" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8G7-ap-7yn">
                                                                 <rect key="frame" x="15" y="14" width="285" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="lgV-AW-6AV"/>
@@ -6121,60 +6145,47 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                                 </variation>
                                                             </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-m3-kBg" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="44" width="315" height="0.0"/>
-                                                                <color key="backgroundColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" id="Pdy-lw-Qn1"/>
-                                                                </constraints>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMF-NL-xYz" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="46" width="308" height="0.0"/>
-                                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
-                                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                                <variation key="heightClass=regular-widthClass=regular">
-                                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
-                                                                </variation>
-                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="cMF-NL-xYz" secondAttribute="bottom" constant="2" id="135-K3-r6O"/>
-                                                            <constraint firstAttribute="trailing" secondItem="jY6-m3-kBg" secondAttribute="trailing" id="F31-Q7-JWt"/>
+                                                            <constraint firstAttribute="height" constant="55" id="20K-ot-gM3">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                            </constraint>
                                                             <constraint firstAttribute="trailing" secondItem="8G7-ap-7yn" secondAttribute="trailing" constant="15" id="K5J-43-yj3"/>
                                                             <constraint firstItem="8G7-ap-7yn" firstAttribute="leading" secondItem="4qR-rp-hnZ" secondAttribute="leading" constant="15" id="Mxl-bh-A3b"/>
-                                                            <constraint firstItem="cMF-NL-xYz" firstAttribute="leading" secondItem="4qR-rp-hnZ" secondAttribute="leading" constant="2" id="WZI-lr-Nd1"/>
-                                                            <constraint firstItem="cMF-NL-xYz" firstAttribute="top" secondItem="jY6-m3-kBg" secondAttribute="bottom" constant="2" id="all-XD-Efw"/>
-                                                            <constraint firstAttribute="trailing" secondItem="cMF-NL-xYz" secondAttribute="trailing" constant="5" id="oOZ-8T-kMp"/>
                                                             <constraint firstItem="8G7-ap-7yn" firstAttribute="top" secondItem="4qR-rp-hnZ" secondAttribute="top" constant="14" id="qk0-M5-gd5"/>
-                                                            <constraint firstItem="jY6-m3-kBg" firstAttribute="top" secondItem="8G7-ap-7yn" secondAttribute="bottom" id="tkt-LZ-hXZ">
-                                                                <variation key="heightClass=regular-widthClass=regular" constant="5"/>
-                                                            </constraint>
-                                                            <constraint firstItem="jY6-m3-kBg" firstAttribute="leading" secondItem="4qR-rp-hnZ" secondAttribute="leading" id="zA2-M1-i1n"/>
                                                         </constraints>
                                                         <connections>
-                                                            <outlet property="borderView" destination="jY6-m3-kBg" id="biO-cM-0c7"/>
                                                             <outlet property="errorLabel" destination="cMF-NL-xYz" id="FzD-RM-BGd"/>
                                                             <outlet property="textField" destination="8G7-ap-7yn" id="fdt-Ik-sJu"/>
                                                         </connections>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMF-NL-xYz" userLabel="error_label">
+                                                        <rect key="frame" x="10" y="57" width="295" height="0.0"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
+                                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
+                                                        </variation>
+                                                    </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="4qR-rp-hnZ" firstAttribute="leading" secondItem="KZ9-HX-cOG" secondAttribute="leading" id="KY9-T1-sjJ"/>
+                                                    <constraint firstItem="cMF-NL-xYz" firstAttribute="leading" secondItem="KZ9-HX-cOG" secondAttribute="leading" constant="10" id="Wh2-jJ-qJ6"/>
                                                     <constraint firstItem="4qR-rp-hnZ" firstAttribute="top" secondItem="KZ9-HX-cOG" secondAttribute="top" id="aX0-vO-cdW"/>
+                                                    <constraint firstItem="cMF-NL-xYz" firstAttribute="top" secondItem="4qR-rp-hnZ" secondAttribute="bottom" constant="2" id="cYC-kW-bW5"/>
                                                     <constraint firstAttribute="trailing" secondItem="4qR-rp-hnZ" secondAttribute="trailing" id="hav-ok-A4x"/>
-                                                    <constraint firstAttribute="height" constant="55" id="nMW-8O-tJM">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
-                                                    </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="cMF-NL-xYz" secondAttribute="trailing" constant="10" id="uGr-65-CjU"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cMF-NL-xYz" secondAttribute="bottom" id="uuq-9X-OxP"/>
                                                 </constraints>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="rDR-Rj-WBL">
-                                                <rect key="frame" x="235" y="485" width="110" height="45"/>
+                                                <rect key="frame" x="235" y="440" width="110" height="45"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-gs-95v">
-                                                <rect key="frame" x="235" y="485" width="110" height="45"/>
+                                                <rect key="frame" x="235" y="440" width="110" height="45"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="IFn-WL-y2a">
@@ -6192,66 +6203,40 @@
                                                     <action selector="submitActionWithSender:" destination="7hb-Cn-iJJ" eventType="touchUpInside" id="dyL-IA-bTs"/>
                                                 </connections>
                                             </button>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website)." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rak-Nv-aeV">
-                                                <rect key="frame" x="30" y="571" width="315" height="150"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="L4F-2F-Qnq">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="150"/>
-                                                    </constraint>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                            </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link your PayPal account to Chatalyze by entering the email associated with your PayPal account." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjn-Xv-vwy">
-                                                <rect key="frame" x="30" y="252" width="315" height="65.5"/>
-                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
-                                                <color key="textColor" red="0.67450980392156867" green="0.67450980392156867" blue="0.67450980392156867" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
-                                                </variation>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="KZ9-HX-cOG" firstAttribute="top" secondItem="Zjn-Xv-vwy" secondAttribute="bottom" constant="92.5" id="2xK-PS-jbM"/>
+                                            <constraint firstAttribute="bottom" secondItem="Zqd-gs-95v" secondAttribute="bottom" constant="20" id="0yY-hS-4Vs"/>
                                             <constraint firstItem="rDR-Rj-WBL" firstAttribute="bottom" secondItem="Zqd-gs-95v" secondAttribute="bottom" id="9v3-RT-giv"/>
-                                            <constraint firstAttribute="bottom" secondItem="rak-Nv-aeV" secondAttribute="bottom" constant="40" id="CZL-i0-sTe"/>
-                                            <constraint firstItem="Zjn-Xv-vwy" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" constant="30" id="DRK-nd-yhC">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                            </constraint>
+                                            <constraint firstItem="U9F-tV-7rw" firstAttribute="top" secondItem="OxJ-Tr-LWL" secondAttribute="bottom" constant="10" id="ABn-Jk-Taw"/>
                                             <constraint firstItem="rDR-Rj-WBL" firstAttribute="leading" secondItem="Zqd-gs-95v" secondAttribute="leading" id="EFF-KH-Gfk"/>
-                                            <constraint firstItem="rak-Nv-aeV" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" constant="30" id="FDa-mv-cTD">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="t7i-9B-Egi" secondAttribute="trailing" id="HLX-6a-j9j"/>
                                             <constraint firstItem="rDR-Rj-WBL" firstAttribute="top" secondItem="Zqd-gs-95v" secondAttribute="top" id="KgS-ih-ir1"/>
-                                            <constraint firstItem="rak-Nv-aeV" firstAttribute="top" secondItem="Zqd-gs-95v" secondAttribute="bottom" constant="41" id="LS1-5T-WmV"/>
                                             <constraint firstAttribute="trailing" secondItem="KZ9-HX-cOG" secondAttribute="trailing" constant="30" id="OlG-lz-7ri">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstItem="Zqd-gs-95v" firstAttribute="width" secondItem="KZ9-HX-cOG" secondAttribute="width" multiplier="35%" id="PcS-k4-GWO"/>
+                                            <constraint firstItem="KZ9-HX-cOG" firstAttribute="top" secondItem="U9F-tV-7rw" secondAttribute="bottom" constant="15.5" id="S15-8y-P9t"/>
+                                            <constraint firstItem="U9F-tV-7rw" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" constant="30" id="TE7-92-Kn1">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="U9F-tV-7rw" secondAttribute="trailing" constant="30" id="Vxc-TV-bRW">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                            </constraint>
                                             <constraint firstItem="Zzf-LY-Oax" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" id="Xvy-O7-8T5"/>
                                             <constraint firstItem="KZ9-HX-cOG" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" constant="30" id="YPr-2j-vdU">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstItem="rDR-Rj-WBL" firstAttribute="trailing" secondItem="Zqd-gs-95v" secondAttribute="trailing" id="deN-vd-ox7"/>
-                                            <constraint firstItem="Zzf-LY-Oax" firstAttribute="top" secondItem="t7i-9B-Egi" secondAttribute="bottom" constant="5" id="ded-Xx-atx"/>
+                                            <constraint firstItem="Zzf-LY-Oax" firstAttribute="top" secondItem="t7i-9B-Egi" secondAttribute="bottom" constant="5" id="ded-Xx-atx">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                                            </constraint>
                                             <constraint firstItem="OxJ-Tr-LWL" firstAttribute="top" secondItem="Zzf-LY-Oax" secondAttribute="bottom" constant="20" id="ewZ-Bx-Iuu"/>
-                                            <constraint firstItem="Zjn-Xv-vwy" firstAttribute="top" secondItem="OxJ-Tr-LWL" secondAttribute="bottom" constant="10" id="fRz-gR-w74"/>
                                             <constraint firstItem="Zqd-gs-95v" firstAttribute="trailing" secondItem="KZ9-HX-cOG" secondAttribute="trailing" id="fxE-94-aBr"/>
                                             <constraint firstAttribute="trailing" secondItem="OxJ-Tr-LWL" secondAttribute="trailing" constant="30" id="gPf-YO-wmo">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstItem="OxJ-Tr-LWL" firstAttribute="leading" secondItem="Idf-OA-P9G" secondAttribute="leading" constant="30" id="izX-Zh-tUb">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                            </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="rak-Nv-aeV" secondAttribute="trailing" constant="30" id="ncf-hc-HpJ">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
-                                            </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="Zjn-Xv-vwy" secondAttribute="trailing" constant="30" id="ooO-Rr-Lap">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstItem="t7i-9B-Egi" firstAttribute="top" secondItem="Idf-OA-P9G" secondAttribute="top" id="sH3-oZ-tjY"/>
@@ -6271,6 +6256,10 @@
                                     <constraint firstAttribute="bottom" secondItem="Idf-OA-P9G" secondAttribute="bottom" id="fYt-EX-enQ"/>
                                     <constraint firstItem="Idf-OA-P9G" firstAttribute="leading" secondItem="9bL-VL-wgf" secondAttribute="leading" id="z7r-Vp-I8J"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="bottomContentOffset" destination="fYt-EX-enQ" id="fqH-dM-K0W"/>
+                                    <outlet property="delegate" destination="7hb-Cn-iJJ" id="I5E-tm-5bq"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6281,12 +6270,18 @@
                             <constraint firstItem="9bL-VL-wgf" firstAttribute="top" secondItem="xbv-iv-qf7" secondAttribute="top" id="mbP-bE-oLw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OfT-9o-0xl"/>
+                        <connections>
+                            <outlet property="pendingAmountLbl" destination="wfi-lP-QWK" id="sGF-Sb-CEN"/>
+                            <outlet property="ticketSalesAmount" destination="Lfi-l5-tFZ" id="gOK-11-DVF"/>
+                            <outlet property="tipAmount" destination="ncY-JK-zIQ" id="IU3-bp-gl7"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="emailField" destination="4qR-rp-hnZ" id="cV5-mF-YQk"/>
-                        <outlet property="msgTextView" destination="rak-Nv-aeV" id="jPY-Ad-uRg"/>
+                        <outlet property="msgTextView" destination="U9F-tV-7rw" id="WM7-Tl-7i2"/>
                         <outlet property="saveBtn" destination="Zqd-gs-95v" id="gLF-mR-QnH"/>
                         <outlet property="saveImage" destination="rDR-Rj-WBL" id="rGm-QO-YfY"/>
+                        <outlet property="scroll" destination="9bL-VL-wgf" id="eo0-6Y-9DM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AwL-Bg-gZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
