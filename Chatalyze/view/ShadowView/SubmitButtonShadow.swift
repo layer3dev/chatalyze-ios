@@ -10,11 +10,11 @@ import UIKit
 import QuartzCore
 
 class SubmitButtonShadow: UIView {
-    
-    override var bounds: CGRect{
-        didSet{
-            setupShadow()
-        }
+  
+    override func layoutSubviews(){
+        super.layoutSubviews()
+       
+        self.setupShadow()
     }
     
     private func setupShadow() {

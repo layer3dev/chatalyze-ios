@@ -25,10 +25,11 @@ class HostDashboardController: MyScheduledSessionsController {
     @IBOutlet var pastLabel:UILabel?
     @IBOutlet var upcomingUnderLineView:UIView?
     @IBOutlet var pastUnderLineView:UIView?
+    var shouldStartAnimation = true
     
     override func viewDidLayout() {
         super.viewDidLayout()
-       
+        
         Bugsnag.notifyError(NSError(domain:"com.customCrash:MySession", code:408, userInfo:nil))
         initialize()
         paint()
@@ -38,25 +39,30 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func animate(){
         
-        DispatchQueue.main.async {
+        // DispatchQueue.main.async {
+        
+        if shouldStartAnimation == false{
+            return
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
             
-            UIView.animate(withDuration: 0.35, animations: {
+            if self.topofNoScheduleConstraint?.priority.rawValue == 999.0{
                 
-                if self.topofNoScheduleConstraint?.priority.rawValue == 999.0{
-                    
-                    self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-                    //self.arrowForNoScheduleAlert?.alpha = 0.25
-                }else{
-                    
-                    self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                   // self.arrowForNoScheduleAlert?.alpha = 1
-                }
-                self.view.layoutIfNeeded()
-                }, completion: { (success) in
-                    
-                   self.animate()
-                })
+                self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                
+                //self.arrowForNoScheduleAlert?.alpha = 0.25
+            }else{
+                
+                self.topofNoScheduleConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                // self.arrowForNoScheduleAlert?.alpha = 1
             }
+            self.view.layoutIfNeeded()
+        }, completion: { (success) in
+            
+            self.animate()
+        })
+        //    }
     }
     
     
@@ -73,9 +79,11 @@ class HostDashboardController: MyScheduledSessionsController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
         paintNavigationTitle(text: "My sessions")
         rootView?.paintNewUI()
+        self.shouldStartAnimation = true
+        animate()
     }    
     
     func checkForShowingHostWelcomeAnimation(){
@@ -99,7 +107,7 @@ class HostDashboardController: MyScheduledSessionsController {
     }    
     
     override func showShareView(){
-
+        
         // heightOfShareViewHeightConstraint?.priority = UILayoutPriority(rawValue: 250)
     }
     
@@ -115,10 +123,10 @@ class HostDashboardController: MyScheduledSessionsController {
         importantView?.layer.cornerRadius = 2
         importantView?.layer.masksToBounds = true
         
-//        noSessionView?.layer.borderWidth = 1
-//        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-//
-//        noSessionView?.layer.masksToBounds = true
+        //        noSessionView?.layer.borderWidth = 1
+        //        noSessionView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
+        //
+        //        noSessionView?.layer.masksToBounds = true
         setSharableUrlText()
     }
     
@@ -138,10 +146,9 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     func initialize(){
-      
+        
         roundSessionButton()
         testingLabel?.font = UIFont(name: "Nunito-ExtraBold", size: 15)
-        Log.echo(key: "yud", text: "is this dvelopement profile \(ProvisiningProfileStatus.isDevelopmentProvisioningProfile())")
         initializeName()
     }
     
@@ -150,9 +157,14 @@ class HostDashboardController: MyScheduledSessionsController {
         
         self.rootView?.adapter.sharedLinkListener = {(info) in
         }
-        
-        self.animate()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.shouldStartAnimation = false
+    }
+    
     
     func initializeName(){
         
@@ -167,7 +179,7 @@ class HostDashboardController: MyScheduledSessionsController {
     func roundSessionButton(){
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-           
+            
             scheduleSessionBtnContainer?.layer.cornerRadius = 5
             scheduleSessionBtnContainer?.layer.masksToBounds = true
             return
@@ -189,12 +201,12 @@ class HostDashboardController: MyScheduledSessionsController {
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
         let uploadAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) { (success) in
-         
+            
             HandlingAppVersion.goToAppStoreForUpdate()
         }
         
         let callRoomAction = UIAlertAction(title: self.testingText, style: UIAlertAction.Style.destructive) { (success) in
-          
+            
             self.gotoSystemTest()
         }
         
@@ -232,14 +244,11 @@ class HostDashboardController: MyScheduledSessionsController {
     }
     
     func resetPastData(){
-       
+        
         self.upcomingLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
-        
         self.upcomingUnderLineView?.backgroundColor = UIColor(hexString: "#FAA579")
-        
-        self.pastLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
+        self.pastLabel?.textColor = UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)
         self.pastUnderLineView?.backgroundColor = UIColor.clear
-       
         self.pastEventsArray.removeAll()
         self.rootView?.fillInfo(info: self.pastEventsArray)
         isPastEventsFetching = false
@@ -248,14 +257,10 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func resetUpcomingData(){
         
-        self.upcomingLabel?.textColor = UIColor(red: 140.0/255.0, green: 149.0/255.0, blue: 151.0/255.0, alpha: 1)
-        
+        self.upcomingLabel?.textColor = UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)
         self.upcomingUnderLineView?.backgroundColor = UIColor.clear
-        
         self.pastLabel?.textColor = UIColor(red: 250.0/225.0, green: 165.0/255.0, blue: 121.0/255.0, alpha: 1)
-        
         self.pastUnderLineView?.backgroundColor = UIColor(hexString: "#FAA579")
-
         self.eventArray.removeAll()
         self.rootView?.fillInfo(info: self.eventArray)
     }
@@ -299,7 +304,7 @@ class HostDashboardController: MyScheduledSessionsController {
     
     
     @IBAction func systemTestAction(sender:UIButton){
-      
+        
         self.gotoSystemTest()
     }
     
@@ -316,7 +321,6 @@ class HostDashboardController: MyScheduledSessionsController {
         }
         
         str  = str.replacingOccurrences(of: " ", with: "")
-        
         Log.echo(key: "yud", text: "url id is \(str)")
         if let url = URL(string: str){
             
@@ -347,9 +351,9 @@ class HostDashboardController: MyScheduledSessionsController {
         self.updateViewConstraints()
         self.view.layoutIfNeeded()
     }
-   
+    
     override class func instance()-> HostDashboardController? {
-
+        
         let storyboard = UIStoryboard(name: "HostDashBoard", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboard") as? HostDashboardController
         return controller

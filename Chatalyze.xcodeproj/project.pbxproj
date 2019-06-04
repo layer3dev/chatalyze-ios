@@ -228,6 +228,8 @@
 		479F16892202F7D1007B08FC /* ScheduleSessionNewEarningController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F16872202F7D1007B08FC /* ScheduleSessionNewEarningController.swift */; };
 		479F168B2202FA68007B08FC /* ScheduleSessionEarningRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */; };
 		479F168C2202FA68007B08FC /* ScheduleSessionEarningRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */; };
+		479F85FB22A6546300F42C02 /* NewSessionAlertShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F85FA22A6546300F42C02 /* NewSessionAlertShadowView.swift */; };
+		479F85FC22A6546300F42C02 /* NewSessionAlertShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479F85FA22A6546300F42C02 /* NewSessionAlertShadowView.swift */; };
 		479FB74C2240F76100408229 /* EditSessionFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74B2240F76100408229 /* EditSessionFormController.swift */; };
 		479FB74D2240F76100408229 /* EditSessionFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74B2240F76100408229 /* EditSessionFormController.swift */; };
 		479FB74F2240FBF100408229 /* EditSessionFormRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */; };
@@ -1425,6 +1427,7 @@
 		479A960C214A8079003C2F4C /* AccountContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountContainerView.swift; sourceTree = "<group>"; };
 		479F16872202F7D1007B08FC /* ScheduleSessionNewEarningController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionNewEarningController.swift; sourceTree = "<group>"; };
 		479F168A2202FA68007B08FC /* ScheduleSessionEarningRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSessionEarningRootView.swift; sourceTree = "<group>"; };
+		479F85FA22A6546300F42C02 /* NewSessionAlertShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSessionAlertShadowView.swift; sourceTree = "<group>"; };
 		479FB74B2240F76100408229 /* EditSessionFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionFormController.swift; sourceTree = "<group>"; };
 		479FB74E2240FBF100408229 /* EditSessionFormRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSessionFormRootView.swift; sourceTree = "<group>"; };
 		47A1EA55221D831800A4B1DF /* HostCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCategoryController.swift; sourceTree = "<group>"; };
@@ -2897,6 +2900,7 @@
 				4712106E221ED351009F3A09 /* TippingAlertShadow.swift */,
 				47EA7C04229D56A900EE1857 /* SubmitButtonShadow.swift */,
 				4700C59B22A515B700B8B681 /* TestMyPhoneShadow.swift */,
+				479F85FA22A6546300F42C02 /* NewSessionAlertShadowView.swift */,
 			);
 			path = ShadowView;
 			sourceTree = "<group>";
@@ -6216,6 +6220,7 @@
 				47D0B10121A6C4B5006376A8 /* ScreenshotInfo.swift in Sources */,
 				47D0B10221A6C4B5006376A8 /* CountdownListener.swift in Sources */,
 				FA1286862217F980000A6560 /* InAppPurchaseProduct.swift in Sources */,
+				479F85FC22A6546300F42C02 /* NewSessionAlertShadowView.swift in Sources */,
 				4781442522044396005398F8 /* ScheduleSessionScreenShotRootView.swift in Sources */,
 				47D0B10321A6C4B5006376A8 /* Dictionary.swift in Sources */,
 				47D0B10421A6C4B5006376A8 /* SocketRootProtocol.swift in Sources */,
@@ -6757,6 +6762,7 @@
 				FA97A408218DD4270010907A /* CountdownListener.swift in Sources */,
 				FAA0019F203ED472003C8A74 /* Dictionary.swift in Sources */,
 				FA1286852217F980000A6560 /* InAppPurchaseProduct.swift in Sources */,
+				479F85FB22A6546300F42C02 /* NewSessionAlertShadowView.swift in Sources */,
 				4781442422044396005398F8 /* ScheduleSessionScreenShotRootView.swift in Sources */,
 				FA97A3CC218D8C7F0010907A /* SocketRootProtocol.swift in Sources */,
 				FAFB7C74206E0295004804D2 /* CallQueueCell.swift in Sources */,
@@ -7016,7 +7022,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7033,7 +7039,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7054,7 +7060,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7071,7 +7077,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";

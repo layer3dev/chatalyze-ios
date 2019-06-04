@@ -11,12 +11,12 @@ import QuartzCore
 
 class TestMyPhoneShadow: UIView {
     
-    override var bounds: CGRect{
-        didSet{
-            setupShadow()
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.setupShadow()
     }
-    
+
     private func setupShadow() {
         
         let radius:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
