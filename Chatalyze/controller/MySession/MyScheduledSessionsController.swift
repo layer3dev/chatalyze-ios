@@ -125,7 +125,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
             self.tableTopConstraint?.constant = -22.0
             self.mySessionLbl?.isHidden = false
             
@@ -137,7 +137,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.noeventLbl?.isHidden = true
                         self.mySessionLbl?.isHidden = false
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                         self.tableTopConstraint?.constant = -22.0
                         for info in array{
                             self.eventArray.append(info)
@@ -148,7 +148,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
                         self.tableTopConstraint?.constant = 10.0
                         self.mySessionLbl?.isHidden = true
                         self.rootView?.fillInfo(info: self.eventArray)
@@ -160,7 +160,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.hideShareView()
             self.noeventLbl?.isHidden = false
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
             self.tableTopConstraint?.constant = 10.0
             self.mySessionLbl?.isHidden = true
             self.rootView?.fillInfo(info: self.eventArray)
@@ -183,7 +183,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
             self.tableTopConstraint?.constant = -22.0
             self.mySessionLbl?.isHidden = false
 
@@ -194,7 +194,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.showShareView()
                         self.noeventLbl?.isHidden = true
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                         self.tableTopConstraint?.constant = -22.0
                         self.mySessionLbl?.isHidden = false
 
@@ -207,7 +207,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                        self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
                         self.tableTopConstraint?.constant = 10.0
                         self.mySessionLbl?.isHidden = false
                         self.rootView?.fillInfo(info: self.eventArray)
@@ -218,7 +218,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.hideShareView()
             self.noeventLbl?.isHidden = false
             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
-            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
             self.tableTopConstraint?.constant = 10.0
             self.mySessionLbl?.isHidden = false
             self.rootView?.fillInfo(info: self.eventArray)
@@ -297,6 +297,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         if array.count >= self.limit {
                             
                             self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                            self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                             self.tableTopConstraint?.constant = -22.0
                             for info in array{
                                 self.pastEventsArray.append(info)
@@ -314,11 +315,14 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                             if self.pastEventsArray.count == 0 {
                                 
                                 self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                                self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
                                 self.tableTopConstraint?.constant = 10.0
                                 
                             }else{
                                 
                                 self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                                self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                                
                                 self.tableTopConstraint?.constant = -22.0
                             }
                             
@@ -330,6 +334,9 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                     }
                 }
                 self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                
+                self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+
                 self.tableTopConstraint?.constant = 10.0
                 self.rootView?.fillInfo(info: self.pastEventsArray)
                 return
