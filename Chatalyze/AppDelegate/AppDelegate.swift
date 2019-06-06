@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func test(){
         
         let milli = Date().millisecondsSince1970
-        Log.echo(key : "milli", text : "milli -> \(milli)")
     }
     
     fileprivate func disableAppToSwitchIntoSleepMode(){
@@ -64,9 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
-        
+            
             self.isRootInitialize = true
-            Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
         _ = RTCConnectionInitializer()
     }
