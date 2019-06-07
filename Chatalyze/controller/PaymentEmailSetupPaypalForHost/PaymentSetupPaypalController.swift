@@ -16,6 +16,11 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     @IBOutlet var saveBtn:UIButton?
     @IBOutlet var saveImage:UIImageView?
     @IBOutlet var scroll:FieldManagingScrollView?
+    var isFetching = false
+    var isFetechingCompleted = false
+    var paymentArray = [AnalystPaymentInfo]()
+    var limit = 8
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -25,7 +30,89 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         fetchPaypalInfo()
         roundSaveButton()
         initializeLink()
+        rootView?.controller = self
+        rootView?.initializeAdapter()
+        fetchPaymentHistory()
     }
+    
+    func fetchPaymentHistory(){
+   
+        FetchAnalystPaymentHistory().fetch(limit: limit, offset: 0) { (success, message, info) in
+
+            self.stopLoader()
+            self.paymentArray.removeAll()
+            self.rootView?.updateInfo(info: self.paymentArray)
+            if !success{
+               return
+            }
+            guard let array  = info else{
+                return
+            }
+            
+            if array.count == 0 {
+                self.isFetechingCompleted = true
+                return
+            }
+            
+            if array.count >= 0 && array.count < self.limit{
+                
+                self.isFetechingCompleted = true
+                self.paymentArray = array
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+            
+            if array.count > 0 && array.count >= self.limit{
+                self.paymentArray = array
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+        }
+    }
+    
+    
+    func fetchPaymentHostoryForPagination(){
+        
+        if isFetching{
+            return
+        }
+        if isFetechingCompleted{
+            return
+        }
+        
+        self.isFetching = true
+        FetchAnalystPaymentHistory().fetch(limit: limit, offset: self.paymentArray.count) { (success, message, info) in
+            
+            self.isFetching = false
+            if !success{
+                return
+            }
+            guard let array  = info else{
+                return
+            }
+            
+            if array.count == 0 {
+                self.isFetechingCompleted = true
+                return
+            }
+            
+            if array.count >= 0 && array.count < self.limit{
+                
+                self.isFetechingCompleted = true
+                for info in array{
+                    self.paymentArray.append(info)
+                }
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+            
+            if array.count > 0 && array.count >= self.limit{
+              
+                for info in array{
+                    self.paymentArray.append(info)
+                }
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+        }
+    }
+    
     
     func roundSaveButton(){
         
@@ -111,8 +198,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         FetchBillingDetailProcessor().fetch { (success, message, info) in
            
             DispatchQueue.main.async {
-                self.stopLoader()
-                
+                self.fetchPaymentHistory()
                 self.rootView?.fillBiilingInfo(info:info)
             }
         }
