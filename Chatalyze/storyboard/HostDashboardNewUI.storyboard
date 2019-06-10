@@ -115,7 +115,7 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="Smj-bV-gak">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+Schedule a session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsg-Pw-I0N">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+New session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsg-Pw-I0N">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -378,17 +378,17 @@
                                                 </constraints>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzH-Lk-OSA">
-                                                <rect key="frame" x="0.0" y="100" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="100" width="414" height="50"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="6la-l5-pia">
-                                                        <rect key="frame" x="20" y="-15" width="30" height="30"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textMessageDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="6la-l5-pia">
+                                                        <rect key="frame" x="20" y="10" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="TAf-Hm-Ybu"/>
                                                             <constraint firstAttribute="width" constant="30" id="UGd-vZ-XQW"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat screenshots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbK-z0-z0m">
-                                                        <rect key="frame" x="70" y="0.0" width="289" height="0.0"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get in touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbK-z0-z0m">
+                                                        <rect key="frame" x="70" y="0.0" width="289" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -397,23 +397,23 @@
                                                         </variation>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrowDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="o6N-rC-TN2">
-                                                        <rect key="frame" x="379" y="-12.333333333333314" width="25" height="25"/>
+                                                        <rect key="frame" x="379" y="12.666666666666686" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="3fn-LY-Drm"/>
                                                             <constraint firstAttribute="width" constant="25" id="GR9-G3-vTZ"/>
                                                         </constraints>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBB-ER-0oa">
-                                                        <rect key="frame" x="0.0" y="-1" width="414" height="1"/>
+                                                        <rect key="frame" x="0.0" y="49" width="414" height="1"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="wZc-Cf-Zpm"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZA-NV-Svc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
-                                                            <action selector="chatScreenShotActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="B5a-jv-hGH"/>
+                                                            <action selector="getInTouchActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="9bw-fV-abP"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -426,8 +426,8 @@
                                                     <constraint firstAttribute="trailing" secondItem="o6N-rC-TN2" secondAttribute="trailing" constant="10" id="Gf0-y6-Fc4">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="height" id="KDJ-yt-E61">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                                    <constraint firstAttribute="height" constant="50" id="KDJ-yt-E61">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
                                                     </constraint>
                                                     <constraint firstItem="DbK-z0-z0m" firstAttribute="top" secondItem="NzH-Lk-OSA" secondAttribute="top" id="TMU-bI-rfY"/>
                                                     <constraint firstItem="lZA-NV-Svc" firstAttribute="leading" secondItem="NzH-Lk-OSA" secondAttribute="leading" id="Xs1-Mi-bLq"/>
@@ -442,16 +442,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLq-tx-sVu">
-                                                <rect key="frame" x="0.0" y="100" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="150" width="414" height="50"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textMessageDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="D4F-xD-QI0">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="D4F-xD-QI0">
                                                         <rect key="frame" x="20" y="10" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="TiR-fF-qen"/>
                                                             <constraint firstAttribute="width" constant="30" id="lZo-H3-k4g"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get in touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJy-Y8-pfi">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJy-Y8-pfi">
                                                         <rect key="frame" x="70" y="0.0" width="289" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -477,7 +477,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSE-aX-nhL">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
-                                                            <action selector="getInTouchActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="ifO-2S-guw"/>
+                                                            <action selector="chatScreenShotActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="r4l-te-GaK"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -506,7 +506,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpM-uM-I45">
-                                                <rect key="frame" x="0.0" y="150" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="200" width="414" height="50"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="messageDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="1aP-9V-I92">
                                                         <rect key="frame" x="20" y="10" width="30" height="30"/>

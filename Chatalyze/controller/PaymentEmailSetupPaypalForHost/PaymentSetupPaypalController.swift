@@ -20,16 +20,21 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     var isFetechingCompleted = false
     var paymentArray = [AnalystPaymentInfo]()
     var limit = 8
-    
+    @IBOutlet var moreDetailsTextView:UITextView?
+    @IBOutlet var moreDetailView:UIView?
+    @IBOutlet var moreDetailMainView:UIView?
+
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         maketextLinkable()
+        makeMoreDetailsTextLinkable()
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
         initializeLink()
+        initializeMoreDetailLink()
         rootView?.controller = self
         rootView?.initializeAdapter()
         fetchPaymentHistory()
@@ -113,7 +118,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         }
     }
     
-    
     func roundSaveButton(){
         
         saveBtn?.layer.cornerRadius = 3
@@ -121,7 +125,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         saveImage?.layer.cornerRadius = 3
         saveImage?.layer.masksToBounds = true
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -135,6 +138,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         paintSettingButton()
         scroll?.delegate = self
         emailField?.textField?.delegate = self
+        moreDetailView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        moreDetailView?.layer.masksToBounds = true
     }
     
     func validateFields()->Bool{
@@ -243,6 +248,38 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         msgTextView?.isUserInteractionEnabled = true
     }
     
+    func makeMoreDetailsTextLinkable(){
+        
+        //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
+        //
+        
+        var fontSize = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+        }
+        
+        //If you earn chat revenue for a given session, we’ll transfer your earnings via PayPal 48 hours post-session. All we need is the email address associated with your PayPal account. If you don’t have a PayPal account, you can create one HERE.
+        
+        let text = "If you earn chat revenue for a given session, we’ll transfer your earnings via PayPal 48 hours post-session. All we need is the email address associated with your PayPal account. If you don’t have a PayPal account, you can create one "
+        
+        let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
+        
+        let text1 = "More details"
+        
+        let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
+        
+        let selectablePart = "HERE.".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        
+        textMutable.append(selectablePart)
+        // textMutable.append(text1Attr)
+        // Center the text (optional)
+        
+        moreDetailsTextView?.attributedText = textMutable
+        moreDetailsTextView?.textAlignment = .center
+        moreDetailsTextView?.setLineSpacing(lineSpacing: 2.0)
+        moreDetailsTextView?.isUserInteractionEnabled = true
+    }
+    
     func setUpGestureOnLabel(){
        
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
@@ -271,6 +308,31 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             return self.view as? PaymentSetupPaypalRootView
         }
     }
+    
+    @IBAction func crossAction(sender:UIButton?){
+        
+        self.hideMoreDetail()
+    }
+    
+    func showMoreDetailView(){
+        
+        UIView.animate(withDuration: 0.35) {
+            
+            self.moreDetailMainView?.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func hideMoreDetail(){
+        
+        UIView.animate(withDuration: 0.35) {
+            
+            self.moreDetailMainView?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -301,6 +363,19 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         msgTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
     }
     
+    func initializeMoreDetailLink(){
+        
+        moreDetailsTextView?.delegate = self
+        moreDetailsTextView?.isSelectable = true
+        moreDetailsTextView?.isEditable = false
+        moreDetailsTextView?.dataDetectorTypes = .link
+        moreDetailsTextView?.isUserInteractionEnabled = true
+        moreDetailsTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+        
+    }
+    
+    
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return false
     }
@@ -323,11 +398,26 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         
         Log.echo(key: "yud", text: "interacting with url")
         
-        if characterRange == msgTextView?.text?.range(of: "HERE")?.nsRange {
-          
-            Log.echo(key: "yud", text: "interacting with url")
-            return true
+        if textView == moreDetailsTextView{
+            
+            if characterRange == moreDetailsTextView?.text?.range(of: "HERE.")?.nsRange {
+                
+                Log.echo(key: "yud", text: "interacting with moreDetailsTextView here")
+                return true
+            }
         }
+        
+        if textView == msgTextView{
+         
+            self.showMoreDetailView()
+            return false
+        }
+//        if characterRange == msgTextView?.text?.range(of: "More Details")?.nsRange {
+//
+//            Log.echo(key: "yud", text: "interacting with url")
+//
+//            return false
+//        }
          return true
     }
     
@@ -335,7 +425,7 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
 
 
 
-extension PaymentSetupPaypalController{
+extension PaymentSetupPaypalController {
     
     class func instance()->PaymentSetupPaypalController? {
                 

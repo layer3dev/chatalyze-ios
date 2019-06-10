@@ -76,7 +76,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func chatScreenShotAction(sender:UIButton?){
         
-        guard let controller = MemoriesController.instance() else{
+        guard let controller = EditProfileController.instance() else{
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)

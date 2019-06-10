@@ -265,6 +265,7 @@ class EditSessionFormRootView:ExtendedView {
         self.breakAdapter?.layer.borderWidth = 1
         self.breakAdapter?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
+        self.titleField?.textField?.autocapitalizationType = .sentences
         self.titleField?.isCompleteBorderAllow = true
         self.dateField?.isCompleteBorderAllow = true
         self.timeField?.isCompleteBorderAllow = true
@@ -754,7 +755,7 @@ class EditSessionFormRootView:ExtendedView {
                 self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
         
                     
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                    self.controller?.navigationController?.popViewController(animated: true)
                 })
                 return
             }
