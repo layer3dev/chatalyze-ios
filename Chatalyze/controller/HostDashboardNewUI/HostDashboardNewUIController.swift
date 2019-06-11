@@ -13,9 +13,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        Bugsnag.notifyError(NSError(domain:"com.customCrash:HostDashboard", code:408, userInfo:nil))
-
+        
         paintUI()
     }
     
@@ -32,12 +30,13 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func testmyPhone(sender:UIButton?){
         
+        //Bugsnag.notifyError(NSError(domain:"com.customTestingCrash:HostDashboard", code:408, userInfo:nil))
         self.gotoSystemTest()
     }
     
     func gotoSystemTest(){
         
-        guard let controller = InternetSpeedTestController.instance() else{
+        guard let controller = InternetSpeedTestController.instance() else {
             return
         }
         controller.onlySystemTest = true
@@ -45,7 +44,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
-    
     
     
     @IBAction func mySessionAction(sender:UIButton?){

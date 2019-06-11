@@ -47,14 +47,17 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             self.stopLoader()
             self.paymentArray.removeAll()
             self.rootView?.updateInfo(info: self.paymentArray)
+            
             if !success{
                return
             }
+            
             guard let array  = info else{
                 return
             }
             
             if array.count == 0 {
+                
                 self.isFetechingCompleted = true
                 return
             }
@@ -67,6 +70,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             }
             
             if array.count > 0 && array.count >= self.limit{
+                
                 self.paymentArray = array
                 self.rootView?.updateInfo(info: self.paymentArray)
             }

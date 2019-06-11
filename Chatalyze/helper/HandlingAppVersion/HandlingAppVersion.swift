@@ -36,7 +36,6 @@ class HandlingAppVersion:NSObject {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         Log.echo(key: "yud", text: "Without Login RootView is\(appDelegate?.window?.rootViewController)")
         if let root = appDelegate?.window?.rootViewController{
-            
             rootController = root
         }
         
@@ -58,6 +57,7 @@ class HandlingAppVersion:NSObject {
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             rootController?.present(controller, animated: true, completion: {
             })
+            
             //This is the Obsolete version
             return
         }

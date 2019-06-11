@@ -42,7 +42,7 @@ class SignOutManager{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool)->())){
         
-        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignOut", code:408, userInfo:nil))
+//        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignOut", code:408, userInfo:nil))
         //Response is coming is a string with thetrue or false
         completion(success)
     }

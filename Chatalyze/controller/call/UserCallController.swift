@@ -16,7 +16,7 @@ class UserCallController: VideoCallController {
     
     //Animation Responsible
     var isAnimating = false
-
+    
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -25,7 +25,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
-
+    
     var isScreenshotStatusLoaded = false
     
     //Ends
@@ -191,6 +191,7 @@ class UserCallController: VideoCallController {
         super.viewDidDisappear(animated)
         
         DispatchQueue.main.async {
+            
             self.selfieTimerView?.reset()
         }
     }
@@ -268,7 +269,7 @@ class UserCallController: VideoCallController {
             if(self?.socketClient == nil){
                 return
             }
-            self?.processHangupEvent(data : json)            
+            self?.processHangupEvent(data : json)
         })
     }
     
@@ -427,8 +428,6 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        //        Log.echo(key: "yud", text: "In processAutograph screenShotStatusLoaded is \(isScreenshotStatusLoaded) and the local Media is \(String(describing: localMediaPackage)) is Local Media is disable \(localMediaPackage?.isDisabled) slot id is \(self.myLiveUnMergedSlot?.id) stored static store id is \(SlotFlagInfo.staticSlotId)is ScreenShot Saved \(self.myLiveUnMergedSlot?.isScreenshotSaved) is SelfieTimer initiated\(self.myLiveUnMergedSlot?.isSelfieTimerInitiated) isCallConnected is \(isCallConnected) isCallStreaming is \(isCallStreaming)")
-        
         Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
         
         if self.eventInfo?.isScreenShotAllowed == nil{
@@ -526,11 +525,10 @@ class UserCallController: VideoCallController {
             //for testing
             selfieTimerView?.requiredDate = requiredTimeStamp
             selfieTimerView?.startAnimation()
-            //Log.echo(key: "yud", text: "Yes I am sending the animation request")
         }
     }
     
-    private func initializeGetCommondForTakeScreenShot(){
+    private func initializeGetCommondForTakeScreenShot() {
         
         selfieTimerView?.screenShotListner = {
             
@@ -542,23 +540,39 @@ class UserCallController: VideoCallController {
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
                 let slotInfo = self.myLiveUnMergedSlot
-                self.uploadImage(image: image, completion: { (success, info) in
+                
+                let backThread = DispatchQueue(label: "uploading", qos: .background)
+                backThread.async {
                     
-                    let isExpired = slotInfo?.isExpired ?? true
-                    if(!success && !isExpired){
+                    self.encodeImageToBase64(image: image, completion: { (encodedData) in
                         
-                        slotInfo?.isScreenshotSaved = false
-                        slotInfo?.isSelfieTimerInitiated = false
-                        SlotFlagInfo.staticScreenShotSaved = false
-                        return
-                    }
-                    if success{
-                    }
-                    self.screenshotInfo = info
-                })
+                        DispatchQueue.main.async {
+                            
+                            self.uploadImage(encodedImage: encodedData, image: nil, completion: { (success, info) in
+                                
+                                DispatchQueue.main.async {
+                                    
+                                    let isExpired = slotInfo?.isExpired ?? true
+                                    if(!success && !isExpired){
+                                        
+                                        slotInfo?.isScreenshotSaved = false
+                                        slotInfo?.isSelfieTimerInitiated = false
+                                        SlotFlagInfo.staticScreenShotSaved = false
+                                        return
+                                    }
+                                    if success{
+                                    }
+                                    self.screenshotInfo = info
+                                }
+                            })
+                        }
+                    })
+                }
             })
         }
+        
     }
+    
     
     private func updateCallHeaderInfo(){
         
@@ -571,7 +585,7 @@ class UserCallController: VideoCallController {
             updateNewHeaderInfoForSession(slot : currentSlot)
             // updateCallHeaderForFuture(slot : currentSlot)
             return
-        }       
+        }
         updateCallHeaderForLiveCall(slot: currentSlot)
     }
     
@@ -687,7 +701,7 @@ class UserCallController: VideoCallController {
     }
     
     func showContactUsScreen(){
-         RootControllerManager().getCurrentController()?.showContactUs()
+        RootControllerManager().getCurrentController()?.showContactUs()
     }
     
     private func showDonateScreen(){
@@ -705,8 +719,7 @@ class UserCallController: VideoCallController {
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         controller.memoryImage = self.memoryImage
-        //presentingController.present(controller, animated: false, completion:nil)
-        self.present(controller, animated: false, completion:nil)
+        presentingController.present(controller, animated: false, completion:nil)
     }
     
     private func showFeedbackScreen(){
@@ -720,12 +733,8 @@ class UserCallController: VideoCallController {
         guard let controller = ReviewController.instance() else{
             return
         }
-        
         controller.eventInfo = eventInfo
-        
-//        presentingController.present(controller, animated: false, completion:{
-//        })
-        self.present(controller, animated: false, completion:{
+        presentingController.present(controller, animated: false, completion:{
         })
         return
     }
@@ -738,29 +747,22 @@ class UserCallController: VideoCallController {
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
-                
+        
         guard let controller = MemoryAnimationController.instance() else{
             return
         }
-        
         controller.eventInfo = eventInfo
-        
         controller.memoryImage = self.memoryImage
-        
-//        presentingController.present(controller, animated: false, completion:{
-//        })
-        
-        self.present(controller, animated: false, completion:{
+        presentingController.present(controller, animated: false, completion:{
         })
         return
-        
     }
     
     func showExitScreen() {
         
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if(isDonationEnabled){
-    
+            
             showDonateScreen()
             return
         }
@@ -888,7 +890,7 @@ class UserCallController: VideoCallController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
-        scheduleUpdateListener.releaseListener()
+        self.scheduleUpdateListener.releaseListener()
     }
     
     override func hitEventOnSegmentIO(){
@@ -1077,34 +1079,58 @@ extension UserCallController{
             self.present(controller, animated: true) {
             }
             
-        })        
+        })
     }
     
-    private func uploadImage(image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+    
+    
+    private func encodeImageToBase64(image : UIImage?,completion:(_ encodedData:String)->()){
         
         guard let image = image
             else{
-                completion?(false, nil)
+                completion("")
                 return
         }
         guard let data = image.jpegData(compressionQuality: 1.0)
             else{
-                completion?(false, nil)
+                completion("")
                 return
         }
+        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        completion(imageBase64)
+    }
+    
+    
+    private func uploadImage(encodedImage:String = "",image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+        
+        //        guard let image = image
+        //            else{
+        //                completion?(false, nil)
+        //                return
+        //        }
+        
+        
+        //        guard let data = image.jpegData(compressionQuality: 1.0)
+        //            else{
+        //                completion?(false, nil)
+        //                return
+        //        }
+        
         var params = [String : Any]()
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
         params["callbookingId"] = myCurrentUserSlot?.id ?? 0
         params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = false
-        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-        params["file"] = imageBase64
-        userRootView?.requestAutographButton?.showLoader()
-        SubmitScreenshot().submitScreenshot(params: params) { [weak self] (success, info) in
+        //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        params["file"] = encodedImage
+        // userRootView?.requestAutographButton?.showLoader()
+        SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
             
-            self?.userRootView?.requestAutographButton?.hideLoader()
-            completion?(success, info)
+            //self?.userRootView?.requestAutographButton?.hideLoader()
+            DispatchQueue.main.async {
+                completion?(success, info)
+            }
         }
     }
 }

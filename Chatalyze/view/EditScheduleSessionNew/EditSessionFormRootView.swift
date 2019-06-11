@@ -27,11 +27,8 @@ class EditSessionFormRootView:ExtendedView {
     var isBreakShowing = false
     
     @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
-    
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
-    
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
-    
     @IBOutlet var priceAmountHieghtConstrait:NSLayoutConstraint?
     
     enum totalChatDuration:Int{
@@ -395,12 +392,7 @@ class EditSessionFormRootView:ExtendedView {
         guard let eventInfo = info else{
             return
         }
-        
-        //Printing whole Info
-        
-//        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
-        
-        
+
         self.eventInfo = eventInfo
         
         self.titleField?.textField?.text = eventInfo.title
@@ -703,9 +695,6 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     
-    
-    
-    
     @IBAction func paidActionAction(sender:UIButton){
         
         hideSponsorShipView()
@@ -765,7 +754,6 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
     }
-    
 }
 
 extension EditSessionFormRootView:UITextFieldDelegate{
@@ -1363,10 +1351,8 @@ extension EditSessionFormRootView {
         if emptySlotList.count > 0 {
         
             self.breakAdapter?.update(emptySlots: emptySlotList)
-            //showBreak()
             return
         }
-        //hideBreak()
     }
     
     func fillEmptySlotSelectionInfo(){

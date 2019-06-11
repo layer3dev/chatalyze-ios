@@ -12,9 +12,11 @@ class PaymentSetupPaypalRootView:ExtendedView{
 
     var controller:PaymentSetupPaypalController?
     @IBOutlet var pendingAmountLbl:UILabel?
+    
     @IBOutlet var ticketSalesAmount:UILabel?
     @IBOutlet var tipAmount:UILabel?
     let amount = "$"
+    
     @IBOutlet var paymentTableView:UITableView?
     @IBOutlet var paymentAdapter:AnalystPaymentHistoryAdapter?
     
@@ -35,7 +37,7 @@ class PaymentSetupPaypalRootView:ExtendedView{
         self.payoutDetailLabel?.textColor = UIColor(hexString: "#FAA579")
         self.payoutDetailView?.backgroundColor = UIColor(hexString: "#FAA579")
         
-        self.paymentHistory?.textColor = UIColor.clear
+        self.paymentHistory?.textColor = UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)
         self.paymentHistoryView?.backgroundColor = UIColor.clear
         
         UIView.animate(withDuration: 0.35) {

@@ -1,11 +1,3 @@
-//
-//  VideoCallControllerViewControl.swift
-//  Rumpur
-//
-//  Created by Sumant Handa on 13/03/18.
-//  Copyright © 2018 netset. All rights reserved.
-//
-
 import UIKit
 import CallKit
 import Foundation
@@ -80,7 +72,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private var speedHandler : InternetSpeedHandler?
     
-    //in case if user opens up 
+    //in case if user opens up
     var isProhibited = false
     
     weak var lastPresentingController : UIViewController?
@@ -126,25 +118,19 @@ class VideoCallController : InterfaceExtendedController {
     override func viewAppeared(){
         super.viewAppeared()
         
-        Log.echo(key : "rotate", text : "ViewAppeared in VideoCallController")
         processPermission()
     }
     
-    
     override func viewDidRelease() {
         super.viewDidRelease()
-        
-        Log.echo(key : "yud", text : "Successfully reverted the code")
         
         releaseListener()
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
-        
         appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
-        
         timer.pauseTimer()
         socketClient?.disconnect()
         socketListener?.releaseListener()
@@ -152,13 +138,14 @@ class VideoCallController : InterfaceExtendedController {
         self.socketListener = nil
     }
     
+    
     private func releaseListener(){
         
         eventSlotListener.releaseListener()
         eventDeleteListener.releaseListener()
         updatedEventScheduleListener.releaseListener()
         applicationStateListener.releaseListener()
-    }    
+    }
     
     var rootView : VideoRootView?{
         return self.view as? VideoRootView
@@ -242,32 +229,32 @@ class VideoCallController : InterfaceExtendedController {
     
     func exit(code : exitCode){
         
-        Log.echo(key: "yud", text: "exit code is \(code)")
-        if SignedUserInfo.sharedInstance?.role == .user{
-            if code == .expired{
-                
-                if self.presentedViewController == nil {
-                    self.onExit(code : code)
-                    return
-                }
-                self.presentedViewController?.dismiss(animated: false, completion: {
-                    self.onExit(code : code)
-                    return
-                })
-                return
-            }
-            self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
-                self?.onExit(code : code)
-            })
-            return
-        }else{
+        //        Log.echo(key: "yud", text: "exit code is \(code)")
+        //        if SignedUserInfo.sharedInstance?.role == .user{
+        //            if code == .expired{
+        //
+        //                if self.presentedViewController == nil {
+        //                    self.onExit(code : code)
+        //                    return
+        //                }
+        //                self.presentedViewController?.dismiss(animated: false, completion: {
+        //                    self.onExit(code : code)
+        //                    return
+        //                })
+        //                return
+        //            }
+        //            self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
+        //                self?.onExit(code : code)
+        //            })
+        //            return
+        //        }else{
+        //
+        self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
             
-            self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
-                
-                self?.onExit(code : code)
-            })
-            return
-        }
+            self?.onExit(code : code)
+        })
+        //            return
+        //    }
     }
     
     //This will be called after viewController is exited from the screen
@@ -302,14 +289,12 @@ class VideoCallController : InterfaceExtendedController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
     private func logInternetSpeed(){
         
         speedHandler?.setSpeedListener(listener: {[weak self] (speed) in
             self?.callLogger?.logSpeed(speed: speed)
         })
-        speedHandler?.startSpeedProcessing()        
+        speedHandler?.startSpeedProcessing()
     }
     
     
@@ -331,7 +316,7 @@ class VideoCallController : InterfaceExtendedController {
             
             self.present(controller, animated: true, completion: {
             })
-        }        
+        }
     }
     
     private func processPermission(){
@@ -407,9 +392,9 @@ class VideoCallController : InterfaceExtendedController {
                     return
             }
             
-                           
+            
             self?.updateToReadyState()
-                           
+            
             self?.connectToRoom(info: info)
             self?.eventInfo = info
             
@@ -489,9 +474,9 @@ class VideoCallController : InterfaceExtendedController {
         callLogger?.logDeviceInfo()
         
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
-                                                           
+            
             self?.callLogger?.logSocketConnectionState()
-                                                           
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -646,13 +631,13 @@ class VideoCallController : InterfaceExtendedController {
     
     
     private func executeInterval(){
-       
+        
         if(isReleased){
             return
         }
         if(!isReady){
             return
-        }        
+        }
         interval()
     }
     
@@ -667,7 +652,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func acceptCall(){
         
-        socketListener?.confirmConnect(completion: { [weak self] (success) in            
+        socketListener?.confirmConnect(completion: { [weak self] (success) in
             if(success){
                 //self?.startAcceptCall()
             }
@@ -682,7 +667,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func callFailed(){
-    }    
+    }
     
     //abstract
     func verifyEventActivated(info : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
@@ -691,11 +676,9 @@ class VideoCallController : InterfaceExtendedController {
     
     //abstract
     func handleMultipleTabOpening(){
-        
     }
     
     func verifyScreenshotRequested(){
-        
     }
     
     //to be overridden by child classes
@@ -705,7 +688,6 @@ class VideoCallController : InterfaceExtendedController {
     
     //to be overridden by child classes
     var isSlotRunning:Bool{
-        
         return false
     }
     
@@ -984,7 +966,7 @@ extension VideoCallController{
     
     func setStatusMessage(type : callStatusMessage) {
         
-        Log.echo(key: "yud", text: "Setting up a status type \(type)")        
+        Log.echo(key: "yud", text: "Setting up a status type \(type)")
         
         if(type == .ideal || type == .preConnectedSuccess) {
             
@@ -1150,9 +1132,9 @@ extension VideoCallController {
         
         exit(code : .contactUs)
         /*self.dismiss(animated: false) {[weak self] in
-            Log.echo(key: "log", text: "VideoCallController dismissed")
-            self?.onExit(code : .contactUs)
-        }*/
+         Log.echo(key: "log", text: "VideoCallController dismissed")
+         self?.onExit(code : .contactUs)
+         }*/
     }
 }
 

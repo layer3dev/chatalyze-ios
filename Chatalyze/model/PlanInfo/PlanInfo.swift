@@ -21,31 +21,6 @@ class PlanInfo: NSObject {
         super.init()
     }
     
-    
-//    {
-//    "rule" : {
-//
-//    },
-//    "freeSeconds" : null,
-//    "name" : "Chatalyze Pro Plan",
-//    "interval" : "month",
-//    "id" : 2,
-//    "desc" : "Chatalyze Pro Plan",
-//    "amount" : 29,
-//    "minAmt" : "1",
-//    "identifier" : "pro",
-//    "isPro" : true,
-//    "subscription" : {
-//    "canceled" : true,
-//    "id" : 181,
-//    "lastPaymentDate" : null,
-//    "nextSubscriptionDate" : "2019-03-19T10:11:14.000Z",
-//    "isTrial" : true,
-//    "subscriptionId" : null,
-//    "hostId" : 860,
-//    "subscriptionPlanId" : 2
-//    }
-//    }
     init(info:JSON?) {
         super.init()
         
@@ -59,15 +34,22 @@ class PlanInfo: NSObject {
         }
         self.id = info["id"]?.stringValue
         self.name = info["name"]?.stringValue
-        self.minPrice = info["minAmt"]?.doubleValue
+        
+        if info["minAmt"]?.string == nil || info["minAmt"]?.string == ""{
+            self.minPrice = 1.0
+        }else{
+            self.minPrice = Double(info["minAmt"]?.string ?? "1")
+        }
+        
         if let subscriptionInfo = info["subscription"]?.dictionary{
             self.isTrial = subscriptionInfo["isTrial"]?.boolValue
         }
         if let subscriptionInfo = info["subscription"]?.dictionary{
             self.isTrial = subscriptionInfo["isTrial"]?.boolValue
         }
-        if let rule = info["rule"]?.dictionary{            
+        if let rule = info["rule"]?.dictionary{
             self.chatalyzeFee = rule["chatalyzeShare"]?.int
         }
     }
 }
+

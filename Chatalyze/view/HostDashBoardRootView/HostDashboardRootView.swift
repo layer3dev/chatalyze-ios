@@ -24,9 +24,7 @@ class HostDashboardRootView: MySessionRootView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        
-        
+
         initializeFontSize()
         underLineLable()        
         paintChatPupText()
@@ -76,7 +74,7 @@ class HostDashboardRootView: MySessionRootView {
         
         if let imageStr = SignedUserInfo.sharedInstance?.profileImage{
             
-            profileImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            profileImage?.sd_setImage(with: URL(string:imageStr), placeholderImage: UIImage(named:"orangePup"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
         
