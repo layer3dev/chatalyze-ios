@@ -367,7 +367,7 @@ class EditSessionFormRootView:ExtendedView {
     
     func initializeVariable(){
         
-        
+        breakAdapter?.customDelegate = self
         initializeCustomSwitch()
         initializeDatePicker()
         initializeTimePicker()
@@ -1289,7 +1289,7 @@ extension EditSessionFormRootView {
         if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
             showPaintChatCalculator()
-
+            
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
@@ -1339,13 +1339,28 @@ extension EditSessionFormRootView {
         }
         
         let totalSlots = Int(totalminutes/Double(duration))
+        let existingSlots = self.emptySlotList
         self.emptySlotList.removeAll()
-        for i in 0..<totalSlots {
+        if existingSlots.count == totalSlots {
             
-            let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
-            let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
-            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
-            self.emptySlotList.append(emptySlotObj)
+            for i in 0..<totalSlots {
+                
+                let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+                let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                if existingSlots[i].isSelected == true {
+                    emptySlotObj.isSelected = true
+                }
+                self.emptySlotList.append(emptySlotObj)
+            }
+        }else{
+            for i in 0..<totalSlots {
+                
+                let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+                let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                self.emptySlotList.append(emptySlotObj)
+            }
         }
         
         if emptySlotList.count > 0 {
@@ -1380,6 +1395,7 @@ extension EditSessionFormRootView {
             //showBreak()
             self.breakAdapter?.update(emptySlots: emptySlotList)
             self.showSelectedIndex()
+            self.paintMaximumEarningCalculator()
             return
         }
     }
@@ -1475,10 +1491,14 @@ extension EditSessionFormRootView {
             return
         }
         
-        guard let totalSlots = info.totalSlots else{
+        guard let totalSlot = info.totalSlots else{
             resetEarningCalculator()
             return
         }
+        
+        let totalSlots = totalSlot - (breakAdapter?.selectedBreakSlots ?? 0)
+        
+        Log.echo(key: "yud", text: "selected slots are break \(breakAdapter?.selectedBreakSlots)")
         
         if price > 9999.0 {
             return
@@ -1957,4 +1977,13 @@ extension EditSessionFormRootView{
         controller.url = "https://www.chatalyze.com/payments"
         self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+extension EditSessionFormRootView:InformForBreakSelectionInterface{
+    
+    func breakSelectionConfirmed() {
+       
+        paintMaximumEarningCalculator()
+    }
+    
 }

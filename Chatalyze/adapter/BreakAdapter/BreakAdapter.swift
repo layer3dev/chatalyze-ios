@@ -12,6 +12,8 @@ import Foundation
 
 class BreakAdapter: ExtendedView {
     
+    var customDelegate:InformForBreakSelectionInterface?
+    
     @IBOutlet var breakCollection:UICollectionView?
     private let sectionInsets = UIEdgeInsets(top: 15.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:8.0,bottom: 0.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:8.0)
     let itemsPerRow = 4
@@ -39,7 +41,7 @@ class BreakAdapter: ExtendedView {
         guard let slots = emptySlots else{
             return
         }
-    
+        
         self.emptySlots = slots
         updateHeightOfCell()
         initialisation()
@@ -123,13 +125,27 @@ extension BreakAdapter:UICollectionViewDataSource,UICollectionViewDelegate,UICol
                 self.emptySlots[indexPath.item].isSelected = true
                 self.root?.emptySlotList[indexPath.item].isSelected = true
                 root?.showSelectedIndex()
+                customDelegate?.breakSelectionConfirmed()
                 self.breakCollection?.reloadData()
                 return
             }
             self.emptySlots[indexPath.item].isSelected = false
             self.root?.emptySlotList[indexPath.item].isSelected = false
             root?.showSelectedIndex()
+            customDelegate?.breakSelectionConfirmed()
             self.breakCollection?.reloadData()
+        }
+    }
+    
+    var selectedBreakSlots:Int{
+        get{
+            var numberOfSlots = 0
+            for info in self.emptySlots{
+                if info.isSelected{
+                    numberOfSlots = numberOfSlots + 1
+                }
+            }
+            return numberOfSlots
         }
     }
 }

@@ -11,10 +11,11 @@ import SwiftyJSON
 
 class SubmitPaypalEmailProcessor{
     
-    public func save(analystId:String,email:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
+    public func save(idOfEmail:String? = "",isEmailExists:Bool = true,analystId:String,email:String, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        let url = AppConnectionConfig.webServiceURL + "/paymentEmail/"
-        
+        var url = AppConnectionConfig.webServiceURL + "/paymentEmail/"
+        url = (url)+(idOfEmail ?? "")
+
         var params = [String : Any]()
         
         params["email"] = email
@@ -22,19 +23,31 @@ class SubmitPaypalEmailProcessor{
                 
         Log.echo(key: "yud", text: "My sended Dict  new is\(params)")
         
-        ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
-            self.handleResponse(withSuccess: success, response: response, completion: completion)
+        if isEmailExists{
+            
+            
+            Log.echo(key: "yud", text: "Yes email is existing \(isEmailExists)")
+            ServerProcessor().request(.put, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
+              
+                self.handleResponse(withSuccess: success, response: response, completion: completion)
+            }
+        }else{
+            
+            Log.echo(key: "yud", text: "Yes email is not existing \(isEmailExists)")
+            ServerProcessor().request(.post, url, parameters: params, encoding: .jsonEncoding,authorize :true) { (success, response) in
+               
+                self.handleResponse(withSuccess: success, response: response, completion: completion)
+            }
         }
     }
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "Response in saving the paypal email is \(response)")
-        
-        
+        Log.echo(key: "yud", text: "Response in saving the paypal email is \(String(describing: response))")
+
         guard let rawInfo = response
             else{
-                completion(false, "",  nil)
+                completion(false, "Error occurred.",  nil)
                 return
         }
         if(!success){

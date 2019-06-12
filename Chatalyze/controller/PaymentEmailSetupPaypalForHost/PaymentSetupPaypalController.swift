@@ -23,7 +23,8 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     @IBOutlet var moreDetailsTextView:UITextView?
     @IBOutlet var moreDetailView:UIView?
     @IBOutlet var moreDetailMainView:UIView?
-
+    var isEmailExists = true
+    var id:String = ""
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -83,6 +84,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         if isFetching{
             return
         }
+        
         if isFetechingCompleted{
             return
         }
@@ -159,7 +161,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect!")
             return false
         }
         emailField?.resetErrorStatus()
@@ -173,9 +175,18 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         }
         let email = emailField?.textField?.text ?? ""
         self.showLoader()
-        SubmitPaypalEmailProcessor().save(analystId: analystID, email: email) { (success, message, response) in
-            self.stopLoader()
-            self.navigationController?.popToRootViewController(animated: false)
+        SubmitPaypalEmailProcessor().save(idOfEmail:self.id,isEmailExists:isEmailExists,analystId: analystID, email: email) { (success, message, response) in
+            self.fetchPaypalInfo()
+            Log.echo(key: "yud", text: "Message in error isR \(message)")
+            
+            if !success{
+                
+                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                })
+                return
+            }
+            self.alert(withTitle: AppInfoConfig.appName, message: "Paypal account saved successfully.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            })
         }
     }
     
@@ -189,17 +200,22 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             if success{
                 
                 guard let res = response else{
+                    self.isEmailExists = false
                     return
                 }
+                
                 if let dict = res.dictionary{
                     if let email = dict["email"]?.stringValue{
                  
                         self.emailField?.textField?.text = email
+                        self.id = dict["id"]?.stringValue ?? ""
+                        Log.echo(key: "yud", text: "Id is \(self.id)")
                     }
                 }
             }
         }
     }
+    
     
     
     func fetchBillingInfo(){
@@ -298,7 +314,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
                 return
             }
-            
             UIApplication.shared.open(url, options: [:])
         } else {
             // Fallback on earlier versions
