@@ -77,6 +77,14 @@ class WelcomeController: InterfaceExtendedController {
             }
         }
     }
+    
+    
+    @IBAction func backAction(sender:UIButton?){
+        
+        self.dismiss(animated: true) {
+        }
+    }
+    
         
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

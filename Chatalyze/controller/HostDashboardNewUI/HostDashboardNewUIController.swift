@@ -30,7 +30,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func testmyPhone(sender:UIButton?){
         
-        //Bugsnag.notifyError(NSError(domain:"com.customTestingCrash:HostDashboard", code:408, userInfo:nil))
         self.gotoSystemTest()
     }
     

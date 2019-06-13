@@ -14,7 +14,6 @@ class AnalystPaymentHistoryCell: ExtendedTableCell {
     @IBOutlet var expectedPayoutAmount:UILabel?
     @IBOutlet var payoutDate:UILabel?
     @IBOutlet var createdDate:UILabel?
-    
     var info:AnalystPaymentInfo?
     
     override func viewDidLayout() {
@@ -28,30 +27,29 @@ class AnalystPaymentHistoryCell: ExtendedTableCell {
         guard let data = info else {
             return
         }
+        self.info = data
         self.userIdLbl?.text = data.id
         self.expectedPayoutAmount?.text = ("$")+(data.expectedPayoutAmount ?? "")
         self.setStartedDate()
     }
+    
     func setStartedDate(){
         
         if let date = info?.createdDate {
-            //Mar 7, 2019
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
-            self.createdDate?.text = "\(dateFormatter.string(from: date))"
+            self.createdDate?.text = "Session on \(dateFormatter.string(from: date))"
         }
         if let date = info?.payoutDate {
-            //Mar 7, 2019
+
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.payoutDate?.text = "\(dateFormatter.string(from: date))"
         }
-        
-        
     }
-    
 }

@@ -34,41 +34,24 @@ class AnalystPaymentInfo: NSObject {
         
         self.id = json["id"]?.stringValue
         self.expectedPayoutAmount = json["expAmt"]?.stringValue
-        self._startDate = json["started"]?.stringValue
-        self._expectedDate = json["expPayoutDate"]?.stringValue
-    }
-    
-    
-    private var _startDate: String?{
        
-        get{
-            return ""
-        }
-        set{
-            let date = newValue
-            guard let startLocal = date
-                else{
-                    return
-            }
-            createdDate = DateParser.UTCStringToDate(startLocal)
-        }
-    }
-    
-    private var _expectedDate: String?{
+        Log.echo(key: "yud", text: "direcy sat is \(String(describing: json["started"]?.stringValue))")
       
-        get{
-            return ""
-        }
-        set{
-            let date = newValue
-            guard let startLocal = date
-                else{
-                    return
-            }
-            self.payoutDate = DateParser.UTCStringToDate(startLocal)
-        }
+        Log.echo(key: "yud", text: "direcy exp is \(String(describing: json["expPayoutDate"]?.stringValue))")
+        
+        setDate(startDate:json["started"]?.stringValue, expectedDate:json["expPayoutDate"]?.stringValue)
     }
     
-    
-    
+    func setDate(startDate:String?, expectedDate:String?){
+        
+        if let startLocal = startDate{
+            Log.echo(key: "yud", text: "data during the fetch \(String(describing: DateParser.UTCStringToDate(startLocal)))")
+            self.createdDate = DateParser.UTCStringToDate(startLocal)
+            Log.echo(key: "yud", text: "data after fetch is  \(String(describing: self.createdDate))")
+        }
+        
+        if let startLocalExp = expectedDate{
+            self.payoutDate = DateParser.UTCStringToDate(startLocalExp)
+        }
+    }
 }

@@ -30,7 +30,6 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-//        Bugsnag.notifyError(NSError(domain:"com.customCrash:MySession", code:408, userInfo:nil))
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()

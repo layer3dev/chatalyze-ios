@@ -119,6 +119,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             return
         }
         self.showLoader()
+        self.rootView?.fillInfo(info: [EventInfo]())
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
             
             self.stopLoader()

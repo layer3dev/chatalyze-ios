@@ -16,17 +16,47 @@ class EarlyCallAlertController: InterfaceExtendedController {
     @IBOutlet var minutes:UILabel?
     @IBOutlet var seconds:UILabel?
     @IBOutlet var name:UILabel?
+    @IBOutlet var topArrowConstraint:NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
         self.startTimer()
         self.fillInfo()
+        self.startAnimation()
     }
+    
+    func startAnimation(){
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            if self.topArrowConstraint?.priority.rawValue == 250.0{
+                
+                self.topArrowConstraint?.priority = UILayoutPriority(rawValue: 999.0)
+                self.view.layoutIfNeeded()
+                
+            }else{
+                
+                self.topArrowConstraint?.priority = UILayoutPriority(rawValue: 250.0)
+                self.view.layoutIfNeeded()
+                
+            }
+            
+        }){(success) in
+           
+            self.startAnimation()
+        }
+    }
+    
     
     func fillInfo(){
         
         self.name?.text = info?.title
+    }
+    
+    @IBAction func dismissAction(sender:UIButton?){
+        
+        self.dismiss(animated: true){
+        }
     }
     
     
@@ -78,15 +108,18 @@ class EarlyCallAlertController: InterfaceExtendedController {
             return
         }
         
-        self.dismiss(animated: true) {
+        self.dismiss(animated: false) {
             
-            guard let controller = HostCallController.instance()
-                else{
-                    return
+            DispatchQueue.main.async {
+                
+                guard let controller = HostCallController.instance()
+                    else{
+                        return
+                }
+                controller.eventId = String(self.info?.id ?? 0)
+                Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
+                currentPresentingController.present(controller, animated: true, completion: nil)
             }
-            controller.eventId = String(self.info?.id ?? 0)
-            Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
-            currentPresentingController.present(controller, animated: true, completion: nil)
         }
     }
 }

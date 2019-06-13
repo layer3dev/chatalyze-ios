@@ -569,9 +569,21 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        datePickerContainer.frame = self.frame
+        timePickerContainer.frame = self.frame
+        chatLengthPicker.frame = self.frame
+        sessionLengthPicker.frame = self.frame
+        datePickerContainer.frame.origin.y = datePickerContainer.frame.origin.y - CGFloat(64)
+        timePickerContainer.frame.origin.y = timePickerContainer.frame.origin.y - CGFloat(64)
+        chatLengthPicker.frame.origin.y = chatLengthPicker.frame.origin.y - CGFloat(64)
+        sessionLengthPicker.frame.origin.y = sessionLengthPicker.frame.origin.y - CGFloat(64)
+    }
+    
     
     //MARK:- Button Actions
-    
     @IBAction func breakSlotAction(sender:UIButton){
         
         if isBreakShowing{
@@ -1543,7 +1555,7 @@ extension EditSessionFormRootView {
             fontSizeTotalSlot = 26
             normalFont = 18
         }
-        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
+        let calculatorStr = "(\(totalSlots) chats * $\(String(format: "%.2f", price)) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Nunito-Regular", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
