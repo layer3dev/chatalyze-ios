@@ -213,11 +213,39 @@
                                     <constraint firstItem="alf-oO-nRr" firstAttribute="leading" secondItem="M2B-Ic-BG4" secondAttribute="leading" id="xlJ-I4-m6R"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back_white" translatesAutoresizingMaskIntoConstraints="NO" id="IcY-iw-pgE">
+                                <rect key="frame" x="15" y="25" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Woj-mI-JkY">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="20" id="csr-Ch-TPj">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz4-8V-0hB">
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="JaE-v1-W5S"/>
+                                    <constraint firstAttribute="height" constant="60" id="hmC-o5-IRv"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="backActionWithSender:" destination="VAk-oV-gP6" eventType="touchUpInside" id="Mm6-4B-pGA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="uz4-8V-0hB" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" id="1Bp-ZT-snn"/>
+                            <constraint firstItem="IcY-iw-pgE" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" constant="25" id="2Vd-iE-ZiN">
+                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            </constraint>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="bottom" secondItem="l20-78-kwy" secondAttribute="bottom" id="O3x-ib-nO5"/>
                             <constraint firstItem="l20-78-kwy" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="OLm-BI-01f"/>
+                            <constraint firstItem="IcY-iw-pgE" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" constant="15" id="OY9-3o-N7B">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="trailing" secondItem="l20-78-kwy" secondAttribute="trailing" id="Obd-MI-bTg"/>
                             <constraint firstItem="l20-78-kwy" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" id="S9Z-P5-xGu"/>
                             <constraint firstItem="M2B-Ic-BG4" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" id="SDW-nu-zkM"/>
@@ -225,6 +253,7 @@
                             <constraint firstItem="yZM-df-fvH" firstAttribute="height" secondItem="nSq-gc-4jc" secondAttribute="height" id="U4k-XT-la4"/>
                             <constraint firstItem="M2B-Ic-BG4" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="UyQ-nd-5OX"/>
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="trailing" secondItem="M2B-Ic-BG4" secondAttribute="trailing" id="cFm-gL-IaL"/>
+                            <constraint firstItem="uz4-8V-0hB" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="eN8-Eo-65r"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qaL-XR-Eq9"/>
                     </view>
@@ -402,6 +431,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back_white" width="50" height="50"/>
         <image name="gradientImage" width="1242" height="2208"/>
         <image name="welcomeBackground" width="1242" height="900"/>
     </resources>

@@ -15,16 +15,113 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     @IBOutlet var msgTextView:UITextView?
     @IBOutlet var saveBtn:UIButton?
     @IBOutlet var saveImage:UIImageView?
-    
+    @IBOutlet var scroll:FieldManagingScrollView?
+    var isFetching = false
+    var isFetechingCompleted = false
+    var paymentArray = [AnalystPaymentInfo]()
+    var limit = 8
+    @IBOutlet var moreDetailsTextView:UITextView?
+    @IBOutlet var moreDetailView:UIView?
+    @IBOutlet var moreDetailMainView:UIView?
+    var isEmailExists = true
+    var id:String = ""
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         maketextLinkable()
+        makeMoreDetailsTextLinkable()
         paintInterface()
         fetchPaypalInfo()
         roundSaveButton()
         initializeLink()
+        initializeMoreDetailLink()
+        rootView?.controller = self
+        rootView?.initializeAdapter()
+        fetchPaymentHistory()
+    }
+    
+    func fetchPaymentHistory(){
+   
+        FetchAnalystPaymentHistory().fetch(limit: limit, offset: 0) { (success, message, info) in
+
+            self.stopLoader()
+            self.paymentArray.removeAll()
+            self.rootView?.updateInfo(info: self.paymentArray)
+            
+            if !success{
+               return
+            }
+            
+            guard let array  = info else{
+                return
+            }
+            
+            if array.count == 0 {
+                
+                self.isFetechingCompleted = true
+                return
+            }
+            
+            if array.count >= 0 && array.count < self.limit{
+                
+                self.isFetechingCompleted = true
+                self.paymentArray = array
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+            
+            if array.count > 0 && array.count >= self.limit{
+                
+                self.paymentArray = array
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+        }
+    }
+    
+    
+    func fetchPaymentHostoryForPagination(){
+        
+        if isFetching{
+            return
+        }
+        
+        if isFetechingCompleted{
+            return
+        }
+        
+        self.isFetching = true
+        FetchAnalystPaymentHistory().fetch(limit: limit, offset: self.paymentArray.count) { (success, message, info) in
+            
+            self.isFetching = false
+            if !success{
+                return
+            }
+            guard let array  = info else{
+                return
+            }
+            
+            if array.count == 0 {
+                self.isFetechingCompleted = true
+                return
+            }
+            
+            if array.count >= 0 && array.count < self.limit{
+                
+                self.isFetechingCompleted = true
+                for info in array{
+                    self.paymentArray.append(info)
+                }
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+            
+            if array.count > 0 && array.count >= self.limit{
+              
+                for info in array{
+                    self.paymentArray.append(info)
+                }
+                self.rootView?.updateInfo(info: self.paymentArray)
+            }
+        }
     }
     
     func roundSaveButton(){
@@ -34,7 +131,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         saveImage?.layer.cornerRadius = 3
         saveImage?.layer.masksToBounds = true
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,6 +142,10 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         paintBackButton()
         paintSettingButton()
+        scroll?.delegate = self
+        emailField?.textField?.delegate = self
+        moreDetailView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
+        moreDetailView?.layer.masksToBounds = true
     }
     
     func validateFields()->Bool{
@@ -61,7 +161,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect!")
             return false
         }
         emailField?.resetErrorStatus()
@@ -75,9 +175,18 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         }
         let email = emailField?.textField?.text ?? ""
         self.showLoader()
-        SubmitPaypalEmailProcessor().save(analystId: analystID, email: email) { (success, message, response) in
-            self.stopLoader()
-            self.navigationController?.popToRootViewController(animated: false)
+        SubmitPaypalEmailProcessor().save(idOfEmail:self.id,isEmailExists:isEmailExists,analystId: analystID, email: email) { (success, message, response) in
+            self.fetchPaypalInfo()
+            Log.echo(key: "yud", text: "Message in error isR \(message)")
+            
+            if !success{
+                
+                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                })
+                return
+            }
+            self.alert(withTitle: AppInfoConfig.appName, message: "Paypal account saved successfully.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            })
         }
     }
     
@@ -86,19 +195,36 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         self.showLoader()
         FetchPaypalEmailHost().fetchInfo { (success, response) in
+            self.fetchBillingInfo()
             
-            self.stopLoader()
             if success{
                 
                 guard let res = response else{
+                    self.isEmailExists = false
                     return
                 }
+                
                 if let dict = res.dictionary{
                     if let email = dict["email"]?.stringValue{
                  
                         self.emailField?.textField?.text = email
+                        self.id = dict["id"]?.stringValue ?? ""
+                        Log.echo(key: "yud", text: "Id is \(self.id)")
                     }
                 }
+            }
+        }
+    }
+    
+    
+    
+    func fetchBillingInfo(){
+        
+        FetchBillingDetailProcessor().fetch { (success, message, info) in
+           
+            DispatchQueue.main.async {
+                self.fetchPaymentHistory()
+                self.rootView?.fillBiilingInfo(info:info)
             }
         }
     }
@@ -120,16 +246,18 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 24
         }
-        //To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below.
-        let text = "If you don't have a PayPal account, you can create one "
+        
+        //Link your PayPal account to Chatalyze so you can receive payouts. More details
+        
+        let text = "Link your PayPal account to Chatalyze so you can receive payouts. "
         
         let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let text1 = " (you'll be directed to PayPal's website)"
+        let text1 = "More details"
         
         let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let selectablePart = "HERE.".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        let selectablePart = "More details".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
         
         textMutable.append(selectablePart)
        // textMutable.append(text1Attr)
@@ -138,6 +266,38 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         msgTextView?.attributedText = textMutable
         msgTextView?.setLineSpacing(lineSpacing: 2.0)
         msgTextView?.isUserInteractionEnabled = true
+    }
+    
+    func makeMoreDetailsTextLinkable(){
+        
+        //        To get paid, you need to have a Paypal account. Please provide the email address associated with your Paypal account below. If you don't have a Paypal account, you can create one HERE (you'll be directed to Paypal's website).
+        //
+        
+        var fontSize = 16
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            fontSize = 24
+        }
+        
+        //If you earn chat revenue for a given session, we’ll transfer your earnings via PayPal 48 hours post-session. All we need is the email address associated with your PayPal account. If you don’t have a PayPal account, you can create one HERE.
+        
+        let text = "If you earn chat revenue for a given session, we’ll transfer your earnings via PayPal 48 hours post-session. All we need is the email address associated with your PayPal account. If you don’t have a PayPal account, you can create one "
+        
+        let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
+        
+        let text1 = "More details"
+        
+        let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
+        
+        let selectablePart = "HERE.".toAttributedStringLink(font: "Nunito-Regular", size: fontSize+1, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: true,url:"https://www.paypal.com/us/webapps/mpp/account-selection")
+        
+        textMutable.append(selectablePart)
+        // textMutable.append(text1Attr)
+        // Center the text (optional)
+        
+        moreDetailsTextView?.attributedText = textMutable
+        moreDetailsTextView?.textAlignment = .center
+        moreDetailsTextView?.setLineSpacing(lineSpacing: 2.0)
+        moreDetailsTextView?.isUserInteractionEnabled = true
     }
     
     func setUpGestureOnLabel(){
@@ -154,7 +314,6 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             guard let url = URL(string: "https://www.paypal.com/us/webapps/mpp/account-selection") else{
                 return
             }
-            
             UIApplication.shared.open(url, options: [:])
         } else {
             // Fallback on earlier versions
@@ -168,6 +327,31 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             return self.view as? PaymentSetupPaypalRootView
         }
     }
+    
+    @IBAction func crossAction(sender:UIButton?){
+        
+        self.hideMoreDetail()
+    }
+    
+    func showMoreDetailView(){
+        
+        UIView.animate(withDuration: 0.35) {
+            
+            self.moreDetailMainView?.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func hideMoreDetail(){
+        
+        UIView.animate(withDuration: 0.35) {
+            
+            self.moreDetailMainView?.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -198,6 +382,19 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         msgTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
     }
     
+    func initializeMoreDetailLink(){
+        
+        moreDetailsTextView?.delegate = self
+        moreDetailsTextView?.isSelectable = true
+        moreDetailsTextView?.isEditable = false
+        moreDetailsTextView?.dataDetectorTypes = .link
+        moreDetailsTextView?.isUserInteractionEnabled = true
+        moreDetailsTextView?.linkTextAttributes = [NSAttributedString.Key.font:UIColor(hexString:AppThemeConfig.themeColor)]
+        
+    }
+    
+    
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return false
     }
@@ -220,11 +417,26 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
         
         Log.echo(key: "yud", text: "interacting with url")
         
-        if characterRange == msgTextView?.text?.range(of: "HERE")?.nsRange {
-          
-            Log.echo(key: "yud", text: "interacting with url")
-            return true
+        if textView == moreDetailsTextView{
+            
+            if characterRange == moreDetailsTextView?.text?.range(of: "HERE.")?.nsRange {
+                
+                Log.echo(key: "yud", text: "interacting with moreDetailsTextView here")
+                return true
+            }
         }
+        
+        if textView == msgTextView{
+         
+            self.showMoreDetailView()
+            return false
+        }
+//        if characterRange == msgTextView?.text?.range(of: "More Details")?.nsRange {
+//
+//            Log.echo(key: "yud", text: "interacting with url")
+//
+//            return false
+//        }
          return true
     }
     
@@ -232,7 +444,7 @@ extension PaymentSetupPaypalController:UITextViewDelegate{
 
 
 
-extension PaymentSetupPaypalController{
+extension PaymentSetupPaypalController {
     
     class func instance()->PaymentSetupPaypalController? {
                 
@@ -243,3 +455,13 @@ extension PaymentSetupPaypalController{
 }
 
 
+extension PaymentSetupPaypalController:UITextFieldDelegate{
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        scroll?.activeField = emailField
+        return true
+    }
+    
+    
+}

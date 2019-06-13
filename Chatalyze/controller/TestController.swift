@@ -165,6 +165,8 @@ class TestController: UIViewController {
         return finalImage
     }
     
+    
+    
     private func getTargetSize(remote : UIImage, local : UIImage)->CGSize{
         
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
@@ -202,10 +204,8 @@ class TestController: UIViewController {
         }
         return CGSize.zero
     }
-    
-    
-
 }
+
 
 extension TestController{
     

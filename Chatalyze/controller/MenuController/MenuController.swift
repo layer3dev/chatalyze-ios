@@ -62,12 +62,13 @@ class MenuController: InterfaceExtendedController {
             return
         }
         userName?.text = useInfo.fullName
-        userImage?.image = UIImage(named: "user_placeholder")
+        userImage?.image = UIImage(named: "orangePup")
         if let imageStr = useInfo.profileImage{
             if let url = URL(string: imageStr){
-                userImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                userImage?.sd_setImage(with: url, placeholderImage: UIImage(named: "orangePup"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                     if error != nil{
-                       return
+                        self.userImage?.image = UIImage(named: "orangePup")
+                        return
                     }
                     self.userImage?.image = image
                 })

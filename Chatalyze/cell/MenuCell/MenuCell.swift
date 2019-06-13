@@ -62,7 +62,7 @@ class MenuCell: ExtendedTableCell {
                 if selectedIndexName == "My Sessions"{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }
-                else if selectedIndexName == "Payments"{
+                else if selectedIndexName == "Payout details"{
                     return MenuRootView.MenuType.paymentAnalyst
                 }
                 else if selectedIndexName == "Schedule Session"{
@@ -71,7 +71,7 @@ class MenuCell: ExtendedTableCell {
                 else if selectedIndexName == "Edit Profile"{
                     return MenuRootView.MenuType.editProfileAnalyst
                 }
-                else if selectedIndexName == "Contact Us"{
+                else if selectedIndexName == "Get in touch"{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
                 else if selectedIndexName == "Support"{
@@ -119,7 +119,7 @@ class MenuCell: ExtendedTableCell {
         return MenuRootView.MenuType.none
 
         
-//        var analystArray = ["My Sessions","Payments","Settings","Support"]
+//        var analystArray = ["My Sessions","Payout details","Get in touch","Settings","Refer friends and earn"]
 //        var userArray = ["My Tickets","Memories","Purchase","History", "Settings"]
     
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 class MyScheduledSessionsController: InterfaceExtendedController {
-
+    
     @IBOutlet var sessionListingTableView:UITableView?
     @IBOutlet var noeventLbl:UILabel?
     @IBOutlet var noSessionView:ButtonContainerCorners?
@@ -52,7 +52,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         }
         
         eventDeletedListener.setListener {(deletedEventID) in
-          
+            
             for info in self.eventArray{
                 
                 Log.echo(key: "yud", text: "Event id is \(info.id)")
@@ -119,8 +119,9 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             return
         }
         self.showLoader()
+        self.rootView?.fillInfo(info: [EventInfo]())
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
-         
+            
             self.stopLoader()
             self.eventArray.removeAll()
             self.noeventLbl?.isHidden = true
@@ -177,7 +178,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         guard let id = SignedUserInfo.sharedInstance?.id else{
             return
         }
-
+        
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
             
             self.eventArray.removeAll()
@@ -186,7 +187,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
             self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
             self.tableTopConstraint?.constant = -22.0
             self.mySessionLbl?.isHidden = false
-
+            
             if success{
                 if let array  = info{
                     if array.count > 0{
@@ -197,13 +198,13 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                         self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                         self.tableTopConstraint?.constant = -22.0
                         self.mySessionLbl?.isHidden = false
-
+                        
                         for info in array{
                             self.eventArray.append(info)
                             self.rootView?.fillInfo(info: self.eventArray)
                         }
                     }else if array.count <= 0 {
-                       
+                        
                         self.hideShareView()
                         self.noeventLbl?.isHidden = false
                         self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
@@ -336,7 +337,7 @@ class MyScheduledSessionsController: InterfaceExtendedController {
                 self.chatPupHeightConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                 
                 self.sessionScheduleBottomHeightConstraint?.priority = UILayoutPriority(rawValue: 999.0)
-
+                
                 self.tableTopConstraint?.constant = 10.0
                 self.rootView?.fillInfo(info: self.pastEventsArray)
                 return

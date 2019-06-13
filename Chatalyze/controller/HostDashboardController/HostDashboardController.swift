@@ -30,7 +30,6 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        Bugsnag.notifyError(NSError(domain:"com.customCrash:MySession", code:408, userInfo:nil))
         initialize()
         paint()
         checkForShowingHostWelcomeAnimation()
@@ -272,8 +271,6 @@ class HostDashboardController: MyScheduledSessionsController {
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
         str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
-        //str  = str.replacingOccurrences(of: " ", with: "")
-        Log.echo(key: "yud", text: "url id is \(str)")
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
         self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
@@ -284,9 +281,13 @@ class HostDashboardController: MyScheduledSessionsController {
         
         DispatchQueue.main.async {
             
-            guard let controller = ScheduleSessionSinglePageController.instance() else{
+            guard let controller = ScheduleSessionSinglePageController.instance() else {
                 return
             }
+            
+//            guard let controller = EarlyCallAlertController.instance() else{
+//                return
+//            }
             self.navigationController?.pushViewController(controller, animated: false)
         }
     }

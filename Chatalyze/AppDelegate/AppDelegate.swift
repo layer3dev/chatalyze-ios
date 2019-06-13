@@ -38,7 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func bugSnagInitialization(){
+        
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
+        guard let id = SignedUserInfo.sharedInstance?.id else{
+            return
+        }
+        Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
     }
     
     fileprivate func initializeSegmentIO(){
@@ -52,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func test(){
         
         let milli = Date().millisecondsSince1970
-        Log.echo(key : "milli", text : "milli -> \(milli)")
     }
     
     fileprivate func disableAppToSwitchIntoSleepMode(){
@@ -64,9 +68,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
-        
+            
             self.isRootInitialize = true
-            Log.echo(key: "yud", text: "I have setted the RootController Successfully")
         }
         _ = RTCConnectionInitializer()
     }
@@ -95,12 +98,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
         
         verifyingAccessToken()
+        verifyForEarlyExistingCall()
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
         
+        
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
+    
+    func verifyForEarlyExistingCall(){
+        
+        VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
+            
+            if info != nil{
+                
+                if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+                    return
+                }
+                
+                guard let controller = EarlyCallAlertController.instance() else{
+                    return
+                }
+                controller.requiredDate = info?.startDate
+                controller.info  = info
+                
+                Log.echo(key: "yud`", text: "Presented in the HostDashboard UI")
+                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
+            }
+        }
+    }
+
     
     func applicationWillTerminate(_ application: UIApplication) {
         

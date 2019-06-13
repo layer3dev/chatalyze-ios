@@ -55,7 +55,7 @@ class ScheduleSessionInfo:NSObject {
     }
     
     var totalTimeInMinutes:Int?{
-       
+        
         guard let start = self.startDateTime else {
             return nil
         }

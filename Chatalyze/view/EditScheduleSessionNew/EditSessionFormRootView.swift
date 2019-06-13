@@ -27,11 +27,8 @@ class EditSessionFormRootView:ExtendedView {
     var isBreakShowing = false
     
     @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
-    
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
-    
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
-    
     @IBOutlet var priceAmountHieghtConstrait:NSLayoutConstraint?
     
     enum totalChatDuration:Int{
@@ -265,6 +262,7 @@ class EditSessionFormRootView:ExtendedView {
         self.breakAdapter?.layer.borderWidth = 1
         self.breakAdapter?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
+        self.titleField?.textField?.autocapitalizationType = .sentences
         self.titleField?.isCompleteBorderAllow = true
         self.dateField?.isCompleteBorderAllow = true
         self.timeField?.isCompleteBorderAllow = true
@@ -369,7 +367,7 @@ class EditSessionFormRootView:ExtendedView {
     
     func initializeVariable(){
         
-        
+        breakAdapter?.customDelegate = self
         initializeCustomSwitch()
         initializeDatePicker()
         initializeTimePicker()
@@ -394,12 +392,7 @@ class EditSessionFormRootView:ExtendedView {
         guard let eventInfo = info else{
             return
         }
-        
-        //Printing whole Info
-        
-//        Log.echo(key: "edit form", text: "Title is \(eventInfo.title) start date is \(desiredDate) desired time is \(desiredTime) duration is \(String(describing: eventInfo.duration)) duration of the chat is \(eventInfo.startDate?.timeIntervalSince(eventInfo.endDate ?? Date())) is event free \(eventInfo.isFree) screenshot info if \(eventInfo.isScreenShotAllowed) istipenabled \(eventInfo.tipEnabled) price of the event is \(eventInfo.price)")
-        
-        
+
         self.eventInfo = eventInfo
         
         self.titleField?.textField?.text = eventInfo.title
@@ -576,9 +569,21 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        datePickerContainer.frame = self.frame
+        timePickerContainer.frame = self.frame
+        chatLengthPicker.frame = self.frame
+        sessionLengthPicker.frame = self.frame
+        datePickerContainer.frame.origin.y = datePickerContainer.frame.origin.y - CGFloat(64)
+        timePickerContainer.frame.origin.y = timePickerContainer.frame.origin.y - CGFloat(64)
+        chatLengthPicker.frame.origin.y = chatLengthPicker.frame.origin.y - CGFloat(64)
+        sessionLengthPicker.frame.origin.y = sessionLengthPicker.frame.origin.y - CGFloat(64)
+    }
+    
     
     //MARK:- Button Actions
-    
     @IBAction func breakSlotAction(sender:UIButton){
         
         if isBreakShowing{
@@ -702,9 +707,6 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     
-    
-    
-    
     @IBAction func paidActionAction(sender:UIButton){
         
         hideSponsorShipView()
@@ -754,7 +756,7 @@ class EditSessionFormRootView:ExtendedView {
                 self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
         
                     
-                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                    self.controller?.navigationController?.popViewController(animated: true)
                 })
                 return
             }
@@ -764,7 +766,6 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
     }
-    
 }
 
 extension EditSessionFormRootView:UITextFieldDelegate{
@@ -1300,7 +1301,7 @@ extension EditSessionFormRootView {
         if totalSlots > 0 && totalDurationInMinutes > 0 && singleChatDuration > 0 {
             
             showPaintChatCalculator()
-
+            
             Log.echo(key: "yud", text: "Slot number fetch SuccessFully \(totalSlots) and the totalMinutesOfChat is \(totalDurationInMinutes) and the single Chat is \(singleChatDuration)")
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
@@ -1350,22 +1351,35 @@ extension EditSessionFormRootView {
         }
         
         let totalSlots = Int(totalminutes/Double(duration))
+        let existingSlots = self.emptySlotList
         self.emptySlotList.removeAll()
-        for i in 0..<totalSlots {
+        if existingSlots.count == totalSlots {
             
-            let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
-            let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
-            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
-            self.emptySlotList.append(emptySlotObj)
+            for i in 0..<totalSlots {
+                
+                let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+                let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                if existingSlots[i].isSelected == true {
+                    emptySlotObj.isSelected = true
+                }
+                self.emptySlotList.append(emptySlotObj)
+            }
+        }else{
+            for i in 0..<totalSlots {
+                
+                let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
+                let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                self.emptySlotList.append(emptySlotObj)
+            }
         }
         
         if emptySlotList.count > 0 {
         
             self.breakAdapter?.update(emptySlots: emptySlotList)
-            //showBreak()
             return
         }
-        //hideBreak()
     }
     
     func fillEmptySlotSelectionInfo(){
@@ -1393,6 +1407,7 @@ extension EditSessionFormRootView {
             //showBreak()
             self.breakAdapter?.update(emptySlots: emptySlotList)
             self.showSelectedIndex()
+            self.paintMaximumEarningCalculator()
             return
         }
     }
@@ -1488,10 +1503,14 @@ extension EditSessionFormRootView {
             return
         }
         
-        guard let totalSlots = info.totalSlots else{
+        guard let totalSlot = info.totalSlots else{
             resetEarningCalculator()
             return
         }
+        
+        let totalSlots = totalSlot - (breakAdapter?.selectedBreakSlots ?? 0)
+        
+        Log.echo(key: "yud", text: "selected slots are break \(breakAdapter?.selectedBreakSlots)")
         
         if price > 9999.0 {
             return
@@ -1536,7 +1555,7 @@ extension EditSessionFormRootView {
             fontSizeTotalSlot = 26
             normalFont = 18
         }
-        let calculatorStr = "(\(totalSlots) chats * $\(price) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
+        let calculatorStr = "(\(totalSlots) chats * $\(String(format: "%.2f", price)) per chat) - fees ($\(String(format: "%.2f", serviceFee))) ="
         
         let calculateAttrStr  = calculatorStr.toAttributedString(font: "Nunito-Regular", size: normalFont, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
@@ -1970,4 +1989,13 @@ extension EditSessionFormRootView{
         controller.url = "https://www.chatalyze.com/payments"
         self.controller?.navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+extension EditSessionFormRootView:InformForBreakSelectionInterface{
+    
+    func breakSelectionConfirmed() {
+       
+        paintMaximumEarningCalculator()
+    }
+    
 }

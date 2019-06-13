@@ -64,6 +64,9 @@ class SigninRootView: ExtendedView {
     
     @IBAction fileprivate func loginAction(){
         
+
+        Bugsnag.notifyError(NSError(domain:"com.customLogin", code:408, userInfo:nil))
+        
         if(validateFields()){
             self.resetErrorStatus()
             signIn()
