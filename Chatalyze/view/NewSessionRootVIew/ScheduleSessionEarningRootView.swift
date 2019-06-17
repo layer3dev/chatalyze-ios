@@ -15,7 +15,7 @@ protocol ScheduleSessionEarningRootViewDelegate {
     func goToNextScreen()
 }
 
-class ScheduleSessionEarningRootView: ExtendedView{
+class ScheduleSessionEarningRootView: ExtendedView {
 
     var delegate:ScheduleSessionEarningRootViewDelegate?
     
@@ -66,7 +66,6 @@ class ScheduleSessionEarningRootView: ExtendedView{
         self.maxEarning?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.maxEarning?.layer.borderWidth = 1
         self.maxEarning?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
-        
         
     }
     
@@ -357,8 +356,8 @@ extension ScheduleSessionEarningRootView{
 
             if !isSatisFyingMinimumPlanAmount(text: priceField?.textField?.text){
              
-                priceField?.showError(text: "Minimum price is $\(self.delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0)")
-                return false
+                priceField?.showError(text: "Minimum price is $ \(String(format: "%.2f", self.delegate?.getSchduleSessionInfo()?.minimumPlanPriceToSchedule ?? 0.0))")
+                    return false
             }
         }
         else if isExceedsMaximumPrice(text: priceField?.textField?.text){

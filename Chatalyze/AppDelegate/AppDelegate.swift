@@ -44,13 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
+        Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
     
     fileprivate func initializeSegmentIO(){
         
         let configuration = SEGAnalyticsConfiguration.init(writeKey:AppConnectionConfig.segmentIOKey)
         configuration.trackApplicationLifecycleEvents = true
-        configuration.recordScreenViews = false 
+        configuration.recordScreenViews = false
         SEGAnalytics.setup(with: configuration)
     }
     
@@ -90,20 +91,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
 
+        Log.echo(key: "yud", text: "Application will enter into the foreground.")
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
-        
         verifyingAccessToken()
         verifyForEarlyExistingCall()
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
-        
-        
         
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }

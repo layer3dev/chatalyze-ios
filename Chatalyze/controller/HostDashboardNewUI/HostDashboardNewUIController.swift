@@ -10,11 +10,21 @@ import UIKit
 import Bugsnag
 
 class HostDashboardNewUIController: InterfaceExtendedController {
-
+    
+    let updatedEventScheduleListner = EventListener()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         paintUI()
+        eventListener()
+    }
+    
+    func eventListener(){
+        
+        updatedEventScheduleListner.setListener {
+            
+            self.verifyForEarlyExistingCall()
+        }
     }
     
     var rootView:HostNewUIRootView?{
@@ -116,5 +126,31 @@ extension HostDashboardNewUIController{
         let storyboard = UIStoryboard(name: "HostDashboardNewUI", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "HostDashboardNewUI") as? HostDashboardNewUIController
         return controller
+    }
+}
+
+
+extension HostDashboardNewUIController{
+    
+    func verifyForEarlyExistingCall(){
+        
+        VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
+            
+            if info != nil{
+                
+                if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+                    return
+                }
+                
+                guard let controller = EarlyCallAlertController.instance() else{
+                    return
+                }
+                controller.requiredDate = info?.startDate
+                controller.info  = info
+                
+                Log.echo(key: "yud`", text: "Presented in the HostDashboard UI")
+                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
+            }
+        }
     }
 }

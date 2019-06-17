@@ -1625,7 +1625,7 @@ extension EditSessionFormRootView {
         
         if !isSatisFyingMinimumPlanAmount(text: priceAmountField?.textField?.text){
             
-            priceAmountField?.showError(text: "Minimum price is $\(self.scheduleInfo?.minimumPlanPriceToSchedule ?? 0.0)")
+            priceAmountField?.showError(text: "Minimum price is $ \(String(format: "%.2f", self.scheduleInfo?.minimumPlanPriceToSchedule ?? 0.0))")
             return false
         }
             

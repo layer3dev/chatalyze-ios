@@ -64,8 +64,8 @@ class HostDashboardRootView: MySessionRootView {
         createSessionView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:27.5
         createSessionView?.layer.masksToBounds = true
         
-        urlBorderView?.layer.borderWidth = 0.5
-        urlBorderView?.layer.borderColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1).cgColor
+        urlBorderView?.layer.borderWidth = 1
+        urlBorderView?.layer.borderColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1).cgColor
         
         profileImage?.layer.borderWidth = 1
         profileImage?.layer.borderColor = UIColor.white.cgColor

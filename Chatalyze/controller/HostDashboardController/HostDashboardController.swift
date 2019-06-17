@@ -40,7 +40,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         // DispatchQueue.main.async {
         
-        if shouldStartAnimation == false{
+        if shouldStartAnimation == false {
             return
         }
         
@@ -79,7 +79,7 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "My sessions")
+        paintNavigationTitle(text: "My Sessions")
         rootView?.paintNewUI()
         self.shouldStartAnimation = true
         animate()
@@ -138,6 +138,7 @@ class HostDashboardController: MyScheduledSessionsController {
         str = str + (SignedUserInfo.sharedInstance?.firstName ?? "")
         str = str + "/"
         str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
+
         self.sharingLbl?.text = str
         //str  = str.replacingOccurrences(of: " ", with: "")
         Log.echo(key: "yud", text: "url id is \(str)")
