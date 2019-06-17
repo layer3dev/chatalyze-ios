@@ -24,6 +24,8 @@ class EmptySlotsCells:ExtendedCollectionCell {
         self.cellView?.layer.borderColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
         self.cellView?.layer.masksToBounds = true
     }
+    
+    
     func fillInfo(info:EmptySlotInfo?,index:IndexPath){
         
         guard let info = info else {
@@ -51,8 +53,8 @@ class EmptySlotsCells:ExtendedCollectionCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "am"
-                dateFormatter.pmSymbol = "pm"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 self.startTimeLabel?.text = "\(requireOne) - \(dateFormatter.string(from: date))"
             }
         }

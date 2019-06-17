@@ -13,7 +13,7 @@ import Foundation
 class BreakAdapter: ExtendedView {
     
     var customDelegate:InformForBreakSelectionInterface?
-    
+
     @IBOutlet var breakCollection:UICollectionView?
     private let sectionInsets = UIEdgeInsets(top: 15.0,left: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:8.0,bottom: 0.0,right: UIDevice.current.userInterfaceIdiom == .pad ? 15.0:8.0)
     let itemsPerRow = 4

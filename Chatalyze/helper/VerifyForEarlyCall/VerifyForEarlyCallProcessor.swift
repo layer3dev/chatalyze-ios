@@ -31,9 +31,9 @@ class VerifyForEarlyCallProcessor: NSObject {
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
             
             if success{
-                if let array  = info{
-                    if array.count > 0{
-                        for info in array{
+                if let array  = info {
+                    if array.count > 0 {
+                        for info in array {
                             if ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) < 3600 && ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) >= 0)) {
                                 completion(info)
                                 return

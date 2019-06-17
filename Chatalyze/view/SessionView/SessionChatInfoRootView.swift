@@ -470,7 +470,7 @@ class SessionChatInfoRootView:ExtendedView{
         }
         else if isPriceZero(text: priceField?.textField?.text){
            
-            priceField?.showError(text: "Minimum price is $1")
+            priceField?.showError(text: "Minimum price is $1.00")
             return false
         }
         else if isExceedsMaximumPrice(text: priceField?.textField?.text){
