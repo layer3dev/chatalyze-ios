@@ -194,7 +194,7 @@ class ReferralController: InterfaceExtendedController {
         DispatchQueue.main.async {
             
             // Invite a friend and get 5% of their earning for a year. Terms apply
-            let textOne = "Invite a friend and get 5% of their earning for a year. "
+            let textOne = "Invite a friend and get 5% of their earnings for a year. "
             let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 19:15, color: UIColor.white, isUnderLine: false)
             
             let textTwo = "Terms apply "

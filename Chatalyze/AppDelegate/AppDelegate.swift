@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var allowRotate : Bool = false
     var isRootInitialize:Bool = false
-    
+    var isFetchingEarlyCallData = false
+    var shownEarlySessionIdList:[Int] = [Int]()
+
+    var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
@@ -34,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
+        self.isFetchingEarlyCallData = false
+        self.startTimer()
         return true
     }
     
@@ -84,8 +89,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         
+        Log.echo(key: "yud", text: "Application did enter to background.")
+
+        timer.pauseTimer()
+        self.shownEarlySessionIdList.removeAll()
+        self.isFetchingEarlyCallData = false
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        
+
+                
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
@@ -99,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
         verifyingAccessToken()
-        verifyForEarlyExistingCall()
+        startTimer()
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
@@ -107,13 +119,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
+    
+    private func startTimer(){
+        
+        timer.ping { [weak self] in
+            self?.executeInterval()
+        }
+        timer.startTimer()
+    }
+    
+    func executeInterval(){
+        
+        verifyForEarlyExistingCall()
+        Log.echo(key: "yud", text: "Interval is running")
+    }
+    
+    func isAlreadyShownAlert(infoId:Int)->Bool{
+        
+        for id in shownEarlySessionIdList{
+            if id == infoId {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
+    
     func verifyForEarlyExistingCall(){
         
+        guard let roleType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        if roleType != .analyst{
+            return
+        }
+        if self.isFetchingEarlyCallData{
+            return
+        }
+        self.isFetchingEarlyCallData = true
         VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
             
+            Log.echo(key: "yud", text: "Data is fetched")
+
+            
+            self.isFetchingEarlyCallData = false
             if info != nil{
                 
+                guard let id = info?.id else{
+                    return
+                }
+                
+                if self.isAlreadyShownAlert(infoId:id){
+                    return
+                }
+                
                 if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+                    self.shownEarlySessionIdList.append(id)
                     return
                 }
                 
@@ -123,7 +185,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 controller.requiredDate = info?.startDate
                 controller.info  = info
                 
-                Log.echo(key: "yud`", text: "Presented in the HostDashboard UI")
+                Log.echo(key: "yud", text: "Presented in the HostDashboard UI")
+                self.shownEarlySessionIdList.append(id)
                 RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
             }
         }

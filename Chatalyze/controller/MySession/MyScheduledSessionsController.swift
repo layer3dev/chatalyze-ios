@@ -50,7 +50,6 @@ class MyScheduledSessionsController: InterfaceExtendedController {
         updatedEventScheduleListner.setListener {
        
             self.fetchInfoForListener()
-            self.verifyForEarlyExistingCall()
         }
         
         eventDeletedListener.setListener {(deletedEventID) in

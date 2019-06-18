@@ -60,7 +60,6 @@ extension SessionDetailCellAdapter:UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        Log.echo(key: "YUD", text: "I AM CALLING")
         return 1
     }
     

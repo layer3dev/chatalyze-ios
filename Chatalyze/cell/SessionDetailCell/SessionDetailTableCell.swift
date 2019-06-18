@@ -31,9 +31,12 @@ class SessionDetailTableCell: ExtendedTableCell {
         self.emptySlotInfo = info
         self.index = index
         
+        Log.echo(key: "yud", text: "slot username  is \(self.emptySlotInfo?.slotInfo?.user?.firstName?.firstCapitalized)")
+        
         if isBreak {
-          
+            
             self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  Break"
+            
         }else{
           
             self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  \(self.emptySlotInfo?.slotInfo?.user?.firstName?.firstCapitalized ?? "")"

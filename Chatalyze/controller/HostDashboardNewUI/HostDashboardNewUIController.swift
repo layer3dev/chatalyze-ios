@@ -11,20 +11,10 @@ import Bugsnag
 
 class HostDashboardNewUIController: InterfaceExtendedController {
     
-    let updatedEventScheduleListner = EventListener()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         paintUI()
-        eventListener()
-    }
-    
-    func eventListener(){
-        
-        updatedEventScheduleListner.setListener {
-            
-            self.verifyForEarlyExistingCall()
-        }
     }
     
     var rootView:HostNewUIRootView?{
@@ -83,7 +73,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func chatScreenShotAction(sender:UIButton?){
         
-        guard let controller = EditProfileController.instance() else{
+        guard let controller = EditProfileHostController.instance() else{
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)

@@ -182,8 +182,8 @@ class MySessionTableViewCell: ExtendedTableCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "am"
-                dateFormatter.pmSymbol = "pm"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
                 Log.echo(key: "yud", text: "Locale abbrvation is ")
             }
