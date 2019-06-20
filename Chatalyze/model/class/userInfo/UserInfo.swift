@@ -12,6 +12,7 @@ import SwiftyJSON
 class UserInfo: NSObject {
     
     @objc enum genderType : Int {
+       
         case male = 1
         case female = 2
     }
@@ -22,6 +23,7 @@ class UserInfo: NSObject {
         case analyst = 1
         
         public static func role(withRoleId role : String?)->roleType{
+         
             let roleId = role ?? "3"
             
             switch roleId {

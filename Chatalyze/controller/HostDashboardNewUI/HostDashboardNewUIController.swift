@@ -15,6 +15,27 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         super.viewDidLoad()
         
         paintUI()
+        self.checkForShowingHostWelcomeAnimation()
+    }
+    
+    func checkForShowingHostWelcomeAnimation(){
+        
+        //This method is responsible to showing the new signUp animation for only Hosts.
+        
+        guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
+            return
+        }
+        
+        if !isRequired{
+            return
+        }
+        
+        guard let controller = HostWelcomeAnimationController.instance() else {
+            return
+        }
+        
+        self.present(controller, animated: true, completion: {
+        })
     }
     
     var rootView:HostNewUIRootView?{
@@ -120,27 +141,4 @@ extension HostDashboardNewUIController{
 }
 
 
-extension HostDashboardNewUIController{
     
-    func verifyForEarlyExistingCall(){
-        
-        VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
-            
-            if info != nil{
-                
-                if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
-                    return
-                }
-                
-                guard let controller = EarlyCallAlertController.instance() else{
-                    return
-                }
-                controller.requiredDate = info?.startDate
-                controller.info  = info
-                
-                Log.echo(key: "yud`", text: "Presented in the HostDashboard UI")
-                RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
-            }
-        }
-    }
-}

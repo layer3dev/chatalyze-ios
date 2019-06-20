@@ -85,7 +85,7 @@ class FacebookLogin{
         
         Log.echo(key: "token", text: "parse user info now")
         
-        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+        let info = SignedUserInfo.initSharedInstance(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         info.save()
@@ -157,7 +157,7 @@ class FacebookLogin{
         //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up  through facebook. Facebook always treated as the new signUp.
         UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
         UserDefaults.standard.set(true, forKey: "isHostWelcomeScreenNeedToShow")
-        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+        let info = SignedUserInfo.initSharedInstance(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         info.save()

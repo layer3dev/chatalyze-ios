@@ -53,16 +53,26 @@ class EmailSigninHandler{
             return
         }
         
-        Log.echo(key: "token", text: "parse user info now")
+//        if let data = SignedUserInfo.sharedInstance{
+//            data.fillInfo(info: rawInfo["user"])
+//            let token = rawInfo["token"].stringValue
+//            data.accessToken = token
+//            data.save()
+//            completion(true, "", data)
+//            return
+//        }
         
-        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+//        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+        
+        let info = SignedUserInfo.initSharedInstance(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         
         Log.echo(key: "token", text: "token ==>  \(token)")
         info.save()
         
-//        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignIn", code:408, userInfo:nil))
+        
+        //        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignIn", code:408, userInfo:nil))
         
         completion(true, "", info)
         return

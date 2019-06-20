@@ -16,11 +16,11 @@ class SessionDetailController: InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         rootView?.controller = self
         rootView?.delegate = self
         
-//        rootView?.fillInfo(info: self.eventInfo)
+        //rootView?.fillInfo(info: self.eventInfo)
+        
         fetchNewInfo()
     }
     

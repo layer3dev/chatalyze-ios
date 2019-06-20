@@ -45,10 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func bugSnagInitialization(){
         
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
-        guard let id = SignedUserInfo.sharedInstance?.id else{
-            return
+        if let id = SignedUserInfo.sharedInstance?.id {
+            Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         }
-        Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
     
@@ -144,24 +143,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     
-    
-    
     func verifyForEarlyExistingCall(){
         
         guard let roleType = SignedUserInfo.sharedInstance?.role else{
             return
         }
+        
+        guard let accessToken = SignedUserInfo.sharedInstance?.accessToken else{
+            return
+        }
+        
+        if accessToken == "" {
+            return
+        }
+        
         if roleType != .analyst{
             return
         }
+        
         if self.isFetchingEarlyCallData{
             return
         }
+        
         self.isFetchingEarlyCallData = true
+        
         VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
             
             Log.echo(key: "yud", text: "Data is fetched")
-
             
             self.isFetchingEarlyCallData = false
             if info != nil{
@@ -175,6 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
                 if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+                    
                     self.shownEarlySessionIdList.append(id)
                     return
                 }
@@ -329,7 +338,6 @@ extension AppDelegate {
     }
     
    static func fetchAppVersionInfoToServer(){
-    
     
     //This will handle the case when app will open second time and root is already initialized.
     

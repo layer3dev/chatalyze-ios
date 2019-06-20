@@ -14,7 +14,8 @@ class ScheduleSessionSinglePageController: EditSessionFormController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Bugsnag.notifyError(NSError(domain:"com.customCrash:ScheduleSession", code:408, userInfo:nil))        
+
+        //        Bugsnag.notifyError(NSError(domain:"com.customCrash:ScheduleSession", code:408, userInfo:nil))        
         SEGAnalytics.shared().track("Session Schedule")
     }
     

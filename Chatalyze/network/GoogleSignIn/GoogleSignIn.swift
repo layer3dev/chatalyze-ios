@@ -62,7 +62,7 @@ class GoogleSignIn{
         
         Log.echo(key: "token", text: "Parse user info now")
         
-        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
+        let info = SignedUserInfo.initSharedInstance(userInfoJSON: rawInfo["user"])
         let token = rawInfo["token"].stringValue
         info.accessToken = token
         info.save()

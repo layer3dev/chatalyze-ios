@@ -36,7 +36,7 @@ class RefreshDeviceToken{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        Log.echo(key: "yud", text: "Response from the refreshToken is  is \(response)")
+        Log.echo(key: "yud", text: "Response from the refreshToken is \(response)")
         
         if !success{
             completion(false, "error",  nil)

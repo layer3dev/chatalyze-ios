@@ -82,6 +82,9 @@ class SignupRootView:ExtendedView{
             self.controller?.stopLoader()
             if success{
                 
+                Log.echo(key: "yud", text: "teck am host with role if \(SignedUserInfo.sharedInstance?.role)and the roleID is \(SignedUserInfo.sharedInstance?.roleId) and the signed Info is is \(String(describing: SignedUserInfo.sharedInstance?.id))")
+
+                
                 self.registerWithSegmentAnalytics(info : info)
                 //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up.
                 UserDefaults.standard.set(true, forKey: "isOnBoardShowed")

@@ -13,6 +13,7 @@ import SwiftyJSON
 class ServerProcessor{
     
     private var sessionManager : SessionManager?
+    private var urlString = ""
     
     init(){
         
@@ -102,11 +103,13 @@ class ServerProcessor{
         self.completion = completion
         self.authorize = authorize
         var headers = headers ?? [String : String]()
-        
+        self.urlString = URLString
+
         if(authorize){
             
             headers["Authorization"] = getAuthorizationToken()
         }
+        
         
         Log.echo(key: "yud", text: "param => " + (URLString))
         Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
@@ -140,7 +143,7 @@ class ServerProcessor{
         }
         
         let token = "Bearer " + (info.accessToken ?? "")
-        Log.echo(key: "yud", text: token)
+        Log.echo(key: "yud", text: "authorisation token wih the url \(self.urlString) \(token)")
         return token
     }
     
@@ -178,7 +181,7 @@ class ServerProcessor{
         
         if(response.response?.statusCode == 401 && self.authorize){
             
-            Log.echo(key: "yud", text: "Signing out due to the status code 401")
+            Log.echo(key: "yud", text: "Signing out due to the status code 401 and the url on which it is loggin out is \(self.urlString)")
             
             self.signout()
             respond(success: false, response: nil)
