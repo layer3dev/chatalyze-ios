@@ -10,45 +10,66 @@ import Foundation
 
 class VerifyForEarlyCallProcessor: NSObject {
     
-    var eventInfo:[EventInfo] = [EventInfo]()
-    func verifyEarlyExistingCall(completion:@escaping (_ info:EventInfo?)->()) {
+    var listener = EventListener()
+    var eventInfoArray:[EventInfo] = [EventInfo]()
+    
+    override init() {
+        super.init()
         
-        guard let roleId = SignedUserInfo.sharedInstance?.role else{
-            completion(nil)
-            return
-        }
-        if roleId == .user{
-            completion(nil)
-            return
-        }
-        self.fetchInfo(completion: completion)
+        initializeListener()
+        self.fetchInfo()
     }
     
-    func fetchInfo(completion:@escaping (_ info:EventInfo?)->()){
+    func initializeListener(){
         
-        guard let id = SignedUserInfo.sharedInstance?.id else{
-            completion(nil)
+        listener.setListener {
+            self.fetchInfo()
+        }
+    }
+    
+    //****************
+    
+    func fetchInfo(){
+        
+        guard let roleId = SignedUserInfo.sharedInstance?.role else{
             return
         }
+        
+        if roleId == .user{
+            return
+        }
+        
+        guard let id = SignedUserInfo.sharedInstance?.id else{
+            return
+        }
+        
+        Log.echo(key: "yud", text: "I hitted the webservice")
         
         FetchMySessionsProcessor().fetchInfo(id: id) { (success, info) in
             
             if success{
                 if let array  = info {
                     if array.count > 0 {
-                        for info in array {
-                            if ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) < 900 && ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) >= 0)) {
-                                completion(info)
-                                return
-                            }
-                        }
+                        self.eventInfoArray = array
                     }
                 }
-                completion(nil)
                 return
             }
-            completion(nil)
             return
         }
+    }
+    
+    
+    
+    func verifyEarlyExistingCall(completion:(_ info:EventInfo?)->()) {
+        
+        for info in self.eventInfoArray {
+            if ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) < 900 && ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) >= 0)) {
+                completion(info)
+                return
+            }
+        }
+        completion(nil)
+        return
     }
 }

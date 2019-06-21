@@ -21,7 +21,7 @@ class UserInfo: NSObject {
     
         case user = 0
         case analyst = 1
-        
+
         public static func role(withRoleId role : String?)->roleType{
          
             let roleId = role ?? "3"

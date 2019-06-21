@@ -78,9 +78,12 @@ class SessionDetailRootView: ExtendedView {
             guard let info = info  else {
                 return
             }
+            
             self.info = info
             self.adpater.info = self.info
             self.reloadAdapter()
+            
+            //self.checkExactEmptySlots()
             
             Log.echo(key: "yud", text: " Time difference in between the end and current time \(Date().timeIntervalSince(info.endDate ?? Date()))")
             
@@ -219,3 +222,18 @@ extension SessionDetailRootView:SessionDetailCellAdapterProtocols{
         }
     }
 }
+
+//extension SessionDetailRootView{
+//
+//    func checkExactEmptySlots(){
+//
+//        for info in self.info?.emptySlotsArray ?? []{
+//            if let dict = info.dictionary{
+//                if let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString: dict["end"]?.string , dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") {
+//
+//                    Log.echo(key: "yud", text: "Time difference in empty slot is  \(endDate)")
+//                }
+//            }
+//        }
+//    }
+//}

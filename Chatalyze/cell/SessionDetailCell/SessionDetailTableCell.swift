@@ -34,7 +34,6 @@ class SessionDetailTableCell: ExtendedTableCell {
         if isBreak {
             
             self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  Break"
-            
         }else{
           
             self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  \(self.emptySlotInfo?.slotInfo?.user?.firstName?.firstCapitalized ?? "")"
