@@ -43,11 +43,8 @@ class SessionDetailRootView: ExtendedView {
     func paintInterface(){
         
         goBackButtonContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
-      
         confirmButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
-        
         goBackButtonContainer?.layer.masksToBounds = true
-        
         confirmButton?.layer.masksToBounds = true
     }
     
@@ -83,7 +80,7 @@ class SessionDetailRootView: ExtendedView {
             self.adpater.info = self.info
             self.reloadAdapter()
             
-            //self.checkExactEmptySlots()
+            let emptySlotCount = self.checkExactEmptySlots()
             
             Log.echo(key: "yud", text: " Time difference in between the end and current time \(Date().timeIntervalSince(info.endDate ?? Date()))")
             
@@ -109,7 +106,7 @@ class SessionDetailRootView: ExtendedView {
                     if let durate  = info.duration{
                         let totalnumberofslots = Int(timeDiffrence/(durate*60))
                                                 
-                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.info?.emptySlotsArray?.count ?? 0)) chats booked "
+                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(emptySlotCount)) chats booked "
                     }
                 }
             }
@@ -223,17 +220,40 @@ extension SessionDetailRootView:SessionDetailCellAdapterProtocols{
     }
 }
 
-//extension SessionDetailRootView{
+extension SessionDetailRootView{
+
+    func checkExactEmptySlots()->Int{
+
+        var emptySlots = 0
+        
+        for info in self.info?.emptySlotsArray ?? []{
+            
+            if let dict = info.dictionary{
+                
+//                 Log.echo(key: "yud", text: "json info dict is \(info)")
 //
-//    func checkExactEmptySlots(){
+//                Log.echo(key: "yud", text: "end string is \(info)  end date is \(DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""))")
 //
-//        for info in self.info?.emptySlotsArray ?? []{
-//            if let dict = info.dictionary{
-//                if let endDate = DateParser.getDateTimeInUTCFromWeb(dateInString: dict["end"]?.string , dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ") {
-//
-//                    Log.echo(key: "yud", text: "Time difference in empty slot is  \(endDate)")
-//                }
-//            }
-//        }
-//    }
-//}
+                var breakDate:Date? = nil
+                
+                if let date = DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""){
+                    breakDate = date
+                }else{
+                    
+                    if let newDate = DateParser.getDateTimeInUTCFromWeb(dateInString:(dict["end"]?.stringValue ?? ""), dateFormat: "yyyy-MM-dd HH:mm:ss Z"){
+                        breakDate = newDate
+                    }
+                }
+                
+                if let requiredBreakEndDate = breakDate{
+                  
+                    if self.info?.endDate?.timeIntervalSince(requiredBreakEndDate) ?? -1.0 >=  0.0 {
+                        emptySlots = emptySlots + 1
+                    }
+                }
+            }
+        }
+        return emptySlots
+        Log.echo(key: "yud", text: "Exact empty slots are  \(emptySlots)")
+    }
+}

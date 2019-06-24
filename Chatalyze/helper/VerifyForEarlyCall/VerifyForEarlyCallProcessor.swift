@@ -12,17 +12,39 @@ class VerifyForEarlyCallProcessor: NSObject {
     
     var listener = EventListener()
     var eventInfoArray:[EventInfo] = [EventInfo]()
+    let eventDeletedListener = EventDeletedListener()
     
     override init() {
         super.init()
         
         initializeListener()
         self.fetchInfo()
+        eventListener()
     }
     
+    
+    func eventListener(){
+        
+        eventDeletedListener.setListener {(deletedEventID) in
+            
+            for info in self.eventInfoArray {
+                if ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) < 900 && ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) >= 0)) {
+
+                    7
+                    if info.id == Int(deletedEventID ?? "0"){
+                        self.eventInfoArray.removeAll()
+                        self.fetchInfo()
+                    }
+                    return
+                }
+            }
+        }
+    }
+
     func initializeListener(){
         
         listener.setListener {
+            self.eventInfoArray.removeAll()
             self.fetchInfo()
         }
     }

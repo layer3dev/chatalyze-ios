@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var allowRotate : Bool = false
     var isRootInitialize:Bool = false
-    var isFetchingEarlyCallData = false
     var shownEarlySessionIdList:[Int] = [Int]()
     var earlyCallProcessor = VerifyForEarlyCallProcessor()
 
@@ -38,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
-        self.isFetchingEarlyCallData = false
         self.startTimer()
         return true
     }
@@ -60,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SEGAnalytics.setup(with: configuration)
     }
     
-    fileprivate func test(){
+    fileprivate func test() {
         
         let milli = Date().millisecondsSince1970
     }
@@ -93,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         timer.pauseTimer()
         self.shownEarlySessionIdList.removeAll()
-        self.isFetchingEarlyCallData = false
 
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 
@@ -110,6 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
+        earlyCallProcessor.eventInfoArray.removeAll()
+        earlyCallProcessor.fetchInfo()
         verifyingAccessToken()
         startTimer()
         if self.isRootInitialize{
@@ -131,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func executeInterval(){
 
         verifyForEarlyExistingCall()
-        Log.echo(key: "yud", text: "Interval is running")
+       // Log.echo(key: "yud", text: "Interval is running")
     }
     
     func isAlreadyShownAlert(infoId:Int)->Bool{
@@ -162,17 +161,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
 
-        if self.isFetchingEarlyCallData{
-            return
-        }
-
-        self.isFetchingEarlyCallData = true
-
         earlyCallProcessor.verifyEarlyExistingCall { (info) in
 
-            Log.echo(key: "yud", text: "Data is fetched")
+            //Log.echo(key: "yud", text: "Data is fetched")
 
-            self.isFetchingEarlyCallData = false
             if info != nil{
 
                 guard let id = info?.id else{

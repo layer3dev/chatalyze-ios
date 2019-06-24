@@ -1306,7 +1306,7 @@ extension EditSessionFormRootView {
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
             
-            let mutableStr  = "\(totalSlots)".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+            let mutableStr  = "\(totalSlots-(getEmptySlotSelectedCount()))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " available 1:1 chats"
             let nextAttrStr  = nextStr.toAttributedString(font: "Nunito-Regular", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
@@ -1320,9 +1320,61 @@ extension EditSessionFormRootView {
         hidePaintChatCalculator()
         Log.echo(key: "yud", text: "Total number of the slot is \(totalSlots)")
     }
+    
+    func updateChatTotalCalculatorWithBreaks(){
+        
+        guard let info = scheduleInfo else{
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        guard let startDate = info.startDateTime else{
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        guard let endDate = info.endDateTime else{
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        
+        let totalDurationInMinutes = Int(endDate.timeIntervalSince(startDate)/60.0)
+        
+        var totalSlots = 0
+        
+        guard let singleChatDuration = self.scheduleInfo?.duration else{
+            
+            hidePaintChatCalculator()
+            hideBreak()
+            return
+        }
+        
+        totalSlots = totalDurationInMinutes/singleChatDuration
+        
+        var fontSizeTotalSlot = 30
+        var normalFont = 20
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            
+            fontSizeTotalSlot = 26
+            normalFont = 18
+        }
+        
+        
+        let mutableStr  = "\(totalSlots-(getEmptySlotSelectedCount()))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        
+        let nextStr = " available 1:1 chats"
+        let nextAttrStr  = nextStr.toAttributedString(font: "Nunito-Regular", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
+        
+        mutableStr.append(nextAttrStr)
+        chatTotalNumberOfSlots?.attributedText = mutableStr
+    }
+    
         
     func createEmptySlots(){
-                
+        
+        
         //removing the text from the textField as by calling this function means fetching the new Data for empty Slots.
         self.breakField?.textField?.text = ""
         
@@ -1994,8 +2046,23 @@ extension EditSessionFormRootView{
 extension EditSessionFormRootView:InformForBreakSelectionInterface{
     
     func breakSelectionConfirmed() {
-       
+        
         paintMaximumEarningCalculator()
+        updateChatTotalCalculatorWithBreaks()
     }
-    
 }
+
+extension EditSessionFormRootView{
+    
+    func getEmptySlotSelectedCount()->Int{
+        
+        var selectedSlots  = 0
+        for info in self.breakAdapter?.emptySlots ?? []{
+            if info.isSelected {
+               selectedSlots = selectedSlots + 1
+            }
+        }
+        return selectedSlots
+    }
+}
+

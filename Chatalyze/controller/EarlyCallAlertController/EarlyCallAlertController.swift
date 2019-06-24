@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class EarlyCallAlertController: InterfaceExtendedController {
 
@@ -26,7 +27,22 @@ class EarlyCallAlertController: InterfaceExtendedController {
         self.fillInfo()
         self.startAnimation()
         self.eventListener()
+        self.initializeNotification()
     }
+    
+    func initializeNotification(){
+    
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+
+@objc func appMovedToBackground() {
+    
+    self.dismiss(animated: false) {
+    }
+    print("App moved to background!")
+}
     
     func eventListener(){
         
