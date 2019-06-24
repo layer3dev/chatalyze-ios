@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class SignedUserInfo: UserInfo , NSCoding{
 
-    
     var accessToken : String?
     var notificationCount : Int = 0
     private static var _sharedInstance : SignedUserInfo?
@@ -29,10 +28,11 @@ class SignedUserInfo: UserInfo , NSCoding{
     }
     
     static let encodingKey = "userInfo"
+    
     static func initSharedInstance(userInfoJSON : JSON?)->SignedUserInfo{
         
         let oldInstance = sharedInstance
-        let info = SignedUserInfo(userInfoJSON : userInfoJSON)
+        let info = SignedUserInfo(userInfoJSON : userInfoJSON)      
         _sharedInstance = info
         info.save()
         info.accessToken = oldInstance?.accessToken
@@ -45,7 +45,6 @@ class SignedUserInfo: UserInfo , NSCoding{
     
     override init(userInfoJSON : JSON?){
         super.init(userInfoJSON: userInfoJSON)
-        
     }
     
     override func fillInfo(info : JSON?){
@@ -53,13 +52,20 @@ class SignedUserInfo: UserInfo , NSCoding{
         save()
     }
     
+    
+    //Only Call it from Shared Instance and not from orphan or isolated instance
+    //otherwise, it may cause stale instance
     func save(){
         
         let ud = UserDefaults.standard
         let instance = self
+//        SignedUserInfo._sharedInstance = instance
         let data = NSKeyedArchiver.archivedData(withRootObject: instance)
         ud.set(data, forKey: SignedUserInfo.encodingKey)
+        ud.synchronize()
     }
+    
+
     
     private static func retreiveInstance()->SignedUserInfo?{
         

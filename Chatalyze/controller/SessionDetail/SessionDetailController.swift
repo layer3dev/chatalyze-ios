@@ -16,12 +16,40 @@ class SessionDetailController: InterfaceExtendedController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createEmptySlots()
         rootView?.controller = self
         rootView?.delegate = self
-        rootView?.initialize()
-        rootView?.fillInfo(info: self.eventInfo)
-    }    
+        
+        //rootView?.fillInfo(info: self.eventInfo)
+        
+        fetchNewInfo()
+    }
+    
+    func fetchNewInfo(){
+        
+        guard let id = self.eventInfo?.id else{
+            return
+        }
+        self.showLoader()
+        CallEventInfo().fetchInfo(eventId:"\(id)") { (success, info) in
+            
+            DispatchQueue.main.async {
+                
+                self.stopLoader()
+                if let newInfo = info{
+                    
+                    self.eventInfo = newInfo
+                    self.createEmptySlots()
+                    self.rootView?.initialize()
+                    self.rootView?.fillInfo(info: self.eventInfo)
+                    return
+                }
+                self.createEmptySlots()
+                self.rootView?.initialize()
+                self.rootView?.fillInfo(info: self.eventInfo)
+                return
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,8 +79,6 @@ class SessionDetailController: InterfaceExtendedController {
     
     func createEmptySlots(){
         
-        self.startAnimating()
-        
         guard let startTime = self.eventInfo?.startDate else {
             return
         }
@@ -79,8 +105,12 @@ class SessionDetailController: InterfaceExtendedController {
             self.emptySlotList.append(emptySlotObj)
             if let alreadyBookedInfo = self.eventInfo?.slotsInfoLists{
                 for info in alreadyBookedInfo {
+                    
+                    Log.echo(key: "yud", text: "Info name is \(info.user?.id) second \(info.user?.id) third \(info.user?.id)")
+                    
                     if info.startDate?.timeIntervalSince(requiredStartDate ?? Date()) == 0.0 && info.endDate?.timeIntervalSince(requiredEndDate ?? Date()) == 0.0{
                         emptySlotObj.slotInfo = info
+                        Log.echo(key: "yud", text: "Empty Slot user name is \(emptySlotObj.slotInfo?.user?.firstName)")
                         break
                     }
                 }

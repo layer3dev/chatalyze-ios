@@ -127,7 +127,7 @@ class MySessionTableViewCell: ExtendedTableCell {
                 let timeDiffrence = endDate.timeIntervalSince(startDate)
                 if let durate  = info.duration{
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(info.emptySlotsArray?.count ?? 0)) booked"
+                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.checkExactEmptySlots())) booked"
                 }
             }
         }
@@ -182,8 +182,8 @@ class MySessionTableViewCell: ExtendedTableCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "am"
-                dateFormatter.pmSymbol = "pm"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
                 Log.echo(key: "yud", text: "Locale abbrvation is ")
             }
@@ -424,5 +424,44 @@ extension MySessionTableViewCell{
         }))
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })
+    }
+}
+
+
+extension MySessionTableViewCell{
+    
+    private func checkExactEmptySlots()->Int{
+        
+        var emptySlots = 0
+        
+        for info in self.info?.emptySlotsArray ?? []{
+            
+            if let dict = info.dictionary{
+                
+                // Log.echo(key: "yud", text: "json info dict is \(info)")
+                //
+                // Log.echo(key: "yud", text: "end string is \(info)  end date is \(DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""))")
+                //
+                var breakDate:Date? = nil
+                
+                if let date = DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""){
+                    breakDate = date
+                }else{
+                    
+                    if let newDate = DateParser.getDateTimeInUTCFromWeb(dateInString:(dict["end"]?.stringValue ?? ""), dateFormat: "yyyy-MM-dd HH:mm:ss Z"){
+                        breakDate = newDate
+                    }
+                }
+                
+                if let requiredBreakEndDate = breakDate{
+                    
+                    if self.info?.endDate?.timeIntervalSince(requiredBreakEndDate) ?? -1.0 >=  0.0 {
+                        emptySlots = emptySlots + 1
+                    }
+                }
+            }
+        }
+        Log.echo(key: "yud", text: "Exact empty slots are  \(emptySlots)")
+        return emptySlots
     }
 }

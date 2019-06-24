@@ -53,11 +53,13 @@ class SignupProcessor{
             return
         }
         
-        let info = SignedUserInfo(userInfoJSON: rawInfo["user"])
-        if let id = info.id {
-            Log.echo(key: "yud", text: "Alias is calling")
-            SEGAnalytics.shared().alias(id)
+        if let info = rawInfo["user"].dictionary {
+            if let id = info["id"]?.string {
+                Log.echo(key: "yud", text: "Alias is calling and the id is \(id)")
+                SEGAnalytics.shared().alias(id)
+            }
         }
+        
         completion(true, "", nil)
         return
     }

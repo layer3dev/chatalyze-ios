@@ -135,7 +135,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "Payout Details")
+        paintNavigationTitle(text: "Payments")
     }
     
     func paintInterface(){

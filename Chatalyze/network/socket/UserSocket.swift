@@ -19,7 +19,6 @@ class UserSocket {
     private var notificationLogger = LogNotification()
     private var registrationTimeout = UserSocketRegistrationTimeout()
     
-    
     init(){
         initialization()
     }
@@ -55,6 +54,7 @@ class UserSocket {
     
     
     fileprivate func unregisterForAppState(){
+        
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
@@ -66,7 +66,6 @@ class UserSocket {
         Log.echo(key: "user_socket", text:"called appMovedToBackground")
         
         socketManager?.disconnect()
-        
 //        socket?.disconnect()
     }
     
@@ -82,7 +81,6 @@ class UserSocket {
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socketManager?.connect()
 //        socket?.connect()
-        
         
     }
     
@@ -117,6 +115,7 @@ extension UserSocket{
         })
         
         socket?.on(clientEvent: .disconnect, callback: { (data, ack) in
+            
             self.notificationLogger.notify(text : "disconnected :(")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket  (disconnect) => \(data)")
@@ -160,6 +159,7 @@ extension UserSocket{
 
     
     func registerSocket(){
+        
         Log.echo(key: "user_socket", text:"socket registerSocket")
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
@@ -183,7 +183,6 @@ extension UserSocket{
             //recursive call
             weakSelf.registerSocket()
         }
-        
         
         Log.echo(key: "", text:"Connected and emitted")
     }

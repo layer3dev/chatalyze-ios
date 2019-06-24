@@ -30,9 +30,9 @@ class SessionDetailTableCell: ExtendedTableCell {
         
         self.emptySlotInfo = info
         self.index = index
-        
+                
         if isBreak {
-          
+            
             self.attendessNameLbl?.text = "\((self.index ?? 0)+1).  Break"
         }else{
           
@@ -53,8 +53,8 @@ class SessionDetailTableCell: ExtendedTableCell {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "am"
-                dateFormatter.pmSymbol = "pm"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 self.slotTime?.text = "\(requireOne) - \(dateFormatter.string(from: date))"
             }
         }

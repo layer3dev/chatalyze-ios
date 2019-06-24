@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var allowRotate : Bool = false
     var isRootInitialize:Bool = false
-    
+    var shownEarlySessionIdList:[Int] = [Int]()
+    var earlyCallProcessor = VerifyForEarlyCallProcessor()
+
+    var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
@@ -34,16 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
+        self.startTimer()
         return true
     }
     
     fileprivate func bugSnagInitialization(){
         
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
-        guard let id = SignedUserInfo.sharedInstance?.id else{
-            return
+        if let id = SignedUserInfo.sharedInstance?.id {
+            Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         }
-        Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
     
@@ -55,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SEGAnalytics.setup(with: configuration)
     }
     
-    fileprivate func test(){
+    fileprivate func test() {
         
         let milli = Date().millisecondsSince1970
     }
@@ -84,8 +87,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         
+        Log.echo(key: "yud", text: "Application did enter to background.")
+
+        timer.pauseTimer()
+        self.shownEarlySessionIdList.removeAll()
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        
+
+                
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
     
@@ -98,8 +107,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
+        earlyCallProcessor.eventInfoArray.removeAll()
+        earlyCallProcessor.fetchInfo()
         verifyingAccessToken()
-        verifyForEarlyExistingCall()
+        startTimer()
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
@@ -107,23 +118,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
-    func verifyForEarlyExistingCall(){
+    
+    private func startTimer(){
+
+        timer.ping { [weak self] in
+            self?.executeInterval()
+        }
+        timer.startTimer()
+    }
+    
+    func executeInterval(){
+
+        verifyForEarlyExistingCall()
+       // Log.echo(key: "yud", text: "Interval is running")
+    }
+    
+    func isAlreadyShownAlert(infoId:Int)->Bool{
         
-        VerifyForEarlyCallProcessor().verifyEarlyExistingCall { (info) in
-            
+        for id in shownEarlySessionIdList{
+            if id == infoId {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func verifyForEarlyExistingCall(){
+
+        guard let roleType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+
+        guard let accessToken = SignedUserInfo.sharedInstance?.accessToken else{
+            return
+        }
+
+        if accessToken == "" {
+            return
+        }
+
+        if roleType != .analyst{
+            return
+        }
+
+        earlyCallProcessor.verifyEarlyExistingCall { (info) in
+
+            //Log.echo(key: "yud", text: "Data is fetched")
+
             if info != nil{
-                
-                if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+
+                guard let id = info?.id else{
                     return
                 }
-                
+
+                if self.isAlreadyShownAlert(infoId:id){
+                    return
+                }
+
+                if let controller = RootControllerManager().getCurrentController()?.presentedViewController as? EarlyCallAlertController{
+
+                    self.shownEarlySessionIdList.append(id)
+                    return
+                }
+
                 guard let controller = EarlyCallAlertController.instance() else{
                     return
                 }
                 controller.requiredDate = info?.startDate
                 controller.info  = info
-                
-                Log.echo(key: "yud`", text: "Presented in the HostDashboard UI")
+
+                Log.echo(key: "yud", text: "Presented in the HostDashboard UI")
+                self.shownEarlySessionIdList.append(id)
                 RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
             }
         }
@@ -266,7 +331,6 @@ extension AppDelegate {
     }
     
    static func fetchAppVersionInfoToServer(){
-    
     
     //This will handle the case when app will open second time and root is already initialized.
     

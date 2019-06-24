@@ -12,9 +12,9 @@ class AppInfoConfig {
     
     static var appName = "Chatalyze Dev"
     static var deviceType = "ios"
-    static var appversion = "1.23"
+    static var appversion = "1.24"
     static var appType = "featured"
     
     //TODO:- Change the version
-    //Next version going to release is 1.24
+    //Next version going to release is 1.25
 }

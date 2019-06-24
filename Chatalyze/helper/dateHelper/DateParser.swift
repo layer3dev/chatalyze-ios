@@ -72,7 +72,9 @@ class DateParser: NSObject {
         if stringToDate(dateString, dateFormat: defaultFormat, timeZone: UTCTimeZone) != nil {
             return stringToDate(dateString, dateFormat: defaultFormat, timeZone: UTCTimeZone)
         }
+        
         Log.echo(key: "yud", text: "Force Conversion to new date format is \(stringToDate(dateString, dateFormat: "yyyy-MM-dd'T'HH:mm:ssZ", timeZone: UTCTimeZone))")
+        
         return stringToDate(dateString, dateFormat: "yyyy-MM-dd'T'HH:mm:ssZ", timeZone: UTCTimeZone)
         
     }

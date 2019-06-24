@@ -43,11 +43,8 @@ class SessionDetailRootView: ExtendedView {
     func paintInterface(){
         
         goBackButtonContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
-      
         confirmButton?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
-        
         goBackButtonContainer?.layer.masksToBounds = true
-        
         confirmButton?.layer.masksToBounds = true
     }
     
@@ -78,9 +75,12 @@ class SessionDetailRootView: ExtendedView {
             guard let info = info  else {
                 return
             }
+            
             self.info = info
             self.adpater.info = self.info
             self.reloadAdapter()
+            
+            let emptySlotCount = self.checkExactEmptySlots()
             
             Log.echo(key: "yud", text: " Time difference in between the end and current time \(Date().timeIntervalSince(info.endDate ?? Date()))")
             
@@ -100,10 +100,13 @@ class SessionDetailRootView: ExtendedView {
             if let startDate = info.startDate{
                 if let endDate = info.endDate{
                     let timeDiffrence = endDate.timeIntervalSince(startDate)
-                    Log.echo(key: "yud", text: "The total time of the session is \(timeDiffrence)")
+                    
+                    Log.echo(key: "yud", text: "The total time of the session is \(timeDiffrence) durate is \(info.duration) and total number of slots are \(Int(timeDiffrence/(info.duration ?? 0*60)))")
+                    
                     if let durate  = info.duration{
                         let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.info?.emptySlotsArray?.count ?? 0)) chats booked "
+                                                
+                        self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(emptySlotCount)) chats booked "
                     }
                 }
             }
@@ -145,8 +148,8 @@ class SessionDetailRootView: ExtendedView {
                 dateFormatter.dateFormat = "h:mm a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "am"
-                dateFormatter.pmSymbol = "pm"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
                 Log.echo(key: "yud", text: "Locale abbrevation is")
             }
@@ -214,5 +217,43 @@ extension SessionDetailRootView:SessionDetailCellAdapterProtocols{
         DispatchQueue.main.async {
             self.heightOfAdapter?.constant = height
         }
+    }
+}
+
+extension SessionDetailRootView{
+
+    func checkExactEmptySlots()->Int{
+
+        var emptySlots = 0
+        
+        for info in self.info?.emptySlotsArray ?? []{
+            
+            if let dict = info.dictionary{
+                
+//                 Log.echo(key: "yud", text: "json info dict is \(info)")
+//
+//                Log.echo(key: "yud", text: "end string is \(info)  end date is \(DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""))")
+//
+                var breakDate:Date? = nil
+                
+                if let date = DateParser.UTCStringToDate(dict["end"]?.stringValue ?? ""){
+                    breakDate = date
+                }else{
+                    
+                    if let newDate = DateParser.getDateTimeInUTCFromWeb(dateInString:(dict["end"]?.stringValue ?? ""), dateFormat: "yyyy-MM-dd HH:mm:ss Z"){
+                        breakDate = newDate
+                    }
+                }
+                
+                if let requiredBreakEndDate = breakDate{
+                  
+                    if self.info?.endDate?.timeIntervalSince(requiredBreakEndDate) ?? -1.0 >=  0.0 {
+                        emptySlots = emptySlots + 1
+                    }
+                }
+            }
+        }
+        return emptySlots
+        Log.echo(key: "yud", text: "Exact empty slots are  \(emptySlots)")
     }
 }

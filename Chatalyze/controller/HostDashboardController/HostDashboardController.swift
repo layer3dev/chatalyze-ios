@@ -32,7 +32,6 @@ class HostDashboardController: MyScheduledSessionsController {
         
         initialize()
         paint()
-        checkForShowingHostWelcomeAnimation()
         SEGAnalytics.shared().track("My Session Page")
     }
     
@@ -84,26 +83,7 @@ class HostDashboardController: MyScheduledSessionsController {
         self.shouldStartAnimation = true
         animate()
     }    
-    
-    func checkForShowingHostWelcomeAnimation(){
-        
-        //This method is responsible to showing the new signUp animation for only Hosts.
-        
-        guard let isRequired = UserDefaults.standard.value(forKey: "isHostWelcomeScreenNeedToShow") as? Bool else {
-            return
-        }
-        
-        if !isRequired{
-            return
-        }
-        
-        guard let controller = HostWelcomeAnimationController.instance() else {
-            return
-        }
-        
-        self.present(controller, animated: true, completion: {
-        })
-    }    
+
     
     override func showShareView(){
         

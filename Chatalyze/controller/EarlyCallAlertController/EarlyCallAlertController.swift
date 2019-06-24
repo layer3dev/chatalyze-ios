@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class EarlyCallAlertController: InterfaceExtendedController {
 
@@ -17,32 +18,64 @@ class EarlyCallAlertController: InterfaceExtendedController {
     @IBOutlet var seconds:UILabel?
     @IBOutlet var name:UILabel?
     @IBOutlet var topArrowConstraint:NSLayoutConstraint?
-    
+    let eventDeletedListener = EventDeletedListener()
+
     override func viewDidLoad() {
         super.viewDidLoad()
       
         self.startTimer()
         self.fillInfo()
         self.startAnimation()
+        self.eventListener()
+        self.initializeNotification()
     }
+    
+    func initializeNotification(){
+    
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+
+@objc func appMovedToBackground() {
+    
+    self.dismiss(animated: false) {
+    }
+    print("App moved to background!")
+}
+    
+    func eventListener(){
+        
+        eventDeletedListener.setListener {(deletedEventID) in
+            
+            guard let id = self.info?.id else{
+                return
+            }
+            if id == Int(deletedEventID ?? "0"){
+                
+                self.dismiss(animated: true, completion: {
+                })
+            }
+        }
+    }
+    
     
     func startAnimation(){
         
         UIView.animate(withDuration: 0.5, animations: {
-            if self.topArrowConstraint?.priority.rawValue == 250.0{
+            if self.topArrowConstraint?.priority.rawValue == 250.0 {
                 
                 self.topArrowConstraint?.priority = UILayoutPriority(rawValue: 999.0)
                 self.view.layoutIfNeeded()
                 
-            }else{
+            }else {
                 
                 self.topArrowConstraint?.priority = UILayoutPriority(rawValue: 250.0)
                 self.view.layoutIfNeeded()
-                
             }
             
         }){(success) in
-           
+            
             self.startAnimation()
         }
     }
@@ -87,7 +120,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
         }
         let totalSeconds = Int(date.timeIntervalTillNow)
         //print("logging", "total seconds ->  \(totalSeconds)")
-        if totalSeconds > 3600 || totalSeconds < 0{
+        if totalSeconds > 900 || totalSeconds < 0{
             self.dismiss(animated: true) {
             }
             return("0","0","0")

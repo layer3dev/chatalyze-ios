@@ -50,7 +50,7 @@ class EventInfo: NSObject {
     var tipEnabled : Bool?
     var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
     var emptySlotsArray:[JSON]? = [JSON]()
-    var isSponsorEnable = false 
+    var isSponsorEnable = false
     
     override init(){
         super.init()
@@ -114,7 +114,7 @@ class EventInfo: NSObject {
             
             let info = SlotInfo(info: info)
             self.slotsInfoLists.append(info)
-        }
+        }        
     }
     
     private var _price:Double?{
@@ -252,4 +252,7 @@ class EventInfo: NSObject {
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
         }
     }
+    
+    
+   
 }

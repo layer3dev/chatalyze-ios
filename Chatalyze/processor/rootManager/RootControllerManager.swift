@@ -64,8 +64,14 @@ class RootControllerManager{
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
         transition.type = CATransitionType.fade
+        
+        Log.echo(key: "yud", text: "onboard am host with role if \(SignedUserInfo.sharedInstance?.role)and the roleID is \(SignedUserInfo.sharedInstance?.roleId) and the signed Info is is \(SignedUserInfo.sharedInstance?.id)")
+
         if let userInfo = SignedUserInfo.sharedInstance{
             if userInfo.role == .analyst{
+                
+                Log.echo(key: "yud", text: "I am host with role if \(userInfo.role)and the roleID is \(userInfo.roleId) and the signed Info is is \(SignedUserInfo.sharedInstance?.id)")
+                
                 
 //                guard let onboardController = OnBoardFlowController.instance() else {
 //                    return
@@ -78,6 +84,8 @@ class RootControllerManager{
                 showHomeScreen(didLoadWindow: didLoadWindow)
             }else{
                 
+                Log.echo(key: "yud", text: "I am user with roleTYpe \(userInfo.role) and the roleID is \(userInfo.roleId) signed Info is is \(SignedUserInfo.sharedInstance?.id)")
+
                 guard let onboardController = OnBoardFlowController.instance() else {
                     return
                 }
@@ -116,6 +124,7 @@ class RootControllerManager{
         let transition = CATransition()
         transition.type = CATransitionType.fade
         if let userInfo = SignedUserInfo.sharedInstance{
+            Log.echo(key: "yud", text: "I am user with roleTYpe \(userInfo.role) and the roleID is \(userInfo.roleId) signed Info is is \(SignedUserInfo.sharedInstance?.id)")
             if userInfo.role == .analyst{
                 
                 guard let containerController = ContainerController.instance() else {

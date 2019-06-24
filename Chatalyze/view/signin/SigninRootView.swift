@@ -30,7 +30,6 @@ class SigninRootView: ExtendedView {
     @IBOutlet fileprivate var signInView:UIView?
     @IBOutlet fileprivate var facebookView:UIView?
     
-    
     @IBAction fileprivate func fbLoginAction(){
         
         //showWelcomeScreen(response: {
@@ -63,9 +62,8 @@ class SigninRootView: ExtendedView {
     }
     
     @IBAction fileprivate func loginAction(){
-        
 
-        Bugsnag.notifyError(NSError(domain:"com.customLogin", code:408, userInfo:nil))
+        // Bugsnag.notifyError(NSError(domain:"com.customLogin", code:408, userInfo:nil))
         
         if(validateFields()){
             self.resetErrorStatus()
