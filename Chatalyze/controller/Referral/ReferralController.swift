@@ -24,7 +24,8 @@ class ReferralController: InterfaceExtendedController {
     
     @IBOutlet var emailAddress:UITextField?
     @IBOutlet var errorLabel:UILabel?
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,6 +55,8 @@ class ReferralController: InterfaceExtendedController {
         backToMyProfile?.layer.masksToBounds = true
         
         roundViewToInviteButton()
+        
+        emailAddress?.delegate = self
     }
     
     @IBAction func terms(sender:UIButton?){
@@ -98,8 +101,10 @@ class ReferralController: InterfaceExtendedController {
         text.removeAll()
         text.append(email)
         
+        SEGAnalytics.shared().track("Action: Host Referral Page - Send Invite")
+        
         self.showLoader()
-       
+        
         SendRefrerrelInvitation().send(param: ["members":text]) { (success,response) in
             
             self.stopLoader()
@@ -240,6 +245,7 @@ class ReferralController: InterfaceExtendedController {
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
         
+        SEGAnalytics.shared().track("Action: Host Referral Page - Copy Referral Link")
         var str = self.sharingLbl?.text
         str  = str?.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
@@ -264,4 +270,14 @@ class ReferralController: InterfaceExtendedController {
         return controller
     }
     
+}
+
+
+extension ReferralController:UITextFieldDelegate{
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        SEGAnalytics.shared().track("Action: Host Referral Page - Enter Email Address")
+        return true
+    }
 }

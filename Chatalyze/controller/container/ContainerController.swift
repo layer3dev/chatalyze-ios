@@ -487,7 +487,7 @@ class ContainerController: NavChildController {
                 return
             }
             
-            guard let controller = EditProfileHostController.instance() else{
+            guard let controller = HostDashboardController.instance() else{
                 return
             }
             

@@ -124,7 +124,8 @@ import UIKit
             
             if role == .analyst{
                 
-                if type == .eventDelay {                    
+                if type == .eventDelay {
+                    
                     RootControllerManager().selectAccountTabWithScheduledSessionScreen()
                 }
                 if type == .eventStarted {
@@ -145,7 +146,7 @@ import UIKit
                 }
                 if type == .eventScheduledAgainForAnalyst{
                     
-                    RootControllerManager().selectEventTabWithSessions()
+                    RootControllerManager().selectAccountTabWithScheduledSessionScreen()
                 }
                 if type == .remindForEvent{
                     

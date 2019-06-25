@@ -45,7 +45,6 @@ class RootControllerManager{
             return
         }
         if isOnBoardShowed(){
-            
             showOnboardScreen(didLoadWindow:didLoadWindow)
             return
         }
