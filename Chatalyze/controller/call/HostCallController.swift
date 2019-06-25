@@ -711,19 +711,32 @@ class HostCallController: VideoCallController {
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         //don't use merged slot for count
         let currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
-        let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
-        hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+        let breakSlots = self.eventInfo?.emptySlotsArray?.count ?? 0
+        
+        Log.echo(key: "yud", text: " Break slots are \(breakSlots) and the  slots are \(slotCount) and the current slot is \(currentSlot)")
+        
+        if getTotalNUmberOfSlots() > 0{
+            
+            let slotCountFormatted = "\(currentSlot + 1) of \(getTotalNUmberOfSlots()-breakSlots)"
+            hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+        }else{
+         
+            let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
+            hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+        }
+        
+        Log.echo(key: "yud", text: "Total number of slots are \(getTotalNUmberOfSlots())")
     }
     
-    private func updateCallHeaderForFuture(slot : SlotInfo){
+    private func updateCallHeaderForFuture(slot : SlotInfo) {
         
         guard let startDate = slot.startDate
-            else{
+            else {
                 return
         }
         
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
-            else{
+            else {
                 return
         }
         
@@ -839,8 +852,6 @@ class HostCallController: VideoCallController {
             }
         }
     }
-    
-    
     
     private func preconnectUser(){
         
@@ -1178,5 +1189,30 @@ extension HostCallController{
         
         self.present(alert, animated: true) {
         }
+    }
+}
+
+
+extension HostCallController{
+    
+    func getTotalNUmberOfSlots()->Int{
+        
+        guard let startTime = self.eventInfo?.startDate else {
+            return 0
+        }
+        guard let endTime = self.eventInfo?.endDate else {
+            return 0
+        }
+        let timeDiffreneceOfSlots = endTime.timeIntervalSince(startTime)
+        
+        let totalminutes = (timeDiffreneceOfSlots/60)
+        
+        guard let duration = self.eventInfo?.duration else{
+            return 0
+        }
+       
+        let totalSlots = Int(totalminutes/duration)
+        
+        return totalSlots
     }
 }

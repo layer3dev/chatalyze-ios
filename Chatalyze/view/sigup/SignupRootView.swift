@@ -87,9 +87,10 @@ class SignupRootView:ExtendedView{
                 
                 self.registerWithSegmentAnalytics(info : info)
                 //isOnBoardShowed is set to true in order to see the onboarding graphics only after each sign up.
-                UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
                 if SignedUserInfo.sharedInstance?.role == .analyst{
                     UserDefaults.standard.set(true, forKey: "isHostWelcomeScreenNeedToShow")
+                }else{
+                    UserDefaults.standard.set(true, forKey: "isOnBoardShowed")
                 }
                 RootControllerManager().updateRoot()
                 return
