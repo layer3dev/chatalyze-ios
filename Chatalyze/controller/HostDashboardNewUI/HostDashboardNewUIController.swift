@@ -80,13 +80,17 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller  = HostWelcomeAnimationController.instance() else{
             return
         }
+        self.present(controller, animated: true) {
+            
+        }
+        
         
 //
 //        guard let controller  = ScheduleSessionSinglePageController.instance() else{
 //            return
 //        }
 
-        self.navigationController?.pushViewController(controller, animated: true)
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     
