@@ -18,6 +18,12 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         self.checkForShowingHostWelcomeAnimation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        rootView?.paintInterface()
+    }
+    
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
@@ -46,7 +52,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         paintNavigationTitle(text: "Dashboard")
         paintSettingButton()
-        rootView?.paintInterface()
     }
     
     @IBAction func testmyPhone(sender:UIButton?){
