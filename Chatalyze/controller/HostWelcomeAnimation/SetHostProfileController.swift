@@ -67,15 +67,14 @@ class SetHostProfileController: InterfaceExtendedController {
 //            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
 //            })
             
-            
-            guard let controller = AnimationPaypalSetupController.instance() else{
-                return
+            DispatchQueue.main.async {
+                
+                guard let controller = AnimationPaypalSetupController.instance() else{
+                    return
+                }
+                self.present(controller, animated: true) {
+                }
             }
-            
-            self.present(controller, animated: true) {
-            }
-            
-            
             
 //            if success{
 //
@@ -104,11 +103,13 @@ class SetHostProfileController: InterfaceExtendedController {
     
     @IBAction func skipAction(sender:UIButton?){
         
-        guard let controller = AnimationPaypalSetupController.instance() else{
-            return
-        }
-        
-        self.present(controller, animated: true) {
+        DispatchQueue.main.async {
+            
+            guard let controller = AnimationPaypalSetupController.instance() else{
+                return
+            }
+            self.present(controller, animated: true) {
+            }
         }
     }
     

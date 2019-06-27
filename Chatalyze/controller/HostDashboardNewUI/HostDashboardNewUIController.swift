@@ -46,8 +46,15 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         paintNavigationTitle(text: "Dashboard")
         paintSettingButton()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         rootView?.paintInterface()
     }
+    
     
     @IBAction func testmyPhone(sender:UIButton?){
         
@@ -59,6 +66,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = InternetSpeedTestController.instance() else {
             return
         }
+        
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
@@ -71,26 +79,18 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller  = HostDashboardController.instance() else{
             return
         }
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
    
     @IBAction func scheduleSessionAction(sender:UIButton?){
         
-        guard let controller  = HostWelcomeAnimationController.instance() else{
+        guard let controller  = ScheduleSessionSinglePageController.instance() else{
             return
         }
-        self.present(controller, animated: true) {
-            
-        }
         
-        
-//
-//        guard let controller  = ScheduleSessionSinglePageController.instance() else{
-//            return
-//        }
-
-//        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     
@@ -99,6 +99,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = PaymentSetupPaypalController.instance() else{
             return
         }
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -106,7 +107,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         guard let controller = EditProfileHostController.instance() else{
             return
-        }
+        }        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -120,7 +121,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func referFriendAndEarnAction(sender:UIButton?){
         
-        guard let controller = ReferralController.instance() else{
+        guard let controller = ReferralController.instance() else {
             return
         }
         self.navigationController?.pushViewController(controller, animated: true)

@@ -83,7 +83,7 @@ class UserCallController: VideoCallController {
     override func interval(){
         super.interval()
         
-        Log.echo(key: "yud", text: "Interval timer is working")
+        Log.echo(key: "yud", text: " Interval timer is working")
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
@@ -461,6 +461,7 @@ class UserCallController: VideoCallController {
         
         //if current slot id is nil then return
         if self.myLiveUnMergedSlot?.id == nil {
+            Log.echo(key: "yud", text: "my unmerged slot is nil")
             return
         }
         
@@ -473,12 +474,11 @@ class UserCallController: VideoCallController {
         
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
         
-        if let slotId = self.myLiveUnMergedSlot?.id{
+        if let slotId = self.myLiveUnMergedSlot?.id {
             if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated) {
                 return
             }
         }
-        
         // Once the selfie timer has been come
         //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
@@ -486,6 +486,16 @@ class UserCallController: VideoCallController {
         if(!isCallConnected){ return }
         
         if !(isCallStreaming){
+//            if SlotFlagInfo.staticScreenShotSaved{
+//
+//                return
+//            }else{
+//
+//                SlotFlagInfo.staticSlotId = -1
+//                SlotFlagInfo.staticIsTimerInitiated = false
+//                selfieTimerView?.reset()
+//                Log.echo(key: "yud", text: "Resetting the screenshots")
+//            }
             return
         }
         
@@ -495,6 +505,8 @@ class UserCallController: VideoCallController {
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
+            
+            Log.echo(key: "yud", text: "Again restarting the screenshots")
             
             //In order to convert into the Web Format
             //E, d MMM yyyy HH:mm:ss z
@@ -512,6 +524,7 @@ class UserCallController: VideoCallController {
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "sent time stamp data is \(data)")
+          
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
             self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
