@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func bugSnagInitialization(){
         
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
-        if let id = SignedUserInfo.sharedInstance?.id {
+        if let id = SignedUserInfo.sharedInstance?.id {            
             Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         }
         Bugsnag.configuration()?.reportBackgroundOOMs = false
@@ -53,14 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func initializeSegmentIO(){
         
         let configuration = SEGAnalyticsConfiguration.init(writeKey:AppConnectionConfig.segmentIOKey)
-        configuration.trackApplicationLifecycleEvents = true
+        configuration.trackApplicationLifecycleEvents = false
         configuration.recordScreenViews = false
         SEGAnalytics.setup(with: configuration)
     }
     
     fileprivate func test() {
         
-        let milli = Date().millisecondsSince1970
+        _ = Date().millisecondsSince1970
     }
     
     fileprivate func disableAppToSwitchIntoSleepMode(){
@@ -256,6 +256,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        earlyCallProcessor.fetchInfo()
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         let userInfo = response.notification.request.content.userInfo
         Log.echo(key: "yud", text: "RemoteNotification userInfo is \(userInfo)")

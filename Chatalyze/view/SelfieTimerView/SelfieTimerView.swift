@@ -161,7 +161,6 @@ class SelfieTimerView:ExtendedView {
         self.hostTimer.releaseListener()
         self.testTimer.start()
         self.registerForTimer()
-        
     }
     
     

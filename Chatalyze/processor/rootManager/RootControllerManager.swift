@@ -200,4 +200,11 @@ class RootControllerManager{
             rootController.selectEventTabWithSessions()
         }
     }
+    
+    func navigateToScheduleSessionController(){
+        
+        if let rootController = getCurrentController(){
+            rootController.setMySessions()
+        }
+    }
 }

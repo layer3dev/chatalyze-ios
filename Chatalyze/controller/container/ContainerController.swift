@@ -361,7 +361,7 @@ class ContainerController: NavChildController {
             guard let rootController = HostDashboardNewUIController.instance() else{
                 return
             }
-            guard let controller = SessionScheduleNewController.instance() else{
+            guard let controller = ScheduleSessionSinglePageController.instance() else{
                 return
             }
             navController?.setViewControllers([rootController,controller], animated: true)
@@ -683,6 +683,12 @@ extension ContainerController : TabContainerViewInterface{
         
         tapAction(menuType: MenuRootView.MenuType.scheduledSessionAnalyst)
     }
+    
+    func setMySessions(){
+        
+        tapAction(menuType: MenuRootView.MenuType.scheduledSessionAnalyst)
+    }
+    
     
     
     func selectEventTabWithSessions(){

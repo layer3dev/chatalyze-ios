@@ -21,6 +21,7 @@ class SetHostProfileController: InterfaceExtendedController {
         return self.view as? SetProfileRootView
     }
     
+    
     /*
      // MARK: - Navigation
      
@@ -29,7 +30,7 @@ class SetHostProfileController: InterfaceExtendedController {
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
      }
-     */
+     */    
     
     @IBAction func revealMyProfile(sender:UIButton){
         
@@ -56,15 +57,24 @@ class SetHostProfileController: InterfaceExtendedController {
         }
     }
     
+    
     func updateProfile(){
         
         FetchProfileProcessor().fetch(completion: { (success, error, reponse) in
             self.stopLoader()
            
-            UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")          
-            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
-            })
+//            UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
+//            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+//            })
             
+            DispatchQueue.main.async {
+                
+                guard let controller = AnimationPaypalSetupController.instance() else{
+                    return
+                }
+                self.present(controller, animated: true) {
+                }
+            }
             
 //            if success{
 //
@@ -88,6 +98,19 @@ class SetHostProfileController: InterfaceExtendedController {
 //                })
 //            }
         })
+    }
+    
+    
+    @IBAction func skipAction(sender:UIButton?){
+        
+        DispatchQueue.main.async {
+            
+            guard let controller = AnimationPaypalSetupController.instance() else{
+                return
+            }
+            self.present(controller, animated: true) {
+            }
+        }
     }
     
     class func instance()->SetHostProfileController?{
