@@ -47,9 +47,7 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet private var chatCalculatorView:UIView?
 
     var totalTimeOfChat:totalChatDuration = .none
-    
     var scheduleInfo:ScheduleSessionInfo? = ScheduleSessionInfo()
-    
     var planInfo:PlanInfo?
     
     enum pickerType:Int {
@@ -60,7 +58,7 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     var selectedPickerType:pickerType = .none
-
+    
     @IBOutlet var breakField:SigninFieldView?
     
     @IBOutlet var titleField:SigninFieldView?
@@ -733,7 +731,7 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
         save()
-        Log.echo(key: "yud", text: "Final param are \(getParam())")
+        //Log.echo(key: "yud", text: "Final param are \(getParam())")
     }
     
     func save(){
@@ -1467,11 +1465,15 @@ extension EditSessionFormRootView {
     
     fileprivate func validateSlotTime()->Bool{
         
-        if(slotSelected == 0){
+         Log.echo(key: "yud", text: "Error is slot number \(slotSelected)")
+        
+        if(slotSelected == 0 || slotSelected == nil){
             
             chatLength?.showError(text:"Chat length is required.")
+            Log.echo(key: "yud", text: "Error is throwing")
             return false
         }
+        Log.echo(key: "yud", text: "Error is not throwing")
         chatLength?.resetErrorStatus()
         return true
     }

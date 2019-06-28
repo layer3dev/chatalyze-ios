@@ -42,7 +42,7 @@ class SignUpController: InterfaceExtendedController {
             
             let text3 = "Privacy Policy."
             
-            let textFourMutable = text3.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            let textFourMutable = text3.toMutableAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:14, color: UIColor.white, isUnderLine: false)
             
             textOneMutable.append(textTwoMutable)
             textOneMutable.append(textThreeMutable)
@@ -56,7 +56,7 @@ class SignUpController: InterfaceExtendedController {
             
             let privacyMutableText = privacyTextOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
             
-            let privacyAttrText = privacyTextTwo.toAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor.white, isUnderLine: false)
+            let privacyAttrText = privacyTextTwo.toAttributedString(font: "Nunito-ExtraBold", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:14, color: UIColor.white, isUnderLine: false)
             
             privacyMutableText.append(privacyAttrText)
             self.privacyLbl?.attributedText = textFourMutable

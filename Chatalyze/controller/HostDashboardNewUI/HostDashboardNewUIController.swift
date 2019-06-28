@@ -84,7 +84,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
    
     @IBAction func scheduleSessionAction(sender:UIButton?){
-        
+                
         guard let controller  = ScheduleSessionSinglePageController.instance() else{
             return
         }
