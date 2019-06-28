@@ -476,9 +476,26 @@ class UserCallController: VideoCallController {
         
         if let slotId = self.myLiveUnMergedSlot?.id {
             if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated) {
+              
+                if !(isCallStreaming){
+                    Log.echo(key: "yud", text: "yes call disconnected")
+
+                    if SlotFlagInfo.staticScreenShotSaved{
+                        return
+                    }else{
+                        
+                        SlotFlagInfo.staticSlotId = -1
+                        SlotFlagInfo.staticIsTimerInitiated = false
+                        selfieTimerView?.reset()
+                        Log.echo(key: "yud", text: "Resetting the screenshots")
+                    }
+                    return
+                }
                 return
             }
         }
+        
+        
         // Once the selfie timer has been come
         //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
         //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }

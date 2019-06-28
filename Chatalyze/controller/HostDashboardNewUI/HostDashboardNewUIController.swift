@@ -18,6 +18,12 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         self.checkForShowingHostWelcomeAnimation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        rootView?.paintInterface()
+    }
+    
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
@@ -45,14 +51,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     func paintUI(){
         
         paintNavigationTitle(text: "Dashboard")
-        paintSettingButton()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        rootView?.paintInterface()
+        paintSettingButton()        
     }
     
     
@@ -85,7 +84,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
    
     @IBAction func scheduleSessionAction(sender:UIButton?){
-        
+                
         guard let controller  = ScheduleSessionSinglePageController.instance() else{
             return
         }
