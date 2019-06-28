@@ -258,6 +258,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
         
         earlyCallProcessor.fetchInfo()
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
+        
         let userInfo = response.notification.request.content.userInfo
         Log.echo(key: "yud", text: "RemoteNotification userInfo is \(userInfo)")
         let aps = userInfo["aps"] as? [String: AnyObject]
@@ -336,7 +337,7 @@ extension AppDelegate {
     
     FetchAppVersionInfo().fetchInfo { (success, response) in
             
-            if !success{
+            if !success {
                 
                 HandlingAppVersion().checkForAlert()
                 return
