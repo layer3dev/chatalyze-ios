@@ -75,7 +75,14 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func mySessionAction(sender:UIButton?){
         
-        guard let controller  = HostDashboardController.instance() else{
+//        guard let controller = HostWelcomeAnimationController.instance() else{
+//            return
+//        }
+//
+//        self.present(controller, animated: true) {
+//        }
+        
+        guard let controller = HostDashboardController.instance() else{
             return
         }
         
@@ -84,12 +91,14 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
    
     @IBAction func scheduleSessionAction(sender:UIButton?){
-                
-        guard let controller  = ScheduleSessionSinglePageController.instance() else{
-            return
-        }
         
-        self.navigationController?.pushViewController(controller, animated: true)
+        DispatchQueue.main.async {
+            
+            guard let controller  = ScheduleSessionSinglePageController.instance() else{
+                return
+            }
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
     

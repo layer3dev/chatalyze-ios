@@ -142,6 +142,7 @@ class SignupRootView:ExtendedView{
     
     func initializeVariable(){
         
+        firstName?.textField?.autocapitalizationType = .words
         emailField?.textField?.delegate = self
         passwordField?.textField?.delegate = self
         firstName?.textField?.delegate = self
@@ -155,7 +156,7 @@ class SignupRootView:ExtendedView{
     }
 }
 
-extension SignupRootView:UITextFieldDelegate{
+extension SignupRootView:UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         scrollView?.activeField = textField

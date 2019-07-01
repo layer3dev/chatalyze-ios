@@ -25,10 +25,10 @@ class ReferralController: InterfaceExtendedController {
     @IBOutlet var emailAddress:UITextField?
     @IBOutlet var errorLabel:UILabel?
     
+    var sharingUrlComingFromWEb:String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         paintInterface()
         
@@ -48,15 +48,13 @@ class ReferralController: InterfaceExtendedController {
         self.setSharableUrlText()
         
         backToMyProfile?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 32.5:22.5
-        
         backToMyProfile?.layer.borderWidth = 1
         backToMyProfile?.layer.borderColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1).cgColor
-        
+
         backToMyProfile?.layer.masksToBounds = true
-        
         roundViewToInviteButton()
-        
         emailAddress?.delegate = self
+        SEGAnalytics.shared().track("Host Referral Page")
     }
     
     @IBAction func terms(sender:UIButton?){
@@ -151,18 +149,21 @@ class ReferralController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintHideBackButton()
+        paintNavigationTitle(text: "Refer Friends")
+        paintBackButton()
+        paintSettingButton()
+        //paintHideBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        hideNavigationBar()
+        //hideNavigationBar()
+        showNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
-        showNavigationBar()
+        //showNavigationBar()
     }
+    
     
     @IBAction func backToMySession(sender:UIButton) {
         
@@ -179,9 +180,11 @@ class ReferralController: InterfaceExtendedController {
             Log.echo(key: "yud", text: "Repo is \(response)")
             
             if success{
+                self.sharingUrlComingFromWEb = response
                 self.sharingLbl?.text = response ?? ""
                 return
             }
+            self.sharingUrlComingFromWEb = nil
             self.sharingLbl?.text = ""
         }
         
@@ -214,11 +217,13 @@ class ReferralController: InterfaceExtendedController {
     @IBAction func copyText(send:UIButton){
         
         //str  = str.replacingOccurrences(of: " ", with: "")
-        guard var str = sharingLbl?.text else {
+        guard var str = sharingUrlComingFromWEb else {
             return
         }
         
         str  = str.replacingOccurrences(of: " ", with: "")
+        
+        Log.echo(key: "yud", text: "sharing url is \(str)")
         
         if let url = URL(string: str){
             
@@ -244,7 +249,7 @@ class ReferralController: InterfaceExtendedController {
     
     
     @IBAction func copyTextOnClipboard(sender:UIButton){
-        
+                
         SEGAnalytics.shared().track("Action: Host Referral Page - Copy Referral Link")
         var str = self.sharingLbl?.text
         str  = str?.replacingOccurrences(of: " ", with: "")

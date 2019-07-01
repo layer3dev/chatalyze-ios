@@ -15,12 +15,13 @@ class AnimationHostReadyController: UIViewController {
     }
     
     @IBAction func letsDoIt(sender:UIButton?){
-      
-        self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
-        })
         
+        self.showLoader()
         RootControllerManager().navigateToScheduleSessionController()
-        // Dismiss and then Root to schedule session class.
+        self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+                self.stopLoader()
+
+            })
     }
     
     @IBAction func skipAction(sender:UIButton?){

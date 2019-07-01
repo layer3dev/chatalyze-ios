@@ -44,9 +44,16 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
             
             DispatchQueue.main.async {
                 
+                if !success {
+                    
+                    self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "cancel", showCancel: false, completion: { (success) in
+                    })
+                    return
+                }
+                
                 UserDefaults.standard.removeObject(forKey: "isHostWelcomeScreenNeedToShow")
                 
-                guard let controller = AnimationHostReadyController.instance() else{
+                guard let controller = AnimationHostReadyController.instance() else {
                     return
                 }
                 
