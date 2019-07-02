@@ -186,6 +186,7 @@ class ReferralController: InterfaceExtendedController {
             }
             self.sharingUrlComingFromWEb = nil
             self.sharingLbl?.text = ""
+            
         }
         
 //        var str = AppConnectionConfig.basicUrl
@@ -225,12 +226,14 @@ class ReferralController: InterfaceExtendedController {
         
         Log.echo(key: "yud", text: "sharing url is \(str)")
         
-        if let url = URL(string: str){
-            
+        let url = "Start hosting virtual meet and greets getting paid on Chatalyze. Here's my invitation link: " + str
+        
+//        if let myUrl = URL(string: str){
+        
             if UIDevice.current.userInterfaceIdiom == .pad {
                 
-                let shareText = "Chatalyze"
-                let shareItems: [Any] = [url]
+                _ = "Chatalyze"
+                let shareItems: [AnyObject] = [url as AnyObject]
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
                 activityVC.popoverPresentationController?.sourceView = self.view
                 activityVC.popoverPresentationController?.sourceRect = send.frame
@@ -238,12 +241,12 @@ class ReferralController: InterfaceExtendedController {
                 
             }else {
                 
-                let shareText = "Chatalyze"
-                let shareItems: [Any] = [url]
+                _ = "Chatalyze"
+                let shareItems: [AnyObject] = [url as AnyObject]
                 let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
                 self.present(activityVC, animated: false, completion: nil)
             }
-        }
+//        }
         return
     }
     

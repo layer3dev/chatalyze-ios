@@ -110,6 +110,7 @@ class SignUpController: InterfaceExtendedController {
         tapActionTermsLbl()
         tapActionPrivacyLbl()
         maketextLinkable()
+        SEGAnalytics.shared().track("SignUp Page")
     }
     
     func initialization(){
@@ -128,7 +129,6 @@ class SignUpController: InterfaceExtendedController {
         
         updateSigUpHeaderInfo()
         hideNavigationBar()
-        SEGAnalytics.shared().track("SignUp Page")
     }
     
     func updateSigUpHeaderInfo(){

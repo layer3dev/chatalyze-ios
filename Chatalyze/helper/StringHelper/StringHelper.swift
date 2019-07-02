@@ -262,3 +262,15 @@ extension String {
 
 
 
+extension Double {
+    private static var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter
+    }()
+    
+    var delimiter: String {
+        return Double.numberFormatter.string(from: NSNumber(value: self)) ?? ""
+    }
+}

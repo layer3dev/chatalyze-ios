@@ -83,9 +83,23 @@ class PaymentSetupPaypalRootView:ExtendedView{
     
     func fillBiilingInfo(info:BillingInfo?){
         
-        pendingAmountLbl?.text = (self.amount)+(info?.pendingAmount ?? "")
-        ticketSalesAmount?.text = (self.amount)+(info?.earnedAmount ?? "")
-        tipAmount?.text = (self.amount)+(info?.tipAmount ?? "")
+        let amountDouble = Double(self.amount)
+        let pendingDouble = Double(info?.pendingAmount ?? "")
+        let earnedDouble = Double(info?.earnedAmount ?? "")
+        let tipAmountDouble = Double(info?.tipAmount ?? "")
+        let pendingTotalInt = ((amountDouble ?? 0.0) + (pendingDouble ?? 0.0))
+        let earnedAmountTotalInt = ((amountDouble ?? 0.0) + (earnedDouble ?? 0.0))
+        let tipAmountTotalInt = ((amountDouble ?? 0.0) + (tipAmountDouble ?? 0.0))
+        
+        
+        pendingAmountLbl?.text = "\(pendingTotalInt.delimiter)"
+        ticketSalesAmount?.text = "\(earnedAmountTotalInt.delimiter)"
+        tipAmount?.text = "\(tipAmountTotalInt.delimiter)"
+        
+        
+//        pendingAmountLbl?.text = (self.amount)+(info?.pendingAmount ?? "")
+//        ticketSalesAmount?.text = (self.amount)+(info?.earnedAmount ?? "")
+//        tipAmount?.text = (self.amount)+(info?.tipAmount ?? "")
     }
 }
 

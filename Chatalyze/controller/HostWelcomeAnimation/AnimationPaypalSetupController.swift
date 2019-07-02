@@ -18,8 +18,6 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
     }
     override func fetchPaymentHostoryForPagination(){
     }
-    override func fetchPaypalInfo(){
-    }
     override func fetchBillingInfo(){
     }
     
@@ -39,7 +37,7 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
         let email = emailField?.textField?.text ?? ""
         
         self.showLoader()
-        SubmitPaypalEmailProcessor().save(idOfEmail:self.id,isEmailExists:false,analystId: analystID, email: email) { (success, message, response) in
+        SubmitPaypalEmailProcessor().save(idOfEmail:self.id,isEmailExists:isEmailExists,analystId: analystID, email: email) { (success, message, response) in
             self.stopLoader()
             
             DispatchQueue.main.async {
@@ -63,7 +61,30 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
         }
     }
     
-    
+    override func fetchPaypalInfo(){
+        
+        self.showLoader()
+        FetchPaypalEmailHost().fetchInfo { (success, response) in
+            self.stopLoader()
+            
+            if success{
+                
+                guard let res = response else{
+                    self.isEmailExists = false
+                    return
+                }
+                
+                if let dict = res.dictionary{
+                    if let email = dict["email"]?.stringValue{
+                        
+                        //self.emailField?.textField?.text = email
+                        self.id = dict["id"]?.stringValue ?? ""
+                        Log.echo(key: "yud", text: "Id is \(self.id)")
+                    }
+                }
+            }
+        }
+    }
     
     override class func instance()->AnimationPaypalSetupController? {
         

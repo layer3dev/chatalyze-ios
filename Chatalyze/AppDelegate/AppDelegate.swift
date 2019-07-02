@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
-        self.startTimer()
+        self.startTimer()        
         return true
     }
     
