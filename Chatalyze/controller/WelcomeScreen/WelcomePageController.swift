@@ -48,6 +48,7 @@ class WelcomePageController: UIPageViewController {
         
         setViewControllers([pages[1]], direction: .forward, animated: false, completion: nil)
         self.signUpController?.updateSigUpHeaderInfo()
+        self.signUpController?.resetInfo()
     }
     
 

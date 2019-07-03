@@ -32,6 +32,12 @@ class SignupRootView:ExtendedView{
         changePlaceHolderColor()
     }
     
+    func resetInfo(){
+     
+        self.emailField?.textField?.text = ""
+        self.passwordField?.textField?.text = ""
+        self.firstName?.textField?.text = ""
+    }
     
     fileprivate func changePlaceHolderColor(){
         

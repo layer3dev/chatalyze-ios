@@ -27,7 +27,7 @@ class PaymentSetupPaypalRootView:ExtendedView{
     @IBOutlet var paymentHistoryView:UIView?
 
     override func viewDidLayout() {
-        super.viewDidLayout()        
+        super.viewDidLayout()
     }
     
     @IBAction func payoutDetailAction(sender:UIButton?){
@@ -38,6 +38,7 @@ class PaymentSetupPaypalRootView:ExtendedView{
         self.payoutDetailView?.backgroundColor = UIColor(hexString: "#FAA579")
         
         self.paymentHistory?.textColor = UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)
+        
         self.paymentHistoryView?.backgroundColor = UIColor.clear
         
         UIView.animate(withDuration: 0.35) {
@@ -77,6 +78,7 @@ class PaymentSetupPaypalRootView:ExtendedView{
         paymentAdapter?.reloadData()
     }
     func updateInfo(info:[AnalystPaymentInfo]){
+      
         paymentAdapter?.updateInfo(info: info)
     }
     
@@ -91,10 +93,10 @@ class PaymentSetupPaypalRootView:ExtendedView{
         let earnedAmountTotalInt = ((amountDouble ?? 0.0) + (earnedDouble ?? 0.0))
         let tipAmountTotalInt = ((amountDouble ?? 0.0) + (tipAmountDouble ?? 0.0))
         
+        pendingAmountLbl?.text = "$\(pendingTotalInt.delimiter)"
+        ticketSalesAmount?.text = "$\(earnedAmountTotalInt.delimiter)"
+        tipAmount?.text = "$\(tipAmountTotalInt.delimiter)"
         
-        pendingAmountLbl?.text = "\(pendingTotalInt.delimiter)"
-        ticketSalesAmount?.text = "\(earnedAmountTotalInt.delimiter)"
-        tipAmount?.text = "\(tipAmountTotalInt.delimiter)"
         
         
 //        pendingAmountLbl?.text = (self.amount)+(info?.pendingAmount ?? "")

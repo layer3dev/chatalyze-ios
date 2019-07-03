@@ -73,7 +73,6 @@ class EmailSigninHandler{
         Log.echo(key: "token", text: "token ==>  \(token)")
         info.save()
         
-        
         //Bugsnag.notifyError(NSError(domain:"com.customCrash:SignIn", code:408, userInfo:nil))
         
         completion(true, "", info)

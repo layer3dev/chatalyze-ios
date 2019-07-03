@@ -1465,15 +1465,13 @@ extension EditSessionFormRootView {
     
     fileprivate func validateSlotTime()->Bool{
         
-         Log.echo(key: "yud", text: "Error is slot number \(slotSelected)")
+        Log.echo(key: "yud", text: "Error is slot number \(String(describing: slotSelected))")
         
         if(slotSelected == 0 || slotSelected == nil){
             
-            chatLength?.showError(text:"Chat length is required.")
-            Log.echo(key: "yud", text: "Error is throwing")
+            chatLength?.showError(text:"1:1 chat length is required.")
             return false
         }
-        Log.echo(key: "yud", text: "Error is not throwing")
         chatLength?.resetErrorStatus()
         return true
     }

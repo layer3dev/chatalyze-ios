@@ -131,6 +131,11 @@ class SignUpController: InterfaceExtendedController {
         hideNavigationBar()
     }
     
+    func resetInfo() {
+        
+        self.rootView?.resetInfo()
+    }
+    
     func updateSigUpHeaderInfo(){
         
         if LoginSignUpContainerController.roleId == 3 {
@@ -157,7 +162,7 @@ class SignUpController: InterfaceExtendedController {
     }
 }
 
-extension SignUpController{
+extension SignUpController {
     
     class func instance()->SignUpController?{
         

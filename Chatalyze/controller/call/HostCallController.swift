@@ -358,6 +358,7 @@ class HostCallController: VideoCallController {
         })
     }
     
+    
     override func updateStatusMessage(){
         super.updateStatusMessage()
         
@@ -717,7 +718,7 @@ class HostCallController: VideoCallController {
         
         if getTotalNUmberOfSlots() > 0{
             
-            let slotCountFormatted = "\(currentSlot + 1) of \(getTotalNUmberOfSlots()-breakSlots)"
+            let slotCountFormatted = "\(currentSlot + 1) of \(getTotalNUmberOfSlots())"
             hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
         }else{
          
