@@ -122,7 +122,9 @@ class RootControllerManager{
         Log.echo(key: "yud", text: "Root is active")
         let transition = CATransition()
         transition.type = CATransitionType.fade
+        
         if let userInfo = SignedUserInfo.sharedInstance{
+      
             Log.echo(key: "yud", text: "I am user with roleTYpe \(userInfo.role) and the roleID is \(userInfo.roleId) signed Info is is \(SignedUserInfo.sharedInstance?.id)")
             if userInfo.role == .analyst{
                 
@@ -163,14 +165,23 @@ class RootControllerManager{
     
     private func initializeAppConnection(){
         _ = UserSocket.sharedInstance
+        //UserSocket.sharedInstance?.registerSocket()
     }
     
     func signOut(completion : (()->())?){
     
         SignedUserInfo.sharedInstance?.clear()
+        resetEarlyCallAlert()
         UserSocket.sharedInstance?.disconnect()
         SocketClient.sharedInstance?.disconnect()
         RootControllerManager().updateRoot()
+    }
+    
+    func resetEarlyCallAlert(){
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.shownEarlySessionIdList.removeAll()
+        appDelegate?.earlyCallProcessor = nil
     }
     
     func getCurrentController()->ContainerController?{

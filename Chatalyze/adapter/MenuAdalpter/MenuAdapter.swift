@@ -15,7 +15,7 @@ class MenuAdapter: ExtendedView {
     var root:MenuRootView?
     var menuListingArray = [MenuInfo]()
     var currentArray = [String]()
-     var analystArray = ["My Sessions","Payout details","Get in touch","Settings","Refer friends and earn"]
+     var analystArray = ["My sessions","Payout details","Get in touch","Settings","Refer friends and earn"]
     
 //    var analystArray = ["My Sessions","Settings","Contact Us","Refer friends and earn"]
     

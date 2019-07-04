@@ -106,6 +106,7 @@ extension UserSocket{
     fileprivate func initializeSocketConnection(){
         
         socket?.on(clientEvent: .connect, callback: { (data, ack) in
+          
             self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
@@ -136,10 +137,12 @@ extension UserSocket{
             self?.isRegisteredToServer = true
             
             //
+            let dele = UIApplication.shared.delegate as? AppDelegate
+            
+            dele?.earlyCallProcessor?.fetchInfo()
             self?.registrationTimeout.cancelTimeout()
             //Changing the color of online offline view
         }
-        
         
         socket?.on("notification") {data, ack in
             
@@ -160,9 +163,11 @@ extension UserSocket{
     
     func registerSocket(){
         
-        Log.echo(key: "user_socket", text:"socket registerSocket")
+        Log.echo(key: "user_socket", text:"trying to register socket registerSocket")
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+
                 return
         }
         var param = [String : Any]()

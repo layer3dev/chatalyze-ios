@@ -18,6 +18,7 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
         self.controller?.showLoader()    
         ScheduleSessionRequest().save(params: paramForUpload) { (success, message, response) in
             
+            self.appDelegate?.earlyCallProcessor?.fetchInfo()
             Log.echo(key: "yud", text: "Response in succesful event creation is \(String(describing: response))")
             
             DispatchQueue.main.async {
@@ -27,7 +28,6 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
                 if !success{
                     
                     self.controller?.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-                        
                         //self.controller?.navigationController?.popToRootViewController(animated: true)
                     })
                     return

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var allowRotate : Bool = false
     var isRootInitialize:Bool = false
     var shownEarlySessionIdList:[Int] = [Int]()
-    var earlyCallProcessor = VerifyForEarlyCallProcessor()
+    var earlyCallProcessor:VerifyForEarlyCallProcessor?
 
     var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -106,8 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
-        earlyCallProcessor.eventInfoArray.removeAll()
-        earlyCallProcessor.fetchInfo()
+        earlyCallProcessor?.eventInfoArray.removeAll()
+        earlyCallProcessor?.fetchInfo()
         verifyingAccessToken()
         startTimer()
         if self.isRootInitialize{
@@ -128,6 +128,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func executeInterval(){
 
+        guard let _ = SignedUserInfo.sharedInstance?.id else{
+            return
+        }
+        if earlyCallProcessor == nil {
+            earlyCallProcessor = VerifyForEarlyCallProcessor()
+        }
+        
         verifyForEarlyExistingCall()
        // Log.echo(key: "yud", text: "Interval is running")
     }
@@ -160,7 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
 
-        earlyCallProcessor.verifyEarlyExistingCall { (info) in
+        earlyCallProcessor?.verifyEarlyExistingCall { (info) in
 
             //Log.echo(key: "yud", text: "Data is fetched")
 
@@ -256,7 +263,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        earlyCallProcessor.fetchInfo()
+        earlyCallProcessor?.fetchInfo()
         PushNotificationHandler().handleNavigation(info: response.notification.request.content.userInfo)
         
         let userInfo = response.notification.request.content.userInfo

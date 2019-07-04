@@ -10,6 +10,9 @@ import UIKit
 
 class EditSessionFormRootView:ExtendedView {
     
+    let appDelegate:AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+
+    
     var emptySlotList = [EmptySlotInfo]()
     @IBOutlet var breakAdapter:BreakAdapter?
     
@@ -517,10 +520,7 @@ class EditSessionFormRootView:ExtendedView {
             self.isSponsorEnable = false
             self.sponsorShipInfoLabel?.text = ""
             self.sponsorShipStatusLabel?.text = "OFF"
-            
         }
-        
-        
     }
     
     
@@ -747,7 +747,8 @@ class EditSessionFormRootView:ExtendedView {
         
         self.controller?.showLoader()
         EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
-            
+            self.appDelegate?.earlyCallProcessor?.fetchInfo()
+
             self.controller?.stopLoader()
             if success{
                 
