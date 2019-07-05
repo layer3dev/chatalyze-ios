@@ -13,7 +13,6 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
     override func fetchPaymentHistory(){
     }
     override func fetchPaymentHostoryForPagination(){

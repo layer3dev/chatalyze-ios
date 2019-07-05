@@ -215,8 +215,7 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             }
         }
     }
-    
-    
+        
     
     func fetchBillingInfo(){
         

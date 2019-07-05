@@ -14,7 +14,6 @@ import SwiftyJSON
 import StoreKit
 import Bugsnag
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -128,15 +127,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func executeInterval(){
 
-        guard let _ = SignedUserInfo.sharedInstance?.id else{
+        guard let _ = SignedUserInfo.sharedInstance?.id else {
             return
         }
         if earlyCallProcessor == nil {
             earlyCallProcessor = VerifyForEarlyCallProcessor()
         }
-        
         verifyForEarlyExistingCall()
-       // Log.echo(key: "yud", text: "Interval is running")
+      
+        //Log.echo(key: "yud", text: "Interval is running")
     }
     
     func isAlreadyShownAlert(infoId:Int)->Bool{

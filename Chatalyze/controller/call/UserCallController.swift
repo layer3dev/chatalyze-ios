@@ -146,11 +146,9 @@ class UserCallController: VideoCallController {
         }
         
         if(connection.isStreaming){
-            
             setStatusMessage(type: .preConnectedSuccess)
             return
         }
-        
         setStatusMessage(type: .ideal)
     }
     
@@ -167,6 +165,7 @@ class UserCallController: VideoCallController {
         super.viewWillDisappear(animated)
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
+        
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
         self.selfieTimerView?.reset()

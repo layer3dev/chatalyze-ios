@@ -92,16 +92,40 @@ class PaymentSetupPaypalRootView:ExtendedView{
         let pendingTotalInt = ((amountDouble ?? 0.0) + (pendingDouble ?? 0.0))
         let earnedAmountTotalInt = ((amountDouble ?? 0.0) + (earnedDouble ?? 0.0))
         let tipAmountTotalInt = ((amountDouble ?? 0.0) + (tipAmountDouble ?? 0.0))
+
+        pendingAmountLbl?.text = "$\(getExactTwoDecimalDigits(string:pendingTotalInt.delimiter))"
         
-        pendingAmountLbl?.text = "$\(pendingTotalInt.delimiter)"
-        ticketSalesAmount?.text = "$\(earnedAmountTotalInt.delimiter)"
-        tipAmount?.text = "$\(tipAmountTotalInt.delimiter)"
+        ticketSalesAmount?.text = "$\(getExactTwoDecimalDigits(string:earnedAmountTotalInt.delimiter))"
         
+        tipAmount?.text = "$\(getExactTwoDecimalDigits(string:tipAmountTotalInt.delimiter))"
         
+    }
+    
+    func getExactTwoDecimalDigits(string:String?)->String{
         
-//        pendingAmountLbl?.text = (self.amount)+(info?.pendingAmount ?? "")
-//        ticketSalesAmount?.text = (self.amount)+(info?.earnedAmount ?? "")
-//        tipAmount?.text = (self.amount)+(info?.tipAmount ?? "")
+        guard var requiredStr = string else{
+            return ""
+        }
+        
+        let splittedArray = requiredStr.components(separatedBy: ".")
+        
+        if splittedArray.count > 1 {
+            
+            let decimalNumber = splittedArray[1]
+            if decimalNumber.count < 2 {
+                requiredStr.append("0")
+                return requiredStr
+            }else{
+                return requiredStr
+            }
+        }
+        
+        if splittedArray.count < 2 {
+
+            requiredStr.append(".00")
+            return requiredStr
+        }
+        return ""
     }
 }
 

@@ -78,10 +78,10 @@ class DonateTransactionTokenSession{
     func clear(){
         
         if let storeDefault = storeDefault{
+           
             storeDefault.removePersistentDomain(forName: DonateTransactionTokenSession.suiteHash)
             storeDefault.synchronize()
-        }
-        
+        }        
         DonateTransactionTokenSession._sharedInstance = nil
     }
 }
