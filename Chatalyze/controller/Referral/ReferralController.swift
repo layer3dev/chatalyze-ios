@@ -217,6 +217,8 @@ class ReferralController: InterfaceExtendedController {
     
     @IBAction func copyText(send:UIButton){
         
+        SEGAnalytics.shared().track("Action: Host Referral Page - Share Referral Link")
+        
         //str  = str.replacingOccurrences(of: " ", with: "")
         guard var str = sharingUrlComingFromWEb else {
             return
