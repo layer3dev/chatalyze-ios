@@ -134,8 +134,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             earlyCallProcessor = VerifyForEarlyCallProcessor()
         }
         verifyForEarlyExistingCall()
-      
-        //Log.echo(key: "yud", text: "Interval is running")
     }
     
     func isAlreadyShownAlert(infoId:Int)->Bool{
