@@ -34,7 +34,7 @@ class GreetingDateTimeRootView: ExtendedView {
     func initializeVariable(){
         
         self.timeLable?.text = selectedTime
-        calendarView?.root = self
+        //calendarView?.root = self
     }
     
     func paintInterface(){
@@ -99,7 +99,6 @@ class GreetingDateTimeRootView: ExtendedView {
     }
     
     func updateDate(date:Date?){
-        
     }
     
     @IBAction func nextAction(sender:UIButton){

@@ -9,7 +9,7 @@
 import Foundation
 import JTAppleCalendar
 
-class CalendarCell:JTAppleCell {
+class CalendarCell:JTACDayCell {
     
 @IBOutlet var selectedView: UIView?
 @IBOutlet var dayLabel: UILabel?
