@@ -275,3 +275,19 @@ extension Double {
         return Double.numberFormatter.string(from: NSNumber(value: self)) ?? ""
     }
 }
+
+extension UIView {
+    
+    /**
+     Rotate a view by specified degrees
+     
+     - parameter angle: angle in degrees
+     */
+    func rotate(angle: CGFloat) {
+        
+        let radians = angle / 180.0 * CGFloat.pi
+        let rotation = self.transform.rotated(by: radians)
+        self.transform = rotation
+    }
+    
+}

@@ -8,7 +8,6 @@ def pod_file
 
   # Pods for Chatalyze
 
-  pod 'JTAppleCalendar'
   pod 'GoogleWebRTC', '1.1.25651'
   pod 'DeviceKit', '~> 1.3'
   pod 'CropViewController', '~> 2.4.0'
@@ -27,7 +26,7 @@ def pod_file
   pod 'FacebookLogin'
   pod 'SAConfettiView'
   pod 'Bugsnag'
-
+  pod 'FSCalendar'
 
 end
 

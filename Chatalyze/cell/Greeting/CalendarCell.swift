@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import JTAppleCalendar
+//import JTAppleCalendar
 
-class CalendarCell:JTACDayCell {
-    
-@IBOutlet var selectedView: UIView?
-@IBOutlet var dayLabel: UILabel?
-@IBOutlet var monthLabel: UILabel?    
-}
+//class CalendarCell:JTACDayCell {
+//    
+//@IBOutlet var selectedView: UIView?
+//@IBOutlet var dayLabel: UILabel?
+//@IBOutlet var monthLabel: UILabel?    
+//}

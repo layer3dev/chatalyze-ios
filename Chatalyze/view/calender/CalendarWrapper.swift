@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import JTAppleCalendar
+//import JTAppleCalendar
 
 class CalendarWrapper: ExtendedView {
 
