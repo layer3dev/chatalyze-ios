@@ -109,6 +109,7 @@ class SignupRootView:ExtendedView{
     }
     
     private func registerWithSegmentAnalytics(info : SignedUserInfo?){
+        
         guard let info = info
             else{
                 return

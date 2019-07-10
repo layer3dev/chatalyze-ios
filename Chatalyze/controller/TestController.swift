@@ -20,11 +20,13 @@ class TestController: UIViewController {
         
         var fontSizeHeader:CGFloat = 20
         var fontSizeText:CGFloat = 16
+        var headerHeight:CGFloat = 60
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             fontSizeHeader = 26
             fontSizeText = 20
+            headerHeight = 80
         }
         
         self.rotationalView?.rotate(angle: -10)
@@ -35,12 +37,9 @@ class TestController: UIViewController {
         self.calendarNew?.appearance.titleFont = UIFont(name: "Nunito-Bold", size: fontSizeText)
         self.calendarNew?.appearance.weekdayFont = UIFont(name: "Nunito-Bold", size: fontSizeText)
         self.calendarNew?.appearance.subtitleFont = UIFont(name: "Nunito-Bold", size: fontSizeText)
-        self.calendarNew?.headerHeight = 75.0
-        
+        self.calendarNew?.headerHeight = headerHeight
         // Do any additional setup after loading the view.
     }
-    
-   
 }
 
 extension TestController:FSCalendarDataSource,FSCalendarDelegate{
@@ -60,6 +59,35 @@ extension TestController:FSCalendarDataSource,FSCalendarDelegate{
         formatter.locale = NSLocale.current
         Log.echo(key: "yud", text: "String is \(formatter.string(from: date))")
     }
+    
+    func previousMonth(){
+        calendarNew?.setCurrentPage(getPreviousMonth(date:calendarNew?.currentPage ?? Date()), animated: true)
+    }
+    
+    
+    func getNextMonth(date:Date)->Date {
+        return  Calendar.current.date(byAdding: .month, value: 1, to:date)!
+    }
+    
+    func getPreviousMonth(date:Date)->Date {
+        return  Calendar.current.date(byAdding: .month, value: -1, to:date)!
+    }
+    
+    func nextMonth(){
+        
+        calendarNew?.setCurrentPage(getNextMonth(date:calendarNew?.currentPage ?? Date()), animated: true)
+    }
+    
+    @IBAction func nextAction(sender:UIButton?){
+       
+        self.nextMonth()
+    }
+    
+    @IBAction func previousAction(sender:UIButton?){
+        
+        self.previousMonth()
+    }
+    
 }
 
 

@@ -29,11 +29,11 @@
             <objects>
                 <viewController storyboardIdentifier="EditSessionForm" automaticallyAdjustsScrollViewInsets="NO" id="NGQ-n2-ARY" customClass="EditSessionFormController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OOq-gh-cUk" customClass="EditSessionFormRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="PQi-cK-rPh" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-E1-eVl">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
@@ -1771,6 +1771,148 @@
                                                     <action selector="doneEditing" destination="OOq-gh-cUk" eventType="touchUpInside" id="u1F-ND-b5U"/>
                                                 </connections>
                                             </button>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blE-GZ-dZk">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idz-3b-AkE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
+                                                        <connections>
+                                                            <action selector="hideCalendarWithSender:" destination="OOq-gh-cUk" eventType="touchUpInside" id="5Me-p2-iHr"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Idz-3b-AkE" secondAttribute="bottom" id="5B0-9s-2ZY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Idz-3b-AkE" secondAttribute="trailing" id="63T-q8-QkF"/>
+                                                    <constraint firstItem="Idz-3b-AkE" firstAttribute="top" secondItem="blE-GZ-dZk" secondAttribute="top" id="dug-jX-uqT"/>
+                                                    <constraint firstItem="Idz-3b-AkE" firstAttribute="leading" secondItem="blE-GZ-dZk" secondAttribute="leading" id="wdN-nq-tnb"/>
+                                                </constraints>
+                                            </view>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jen-D4-S97" customClass="FSWrapper" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="206" width="325" height="300"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hk9-Sw-Sne" customClass="FSCalendar">
+                                                        <rect key="frame" x="5" y="0.0" width="315" height="300"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="eventSelectionColor">
+                                                                <color key="value" red="0.93333333330000001" green="0.6588235294" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                                                <color key="value" red="0.43529411759999997" green="0.40000000000000002" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                                                <color key="value" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
+                                                                <color key="value" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="headerMinimumDissolvedAlpha">
+                                                                <real key="value" value="-1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="titleSelectionColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTodayColor">
+                                                                <color key="value" red="0.43529411759999997" green="0.40000000000000002" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="titlePlaceholderColor">
+                                                                <color key="value" red="0.43529411759999997" green="0.40000000000000002" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                                                <color key="value" red="0.93333333330000001" green="0.6588235294" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
+                                                                <color key="value" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r7V-W4-To9">
+                                                        <rect key="frame" x="17" y="13" width="50" height="30"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leftArrowCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="53k-Pm-q8N">
+                                                                <rect key="frame" x="0.0" y="7.5" width="15" height="15"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="15" id="Cxx-2Y-QmL"/>
+                                                                    <constraint firstAttribute="height" constant="15" id="qCc-GM-cF5"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4A-Bl-ghV">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                                <connections>
+                                                                    <action selector="previousActionWithSender:" destination="Jen-D4-S97" eventType="touchUpInside" id="AYn-LG-OJP"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="Y4A-Bl-ghV" secondAttribute="bottom" id="0p0-7b-Kg4"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Y4A-Bl-ghV" secondAttribute="trailing" id="HOv-zE-SiB"/>
+                                                            <constraint firstAttribute="height" constant="30" id="K9W-fN-4DL"/>
+                                                            <constraint firstItem="Y4A-Bl-ghV" firstAttribute="leading" secondItem="r7V-W4-To9" secondAttribute="leading" id="Nkf-dU-zf4"/>
+                                                            <constraint firstAttribute="width" constant="50" id="Um9-3z-yH1"/>
+                                                            <constraint firstItem="53k-Pm-q8N" firstAttribute="leading" secondItem="r7V-W4-To9" secondAttribute="leading" id="bix-7f-Gsp"/>
+                                                            <constraint firstItem="53k-Pm-q8N" firstAttribute="centerY" secondItem="r7V-W4-To9" secondAttribute="centerY" id="fJf-1m-px0"/>
+                                                            <constraint firstItem="Y4A-Bl-ghV" firstAttribute="top" secondItem="r7V-W4-To9" secondAttribute="top" id="mq0-7A-Rh6"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxL-ZL-lz1">
+                                                        <rect key="frame" x="258" y="13" width="50" height="30"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrowCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="P6Z-I9-6D6">
+                                                                <rect key="frame" x="35" y="7.5" width="15" height="15"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="15" id="KAU-QS-kzO"/>
+                                                                    <constraint firstAttribute="height" constant="15" id="tf4-tH-dEm"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsO-5f-rzO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                                <connections>
+                                                                    <action selector="nextActionWithSender:" destination="Jen-D4-S97" eventType="touchUpInside" id="T3i-zg-44u"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="lsO-5f-rzO" secondAttribute="trailing" id="Nmk-HB-WhB"/>
+                                                            <constraint firstAttribute="height" constant="30" id="QSw-kr-pcc"/>
+                                                            <constraint firstItem="lsO-5f-rzO" firstAttribute="leading" secondItem="sxL-ZL-lz1" secondAttribute="leading" id="TSc-C8-QvX"/>
+                                                            <constraint firstAttribute="width" constant="50" id="Tyb-cW-Ojz"/>
+                                                            <constraint firstAttribute="trailing" secondItem="P6Z-I9-6D6" secondAttribute="trailing" id="UMZ-gk-9MD"/>
+                                                            <constraint firstItem="lsO-5f-rzO" firstAttribute="top" secondItem="sxL-ZL-lz1" secondAttribute="top" id="Zpo-bf-pnC"/>
+                                                            <constraint firstAttribute="bottom" secondItem="lsO-5f-rzO" secondAttribute="bottom" id="hEc-HD-8xg"/>
+                                                            <constraint firstItem="P6Z-I9-6D6" firstAttribute="centerY" secondItem="sxL-ZL-lz1" secondAttribute="centerY" id="ldf-UQ-MKo"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="sxL-ZL-lz1" firstAttribute="top" secondItem="Jen-D4-S97" secondAttribute="top" constant="13" id="9i0-qi-Ny8">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                                    </constraint>
+                                                    <constraint firstItem="r7V-W4-To9" firstAttribute="top" secondItem="Jen-D4-S97" secondAttribute="top" constant="13" id="J79-F1-26H">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="height" constant="300" id="Mac-pF-VLg">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="450"/>
+                                                    </constraint>
+                                                    <constraint firstItem="Hk9-Sw-Sne" firstAttribute="top" secondItem="Jen-D4-S97" secondAttribute="top" id="Qe1-UI-U86"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hk9-Sw-Sne" secondAttribute="trailing" constant="5" id="eli-QL-gfD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sxL-ZL-lz1" secondAttribute="trailing" constant="17" id="iny-yb-Vda">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="35"/>
+                                                    </constraint>
+                                                    <constraint firstItem="r7V-W4-To9" firstAttribute="leading" secondItem="Jen-D4-S97" secondAttribute="leading" constant="17" id="lMr-J4-u36">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="35"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="bottom" secondItem="Hk9-Sw-Sne" secondAttribute="bottom" id="pVe-AM-ApN"/>
+                                                    <constraint firstItem="Hk9-Sw-Sne" firstAttribute="leading" secondItem="Jen-D4-S97" secondAttribute="leading" constant="5" id="vb1-bl-zKs"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="calendar" destination="Hk9-Sw-Sne" id="Wmz-ut-YUr"/>
+                                                </connections>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1837,6 +1979,7 @@
                                             <constraint firstAttribute="trailing" secondItem="R6J-em-ar3" secondAttribute="trailing" constant="15" id="Ebb-Yh-WJd">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstItem="blE-GZ-dZk" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" id="Edx-8B-Z6G"/>
                                             <constraint firstItem="oso-Wn-YbL" firstAttribute="top" secondItem="E6a-tv-fUj" secondAttribute="bottom" constant="3" id="Eve-Mh-ma7"/>
                                             <constraint firstAttribute="trailing" secondItem="zy5-3Y-Vtg" secondAttribute="trailing" constant="15" id="FLR-eg-Pys">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
@@ -1859,6 +2002,7 @@
                                             <constraint firstItem="zR0-ae-1c5" firstAttribute="top" secondItem="JaZ-SU-Os9" secondAttribute="bottom" constant="15" id="KwJ-Fk-ZeQ"/>
                                             <constraint firstItem="uU0-yf-hM1" firstAttribute="top" secondItem="Cmp-wH-WyW" secondAttribute="bottom" constant="15" id="LRK-K9-vbF"/>
                                             <constraint firstItem="E6a-tv-fUj" firstAttribute="top" secondItem="zy5-3Y-Vtg" secondAttribute="bottom" constant="15" id="LXf-qH-ixO"/>
+                                            <constraint firstItem="Jen-D4-S97" firstAttribute="leading" secondItem="TW6-lY-rnl" secondAttribute="leading" id="LpY-PF-io3"/>
                                             <constraint firstItem="MGW-8d-BKR" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="Mdl-3u-V7i">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -1883,6 +2027,8 @@
                                             <constraint firstItem="oso-Wn-YbL" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="Rd1-lw-NMo">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstItem="blE-GZ-dZk" firstAttribute="top" secondItem="CNW-E1-eVl" secondAttribute="top" id="RpM-I0-Ghw"/>
+                                            <constraint firstItem="Jen-D4-S97" firstAttribute="top" secondItem="TW6-lY-rnl" secondAttribute="bottom" constant="5" id="SON-Dz-SJo"/>
                                             <constraint firstItem="JaZ-SU-Os9" firstAttribute="top" secondItem="JJJ-yL-zeX" secondAttribute="bottom" id="SOv-Z9-X0Y"/>
                                             <constraint firstAttribute="trailing" secondItem="Cmp-wH-WyW" secondAttribute="trailing" constant="15" id="Sc3-37-cGC">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
@@ -1891,6 +2037,7 @@
                                             <constraint firstItem="E6a-tv-fUj" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="Va3-m4-PVT">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="blE-GZ-dZk" secondAttribute="trailing" id="WUR-Kd-AXn"/>
                                             <constraint firstItem="1he-Ko-uXF" firstAttribute="top" secondItem="NtL-0G-oRw" secondAttribute="bottom" constant="6" id="Wfq-bV-b7l">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="12"/>
                                             </constraint>
@@ -1948,7 +2095,11 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="sph-4j-L7u" firstAttribute="trailing" secondItem="ScF-nT-qEa" secondAttribute="trailing" id="fbp-gw-aSw"/>
+                                            <constraint firstItem="Jen-D4-S97" firstAttribute="trailing" secondItem="TW6-lY-rnl" secondAttribute="trailing" constant="-20" id="hfm-WT-8k9">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="-80"/>
+                                            </constraint>
                                             <constraint firstItem="o99-TM-WuW" firstAttribute="top" secondItem="uU0-yf-hM1" secondAttribute="bottom" constant="6" id="juA-Fv-PcN"/>
+                                            <constraint firstAttribute="bottom" secondItem="blE-GZ-dZk" secondAttribute="bottom" id="kEP-MA-Hji"/>
                                             <constraint firstItem="Hqt-YC-20G" firstAttribute="centerY" secondItem="tTZ-Ax-pnV" secondAttribute="centerY" id="mKg-es-ryz"/>
                                             <constraint firstItem="rh6-5M-apU" firstAttribute="top" secondItem="zR0-ae-1c5" secondAttribute="bottom" priority="750" constant="10" id="mNC-Eq-0HS"/>
                                             <constraint firstAttribute="trailing" secondItem="h4p-A4-5mF" secondAttribute="trailing" constant="20" id="pDd-Kb-YMR">
@@ -2013,6 +2164,8 @@
                             <outlet property="chatCalculatorView" destination="MGW-8d-BKR" id="HKa-GP-VSH"/>
                             <outlet property="chatLength" destination="oHy-sM-490" id="fwn-L0-tVj"/>
                             <outlet property="chatTotalNumberOfSlots" destination="7rn-BH-9e5" id="oeb-Ma-Cij"/>
+                            <outlet property="customCalenadarSupportView" destination="blE-GZ-dZk" id="qLE-Pz-nEX"/>
+                            <outlet property="customCalendar" destination="Jen-D4-S97" id="7yR-XC-5Tj"/>
                             <outlet property="dateField" destination="TW6-lY-rnl" id="CSY-3O-GNP"/>
                             <outlet property="donationCustomSwitch" destination="tTZ-Ax-pnV" id="U1b-4Z-DAT"/>
                             <outlet property="donationInfoLabel" destination="AOn-Mw-cgE" id="oy9-Vw-2tq"/>
@@ -2042,7 +2195,7 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <size key="freeformSize" width="375" height="1500"/>
+                    <size key="freeformSize" width="375" height="1000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmI-iF-tKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2051,5 +2204,7 @@
     </scenes>
     <resources>
         <image name="downArrow" width="256" height="256"/>
+        <image name="leftArrowCalendar" width="128" height="128"/>
+        <image name="rightArrowCalendar" width="128" height="128"/>
     </resources>
 </document>

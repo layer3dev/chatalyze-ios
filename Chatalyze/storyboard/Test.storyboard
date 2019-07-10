@@ -137,12 +137,38 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wip-wP-Maz">
+                                <rect key="frame" x="40" y="90" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="f80-G0-lLO"/>
+                                    <constraint firstAttribute="height" constant="60" id="gry-vQ-Jp9"/>
+                                </constraints>
+                                <state key="normal" title="Previous"/>
+                                <connections>
+                                    <action selector="previousActionWithSender:" destination="jgc-tX-wzD" eventType="touchUpInside" id="KH7-hg-s08"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFi-vU-PV5">
+                                <rect key="frame" x="314" y="83" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="YQh-Fk-wPs"/>
+                                    <constraint firstAttribute="width" constant="60" id="iaq-zJ-iQv"/>
+                                </constraints>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextActionWithSender:" destination="jgc-tX-wzD" eventType="touchUpInside" id="knh-KC-KRD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Shy-Uf-GE7" firstAttribute="trailing" secondItem="cTH-Au-hBJ" secondAttribute="trailing" constant="40" id="5Ce-wx-3xU"/>
+                            <constraint firstItem="cTH-Au-hBJ" firstAttribute="top" secondItem="wip-wP-Maz" secondAttribute="bottom" constant="20" id="H1u-XV-rGG"/>
+                            <constraint firstItem="wip-wP-Maz" firstAttribute="leading" secondItem="cTH-Au-hBJ" secondAttribute="leading" id="MEs-AF-phC"/>
                             <constraint firstItem="cTH-Au-hBJ" firstAttribute="leading" secondItem="Shy-Uf-GE7" secondAttribute="leading" constant="40" id="Ye0-Qf-fuL"/>
                             <constraint firstItem="cTH-Au-hBJ" firstAttribute="top" secondItem="Shy-Uf-GE7" secondAttribute="top" constant="150" id="ZyX-f4-UI1"/>
+                            <constraint firstItem="kFi-vU-PV5" firstAttribute="trailing" secondItem="cTH-Au-hBJ" secondAttribute="trailing" id="cpo-Hs-Ch1"/>
+                            <constraint firstItem="cTH-Au-hBJ" firstAttribute="top" secondItem="kFi-vU-PV5" secondAttribute="bottom" constant="27" id="o68-Jl-8fN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Shy-Uf-GE7"/>
                     </view>
@@ -152,7 +178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Beb-Ii-hkf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="934" y="37"/>
+            <point key="canvasLocation" x="868" y="42"/>
         </scene>
     </scenes>
     <resources>

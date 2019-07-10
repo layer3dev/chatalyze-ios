@@ -10,9 +10,9 @@ import UIKit
 
 class EditSessionFormRootView:ExtendedView {
     
+    @IBOutlet var customCalenadarSupportView:UIView?
     let appDelegate:AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-
-    
+     
     var emptySlotList = [EmptySlotInfo]()
     @IBOutlet var breakAdapter:BreakAdapter?
     
@@ -33,6 +33,9 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
     @IBOutlet var priceAmountHieghtConstrait:NSLayoutConstraint?
+    
+    
+    @IBOutlet var customCalendar:FSWrapper?
     
     enum totalChatDuration:Int{
         
@@ -152,6 +155,8 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBOutlet var cancelSessionView:UIView?
     var isCancelSessionVisible = false
+    var isCalendarVisible = false
+
     @IBOutlet var goBackButtonContainer:UIView?
     @IBOutlet var confirmButton:UIButton?
     
@@ -172,6 +177,41 @@ class EditSessionFormRootView:ExtendedView {
             let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 20:16, color: UIColor(red: 146.0/255.0, green: 146.0/255.0, blue: 146.0/255.0, alpha: 1), isUnderLine: false)
             
             self.sponsorShipLabel?.attributedText = textOneMutable
+        }
+    }
+    
+    
+    func calenderAction(){
+        
+        if self.isCalendarVisible {
+            
+            self.layoutIfNeeded()
+            self.isCalendarVisible = false
+            UIView.animate(withDuration: 0.25) {
+                
+                self.customCalendar?.alpha = 0
+                self.customCalenadarSupportView?.alpha = 0
+            }
+            return
+        }
+        
+        self.isCalendarVisible = true
+        self.layoutIfNeeded()
+        UIView.animate(withDuration: 0.25) {
+            
+            self.customCalendar?.alpha = 1
+            self.customCalenadarSupportView?.alpha = 1
+        }
+        return
+    }
+    
+    @IBAction func hideCalendar(sender:UIButton?){
+        
+        self.isCalendarVisible = false
+        UIView.animate(withDuration: 0.25) {
+            
+            self.customCalendar?.alpha = 0
+            self.customCalenadarSupportView?.alpha = 0
         }
     }
     
@@ -366,8 +406,28 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
+    func initializeCustomCalendar(){
+        
+        customCalendar?.tappedDate = { (date,dateinStr) in
+            
+            guard let pickerDate = date else{
+                return
+            }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+            dateFormatter.locale = NSLocale.current
+            let dateInStr = dateFormatter.string(from: pickerDate)
+            self.dateField?.textField?.text = dateInStr
+        }
+    }
+    
+    
+    
     func initializeVariable(){
         
+        
+        initializeCustomCalendar()
         breakAdapter?.customDelegate = self
         initializeCustomSwitch()
         initializeDatePicker()
@@ -398,6 +458,7 @@ class EditSessionFormRootView:ExtendedView {
         
         self.titleField?.textField?.text = eventInfo.title
         self.dateField?.textField?.text = desiredDate
+        customCalendar?.setSelectionDate(date: self.eventInfo?.startDate)
         self.timeField?.textField?.text = desiredTime
         
         slotSelected = Int(eventInfo.duration ?? 0.0)
@@ -996,10 +1057,12 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     }
     
     private func showDatePicker() {
+       
+        calenderAction()
         
-        handleBirthadyFieldScrolling()
-        self.isDatePickerIsShowing = true
-        self.datePickerContainer.isHidden = false
+//        handleBirthadyFieldScrolling()
+//        self.isDatePickerIsShowing = true
+//        self.datePickerContainer.isHidden = false
     }
     
     //TODO:- Yet to implement BirthadyFieldScrolling
