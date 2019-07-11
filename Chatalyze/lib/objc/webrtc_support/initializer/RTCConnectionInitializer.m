@@ -23,6 +23,7 @@
 
 
 
+
 - (instancetype)init {
     if (self = [super init]) {
         // Initialize self
@@ -46,9 +47,9 @@
     RTCSetupInternalTracer();
     
     self.audioManager = [AudioManager new];
-    
     if(DevFlag.debug){
-//        RTCSetMinDebugLogLevel(RTCLoggingSeverityInfo);
+        
+        //RTCSetMinDebugLogLevel(RTCLoggingSeverityInfo);
     }
 }
 

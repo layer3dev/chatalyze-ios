@@ -33,8 +33,6 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
     @IBOutlet var priceAmountHieghtConstrait:NSLayoutConstraint?
-    
-    
     @IBOutlet var customCalendar:FSWrapper?
     
     enum totalChatDuration:Int{
@@ -906,12 +904,17 @@ extension EditSessionFormRootView{
     
     func validateFields()->Bool {
         
-        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0{
+       return handleScreenScrollOnErrorWithValidation()
+    }
+    
+    func handleScreenScrollOnErrorWithValidation()->Bool{
+        
+        if self.eventInfo?.slotsInfoLists.count ?? 0 > 0 {
             
             let titleValidated  = titleValidation()
             return titleValidated
         }
-        
+
         let titleValidated  = titleValidation()
         let dateValidated  = validateDate()
         let timeValidated = validateTime()
@@ -921,9 +924,40 @@ extension EditSessionFormRootView{
         let lengthBalanceValidate = validateBalanceBetweenSessionAndChatLength()
         let sessionLengthValidation = validateSessionLength()
         
-        Log.echo(key: "yud", text: "titleValidated \(titleValidated) dateValidated\(dateValidated) timeValidated\(timeValidated) isFutureTimeValidation\(isFutureTimeValidation) durationValidated\(durationValidated) priceValidated \(priceValidated)")
+        if !titleValidated{
+            scrollView?.scrollToCustomView(customView: titleField)
+        }
+            
+        else if !dateValidated{
+            scrollView?.scrollToCustomView(customView: dateField)
+        }
+            
+        else if !timeValidated{
+            scrollView?.scrollToCustomView(customView: timeField)
+        }
+            
+        else if !isFutureTimeValidation{
+            scrollView?.scrollToCustomView(customView: timeField)
+        }
+            
+        else if !lengthBalanceValidate{
+            scrollView?.scrollToCustomView(customView:sessionLength)
+        }
+
+        else if !sessionLengthValidation{
+            scrollView?.scrollToCustomView(customView:sessionLength)
+        }
+            
+        else if !durationValidated{
+            scrollView?.scrollToCustomView(customView: chatLength)
+        }
+        
+        else if !priceValidated{
+            scrollView?.scrollToCustomView(customView: priceField)
+        }
         
         return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation
+        
     }
     
     fileprivate func titleValidation()->Bool {

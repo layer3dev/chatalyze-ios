@@ -29,14 +29,14 @@
             <objects>
                 <viewController storyboardIdentifier="EditSessionForm" automaticallyAdjustsScrollViewInsets="NO" id="NGQ-n2-ARY" customClass="EditSessionFormController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OOq-gh-cUk" customClass="EditSessionFormRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="PQi-cK-rPh" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-E1-eVl">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1140"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-A4-5mF">
                                                 <rect key="frame" x="15" y="30" width="340" height="25"/>
@@ -1749,33 +1749,57 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 </variation>
                                             </label>
-                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pco-E2-dRm">
-                                                <rect key="frame" x="180" y="1065" width="180" height="45"/>
-                                                <color key="backgroundColor" red="0.58823529409999997" green="0.80784313730000001" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SZ9-Ix-jK0" customClass="SubmitButtonShadow" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="1065" width="345" height="55"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1i-eM-qqY" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="15" y="1065" width="345" height="55"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="cj7-gm-fWv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="345" height="55"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done editing" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="C0v-oy-3dq">
+                                                        <rect key="frame" x="10" y="4" width="325" height="46"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="22"/>
+                                                        </variation>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="muj-iB-DBK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="345" height="55"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <action selector="doneEditing" destination="OOq-gh-cUk" eventType="touchUpInside" id="Ayr-8w-pI3"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="2t0-tH-dmh">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    <constraint firstItem="cj7-gm-fWv" firstAttribute="leading" secondItem="S1i-eM-qqY" secondAttribute="leading" id="4fN-OL-T2C"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cj7-gm-fWv" secondAttribute="trailing" id="4j6-J1-KKi"/>
+                                                    <constraint firstItem="C0v-oy-3dq" firstAttribute="top" secondItem="S1i-eM-qqY" secondAttribute="top" constant="4" id="Chq-YG-3sT"/>
+                                                    <constraint firstItem="muj-iB-DBK" firstAttribute="leading" secondItem="S1i-eM-qqY" secondAttribute="leading" id="OH7-6O-xcU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="C0v-oy-3dq" secondAttribute="trailing" constant="10" id="UOJ-dM-z1O"/>
+                                                    <constraint firstAttribute="height" constant="55" id="Xfl-9S-LNo">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="width" constant="180" id="nb5-Kv-zb0">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="230"/>
-                                                    </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="muj-iB-DBK" secondAttribute="trailing" id="ajW-GZ-6JZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cj7-gm-fWv" secondAttribute="bottom" id="bRk-NC-bQD"/>
+                                                    <constraint firstAttribute="bottom" secondItem="C0v-oy-3dq" secondAttribute="bottom" constant="5" id="h4q-ID-NFN"/>
+                                                    <constraint firstItem="C0v-oy-3dq" firstAttribute="leading" secondItem="S1i-eM-qqY" secondAttribute="leading" constant="10" id="mPb-J6-MFI"/>
+                                                    <constraint firstAttribute="bottom" secondItem="muj-iB-DBK" secondAttribute="bottom" id="rGM-iV-mDG"/>
+                                                    <constraint firstItem="muj-iB-DBK" firstAttribute="top" secondItem="S1i-eM-qqY" secondAttribute="top" id="xOw-U4-fWF"/>
+                                                    <constraint firstItem="cj7-gm-fWv" firstAttribute="top" secondItem="S1i-eM-qqY" secondAttribute="top" id="yKR-hc-1i6"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
-                                                <state key="normal" title="Done editing">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
-                                                </variation>
-                                                <connections>
-                                                    <action selector="doneEditing" destination="OOq-gh-cUk" eventType="touchUpInside" id="u1F-ND-b5U"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blE-GZ-dZk">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1140"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idz-3b-AkE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1130"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1140"/>
                                                         <connections>
                                                             <action selector="hideCalendarWithSender:" destination="OOq-gh-cUk" eventType="touchUpInside" id="5Me-p2-iHr"/>
                                                         </connections>
@@ -1922,7 +1946,6 @@
                                             <constraint firstAttribute="trailing" secondItem="oHy-sM-490" secondAttribute="trailing" constant="15" id="0cj-Hz-xKc">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
-                                            <constraint firstItem="pco-E2-dRm" firstAttribute="top" secondItem="R6J-em-ar3" secondAttribute="bottom" constant="50" id="0dE-XQ-mLE"/>
                                             <constraint firstAttribute="trailing" secondItem="8Dv-pS-VdF" secondAttribute="trailing" constant="20" id="11b-qA-COZ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
@@ -1939,6 +1962,7 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="Zop-Gj-lzy" firstAttribute="width" secondItem="o99-TM-WuW" secondAttribute="width" id="4QA-Lm-px5"/>
+                                            <constraint firstItem="SZ9-Ix-jK0" firstAttribute="top" secondItem="S1i-eM-qqY" secondAttribute="top" id="4qf-RE-3Bp"/>
                                             <constraint firstItem="8Dv-pS-VdF" firstAttribute="top" secondItem="TW6-lY-rnl" secondAttribute="bottom" constant="15" id="5nB-P5-6eD"/>
                                             <constraint firstItem="nQT-QU-Hrj" firstAttribute="top" secondItem="oso-Wn-YbL" secondAttribute="bottom" constant="15" id="6W0-mI-Viw">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
@@ -1996,9 +2020,11 @@
                                             <constraint firstAttribute="trailing" secondItem="E6a-tv-fUj" secondAttribute="trailing" constant="20" id="GsA-PW-TOQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
+                                            <constraint firstItem="SZ9-Ix-jK0" firstAttribute="leading" secondItem="S1i-eM-qqY" secondAttribute="leading" id="GtH-JN-fe0"/>
                                             <constraint firstItem="nQT-QU-Hrj" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="HMk-Vl-3x1">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="S1i-eM-qqY" secondAttribute="trailing" constant="15" id="Jpe-Ws-c4c"/>
                                             <constraint firstItem="zR0-ae-1c5" firstAttribute="top" secondItem="JaZ-SU-Os9" secondAttribute="bottom" constant="15" id="KwJ-Fk-ZeQ"/>
                                             <constraint firstItem="uU0-yf-hM1" firstAttribute="top" secondItem="Cmp-wH-WyW" secondAttribute="bottom" constant="15" id="LRK-K9-vbF"/>
                                             <constraint firstItem="E6a-tv-fUj" firstAttribute="top" secondItem="zy5-3Y-Vtg" secondAttribute="bottom" constant="15" id="LXf-qH-ixO"/>
@@ -2050,9 +2076,7 @@
                                             <constraint firstItem="h4p-A4-5mF" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="Z21-dG-uHk">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
-                                            <constraint firstAttribute="trailing" secondItem="pco-E2-dRm" secondAttribute="trailing" constant="15" id="ZKV-9z-6pL">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                                            </constraint>
+                                            <constraint firstAttribute="bottom" secondItem="S1i-eM-qqY" secondAttribute="bottom" constant="20" id="ZEq-9e-N6V"/>
                                             <constraint firstAttribute="trailing" secondItem="JaZ-SU-Os9" secondAttribute="trailing" constant="15" id="ZXw-Tc-5LT">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -2102,6 +2126,8 @@
                                             <constraint firstAttribute="bottom" secondItem="blE-GZ-dZk" secondAttribute="bottom" id="kEP-MA-Hji"/>
                                             <constraint firstItem="Hqt-YC-20G" firstAttribute="centerY" secondItem="tTZ-Ax-pnV" secondAttribute="centerY" id="mKg-es-ryz"/>
                                             <constraint firstItem="rh6-5M-apU" firstAttribute="top" secondItem="zR0-ae-1c5" secondAttribute="bottom" priority="750" constant="10" id="mNC-Eq-0HS"/>
+                                            <constraint firstItem="S1i-eM-qqY" firstAttribute="top" secondItem="R6J-em-ar3" secondAttribute="bottom" constant="50" id="mbv-PS-pLl"/>
+                                            <constraint firstItem="SZ9-Ix-jK0" firstAttribute="bottom" secondItem="S1i-eM-qqY" secondAttribute="bottom" id="mhP-LE-SCC"/>
                                             <constraint firstAttribute="trailing" secondItem="h4p-A4-5mF" secondAttribute="trailing" constant="20" id="pDd-Kb-YMR">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
@@ -2112,6 +2138,8 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
                                             <constraint firstItem="Pur-2y-MLq" firstAttribute="top" secondItem="zk0-AM-aaX" secondAttribute="bottom" constant="15" id="pka-Oh-fSY"/>
+                                            <constraint firstItem="S1i-eM-qqY" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="prN-mO-XQk"/>
+                                            <constraint firstItem="SZ9-Ix-jK0" firstAttribute="trailing" secondItem="S1i-eM-qqY" secondAttribute="trailing" id="s29-t7-Vib"/>
                                             <constraint firstItem="sph-4j-L7u" firstAttribute="leading" secondItem="ScF-nT-qEa" secondAttribute="leading" id="sQW-te-tL7"/>
                                             <constraint firstItem="zk0-AM-aaX" firstAttribute="top" secondItem="h4p-A4-5mF" secondAttribute="bottom" constant="3" id="tDM-fm-BeL"/>
                                             <constraint firstItem="JaZ-SU-Os9" firstAttribute="leading" secondItem="CNW-E1-eVl" secondAttribute="leading" constant="15" id="vKk-qv-no3">
@@ -2120,7 +2148,6 @@
                                             <constraint firstItem="MGW-8d-BKR" firstAttribute="top" secondItem="oHy-sM-490" secondAttribute="bottom" constant="15" id="vxr-Nw-DZx"/>
                                             <constraint firstItem="TW6-lY-rnl" firstAttribute="top" secondItem="Pur-2y-MLq" secondAttribute="bottom" constant="3" id="wEo-kZ-QNg"/>
                                             <constraint firstItem="2md-X2-7Vf" firstAttribute="centerY" secondItem="1he-Ko-uXF" secondAttribute="centerY" id="wK9-pd-MiS"/>
-                                            <constraint firstAttribute="bottom" secondItem="pco-E2-dRm" secondAttribute="bottom" constant="20" id="whk-gq-WCG"/>
                                             <constraint firstAttribute="trailing" secondItem="MGW-8d-BKR" secondAttribute="trailing" constant="15" id="xsN-bI-wmY">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -2171,7 +2198,6 @@
                             <outlet property="donationInfoLabel" destination="AOn-Mw-cgE" id="oy9-Vw-2tq"/>
                             <outlet property="donationLabel" destination="Hqt-YC-20G" id="zcA-Gf-cBq"/>
                             <outlet property="earningFormulaLbl" destination="bER-0Y-BWk" id="OFb-AA-zZd"/>
-                            <outlet property="editSessionButton" destination="pco-E2-dRm" id="fKv-PH-n22"/>
                             <outlet property="freeField" destination="o99-TM-WuW" id="Sp4-HO-aMC"/>
                             <outlet property="heightOfSponserConstraint" destination="fqD-dY-ZwS" id="z8a-NK-81D"/>
                             <outlet property="maxEarning" destination="JJJ-yL-zeX" id="oZg-Sg-yfl"/>
@@ -2195,16 +2221,16 @@
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <size key="freeformSize" width="375" height="1000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmI-iF-tKa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3128" y="-734"/>
+            <point key="canvasLocation" x="3113" y="-1006"/>
         </scene>
     </scenes>
     <resources>
         <image name="downArrow" width="256" height="256"/>
         <image name="leftArrowCalendar" width="128" height="128"/>
+        <image name="newSplash" width="1080" height="1080"/>
         <image name="rightArrowCalendar" width="128" height="128"/>
     </resources>
 </document>

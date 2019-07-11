@@ -48,6 +48,7 @@ extension FieldManagingScrollView{
 extension FieldManagingScrollView{
     
     fileprivate func registerForKeyboardNotifications(){
+       
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:UIResponder.keyboardWillHideNotification , object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:UIResponder.keyboardWillShowNotification , object: nil)
@@ -78,6 +79,7 @@ extension FieldManagingScrollView{
     }
     
     fileprivate func adjustForHeight(_ keyboardHeight : CGFloat, shouldIncreaseOffset : Bool)->CGFloat{
+        
         guard let contentOffset = self.bottomContentOffset?.constant
             else{
                 return keyboardHeight
@@ -108,6 +110,7 @@ extension FieldManagingScrollView{
     }
     
     fileprivate func scrollToIncreaseOffset(_ shouldIncreaseOffset : Bool, notification : Notification){
+        
         let keyboardHeight = adjustForKeyboard(notification, shouldIncreaseOffset: shouldIncreaseOffset)
         
         let screenSize = self.bounds.size
@@ -139,6 +142,25 @@ extension FieldManagingScrollView{
         if(!viewableAreaFrame.contains(activeFieldFrame)){
             self.contentOffset = CGPoint(x: CGFloat(0.0), y: scrollCount)
         }
-        
     }
+    
+    func scrollToCustomView(customView:UIView?){
+        
+        let screenSize = self.bounds.size
+        let viewWidth = screenSize.width
+        let viewHeight = screenSize.height
+        
+        let viewableAreaFrame = CGRect(x: 0.0, y: 0.0, width: viewWidth, height: viewHeight)
+        
+        guard let activeFieldUW = customView
+            else{
+                return
+        }
+        let activeFieldOrigin = activeFieldUW.convert(activeFieldUW.bounds.origin, to: self)
+        let scrollViewUW = self
+        let scrollViewOrigin = scrollViewUW.convert(scrollViewUW.bounds.origin, to: nil)
+        let activeFieldSize = activeFieldUW.bounds.size
+        self.contentOffset = CGPoint(x: CGFloat(0.0), y: activeFieldOrigin.y-30)
+    }
+    
 }

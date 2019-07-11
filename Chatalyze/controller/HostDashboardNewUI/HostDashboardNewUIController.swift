@@ -108,7 +108,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         guard let controller = PaymentSetupPaypalController.instance() else{
             return
         }
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

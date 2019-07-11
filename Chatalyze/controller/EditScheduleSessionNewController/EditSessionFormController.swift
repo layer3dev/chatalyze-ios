@@ -248,7 +248,6 @@ class EditSessionFormController: InterfaceExtendedController {
                     }
                 }
                 self.rootView?.chatLengthArray = requiredChats
-                
             }
         }
     }
