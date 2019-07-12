@@ -15,7 +15,7 @@ class EditScheduleSessionNewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootView?.controller = self
+        rootView?.controller = self        
         rootView?.fillInfo(info:sessionInfo)
     }
     
@@ -26,12 +26,10 @@ class EditScheduleSessionNewController: UIViewController {
     }
     
     @IBAction func doneEditingAction(sender:UIButton?){
-       
         back()
     }
     
     func back(){
-        
         self.navigationController?.popViewController(animated: true)
     }
     

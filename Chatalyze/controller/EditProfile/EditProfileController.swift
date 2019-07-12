@@ -10,8 +10,7 @@ import UIKit
 
 class EditProfileController: InterfaceExtendedController {
     
-    @IBOutlet var rootView:EditProfileRootview?
-
+    @IBOutlet var rootView:EditProfileRootview?    
     override func viewDidLayout() {
         super.viewDidLayout()
         

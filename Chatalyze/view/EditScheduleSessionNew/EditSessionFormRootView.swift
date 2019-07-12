@@ -317,6 +317,8 @@ class EditSessionFormRootView:ExtendedView {
         
         priceAmountField?.textField?.keyboardType = UIKeyboardType.decimalPad
         self.switchONSponsor()
+        
+        self.initializeCustomCalendar()
     }
     
     func initializeCustomSwitch(){
@@ -419,13 +421,11 @@ class EditSessionFormRootView:ExtendedView {
             self.dateField?.textField?.text = dateInStr
         }
     }
-    
+
     
     
     func initializeVariable(){
-        
-        
-        initializeCustomCalendar()
+       
         breakAdapter?.customDelegate = self
         initializeCustomSwitch()
         initializeDatePicker()
@@ -1114,6 +1114,7 @@ extension EditSessionFormRootView{
         timePickerContainer.timePicker?.datePickerMode = .time
         timePickerContainer.delegate = self
         timePickerContainer.timePicker?.minuteInterval = 30
+        timePickerContainer.timePicker?.date = getTodayDate(at: (0,0))
         //TODO:- Implement the minimum date
         //datePicker.timePicker?.minimumDate
         timePickerContainer.isHidden = true
@@ -1145,7 +1146,7 @@ extension EditSessionFormRootView{
             if let date = dateFormatter.date(from: startDate) {
                 
                 Log.echo(key: "yud", text: "Diffrenece between the current time is \(date.timeIntervalSinceNow)")
-                
+
                 if date.timeIntervalSinceNow <=  0{
                     
                     timeField?.showError(text: "Please select the future time")
@@ -1753,7 +1754,7 @@ extension EditSessionFormRootView {
         
         if self.isPricingEnable == nil {
             
-            priceAmountField?.showError(text: "Please select the pricing options.")
+            priceAmountField?.showError(text: "Please set your ticket price.")
             return false
         }
         
@@ -1977,13 +1978,12 @@ extension EditSessionFormRootView{
                 "0.0")
             self.scheduleInfo?.isFree = false
             self.scheduleInfo?.isSponsorEnable = false
+            
         }else{
             
             if sponsorShipToggle?.isOn == true{
-                
                 self.scheduleInfo?.isSponsorEnable = true
             }else{
-                
                 self.scheduleInfo?.isSponsorEnable = false
             }
             self.scheduleInfo?.isFree = true
@@ -2164,3 +2164,17 @@ extension EditSessionFormRootView{
     }
 }
 
+
+extension EditSessionFormRootView{
+    
+    func getTodayDate(at: (hour: Int, minute: Int)) -> Date {
+        
+        var dateComponents = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: Date())
+        
+        dateComponents.hour = at.hour
+        
+        dateComponents.minute = at.minute
+        
+        return Calendar.autoupdatingCurrent.date(from: dateComponents) ?? Date()
+    }
+}

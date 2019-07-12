@@ -427,7 +427,7 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        Log.echo(key: "yud", text: "ScreenShot allowed is \(self.eventInfo?.isScreenShotAllowed)")
+        Log.echo(key: "yud", text: "ScreenShot allowed is \(String(describing: self.eventInfo?.isScreenShotAllowed))")
         
         if self.eventInfo?.isScreenShotAllowed == nil{
             return
@@ -745,6 +745,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
+        
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         controller.memoryImage = self.memoryImage
@@ -776,7 +777,6 @@ class UserCallController: VideoCallController {
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
-        
         guard let controller = MemoryAnimationController.instance() else{
             return
         }

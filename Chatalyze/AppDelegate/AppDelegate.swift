@@ -228,8 +228,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                 }
                 self.getNotificationSettings()
             }
-        }else{
-            
+        }else{            
             Log.echo(key: "yud", text: "Fallback version")
             //Fallback on earlier versions
         }

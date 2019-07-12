@@ -155,6 +155,7 @@ class EditSessionFormController: InterfaceExtendedController {
         self.rootView?.controller = self
         fetchMinimumPlanPriceToScheuleIfExists()
         paintInterface()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

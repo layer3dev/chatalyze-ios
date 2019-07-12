@@ -11,6 +11,7 @@ import UIKit
 
 //This is root class meant to be overriden by Host Connection and User Connection
 //abstract:
+
 class CallConnection: NSObject {
     //temp
     static private var temp = 0
