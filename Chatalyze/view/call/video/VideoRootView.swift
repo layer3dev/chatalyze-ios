@@ -71,6 +71,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintOverlay(){
+        
         guard let callOverlayView = self.callOverlayView
             else{
                 return
@@ -84,11 +85,13 @@ class VideoRootView: ExtendedView {
     }
     
     func switchToCallRequest(){
+        
         callOverlayView?.isHidden = false
         actionContainer?.isHidden = true
     }
     
     func switchToCallAccept(){
+        
         callOverlayView?.isHidden = true
         actionContainer?.isHidden = false
     }
@@ -104,13 +107,11 @@ class VideoRootView: ExtendedView {
         self.hangupListener = listener
     }
     
-    
     @objc func toggleContainer(gesture: UITapGestureRecognizer){
-      
+        
         actionContainer?.toggleContainer()
         animateHeader()
     }
-    
     
     func animateHeader(){
         

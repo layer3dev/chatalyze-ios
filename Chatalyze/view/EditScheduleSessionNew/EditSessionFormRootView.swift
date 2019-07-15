@@ -419,6 +419,7 @@ class EditSessionFormRootView:ExtendedView {
             dateFormatter.locale = NSLocale.current
             let dateInStr = dateFormatter.string(from: pickerDate)
             self.dateField?.textField?.text = dateInStr
+           let _ =  self.validateDate()
         }
     }
 
@@ -444,6 +445,7 @@ class EditSessionFormRootView:ExtendedView {
         self.priceField?.textField?.delegate = self
         self.priceAmountField?.textField?.delegate = self
         priceAmountField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        titleField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     func fillInfo(info:EventInfo?){
@@ -889,6 +891,11 @@ extension EditSessionFormRootView:UITextFieldDelegate{
     
     @objc func textFieldDidChange(_ textField: UITextField) {
        
+        if textField == titleField?.textField{
+            
+            let _ = titleValidation()
+            return
+        }
         updatescheduleInfo()
         paintMaximumEarningCalculator()
         let _ = priceValidation()
@@ -1038,6 +1045,8 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
+            let _  = validateDate()
+
         }
         
         if selectedPickerType == .time {
@@ -1050,6 +1059,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             timeField?.textField?.text = dateInStr
+            let _ = self.validateTime()
             //birthDay = selectedDate
         }
         
@@ -1071,6 +1081,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
             let dateInStr = dateFormatter.string(from: pickerDate)
             dateField?.textField?.text = dateInStr
+            let _ = self.validateDate()
             //birthDay = selectedDate
             return
         }
@@ -1086,6 +1097,7 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             let dateInStr = dateFormatter.string(from: pickerDate)
             timeField?.textField?.text = dateInStr
             //birthDay = selectedDate
+            let _ = self.validateTime()
             return
         }
     }
@@ -1093,7 +1105,6 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
     private func showDatePicker() {
        
         calenderAction()
-        
 //        handleBirthadyFieldScrolling()
 //        self.isDatePickerIsShowing = true
 //        self.datePickerContainer.isHidden = false
@@ -1284,6 +1295,7 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 chatLength?.textField?.text = chatLengthArray[row] + " mins"
             }
             slotSelected = Int(chatLengthArray[row])
+            let _ = self.validateSlotTime()
             return
         }
         
@@ -1304,6 +1316,7 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
             if row == 3{
                 totalTimeOfChat = .twoHour
             }
+            let _ = self.validateSessionLength()
             return
         }
     }
@@ -1319,6 +1332,8 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                 sessionLength?.textField?.text = sessionArray[0]
                 totalTimeOfChat = .thirtyMinutes
             }
+            let _ = validateSessionLength()
+            
         }
         
         if type == .chatLength{
@@ -1335,6 +1350,7 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                     slotSelected = Int(chatLengthArray[0])
                 }
             }
+            let _ = validateSlotTime()
         }
         hidePicker()
         updatescheduleInfo()

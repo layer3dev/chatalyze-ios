@@ -189,6 +189,7 @@ extension CallConnection : ARDAppClientDelegate{
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
         
         if(state == .connected){
+           
             lastDisconnect = nil
             self.controller?.acceptCallUpdate()
             isConnected = true
@@ -314,11 +315,10 @@ extension CallConnection : ARDAppClientDelegate{
         Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteVideo")
        
         self.remoteTrack?.videoTrack?.add(remoteView)
-//        self.remoteTrack?.videoTrack?.source.
         
+        //self.remoteTrack?.videoTrack?.source.
         
         self.remoteTrack?.audioTrack?.isEnabled = true
-        
         isRendered = true
     }
     
@@ -330,8 +330,6 @@ extension CallConnection : ARDAppClientDelegate{
         }
         self.remoteTrack?.videoTrack?.remove(remoteView)
     }
-    
-    
     
     private func resetRemoteFrame(){
         

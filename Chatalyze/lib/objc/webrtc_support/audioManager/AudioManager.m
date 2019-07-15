@@ -24,6 +24,7 @@
 }
 
 -(void)configure{
+    
     RTCAudioSessionConfiguration *webRTCConfig =
     [RTCAudioSessionConfiguration webRTCConfiguration];
     webRTCConfig.categoryOptions = webRTCConfig.categoryOptions |

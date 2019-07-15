@@ -45,12 +45,12 @@ class SocketClient : NSObject{
     }
     
     @objc func createListener()->SocketListener{
+        
         let identifier = uniqueConnectionIdentifier
         let listener = SocketListener(identifier : identifier, socketClient : self)
-        
+                
         listenerInfo[identifier] = listener
         return listener
-        
     }
     
     fileprivate func initialization(){

@@ -122,6 +122,7 @@ class UserVideoRootView: UserVideoLayoutView {
         local.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        
         UIGraphicsEndImageContext()
         
         return finalImage
