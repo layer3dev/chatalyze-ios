@@ -137,7 +137,12 @@ class MemoryAnimationController: InterfaceExtendedController {
         self.portraitShadowView?.dropShadow(color: UIColor.darkGray, offSet: CGSize.zero, radius: UIDevice.current.userInterfaceIdiom == .pad ? 18:15, scale: true,layerCornerRadius:UIDevice.current.userInterfaceIdiom == .pad ? 5:3)
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.hideNavigationBar()
+    }
+        
     func isPortrait(size:CGSize)->Bool?{
         
         let minimumSize = size
@@ -214,8 +219,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             return
         }
         controller.eventInfo = self.eventInfo
-        self.present(controller, animated: true, completion: {
-        })
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     /*

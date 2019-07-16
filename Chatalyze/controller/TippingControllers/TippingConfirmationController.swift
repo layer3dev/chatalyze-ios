@@ -32,6 +32,12 @@ class TippingConfirmationController: InterfaceExtendedController {
         return self.view as? TippingRootView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -44,7 +50,7 @@ class TippingConfirmationController: InterfaceExtendedController {
                 return
             }
             controller.eventInfo = scheduleInfo
-            present(controller, animated: false, completion:nil)
+            self.navigationController?.pushViewController(controller, animated: true)
             return
         }
         
@@ -53,7 +59,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         }
         controller.eventInfo = scheduleInfo
         controller.memoryImage = self.memoryImage
-        present(controller, animated: false, completion:nil)
+        self.navigationController?.pushViewController(controller, animated: true)
         return
         
     }
@@ -63,7 +69,9 @@ class TippingConfirmationController: InterfaceExtendedController {
         guard let controller = TippingCardDetailInfoController.instance() else{
             return
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: true) {
+            
+        }
     }
     
     //two dollar now
@@ -104,6 +112,8 @@ class TippingConfirmationController: InterfaceExtendedController {
             }
             
             self?.initiatePurchaseProcess(transactionId: transactionId, value: value, completion: {
+                
+                Log.echo(key: "yud", text: "completion called")
                 
                 self?.stopLoader()
             })
@@ -188,7 +198,7 @@ class TippingConfirmationController: InterfaceExtendedController {
         controller.scheduleInfo = scheduleInfo
         controller.price = value?.getValue()
         controller.memoryImage = self.memoryImage
-        self.present(controller, animated: true, completion: nil)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     /*

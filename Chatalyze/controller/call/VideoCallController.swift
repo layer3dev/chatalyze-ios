@@ -249,6 +249,18 @@ class VideoCallController : InterfaceExtendedController {
         //            return
         //        }else{
         //
+        
+        
+        guard let roleType = SignedUserInfo.sharedInstance?.role else{
+            return
+        }
+        
+        if roleType == .user{
+           
+            self.onExit(code : code)
+            return
+        }
+        
         self.getRootPresentingController()?.dismiss(animated: false, completion: {[weak self] in
             
             self?.onExit(code : code)

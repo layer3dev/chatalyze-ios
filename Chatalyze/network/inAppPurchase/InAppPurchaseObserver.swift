@@ -61,8 +61,6 @@ extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     private func complete(transaction: SKPaymentTransaction) {
         
-        
-        
         DispatchQueue.main.async {[weak self] in
             Log.echo(key: "in_app_purchase", text: "transaction.transactionState -> complete -- \(String(describing: transaction.transactionIdentifier))")
             

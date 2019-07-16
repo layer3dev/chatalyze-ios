@@ -19,6 +19,18 @@ class OpenCallAlertController: InterfaceExtendedController {
         initializeDeleteListner()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        hideNavigationBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        showNavigationBar()
+    }
+    
     func initializeDeleteListner(){
         
         eventDeleteListener.setListener { (deletedEventID) in
@@ -40,6 +52,7 @@ class OpenCallAlertController: InterfaceExtendedController {
                 dismissSelf()
             }
         }
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     

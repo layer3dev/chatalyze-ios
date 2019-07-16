@@ -87,8 +87,6 @@ class DonateProduct{
         DonateCompleteTransaction().process(transactionId: transactionId, planId: value.getProductId(), completion: {[weak self] (success) in
                 self?.callCompletion(success, transaction)
         })
-        
-    }
-    
+    }    
 }
 

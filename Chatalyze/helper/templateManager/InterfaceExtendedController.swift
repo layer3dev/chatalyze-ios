@@ -256,7 +256,9 @@ extension UIViewController : NVActivityIndicatorViewable{
     func getRootPresentingController()-> UIViewController?{
         
         var presenting : UIViewController? = self.presentingViewController
+        
         while(true){
+            
             if let root = presenting?.presentingViewController{
                 presenting = root
             }

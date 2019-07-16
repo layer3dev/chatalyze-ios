@@ -22,6 +22,14 @@ class DonationSuccessController: InterfaceExtendedController {
         rootView?.fillInfo(price: (price ?? 0.00), scheduleInfo: scheduleInfo)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.hideNavigationBar()
+    }
+    
+    
+    
     var rootView : DonationSuccessRootView?{
         return self.view as? DonationSuccessRootView
     }
@@ -41,7 +49,9 @@ class DonationSuccessController: InterfaceExtendedController {
             return
         }
         controller.eventInfo = scheduleInfo
-        present(controller, animated: false, completion:nil)
+//        present(controller, animated: false, completion:nil)
+        
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     
@@ -52,7 +62,7 @@ class DonationSuccessController: InterfaceExtendedController {
         }
         controller.eventInfo = scheduleInfo
         controller.memoryImage = self.memoryImage
-        present(controller, animated: false, completion:nil)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     /*

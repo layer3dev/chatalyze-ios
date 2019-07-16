@@ -727,15 +727,55 @@ class UserCallController: VideoCallController {
                 showExitScreen()
                 return
         }
+        
+        if code == .userAction{
+            
+            self.getRootPresentingController()?.dismiss(animated: true, completion: {
+                
+            })
+        }
+        
+        
+    }
+    
+    override func showErrorScreen() {
+        
+        guard let controller = OpenCallAlertController.instance() else{
+            return
+        }
+        
+        guard let presentingController =  self.lastPresentingController as? ContainerController
+            else{
+                Log.echo(key: "_connection_", text: "presentingController is nil")
+                return
+        }
+        presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
+        })
+        
     }
     
     func showContactUsScreen(){
+        
         RootControllerManager().getCurrentController()?.showContactUs()
+        
+        guard let presented = self.lastPresentingController as? ContainerController else{
+            return
+        }
+        
+        guard let controller = ContactUsController.instance() else {
+            return
+        }
+        presented.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
+        })
     }
     
     private func showDonateScreen(){
         
-        guard let presentingController = self.lastPresentingController
+        guard let presentingController = self.lastPresentingController as? ContainerController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
@@ -749,12 +789,17 @@ class UserCallController: VideoCallController {
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         controller.memoryImage = self.memoryImage
-        presentingController.present(controller, animated: false, completion:nil)
+        presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
+            
+        })
+        
     }
     
     private func showFeedbackScreen(){
         
-        guard let presentingController = self.lastPresentingController
+        guard let presentingController = self.lastPresentingController as? ContainerController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
@@ -764,7 +809,9 @@ class UserCallController: VideoCallController {
             return
         }
         controller.eventInfo = eventInfo
-        presentingController.present(controller, animated: false, completion:{
+        presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })
         return
     }
@@ -772,17 +819,21 @@ class UserCallController: VideoCallController {
     
     private func showMemoryScreen(){
         
-        guard let presentingController = self.lastPresentingController
+
+        guard let presentingController = self.lastPresentingController as? ContainerController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
                 return
         }
+        
         guard let controller = MemoryAnimationController.instance() else{
             return
         }
+        
         controller.eventInfo = eventInfo
         controller.memoryImage = self.memoryImage
-        presentingController.present(controller, animated: false, completion:{
+        presentingController.navController?.topViewController?.navigationController?.present(controller, animated: true, completion: {
+            
         })
         return
     }
@@ -797,11 +848,12 @@ class UserCallController: VideoCallController {
         }
         
         if self.memoryImage == nil{
+            
             showFeedbackScreen()
             return
         }
-        showMemoryScreen()
         
+        showMemoryScreen()
     }
     
     
@@ -1265,3 +1317,42 @@ extension UserCallController {
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
+
+
+extension UserCallController{
+    
+    @IBAction func test(sender:UIButton?){
+     
+        guard let controller  = self.lastPresentingController as? ContainerController else{
+            return
+        }
+        
+//        Log.echo(key: "yud", text: "Presenting controller is \(controller.navController?.topViewController)")
+        
+        guard let controllerNew = TippingConfirmationController.instance() else {
+            return
+        }
+         controller.navController?.topViewController?.navigationController?.pushViewController(controllerNew, animated: true)
+        
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {[weak self] in
+        })
+    }
+}
+
+//
+//
+//let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+//if(isDonationEnabled){
+//
+//    showDonateScreen()
+//    return
+//}
+//
+//if self.memoryImage == nil{
+//
+//    showFeedbackScreen()
+//    return
+//}
+//
+//showMemoryScreen()

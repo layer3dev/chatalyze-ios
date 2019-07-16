@@ -43,8 +43,16 @@ class ReviewController: InterfaceExtendedController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "Review")
+        self.paintNavigationTitle(text: "Review")
+        self.hideNavigationBar()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.showNavigationBar()
+    }
+    
     
     override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
@@ -92,6 +100,8 @@ class ReviewController: InterfaceExtendedController{
                 }
             })
         }
+        
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

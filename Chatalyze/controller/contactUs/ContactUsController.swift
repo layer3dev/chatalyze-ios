@@ -24,6 +24,7 @@ class ContactUsController: InterfaceExtendedController {
     
     @IBOutlet fileprivate var scrollContentBottomOffset : NSLayoutConstraint?
     
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -36,7 +37,6 @@ class ContactUsController: InterfaceExtendedController {
         self.navigationController?.popViewController(animated: true)
     }
     
-   
     func paintTextfieldPlaceHolder(){
         
         var fontSize:CGFloat = 16.0
