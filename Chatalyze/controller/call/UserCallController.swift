@@ -1265,5 +1265,3 @@ extension UserCallController {
         countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
-
-
