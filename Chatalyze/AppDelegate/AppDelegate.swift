@@ -220,6 +220,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *){
+            
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
                 Log.echo(key: "yud", text: "10.0 \(granted)")

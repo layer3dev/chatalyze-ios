@@ -11,14 +11,12 @@ import Bugsnag
 
 class MyTicketsVerticalController: MyTicketsController{
     
-    
     var fontSize:CGFloat = 16.0
     @IBOutlet var underLineLbl:UILabel?
     @IBOutlet var showView:UIView?
     var isShow = false
     var eventDeleteListener = EventDeletedListener()
     var testingText = ""
-    
     @IBOutlet var learnMoreLbl:UILabel?
     
     override func viewDidLayout() {
@@ -32,6 +30,13 @@ class MyTicketsVerticalController: MyTicketsController{
         initializeListenrs()
         underLineLearnMore()
         hitEventOnSegmentIO()
+    }
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.showNavigationBar()
     }
     
     func hitEventOnSegmentIO(){
