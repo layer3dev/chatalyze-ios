@@ -819,7 +819,6 @@ class UserCallController: VideoCallController {
     
     private func showMemoryScreen(){
         
-
         guard let presentingController = self.lastPresentingController as? ContainerController
             else{
                 Log.echo(key: "_connection_", text: "presentingController is nil")
@@ -832,8 +831,10 @@ class UserCallController: VideoCallController {
         
         controller.eventInfo = eventInfo
         controller.memoryImage = self.memoryImage
-        presentingController.navController?.topViewController?.navigationController?.present(controller, animated: true, completion: {
-            
+         presentingController.navController?.topViewController?.navigationController?.present(controller, animated: true, completion: {
+         })
+        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })
         return
     }
@@ -1153,13 +1154,16 @@ extension UserCallController{
             controller.onResult { [weak self] (image) in
                 
                 self?.myLiveUnMergedSlot?.isScreenshotSaved = true
-                self?.uploadImage(image: image, completion: { (success, info) in
-                    self?.screenshotInfo = info
+                
+                self?.encodeImageToBase64(image: image, completion: { (encodedImage) in
+                    
+                    self?.uploadImage(image: image, completion: { (success, info) in
+                        self?.screenshotInfo = info
+                    })
                 })
             }
             self.present(controller, animated: true) {
             }
-            
         })
     }
     

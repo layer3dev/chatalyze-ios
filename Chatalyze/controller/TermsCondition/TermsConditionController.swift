@@ -12,6 +12,7 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
 
     @IBOutlet var webView:UIWebView?
     var url = ""
+    var headerText = ""
     @IBOutlet var headerLabel:UILabel?
     
     override func viewDidLayout() {
@@ -19,6 +20,10 @@ class TermsConditionController: InterfaceExtendedController,UIWebViewDelegate {
         
         webView?.delegate = self
         loadUrl()
+        if headerText != "" {
+            
+            self.headerLabel?.text = headerText
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

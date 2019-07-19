@@ -21,7 +21,7 @@ class MyTicketsVerticalController: MyTicketsController{
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+
         //        Bugsnag.notifyError(NSError(domain:"com.customCrash:MyTickets", code:408, userInfo:nil))
         
         initializeFontSize()
@@ -32,7 +32,7 @@ class MyTicketsVerticalController: MyTicketsController{
         hitEventOnSegmentIO()
     }
     
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

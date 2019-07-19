@@ -80,6 +80,7 @@ class SignUpController: InterfaceExtendedController {
         //controller.url = "https://dev.chatalyze.com/terms-app"
         controller.url = AppConnectionConfig.basicUrl + "/terms-app"
 
+        controller.headerText = "TERMS OF SERVICE"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -98,6 +99,7 @@ class SignUpController: InterfaceExtendedController {
             return
         }
         controller.url = AppConnectionConfig.basicUrl + "/privacy-app"
+        controller.headerText = "PRIVACY POLICY"
         //controller.url = "https://dev.chatalyze.com/privacy-app"
         self.navigationController?.pushViewController(controller, animated: true)
     }

@@ -486,8 +486,8 @@
                                                         <fragment content="By signing up, you agree to our Terms of Service ">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Bold"/>
-                                                                <font key="NSOriginalFont" size="13" name="Nunito-Regular"/>
+                                                                <font key="NSFont" metaFont="system" size="20"/>
+                                                                <font key="NSOriginalFont" metaFont="system"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
@@ -501,19 +501,11 @@
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
-                                                        <fragment content="and">
+                                                        <fragment content="and Privacy Policy. ">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="Nunito-Regular"/>
-                                                                <font key="NSOriginalFont" size="24" name="Nunito-Regular"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" Privacy Policy. ">
-                                                            <attributes>
-                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="Nunito-Bold"/>
-                                                                <font key="NSOriginalFont" size="24" name="Nunito-Bold"/>
+                                                                <font key="NSFont" metaFont="system" size="24"/>
+                                                                <font key="NSOriginalFont" metaFont="system" size="24"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -536,7 +528,7 @@
                                                         <fragment content="Have an account? Sign in">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="20" name="Nunito-Bold"/>
+                                                                <font key="NSFont" metaFont="system" size="20"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                             </attributes>
                                                         </fragment>
@@ -1037,6 +1029,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="headerLabel" destination="pRp-ML-JTc" id="isa-p0-ZbC"/>
                         <outlet property="webView" destination="hLk-tk-72v" id="M7C-Mx-pTs"/>
                     </connections>
                 </viewController>
