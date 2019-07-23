@@ -47,7 +47,7 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     
     func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
-        
+
         guard let remoteView = remoteVideoView
             else{
                 completion(nil)
@@ -132,19 +132,24 @@ class UserVideoRootView: UserVideoLayoutView {
     private func getTargetSize(remote : UIImage, local : UIImage)->CGSize{
                 
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
+        
         var localInfo = (size : local.size, orientation : VideoView.orientation.undefined)
 
         let targetSize = CGSize(width: remoteInfo.size.width/4, height: remoteInfo.size.height/4)
         
         if(remoteInfo.size.width > remoteInfo.size.height){
+            
             remoteInfo.orientation = .landscape
         }else{
+            
             remoteInfo.orientation = .portrait
         }
         
         if(localInfo.size.width > localInfo.size.height){
+            
             localInfo.orientation = .landscape
         }else{
+            
             localInfo.orientation = .portrait
         }
         
@@ -158,6 +163,7 @@ class UserVideoRootView: UserVideoLayoutView {
         }
         
         let localWidthAspect = localInfo.size.width/localInfo.size.height
+        
         if(localInfo.orientation == .portrait){
             
             let height = targetSize.height

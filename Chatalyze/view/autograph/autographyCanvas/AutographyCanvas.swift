@@ -58,12 +58,9 @@ class AutographyCanvas: ExtendedView {
         super.init(frame: frame)
         commonInit()
     }
-    
 
     private func fillInfo(){
-        
     }
-    
     
     fileprivate func commonInit(){
         
@@ -89,6 +86,7 @@ class AutographyCanvas: ExtendedView {
             initialization()
         }
     }
+    
     
     override func viewDidLayout(){
         super.viewDidLayout()

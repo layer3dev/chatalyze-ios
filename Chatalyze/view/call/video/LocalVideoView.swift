@@ -73,7 +73,9 @@ class LocalVideoView: VideoView {
         
         topConstraint?.isActive = true
         bottomConstraint?.isActive = false
+        
         if(isIPad){
+            
             heightConstraint?.constant = 224
             widthConstraint?.constant = 126
             return

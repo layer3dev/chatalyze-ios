@@ -477,16 +477,14 @@ class UserCallController: VideoCallController {
             if ((slotId == SlotFlagInfo.staticSlotId) && SlotFlagInfo.staticIsTimerInitiated) {
               
                 if !(isCallStreaming){
-                    Log.echo(key: "yud", text: "yes call disconnected")
 
-                    if SlotFlagInfo.staticScreenShotSaved{
+                    if SlotFlagInfo.staticScreenShotSaved {
                         return
                     }else{
                         
                         SlotFlagInfo.staticSlotId = -1
                         SlotFlagInfo.staticIsTimerInitiated = false
                         selfieTimerView?.reset()
-                        Log.echo(key: "yud", text: "Resetting the screenshots")
                     }
                     return
                 }
@@ -589,8 +587,8 @@ class UserCallController: VideoCallController {
                                         SlotFlagInfo.staticScreenShotSaved = false
                                         return
                                     }
-                                    if success{
-                                    }
+                                    
+                                    self.requestAutographProcess()
                                     self.screenshotInfo = info
                                 }
                             })
@@ -599,7 +597,6 @@ class UserCallController: VideoCallController {
                 }
             })
         }
-        
     }
     
     
@@ -1084,9 +1081,9 @@ extension UserCallController{
         processController.defaultScreenshotInfo = defaultScreenshotInfo
         processController.customScreenshotInfo = customScreenshotInfo
         processController.setListener { (success, info, isDefault) in
-            
             self.processRequestAutograph(isDefault : success, info : info)
         }
+        
         self.present(processController, animated: true) {
         }
     }
@@ -1095,6 +1092,8 @@ extension UserCallController{
         
         if(!isDefault){
             
+            
+            Log.echo(key: "yud", text: "Request the number autograph")
             self.serviceRequestAutograph(info : info)
             return
         }
@@ -1118,18 +1117,27 @@ extension UserCallController{
                     return
             }
             
+            Log.echo(key: "yud", text: "Request the undegault autograph")
+            
             self?.requestDefaultAutograph(image: targetImage)
         }
     }
     
     private func requestDefaultAutograph(image : UIImage){
         
-        self.uploadImage(image: image, completion: { [weak self] (success, screenshotInfo) in
-            if(!success){
-                return
-            }
-            self?.serviceRequestAutograph(info: screenshotInfo)
-        })
+        self.encodeImageToBase64(image: image) { (encodedImage) in
+           
+            self.uploadImage(encodedImage:encodedImage,image: image, completion: { [weak self] (success, screenshotInfo) in
+                
+                if(!success){
+                    return
+                }
+                self?.serviceRequestAutograph(info: screenshotInfo)
+            })
+            
+        }
+        
+        
     }
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
@@ -1214,7 +1222,6 @@ extension UserCallController{
         params["file"] = encodedImage
         // userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
-            
             //self?.userRootView?.requestAutographButton?.hideLoader()
             DispatchQueue.main.async {
                 completion?(success, info)
@@ -1228,6 +1235,7 @@ extension UserCallController {
     func registerForAutographListener(){
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
+         
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
@@ -1235,6 +1243,7 @@ extension UserCallController {
         
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
+            
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
         })
@@ -1273,6 +1282,9 @@ extension UserCallController {
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
         let message = screenshotInfo.toDict()
         params["message"] = message
+        
+        Log.echo(key: "yud", text: "Yup I have got green signal for the screenshotLoad")
+
         socketClient?.emit(params)
     }
     

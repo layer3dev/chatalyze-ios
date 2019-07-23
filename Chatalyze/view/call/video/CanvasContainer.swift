@@ -13,10 +13,9 @@ class CanvasContainer: ExtendedView {
     @IBOutlet var canvas : AutographyCanvas?
     @IBOutlet var canvasHeightZeroConstraint : NSLayoutConstraint?
     @IBOutlet var canvasProportionalHeightConstraint : NSLayoutConstraint?
-    
+
     @IBOutlet var canvasBottomToSignConstraint : NSLayoutConstraint?
     @IBOutlet var canvasBottomToRootConstraint : NSLayoutConstraint?
-    
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -28,8 +27,9 @@ class CanvasContainer: ExtendedView {
     
     
     func show(){
+        
         layoutIfNeeded()
-
+        
         showInPortrait()
         
         UIView.animate(withDuration: 1.0) {
@@ -39,6 +39,7 @@ class CanvasContainer: ExtendedView {
     
     
     private func showInPortrait(){
+       
         canvasHeightZeroConstraint?.priority = UILayoutPriority(1.0)
         canvasProportionalHeightConstraint?.priority = UILayoutPriority(990.0)
         
@@ -48,20 +49,21 @@ class CanvasContainer: ExtendedView {
     }
     
     private func hideCanvas(){
+     
         canvasHeightZeroConstraint?.priority = UILayoutPriority(990.0)
         canvasProportionalHeightConstraint?.priority = UILayoutPriority(1.0)
         
         canvasBottomToSignConstraint?.priority = UILayoutPriority(1.0)
         canvasBottomToRootConstraint?.priority = UILayoutPriority(990.0)
+        
     }
     
-    
     func hide(){
+        
         layoutIfNeeded()
         hideCanvas()
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
     }
-
 }
