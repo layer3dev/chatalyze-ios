@@ -47,7 +47,5 @@ class UserCallQueueRootView: CallQueueRootView {
         let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
         
         countdownLabel?.updateText(label: "Your chat will begin in ", countdown: countdownTime)
-    }
-    
-    
+    }    
 }

@@ -17,7 +17,6 @@ class RemoteVideoView: VideoView {
     private var streamSize : CGSize?
     private var containerSize : CGSize?
     
-    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

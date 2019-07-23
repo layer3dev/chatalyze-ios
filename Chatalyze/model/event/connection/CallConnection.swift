@@ -13,6 +13,7 @@ import UIKit
 //abstract:
 
 class CallConnection: NSObject {
+    
     //temp
     static private var temp = 0
     var tempIdentifier = 0
@@ -159,8 +160,10 @@ class CallConnection: NSObject {
     
     //follow all protocols of disconnect
     func disconnect(){
+        
         lastDisconnect = nil
         self.isReleased = true
+        
         
         self.connection?.disconnect()
         self.remoteTrack = nil
@@ -218,7 +221,7 @@ extension CallConnection : ARDAppClientDelegate{
             return
         }
         
-         abort()
+        abort()
         
         /*isConnected = false
         isStreaming = false
@@ -263,8 +266,6 @@ extension CallConnection : ARDAppClientDelegate{
         renderRemoteTrack()
     }
     
-    
-    
     //only render if linked, but not if only pre-connected
     func renderIfLinked(){
         
@@ -278,6 +279,7 @@ extension CallConnection : ARDAppClientDelegate{
     //Needed to recover from black screen
     //once connection retreive from failure
     func resetVideoBounds(){
+        
         if(!isLinked){
             return
         }
@@ -285,6 +287,7 @@ extension CallConnection : ARDAppClientDelegate{
         if(isAborted){
             return
         }
+        
         guard let remoteView = rootView?.remoteVideoView
             else{
                 return

@@ -714,11 +714,13 @@ class UserCallController: VideoCallController {
         
         guard let eventInfo = eventInfo
             else{
+                dismissCallRoom()
                 return
         }
         
         //don't show feedback if event not activated and stop processing it.
         if(!isActivated){
+            dismissCallRoom()
             return
         }
         
@@ -729,13 +731,15 @@ class UserCallController: VideoCallController {
         }
         
         if code == .userAction{
-            
-            self.getRootPresentingController()?.dismiss(animated: true, completion: {
-                
-            })
+            dismissCallRoom()
+            return
         }
+    }
+    
+    func dismissCallRoom(){
         
-        
+        self.getRootPresentingController()?.dismiss(animated: true, completion: {
+        })
     }
     
     override func showErrorScreen() {
@@ -792,9 +796,7 @@ class UserCallController: VideoCallController {
         presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
-            
         })
-        
     }
     
     private func showFeedbackScreen(){
@@ -808,6 +810,7 @@ class UserCallController: VideoCallController {
         guard let controller = ReviewController.instance() else{
             return
         }
+        
         controller.eventInfo = eventInfo
         presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
@@ -831,8 +834,8 @@ class UserCallController: VideoCallController {
         
         controller.eventInfo = eventInfo
         controller.memoryImage = self.memoryImage
-         presentingController.navController?.topViewController?.navigationController?.present(controller, animated: true, completion: {
-         })
+        
+        presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })
