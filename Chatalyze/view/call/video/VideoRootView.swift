@@ -61,6 +61,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func initializeVariable(){
+        
         callOverlayView = CallOverlayView()
     }
     

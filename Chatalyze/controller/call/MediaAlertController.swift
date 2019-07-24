@@ -11,15 +11,13 @@ import UIKit
 class MediaAlertController: InterfaceExtendedController {
     
     var alert:VideoCallController.permissionsCheck  = .none
-    
+
     @IBOutlet var alertLbl:UILabel?
-    
     @IBOutlet var noInternetConnectionView:UIView?
     @IBOutlet var noCameraAccessView:UIView?
     @IBOutlet var noMicAccessView:UIView?
     @IBOutlet var slowInternetView:UIView?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

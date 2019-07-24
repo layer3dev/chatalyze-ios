@@ -589,6 +589,8 @@ class UserCallController: VideoCallController {
                                     }
                                     
                                     self.screenshotInfo = info
+                                    self.requestAutographTemporary()
+                
                                 }
                             })
                         }
@@ -1144,17 +1146,12 @@ extension UserCallController{
             self.uploadImage(encodedImage:encodedImage,image: image, completion: { [weak self] (success, screenshotInfo) in
                 
                 Log.echo(key: "yud", text: "Final Request the default autograph")
-
-                
                 if(!success){
                     return
                 }
                 self?.serviceRequestAutograph(info: screenshotInfo)
             })
-            
         }
-        
-        
     }
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
@@ -1163,7 +1160,6 @@ extension UserCallController{
         myLiveUnMergedSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
-        
         
         Log.echo(key: "yud", text: "Requesting the screenshot offered")
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
@@ -1206,12 +1202,15 @@ extension UserCallController{
                 completion("")
                 return
         }
+        
         guard let data = image.jpegData(compressionQuality: 1.0)
             else{
                 completion("")
                 return
         }
+        
         let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        
         completion(imageBase64)
     }
     
@@ -1237,9 +1236,13 @@ extension UserCallController{
         params["callbookingId"] = myCurrentUserSlot?.id ?? 0
         params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = false
+        
         //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+        
         params["file"] = encodedImage
+        
         // userRootView?.requestAutographButton?.showLoader()
+        
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
             //self?.userRootView?.requestAutographButton?.hideLoader()
             DispatchQueue.main.async {
@@ -1258,6 +1261,8 @@ extension UserCallController {
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
+            self.userRootView?.remoteVideoContainerView?.updateForSignature()
+
         })
         
         
@@ -1265,6 +1270,8 @@ extension UserCallController {
             
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
+            self.userRootView?.remoteVideoContainerView?.updateForCall()
+            
         })
     }
     
@@ -1332,6 +1339,7 @@ extension UserCallController {
     private func updateNewHeaderInfoForSession(slot : SlotInfo){
         
         userRootView?.callInfoContainer?.isHidden = true
+        
         futureSessionView?.isHidden = false
         
         guard let startDate = slot.startDate
@@ -1360,9 +1368,13 @@ extension UserCallController {
 extension UserCallController{
     
     @IBAction func testAction(sender:UIButton){
-        
-        self.requestAutographTemporary()
-
+    }
+    
+    @IBAction func updateForCallFaeture(){
+        self.userRootView?.remoteVideoContainerView?.updateForCall()
+    }
+    
+    @IBAction func updateForSignatureFaeture(){
     }
     
 }

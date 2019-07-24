@@ -13,6 +13,7 @@ class RemoteVideoView: VideoView {
     
     @IBOutlet private var widthConstraint : NSLayoutConstraint?
     @IBOutlet private var heightConstraint : NSLayoutConstraint?
+        
     
     private var streamSize : CGSize?
     private var containerSize : CGSize?
@@ -24,6 +25,7 @@ class RemoteVideoView: VideoView {
         // Drawing code
     }
     */
+
     
     func updateContainerSize(containerSize : CGSize){
        
