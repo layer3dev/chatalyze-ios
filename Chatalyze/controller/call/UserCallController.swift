@@ -588,7 +588,6 @@ class UserCallController: VideoCallController {
                                         return
                                     }
                                     
-                                    self.requestAutographProcess()
                                     self.screenshotInfo = info
                                 }
                             })
@@ -1088,10 +1087,25 @@ extension UserCallController{
         }
     }
     
+    private func requestAutographTemporary(){
+        
+        // Need to remove it.
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
+
+        
+        Log.echo(key: "yud", text: "processing successfully")
+        self.processRequestAutograph(isDefault : true, info : defaultScreenshotInfo)
+    }
+    
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
         
         if(!isDefault){
-            
             
             Log.echo(key: "yud", text: "Request the number autograph")
             self.serviceRequestAutograph(info : info)
@@ -1117,7 +1131,7 @@ extension UserCallController{
                     return
             }
             
-            Log.echo(key: "yud", text: "Request the undegault autograph")
+            Log.echo(key: "yud", text: "Request the default autograph")
             
             self?.requestDefaultAutograph(image: targetImage)
         }
@@ -1128,6 +1142,9 @@ extension UserCallController{
         self.encodeImageToBase64(image: image) { (encodedImage) in
            
             self.uploadImage(encodedImage:encodedImage,image: image, completion: { [weak self] (success, screenshotInfo) in
+                
+                Log.echo(key: "yud", text: "Final Request the default autograph")
+
                 
                 if(!success){
                     return
@@ -1147,6 +1164,8 @@ extension UserCallController{
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
+        
+        Log.echo(key: "yud", text: "Requesting the screenshot offered")
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
             //self.stopLoader()
         }
@@ -1338,3 +1357,12 @@ extension UserCallController {
 }
 
 
+extension UserCallController{
+    
+    @IBAction func testAction(sender:UIButton){
+        
+        self.requestAutographTemporary()
+
+    }
+    
+}
