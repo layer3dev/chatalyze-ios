@@ -83,7 +83,7 @@ class UserCallController: VideoCallController {
     override func interval(){
         super.interval()
         
-        Log.echo(key: "yud", text: " Interval timer is working")
+        Log.echo(key: "yud", text: "Interval timer is working")
         confirmCallLinked()
         verifyIfExpired()
         updateCallHeaderInfo()
@@ -165,7 +165,7 @@ class UserCallController: VideoCallController {
         super.viewWillDisappear(animated)
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
-        
+
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
         self.selfieTimerView?.reset()
@@ -500,6 +500,7 @@ class UserCallController: VideoCallController {
         if(!isCallConnected){ return }
         
         if !(isCallStreaming){
+            
 //            if SlotFlagInfo.staticScreenShotSaved{
 //
 //                return
@@ -590,7 +591,6 @@ class UserCallController: VideoCallController {
                                     
                                     self.screenshotInfo = info
                                     self.requestAutographTemporary()
-                
                                 }
                             })
                         }
@@ -1092,24 +1092,34 @@ extension UserCallController{
     private func requestAutographTemporary(){
         
         // Need to remove it.
-        
         guard let eventInfo = self.eventInfo
             else{
                 return
         }
         
         let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
-
+        let customScreenshotInfo = self.screenshotInfo
+        let isCustom =  customScreenshotInfo == nil ? false : true
+        var info:ScreenshotInfo?
         
-        Log.echo(key: "yud", text: "processing successfully")
-        self.processRequestAutograph(isDefault : true, info : defaultScreenshotInfo)
+        if isCustom{
+            
+            info = customScreenshotInfo
+        }else{
+            
+            info = defaultScreenshotInfo
+        }
+        
+        Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
+        
+        self.processRequestAutograph(isDefault : isCustom, info : info)
     }
     
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
         
         if(!isDefault){
             
-            Log.echo(key: "yud", text: "Request the number autograph")
+            Log.echo(key: "yud", text: "Requesting autograph with live signature")
             self.serviceRequestAutograph(info : info)
             return
         }
@@ -1156,14 +1166,14 @@ extension UserCallController{
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         
-        //self.showLoader()
+        self.showLoader()
         myLiveUnMergedSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
         Log.echo(key: "yud", text: "Requesting the screenshot offered")
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
-            //self.stopLoader()
+            self.stopLoader()
         }
     }
     
@@ -1257,16 +1267,19 @@ extension UserCallController {
     func registerForAutographListener(){
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
-         
+            
+            Log.echo(key: "yud", text: "I am started signing as I got event.")
+            
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
             self.userRootView?.remoteVideoContainerView?.updateForSignature()
-
+            
         })
         
-        
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
+            
+            Log.echo(key: "yud", text: "I stopped signing as I stopped Signing.")
             
             self.userRootView?.canvas?.image = nil
             self.userRootView?.canvasContainer?.hide()
@@ -1283,10 +1296,13 @@ extension UserCallController {
         userRootView?.canvasContainer?.show()
         let canvas = self.userRootView?.canvas
         canvas?.canvasInfo = canvasInfo
+        self.showLoader()
+        
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0
         }) { (success, image) in
+            self.stopLoader()
             
             canvas?.image = image
             self.updateScreenshotLoaded(info : info)
@@ -1294,7 +1310,7 @@ extension UserCallController {
     }
     
     private func updateScreenshotLoaded(info : CanvasInfo?){
-        
+
         guard let info = info
             else{
                 return

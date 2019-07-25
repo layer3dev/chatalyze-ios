@@ -34,7 +34,7 @@ class RequestAutograph{
             return
         }
         
-        Log.echo(key: "response", text: "Resonse of Fetch CAllSlots \(response)")
+        Log.echo(key: "response", text: "Resonse of requesting autograph is  \(response)")
         
         guard let info = response
             else{
