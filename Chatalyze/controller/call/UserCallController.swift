@@ -11,9 +11,7 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
-    
-    @IBOutlet var newRenderer:UIView?
-    var localSlotIdToManageAutograph:String? = nil
+    var localSlotIdToManageAutograph:Int? = nil
     
     var memoryImage:UIImage?
     let scheduleUpdateListener = ScheduleUpdateListener()
@@ -47,6 +45,7 @@ class UserCallController: VideoCallController {
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
     override var isVideoCallInProgress : Bool{
+       
         guard let activeSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
             else{
                 return false
@@ -93,6 +92,7 @@ class UserCallController: VideoCallController {
         updateCallHeaderInfo()
         processAutograph()
         updateLableAnimation()
+        resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     override func updateStatusMessage(){
@@ -1059,6 +1059,30 @@ extension UserCallController{
     }
     
     
+    private func resetAutographCanvasIfNewCallAndSlotExists(){
+        
+        //if current slot id is nil then return
+        
+        if self.myLiveUnMergedSlot?.id == nil {
+            Log.echo(key: "yud", text: "my unmerged slot is nil")
+            self.resetCanvas()
+            return
+        }
+        
+        if localSlotIdToManageAutograph == nil{
+            localSlotIdToManageAutograph =  self.myLiveUnMergedSlot?.id
+            return
+        }
+        
+        if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
+            localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
+            self.resetCanvas()
+            //reset the signature
+            return
+        }
+        
+    }
+    
     private func requestAutographProcess(){
         
         guard let eventInfo = self.eventInfo
@@ -1284,12 +1308,15 @@ extension UserCallController {
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
             Log.echo(key: "yud", text: "I stopped signing as I stopped Signing.")
-            
-            self.userRootView?.canvas?.image = nil
-            self.userRootView?.canvasContainer?.hide()
-            self.userRootView?.remoteVideoContainerView?.updateForCall()
-            
+           self.resetCanvas()
         })
+    }
+    
+    private func resetCanvas(){
+        
+        self.userRootView?.canvas?.image = nil
+        self.userRootView?.canvasContainer?.hide()
+        self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
     
     private func registerForSelfieTimer(){
@@ -1387,10 +1414,11 @@ extension UserCallController {
 
 extension UserCallController{
     
-    @IBAction func testAction(sender:UIButton){        
+    @IBAction func testAction(sender:UIButton){
     }
     
     @IBAction func updateForCallFaeture(){
+     
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
     
