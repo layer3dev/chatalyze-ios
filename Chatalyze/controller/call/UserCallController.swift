@@ -11,6 +11,10 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    
+    @IBOutlet var newRenderer:UIView?
+    var localSlotIdToManageAutograph:String? = nil
+    
     var memoryImage:UIImage?
     let scheduleUpdateListener = ScheduleUpdateListener()
     
@@ -1383,7 +1387,7 @@ extension UserCallController {
 
 extension UserCallController{
     
-    @IBAction func testAction(sender:UIButton){
+    @IBAction func testAction(sender:UIButton){        
     }
     
     @IBAction func updateForCallFaeture(){
@@ -1393,4 +1397,6 @@ extension UserCallController{
     @IBAction func updateForSignatureFaeture(){
     }
     
+    func handleAutographInMultipleSlots(){
+    }
 }

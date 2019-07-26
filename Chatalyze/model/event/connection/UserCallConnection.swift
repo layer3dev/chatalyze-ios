@@ -66,13 +66,9 @@ class UserCallConnection: CallConnection {
         
     }
     
-    
-    
     override func disconnect(){
         super.disconnect()
         
         self.socketClient?.disconnect()
-    
     }
-
 }

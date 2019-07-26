@@ -74,7 +74,9 @@ class CallConnection: NSObject {
         self.localMediaPackage = localMediaPackage
         self.controller = controller        
         initialization()
-         Log.echo(key: "_connection_", text: "\(tempIdentifier)  new state --> \(RTCIceConnectionState.new.rawValue)")
+        
+        Log.echo(key: "_connection_", text: "\(tempIdentifier)  new state --> \(RTCIceConnectionState.new.rawValue)")
+       
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  connected state --> \(RTCIceConnectionState.connected.rawValue)")
     }
     
@@ -105,7 +107,6 @@ class CallConnection: NSObject {
         }
     }
     
-    
     var rootView : VideoRootView?{
         return controller?.rootView
     }
@@ -115,7 +116,6 @@ class CallConnection: NSObject {
     var eventId : String?{
         let sessionId = eventInfo?.id ?? 0
         return "\(sessionId)"
-        
     }
     
     override init() {
@@ -131,6 +131,7 @@ class CallConnection: NSObject {
     }
     
     private func initVariable(){
+        
         let eventId = eventInfo?.id ?? 0
         callLogger = CallLogger(sessionId: "\(eventId)", targetUserId: targetUserId)
         self.connection = self.getWriteConnection()
@@ -146,24 +147,23 @@ class CallConnection: NSObject {
     }
     
     func callFailed(){
-       
     }
     
     //prevent screen reset
     //make connection disappear without effecting remote renderer
+
     func abort(){
+       
         isAborted = true
         removeLastRenderer()
         disconnect()
     }
-    
     
     //follow all protocols of disconnect
     func disconnect(){
         
         lastDisconnect = nil
         self.isReleased = true
-        
         
         self.connection?.disconnect()
         self.remoteTrack = nil
@@ -320,7 +320,7 @@ extension CallConnection : ARDAppClientDelegate{
         self.remoteTrack?.videoTrack?.add(remoteView)
         
         //self.remoteTrack?.videoTrack?.source.
-        
+
         self.remoteTrack?.audioTrack?.isEnabled = true
         isRendered = true
     }

@@ -41,6 +41,7 @@ class VideoRootView: ExtendedView {
     
     func confirmViewLoad(listener : (()->())?){
         self.loadListener = listener
+        
         if(isLoaded){
             listener?()
             return
@@ -55,6 +56,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func initialization(){
+       
         initializeVariable()
         paintInterface()
         addToogleGesture()
@@ -115,7 +117,6 @@ class VideoRootView: ExtendedView {
     }
     
     func animateHeader(){
-        
         //TO be overridden in order to hide and show the topmost Header
     }
     
