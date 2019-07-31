@@ -18,6 +18,9 @@ class LocalVideoView: VideoView {
     @IBOutlet private var topConstraint : NSLayoutConstraint?
     @IBOutlet private var bottomConstraint : NSLayoutConstraint?
     
+    var isSignatureActive:Bool = false
+
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -40,13 +43,21 @@ class LocalVideoView: VideoView {
     
     
     private func initialization(){
+        
         self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
         updateLayoutRotation()
         NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func didRotate(){
+        
         updateLayoutRotation()
+    }
+    
+    func updateForSignature(){
+    }
+
+    func updateForCall(){
     }
     
     func updateLayoutRotation() {
@@ -90,7 +101,9 @@ class LocalVideoView: VideoView {
        
         topConstraint?.isActive = false
         bottomConstraint?.isActive = true
+        
         if(isIPad){
+            
             heightConstraint?.constant = 126
             widthConstraint?.constant = 224
             return

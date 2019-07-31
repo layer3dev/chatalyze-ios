@@ -202,21 +202,20 @@ class AutographyCanvas: ExtendedView {
         customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: bindings))
         
         self.addConstraints(customConstraints)
+        
     }
     
     func reset(){
+        
         mainImageView?.image = _image
         tempImageView?.image = _image
     }
-    
-    
     
     func touchesStart(point : CGPoint) {
         
         self.currentPoint = point
         self.previousPoint = self.currentPoint
         self.previousPreviousPoint = self.currentPoint
-
     }
     
     func setCanvas(){
@@ -232,7 +231,9 @@ class AutographyCanvas: ExtendedView {
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
         
         UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        
         let context = UIGraphicsGetCurrentContext()
+        
         tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         
         context?.setLineCap(CGLineCap.round)
@@ -261,8 +262,6 @@ class AutographyCanvas: ExtendedView {
         self.previousPoint = self.currentPoint;
         self.currentPoint = point
         
-        
-       
         processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
         
     }
@@ -299,9 +298,7 @@ class AutographyCanvas: ExtendedView {
     
     func touchesEnd(point : CGPoint) {
         
-        
         processTouchEnded(point : point)
-    
     }
     
     private func processTouchEnded(point : CGPoint){

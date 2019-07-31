@@ -28,7 +28,6 @@ class RequestAutograph{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
         
-        
         if(!success){
             completion(false, nil)
             return

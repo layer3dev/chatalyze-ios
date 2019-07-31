@@ -1139,7 +1139,6 @@ extension UserCallController{
         }
         
         Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
-        
         self.processRequestAutograph(isDefault : isCustom, info : info)
     }
     
@@ -1201,6 +1200,7 @@ extension UserCallController{
         
         Log.echo(key: "yud", text: "Requesting the screenshot offered")
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
+            
             self.stopLoader()
         }
     }
@@ -1301,6 +1301,7 @@ extension UserCallController {
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             self.prepateCanvas(info : self.canvasInfo)
+            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
             self.userRootView?.remoteVideoContainerView?.updateForSignature()
             
         })
@@ -1308,7 +1309,7 @@ extension UserCallController {
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
             Log.echo(key: "yud", text: "I stopped signing as I stopped Signing.")
-           self.resetCanvas()
+            self.resetCanvas()
         })
     }
     
@@ -1316,6 +1317,8 @@ extension UserCallController {
         
         self.userRootView?.canvas?.image = nil
         self.userRootView?.canvasContainer?.hide()
+      
+        self.userRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
     
@@ -1386,7 +1389,6 @@ extension UserCallController {
     private func updateNewHeaderInfoForSession(slot : SlotInfo){
         
         userRootView?.callInfoContainer?.isHidden = true
-        
         futureSessionView?.isHidden = false
         
         guard let startDate = slot.startDate
@@ -1415,10 +1417,12 @@ extension UserCallController {
 extension UserCallController{
     
     @IBAction func testAction(sender:UIButton){
+       
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     @IBAction func updateForCallFaeture(){
-     
+        
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
     
