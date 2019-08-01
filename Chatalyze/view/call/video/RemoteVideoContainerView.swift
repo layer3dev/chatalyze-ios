@@ -9,44 +9,37 @@
 import UIKit
 
 class RemoteVideoContainerView: ExtendedView {
-
+    
     @IBOutlet var remoteVideoView : RemoteVideoView?
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
-    //***
-    
-    
     //Constraints responsible when signsture is not initiated and it will be same in both the screen modes Portrait and Landscape.
+    
     @IBOutlet private var leadingMain : NSLayoutConstraint?
     @IBOutlet private var trailingMain : NSLayoutConstraint?
     @IBOutlet private var topMain : NSLayoutConstraint?
     @IBOutlet private var bottomMain : NSLayoutConstraint?
     
     //Constraints that handles the portrait on the Signature call
+    
     @IBOutlet var topAlignedToLocalView:NSLayoutConstraint?
     @IBOutlet var horizontalSpacingToLocalView:NSLayoutConstraint?
-    @IBOutlet var equalWidthToLocal:NSLayoutConstraint?
-    @IBOutlet var equalHeightToLocal:NSLayoutConstraint?
+   
+    @IBOutlet var widthOfRemote:NSLayoutConstraint?
+    @IBOutlet var heightOfRemote:NSLayoutConstraint?
 
     // Constraint in the landscape mode for the
-   
     @IBOutlet var trailingAlignedToLocalView:NSLayoutConstraint?
     @IBOutlet var verticalSpacingToLocalView:NSLayoutConstraint?
     //Two constraints using the same as above equalWidthToLocal and equalHeightToLocal
     
     var isSignatureActive:Bool = false
+    var isStreamPortraitPosition:Bool = true
     
     override func viewDidLayout(){
         super.viewDidLayout()
         
         self.initialization()
+        self.remoteVideoView?.streamUpdationDelegate = self
     }
     
     func paintCorners(){
@@ -60,8 +53,6 @@ class RemoteVideoContainerView: ExtendedView {
         self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 0:0
         self.layer.masksToBounds = false
     }
-    
-    
     
     func initialization(){
         
@@ -94,8 +85,8 @@ class RemoteVideoContainerView: ExtendedView {
         //Constraints that handles the portrait on the Signature call
         topAlignedToLocalView?.isActive = false
         horizontalSpacingToLocalView?.isActive = false
-        equalWidthToLocal?.isActive = false
-        equalHeightToLocal?.isActive = false
+        widthOfRemote?.isActive = false
+        widthOfRemote?.isActive = false
         
         //Constraint in the landscape mode for the
         trailingAlignedToLocalView?.isActive = false
@@ -122,8 +113,27 @@ class RemoteVideoContainerView: ExtendedView {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
             topAlignedToLocalView?.isActive = true
             horizontalSpacingToLocalView?.isActive = true
-            equalWidthToLocal?.isActive = true
-            equalHeightToLocal?.isActive = true
+            widthOfRemote?.isActive = true
+            heightOfRemote?.isActive = true
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+              
+                heightOfRemote?.constant = 224
+                if isStreamPortraitPosition{
+                    widthOfRemote?.constant = 126
+                }else{
+                    widthOfRemote?.constant = 400
+                }
+            }else{
+                
+                heightOfRemote?.constant = 112
+                if isStreamPortraitPosition {
+                    widthOfRemote?.constant = 63
+                }else{
+                    widthOfRemote?.constant = 224
+                }
+
+            }
             return
         }
         
@@ -140,10 +150,35 @@ class RemoteVideoContainerView: ExtendedView {
             Log.echo(key: "yud" ,text: "is landscape is Calling")
             
             resetConstraints()
-            self.equalWidthToLocal?.isActive = true
-            self.equalHeightToLocal?.isActive = true
+            self.widthOfRemote?.isActive = true
+            self.heightOfRemote?.isActive = true
             self.trailingAlignedToLocalView?.isActive = true
             self.verticalSpacingToLocalView?.isActive = true
+            
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                
+                if isStreamPortraitPosition{
+            
+                    heightOfRemote?.constant = 224
+                    widthOfRemote?.constant = 126
+                }else{
+                    
+                    heightOfRemote?.constant = 126
+                    widthOfRemote?.constant = 224
+                }
+            }else{
+                
+                if isStreamPortraitPosition{
+                    
+                    heightOfRemote?.constant = 112
+                    widthOfRemote?.constant = 63
+                }else{
+                    
+                    heightOfRemote?.constant = 72
+                    widthOfRemote?.constant = 128
+                }
+            }
             return
         }
         
@@ -156,10 +191,71 @@ class RemoteVideoContainerView: ExtendedView {
             resetConstraints()
             topAlignedToLocalView?.isActive = true
             horizontalSpacingToLocalView?.isActive = true
-            equalWidthToLocal?.isActive = true
-            equalHeightToLocal?.isActive = true
+            widthOfRemote?.isActive = true
+            heightOfRemote?.isActive = true
+            
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                
+                heightOfRemote?.constant = 224
+                
+                if isStreamPortraitPosition{
+                
+                    widthOfRemote?.constant = 126
+                }else{
+                    
+                    //given by me
+                    widthOfRemote?.constant = 400
+                }
+            }else{
+                
+                heightOfRemote?.constant = 112
+                
+                if isStreamPortraitPosition{
+                    
+                    widthOfRemote?.constant = 63
+                }else{
+                    //given by me
+                    widthOfRemote?.constant = 224
+                }
+            }
             return
         }
+        
+        if UIDevice.current.orientation.isFlat{
+            
+            Log.echo(key: "yud", text: "Height of the screen is \(UIScreen.main.bounds.height)")
+            Log.echo(key: "yud", text: "width of the screen is \(UIScreen.main.bounds.width)")
+
+        }
+        
+        
+//        if UIDevice.current.orientation.isFlat{
+//
+//            if UIDevice.current.userInterfaceIdiom == .pad{
+//
+//                heightOfRemote?.constant = 224
+//
+//                if isStreamPortraitPosition{
+//
+//                    widthOfRemote?.constant = 126
+//                }else{
+//
+//                    //given by me
+//                    widthOfRemote?.constant = 400
+//                }
+//            }else{
+//
+//                heightOfRemote?.constant = 112
+//                if isStreamPortraitPosition{
+//                    widthOfRemote?.constant = 63
+//                }else{
+//                    //given by me
+//                    widthOfRemote?.constant = 224
+//                }
+//
+//            }
+//        }
     }
     
     
@@ -177,5 +273,21 @@ class RemoteVideoContainerView: ExtendedView {
         super.layoutSubviews()
         
         remoteVideoView?.updateContainerSize(containerSize: self.bounds.size)
+    }
+}
+
+
+extension RemoteVideoContainerView:UpdateStreamChangeProtocol{
+   
+    func updateForStreamPosition(isPortrait:Bool){
+        
+        Log.echo(key: "yud", text: "Stream updation is \(isPortrait)")
+        
+        isStreamPortraitPosition = isPortrait
+        
+        if !isSignatureActive{
+            return
+        }
+        self.signatureScreenSetup()
     }
 }

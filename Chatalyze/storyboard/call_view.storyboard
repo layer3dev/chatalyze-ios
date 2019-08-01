@@ -291,11 +291,12 @@
                                 <constraints>
                                     <constraint firstItem="GF0-kf-hbK" firstAttribute="centerX" secondItem="gKG-jl-gLG" secondAttribute="centerX" id="1z8-4R-aTM"/>
                                     <constraint firstItem="GF0-kf-hbK" firstAttribute="centerY" secondItem="gKG-jl-gLG" secondAttribute="centerY" id="Bjh-PL-49E"/>
+                                    <constraint firstAttribute="height" priority="999" constant="166" id="Odg-Nc-WIM"/>
+                                    <constraint firstAttribute="width" priority="999" constant="116" id="w2E-tM-1uE"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomMain" destination="UFn-QH-kVX" id="slB-Se-ckp"/>
-                                    <outlet property="equalHeightToLocal" destination="ibZ-Y3-Ncs" id="w82-DI-gZj"/>
-                                    <outlet property="equalWidthToLocal" destination="T7P-N1-hjG" id="gyh-Gx-HaK"/>
+                                    <outlet property="heightOfRemote" destination="Odg-Nc-WIM" id="ho4-st-xU3"/>
                                     <outlet property="horizontalSpacingToLocalView" destination="COQ-Q9-Hgg" id="jgQ-oH-XAn"/>
                                     <outlet property="leadingMain" destination="J9J-9v-qRG" id="rRw-GL-QW6"/>
                                     <outlet property="remoteVideoView" destination="GF0-kf-hbK" id="Xsj-2G-G2j"/>
@@ -304,6 +305,7 @@
                                     <outlet property="trailingAlignedToLocalView" destination="y2b-CU-9aD" id="MSw-gQ-YSv"/>
                                     <outlet property="trailingMain" destination="lMN-eJ-V92" id="mRf-Lk-m1K"/>
                                     <outlet property="verticalSpacingToLocalView" destination="jdq-Kx-aL1" id="uda-Rj-fyt"/>
+                                    <outlet property="widthOfRemote" destination="w2E-tM-1uE" id="Mfu-uk-xe9"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w8v-wO-emD" userLabel="background_container">
@@ -867,7 +869,7 @@
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="750" constant="13" id="GWG-w6-Q9Y">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
-                            <constraint firstItem="X6y-Z9-AIW" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.6" priority="1" id="H8e-WA-CiI" userLabel="canvas_proportional_height"/>
+                            <constraint firstItem="X6y-Z9-AIW" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.5" priority="1" id="H8e-WA-CiI" userLabel="canvas_proportional_height"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" constant="8" id="Itj-JF-uUM" userLabel="container_leading"/>
                             <constraint firstItem="gKG-jl-gLG" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="J9J-9v-qRG"/>
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="JYY-Vj-Vzj"/>
@@ -886,7 +888,6 @@
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="3ww-fe-4Gf" secondAttribute="bottom" constant="15" id="Spt-Th-0hA">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
-                            <constraint firstItem="gKG-jl-gLG" firstAttribute="width" secondItem="Yk6-mP-7LN" secondAttribute="width" id="T7P-N1-hjG"/>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="gKG-jl-gLG" secondAttribute="bottom" id="UFn-QH-kVX"/>
                             <constraint firstItem="w8v-wO-emD" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" id="WCG-f3-fEr"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="centerY" secondItem="Wkh-om-R74" secondAttribute="centerY" id="Y6o-1n-DTN"/>
@@ -894,7 +895,6 @@
                             <constraint firstAttribute="trailing" secondItem="fgE-qL-xbk" secondAttribute="trailing" id="dh6-7d-hMH"/>
                             <constraint firstItem="3ww-fe-4Gf" firstAttribute="centerX" secondItem="Wkh-om-R74" secondAttribute="centerX" id="dxH-92-lYX"/>
                             <constraint firstItem="ccG-Ux-JqL" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="10" id="eWS-fU-V8h"/>
-                            <constraint firstItem="gKG-jl-gLG" firstAttribute="height" secondItem="Yk6-mP-7LN" secondAttribute="height" id="ibZ-Y3-Ncs"/>
                             <constraint firstItem="Yk6-mP-7LN" firstAttribute="top" secondItem="gKG-jl-gLG" secondAttribute="bottom" constant="15" id="jdq-Kx-aL1"/>
                             <constraint firstAttribute="trailing" secondItem="gKG-jl-gLG" secondAttribute="trailing" id="lMN-eJ-V92"/>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="SrS-mz-6Sq" secondAttribute="bottom" constant="12" id="uyT-p7-6gO"/>
@@ -908,8 +908,6 @@
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="N5B-Ra-mvT"/>
-                                <exclude reference="T7P-N1-hjG"/>
-                                <exclude reference="ibZ-Y3-Ncs"/>
                                 <exclude reference="y2b-CU-9aD"/>
                                 <exclude reference="EbQ-DL-YTo"/>
                                 <exclude reference="zm9-ou-qsT"/>
@@ -1673,7 +1671,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xqm-bW-dFM" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="74" width="440" height="172.5"/>
+                                                <rect key="frame" x="20" y="64.5" width="440" height="191"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nym-Je-VYm">
                                                         <rect key="frame" x="390" y="0.0" width="50" height="50"/>
@@ -1709,37 +1707,37 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CAMERA ACCESS DENIED" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhr-gv-BgX">
-                                                        <rect key="frame" x="20" y="20" width="210" height="20"/>
+                                                        <rect key="frame" x="20" y="20" width="214" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
                                                         <color key="textColor" red="0.87843137250000003" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmU-jU-NgU">
-                                                        <rect key="frame" x="20" y="45" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="48.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Going to your iPhone Settings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-GA-JX9">
-                                                        <rect key="frame" x="20" y="71.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="78" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Find and tap Chatalyze app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5n-wt-nEB">
-                                                        <rect key="frame" x="20" y="93" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="102.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Toggle &quot;Camera&quot; to allow access" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvU-i6-Iul">
-                                                        <rect key="frame" x="20" y="114.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="127" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Rejoin your chat" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-hW-OAa">
-                                                        <rect key="frame" x="20" y="136" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="151.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1770,7 +1768,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Gn-fj-6S7" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="76.5" width="440" height="167.5"/>
+                                                <rect key="frame" x="20" y="67" width="440" height="186"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TZ-Gd-o1l">
                                                         <rect key="frame" x="390" y="0.0" width="50" height="50"/>
@@ -1806,37 +1804,37 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MIC ACCESS DENIED" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9L-nR-fXQ">
-                                                        <rect key="frame" x="20" y="20" width="170.5" height="20"/>
+                                                        <rect key="frame" x="20" y="20" width="172" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
                                                         <color key="textColor" red="0.87843137250000003" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abr-od-BQo">
-                                                        <rect key="frame" x="20" y="45" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="48.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Going to your iPhone Settings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjM-Ee-AlM">
-                                                        <rect key="frame" x="20" y="66.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="73" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Find and tap Chatalyze app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFv-vQ-tc1">
-                                                        <rect key="frame" x="20" y="88" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="97.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Toggle &quot;Microphone&quot; to allow access" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tc-eU-wCp">
-                                                        <rect key="frame" x="20" y="109.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="122" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Rejoin your chat" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9co-Pa-sc0">
-                                                        <rect key="frame" x="20" y="131" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="146.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1867,7 +1865,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoS-zi-bF1" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="83" width="440" height="154"/>
+                                                <rect key="frame" x="20" y="75.5" width="440" height="169.5"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dlr-9Z-DYc">
                                                         <rect key="frame" x="390" y="0.0" width="50" height="50"/>
@@ -1903,31 +1901,31 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOW INTERNET SPEED" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDU-pY-Fbp">
-                                                        <rect key="frame" x="20" y="20" width="183.5" height="20"/>
+                                                        <rect key="frame" x="20" y="20" width="190" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
                                                         <color key="textColor" red="0.87843137250000003" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here are some things to try:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3RV-hc-n6P">
-                                                        <rect key="frame" x="20" y="50" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="53.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Move closer to your router" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5n8-qH-yeo">
-                                                        <rect key="frame" x="20" y="74.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="81" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Switch networks" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yi4-WJ-28W">
-                                                        <rect key="frame" x="20" y="96" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="105.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Switch to cellular data" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vd0-wv-DnP">
-                                                        <rect key="frame" x="20" y="117.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="130" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1955,7 +1953,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYb-6i-urx" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="83.5" width="440" height="153"/>
+                                                <rect key="frame" x="20" y="76" width="440" height="168.5"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzP-qL-Lxu">
                                                         <rect key="frame" x="390" y="0.0" width="50" height="50"/>
@@ -1991,31 +1989,31 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO INTERNET CONNECTION" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRg-LH-Vqc">
-                                                        <rect key="frame" x="20" y="20" width="227.5" height="20"/>
+                                                        <rect key="frame" x="20" y="20" width="233.5" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
                                                         <color key="textColor" red="0.87843137250000003" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here are some things to try:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEl-0Q-cwO">
-                                                        <rect key="frame" x="20" y="50" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="53.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Move closer to your router" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87M-gN-7Vq">
-                                                        <rect key="frame" x="20" y="73.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="80" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Switch networks" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZj-nL-Qd7">
-                                                        <rect key="frame" x="20" y="95" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="104.5" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Switch to cellular data" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xty-1e-HKU">
-                                                        <rect key="frame" x="20" y="116.5" width="400" height="16.5"/>
+                                                        <rect key="frame" x="20" y="129" width="400" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>

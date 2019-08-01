@@ -76,7 +76,7 @@ class CallConnection: NSObject {
         initialization()
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  new state --> \(RTCIceConnectionState.new.rawValue)")
-       
+        
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  connected state --> \(RTCIceConnectionState.connected.rawValue)")
     }
     
@@ -245,7 +245,9 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier) didReceiveRemoteVideoTrack")
+        
         if(isAborted){
+            
             Log.echo(key: "_connection_", text: "\(tempIdentifier) isAborted didReceiveRemoteVideoTrack")
             return
         }

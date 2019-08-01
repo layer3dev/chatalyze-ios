@@ -17,6 +17,9 @@ class RemoteVideoView: VideoView {
     private var streamSize : CGSize?
     private var containerSize : CGSize?
     
+    var streamUpdationDelegate:UpdateStreamChangeProtocol?
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -36,6 +39,7 @@ class RemoteVideoView: VideoView {
         
         Log.echo(key: "remote", text: "updateSize ->> \(size)")
         self.streamSize = size
+        self.streamUpdationDelegate?.updateForStreamPosition(isPortrait: isPortrait(size: size) ?? true)
         refreshRendererSize()
     }
     
@@ -58,18 +62,21 @@ class RemoteVideoView: VideoView {
         Log.echo(key: "remote", text: "streamSize ->> \(streamSize)")
         Log.echo(key: "remote", text: "Stream way is \(isPortrait(size: streamSize))")
         
+        
         if let isStreamPortrait = isPortrait(size: streamSize) {
             if let isContainerPortrait = isPortrait(size: containerSize){
                 if isStreamPortrait && isContainerPortrait{
                     
                     //Developer Y
                     //If stream and device both are portrait then video must be aspect fill.
+                    
                     let newContainerSizeAfterFill = aspectFill(aspectRatio: streamSize, minimumSize: containerSize)
                     updateViewSize(size : newContainerSizeAfterFill)
                     return
                 }
                 
                 //If stream and device both are landscape then video must be aspect fill.
+                
                 if !isStreamPortrait && !isContainerPortrait{
                     
                     //Developer Y
@@ -88,12 +95,14 @@ class RemoteVideoView: VideoView {
     
     private func updateViewSize(size: CGSize){
         self.layoutIfNeeded()
-        
+
+
         self.widthConstraint?.constant = !size.width.isNaN ? size.width : 0
         self.heightConstraint?.constant = !size.height.isNaN ? size.height : 0
         
         UIView.animate(withDuration: 1.0, animations: {
             self.layoutIfNeeded()
+            
         }) { (success) in
             
         }
