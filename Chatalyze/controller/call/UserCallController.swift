@@ -1042,7 +1042,7 @@ extension UserCallController{
             requestAutograph.isEnabled = false
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action) in
+        let cancelAction = UIAlertAction (title: "Cancel", style: UIAlertAction.Style.cancel) { (action) in
             return
         }
         
@@ -1050,7 +1050,7 @@ extension UserCallController{
         alertController.addAction(requestAutograph)
         alertController.addAction(cancelAction)
         
-        if UIDevice.current.userInterfaceIdiom == .pad{
+        if UIDevice.current.userInterfaceIdiom == .pad {
             
             alertController.popoverPresentationController?.sourceView = self.view
             alertController.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.maxY-200, width: 0, height: 0)
@@ -1062,7 +1062,7 @@ extension UserCallController{
     private func resetAutographCanvasIfNewCallAndSlotExists(){
         
         //if current slot id is nil then return
-        
+
         if self.myLiveUnMergedSlot?.id == nil {
             Log.echo(key: "yud", text: "my unmerged slot is nil")
             self.resetCanvas()
@@ -1095,13 +1095,13 @@ extension UserCallController{
         
         let isCustom =  customScreenshotInfo == nil ? false : true
         var controller : RequestAutographController?
-        
+
         if(isCustom){
             controller = RequestAutographController.customInstance()
         }else{
             controller = RequestAutographController.defaultInstance()
         }
-        
+
         guard let processController = controller
             else{
                 return
@@ -1120,6 +1120,7 @@ extension UserCallController{
     private func requestAutographTemporary(){
         
         // Need to remove it.
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -1127,9 +1128,10 @@ extension UserCallController{
         
         let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
         let customScreenshotInfo = self.screenshotInfo
-        let isCustom =  customScreenshotInfo == nil ? false : true
+        let isCustom = customScreenshotInfo == nil ? false : true
         var info:ScreenshotInfo?
-        
+
+
         if isCustom{
             
             info = customScreenshotInfo
@@ -1139,6 +1141,7 @@ extension UserCallController{
         }
         
         Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
+        
         self.processRequestAutograph(isDefault : isCustom, info : info)
     }
     
@@ -1172,7 +1175,9 @@ extension UserCallController{
             
             Log.echo(key: "yud", text: "Request the default autograph")
             
-            self?.requestDefaultAutograph(image: targetImage)
+            self?.serviceRequestAutograph(info: screenshotInfo)
+            
+           // self?.requestDefaultAutograph(image: targetImage)
         }
     }
     
@@ -1253,7 +1258,7 @@ extension UserCallController{
     }
     
     
-    private func uploadImage(encodedImage:String = "",image : UIImage?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+    private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
         
         //        guard let image = image
         //            else{
@@ -1273,7 +1278,7 @@ extension UserCallController{
         params["analystId"] = hostId
         params["callbookingId"] = myCurrentUserSlot?.id ?? 0
         params["callScheduleId"] = eventInfo?.id ?? 0
-        params["defaultImage"] = false
+        params["defaultImage"] = isDefaultImage
         
         //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         
@@ -1300,10 +1305,12 @@ extension UserCallController {
             
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
-            self.prepateCanvas(info : self.canvasInfo)
+            
+            Log.echo(key: "yud", text: "canvas height is \(self.canvasInfo?.height) and the canvas width is \(self.canvasInfo?.width)")
+            
             self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
             self.userRootView?.remoteVideoContainerView?.updateForSignature()
-            
+            self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
@@ -1339,6 +1346,8 @@ extension UserCallController {
             self.stopLoader()
             
             canvas?.image = image
+            
+            Log.echo(key: "yud", text: "Loaded image height is \(image?.size.height) and width is \(image?.size.width)")
             self.updateScreenshotLoaded(info : info)
         }
     }
@@ -1349,10 +1358,12 @@ extension UserCallController {
             else{
                 return
         }
+        
         guard let screenshotInfo = info.screenshot
             else{
                 return
         }
+        
         var params = [String : Any]()
         params["id"] = "screenshotLoaded"
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
@@ -1360,7 +1371,6 @@ extension UserCallController {
         params["message"] = message
         
         Log.echo(key: "yud", text: "Yup I have got green signal for the screenshotLoad")
-
         socketClient?.emit(params)
     }
     

@@ -62,6 +62,7 @@ class AspectImageView: UIImageView {
 extension AspectImageView {
     
     fileprivate func updateImageViewSizeConstraint(){
+
         guard let size = calculateSize()
             else{
                 return
@@ -71,19 +72,21 @@ extension AspectImageView {
         let width = size.width
         
         if(heightConstraint == nil){
+            
             initializeHeightConstraint(imageHeight: height)
              layoutIfNeeded()
         }else{
             heightConstraint?.constant = height
+            layoutIfNeeded()
         }
         
         if(widthConstraint == nil){
             initializeWidthConstraint(imageWidth: width)
-             layoutIfNeeded()
+            layoutIfNeeded()
         }else{
             widthConstraint?.constant = width
+            layoutIfNeeded()
         }
-        
     }
     
     
@@ -92,16 +95,20 @@ extension AspectImageView {
         if(imageHeight == 0){
             return
         }
+        
         heightConstraint = NSLayoutConstraint(
             item:self, attribute:NSLayoutConstraint.Attribute.height,
             relatedBy:NSLayoutConstraint.Relation.equal,
             toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier:0, constant:imageHeight)
-        heightConstraint?.priority = UILayoutPriority(rawValue: 999);
+        
+        heightConstraint?.priority = UILayoutPriority(rawValue: 999)
+        
         guard let heightConstraintUnWrapped = heightConstraint
             else{
-                return;
+                return
         }
+        
         self.addConstraint(heightConstraintUnWrapped)
     }
     

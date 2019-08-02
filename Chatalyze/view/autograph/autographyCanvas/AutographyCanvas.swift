@@ -47,7 +47,6 @@ class AutographyCanvas: ExtendedView {
         }
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
@@ -111,6 +110,7 @@ class AutographyCanvas: ExtendedView {
     private func registerForAutographListener(){
         
         socketListener?.onEvent("broadcastPoints", completion: { (json) in
+            
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
             self.processPoint(info: broadcastInfo)
@@ -350,6 +350,7 @@ extension AutographyCanvas{
     
     fileprivate var scale : CGFloat{
         return 0.0
+        
         let scale = UIScreen.main.scale
         Log.echo(key: "token", text: "scale  ==> \(scale)")
         if(scale > 1.0){
@@ -374,10 +375,7 @@ extension AutographyCanvas{
 
 
 extension AutographyCanvas{
-    
     fileprivate func paintEmptyView(){
-        
-        
     }
 }
 
