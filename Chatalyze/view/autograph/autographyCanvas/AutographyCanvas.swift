@@ -14,7 +14,6 @@ class AutographyCanvas: ExtendedView {
     @IBOutlet var mainImageView : AspectImageView?
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
-    
 
     static let kPointMinDistance : Double = 0.1;
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;    
@@ -30,8 +29,7 @@ class AutographyCanvas: ExtendedView {
     var blue: CGFloat = 0.0
     var brushWidth: CGFloat = 3.0
     var opacity: CGFloat = 1.0
-    
-    
+        
     var drawColor : UIColor?
     
     var touchStarted = false
@@ -104,7 +102,6 @@ class AutographyCanvas: ExtendedView {
     }
     
     fileprivate func paintInterface(){
-        
     }
     
     private func registerForAutographListener(){
@@ -118,6 +115,8 @@ class AutographyCanvas: ExtendedView {
     }
     
     private func targetPoint(inputPoint : CGPoint)->CGPoint{
+     
+        
         let selfWidth = size.width
         let selfHeight = size.height
         
@@ -202,7 +201,6 @@ class AutographyCanvas: ExtendedView {
         customConstraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: bindings))
         
         self.addConstraints(customConstraints)
-        
     }
     
     func reset(){
@@ -316,6 +314,20 @@ class AutographyCanvas: ExtendedView {
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
         return subView.frame.contains(point);
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        Log.echo(key: "yud", text: "frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
+        
+        self.mainImageView?.frame = self.frame
+        self.tempImageView?.frame = self.frame
+        
+        self.mainImageView?.updateFrames()
+        self.tempImageView?.updateFrames()
+        
     }
 }
 

@@ -109,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         earlyCallProcessor?.fetchInfo()
         verifyingAccessToken()
         startTimer()
+        
         if self.isRootInitialize{
             AppDelegate.fetchAppVersionInfoToServer()
         }
@@ -122,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         timer.ping { [weak self] in
             self?.executeInterval()
         }
+        
         timer.startTimer()
     }
     
@@ -201,7 +203,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        
         SKPaymentQueue.default().remove(InAppPurchaseObserver.sharedInstance)
     }
     
@@ -211,7 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return .allButUpsideDown
         }
         //Only allow portrait (standard behaviour)
-        return .portrait;
+        return .portrait
     }
 }
 
@@ -220,6 +221,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     func registerForPushNotifications() {
         
         if #available(iOS 10.0, *){
+            
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (granted, error) in
                 
                 Log.echo(key: "yud", text: "10.0 \(granted)")

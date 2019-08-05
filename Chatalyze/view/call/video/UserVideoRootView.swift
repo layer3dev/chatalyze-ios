@@ -46,6 +46,7 @@ class UserVideoRootView: UserVideoLayoutView {
         })
     }
     
+    
     func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
 
         guard let remoteView = remoteVideoView

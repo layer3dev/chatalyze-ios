@@ -10,6 +10,7 @@ import Foundation
 import SwiftyJSON
 
 class CanvasInfo : NSObject{
+    
     var width : Double?
     var height : Double?
     var screenshot : ScreenshotInfo?

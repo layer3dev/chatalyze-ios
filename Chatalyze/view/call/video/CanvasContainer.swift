@@ -49,10 +49,13 @@ class CanvasContainer: ExtendedView {
                 
                 topConstraint?.constant = 144
                 trailingConstraint?.constant = 0
+                
+
             }else{
                 
                 topConstraint?.constant = 220
                 trailingConstraint?.constant = 0
+                
             }
             return
         }
@@ -103,4 +106,12 @@ class CanvasContainer: ExtendedView {
             self.layoutIfNeeded()
         }
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        Log.echo(key: "yud", text: "Canvas container height width is \(self.frame.size.width) and the canvas height is \(self.frame.size.height)")
+        
+    }
+    
 }

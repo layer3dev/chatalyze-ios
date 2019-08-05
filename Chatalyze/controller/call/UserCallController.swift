@@ -594,7 +594,8 @@ class UserCallController: VideoCallController {
                                     }
                                     
                                     self.screenshotInfo = info
-                                    self.requestAutographTemporary()
+                                    self.selfieAutographRequest()
+                                    //self.defaultAutographRequest()
                                 }
                             })
                         }
@@ -1117,10 +1118,9 @@ extension UserCallController{
         }
     }
     
-    private func requestAutographTemporary(){
+    private func selfieAutographRequest(){
         
         // Need to remove it.
-        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -1144,6 +1144,24 @@ extension UserCallController{
         
         self.processRequestAutograph(isDefault : isCustom, info : info)
     }
+    
+    private func defaultAutographRequest(){
+    
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
+        var info:ScreenshotInfo?
+        
+        info = defaultScreenshotInfo
+        
+//        Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
+        
+        self.processRequestAutograph(isDefault : true, info : info)
+    }
+    
     
     private func processRequestAutograph(isDefault : Bool, info : ScreenshotInfo?){
         
@@ -1175,9 +1193,9 @@ extension UserCallController{
             
             Log.echo(key: "yud", text: "Request the default autograph")
             
-            self?.serviceRequestAutograph(info: screenshotInfo)
+            //self?.serviceRequestAutograph(info: screenshotInfo)
             
-           // self?.requestDefaultAutograph(image: targetImage)
+            self?.requestDefaultAutograph(image: targetImage)
         }
     }
     
@@ -1199,11 +1217,13 @@ extension UserCallController{
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         
         self.showLoader()
+        
         myLiveUnMergedSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
         Log.echo(key: "yud", text: "Requesting the screenshot offered")
+        
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
             
             self.stopLoader()
@@ -1287,7 +1307,9 @@ extension UserCallController{
         // userRootView?.requestAutographButton?.showLoader()
         
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
+            
             //self?.userRootView?.requestAutographButton?.hideLoader()
+            
             DispatchQueue.main.async {
                 completion?(success, info)
             }

@@ -117,30 +117,39 @@ extension AspectImageView {
         if(imageWidth == 0){
             return
         }
+        
         widthConstraint = NSLayoutConstraint(
             item:self, attribute:NSLayoutConstraint.Attribute.width,
             relatedBy:NSLayoutConstraint.Relation.equal,
             toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier:0, constant:imageWidth)
-        widthConstraint?.priority = UILayoutPriority(rawValue: 999);
+        
+        widthConstraint?.priority = UILayoutPriority(rawValue: 999)
+        
         guard let widthConstraintUnWrapped = widthConstraint
             else{
-                return;
+                return
         }
+        
         self.addConstraint(widthConstraintUnWrapped)
     }
     
     fileprivate func calculateSize()->CGRect?{
+        
         guard let image = image
             else{
                 return nil
         }
+        
+        Log.echo(key: "yud", text: "self canvas image bound are \(self.bounds)")
+        
         
         let size = AVMakeRect(aspectRatio: image.size, insideRect: self.bounds)
         return size
     }
     
     fileprivate func calculateHeight() -> CGFloat{
+        
         guard let newImage = image
             else{
                 return 0
@@ -152,6 +161,11 @@ extension AspectImageView {
         }
         let newHeight =  multiplier * newImage.size.height
         return newHeight
+    }
+    
+    func updateFrames(){
+        
+        updateImageViewSizeConstraint()
     }
 }
 

@@ -11,6 +11,7 @@ import Foundation
 import SwiftyJSON
 
 class HostDefaultScreenshot : NSObject{
+   
     var id : Int?
     var userId : Int?
     var url : String?
@@ -24,14 +25,17 @@ class HostDefaultScreenshot : NSObject{
     
     init(info : JSON?){
         super.init()
+        
         fillInfo(info: info)
     }
     
     func fillInfo(info : JSON?) {
+        
         guard let json = info
             else{
                 return
         }
+        
         id = json["id"].int
         userId = json["userId"].int
         url = json["url"].string
@@ -41,11 +45,11 @@ class HostDefaultScreenshot : NSObject{
     }
     
     func screenshotInfo()->ScreenshotInfo?{
+        
         let info = ScreenshotInfo()
         info.id = self.id
         info.analystId = self.userId
         info.screenshot = self.url
-        
         return info
     }
     

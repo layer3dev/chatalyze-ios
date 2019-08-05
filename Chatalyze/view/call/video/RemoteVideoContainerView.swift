@@ -100,7 +100,9 @@ class RemoteVideoContainerView: ExtendedView {
     func updateForSignature(){
         
         Log.echo(key: "yud" ,text: "my orientation is \(UIDevice.current.orientation)")
+        
         self.paintCorners()
+        
         if UIDevice.current.orientation.isFlat{
             
             // Special case when app got the signature call and if app is neither in  the Landscape nor in the portrait mode. means in Flat position. In that case this will call.
@@ -161,7 +163,10 @@ class RemoteVideoContainerView: ExtendedView {
                 if isStreamPortraitPosition{
             
                     heightOfRemote?.constant = 224
-                    widthOfRemote?.constant = 126
+                  //  widthOfRemote?.constant = 126
+                    
+                    widthOfRemote?.constant = 224
+
                 }else{
                     
                     heightOfRemote?.constant = 126
@@ -172,7 +177,9 @@ class RemoteVideoContainerView: ExtendedView {
                 if isStreamPortraitPosition{
                     
                     heightOfRemote?.constant = 112
-                    widthOfRemote?.constant = 63
+                    //widthOfRemote?.constant = 63
+                    widthOfRemote?.constant = 128
+
                 }else{
                     
                     heightOfRemote?.constant = 72
@@ -194,13 +201,12 @@ class RemoteVideoContainerView: ExtendedView {
             widthOfRemote?.isActive = true
             heightOfRemote?.isActive = true
             
-            
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
                 heightOfRemote?.constant = 224
                 
                 if isStreamPortraitPosition{
-                
+                    
                     widthOfRemote?.constant = 126
                 }else{
                     
@@ -210,23 +216,16 @@ class RemoteVideoContainerView: ExtendedView {
             }else{
                 
                 heightOfRemote?.constant = 112
-                
                 if isStreamPortraitPosition{
                     
                     widthOfRemote?.constant = 63
                 }else{
+                    
                     //given by me
                     widthOfRemote?.constant = 224
                 }
             }
             return
-        }
-        
-        if UIDevice.current.orientation.isFlat{
-            
-            Log.echo(key: "yud", text: "Height of the screen is \(UIScreen.main.bounds.height)")
-            Log.echo(key: "yud", text: "width of the screen is \(UIScreen.main.bounds.width)")
-
         }
         
         
