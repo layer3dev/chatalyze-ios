@@ -11,14 +11,20 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    //Id's to manage the default Screenshot
+    //Wait for web service approval then call process if required.
+    var defaultSignatureTimer = DefaultTimerForSignature()
+    var defaultSignatureInitiated = false
+    
+    
     var localSlotIdToManageAutograph:Int? = nil
     
     var memoryImage:UIImage?
     let scheduleUpdateListener = ScheduleUpdateListener()
-    
+
     //Animation Responsible
     var isAnimating = false
-    
+
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -52,7 +58,7 @@ class UserCallController: VideoCallController {
         }
         
         if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
-            return true;
+            return true
         }
         
         return false
@@ -93,6 +99,37 @@ class UserCallController: VideoCallController {
         processAutograph()
         updateLableAnimation()
         resetAutographCanvasIfNewCallAndSlotExists()
+        //processDefaultSignature()
+    }
+    
+    func processDefaultSignature(){
+        
+        var isCalled:Bool? = nil
+        
+        guard let id = self.myLiveUnMergedSlot?.id else{
+            return
+        }
+        if isCalled == nil {
+            return
+        }
+        isCalled = true
+        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, info) in
+        }
+        return
+        return
+        
+        if self.defaultSignatureInitiated{
+            return
+        }
+        
+        self.defaultSignatureTimer.requiredDate = Date()
+        self.defaultSignatureTimer.start()
+        self.defaultSignatureTimer.screenShotListner = {
+            
+            Log.echo(key: "yud", text: "default signature is initiated")
+            
+        }
+        self.defaultSignatureInitiated = true
     }
     
     override func updateStatusMessage(){
@@ -144,7 +181,6 @@ class UserCallController: VideoCallController {
         
         guard let connection = connection
             else{
-                
                 setStatusMessage(type: .ideal)
                 return
         }
@@ -666,10 +702,12 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
+        
         guard let counddownInfo = startDate.countdownTimeFromNowAppended()
             else{
                 return
         }
+        
         userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }

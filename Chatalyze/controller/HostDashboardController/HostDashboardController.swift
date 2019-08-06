@@ -35,9 +35,7 @@ class HostDashboardController: MyScheduledSessionsController {
         SEGAnalytics.shared().track("My Session Page")
     }
     
-    func animate(){
-        
-        // DispatchQueue.main.async {
+    func animate(){       
         
         if shouldStartAnimation == false {
             return

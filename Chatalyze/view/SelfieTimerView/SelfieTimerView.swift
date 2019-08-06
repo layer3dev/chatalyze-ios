@@ -128,7 +128,6 @@ class SelfieTimerView:ExtendedView {
     
     private func invalidateTimer(){
         
-        player?.stop()
         //player = nil
         //SelfieTimerView.testTimer.invalidate()
         self.testTimer.releaseListener()

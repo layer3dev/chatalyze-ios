@@ -972,8 +972,12 @@
 		6B99FD3A213786DC000A0421 /* SessionDoneControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */; };
 		6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */; };
 		6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */; };
+		7823DE7522F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */; };
+		7823DE7622F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */; };
 		786F578822D5DD6F00F3F54B /* FSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786F578722D5DD6F00F3F54B /* FSWrapper.swift */; };
 		786F578922D5DD6F00F3F54B /* FSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786F578722D5DD6F00F3F54B /* FSWrapper.swift */; };
+		787003C322F9A98A00023297 /* VerifyForSignatureImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */; };
+		787003C422F9A98A00023297 /* VerifyForSignatureImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */; };
 		787BB9C522F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787BB9C422F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift */; };
 		787BB9C622F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787BB9C422F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -1692,7 +1696,9 @@
 		6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneControllerProtocol.swift; sourceTree = "<group>"; };
 		6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionRootView.swift; sourceTree = "<group>"; };
 		6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionController.swift; sourceTree = "<group>"; };
+		7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTimerForSignature.swift; sourceTree = "<group>"; };
 		786F578722D5DD6F00F3F54B /* FSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSWrapper.swift; sourceTree = "<group>"; };
+		787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyForSignatureImplementation.swift; sourceTree = "<group>"; };
 		787BB9C422F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStreamChangeProtocol.swift; sourceTree = "<group>"; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4016,12 +4022,28 @@
 			path = PlanInfo;
 			sourceTree = "<group>";
 		};
+		7823DE7322F9685C003AF13D /* call */ = {
+			isa = PBXGroup;
+			children = (
+				7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */,
+			);
+			path = call;
+			sourceTree = "<group>";
+		};
 		786F578622D5DD3600F3F54B /* FSWrappper */ = {
 			isa = PBXGroup;
 			children = (
 				786F578722D5DD6F00F3F54B /* FSWrapper.swift */,
 			);
 			path = FSWrappper;
+			sourceTree = "<group>";
+		};
+		787003C122F9A96600023297 /* VerifyForSignatureImplementation */ = {
+			isa = PBXGroup;
+			children = (
+				787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */,
+			);
+			path = VerifyForSignatureImplementation;
 			sourceTree = "<group>";
 		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
@@ -4744,6 +4766,7 @@
 				470391A72269EEE6008F2CF0 /* FetchAchievements */,
 				47D7539922719B440069F629 /* FetchOldTickets */,
 				474AA3DC2281A452005ACBB4 /* FetchReferralUrl  */,
+				787003C122F9A96600023297 /* VerifyForSignatureImplementation */,
 				47A47DF422A6919C008C942D /* FetchBillingDetails */,
 			);
 			path = network;
@@ -5030,6 +5053,7 @@
 				4782822B2184366900A003F4 /* InternetAvailability */,
 				47C3891922AE88DD00A46A5E /* VerifyForEarlyCall */,
 				786F578622D5DD3600F3F54B /* FSWrappper */,
+				7823DE7322F9685C003AF13D /* call */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -6154,10 +6178,12 @@
 				47D0B07621A6C4B5006376A8 /* SessionDoneController.swift in Sources */,
 				47D0B07721A6C4B5006376A8 /* EventSlotInfo.swift in Sources */,
 				47D0B07821A6C4B5006376A8 /* ViewController.swift in Sources */,
+				787003C422F9A98A00023297 /* VerifyForSignatureImplementation.swift in Sources */,
 				47B6EE0221ABF806009E155A /* EventDeletedListener.swift in Sources */,
 				47D0B07921A6C4B5006376A8 /* GreetingInfoRootView.swift in Sources */,
 				47D0B07A21A6C4B5006376A8 /* MySessionRootView.swift in Sources */,
 				47D0B07B21A6C4B5006376A8 /* PaymentListRootView.swift in Sources */,
+				7823DE7622F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */,
 				47D0B07C21A6C4B5006376A8 /* BoldAttribute.swift in Sources */,
 				47D0B07D21A6C4B5006376A8 /* ARDAppClient.m in Sources */,
 				47D0B07E21A6C4B5006376A8 /* RootControllerManager.swift in Sources */,
@@ -6710,10 +6736,12 @@
 				FAFFFE9A203D9C80009B4F96 /* ViewController.swift in Sources */,
 				47B6522C20AAAF710041496C /* GreetingInfoRootView.swift in Sources */,
 				47B6EE0121ABF4C0009E155A /* EventDeletedListener.swift in Sources */,
+				787003C322F9A98A00023297 /* VerifyForSignatureImplementation.swift in Sources */,
 				47614F7D213ABBAB00CC9702 /* MySessionRootView.swift in Sources */,
 				47AD144420ADB3EA006AF9D6 /* PaymentListRootView.swift in Sources */,
 				FA74B15A2063AEFA00983141 /* BoldAttribute.swift in Sources */,
 				FA74B12B20639B6400983141 /* ARDAppClient.m in Sources */,
+				7823DE7522F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */,
 				FA3B46A821104D19007EA72D /* RootControllerManager.swift in Sources */,
 				47111CF12158FCBF00DFBC08 /* NavChildController.swift in Sources */,
 				FAA8C5AC221843DB00E9937B /* DonationSuccessController.swift in Sources */,

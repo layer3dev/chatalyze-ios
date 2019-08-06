@@ -11,6 +11,7 @@ import Foundation
 import SwiftyJSON
 
 class ScreenshotInfo : NSObject{
+    
     var id : Int?
     var isPrivate : Bool?
     var userId : Int?

@@ -24,6 +24,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         rootView?.paintInterface()
     }
     
+    
     func checkForShowingHostWelcomeAnimation(){
         
         //This method is responsible to showing the new signUp animation for only Hosts.
