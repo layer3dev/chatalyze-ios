@@ -51,6 +51,8 @@ class EventInfo: NSObject {
     var slotsInfoLists:[SlotInfo]  = [SlotInfo]()
     var emptySlotsArray:[JSON]? = [JSON]()
     var isSponsorEnable = false
+    var isAutographAllow:String?
+    
     
     override init(){
         super.init()
@@ -101,6 +103,7 @@ class EventInfo: NSObject {
         }
 
         isScreenShotAllowed = json["screenshotAllow"].string
+        isAutographAllow = json["autographAllow"].string
         
         emptySlotsArray = json["emptySlots"].array
         

@@ -15,6 +15,7 @@ class UserCallController: VideoCallController {
     //Wait for web service approval then call process if required.
     var defaultSignatureTimer = DefaultTimerForSignature()
     var defaultSignatureInitiated = false
+    var localSlotIdToManageDefaultScreenshot:Int? = nil
     
     
     var localSlotIdToManageAutograph:Int? = nil
@@ -56,7 +57,7 @@ class UserCallController: VideoCallController {
             else{
                 return false
         }
-        
+
         if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
             return true
         }
@@ -68,6 +69,7 @@ class UserCallController: VideoCallController {
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
+        
         get{
             return connection?.connection
         }
@@ -99,37 +101,60 @@ class UserCallController: VideoCallController {
         processAutograph()
         updateLableAnimation()
         resetAutographCanvasIfNewCallAndSlotExists()
-        //processDefaultSignature()
+        processDefaultSignature()
     }
     
     func processDefaultSignature(){
         
-        var isCalled:Bool? = nil
-        
         guard let id = self.myLiveUnMergedSlot?.id else{
             return
         }
-        if isCalled == nil {
-            return
-        }
-        isCalled = true
-        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, info) in
-        }
-        return
-        return
         
-        if self.defaultSignatureInitiated{
+        if self.eventInfo?.isScreenShotAllowed == "automatic"{
             return
         }
         
-        self.defaultSignatureTimer.requiredDate = Date()
-        self.defaultSignatureTimer.start()
-        self.defaultSignatureTimer.screenShotListner = {
-            
-            Log.echo(key: "yud", text: "default signature is initiated")
-            
+        if self.eventInfo?.isAutographAllow != "automatic"{
+            return
         }
-        self.defaultSignatureInitiated = true
+        
+        // In order to reset the process after the slot
+        if localSlotIdToManageDefaultScreenshot != nil{
+            if id != localSlotIdToManageDefaultScreenshot{
+                defaultSignatureInitiated = false
+            }
+        }
+        
+
+        if defaultSignatureInitiated{
+            return
+        }
+        
+        localSlotIdToManageDefaultScreenshot = id
+        
+        defaultSignatureInitiated = true
+        
+        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs) in
+          
+            Log.echo(key: "yud", text: "Response of th VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
+            
+            if !success{
+                return
+            }
+            if isSignedResponseIs{
+               return
+            }
+            
+            Log.echo(key: "yud", text: "default signature process started")
+            
+            self.defaultSignatureTimer.requiredDate = Date()
+            self.defaultSignatureTimer.start()
+            self.defaultSignatureTimer.screenShotListner = {
+                
+                Log.echo(key: "yud", text: "default signature process completed and ready to launch")
+                self.defaultAutographRequest()
+            }
+        }
     }
     
     override func updateStatusMessage(){
@@ -280,7 +305,6 @@ class UserCallController: VideoCallController {
         registerForScheduleUpdateListener()
         
         //call initiation
-        
         socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
             if(self?.socketClient == nil){
                 return
@@ -534,8 +558,10 @@ class UserCallController: VideoCallController {
         
         
         // Once the selfie timer has been come
-        //        guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
-        //        guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
+        
+        // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
+        
+        // guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
         if(!isCallConnected){ return }
         
@@ -630,7 +656,9 @@ class UserCallController: VideoCallController {
                                     }
                                     
                                     self.screenshotInfo = info
-                                    self.selfieAutographRequest()
+                                    if self.eventInfo?.isAutographAllow ?? "" == "automatic" {                                        
+                                        self.selfieAutographRequest()
+                                    }
                                     //self.defaultAutographRequest()
                                 }
                             })
@@ -1194,9 +1222,7 @@ extension UserCallController{
         var info:ScreenshotInfo?
         
         info = defaultScreenshotInfo
-        
-//        Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
-        
+       
         self.processRequestAutograph(isDefault : true, info : info)
     }
     
@@ -1255,7 +1281,7 @@ extension UserCallController{
     private func serviceRequestAutograph(info : ScreenshotInfo?){
         
         self.showLoader()
-        
+
         myLiveUnMergedSlot?.isAutographRequested = true
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
@@ -1318,12 +1344,12 @@ extension UserCallController{
     
     private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
         
+        
         //        guard let image = image
         //            else{
         //                completion?(false, nil)
         //                return
         //        }
-        
         
         //        guard let data = image.jpegData(compressionQuality: 1.0)
         //            else{
@@ -1366,7 +1392,7 @@ extension UserCallController {
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
-            Log.echo(key: "yud", text: "canvas height is \(self.canvasInfo?.height) and the canvas width is \(self.canvasInfo?.width)")
+            Log.echo(key: "yud", text: "canvas height is \(String(describing: self.canvasInfo?.height)) and the canvas width is \(String(describing: self.canvasInfo?.width))")
             
             self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
             self.userRootView?.remoteVideoContainerView?.updateForSignature()
@@ -1487,12 +1513,23 @@ extension UserCallController {
 extension UserCallController{
     
     @IBAction func testAction(sender:UIButton){
-       
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+        guard let id = self.myLiveUnMergedSlot?.id else{
+            return
+        }
+        
+        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs) in
+            
+            Log.echo(key: "yud", text: "success is \(success) and the isSignedResponse is \(isSignedResponseIs)")
+        }
+
+        //        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, info) in
+        //        }
+        
     }
     
     @IBAction func updateForCallFaeture(){
-        
+    
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
     

@@ -11,17 +11,18 @@ import SwiftyJSON
 
 class VerifyForSignatureImplementation {
     
-    public func fetch(scheduleId:Int?, completion : @escaping ((_ success : Bool, _ error : String, _ response : BillingInfo?)->())){
+    public func fetch(scheduleId:Int?, completion : @escaping ((_ success : Bool, _ error : String, _ isSigned : Bool)->())){
         
-        var url = AppConnectionConfig.webServiceURL + "/screenshots/schedule"
+        let url = AppConnectionConfig.webServiceURL + "/screenshots/schedule"
+        
         guard let id = scheduleId else{
-            completion(false, "Missing schedule id", nil)
+            completion(false, "Missing schedule id", false)
             return
         }
         var param = [String:Any]()
         param["bookingId"] = id
         
-        Log.echo(key: "yud", text: "url is \(url)")
+        Log.echo(key: "yud", text: "VerifyForSignatureImplementation is \(url) and the params are \(param)")
         
         ServerProcessor().request(.get,url, parameters:param, encoding: .queryString, authorize :true) { (success, response) in
             
@@ -29,26 +30,35 @@ class VerifyForSignatureImplementation {
         }
     }
     
-    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ response : BillingInfo?)->())) {
+    private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ error : String, _ isSigned : Bool)->())) {
         
-        Log.echo(key: "yud", text: "Fetched supported chats are  ==>  \(response)")
+        Log.echo(key: "yud", text: " VerifyForSignatureImplementation supported chats are  ==>  \(String(describing: response))")
         
         guard let rawInfo = response
             else{
-                completion(false, "",  nil)
+                completion(false, "",  false)
                 return
         }
         
         if(!success){
             
             let message = "some error occurred"
-            completion(false, message, nil)
+            completion(false, message, false)
             return
         }
-        let info = BillingInfo(info: rawInfo)
-        //        {"pendingAmt":"13291.83","earnedAmt":"3677.58","tipAmt":"4.74","sponsorAmt":"0.00"}
         
-        completion(true, "", info)
+        let arrayValue = rawInfo.arrayValue
+        var isSigned = false
+        
+        for info in arrayValue{
+            
+            if info["signed"].boolValue{
+            
+                isSigned = true
+                break
+            }
+        }
+        completion(true, "", isSigned)
         return
     }
 }
