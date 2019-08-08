@@ -23,14 +23,14 @@ class SubmitScreenshot{
     }
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
-        
+  
+        Log.echo(key: "yudi", text: "Resonse of submit screenshot  \(response)")
         
         if(!success){
             completion(false, nil)
             return
         }
         
-        Log.echo(key: "response", text: "Resonse of Fetch CAllSlots \(response)")
         
         guard let info = response
             else{

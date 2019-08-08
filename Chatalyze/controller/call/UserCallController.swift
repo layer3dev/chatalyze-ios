@@ -134,15 +134,24 @@ class UserCallController: VideoCallController {
         
         defaultSignatureInitiated = true
         
-        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs) in
+        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs,isRequested) in
           
             Log.echo(key: "yud", text: "Response of th VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
             
             if !success{
                 return
             }
+            
             if isSignedResponseIs{
                return
+            }
+            
+            if isRequested{
+                
+                Log.echo(key: "yud", text: "I am also requesting the requested file")
+                
+                self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
+                return
             }
             
             Log.echo(key: "yud", text: "default signature process started")
@@ -306,6 +315,7 @@ class UserCallController: VideoCallController {
         
         //call initiation
         socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -314,6 +324,7 @@ class UserCallController: VideoCallController {
         })
         
         socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -321,6 +332,7 @@ class UserCallController: VideoCallController {
         })
         
         socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -329,6 +341,7 @@ class UserCallController: VideoCallController {
         
         //call initiation
         socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
@@ -434,6 +447,7 @@ class UserCallController: VideoCallController {
     
     
     var myLiveUnMergedSlot : SlotInfo?{
+        
         guard let slotInfo = eventInfo?.myCurrentSlotInfo?.slotInfo
             else{
                 return nil
@@ -490,6 +504,8 @@ class UserCallController: VideoCallController {
     }
     
     private func processAutograph(){
+        
+        
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(String(describing: self.eventInfo?.isScreenShotAllowed))")
         
@@ -1259,15 +1275,15 @@ extension UserCallController{
             
             //self?.serviceRequestAutograph(info: screenshotInfo)
             
-            self?.requestDefaultAutograph(image: targetImage)
+            self?.requestDefaultAutograph(image: targetImage,info: info,isDefaultImage: true)
         }
     }
     
-    private func requestDefaultAutograph(image : UIImage){
+    private func requestDefaultAutograph(image : UIImage,info:ScreenshotInfo? = nil,isDefaultImage:Bool = false){
         
-        self.encodeImageToBase64(image: image) { (encodedImage) in
+        self.encodeImageToBase64(image: image) {(encodedImage) in
            
-            self.uploadImage(encodedImage:encodedImage,image: image, completion: { [weak self] (success, screenshotInfo) in
+            self.uploadImage(encodedImage:encodedImage,image: image, isDefaultImage: isDefaultImage,info: info,completion: { [weak self] (success, screenshotInfo) in
                 
                 Log.echo(key: "yud", text: "Final Request the default autograph")
                 if(!success){
@@ -1320,8 +1336,6 @@ extension UserCallController{
         })
     }
     
-    
-    
     private func encodeImageToBase64(image : UIImage?,completion:(_ encodedData:String)->()){
         
         guard let image = image
@@ -1342,7 +1356,7 @@ extension UserCallController{
     }
     
     
-    private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+    private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, info:ScreenshotInfo? = nil, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
         
         
         //        guard let image = image
@@ -1364,14 +1378,18 @@ extension UserCallController{
         params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = isDefaultImage
         
+        
         //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
         
-        params["file"] = encodedImage
+        if isDefaultImage{
+            params["file"] = info?.screenshot ?? ""
+        }else{
+            params["file"] = encodedImage
+        }
         
+        Log.echo(key: "yud", text: "Uploaded params are \(params)")
         // userRootView?.requestAutographButton?.showLoader()
-        
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
-            
             //self?.userRootView?.requestAutographButton?.hideLoader()
             
             DispatchQueue.main.async {
@@ -1461,10 +1479,12 @@ extension UserCallController {
     }
     
     var isCallConnected : Bool{
+        
         return (self.connection?.isConnected ?? false)
     }
     
     var isCallStreaming: Bool{
+        
         return (self.connection?.isStreaming ?? false)
     }
 }
@@ -1472,10 +1492,12 @@ extension UserCallController {
 extension UserCallController:GetisHangedUpDelegate{
     
     func restartSelfie(){
+        
         SlotFlagInfo.staticIsTimerInitiated = false
     }
     
     func getHangUpStatus() -> Bool {
+        
         return isHangUp || (!isCallStreaming)
     }
 }
@@ -1518,9 +1540,9 @@ extension UserCallController{
             return
         }
         
-        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs) in
+        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs,isRquested)  in
             
-            Log.echo(key: "yud", text: "success is \(success) and the isSignedResponse is \(isSignedResponseIs)")
+            Log.echo(key: "yudi", text: "success is \(success) and the isSignedResponse is \(isSignedResponseIs)")
         }
 
         //        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, info) in

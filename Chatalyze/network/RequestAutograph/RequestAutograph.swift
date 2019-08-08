@@ -20,6 +20,9 @@ class RequestAutograph{
         params["screenshotId"] = screenshotId
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         let url = AppConnectionConfig.webServiceURL + "/screenshots/requestAutograph"
+        
+        Log.echo(key: "yud", text: "params during the ping \(params)")
+        
     
         ServerProcessor().request(.put, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)

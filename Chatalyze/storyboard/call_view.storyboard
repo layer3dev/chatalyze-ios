@@ -852,6 +852,17 @@
                                     <outlet property="videoView" destination="pcC-X9-R1p" id="hhh-Xq-rvG"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7h-EM-2uB">
+                                <rect key="frame" x="110" y="190" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="fG4-Xe-los"/>
+                                    <constraint firstAttribute="width" constant="100" id="k5q-XD-ftm"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testActionWithSender:" destination="ddm-i3-FOl" eventType="touchUpInside" id="go9-5u-0XS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -894,7 +905,9 @@
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="top" secondItem="Wkh-om-R74" secondAttribute="top" id="dVu-79-4lK"/>
                             <constraint firstAttribute="trailing" secondItem="fgE-qL-xbk" secondAttribute="trailing" id="dh6-7d-hMH"/>
                             <constraint firstItem="3ww-fe-4Gf" firstAttribute="centerX" secondItem="Wkh-om-R74" secondAttribute="centerX" id="dxH-92-lYX"/>
+                            <constraint firstItem="V7h-EM-2uB" firstAttribute="centerY" secondItem="Wkh-om-R74" secondAttribute="centerY" id="eBC-Rf-gLy"/>
                             <constraint firstItem="ccG-Ux-JqL" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="10" id="eWS-fU-V8h"/>
+                            <constraint firstItem="V7h-EM-2uB" firstAttribute="centerX" secondItem="Wkh-om-R74" secondAttribute="centerX" id="j96-KC-Wcs"/>
                             <constraint firstItem="Yk6-mP-7LN" firstAttribute="top" secondItem="gKG-jl-gLG" secondAttribute="bottom" constant="15" id="jdq-Kx-aL1"/>
                             <constraint firstAttribute="trailing" secondItem="gKG-jl-gLG" secondAttribute="trailing" id="lMN-eJ-V92"/>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="SrS-mz-6Sq" secondAttribute="bottom" constant="12" id="uyT-p7-6gO"/>

@@ -220,7 +220,7 @@ class AutographyCanvas: ExtendedView {
     }
     
     func drawLineFrom(_ previousPoint : CGPoint, mid1: CGPoint, mid2: CGPoint) {
-        // 1
+
         let frame = self.mainImageView?.frame ?? CGRect()
         
         Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
