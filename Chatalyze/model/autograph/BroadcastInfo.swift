@@ -11,6 +11,7 @@ import Foundation
 import SwiftyJSON
 
 class BroadcastInfo : NSObject{
+    
     var x = Double(0)
     var isContinous = false
     var strokeWidth : Int?
@@ -21,17 +22,18 @@ class BroadcastInfo : NSObject{
     var erase = false
     var y = Double(0)
     
-    
     override init(){
         super.init()
     }
     
     init(info : JSON?){
         super.init()
+        
         fillInfo(info: info)
     }
     
     func fillInfo(info : JSON?) {
+        
         guard let json = info
             else{
                 return
@@ -45,7 +47,6 @@ class BroadcastInfo : NSObject{
         reset = json["reset"].boolValue
         erase = json["Erase"].boolValue
         y = json["y"].doubleValue
-        
     }
     
     var point : CGPoint{

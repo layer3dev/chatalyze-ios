@@ -65,7 +65,7 @@ class AutographyCanvas: ExtendedView {
         
         let view  = viewList?.first as? UIView
         
-        if let viewUnwrapped = view{
+        if let viewUnwrapped = view {
             
             containerView = viewUnwrapped
             viewUnwrapped.translatesAutoresizingMaskIntoConstraints = false
@@ -106,8 +106,11 @@ class AutographyCanvas: ExtendedView {
     
     private func registerForAutographListener(){
         
+        
         socketListener?.onEvent("broadcastPoints", completion: { (json) in
             
+            Log.echo(key: "yud", text: "I got the brodcast call")
+
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
             self.processPoint(info: broadcastInfo)
@@ -115,7 +118,6 @@ class AutographyCanvas: ExtendedView {
     }
     
     private func targetPoint(inputPoint : CGPoint)->CGPoint{
-     
         
         let selfWidth = size.width
         let selfHeight = size.height
@@ -222,12 +224,12 @@ class AutographyCanvas: ExtendedView {
     func drawLineFrom(_ previousPoint : CGPoint, mid1: CGPoint, mid2: CGPoint) {
 
         let frame = self.mainImageView?.frame ?? CGRect()
-        
+
         Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
         Log.echo(key: "drawLineFrom", text: "drawLineFrom previousPoint ==> \(previousPoint)")
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
-        
+
         UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
         
         let context = UIGraphicsGetCurrentContext()
@@ -281,6 +283,7 @@ class AutographyCanvas: ExtendedView {
         // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
         Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
+        
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);        
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
@@ -301,6 +304,7 @@ class AutographyCanvas: ExtendedView {
     
     private func processTouchEnded(point : CGPoint){
         return;
+        
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
         let size = mainImageView?.frame.size ?? CGSize()
@@ -350,9 +354,6 @@ extension AutographyCanvas{
             return size
         }
     }
-    
-    
-   
     
     var color : UIColor{
         get{

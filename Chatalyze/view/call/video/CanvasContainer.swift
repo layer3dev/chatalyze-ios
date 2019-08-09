@@ -111,7 +111,5 @@ class CanvasContainer: ExtendedView {
         super.layoutSubviews()
         
         Log.echo(key: "yud", text: "Canvas container height width is \(self.frame.size.width) and the canvas height is \(self.frame.size.height)")
-        
     }
-    
 }

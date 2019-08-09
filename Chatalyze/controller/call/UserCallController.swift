@@ -104,7 +104,10 @@ class UserCallController: VideoCallController {
         processDefaultSignature()
     }
     
+    
     func processDefaultSignature(){
+        
+       // Log.echo(key: "yudi", text: "CallSchedule id is       \(self.myLiveUnMergedSlot?.callscheduleId)")
         
         guard let id = self.myLiveUnMergedSlot?.id else{
             return
@@ -120,7 +123,11 @@ class UserCallController: VideoCallController {
         
         // In order to reset the process after the slot
         if localSlotIdToManageDefaultScreenshot != nil{
+            
+            //Log.echo(key: "yudi", text: " new id is \(id) saved id is \(localSlotIdToManageDefaultScreenshot)")
+            
             if id != localSlotIdToManageDefaultScreenshot{
+                Log.echo(key: "yudi", text: "default signature is initialized to false")
                 defaultSignatureInitiated = false
             }
         }
@@ -136,7 +143,7 @@ class UserCallController: VideoCallController {
         
         VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs,isRequested) in
           
-            Log.echo(key: "yud", text: "Response of th VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
+            Log.echo(key: "yudi", text: "Response of th VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
             
             if !success{
                 return
@@ -148,19 +155,19 @@ class UserCallController: VideoCallController {
             
             if isRequested{
                 
-                Log.echo(key: "yud", text: "I am also requesting the requested file")
+                Log.echo(key: "yudi", text: "I am also requesting the requested file")
                 
                 self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
                 return
             }
             
-            Log.echo(key: "yud", text: "default signature process started")
+            Log.echo(key: "yudi", text: "default signature process started")
             
             self.defaultSignatureTimer.requiredDate = Date()
             self.defaultSignatureTimer.start()
             self.defaultSignatureTimer.screenShotListner = {
                 
-                Log.echo(key: "yud", text: "default signature process completed and ready to launch")
+                Log.echo(key: "yudi", text: "default signature process completed and ready to launch")
                 self.defaultAutographRequest()
             }
         }
@@ -239,7 +246,6 @@ class UserCallController: VideoCallController {
         super.viewWillDisappear(animated)
         
         Log.echo(key: "yud", text: "The UserCallController is dismissing")
-
         Log.echo(key: "yud", text: "SelfieTimerInitiated in the viewWillDisappear \(String(describing: self.myLiveUnMergedSlot?.isSelfieTimerInitiated))")
         
         self.selfieTimerView?.reset()
@@ -1202,30 +1208,21 @@ extension UserCallController{
     
     private func selfieAutographRequest(){
         
-        // Need to remove it.
         guard let eventInfo = self.eventInfo
             else{
                 return
         }
         
-        let defaultScreenshotInfo = eventInfo.user?.defaultImage?.screenshotInfo()
         let customScreenshotInfo = self.screenshotInfo
-        let isCustom = customScreenshotInfo == nil ? false : true
         var info:ScreenshotInfo?
-
-
-        if isCustom{
-            
-            info = customScreenshotInfo
-        }else{
-            
-            info = defaultScreenshotInfo
-        }
         
-        Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is \(isCustom)")
+        info = customScreenshotInfo
         
-        self.processRequestAutograph(isDefault : isCustom, info : info)
+        Log.echo(key: "yud", text: "Value of the screenshot info is \(String(describing: info)) and is Default is")
+        
+        self.processRequestAutograph(isDefault : false, info : info)
     }
+    
     
     private func defaultAutographRequest(){
     
@@ -1247,7 +1244,7 @@ extension UserCallController{
         
         if(!isDefault){
             
-            Log.echo(key: "yud", text: "Requesting autograph with live signature")
+            Log.echo(key: "yudi", text: "Requesting autograph with live signature")
             self.serviceRequestAutograph(info : info)
             return
         }
@@ -1271,10 +1268,8 @@ extension UserCallController{
                     return
             }
             
-            Log.echo(key: "yud", text: "Request the default autograph")
-            
+            Log.echo(key: "yudi", text: "Request the default autograph")
             //self?.serviceRequestAutograph(info: screenshotInfo)
-            
             self?.requestDefaultAutograph(image: targetImage,info: info,isDefaultImage: true)
         }
     }
@@ -1285,7 +1280,7 @@ extension UserCallController{
            
             self.uploadImage(encodedImage:encodedImage,image: image, isDefaultImage: isDefaultImage,info: info,completion: { [weak self] (success, screenshotInfo) in
                 
-                Log.echo(key: "yud", text: "Final Request the default autograph")
+                Log.echo(key: "yudi", text: "Final Request the default autograph")
                 if(!success){
                     return
                 }
@@ -1302,7 +1297,7 @@ extension UserCallController{
         let screenshotId = "\(info?.id ?? 0)"
         let hostId = "\(info?.analystId ?? 0)"
         
-        Log.echo(key: "yud", text: "Requesting the screenshot offered")
+        Log.echo(key: "yudi", text: "Requesting the screenshot offered")
         
         RequestAutograph().request(screenshotId: screenshotId, hostId: hostId) { (success, info) in
             
@@ -1374,7 +1369,7 @@ extension UserCallController{
         var params = [String : Any]()
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
-        params["callbookingId"] = myCurrentUserSlot?.id ?? 0
+        params["callbookingId"] = self.myLiveUnMergedSlot?.id ?? 0
         params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = isDefaultImage
         
@@ -1387,7 +1382,7 @@ extension UserCallController{
             params["file"] = encodedImage
         }
         
-        Log.echo(key: "yud", text: "Uploaded params are \(params)")
+        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
         // userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
             //self?.userRootView?.requestAutographButton?.hideLoader()
@@ -1405,21 +1400,26 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            Log.echo(key: "yud", text: "I am started signing as I got event.")
+            Log.echo(key: "yudi", text: "I am started signing as I got event.")
             
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
-            Log.echo(key: "yud", text: "canvas height is \(String(describing: self.canvasInfo?.height)) and the canvas width is \(String(describing: self.canvasInfo?.width))")
+            if self.myLiveUnMergedSlot?.id != self.canvasInfo?.screenshot?.callbookingId{
+                return
+            }
+            
+            Log.echo(key: "yudi", text: "canvas height is \(String(describing: self.canvasInfo?.height)) and the canvas width is \(String(describing: self.canvasInfo?.width))")
             
             self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
             self.userRootView?.remoteVideoContainerView?.updateForSignature()
+            
             self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
-            Log.echo(key: "yud", text: "I stopped signing as I stopped Signing.")
+            Log.echo(key: "yudi", text: "I stopped signing as I stopped Signing.")
             self.resetCanvas()
         })
     }
@@ -1451,7 +1451,7 @@ extension UserCallController {
             
             canvas?.image = image
             
-            Log.echo(key: "yud", text: "Loaded image height is \(image?.size.height) and width is \(image?.size.width)")
+            Log.echo(key: "yudi", text: "Loaded image height is \(image?.size.height) and width is \(image?.size.width)")
             self.updateScreenshotLoaded(info : info)
         }
     }
@@ -1474,7 +1474,7 @@ extension UserCallController {
         let message = screenshotInfo.toDict()
         params["message"] = message
         
-        Log.echo(key: "yud", text: "Yup I have got green signal for the screenshotLoad")
+        Log.echo(key: "yudi", text: "Yup I have got green signal for the screenshotLoad")
         socketClient?.emit(params)
     }
     

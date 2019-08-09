@@ -21,7 +21,7 @@ class RequestAutograph{
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         let url = AppConnectionConfig.webServiceURL + "/screenshots/requestAutograph"
         
-        Log.echo(key: "yud", text: "params during the ping \(params)")
+        Log.echo(key: "yudi", text: "params during the ping \(params)")
         
     
         ServerProcessor().request(.put, url, parameters : params, encoding: .jsonEncoding, authorize : true) { (success, response) in
@@ -36,7 +36,7 @@ class RequestAutograph{
             return
         }
         
-        Log.echo(key: "response", text: "Resonse of requesting autograph is  \(response)")
+        Log.echo(key: "yudi", text: "Resonse of requesting autograph is  \(response)")
         
         guard let info = response
             else{
@@ -48,7 +48,7 @@ class RequestAutograph{
         
         let screenshotInfo = ScreenshotInfo(info: info)
         
-        Log.echo(key: "screenshotInfo", text: "screenshotInfo info --> \(String(describing: screenshotInfo.id))")
+        Log.echo(key: "yudi", text: "screenshotInfo info --> \(String(describing: screenshotInfo.id))")
         
         completion(true, screenshotInfo)
         return

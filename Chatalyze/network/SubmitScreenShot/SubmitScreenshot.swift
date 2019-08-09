@@ -40,7 +40,7 @@ class SubmitScreenshot{
         
         let screenshotInfo = ScreenshotInfo(info: info)
         
-        Log.echo(key: "screenshotInfo", text: "screenshotInfo info --> \(String(describing: screenshotInfo.id))")
+        Log.echo(key: "yudi", text: "screenshotInfo info --> \(String(describing: screenshotInfo.id))")
         
         completion(true, screenshotInfo)
         return
