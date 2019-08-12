@@ -11,14 +11,16 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
-    //Id's to manage the default Screenshot
-    //Wait for web service approval then call process if required.
+    // Id's to manage the default Screenshot
+    // Wait for web service approval then call process if required.
+    
     var defaultSignatureTimer = DefaultTimerForSignature()
     var defaultSignatureInitiated = false
     var localSlotIdToManageDefaultScreenshot:Int? = nil
     
-    
     var localSlotIdToManageAutograph:Int? = nil
+    var localScreenShotAssociatedCallBookingId:Int? = nil
+    
     
     var memoryImage:UIImage?
     let scheduleUpdateListener = ScheduleUpdateListener()
@@ -107,7 +109,8 @@ class UserCallController: VideoCallController {
     
     func processDefaultSignature(){
         
-       // Log.echo(key: "yudi", text: "CallSchedule id is       \(self.myLiveUnMergedSlot?.callscheduleId)")
+        
+        // Log.echo(key: "yudi", text: " CallSchedule id is \(self.myLiveUnMergedSlot?.callscheduleId)")
         
         guard let id = self.myLiveUnMergedSlot?.id else{
             return
@@ -121,19 +124,28 @@ class UserCallController: VideoCallController {
             return
         }
         
+        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
+            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
+                
+                Log.echo(key: "yud", text: "Returning because of less than 30 seconds.")
+                return
+            }
+        }
+        
+        
         // In order to reset the process after the slot
-        if localSlotIdToManageDefaultScreenshot != nil{
+        if localSlotIdToManageDefaultScreenshot != nil {
             
             //Log.echo(key: "yudi", text: " new id is \(id) saved id is \(localSlotIdToManageDefaultScreenshot)")
             
-            if id != localSlotIdToManageDefaultScreenshot{
+            if id != localSlotIdToManageDefaultScreenshot {
                 Log.echo(key: "yudi", text: "default signature is initialized to false")
                 defaultSignatureInitiated = false
             }
         }
         
 
-        if defaultSignatureInitiated{
+        if defaultSignatureInitiated {
             return
         }
         
@@ -376,6 +388,7 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
+        
         //temp
         
         // TODO:- Need to Comment
@@ -511,10 +524,8 @@ class UserCallController: VideoCallController {
     
     private func processAutograph(){
         
-        
-        
         Log.echo(key: "yud", text: "ScreenShot allowed is \(String(describing: self.eventInfo?.isScreenShotAllowed))")
-        
+
         if self.eventInfo?.isScreenShotAllowed == nil{
             return
         }
@@ -678,7 +689,10 @@ class UserCallController: VideoCallController {
                                     }
                                     
                                     self.screenshotInfo = info
-                                    if self.eventInfo?.isAutographAllow ?? "" == "automatic" {                                        
+                                    self.localScreenShotAssociatedCallBookingId = self.screenshotInfo?.callbookingId
+                                    
+                                    if self.eventInfo?.isAutographAllow ?? "" == "automatic" {
+
                                         self.selfieAutographRequest()
                                     }
                                     //self.defaultAutographRequest()
@@ -1151,10 +1165,11 @@ extension UserCallController{
     private func resetAutographCanvasIfNewCallAndSlotExists(){
         
         //if current slot id is nil then return
-
+        
         if self.myLiveUnMergedSlot?.id == nil {
             Log.echo(key: "yud", text: "my unmerged slot is nil")
             self.resetCanvas()
+            self.localScreenShotAssociatedCallBookingId = nil
             return
         }
         
@@ -1166,6 +1181,7 @@ extension UserCallController{
         if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
+            self.localScreenShotAssociatedCallBookingId = nil
             //reset the signature
             return
         }
@@ -1186,8 +1202,10 @@ extension UserCallController{
         var controller : RequestAutographController?
 
         if(isCustom){
+            
             controller = RequestAutographController.customInstance()
         }else{
+            
             controller = RequestAutographController.defaultInstance()
         }
 
@@ -1284,6 +1302,10 @@ extension UserCallController{
                 if(!success){
                     return
                 }
+                
+                self?.localScreenShotAssociatedCallBookingId = screenshotInfo?.callbookingId
+                self?.screenshotInfo = screenshotInfo
+
                 self?.serviceRequestAutograph(info: screenshotInfo)
             })
         }
@@ -1322,6 +1344,7 @@ extension UserCallController{
                 self?.encodeImageToBase64(image: image, completion: { (encodedImage) in
                     
                     self?.uploadImage(image: image, completion: { (success, info) in
+                        
                         self?.screenshotInfo = info
                     })
                 })
@@ -1372,10 +1395,10 @@ extension UserCallController{
         params["callbookingId"] = self.myLiveUnMergedSlot?.id ?? 0
         params["callScheduleId"] = eventInfo?.id ?? 0
         params["defaultImage"] = isDefaultImage
+
         
-        
-        //        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-        
+        // let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+
         if isDefaultImage{
             params["file"] = info?.screenshot ?? ""
         }else{
@@ -1383,7 +1406,8 @@ extension UserCallController{
         }
         
         Log.echo(key: "yudi", text: "Uploaded params are \(params)")
-        // userRootView?.requestAutographButton?.showLoader()
+
+        //userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
             //self?.userRootView?.requestAutographButton?.hideLoader()
             
@@ -1400,12 +1424,14 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            Log.echo(key: "yudi", text: "I am started signing as I got event.")
+            Log.echo(key: "yudi", text: "I am started signing as I got event. and the json is \(String(describing: json))")
             
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
-            if self.myLiveUnMergedSlot?.id != self.canvasInfo?.screenshot?.callbookingId{
+            Log.echo(key: "yud", text: "My live unmergedSlotInfo is \(self.myLiveUnMergedSlot?.id) and the call booking Id is \(self.screenshotInfo?.callbookingId)")
+            
+            if self.myLiveUnMergedSlot?.id != self.screenshotInfo?.callbookingId{
                 return
             }
             
@@ -1475,6 +1501,7 @@ extension UserCallController {
         params["message"] = message
         
         Log.echo(key: "yudi", text: "Yup I have got green signal for the screenshotLoad")
+        
         socketClient?.emit(params)
     }
     

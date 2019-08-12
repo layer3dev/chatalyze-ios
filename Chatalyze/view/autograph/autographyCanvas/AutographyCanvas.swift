@@ -15,7 +15,7 @@ class AutographyCanvas: ExtendedView {
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
 
-    static let kPointMinDistance : Double = 0.1;
+    static let kPointMinDistance : Double = 0.1
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;    
     var currentPoint = CGPoint.zero
     var previousPoint = CGPoint.zero
@@ -105,7 +105,6 @@ class AutographyCanvas: ExtendedView {
     }
     
     private func registerForAutographListener(){
-        
         
         socketListener?.onEvent("broadcastPoints", completion: { (json) in
             
@@ -263,7 +262,7 @@ class AutographyCanvas: ExtendedView {
         self.currentPoint = point
         
         processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
-        
+
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){

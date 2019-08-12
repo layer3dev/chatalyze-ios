@@ -40,10 +40,12 @@ class ScreenshotInfo : NSObject{
     }
     
     func fillInfo(info : JSON?) {
+       
         guard let json = info
             else{
                 return
         }
+        
         id = json["id"].int
         isPrivate = json["isPrivate"].boolValue
         userId = json["userId"].int

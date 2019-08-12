@@ -16,7 +16,7 @@ import Bugsnag
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var window: UIWindow?
     var allowRotate : Bool = false
     var isRootInitialize:Bool = false
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-       
+
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
-    
+
     fileprivate func initializeSegmentIO(){
         
         let configuration = SEGAnalyticsConfiguration.init(writeKey:AppConnectionConfig.segmentIOKey)
@@ -71,7 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = NavigationBarCustomizer()
         RootControllerManager().setRoot {
-            
             self.isRootInitialize = true
         }
         _ = RTCConnectionInitializer()
@@ -105,12 +104,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
+        
         earlyCallProcessor?.eventInfoArray.removeAll()
         earlyCallProcessor?.fetchInfo()
         verifyingAccessToken()
         startTimer()
         
         if self.isRootInitialize{
+            
             AppDelegate.fetchAppVersionInfoToServer()
         }
         

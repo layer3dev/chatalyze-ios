@@ -16,7 +16,7 @@ class CanvasContainer: ExtendedView {
     
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var trailingConstraint:NSLayoutConstraint?
-    
+
     
     /*
     // Only override draw() if you perform custom drawing.
