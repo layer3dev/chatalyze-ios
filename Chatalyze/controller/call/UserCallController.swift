@@ -109,7 +109,6 @@ class UserCallController: VideoCallController {
     
     func processDefaultSignature(){
         
-        
         // Log.echo(key: "yudi", text: " CallSchedule id is \(self.myLiveUnMergedSlot?.callscheduleId)")
         
         guard let id = self.myLiveUnMergedSlot?.id else{
