@@ -12,7 +12,15 @@ import UIKit
 
 class HostVideoRootView: VideoRootView {
     
+    @IBOutlet var canvasContainer : CanvasContainer?
+
     @IBOutlet var callInfoContainer : HostCallInfoContainerView?
+    
+    var canvas : AutographyCanvas?{
+        get{
+            return canvasContainer?.canvas
+        }
+    }
     
     /*
     // Only override draw() if you perform custom drawing.

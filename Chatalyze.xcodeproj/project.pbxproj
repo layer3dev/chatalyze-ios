@@ -972,6 +972,14 @@
 		6B99FD3A213786DC000A0421 /* SessionDoneControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */; };
 		6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */; };
 		6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */; };
+		781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
+		781800B32302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
+		781800B62302DCC6004339D3 /* AutographyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B52302DCC6004339D3 /* AutographyImageView.swift */; };
+		781800B72302DCC6004339D3 /* AutographyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B52302DCC6004339D3 /* AutographyImageView.swift */; };
+		781800B92302DD32004339D3 /* AutographyImageViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */; };
+		781800BA2302DD32004339D3 /* AutographyImageViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */; };
+		781800BC2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800BB2302DE10004339D3 /* AutographyCanvasProtocol.swift */; };
+		781800BD2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800BB2302DE10004339D3 /* AutographyCanvasProtocol.swift */; };
 		7823DE7522F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */; };
 		7823DE7622F968A4003AF13D /* DefaultTimerForSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */; };
 		786F578822D5DD6F00F3F54B /* FSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786F578722D5DD6F00F3F54B /* FSWrapper.swift */; };
@@ -1696,6 +1704,10 @@
 		6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneControllerProtocol.swift; sourceTree = "<group>"; };
 		6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionRootView.swift; sourceTree = "<group>"; };
 		6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionController.swift; sourceTree = "<group>"; };
+		781800B12302CE20004339D3 /* AutographyHostCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyHostCanvas.swift; sourceTree = "<group>"; };
+		781800B52302DCC6004339D3 /* AutographyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageView.swift; sourceTree = "<group>"; };
+		781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageViewProtocol.swift; sourceTree = "<group>"; };
+		781800BB2302DE10004339D3 /* AutographyCanvasProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyCanvasProtocol.swift; sourceTree = "<group>"; };
 		7823DE7422F968A4003AF13D /* DefaultTimerForSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTimerForSignature.swift; sourceTree = "<group>"; };
 		786F578722D5DD6F00F3F54B /* FSWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSWrapper.swift; sourceTree = "<group>"; };
 		787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyForSignatureImplementation.swift; sourceTree = "<group>"; };
@@ -4022,6 +4034,24 @@
 			path = PlanInfo;
 			sourceTree = "<group>";
 		};
+		781800B02302CDDB004339D3 /* autographyHostCanvas */ = {
+			isa = PBXGroup;
+			children = (
+				781800B12302CE20004339D3 /* AutographyHostCanvas.swift */,
+			);
+			path = autographyHostCanvas;
+			sourceTree = "<group>";
+		};
+		781800B42302DCAE004339D3 /* AutographyImage */ = {
+			isa = PBXGroup;
+			children = (
+				781800B52302DCC6004339D3 /* AutographyImageView.swift */,
+				781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */,
+				781800BB2302DE10004339D3 /* AutographyCanvasProtocol.swift */,
+			);
+			path = AutographyImage;
+			sourceTree = "<group>";
+		};
 		7823DE7322F9685C003AF13D /* call */ = {
 			isa = PBXGroup;
 			children = (
@@ -4384,6 +4414,7 @@
 		FA3FAA092076044B00CC4AF8 /* autograph */ = {
 			isa = PBXGroup;
 			children = (
+				781800B02302CDDB004339D3 /* autographyHostCanvas */,
 				FAD2018020761C7A0004E10E /* autographyCanvas */,
 				FA3FAA0A2076044B00CC4AF8 /* request_autograph */,
 			);
@@ -5053,6 +5084,7 @@
 				4782822B2184366900A003F4 /* InternetAvailability */,
 				47C3891922AE88DD00A46A5E /* VerifyForEarlyCall */,
 				786F578622D5DD3600F3F54B /* FSWrappper */,
+				781800B42302DCAE004339D3 /* AutographyImage */,
 				7823DE7322F9685C003AF13D /* call */,
 			);
 			path = helper;
@@ -6217,6 +6249,7 @@
 				47BF0B9D22AA664B00648C41 /* AnalystPaymentInfo.swift in Sources */,
 				47D0B09221A6C4B5006376A8 /* PaymentHistoryProcessor.swift in Sources */,
 				47D0B09321A6C4B5006376A8 /* UIWindow.swift in Sources */,
+				781800BD2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */,
 				47011DF32267428E007394B6 /* ScheduleSessionSinglePageDoneController.swift in Sources */,
 				47D0B09421A6C4B5006376A8 /* SoundMeterButton.swift in Sources */,
 				47D0B09521A6C4B5006376A8 /* ExtendedLabel.swift in Sources */,
@@ -6437,6 +6470,7 @@
 				47D0B12A21A6C4B5006376A8 /* HostHomeController.swift in Sources */,
 				47D0B12B21A6C4B5006376A8 /* GoogleSignIn.swift in Sources */,
 				FA765FFF21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */,
+				781800B32302CE20004339D3 /* AutographyHostCanvas.swift in Sources */,
 				FA128697221835BF000A6560 /* DonateActionButtonView.swift in Sources */,
 				47D0B12C21A6C4B5006376A8 /* SyncTimer.swift in Sources */,
 				47D0B12D21A6C4B5006376A8 /* EventPaymentProcessor.swift in Sources */,
@@ -6463,6 +6497,7 @@
 				47D0B13B21A6C4B5006376A8 /* MyTicketsRootView.swift in Sources */,
 				479F16892202F7D1007B08FC /* ScheduleSessionNewEarningController.swift in Sources */,
 				47BAEDAD220066390042588A /* ScheduleSessionNewDateController.swift in Sources */,
+				781800BA2302DD32004339D3 /* AutographyImageViewProtocol.swift in Sources */,
 				473BA9EE21BAA8D100761EFC /* UpdateAlertController.swift in Sources */,
 				477A942421E3294C00517F3E /* ShareLinkShadow.swift in Sources */,
 				47D0B13C21A6C4B5006376A8 /* ContainerController.swift in Sources */,
@@ -6493,6 +6528,7 @@
 				47D7CC0F21BE85CE00CAFCF1 /* DeprecationAlertController.swift in Sources */,
 				47D0B14D21A6C4B5006376A8 /* ARDJoinResponse.m in Sources */,
 				47D0B14E21A6C4B5006376A8 /* RTCSingletonStream.m in Sources */,
+				781800B72302DCC6004339D3 /* AutographyImageView.swift in Sources */,
 				47D0B14F21A6C4B5006376A8 /* RequestAutograph.swift in Sources */,
 				47D0B15021A6C4B5006376A8 /* EventScheduleInfo.swift in Sources */,
 				FAF44C0E221C27930044D47B /* DonateCompleteTransaction.swift in Sources */,
@@ -6775,6 +6811,7 @@
 				47BF0B9C22AA664B00648C41 /* AnalystPaymentInfo.swift in Sources */,
 				FAA001A5203ED472003C8A74 /* UIWindow.swift in Sources */,
 				47AE2ACD2178BDF000DC82A3 /* SoundMeterButton.swift in Sources */,
+				781800BC2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */,
 				47011DF22267428E007394B6 /* ScheduleSessionSinglePageDoneController.swift in Sources */,
 				FAD9CD982063B54B00A177AC /* ExtendedLabel.swift in Sources */,
 				473D059A2112D38500E121C4 /* UpdateEventListener.swift in Sources */,
@@ -6995,6 +7032,7 @@
 				47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */,
 				FA128696221835BF000A6560 /* DonateActionButtonView.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
+				781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */,
 				FA765FFE21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */,
 				47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */,
 				47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */,
@@ -7021,6 +7059,7 @@
 				47B6524520AAB0000041496C /* ContainerController.swift in Sources */,
 				479F16882202F7D1007B08FC /* ScheduleSessionNewEarningController.swift in Sources */,
 				47BAEDAC220066390042588A /* ScheduleSessionNewDateController.swift in Sources */,
+				781800B92302DD32004339D3 /* AutographyImageViewProtocol.swift in Sources */,
 				473BA9ED21BAA8C700761EFC /* UpdateAlertController.swift in Sources */,
 				FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */,
 				FAE865C82068CAEF006F06B3 /* UserSocket.swift in Sources */,
@@ -7051,6 +7090,7 @@
 				FA34EDA8208E1ABE0072D8F8 /* RTCSingletonStream.m in Sources */,
 				FAD2017D207611F90004E10E /* RequestAutograph.swift in Sources */,
 				FA15C57D206B6B6C009FA707 /* EventScheduleInfo.swift in Sources */,
+				781800B62302DCC6004339D3 /* AutographyImageView.swift in Sources */,
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FAF44C0D221C27930044D47B /* DonateCompleteTransaction.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,

@@ -1217,3 +1217,14 @@ extension HostCallController{
         return totalSlots
     }
 }
+
+
+
+extension HostCallController{
+    
+    @IBAction func showCanvas(){
+        
+        self.hostRootView?.canvasContainer?.show()
+        self.hostRootView?.canvas?.image = UIImage(named: "hostPageFive")
+    }
+}

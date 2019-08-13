@@ -67,8 +67,6 @@ class UserCallController: VideoCallController {
         return false
     }
     
-    
-    
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
         
@@ -154,7 +152,7 @@ class UserCallController: VideoCallController {
         
         VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs,isRequested) in
           
-            Log.echo(key: "yudi", text: "Response of th VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
+            Log.echo(key: "yudi", text: "Response of the VerifyForSignatureImplementation for success is \(success) and for the isSignedResponse is \(isSignedResponseIs)")
             
             if !success{
                 return
@@ -167,7 +165,7 @@ class UserCallController: VideoCallController {
             if isRequested{
                 
                 Log.echo(key: "yudi", text: "I am also requesting the requested file")
-                
+
                 self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
                 return
             }
