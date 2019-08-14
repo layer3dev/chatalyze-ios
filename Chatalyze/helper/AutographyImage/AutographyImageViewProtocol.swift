@@ -13,12 +13,7 @@ protocol AutographyImageViewProtocol {
     
     func touchesBeganAutography(_ touches: Set<UITouch>, with event: UIEvent?)
     
-    
-    
-    
     func touchesMovedAutography(_ touches: Set<UITouch>, with event: UIEvent?)
-    
-    
-    
+        
     func touchesEndedAutography(_ touches: Set<UITouch>, with event: UIEvent?)
 }

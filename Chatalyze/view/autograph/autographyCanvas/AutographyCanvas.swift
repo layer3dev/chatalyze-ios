@@ -14,7 +14,7 @@ class AutographyCanvas: ExtendedView {
     @IBOutlet var mainImageView : AspectImageView?
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
-
+    
     static let kPointMinDistance : Double = 0.1
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;    
     var currentPoint = CGPoint.zero
@@ -73,8 +73,8 @@ class AutographyCanvas: ExtendedView {
             
             let size = viewUnwrapped.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
             
-            var frame = self.frame;
-            frame.size = size;
+            var frame = self.frame
+            frame.size = size
             
             self.frame = frame
             self.addSubview(viewUnwrapped)
@@ -383,6 +383,7 @@ extension AutographyCanvas{
         return image
     }
 }
+
 
 
 extension AutographyCanvas{

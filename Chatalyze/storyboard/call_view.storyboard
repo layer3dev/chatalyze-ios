@@ -2773,10 +2773,10 @@
                                     <outlet property="selfieTimeLbl" destination="7ZF-N6-7iC" id="BBt-u0-WTi"/>
                                 </connections>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasHostContainer" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="320" height="0.0"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyCanvas" customModule="Chatalyze" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyHostCanvas" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -2790,11 +2790,9 @@
                                     <constraint firstItem="Js8-Rg-4Rf" firstAttribute="leading" secondItem="9w1-Mh-Zlh" secondAttribute="leading" id="t8l-17-Cp6"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="28d-fX-FX4"/>
-                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="eU3-i5-4Mz"/>
-                                    <outlet property="canvasProportionalHeightConstraint" destination="H8e-WA-CiI" id="zuS-jK-See"/>
-                                    <outlet property="topConstraint" destination="3V3-Lx-G3u" id="w1r-KZ-DMX"/>
-                                    <outlet property="trailingConstraint" destination="NV6-w6-Tg7" id="w7B-C8-Ejq"/>
+                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="fIb-sL-DZZ"/>
+                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="0Dr-P1-klD"/>
+                                    <outlet property="canvasProportionalHeightConstraint" destination="TEl-Sb-ESL" id="etK-8L-PYj"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-yE-t4X" customClass="HostVideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
@@ -2951,10 +2949,10 @@
                             <constraint firstAttribute="trailing" secondItem="2jc-qd-pdu" secondAttribute="trailing" id="IKJ-i2-usp"/>
                             <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="bXp-R4-gA0" secondAttribute="bottom" id="JOd-lS-pyY"/>
                             <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="W51-oe-Gfn" secondAttribute="bottom" id="JrL-q0-elV" userLabel="local_bottom"/>
-                            <constraint firstItem="9w1-Mh-Zlh" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="Kmd-wJ-WnX"/>
+                            <constraint firstItem="9w1-Mh-Zlh" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" constant="20" id="Kmd-wJ-WnX"/>
                             <constraint firstAttribute="trailing" secondItem="enf-5c-RI5" secondAttribute="trailing" id="MYi-I6-6e4"/>
                             <constraint firstItem="FTR-Nd-IVU" firstAttribute="leading" secondItem="983-al-Eik" secondAttribute="leading" id="SG0-ck-9QJ"/>
-                            <constraint firstItem="9w1-Mh-Zlh" firstAttribute="height" secondItem="983-al-Eik" secondAttribute="height" priority="750" id="TEl-Sb-ESL"/>
+                            <constraint firstItem="9w1-Mh-Zlh" firstAttribute="height" secondItem="983-al-Eik" secondAttribute="height" priority="1" id="TEl-Sb-ESL"/>
                             <constraint firstItem="JbJ-ae-ETD" firstAttribute="centerX" secondItem="983-al-Eik" secondAttribute="centerX" id="TSx-v6-mDs"/>
                             <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="FTR-Nd-IVU" secondAttribute="bottom" id="Wow-A9-FLj"/>
                             <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="2jc-qd-pdu" secondAttribute="bottom" id="YTQ-vc-NOd"/>
@@ -3001,7 +2999,7 @@
                         <connections>
                             <outlet property="actionContainer" destination="zxZ-yE-t4X" id="ghB-7q-EUU"/>
                             <outlet property="callInfoContainer" destination="6Fl-xY-kV3" id="g2d-rj-Dh3"/>
-                            <outlet property="canvasContainer" destination="9w1-Mh-Zlh" id="xc5-RZ-adR"/>
+                            <outlet property="canvasContainer" destination="9w1-Mh-Zlh" id="9BV-vP-mae"/>
                             <outlet property="headerTopConstraint" destination="RPS-QO-NPQ" id="E9P-bB-xNy"/>
                             <outlet property="headerView" destination="xOq-gm-0If" id="qQn-GG-3mu"/>
                             <outlet property="localVideoView" destination="W51-oe-Gfn" id="qFj-2w-MSL"/>

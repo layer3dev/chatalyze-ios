@@ -9,15 +9,18 @@
 import UIKit
 
 class AutographyHostCanvas: ExtendedView {
-    
+
     var getBeginPoint = false
     //var getEndPoint = true
     
     @IBOutlet var blurEffectView: UIView?
-    @IBOutlet var tempImageView : AspectImageView?
+    @IBOutlet var tempImageView : AspectHostImageView?
     @IBOutlet var mainImageView : AutographyImageView?
     
     @IBOutlet var screenShotAlertView: UIView?
+    
+    private var socketClient : SocketClient?
+    private var socketListener : SocketListener?
     
     //static let kPointMinDistance : Double = 2.0;
     static let kPointMinDistance : Double = 0.1;
@@ -25,7 +28,7 @@ class AutographyHostCanvas: ExtendedView {
     var currentPoint = CGPoint.zero
     var previousPoint = CGPoint.zero
     var previousPreviousPoint = CGPoint.zero
-    fileprivate var _isEnabled = false
+    fileprivate var _isEnabled = true
     var _image : UIImage?
     
     var red: CGFloat = 0.0
@@ -38,7 +41,7 @@ class AutographyHostCanvas: ExtendedView {
     var swiped = false
     var delegate : AutographyCanvasProtocol?
     var containerView : UIView?
-    var isAllowedHand = false
+    var isAllowedHand = true
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -60,11 +63,11 @@ class AutographyHostCanvas: ExtendedView {
     
     fileprivate func commonInit(){
         
-        let viewList  = Bundle.main.loadNibNamed("AutographyCanvas", owner: self, options: nil)
+        let viewList  = Bundle.main.loadNibNamed("AutographyHostCanvas", owner: self, options: nil)
         
         let view  = viewList?.first as? UIView
         
-        if let viewUnwrapped = view{
+        if let viewUnwrapped = view {
             
             containerView = viewUnwrapped
             viewUnwrapped.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +97,8 @@ class AutographyHostCanvas: ExtendedView {
     fileprivate func initialization()
     {
         paintInterface()
+        socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
     }
     
     fileprivate func paintInterface(){
@@ -356,6 +361,18 @@ class AutographyHostCanvas: ExtendedView {
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
         return subView.frame.contains(point);
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        Log.echo(key: "yud", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
+        
+        self.mainImageView?.frame = self.frame
+        self.tempImageView?.frame = self.frame
+        
+        self.mainImageView?.updateFrames()
+        self.tempImageView?.updateFrames()
     }
 }
 

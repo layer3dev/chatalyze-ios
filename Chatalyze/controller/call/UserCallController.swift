@@ -20,8 +20,7 @@ class UserCallController: VideoCallController {
     
     var localSlotIdToManageAutograph:Int? = nil
     var localScreenShotAssociatedCallBookingId:Int? = nil
-    
-    
+
     var memoryImage:UIImage?
     let scheduleUpdateListener = ScheduleUpdateListener()
 
@@ -45,7 +44,7 @@ class UserCallController: VideoCallController {
     override var roomType : UserInfo.roleType{
         return .user
     }
-    
+
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
@@ -103,8 +102,7 @@ class UserCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
     }
-    
-    
+
     func processDefaultSignature(){
         
         // Log.echo(key: "yudi", text: " CallSchedule id is \(self.myLiveUnMergedSlot?.callscheduleId)")

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AutographyImageView: AspectImageView {
+class AutographyImageView: AspectHostImageView {
     
     var delegate : AutographyImageViewProtocol?
     
@@ -25,7 +25,5 @@ class AutographyImageView: AspectImageView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.touchesEndedAutography(touches, with: event)
     }
-    
-    
     
 }

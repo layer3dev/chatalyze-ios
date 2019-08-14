@@ -12,11 +12,11 @@ import UIKit
 
 class HostVideoRootView: VideoRootView {
     
-    @IBOutlet var canvasContainer : CanvasContainer?
+    @IBOutlet var canvasContainer : CanvasHostContainer?
 
     @IBOutlet var callInfoContainer : HostCallInfoContainerView?
     
-    var canvas : AutographyCanvas?{
+    var canvas : AutographyHostCanvas?{
         get{
             return canvasContainer?.canvas
         }
@@ -29,6 +29,13 @@ class HostVideoRootView: VideoRootView {
         // Drawing code
     }
     */
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        canvasContainer?.delegate = self
+    }
+    
     
     override func animateHeader() {
         
