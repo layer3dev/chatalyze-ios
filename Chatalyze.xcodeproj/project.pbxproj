@@ -994,6 +994,12 @@
 		78CA8DC32303ECD400583616 /* AutographyHostCanvas.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7825D7142303D136007D0423 /* AutographyHostCanvas.xib */; };
 		78CA8DC82304107B00583616 /* AspectHostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CA8DC72304107B00583616 /* AspectHostImageView.swift */; };
 		78CA8DC92304107B00583616 /* AspectHostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CA8DC72304107B00583616 /* AspectHostImageView.swift */; };
+		78DF78ED2307CE00007B2663 /* AutographInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78EC2307CE00007B2663 /* AutographInfo.swift */; };
+		78DF78EE2307CE00007B2663 /* AutographInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78EC2307CE00007B2663 /* AutographInfo.swift */; };
+		78DF78F02307CE93007B2663 /* AutographUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78EF2307CE93007B2663 /* AutographUserInfo.swift */; };
+		78DF78F12307CE93007B2663 /* AutographUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78EF2307CE93007B2663 /* AutographUserInfo.swift */; };
+		78DF78F42307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
+		78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
@@ -1721,6 +1727,9 @@
 		787003C222F9A98A00023297 /* VerifyForSignatureImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyForSignatureImplementation.swift; sourceTree = "<group>"; };
 		787BB9C422F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStreamChangeProtocol.swift; sourceTree = "<group>"; };
 		78CA8DC72304107B00583616 /* AspectHostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectHostImageView.swift; sourceTree = "<group>"; };
+		78DF78EC2307CE00007B2663 /* AutographInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographInfo.swift; sourceTree = "<group>"; };
+		78DF78EF2307CE93007B2663 /* AutographUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographUserInfo.swift; sourceTree = "<group>"; };
+		78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyFetchInfo.swift; sourceTree = "<group>"; };
 		7CE9691CEF618E3CE0EE048B /* Pods_ChatalyzeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9069B97B4FBA35DA28C9DD26 /* Pods_ChatalyzeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatalyzeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4086,6 +4095,23 @@
 			path = VerifyForSignatureImplementation;
 			sourceTree = "<group>";
 		};
+		78DF78EB2307CDEF007B2663 /* AutographInfo */ = {
+			isa = PBXGroup;
+			children = (
+				78DF78EC2307CE00007B2663 /* AutographInfo.swift */,
+				78DF78EF2307CE93007B2663 /* AutographUserInfo.swift */,
+			);
+			path = AutographInfo;
+			sourceTree = "<group>";
+		};
+		78DF78F22307D07E007B2663 /* AutographyInfoFetch */ = {
+			isa = PBXGroup;
+			children = (
+				78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */,
+			);
+			path = AutographyInfoFetch;
+			sourceTree = "<group>";
+		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -4373,6 +4399,7 @@
 				47121065221E8A2F009F3A09 /* HostCategoryList */,
 				47FFCB1B223FAE3600B23049 /* PlanInfo */,
 				47A47DF822A69385008C942D /* BillingInfo */,
+				78DF78EB2307CDEF007B2663 /* AutographInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4761,6 +4788,7 @@
 		FA85D3B62045B82700E7815A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				78DF78F22307D07E007B2663 /* AutographyInfoFetch */,
 				FA1286772217F187000A6560 /* inAppPurchase */,
 				FAB71CE320776BF500C24246 /* event */,
 				FA74B14C2063A04C00983141 /* socket */,
@@ -6197,6 +6225,7 @@
 				47D0B06421A6C4B5006376A8 /* EventTimeProtocol.swift in Sources */,
 				47D0B06521A6C4B5006376A8 /* PlaceholderTextView.swift in Sources */,
 				4730A371228D767A00241831 /* MemoryAnimationView.swift in Sources */,
+				78DF78EE2307CE00007B2663 /* AutographInfo.swift in Sources */,
 				47D0B06621A6C4B5006376A8 /* DevFlag.swift in Sources */,
 				47D0B06721A6C4B5006376A8 /* HangupController.swift in Sources */,
 				47D0B06821A6C4B5006376A8 /* VideoCallController.swift in Sources */,
@@ -6237,6 +6266,7 @@
 				FAA8C5AD221843DB00E9937B /* DonationSuccessController.swift in Sources */,
 				47D0B08021A6C4B5006376A8 /* SystemTestController.swift in Sources */,
 				FAA8C5B3221859D400E9937B /* ApplicationConfirmForeground.swift in Sources */,
+				78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */,
 				47D0B08121A6C4B5006376A8 /* ExtendedImageView.swift in Sources */,
 				47D0B08221A6C4B5006376A8 /* ImageCropper.swift in Sources */,
 				47D0B08321A6C4B5006376A8 /* MyTicketesVerticalAdapter.swift in Sources */,
@@ -6394,6 +6424,7 @@
 				47D0B0EE21A6C4B5006376A8 /* EditProfileController.swift in Sources */,
 				47B586D522B1196900D3ECEB /* InformForBreakSelectionInterface.swift in Sources */,
 				4781442822044E36005398F8 /* ScheduleSessionNewReviewController.swift in Sources */,
+				78DF78F12307CE93007B2663 /* AutographUserInfo.swift in Sources */,
 				47FFAF5021F0B2AE00D3B54D /* HostWelcomeAnimationController.swift in Sources */,
 				47D0B0EF21A6C4B5006376A8 /* PageScrollerController.swift in Sources */,
 				47D0B0F021A6C4B5006376A8 /* ARDSignalingMessage.m in Sources */,
@@ -6761,6 +6792,7 @@
 				FAE9EF7B206CE93700C45F8D /* EventTimeProtocol.swift in Sources */,
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
 				4730A370228D767A00241831 /* MemoryAnimationView.swift in Sources */,
+				78DF78ED2307CE00007B2663 /* AutographInfo.swift in Sources */,
 				47FD6912217DE483001886A6 /* HangupController.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
@@ -6801,6 +6833,7 @@
 				FAA8C5B2221859D400E9937B /* ApplicationConfirmForeground.swift in Sources */,
 				FAA001AC203ED472003C8A74 /* ExtendedImageView.swift in Sources */,
 				471CC8682161E85700DB5E8C /* ImageCropper.swift in Sources */,
+				78DF78F42307D09D007B2663 /* AutographyFetchInfo.swift in Sources */,
 				471CC8752162463C00DB5E8C /* MyTicketesVerticalAdapter.swift in Sources */,
 				47EF659020C94EE3000D9BC3 /* CameraTestController.swift in Sources */,
 				FAC7F229221EAAFB0044E278 /* DetachedTransactionHandler.swift in Sources */,
@@ -6958,6 +6991,7 @@
 				470EEC102166201800DB705D /* PageScrollerController.swift in Sources */,
 				47B586D422B1196800D3ECEB /* InformForBreakSelectionInterface.swift in Sources */,
 				4781442722044E36005398F8 /* ScheduleSessionNewReviewController.swift in Sources */,
+				78DF78F02307CE93007B2663 /* AutographUserInfo.swift in Sources */,
 				47FFAF4F21F0B2AE00D3B54D /* HostWelcomeAnimationController.swift in Sources */,
 				FA74B13320639B6400983141 /* ARDSignalingMessage.m in Sources */,
 				4718425920C538DB00C6FFD5 /* PaymentSuccessInfo.swift in Sources */,
@@ -7262,7 +7296,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7279,7 +7313,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7300,7 +7334,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7317,7 +7351,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";

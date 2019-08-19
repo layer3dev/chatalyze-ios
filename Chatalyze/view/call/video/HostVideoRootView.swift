@@ -13,7 +13,6 @@ import UIKit
 class HostVideoRootView: VideoRootView {
     
     @IBOutlet var canvasContainer : CanvasHostContainer?
-
     @IBOutlet var callInfoContainer : HostCallInfoContainerView?
     
     var canvas : AutographyHostCanvas?{
@@ -33,7 +32,7 @@ class HostVideoRootView: VideoRootView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        canvasContainer?.delegate = self
+       // canvasContainer?.delegate = self
     }
     
     

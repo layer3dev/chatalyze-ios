@@ -54,6 +54,7 @@ class SocketClient : NSObject{
     }
     
     fileprivate func initialization(){
+        
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -63,7 +64,6 @@ class SocketClient : NSObject{
     fileprivate func initializeVariable(){
         
         Log.echo(key: "timestamp", text:"initializeVariable WebSocket")
-        
         guard let url = URL(string: AppConnectionConfig.socketURL)
             else{
                 return
@@ -239,9 +239,7 @@ extension SocketClient{
         
         let info = param.JSONDescription()
         Log.echo(key: "timestamp", text: "info => " + info)
-    
-
-        directEmit(param)
+            directEmit(param)
     }
     
     
@@ -313,19 +311,17 @@ extension SocketClient{
     
     fileprivate func handleEventResponse(json : JSON?){
         
-        Log.echo(key: "handshake", text: "Respond json is \(json)")
+        Log.echo(key: "handshake", text: "Response json is \(String(describing: json))")
         
         guard let json = json
             else{
                 return
         }
-        
         let responseAction = json["id"].stringValue
         var data = json["data"]
         if(data.dictionary == nil && data.array == nil){
             data = json
         }
-        
         updateForEvent(action: responseAction, data: data)
         return
         
@@ -348,6 +344,7 @@ extension SocketClient{
     
     //supports both Swift and Objective C
     @objc func emit(id : String?, data : [String : Any]?){
+        
         var params = [String : Any]()
         params["id"] = id
         params["data"] = data
@@ -390,7 +387,6 @@ extension SocketClient{
         }
         
         selfListener?.confirmConnect { (success) in
-            
             self.socket?.write(string: jsonString)
         }
     }

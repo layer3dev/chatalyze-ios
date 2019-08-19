@@ -167,7 +167,6 @@ extension UserSocket{
         guard let userInfo = SignedUserInfo.sharedInstance
             else{
                 Log.echo(key: "user_socket", text:"oh my God I am going back")
-
                 return
         }
         var param = [String : Any]()
@@ -200,7 +199,6 @@ extension UserSocket{
         socket = nil
         socketManager = nil
         UserSocket._sharedInstance = nil
-
         unregisterForAppState()
     }
     

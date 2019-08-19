@@ -10,6 +10,8 @@ import UIKit
 
 class AutographyHostCanvas: ExtendedView {
 
+    var autoGraphInfo:AutographInfo?
+    var counter = 0
     var getBeginPoint = false
     //var getEndPoint = true
     
@@ -23,7 +25,7 @@ class AutographyHostCanvas: ExtendedView {
     private var socketListener : SocketListener?
     
     //static let kPointMinDistance : Double = 2.0;
-    static let kPointMinDistance : Double = 0.1;
+    static let kPointMinDistance : Double = 0.1
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;
     var currentPoint = CGPoint.zero
     var previousPoint = CGPoint.zero
@@ -160,7 +162,7 @@ class AutographyHostCanvas: ExtendedView {
         
         guard let touch = touches.first
             else{
-                return;
+                return
         }
         
         self.currentPoint = touch.location(in: mainImageView)
@@ -183,7 +185,8 @@ class AutographyHostCanvas: ExtendedView {
         //getEndPoint = false
         
         getBeginPoint = true
-        self.delegate?.touchesBegan(withPoint: currentPoint)
+        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+        self.touchesBegan(withPoint: currentPoint)
         //self.touchesMoved(touches, with: event)
     }
     
@@ -255,17 +258,17 @@ class AutographyHostCanvas: ExtendedView {
         let mainPoint = touch.location(in: self)
         if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
             let point = touch.location(in: mainImageView)
-            self.delegate?.touchesEnded(withPoint: point)
+            self.touchesEnded(withPoint: point)
             return
         }
         if getBeginPoint == false{
             let point = touch.location(in: mainImageView)
-            self.delegate?.touchesBegan(withPoint: point)
+            self.touchesBegan(withPoint: point)
             getBeginPoint = true
             return
         }
         let point = touch.location(in: mainImageView)
-        self.delegate?.touchesMoved(withPoint: point)
+        self.touchesMoved(withPoint: point)
         processMovedTouches(lastTouchPoint : lastTouchPoint, touches : touches, with: event)
         
     }
@@ -331,7 +334,7 @@ class AutographyHostCanvas: ExtendedView {
         getBeginPoint = false
         //getEndPoint = true
         let point = touch.location(in: mainImageView)
-        delegate?.touchesEnded(withPoint: point)
+        self.touchesEnded(withPoint: point)
     }
     
     private func processTouchEnded(_ touches: Set<UITouch>){
@@ -379,9 +382,11 @@ class AutographyHostCanvas: ExtendedView {
 extension AutographyHostCanvas{
     
     var image : UIImage?{
+        
         get{
             return mainImageView?.image
         }
+        
         set{
             tempImageView?.image = newValue
             mainImageView?.image = newValue
@@ -461,4 +466,75 @@ extension AutographyHostCanvas : AutographyImageViewProtocol{
     }
 }
 
+extension AutographyHostCanvas{
+    
+    fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
 
+        var params = [String : Any]()
+        
+        params["x"] = x
+        params["y"] = y
+        
+        params["isContinous"] = isContinous
+        params["counter"] = counter
+        params["pressure"] = 1
+        params["reset"] = reset
+        
+        //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
+        
+        params["StrokeWidth"] = 11.0
+        params["StrokeColor"] = self.color.hexString
+        params["Erase"] = false
+        params["reset"] = reset
+        
+        var mainParams  = [String : Any]()
+        mainParams["name"] = autoGraphInfo?.userHashedId
+        mainParams["id"] = "broadcastPoints"
+        mainParams["message"] = params
+        
+        counter = counter + 1;
+        socketClient?.emit(mainParams)
+    }
+}
+
+
+extension AutographyHostCanvas{
+    
+    func touchesBegan(withPoint point : CGPoint){
+        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+    }
+    
+    func touchesMoved(withPoint point : CGPoint){
+        broadcastCoordinate(withX: point.x, y: point.y, isContinous: true)
+    }
+    
+    func touchesEnded(withPoint point : CGPoint){
+        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+    }
+    
+    func initializeForGetSocketPing(){
+      
+//        case "screenshot":
+//        return .screenshotInfo
+//        case "":
+//        return .screenshotLoaded
+//        case "registerResponse":
+//        return .registerResponse
+//        case "updatePeerList":
+//        return .updatePeerList
+//        case "participantLeft":
+//        return .participantLeft
+        
+        
+        socketListener?.onEvent("screenshotLoaded") {data in
+         
+            Log.echo(key: "yud", text: "I got the screenshot loaded ping")
+            
+        }
+            
+            
+            
+        
+    }
+    
+}

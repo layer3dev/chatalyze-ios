@@ -25,14 +25,13 @@ class SocketListener : NSObject{
     private var socketClient : SocketRootProtocol?
     
     
-    
     init(identifier : Int, socketClient : SocketRootProtocol){
+      
         self.socketClient = socketClient
         self.identifier = identifier
         super.init()
         initialization()
     }
-    
     
     
     fileprivate func initialization(){
@@ -49,6 +48,7 @@ class SocketListener : NSObject{
     
     
     func confirmConnect(completion : ((_ success : Bool)->())?){
+     
         guard let socketClient = socketClient
             else{
                 completion?(false)
@@ -75,6 +75,7 @@ class SocketListener : NSObject{
     
     
     func updateAllForConnectionActive() {
+       
         guard let socketClient = socketClient
             else{
                 return
@@ -101,6 +102,7 @@ class SocketListener : NSObject{
     }
     
     @objc func onEventSupport(action : String, completion : @escaping (_ rawData : [String : Any]?)->()){
+       
         self.onEvent(action) { (json) in
             guard let data = json?.dictionaryObject
                 else{
@@ -122,6 +124,7 @@ class SocketListener : NSObject{
     }
     
     func newConnectionListener(completion : ((_ success : Bool)->())?){
+    
         guard let socketClient = socketClient
             else{
                 completion?(false)

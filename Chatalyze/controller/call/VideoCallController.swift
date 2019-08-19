@@ -404,7 +404,6 @@ class VideoCallController : InterfaceExtendedController {
                     return
             }
             
-            
             self?.updateToReadyState()
             
             self?.connectToRoom(info: info)
@@ -413,9 +412,7 @@ class VideoCallController : InterfaceExtendedController {
             self?.processEventInfo()
             
             Log.echo(key: "delay", text: "processed")
-            
-            
-            
+
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
             }
@@ -552,10 +549,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-    
-    
-    
-    
+        
     private func processUpdatePeerList(json : JSON?){
         
         guard let json = json

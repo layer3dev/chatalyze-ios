@@ -8,8 +8,12 @@
 
 import UIKit
 import SwiftyJSON
+import SDWebImage
+import Alamofire
 
 class HostCallController: VideoCallController {
+    
+    var autoGraphInfo:AutographInfo?
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference:EarlyViewController?
@@ -40,7 +44,7 @@ class HostCallController: VideoCallController {
         }
         return false
     }
-        
+    
     // Using in order to prevent to showing the message "Participant did not join session before the slot start."
     
     override var isSlotRunning : Bool {
@@ -103,13 +107,13 @@ class HostCallController: VideoCallController {
         if self.eventInfo?.isFree ?? false{
             return
         }
-      
+        
         guard let controller = HostFeedbackController.instance() else{
             return
         }
-      
+        
         controller.sessionId = self.eventId
-       
+        
         guard let presentingController =  self.lastPresentingController
             else{
                 return
@@ -172,7 +176,7 @@ class HostCallController: VideoCallController {
         }
         
         controller.isDisableHangup = isDisableHangup
-
+        
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         self.present(controller, animated: true, completion: {
@@ -238,6 +242,7 @@ class HostCallController: VideoCallController {
         self.registerForTimerNotification()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
+        self.registerForAutographSignatureCall()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -247,8 +252,6 @@ class HostCallController: VideoCallController {
         selfieTimerView?.reset()
         changeOrientationToPortrait()
     }
-    
-    
     
     private func registerForTimerNotification(){
         
@@ -305,7 +308,7 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
-      
+        
         verifyForEarlyFeature()
         triggerIntervalToChildConnections()
         processEvent()
@@ -319,7 +322,7 @@ class HostCallController: VideoCallController {
     }
     
     func verifyForEarlyFeature(){
-    
+        
         
         if self.eventInfo?.isLIVE ?? false == false {
             return
@@ -347,7 +350,7 @@ class HostCallController: VideoCallController {
         earlyControllerReference = controller
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
-
+            
             //Event's Registration is closed
             //Self.earlyControllerRefrence = nil
             self.makeRegistrationClose()
@@ -485,7 +488,7 @@ class HostCallController: VideoCallController {
             updateCallHeaderAfterEventStart()
             return
         }
-                
+        
         // Below code is responsible befor the event start.
         sessionHeaderLbl?.text = "Session starts in:"
         
@@ -503,7 +506,7 @@ class HostCallController: VideoCallController {
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         
         //Editing  for the current Chat
-
+        
         let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
@@ -566,7 +569,7 @@ class HostCallController: VideoCallController {
         }
         
         if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
-           
+            
             //this will execute only if we do not have the future tickets and current slot is not the break slot.
             updateCallHeaderForEmptySlot()
             return
@@ -586,14 +589,14 @@ class HostCallController: VideoCallController {
         
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
-              
+                
                 hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
             }else{
-              
+                
                 hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
             }
         }else{
-           
+            
             hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
@@ -601,7 +604,7 @@ class HostCallController: VideoCallController {
         //updateNewHeaderInfoForSession(slot : slotInfo)
         
         if(slotInfo.isFuture){
-   
+            
             //when call is not running but we have the slot in the future
             updateTimeRamaingCallHeaderForUpcomingSlot()
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
@@ -658,7 +661,7 @@ class HostCallController: VideoCallController {
     }
     
     private func updateCallHeaderForBreakSlot(){
-      
+        
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
         
         hostRootView?.callInfoContainer?.slotUserName?.text = ""
@@ -721,7 +724,7 @@ class HostCallController: VideoCallController {
             let slotCountFormatted = "\(currentSlot + 1) of \(getTotalNUmberOfSlots())"
             hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
         }else{
-         
+            
             let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
             hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
         }
@@ -834,7 +837,7 @@ class HostCallController: VideoCallController {
     }
     
     private func disconnectStaleConnection(){
-    
+        
         for (key, connection) in connectionInfo {
             //remove connection if aborted
             if(connection.isReleased){
@@ -864,7 +867,7 @@ class HostCallController: VideoCallController {
         
         guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
             else{
-              
+                
                 //Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
                 return
         }
@@ -992,6 +995,7 @@ class HostCallController: VideoCallController {
         ActivateEvent().activate(eventId: eventIdString) {[weak self] (success, eventInfo) in
             
             //can't use eventInfo received from ActivateEvent because it lags slots information
+            
             self?.refreshInfo(eventInfo : info, completion: completion)
             
         }
@@ -1001,24 +1005,21 @@ class HostCallController: VideoCallController {
     private func refreshInfo(eventInfo : EventScheduleInfo, completion : @escaping ((_ success : Bool, _ info  : EventScheduleInfo?)->())){
         
         self.loadInfo(completion: { (success, info) in
+            
             if(!success){
                 completion(false, eventInfo)
                 return
             }
-            
             guard let updateInfo = info
                 else{
                     completion(false, eventInfo)
                     return
             }
-            
             completion(true, updateInfo)
-            
         })
     }
     
     var isCallStreaming: Bool{
-        
         return (self.getActiveConnection()?.isStreaming ?? false)
     }
     
@@ -1034,7 +1035,6 @@ class HostCallController: VideoCallController {
     }
     
     override func hitEventOnSegmentIO(){
-      
         SEGAnalytics.shared().track("Session Enter Host")
     }
     
@@ -1157,10 +1157,11 @@ extension HostCallController{
     func makeRegistrationClose(){
         
         Log.echo(key: "yud", text: "Registration is closing")
+        
         self.showLoader()
         CloseRegistration().close(eventId: self.eventId ?? "") { (success) in
             self.stopLoader()
-           
+            
             if success{
                 self.processExitAction(code : .earlyExit)                
                 return
@@ -1211,10 +1212,21 @@ extension HostCallController{
         guard let duration = self.eventInfo?.duration else{
             return 0
         }
-       
+        
         let totalSlots = Int(totalminutes/duration)
         
         return totalSlots
+    }
+}
+
+extension HostCallController{
+    
+    @IBAction func showCanvas(){
+        
+        self.submitAction()
+        
+        //        self.hostRootView?.canvasContainer?.show()
+        //        self.hostRootView?.canvas?.image = UIImage(named: "hostPageFive")
     }
 }
 
@@ -1222,9 +1234,237 @@ extension HostCallController{
 
 extension HostCallController{
     
-    @IBAction func showCanvas(){
+    func registerForAutographSignatureCall(){
         
-        self.hostRootView?.canvasContainer?.show()
-        self.hostRootView?.canvas?.image = UIImage(named: "hostPageFive")
+        UserSocket.sharedInstance?.socket?.on("notification") { data, ack in
+            
+            let rawInfosString = data.JSONDescription()
+            guard let data = rawInfosString.data(using: .utf8)
+                else{
+                    return
+            }
+            Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
+            var rawInfos:[JSON]?
+            do{
+                
+                rawInfos = try JSON(data : data).arrayValue
+            }catch{
+                
+            }
+            if((rawInfos?.count  ?? 0) <= 0){
+                return
+            }
+            let rawInfo = rawInfos?[0]
+            let info = NotificationInfo(info: rawInfo)
+            
+            if (info.metaInfo?.type == .signRequest)
+            {
+                
+                //                self.updateTabNotification(isPending: true)
+                //                self.playSound()
+                //                self.navigateToAutographyPage(screenshotId: info.metaInfo?.activityId)
+                
+                //Fetch Screenshot info
+                //info.metaInfo?.activityId
+                
+                
+                
+                Log.echo(key: "yud", text: "Signature is calling")
+                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
+            }
+        }
+    }
+    
+    
+    func fetchAutographInfo(screenShotId:String?){
+        
+        guard let id = screenShotId else{
+            return
+        }
+        
+        self.showLoader()
+        AutographyFetchInfo().fetchInfo(id: id) { (success, info) in
+            self.stopLoader()
+            
+            if(!success){
+                return
+            }
+            self.autoGraphInfo = info
+            self.hostRootView?.canvas?.autoGraphInfo = self.autoGraphInfo
+            self.downLoadScreenShotImage()
+            Log.echo(key: "yud", text: "Downloading the image \(String(describing: info)) with the url \(self.autoGraphInfo?.screenshot)")
+            
+            //Download image and send it to the canvas in order to set the image.
+            
+        }
+    }
+    
+    fileprivate func downLoadScreenShotImage(){
+
+        guard let info = self.autoGraphInfo else{
+            return
+        }
+        
+        guard let urlString = self.autoGraphInfo?.screenshot
+            else{
+                return
+        }
+        
+        self.showLoader()
+        SDWebImageDownloader().downloadImage(with: URL(string:urlString), options: SDWebImageDownloaderOptions.highPriority, progress: { (totalBytesSent, totalBytesExpectedToSend, url) in
+            
+            DispatchQueue.main.async(execute: {
+                
+                let uploadProgress:Float = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+                let progressPercent = Int(uploadProgress*100)
+                ///self.downloadLable?.text = "\(progressPercent) %"
+                print(progressPercent)
+            })
+            print("recieved Size is")
+            print(totalBytesSent)
+            print("Expected Size is")
+            print(totalBytesExpectedToSend)
+            
+        }) { (image, imageData, error, success) in
+            
+            DispatchQueue.main.async(execute: {
+                
+                Log.echo(key: "yud", text: "Image Down loading is successfull \(String(describing: info))")
+                
+                self.stopLoader()
+                if(image == nil){
+                    //oops something went wrong please try again
+                    return
+                }
+                self.hostRootView?.canvasContainer?.show()
+                self.hostRootView?.canvas?.image = image
+                self.sendScreenshotConfirmation(info)
+                
+                //                //self.canvas?.isEnabled = true
+                //                guard let mainImageBound = self.canvas?.mainImageView?.frame else{
+                //                    return
+                //                }
+                //                Log.echo(key: "yud", text: "Main Image Bound Is\(self.canvas?.mainImageView?.bounds)")
+                //                Log.echo(key: "yud", text: "Main Image Frame Is\(self.canvas?.mainImageView?.frame)")
+                //                Log.echo(key: "yud", text: "Main Canvas Frame Is\(self.canvas?.frame)")
+                //                Log.echo(key: "yud", text: "Main Canvas  Bound Is\(self.canvas?.frame)")
+                //
+                //                self.canvas?.blurEffectView?.frame = mainImageBound
+                //                self.canvas?.blurEffectView?.isHidden = false
+                //                self.canvas?.screenShotAlertView?.isHidden = false
+                //                //self.checkForParticipantLeft()
+                //                self.checkForCallEnd()
+                //                self.downloaderView?.isHidden = true
+                //Loader.hideLoader()
+            })
+        }
+    }
+    
+    private func sendScreenshotConfirmation(_ info : AutographInfo){
+        
+        self.view.layoutIfNeeded()
+        var params = [String : Any]()
+        let size = self.hostRootView?.canvasContainer?.canvas?.size ?? CGSize()
+        params["width"] = size.width
+        params["height"] = size.height
+        params["screenshot"] = info.dictValue()
+        
+        var mainParams  = [String : Any]()
+        mainParams["id"] = "startedSigning"
+        mainParams["name"] = info.userHashedId
+        mainParams["message"] = params
+        socketClient?.emit(mainParams)
+    }
+    
+    func stopSigning(){
+        
+        var mainParams  = [String : Any]()
+        mainParams["id"] = "stoppedSigning"
+        mainParams["name"] = self.autoGraphInfo?.userHashedId
+        socketClient?.emit(mainParams)
+    }
+    
+    @IBAction private func submitAction(){
+        
+        guard let image = self.hostRootView?.canvas?.getSnapshot()
+            else{
+                return
+        }
+        
+        self.hostRootView?.canvas?.image = image
+        // id,int userId,int analystId,boolean signed
+        
+        var params = [String : String]()
+        params["id"] = self.autoGraphInfo?.id ?? ""
+        params["userId"] = self.autoGraphInfo?.userId ?? ""
+        params["analystId"] = self.autoGraphInfo?.analystId ?? ""
+        params["signed"] = "true"
+        
+        Log.echo(key: "yud", text: "params are \(params) and image is nil = \(image == nil  ? true : false ) amnd the access token is \(String(describing: SignedUserInfo.sharedInstance?.accessToken))")
+        
+        let url = AppConnectionConfig.webServiceURL + "/screenshots"
+        
+        self.showLoader()
+        uploadImage(urlString: url, image: image, includeToken: false,params: params, progress: { (data) in
+            
+        }) { (success) in
+            
+            self.stopLoader()
+            self.hostRootView?.canvas?.image = nil
+            self.hostRootView?.canvasContainer?.hide()
+            self.stopSigning()
+            
+            if success{
+                Log.echo(key: "yud", text: "image is uploaded done")
+                return
+            }
+            Log.echo(key: "yud", text: "image uploading is unsuccessfull")
+        }
+    }
+    
+    
+    func uploadImage(urlString : String, image : UIImage, includeToken : Bool,  params : [String : String] = [String : String](), progress : @escaping (Double)->(), completion : @escaping (Bool)->()){
+        
+        Log.echo(key: "", text:"UploadImage --> urlString --> \(urlString)")
+        
+        guard let imageData = image.pngData()
+            else{
+                completion(false)
+                return
+        }
+        
+        Alamofire.upload(multipartFormData : { multipartFormData in
+            multipartFormData.append(imageData, withName: "file",
+                                     fileName: "blob", mimeType: "image/png")
+            for (key, value) in params {
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+            }
+        },
+                         usingThreshold : 0, to : urlString,
+                         method : .put,
+                         headers :  ["Authorization" : ("Bearer " + (SignedUserInfo.sharedInstance?.accessToken ?? ""))],
+                         encodingCompletion : { encodingResult in
+                            
+                            switch encodingResult {
+                            case .success(let upload, _, _):
+                                
+                                upload.uploadProgress(closure: { (progressInfo) in
+                                    DispatchQueue.main.async {
+                                        let percent =  progressInfo.fractionCompleted
+                                        progress(Double(percent))
+                                    }
+                                })
+                                
+                                upload.validate()
+                                upload.responseJSON { response in
+                                    Log.echo(key: "", text:"jsonResponse  => \(response)")
+                                    completion(true)
+                                }
+                            case .failure(let encodingError):
+                                Log.echo(key: "", text:encodingError)
+                                completion(false)
+                            }
+        })
     }
 }
+

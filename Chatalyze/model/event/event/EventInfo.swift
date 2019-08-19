@@ -52,7 +52,7 @@ class EventInfo: NSObject {
     var emptySlotsArray:[JSON]? = [JSON]()
     var isSponsorEnable = false
     var isAutographAllow:String?
-    
+    var callSchduleId:String?
     
     override init(){
         super.init()
