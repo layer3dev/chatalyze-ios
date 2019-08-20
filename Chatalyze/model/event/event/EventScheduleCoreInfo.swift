@@ -53,7 +53,8 @@ class EventScheduleCoreInfo: EventInfo {
         }
         
         for bookingInfo in bookingInfos {
-//            let slotInfo = SlotInfo(info: bookingInfo)
+
+            //let slotInfo = SlotInfo(info: bookingInfo)
             guard let slotInfo = SlotInfo.instance(info: bookingInfo)
                 else{
                     continue

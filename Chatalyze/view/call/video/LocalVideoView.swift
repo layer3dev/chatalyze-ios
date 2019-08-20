@@ -12,14 +12,13 @@ import UIKit
 //AVMakeRectWithAspectRatioInsideRect
 class LocalVideoView: VideoView {
     
-    @IBOutlet private var widthConstraint : NSLayoutConstraint?
-    @IBOutlet private var heightConstraint : NSLayoutConstraint?
+    @IBOutlet var widthConstraint : NSLayoutConstraint?
+    @IBOutlet var heightConstraint : NSLayoutConstraint?
     
-    @IBOutlet private var topConstraint : NSLayoutConstraint?
-    @IBOutlet private var bottomConstraint : NSLayoutConstraint?
-    
-    var isSignatureActive:Bool = false
+    @IBOutlet var topConstraint : NSLayoutConstraint?
+    @IBOutlet var bottomConstraint : NSLayoutConstraint?
 
+    var isSignatureActive:Bool = false
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -31,7 +30,7 @@ class LocalVideoView: VideoView {
 
     override func viewDidLayout() {
         super.viewDidLayout()
-       
+        
         initialization()
     }
     
@@ -40,7 +39,6 @@ class LocalVideoView: VideoView {
         self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.layer.masksToBounds = true
     }
-    
     
     private func initialization(){
         
@@ -54,18 +52,12 @@ class LocalVideoView: VideoView {
         updateLayoutRotation()
     }
     
-    func updateForSignature(){
-    }
-
-    func updateForCall(){
-    }
-    
     func updateLayoutRotation() {
         
         if(UIDevice.current.orientation.isFlat){
             return
         }
-        
+
         if (UIDevice.current.orientation.isLandscape) {
             updateForLandscape()
         } else {
@@ -73,14 +65,13 @@ class LocalVideoView: VideoView {
         }
     }
     
-    
     var isIPad : Bool{
         get{
             return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
         }
     }
-
-    private func updateForPortrait(){
+    
+    func updateForPortrait(){
         
         topConstraint?.isActive = true
         bottomConstraint?.isActive = false
@@ -97,7 +88,7 @@ class LocalVideoView: VideoView {
         return
     }
     
-    private func updateForLandscape(){
+    func updateForLandscape(){
        
         topConstraint?.isActive = false
         bottomConstraint?.isActive = true
@@ -113,4 +104,5 @@ class LocalVideoView: VideoView {
         widthConstraint?.constant = 128
         return
     }
+
 }

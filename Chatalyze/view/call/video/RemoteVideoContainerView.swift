@@ -12,12 +12,12 @@ class RemoteVideoContainerView: ExtendedView {
     
     @IBOutlet var remoteVideoView : RemoteVideoView?
     
-    //Constraints responsible when signsture is not initiated and it will be same in both the screen modes Portrait and Landscape.
+    //Constraints responsible when signature is not initiated and it will be same in both the screen modes Portrait and Landscape.
     
-    @IBOutlet private var leadingMain : NSLayoutConstraint?
-    @IBOutlet private var trailingMain : NSLayoutConstraint?
-    @IBOutlet private var topMain : NSLayoutConstraint?
-    @IBOutlet private var bottomMain : NSLayoutConstraint?
+    @IBOutlet  var leadingMain : NSLayoutConstraint?
+    @IBOutlet  var trailingMain : NSLayoutConstraint?
+    @IBOutlet  var topMain : NSLayoutConstraint?
+    @IBOutlet  var bottomMain : NSLayoutConstraint?
     
     //Constraints that handles the portrait on the Signature call
     
@@ -27,6 +27,7 @@ class RemoteVideoContainerView: ExtendedView {
     @IBOutlet var widthOfRemote:NSLayoutConstraint?
     @IBOutlet var heightOfRemote:NSLayoutConstraint?
 
+    
     // Constraint in the landscape mode for the
     @IBOutlet var trailingAlignedToLocalView:NSLayoutConstraint?
     @IBOutlet var verticalSpacingToLocalView:NSLayoutConstraint?
@@ -41,7 +42,7 @@ class RemoteVideoContainerView: ExtendedView {
         self.initialization()
         self.remoteVideoView?.streamUpdationDelegate = self
     }
-    
+
     func paintCorners(){
         
         self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
@@ -100,9 +101,7 @@ class RemoteVideoContainerView: ExtendedView {
     func updateForSignature(){
         
         Log.echo(key: "yud" ,text: "my orientation is \(UIDevice.current.orientation)")
-        
         self.paintCorners()
-        
         if UIDevice.current.orientation.isFlat{
             
             // Special case when app got the signature call and if app is neither in  the Landscape nor in the portrait mode. means in Flat position. In that case this will call.
@@ -110,7 +109,6 @@ class RemoteVideoContainerView: ExtendedView {
             // By default follows to the portrait method.
             
             Log.echo(key: "yud" ,text: "is Flat is Calling")
-            
             resetConstraints()
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
             topAlignedToLocalView?.isActive = true
@@ -134,15 +132,14 @@ class RemoteVideoContainerView: ExtendedView {
                 }else{
                     widthOfRemote?.constant = 224
                 }
-
             }
             return
         }
-        
         self.signatureScreenSetup()
     }
+        
     
-    private func signatureScreenSetup(){
+    func signatureScreenSetup(){
         
         self.paintCorners()
         if UIDevice.current.orientation.isLandscape {
@@ -157,14 +154,12 @@ class RemoteVideoContainerView: ExtendedView {
             self.trailingAlignedToLocalView?.isActive = true
             self.verticalSpacingToLocalView?.isActive = true
             
-            
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
                 if isStreamPortraitPosition{
             
                     heightOfRemote?.constant = 224
-                  //  widthOfRemote?.constant = 126
-                    
+                    //widthOfRemote?.constant = 126
                     widthOfRemote?.constant = 224
 
                 }else{
@@ -227,7 +222,6 @@ class RemoteVideoContainerView: ExtendedView {
             }
             return
         }
-        
         
 //        if UIDevice.current.orientation.isFlat{
 //
