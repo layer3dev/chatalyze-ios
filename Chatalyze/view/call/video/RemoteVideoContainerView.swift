@@ -26,13 +26,12 @@ class RemoteVideoContainerView: ExtendedView {
    
     @IBOutlet var widthOfRemote:NSLayoutConstraint?
     @IBOutlet var heightOfRemote:NSLayoutConstraint?
-
     
     // Constraint in the landscape mode for the
     @IBOutlet var trailingAlignedToLocalView:NSLayoutConstraint?
     @IBOutlet var verticalSpacingToLocalView:NSLayoutConstraint?
+        
     //Two constraints using the same as above equalWidthToLocal and equalHeightToLocal
-    
     var isSignatureActive:Bool = false
     var isStreamPortraitPosition:Bool = true
     
@@ -101,6 +100,9 @@ class RemoteVideoContainerView: ExtendedView {
     func updateForSignature(){
         
         Log.echo(key: "yud" ,text: "my orientation is \(UIDevice.current.orientation)")
+        
+        //This method is required to call during the first time initialization of the screen as the screenshot appears at this time handling flat position is also required to the handle.
+        
         self.paintCorners()
         if UIDevice.current.orientation.isFlat{
             

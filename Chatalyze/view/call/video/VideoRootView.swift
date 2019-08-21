@@ -16,9 +16,9 @@ class VideoRootView: ExtendedView {
     var delegateCutsom:VideoViewStatusBarAnimationInterface?
    
     @IBOutlet var actionContainer : VideoActionContainer?
-    @IBOutlet var localVideoView : LocalVideoView?
+    @IBOutlet var localVideoView : LocalHostVideoView?
     
-    @IBOutlet var remoteVideoContainerView :  RemoteVideoContainerView?
+    @IBOutlet var remoteVideoContainerView :  RemoteHostContainerView?
     
     var remoteVideoView : RemoteVideoView?{
         get{

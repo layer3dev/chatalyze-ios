@@ -632,7 +632,7 @@ class UserCallController: VideoCallController {
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
-            Log.echo(key: "yud", text: "sent time stamp data is \(data)")
+            Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
@@ -674,8 +674,8 @@ class UserCallController: VideoCallController {
                 backThread.async {
                     
                     self.encodeImageToBase64(image: image, completion: { (encodedData) in
-                        Log.echo(key: "yud", text: "encoded image is \(image)")
                         
+                        Log.echo(key: "yud", text: "encoded image is \(image)")
                         
                         DispatchQueue.main.async {
                             
@@ -1176,6 +1176,7 @@ extension UserCallController{
         //if current slot id is nil then return
         
         if self.myLiveUnMergedSlot?.id == nil {
+            
             Log.echo(key: "yud", text: "my unmerged slot is nil")
             self.resetCanvas()
             self.localScreenShotAssociatedCallBookingId = nil
@@ -1321,6 +1322,7 @@ extension UserCallController{
     }
     
     private func serviceRequestAutograph(info : ScreenshotInfo?){
+        
         
         self.showLoader()
         

@@ -17,7 +17,7 @@ class CanvasHostContainer: ExtendedView {
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var trailingConstraint:NSLayoutConstraint?
     var delegate:AutographyCanvasProtocol?
-    
+
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -114,7 +114,6 @@ class CanvasHostContainer: ExtendedView {
         super.layoutSubviews()
         
         Log.echo(key: "yud", text: "Canvas container height width is \(self.frame.size.width) and the canvas height is \(self.frame.size.height)")
-        
         
     }
 }

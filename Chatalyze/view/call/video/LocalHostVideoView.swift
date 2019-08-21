@@ -23,7 +23,6 @@ class LocalHostVideoView: LocalVideoView {
         updateLayoutRotation()
     }
     
-    
     override func updateLayoutRotation() {
         
         if(UIDevice.current.orientation.isFlat){
@@ -69,7 +68,6 @@ class LocalHostVideoView: LocalVideoView {
         topConstraint?.isActive = true
         bottomConstraint?.isActive = false
         userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
-
         
         if(isIPad){
             
@@ -119,6 +117,69 @@ class LocalHostVideoView: LocalVideoView {
         widthConstraint?.constant = 128
         return
     }
+    
+    func updateLayoutOnEndOfCall(){
+       
+        if UIDevice.current.orientation.isPortrait{
+            
+            resetConstraints()
+            topConstraint?.isActive = true
+            bottomConstraint?.isActive = false
+            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+            
+            if(isIPad){
+                
+                heightConstraint?.constant = 224
+                widthConstraint?.constant = 126
+                return
+            }
+            
+            heightConstraint?.constant = 112
+            widthConstraint?.constant = 63
+            return
+        }
+        if UIDevice.current.orientation.isLandscape{
+           
+            resetConstraints()
+            topConstraint?.isActive = false
+            bottomConstraint?.isActive = true
+            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+            
+            if(isIPad){
+                
+                heightConstraint?.constant = 126
+                widthConstraint?.constant = 224
+                return
+            }
+            
+            heightConstraint?.constant = 72
+            widthConstraint?.constant = 128
+            return
+        }
+        
+        if UIDevice.current.orientation.isFlat{
+            
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+
+            resetConstraints()
+            topConstraint?.isActive = true
+            bottomConstraint?.isActive = false
+            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+            
+            if(isIPad){
+                
+                heightConstraint?.constant = 224
+                widthConstraint?.constant = 126
+                return
+            }
+            
+            heightConstraint?.constant = 112
+            widthConstraint?.constant = 63
+            return
+        }
+        
+    }
+    
     
     func resetConstraints(){
         

@@ -136,6 +136,14 @@ class AutographyHostCanvas: ExtendedView {
         tempImageView?.image = _image
     }
     
+    func undo(){
+        
+        mainImageView?.image = _image
+        tempImageView?.image = _image
+        broadcastCoordinate(withX: 0, y: 0, isContinous: false,reset: true)
+    }
+    
+    
     fileprivate func allowTouch(touches:Set<UITouch>?)->Bool{
         if let touch = touches{
             if #available(iOS 9.1, *){

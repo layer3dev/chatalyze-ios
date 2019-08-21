@@ -13,6 +13,9 @@ import Alamofire
 
 class HostCallController: VideoCallController {
     
+    @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
+    
+    var localSlotIdToManageAutograph :Int? = nil
     var autoGraphInfo:AutographInfo?
     
     //In order to maintain the refrence for the Early Controller.
@@ -46,7 +49,6 @@ class HostCallController: VideoCallController {
     }
     
     // Using in order to prevent to showing the message "Participant did not join session before the slot start."
-    
     override var isSlotRunning : Bool {
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
@@ -243,6 +245,7 @@ class HostCallController: VideoCallController {
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.registerForAutographSignatureCall()
+        self.signaturAccessoryView?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -316,6 +319,7 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
+        resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -836,6 +840,15 @@ class HostCallController: VideoCallController {
         }
     }
     
+    var myLiveUnMergedSlot : SlotInfo?{
+        
+        guard let slotInfo = eventInfo?.currentSlotInfo?.slotInfo
+            else{
+                return nil
+        }
+        return slotInfo
+    }
+    
     private func disconnectStaleConnection(){
         
         for (key, connection) in connectionInfo {
@@ -1223,8 +1236,6 @@ extension HostCallController{
     
     @IBAction func showCanvas(){
         
-        self.submitAction()
-        
         //        self.hostRootView?.canvasContainer?.show()
         //        self.hostRootView?.canvas?.image = UIImage(named: "hostPageFive")
     }
@@ -1338,6 +1349,13 @@ extension HostCallController{
                 }
                 self.hostRootView?.canvasContainer?.show()
                 self.hostRootView?.canvas?.image = image
+                self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
+                self.hostRootView?.remoteVideoContainerView?.updateForSignature()
+                self.signaturAccessoryView?.isHidden = false
+                
+                
+                self.hostRootView?.localVideoView?.isSignatureActive = true
+                self.hostRootView?.localVideoView?.updateForPortrait()
                 self.sendScreenshotConfirmation(info)
                 
                 //                //self.canvas?.isEnabled = true
@@ -1384,14 +1402,57 @@ extension HostCallController{
         socketClient?.emit(mainParams)
     }
     
-    @IBAction private func submitAction(){
+    private func resetCanvas(){
+        
+        self.hostRootView?.canvas?.image = nil
+        self.hostRootView?.canvasContainer?.hide()
+        self.signaturAccessoryView?.isHidden = true
+
+        self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
+        self.hostRootView?.remoteVideoContainerView?.updateForCall()
+        
+        self.hostRootView?.localVideoView?.isSignatureActive = false
+        self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
+    }
+    
+    private func resetAutographCanvasIfNewCallAndSlotExists(){
+        
+        //if current slot id is nil then return
+        
+        if self.myLiveUnMergedSlot?.id == nil {
+            
+            Log.echo(key: "yud", text: "my unmerged slot is nil")
+            self.resetCanvas()
+            return
+        }
+        
+        if localSlotIdToManageAutograph == nil{
+            
+            Log.echo(key: "yud", text: "providing id to unmerged slot is nil")
+
+            localSlotIdToManageAutograph =  self.myLiveUnMergedSlot?.id
+            return
+        }
+        
+        if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
+          
+            Log.echo(key: "yud", text: "providing id is changed for new slot")
+
+            localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
+            self.resetCanvas()
+            //reset the signature
+            return
+        }
+        
+    }
+    
+    private func uploadAutographImage(){
         
         guard let image = self.hostRootView?.canvas?.getSnapshot()
             else{
                 return
         }
         
-        self.hostRootView?.canvas?.image = image
         // id,int userId,int analystId,boolean signed
         
         var params = [String : String]()
@@ -1404,16 +1465,22 @@ extension HostCallController{
         
         let url = AppConnectionConfig.webServiceURL + "/screenshots"
         
-        self.showLoader()
         uploadImage(urlString: url, image: image, includeToken: false,params: params, progress: { (data) in
             
         }) { (success) in
             
-            self.stopLoader()
             self.hostRootView?.canvas?.image = nil
             self.hostRootView?.canvasContainer?.hide()
             self.stopSigning()
             
+            self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
+            self.hostRootView?.remoteVideoContainerView?.updateForCall()
+            self.signaturAccessoryView?.isHidden = true
+            
+            
+            self.hostRootView?.localVideoView?.isSignatureActive = false
+            self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
+
             if success{
                 Log.echo(key: "yud", text: "image is uploaded done")
                 return
@@ -1466,5 +1533,27 @@ extension HostCallController{
                             }
         })
     }
+    
+   
 }
 
+
+
+extension HostCallController:AutographSignatureBottomResponseInterface{
+    
+    func doneAction(sender:UIButton?){
+        
+        Log.echo(key: "yud", text: "done is calling")
+        self.uploadAutographImage()
+    }
+    func undoAction(sender:UIButton?){
+        
+        self.hostRootView?.canvas?.undo()
+        Log.echo(key: "yud", text: "undo is calling")
+    }
+    func colorAction(sender:UIButton?){
+        
+        Log.echo(key: "yud", text: "color is calling")
+    }
+    
+}
