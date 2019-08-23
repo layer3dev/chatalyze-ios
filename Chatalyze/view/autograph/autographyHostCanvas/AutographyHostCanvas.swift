@@ -37,7 +37,7 @@ class AutographyHostCanvas: ExtendedView {
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = 8.5
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
     //var brushWidth: CGFloat = 18
     var opacity: CGFloat = 1.0
 
@@ -253,9 +253,9 @@ class AutographyHostCanvas: ExtendedView {
             previousPoint.y = 0
         }
         
-        self.previousPreviousPoint = self.previousPoint;
-        self.previousPoint = previousPoint;
-        let lastTouchPoint = self.currentPoint;
+        self.previousPreviousPoint = self.previousPoint
+        self.previousPoint = previousPoint
+        let lastTouchPoint = self.currentPoint
         self.currentPoint = touch.location(in: mainImageView)
         if(!isEnabled){
             return
@@ -278,7 +278,6 @@ class AutographyHostCanvas: ExtendedView {
         let point = touch.location(in: mainImageView)
         self.touchesMoved(withPoint: point)
         processMovedTouches(lastTouchPoint : lastTouchPoint, touches : touches, with: event)
-        
     }
     
     private func processMovedTouches(lastTouchPoint : CGPoint, touches: Set<UITouch>, with event: UIEvent?){

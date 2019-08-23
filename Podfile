@@ -28,6 +28,7 @@ def pod_file
   pod 'Bugsnag'
   pod 'FSCalendar'
   pod 'Toast-Swift', '~> 5.0.0'
+  pod 'CRToast', '~> 0.0.7'
 
 end
 

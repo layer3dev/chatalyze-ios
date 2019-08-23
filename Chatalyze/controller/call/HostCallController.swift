@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 import SDWebImage
 import Alamofire
+import Toast_Swift
+import CRToast
 
 class HostCallController: VideoCallController {
     
@@ -67,7 +69,6 @@ class HostCallController: VideoCallController {
     
     override func initialization(){
         super.initialization()
-        
         initializeVariable()
     }
     
@@ -237,6 +238,17 @@ class HostCallController: VideoCallController {
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
     }
+    
+    
+    func showToastWithMessage(text:String,time:Double){
+        
+        
+        let options = [kCRToastNotificationTypeKey : CRToastType.navigationBar,kCRToastUnderStatusBarKey:false,kCRToastTextKey : text,kCRToastNotificationPreferredHeightKey:4.0,kCRToastTextAlignmentKey:NSTextAlignment.center,kCRToastBackgroundColorKey:UIColor(hexString: "#FAA579"),kCRToastAnimationInTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationOutTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationInDirectionKey:CRToastAnimationDirection.left,kCRToastAnimationOutDirectionKey:CRToastAnimationDirection.right,kCRToastTimeIntervalKey:time] as [String : Any]
+        
+        CRToastManager.showNotification(options: options) {
+        }
+    }
+    
     
     private func initializeVariable(){
         
@@ -1169,8 +1181,6 @@ extension HostCallController{
     
     func makeRegistrationClose(){
         
-        Log.echo(key: "yud", text: "Registration is closing")
-        
         self.showLoader()
         CloseRegistration().close(eventId: self.eventId ?? "") { (success) in
             self.stopLoader()
@@ -1212,12 +1222,15 @@ extension HostCallController{
     
     func getTotalNUmberOfSlots()->Int{
         
+        
         guard let startTime = self.eventInfo?.startDate else {
             return 0
         }
+        
         guard let endTime = self.eventInfo?.endDate else {
             return 0
         }
+        
         let timeDiffreneceOfSlots = endTime.timeIntervalSince(startTime)
         
         let totalminutes = (timeDiffreneceOfSlots/60)
@@ -1236,8 +1249,6 @@ extension HostCallController{
     
     @IBAction func showCanvas(){
         
-        //        self.hostRootView?.canvasContainer?.show()
-        //        self.hostRootView?.canvas?.image = UIImage(named: "hostPageFive")
     }
 }
 
@@ -1271,16 +1282,6 @@ extension HostCallController{
             if (info.metaInfo?.type == .signRequest)
             {
                 
-                //                self.updateTabNotification(isPending: true)
-                //                self.playSound()
-                //                self.navigateToAutographyPage(screenshotId: info.metaInfo?.activityId)
-                
-                //Fetch Screenshot info
-                //info.metaInfo?.activityId
-                
-                
-                
-                Log.echo(key: "yud", text: "Signature is calling")
                 self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
             }
         }
@@ -1303,7 +1304,6 @@ extension HostCallController{
             self.autoGraphInfo = info
             self.hostRootView?.canvas?.autoGraphInfo = self.autoGraphInfo
             self.downLoadScreenShotImage()
-            Log.echo(key: "yud", text: "Downloading the image \(String(describing: info)) with the url \(self.autoGraphInfo?.screenshot)")
             
             //Download image and send it to the canvas in order to set the image.
             
@@ -1358,22 +1358,6 @@ extension HostCallController{
                 self.hostRootView?.localVideoView?.updateForPortrait()
                 self.sendScreenshotConfirmation(info)
                 
-                //                //self.canvas?.isEnabled = true
-                //                guard let mainImageBound = self.canvas?.mainImageView?.frame else{
-                //                    return
-                //                }
-                //                Log.echo(key: "yud", text: "Main Image Bound Is\(self.canvas?.mainImageView?.bounds)")
-                //                Log.echo(key: "yud", text: "Main Image Frame Is\(self.canvas?.mainImageView?.frame)")
-                //                Log.echo(key: "yud", text: "Main Canvas Frame Is\(self.canvas?.frame)")
-                //                Log.echo(key: "yud", text: "Main Canvas  Bound Is\(self.canvas?.frame)")
-                //
-                //                self.canvas?.blurEffectView?.frame = mainImageBound
-                //                self.canvas?.blurEffectView?.isHidden = false
-                //                self.canvas?.screenShotAlertView?.isHidden = false
-                //                //self.checkForParticipantLeft()
-                //                self.checkForCallEnd()
-                //                self.downloaderView?.isHidden = true
-                //Loader.hideLoader()
             })
         }
     }
@@ -1461,7 +1445,7 @@ extension HostCallController{
         params["analystId"] = self.autoGraphInfo?.analystId ?? ""
         params["signed"] = "true"
         
-        Log.echo(key: "yud", text: "params are \(params) and image is nil = \(image == nil  ? true : false ) amnd the access token is \(String(describing: SignedUserInfo.sharedInstance?.accessToken))")
+        Log.echo(key: "yud", text: "Params are \(params) and image is nil = \(image == nil  ? true : false ) and the access token is \(String(describing: SignedUserInfo.sharedInstance?.accessToken))")
         
         let url = AppConnectionConfig.webServiceURL + "/screenshots"
         
@@ -1469,18 +1453,10 @@ extension HostCallController{
             
         }) { (success) in
             
-            self.hostRootView?.canvas?.image = nil
-            self.hostRootView?.canvasContainer?.hide()
-            self.stopSigning()
-            
-            self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
-            self.hostRootView?.remoteVideoContainerView?.updateForCall()
-            self.signaturAccessoryView?.isHidden = true
-            
-            self.hostRootView?.localVideoView?.isSignatureActive = false
-            self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
-
             if success{
+               
+                self.showToastWithMessage(text:"Autograph saved successfully!",time:2.0)
+
                 Log.echo(key: "yud", text: "image is uploaded done")
                 return
             }
@@ -1532,29 +1508,32 @@ extension HostCallController{
                             }
         })
     }
-    
-   
 }
-
-
 
 extension HostCallController:AutographSignatureBottomResponseInterface{
     
     func doneAction(sender:UIButton?){
         
-        Log.echo(key: "yud", text: "done is calling")
+        self.hostRootView?.canvas?.image = nil
+        self.hostRootView?.canvasContainer?.hide()
+        self.stopSigning()
+        
+        self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
+        self.hostRootView?.remoteVideoContainerView?.updateForCall()
+        self.signaturAccessoryView?.isHidden = true
+        
+        self.hostRootView?.localVideoView?.isSignatureActive = false
+        self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
         self.uploadAutographImage()
+        
+        self.showToastWithMessage(text:"Autograph saving....",time:5.0)
     }
+    
     func undoAction(sender:UIButton?){
         
         self.hostRootView?.canvas?.undo()
-        Log.echo(key: "yud", text: "undo is calling")
     }
-    func colorAction(sender:UIButton?){
-        
-        Log.echo(key: "yud", text: "color is calling")
-    }
-    
+
     func pickerSelectedColor(color: UIColor?) {
         
         self.hostRootView?.canvas?.updateColorFromPicker(color:color)

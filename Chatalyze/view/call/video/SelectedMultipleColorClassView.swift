@@ -11,16 +11,15 @@ import Foundation
 
 class SelectedMultipleColorClassView: ExtendedView {
     
-    
     var updateSelecetdButtonColorDelegate:UpdatForSelectedColorProtocol?
     @IBOutlet var colorPicker:SwiftHSVColorPicker?
     @IBOutlet var colorTapView:UIView?
     let selectedColor:UIColor = UIColor.white
     @IBOutlet var mainColorView:UIView?
-
     
     override func viewDidLayout(){
         super.viewDidLayout()
+        
         initialize()
         paintInterface()
     }
@@ -34,12 +33,13 @@ class SelectedMultipleColorClassView: ExtendedView {
     
     // function which is triggered when handleTap is called
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        
         mainColorView?.isHidden = true
     }
     
     fileprivate func initialize(){
+        
         paintContainerBorder()
-        //paintShadow()
     }
     
     fileprivate func paintContainerBorder(){
@@ -82,6 +82,7 @@ class SelectedMultipleColorClassView: ExtendedView {
 extension UIColor {
     
     func rgb() -> Int? {
+        
         var fRed : CGFloat = 0
         var fGreen : CGFloat = 0
         var fBlue : CGFloat = 0

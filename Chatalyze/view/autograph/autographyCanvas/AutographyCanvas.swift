@@ -27,7 +27,7 @@ class AutographyCanvas: ExtendedView {
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = 3.0
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 6:5
     var opacity: CGFloat = 1.0
         
     var drawColor : UIColor?
@@ -240,20 +240,22 @@ class AutographyCanvas: ExtendedView {
         
         let color = (drawColor ?? UIColor.black).cgColor
         context?.setStrokeColor(color)
-        //        context?.setBlendMode(CGBlendMode.normal)
-        // 2
+        
+        //context?.setBlendMode(CGBlendMode.normal)
+
         context?.move(to: CGPoint(x: mid1.x, y: mid1.y))
-        //        context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+        
+        //context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+        
         context?.addQuadCurve(to: mid2, control: previousPoint)
+        
         //        CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
-        // 4
-        context?.strokePath()        
-        // 5
+        context?.strokePath()
+
         tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
         tempImageView?.alpha = opacity
         UIGraphicsEndImageContext()
     }
-  
     
     func touchesMove(point : CGPoint) {
         
@@ -262,7 +264,6 @@ class AutographyCanvas: ExtendedView {
         self.currentPoint = point
         
         processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
-
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){

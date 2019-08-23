@@ -12,6 +12,5 @@ protocol AutographSignatureBottomResponseInterface {
     
     func doneAction(sender:UIButton?)
     func undoAction(sender:UIButton?)
-    func colorAction(sender:UIButton?)
     func pickerSelectedColor(color:UIColor?)
 }
