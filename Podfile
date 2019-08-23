@@ -27,6 +27,7 @@ def pod_file
   pod 'SAConfettiView'
   pod 'Bugsnag'
   pod 'FSCalendar'
+  pod 'Toast-Swift', '~> 5.0.0'
 
 end
 
