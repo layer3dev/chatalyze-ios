@@ -1477,7 +1477,6 @@ extension HostCallController{
             self.hostRootView?.remoteVideoContainerView?.updateForCall()
             self.signaturAccessoryView?.isHidden = true
             
-            
             self.hostRootView?.localVideoView?.isSignatureActive = false
             self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
 
@@ -1554,6 +1553,12 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     func colorAction(sender:UIButton?){
         
         Log.echo(key: "yud", text: "color is calling")
+    }
+    
+    func pickerSelectedColor(color: UIColor?) {
+        
+        self.hostRootView?.canvas?.updateColorFromPicker(color:color)
+        self.signaturAccessoryView?.ColorViewClass?.mainColorView?.isHidden = true
     }
     
 }

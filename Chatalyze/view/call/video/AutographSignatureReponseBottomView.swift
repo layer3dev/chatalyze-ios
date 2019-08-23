@@ -12,11 +12,20 @@ class AutographSignatureReponseBottomView: ExtendedView {
     
     @IBOutlet var colorView:UIView?
     var delegate:AutographSignatureBottomResponseInterface?
+    @IBOutlet var ColorViewClass:SelectedMultipleColorClassView?
+
+    var brush: CGFloat = 8.5
+    var opacity: CGFloat = 1.0
+    var red: CGFloat = 1.0
+    var green: CGFloat = 0.0
+    var blue: CGFloat = 0.0
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
         
         paintInterface()
+        ColorViewClass?.updateSelecetdButtonColorDelegate = self
     }
     
     func paintInterface(){
@@ -37,6 +46,51 @@ class AutographSignatureReponseBottomView: ExtendedView {
     }
     
     @IBAction func colorAction(sender:UIButton?){
-        self.delegate?.colorAction(sender:sender)
+        
+        //self.delegate?.colorAction(sender:sender)
+        ColorViewClass?.mainColorView?.isHidden = false
+    }
+    
+    @IBAction func colorPick(_ sender: UIButton){
+        
+        var fRed : CGFloat = 1.0
+        var fGreen : CGFloat = 0.0
+        var fBlue : CGFloat = 0.0
+        var fAlpha: CGFloat = 0.0
+        
+        if (sender.backgroundColor?.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha))! {
+            
+            Log.echo(key: "", text:"test color if")
+            if fRed < 0 {
+                fRed = -(fRed)
+            }
+            if fGreen < 0{
+                fGreen = -(fGreen)
+            }
+            if fBlue < 0{
+                fBlue = -(fBlue)
+            }
+            red = fRed
+            green = fGreen
+            blue = fBlue
+            opacity = fAlpha
+            //drawPreview()
+           //delegate?.toolUpdated(self)
+            Log.echo(key: "", text:" In the Button Selection Red color is \(fRed) blue color is\(fBlue) green color is \(fGreen) alpha is \(fAlpha)")
+        }
+        else{
+            Log.echo(key: "", text:"test color else: \(sender.backgroundColor)")
+        }
+    }
+
+}
+extension AutographSignatureReponseBottomView:UpdatForSelectedColorProtocol{
+        
+    func updateForColorForSelectedButton(color:UIColor){
+        
+        self.colorView?.backgroundColor = color
+        self.delegate?.pickerSelectedColor(color:color)
     }
 }
+
+

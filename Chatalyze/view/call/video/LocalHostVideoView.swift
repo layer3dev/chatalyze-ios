@@ -86,7 +86,7 @@ class LocalHostVideoView: LocalVideoView {
         if isSignatureActive{
             
             resetConstraints()
-            bottomConstraint?.isActive = true
+            topConstraint?.isActive = true
             userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
             userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
             if(isIPad){

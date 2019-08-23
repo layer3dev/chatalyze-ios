@@ -63,7 +63,9 @@ class VideoCallController : InterfaceExtendedController {
     
     fileprivate var audioManager : AudioManager?
     
-    var eventId : String? //Expected param
+    var eventId : String?
+    
+    //Expected param
     var eventInfo : EventScheduleInfo?
     
     //todo: fix it
@@ -95,6 +97,7 @@ class VideoCallController : InterfaceExtendedController {
     var appDelegate : AppDelegate?
     
     var isEventCancelled = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +140,6 @@ class VideoCallController : InterfaceExtendedController {
         self.socketClient = nil
         self.socketListener = nil
     }
-    
     
     private func releaseListener(){
         
@@ -218,7 +220,6 @@ class VideoCallController : InterfaceExtendedController {
             actionContainer?.videoView?.mute()
         }
     }
-    
     
     func processExitAction(code : exitCode){
         
@@ -525,6 +526,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     private func registerForScheduleListener(){
+        
         eventSlotListener.setListener {[weak self] in
             
             self?.refreshScheduleInfo()

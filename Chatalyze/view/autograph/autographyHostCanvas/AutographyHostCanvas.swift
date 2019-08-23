@@ -10,6 +10,7 @@ import UIKit
 
 class AutographyHostCanvas: ExtendedView {
 
+
     var autoGraphInfo:AutographInfo?
     var counter = 0
     var getBeginPoint = false
@@ -92,8 +93,6 @@ class AutographyHostCanvas: ExtendedView {
         super.viewDidLayout()
         
         paintEmptyView()
-        //mainImageView?.delegate = self
-        //mainImageView?.isUserInteractionEnabled = true
     }
     
     fileprivate func initialization()
@@ -101,6 +100,7 @@ class AutographyHostCanvas: ExtendedView {
         paintInterface()
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
+
     }
     
     fileprivate func paintInterface(){
@@ -315,6 +315,7 @@ class AutographyHostCanvas: ExtendedView {
     
     //return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
     private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
+        
         return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
     }
     
@@ -371,6 +372,7 @@ class AutographyHostCanvas: ExtendedView {
     }
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
+        
         return subView.frame.contains(point);
     }
     
@@ -510,6 +512,9 @@ extension AutographyHostCanvas{
     
     func touchesBegan(withPoint point : CGPoint){
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+        
+        Log.echo(key: "yud", text: "seding the begin point")
+        
     }
     
     func touchesMoved(withPoint point : CGPoint){
@@ -518,31 +523,51 @@ extension AutographyHostCanvas{
     
     func touchesEnded(withPoint point : CGPoint){
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+        Log.echo(key: "yud", text: "seding the end point")
+
     }
     
     func initializeForGetSocketPing(){
-      
-//        case "screenshot":
-//        return .screenshotInfo
-//        case "":
-//        return .screenshotLoaded
-//        case "registerResponse":
-//        return .registerResponse
-//        case "updatePeerList":
-//        return .updatePeerList
-//        case "participantLeft":
-//        return .participantLeft
-        
         
         socketListener?.onEvent("screenshotLoaded") {data in
-         
+            
             Log.echo(key: "yud", text: "I got the screenshot loaded ping")
-            
         }
-            
-            
-            
-        
     }
+}
+
+extension AutographyHostCanvas{
     
+    func updateColorFromPicker(color:UIColor?){
+        
+        guard let newSelectedColor = color else{
+            return
+        }
+
+        var fRed : CGFloat = 1.0
+        var fGreen : CGFloat = 0.0
+        var fBlue : CGFloat = 0.0
+        var fAlpha: CGFloat = 0.0
+        
+        if (newSelectedColor.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha)) {
+            
+            Log.echo(key: "", text:"test color if")
+            if fRed < 0 {
+                fRed = -(fRed)
+            }
+            if fGreen < 0{
+                fGreen = -(fGreen)
+            }
+            if fBlue < 0{
+                fBlue = -(fBlue)
+            }
+            red = fRed
+            green = fGreen
+            blue = fBlue
+            opacity = fAlpha
+            //drawPreview()
+            //delegate?.toolUpdated(self)
+            Log.echo(key: "", text:" In the Button Selection Red color is \(fRed) blue color is\(fBlue) green color is \(fGreen) alpha is \(fAlpha) ")
+        }
+    }
 }
