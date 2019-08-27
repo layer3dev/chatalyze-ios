@@ -20,6 +20,8 @@ class HostCallController: VideoCallController {
     var localSlotIdToManageAutograph :Int? = nil
     var autoGraphInfo:AutographInfo?
     
+    var isSignatureActive = false
+    
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference:EarlyViewController?
     
@@ -74,6 +76,7 @@ class HostCallController: VideoCallController {
     
     override func onExit(code : exitCode){
         super.onExit(code: code)
+        
         
         if(code == .prohibited){
             showErrorScreen()
@@ -1281,7 +1284,6 @@ extension HostCallController{
             
             if (info.metaInfo?.type == .signRequest)
             {
-                
                 self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
             }
         }
@@ -1352,12 +1354,13 @@ extension HostCallController{
                 self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
                 self.hostRootView?.remoteVideoContainerView?.updateForSignature()
                 self.signaturAccessoryView?.isHidden = false
-                
+                self.isSignatureActive = true
                 
                 self.hostRootView?.localVideoView?.isSignatureActive = true
                 self.hostRootView?.localVideoView?.updateForPortrait()
                 self.sendScreenshotConfirmation(info)
                 
+                self.lockDeviceOrientation()
             })
         }
     }
@@ -1388,6 +1391,7 @@ extension HostCallController{
     
     private func resetCanvas(){
         
+        self.releaseDeviceOrientation()
         self.hostRootView?.canvas?.image = nil
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
@@ -1397,6 +1401,9 @@ extension HostCallController{
         
         self.hostRootView?.localVideoView?.isSignatureActive = false
         self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
+    
+        
+        
     }
     
     private func resetAutographCanvasIfNewCallAndSlotExists(){
@@ -1406,22 +1413,25 @@ extension HostCallController{
         if self.myLiveUnMergedSlot?.id == nil {
             
             Log.echo(key: "yud", text: "my unmerged slot is nil")
-            self.resetCanvas()
+            
+            if self.isSignatureActive{
+               
+                self.resetCanvas()
+                self.isSignatureActive = false
+            }
             return
         }
         
         if localSlotIdToManageAutograph == nil{
             
             Log.echo(key: "yud", text: "providing id to unmerged slot is nil")
-
-            localSlotIdToManageAutograph =  self.myLiveUnMergedSlot?.id
+            localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             return
         }
         
         if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
           
-            Log.echo(key: "yud", text: "providing id is changed for new slot")
-
+            Log.echo(key: "yud", text: "Providing id is changed for new slot")
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
             //reset the signature
@@ -1432,6 +1442,7 @@ extension HostCallController{
     
     private func uploadAutographImage(){
         
+
         guard let image = self.hostRootView?.canvas?.getSnapshot()
             else{
                 return
@@ -1524,13 +1535,16 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.hostRootView?.localVideoView?.isSignatureActive = false
         self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
-        self.uploadAutographImage()
         
-        self.showToastWithMessage(text:"Autograph saving....",time:5.0)
+        self.uploadAutographImage()
+        self.isSignatureActive = false
+        
+        self.releaseDeviceOrientation()
+        self.showToastWithMessage(text: "Autograph saving....", time: 5.0)
+        
     }
     
     func undoAction(sender:UIButton?){
-        
         self.hostRootView?.canvas?.undo()
     }
 
@@ -1540,4 +1554,41 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.signaturAccessoryView?.ColorViewClass?.mainColorView?.isHidden = true
     }
     
+    
+    @IBAction func testOrientation(){
+        
+
+    }
+    
+    
+    func lockDeviceOrientation(){
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        
+        if UIApplication.shared.statusBarOrientation.isLandscape{
+            
+            delegate?.isSignatureInCallisActive = true
+            if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
+                
+                delegate?.signatureDirection = .landscapeLeft
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+                
+            }else{
+                
+                delegate?.signatureDirection = .landscapeRight
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+            }
+        }else{
+            
+            delegate?.isSignatureInCallisActive = true
+            delegate?.signatureDirection = .portrait
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
+    
+    func releaseDeviceOrientation(){
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.isSignatureInCallisActive = false
+    }
 }

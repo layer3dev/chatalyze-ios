@@ -22,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isRootInitialize:Bool = false
     var shownEarlySessionIdList:[Int] = [Int]()
     var earlyCallProcessor:VerifyForEarlyCallProcessor?
-
+    var isSignatureInCallisActive = false
+    var signatureDirection:UIInterfaceOrientationMask = UIInterfaceOrientationMask.portrait
+    
     var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -104,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
-        
+
         earlyCallProcessor?.eventInfoArray.removeAll()
         earlyCallProcessor?.fetchInfo()
         verifyingAccessToken()
@@ -204,10 +206,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
         SKPaymentQueue.default().remove(InAppPurchaseObserver.sharedInstance)
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask {
+        
+        
+        if isSignatureInCallisActive{
+            
+            print("App delegate portrait is \(signatureDirection)")
+            return signatureDirection
+        }
         
         if(allowRotate){
             return .allButUpsideDown

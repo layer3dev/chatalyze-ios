@@ -120,7 +120,7 @@ class LocalHostVideoView: LocalVideoView {
     
     func updateLayoutOnEndOfCall(){
        
-        if UIDevice.current.orientation.isPortrait{
+        if UIApplication.shared.statusBarOrientation.isPortrait{
             
             resetConstraints()
             topConstraint?.isActive = true
@@ -138,7 +138,7 @@ class LocalHostVideoView: LocalVideoView {
             widthConstraint?.constant = 63
             return
         }
-        if UIDevice.current.orientation.isLandscape{
+        if UIApplication.shared.statusBarOrientation.isLandscape{
            
             resetConstraints()
             topConstraint?.isActive = false
@@ -157,26 +157,26 @@ class LocalHostVideoView: LocalVideoView {
             return
         }
         
-        if UIDevice.current.orientation.isFlat{
-            
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-
-            resetConstraints()
-            topConstraint?.isActive = true
-            bottomConstraint?.isActive = false
-            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
-            
-            if(isIPad){
-                
-                heightConstraint?.constant = 224
-                widthConstraint?.constant = 126
-                return
-            }
-            
-            heightConstraint?.constant = 112
-            widthConstraint?.constant = 63
-            return
-        }
+//        if UIDevice.current.orientation.isFlat{
+//
+//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//
+//            resetConstraints()
+//            topConstraint?.isActive = true
+//            bottomConstraint?.isActive = false
+//            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+//
+//            if(isIPad){
+//
+//                heightConstraint?.constant = 224
+//                widthConstraint?.constant = 126
+//                return
+//            }
+//
+//            heightConstraint?.constant = 112
+//            widthConstraint?.constant = 63
+//            return
+//        }
         
     }
     

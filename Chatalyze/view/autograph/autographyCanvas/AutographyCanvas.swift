@@ -211,7 +211,7 @@ class AutographyCanvas: ExtendedView {
     }
     
     func touchesStart(point : CGPoint) {
-        
+
         self.currentPoint = point
         self.previousPoint = self.currentPoint
         self.previousPreviousPoint = self.currentPoint

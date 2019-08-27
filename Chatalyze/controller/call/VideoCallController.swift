@@ -131,9 +131,7 @@ class VideoCallController : InterfaceExtendedController {
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
-        appDelegate?.allowRotate = false
         eventSlotListener.setListener(listener: nil)
-        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         timer.pauseTimer()
         socketClient?.disconnect()
         socketListener?.releaseListener()

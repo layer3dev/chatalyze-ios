@@ -293,6 +293,7 @@ extension InterfaceExtendedController{
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             
             appDelegate.allowRotate = false
+            appDelegate.isSignatureInCallisActive = false 
             UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
         }
     }

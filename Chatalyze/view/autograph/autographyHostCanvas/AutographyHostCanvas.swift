@@ -9,8 +9,7 @@
 import UIKit
 
 class AutographyHostCanvas: ExtendedView {
-
-
+        
     var autoGraphInfo:AutographInfo?
     var counter = 0
     var getBeginPoint = false
@@ -100,11 +99,9 @@ class AutographyHostCanvas: ExtendedView {
         paintInterface()
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
-
     }
     
     fileprivate func paintInterface(){
-        
     }
     
     fileprivate func fillConstraints()
@@ -145,6 +142,7 @@ class AutographyHostCanvas: ExtendedView {
     
     
     fileprivate func allowTouch(touches:Set<UITouch>?)->Bool{
+       
         if let touch = touches{
             if #available(iOS 9.1, *){
                 if touch.first?.type == .stylus{
@@ -162,6 +160,8 @@ class AutographyHostCanvas: ExtendedView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        Log.echo(key: "point", text: "Point in touches begun \(touches.first?.location(in: self)) and the main frame is \(self.mainImageView?.frame)")
         
         let isallow = allowTouch(touches:touches)
         if !isallow {
@@ -184,6 +184,7 @@ class AutographyHostCanvas: ExtendedView {
         swiped = false
         let point = touch.location(in: self)
         if(!(mainImageView?.frame.contains(point) ?? false) ){
+            Log.echo(key: "point", text: "I am not broadcasting")
             return
         }
         
@@ -194,6 +195,7 @@ class AutographyHostCanvas: ExtendedView {
         
         getBeginPoint = true
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+        Log.echo(key: "point", text: "I am  broadcasting")
         self.touchesBegan(withPoint: currentPoint)
         //self.touchesMoved(touches, with: event)
     }
@@ -210,22 +212,26 @@ class AutographyHostCanvas: ExtendedView {
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
         
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+    //  UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        
+        UIGraphicsBeginImageContext(frame.size)
         let context = UIGraphicsGetCurrentContext()
         tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         
         context?.setLineCap(CGLineCap.round)
         context?.setLineWidth(brushWidth)
         context?.setStrokeColor(red: red, green: green, blue: blue, alpha: 1.0)
-        //        context?.setBlendMode(CGBlendMode.normal)
+      
+        //context?.setBlendMode(CGBlendMode.normal)
         // 2
         context?.move(to: CGPoint(x: mid1.x, y: mid1.y))
-        //        context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+      
+        //context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
         context?.addQuadCurve(to: mid2, control: previousPoint)
-        //        CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
-        // 4
+        
+        //CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
         context?.strokePath()
-        // 5
+        
         tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
         tempImageView?.alpha = opacity
         UIGraphicsEndImageContext()
@@ -233,6 +239,8 @@ class AutographyHostCanvas: ExtendedView {
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        Log.echo(key: "point", text: "Point as touches move \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
         
         let isallow = allowTouch(touches:touches)
         if !isallow {
@@ -265,6 +273,8 @@ class AutographyHostCanvas: ExtendedView {
         swiped = true
         let mainPoint = touch.location(in: self)
         if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
+            Log.echo(key: "point", text: "I am not broadcasting")
+
             let point = touch.location(in: mainImageView)
             self.touchesEnded(withPoint: point)
             return
@@ -277,6 +287,7 @@ class AutographyHostCanvas: ExtendedView {
         }
         let point = touch.location(in: mainImageView)
         self.touchesMoved(withPoint: point)
+        Log.echo(key: "point", text: "I am broadcasting")
         processMovedTouches(lastTouchPoint : lastTouchPoint, touches : touches, with: event)
     }
     
@@ -322,6 +333,9 @@ class AutographyHostCanvas: ExtendedView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        Log.echo(key: "point", text: "Point as touches end \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
+        
+
         let isallow = allowTouch(touches:touches)
         if !isallow {
             return
@@ -337,11 +351,13 @@ class AutographyHostCanvas: ExtendedView {
         }
         let mainPoint = touch.location(in: self)
         if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
+            Log.echo(key: "point", text: "I am not broadcasting")
             return
         }
         getBeginPoint = false
         //getEndPoint = true
         let point = touch.location(in: mainImageView)
+        Log.echo(key: "point", text: "I am broadcasting")
         self.touchesEnded(withPoint: point)
     }
     
@@ -353,6 +369,7 @@ class AutographyHostCanvas: ExtendedView {
         }
         
         let frame = self.mainImageView?.frame ?? CGRect()
+        
         Log.echo(key: "frame", text: "touchesEnded ==> \(frame)")
         if !swiped {
             //draw a single point
@@ -362,7 +379,9 @@ class AutographyHostCanvas: ExtendedView {
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
         let size = mainImageView?.frame.size ?? CGSize()
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        //UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        
+        UIGraphicsBeginImageContext(size)
         mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
         tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
         mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
@@ -372,14 +391,16 @@ class AutographyHostCanvas: ExtendedView {
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
         
-        return subView.frame.contains(point);
+        return subView.frame.contains(point)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        Log.echo(key: "yud", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
-        
+//        Log.echo(key: "yudi", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
+
+        //
+
         self.mainImageView?.frame = self.frame
         self.tempImageView?.frame = self.frame
         
@@ -463,17 +484,6 @@ extension AutographyHostCanvas{
     }
 }
 
-extension AutographyHostCanvas : AutographyImageViewProtocol{
-    
-    func touchesBeganAutography(_ touches: Set<UITouch>, with event: UIEvent?){
-    }
-    
-    func touchesMovedAutography(_ touches: Set<UITouch>, with event: UIEvent?){
-    }
-    
-    func touchesEndedAutography(_ touches: Set<UITouch>, with event: UIEvent?){
-    }
-}
 
 extension AutographyHostCanvas{
     
@@ -510,20 +520,21 @@ extension AutographyHostCanvas{
 extension AutographyHostCanvas{
     
     func touchesBegan(withPoint point : CGPoint){
+        
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-        
-        Log.echo(key: "yud", text: "seding the begin point")
-        
+        Log.echo(key: "point", text: "sending the begining point.")
     }
     
     func touchesMoved(withPoint point : CGPoint){
+
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: true)
+        Log.echo(key: "point", text: "sending the moving point.")
     }
     
     func touchesEnded(withPoint point : CGPoint){
-        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-        Log.echo(key: "yud", text: "seding the end point")
 
+        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
+        Log.echo(key: "point", text: "sending the end point.")
     }
     
     func initializeForGetSocketPing(){
