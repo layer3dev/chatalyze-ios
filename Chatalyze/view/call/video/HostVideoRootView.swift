@@ -14,6 +14,7 @@ class HostVideoRootView: VideoRootView {
     
     @IBOutlet var canvasContainer : CanvasHostContainer?
     @IBOutlet var callInfoContainer : HostCallInfoContainerView?
+    @IBOutlet var signatureAccessoryViewBottomConstraint:NSLayoutConstraint?
     
     var canvas : AutographyHostCanvas?{
         get{
@@ -34,7 +35,7 @@ class HostVideoRootView: VideoRootView {
         
        // canvasContainer?.delegate = self
     }
-    
+
     
     override func animateHeader() {
         
@@ -45,6 +46,7 @@ class HostVideoRootView: VideoRootView {
             UIView.animate(withDuration: 0.25) {
                 
                 self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+                self.signatureAccessoryViewBottomConstraint?.constant = 0
                 self.layoutIfNeeded()
             }
             return
@@ -55,6 +57,7 @@ class HostVideoRootView: VideoRootView {
         UIView.animate(withDuration: 0.25) {
             
             self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
+            self.signatureAccessoryViewBottomConstraint?.constant = -150
             self.layoutIfNeeded()
         }
     }    

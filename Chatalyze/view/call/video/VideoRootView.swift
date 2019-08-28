@@ -120,4 +120,7 @@ class VideoRootView: ExtendedView {
         //TO be overridden in order to hide and show the topmost Header
     }
     
+    func animateSignatureAccessoryView(){
+        //TO be overridden in order to hide and show the signature accessory view.
+    }
 }

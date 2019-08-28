@@ -26,10 +26,16 @@ class LocalHostVideoView: LocalVideoView {
     override func updateLayoutRotation() {
         
         if(UIDevice.current.orientation.isFlat){
+            
+            if UIApplication.shared.statusBarOrientation.isLandscape{
+                updateForLandscape()
+            }else{
+                updateForPortrait()
+            }
             //updateForPortrait()
             return
         }
-        
+
         if (UIDevice.current.orientation.isLandscape) {
             updateForLandscape()
         } else {
@@ -86,9 +92,10 @@ class LocalHostVideoView: LocalVideoView {
         if isSignatureActive{
             
             resetConstraints()
-            topConstraint?.isActive = true
+            bottomConstraint?.isActive = true
             userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
             userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+            
             if(isIPad){
                 
                 heightConstraint?.constant = 126
@@ -120,7 +127,7 @@ class LocalHostVideoView: LocalVideoView {
     
     func updateLayoutOnEndOfCall(){
        
-        if UIApplication.shared.statusBarOrientation.isPortrait{
+        if UIDevice.current.orientation.isPortrait{
             
             resetConstraints()
             topConstraint?.isActive = true
@@ -138,7 +145,7 @@ class LocalHostVideoView: LocalVideoView {
             widthConstraint?.constant = 63
             return
         }
-        if UIApplication.shared.statusBarOrientation.isLandscape{
+        if UIDevice.current.orientation.isLandscape{
            
             resetConstraints()
             topConstraint?.isActive = false
@@ -157,27 +164,46 @@ class LocalHostVideoView: LocalVideoView {
             return
         }
         
-//        if UIDevice.current.orientation.isFlat{
-//
-//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-//
-//            resetConstraints()
-//            topConstraint?.isActive = true
-//            bottomConstraint?.isActive = false
-//            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
-//
-//            if(isIPad){
-//
-//                heightConstraint?.constant = 224
-//                widthConstraint?.constant = 126
-//                return
-//            }
-//
-//            heightConstraint?.constant = 112
-//            widthConstraint?.constant = 63
-//            return
-//        }
-        
+        if UIDevice.current.orientation.isFlat{
+
+            if UIApplication.shared.statusBarOrientation.isLandscape{
+                
+                resetConstraints()
+                topConstraint?.isActive = false
+                bottomConstraint?.isActive = true
+                userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+                
+                if(isIPad){
+                    
+                    heightConstraint?.constant = 126
+                    widthConstraint?.constant = 224
+                    return
+                }
+                
+                heightConstraint?.constant = 72
+                widthConstraint?.constant = 128
+                return
+            }
+            
+            if UIApplication.shared.statusBarOrientation.isPortrait{
+                
+                resetConstraints()
+                topConstraint?.isActive = true
+                bottomConstraint?.isActive = false
+                userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
+                
+                if(isIPad){
+                    
+                    heightConstraint?.constant = 224
+                    widthConstraint?.constant = 126
+                    return
+                }
+                
+                heightConstraint?.constant = 112
+                widthConstraint?.constant = 63
+                return
+            }
+        }
     }
     
     

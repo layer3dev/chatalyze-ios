@@ -31,6 +31,7 @@ class VideoActionContainer: ExtendedView {
     }
     
     func toggleContainer(){
+        
         weak var weakSelf = self
         self.layoutIfNeeded()
         self.animateContainerVisibility()

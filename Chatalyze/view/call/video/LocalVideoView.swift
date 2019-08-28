@@ -55,13 +55,21 @@ class LocalVideoView: VideoView {
     func updateLayoutRotation() {
         
         if(UIDevice.current.orientation.isFlat){
+            if UIApplication.shared.statusBarOrientation.isLandscape{
+                updateForLandscape()
+            }else{
+                updateForPortrait()
+            }
             return
         }
 
         if (UIDevice.current.orientation.isLandscape) {
             updateForLandscape()
-        } else {
+            return
+        }
+        if(UIDevice.current.orientation.isPortrait) {
             updateForPortrait()
+            return
         }
     }
     

@@ -71,6 +71,7 @@ class HostCallController: VideoCallController {
     
     override func initialization(){
         super.initialization()
+        
         initializeVariable()
     }
     
@@ -577,7 +578,9 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderAfterEventStart(){
         
         //Editing For the remaining time
+       
         //Above code is responsible for handling the status if event is not started yet.
+        
         ///MergeSlotInfo includes both the break slots and the live call.
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
@@ -590,6 +593,7 @@ class HostCallController: VideoCallController {
         if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
             
             //this will execute only if we do not have the future tickets and current slot is not the break slot.
+            
             updateCallHeaderForEmptySlot()
             return
         }
@@ -1333,10 +1337,10 @@ extension HostCallController{
                 ///self.downloadLable?.text = "\(progressPercent) %"
                 print(progressPercent)
             })
-            print("recieved Size is")
-            print(totalBytesSent)
-            print("Expected Size is")
-            print(totalBytesExpectedToSend)
+//            print("recieved Size is")
+//            print(totalBytesSent)
+//            print("Expected Size is")
+//            print(totalBytesExpectedToSend)
             
         }) { (image, imageData, error, success) in
             
@@ -1412,10 +1416,10 @@ extension HostCallController{
         
         if self.myLiveUnMergedSlot?.id == nil {
             
-            Log.echo(key: "yud", text: "my unmerged slot is nil")
             
             if self.isSignatureActive{
-               
+                Log.echo(key: "point", text: "Resetting the canvase")
+
                 self.resetCanvas()
                 self.isSignatureActive = false
             }
@@ -1554,12 +1558,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.signaturAccessoryView?.ColorViewClass?.mainColorView?.isHidden = true
     }
     
-    
     @IBAction func testOrientation(){
-        
-
-    }
-    
+    }    
     
     func lockDeviceOrientation(){
         

@@ -104,39 +104,6 @@ class RemoteVideoContainerView: ExtendedView {
         //This method is required to call during the first time initialization of the screen as the screenshot appears at this time handling flat position is also required to the handle.
         
         self.paintCorners()
-        if UIDevice.current.orientation.isFlat{
-            
-            // Special case when app got the signature call and if app is neither in  the Landscape nor in the portrait mode. means in Flat position. In that case this will call.
-        
-            // By default follows to the portrait method.
-            
-            Log.echo(key: "yud" ,text: "is Flat is Calling")
-            resetConstraints()
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            topAlignedToLocalView?.isActive = true
-            horizontalSpacingToLocalView?.isActive = true
-            widthOfRemote?.isActive = true
-            heightOfRemote?.isActive = true
-            
-            if UIDevice.current.userInterfaceIdiom == .pad{
-              
-                heightOfRemote?.constant = 224
-                if isStreamPortraitPosition{
-                    widthOfRemote?.constant = 126
-                }else{
-                    widthOfRemote?.constant = 400
-                }
-            }else{
-                
-                heightOfRemote?.constant = 112
-                if isStreamPortraitPosition {
-                    widthOfRemote?.constant = 63
-                }else{
-                    widthOfRemote?.constant = 224
-                }
-            }
-            return
-        }
         self.signatureScreenSetup()
     }
         
@@ -147,7 +114,6 @@ class RemoteVideoContainerView: ExtendedView {
         if UIDevice.current.orientation.isLandscape {
             
             // Constraint in the landscape mode for the
-            
             Log.echo(key: "yud" ,text: "is landscape is Calling")
             
             resetConstraints()
@@ -159,11 +125,11 @@ class RemoteVideoContainerView: ExtendedView {
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
                 if isStreamPortraitPosition{
-            
+                    
                     heightOfRemote?.constant = 224
-                    //widthOfRemote?.constant = 126
-                    widthOfRemote?.constant = 224
-
+                    //heightOfRemote?.constant = 126
+                    widthOfRemote?.constant = 126
+                    
                 }else{
                     
                     heightOfRemote?.constant = 126
@@ -175,8 +141,8 @@ class RemoteVideoContainerView: ExtendedView {
                     
                     heightOfRemote?.constant = 112
                     //widthOfRemote?.constant = 63
-                    widthOfRemote?.constant = 128
-
+                    widthOfRemote?.constant = 63
+                    
                 }else{
                     
                     heightOfRemote?.constant = 72
@@ -200,57 +166,109 @@ class RemoteVideoContainerView: ExtendedView {
             
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
-                heightOfRemote?.constant = 224
-                
                 if isStreamPortraitPosition{
                     
+                    heightOfRemote?.constant = 224
                     widthOfRemote?.constant = 126
+                    
                 }else{
                     
-                    //given by me
-                    widthOfRemote?.constant = 400
+                    heightOfRemote?.constant = 126
+                    widthOfRemote?.constant = 224
                 }
             }else{
                 
-                heightOfRemote?.constant = 112
                 if isStreamPortraitPosition{
                     
+                    heightOfRemote?.constant = 112
                     widthOfRemote?.constant = 63
+                    
                 }else{
                     
                     //given by me
-                    widthOfRemote?.constant = 224
+                    heightOfRemote?.constant = 72
+                    widthOfRemote?.constant = 128
+                    
                 }
             }
             return
         }
         
-//        if UIDevice.current.orientation.isFlat{
-//
-//            if UIDevice.current.userInterfaceIdiom == .pad{
-//
-//                heightOfRemote?.constant = 224
-//
-//                if isStreamPortraitPosition{
-//
-//                    widthOfRemote?.constant = 126
-//                }else{
-//
-//                    //given by me
-//                    widthOfRemote?.constant = 400
-//                }
-//            }else{
-//
-//                heightOfRemote?.constant = 112
-//                if isStreamPortraitPosition{
-//                    widthOfRemote?.constant = 63
-//                }else{
-//                    //given by me
-//                    widthOfRemote?.constant = 224
-//                }
-//
-//            }
-//        }
+        if UIDevice.current.orientation.isFlat{
+            
+            if UIApplication.shared.statusBarOrientation.isPortrait {
+                
+                Log.echo(key: "yud" ,text: "is Flat is Calling")
+                resetConstraints()
+                topAlignedToLocalView?.isActive = true
+                horizontalSpacingToLocalView?.isActive = true
+                widthOfRemote?.isActive = true
+                heightOfRemote?.isActive = true
+                
+                if UIDevice.current.userInterfaceIdiom == .pad{
+                    
+                    if isStreamPortraitPosition{
+                        
+                        heightOfRemote?.constant = 224
+                        widthOfRemote?.constant = 126
+                    }else{
+                        
+                        heightOfRemote?.constant = 126
+                        widthOfRemote?.constant = 224
+                    }
+                }else{
+                    
+                    if isStreamPortraitPosition {
+                        
+                        heightOfRemote?.constant = 112
+                        widthOfRemote?.constant = 63
+                    }else{
+                        
+                        heightOfRemote?.constant = 72
+                        widthOfRemote?.constant = 128
+                    }
+                }
+                return
+            }else{
+                
+                Log.echo(key: "yud" ,text: "is landscape is Calling")
+                
+                resetConstraints()
+                self.widthOfRemote?.isActive = true
+                self.heightOfRemote?.isActive = true
+                self.trailingAlignedToLocalView?.isActive = true
+                self.verticalSpacingToLocalView?.isActive = true
+                
+                if UIDevice.current.userInterfaceIdiom == .pad{
+                    
+                    if isStreamPortraitPosition{
+                        
+                        heightOfRemote?.constant = 224
+                        //widthOfRemote?.constant = 126
+                        widthOfRemote?.constant = 126
+                        
+                    }else{
+                        
+                        heightOfRemote?.constant = 126
+                        widthOfRemote?.constant = 224
+                    }
+                }else{
+                    
+                    if isStreamPortraitPosition{
+                        
+                        heightOfRemote?.constant = 112
+                        widthOfRemote?.constant = 63
+                        //widthOfRemote?.constant = 128
+                        
+                    }else{
+                        
+                        heightOfRemote?.constant = 72
+                        widthOfRemote?.constant = 128
+                    }
+                }
+                return
+            }
+        }
     }
     
     

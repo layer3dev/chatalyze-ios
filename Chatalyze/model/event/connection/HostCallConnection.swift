@@ -129,7 +129,6 @@ class HostCallConnection: CallConnection {
         }
     }
     
-    
     //overridden
     override var targetUserId : String?{
         

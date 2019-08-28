@@ -13,11 +13,9 @@ class AccountHostRootView:AccountRootView{
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
     }
     
     //Here memory stands for setting and the mytickets stand for Session
-    
     override func setTabInterface(controller:UIViewController?){
         
         guard let controller = controller else { return }
