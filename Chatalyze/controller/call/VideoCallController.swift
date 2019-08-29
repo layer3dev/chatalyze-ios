@@ -163,7 +163,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func resetMuteActions(){
-        
+
         actionContainer?.audioView?.unmute()
         actionContainer?.videoView?.unmute()
         

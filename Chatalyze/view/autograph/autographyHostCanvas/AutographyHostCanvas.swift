@@ -143,20 +143,22 @@ class AutographyHostCanvas: ExtendedView {
     
     fileprivate func allowTouch(touches:Set<UITouch>?)->Bool{
        
-        if let touch = touches{
-            if #available(iOS 9.1, *){
-                if touch.first?.type == .stylus{
-                    return true
-                }
-                if isAllowedHand == true{
-                    return true
-                }
-                return false
-            }
-            //Fallback on earlier versions
-            return true
-        }
-        return false
+        return true
+        
+//        if let touch = touches{
+//            if #available(iOS 9.1, *){
+//                if touch.first?.type == .stylus{
+//                    return true
+//                }
+//                if isAllowedHand == true{
+//                    return true
+//                }
+//                return false
+//            }
+//            //Fallback on earlier versions
+//            return true
+//        }
+//        return false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -207,10 +209,10 @@ class AutographyHostCanvas: ExtendedView {
         // 1
         let frame = self.mainImageView?.frame ?? CGRect()
         
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom previousPoint ==> \(previousPoint)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
+        Log.echo(key: "point", text: "drawLineFrom ==> \(frame)")
+        Log.echo(key: "point", text: "drawLineFrom previousPoint ==> \(previousPoint)")
+        Log.echo(key: "point", text: "drawLineFrom mid1 ==> \(mid1)")
+        Log.echo(key: "point", text: "drawLineFrom mid2 ==> \(mid2)")
         
     //  UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
         
@@ -370,7 +372,7 @@ class AutographyHostCanvas: ExtendedView {
         
         let frame = self.mainImageView?.frame ?? CGRect()
         
-        Log.echo(key: "frame", text: "touchesEnded ==> \(frame)")
+        Log.echo(key: "point", text: "touchesEnded ==> \(frame)")
         if !swiped {
             //draw a single point
             drawLineFrom(currentPoint, mid1: currentPoint, mid2: currentPoint)
@@ -488,6 +490,9 @@ extension AutographyHostCanvas{
 extension AutographyHostCanvas{
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
+        
+        
+        Log.echo(key: "point", text: "Broadcasting with the info x is \(x) y is \(y) and isContinuos is \(isContinous) and reset is \(reset)")
 
         var params = [String : Any]()
         
