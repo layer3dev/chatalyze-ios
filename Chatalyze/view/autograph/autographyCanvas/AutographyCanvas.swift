@@ -303,6 +303,8 @@ class AutographyCanvas: ExtendedView {
     }
     
     private func processTouchEnded(point : CGPoint){
+        
+        
         return;
         
         // Merge tempImageView into mainImageView

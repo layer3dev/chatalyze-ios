@@ -166,6 +166,7 @@ class AutographyHostCanvas: ExtendedView {
         Log.echo(key: "point", text: "Point in touches begun \(touches.first?.location(in: self)) and the main frame is \(self.mainImageView?.frame)")
         
         let isallow = allowTouch(touches:touches)
+        
         if !isallow {
             return
         }
@@ -190,23 +191,18 @@ class AutographyHostCanvas: ExtendedView {
             return
         }
         
-        //        if getEndPoint == false{
-        //            self.delegate?.touchesEnded(withPoint: previousPoint)
-        //        }
-        //getEndPoint = false
-        
         getBeginPoint = true
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
         Log.echo(key: "point", text: "I am  broadcasting")
         self.touchesBegan(withPoint: currentPoint)
-        //self.touchesMoved(touches, with: event)
+        drawLineFrom(currentPoint, mid1: currentPoint, mid2: currentPoint)
     }
     
     func setCanvas(){
     }
     
     func drawLineFrom(_ previousPoint : CGPoint, mid1: CGPoint, mid2: CGPoint) {
-        // 1
+        
         let frame = self.mainImageView?.frame ?? CGRect()
         
         Log.echo(key: "point", text: "drawLineFrom ==> \(frame)")
@@ -245,6 +241,7 @@ class AutographyHostCanvas: ExtendedView {
         Log.echo(key: "point", text: "Point as touches move \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
         
         let isallow = allowTouch(touches:touches)
+        
         if !isallow {
             return
         }
@@ -271,7 +268,6 @@ class AutographyHostCanvas: ExtendedView {
             return
         }
         
-        //6
         swiped = true
         let mainPoint = touch.location(in: self)
         if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
@@ -281,20 +277,22 @@ class AutographyHostCanvas: ExtendedView {
             self.touchesEnded(withPoint: point)
             return
         }
-        if getBeginPoint == false{
+        
+        if getBeginPoint == false {
             let point = touch.location(in: mainImageView)
             self.touchesBegan(withPoint: point)
             getBeginPoint = true
             return
         }
+        
         let point = touch.location(in: mainImageView)
         self.touchesMoved(withPoint: point)
+        
         Log.echo(key: "point", text: "I am broadcasting")
         processMovedTouches(lastTouchPoint : lastTouchPoint, touches : touches, with: event)
     }
     
     private func processMovedTouches(lastTouchPoint : CGPoint, touches: Set<UITouch>, with event: UIEvent?){
-        
         
         let isallow = allowTouch(touches:touches)
         if !isallow {
@@ -303,7 +301,7 @@ class AutographyHostCanvas: ExtendedView {
         
         guard let touch = touches.first
             else{
-                return;
+                return
         }
         
         let point = touch.location(in: mainImageView)
@@ -314,30 +312,30 @@ class AutographyHostCanvas: ExtendedView {
         
         if (total < AutographyCanvas.kPointMinDistanceSquared) {
             // ... then ignore this movement
-            return;
+            return
         }
         // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
         Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
+        
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
+        
+        
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
-        //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
     }
     
-    //return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
     private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
         
         return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
     }
     
-    //func touchesEndedAutography(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        Log.echo(key: "point", text: "Point as touches end \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
-        
+        Log.echo(key: "point", text: "Point as touches end \(String(describing: touches.first?.location(in: self))) and this point is under the canvas frame is \(String(describing: mainImageView?.frame)))")
 
+        
+        
         let isallow = allowTouch(touches:touches)
         if !isallow {
             return
@@ -357,7 +355,6 @@ class AutographyHostCanvas: ExtendedView {
             return
         }
         getBeginPoint = false
-        //getEndPoint = true
         let point = touch.location(in: mainImageView)
         Log.echo(key: "point", text: "I am broadcasting")
         self.touchesEnded(withPoint: point)
@@ -366,6 +363,7 @@ class AutographyHostCanvas: ExtendedView {
     private func processTouchEnded(_ touches: Set<UITouch>){
         
         let isallow = allowTouch(touches:touches)
+        
         if !isallow {
             return
         }
@@ -373,11 +371,14 @@ class AutographyHostCanvas: ExtendedView {
         let frame = self.mainImageView?.frame ?? CGRect()
         
         Log.echo(key: "point", text: "touchesEnded ==> \(frame)")
+        
         if !swiped {
+            
             //draw a single point
             drawLineFrom(currentPoint, mid1: currentPoint, mid2: currentPoint)
             //drawLineFrom(currentPoint, toPoint: currentPoint)
         }
+        
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
         let size = mainImageView?.frame.size ?? CGSize()
@@ -395,13 +396,11 @@ class AutographyHostCanvas: ExtendedView {
         
         return subView.frame.contains(point)
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        Log.echo(key: "yudi", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
-
-        //
+        //Log.echo(key: "yudi", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
 
         self.mainImageView?.frame = self.frame
         self.tempImageView?.frame = self.frame
