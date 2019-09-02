@@ -1573,18 +1573,13 @@ extension UserCallController {
 extension UserCallController{
     
     @IBAction func testAction(sender:UIButton){
+      
+        self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
+        self.userRootView?.remoteVideoContainerView?.updateForSignature()
         
-        guard let id = self.myLiveUnMergedSlot?.id else{
-            return
-        }
-        
-        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, isSignedResponseIs,isRquested)  in
-            
-            Log.echo(key: "yudi", text: "success is \(success) and the isSignedResponse is \(isSignedResponseIs)")
-        }
-        
-        //        VerifyForSignatureImplementation().fetch(scheduleId: id) { (success, message, info) in
-        //        }
+        self.userRootView?.canvasContainer?.show()
+        self.userRootView?.canvas?.image = UIImage(named: "testingImage")
+
         
     }
     
