@@ -275,11 +275,11 @@ class AutographyCanvas: ExtendedView {
         
         let total : Double = (Double(dx * dx) + Double(dy * dy))
         
-//        if (total < AutographyCanvas.kPointMinDistanceSquared) {
-//            
-//            // ... then ignore this movement
-//            return;
-//        }
+        if (total < AutographyCanvas.kPointMinDistanceSquared) {
+            
+            // ... then ignore this movement
+            return;
+        }
         // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
         Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
