@@ -103,6 +103,7 @@ class VideoRootView: ExtendedView {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleContainer(gesture:)))
         tapGesture.numberOfTapsRequired = 1
+        tapGesture.delegate = self
         self.addGestureRecognizer(tapGesture)
     }
     
@@ -116,6 +117,7 @@ class VideoRootView: ExtendedView {
         animateHeader()
     }
     
+    
     func animateHeader(){
         //TO be overridden in order to hide and show the topmost Header
     }
@@ -124,3 +126,19 @@ class VideoRootView: ExtendedView {
         //TO be overridden in order to hide and show the signature accessory view.
     }
 }
+
+
+extension VideoRootView:UIGestureRecognizerDelegate{
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return self.shouldTapAllow(touch: touch)
+    }
+    
+    @objc func shouldTapAllow(touch: UITouch)->Bool{
+        //To be overridden
+        return true
+    }
+    
+    
+}
+

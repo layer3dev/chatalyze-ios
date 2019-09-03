@@ -30,6 +30,16 @@ class HostVideoRootView: VideoRootView {
     }
     */
     
+    override func shouldTapAllow(touch: UITouch) -> Bool {
+        
+        Log.echo(key: "point", text: "TOUCH CANVAS IS \(touch.location(in: self.canvas?.mainImageView)) doest exists the touch ")
+        
+        if self.canvas?.mainImageView?.frame.contains(touch.location(in: self)) ?? false{
+            return false
+        }
+        return true
+    }
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -60,5 +70,10 @@ class HostVideoRootView: VideoRootView {
             self.signatureAccessoryViewBottomConstraint?.constant = -150
             self.layoutIfNeeded()
         }
-    }    
+    }
+    
+    @IBAction func crossAccessoryView(sender:UIButton?){
+        self.actionContainer?.toggleContainer()
+        self.animateHeader()
+    }
 }

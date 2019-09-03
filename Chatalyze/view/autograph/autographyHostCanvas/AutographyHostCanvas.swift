@@ -194,10 +194,10 @@ class AutographyHostCanvas: ExtendedView {
         //getEndPoint = false
         
         getBeginPoint = true
-        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-        Log.echo(key: "point", text: "I am  broadcasting")
+        Log.echo(key: "point", text: "I am  broadcasting first time with coordinatue \(point.x) and the y is \(point.y)")
         self.touchesBegan(withPoint: currentPoint)
         //self.touchesMoved(touches, with: event)
+        //drawLineFrom(currentPoint, mid1:self.currentPoint, mid2: self.currentPoint)
     }
     
     func setCanvas(){
@@ -273,18 +273,20 @@ class AutographyHostCanvas: ExtendedView {
         swiped = true
         let mainPoint = touch.location(in: self)
         if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
+            
             Log.echo(key: "point", text: "I am not broadcasting")
-
             let point = touch.location(in: mainImageView)
             self.touchesEnded(withPoint: point)
             return
         }
         if getBeginPoint == false{
+            
             let point = touch.location(in: mainImageView)
             self.touchesBegan(withPoint: point)
             getBeginPoint = true
             return
         }
+        
         let point = touch.location(in: mainImageView)
         self.touchesMoved(withPoint: point)
         Log.echo(key: "point", text: "I am broadcasting")
@@ -335,7 +337,6 @@ class AutographyHostCanvas: ExtendedView {
         
         Log.echo(key: "point", text: "Point as touches end \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
         
-
         let isallow = allowTouch(touches:touches)
         if !isallow {
             return
@@ -522,19 +523,21 @@ extension AutographyHostCanvas{
     func touchesBegan(withPoint point : CGPoint){
         
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-        Log.echo(key: "point", text: "sending the begining point.")
+        Log.echo(key: "point", text: "sending the begining point with the x \(point.x) and the y is \(point.y)")
     }
     
     func touchesMoved(withPoint point : CGPoint){
 
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: true)
-        Log.echo(key: "point", text: "sending the moving point.")
+        Log.echo(key: "point", text: "sending the moving point with the x \(point.x) and the y is \(point.y)")
+
     }
     
     func touchesEnded(withPoint point : CGPoint){
 
         broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-        Log.echo(key: "point", text: "sending the end point.")
+        Log.echo(key: "point", text: "sending the end point. with the x \(point.x) and the y is \(point.y)")
+
     }
     
     func initializeForGetSocketPing(){

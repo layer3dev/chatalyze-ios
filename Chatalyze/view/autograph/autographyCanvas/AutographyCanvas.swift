@@ -230,7 +230,7 @@ class AutographyCanvas: ExtendedView {
         Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
 
         UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
-        
+
         let context = UIGraphicsGetCurrentContext()
         
         tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
@@ -303,7 +303,15 @@ class AutographyCanvas: ExtendedView {
     }
     
     private func processTouchEnded(point : CGPoint){
-        return;
+        
+        self.previousPreviousPoint = self.previousPoint
+        self.previousPoint = self.currentPoint
+        self.currentPoint = point
+        
+        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
+        drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
+        return
         
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
@@ -388,6 +396,7 @@ extension AutographyCanvas{
 
 
 extension AutographyCanvas{
+    
     fileprivate func paintEmptyView(){
     }
 }
