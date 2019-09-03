@@ -59,7 +59,7 @@ class VideoRootView: ExtendedView {
        
         initializeVariable()
         paintInterface()
-        addToogleGesture()
+        //addToogleGesture()
     }
     
     private func initializeVariable(){
@@ -68,9 +68,8 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintInterface(){
-        
-//        paintOverlay()
-//        self.actionContainer?.isHidden = true
+        //paintOverlay()
+        //self.actionContainer?.isHidden = true
     }
     
     private func paintOverlay(){

@@ -1559,6 +1559,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     }
     
     @IBAction func testOrientation(){
+        
+    
     }    
     
     func lockDeviceOrientation(){
@@ -1592,3 +1594,5 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         delegate?.isSignatureInCallisActive = false
     }
 }
+
+
