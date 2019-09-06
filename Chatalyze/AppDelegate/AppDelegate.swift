@@ -45,9 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func bugSnagInitialization(){
         
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
-        if let id = SignedUserInfo.sharedInstance?.id {            
+        
+        if let id = SignedUserInfo.sharedInstance?.id {
+        
             Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
         }
+        
         Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
 

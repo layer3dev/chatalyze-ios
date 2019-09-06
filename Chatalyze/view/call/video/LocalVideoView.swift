@@ -42,7 +42,7 @@ class LocalVideoView: VideoView {
     
     private func initialization(){
         
-        self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
+        self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         updateLayoutRotation()
         NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
@@ -111,6 +111,11 @@ class LocalVideoView: VideoView {
         heightConstraint?.constant = 72
         widthConstraint?.constant = 128
         return
+    }
+    
+    
+    override func updateSize(size: CGSize) {
+        super.updateSize(size: size)
     }
 
 }

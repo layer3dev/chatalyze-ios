@@ -1185,6 +1185,7 @@ extension UserCallController{
         }
         
         if localSlotIdToManageAutograph == nil{
+            
             localSlotIdToManageAutograph =  self.myLiveUnMergedSlot?.id
             return
         }
@@ -1197,7 +1198,6 @@ extension UserCallController{
             //reset the signature
             return
         }
-        
     }
     
     private func requestAutographProcess(){

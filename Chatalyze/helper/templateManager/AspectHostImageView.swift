@@ -141,9 +141,9 @@ extension AspectHostImageView {
                 return nil
         }
         
-        Log.echo(key: "yud", text: "self canvas image bound are \(self.bounds)")
+        Log.echo(key: "yud", text: "self canvas image bound are \(self.bounds) and the image size is \(image.size)")
         
-        let size = AVMakeRect(aspectRatio: image.size, insideRect: self.bounds)
+        let size = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         return size
     }
     

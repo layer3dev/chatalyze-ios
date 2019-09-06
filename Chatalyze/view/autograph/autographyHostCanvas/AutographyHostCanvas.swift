@@ -36,7 +36,7 @@ class AutographyHostCanvas: ExtendedView {
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 6:4
     //var brushWidth: CGFloat = 18
     var opacity: CGFloat = 1.0
 
@@ -189,14 +189,18 @@ class AutographyHostCanvas: ExtendedView {
         }
         
         //        if getEndPoint == false{
+        
         //            self.delegate?.touchesEnded(withPoint: previousPoint)
         //        }
+        
         //getEndPoint = false
         
         getBeginPoint = true
         Log.echo(key: "point", text: "I am  broadcasting first time with coordinatue \(point.x) and the y is \(point.y)")
         self.touchesBegan(withPoint: currentPoint)
+       
         //self.touchesMoved(touches, with: event)
+       
         //drawLineFrom(currentPoint, mid1:self.currentPoint, mid2: self.currentPoint)
     }
     
@@ -226,11 +230,14 @@ class AutographyHostCanvas: ExtendedView {
         // 2
         context?.move(to: CGPoint(x: mid1.x, y: mid1.y))
       
+        
         //context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
         context?.addQuadCurve(to: mid2, control: previousPoint)
         
+        
         //CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
         context?.strokePath()
+        
         
         tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
         tempImageView?.alpha = opacity
@@ -373,10 +380,12 @@ class AutographyHostCanvas: ExtendedView {
         
         Log.echo(key: "frame", text: "touchesEnded ==> \(frame)")
         if !swiped {
+            
             //draw a single point
             drawLineFrom(currentPoint, mid1: currentPoint, mid2: currentPoint)
             //drawLineFrom(currentPoint, toPoint: currentPoint)
         }
+        
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
         let size = mainImageView?.frame.size ?? CGSize()
@@ -398,16 +407,19 @@ class AutographyHostCanvas: ExtendedView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        Log.echo(key: "yudi", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
-
-        //
-
+        Log.echo(key: "point", text: "LAYOUT IS CALLING")
+        self.updateFrames()
+    }
+    
+    func updateFrames(){
+        
         self.mainImageView?.frame = self.frame
         self.tempImageView?.frame = self.frame
         
         self.mainImageView?.updateFrames()
         self.tempImageView?.updateFrames()
     }
+    
 }
 
 extension AutographyHostCanvas{

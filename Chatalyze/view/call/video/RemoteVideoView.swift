@@ -19,7 +19,6 @@ class RemoteVideoView: VideoView {
     
     var streamUpdationDelegate:UpdateStreamChangeProtocol?
     
-    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -34,7 +33,7 @@ class RemoteVideoView: VideoView {
         self.containerSize = containerSize
         refreshRendererSize()
     }
-    
+
     override func updateSize(size: CGSize){
         
         Log.echo(key: "remote", text: "updateSize ->> \(size)")

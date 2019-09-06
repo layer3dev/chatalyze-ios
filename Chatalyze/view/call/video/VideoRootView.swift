@@ -59,7 +59,7 @@ class VideoRootView: ExtendedView {
        
         initializeVariable()
         paintInterface()
-        //addToogleGesture()
+        addToogleGesture()
     }
     
     private func initializeVariable(){

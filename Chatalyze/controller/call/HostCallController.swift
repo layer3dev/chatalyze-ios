@@ -814,6 +814,7 @@ class HostCallController: VideoCallController {
     }
     
     private func processEvent(){
+        
         Log.echo(key : "delay", text : "processEvent")
         
         if(!(socketClient?.isConnected ?? false)){
@@ -1312,7 +1313,6 @@ extension HostCallController{
             self.downLoadScreenShotImage()
             
             //Download image and send it to the canvas in order to set the image.
-            
         }
     }
     
@@ -1346,13 +1346,19 @@ extension HostCallController{
             
             DispatchQueue.main.async(execute: {
                 
-                Log.echo(key: "yud", text: "Image Down loading is successfull \(String(describing: info))")
+                Log.echo(key: "point", text: "Image Down loading is successfull \(String(describing: info)) and its frame is \(String(describing: image?.size.height)) and the width is \(String(describing: image?.size.width))")
+                
+                
                 
                 self.stopLoader()
                 if(image == nil){
                     //oops something went wrong please try again
                     return
                 }
+                
+                self.lockDeviceOrientation()
+
+                
                 self.hostRootView?.canvasContainer?.show()
                 self.hostRootView?.canvas?.image = image
                 self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
@@ -1364,7 +1370,6 @@ extension HostCallController{
                 self.hostRootView?.localVideoView?.updateForPortrait()
                 self.sendScreenshotConfirmation(info)
                 
-                self.lockDeviceOrientation()
             })
         }
     }
@@ -1397,6 +1402,7 @@ extension HostCallController{
         
         self.releaseDeviceOrientation()
         self.hostRootView?.canvas?.image = nil
+        self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
 
@@ -1405,11 +1411,9 @@ extension HostCallController{
         
         self.hostRootView?.localVideoView?.isSignatureActive = false
         self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
-    
-        
         
     }
-    
+
     private func resetAutographCanvasIfNewCallAndSlotExists(){
         
         //if current slot id is nil then return
@@ -1529,6 +1533,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     
     func doneAction(sender:UIButton?){
         
+        self.uploadAutographImage()
+        
         self.hostRootView?.canvas?.image = nil
         self.hostRootView?.canvasContainer?.hide()
         self.stopSigning()
@@ -1540,7 +1546,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.hostRootView?.localVideoView?.isSignatureActive = false
         self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
         
-        self.uploadAutographImage()
         self.isSignatureActive = false
         
         self.releaseDeviceOrientation()

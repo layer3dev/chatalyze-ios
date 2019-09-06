@@ -27,7 +27,7 @@ class AutographyCanvas: ExtendedView {
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 6:5
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
     var opacity: CGFloat = 1.0
         
     var drawColor : UIColor?
@@ -151,38 +151,37 @@ class AutographyCanvas: ExtendedView {
         }
         
         let rawPoint = info.point
+        
         Log.echo(key: "processPoint", text: "rawPoint -> x \(rawPoint.x) y --> \(rawPoint.y)")
         let point = targetPoint(inputPoint: rawPoint)
-        
         Log.echo(key: "processPoint", text: "targetPoint -> x \(point.x) y --> \(point.y)")
         
         if(!info.isContinous && !touchStarted){
-            Log.echo(key: "processPoint", text: "start sign")
+            
             touchStarted = true
             touchesStart(point: point)
             return
         }
         
         if(info.isContinous){
-            Log.echo(key: "processPoint", text: "move sign")
+            
             touchStarted = true
             touchesMove(point: point)
             return
         }
         
         if(!info.isContinous){
-            Log.echo(key: "processPoint", text: "end sign")
+            
             touchStarted = false
             touchesEnd(point: point)
             return
         }
-        
-        Log.echo(key: "processPoint", text: "Dont know what to do")
     }
     
     
     fileprivate func fillConstraints()
     {
+        
         var customConstraints = [NSLayoutConstraint]()
         
         if(containerView == nil)
@@ -249,12 +248,14 @@ class AutographyCanvas: ExtendedView {
         
         context?.addQuadCurve(to: mid2, control: previousPoint)
         
-        //        CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
+        //CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
+        
         context?.strokePath()
 
         tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
         tempImageView?.alpha = opacity
         UIGraphicsEndImageContext()
+        
     }
     
     func touchesMove(point : CGPoint) {
@@ -311,17 +312,17 @@ class AutographyCanvas: ExtendedView {
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
-        return
+
         
         // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
-        let size = mainImageView?.frame.size ?? CGSize()
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
-        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
-        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        tempImageView?.image = nil        
+//        let size = mainImageView?.frame.size ?? CGSize()
+//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+//        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
+//        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
+//        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        tempImageView?.image = nil        
     }
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
