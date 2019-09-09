@@ -577,6 +577,7 @@ extension AutographyHostCanvas{
         if (newSelectedColor.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha)) {
             
             Log.echo(key: "", text:"test color if")
+            
             if fRed < 0 {
                 fRed = -(fRed)
             }

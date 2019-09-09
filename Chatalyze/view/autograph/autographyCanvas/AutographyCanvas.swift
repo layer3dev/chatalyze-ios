@@ -10,7 +10,6 @@ import UIKit
 
 class AutographyCanvas: ExtendedView {
     
-    @IBOutlet var tempImageView : AspectImageView?
     @IBOutlet var mainImageView : AspectImageView?
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
@@ -106,13 +105,13 @@ class AutographyCanvas: ExtendedView {
     
     private func registerForAutographListener(){
         
-        socketListener?.onEvent("broadcastPoints", completion: { (json) in
+        socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
             
             Log.echo(key: "yud", text: "I got the brodcast call")
 
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
-            self.processPoint(info: broadcastInfo)
+            self?.processPoint(info: broadcastInfo)
         })
     }
     
@@ -144,6 +143,7 @@ class AutographyCanvas: ExtendedView {
         let color = UIColor(hexString : rawColor)
         self.drawColor = color
         if(info.reset){
+            
             Log.echo(key: "processPoint", text: "asking to reset")
             touchStarted = false
             reset()
@@ -206,7 +206,6 @@ class AutographyCanvas: ExtendedView {
     func reset(){
         
         mainImageView?.image = _image
-        tempImageView?.image = _image
     }
     
     func touchesStart(point : CGPoint) {
@@ -232,7 +231,7 @@ class AutographyCanvas: ExtendedView {
 
         let context = UIGraphicsGetCurrentContext()
         
-        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         
         context?.setLineCap(CGLineCap.round)
         context?.setLineWidth(brushWidth)
@@ -252,8 +251,8 @@ class AutographyCanvas: ExtendedView {
         
         context?.strokePath()
 
-        tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-        tempImageView?.alpha = opacity
+        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+        mainImageView?.alpha = opacity
         UIGraphicsEndImageContext()
         
     }
@@ -314,15 +313,12 @@ class AutographyCanvas: ExtendedView {
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
 
         
-        // Merge tempImageView into mainImageView
         // UIGraphicsBeginImageContext()
 //        let size = mainImageView?.frame.size ?? CGSize()
 //        UIGraphicsBeginImageContextWithOptions(size, false, scale)
 //        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
-//        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
 //        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
 //        UIGraphicsEndImageContext()
-//        tempImageView?.image = nil        
     }
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
@@ -336,10 +332,8 @@ class AutographyCanvas: ExtendedView {
         Log.echo(key: "yud", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
         
         self.mainImageView?.frame = self.frame
-        self.tempImageView?.frame = self.frame
         
         self.mainImageView?.updateFrames()
-        self.tempImageView?.updateFrames()
     }
 }
 
@@ -350,7 +344,6 @@ extension AutographyCanvas{
             return mainImageView?.image
         }
         set{
-            tempImageView?.image = newValue
             mainImageView?.image = newValue
             _image = newValue
         }

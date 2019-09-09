@@ -1194,7 +1194,8 @@ extension HostCallController{
             self.stopLoader()
             
             if success{
-                self.processExitAction(code : .earlyExit)                
+                
+                self.processExitAction(code : .earlyExit)
                 return
             }
             return

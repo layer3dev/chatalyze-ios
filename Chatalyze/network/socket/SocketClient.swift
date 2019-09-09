@@ -55,6 +55,7 @@ class SocketClient : NSObject{
     
     fileprivate func initialization(){
         
+        
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
