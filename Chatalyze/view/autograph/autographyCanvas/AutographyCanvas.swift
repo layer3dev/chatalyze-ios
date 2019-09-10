@@ -10,6 +10,10 @@ import UIKit
 
 class AutographyCanvas: ExtendedView {
     
+    
+    var isDelayActiveinDrawing = false
+    var recievedCordinates = [BroadcastInfo]()
+    
     @IBOutlet var mainImageView : AspectImageView?
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
@@ -111,9 +115,35 @@ class AutographyCanvas: ExtendedView {
 
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
-            self?.processPoint(info: broadcastInfo)
+            self?.recievedCordinates.append(broadcastInfo)
+            self?.handlingDelayInDrawing()
         })
     }
+    
+    
+    func handlingDelayInDrawing(){
+        
+        if self.isDelayActiveinDrawing{
+            return
+        }
+        self.isDelayActiveinDrawing = true
+        if recievedCordinates.count == 0 {
+            self.isDelayActiveinDrawing = false
+            return
+        }
+        guard let fisrtInfo = recievedCordinates.first else{
+            self.isDelayActiveinDrawing = false
+            return
+        }
+        self.processPoint(info: fisrtInfo)
+        self.recievedCordinates.removeFirst()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.001) {
+            self.isDelayActiveinDrawing = false
+            self.handlingDelayInDrawing()
+        }
+    }
+    
+    
     
     private func targetPoint(inputPoint : CGPoint)->CGPoint{
         
@@ -332,7 +362,6 @@ class AutographyCanvas: ExtendedView {
         Log.echo(key: "yud", text: "Frames of the Autograph canvas height  \(self.frame.size.height) Autograph canvas width is  \(self.frame.size.width) \n")
         
         self.mainImageView?.frame = self.frame
-        
         self.mainImageView?.updateFrames()
     }
 }

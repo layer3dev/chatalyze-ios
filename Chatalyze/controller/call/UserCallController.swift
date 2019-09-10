@@ -96,7 +96,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "Interval timer is working")
         confirmCallLinked()
         verifyIfExpired()
-        updateCallHeaderInfo()
+        self.updateCallHeaderInfo()
         processAutograph()
         updateLableAnimation()
         resetAutographCanvasIfNewCallAndSlotExists()
@@ -1544,28 +1544,31 @@ extension UserCallController {
     
     private func updateNewHeaderInfoForSession(slot : SlotInfo){
         
-        userRootView?.callInfoContainer?.isHidden = true
-        futureSessionView?.isHidden = false
-        
-        guard let startDate = slot.startDate
-            else{
-                return
+        DispatchQueue.main.async {
+            
+            self.userRootView?.callInfoContainer?.isHidden = true
+            self.futureSessionView?.isHidden = false
+            
+            guard let startDate = slot.startDate
+                else{
+                    return
+            }
+            
+            guard let counddownInfo = startDate.countdownTimeFromNowAppended()
+                else{
+                    return
+            }
+            
+            let remainingTime = "\(counddownInfo.time)"
+            var fontSize = 20
+            if  UIDevice.current.userInterfaceIdiom == .pad {
+                fontSize = 26
+            }
+            
+            self.futureSessionHeaderLbl?.text = "Chat starts in:"
+            
+            self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
         }
-        
-        guard let counddownInfo = startDate.countdownTimeFromNowAppended()
-            else{
-                return
-        }
-        
-        let remainingTime = "\(counddownInfo.time)"
-        var fontSize = 20
-        if  UIDevice.current.userInterfaceIdiom == .pad {
-            fontSize = 26
-        }
-        
-        futureSessionHeaderLbl?.text = "Chat starts in:"
-        
-        countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
     }
 }
 
