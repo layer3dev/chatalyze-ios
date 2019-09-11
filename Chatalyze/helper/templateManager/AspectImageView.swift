@@ -36,6 +36,8 @@ class AspectImageView: UIImageView {
 //        return self;
 //    }
     
+    
+    
     @IBInspectable override var image : UIImage?{
         get{
             return super.image
@@ -45,17 +47,6 @@ class AspectImageView: UIImageView {
             updateImageViewSizeConstraint()
         }
     }
-    
-    
-    
-//    override var image: UIImage! {
-//        get {
-//            return super.image
-//        }
-//        set {
-//            super.image = newValue
-//        }
-
 }
 
 
