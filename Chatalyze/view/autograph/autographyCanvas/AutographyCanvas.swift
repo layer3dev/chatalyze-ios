@@ -30,7 +30,7 @@ class AutographyCanvas: ExtendedView {
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
     var opacity: CGFloat = 1.0
         
     var drawColor : UIColor?
@@ -126,7 +126,6 @@ class AutographyCanvas: ExtendedView {
         if self.isDelayActiveinDrawing{
             return
         }
-        self.isDelayActiveinDrawing = true
         if recievedCordinates.count == 0 {
             self.isDelayActiveinDrawing = false
             return
@@ -135,9 +134,11 @@ class AutographyCanvas: ExtendedView {
             self.isDelayActiveinDrawing = false
             return
         }
+        self.isDelayActiveinDrawing = true
         self.processPoint(info: fisrtInfo)
         self.recievedCordinates.removeFirst()
         DispatchQueue.main.asyncAfter(deadline: .now()+0.001) {
+            
             self.isDelayActiveinDrawing = false
             self.handlingDelayInDrawing()
         }
