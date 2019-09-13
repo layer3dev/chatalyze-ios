@@ -245,7 +245,6 @@ class HostCallController: VideoCallController {
     
     func showToastWithMessage(text:String,time:Double){
         
-        
         let options = [kCRToastNotificationTypeKey : CRToastType.navigationBar,kCRToastUnderStatusBarKey:false,kCRToastTextKey : text,kCRToastNotificationPreferredHeightKey:4.0,kCRToastTextAlignmentKey:NSTextAlignment.center,kCRToastBackgroundColorKey:UIColor(hexString: "#FAA579"),kCRToastAnimationInTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationOutTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationInDirectionKey:CRToastAnimationDirection.left,kCRToastAnimationOutDirectionKey:CRToastAnimationDirection.right,kCRToastTimeIntervalKey:time] as [String : Any]
         
         CRToastManager.showNotification(options: options) {
@@ -272,6 +271,14 @@ class HostCallController: VideoCallController {
     }
     
     private func registerForTimerNotification(){
+        
+        socketListener?.onEvent("screenshotLoaded", completion: { (response) in
+            
+            self.stopLoader()
+            Log.echo(key: "yud", text: "I got screenshot loaded")
+
+         })
+        
         
         socketListener?.onEvent("screenshotCountDown", completion: { (response) in
             
@@ -1266,6 +1273,8 @@ extension HostCallController{
     
     func registerForAutographSignatureCall(){
         
+        
+        
         UserSocket.sharedInstance?.socket?.on("notification") { data, ack in
             
             let rawInfosString = data.JSONDescription()
@@ -1363,7 +1372,6 @@ extension HostCallController{
                 
                 
                 
-                self.stopLoader()
                 if(image == nil){
                     //oops something went wrong please try again
                     return
@@ -1382,9 +1390,7 @@ extension HostCallController{
                     return
                 }
                 
-                
                 self.lockDeviceOrientation()
-
                 
                 self.hostRootView?.canvasContainer?.show()
                 self.hostRootView?.canvas?.image = image
