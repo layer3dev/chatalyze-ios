@@ -136,7 +136,6 @@ class HostCallController: VideoCallController {
     }
     
     var hostActionContainer : HostVideoActionContainer?{
-        
         get{
             return actionContainer as? HostVideoActionContainer
         }
@@ -1310,6 +1309,19 @@ extension HostCallController{
                 return
             }
             self.autoGraphInfo = info
+            
+            guard let infoCallBookingId  = info?.callBookingId else {
+                return
+            }
+            
+            guard let currentSlotId = self.eventInfo?.currentSlotInfo?.slotInfo?.id else{
+                return
+            }
+            
+            if String(infoCallBookingId) != String(currentSlotId){                          
+                return
+            }
+            
             self.hostRootView?.canvas?.autoGraphInfo = self.autoGraphInfo
             self.downLoadScreenShotImage()
             
@@ -1356,6 +1368,20 @@ extension HostCallController{
                     //oops something went wrong please try again
                     return
                 }
+                
+                
+                guard let infoCallBookingId  = self.autoGraphInfo?.callBookingId else {
+                    return
+                }
+                
+                guard let currentSlotId = self.eventInfo?.currentSlotInfo?.slotInfo?.id else{
+                    return
+                }
+                
+                if String(infoCallBookingId) != String(currentSlotId){
+                    return
+                }
+                
                 
                 self.lockDeviceOrientation()
 

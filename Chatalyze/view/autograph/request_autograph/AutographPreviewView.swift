@@ -26,7 +26,6 @@ class AutographPreviewView: ExtendedView {
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
     }
     
     func fillInfo(info : ScreenshotInfo?){

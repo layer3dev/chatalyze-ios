@@ -127,6 +127,9 @@ class VideoCallController : InterfaceExtendedController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
+        
+        Log.echo(key: "yud", text: "View Did release killing the call")
+        
         releaseListener()
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()

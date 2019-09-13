@@ -86,13 +86,16 @@ class RequestAutographController: InterfaceExtendedController {
 
 
 extension RequestAutographController {
+    
     class func customInstance()->RequestAutographController?{
+        
         let storyboard = UIStoryboard(name: "autograph", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "custom_request") as? RequestAutographController
         return controller
     }
     
     class func defaultInstance()->RequestAutographController?{
+        
         let storyboard = UIStoryboard(name: "autograph", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "single_request") as? RequestAutographController
         return controller

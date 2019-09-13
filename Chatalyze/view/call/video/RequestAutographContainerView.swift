@@ -48,12 +48,9 @@ class RequestAutographContainerView: ExtendedView {
     }
     
     func disable(){
-//        self.backgroundColor?.
         button?.isEnabled = false
     }
     
     func enable(){
-        
     }
-
 }

@@ -14,7 +14,7 @@ class UserCallConnection: CallConnection {
     func initiateCall(){
         self.connection?.initiateCall()
     }
-    
+
     override var targetHashId : String?{
         get{
             guard let senderHash = self.eventInfo?.user?.hashedId
@@ -61,9 +61,8 @@ class UserCallConnection: CallConnection {
         }
        
         connection = ARDAppClient(userId: userId, andReceiverId: targetId, andEventId : eventId, andDelegate:self, andLocalStream:self.localMediaPackage)
-        
+
         return connection
-        
     }
     
     override func disconnect(){
