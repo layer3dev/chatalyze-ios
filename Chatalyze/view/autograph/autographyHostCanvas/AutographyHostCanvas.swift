@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class AutographyHostCanvas: ExtendedView {
-        
+    
+    @IBOutlet var testImageView:UIImageView?
+    
+    var drawingLayer:CALayer?
     var autoGraphInfo:AutographInfo?
     var counter = 0
     var getBeginPoint = false
     //var getEndPoint = true
     
+    
     @IBOutlet var blurEffectView: UIView?
-    @IBOutlet var tempImageView : AspectHostImageView?
     @IBOutlet var mainImageView : AutographyImageView?
     
     @IBOutlet var screenShotAlertView: UIView?
@@ -32,6 +37,8 @@ class AutographyHostCanvas: ExtendedView {
     var previousPreviousPoint = CGPoint.zero
     fileprivate var _isEnabled = true
     var _image : UIImage?
+    
+    var newImage = UIImage(named: "testingImage")
     
     var red: CGFloat = 0.0
     var green: CGFloat = 0.0
@@ -130,13 +137,11 @@ class AutographyHostCanvas: ExtendedView {
     func reset(){
         
         mainImageView?.image = _image
-        tempImageView?.image = _image
     }
     
     func undo(){
         
         mainImageView?.image = _image
-        tempImageView?.image = _image
         broadcastCoordinate(withX: 0, y: 0, isContinous: false,reset: true)
     }
     
@@ -161,7 +166,7 @@ class AutographyHostCanvas: ExtendedView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        Log.echo(key: "point", text: "Point in touches begun \(touches.first?.location(in: self)) and the main frame is \(self.mainImageView?.frame)")
+      Log.echo(key: "yud", text: "Frame of the self is \(self.frame) and the frame of the mainImageView is \(self.mainImageView?.frame) and the size frame of mainImage is \(self.image?.size) and rext size is \(AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame))")
         
         let isallow = allowTouch(touches:touches)
         if !isallow {
@@ -173,35 +178,123 @@ class AutographyHostCanvas: ExtendedView {
                 return
         }
         
-        self.currentPoint = touch.location(in: mainImageView)
-        self.previousPoint = touch.previousLocation(in: mainImageView)
-        self.previousPreviousPoint = touch.previousLocation(in: mainImageView)
+        self.currentPoint = touch.location(in: self)
+        self.previousPoint = touch.previousLocation(in: self)
+        self.previousPreviousPoint = touch.previousLocation(in: self)
         
         if(!isEnabled){
             return
         }
         
         swiped = false
+        
+        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
+        
         let point = touch.location(in: self)
-        if(!(mainImageView?.frame.contains(point) ?? false) ){
-            Log.echo(key: "point", text: "I am not broadcasting")
+        if(!(x.contains(point))){
+            Log.echo(key: "point", text: "Point is not existing in the mainImageView")
             return
         }
-        
-        //        if getEndPoint == false{
-        
-        //            self.delegate?.touchesEnded(withPoint: previousPoint)
-        //        }
-        
-        //getEndPoint = false
-        
+    
         getBeginPoint = true
         Log.echo(key: "point", text: "I am  broadcasting first time with coordinatue \(point.x) and the y is \(point.y)")
         self.touchesBegan(withPoint: currentPoint)
-       
-        //self.touchesMoved(touches, with: event)
-       
-        //drawLineFrom(currentPoint, mid1:self.currentPoint, mid2: self.currentPoint)
+    }
+    
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        Log.echo(key: "point", text: "Point as touches move \(String(describing: touches.first?.location(in: self))) and this point is under the canvas frame is \(String(describing: mainImageView?.frame)))")
+        
+        
+        let isallow = allowTouch(touches:touches)
+        if !isallow {
+            return
+        }
+        
+        guard let touch = touches.first
+            else{
+                return
+        }
+        
+        var previousPoint = touch.previousLocation(in: self)
+        
+//        if(previousPoint.x < 0){
+//            previousPoint.x = 0
+//        }
+//        if(previousPoint.y < 0){
+//            previousPoint.y = 0
+//        }
+        
+        
+        
+        
+        self.previousPreviousPoint = self.previousPoint
+        self.previousPoint = previousPoint
+        let lastTouchPoint = self.currentPoint
+        self.currentPoint = touch.location(in: self)
+        if(!isEnabled){
+            return
+        }
+        
+        //6
+        swiped = true
+        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
+        let point = touch.location(in: self)
+        
+        
+        if(!(x.contains(point))){
+            
+            Log.echo(key: "point", text: "I am not broadcasting")
+            let point = touch.location(in: self)
+            self.touchesEnded(withPoint: point)
+            return
+        }
+        if getBeginPoint == false{
+            
+            let point = touch.location(in: self)
+            self.touchesBegan(withPoint: point)
+            getBeginPoint = true
+            return
+        }
+        
+        let currentpoint = touch.location(in: self)
+        self.touchesMoved(withPoint: currentpoint)
+        Log.echo(key: "point", text: "I am broadcasting")
+        drawBezier(from: self.previousPoint, to: self.currentPoint)
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        Log.echo(key: "point", text: "Point as touches end \(String(describing: touches.first?.location(in: self))) and this point is under the canvas frame is \(mainImageView?.frame))")
+        
+        let isallow = allowTouch(touches:touches)
+        if !isallow {
+            return
+        }
+        
+        if(!isEnabled){
+            return
+        }
+        processTouchEnded(touches)
+        guard let touch = touches.first
+            else{
+                return;
+        }
+        let mainPoint = touch.location(in: self)
+        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
+        
+        if(!(x.contains(mainPoint))){
+            Log.echo(key: "point", text: "I am not broadcasting")
+            return
+        }
+        getBeginPoint = false
+        //getEndPoint = true
+        let point = touch.location(in: self)
+        Log.echo(key: "point", text: "I am broadcasting")
+        self.touchesEnded(withPoint: point)
+        flattenToImage()
     }
     
     func setCanvas(){
@@ -220,7 +313,7 @@ class AutographyHostCanvas: ExtendedView {
         
         UIGraphicsBeginImageContext(frame.size)
         let context = UIGraphicsGetCurrentContext()
-        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         
         context?.setLineCap(CGLineCap.round)
         context?.setLineWidth(brushWidth)
@@ -239,66 +332,13 @@ class AutographyHostCanvas: ExtendedView {
         context?.strokePath()
         
         
-        tempImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-        tempImageView?.alpha = opacity
+        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+        mainImageView?.alpha = opacity
         UIGraphicsEndImageContext()
     }
     
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        Log.echo(key: "point", text: "Point as touches move \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
-        
-        let isallow = allowTouch(touches:touches)
-        if !isallow {
-            return
-        }
-        
-        guard let touch = touches.first
-            else{
-                return;
-        }
-        
-        var previousPoint = touch.previousLocation(in: mainImageView)
-        
-        if(previousPoint.x < 0){
-            previousPoint.x = 0
-        }
-        if(previousPoint.y < 0){
-            previousPoint.y = 0
-        }
-        
-        self.previousPreviousPoint = self.previousPoint
-        self.previousPoint = previousPoint
-        let lastTouchPoint = self.currentPoint
-        self.currentPoint = touch.location(in: mainImageView)
-        if(!isEnabled){
-            return
-        }
-        
-        //6
-        swiped = true
-        let mainPoint = touch.location(in: self)
-        if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
-            
-            Log.echo(key: "point", text: "I am not broadcasting")
-            let point = touch.location(in: mainImageView)
-            self.touchesEnded(withPoint: point)
-            return
-        }
-        if getBeginPoint == false{
-            
-            let point = touch.location(in: mainImageView)
-            self.touchesBegan(withPoint: point)
-            getBeginPoint = true
-            return
-        }
-        
-        let point = touch.location(in: mainImageView)
-        self.touchesMoved(withPoint: point)
-        Log.echo(key: "point", text: "I am broadcasting")
-        processMovedTouches(lastTouchPoint : lastTouchPoint, touches : touches, with: event)
-    }
+
     
     private func processMovedTouches(lastTouchPoint : CGPoint, touches: Set<UITouch>, with event: UIEvent?){
         
@@ -339,64 +379,20 @@ class AutographyHostCanvas: ExtendedView {
     }
     
     //func touchesEndedAutography(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        Log.echo(key: "point", text: "Point as touches end \(touches.first?.location(in: self)) and this point is under the canvas frame is \(mainImageView?.frame))")
-        
-        let isallow = allowTouch(touches:touches)
-        if !isallow {
-            return
-        }
-        
-        if(!isEnabled){
-            return
-        }
-        processTouchEnded(touches)
-        guard let touch = touches.first
-            else{
-                return;
-        }
-        let mainPoint = touch.location(in: self)
-        if(!(mainImageView?.frame.contains(mainPoint) ?? false) ){
-            Log.echo(key: "point", text: "I am not broadcasting")
-            return
-        }
-        getBeginPoint = false
-        //getEndPoint = true
-        let point = touch.location(in: mainImageView)
-        Log.echo(key: "point", text: "I am broadcasting")
-        self.touchesEnded(withPoint: point)
-    }
+
     
     private func processTouchEnded(_ touches: Set<UITouch>){
-        
-        let isallow = allowTouch(touches:touches)
-        if !isallow {
-            return
-        }
-        
+
         let frame = self.mainImageView?.frame ?? CGRect()
         
         Log.echo(key: "frame", text: "touchesEnded ==> \(frame)")
+        
         if !swiped {
             
-            //draw a single point
             drawLineFrom(currentPoint, mid1: currentPoint, mid2: currentPoint)
-            //drawLineFrom(currentPoint, toPoint: currentPoint)
         }
         
-        // Merge tempImageView into mainImageView
-        // UIGraphicsBeginImageContext()
-        let size = mainImageView?.frame.size ?? CGSize()
-        //UIGraphicsBeginImageContextWithOptions(size, false, scale)
         
-        UIGraphicsBeginImageContext(size)
-        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
-        tempImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: opacity)
-        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        tempImageView?.image = nil
     }
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
@@ -413,13 +409,16 @@ class AutographyHostCanvas: ExtendedView {
     
     func updateFrames(){
         
-        self.mainImageView?.frame = self.frame
-        self.tempImageView?.frame = self.frame
+        Log.echo(key: "yud", text: "image size is \(self.image?.size) and the frame is \(self.frame)")
         
-        self.mainImageView?.updateFrames()
-        self.tempImageView?.updateFrames()
+        
+        if self.image?.size != nil{
+            
+            Log.echo(key: "yud", text: "providing the frame")
+
+            let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
+        }
     }
-    
 }
 
 extension AutographyHostCanvas{
@@ -431,7 +430,6 @@ extension AutographyHostCanvas{
         }
         
         set{
-            tempImageView?.image = newValue
             mainImageView?.image = newValue
             _image = newValue
         }
@@ -596,4 +594,74 @@ extension AutographyHostCanvas{
             Log.echo(key: "", text:" In the Button Selection Red color is \(fRed) blue color is\(fBlue) green color is \(fGreen) alpha is \(fAlpha) ")
         }
     }
+}
+
+
+extension AutographyHostCanvas{
+    
+    func setupDrawingLayerIfNeeded() {
+       
+        guard drawingLayer == nil else { return }
+        let sublayer = CALayer()
+        sublayer.contentsScale = 0.0
+        layer.addSublayer(sublayer)
+        drawingLayer = sublayer
+    }
+    
+    
+    func drawBezier(from start: CGPoint, to end: CGPoint) {
+        
+        setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = 0.0
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.fillColor = UIColor.red.cgColor
+        line.opacity = 1
+        line.lineWidth = 10
+        line.lineCap = .round
+        line.strokeColor = UIColor.red.cgColor
+        drawingLayer?.addSublayer(line)
+        
+        if let count = drawingLayer?.sublayers?.count, count > 400 {
+            flattenToImage()
+        }
+    }
+    
+    func flattenToImage() {
+        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size ?? CGSize.zero, false, UIScreen.main.scale)
+        
+        if let context = UIGraphicsGetCurrentContext() {
+            
+            // keep old drawings
+            if let image = self.mainImageView?.image {
+                
+                image.draw(in: CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height))
+            }
+            // add new drawings
+            drawingLayer?.render(in: context)
+            let output = UIGraphicsGetImageFromCurrentImageContext()
+            //self.mainImageView?.image = output
+            self.testImageView?.image = output
+        }
+        clearSublayers()
+        UIGraphicsEndImageContext()
+    }
+    
+    
+    func clearSublayers() {
+        
+        drawingLayer?.removeFromSuperlayer()
+        drawingLayer = nil
+    }
+    
+    func clear() {
+        
+        clearSublayers()
+        image = nil
+    }
+    
 }

@@ -341,7 +341,7 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
-        resetAutographCanvasIfNewCallAndSlotExists()
+        //resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -1394,6 +1394,7 @@ extension HostCallController{
                 
                 self.hostRootView?.canvasContainer?.show()
                 self.hostRootView?.canvas?.image = image
+                self.hostRootView?.canvas?.updateFrames()
                 self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
                 self.hostRootView?.remoteVideoContainerView?.updateForSignature()
                 self.signaturAccessoryView?.isHidden = false
@@ -1598,6 +1599,15 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     
     @IBAction func testOrientation(){
         
+        self.hostRootView?.canvasContainer?.show()
+        self.hostRootView?.canvas?.image = UIImage(named:"testingImage")
+        self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
+        self.hostRootView?.remoteVideoContainerView?.updateForSignature()
+        self.signaturAccessoryView?.isHidden = false
+        self.isSignatureActive = true
+        
+        self.hostRootView?.localVideoView?.isSignatureActive = true
+        self.hostRootView?.localVideoView?.updateForPortrait()
     
     }    
     

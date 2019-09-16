@@ -1489,6 +1489,7 @@ extension UserCallController {
             canvas?.image = image
             
             Log.echo(key: "yudi", text: "Loaded image height is \(image?.size.height) and width is \(image?.size.width)")
+            
             self.updateScreenshotLoaded(info : info)
         }
     }

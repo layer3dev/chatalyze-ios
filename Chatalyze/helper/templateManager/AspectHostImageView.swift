@@ -10,31 +10,8 @@ import UIKit
 @IBDesignable
 class AspectHostImageView: UIImageView {
     
-    /*
-     // Only override drawRect: if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func drawRect(rect: CGRect) {
-     // Drawing code
-     }
-     */
-    
-    var heightConstraint : NSLayoutConstraint?;
-    var widthConstraint : NSLayoutConstraint?;
-    
-    //    @IBInspectable var fdz : UIImage?{
-    //        get{
-    //            return super.image
-    //        }
-    //        set{
-    //            super.image = newValue
-    //        }
-    //    }
-    
-    //    required init?(coder aDecoder: NSCoder) {
-    //        super.init(coder: aDecoder)
-    //        contentMode = .ScaleAspectFit
-    //        return self;
-    //    }
+    var heightConstraint : NSLayoutConstraint?
+    var widthConstraint : NSLayoutConstraint?
     
     @IBInspectable override var image : UIImage?{
         get{
@@ -45,17 +22,6 @@ class AspectHostImageView: UIImageView {
             updateImageViewSizeConstraint()
         }
     }
-    
-    
-    
-    //    override var image: UIImage! {
-    //        get {
-    //            return super.image
-    //        }
-    //        set {
-    //            super.image = newValue
-    //        }
-    
 }
 
 
@@ -141,9 +107,10 @@ extension AspectHostImageView {
                 return nil
         }
         
-        Log.echo(key: "yud", text: "self canvas image bound are \(self.bounds) and the image size is \(image.size)")
+        Log.echo(key: "yud", text: "self canvase bounds during calculating the image is  \(self.bounds)")
         
-        let size = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        
+        let size = AVMakeRect(aspectRatio: image.size, insideRect: self.bounds)
         return size
     }
     
@@ -167,6 +134,4 @@ extension AspectHostImageView {
         updateImageViewSizeConstraint()
     }
 }
-
-
 
