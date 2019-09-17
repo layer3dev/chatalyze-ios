@@ -10,83 +10,43 @@ import UIKit
 
 class CanvasHostContainer: ExtendedView {
     
-    @IBOutlet var canvas : AutographyHostCanvas?
+    var isSignatureActive = false
+    @IBOutlet private var canvas : AutographyHostCanvas?
     @IBOutlet var canvasHeightZeroConstraint : NSLayoutConstraint?
     @IBOutlet var canvasProportionalHeightConstraint : NSLayoutConstraint?
     
-    @IBOutlet var topConstraint:NSLayoutConstraint?
-    @IBOutlet var trailingConstraint:NSLayoutConstraint?
-    var delegate:AutographyCanvasProtocol?
-
-    
-    /*
-     // Only override draw() if you perform custom drawing.
-     // An empty implementation adversely affects performance during animation.
-     override func draw(_ rect: CGRect) {
-     // Drawing code
-     }
-     */
-    
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        initialization()
     }
     
-    func initialization(){
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
-        
-        canvas?.delegate = self
+    func getCanvasReference()->AutographyHostCanvas?{
+        return self.canvas
     }
     
-    @objc func didRotate() {
+    func show(with image:UIImage?){
         
-        self.updateLayoutRotation()
-    }
-    
-    func updateLayoutRotation() {
-        
-        if UIDevice.current.orientation.isPortrait {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                
-                topConstraint?.constant = 144
-                trailingConstraint?.constant = 0
-                
-                
-            }else{
-                
-                topConstraint?.constant = 220
-                trailingConstraint?.constant = 0
-                
-            }
+        guard let canvasImage = image else{
             return
         }
-        
-        if UIDevice.current.orientation.isLandscape{
-            if UIDevice.current.userInterfaceIdiom == .pad{
-                
-                topConstraint?.constant = 15
-                trailingConstraint?.constant = 244
-                
-            }else{
-                
-                topConstraint?.constant = 15
-                trailingConstraint?.constant = 148
-            }
-            return
-        }
-        return
-    }
-    
-    
-    func show(){
-        
         layoutIfNeeded()
         showInPortrait()
+        
+        Log.echo(key: "yud", text: "sel new frame is \(self.frame) and the image framne is \(canvasImage.size)")
+        
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
+        
+        let newCanvasFrame = AVMakeRect(aspectRatio: canvasImage.size, insideRect: self.frame)
+        
+        Log.echo(key: "yud", text: "my new frames are \(newCanvasFrame)")
+        
+        
+        canvas?.heightConstraint?.constant = newCanvasFrame.height
+        canvas?.widthConstraint?.constant = newCanvasFrame.width
+        canvas?.mainImageView?.image = canvasImage
+        canvas?.counter = 0
+        self.isSignatureActive = true
     }
     
     private func showInPortrait(){
@@ -108,58 +68,15 @@ class CanvasHostContainer: ExtendedView {
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
+        reloadCanvas()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func reloadCanvas(){
         
-        Log.echo(key: "yud", text: "Canvas container height width is \(self.frame.size.width) and the canvas height is \(self.frame.size.height)")
-        
+        self.canvas?.mainImageView?.image = nil
+        self.canvas?.mainImageView?.reset()
+        self.canvas?.heightConstraint?.constant = 0.0
+        self.canvas?.widthConstraint?.constant = 0.0
+        self.isSignatureActive = false
     }
-}
-
-extension CanvasHostContainer : AutographyCanvasProtocol{
-    
-    func touchesBegan(withPoint point : CGPoint){
-        delegate?.touchesBegan(withPoint: point)
-//        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-    }
-    
-    func touchesMoved(withPoint point : CGPoint){
-        delegate?.touchesMoved(withPoint: point)
-//        broadcastCoordinate(withX: point.x, y: point.y, isContinous: true)
-    }
-    
-    func touchesEnded(withPoint point : CGPoint){
-        delegate?.touchesEnded(withPoint: point)
-//        broadcastCoordinate(withX: point.x, y: point.y, isContinous: false)
-    }
-    
-//    fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false ){
-//
-//        var params = [String : Any]()
-//
-//        params["x"] = x
-//        params["y"] = y
-//
-//        params["isContinous"] = isContinous
-//        params["counter"] = counter
-//        params["pressure"] = 1
-//        params["reset"] = reset
-//
-//        //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
-//
-//        params["StrokeWidth"] = 11.0
-//        params["StrokeColor"] = canvas?.color.hexString ?? "#000"
-//        params["Erase"] = false
-//        params["reset"] = reset
-//
-//        var mainParams  = [String : Any]()
-//        mainParams["name"] = info?.userHashedId
-//        mainParams["id"] = "broadcastPoints"
-//        mainParams["message"] = params
-//
-//        counter = counter + 1;
-//        socket?.emit(withData: mainParams)
-//    }
 }

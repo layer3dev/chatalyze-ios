@@ -244,19 +244,25 @@ extension CallConnection : ARDAppClientDelegate{
     
     func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
         
-        Log.echo(key: "_connection_", text: "\(tempIdentifier) didReceiveRemoteVideoTrack")
+
+        DispatchQueue.main.async{
         
-        if(isAborted){
+            Log.echo(key: "_connection_", text: "\(self.tempIdentifier) didReceiveRemoteVideoTrack")
             
-            Log.echo(key: "_connection_", text: "\(tempIdentifier) isAborted didReceiveRemoteVideoTrack")
-            return
+            if(self.isAborted){
+                
+                Log.echo(key: "_connection_", text: "\(self.tempIdentifier) isAborted didReceiveRemoteVideoTrack")
+                return
+            }
+            
+            self.remoteTrack = remoteTrack
+            self.isRendered = false
+            if(self.isLinked){
+                self.renderRemoteTrack()
+            }
         }
         
-        self.remoteTrack = remoteTrack
-        isRendered = false
-        if(isLinked){
-            renderRemoteTrack()
-        }
+        
     }
     
     func linkCall(){

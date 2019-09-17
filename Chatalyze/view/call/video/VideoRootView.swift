@@ -107,6 +107,7 @@ class VideoRootView: ExtendedView {
     }
     
     func hangupListener(listener : (()->())?){
+        
         self.hangupListener = listener
     }
     

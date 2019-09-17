@@ -9,21 +9,6 @@
 import UIKit
 
 class AutographyImageView: AspectHostImageView {
-    
-    var delegate : AutographyImageViewProtocol?
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        delegate?.touchesBeganAutography(touches, with: event)
-        
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.touchesMovedAutography(touches, with: event)
-        
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.touchesEndedAutography(touches, with: event)
-    }
-    
 }
+
+

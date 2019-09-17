@@ -1010,6 +1010,8 @@
 		787CBB4D230D555300314058 /* AutographSignatureReponseBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787CBB4B230D555300314058 /* AutographSignatureReponseBottomView.swift */; };
 		787CBB4F230D578D00314058 /* AutographSignatureBottomResponseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787CBB4E230D578D00314058 /* AutographSignatureBottomResponseInterface.swift */; };
 		787CBB50230D578D00314058 /* AutographSignatureBottomResponseInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787CBB4E230D578D00314058 /* AutographSignatureBottomResponseInterface.swift */; };
+		78852CAF23310771000B286A /* broadcastCoordinatesImageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78852CAE23310771000B286A /* broadcastCoordinatesImageDelegate.swift */; };
+		78852CB023310771000B286A /* broadcastCoordinatesImageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78852CAE23310771000B286A /* broadcastCoordinatesImageDelegate.swift */; };
 		789C3FF5230BE90C0084731D /* RemoteHostContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF4230BE90C0084731D /* RemoteHostContainerView.swift */; };
 		789C3FF7230C04C90084731D /* LocalHostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF6230C04C90084731D /* LocalHostVideoView.swift */; };
 		789C3FF8230C04C90084731D /* LocalHostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF6230C04C90084731D /* LocalHostVideoView.swift */; };
@@ -1760,6 +1762,7 @@
 		787BB9C422F2FE6F0027B8DD /* UpdateStreamChangeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStreamChangeProtocol.swift; sourceTree = "<group>"; };
 		787CBB4B230D555300314058 /* AutographSignatureReponseBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographSignatureReponseBottomView.swift; sourceTree = "<group>"; };
 		787CBB4E230D578D00314058 /* AutographSignatureBottomResponseInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographSignatureBottomResponseInterface.swift; sourceTree = "<group>"; };
+		78852CAE23310771000B286A /* broadcastCoordinatesImageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = broadcastCoordinatesImageDelegate.swift; sourceTree = "<group>"; };
 		789C3FF4230BE90C0084731D /* RemoteHostContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteHostContainerView.swift; sourceTree = "<group>"; };
 		789C3FF6230C04C90084731D /* LocalHostVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHostVideoView.swift; sourceTree = "<group>"; };
 		78CA8DC72304107B00583616 /* AspectHostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectHostImageView.swift; sourceTree = "<group>"; };
@@ -3798,6 +3801,7 @@
 				47D2D560223791130067C13D /* VideoViewStatusBarAnimationInterface.swift */,
 				787CBB4E230D578D00314058 /* AutographSignatureBottomResponseInterface.swift */,
 				782529B5230E61E0000149B3 /* UpdatForSelectedColorProtocol.swift */,
+				78852CAE23310771000B286A /* broadcastCoordinatesImageDelegate.swift */,
 			);
 			path = callView;
 			sourceTree = "<group>";
@@ -6292,6 +6296,7 @@
 				47D0B06521A6C4B5006376A8 /* PlaceholderTextView.swift in Sources */,
 				4730A371228D767A00241831 /* MemoryAnimationView.swift in Sources */,
 				78DF78EE2307CE00007B2663 /* AutographInfo.swift in Sources */,
+				78852CB023310771000B286A /* broadcastCoordinatesImageDelegate.swift in Sources */,
 				47D0B06621A6C4B5006376A8 /* DevFlag.swift in Sources */,
 				47D0B06721A6C4B5006376A8 /* HangupController.swift in Sources */,
 				47D0B06821A6C4B5006376A8 /* VideoCallController.swift in Sources */,
@@ -6871,6 +6876,7 @@
 				FAA001B3203ED472003C8A74 /* PlaceholderTextView.swift in Sources */,
 				4730A370228D767A00241831 /* MemoryAnimationView.swift in Sources */,
 				78DF78ED2307CE00007B2663 /* AutographInfo.swift in Sources */,
+				78852CAF23310771000B286A /* broadcastCoordinatesImageDelegate.swift in Sources */,
 				47FD6912217DE483001886A6 /* HangupController.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
@@ -7384,7 +7390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7401,7 +7407,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7422,7 +7428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDev;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jordan Winawer (PTGTWSZY2Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
@@ -7439,7 +7445,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe9309b1-7b0d-4049-b34b-32158b951621";
-				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_development";
+				PROVISIONING_PROFILE_SPECIFIER = "Chatalyze Dev_production";
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";

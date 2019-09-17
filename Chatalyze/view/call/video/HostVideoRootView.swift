@@ -18,7 +18,7 @@ class HostVideoRootView: VideoRootView {
     
     var canvas : AutographyHostCanvas?{
         get{
-            return canvasContainer?.canvas
+            return canvasContainer?.getCanvasReference()
         }
     }
         
@@ -32,12 +32,24 @@ class HostVideoRootView: VideoRootView {
     
     override func shouldTapAllow(touch: UITouch) -> Bool {
         
-        Log.echo(key: "point", text: "TOUCH CANVAS IS \(touch.location(in: self.canvas?.mainImageView)) doest exists the touch ")
+        Log.echo(key: "yud", text: " self self.canvasContainer?.isSignatureActive is \(self.canvasContainer?.isSignatureActive)")
         
-        if self.canvas?.mainImageView?.frame.contains(touch.location(in: self)) ?? false{
+        if self.canvasContainer?.isSignatureActive == true{
             return false
         }
         return true
+        
+        
+//        Log.echo(key: "yud", text: "touch loacation is \(touch.location(in: self)) and self.view frame is \(self.frame) and main image frame is \(self.canvas?.mainImageView?.frame)")
+//
+//
+//
+//        Log.echo(key: "point", text: "TOUCH CANVAS IS \(touch.location(in: self.canvas?.mainImageView)) doest exists the touch and exists is \(self.canvas?.mainImageView?.frame.contains(touch.location(in: self)))")
+//
+//        if self.canvas?.mainImageView?.frame.contains(touch.location(in: self)) ?? false{
+//            return false
+//        }
+//        return true
     }
     
     override func viewDidLayout() {

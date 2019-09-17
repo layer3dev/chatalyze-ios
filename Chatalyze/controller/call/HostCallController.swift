@@ -341,7 +341,7 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
-        //resetAutographCanvasIfNewCallAndSlotExists()
+        resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -1391,10 +1391,8 @@ extension HostCallController{
                 }
                 
                 self.lockDeviceOrientation()
-                
-                self.hostRootView?.canvasContainer?.show()
-                self.hostRootView?.canvas?.image = image
-                self.hostRootView?.canvas?.updateFrames()
+                self.hostRootView?.canvasContainer?.show(with:image)
+
                 self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
                 self.hostRootView?.remoteVideoContainerView?.updateForSignature()
                 self.signaturAccessoryView?.isHidden = false
@@ -1412,7 +1410,7 @@ extension HostCallController{
         
         self.view.layoutIfNeeded()
         var params = [String : Any]()
-        let size = self.hostRootView?.canvasContainer?.canvas?.size ?? CGSize()
+        let size = self.hostRootView?.canvas?.frame.size ?? CGSize()
         params["width"] = size.width
         params["height"] = size.height
         params["screenshot"] = info.dictValue()
@@ -1435,7 +1433,6 @@ extension HostCallController{
     private func resetCanvas(){
         
         self.releaseDeviceOrientation()
-        self.hostRootView?.canvas?.image = nil
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
@@ -1569,7 +1566,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.uploadAutographImage()
         
-        self.hostRootView?.canvas?.image = nil
         self.hostRootView?.canvasContainer?.hide()
         self.stopSigning()
         
@@ -1599,8 +1595,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     
     @IBAction func testOrientation(){
         
-        self.hostRootView?.canvasContainer?.show()
-        self.hostRootView?.canvas?.image = UIImage(named:"testingImage")
+        self.hostRootView?.canvasContainer?.show(with: UIImage(named:"testingImage"))
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.hostRootView?.remoteVideoContainerView?.updateForSignature()
         self.signaturAccessoryView?.isHidden = false
@@ -1618,6 +1613,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         if UIApplication.shared.statusBarOrientation.isLandscape{
             
             delegate?.isSignatureInCallisActive = true
+            
             if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
                 
                 delegate?.signatureDirection = .landscapeLeft

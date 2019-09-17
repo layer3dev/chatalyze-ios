@@ -209,7 +209,6 @@ class AutographyCanvas: ExtendedView {
         }
     }
     
-    
     fileprivate func fillConstraints()
     {
         
