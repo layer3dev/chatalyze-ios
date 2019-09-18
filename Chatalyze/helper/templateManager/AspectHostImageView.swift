@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class AspectHostImageView: UIImageView {
     
     //Drawing Accessory tools
@@ -69,8 +67,6 @@ class AspectHostImageView: UIImageView {
         self.drawingLayer?.removeFromSuperlayer()
         self.drawingLayer = nil
     }
-    
-    
 }
 
 extension AspectHostImageView{
@@ -124,13 +120,16 @@ extension AspectHostImageView{
 //            self.touchesEnded(withPoint: point)
 //            return
 //        }
-//        if getBeginPoint == false{
-//
-//            let point = touch.location(in: self)
-//            broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-//            getBeginPoint = true
-//            return
-//        }
+        
+        if getBeginPoint == false{
+
+            self.currentPoint = touch.location(in: self)
+            self.previousPoint = touch.previousLocation(in: self)
+            self.previousPreviousPoint = touch.previousLocation(in: self)
+            broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+            getBeginPoint = true
+            return
+        }
         
         let currentpoint = touch.location(in: self)
         broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
@@ -161,6 +160,7 @@ extension AspectHostImageView{
         let point = touch.location(in: self)
         
         if swiped{
+            broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
             return
         }
         

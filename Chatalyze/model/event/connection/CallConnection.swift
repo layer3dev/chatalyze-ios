@@ -243,7 +243,6 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
-        
 
         DispatchQueue.main.async{
         
@@ -261,8 +260,6 @@ extension CallConnection : ARDAppClientDelegate{
                 self.renderRemoteTrack()
             }
         }
-        
-        
     }
     
     func linkCall(){
@@ -288,75 +285,87 @@ extension CallConnection : ARDAppClientDelegate{
     //once connection retreive from failure
     func resetVideoBounds(){
         
-        if(!isLinked){
-            return
-        }
-        
-        if(isAborted){
-            return
-        }
-        
-        guard let remoteView = rootView?.remoteVideoView
-            else{
+        DispatchQueue.main.async{
+            
+            if(!self.isLinked){
                 return
+            }
+            
+            if(self.isAborted){
+                return
+            }
+            
+            guard let remoteView = self.rootView?.remoteVideoView
+                else{
+                    return
+            }
+            
+            remoteView.resetBounds()
         }
-        
-        remoteView.resetBounds()
     }
     
     func renderRemoteTrack(){
         
-        Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteTrack")
-        
-        if(isAborted){
-            return
-        }
-        
-        if(isRendered){
-            return
-        }
-        
-        guard let remoteView = rootView?.remoteVideoView
-            else{
+        DispatchQueue.main.async {
+            
+            Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteTrack")
+            
+            if(self.isAborted){
                 return
+            }
+            
+            if(self.isRendered){
+                return
+            }
+            
+            guard let remoteView = self.rootView?.remoteVideoView
+                else{
+                    return
+            }
+            
+            self.resetRemoteFrame()
+            
+            Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteVideo")
+            
+            self.remoteTrack?.videoTrack?.add(remoteView)
+            
+            //self.remoteTrack?.videoTrack?.source.
+            
+            self.remoteTrack?.audioTrack?.isEnabled = true
+            self.isRendered = true
         }
-        
-        resetRemoteFrame()
-        
-        Log.echo(key: "_connection_", text: "\(tempIdentifier) renderRemoteVideo")
-       
-        self.remoteTrack?.videoTrack?.add(remoteView)
-        
-        //self.remoteTrack?.videoTrack?.source.
-
-        self.remoteTrack?.audioTrack?.isEnabled = true
-        isRendered = true
     }
     
     private func removeLastRenderer(){
         
-        guard let remoteView = rootView?.remoteVideoView
-            else{
-                return
+        DispatchQueue.main.async {
+            
+            guard let remoteView = self.rootView?.remoteVideoView
+                else{
+                    return
+            }
+            self.remoteTrack?.videoTrack?.remove(remoteView)
         }
-        self.remoteTrack?.videoTrack?.remove(remoteView)
     }
     
     private func resetRemoteFrame(){
         
-        if(isAborted){
-            return
-        }
-        
-        if(!isLinked){
-            return
-        }
-        guard let remoteView = rootView?.remoteVideoView
-            else{
+        DispatchQueue.main.async {
+            
+            if(self.isAborted){
                 return
+            }
+            
+            if(!self.isLinked){
+                return
+            }
+            guard let remoteView = self.rootView?.remoteVideoView
+                else{
+                    return
+            }
+            remoteView.renderFrame(nil)
+            remoteView.setSize(CGSize.zero)
         }
-        remoteView.renderFrame(nil)
-        remoteView.setSize(CGSize.zero)
     }
     
     

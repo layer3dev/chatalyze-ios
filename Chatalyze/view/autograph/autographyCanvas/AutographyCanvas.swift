@@ -5,11 +5,41 @@
 //  Created by Sumant Handa on 06/12/16.
 //  Copyright © 2016 MansaInfoTech. All rights reserved.
 //
-
 import UIKit
 
-class AutographyCanvas: ExtendedView {
+class AutographyCanvas: UIView {
     
+    var lines = [[BroadcastInfo]]()
+    
+    func calculateRectBetween(lastPoint: CGPoint, newPoint: CGPoint) -> CGRect {
+        
+        let originX = min(lastPoint.x, newPoint.x) - (10 / 2)
+        let originY = min(lastPoint.y, newPoint.y) - (10 / 2)
+        
+        let maxX = max(lastPoint.x, newPoint.x) + (10 / 2)
+        let maxY = max(lastPoint.y, newPoint.y) + (10 / 2)
+        
+        let width = maxX - originX
+        let height = maxY - originY
+        
+        return CGRect(x: originX, y: originY, width: width, height: height)
+    }
+    
+    func getImageRepresentation() -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
+        defer { UIGraphicsEndImageContext() }
+        if let context = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            return image
+        }
+        return nil
+    }
+    
+    var testCurrentPoint:CGPoint = CGPoint.zero
+    var testPreviousPoint:CGPoint = CGPoint.zero
+    var testPreviousToPreviousPoint:CGPoint = CGPoint.zero
     
     var isDelayActiveinDrawing = false
     var recievedCordinates = [BroadcastInfo]()
@@ -19,7 +49,7 @@ class AutographyCanvas: ExtendedView {
     private var socketListener : SocketListener?
     
     static let kPointMinDistance : Double = 0.1
-    static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;    
+    static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance;
     var currentPoint = CGPoint.zero
     var previousPoint = CGPoint.zero
     var previousPreviousPoint = CGPoint.zero
@@ -32,7 +62,7 @@ class AutographyCanvas: ExtendedView {
     var blue: CGFloat = 0.0
     var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
     var opacity: CGFloat = 1.0
-        
+    
     var drawColor : UIColor?
     
     var touchStarted = false
@@ -58,7 +88,7 @@ class AutographyCanvas: ExtendedView {
         super.init(frame: frame)
         commonInit()
     }
-
+    
     private func fillInfo(){
     }
     
@@ -88,13 +118,15 @@ class AutographyCanvas: ExtendedView {
     }
     
     
-    override func viewDidLayout(){
-        super.viewDidLayout()
-        
-        paintEmptyView()
-        //mainImageView?.delegate = self
-        //mainImageView?.isUserInteractionEnabled = true
-    }
+    //    override func viewDidLayout(){
+    //        super.viewDidLayout()
+    //
+    //        paintEmptyView()
+    //        //mainImageView?.delegate = self
+    //        //mainImageView?.isUserInteractionEnabled = true
+    //    }
+    
+    
     
     fileprivate func initialization()
     {
@@ -111,12 +143,22 @@ class AutographyCanvas: ExtendedView {
         
         socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
             
-            Log.echo(key: "yud", text: "I got the brodcast call")
-
             let rawInfo = json?["message"]
             let broadcastInfo = BroadcastInfo(info : rawInfo)
-            self?.recievedCordinates.append(broadcastInfo)
-            self?.handlingDelayInDrawing()
+            self?.processPoint(info: broadcastInfo)
+            
+            //            self?.drawingPoints()
+            //
+            //            if self?.mainImageView?.image == nil {
+            //                return
+            //            }
+            //
+            //            Log.echo(key: "yud", text: "I got the brodcast call")
+            //
+            //            let rawInfo = json?["message"]
+            //            let broadcastInfo = BroadcastInfo(info : rawInfo)
+            //self?.recievedCordinates.append(broadcastInfo)
+            //self?.handlingDelayInDrawing()
         })
     }
     
@@ -170,6 +212,8 @@ class AutographyCanvas: ExtendedView {
     
     private func processPoint(info : BroadcastInfo){
         
+        Log.echo(key: "yud", text: "ifo  poitns are \(info.isContinous)")
+        
         let rawColor = info.strokeColor ?? "#000"
         let color = UIColor(hexString : rawColor)
         self.drawColor = color
@@ -178,6 +222,7 @@ class AutographyCanvas: ExtendedView {
             Log.echo(key: "processPoint", text: "asking to reset")
             touchStarted = false
             reset()
+            lines.removeAll()
             return
         }
         
@@ -187,27 +232,66 @@ class AutographyCanvas: ExtendedView {
         let point = targetPoint(inputPoint: rawPoint)
         Log.echo(key: "processPoint", text: "targetPoint -> x \(point.x) y --> \(point.y)")
         
+        
         if(!info.isContinous && !touchStarted){
             
             touchStarted = true
-            touchesStart(point: point)
+
+            lines.append([BroadcastInfo]())
+            
+            guard var lastLine = lines.popLast() else { return }
+            
+            lastLine.append(info)
+            lines.append(lastLine)
             return
         }
         
         if(info.isContinous){
             
             touchStarted = true
-            touchesMove(point: point)
+            //touchesMove(point: point)
+            
+            guard var lastLine = lines.popLast() else { return }
+            
+            let lastrawPoint = lastLine.last?.point ?? CGPoint.zero
+            let lastpoint = targetPoint(inputPoint: lastrawPoint)
+            
+            let newrawPoint = info.point
+            let newpoint = targetPoint(inputPoint: newrawPoint)
+            
+            let rect = calculateRectBetween(lastPoint: lastpoint, newPoint: newpoint)
+            
+            lastLine.append(info)
+            lines.append(lastLine)
+            
+            setNeedsDisplay(rect)
+            
             return
         }
         
         if(!info.isContinous){
             
             touchStarted = false
-            touchesEnd(point: point)
+            
+            guard var lastLine = lines.popLast() else { return }
+            
+            let lastrawPoint = lastLine.last?.point ?? CGPoint.zero
+            let lastpoint = targetPoint(inputPoint: lastrawPoint)
+            
+            let newrawPoint = info.point
+            let newpoint = targetPoint(inputPoint: newrawPoint)
+            
+            let rect = calculateRectBetween(lastPoint: lastpoint, newPoint: newpoint)
+            
+            lastLine.append(info)
+            lines.append(lastLine)
+            
+            setNeedsDisplay(rect)
+            //touchesEnd(point: point)
             return
         }
     }
+    
     
     fileprivate func fillConstraints()
     {
@@ -239,61 +323,61 @@ class AutographyCanvas: ExtendedView {
     }
     
     func touchesStart(point : CGPoint) {
-
-        self.currentPoint = point
-        self.previousPoint = self.currentPoint
-        self.previousPreviousPoint = self.currentPoint
+        
+        //        self.currentPoint = point
+        //        self.previousPoint = self.currentPoint
+        //        self.previousPreviousPoint = self.currentPoint
+        
+        
+        
     }
     
     func setCanvas(){
     }
     
     func drawLineFrom(_ previousPoint : CGPoint, mid1: CGPoint, mid2: CGPoint) {
-
-        let frame = self.mainImageView?.frame ?? CGRect()
-
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom previousPoint ==> \(previousPoint)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
-        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
-
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
-
-        let context = UIGraphicsGetCurrentContext()
         
-        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
-        
-        context?.setLineCap(CGLineCap.round)
-        context?.setLineWidth(brushWidth)
-        
-        let color = (drawColor ?? UIColor.black).cgColor
-        context?.setStrokeColor(color)
-        
-        //context?.setBlendMode(CGBlendMode.normal)
-
-        context?.move(to: CGPoint(x: mid1.x, y: mid1.y))
-        
-        //context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
-        
-        context?.addQuadCurve(to: mid2, control: previousPoint)
-        
-        //CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
-        
-        context?.strokePath()
-
-        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-        mainImageView?.alpha = opacity
-        UIGraphicsEndImageContext()
-        
+        //        let frame = self.mainImageView?.frame ?? CGRect()
+        //
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom previousPoint ==> \(previousPoint)")
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
+        //
+        //        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        //
+        //        let context = UIGraphicsGetCurrentContext()
+        //
+        //        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        //
+        //        context?.setLineCap(CGLineCap.round)
+        //        context?.setLineWidth(brushWidth)
+        //
+        //        let color = (drawColor ?? UIColor.black).cgColor
+        //        context?.setStrokeColor(color)
+        //
+        //        //context?.setBlendMode(CGBlendMode.normal)
+        //
+        //        context?.move(to: CGPoint(x: mid1.x, y: mid1.y))
+        //
+        //        //context?.addLine(to: CGPoint(x: toPoint.x, y: toPoint.y))
+        //
+        //        context?.addQuadCurve(to: mid2, control: previousPoint)
+        //
+        //        //CGContextAddQuadCurveToPoint(canvas.context, current.a.x, current.a.y, currentMid.x, currentMid.y)
+        //
+        //        context?.strokePath()
+        //
+        //        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+        //        mainImageView?.alpha = opacity
+        //        UIGraphicsEndImageContext()
+        //
     }
     
     func touchesMove(point : CGPoint) {
         
-        self.previousPreviousPoint = self.previousPoint;
-        self.previousPoint = self.currentPoint;
-        self.currentPoint = point
         
-        processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
+        // processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
@@ -315,7 +399,7 @@ class AutographyCanvas: ExtendedView {
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
         
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);        
+        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
         //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
     }
@@ -341,14 +425,6 @@ class AutographyCanvas: ExtendedView {
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         drawLineFrom(previousPoint, mid1: mid1, mid2: mid2)
-
-        
-        // UIGraphicsBeginImageContext()
-//        let size = mainImageView?.frame.size ?? CGSize()
-//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-//        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), blendMode: CGBlendMode.normal, alpha: 1.0)
-//        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
     }
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
@@ -364,6 +440,95 @@ class AutographyCanvas: ExtendedView {
         self.mainImageView?.frame = self.frame
         self.mainImageView?.updateFrames()
     }
+    
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let frame = self.mainImageView?.frame ?? CGRect()
+        
+        Log.echo(key: "drawLineFrom", text: "drawLineFrom ==> \(frame)")
+        Log.echo(key: "drawLineFrom", text: "drawLineFrom previousPoint ==> \(previousPoint)")
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid1 ==> \(mid1)")
+        //        Log.echo(key: "drawLineFrom", text: "drawLineFrom mid2 ==> \(mid2)")
+        
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        mainImageView?.image?.draw(in: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
+        
+        context?.setLineCap(CGLineCap.round)
+        context?.setLineWidth(brushWidth)
+        
+        lines.forEach { (line) in
+            
+            Log.echo(key: "yud", text: "called with the count \(line.count) and lines are \(self.lines.count)")
+            
+            var isInitialiPointInitiated = false
+            
+            for (_, p) in line.enumerated(){
+                
+                if !isInitialiPointInitiated{
+
+                    if !p.isPlotted{
+                       
+                        isInitialiPointInitiated = true
+                        p.isPlotted = true
+                        
+                        let rawColor = p.strokeColor ?? "#000"
+                        let color = UIColor(hexString : rawColor)
+                        context?.setStrokeColor(color.cgColor)
+                        
+                        let rawPoint = p.point
+                        let point = targetPoint(inputPoint: rawPoint)
+                        
+                        self.previousPreviousPoint = point
+                        self.previousPoint = point
+                        self.currentPoint = point
+        
+                        context?.move(to: point)
+                    }
+                }else{
+                    
+                    if !p.isPlotted{
+                      
+                        let rawPoint = p.point
+                        p.isPlotted = true
+
+                        let point = targetPoint(inputPoint: rawPoint)
+                        self.previousPreviousPoint = self.previousPoint
+                        self.previousPoint = self.currentPoint
+                        self.currentPoint = point
+                        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+                        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint)
+                        
+                        context?.addQuadCurve(to: mid2, control: previousPoint)
+                    }
+                }
+            }
+        }
+        
+        context?.strokePath()
+        
+        mainImageView?.image = UIGraphicsGetImageFromCurrentImageContext()
+        mainImageView?.alpha = opacity
+        UIGraphicsEndImageContext()
+        
+        print("omg draw is calling")
+        
+    }
+    
+    @IBAction func drawingPoints(){
+        
+        
+        print("display is calling")
+        DispatchQueue.main.async {
+            
+            self.setNeedsDisplay()
+        }
+    }
+    
 }
 
 extension AutographyCanvas{
@@ -423,7 +588,3 @@ extension AutographyCanvas{
     fileprivate func paintEmptyView(){
     }
 }
-
-
-
-

@@ -38,12 +38,13 @@ class AutographyHostCanvas: ExtendedView {
         self.mainImageView?.broadcastDelegate = self
     }
     
-    fileprivate func initialization()
-    {
+    
+    func initialization(){
+    
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
     }
-    
+
     
     func undo(){
         
@@ -110,33 +111,33 @@ extension AutographyHostCanvas{
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
 
-        var params = [String : Any]()
-        
-        params["x"] = x
-        params["y"] = y
-        
-        params["isContinous"] = isContinous
-        params["counter"] = counter
-        params["pressure"] = 1
-        params["reset"] = reset
-        
-        //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
-        
-        params["StrokeWidth"] = 11.0
-        params["StrokeColor"] = self.strokeColor.hexString
-        params["Erase"] = false
-        params["reset"] = reset
-        
-        var mainParams  = [String : Any]()
-        mainParams["name"] = autoGraphInfo?.userHashedId
-        mainParams["id"] = "broadcastPoints"
-        mainParams["message"] = params
-        
-        counter = counter + 1
-        
-        Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
-        socketClient?.emit(mainParams)
-    }
+            var params = [String : Any]()
+            
+            params["x"] = x
+            params["y"] = y
+            
+            params["isContinous"] = isContinous
+            params["counter"] = self.counter
+            params["pressure"] = 1
+            params["reset"] = reset
+            
+            //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
+            
+            params["StrokeWidth"] = 11.0
+            params["StrokeColor"] = self.strokeColor.hexString
+            params["Erase"] = false
+            params["reset"] = reset
+            
+            var mainParams  = [String : Any]()
+            mainParams["name"] = self.autoGraphInfo?.userHashedId
+            mainParams["id"] = "broadcastPoints"
+            mainParams["message"] = params
+            
+            self.counter = self.counter + 1
+            
+            Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
+            self.socketClient?.emit(mainParams)
+        }
 }
 
 extension AutographyHostCanvas{

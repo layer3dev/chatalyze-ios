@@ -799,6 +799,9 @@ extension VideoCallController{
         
         localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
             
+            DispatchQueue.main.async {
+                
+            
             guard let localCapturer = capturer
                 else{
                     return
@@ -816,9 +819,13 @@ extension VideoCallController{
             settingsModel.storeVideoResolutionSetting("1280x720")
             self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
             self?.captureController?.startCapture()
+            }
         }
         
-        guard let localView = rootView?.localVideoView
+        DispatchQueue.main.async {
+            
+        
+            guard let localView = self.rootView?.localVideoView
             else{
                 return
         }
@@ -830,8 +837,10 @@ extension VideoCallController{
         }
         
         Log.echo(key: "local stream", text: "got local stream")
-        self.localTrack = localMediaPackage?.videoTrack
-        self.localTrack?.add(localView)
+          
+            self.localTrack = self.localMediaPackage?.videoTrack
+            self.localTrack?.add(localView)
+        }
     }
 }
 

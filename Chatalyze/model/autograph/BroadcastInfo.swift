@@ -21,6 +21,7 @@ class BroadcastInfo : NSObject{
     var reset = false
     var erase = false
     var y = Double(0)
+    var isPlotted = false
     
     override init(){
         super.init()
