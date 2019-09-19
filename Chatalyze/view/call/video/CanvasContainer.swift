@@ -10,21 +10,14 @@ import UIKit
 
 class CanvasContainer: ExtendedView {
     
+    var isSignatureActive = false
+    
     @IBOutlet var canvas : AutographyCanvas?
     @IBOutlet var canvasHeightZeroConstraint : NSLayoutConstraint?
     @IBOutlet var canvasProportionalHeightConstraint : NSLayoutConstraint?
     
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var trailingConstraint:NSLayoutConstraint?
-
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -49,7 +42,6 @@ class CanvasContainer: ExtendedView {
                 
                 topConstraint?.constant = 144
                 trailingConstraint?.constant = 0
-                
 
             }else{
                 
@@ -70,6 +62,7 @@ class CanvasContainer: ExtendedView {
                
                 topConstraint?.constant = 15
                 trailingConstraint?.constant = 148
+                
             }
             return
         }
@@ -77,13 +70,33 @@ class CanvasContainer: ExtendedView {
     }
     
     
-    func show(){
+    func show(with image:UIImage?,info:CanvasInfo?){
+        
+        guard let canvasImage = image else{
+            return
+        }
+        
+        guard let canvasInfo = info else{
+            return
+        }
         
         layoutIfNeeded()
         showInPortrait()
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
+        
+        let newCanvasFrame = AVMakeRect(aspectRatio: canvasImage.size, insideRect: self.frame)
+        
+        Log.echo(key: "yud", text: "user host canvas frame is \(newCanvasFrame)")
+      
+        self.canvas?.mainImageView?.reset()
+        canvas?.heightConstraint?.constant = newCanvasFrame.height
+        canvas?.widthConstraint?.constant = newCanvasFrame.width
+        canvas?.mainImageView?.image = canvasImage
+        canvas?.mainImageView?.canvasInfo = canvasInfo
+        
+        self.isSignatureActive = true
     }
     
     private func showInPortrait(){
@@ -99,17 +112,25 @@ class CanvasContainer: ExtendedView {
     }
     
     func hide(){
-        
+       
         layoutIfNeeded()
-        hideCanvas()
+        self.hideCanvas()
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
+        self.reloadCanvas()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    private func reloadCanvas(){
         
-        Log.echo(key: "yud", text: "Canvas container height width is \(self.frame.size.width) and the canvas height is \(self.frame.size.height)")
+        self.canvas?.mainImageView?.image = nil
+        self.canvas?.mainImageView?.reset()
+        self.canvas?.heightConstraint?.constant = 0.0
+        self.canvas?.widthConstraint?.constant = 0.0
+        self.isSignatureActive = false
     }
 }

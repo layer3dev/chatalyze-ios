@@ -31,17 +31,13 @@ class CanvasHostContainer: ExtendedView {
         layoutIfNeeded()
         showInPortrait()
         
-        Log.echo(key: "yud", text: "sel new frame is \(self.frame) and the image framne is \(canvasImage.size)")
-        
         UIView.animate(withDuration: 1.0) {
             self.layoutIfNeeded()
         }
         
         let newCanvasFrame = AVMakeRect(aspectRatio: canvasImage.size, insideRect: self.frame)
         
-        Log.echo(key: "yud", text: "my new frames are \(newCanvasFrame)")
-        
-        
+        self.canvas?.mainImageView?.reset()
         canvas?.heightConstraint?.constant = newCanvasFrame.height
         canvas?.widthConstraint?.constant = newCanvasFrame.width
         canvas?.mainImageView?.image = canvasImage

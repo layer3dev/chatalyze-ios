@@ -7,132 +7,279 @@
 //
 
 import UIKit
-@IBDesignable
-class AspectImageView: UIImageView {
+
+class AspectImageView: ExtendedImageView {
+
+    var drawingLayer:CALayer?
     
-    var heightConstraint : NSLayoutConstraint?
-    var widthConstraint : NSLayoutConstraint?
+    private var socketClient : SocketClient?
+    private var socketListener : SocketListener?
     
-    @IBInspectable override var image : UIImage?{
+    var currentPoint = CGPoint.zero
+    var previousPoint = CGPoint.zero
+    var previousPreviousPoint = CGPoint.zero
+    
+    static let kPointMinDistance : Double = 0.1
+    static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance
+    
+    var red: CGFloat = 0.0
+    var green: CGFloat = 0.0
+    var blue: CGFloat = 0.0
+    var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
+    var opacity: CGFloat = 1.0
+    
+    var drawColor : UIColor?
+    var touchStarted = false
+    
+    var canvasInfo : CanvasInfo?
+    
+    override var image : UIImage?{
         get{
             return super.image
         }
         set{
             super.image = newValue
-            updateImageViewSizeConstraint()
         }
     }
-}
-
-
-extension AspectImageView {
     
-    fileprivate func updateImageViewSizeConstraint(){
-
-        guard let size = calculateSize()
-            else{
-                return
+    var size : CGSize{
+        get{
+            let size =  self.frame.size
+            return size
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+     
+        self.isUserInteractionEnabled = true
+    }
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
         
-        let height = size.height
-        let width = size.width
+        initialization()
+    }
+    
+    fileprivate func initialization()
+    {
+        socketClient = SocketClient.sharedInstance
+        socketListener = socketClient?.createListener()
+        registerForAutographListener()
+    }
+    
+    private func registerForAutographListener(){
         
-        if(heightConstraint == nil){
+        socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
             
-            initializeHeightConstraint(imageHeight: height)
-             layoutIfNeeded()
-        }else{
-            heightConstraint?.constant = height
-            layoutIfNeeded()
-        }
-        
-        if(widthConstraint == nil){
-            initializeWidthConstraint(imageWidth: width)
-            layoutIfNeeded()
-        }else{
-            widthConstraint?.constant = width
-            layoutIfNeeded()
-        }
-    }
-    
-    
-    fileprivate func initializeHeightConstraint(imageHeight : CGFloat){
-        
-        if(imageHeight == 0){
-            return
-        }
-        
-        heightConstraint = NSLayoutConstraint(
-            item:self, attribute:NSLayoutConstraint.Attribute.height,
-            relatedBy:NSLayoutConstraint.Relation.equal,
-            toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
-            multiplier:0, constant:imageHeight)
-        
-        heightConstraint?.priority = UILayoutPriority(rawValue: 999)
-        
-        guard let heightConstraintUnWrapped = heightConstraint
-            else{
-                return
-        }
-        
-        self.addConstraint(heightConstraintUnWrapped)
-    }
-    
-    fileprivate func initializeWidthConstraint(imageWidth : CGFloat){
-        
-        if(imageWidth == 0){
-            return
-        }
-        
-        widthConstraint = NSLayoutConstraint(
-            item:self, attribute:NSLayoutConstraint.Attribute.width,
-            relatedBy:NSLayoutConstraint.Relation.equal,
-            toItem:nil, attribute:NSLayoutConstraint.Attribute.notAnAttribute,
-            multiplier:0, constant:imageWidth)
-        
-        widthConstraint?.priority = UILayoutPriority(rawValue: 999)
-        
-        guard let widthConstraintUnWrapped = widthConstraint
-            else{
-                return
-        }
-        
-        self.addConstraint(widthConstraintUnWrapped)
-    }
-    
-    fileprivate func calculateSize()->CGRect?{
-        
-        guard let image = image
-            else{
-                return nil
-        }
-        
-        Log.echo(key: "yud", text: "self canvase bounds during calculating the image is  \(self.bounds)")
-        
-        
-        let size = AVMakeRect(aspectRatio: image.size, insideRect: self.bounds)
-        return size
-    }
-    
-    fileprivate func calculateHeight() -> CGFloat{
-        
-        guard let newImage = image
-            else{
-                return 0
-        }
-        
-        var multiplier : CGFloat = (self.bounds.width / newImage.size.width);
-        if(multiplier > 1){
-            multiplier = 1
-        }
-        let newHeight =  multiplier * newImage.size.height
-        return newHeight
-    }
-    
-    func updateFrames(){
-        
-        updateImageViewSizeConstraint()
+            let rawInfo = json?["message"]
+            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+            let broadcastInfo = BroadcastInfo(info : rawInfo)
+            self?.processPoint(info: broadcastInfo)
+        })
     }
 }
 
+//MARK:- Points Handling from the backend
+extension AspectImageView{
+    
+    private func targetPoint(inputPoint : CGPoint)->CGPoint{
+        
+        let selfWidth = size.width
+        let selfHeight = size.height
+        
+        let targetWidth = CGFloat(canvasInfo?.width ?? Double(0))
+        let targetHeight = CGFloat(canvasInfo?.height ?? Double(0))
+        
+        let widthRatio = selfWidth/targetWidth
+        let heightRatio = selfHeight/targetHeight
+        
+        let x = widthRatio * inputPoint.x
+        let y = heightRatio * inputPoint.y
+        
+        return CGPoint(x : x, y : y)
+    }
+    
+    private func processPoint(info : BroadcastInfo){
+      
+        Log.echo(key: "processPoint", text: "Processing the points")
 
+        let rawColor = info.strokeColor ?? "#000"
+        let color = UIColor(hexString : rawColor)
+        self.drawColor = color
+        if(info.reset){
+            
+            Log.echo(key: "processPoint", text: "asking to reset")
+            touchStarted = false
+            reset()
+            return
+        }
+        
+        let rawPoint = info.point
+        let point = targetPoint(inputPoint: rawPoint)
+        
+        if(!info.isContinous && !touchStarted){
+            
+            Log.echo(key: "processPoint", text: "touch started")
+            touchStarted = true
+            self.currentPoint = point
+            self.previousPoint = point
+            self.previousPreviousPoint = point
+//            drawBezier(from start: self.previousPoint, to end: self.currentPoint)
+
+            return
+        }
+        
+        if(info.isContinous){
+            
+            Log.echo(key: "processPoint", text: "touch moving")
+            self.previousPreviousPoint = self.previousPoint
+            self.previousPoint = self.currentPoint
+            self.currentPoint = point
+            let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+            let mid2 = midPoint(self.currentPoint, p2: self.previousPoint)
+            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
+
+//            processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
+            //drawBezier(from: self.previousPoint, to: self.currentPoint)
+            touchStarted = true
+            return
+        }
+        
+        if(!info.isContinous){
+            
+            
+            Log.echo(key: "processPoint", text: "touch ended")
+            self.previousPreviousPoint = self.previousPoint
+            self.previousPoint = self.currentPoint
+            self.currentPoint = point
+            let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+            let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
+            drawBezier(from: self.previousPreviousPoint, to: self.previousPoint, previous: self.previousPoint)
+            //drawBezier(from: self.previousPoint, to: self.currentPoint)
+            touchStarted = false
+            return
+        }
+    }
+    
+    
+    
+    private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
+        
+        let point = currentTouchPoint
+        
+        let dx = point.x - lastTouchPoint.x
+        let dy = point.y - lastTouchPoint.y
+        
+        let total : Double = (Double(dx * dx) + Double(dy * dy))
+        
+        if (total < AspectImageView.kPointMinDistanceSquared) {
+            
+            // ... then ignore this movement
+            return;
+        }
+        // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
+        Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
+        Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
+        
+        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
+        //drawLineFrom(self.previousPoint, mid1: mid1, mid2: mid1)
+        
+        drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+        //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
+    }
+    
+    func reset(){
+        
+        self.drawingLayer?.removeFromSuperlayer()
+        self.layer.sublayers = nil
+        self.drawingLayer?.sublayers = nil
+        self.drawingLayer = nil
+    }
+    
+    private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
+        return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
+    }
+    
+}
+
+
+//MARK:- Drawing code with Bezier
+
+extension AspectImageView{
+    
+    func setupDrawingLayerIfNeeded() {
+        
+        guard drawingLayer == nil else { return }
+        let sublayer = CALayer()
+        sublayer.contentsScale = 0.0
+        layer.addSublayer(sublayer)
+        drawingLayer = sublayer
+    }
+    
+    func drawBezier(from start: CGPoint, to end: CGPoint) {
+        
+        setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = UIScreen.main.scale
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.fillColor = self.drawColor?.cgColor
+        line.opacity = 1
+        line.lineWidth = brushWidth
+        line.lineCap = .round
+        line.strokeColor = self.drawColor?.cgColor
+        drawingLayer?.addSublayer(line)
+        if let count = drawingLayer?.sublayers?.count, count > 400 {
+        }
+    }
+    
+    func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
+        
+        setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = 0.0
+        linePath.move(to: previousPoint)
+        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+        line.path = linePath.cgPath
+        line.fillColor = self.drawColor?.cgColor
+        line.opacity = 1
+        line.lineWidth = brushWidth
+        line.lineCap = .round
+        line.strokeColor = self.drawColor?.cgColor
+        drawingLayer?.addSublayer(line)
+        if let count = drawingLayer?.sublayers?.count, count > 400 {
+        }
+    }
+    
+    func clearSublayers() {
+        
+        drawingLayer?.sublayers = nil
+        self.layer.sublayers = nil
+        drawingLayer = nil
+    }
+    
+    func clear() {
+        
+        clearSublayers()
+        image = nil
+    }
+    
+}
+
+extension AspectImageView{
+    
+    func getSnapshot()->UIImage?{
+        
+        let bounds = self.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        self.drawHierarchy(in: bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}

@@ -22,7 +22,6 @@ class AutographyHostCanvas: ExtendedView {
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
     
-    //static let kPointMinDistance : Double = 2.0;
     static let kPointMinDistance : Double = 0.1
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance
     
@@ -44,16 +43,12 @@ class AutographyHostCanvas: ExtendedView {
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
     }
-
     
     func undo(){
         
         self.mainImageView?.reset()
         broadcastCoordinate(withX: 0, y: 0, isContinous: false,reset: true)
     }
-    
-
-
     
     private func point(insidePoint point : CGPoint, subView : UIView)->Bool{
         

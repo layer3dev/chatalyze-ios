@@ -39,7 +39,6 @@ class AspectHostImageView: UIImageView {
         self.opacity = opacity
     }
     
-    
     var strokeColor : UIColor{
         
         get{
@@ -65,6 +64,8 @@ class AspectHostImageView: UIImageView {
     func reset(){
         
         self.drawingLayer?.removeFromSuperlayer()
+        self.layer.sublayers = nil
+        self.drawingLayer?.sublayers = nil
         self.drawingLayer = nil
     }
 }
@@ -88,7 +89,6 @@ extension AspectHostImageView{
         getBeginPoint = true
         
         broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-       // self.touchesBegan(withPoint: currentPoint)
     }
     
     
@@ -102,7 +102,6 @@ extension AspectHostImageView{
         }
         
         let previousPoint = touch.previousLocation(in: self)
-        
         self.previousPreviousPoint = self.previousPoint
         self.previousPoint = previousPoint
         self.currentPoint = touch.location(in: self)
@@ -164,13 +163,11 @@ extension AspectHostImageView{
             return
         }
         
-        Log.echo(key: "yud", text: "I draw the bezier path")
-        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
         broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
     }
-    
     
 }
 
@@ -185,7 +182,6 @@ extension AspectHostImageView{
         layer.addSublayer(sublayer)
         drawingLayer = sublayer
     }
-    
     
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
                 
@@ -204,28 +200,12 @@ extension AspectHostImageView{
         drawingLayer?.addSublayer(line)
         if let count = drawingLayer?.sublayers?.count, count > 400 {
         }
-    }
-    
-    
-    func clearSublayers() {
-        
-        drawingLayer?.removeFromSuperlayer()
-        drawingLayer = nil
-    }
-    
-    func clear() {
-        
-        clearSublayers()
-        image = nil
-    }
-    
-   
+    }    
 }
 
 extension AspectHostImageView{
     
     private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
-        
         return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
     }
 }

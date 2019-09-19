@@ -96,9 +96,11 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "Interval timer is working")
         confirmCallLinked()
         verifyIfExpired()
-        self.updateCallHeaderInfo()
         processAutograph()
-        updateLableAnimation()
+        DispatchQueue.main.async {
+            self.updateCallHeaderInfo()
+            self.updateLableAnimation()
+        }
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
     }
@@ -1435,22 +1437,16 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            Log.echo(key: "yudi", text: "I am started signing as I got event. and the json is \(String(describing: json))")
+//            Log.echo(key: "yudi", text: "I am started signing as I got event. and the json is \(String(describing: json))")
             
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
-            Log.echo(key: "yud", text: "My live unmergedSlotInfo is \(String(describing: self.myLiveUnMergedSlot?.id)) and the call booking Id is \(String(describing: self.screenshotInfo?.callbookingId))")
+//            Log.echo(key: "yud", text: "My live unmergedSlotInfo is \(String(describing: self.myLiveUnMergedSlot?.id)) and the call booking Id is \(String(describing: self.screenshotInfo?.callbookingId))")
             
             if self.myLiveUnMergedSlot?.id != self.screenshotInfo?.callbookingId {
                 return
             }
-            
-            Log.echo(key: "yudi", text: "canvas height is \(String(describing: self.canvasInfo?.height)) and the canvas width is \(String(describing: self.canvasInfo?.width))")
-            
-            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
-            self.userRootView?.remoteVideoContainerView?.updateForSignature()
-            
             self.prepateCanvas(info : self.canvasInfo)
         })
         
@@ -1463,7 +1459,6 @@ extension UserCallController {
     
     private func resetCanvas(){
         
-        self.userRootView?.canvas?.image = nil
         self.userRootView?.canvasContainer?.hide()
         
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = false
@@ -1474,22 +1469,14 @@ extension UserCallController {
     }
     
     private func prepateCanvas(info : CanvasInfo?){
-        
-        userRootView?.canvasContainer?.show()
-        let canvas = self.userRootView?.canvas
-        canvas?.canvasInfo = canvasInfo
-        self.showLoader()
-        
         CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0
         }) { (success, image) in
-            self.stopLoader()
             
-            canvas?.image = image
-            
-            Log.echo(key: "yudi", text: "Loaded image height is \(image?.size.height) and width is \(image?.size.width)")
-            
+            self.userRootView?.canvasContainer?.show(with: image,info:info)
+            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
+            self.userRootView?.remoteVideoContainerView?.updateForSignature()
             self.updateScreenshotLoaded(info : info)
         }
     }
@@ -1511,8 +1498,6 @@ extension UserCallController {
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
         let message = screenshotInfo.toDict()
         params["message"] = message
-        
-        Log.echo(key: "yudi", text: "Yup I have got green signal for the screenshotLoad")
         
         socketClient?.emit(params)
     }
@@ -1581,16 +1566,15 @@ extension UserCallController{
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.userRootView?.remoteVideoContainerView?.updateForSignature()
         
-        self.userRootView?.canvasContainer?.show()
-        self.userRootView?.canvas?.image = UIImage(named: "testingImage")
+        self.userRootView?.canvasContainer?.show(with: UIImage(named: "testingImage"), info: nil)
+        //self.userRootView?.canvas?.image =
 
-        
     }
     
-    @IBAction func updateForCallFaeture(){
+    @IBAction func updateForCallFeature(){
     }
     
-    @IBAction func updateForSignatureFaeture(){
+    @IBAction func updateForSignatureFeature(){
     }
     
     func handleAutographInMultipleSlots(){

@@ -349,17 +349,14 @@ class HostCallController: VideoCallController {
     
     func verifyForEarlyFeature(){
         
-        
         if self.eventInfo?.isLIVE ?? false == false {
             return
         }
         
         if self.eventInfo?.isValidSlotAvailable != false {
             
-            // As we want to show the Alert again as soon as no future event is present.
             if earlyControllerReference != nil {
                 
-                // Dismissing as soon as we get to know that we have the upcoming slot.
                 self.earlyControllerReference?.dismiss(animated: false, completion: nil)
                 self.earlyControllerReference = nil
                 return
@@ -377,8 +374,6 @@ class HostCallController: VideoCallController {
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         controller.closeRegistration = {
             
-            //Event's Registration is closed
-            //Self.earlyControllerRefrence = nil
             self.makeRegistrationClose()
         }
         controller.keepRegistration = {
