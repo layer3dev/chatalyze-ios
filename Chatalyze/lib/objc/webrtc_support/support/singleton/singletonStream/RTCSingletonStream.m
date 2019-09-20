@@ -48,6 +48,8 @@ static NSString * const kARDVideoTrackKind = @"video";
 }
 
 -(CallMediaTrack *)getMediaCapturer:(void (^)(RTCCameraVideoCapturer *capturer))block{
+    
+    
     self.block = block;
     return [self createMediaSenders];
 }
@@ -64,7 +66,7 @@ static NSString * const kARDVideoTrackKind = @"video";
     _localVideoTrack = [self createLocalVideoTrack];
     if (_localVideoTrack) {
         mediaPackage.videoTrack = _localVideoTrack;
-    }
+    }    
     return mediaPackage;
 }
 

@@ -74,6 +74,7 @@ extension AspectHostImageView{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        
         Log.echo(key: "point", text: "Touch is begun")
         
         guard let touch = touches.first
@@ -85,14 +86,15 @@ extension AspectHostImageView{
         self.previousPoint = touch.previousLocation(in: self)
         self.previousPreviousPoint = touch.previousLocation(in: self)
         
-        swiped = false
-        getBeginPoint = true
+            self.swiped = false
+            self.getBeginPoint = true
         
-        broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+            self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
     }
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
         
         Log.echo(key: "point", text: "Touch is moving")
 
@@ -106,7 +108,8 @@ extension AspectHostImageView{
         self.previousPoint = previousPoint
         self.currentPoint = touch.location(in: self)
         
-        swiped = true
+        
+        self.swiped = true
         
 //        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
 //        let point = touch.location(in: self)
@@ -120,26 +123,31 @@ extension AspectHostImageView{
 //            return
 //        }
         
-        if getBeginPoint == false{
+            if self.getBeginPoint == false{
 
             self.currentPoint = touch.location(in: self)
             self.previousPoint = touch.previousLocation(in: self)
             self.previousPreviousPoint = touch.previousLocation(in: self)
-            broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-            getBeginPoint = true
+                self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+                self.getBeginPoint = true
             return
         }
         
         let currentpoint = touch.location(in: self)
-        broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
+            self.broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
         
-        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
-        drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+            let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
+            
+            self.processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
+            //self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
         
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        
         
         guard let touch = touches.first
             else{
@@ -154,19 +162,48 @@ extension AspectHostImageView{
 //            return
 //        }
         
-        getBeginPoint = false
+        self.getBeginPoint = false
         //getEndPoint = true
         let point = touch.location(in: self)
         
-        if swiped{
-            broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+        if self.swiped{
+            self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
             return
         }
         
-        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
-        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
-        drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
-        broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+        let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+        let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
+        self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+        self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+            
+    }
+    
+    private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
+        
+        let point = currentTouchPoint
+        
+        let dx = point.x - lastTouchPoint.x
+        let dy = point.y - lastTouchPoint.y
+        
+        let total : Double = (Double(dx * dx) + Double(dy * dy))
+        
+        if (total < AspectImageView.kPointMinDistanceSquared) {
+            
+            // ... then ignore this movement
+            return;
+        }
+        // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
+        Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
+        Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
+        
+                let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+                let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
+        
+        //drawLineFrom(self.previousPoint, mid1: mid1, mid2: mid1)
+        
+        
+        drawBezier(from: mid1, to: mid2, previous: self.currentPoint)
+        //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
     }
     
 }
@@ -184,22 +221,23 @@ extension AspectHostImageView{
     }
     
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
-                
-        setupDrawingLayerIfNeeded()
-        let line = CAShapeLayer()
-        let linePath = UIBezierPath()
-        line.contentsScale = 0.0
-        linePath.move(to: CGPoint(x: start.x, y: start.y))
-        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-        line.path = linePath.cgPath
-        line.fillColor = strokeColor.cgColor
-        line.opacity = 1
-        line.lineWidth = brushWidth
-        line.lineCap = .round
-        line.strokeColor = strokeColor.cgColor
-        drawingLayer?.addSublayer(line)
-        if let count = drawingLayer?.sublayers?.count, count > 400 {
-        }
+        
+        
+            setupDrawingLayerIfNeeded()
+            let line = CAShapeLayer()
+            let linePath = UIBezierPath()
+            line.contentsScale = 0.0
+            linePath.move(to: CGPoint(x: start.x, y: start.y))
+            linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+            line.path = linePath.cgPath
+            line.fillColor = strokeColor.cgColor
+            line.opacity = 1
+            line.lineWidth = brushWidth
+            line.lineCap = .round
+            line.strokeColor = strokeColor.cgColor
+            drawingLayer?.addSublayer(line)
+            if let count = drawingLayer?.sublayers?.count, count > 400 {
+            }
     }    
 }
 

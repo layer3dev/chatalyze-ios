@@ -106,6 +106,7 @@ extension AutographyHostCanvas{
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
 
+        
             var params = [String : Any]()
             
             params["x"] = x
@@ -132,7 +133,7 @@ extension AutographyHostCanvas{
             
             Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
             self.socketClient?.emit(mainParams)
-        }
+    }
 }
 
 extension AutographyHostCanvas{

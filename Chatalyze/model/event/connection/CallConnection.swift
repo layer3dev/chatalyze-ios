@@ -184,6 +184,7 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         
         callLogger?.logConnectionState(connectionState: state)
+        
         if(isAborted){
             return
         }
@@ -204,6 +205,7 @@ extension CallConnection : ARDAppClientDelegate{
         }
         
         if(state == .disconnected){
+            
             //no need to use synced time here
             lastDisconnect = Date()
             resetRemoteFrame()
@@ -244,7 +246,6 @@ extension CallConnection : ARDAppClientDelegate{
     
     func appClient(_ client: ARDAppClient!, didReceiveRemoteMediaTrack remoteTrack: CallMediaTrack?) {
 
-        DispatchQueue.main.async{
         
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) didReceiveRemoteVideoTrack")
             
@@ -259,7 +260,6 @@ extension CallConnection : ARDAppClientDelegate{
             if(self.isLinked){
                 self.renderRemoteTrack()
             }
-        }
     }
     
     func linkCall(){
@@ -285,8 +285,7 @@ extension CallConnection : ARDAppClientDelegate{
     //once connection retreive from failure
     func resetVideoBounds(){
         
-        DispatchQueue.main.async{
-            
+        
             if(!self.isLinked){
                 return
             }
@@ -301,13 +300,11 @@ extension CallConnection : ARDAppClientDelegate{
             }
             
             remoteView.resetBounds()
-        }
     }
     
     func renderRemoteTrack(){
         
-        DispatchQueue.main.async {
-            
+        
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteTrack")
             
             if(self.isAborted){
@@ -333,25 +330,21 @@ extension CallConnection : ARDAppClientDelegate{
             
             self.remoteTrack?.audioTrack?.isEnabled = true
             self.isRendered = true
-        }
     }
     
     private func removeLastRenderer(){
         
-        DispatchQueue.main.async {
-            
+        
             guard let remoteView = self.rootView?.remoteVideoView
                 else{
                     return
             }
             self.remoteTrack?.videoTrack?.remove(remoteView)
-        }
     }
     
     private func resetRemoteFrame(){
         
-        DispatchQueue.main.async {
-            
+        
             if(self.isAborted){
                 return
             }
@@ -365,7 +358,6 @@ extension CallConnection : ARDAppClientDelegate{
             }
             remoteView.renderFrame(nil)
             remoteView.setSize(CGSize.zero)
-        }
     }
     
     

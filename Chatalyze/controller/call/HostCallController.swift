@@ -274,7 +274,6 @@ class HostCallController: VideoCallController {
         
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
             
-            self.stopLoader()
             Log.echo(key: "yud", text: "I got screenshot loaded")
 
          })
@@ -338,9 +337,13 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
-        updateCallHeaderInfo()
+        DispatchQueue.main.async {
+            self.updateCallHeaderInfo()
+        }
         refresh()
-        updateLableAnimation()
+        DispatchQueue.main.async {
+            self.updateLableAnimation()
+        }
         resetAutographCanvasIfNewCallAndSlotExists()
     }
     
@@ -1361,6 +1364,8 @@ extension HostCallController{
             
             DispatchQueue.main.async(execute: {
                 
+                self.stopLoader()
+
                 Log.echo(key: "point", text: "Image Down loading is successfull \(String(describing: info)) and its frame is \(String(describing: image?.size.height)) and the width is \(String(describing: image?.size.width))")
                 
                 
