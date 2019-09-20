@@ -19,7 +19,7 @@ class AspectImageView: ExtendedImageView {
     var previousPoint = CGPoint.zero
     var previousPreviousPoint = CGPoint.zero
     
-    static let kPointMinDistance : Double = 2.0
+    static let kPointMinDistance : Double = 0.0
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance
     
     var red: CGFloat = 0.0

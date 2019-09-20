@@ -15,6 +15,8 @@ import CRToast
 
 class HostCallController: VideoCallController {
     
+    
+    
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
     var localSlotIdToManageAutograph :Int? = nil
@@ -40,6 +42,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
+       
     override var isVideoCallInProgress : Bool{
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot

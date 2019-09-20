@@ -31,6 +31,8 @@ class AspectHostImageView: UIImageView {
     var heightConstraint : NSLayoutConstraint?
     var widthConstraint : NSLayoutConstraint?
     
+    var serq = DispatchQueue(label: "com.queue.Serial")
+    
     func updateStrokeColors(r:CGFloat,g:CGFloat,b:CGFloat,opacity:CGFloat){
         
         red = r
@@ -74,26 +76,32 @@ extension AspectHostImageView{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
-        Log.echo(key: "point", text: "Touch is begun")
-        
-        guard let touch = touches.first
-            else{
-                return
-        }
-        
-        self.currentPoint = touch.location(in: self)
-        self.previousPoint = touch.previousLocation(in: self)
-        self.previousPreviousPoint = touch.previousLocation(in: self)
-        
+        serq.sync {
+            
+            Log.echo(key: "point", text: "Touch is begun")
+            
+            guard let touch = touches.first
+                else{
+                    return
+            }
+            
+            self.currentPoint = touch.location(in: self)
+            self.previousPoint = touch.previousLocation(in: self)
+            self.previousPreviousPoint = touch.previousLocation(in: self)
+            
             self.swiped = false
             self.getBeginPoint = true
-        
+            
             self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+        }
+        
+        
     }
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        serq.sync {
 
         
         Log.echo(key: "point", text: "Touch is moving")
@@ -139,14 +147,16 @@ extension AspectHostImageView{
             let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint);
             let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
             
-            self.processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
-            //self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+            //self.processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
+            self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+        }
         
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
+        serq.sync {
+
         
         
         guard let touch = touches.first
@@ -176,6 +186,7 @@ extension AspectHostImageView{
         self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
         self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
             
+        }
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
@@ -223,21 +234,26 @@ extension AspectHostImageView{
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
         
         
-            setupDrawingLayerIfNeeded()
-            let line = CAShapeLayer()
-            let linePath = UIBezierPath()
-            line.contentsScale = 0.0
-            linePath.move(to: CGPoint(x: start.x, y: start.y))
-            linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-            line.path = linePath.cgPath
-            line.fillColor = strokeColor.cgColor
-            line.opacity = 1
-            line.lineWidth = brushWidth
-            line.lineCap = .round
-            line.strokeColor = strokeColor.cgColor
-            drawingLayer?.addSublayer(line)
-            if let count = drawingLayer?.sublayers?.count, count > 400 {
+        
+        setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = 0.0
+        linePath.move(to: CGPoint(x: start.x, y: start.y))
+        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+        line.path = linePath.cgPath
+        line.fillColor = strokeColor.cgColor
+        line.opacity = 1
+        line.lineWidth = brushWidth
+        line.lineCap = .round
+        line.strokeColor = strokeColor.cgColor
+        
+        DispatchQueue.main.async {
+            self.drawingLayer?.addSublayer(line)
+            if let count = self.drawingLayer?.sublayers?.count, count > 400 {
             }
+        }
+        
     }    
 }
 
