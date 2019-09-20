@@ -1268,8 +1268,6 @@ extension HostCallController{
     
     func registerForAutographSignatureCall(){
         
-        
-        
         UserSocket.sharedInstance?.socket?.on("notification") { data, ack in
             
             let rawInfosString = data.JSONDescription()
