@@ -605,19 +605,25 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
 
 
 - (CallMediaTrack *)createMediaSenders {
+    
     CallMediaTrack *mediaPackage = [CallMediaTrack new];
-    RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
-    RTCAudioSource *source = [_factory audioSourceWithConstraints:constraints];
-    RTCAudioTrack *track = [_factory audioTrackWithSource:source
-                                                  trackId:kARDAudioTrackId];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        RTCMediaConstraints *constraints = [self defaultMediaAudioConstraints];
+        RTCAudioSource *source = [self->_factory audioSourceWithConstraints:constraints];
+        RTCAudioTrack *track = [self->_factory audioTrackWithSource:source
+                                                      trackId:kARDAudioTrackId];
+        
+        mediaPackage.audioTrack = track;
+        
+        [self->_peerConnection addTrack:track streamIds:@[ kARDMediaStreamId ]];
+        self->_localVideoTrack = [self createLocalVideoTrack];
+        if (self->_localVideoTrack) {
+            mediaPackage.videoTrack = self->_localVideoTrack;
+        }
+    });
     
-    mediaPackage.audioTrack = track;
-    
-    [_peerConnection addTrack:track streamIds:@[ kARDMediaStreamId ]];
-    _localVideoTrack = [self createLocalVideoTrack];
-    if (_localVideoTrack) {
-        mediaPackage.videoTrack = _localVideoTrack;
-    }
     return mediaPackage;
 }
 

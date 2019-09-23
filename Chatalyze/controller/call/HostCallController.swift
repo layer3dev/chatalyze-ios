@@ -347,7 +347,7 @@ class HostCallController: VideoCallController {
         DispatchQueue.main.async {
             self.updateLableAnimation()
         }
-        resetAutographCanvasIfNewCallAndSlotExists()
+       //resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {

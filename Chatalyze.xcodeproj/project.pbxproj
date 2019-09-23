@@ -1016,6 +1016,10 @@
 		789C3FF7230C04C90084731D /* LocalHostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF6230C04C90084731D /* LocalHostVideoView.swift */; };
 		789C3FF8230C04C90084731D /* LocalHostVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF6230C04C90084731D /* LocalHostVideoView.swift */; };
 		789C3FF9230C263C0084731D /* RemoteHostContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C3FF4230BE90C0084731D /* RemoteHostContainerView.swift */; };
+		78A471FB2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A471FA2338AA510002A573 /* SignatureCoordinatesInfo.swift */; };
+		78A471FC2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A471FA2338AA510002A573 /* SignatureCoordinatesInfo.swift */; };
+		78A471FF2339207F0002A573 /* AutographDigestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A471FE2339207F0002A573 /* AutographDigestProcessor.swift */; };
+		78A472002339207F0002A573 /* AutographDigestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A471FE2339207F0002A573 /* AutographDigestProcessor.swift */; };
 		78CA8DC22303ECD300583616 /* AutographyHostCanvas.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7825D7142303D136007D0423 /* AutographyHostCanvas.xib */; };
 		78CA8DC32303ECD400583616 /* AutographyHostCanvas.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7825D7142303D136007D0423 /* AutographyHostCanvas.xib */; };
 		78CA8DC82304107B00583616 /* AspectHostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CA8DC72304107B00583616 /* AspectHostImageView.swift */; };
@@ -1765,6 +1769,8 @@
 		78852CAE23310771000B286A /* broadcastCoordinatesImageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = broadcastCoordinatesImageDelegate.swift; sourceTree = "<group>"; };
 		789C3FF4230BE90C0084731D /* RemoteHostContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteHostContainerView.swift; sourceTree = "<group>"; };
 		789C3FF6230C04C90084731D /* LocalHostVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHostVideoView.swift; sourceTree = "<group>"; };
+		78A471FA2338AA510002A573 /* SignatureCoordinatesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCoordinatesInfo.swift; sourceTree = "<group>"; };
+		78A471FE2339207F0002A573 /* AutographDigestProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographDigestProcessor.swift; sourceTree = "<group>"; };
 		78CA8DC72304107B00583616 /* AspectHostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectHostImageView.swift; sourceTree = "<group>"; };
 		78DF78EC2307CE00007B2663 /* AutographInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographInfo.swift; sourceTree = "<group>"; };
 		78DF78EF2307CE93007B2663 /* AutographUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographUserInfo.swift; sourceTree = "<group>"; };
@@ -4149,6 +4155,22 @@
 			path = VerifyForSignatureImplementation;
 			sourceTree = "<group>";
 		};
+		78A471F92338AA3C0002A573 /* signatureCoordinatesInfo */ = {
+			isa = PBXGroup;
+			children = (
+				78A471FA2338AA510002A573 /* SignatureCoordinatesInfo.swift */,
+			);
+			path = signatureCoordinatesInfo;
+			sourceTree = "<group>";
+		};
+		78A471FD233920630002A573 /* autograph */ = {
+			isa = PBXGroup;
+			children = (
+				78A471FE2339207F0002A573 /* AutographDigestProcessor.swift */,
+			);
+			path = autograph;
+			sourceTree = "<group>";
+		};
 		78DF78EB2307CDEF007B2663 /* AutographInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -4460,6 +4482,7 @@
 				47FFCB1B223FAE3600B23049 /* PlanInfo */,
 				47A47DF822A69385008C942D /* BillingInfo */,
 				78DF78EB2307CDEF007B2663 /* AutographInfo */,
+				78A471F92338AA3C0002A573 /* signatureCoordinatesInfo */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4558,6 +4581,7 @@
 		FA5FD1702119CDB200172144 /* eventCall */ = {
 			isa = PBXGroup;
 			children = (
+				78A471FD233920630002A573 /* autograph */,
 				FA5FD1712119CE0E00172144 /* MediaPermissionAccess.swift */,
 				FADC0D5421C8F328004358B2 /* CallLogger.swift */,
 			);
@@ -6587,6 +6611,7 @@
 				47D0B12621A6C4B5006376A8 /* EventPaymentController.swift in Sources */,
 				47A8B8342268873500996ACA /* AchievmentsController.swift in Sources */,
 				47D0B12721A6C4B5006376A8 /* HangupActionView.swift in Sources */,
+				78A472002339207F0002A573 /* AutographDigestProcessor.swift in Sources */,
 				789C3FF9230C263C0084731D /* RemoteHostContainerView.swift in Sources */,
 				47D0B12821A6C4B5006376A8 /* ContactUsController.swift in Sources */,
 				4787237F222574EF007994FC /* EarlyViewController.swift in Sources */,
@@ -6700,6 +6725,7 @@
 				4781441F22040A2D005398F8 /* SingleChatDurationRootView.swift in Sources */,
 				47D0B16721A6C4B5006376A8 /* RequestAutographContainerView.swift in Sources */,
 				47A1EA5A221D839900A4B1DF /* HostCategoryRootView.swift in Sources */,
+				78A471FC2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */,
 				47D0B16821A6C4B5006376A8 /* RemoteVideoView.swift in Sources */,
 				47BAEDA0220057630042588A /* ScheduleSessionInfo.swift in Sources */,
 				47D0B16921A6C4B5006376A8 /* SlotNoInfoContainer.swift in Sources */,
@@ -7167,6 +7193,7 @@
 				47A8B8332268873500996ACA /* AchievmentsController.swift in Sources */,
 				FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */,
 				470A3ACE2111B99A00988F1D /* ContactUsController.swift in Sources */,
+				78A471FF2339207F0002A573 /* AutographDigestProcessor.swift in Sources */,
 				FAE9EF68206CB25F00C45F8D /* PeerInfo.swift in Sources */,
 				FA12868B22180742000A6560 /* DonateProductValueFetch.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
@@ -7280,6 +7307,7 @@
 				4781441E22040A2D005398F8 /* SingleChatDurationRootView.swift in Sources */,
 				47A1EA59221D839900A4B1DF /* HostCategoryRootView.swift in Sources */,
 				FA24BACB206FA6780064F94F /* SlotNoInfoContainer.swift in Sources */,
+				78A471FB2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */,
 				FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */,
 				47BAED9F220057620042588A /* ScheduleSessionInfo.swift in Sources */,
 				FA74B13D20639B6400983141 /* RTCMediaConstraints+JSON.m in Sources */,

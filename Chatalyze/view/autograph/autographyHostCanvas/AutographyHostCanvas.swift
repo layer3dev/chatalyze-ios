@@ -30,6 +30,8 @@ class AutographyHostCanvas: ExtendedView {
     var delegate : AutographyCanvasProtocol?
   
     
+    
+    
     override func viewDidLayout() {
         super.viewDidLayout()
       
@@ -178,7 +180,5 @@ extension AutographyHostCanvas:broadcastCoordinatesImageDelegate{
 
 
 extension AutographyHostCanvas{
-    
-    
 }
 

@@ -8,7 +8,16 @@
 
 import UIKit
 
-class AspectHostImageView: UIImageView {
+class AspectHostImageView: ExtendedImageView {
+    
+    var cp = CGPoint.zero
+    var lp = CGPoint.zero
+    var ppp = CGPoint.zero
+    
+    var sigTimer:Timer?
+    var isLoopStarted = false
+    
+    var sigCoordinates = [SignatureCoordinatesInfo]()
     
     //Drawing Accessory tools
     var red: CGFloat = 0.0
@@ -17,10 +26,10 @@ class AspectHostImageView: UIImageView {
     var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 8:6
     var opacity: CGFloat = 1.0
     //End
-
+    
     var broadcastDelegate:broadcastCoordinatesImageDelegate?
     var drawingLayer:CALayer?
-
+    
     var currentPoint = CGPoint.zero
     var previousPoint = CGPoint.zero
     var previousPreviousPoint = CGPoint.zero
@@ -30,8 +39,6 @@ class AspectHostImageView: UIImageView {
     
     var heightConstraint : NSLayoutConstraint?
     var widthConstraint : NSLayoutConstraint?
-    
-    var serq = DispatchQueue(label: "com.queue.Serial")
     
     func updateStrokeColors(r:CGFloat,g:CGFloat,b:CGFloat,opacity:CGFloat){
         
@@ -59,7 +66,7 @@ class AspectHostImageView: UIImageView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         self.isUserInteractionEnabled = true
     }
     
@@ -70,42 +77,54 @@ class AspectHostImageView: UIImageView {
         self.drawingLayer?.sublayers = nil
         self.drawingLayer = nil
     }
+    
+    override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        sigTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(timerRun), userInfo: nil, repeats: true)
+        sigTimer?.fire()
+    }
+    
+    @objc func timerRun(){
+        
+        // startSigning()
+    }
+    
+    
 }
 
 extension AspectHostImageView{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        serq.sync {
-            
-            Log.echo(key: "point", text: "Touch is begun")
-            
-            guard let touch = touches.first
-                else{
-                    return
-            }
-            
-            self.currentPoint = touch.location(in: self)
-            self.previousPoint = touch.previousLocation(in: self)
-            self.previousPreviousPoint = touch.previousLocation(in: self)
-            
-            self.swiped = false
-            self.getBeginPoint = true
-            
-            self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+        guard let touch = touches.first
+            else{
+                return
         }
         
+        self.currentPoint = touch.location(in: self)
+        self.previousPoint = touch.previousLocation(in: self)
+        self.previousPreviousPoint = touch.previousLocation(in: self)
         
+        self.swiped = false
+        self.getBeginPoint = true
+        
+        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: -1)
+        
+        self.sigCoordinates.append(info)
+        
+        if !isLoopStarted{
+            Log.echo(key: "yud", text: "I called the loop")
+            self.startSigning()
+        }
+        self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+        //startSigning()
     }
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        serq.sync {
-
         
-        Log.echo(key: "point", text: "Touch is moving")
-
         guard let touch = touches.first
             else{
                 return
@@ -119,61 +138,43 @@ extension AspectHostImageView{
         
         self.swiped = true
         
-//        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
-//        let point = touch.location(in: self)
-//
         
-//        if(!(x.contains(point))){
-//
-//            Log.echo(key: "point", text: "I am drawing outside")
-//            let point = touch.location(in: self)
-//            self.touchesEnded(withPoint: point)
-//            return
-//        }
-        
-            if self.getBeginPoint == false{
-
-            self.currentPoint = touch.location(in: self)
-            self.previousPoint = touch.previousLocation(in: self)
-            self.previousPreviousPoint = touch.previousLocation(in: self)
-                self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-                self.getBeginPoint = true
-            return
-        }
+        //        if self.getBeginPoint == false{
+        //
+        //            self.currentPoint = touch.location(in: self)
+        //            self.previousPoint = touch.previousLocation(in: self)
+        //            self.previousPreviousPoint = touch.previousLocation(in: self)
+        //            self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+        //            self.getBeginPoint = true
+        //            return
+        //        }
         
         let currentpoint = touch.location(in: self)
-            self.broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
+        self.broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
         
-            let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
-            
-            //self.processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
-            self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
-        }
+        
+        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: 0)
+        
+        self.sigCoordinates.append(info)
+        // startSigning()
+        
+        
+        //        let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        //        let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
+        //
+        //        self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
         
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        serq.sync {
-
-        
         
         guard let touch = touches.first
             else{
                 return
         }
         
-//        let mainPoint = touch.location(in: self)
-//        let x = AVMakeRect(aspectRatio: self.image?.size ?? CGSize.zero, insideRect: self.frame)
-//
-//        if(!(x.contains(mainPoint))){
-//            Log.echo(key: "point", text: "I am not broadcasting")
-//            return
-//        }
         
         self.getBeginPoint = false
-        //getEndPoint = true
         let point = touch.location(in: self)
         
         if self.swiped{
@@ -181,12 +182,17 @@ extension AspectHostImageView{
             return
         }
         
-        let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
-        let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
-        self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: 1)
+        
+        self.sigCoordinates.append(info)
+        
+        // startSigning()
+        // let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+        // let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
+        // self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
+        
         self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
-            
-        }
+        
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
@@ -200,21 +206,15 @@ extension AspectHostImageView{
         
         if (total < AspectImageView.kPointMinDistanceSquared) {
             
-            // ... then ignore this movement
             return;
         }
-        // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
         Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
         
-                let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-                let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
-        
-        //drawLineFrom(self.previousPoint, mid1: mid1, mid2: mid1)
-        
+        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         
         drawBezier(from: mid1, to: mid2, previous: self.currentPoint)
-        //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
     }
     
 }
@@ -242,7 +242,7 @@ extension AspectHostImageView{
         linePath.move(to: CGPoint(x: start.x, y: start.y))
         linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
         line.path = linePath.cgPath
-        line.fillColor = strokeColor.cgColor
+        line.fillColor = UIColor.clear.cgColor
         line.opacity = 1
         line.lineWidth = brushWidth
         line.lineCap = .round
@@ -262,4 +262,108 @@ extension AspectHostImageView{
     private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
         return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
     }
+}
+
+
+extension AspectHostImageView{
+    
+    @IBAction func startSigning(){
+        
+        Log.echo(key: "yud", text: "count is \(self.sigCoordinates.count)")
+        
+        let accumulatedPoints = [SignatureCoordinatesInfo]()
+        
+        if self.sigCoordinates.count == 0 {
+            Log.echo(key: "yud", text: "I am in returning function")
+            isLoopStarted = false
+            return
+        }
+        
+        isLoopStarted = true
+        
+        let firstCoord = self.sigCoordinates.first
+        
+        if firstCoord?.status == -1{
+            
+            Log.echo(key: "yud", text: "I am in first function")
+            
+            cp = firstCoord?.currentPoint ?? CGPoint.zero
+            self.sigCoordinates.removeFirst()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startSigning()
+            }
+            return
+        }
+        
+        if firstCoord?.status == 0 {
+            
+            let mid1 = self.midPoint(firstCoord?.previousPoint ?? CGPoint.zero, p2: firstCoord?.previousPreviousPoint ?? CGPoint.zero)
+            let mid2 = self.midPoint(firstCoord?.currentPoint ?? CGPoint.zero, p2: firstCoord?.previousPoint ?? CGPoint.zero);
+            
+            lp = cp
+            cp = firstCoord?.currentPoint ?? CGPoint.zero
+            
+            //self.drawBezier(from: mid1, to: mid2, previous: firstCoord?.previousPoint ?? CGPoint.zero)
+            
+            self.drawBezier(from: lp, to: cp)
+            Log.echo(key: "yud", text: "signing")
+            Log.echo(key: "yud", text: "I am in second function")
+            
+            self.sigCoordinates.removeFirst()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startSigning()
+            }
+            return
+        }
+        
+        if firstCoord?.status == 1{
+            
+            if firstCoord?.isSwiped == false{
+                
+                let mid1 = self.midPoint(firstCoord?.previousPoint ?? CGPoint.zero, p2: firstCoord?.previousPreviousPoint ?? CGPoint.zero)
+                let mid2 = self.midPoint(firstCoord?.currentPoint ?? CGPoint.zero, p2: firstCoord?.previousPoint ?? CGPoint.zero)
+                
+                lp = cp
+                cp = firstCoord?.currentPoint ?? CGPoint.zero
+                self.drawBezier(from: lp, to: cp)
+            }
+            self.sigCoordinates.removeFirst()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startSigning()
+            }
+            return
+        }
+    }
+    
+    func drawBezier(from start: CGPoint, to end: CGPoint) {
+        
+        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+        
+        image = renderer.image { ctx in
+            image?.draw(in: bounds)
+            
+            ctx.cgContext.setLineCap(.round)
+            ctx.cgContext.setLineWidth(brushWidth)
+            ctx.cgContext.move(to: start)
+            ctx.cgContext.addQuadCurve(to: end, control: start)
+            ctx.cgContext.strokePath()
+        }
+        
+//        setupDrawingLayerIfNeeded()
+//        let line = CAShapeLayer()
+//        let linePath = UIBezierPath()
+//        line.contentsScale = UIScreen.main.scale
+//        linePath.move(to: start)
+//        linePath.addLine(to: end)
+//        line.path = linePath.cgPath
+//        line.fillColor = UIColor.red.cgColor
+//        line.opacity = 1
+//        line.lineWidth = brushWidth
+//        line.lineCap = .round
+//        line.strokeColor = UIColor.red.cgColor
+//        drawingLayer?.addSublayer(line)
+//        if let count = drawingLayer?.sublayers?.count, count > 400 {
+//        }
+    }
+    
 }
