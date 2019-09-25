@@ -104,7 +104,7 @@ extension AspectImageView{
     }
     
     private func processPoint(info : BroadcastInfo){
-        
+
         
         Log.echo(key: "processPoint", text: "Processing the points")
         
@@ -242,23 +242,21 @@ extension AspectImageView{
     
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
         
-        DispatchQueue.main.async {
-            
-            self.setupDrawingLayerIfNeeded()
-            let line = CAShapeLayer()
-            let linePath = UIBezierPath()
-            line.contentsScale = 0.0
-            linePath.move(to: self.previousPoint)
-            linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-            line.path = linePath.cgPath
-            line.fillColor = self.drawColor?.cgColor
-            line.opacity = 1
-            line.lineWidth = self.brushWidth
-            line.lineCap = .round
-            line.strokeColor = self.drawColor?.cgColor
-            self.drawingLayer?.addSublayer(line)
-            if let count = self.drawingLayer?.sublayers?.count, count > 400 {
-            }
+        
+        self.setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = 0.0
+        linePath.move(to: start)
+        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+        line.path = linePath.cgPath
+        line.fillColor = self.drawColor?.cgColor
+        line.opacity = 1
+        line.lineWidth = self.brushWidth
+        line.lineCap = .round
+        line.strokeColor = self.drawColor?.cgColor
+        self.drawingLayer?.addSublayer(line)
+        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
         }
     }
     

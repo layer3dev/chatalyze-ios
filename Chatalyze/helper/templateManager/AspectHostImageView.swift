@@ -12,8 +12,9 @@ class AspectHostImageView: ExtendedImageView {
     
     var pointsProcessor = AutographDigestProcessor()
     
-    var sigTimer:Timer?
     var isLoopStarted = false
+    var isTouchStarted = false
+    var isSwipedDrawing = false
     
     var sigCoordinates = [SignatureCoordinatesInfo]()
     
@@ -54,6 +55,7 @@ class AspectHostImageView: ExtendedImageView {
     }
     
     override var image : UIImage?{
+        
         get{
             return super.image
         }
@@ -70,24 +72,22 @@ class AspectHostImageView: ExtendedImageView {
     
     func reset(){
         
-        let info = SignatureCoordinatesInfo(point: CGPoint.zero, isContinous: false, isReset: true)
-    
-        pointsProcessor.digest(pointInfo: info)
         self.drawingLayer?.removeFromSuperlayer()
         self.layer.sublayers = nil
         self.drawingLayer?.sublayers = nil
         self.drawingLayer = nil
+        self.sigCoordinates.removeAll()
+        isLoopStarted = false
+        isTouchStarted = false
+        isSwipedDrawing = false
     }
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
-        pointsProcessor.setDigestListener { (startingPoint, endPoint,controlPoint, isReset) in
-            
-            self.drawBezier(from: startingPoint, to: endPoint, previous: controlPoint)
-        }
     }
 }
+
+//MARK:- Touches Methods
 
 extension AspectHostImageView{
     
@@ -98,20 +98,18 @@ extension AspectHostImageView{
                 return
         }
         
-        self.currentPoint = touch.location(in: self)
-        self.previousPoint = touch.previousLocation(in: self)
-        self.previousPreviousPoint = touch.previousLocation(in: self)
+        let cp  = touch.location(in: self)
         
-        self.swiped = false
-        self.getBeginPoint = true
-    
+        let info = SignatureCoordinatesInfo(point: cp, isContinous: false, isReset: false)
         
-//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
-//
-//        pointsProcessor.digest(pointInfo: info)
-      
+        sigCoordinates.append(info)
         
-        self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
+       
+        if !isLoopStarted{
+            self.startDrawingWithDelay()
+        }
+        
+        self.broadcastDelegate?.broadcastCoordinate(x: cp.x, y: cp.y, isContinous: false, reset: false)
         
     }
     
@@ -123,18 +121,16 @@ extension AspectHostImageView{
                 return
         }
         
-        let previousPoint = touch.previousLocation(in: self)
-        self.previousPreviousPoint = self.previousPoint
-        self.previousPoint = previousPoint
-        self.currentPoint = touch.location(in: self)
+        let cp = touch.location(in: self)
+        self.broadcastDelegate?.broadcastCoordinate(x: cp.x, y: cp.y, isContinous: true, reset: false)
         
-        self.swiped = true
+        let info = SignatureCoordinatesInfo(point: cp, isContinous: true, isReset: false)
         
-        let currentpoint = touch.location(in: self)
-        self.broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
+        sigCoordinates.append(info)
         
-//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: true, isReset: false)
-//        pointsProcessor.digest(pointInfo: info)
+        if !isLoopStarted{
+            self.startDrawingWithDelay()
+        }
 
     }
     
@@ -150,20 +146,28 @@ extension AspectHostImageView{
         
         if self.swiped{
             
-//             let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
-//            pointsProcessor.digest(pointInfo: info)
-
+            let info = SignatureCoordinatesInfo(point: point, isContinous: false, isReset: false)
+            
+            sigCoordinates.append(info)
 
             self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+           
+            if !isLoopStarted{
+              
+                self.startDrawingWithDelay()
+            }
             return
         }
         
-//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
-//
-//        pointsProcessor.digest(pointInfo: info)
-
-        self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+        let info = SignatureCoordinatesInfo(point: point, isContinous: false, isReset: false)
         
+        sigCoordinates.append(info)
+        
+        self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
+       
+        if !isLoopStarted{
+            self.startDrawingWithDelay()
+        }
     }
     
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
@@ -185,7 +189,7 @@ extension AspectHostImageView{
         let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
         let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         
-        drawBezier(from: mid1, to: mid2, previous: self.currentPoint)
+        drawBezier(from: mid1, to: mid2, controlPoint: self.currentPoint)
     }
     
 }
@@ -216,6 +220,8 @@ extension AspectImageView{
 }
 
 
+//MARK:- Bezier implementation
+
 extension AspectHostImageView{
     
     func setupDrawingLayerIfNeeded() {
@@ -227,7 +233,7 @@ extension AspectHostImageView{
         drawingLayer = sublayer
     }
     
-    func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
+    func drawBezier(from start: CGPoint, to end: CGPoint,controlPoint point:CGPoint) {
         
 //        let renderer = UIGraphicsImageRenderer(size: bounds.size)
 //
@@ -235,12 +241,12 @@ extension AspectHostImageView{
 //            image?.draw(in: bounds)
 //
 //            ctx.cgContext.setLineCap(.round)
+//            ctx.cgContext.setStrokeColor(strokeColor.cgColor)
 //            ctx.cgContext.setLineWidth(brushWidth)
 //            ctx.cgContext.move(to: CGPoint(x: start.x, y: start.y))
 //            ctx.cgContext.addQuadCurve(to: end, control: self.previousPoint)
 //            ctx.cgContext.strokePath()
 //        }
-        
         
         setupDrawingLayerIfNeeded()
         let line = CAShapeLayer()
@@ -258,7 +264,7 @@ extension AspectHostImageView{
         self.drawingLayer?.addSublayer(line)
         if let count = self.drawingLayer?.sublayers?.count, count > 400 {
         }
-        
+
     }
 }
 
@@ -303,4 +309,142 @@ extension AspectHostImageView{
         }
     }
     
+}
+
+//MARK:- Slowing mechanism
+
+extension AspectHostImageView{
+    
+    func startDrawingWithDelay(){
+        
+        Log.echo(key: "yud", text: "calling")
+        
+        if sigCoordinates.count == 0{
+
+            Log.echo(key: "yud", text: "Breaking because the signature is zero")
+            isLoopStarted = false
+            return
+        }
+        
+        isLoopStarted = true
+        
+        guard let pointInfo = sigCoordinates.first else {
+            Log.echo(key: "yud", text: " Oops I did not find my first")
+            return
+        }
+        
+        if !pointInfo.isContinuos && !isTouchStarted{
+
+            Log.echo(key: "yud", text: " touch start")
+            
+            isTouchStarted = true
+            isSwipedDrawing = false
+            currentPoint = pointInfo.point
+            previousPoint = currentPoint
+            self.sigCoordinates.removeFirst()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startDrawingWithDelay()
+            }
+            return
+        }
+        
+        if pointInfo.isContinuos{
+            Log.echo(key: "yud", text: " touch move")
+
+            if !isTouchStarted{
+                
+                isTouchStarted = true
+                isSwipedDrawing = false
+                currentPoint = pointInfo.point
+                previousPoint = currentPoint
+                Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
+                self.sigCoordinates.removeFirst()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                    self.startDrawingWithDelay()
+                }
+                return
+            }
+            
+            if sigCoordinates.count > 5{
+                
+                setupDrawingLayerIfNeeded()
+                let line = CAShapeLayer()
+                line.fillColor = UIColor.clear.cgColor
+                line.opacity = 1
+                line.lineWidth = brushWidth
+                line.lineCap = .round
+                
+                var counter = 0
+                let linePath = UIBezierPath()
+                line.contentsScale = 0.0
+                
+                for info in self.sigCoordinates{
+                    
+                    if !info.isContinuos{
+                        break
+                    }
+                    counter = counter + 1
+                    line.strokeColor = strokeColor.cgColor
+                    if counter > 40{
+                        break
+                    }
+                    previousPoint = currentPoint
+                    currentPoint = info.point
+                    isSwipedDrawing = true
+                    Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
+                  
+                    let controlPoint = midPoint(currentPoint, p2: previousPoint)
+                    self.sigCoordinates.removeFirst()
+                    linePath.move(to: CGPoint(x: previousPoint.x, y: previousPoint.y))
+                    linePath.addQuadCurve(to: currentPoint, controlPoint: controlPoint)
+                }
+                
+                line.path = linePath.cgPath
+                self.drawingLayer?.addSublayer(line)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                    self.startDrawingWithDelay()
+                }
+                return
+            }
+            
+            previousPoint = currentPoint
+            currentPoint = pointInfo.point
+            isSwipedDrawing = true
+            Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
+            
+            let controlPoint = midPoint(currentPoint, p2: previousPoint)
+            drawBezier(from: previousPoint, to: currentPoint, controlPoint: controlPoint)
+            self.sigCoordinates.removeFirst()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startDrawingWithDelay()
+            }
+            return
+        }
+        
+        
+        if !pointInfo.isContinuos{
+            
+            Log.echo(key: "yud", text: " touch end")
+            
+            if !isSwipedDrawing{
+
+                self.drawBezier(from: pointInfo.point, to: pointInfo.point, controlPoint: pointInfo.point)
+                self.isTouchStarted = false
+                self.sigCoordinates.removeFirst()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                    self.startDrawingWithDelay()
+                }
+                return
+            }
+            
+            Log.echo(key: "yud", text: "touch end previous \(previousPoint) and curret point is \(currentPoint)")
+            
+            isTouchStarted = false
+            self.sigCoordinates.removeFirst()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+                self.startDrawingWithDelay()
+            }
+        }
+    }    
 }
