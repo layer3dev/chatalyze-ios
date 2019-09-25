@@ -49,8 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let id = SignedUserInfo.sharedInstance?.id {
         
             Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
-        }
-        
+        }        
         Bugsnag.configuration()?.reportBackgroundOOMs = false
     }
 

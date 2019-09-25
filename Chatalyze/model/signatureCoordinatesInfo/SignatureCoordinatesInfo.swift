@@ -7,26 +7,17 @@
 //
 
 import Foundation
+
 class SignatureCoordinatesInfo {
     
-    var currentPoint:CGPoint?
-    var previousPoint:CGPoint?
-    var previousPreviousPoint:CGPoint?
-    var isSwiped = false
-    var getBeginPoint = false
-    var status = -1
+    var point = CGPoint()
+    var isContinuos = false
+    var isReset = false
     
-    init(currentPoint:CGPoint?,previousPoint:CGPoint?,previousPreviousPoint:CGPoint?,isSwiped:Bool,getBeginPoint:Bool,status:Int) {
+    init(point:CGPoint,isContinous:Bool,isReset:Bool) {
         
-        
-        self.currentPoint = currentPoint
-        self.previousPoint = previousPoint
-        self.previousPreviousPoint = previousPreviousPoint
-        self.isSwiped = isSwiped
-        self.getBeginPoint = getBeginPoint
-        self.status = status
-        
+        self.point = point
+        self.isContinuos = isContinous
+        self.isReset = isReset
     }
-    
-    
 }

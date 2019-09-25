@@ -10,9 +10,7 @@ import UIKit
 
 class AspectHostImageView: ExtendedImageView {
     
-    var cp = CGPoint.zero
-    var lp = CGPoint.zero
-    var ppp = CGPoint.zero
+    var pointsProcessor = AutographDigestProcessor()
     
     var sigTimer:Timer?
     var isLoopStarted = false
@@ -72,6 +70,9 @@ class AspectHostImageView: ExtendedImageView {
     
     func reset(){
         
+        let info = SignatureCoordinatesInfo(point: CGPoint.zero, isContinous: false, isReset: true)
+    
+        pointsProcessor.digest(pointInfo: info)
         self.drawingLayer?.removeFromSuperlayer()
         self.layer.sublayers = nil
         self.drawingLayer?.sublayers = nil
@@ -81,16 +82,11 @@ class AspectHostImageView: ExtendedImageView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        sigTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(timerRun), userInfo: nil, repeats: true)
-        sigTimer?.fire()
+        pointsProcessor.setDigestListener { (startingPoint, endPoint,controlPoint, isReset) in
+            
+            self.drawBezier(from: startingPoint, to: endPoint, previous: controlPoint)
+        }
     }
-    
-    @objc func timerRun(){
-        
-        // startSigning()
-    }
-    
-    
 }
 
 extension AspectHostImageView{
@@ -108,22 +104,19 @@ extension AspectHostImageView{
         
         self.swiped = false
         self.getBeginPoint = true
+    
         
-        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: -1)
+//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
+//
+//        pointsProcessor.digest(pointInfo: info)
+      
         
-        self.sigCoordinates.append(info)
-        
-        if !isLoopStarted{
-            Log.echo(key: "yud", text: "I called the loop")
-            self.startSigning()
-        }
         self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-        //startSigning()
+        
     }
     
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         
         guard let touch = touches.first
             else{
@@ -135,35 +128,14 @@ extension AspectHostImageView{
         self.previousPoint = previousPoint
         self.currentPoint = touch.location(in: self)
         
-        
         self.swiped = true
-        
-        
-        //        if self.getBeginPoint == false{
-        //
-        //            self.currentPoint = touch.location(in: self)
-        //            self.previousPoint = touch.previousLocation(in: self)
-        //            self.previousPreviousPoint = touch.previousLocation(in: self)
-        //            self.broadcastDelegate?.broadcastCoordinate(x: self.currentPoint.x, y: self.currentPoint.y, isContinous: false, reset: false)
-        //            self.getBeginPoint = true
-        //            return
-        //        }
         
         let currentpoint = touch.location(in: self)
         self.broadcastDelegate?.broadcastCoordinate(x: currentpoint.x, y: currentpoint.y, isContinous: true, reset: false)
         
-        
-        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: 0)
-        
-        self.sigCoordinates.append(info)
-        // startSigning()
-        
-        
-        //        let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-        //        let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
-        //
-        //        self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
-        
+//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: true, isReset: false)
+//        pointsProcessor.digest(pointInfo: info)
+
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -173,24 +145,23 @@ extension AspectHostImageView{
                 return
         }
         
-        
         self.getBeginPoint = false
         let point = touch.location(in: self)
         
         if self.swiped{
+            
+//             let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
+//            pointsProcessor.digest(pointInfo: info)
+
+
             self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
             return
         }
         
-        let info = SignatureCoordinatesInfo(currentPoint: self.currentPoint, previousPoint: self.previousPoint, previousPreviousPoint: self.previousPreviousPoint, isSwiped: false, getBeginPoint: true, status: 1)
-        
-        self.sigCoordinates.append(info)
-        
-        // startSigning()
-        // let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
-        // let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint);
-        // self.drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
-        
+//        let info = SignatureCoordinatesInfo(point: self.currentPoint, isContinous: false, isReset: false)
+//
+//        pointsProcessor.digest(pointInfo: info)
+
         self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
         
     }
@@ -219,6 +190,31 @@ extension AspectHostImageView{
     
 }
 
+//MARK:- Draw methods
+
+extension AspectImageView{
+    
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+    }
+    
+    func calculateRectBetween(lastPoint: CGPoint, newPoint: CGPoint) -> CGRect {
+        
+        let originX = min(lastPoint.x, newPoint.x) - (brushWidth / 2)
+        let originY = min(lastPoint.y, newPoint.y) - (brushWidth / 2)
+        
+        let maxX = max(lastPoint.x, newPoint.x) + (brushWidth / 2)
+        let maxY = max(lastPoint.y, newPoint.y) + (brushWidth / 2)
+        
+        let width = maxX - originX
+        let height = maxY - originY
+        
+        return CGRect(x: originX, y: originY, width: width, height: height)
+    }
+}
+
 
 extension AspectHostImageView{
     
@@ -233,6 +229,17 @@ extension AspectHostImageView{
     
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
         
+//        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+//
+//        image = renderer.image { ctx in
+//            image?.draw(in: bounds)
+//
+//            ctx.cgContext.setLineCap(.round)
+//            ctx.cgContext.setLineWidth(brushWidth)
+//            ctx.cgContext.move(to: CGPoint(x: start.x, y: start.y))
+//            ctx.cgContext.addQuadCurve(to: end, control: self.previousPoint)
+//            ctx.cgContext.strokePath()
+//        }
         
         
         setupDrawingLayerIfNeeded()
@@ -240,21 +247,19 @@ extension AspectHostImageView{
         let linePath = UIBezierPath()
         line.contentsScale = 0.0
         linePath.move(to: CGPoint(x: start.x, y: start.y))
-        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+        linePath.addQuadCurve(to: end, controlPoint: point)
         line.path = linePath.cgPath
         line.fillColor = UIColor.clear.cgColor
         line.opacity = 1
         line.lineWidth = brushWidth
         line.lineCap = .round
         line.strokeColor = strokeColor.cgColor
-        
-        DispatchQueue.main.async {
-            self.drawingLayer?.addSublayer(line)
-            if let count = self.drawingLayer?.sublayers?.count, count > 400 {
-            }
+
+        self.drawingLayer?.addSublayer(line)
+        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
         }
         
-    }    
+    }
 }
 
 extension AspectHostImageView{
@@ -267,103 +272,35 @@ extension AspectHostImageView{
 
 extension AspectHostImageView{
     
-    @IBAction func startSigning(){
-        
-        Log.echo(key: "yud", text: "count is \(self.sigCoordinates.count)")
-        
-        let accumulatedPoints = [SignatureCoordinatesInfo]()
-        
-        if self.sigCoordinates.count == 0 {
-            Log.echo(key: "yud", text: "I am in returning function")
-            isLoopStarted = false
-            return
-        }
-        
-        isLoopStarted = true
-        
-        let firstCoord = self.sigCoordinates.first
-        
-        if firstCoord?.status == -1{
-            
-            Log.echo(key: "yud", text: "I am in first function")
-            
-            cp = firstCoord?.currentPoint ?? CGPoint.zero
-            self.sigCoordinates.removeFirst()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
-                self.startSigning()
-            }
-            return
-        }
-        
-        if firstCoord?.status == 0 {
-            
-            let mid1 = self.midPoint(firstCoord?.previousPoint ?? CGPoint.zero, p2: firstCoord?.previousPreviousPoint ?? CGPoint.zero)
-            let mid2 = self.midPoint(firstCoord?.currentPoint ?? CGPoint.zero, p2: firstCoord?.previousPoint ?? CGPoint.zero);
-            
-            lp = cp
-            cp = firstCoord?.currentPoint ?? CGPoint.zero
-            
-            //self.drawBezier(from: mid1, to: mid2, previous: firstCoord?.previousPoint ?? CGPoint.zero)
-            
-            self.drawBezier(from: lp, to: cp)
-            Log.echo(key: "yud", text: "signing")
-            Log.echo(key: "yud", text: "I am in second function")
-            
-            self.sigCoordinates.removeFirst()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
-                self.startSigning()
-            }
-            return
-        }
-        
-        if firstCoord?.status == 1{
-            
-            if firstCoord?.isSwiped == false{
-                
-                let mid1 = self.midPoint(firstCoord?.previousPoint ?? CGPoint.zero, p2: firstCoord?.previousPreviousPoint ?? CGPoint.zero)
-                let mid2 = self.midPoint(firstCoord?.currentPoint ?? CGPoint.zero, p2: firstCoord?.previousPoint ?? CGPoint.zero)
-                
-                lp = cp
-                cp = firstCoord?.currentPoint ?? CGPoint.zero
-                self.drawBezier(from: lp, to: cp)
-            }
-            self.sigCoordinates.removeFirst()
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
-                self.startSigning()
-            }
-            return
-        }
-    }
-    
     func drawBezier(from start: CGPoint, to end: CGPoint) {
         
-        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-        
-        image = renderer.image { ctx in
-            image?.draw(in: bounds)
-            
-            ctx.cgContext.setLineCap(.round)
-            ctx.cgContext.setLineWidth(brushWidth)
-            ctx.cgContext.move(to: start)
-            ctx.cgContext.addQuadCurve(to: end, control: start)
-            ctx.cgContext.strokePath()
-        }
-        
-//        setupDrawingLayerIfNeeded()
-//        let line = CAShapeLayer()
-//        let linePath = UIBezierPath()
-//        line.contentsScale = UIScreen.main.scale
-//        linePath.move(to: start)
-//        linePath.addLine(to: end)
-//        line.path = linePath.cgPath
-//        line.fillColor = UIColor.red.cgColor
-//        line.opacity = 1
-//        line.lineWidth = brushWidth
-//        line.lineCap = .round
-//        line.strokeColor = UIColor.red.cgColor
-//        drawingLayer?.addSublayer(line)
-//        if let count = drawingLayer?.sublayers?.count, count > 400 {
+//        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+//
+//        image = renderer.image { ctx in
+//            image?.draw(in: bounds)
+//
+//            ctx.cgContext.setLineCap(.round)
+//            ctx.cgContext.setLineWidth(brushWidth)
+//            ctx.cgContext.move(to: start)
+//            ctx.cgContext.addQuadCurve(to: end, control: start)
+//            ctx.cgContext.strokePath()
 //        }
+        
+        setupDrawingLayerIfNeeded()
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        line.contentsScale = UIScreen.main.scale
+        linePath.move(to: start)
+        linePath.addLine(to: end)
+        line.path = linePath.cgPath
+        line.fillColor = UIColor.red.cgColor
+        line.opacity = 1
+        line.lineWidth = brushWidth
+        line.lineCap = .round
+        line.strokeColor = UIColor.red.cgColor
+        drawingLayer?.addSublayer(line)
+        if let count = drawingLayer?.sublayers?.count, count > 400 {
+        }
     }
     
 }
