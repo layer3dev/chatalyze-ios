@@ -10,6 +10,9 @@ import UIKit
 
 class AspectImageView: ExtendedImageView {
     
+    var signatureInfo = [BroadcastInfo]()
+    var isDrawing = false
+    
     var drawingLayer:CALayer?
     
     private var socketClient : SocketClient?
@@ -77,7 +80,19 @@ class AspectImageView: ExtendedImageView {
                 let rawInfo = json?["message"]
                 Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
                 let broadcastInfo = BroadcastInfo(info : rawInfo)
-                self?.processPoint(info: broadcastInfo)
+                self?.signatureInfo.append(broadcastInfo)
+                if(broadcastInfo.reset){
+                    
+                    Log.echo(key: "processPoint", text: "asking to reset")
+                    self?.signatureInfo.removeAll()
+                    self?.touchStarted = false
+                    self?.reset()
+                    return
+                }
+                
+                if !(self?.isDrawing ?? true){
+                    self?.processPoint()
+                }
             }
         })
     }
@@ -103,21 +118,28 @@ extension AspectImageView{
         return CGPoint(x : x, y : y)
     }
     
-    private func processPoint(info : BroadcastInfo){
-
+    private func processPoint(){
+        
+        if signatureInfo.count == 0 {
+            isDrawing = false
+            return
+        }
+        isDrawing = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
+            self.processPoint()
+        }
         
         Log.echo(key: "processPoint", text: "Processing the points")
+        
+        guard let info = self.signatureInfo.first else{
+            return
+        }
         
         let rawColor = info.strokeColor ?? "#000"
         let color = UIColor(hexString : rawColor)
         self.drawColor = color
-        if(info.reset){
-            
-            Log.echo(key: "processPoint", text: "asking to reset")
-            self.touchStarted = false
-            self.reset()
-            return
-        }
+        
         
         let rawPoint = info.point
         let point = self.targetPoint(inputPoint: rawPoint)
@@ -129,8 +151,8 @@ extension AspectImageView{
             self.currentPoint = point
             self.previousPoint = point
             self.previousPreviousPoint = point
-            //            drawBezier(from start: self.previousPoint, to end: self.currentPoint)
-            
+            //drawBezier(from start: self.previousPoint, to end: self.currentPoint)
+            self.signatureInfo.removeFirst()
             return
         }
         
@@ -149,6 +171,7 @@ extension AspectImageView{
             processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
             //drawBezier(from: self.previousPoint, to: self.currentPoint)
             self.touchStarted = true
+            self.signatureInfo.removeFirst()
             return
         }
         
@@ -161,12 +184,11 @@ extension AspectImageView{
             
             self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
             self.touchStarted = false
+            self.signatureInfo.removeFirst()
             return
         }
     }
-    
-    
-    
+        
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
         
         let point = currentTouchPoint
@@ -185,11 +207,11 @@ extension AspectImageView{
         Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
         Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
         
-//        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-//        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
+        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
+        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
         //drawLineFrom(self.previousPoint, mid1: mid1, mid2: mid1)
         
-        drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
+        drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
         //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
     }
     
@@ -242,22 +264,35 @@ extension AspectImageView{
     
     func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
         
-        
-        self.setupDrawingLayerIfNeeded()
+        setupDrawingLayerIfNeeded()
         let line = CAShapeLayer()
         let linePath = UIBezierPath()
-        line.contentsScale = 0.0
+        line.contentsScale = UIScreen.main.scale
         linePath.move(to: start)
         linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
         line.path = linePath.cgPath
-        line.fillColor = self.drawColor?.cgColor
+        line.fillColor = UIColor.clear.cgColor
         line.opacity = 1
-        line.lineWidth = self.brushWidth
+        line.lineWidth = brushWidth
         line.lineCap = .round
         line.strokeColor = self.drawColor?.cgColor
         self.drawingLayer?.addSublayer(line)
-        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
-        }
+        
+//        self.setupDrawingLayerIfNeeded()
+//        let line = CAShapeLayer()
+//        let linePath = UIBezierPath()
+//        line.contentsScale = UIScreen.main.scale
+//        linePath.move(to: start)
+//        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+//        line.path = linePath.cgPath
+//        line.fillColor = UIColor.clear.cgColor
+//        line.opacity = 1
+//        line.lineWidth = self.brushWidth
+//        line.lineCap = .round
+//        line.strokeColor = self.drawColor?.cgColor
+//        self.drawingLayer?.addSublayer(line)
+//        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
+//        }
     }
     
     func clearSublayers() {

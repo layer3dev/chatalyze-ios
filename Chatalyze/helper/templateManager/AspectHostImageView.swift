@@ -198,7 +198,6 @@ extension AspectHostImageView{
 
 extension AspectImageView{
     
-    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -341,6 +340,8 @@ extension AspectHostImageView{
             isSwipedDrawing = false
             currentPoint = pointInfo.point
             previousPoint = currentPoint
+            previousPreviousPoint = previousPoint
+
             self.sigCoordinates.removeFirst()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
                 self.startDrawingWithDelay()
@@ -357,6 +358,7 @@ extension AspectHostImageView{
                 isSwipedDrawing = false
                 currentPoint = pointInfo.point
                 previousPoint = currentPoint
+                previousPreviousPoint = currentPoint
                 Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
                 self.sigCoordinates.removeFirst()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
@@ -365,40 +367,46 @@ extension AspectHostImageView{
                 return
             }
             
-            if sigCoordinates.count > 5{
-                
+            if sigCoordinates.count > 3{
+
                 setupDrawingLayerIfNeeded()
                 let line = CAShapeLayer()
                 line.fillColor = UIColor.clear.cgColor
                 line.opacity = 1
                 line.lineWidth = brushWidth
                 line.lineCap = .round
-                
+
                 var counter = 0
                 let linePath = UIBezierPath()
                 line.contentsScale = 0.0
-                
+                let overFlowPoints = UIDevice.current.userInterfaceIdiom == .pad ?  190 : 95
+
                 for info in self.sigCoordinates{
-                    
+
                     if !info.isContinuos{
                         break
                     }
                     counter = counter + 1
                     line.strokeColor = strokeColor.cgColor
-                    if counter > 40{
+
+                    if counter > overFlowPoints{
                         break
                     }
+                    
+                    previousPreviousPoint = previousPoint
                     previousPoint = currentPoint
                     currentPoint = info.point
                     isSwipedDrawing = true
                     Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
-                  
-                    let controlPoint = midPoint(currentPoint, p2: previousPoint)
+
+                    let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+                    let mid2 = midPoint(self.currentPoint, p2: self.previousPoint)
+                    
                     self.sigCoordinates.removeFirst()
-                    linePath.move(to: CGPoint(x: previousPoint.x, y: previousPoint.y))
-                    linePath.addQuadCurve(to: currentPoint, controlPoint: controlPoint)
+                    linePath.move(to: CGPoint(x: mid1.x, y: mid1.y))
+                    linePath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
                 }
-                
+
                 line.path = linePath.cgPath
                 self.drawingLayer?.addSublayer(line)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
@@ -407,13 +415,16 @@ extension AspectHostImageView{
                 return
             }
             
+            previousPreviousPoint = previousPoint
             previousPoint = currentPoint
             currentPoint = pointInfo.point
             isSwipedDrawing = true
             Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
             
-            let controlPoint = midPoint(currentPoint, p2: previousPoint)
-            drawBezier(from: previousPoint, to: currentPoint, controlPoint: controlPoint)
+            let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+            let mid2 = midPoint(self.currentPoint, p2: self.previousPoint)
+            
+            self.drawBezier(from: mid1, to: mid2, controlPoint: self.previousPoint)
             self.sigCoordinates.removeFirst()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
