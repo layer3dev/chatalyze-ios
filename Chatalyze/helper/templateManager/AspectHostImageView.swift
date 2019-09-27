@@ -104,7 +104,7 @@ extension AspectHostImageView{
         
         sigCoordinates.append(info)
         
-       
+        
         if !isLoopStarted{
             self.startDrawingWithDelay()
         }
@@ -131,7 +131,7 @@ extension AspectHostImageView{
         if !isLoopStarted{
             self.startDrawingWithDelay()
         }
-
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -149,11 +149,11 @@ extension AspectHostImageView{
             let info = SignatureCoordinatesInfo(point: point, isContinous: false, isReset: false)
             
             sigCoordinates.append(info)
-
+            
             self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
-           
+            
             if !isLoopStarted{
-              
+                
                 self.startDrawingWithDelay()
             }
             return
@@ -164,7 +164,7 @@ extension AspectHostImageView{
         sigCoordinates.append(info)
         
         self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
-       
+        
         if !isLoopStarted{
             self.startDrawingWithDelay()
         }
@@ -234,18 +234,18 @@ extension AspectHostImageView{
     
     func drawBezier(from start: CGPoint, to end: CGPoint,controlPoint point:CGPoint) {
         
-//        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-//
-//        image = renderer.image { ctx in
-//            image?.draw(in: bounds)
-//
-//            ctx.cgContext.setLineCap(.round)
-//            ctx.cgContext.setStrokeColor(strokeColor.cgColor)
-//            ctx.cgContext.setLineWidth(brushWidth)
-//            ctx.cgContext.move(to: CGPoint(x: start.x, y: start.y))
-//            ctx.cgContext.addQuadCurve(to: end, control: self.previousPoint)
-//            ctx.cgContext.strokePath()
-//        }
+        //        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+        //
+        //        image = renderer.image { ctx in
+        //            image?.draw(in: bounds)
+        //
+        //            ctx.cgContext.setLineCap(.round)
+        //            ctx.cgContext.setStrokeColor(strokeColor.cgColor)
+        //            ctx.cgContext.setLineWidth(brushWidth)
+        //            ctx.cgContext.move(to: CGPoint(x: start.x, y: start.y))
+        //            ctx.cgContext.addQuadCurve(to: end, control: self.previousPoint)
+        //            ctx.cgContext.strokePath()
+        //        }
         
         setupDrawingLayerIfNeeded()
         let line = CAShapeLayer()
@@ -259,11 +259,11 @@ extension AspectHostImageView{
         line.lineWidth = brushWidth
         line.lineCap = .round
         line.strokeColor = strokeColor.cgColor
-
+        
         self.drawingLayer?.addSublayer(line)
         if let count = self.drawingLayer?.sublayers?.count, count > 400 {
         }
-
+        
     }
 }
 
@@ -279,17 +279,17 @@ extension AspectHostImageView{
     
     func drawBezier(from start: CGPoint, to end: CGPoint) {
         
-//        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-//
-//        image = renderer.image { ctx in
-//            image?.draw(in: bounds)
-//
-//            ctx.cgContext.setLineCap(.round)
-//            ctx.cgContext.setLineWidth(brushWidth)
-//            ctx.cgContext.move(to: start)
-//            ctx.cgContext.addQuadCurve(to: end, control: start)
-//            ctx.cgContext.strokePath()
-//        }
+        //        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+        //
+        //        image = renderer.image { ctx in
+        //            image?.draw(in: bounds)
+        //
+        //            ctx.cgContext.setLineCap(.round)
+        //            ctx.cgContext.setLineWidth(brushWidth)
+        //            ctx.cgContext.move(to: start)
+        //            ctx.cgContext.addQuadCurve(to: end, control: start)
+        //            ctx.cgContext.strokePath()
+        //        }
         
         setupDrawingLayerIfNeeded()
         let line = CAShapeLayer()
@@ -319,7 +319,7 @@ extension AspectHostImageView{
         Log.echo(key: "yud", text: "calling")
         
         if sigCoordinates.count == 0{
-
+            
             Log.echo(key: "yud", text: "Breaking because the signature is zero")
             isLoopStarted = false
             return
@@ -333,7 +333,7 @@ extension AspectHostImageView{
         }
         
         if !pointInfo.isContinuos && !isTouchStarted{
-
+            
             Log.echo(key: "yud", text: " touch start")
             
             isTouchStarted = true
@@ -341,7 +341,7 @@ extension AspectHostImageView{
             currentPoint = pointInfo.point
             previousPoint = currentPoint
             previousPreviousPoint = previousPoint
-
+            
             self.sigCoordinates.removeFirst()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
                 self.startDrawingWithDelay()
@@ -351,7 +351,7 @@ extension AspectHostImageView{
         
         if pointInfo.isContinuos{
             Log.echo(key: "yud", text: " touch move")
-
+            
             if !isTouchStarted{
                 
                 isTouchStarted = true
@@ -368,27 +368,27 @@ extension AspectHostImageView{
             }
             
             if sigCoordinates.count > 3{
-
+                
                 setupDrawingLayerIfNeeded()
                 let line = CAShapeLayer()
                 line.fillColor = UIColor.clear.cgColor
                 line.opacity = 1
                 line.lineWidth = brushWidth
                 line.lineCap = .round
-
+                
                 var counter = 0
                 let linePath = UIBezierPath()
                 line.contentsScale = 0.0
                 let overFlowPoints = UIDevice.current.userInterfaceIdiom == .pad ?  190 : 95
-
+                
                 for info in self.sigCoordinates{
-
+                    
                     if !info.isContinuos{
                         break
                     }
                     counter = counter + 1
                     line.strokeColor = strokeColor.cgColor
-
+                    
                     if counter > overFlowPoints{
                         break
                     }
@@ -398,7 +398,7 @@ extension AspectHostImageView{
                     currentPoint = info.point
                     isSwipedDrawing = true
                     Log.echo(key: "yud", text: "count at this momemnt is \(self.sigCoordinates.count)")
-
+                    
                     let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint)
                     let mid2 = midPoint(self.currentPoint, p2: self.previousPoint)
                     
@@ -406,7 +406,7 @@ extension AspectHostImageView{
                     linePath.move(to: CGPoint(x: mid1.x, y: mid1.y))
                     linePath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
                 }
-
+                
                 line.path = linePath.cgPath
                 self.drawingLayer?.addSublayer(line)
                 DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
@@ -426,7 +426,7 @@ extension AspectHostImageView{
             
             self.drawBezier(from: mid1, to: mid2, controlPoint: self.previousPoint)
             self.sigCoordinates.removeFirst()
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
                 self.startDrawingWithDelay()
             }
@@ -439,7 +439,7 @@ extension AspectHostImageView{
             Log.echo(key: "yud", text: " touch end")
             
             if !isSwipedDrawing{
-
+                
                 self.drawBezier(from: pointInfo.point, to: pointInfo.point, controlPoint: pointInfo.point)
                 self.isTouchStarted = false
                 self.sigCoordinates.removeFirst()
@@ -457,5 +457,5 @@ extension AspectHostImageView{
                 self.startDrawingWithDelay()
             }
         }
-    }    
+    }
 }

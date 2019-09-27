@@ -881,7 +881,7 @@
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="750" constant="13" id="GWG-w6-Q9Y">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
-                            <constraint firstItem="X6y-Z9-AIW" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.6" priority="1" id="H8e-WA-CiI" userLabel="canvas_proportional_height"/>
+                            <constraint firstItem="X6y-Z9-AIW" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.55" priority="1" id="H8e-WA-CiI" userLabel="canvas_proportional_height"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" constant="8" id="Itj-JF-uUM" userLabel="container_leading"/>
                             <constraint firstItem="gKG-jl-gLG" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="J9J-9v-qRG"/>
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="JYY-Vj-Vzj"/>
@@ -1618,6 +1618,92 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTR-Nd-IVU" customClass="breakFeatureView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LH-tr-rRN">
+                                        <rect key="frame" x="15" y="426" width="384" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="28"/>
+                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="34"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdA-8e-eGs">
+                                        <rect key="frame" x="15" y="431" width="384" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
+                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="30"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXr-8a-ph4">
+                                        <rect key="frame" x="15" y="461" width="384" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="32"/>
+                                        <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="38"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="9LH-tr-rRN" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="Dr1-mn-fkE"/>
+                                    <constraint firstItem="TXr-8a-ph4" firstAttribute="top" secondItem="SdA-8e-eGs" secondAttribute="bottom" constant="30" id="G7K-f0-Vn8"/>
+                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="IeW-E8-Q6y"/>
+                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="top" secondItem="9LH-tr-rRN" secondAttribute="bottom" constant="5" id="Prb-0A-sxX"/>
+                                    <constraint firstItem="TXr-8a-ph4" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="Vbr-HG-lPn"/>
+                                    <constraint firstAttribute="trailing" secondItem="SdA-8e-eGs" secondAttribute="trailing" constant="15" id="WBI-w6-yyr"/>
+                                    <constraint firstAttribute="trailing" secondItem="9LH-tr-rRN" secondAttribute="trailing" constant="15" id="bqi-7V-pch"/>
+                                    <constraint firstAttribute="trailing" secondItem="TXr-8a-ph4" secondAttribute="trailing" constant="15" id="c26-dB-hJ3"/>
+                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="centerY" secondItem="FTR-Nd-IVU" secondAttribute="centerY" id="iFL-EV-G6X"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="headingLabel" destination="9LH-tr-rRN" id="SjW-xb-DOd"/>
+                                    <outlet property="nextChatLabel" destination="SdA-8e-eGs" id="Hz0-Xg-n7K"/>
+                                    <outlet property="timeLabel" destination="TXr-8a-ph4" id="a2p-ux-6p2"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXp-R4-gA0" customClass="RemoteHostContainerView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gn-Ql-ZQG" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="207" y="431" width="0.0" height="0.0"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="W2u-ML-UXk"/>
+                                            <constraint firstAttribute="width" id="xu7-v9-NWN"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="W2u-ML-UXk" id="217-F0-GHr"/>
+                                            <outlet property="widthConstraint" destination="xu7-v9-NWN" id="LPq-27-jG2"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.75379621480000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="0gn-Ql-ZQG" firstAttribute="centerX" secondItem="bXp-R4-gA0" secondAttribute="centerX" id="TAA-Sa-Jkm"/>
+                                    <constraint firstAttribute="width" priority="999" constant="50" id="Z34-EU-3La"/>
+                                    <constraint firstAttribute="height" priority="999" constant="100" id="kMt-f7-umF"/>
+                                    <constraint firstItem="0gn-Ql-ZQG" firstAttribute="centerY" secondItem="bXp-R4-gA0" secondAttribute="centerY" id="uLv-E2-MK1"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="bottomMain" destination="JOd-lS-pyY" id="fax-aO-kYE"/>
+                                    <outlet property="heightOfRemote" destination="kMt-f7-umF" id="Dx1-RQ-36Y"/>
+                                    <outlet property="horizontalSpacingToLocalView" destination="K2g-Vp-ptb" id="okE-i9-xqG"/>
+                                    <outlet property="leadingMain" destination="Cb7-e5-uik" id="EBm-0I-GYl"/>
+                                    <outlet property="remoteVideoView" destination="0gn-Ql-ZQG" id="KiE-6g-ItX"/>
+                                    <outlet property="topAlignedToLocalView" destination="gxt-cQ-dSK" id="Dez-ED-Zrc"/>
+                                    <outlet property="topMain" destination="CHA-OT-7jm" id="80r-iW-HF2"/>
+                                    <outlet property="trailingAlignedToLocalView" destination="ABd-J3-a1W" id="Olu-aR-a8i"/>
+                                    <outlet property="trailingMain" destination="vo1-gW-bBB" id="KRd-sI-fI7"/>
+                                    <outlet property="verticalSpacingToLocalView" destination="TAH-a0-zmr" id="12J-Sf-hfA"/>
+                                    <outlet property="widthOfRemote" destination="Z34-EU-3La" id="HRv-j0-4Z7"/>
+                                </connections>
+                            </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jc-qd-pdu" userLabel="background_container">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
@@ -1705,127 +1791,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Mp5-23-wmW" secondAttribute="trailing" constant="15" id="vCG-Jc-sng"/>
                                     <constraint firstAttribute="trailing" secondItem="csS-VX-fHP" secondAttribute="trailing" constant="5" id="wTo-jP-jdz"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTR-Nd-IVU" customClass="breakFeatureView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LH-tr-rRN">
-                                        <rect key="frame" x="15" y="426" width="384" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="28"/>
-                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="34"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdA-8e-eGs">
-                                        <rect key="frame" x="15" y="431" width="384" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
-                                        <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="30"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXr-8a-ph4">
-                                        <rect key="frame" x="15" y="461" width="384" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="32"/>
-                                        <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="38"/>
-                                        </variation>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="9LH-tr-rRN" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="Dr1-mn-fkE"/>
-                                    <constraint firstItem="TXr-8a-ph4" firstAttribute="top" secondItem="SdA-8e-eGs" secondAttribute="bottom" constant="30" id="G7K-f0-Vn8"/>
-                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="IeW-E8-Q6y"/>
-                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="top" secondItem="9LH-tr-rRN" secondAttribute="bottom" constant="5" id="Prb-0A-sxX"/>
-                                    <constraint firstItem="TXr-8a-ph4" firstAttribute="leading" secondItem="FTR-Nd-IVU" secondAttribute="leading" constant="15" id="Vbr-HG-lPn"/>
-                                    <constraint firstAttribute="trailing" secondItem="SdA-8e-eGs" secondAttribute="trailing" constant="15" id="WBI-w6-yyr"/>
-                                    <constraint firstAttribute="trailing" secondItem="9LH-tr-rRN" secondAttribute="trailing" constant="15" id="bqi-7V-pch"/>
-                                    <constraint firstAttribute="trailing" secondItem="TXr-8a-ph4" secondAttribute="trailing" constant="15" id="c26-dB-hJ3"/>
-                                    <constraint firstItem="SdA-8e-eGs" firstAttribute="centerY" secondItem="FTR-Nd-IVU" secondAttribute="centerY" id="iFL-EV-G6X"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="headingLabel" destination="9LH-tr-rRN" id="SjW-xb-DOd"/>
-                                    <outlet property="nextChatLabel" destination="SdA-8e-eGs" id="Hz0-Xg-n7K"/>
-                                    <outlet property="timeLabel" destination="TXr-8a-ph4" id="a2p-ux-6p2"/>
-                                </connections>
-                            </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasHostContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyHostCanvas" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="207" y="0.0" width="0.0" height="0.0"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hek-iI-Rcm" customClass="AspectHostImageView" customModule="Chatalyze" customModuleProvider="target"/>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="leading" secondItem="Js8-Rg-4Rf" secondAttribute="leading" id="OTk-Cs-rH1"/>
-                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="top" secondItem="Js8-Rg-4Rf" secondAttribute="top" id="XVw-V4-64s"/>
-                                            <constraint firstAttribute="width" id="mpf-G1-0nV"/>
-                                            <constraint firstAttribute="bottom" secondItem="hek-iI-Rcm" secondAttribute="bottom" id="qPj-hV-DNB"/>
-                                            <constraint firstAttribute="trailing" secondItem="hek-iI-Rcm" secondAttribute="trailing" id="uJK-SI-tM4"/>
-                                            <constraint firstAttribute="height" id="wS0-mQ-m91"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="heightConstraint" destination="wS0-mQ-m91" id="Flv-X5-5TG"/>
-                                            <outlet property="mainImageView" destination="hek-iI-Rcm" id="r7k-DS-QsN"/>
-                                            <outlet property="widthConstraint" destination="mpf-G1-0nV" id="Qkb-Gw-TeY"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerX" secondItem="9w1-Mh-Zlh" secondAttribute="centerX" id="8Zi-e9-8t4"/>
-                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerY" secondItem="9w1-Mh-Zlh" secondAttribute="centerY" id="M6s-ti-gKd"/>
-                                    <constraint firstAttribute="height" priority="999" id="oSA-MX-e67" userLabel="zero_height"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="fIb-sL-DZZ"/>
-                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="0Dr-P1-klD"/>
-                                    <outlet property="canvasProportionalHeightConstraint" destination="TEl-Sb-ESL" id="etK-8L-PYj"/>
-                                </connections>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXp-R4-gA0" customClass="RemoteHostContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gn-Ql-ZQG" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="207" y="431" width="0.0" height="0.0"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" id="W2u-ML-UXk"/>
-                                            <constraint firstAttribute="width" id="xu7-v9-NWN"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="heightConstraint" destination="W2u-ML-UXk" id="217-F0-GHr"/>
-                                            <outlet property="widthConstraint" destination="xu7-v9-NWN" id="LPq-27-jG2"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.75379621480000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="0gn-Ql-ZQG" firstAttribute="centerX" secondItem="bXp-R4-gA0" secondAttribute="centerX" id="TAA-Sa-Jkm"/>
-                                    <constraint firstAttribute="width" priority="999" constant="50" id="Z34-EU-3La"/>
-                                    <constraint firstAttribute="height" priority="999" constant="100" id="kMt-f7-umF"/>
-                                    <constraint firstItem="0gn-Ql-ZQG" firstAttribute="centerY" secondItem="bXp-R4-gA0" secondAttribute="centerY" id="uLv-E2-MK1"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="bottomMain" destination="JOd-lS-pyY" id="fax-aO-kYE"/>
-                                    <outlet property="heightOfRemote" destination="kMt-f7-umF" id="Dx1-RQ-36Y"/>
-                                    <outlet property="horizontalSpacingToLocalView" destination="K2g-Vp-ptb" id="okE-i9-xqG"/>
-                                    <outlet property="leadingMain" destination="Cb7-e5-uik" id="EBm-0I-GYl"/>
-                                    <outlet property="remoteVideoView" destination="0gn-Ql-ZQG" id="KiE-6g-ItX"/>
-                                    <outlet property="topAlignedToLocalView" destination="gxt-cQ-dSK" id="Dez-ED-Zrc"/>
-                                    <outlet property="topMain" destination="CHA-OT-7jm" id="80r-iW-HF2"/>
-                                    <outlet property="trailingAlignedToLocalView" destination="ABd-J3-a1W" id="Olu-aR-a8i"/>
-                                    <outlet property="trailingMain" destination="vo1-gW-bBB" id="KRd-sI-fI7"/>
-                                    <outlet property="verticalSpacingToLocalView" destination="TAH-a0-zmr" id="12J-Sf-hfA"/>
-                                    <outlet property="widthOfRemote" destination="Z34-EU-3La" id="HRv-j0-4Z7"/>
-                                </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enf-5c-RI5">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -2107,6 +2072,41 @@
                                     <outlet property="bottomSpace" destination="jRj-cQ-8lN" id="DfI-9b-Zuk"/>
                                     <outlet property="hangupView" destination="Ugr-ew-0Ka" id="sky-bW-U56"/>
                                     <outlet property="videoView" destination="0P4-L3-3zH" id="h53-eW-9dM"/>
+                                </connections>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasHostContainer" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyHostCanvas" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="207" y="0.0" width="0.0" height="0.0"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hek-iI-Rcm" customClass="AspectHostImageView" customModule="Chatalyze" customModuleProvider="target"/>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="leading" secondItem="Js8-Rg-4Rf" secondAttribute="leading" id="OTk-Cs-rH1"/>
+                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="top" secondItem="Js8-Rg-4Rf" secondAttribute="top" id="XVw-V4-64s"/>
+                                            <constraint firstAttribute="width" id="mpf-G1-0nV"/>
+                                            <constraint firstAttribute="bottom" secondItem="hek-iI-Rcm" secondAttribute="bottom" id="qPj-hV-DNB"/>
+                                            <constraint firstAttribute="trailing" secondItem="hek-iI-Rcm" secondAttribute="trailing" id="uJK-SI-tM4"/>
+                                            <constraint firstAttribute="height" id="wS0-mQ-m91"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="wS0-mQ-m91" id="Flv-X5-5TG"/>
+                                            <outlet property="mainImageView" destination="hek-iI-Rcm" id="r7k-DS-QsN"/>
+                                            <outlet property="widthConstraint" destination="mpf-G1-0nV" id="Qkb-Gw-TeY"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerX" secondItem="9w1-Mh-Zlh" secondAttribute="centerX" id="8Zi-e9-8t4"/>
+                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerY" secondItem="9w1-Mh-Zlh" secondAttribute="centerY" id="M6s-ti-gKd"/>
+                                    <constraint firstAttribute="height" priority="999" id="oSA-MX-e67" userLabel="zero_height"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="fIb-sL-DZZ"/>
+                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="0Dr-P1-klD"/>
+                                    <outlet property="canvasProportionalHeightConstraint" destination="TEl-Sb-ESL" id="etK-8L-PYj"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-ll-xed" customClass="AutographSignatureReponseBottomView" customModule="Chatalyze" customModuleProvider="target">
