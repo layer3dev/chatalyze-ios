@@ -10,6 +10,7 @@ import UIKit
 
 class AspectHostImageView: ExtendedImageView {
     
+    @IBOutlet var blurImageView:UIView?
     var pointsProcessor = AutographDigestProcessor()
     
     var isLoopStarted = false

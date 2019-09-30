@@ -277,7 +277,7 @@ class HostCallController: VideoCallController {
         
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
             
-            Log.echo(key: "yud", text: "I got screenshot loaded")
+            Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
 
          })
         
@@ -1125,7 +1125,7 @@ extension HostCallController {
         
         sessionHeaderLbl?.text = "Chat starts in:"
         
-        let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
+        let slotCount = self.eventInfo?.slotInfos?.count
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         
         var fontSize = 18
@@ -1183,7 +1183,7 @@ extension HostCallController {
         let totatlNumberOfSlotsText = "Total chats: "
         let totalAttrText = totatlNumberOfSlotsText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
-        let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+        let totalSlots = "\(slotCount ?? 0 )".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         totalAttrText.append(totalSlots)
         

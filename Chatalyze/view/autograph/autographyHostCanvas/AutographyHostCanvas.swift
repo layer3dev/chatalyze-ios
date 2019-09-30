@@ -36,7 +36,19 @@ class AutographyHostCanvas: ExtendedView {
         super.viewDidLayout()
       
         initialization()
+        registerSocket()
         self.mainImageView?.broadcastDelegate = self
+    }
+    
+    
+    func registerSocket(){
+       
+        socketListener?.onEvent("screenshotLoaded", completion: { (response) in
+            
+            Log.echo(key: "yud", text: "I got screenshot loaded with the response \(String(describing: response))")
+            
+            self.mainImageView?.blurImageView?.isHidden = true
+        })
     }
     
     

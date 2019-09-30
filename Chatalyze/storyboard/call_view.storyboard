@@ -151,10 +151,10 @@
                                 <rect key="frame" x="0.0" y="24" width="414" height="838"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-Kf-uiS">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to hang up the current chat and wait until the next one or leave your session completely?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-nW-INd">
-                                                <rect key="frame" x="40" y="80" width="334" height="70"/>
+                                                <rect key="frame" x="40" y="80" width="334" height="82"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -163,7 +163,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTn-TW-i0m">
-                                                <rect key="frame" x="50" y="270" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="282" width="314" height="40"/>
                                                 <color key="backgroundColor" red="1" green="0.24313725490196078" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="fUy-ce-9fB">
@@ -182,7 +182,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Say-TW-jBJ">
-                                                <rect key="frame" x="50" y="330" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="342" width="314" height="40"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="zZn-02-r18">
@@ -1667,6 +1667,69 @@
                                     <outlet property="timeLabel" destination="TXr-8a-ph4" id="a2p-ux-6p2"/>
                                 </connections>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasHostContainer" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyHostCanvas" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="207" y="0.0" width="0.0" height="0.0"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hek-iI-Rcm" customClass="AspectHostImageView" customModule="Chatalyze" customModuleProvider="target">
+                                                <connections>
+                                                    <outlet property="blurImageView" destination="BwH-pI-tJ2" id="UdE-ih-SLj"/>
+                                                </connections>
+                                            </imageView>
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BwH-pI-tJ2">
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting to load the screenshot on the user side." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSG-vB-Pqm">
+                                                        <rect key="frame" x="0.0" y="-10.666666666666666" width="0.0" height="21.333333333333332"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="22"/>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="TSG-vB-Pqm" firstAttribute="centerX" secondItem="BwH-pI-tJ2" secondAttribute="centerX" id="TGI-Ei-452"/>
+                                                    <constraint firstItem="TSG-vB-Pqm" firstAttribute="centerY" secondItem="BwH-pI-tJ2" secondAttribute="centerY" id="Xp2-Yr-WKG"/>
+                                                    <constraint firstItem="TSG-vB-Pqm" firstAttribute="leading" secondItem="BwH-pI-tJ2" secondAttribute="leading" id="hTB-xi-KLv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TSG-vB-Pqm" secondAttribute="trailing" id="jIT-lA-2bf"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="BwH-pI-tJ2" firstAttribute="leading" secondItem="Js8-Rg-4Rf" secondAttribute="leading" id="9Ar-za-9n7"/>
+                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="leading" secondItem="Js8-Rg-4Rf" secondAttribute="leading" id="OTk-Cs-rH1"/>
+                                            <constraint firstItem="BwH-pI-tJ2" firstAttribute="top" secondItem="Js8-Rg-4Rf" secondAttribute="top" id="T9j-CC-1dV"/>
+                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="top" secondItem="Js8-Rg-4Rf" secondAttribute="top" id="XVw-V4-64s"/>
+                                            <constraint firstAttribute="width" id="mpf-G1-0nV"/>
+                                            <constraint firstAttribute="bottom" secondItem="BwH-pI-tJ2" secondAttribute="bottom" id="pe6-lx-5h3"/>
+                                            <constraint firstAttribute="trailing" secondItem="BwH-pI-tJ2" secondAttribute="trailing" id="qHz-3j-rtq"/>
+                                            <constraint firstAttribute="bottom" secondItem="hek-iI-Rcm" secondAttribute="bottom" id="qPj-hV-DNB"/>
+                                            <constraint firstAttribute="trailing" secondItem="hek-iI-Rcm" secondAttribute="trailing" id="uJK-SI-tM4"/>
+                                            <constraint firstAttribute="height" id="wS0-mQ-m91"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="heightConstraint" destination="wS0-mQ-m91" id="Flv-X5-5TG"/>
+                                            <outlet property="mainImageView" destination="hek-iI-Rcm" id="r7k-DS-QsN"/>
+                                            <outlet property="widthConstraint" destination="mpf-G1-0nV" id="Qkb-Gw-TeY"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerX" secondItem="9w1-Mh-Zlh" secondAttribute="centerX" id="8Zi-e9-8t4"/>
+                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerY" secondItem="9w1-Mh-Zlh" secondAttribute="centerY" id="M6s-ti-gKd"/>
+                                    <constraint firstAttribute="height" priority="999" id="oSA-MX-e67" userLabel="zero_height"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="fIb-sL-DZZ"/>
+                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="0Dr-P1-klD"/>
+                                    <outlet property="canvasProportionalHeightConstraint" destination="TEl-Sb-ESL" id="etK-8L-PYj"/>
+                                </connections>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXp-R4-gA0" customClass="RemoteHostContainerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
@@ -2072,41 +2135,6 @@
                                     <outlet property="bottomSpace" destination="jRj-cQ-8lN" id="DfI-9b-Zuk"/>
                                     <outlet property="hangupView" destination="Ugr-ew-0Ka" id="sky-bW-U56"/>
                                     <outlet property="videoView" destination="0P4-L3-3zH" id="h53-eW-9dM"/>
-                                </connections>
-                            </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9w1-Mh-Zlh" customClass="CanvasHostContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Js8-Rg-4Rf" customClass="AutographyHostCanvas" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="207" y="0.0" width="0.0" height="0.0"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hek-iI-Rcm" customClass="AspectHostImageView" customModule="Chatalyze" customModuleProvider="target"/>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="leading" secondItem="Js8-Rg-4Rf" secondAttribute="leading" id="OTk-Cs-rH1"/>
-                                            <constraint firstItem="hek-iI-Rcm" firstAttribute="top" secondItem="Js8-Rg-4Rf" secondAttribute="top" id="XVw-V4-64s"/>
-                                            <constraint firstAttribute="width" id="mpf-G1-0nV"/>
-                                            <constraint firstAttribute="bottom" secondItem="hek-iI-Rcm" secondAttribute="bottom" id="qPj-hV-DNB"/>
-                                            <constraint firstAttribute="trailing" secondItem="hek-iI-Rcm" secondAttribute="trailing" id="uJK-SI-tM4"/>
-                                            <constraint firstAttribute="height" id="wS0-mQ-m91"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="heightConstraint" destination="wS0-mQ-m91" id="Flv-X5-5TG"/>
-                                            <outlet property="mainImageView" destination="hek-iI-Rcm" id="r7k-DS-QsN"/>
-                                            <outlet property="widthConstraint" destination="mpf-G1-0nV" id="Qkb-Gw-TeY"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerX" secondItem="9w1-Mh-Zlh" secondAttribute="centerX" id="8Zi-e9-8t4"/>
-                                    <constraint firstItem="Js8-Rg-4Rf" firstAttribute="centerY" secondItem="9w1-Mh-Zlh" secondAttribute="centerY" id="M6s-ti-gKd"/>
-                                    <constraint firstAttribute="height" priority="999" id="oSA-MX-e67" userLabel="zero_height"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="canvas" destination="Js8-Rg-4Rf" id="fIb-sL-DZZ"/>
-                                    <outlet property="canvasHeightZeroConstraint" destination="oSA-MX-e67" id="0Dr-P1-klD"/>
-                                    <outlet property="canvasProportionalHeightConstraint" destination="TEl-Sb-ESL" id="etK-8L-PYj"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-ll-xed" customClass="AutographSignatureReponseBottomView" customModule="Chatalyze" customModuleProvider="target">
