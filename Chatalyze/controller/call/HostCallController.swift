@@ -535,7 +535,7 @@ class HostCallController: VideoCallController {
         //Editing  for the current Chat
         
         let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
-        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
+        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
             //This info will only be show if slots are greater than one.
@@ -1126,7 +1126,7 @@ extension HostCallController {
         sessionHeaderLbl?.text = "Chat starts in:"
         
         let slotCount = self.eventInfo?.slotInfos?.count
-        let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
+        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
         
         var fontSize = 18
         var remainingTimeFontSize = 20
