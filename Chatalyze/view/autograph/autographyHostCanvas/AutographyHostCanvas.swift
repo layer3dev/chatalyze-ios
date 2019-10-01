@@ -1,10 +1,5 @@
-//
-//  AutographyHostCanvas.swift
-//  Chatalyze
-//
-//  Created by Mac mini ssd on 13/08/19.
-//  Copyright © 2019 Mansa Infotech. All rights reserved.
-//
+
+
 
 import UIKit
 import AVFoundation
@@ -26,34 +21,30 @@ class AutographyHostCanvas: ExtendedView {
     static let kPointMinDistanceSquared : Double = kPointMinDistance * kPointMinDistance
     
     var newImage = UIImage(named: "testingImage")
-    
     var delegate : AutographyCanvasProtocol?
-  
-    
-    
     
     override func viewDidLayout() {
         super.viewDidLayout()
-      
+        
         initialization()
-        registerSocket()
         self.mainImageView?.broadcastDelegate = self
+        registerScreenShotLoaded()
     }
     
     
-    func registerSocket(){
-       
+    func registerScreenShotLoaded(){
+        
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
             
-            Log.echo(key: "yud", text: "I got screenshot loaded with the response \(String(describing: response))")
+            Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
             
             self.mainImageView?.blurImageView?.isHidden = true
+            
         })
     }
     
-    
     func initialization(){
-    
+        
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
     }
@@ -79,7 +70,8 @@ extension AutographyHostCanvas{
         }
         
         set{
-            mainImageView?.image = newValue
+            let image = newValue
+            mainImageView?.image = image
         }
     }
     
@@ -103,9 +95,9 @@ extension AutographyHostCanvas{
     
     func getSnapshot()->UIImage?{
         
-        let bounds = mainImageView?.bounds ?? CGRect()
+        let bounds = self.bounds
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, scale)
-        mainImageView?.drawHierarchy(in: bounds, afterScreenUpdates: true)
+        self.drawHierarchy(in: bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
@@ -119,34 +111,34 @@ extension AutographyHostCanvas{
 extension AutographyHostCanvas{
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
-
         
-            var params = [String : Any]()
-            
-            params["x"] = x
-            params["y"] = y
-            
-            params["isContinous"] = isContinous
-            params["counter"] = self.counter
-            params["pressure"] = 1
-            params["reset"] = reset
-            
-            //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
-            
-            params["StrokeWidth"] = 11.0
-            params["StrokeColor"] = self.strokeColor.hexString
-            params["Erase"] = false
-            params["reset"] = reset
-            
-            var mainParams  = [String : Any]()
-            mainParams["name"] = self.autoGraphInfo?.userHashedId
-            mainParams["id"] = "broadcastPoints"
-            mainParams["message"] = params
-            
-            self.counter = self.counter + 1
-            
-            Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
-            self.socketClient?.emit(mainParams)
+        
+        var params = [String : Any]()
+        
+        params["x"] = x
+        params["y"] = y
+        
+        params["isContinous"] = isContinous
+        params["counter"] = self.counter
+        params["pressure"] = 1
+        params["reset"] = reset
+        
+        //params["StrokeWidth"] = canvas?.brushWidth ?? 2.0
+        
+        params["StrokeWidth"] = 11.0
+        params["StrokeColor"] = self.strokeColor.hexString
+        params["Erase"] = false
+        params["reset"] = reset
+        
+        var mainParams  = [String : Any]()
+        mainParams["name"] = self.autoGraphInfo?.userHashedId
+        mainParams["id"] = "broadcastPoints"
+        mainParams["message"] = params
+        
+        self.counter = self.counter + 1
+        
+        Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
+        self.socketClient?.emit(mainParams)
     }
 }
 
@@ -157,7 +149,7 @@ extension AutographyHostCanvas{
         guard let newSelectedColor = color else{
             return
         }
-
+        
         var fRed : CGFloat = 1.0
         var fGreen : CGFloat = 0.0
         var fBlue : CGFloat = 0.0
@@ -177,7 +169,7 @@ extension AutographyHostCanvas{
                 fBlue = -(fBlue)
             }
             self.mainImageView?.updateStrokeColors(r:fRed,g:fGreen,b:fBlue, opacity: 1.0)
-           
+            
             Log.echo(key: "", text:" In the Button Selection Red color is \(fRed) blue color is\(fBlue) green color is \(fGreen) alpha is \(fAlpha) ")
         }
     }
@@ -190,7 +182,4 @@ extension AutographyHostCanvas:broadcastCoordinatesImageDelegate{
     }
 }
 
-
-extension AutographyHostCanvas{
-}
 
