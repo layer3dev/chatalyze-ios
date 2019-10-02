@@ -208,15 +208,7 @@ extension AspectHostImageView{
 
 
 extension AspectHostImageView{
-    
-    func flattenToImage() {
-        
-        //mainImage?.image = getSnapshot()
-        
-        updateFlattenedLayer()
-        sigCoordinates.removeAll()
-    }
-    
+
     func emptyFlattenedLayers() {
         
         for case let layer as CAShapeLayer in sublayers {
@@ -268,26 +260,21 @@ extension AspectHostImageView{
     func updateFlattenedLayer() {
         
         
-        //layer.addSublayer(drawingLayer ?? CAShapeLayer())
-        
-        
-        //     1
-        
         guard let drawingLayer = drawingLayer,
             // 2
             
-            let optionalDrawing = try? NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
+            let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
         
         //            let optionalDrawing = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(
         //                NSKeyedArchiver.archivedData(withRootObject: drawingLayer))
         //                as? CAShapeLayer  else { return }
         
-        guard let drawlayer = optionalDrawing else{
-            return
-        }
+//        guard let drawlayer = optionalDrawing else{
+//            return
+//        }
         // NSKeyedArchiver.archivedData(withRootObject: <#T##Any#>)
         
-        layer.addSublayer(drawlayer)
+        layer.addSublayer(optionalDrawing)
         
         
     }
@@ -304,18 +291,16 @@ extension AspectHostImageView{
             let drawingLayer = self.drawingLayer ?? CAShapeLayer()
             drawingLayer.contentsScale = UIScreen.main.scale
             
-            for (index, point) in self.sigCoordinates.enumerated() {
+            for (_, point) in self.sigCoordinates.enumerated() {
                 
-                if !self.frame.contains(point.point){
-                    
-                    self.currentPoint = point.point
-                    self.previousPoint = self.currentPoint
-                    self.previousPreviousPoint = self.currentPoint
-                    self.isTouchStarted = false
-                    let mid = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
-                    self.linePath.move(to: mid)
-                    continue
-                }
+//                if !self.frame.contains(point.point){
+//                    
+//                    self.currentPoint = point.point
+//                    self.previousPoint = self.currentPoint
+//                    self.previousPreviousPoint = self.currentPoint
+//                    self.isTouchStarted = false
+//                    continue
+//                }
                 
                 if !point.isContinuos && !self.isTouchStarted{
                     
@@ -325,9 +310,7 @@ extension AspectHostImageView{
                     self.previousPoint = self.currentPoint
                     self.previousPreviousPoint = self.currentPoint
                     self.isTouchStarted = true
-                    let mid = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
-                    
-                    self.linePath.move(to: mid)
+                    self.isSwiped = false
                     continue
                 }
                 
@@ -339,73 +322,60 @@ extension AspectHostImageView{
                         self.previousPoint = self.currentPoint
                         self.previousPreviousPoint = self.currentPoint
                         self.isTouchStarted = true
-                        let mid = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
-                        
-                        self.linePath.move(to: mid)
+                        self.isSwiped = false
+
                         continue
-                        
-                        //coming from outside to inside continuos
                     }
                     
                     
                     print("point continuos")
-                    
-                    self.currentPoint = point.point
+                    self.previousPreviousPoint = self.previousPoint
                     self.previousPoint = self.currentPoint
-                    self.previousPreviousPoint = self.currentPoint
+                    self.currentPoint = point.point
                     self.isTouchStarted = true
-                    let mid = self.midPoint(self.currentPoint, p2: self.previousPoint)
+                    
+                    let mid1 = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
+                    let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
+
                     self.isSwiped = true
                     
-                    self.linePath.addQuadCurve(to: self.currentPoint, controlPoint: mid)
+                    let newPath = UIBezierPath()
+                    newPath.move(to: mid1)
+                    newPath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
+                    self.linePath.append(newPath)
                     continue
                 }
                 
                 if !point.isContinuos{
                     
                     print("point end")
-                    self.isTouchStarted = false
-                    self.isSwiped = false
                     
                     if !(self.isSwiped){
                         
-                        
+                        print("point swiping")
+
                         self.currentPoint = point.point
                         self.previousPoint = self.currentPoint
                         self.previousPreviousPoint = self.currentPoint
-                        let mid = self.midPoint(self.currentPoint, p2: self.previousPoint)
-                        self.linePath.addQuadCurve(to: self.currentPoint, controlPoint: mid)
-                        self.isTouchStarted = false
+                        
+                        self.linePath.move(to: self.currentPoint)
+                        self.linePath.addLine(to: self.currentPoint)
+                        drawingLayer.path = self.linePath.cgPath
+                        drawingLayer.opacity = 1
+                        drawingLayer.lineWidth = self.brushWidth
+                        drawingLayer.lineCap = .round
+                        drawingLayer.lineJoin = .round
+                        drawingLayer.fillColor = UIColor.clear.cgColor
+                        drawingLayer.strokeColor = self.strokeColor.cgColor
                     }
                     
-                    
+                    self.isTouchStarted = false
+                    self.isSwiped = false
                     self.flattenImage()
                     self.linePath = UIBezierPath()
                     self.resetCounter = 0
                     
                 }
-                
-                
-                //            if index == 0 {
-                //
-                //                self.currentPoint = point.point
-                //                self.previousPoint = self.currentPoint
-                //                self.previousPreviousPoint = self.currentPoint
-                //
-                //                self.linePath.move(to: self.currentPoint)
-                //
-                //            } else {
-                //
-                //
-                //                self.previousPreviousPoint = self.previousPoint
-                //                self.previousPoint = self.currentPoint
-                //                self.currentPoint = point.point
-                //
-                //                let mid2 = self.midPoint(self.previousPoint, p2: self.currentPoint)
-                //
-                //                self.linePath.addQuadCurve(to: self.currentPoint, controlPoint: mid2)
-                //            }
-                
             }
             
             drawingLayer.path = self.linePath.cgPath
@@ -423,15 +393,11 @@ extension AspectHostImageView{
                 layer.addSublayer(drawingLayer)
             }
             
-            if self.resetCounter > 10{
+            if self.resetCounter > 5{
                 
                 self.flattenImage()
                 self.linePath = UIBezierPath()
                 self.resetCounter = 0
-                let mid = self.midPoint(self.currentPoint, p2: self.previousPoint)
-                
-                self.linePath.move(to: mid)
-                
             }
         }
     }

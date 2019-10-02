@@ -15,8 +15,6 @@ import CRToast
 
 class HostCallController: VideoCallController {
     
-    
-    
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
     var localSlotIdToManageAutograph :Int? = nil
@@ -347,7 +345,7 @@ class HostCallController: VideoCallController {
         DispatchQueue.main.async {
             self.updateLableAnimation()
         }
-        resetAutographCanvasIfNewCallAndSlotExists()
+        //resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
