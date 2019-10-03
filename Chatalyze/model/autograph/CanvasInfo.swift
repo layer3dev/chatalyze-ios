@@ -14,6 +14,7 @@ class CanvasInfo : NSObject{
     var width : Double?
     var height : Double?
     var screenshot : ScreenshotInfo?
+    var currentSlotId :Int?
     
     override init(){
         super.init()
@@ -32,6 +33,6 @@ class CanvasInfo : NSObject{
         screenshot = ScreenshotInfo(info : json["screenshot"])
         width = json["width"].doubleValue
         height = json["height"].doubleValue
-        
+        self.currentSlotId = Int(json["forSlotId"].stringValue)
     }
 }

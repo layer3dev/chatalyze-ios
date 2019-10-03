@@ -1410,6 +1410,10 @@ extension HostCallController{
         params["height"] = size.height
         params["screenshot"] = info.dictValue()
         
+        if let currentSlotId = self.eventInfo?.currentSlotInfo?.slotInfo?.id {
+            params["forSlotId"] = "\(currentSlotId)"
+        }
+
         var mainParams  = [String : Any]()
         mainParams["id"] = "startedSigning"
         mainParams["name"] = info.userHashedId

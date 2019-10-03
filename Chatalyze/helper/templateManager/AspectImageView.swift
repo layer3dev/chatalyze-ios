@@ -166,9 +166,9 @@ extension AspectImageView{
             self.previousPoint = self.currentPoint
             self.currentPoint = point
             
-//            let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
-//            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
-//            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
+            //            let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
+            //            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
+            //            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
             
             processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
             //drawBezier(from: self.previousPoint, to: self.currentPoint)
@@ -178,7 +178,7 @@ extension AspectImageView{
         }
         
         if(!info.isContinous){
-                        
+            
             Log.echo(key: "processPoint", text: "touch ended")
             self.previousPreviousPoint = self.previousPoint
             self.previousPoint = self.currentPoint
@@ -190,7 +190,7 @@ extension AspectImageView{
             return
         }
     }
-        
+    
     private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
         
         let point = currentTouchPoint
@@ -233,7 +233,6 @@ extension AspectImageView{
 
 
 //MARK:- Drawing code with Bezier
-
 extension AspectImageView{
     
     func setupDrawingLayerIfNeeded() {
@@ -280,21 +279,21 @@ extension AspectImageView{
         line.strokeColor = self.drawColor?.cgColor
         self.drawingLayer?.addSublayer(line)
         
-//        self.setupDrawingLayerIfNeeded()
-//        let line = CAShapeLayer()
-//        let linePath = UIBezierPath()
-//        line.contentsScale = UIScreen.main.scale
-//        linePath.move(to: start)
-//        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-//        line.path = linePath.cgPath
-//        line.fillColor = UIColor.clear.cgColor
-//        line.opacity = 1
-//        line.lineWidth = self.brushWidth
-//        line.lineCap = .round
-//        line.strokeColor = self.drawColor?.cgColor
-//        self.drawingLayer?.addSublayer(line)
-//        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
-//        }
+        //        self.setupDrawingLayerIfNeeded()
+        //        let line = CAShapeLayer()
+        //        let linePath = UIBezierPath()
+        //        line.contentsScale = UIScreen.main.scale
+        //        linePath.move(to: start)
+        //        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
+        //        line.path = linePath.cgPath
+        //        line.fillColor = UIColor.clear.cgColor
+        //        line.opacity = 1
+        //        line.lineWidth = self.brushWidth
+        //        line.lineCap = .round
+        //        line.strokeColor = self.drawColor?.cgColor
+        //        self.drawingLayer?.addSublayer(line)
+        //        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
+        //        }
     }
     
     func clearSublayers() {

@@ -1436,6 +1436,8 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
+            print("json coming in the startes signing is \(json)")
+            
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
@@ -1464,10 +1466,25 @@ extension UserCallController {
     }
     
     private func prepateCanvas(info : CanvasInfo?){
-        CacheImageLoader.sharedInstance.loadImage(canvasInfo?.screenshot?.screenshot, token: { () -> (Int) in
+       
+        print("canvas callBooking Id \( info?.currentSlotId) canvas screenshot id \(info?.screenshot?.id) and current slot id \(self.myLiveUnMergedSlot?.id)  adn the self callbooking \(self.screenshotInfo?.callbookingId) amd the current slot Id is \(self.screenshotInfo?.id)")
+        
+        CacheImageLoader.sharedInstance.loadImage(info?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0
         }) { (success, image) in
+            
+            if let slotidFromCanvas = info?.currentSlotId{
+                if let currentId = self.myLiveUnMergedSlot?.id{
+                    if slotidFromCanvas != currentId{
+                        return
+                    }
+                }else{
+                    return
+                }
+            }else{
+                return
+            }
             
             self.userRootView?.canvasContainer?.show(with: image,info:info)
             self.userRootView?.remoteVideoContainerView?.isSignatureActive = true

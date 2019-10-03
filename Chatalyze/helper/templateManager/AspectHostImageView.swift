@@ -111,31 +111,31 @@ extension AspectHostImageView{
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-            guard let touch = touches.first
-                else{
-                    return
-            }
-            
-            let cp = touch.location(in: self)
-            
-            let info = SignatureCoordinatesInfo(point: cp, isContinous: true, isReset: false)
-            
-            let lastTouchPoint = self.sigCoordinates.last
-            
-            let rect = self.calculateRectBetween(lastPoint: lastTouchPoint?.point ?? CGPoint.zero, newPoint: cp)
-            
-        //            if !self.frame.contains(cp){
-        //                print("returning back in the start")
-        //                self.flattenImage()
-        //                return
-        //            }
-            
+        guard let touch = touches.first
+            else{
+                return
+        }
+        
+        let cp = touch.location(in: self)
+        
+        let info = SignatureCoordinatesInfo(point: cp, isContinous: true, isReset: false)
+        
+        let lastTouchPoint = self.sigCoordinates.last
+        
+        let rect = self.calculateRectBetween(lastPoint: lastTouchPoint?.point ?? CGPoint.zero, newPoint: cp)
+        
+        
+        if !self.frame.contains(cp){
+        }else{
             self.broadcastDelegate?.broadcastCoordinate(x: cp.x, y: cp.y, isContinous: true, reset: false)
-            self.sigCoordinates.append(info)
-            self.layer.setNeedsDisplay(rect)
-            
-            self.resetCounter = self.resetCounter + 1
-            
+        }
+        
+        
+        self.sigCoordinates.append(info)
+        self.layer.setNeedsDisplay(rect)
+        
+        self.resetCounter = self.resetCounter + 1
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
