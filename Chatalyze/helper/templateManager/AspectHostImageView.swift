@@ -73,12 +73,6 @@ class AspectHostImageView: ExtendedView {
         }
     }
     
-    
-    
-    override func viewDidLayout() {
-        self.isUserInteractionEnabled = true
-    }
-    
     //MARK:- Resetting the canvas
     
     func reset(){

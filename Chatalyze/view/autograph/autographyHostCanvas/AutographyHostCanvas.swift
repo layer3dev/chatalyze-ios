@@ -39,6 +39,7 @@ class AutographyHostCanvas: ExtendedView {
             Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
             
             self.mainImageView?.blurImageView?.isHidden = true
+            self.mainImageView?.isUserInteractionEnabled = true
             
         })
     }
