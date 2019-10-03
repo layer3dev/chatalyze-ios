@@ -1180,7 +1180,6 @@ extension UserCallController{
         
         if self.myLiveUnMergedSlot?.id == nil {
             
-            Log.echo(key: "yud", text: "my unmerged slot is nil")
             self.resetCanvas()
             self.localScreenShotAssociatedCallBookingId = nil
             return
@@ -1437,12 +1436,8 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-//            Log.echo(key: "yudi", text: "I am started signing as I got event. and the json is \(String(describing: json))")
-            
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
-            
-//            Log.echo(key: "yud", text: "My live unmergedSlotInfo is \(String(describing: self.myLiveUnMergedSlot?.id)) and the call booking Id is \(String(describing: self.screenshotInfo?.callbookingId))")
             
             if self.myLiveUnMergedSlot?.id != self.screenshotInfo?.callbookingId {
                 return

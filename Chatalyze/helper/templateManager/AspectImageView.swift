@@ -170,7 +170,6 @@ extension AspectImageView{
 //            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
 //            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
             
-            
             processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
             //drawBezier(from: self.previousPoint, to: self.currentPoint)
             self.touchStarted = true

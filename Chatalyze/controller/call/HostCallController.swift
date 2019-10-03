@@ -338,14 +338,10 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
-        DispatchQueue.main.async {
-            self.updateCallHeaderInfo()
-        }
-        refresh()
-        DispatchQueue.main.async {
-            self.updateLableAnimation()
-        }
-        //resetAutographCanvasIfNewCallAndSlotExists()
+        self.updateCallHeaderInfo()
+        refresh()        
+        self.updateLableAnimation()
+        resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
