@@ -8,12 +8,29 @@
 
 import UIKit
 
-class AspectImageView: ExtendedImageView {
+class AspectImageView: ExtendedView {
     
-    var signatureInfo = [BroadcastInfo]()
+    var sublayers: [CALayer] {
+        return self.layer.sublayers ?? [CALayer]()
+    }
+    
+    var cp = CGPoint.zero
+    var pp = CGPoint.zero
+    var ppp = CGPoint.zero
+    
+    
+    var linePath = UIBezierPath()
+    var resetCounter = 25
+    var isTouchStarted = false
+    var isSwiped = false
+    
+    @IBOutlet var mainImage:UIImageView?
+    var _image:UIImage?
+    
+    var sigCoordinates = [BroadcastInfo]()
     var isDrawing = false
     
-    var drawingLayer:CALayer?
+    var drawingLayer:CAShapeLayer?
     
     private var socketClient : SocketClient?
     private var socketListener : SocketListener?
@@ -31,17 +48,21 @@ class AspectImageView: ExtendedImageView {
     var brushWidth: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 7:5
     var opacity: CGFloat = 1.0
     
+    var strokeColor:UIColor?
+    
     var drawColor : UIColor?
     var touchStarted = false
     
     var canvasInfo : CanvasInfo?
     
-    override var image : UIImage?{
+    var image : UIImage?{
+        
         get{
-            return super.image
+            return _image
         }
         set{
-            super.image = newValue
+            _image = newValue
+            self.mainImage?.image = _image
         }
     }
     
@@ -75,31 +96,209 @@ class AspectImageView: ExtendedImageView {
         
         socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
             
-            DispatchQueue.main.async {
+            
+            let rawInfo = json?["message"]
+            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+            let broadcastInfo = BroadcastInfo(info : rawInfo)
+            
+            
+            self?.ppp = self?.pp ?? CGPoint.zero
+            self?.pp = self?.cp ?? CGPoint.zero
+            self?.cp = self?.targetPoint(inputPoint: broadcastInfo.point) ?? CGPoint.zero
+            
+            let newRect = self?.calculateRectBetween(lastPoint: self?.pp ?? CGPoint.zero, newPoint: self?.cp ?? CGPoint.zero)
+            
+            
+            self?.sigCoordinates.append(broadcastInfo)
+            if(broadcastInfo.reset){
                 
-                let rawInfo = json?["message"]
-                Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
-                let broadcastInfo = BroadcastInfo(info : rawInfo)
-                self?.signatureInfo.append(broadcastInfo)
-                if(broadcastInfo.reset){
-                    
-                    Log.echo(key: "processPoint", text: "asking to reset")
-                    self?.signatureInfo.removeAll()
-                    self?.touchStarted = false
-                    self?.reset()
-                    return
-                }
-                
-                if !(self?.isDrawing ?? true){
-                    self?.processPoint()
-                }
+                Log.echo(key: "processPoint", text: "asking to reset")
+                self?.sigCoordinates.removeAll()
+                self?.reset()
+                return
             }
+            
+            self?.layer.setNeedsDisplay(newRect ?? self?.frame ?? CGRect.zero)
+            
+            //self?.processPoint()
         })
-        
-        
-        
     }
 }
+
+
+
+
+//MARK:- Helper Drawing methods
+
+extension AspectImageView{
+    
+    func reset(){
+        
+        emptyFlattenedLayers()
+        self.linePath = UIBezierPath()
+        self.isTouchStarted = false
+        self.isSwiped = false
+    }
+    
+    private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
+        return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
+    }
+    
+    func emptyFlattenedLayers() {
+        
+        for case let layer as CAShapeLayer in sublayers {
+            layer.removeFromSuperlayer()
+            self.drawingLayer = nil
+        }
+    }
+    
+    func flattenImage() {
+        
+        updateFlattenedLayer()
+    }
+    
+    func updateFlattenedLayer() {
+        
+        
+        guard let drawingLayer = drawingLayer,
+            
+            let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
+        
+        layer.addSublayer(optionalDrawing)
+    }
+    
+    
+    override func draw(_ layer: CALayer, in ctx: CGContext) {
+        super.draw(layer, in: ctx)
+        
+        print("incoming coordinates are \(self.sigCoordinates.count)")
+        
+        
+        
+        let drawingLayer = self.drawingLayer ?? CAShapeLayer()
+        drawingLayer.contentsScale = UIScreen.main.scale
+        
+        for (_, point) in self.sigCoordinates.enumerated() {
+            
+            if let rawColor = point.strokeColor{
+            
+                self.strokeColor = UIColor(hexString: rawColor)
+            }
+
+            //                if !self.frame.contains(point.point){
+            //
+            //                    self.currentPoint = point.point
+            //                    self.previousPoint = self.currentPoint
+            //                    self.previousPreviousPoint = self.currentPoint
+            //                    self.isTouchStarted = false
+            //                    continue
+            //                }
+            
+            
+            let targetPoint = self.targetPoint(inputPoint: point.point)
+            
+            print("target point contains ? \(self.frame.contains(targetPoint) ) \(targetPoint)")
+            
+    
+            
+            
+            if !point.isContinous && !self.isTouchStarted{
+                
+                print("point start")
+                
+                self.currentPoint = targetPoint
+                self.previousPoint = self.currentPoint
+                self.previousPreviousPoint = self.currentPoint
+                self.isTouchStarted = true
+                self.isSwiped = false
+                continue
+            }
+            
+            if point.isContinous{
+                
+                if !self.isTouchStarted{
+                    
+                    self.currentPoint = targetPoint
+                    self.previousPoint = self.currentPoint
+                    self.previousPreviousPoint = self.currentPoint
+                    self.isTouchStarted = true
+                    self.isSwiped = false
+                    
+                    continue
+                }
+                
+                
+                print("point continuos")
+                
+                self.previousPreviousPoint = self.previousPoint
+                self.previousPoint = self.currentPoint
+                self.currentPoint = targetPoint
+                self.isTouchStarted = true
+                
+                let mid1 = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
+                let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
+                
+                self.isSwiped = true
+                
+                let newPath = UIBezierPath()
+                newPath.move(to: mid1)
+                newPath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
+                self.linePath.append(newPath)
+                continue
+            }
+            
+            if !point.isContinous{
+                
+                if !(self.isSwiped){
+                    
+                    self.currentPoint = targetPoint
+                    self.previousPoint = self.currentPoint
+                    self.previousPreviousPoint = self.currentPoint
+                    
+                    self.linePath.move(to: self.currentPoint)
+                    self.linePath.addLine(to: self.currentPoint)
+                    drawingLayer.path = self.linePath.cgPath
+                    drawingLayer.opacity = 1
+                    drawingLayer.lineWidth = self.brushWidth
+                    drawingLayer.lineCap = .round
+                    drawingLayer.lineJoin = .round
+                    drawingLayer.fillColor = UIColor.clear.cgColor
+                    drawingLayer.strokeColor = self.strokeColor?.cgColor
+                }
+                
+                self.isTouchStarted = false
+                self.isSwiped = false
+                self.flattenImage()
+                self.linePath = UIBezierPath()
+                self.resetCounter = 0
+            }
+        }
+        
+        drawingLayer.path = self.linePath.cgPath
+        drawingLayer.opacity = 1
+        drawingLayer.lineWidth = self.brushWidth
+        drawingLayer.lineCap = .round
+        drawingLayer.lineJoin = .round
+        drawingLayer.fillColor = UIColor.clear.cgColor
+        drawingLayer.strokeColor = self.strokeColor?.cgColor
+
+        self.sigCoordinates.removeAll()
+        
+        if self.drawingLayer == nil {
+            self.drawingLayer = drawingLayer
+            layer.addSublayer(drawingLayer)
+        }
+        
+        if self.resetCounter > 5{
+            print("I am resetting ")
+            self.flattenImage()
+            self.linePath = UIBezierPath()
+            self.resetCounter = 0
+        }
+    }
+}
+
+
 
 //MARK:- Points Handling from the backend
 extension AspectImageView{
@@ -120,197 +319,10 @@ extension AspectImageView{
         
         return CGPoint(x : x, y : y)
     }
-    
-    private func processPoint(){
-        
-        if signatureInfo.count == 0 {
-            isDrawing = false
-            return
-        }
-        isDrawing = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(25)) {
-            self.processPoint()
-        }
-        
-        Log.echo(key: "processPoint", text: "Processing the points")
-        
-        guard let info = self.signatureInfo.first else{
-            return
-        }
-        
-        let rawColor = info.strokeColor ?? "#000"
-        let color = UIColor(hexString : rawColor)
-        self.drawColor = color
-        
-        
-        let rawPoint = info.point
-        let point = self.targetPoint(inputPoint: rawPoint)
-        
-        if(!info.isContinous && !self.touchStarted){
-            
-            Log.echo(key: "processPoint", text: "touch started")
-            self.touchStarted = true
-            self.currentPoint = point
-            self.previousPoint = point
-            self.previousPreviousPoint = point
-            //drawBezier(from start: self.previousPoint, to end: self.currentPoint)
-            self.signatureInfo.removeFirst()
-            return
-        }
-        
-        if(info.isContinous){
-            
-            Log.echo(key: "processPoint", text: "touch moving")
-            self.previousPreviousPoint = self.previousPoint
-            self.previousPoint = self.currentPoint
-            self.currentPoint = point
-            
-            //            let mid1 = self.midPoint(self.previousPoint, p2: self.previousPreviousPoint)
-            //            let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
-            //            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
-            
-            processMovedTouches(currentTouchPoint : self.currentPoint, lastTouchPoint : self.previousPoint)
-            //drawBezier(from: self.previousPoint, to: self.currentPoint)
-            self.touchStarted = true
-            self.signatureInfo.removeFirst()
-            return
-        }
-        
-        if(!info.isContinous){
-            
-            Log.echo(key: "processPoint", text: "touch ended")
-            self.previousPreviousPoint = self.previousPoint
-            self.previousPoint = self.currentPoint
-            self.currentPoint = point
-            
-            self.drawBezier(from: self.previousPreviousPoint, to: self.currentPoint, previous: self.previousPoint)
-            self.touchStarted = false
-            self.signatureInfo.removeFirst()
-            return
-        }
-    }
-    
-    private func processMovedTouches(currentTouchPoint : CGPoint, lastTouchPoint : CGPoint){
-        
-        let point = currentTouchPoint
-        
-        let dx = point.x - lastTouchPoint.x
-        let dy = point.y - lastTouchPoint.y
-        
-        let total : Double = (Double(dx * dx) + Double(dy * dy))
-        
-        if (total < AspectImageView.kPointMinDistanceSquared) {
-            
-            // ... then ignore this movement
-            return;
-        }
-        // update points: previousPrevious -> mid1 -> previous -> mid2 -> current
-        Log.echo(key : "currentPoint", text : "currentPoint ==> \(self.currentPoint)")
-        Log.echo(key : "previousPreviousPoint", text : "previousPreviousPoint ==> \(self.previousPreviousPoint)")
-        
-        let mid1 = midPoint(self.previousPoint, p2: self.previousPreviousPoint);
-        let mid2 = midPoint(self.currentPoint, p2: self.previousPoint);
-        //drawLineFrom(self.previousPoint, mid1: mid1, mid2: mid1)
-        
-        drawBezier(from: mid1, to: mid2, previous: self.previousPoint)
-        //        drawLineFrom(previousPoint, mid1 : , toPoint: mid2)
-    }
-    
-    func reset(){
-        
-        self.drawingLayer?.removeFromSuperlayer()
-        self.layer.sublayers = nil
-        self.drawingLayer?.sublayers = nil
-        self.drawingLayer = nil
-    }
-    
-    private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
-        return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
-    }
-    
 }
 
 
-//MARK:- Drawing code with Bezier
-extension AspectImageView{
-    
-    func setupDrawingLayerIfNeeded() {
-        
-        guard drawingLayer == nil else { return }
-        let sublayer = CALayer()
-        sublayer.contentsScale = 0.0
-        layer.addSublayer(sublayer)
-        drawingLayer = sublayer
-    }
-    
-    func drawBezier(from start: CGPoint, to end: CGPoint) {
-        
-        setupDrawingLayerIfNeeded()
-        let line = CAShapeLayer()
-        let linePath = UIBezierPath()
-        line.contentsScale = UIScreen.main.scale
-        linePath.move(to: start)
-        linePath.addLine(to: end)
-        line.path = linePath.cgPath
-        line.fillColor = self.drawColor?.cgColor
-        line.opacity = 1
-        line.lineWidth = brushWidth
-        line.lineCap = .round
-        line.strokeColor = self.drawColor?.cgColor
-        drawingLayer?.addSublayer(line)
-        if let count = drawingLayer?.sublayers?.count, count > 400 {
-        }
-    }
-    
-    func drawBezier(from start: CGPoint, to end: CGPoint,previous point:CGPoint) {
-        
-        setupDrawingLayerIfNeeded()
-        let line = CAShapeLayer()
-        let linePath = UIBezierPath()
-        line.contentsScale = UIScreen.main.scale
-        linePath.move(to: start)
-        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-        line.path = linePath.cgPath
-        line.fillColor = UIColor.clear.cgColor
-        line.opacity = 1
-        line.lineWidth = brushWidth
-        line.lineCap = .round
-        line.strokeColor = self.drawColor?.cgColor
-        self.drawingLayer?.addSublayer(line)
-        
-        //        self.setupDrawingLayerIfNeeded()
-        //        let line = CAShapeLayer()
-        //        let linePath = UIBezierPath()
-        //        line.contentsScale = UIScreen.main.scale
-        //        linePath.move(to: start)
-        //        linePath.addQuadCurve(to: end, controlPoint: self.previousPoint)
-        //        line.path = linePath.cgPath
-        //        line.fillColor = UIColor.clear.cgColor
-        //        line.opacity = 1
-        //        line.lineWidth = self.brushWidth
-        //        line.lineCap = .round
-        //        line.strokeColor = self.drawColor?.cgColor
-        //        self.drawingLayer?.addSublayer(line)
-        //        if let count = self.drawingLayer?.sublayers?.count, count > 400 {
-        //        }
-    }
-    
-    func clearSublayers() {
-        
-        drawingLayer?.sublayers = nil
-        self.layer.sublayers = nil
-        drawingLayer = nil
-    }
-    
-    func clear() {
-        
-        clearSublayers()
-        image = nil
-    }
-    
-}
-
+//MARK:- taking the snapshot
 extension AspectImageView{
     
     func getSnapshot()->UIImage?{

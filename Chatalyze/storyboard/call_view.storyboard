@@ -151,10 +151,10 @@
                                 <rect key="frame" x="0.0" y="24" width="414" height="838"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-Kf-uiS">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to hang up the current chat and wait until the next one or leave your session completely?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-nW-INd">
-                                                <rect key="frame" x="40" y="80" width="334" height="82"/>
+                                                <rect key="frame" x="40" y="80" width="334" height="70"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -163,7 +163,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTn-TW-i0m">
-                                                <rect key="frame" x="50" y="282" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="270" width="314" height="40"/>
                                                 <color key="backgroundColor" red="1" green="0.24313725490196078" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="fUy-ce-9fB">
@@ -182,7 +182,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Say-TW-jBJ">
-                                                <rect key="frame" x="50" y="342" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="330" width="314" height="40"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="zZn-02-r18">
@@ -458,19 +458,29 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0xp-m7-7G0" customClass="AutographyCanvas" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="207" y="0.0" width="0.0" height="0.0"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fWK-Wp-xp8" customClass="AspectImageView" customModule="Chatalyze" customModuleProvider="target"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fWK-Wp-xp8"/>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-Fo-U13" customClass="AspectImageView" customModule="Chatalyze" customModuleProvider="target">
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outlet property="mainImage" destination="fWK-Wp-xp8" id="lcX-fy-1Sv"/>
+                                                </connections>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" id="4Wk-3N-6qj"/>
                                             <constraint firstAttribute="trailing" secondItem="fWK-Wp-xp8" secondAttribute="trailing" id="EYL-qM-CPc"/>
+                                            <constraint firstAttribute="trailing" secondItem="rfE-Fo-U13" secondAttribute="trailing" id="IuC-XK-fwO"/>
                                             <constraint firstItem="fWK-Wp-xp8" firstAttribute="leading" secondItem="0xp-m7-7G0" secondAttribute="leading" id="NMc-Pl-lQ4"/>
+                                            <constraint firstAttribute="bottom" secondItem="rfE-Fo-U13" secondAttribute="bottom" id="Qcb-JK-ndQ"/>
                                             <constraint firstAttribute="bottom" secondItem="fWK-Wp-xp8" secondAttribute="bottom" id="fWH-L2-Kfn"/>
                                             <constraint firstAttribute="width" id="hMi-xJ-55J"/>
+                                            <constraint firstItem="rfE-Fo-U13" firstAttribute="top" secondItem="0xp-m7-7G0" secondAttribute="top" id="lnY-ib-vtR"/>
                                             <constraint firstItem="fWK-Wp-xp8" firstAttribute="top" secondItem="0xp-m7-7G0" secondAttribute="top" id="oKG-uc-bqQ"/>
+                                            <constraint firstItem="rfE-Fo-U13" firstAttribute="leading" secondItem="0xp-m7-7G0" secondAttribute="leading" id="ydF-Uq-9h9"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="heightConstraint" destination="4Wk-3N-6qj" id="H22-AF-WhQ"/>
-                                            <outlet property="mainImageView" destination="fWK-Wp-xp8" id="poY-ci-taN"/>
+                                            <outlet property="mainImageView" destination="rfE-Fo-U13" id="2CS-Qk-lgP"/>
                                             <outlet property="widthConstraint" destination="hMi-xJ-55J" id="zXZ-rE-mVK"/>
                                         </connections>
                                     </view>

@@ -118,18 +118,15 @@ extension AspectHostImageView{
         
         let cp = touch.location(in: self)
         
+        print("sending paramd are cp \(cp)")
+        
         let info = SignatureCoordinatesInfo(point: cp, isContinous: true, isReset: false)
         
         let lastTouchPoint = self.sigCoordinates.last
         
         let rect = self.calculateRectBetween(lastPoint: lastTouchPoint?.point ?? CGPoint.zero, newPoint: cp)
         
-        
-        if !self.frame.contains(cp){
-        }else{
-            self.broadcastDelegate?.broadcastCoordinate(x: cp.x, y: cp.y, isContinous: true, reset: false)
-        }
-        
+        self.broadcastDelegate?.broadcastCoordinate(x: cp.x, y: cp.y, isContinous: true, reset: false)
         
         self.sigCoordinates.append(info)
         self.layer.setNeedsDisplay(rect)
@@ -164,12 +161,8 @@ extension AspectHostImageView{
             self.broadcastDelegate?.broadcastCoordinate(x: point.x, y: point.y, isContinous: false, reset: false)
             
             self.resetCounter = self.resetCounter + 1
-        
     }
-    
 }
-
-
 
 
 extension AspectHostImageView{
@@ -293,9 +286,7 @@ extension AspectHostImageView{
             
             if !point.isContinuos{
                 
-                
                 if !(self.isSwiped){
-                    
                     
                     self.currentPoint = point.point
                     self.previousPoint = self.currentPoint
@@ -317,7 +308,6 @@ extension AspectHostImageView{
                 self.flattenImage()
                 self.linePath = UIBezierPath()
                 self.resetCounter = 0
-                
             }
         }
         
