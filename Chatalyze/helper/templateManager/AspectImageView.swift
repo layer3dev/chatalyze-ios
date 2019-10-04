@@ -18,7 +18,6 @@ class AspectImageView: ExtendedView {
     var pp = CGPoint.zero
     var ppp = CGPoint.zero
     
-    
     var linePath = UIBezierPath()
     var resetCounter = 25
     var isTouchStarted = false
@@ -96,18 +95,15 @@ class AspectImageView: ExtendedView {
         
         socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
             
-            
             let rawInfo = json?["message"]
             Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
             let broadcastInfo = BroadcastInfo(info : rawInfo)
-            
             
             self?.ppp = self?.pp ?? CGPoint.zero
             self?.pp = self?.cp ?? CGPoint.zero
             self?.cp = self?.targetPoint(inputPoint: broadcastInfo.point) ?? CGPoint.zero
             
             let newRect = self?.calculateRectBetween(lastPoint: self?.pp ?? CGPoint.zero, newPoint: self?.cp ?? CGPoint.zero)
-            
             
             self?.sigCoordinates.append(broadcastInfo)
             if(broadcastInfo.reset){
@@ -119,8 +115,6 @@ class AspectImageView: ExtendedView {
             }
             
             self?.layer.setNeedsDisplay(newRect ?? self?.frame ?? CGRect.zero)
-            
-            //self?.processPoint()
         })
     }
 }
@@ -138,6 +132,7 @@ extension AspectImageView{
         self.linePath = UIBezierPath()
         self.isTouchStarted = false
         self.isSwiped = false
+        self.resetCounter = 0
     }
     
     private func midPoint(_ p1 : CGPoint, p2 : CGPoint) -> CGPoint{
@@ -159,7 +154,6 @@ extension AspectImageView{
     
     func updateFlattenedLayer() {
         
-        
         guard let drawingLayer = drawingLayer,
             
             let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
@@ -171,12 +165,10 @@ extension AspectImageView{
     override func draw(_ layer: CALayer, in ctx: CGContext) {
         super.draw(layer, in: ctx)
         
-        print("incoming coordinates are \(self.sigCoordinates.count)")
-        
-        
-        
         let drawingLayer = self.drawingLayer ?? CAShapeLayer()
         drawingLayer.contentsScale = UIScreen.main.scale
+        
+        self.resetCounter = self.resetCounter + 1
         
         for (_, point) in self.sigCoordinates.enumerated() {
             
@@ -184,27 +176,10 @@ extension AspectImageView{
             
                 self.strokeColor = UIColor(hexString: rawColor)
             }
-
-            //                if !self.frame.contains(point.point){
-            //
-            //                    self.currentPoint = point.point
-            //                    self.previousPoint = self.currentPoint
-            //                    self.previousPreviousPoint = self.currentPoint
-            //                    self.isTouchStarted = false
-            //                    continue
-            //                }
-            
             
             let targetPoint = self.targetPoint(inputPoint: point.point)
-            
-            print("target point contains ? \(self.frame.contains(targetPoint) ) \(targetPoint)")
-            
-    
-            
-            
+
             if !point.isContinous && !self.isTouchStarted{
-                
-                print("point start")
                 
                 self.currentPoint = targetPoint
                 self.previousPoint = self.currentPoint
@@ -223,12 +198,8 @@ extension AspectImageView{
                     self.previousPreviousPoint = self.currentPoint
                     self.isTouchStarted = true
                     self.isSwiped = false
-                    
                     continue
                 }
-                
-                
-                print("point continuos")
                 
                 self.previousPreviousPoint = self.previousPoint
                 self.previousPoint = self.currentPoint
@@ -283,14 +254,14 @@ extension AspectImageView{
         drawingLayer.strokeColor = self.strokeColor?.cgColor
 
         self.sigCoordinates.removeAll()
-        
+
         if self.drawingLayer == nil {
             self.drawingLayer = drawingLayer
             layer.addSublayer(drawingLayer)
         }
         
         if self.resetCounter > 5{
-            print("I am resetting ")
+
             self.flattenImage()
             self.linePath = UIBezierPath()
             self.resetCounter = 0

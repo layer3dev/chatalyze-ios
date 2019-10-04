@@ -1436,8 +1436,6 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            print("json coming in the startes signing is \(json)")
-            
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             
@@ -1449,7 +1447,6 @@ extension UserCallController {
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
-            Log.echo(key: "yudi", text: "I stopped signing as I stopped Signing.")
             self.resetCanvas()
         })
     }
@@ -1466,9 +1463,7 @@ extension UserCallController {
     }
     
     private func prepateCanvas(info : CanvasInfo?){
-       
-        print("canvas callBooking Id \( info?.currentSlotId) canvas screenshot id \(info?.screenshot?.id) and current slot id \(self.myLiveUnMergedSlot?.id)  adn the self callbooking \(self.screenshotInfo?.callbookingId) amd the current slot Id is \(self.screenshotInfo?.id)")
-        
+            
         CacheImageLoader.sharedInstance.loadImage(info?.screenshot?.screenshot, token: { () -> (Int) in
             
             return 0

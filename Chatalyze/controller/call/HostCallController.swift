@@ -243,7 +243,6 @@ class HostCallController: VideoCallController {
         return self.view as? HostVideoRootView
     }
     
-    
     func showToastWithMessage(text:String,time:Double){
         
         let options = [kCRToastNotificationTypeKey : CRToastType.navigationBar,kCRToastUnderStatusBarKey:false,kCRToastTextKey : text,kCRToastNotificationPreferredHeightKey:4.0,kCRToastTextAlignmentKey:NSTextAlignment.center,kCRToastBackgroundColorKey:UIColor(hexString: "#FAA579"),kCRToastAnimationInTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationOutTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationInDirectionKey:CRToastAnimationDirection.left,kCRToastAnimationOutDirectionKey:CRToastAnimationDirection.right,kCRToastTimeIntervalKey:time] as [String : Any]
@@ -251,7 +250,6 @@ class HostCallController: VideoCallController {
         CRToastManager.showNotification(options: options) {
         }
     }
-    
     
     private func initializeVariable(){
         
@@ -262,7 +260,8 @@ class HostCallController: VideoCallController {
         self.registerForAutographSignatureCall()
         self.signaturAccessoryView?.delegate = self
     }
-    
+
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -271,18 +270,13 @@ class HostCallController: VideoCallController {
         changeOrientationToPortrait()
     }
     
+    
     private func registerForTimerNotification(){
         
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
-            
-            Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
-
-         })
-        
+        })
         
         socketListener?.onEvent("screenshotCountDown", completion: { (response) in
-            
-            Log.echo(key: "selfie_timer", text: "Response in screenshotCountDown is \(String(describing: response))")
             
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
@@ -304,7 +298,6 @@ class HostCallController: VideoCallController {
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
-                        
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
@@ -318,6 +311,7 @@ class HostCallController: VideoCallController {
             }
         })
     }
+    
     
     override func registerForListeners(){
         super.registerForListeners()
@@ -338,10 +332,11 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         processEvent()
         confirmCallLinked()
-        self.updateCallHeaderInfo()
+        updateCallHeaderInfo()
         refresh()        
-        self.updateLableAnimation()
+        updateLableAnimation()
         resetAutographCanvasIfNewCallAndSlotExists()
+        
     }
     
     func verifyForPostSessionEarningScreen() {

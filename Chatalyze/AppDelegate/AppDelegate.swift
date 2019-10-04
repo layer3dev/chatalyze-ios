@@ -217,7 +217,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if isSignatureInCallisActive{
             
-            print("App delegate portrait is \(signatureDirection)")
             return signatureDirection
         }
         
@@ -255,12 +254,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
            
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in
                 
-                //print("Notification settings: \(settings)")
                 guard settings.authorizationStatus == .authorized else { return }
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-                //print("Notification settings Registered: \(settings)")
             }
         }else{
             //Fallback on earlier versions
@@ -317,12 +314,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             
             PushNotificationHandler().handleNavigation(info: notification)
             if let aps = notification["aps"] as? [AnyHashable: AnyObject]{
-                
-                Log.echo(key: "yud", text: "APS is \(aps)")
             }
         }
     }
-    
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         return ApplicationDelegate.shared.application(app,open:url,options:options)
@@ -339,13 +334,12 @@ extension AppDelegate {
         }
         
         AccessTokenValidator().validate { (success) in
-            
+
             if !success {
                 
                 RootControllerManager().signOut(completion: {
                 })
             }
-            Log.echo(key: "yud", text: "Printing the result \(success)")
         }
     }
     

@@ -74,11 +74,13 @@ class AspectHostImageView: ExtendedView {
     }
     
     //MARK:- Resetting the canvas
-    
     func reset(){
         
         emptyFlattenedLayers()
         self.linePath = UIBezierPath()
+        self.isTouchStarted = false
+        self.isSwiped = false
+        self.resetCounter = 0
     }
 }
 
@@ -88,15 +90,18 @@ extension AspectHostImageView{
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-            print("touch start")
+        print("I am begun")
+
             guard  let touch = touches.first else {
                 return
             }
+        
             let point = touch.location(in: self)
+        
             if !self.frame.contains(point){
-                print("returning back in the start")
                 return
             }
+        
             let info = SignatureCoordinatesInfo(point: point, isContinous: false, isReset: false)
             
             self.sigCoordinates.append(info)
@@ -111,14 +116,15 @@ extension AspectHostImageView{
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        
+        print("I am moving")
+        
         guard let touch = touches.first
             else{
                 return
         }
         
         let cp = touch.location(in: self)
-        
-        print("sending paramd are cp \(cp)")
         
         let info = SignatureCoordinatesInfo(point: cp, isContinous: true, isReset: false)
         
@@ -186,7 +192,6 @@ extension AspectHostImageView{
 }
 
 //MARK:- finding the small rect && Flattening helper
-
 extension AspectHostImageView{
     
     func calculateRectBetween(lastPoint: CGPoint, newPoint: CGPoint) -> CGRect {
@@ -210,7 +215,6 @@ extension AspectHostImageView{
     
     func updateFlattenedLayer() {
         
-        
         guard let drawingLayer = drawingLayer,
             
             let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
@@ -219,30 +223,15 @@ extension AspectHostImageView{
     }
     
     //MARK:- overriding draw layer
-    
     override func draw(_ layer: CALayer, in ctx: CGContext) {
         super.draw(layer, in: ctx)
         
-        print("incoming coordinates are \(self.sigCoordinates.count)")
-        
-        
         let drawingLayer = self.drawingLayer ?? CAShapeLayer()
         drawingLayer.contentsScale = UIScreen.main.scale
-        
+
         for (_, point) in self.sigCoordinates.enumerated() {
             
-            //                if !self.frame.contains(point.point){
-            //
-            //                    self.currentPoint = point.point
-            //                    self.previousPoint = self.currentPoint
-            //                    self.previousPreviousPoint = self.currentPoint
-            //                    self.isTouchStarted = false
-            //                    continue
-            //                }
-            
             if !point.isContinuos && !self.isTouchStarted{
-                
-                print("point start")
                 
                 self.currentPoint = point.point
                 self.previousPoint = self.currentPoint
@@ -265,8 +254,6 @@ extension AspectHostImageView{
                     continue
                 }
                 
-                
-                print("point continuos")
                 self.previousPreviousPoint = self.previousPoint
                 self.previousPoint = self.currentPoint
                 self.currentPoint = point.point
@@ -294,6 +281,7 @@ extension AspectHostImageView{
                     
                     self.linePath.move(to: self.currentPoint)
                     self.linePath.addLine(to: self.currentPoint)
+                    
                     drawingLayer.path = self.linePath.cgPath
                     drawingLayer.opacity = 1
                     drawingLayer.lineWidth = self.brushWidth
