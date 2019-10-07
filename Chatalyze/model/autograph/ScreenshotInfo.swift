@@ -48,8 +48,30 @@ class ScreenshotInfo : NSObject{
         
         id = json["id"].int
         isPrivate = json["isPrivate"].boolValue
+        
         userId = json["userId"].int
         analystId = json["analystId"].int
+        
+        if json["id"].int == nil{
+            
+            let id = json["id"].stringValue
+            self.id = Int(id)
+        }
+        
+        if json["userId"].int == nil{
+            
+            let id = json["userId"].stringValue
+            self.userId = Int(id)
+        }
+        
+        
+        if json["analystId"].int == nil{
+            
+            let id = json["analystId"].stringValue
+            self.analystId = Int(id)
+        }
+        
+        
         screenshot = json["screenshot"].string
         signed = json["signed"].boolValue
         text = json["text"].string

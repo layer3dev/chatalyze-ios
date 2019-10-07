@@ -1438,8 +1438,13 @@ extension UserCallController {
             
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
-            
-            if self.myLiveUnMergedSlot?.id != self.screenshotInfo?.callbookingId {
+            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
+                return
+            }
+            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
+                return
+            }
+            if currentSlotId != canvasCallBookingId {
                 return
             }
             self.prepateCanvas(info : self.canvasInfo)
@@ -1454,7 +1459,7 @@ extension UserCallController {
     private func resetCanvas(){
         
         self.userRootView?.canvasContainer?.hide()
-        
+
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
@@ -1504,18 +1509,19 @@ extension UserCallController {
         params["id"] = "screenshotLoaded"
         params["name"] = self.eventInfo?.user?.hashedId ?? ""
         let message = screenshotInfo.toDict()
-        params["message"] = message
         
+        var childParam = [String:Any]()
+        childParam["screenshot"] = message
+        params["message"] = childParam
+        print("Emitting the parameters in the screenShotLoaded \(params)")
         socketClient?.emit(params)
     }
     
     var isCallConnected : Bool{
-        
         return (self.connection?.isConnected ?? false)
     }
     
     var isCallStreaming: Bool{
-        
         return (self.connection?.isStreaming ?? false)
     }
 }
@@ -1523,12 +1529,10 @@ extension UserCallController {
 extension UserCallController:GetisHangedUpDelegate{
     
     func restartSelfie(){
-        
         SlotFlagInfo.staticIsTimerInitiated = false
     }
     
     func getHangUpStatus() -> Bool {
-        
         return isHangUp || (!isCallStreaming)
     }
 }

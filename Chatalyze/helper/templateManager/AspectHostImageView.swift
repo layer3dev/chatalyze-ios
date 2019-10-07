@@ -183,12 +183,11 @@ extension AspectHostImageView{
 
     func emptyFlattenedLayers() {
         
-        for case let layer as CAShapeLayer in sublayers {
+        for case let layer as CAShapeLayer in sublayers {            
             layer.removeFromSuperlayer()
             self.drawingLayer = nil
         }
     }
-    
 }
 
 //MARK:- finding the small rect && Flattening helper
@@ -328,7 +327,7 @@ extension AspectHostImageView{
 extension AspectImageView{
     
     func calculateRectBetween(lastPoint: CGPoint, newPoint: CGPoint) -> CGRect {
-        
+
         let originX = min(lastPoint.x, newPoint.x) - (brushWidth / 2)
         let originY = min(lastPoint.y, newPoint.y) - (brushWidth / 2)
         

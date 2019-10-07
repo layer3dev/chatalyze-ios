@@ -97,6 +97,7 @@ class AspectImageView: ExtendedView {
             
             let rawInfo = json?["message"]
             Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+            
             let broadcastInfo = BroadcastInfo(info : rawInfo)
             
             self?.ppp = self?.pp ?? CGPoint.zero
@@ -114,12 +115,12 @@ class AspectImageView: ExtendedView {
                 return
             }
             
+            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+            
             self?.layer.setNeedsDisplay(newRect ?? self?.frame ?? CGRect.zero)
         })
     }
 }
-
-
 
 
 //MARK:- Helper Drawing methods
@@ -156,7 +157,7 @@ extension AspectImageView{
         
         guard let drawingLayer = drawingLayer,
             
-            let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer  else { return }
+            let optionalDrawing = NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: drawingLayer)) as? CAShapeLayer else { return }
         
         layer.addSublayer(optionalDrawing)
     }
@@ -221,13 +222,35 @@ extension AspectImageView{
             if !point.isContinous{
                 
                 if !(self.isSwiped){
+                
+                self.previousPreviousPoint =  self.previousPoint
+                self.previousPoint = self.currentPoint
+                self.currentPoint = targetPoint
+                
+                let mid1 = self.midPoint(self.currentPoint, p2: self.currentPoint)
+                let mid2 = self.midPoint(self.currentPoint, p2: self.currentPoint)
+                
+                self.linePath.move(to: mid1)
+                self.linePath.addQuadCurve(to: mid2, controlPoint: self.currentPoint)
+                drawingLayer.path = self.linePath.cgPath
+                drawingLayer.opacity = 1
+                drawingLayer.lineWidth = self.brushWidth
+                drawingLayer.lineCap = .round
+                drawingLayer.lineJoin = .round
+                drawingLayer.fillColor = UIColor.clear.cgColor
+                drawingLayer.strokeColor = self.strokeColor?.cgColor
                     
-                    self.currentPoint = targetPoint
+                }else{
+                    
+                    self.previousPreviousPoint =  self.previousPoint
                     self.previousPoint = self.currentPoint
-                    self.previousPreviousPoint = self.currentPoint
+                    self.currentPoint = targetPoint
                     
-                    self.linePath.move(to: self.currentPoint)
-                    self.linePath.addLine(to: self.currentPoint)
+                    let mid1 = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
+                    let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
+                    
+                    self.linePath.move(to: mid1)
+                    self.linePath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
                     drawingLayer.path = self.linePath.cgPath
                     drawingLayer.opacity = 1
                     drawingLayer.lineWidth = self.brushWidth
@@ -236,7 +259,7 @@ extension AspectImageView{
                     drawingLayer.fillColor = UIColor.clear.cgColor
                     drawingLayer.strokeColor = self.strokeColor?.cgColor
                 }
-                
+            
                 self.isTouchStarted = false
                 self.isSwiped = false
                 self.flattenImage()
@@ -256,12 +279,13 @@ extension AspectImageView{
         self.sigCoordinates.removeAll()
 
         if self.drawingLayer == nil {
+            
             self.drawingLayer = drawingLayer
             layer.addSublayer(drawingLayer)
         }
         
         if self.resetCounter > 5{
-
+            
             self.flattenImage()
             self.linePath = UIBezierPath()
             self.resetCounter = 0
