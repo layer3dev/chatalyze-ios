@@ -10,6 +10,21 @@ import UIKit
 
 class EditSessionFormRootView:ExtendedView {
     
+    enum BookingStyle{
+    
+        case standard
+        case flex
+        case none
+    }
+    
+    @IBOutlet var standardLabel:UILabel?
+    @IBOutlet var flexLabel:UILabel?
+    
+    @IBOutlet var standardField:SigninFieldView?
+    @IBOutlet var flexField:SigninFieldView?
+    
+    var currentBookingStyle = BookingStyle.standard
+    
     @IBOutlet var customCalenadarSupportView:UIView?
     let appDelegate:AppDelegate? = UIApplication.shared.delegate as? AppDelegate
      
@@ -310,6 +325,9 @@ class EditSessionFormRootView:ExtendedView {
         self.freeField?.isCompleteBorderAllow = true
         self.priceField?.isCompleteBorderAllow = true
         self.breakField?.isCompleteBorderAllow = true
+        self.standardField?.isCompleteBorderAllow = true
+        self.flexField?.isCompleteBorderAllow = true
+        
         self.roundToEditSessionButton()
         
         self.priceAmountField?.textField?.doneAccessory = true
@@ -422,6 +440,35 @@ class EditSessionFormRootView:ExtendedView {
            let _ =  self.validateDate()
         }
     }
+    
+    
+    func paintBookingStyleLabels(){
+        
+        DispatchQueue.main.async {
+            
+            let size = UIDevice.current.userInterfaceIdiom == .pad ? 19:16
+            
+            let text1 = "Standard: "
+            let text2 = "Guarantee efficiency by only allowing participants to book the next available time slot"
+            
+            let text3 = "Flex: "
+            let text4 = "Give participants flexibility by allowing them to select any available time slot to book"
+            
+            let text1Mutate = text1.toMutableAttributedString(font: "Nunito-SemiBold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            
+            let text1Attribute = text2.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            
+            let text2Mutate = text3.toMutableAttributedString(font: "Nunito-SemiBold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            
+            let text2Attribute = text4.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            
+            text1Mutate.append(text1Attribute)
+            text2Mutate.append(text2Attribute)
+            
+            self.standardLabel?.attributedText = text1Mutate
+            self.flexLabel?.attributedText = text2Mutate
+        }
+    }
 
     
     
@@ -434,6 +481,7 @@ class EditSessionFormRootView:ExtendedView {
         initializeChatLengthPicker()
         initializeSessionLengthPicker()
         implementSponsorShip()
+        paintBookingStyleLabels()
         
         self.breakAdapter?.root = self
         self.titleField?.textField?.delegate = self
@@ -447,7 +495,7 @@ class EditSessionFormRootView:ExtendedView {
         priceAmountField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         titleField?.textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    
+        
     func fillInfo(info:EventInfo?){
         
         guard let eventInfo = info else{
@@ -792,7 +840,6 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
         save()
-        //Log.echo(key: "yud", text: "Final param are \(getParam())")
     }
     
     func save(){
@@ -804,7 +851,6 @@ class EditSessionFormRootView:ExtendedView {
         guard let params = getParam() else{
             return
         }
-    
         
         self.controller?.showLoader()
         EditMySessionProcessor().editInfo(eventId: eventId, param: params) { (success, response) in
@@ -814,7 +860,6 @@ class EditSessionFormRootView:ExtendedView {
             if success{
                 
                 self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
-        
                     
                     self.controller?.navigationController?.popViewController(animated: true)
                 })
@@ -826,6 +871,22 @@ class EditSessionFormRootView:ExtendedView {
             return
         }
     }
+    
+    
+    @IBAction func standardViewAction(sender:UIButton?){
+
+        self.standardField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
+        self.flexField?.backgroundColor = UIColor.white
+        self.currentBookingStyle = .standard
+    }
+    
+    @IBAction func flexViewAction(sender:UIButton?){
+
+        self.standardField?.backgroundColor = UIColor.white
+        self.flexField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
+        self.currentBookingStyle = .flex
+    }
+    
 }
 
 extension EditSessionFormRootView:UITextFieldDelegate{
@@ -964,8 +1025,15 @@ extension EditSessionFormRootView{
         }
         
         return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation
-        
     }
+    
+    fileprivate func validateBookingStyle()->Bool{
+        
+        if self.currentBookingStyle == .none{
+            
+        }
+    }
+    
     
     fileprivate func titleValidation()->Bool {
         
@@ -2060,6 +2128,7 @@ extension EditSessionFormRootView{
         param["end"] = "\(endDate)"
         param["userId"] = id
         param["duration"] = durate
+        param["flexibleBooking"] = self.currentBookingStyle == .standard ? false : true
         if info.isFree{
             //param["price"] = priceHourly
         }else{

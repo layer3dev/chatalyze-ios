@@ -23,7 +23,6 @@ class EditSessionFormController: InterfaceExtendedController {
         super.viewDidLoad()
         
         load()
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func moreDetailTitleAction(sender:UIButton){
