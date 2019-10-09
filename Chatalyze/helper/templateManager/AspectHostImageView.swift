@@ -249,7 +249,6 @@ extension AspectHostImageView{
                     self.previousPreviousPoint = self.currentPoint
                     self.isTouchStarted = true
                     self.isSwiped = false
-                    
                     continue
                 }
                 
@@ -280,6 +279,26 @@ extension AspectHostImageView{
                     
                     self.linePath.move(to: self.currentPoint)
                     self.linePath.addLine(to: self.currentPoint)
+                    
+                    drawingLayer.path = self.linePath.cgPath
+                    drawingLayer.opacity = 1
+                    drawingLayer.lineWidth = self.brushWidth
+                    drawingLayer.lineCap = .round
+                    drawingLayer.lineJoin = .round
+                    drawingLayer.fillColor = UIColor.clear.cgColor
+                    drawingLayer.strokeColor = self.strokeColor.cgColor
+                    
+                }else{
+                    
+                    self.previousPreviousPoint = self.previousPoint
+                    self.previousPoint = self.currentPoint
+                    self.currentPoint = point.point
+                    
+                    let mid1 = self.midPoint(self.previousPreviousPoint, p2: self.previousPoint)
+                    let mid2 = self.midPoint(self.currentPoint, p2: self.previousPoint)
+                    
+                    self.linePath.move(to: mid1)
+                    self.linePath.addQuadCurve(to: mid2, controlPoint: self.previousPoint)
                     
                     drawingLayer.path = self.linePath.cgPath
                     drawingLayer.opacity = 1

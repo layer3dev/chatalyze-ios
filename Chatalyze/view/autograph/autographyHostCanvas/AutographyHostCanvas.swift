@@ -6,6 +6,7 @@ import AVFoundation
 
 class AutographyHostCanvas: ExtendedView {
     
+    @IBOutlet var signatureAccessoryDoneButton:UIButton?
     @IBOutlet var heightConstraint:NSLayoutConstraint?
     @IBOutlet var widthConstraint:NSLayoutConstraint?
     
@@ -31,7 +32,6 @@ class AutographyHostCanvas: ExtendedView {
         registerScreenShotLoaded()
     }
     
-    
     func registerScreenShotLoaded(){
         
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
@@ -40,7 +40,7 @@ class AutographyHostCanvas: ExtendedView {
             
             self.mainImageView?.blurImageView?.isHidden = true
             self.mainImageView?.isUserInteractionEnabled = true
-            
+            self.signatureAccessoryDoneButton?.isUserInteractionEnabled = true
         })
     }
     

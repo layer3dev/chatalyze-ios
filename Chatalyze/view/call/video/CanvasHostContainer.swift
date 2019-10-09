@@ -42,6 +42,7 @@ class CanvasHostContainer: ExtendedView {
         canvas?.widthConstraint?.constant = newCanvasFrame.width
         canvas?.mainImageView?.image = canvasImage
         canvas?.mainImageView?.blurImageView?.isHidden = false
+        canvas?.signatureAccessoryDoneButton?.isUserInteractionEnabled = false
         canvas?.mainImageView?.isUserInteractionEnabled = false
 
         canvas?.counter = 0

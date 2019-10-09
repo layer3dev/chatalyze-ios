@@ -224,7 +224,6 @@ class HostCallController: VideoCallController {
     
     private func updateUserOfHangup(hashedUserId : String, hangup : Bool){
         
-        //{"id":"hangUp","value":true,"name":"chedddiicdaibdia"}
         var param = [String : Any]()
         param["id"] = "hangUp"
         param["value"] = hangup

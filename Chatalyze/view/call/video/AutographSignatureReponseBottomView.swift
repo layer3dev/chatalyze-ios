@@ -19,7 +19,7 @@ class AutographSignatureReponseBottomView: ExtendedView {
     var red: CGFloat = 1.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-    
+
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -46,8 +46,6 @@ class AutographSignatureReponseBottomView: ExtendedView {
     }
     
     @IBAction func colorAction(sender:UIButton?){
-        
-        //self.delegate?.colorAction(sender:sender)
         ColorViewClass?.mainColorView?.isHidden = false
     }
     
@@ -61,7 +59,7 @@ class AutographSignatureReponseBottomView: ExtendedView {
         if (sender.backgroundColor?.getRed(&fRed, green: &fGreen, blue: &fBlue, alpha: &fAlpha))! {
             
             Log.echo(key: "", text:"test color if")
-            if fRed < 0 {
+            if fRed < 0{
                 fRed = -(fRed)
             }
             if fGreen < 0{
@@ -74,15 +72,8 @@ class AutographSignatureReponseBottomView: ExtendedView {
             green = fGreen
             blue = fBlue
             opacity = fAlpha
-            //drawPreview()
-           //delegate?.toolUpdated(self)
-            Log.echo(key: "", text:" In the Button Selection Red color is \(fRed) blue color is\(fBlue) green color is \(fGreen) alpha is \(fAlpha)")
-        }
-        else{
-            Log.echo(key: "", text:"test color else: \(sender.backgroundColor)")
         }
     }
-
 }
 extension AutographSignatureReponseBottomView:UpdatForSelectedColorProtocol{
         
