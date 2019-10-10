@@ -38,6 +38,19 @@ class EditSessionFormController: InterfaceExtendedController {
         
     }
     
+    @IBAction func bookingStyleMoreAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .bookingStyle
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+        
+    }
+    
     @IBAction func moreDetailDateAction(sender:UIButton){
         
         guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {

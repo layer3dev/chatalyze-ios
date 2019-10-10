@@ -53,6 +53,7 @@ class EventInfo: NSObject {
     var isSponsorEnable = false
     var isAutographAllow:String?
     var callSchduleId:String?
+    var isFlexEnabled:Bool?
     
     override init(){
         super.init()
@@ -85,6 +86,7 @@ class EventInfo: NSObject {
         notified = json["notified"].string
         started = json["started"].string
         groupId = json["groupId"].string
+        isFlexEnabled = json["flexibleBooking"].boolValue        
         
         paymentTransferred = json["paymentTransferred"].bool
         leadPageUrl = json["leadPageUrl"].string

@@ -23,7 +23,7 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var standardField:SigninFieldView?
     @IBOutlet var flexField:SigninFieldView?
     
-    var currentBookingStyle = BookingStyle.standard
+    var currentBookingStyle = BookingStyle.flex
     
     @IBOutlet var customCalenadarSupportView:UIView?
     let appDelegate:AppDelegate? = UIApplication.shared.delegate as? AppDelegate
@@ -441,6 +441,22 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
+    func paintBookingStyle(){
+        
+        if self.currentBookingStyle == .standard{
+            self.paintStandardBookingStyle()
+            return
+        }
+        
+        if self.currentBookingStyle == .flex{
+            
+            self.paintFlexBookingStyle()
+            return
+        }
+        
+        
+    }
+    
     
     func paintBookingStyleLabels(){
         
@@ -482,6 +498,7 @@ class EditSessionFormRootView:ExtendedView {
         initializeSessionLengthPicker()
         implementSponsorShip()
         paintBookingStyleLabels()
+        paintBookingStyle()
         
         self.breakAdapter?.root = self
         self.titleField?.textField?.delegate = self
@@ -510,6 +527,17 @@ class EditSessionFormRootView:ExtendedView {
         self.timeField?.textField?.text = desiredTime
         
         slotSelected = Int(eventInfo.duration ?? 0.0)
+        
+        Log.echo(key: "yud", text: "is flex really enabled \(info?.isFlexEnabled)")
+        
+        if !(info?.isFlexEnabled ?? false){
+            
+            self.paintStandardBookingStyle()
+        }else{
+            
+            self.paintFlexBookingStyle()
+
+        }
      
         if slotSelected ?? 0 <= 1 {
             self.chatLength?.textField?.text = "\(slotSelected ?? 0) min"
@@ -875,15 +903,25 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBAction func standardViewAction(sender:UIButton?){
 
+        self.paintStandardBookingStyle()
+        self.currentBookingStyle = .standard
+    }
+    
+    func paintStandardBookingStyle(){
+        
         self.standardField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
         self.flexField?.backgroundColor = UIColor.white
-        self.currentBookingStyle = .standard
+    }
+    
+    func paintFlexBookingStyle(){
+      
+        self.standardField?.backgroundColor = UIColor.white
+        self.flexField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
     }
     
     @IBAction func flexViewAction(sender:UIButton?){
 
-        self.standardField?.backgroundColor = UIColor.white
-        self.flexField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
+        self.paintFlexBookingStyle()
         self.currentBookingStyle = .flex
     }
     
@@ -1027,12 +1065,6 @@ extension EditSessionFormRootView{
         return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation
     }
     
-    fileprivate func validateBookingStyle()->Bool{
-        
-        if self.currentBookingStyle == .none{
-            
-        }
-    }
     
     
     fileprivate func titleValidation()->Bool {
@@ -1744,8 +1776,6 @@ extension EditSessionFormRootView {
         }
         
         let totalSlots = totalSlot - (breakAdapter?.selectedBreakSlots ?? 0)
-        
-        Log.echo(key: "yud", text: "selected slots are break \(breakAdapter?.selectedBreakSlots)")
         
         if price > 9999.0 {
             return

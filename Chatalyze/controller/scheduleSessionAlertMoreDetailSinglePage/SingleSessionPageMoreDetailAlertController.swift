@@ -23,6 +23,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var screenShotScroll:UIScrollView?
     @IBOutlet var breakScrollView:UIScrollView?
     @IBOutlet var sponsorScroll:UIScrollView?
+    @IBOutlet var bookingStyleScroll:UIScrollView?
+    
     
     enum infoType:Int{
         
@@ -36,7 +38,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         case screenShot = 7
         case breakScroll = 8
         case sponsor = 9
-        case none = 10
+        case bookingStyle = 10
+        case none = 11
     }
     
     var currentInfo = infoType.none
@@ -45,13 +48,17 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var sessionLengthBottomTextView:UITextView?
     @IBOutlet var priceLabel:UILabel?
     
+    @IBOutlet var standardInfoLabel:UILabel?
+    @IBOutlet var flexInfoLabel:UILabel?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         paintInterface()
-        paintUI()
     }
     
+   
     
     func paintUI(){
         
@@ -90,11 +97,42 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             textOneMutable.append(textTwoAttrNew)
             
             self.priceLabel?.attributedText = textOneMutable
+            
         }
-        
-        //For more details, check out our What is a chat session post or feel free to contact us!
     }
     
+    
+    func paintBookingStyleNew(){
+        
+        DispatchQueue.main.async {
+            
+            let size = UIDevice.current.userInterfaceIdiom == .pad ? 20:16
+            
+            let bookingOneText = "Standard: "
+            
+            let bookingTwoText = "If you select Standard, your chats will automatically be sequenced one after another so you avoid the risk of having long empty gaps between chats. People who want to book a chat will only see the next available time slot and will not have the option to select one of the later chats in the session instead."
+            
+            let bookTextOneMutable = bookingOneText.toMutableAttributedString(font: "Nunito-Bold", size: size, color: UIColor(hexString: "#929292"), isUnderLine: false)
+            
+            let bookingTextTwoAttr = bookingTwoText.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#929292"), isUnderLine: false)
+            
+            bookTextOneMutable.append(bookingTextTwoAttr)
+            
+            let bookingThreeText = "Flex: "
+            
+            let bookingFourText = "If you select Flex, people will be able to select which chat they want to book from all of the available times. If the session does not get fully booked, you may have gaps between some of your chats."
+            
+            let bookTextThreeMutable = bookingThreeText.toMutableAttributedString(font: "Nunito-Bold", size: size, color: UIColor(hexString: "#929292"), isUnderLine: false)
+            
+            let bookingTextFourAttr = bookingFourText.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#929292"), isUnderLine: false)
+            
+            bookTextThreeMutable.append(bookingTextFourAttr)
+            
+            self.standardInfoLabel?.attributedText = bookTextOneMutable
+            self.flexInfoLabel?.attributedText = bookTextThreeMutable
+            
+        }
+    }
     
     
     func paintInterface(){
@@ -152,6 +190,12 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.sponsorScroll?.isHidden = false
             return
         }
+        if currentInfo == .bookingStyle{
+            hideAll()
+            self.bookingStyleScroll?.isHidden = false
+            return
+        }
+        
     }
     
     @IBAction func dismissAction(sender:UIButton?){
@@ -184,13 +228,18 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.donationScroll?.isHidden = true
         self.screenShotScroll?.isHidden = true
         self.breakScrollView?.isHidden = true
-        self.sponsorScroll?.isHidden = true 
+        self.sponsorScroll?.isHidden = true
+        self.bookingStyleScroll?.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.threeEdgesView?.roundCorners(corners: [.bottomRight,.topLeft,.topRight], radius: 25)
+        
+        self.paintBookingStyleNew()
+        self.paintUI()
+
     }
     
     
