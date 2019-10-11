@@ -36,7 +36,7 @@ class RemoteVideoView: VideoView {
 
     override func updateSize(size: CGSize){
         
-        Log.echo(key: "remote", text: "updateSize ->> \(size)")
+        Log.echo(key: "rotation", text: "updateSize ->> \(size)")
         self.streamSize = size
         self.streamUpdationDelegate?.updateForStreamPosition(isPortrait: isPortrait(size: size) ?? true)
         refreshRendererSize()

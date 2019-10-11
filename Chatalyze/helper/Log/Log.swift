@@ -23,11 +23,10 @@ import Foundation
         
         guard let textEx = text
             else{
-                
                 print("\(key) -> nil")
                 return
         }
         
-        print("\(DateParser.dateToStringInServerFormat(Date())) \(key) -> \(textEx)")
+        print("\(String(describing: DateParser.dateToStringInServerFormat(Date()))) \(key) -> \(textEx)")
     }
 }

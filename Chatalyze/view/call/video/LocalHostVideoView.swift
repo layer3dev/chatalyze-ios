@@ -28,8 +28,13 @@ class LocalHostVideoView: LocalVideoView {
         if(UIDevice.current.orientation.isFlat){
             
             if UIApplication.shared.statusBarOrientation.isLandscape{
+            
+                Log.echo(key: "rotation", text: "rotation is of the landscape flat \(isSignatureActive)")
                 updateForLandscape()
+           
             }else{
+                
+                Log.echo(key: "rotation", text: "rotation is of the portrait flat \(isSignatureActive)")
                 updateForPortrait()
             }
             //updateForPortrait()
@@ -37,8 +42,14 @@ class LocalHostVideoView: LocalVideoView {
         }
 
         if (UIDevice.current.orientation.isLandscape) {
+            
+            Log.echo(key: "rotation", text: "rotation is of the landscape \(isSignatureActive)")
             updateForLandscape()
+            return
+            
         } else {
+            
+            Log.echo(key: "rotation", text: "rotation is of the portrait and the signature is \(isSignatureActive)")
             updateForPortrait()
         }
     }
@@ -92,8 +103,8 @@ class LocalHostVideoView: LocalVideoView {
         if isSignatureActive{
             
             resetConstraints()
+            topConstraint?.isActive = false
             bottomConstraint?.isActive = true
-            userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
             userTrailingForLandscapeOnSignatureNSimpleCall?.isActive = true
             
             if(isIPad){

@@ -56,7 +56,15 @@ class EditSessionFormRootView:ExtendedView {
         case oneHour = 1
         case oneAndHalfHour = 2
         case twoHour = 3
-        case none = 4
+        case twoAndHalf = 4
+        case three = 5
+        case threeAndHalf = 6
+        case four = 7
+        case fourAndHalf = 8
+        case five = 9
+        case fiveAndHalf = 10
+        case six = 11
+        case none = 12
     }
     
     var slotSelected:Int?
@@ -101,7 +109,8 @@ class EditSessionFormRootView:ExtendedView {
     private let timePickerContainer = DatePicker()
     fileprivate var isTimePickerIsShowing = false
     
-    var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours"]
+    var sessionArray = ["30 mins","1 hour","1.5 hours","2 hours","2.5 hours","3 hours","3.5 hours","4 hours","4.5 hours","5 hours","5.5 hours","6 hours"]
+    
     var chatLengthArray = [String]()
     
     let chatLengthPicker = CustomPicker()
@@ -547,20 +556,20 @@ class EditSessionFormRootView:ExtendedView {
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
             let minutes = Int(totalLengthOfChat/60)
-           
+            
             Log.echo(key: "yud", text: "minutes of the slot time is \(minutes)")
             if minutes == 30{
-              
+                
                 totalTimeOfChat = .thirtyMinutes
                 self.sessionLength?.textField?.text = sessionArray[0]
             }
             if minutes == 60{
-               
+                
                 totalTimeOfChat = .oneHour
                 self.sessionLength?.textField?.text = sessionArray[1]
             }
             if minutes == 90{
-             
+                
                 totalTimeOfChat = .oneAndHalfHour
                 self.sessionLength?.textField?.text = sessionArray[2]
             }
@@ -568,6 +577,46 @@ class EditSessionFormRootView:ExtendedView {
                 
                 totalTimeOfChat = .twoHour
                 self.sessionLength?.textField?.text = sessionArray[3]
+            }
+            if minutes == 150{
+                
+                totalTimeOfChat = .twoAndHalf
+                self.sessionLength?.textField?.text = sessionArray[4]
+            }
+            if minutes == 180{
+                
+                totalTimeOfChat = .three
+                self.sessionLength?.textField?.text = sessionArray[5]
+            }
+            if minutes == 210{
+                
+                totalTimeOfChat = .threeAndHalf
+                self.sessionLength?.textField?.text = sessionArray[6]
+            }
+            if minutes == 240{
+                
+                totalTimeOfChat = .four
+                self.sessionLength?.textField?.text = sessionArray[7]
+            }
+            if minutes == 270{
+                
+                totalTimeOfChat = .fourAndHalf
+                self.sessionLength?.textField?.text = sessionArray[8]
+            }
+            if minutes == 300{
+                
+                totalTimeOfChat = .five
+                self.sessionLength?.textField?.text = sessionArray[9]
+            }
+            if minutes == 330{
+                
+                totalTimeOfChat = .fiveAndHalf
+                self.sessionLength?.textField?.text = sessionArray[10]
+            }
+            if minutes == 360{
+                
+                totalTimeOfChat = .six
+                self.sessionLength?.textField?.text = sessionArray[11]
             }
         }
         
@@ -1416,6 +1465,30 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
             if row == 3{
                 totalTimeOfChat = .twoHour
             }
+            if row == 4{
+                totalTimeOfChat = .twoAndHalf
+            }
+            if row == 5{
+                totalTimeOfChat = .three
+            }
+            if row == 6{
+                totalTimeOfChat = .threeAndHalf
+            }
+            if row == 7{
+                totalTimeOfChat = .four
+            }
+            if row == 8{
+                totalTimeOfChat = .fourAndHalf
+            }
+            if row == 9{
+                totalTimeOfChat = .five
+            }
+            if row == 10{
+                totalTimeOfChat = .fiveAndHalf
+            }
+            if row == 11{
+                totalTimeOfChat = .six
+            }
             let _ = self.validateSessionLength()
             return
         }
@@ -1953,6 +2026,46 @@ extension EditSessionFormRootView{
                 date = calendar.date(byAdding: .minute, value: 120, to: newDate)
                 self.scheduleInfo?.endDateTime = date
             }
+            else if totalTimeOfChat == .twoAndHalf{
+                
+                date = calendar.date(byAdding: .minute, value: 150, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .three{
+                
+                date = calendar.date(byAdding: .minute, value: 180, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .threeAndHalf{
+                
+                date = calendar.date(byAdding: .minute, value: 210, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .four{
+                
+                date = calendar.date(byAdding: .minute, value: 240, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .fourAndHalf{
+                
+                date = calendar.date(byAdding: .minute, value: 270, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .five{
+                
+                date = calendar.date(byAdding: .minute, value: 300, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .fiveAndHalf{
+                
+                date = calendar.date(byAdding: .minute, value: 330, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
+            else if totalTimeOfChat == .six{
+                
+                date = calendar.date(byAdding: .minute, value: 360, to: newDate)
+                self.scheduleInfo?.endDateTime = date
+            }
             self.scheduleInfo?.duration = chatDuration
         }
         
@@ -2008,7 +2121,7 @@ extension EditSessionFormRootView{
             dateFormatter.timeZone = TimeZone(identifier: "UTC")
             dateFormatter.locale = Locale(identifier: "en_US_POSIX")
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            let requiredNewDate = dateFormatter.string(from: newDate )
+            let requiredNewDate = dateFormatter.string(from: newDate)
             return requiredNewDate
         }
         return nil

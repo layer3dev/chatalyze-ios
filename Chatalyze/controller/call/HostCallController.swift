@@ -1388,7 +1388,7 @@ extension HostCallController{
                 self.isSignatureActive = true
                 
                 self.hostRootView?.localVideoView?.isSignatureActive = true
-                self.hostRootView?.localVideoView?.updateForPortrait()
+                self.hostRootView?.localVideoView?.updateLayoutRotation()
                 self.sendScreenshotConfirmation(info)
                 
             })
@@ -1557,6 +1557,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     
     func doneAction(sender:UIButton?){
         
+        print("done is calling")
+        
         self.uploadAutographImage()
         
         self.hostRootView?.canvasContainer?.hide()
@@ -1573,7 +1575,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.releaseDeviceOrientation()
         self.showToastWithMessage(text: "Autograph saving....", time: 5.0)
-        
     }
     
     func undoAction(sender:UIButton?){
@@ -1590,12 +1591,13 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.hostRootView?.canvasContainer?.show(with: UIImage(named:"testingImage"))
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
-        self.hostRootView?.remoteVideoContainerView?.updateForSignature()
         self.signaturAccessoryView?.isHidden = false
         self.isSignatureActive = true
         
         self.hostRootView?.localVideoView?.isSignatureActive = true
-        self.hostRootView?.localVideoView?.updateForPortrait()
+        self.hostRootView?.localVideoView?.updateLayoutRotation()
+        self.hostRootView?.remoteVideoContainerView?.updateForSignature()
+
     
     }    
     

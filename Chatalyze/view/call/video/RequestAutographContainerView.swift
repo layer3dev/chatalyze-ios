@@ -14,14 +14,6 @@ class RequestAutographContainerView: ExtendedView {
     @IBOutlet private var loaderView : LoaderView?
     @IBOutlet private var icon : UIImageView?
     @IBOutlet private var button : UIButton?
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -43,6 +35,7 @@ class RequestAutographContainerView: ExtendedView {
     }
     
     func hideLoader(){
+        
         loaderView?.loader?.stopAnimating()
         button?.isEnabled = true
     }

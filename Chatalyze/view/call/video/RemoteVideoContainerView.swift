@@ -99,7 +99,7 @@ class RemoteVideoContainerView: ExtendedView {
     
     func updateForSignature(){
         
-        Log.echo(key: "yud" ,text: "my orientation is \(UIDevice.current.orientation)")
+        Log.echo(key: "rotation" ,text: "my orientation in remote view is  \(UIDevice.current.orientation)")
         
         //This method is required to call during the first time initialization of the screen as the screenshot appears at this time handling flat position is also required to the handle.
         
@@ -114,7 +114,7 @@ class RemoteVideoContainerView: ExtendedView {
         if UIDevice.current.orientation.isLandscape {
             
             // Constraint in the landscape mode for the
-            Log.echo(key: "yud" ,text: "is landscape is Calling")
+            Log.echo(key: "rotation" ,text: "is landscape is Calling in remote video view and the stream position is \(isStreamPortraitPosition)")
             
             resetConstraints()
             self.widthOfRemote?.isActive = true
@@ -156,7 +156,7 @@ class RemoteVideoContainerView: ExtendedView {
             
             // Constraints that handles the portrait on the Signature call
             
-            Log.echo(key: "yud" ,text: "is portrait is Calling")
+            Log.echo(key: "rotation" ,text: "is portrait is Calling in remotevideo view")
             
             resetConstraints()
             topAlignedToLocalView?.isActive = true
@@ -196,9 +196,14 @@ class RemoteVideoContainerView: ExtendedView {
         
         if UIDevice.current.orientation.isFlat{
             
+            Log.echo(key: "rotation" ,text: "is Flat is Calling in remote video view")
+
             if UIApplication.shared.statusBarOrientation.isPortrait {
-                
-                Log.echo(key: "yud" ,text: "is Flat is Calling")
+              
+                Log.echo(key: "rotation" ,text: "is Flat portrait is Calling in remote video view")
+                Log.echo(key: "rotation" ,text: " and the stream position is \(isStreamPortraitPosition)")
+
+
                 resetConstraints()
                 topAlignedToLocalView?.isActive = true
                 horizontalSpacingToLocalView?.isActive = true
@@ -231,8 +236,10 @@ class RemoteVideoContainerView: ExtendedView {
                 return
             }else{
                 
-                Log.echo(key: "yud" ,text: "is landscape is Calling")
-                
+                Log.echo(key: "rotation" ,text: "is Flat landscape is Calling in remote video view")
+
+                Log.echo(key: "rotation" ,text: " and the stream position is \(isStreamPortraitPosition)")
+
                 resetConstraints()
                 self.widthOfRemote?.isActive = true
                 self.heightOfRemote?.isActive = true
@@ -294,7 +301,7 @@ extension RemoteVideoContainerView:UpdateStreamChangeProtocol{
    
     func updateForStreamPosition(isPortrait:Bool){
         
-        Log.echo(key: "yud", text: "Stream updation is \(isPortrait)")
+        Log.echo(key: "rotation", text: "Stream updation is \(isPortrait)")
         
         isStreamPortraitPosition = isPortrait
         

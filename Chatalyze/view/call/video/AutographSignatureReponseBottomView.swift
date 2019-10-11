@@ -19,7 +19,6 @@ class AutographSignatureReponseBottomView: ExtendedView {
     var red: CGFloat = 1.0
     var green: CGFloat = 0.0
     var blue: CGFloat = 0.0
-
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -42,6 +41,8 @@ class AutographSignatureReponseBottomView: ExtendedView {
     }
     
     @IBAction func doneAction(sender:UIButton?){
+        
+        
         self.delegate?.doneAction(sender:sender)
     }
     

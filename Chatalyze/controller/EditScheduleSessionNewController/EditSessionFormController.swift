@@ -48,7 +48,6 @@ class EditSessionFormController: InterfaceExtendedController {
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: true) {
         }
-        
     }
     
     @IBAction func moreDetailDateAction(sender:UIButton){
@@ -61,7 +60,6 @@ class EditSessionFormController: InterfaceExtendedController {
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: true) {
         }
-        
     }
     
     @IBAction func moreDetailTimeAction(sender:UIButton){
