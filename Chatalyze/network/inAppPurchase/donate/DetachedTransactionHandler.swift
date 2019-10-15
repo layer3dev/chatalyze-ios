@@ -10,6 +10,7 @@ import Foundation
 import StoreKit
 
 class DetachedTransactionHandler : DonateCompleteTransaction{
+    
     func processDetached(transaction : SKPaymentTransaction?, completion : @escaping (_ success : Bool)->()){
         
         guard let transaction = transaction

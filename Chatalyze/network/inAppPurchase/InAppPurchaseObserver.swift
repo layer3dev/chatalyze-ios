@@ -35,6 +35,7 @@ class InAppPurchaseObserver : NSObject{
 extension InAppPurchaseObserver : SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+                
         Log.echo(key: "in_app_purchase", text: "paymentQueue -> triggerred")
         for transaction in transactions {
              Log.echo(key: "in_app_purchase", text: "paymentQueue -> looping triggerred -> \(transaction.transactionState)")

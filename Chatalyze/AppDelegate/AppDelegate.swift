@@ -198,7 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 controller.info  = info
 
                 Log.echo(key: "yud", text: "Presented in the HostDashboard UI")
-                self.shownEarlySessionIdList.append(id)
+                self.shownEarlySessionIdList.append(id)                
                 RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
             }
         }

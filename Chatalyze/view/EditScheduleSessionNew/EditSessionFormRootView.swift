@@ -479,11 +479,11 @@ class EditSessionFormRootView:ExtendedView {
             let text3 = "Flex: "
             let text4 = "Give participants flexibility by allowing them to select any available time slot to book"
             
-            let text1Mutate = text1.toMutableAttributedString(font: "Nunito-SemiBold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            let text1Mutate = text1.toMutableAttributedString(font: "Nunito-Bold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
             
             let text1Attribute = text2.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
             
-            let text2Mutate = text3.toMutableAttributedString(font: "Nunito-SemiBold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
+            let text2Mutate = text3.toMutableAttributedString(font: "Nunito-Bold", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
             
             let text2Attribute = text4.toMutableAttributedString(font: "Nunito-Regular", size: size, color: UIColor(hexString: "#4a4a4a"), isUnderLine: false)
             

@@ -29,15 +29,15 @@ class UniqueUserIdentifier{
         
             var hashedString = hashedDouble.toString(withDigits: 50)
         
-            hashedString = hashedString.substring(from: hashedString.characters.index(hashedString.startIndex, offsetBy: 2))
+            hashedString = hashedString.substring(from: hashedString.index(hashedString.startIndex, offsetBy: 2))
         
             //hashedString = Double(hashedString)?.toString(withDigits: 16) ?? ""
             hashedString = roundOff(token : hashedString)
         
-            hashedString = hashedString.substring(to: hashedString.characters.index(hashedString.startIndex, offsetBy: 16))
+            hashedString = hashedString.substring(to: hashedString.index(hashedString.startIndex, offsetBy: 16))
         
             
-            let characters = hashedString.characters.map{Int(String($0)) ?? 0}
+            let characters = hashedString.map{Int(String($0)) ?? 0}
         
             let array = characters.map { (token) -> String in
                 
@@ -77,7 +77,7 @@ class UniqueUserIdentifier{
         let finalHash: Int64 = Int64(zeroFilteredHash * pow(Double(10),Double(16)))
         var hashString = String(finalHash)
         
-        let characters = hashString.characters.map{Int(String($0)) ?? 0}
+        let characters = hashString.map{Int(String($0)) ?? 0}
         
         let array = characters.map { (token) -> String in
             
@@ -93,11 +93,11 @@ class UniqueUserIdentifier{
     
     fileprivate func roundOff(token : String)->String{
         
-        var extraElement = token.substring(from: token.characters.index(token.startIndex, offsetBy: 16))
-        extraElement = extraElement.substring(to: extraElement.characters.index(extraElement.startIndex, offsetBy: 1))
+        var extraElement = token.substring(from: token.index(token.startIndex, offsetBy: 16))
+        extraElement = extraElement.substring(to: extraElement.index(extraElement.startIndex, offsetBy: 1))
         
         
-        let elementValueString = token.substring(to: token.characters.index(token.startIndex, offsetBy: 16))
+        let elementValueString = token.substring(to: token.index(token.startIndex, offsetBy: 16))
         
         guard let elementValue = Double(elementValueString)
             else{
