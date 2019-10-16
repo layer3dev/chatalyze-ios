@@ -23,7 +23,7 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var standardField:SigninFieldView?
     @IBOutlet var flexField:SigninFieldView?
     
-    var currentBookingStyle = BookingStyle.flex
+    var currentBookingStyle = BookingStyle.none
     
     @IBOutlet var customCalenadarSupportView:UIView?
     let appDelegate:AppDelegate? = UIApplication.shared.delegate as? AppDelegate
@@ -446,7 +446,7 @@ class EditSessionFormRootView:ExtendedView {
             dateFormatter.locale = NSLocale.current
             let dateInStr = dateFormatter.string(from: pickerDate)
             self.dateField?.textField?.text = dateInStr
-           let _ =  self.validateDate()
+            let _ =  self.validateDate()
         }
     }
     
@@ -458,12 +458,14 @@ class EditSessionFormRootView:ExtendedView {
         }
         
         if self.currentBookingStyle == .flex{
-            
             self.paintFlexBookingStyle()
             return
         }
         
-        
+        if self.currentBookingStyle == .none{
+            self.resetFlexBookingUI()
+            return
+        }
     }
     
     
@@ -545,7 +547,6 @@ class EditSessionFormRootView:ExtendedView {
         }else{
             
             self.paintFlexBookingStyle()
-
         }
      
         if slotSelected ?? 0 <= 1 {
@@ -960,13 +961,22 @@ class EditSessionFormRootView:ExtendedView {
         
         self.standardField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
         self.flexField?.backgroundColor = UIColor.white
+        self.currentBookingStyle = .standard
     }
     
     func paintFlexBookingStyle(){
       
         self.standardField?.backgroundColor = UIColor.white
         self.flexField?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255, alpha: 1)
+        self.currentBookingStyle = .flex
     }
+    
+    func resetFlexBookingUI(){
+        
+        self.standardField?.backgroundColor = UIColor.white
+        self.flexField?.backgroundColor = UIColor.white
+    }
+    
     
     @IBAction func flexViewAction(sender:UIButton?){
 
@@ -1078,6 +1088,7 @@ extension EditSessionFormRootView{
         let priceValidated = priceValidation()
         let lengthBalanceValidate = validateBalanceBetweenSessionAndChatLength()
         let sessionLengthValidation = validateSessionLength()
+        let bookingStyleValidate = validateBookingStyle()
         
         if !titleValidated{
             scrollView?.scrollToCustomView(customView: titleField)
@@ -1106,12 +1117,16 @@ extension EditSessionFormRootView{
         else if !durationValidated{
             scrollView?.scrollToCustomView(customView: chatLength)
         }
+            
+        else if !bookingStyleValidate{
+            scrollView?.scrollToCustomView(customView: standardField)
+        }
         
         else if !priceValidated{
             scrollView?.scrollToCustomView(customView: priceField)
         }
-        
-        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation
+                
+        return titleValidated && dateValidated && timeValidated && isFutureTimeValidation && durationValidated && priceValidated && lengthBalanceValidate && sessionLengthValidation && bookingStyleValidate
     }
     
     
@@ -1133,6 +1148,17 @@ extension EditSessionFormRootView{
 }
 
 extension EditSessionFormRootView {
+
+    func validateBookingStyle()->Bool{
+        
+        if self.currentBookingStyle == .none{
+            
+            self.standardField?.showError(text: "Booking style is required.")
+            return false
+        }
+        self.standardField?.resetErrorStatus()
+        return true
+    }
     
     func validateDate()->Bool {
         

@@ -214,7 +214,7 @@ class EditSessionFormController: InterfaceExtendedController {
             self.rootView?.scheduleInfo?.minimumPlanPriceToSchedule = info.minPrice ?? 0.0
             self.rootView?.planInfo = info
             
-            Log.echo(key: "Earning Screen", text: "id of plan is \(info.id) name of the plan is \(info.name) min. price is \(info.minPrice) and the plan fee is \(info.chatalyzeFee)")
+            Log.echo(key: "Earning Screen", text: "id of plan is \(String(describing: info.id)) name of the plan is \(String(describing: info.name)) min. price is \(String(describing: info.minPrice)) and the plan fee is \(String(describing: info.chatalyzeFee))")
         }
     }
     

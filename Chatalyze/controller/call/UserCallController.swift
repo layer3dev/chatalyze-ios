@@ -97,12 +97,16 @@ class UserCallController: VideoCallController {
         confirmCallLinked()
         verifyIfExpired()
         processAutograph()
-        DispatchQueue.main.async {
-            self.updateCallHeaderInfo()
-            self.updateLableAnimation()
-        }
-        resetAutographCanvasIfNewCallAndSlotExists()
-        processDefaultSignature()
+//        DispatchQueue.main.async {
+            
+//        }
+        //TODO:- Insert below two functions in  the main thread once the signature feature is enabled.
+        self.updateCallHeaderInfo()
+        self.updateLableAnimation()
+        
+        //TODO:- Need to uncomment in order to start the Signature Feature.
+        //resetAutographCanvasIfNewCallAndSlotExists()
+        //processDefaultSignature()
     }
     
     func processDefaultSignature(){
@@ -136,6 +140,7 @@ class UserCallController: VideoCallController {
             //Log.echo(key: "yudi", text: " new id is \(id) saved id is \(localSlotIdToManageDefaultScreenshot)")
             
             if id != localSlotIdToManageDefaultScreenshot {
+              
                 Log.echo(key: "yudi", text: "default signature is initialized to false")
                 defaultSignatureInitiated = false
             }
@@ -705,7 +710,8 @@ class UserCallController: VideoCallController {
                                         
                                         Log.echo(key: "yud", text: "Requested foor the screenshot")
                                         
-                                        self.selfieAutographRequest()
+                                        //TODO:- Need to uncomment in order to start the Signature Feature.
+                                        //self.selfieAutographRequest()
                                     }
                                     //self.defaultAutographRequest()
                                 }

@@ -29,7 +29,9 @@ class AutographyHostCanvas: ExtendedView {
         
         initialization()
         self.mainImageView?.broadcastDelegate = self
-        registerScreenShotLoaded()
+        
+        //TODO:- Need to uncomment it in order to enable the selfie
+        //registerScreenShotLoaded()
     }
     
     func registerScreenShotLoaded(){

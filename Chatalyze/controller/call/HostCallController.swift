@@ -272,9 +272,6 @@ class HostCallController: VideoCallController {
     
     private func registerForTimerNotification(){
         
-        socketListener?.onEvent("screenshotLoaded", completion: { (response) in
-        })
-        
         socketListener?.onEvent("screenshotCountDown", completion: { (response) in
             
             if let responseDict:[String:JSON] = response?.dictionary{
@@ -334,8 +331,9 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
         refresh()        
         updateLableAnimation()
-        resetAutographCanvasIfNewCallAndSlotExists()
         
+        //TODO:- Need to uncomment if the signature feature needs to be enable.
+        //resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -1285,7 +1283,8 @@ extension HostCallController{
             
             if (info.metaInfo?.type == .signRequest)
             {
-                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
+                //TODO:- Need to uncomment this in order to enable the selfie feature. 
+                //self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
             }
         }
     }
