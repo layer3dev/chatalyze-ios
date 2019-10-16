@@ -23,7 +23,6 @@ class UserSocket {
         initialization()
     }
     
-    
     fileprivate func initialization(){
         
         initializeVariable()
@@ -45,6 +44,7 @@ class UserSocket {
     }
     
     fileprivate func registerForAppState(){
+                        
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
