@@ -108,6 +108,7 @@ class FreeEventPaymentController: InterfaceExtendedController {
                 //                }
                 
                 
+                controller.modalPresentationStyle = .fullScreen
                 RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
                 

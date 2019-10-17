@@ -53,6 +53,8 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
                 guard let controller = AnimationHostReadyController.instance() else {
                     return
                 }
+                controller.modalPresentationStyle = .fullScreen
+
                 
                 self.present(controller, animated: true, completion: {
                 })

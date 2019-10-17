@@ -571,6 +571,10 @@ class CameraTestController: InterfaceExtendedController {
                 }
                 controller.info = self.info                
                 DispatchQueue.main.async {
+                   
+                    
+                    controller.modalPresentationStyle = .fullScreen
+
                     RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                     })
                 }
@@ -594,6 +598,10 @@ class CameraTestController: InterfaceExtendedController {
             //                    }
             //                })
             //            }
+           
+            
+            controller.modalPresentationStyle = .fullScreen
+
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })

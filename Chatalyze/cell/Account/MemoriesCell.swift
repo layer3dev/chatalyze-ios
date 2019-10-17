@@ -141,6 +141,9 @@ extension MemoriesCell{
                 deletedCell(self.indexPath)
             }
         }
+        
+        controller.modalPresentationStyle = .fullScreen
+        
         self.controller?.present(controller, animated: true)
     }
     

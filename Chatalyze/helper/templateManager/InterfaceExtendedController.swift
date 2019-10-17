@@ -19,6 +19,12 @@ class InterfaceExtendedController : ExtendedController {
         // Do any additional setup after loading the view.
         
         Log.echo(key : "rotate", text : "viewDidLoad in InterfaceExtended -> \(self)")
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
         initialization()
         showNavigationBar()
     }

@@ -552,6 +552,10 @@ extension EventPaymentRootView{
                         })
                     }
                 }
+               
+                
+                controller.modalPresentationStyle = .fullScreen
+
                 RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
                 return
@@ -643,6 +647,9 @@ extension EventPaymentRootView{
 //                    }
 //                }
                 controller.dismissListner = self.controller?.dismissListner
+               
+                controller.modalPresentationStyle = .fullScreen
+
                 RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                 })
             })

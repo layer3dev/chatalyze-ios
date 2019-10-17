@@ -50,7 +50,8 @@ class DonationSuccessController: InterfaceExtendedController {
         }
         controller.eventInfo = scheduleInfo
 //        present(controller, animated: false, completion:nil)
-        
+        controller.modalPresentationStyle = .fullScreen
+
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

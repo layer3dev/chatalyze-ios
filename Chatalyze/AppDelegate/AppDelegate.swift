@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         
+        print("Application did enter to background.")
+        
         Log.echo(key: "yud", text: "Application did enter to background.")
 
         timer.pauseTimer()
@@ -101,6 +103,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
 
+        print("Application will enter into the foreground.")
+        
         Log.echo(key: "yud", text: "Application will enter into the foreground.")
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
@@ -199,6 +203,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 Log.echo(key: "yud", text: "Presented in the HostDashboard UI")
                 self.shownEarlySessionIdList.append(id)                
+               
+                
+                controller.modalPresentationStyle = .fullScreen
                 RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
             }
         }
@@ -213,7 +220,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) ->UIInterfaceOrientationMask {
-        
         
         if isSignatureInCallisActive{
             

@@ -172,7 +172,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
             
         }*/
         controller.eventId = String(eventId)
-        
+        controller.modalPresentationStyle = .fullScreen
         self.root?.controller?.present(controller, animated: false, completion: nil)        
     }
     

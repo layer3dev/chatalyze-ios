@@ -89,14 +89,12 @@ class RootControllerManager{
                     return
                 }
                 onboardController.didLoad = didLoadWindow
-                window?.set(rootViewController: onboardController, withTransition: transition)
+                window?.rootViewController = onboardController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
             }
         }
     }
-
-    
     
     private func showSigninScreen(didLoadWindow:(()->())?){
         
@@ -113,7 +111,6 @@ class RootControllerManager{
         window?.rootViewController = signinNav
     }
     
-    
     private func showHomeScreen(didLoadWindow:(()->())?){
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -126,13 +123,14 @@ class RootControllerManager{
         if let userInfo = SignedUserInfo.sharedInstance{
       
             Log.echo(key: "yud", text: "I am user with roleTYpe \(userInfo.role) and the roleID is \(userInfo.roleId) signed Info is is \(SignedUserInfo.sharedInstance?.id)")
+            
             if userInfo.role == .analyst{
                 
                 guard let containerController = ContainerController.instance() else {
                     return
                 }
                 containerController.didLoad = didLoadWindow
-                window?.set(rootViewController: containerController, withTransition: transition)
+                window?.rootViewController = containerController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
                 
@@ -142,7 +140,7 @@ class RootControllerManager{
                     return
                 }
                 containerController.didLoad = didLoadWindow
-                window?.set(rootViewController: containerController, withTransition: transition)
+                window?.rootViewController = containerController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
             }

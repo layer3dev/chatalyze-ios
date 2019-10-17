@@ -108,6 +108,8 @@ class SetHostProfileController: InterfaceExtendedController {
             guard let controller = AnimationPaypalSetupController.instance() else{
                 return
             }
+            controller.modalPresentationStyle = .fullScreen
+
             self.present(controller, animated: true) {
             }
         }

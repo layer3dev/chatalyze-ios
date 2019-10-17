@@ -50,6 +50,7 @@ class MyTicketsVerticalController: MyTicketsController{
             return
         }
         controller.isComingFromDashboard = true
+        controller.modalPresentationStyle = .fullScreen
         self.navigationController?.present(controller, animated: true, completion: {
         })
     }

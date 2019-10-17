@@ -69,6 +69,8 @@ class TippingConfirmationController: InterfaceExtendedController {
         guard let controller = TippingCardDetailInfoController.instance() else{
             return
         }
+        controller.modalPresentationStyle = .fullScreen
+
         self.present(controller, animated: true) {
             
         }

@@ -41,6 +41,9 @@ class HostDashboardNewUIController: InterfaceExtendedController {
             return
         }
         
+        controller.modalPresentationStyle = .fullScreen
+
+        
         self.present(controller, animated: true, completion: {
         })
     }

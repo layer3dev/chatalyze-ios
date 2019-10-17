@@ -127,6 +127,7 @@ class HostCallController: VideoCallController {
                 return
         }
         
+        presentingController.modalPresentationStyle = .fullScreen
         presentingController.present(controller, animated: true, completion: nil)
     }
     
@@ -186,6 +187,8 @@ class HostCallController: VideoCallController {
         
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
         controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
+        
+        controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true, completion: {
         })
     }

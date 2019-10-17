@@ -74,7 +74,7 @@ class HostEventQueueController: EventQueueController {
             self.viewDidRelease()
             
             
-            
+            controller.modalPresentationStyle = .fullScreen
             self.navigationController?.present(controller, animated: true, completion: {
                 
                 self.navigationController?.popViewController(animated: false)

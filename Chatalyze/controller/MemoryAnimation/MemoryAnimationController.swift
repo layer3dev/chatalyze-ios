@@ -183,6 +183,8 @@ class MemoryAnimationController: InterfaceExtendedController {
         }
         controller.showingImage = self.memoryImage
         //controller.modalPresentationStyle = .overCurrentContext
+        controller.modalPresentationStyle = .fullScreen
+
         self.present(controller, animated: true, completion: {
         })
     }

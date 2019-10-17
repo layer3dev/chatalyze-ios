@@ -72,6 +72,9 @@ extension SystemRootView:UIGestureRecognizerDelegate{
 //                controller.dismissListner = self.controller?.dismissListner
                 controller.info = self.info
                 
+                controller.modalPresentationStyle = .fullScreen
+
+                
                     DispatchQueue.main.async {
                         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
                         })
@@ -86,6 +89,9 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             }
             controller.dismissListner = self.controller?.dismissListner
             controller.info = self.info
+            
+            controller.modalPresentationStyle = .fullScreen
+
             
                 DispatchQueue.main.async {
                     RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {

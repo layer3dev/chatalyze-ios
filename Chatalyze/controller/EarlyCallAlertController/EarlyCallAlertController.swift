@@ -151,6 +151,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
                 }
                 controller.eventId = String(self.info?.id ?? 0)
                 Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
+                controller.modalPresentationStyle = .fullScreen
                 currentPresentingController.present(controller, animated: true, completion: nil)
             }
         }

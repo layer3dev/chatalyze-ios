@@ -54,6 +54,7 @@ class HostHomeController: HomeController {
         }
         
         controller.eventId = String(eventId)
+        controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true, completion: nil)
     }
     

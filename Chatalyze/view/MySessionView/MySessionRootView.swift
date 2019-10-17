@@ -44,6 +44,7 @@ class MySessionRootView:ExtendedView{
                     return
             }
             controller.eventId = String(eventId)
+            controller.modalPresentationStyle = .fullScreen
             self.controller?.present(controller, animated: true, completion: nil)
         }
     }

@@ -63,6 +63,8 @@ class ProFeatureEndTrialController: InterfaceExtendedController {
         guard let controller = ProFeatureListController.instance() else{
             return
         }
+        controller.modalPresentationStyle = .fullScreen
+
         self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
         })
     }

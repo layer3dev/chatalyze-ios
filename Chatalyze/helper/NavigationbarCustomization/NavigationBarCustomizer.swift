@@ -64,6 +64,6 @@ class NavigationBarCustomizer{
     
     func updateStatusBar(){
         
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
 }
