@@ -10,19 +10,19 @@ import UIKit
 import SDWebImage
 
 class UserVideoRootView: UserVideoLayoutView {
- 
+    
     let testView = MemoryFrame()
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
-        
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
     
+    /*
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     
      */
     
     func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
@@ -48,7 +48,7 @@ class UserVideoRootView: UserVideoLayoutView {
     
     
     func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
-
+        
         guard let remoteView = remoteVideoView
             else{
                 completion(nil)
@@ -100,7 +100,7 @@ class UserVideoRootView: UserVideoLayoutView {
         let requireDate = dateFormatter.string(from: comingDate)
         testView.date?.text = "\(requireDate)"
         completion(getSnapshot(view: testView))
-       // return finalImage
+        // return finalImage
     }
     
     
@@ -117,7 +117,7 @@ class UserVideoRootView: UserVideoLayoutView {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         remote.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-       
+        
         //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
         
         local.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
@@ -131,11 +131,11 @@ class UserVideoRootView: UserVideoLayoutView {
     
     
     private func getTargetSize(remote : UIImage, local : UIImage)->CGSize{
-                
+        
         var remoteInfo = (size : remote.size, orientation : VideoView.orientation.undefined)
         
         var localInfo = (size : local.size, orientation : VideoView.orientation.undefined)
-
+        
         let targetSize = CGSize(width: remoteInfo.size.width/4, height: remoteInfo.size.height/4)
         
         if(remoteInfo.size.width > remoteInfo.size.height){
@@ -155,7 +155,7 @@ class UserVideoRootView: UserVideoLayoutView {
         }
         
         let localHeightAspect = localInfo.size.height/localInfo.size.width
-
+        
         if(localInfo.orientation == .landscape){
             
             let width =  targetSize.width
@@ -175,7 +175,7 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     
     private func getSnapshot(view : UIView)->UIImage?{
-
+        
         let bounds = view.bounds
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         view.drawHierarchy(in: bounds, afterScreenUpdates: true)
@@ -192,17 +192,40 @@ class UserVideoRootView: UserVideoLayoutView {
             isStatusBarhiddenDuringAnimation = true
             UIView.animate(withDuration: 0.25) {
                 
-                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5.0)
+                
                 self.layoutIfNeeded()
             }
             return
         }
         
         isStatusBarhiddenDuringAnimation = false
+        
+        var isNotch = false
+        var notchHeight:CGFloat = 0.0
+        
+        print("updated height ios \(UIApplication.shared.statusBarFrame.size.height)")
+        
+        if (UIApplication.shared.statusBarFrame.size.height > 21.0) && (UIDevice.current.userInterfaceIdiom == .phone){
+            
+            isNotch = true
+            notchHeight = UIApplication.shared.statusBarFrame.size.height
+        }
+        
         self.delegateCutsom?.hidingAnimateStatusBar()
         UIView.animate(withDuration: 0.25) {
             
-            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5)
+            if isNotch == true{
+                
+                print("showin notch device ")
+                self.headerTopConstraint?.constant = (notchHeight+5.0)
+                
+            }else{
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5.0)
+            }
+            
             self.layoutIfNeeded()
         }
     }

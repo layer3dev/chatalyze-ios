@@ -32,7 +32,7 @@ class HostVideoRootView: VideoRootView {
     
     override func shouldTapAllow(touch: UITouch) -> Bool {
         
-        Log.echo(key: "yud", text: " self self.canvasContainer?.isSignatureActive is \(self.canvasContainer?.isSignatureActive)")
+        Log.echo(key: "yud", text: "self self.canvasContainer?.isSignatureActive is \(self.canvasContainer?.isSignatureActive)")
         
         if self.canvasContainer?.isSignatureActive == true{
             return false
@@ -62,25 +62,50 @@ class HostVideoRootView: VideoRootView {
     override func animateHeader() {
         
         if isStatusBarhiddenDuringAnimation == false {
-            
+                   
             self.delegateCutsom?.visibleAnimateStatusBar()
             isStatusBarhiddenDuringAnimation = true
+                                 
             UIView.animate(withDuration: 0.25) {
-                
-                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
-//                self.signatureAccessoryViewBottomConstraint?.constant = 0
+                                                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5.0)
+
                 self.layoutIfNeeded()
             }
             return
         }
         
         isStatusBarhiddenDuringAnimation = false
+        
+        var isNotch = false
+        var notchHeight:CGFloat = 0.0
+        
+        print("updated height ios \(UIApplication.shared.statusBarFrame.size.height)")
+        
+        if (UIApplication.shared.statusBarFrame.size.height > 21.0) && (UIDevice.current.userInterfaceIdiom == .phone){
+            
+            isNotch = true
+            notchHeight = UIApplication.shared.statusBarFrame.size.height
+        }
+        
         self.delegateCutsom?.hidingAnimateStatusBar()
         UIView.animate(withDuration: 0.25) {
-            
-            self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+10.0)
-//            self.signatureAccessoryViewBottomConstraint?.constant = -150
-            self.layoutIfNeeded()
+                        
+            if isNotch == true{
+                
+                print("showin notch device ")
+                self.headerTopConstraint?.constant = (notchHeight+5.0)
+                self.layoutIfNeeded()
+
+            }else{
+                
+                self.headerTopConstraint?.constant = (UIApplication.shared.statusBarFrame.size.height+5.0)
+                self.layoutIfNeeded()
+
+            }
+
+                        
+//            self.layoutIfNeeded()
         }
     }
     

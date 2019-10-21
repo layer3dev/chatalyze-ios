@@ -15,10 +15,10 @@ class VideoActionContainer: ExtendedView {
     
     @IBOutlet var bottomSpace : NSLayoutConstraint?
     
-    let hiddenPaddingValue = -70.0
+    let hiddenPaddingValue = -100.0
     let visiblePaddingValue = 15.0
     
-    let hiddenPaddingValueiPad = -100.0
+    let hiddenPaddingValueiPad = -120.0
     let visiblePaddingValueiPad = 30.0
 
     override func viewDidLayout() {
