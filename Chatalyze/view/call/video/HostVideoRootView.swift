@@ -93,7 +93,7 @@ class HostVideoRootView: VideoRootView {
                         
             if isNotch == true{
                 
-                print("showin notch device ")
+                print("showing notch device")
                 self.headerTopConstraint?.constant = (notchHeight+5.0)
                 self.layoutIfNeeded()
 
