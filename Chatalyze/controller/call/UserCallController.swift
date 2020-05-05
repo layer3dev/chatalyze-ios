@@ -105,8 +105,8 @@ class UserCallController: VideoCallController {
         self.updateLableAnimation()
         
         //TODO:- Need to uncomment in order to start the Signature Feature.
-        //resetAutographCanvasIfNewCallAndSlotExists()
-        //processDefaultSignature()
+        resetAutographCanvasIfNewCallAndSlotExists()
+        processDefaultSignature()
     }
     
     func processDefaultSignature(){
@@ -711,7 +711,7 @@ class UserCallController: VideoCallController {
                                         Log.echo(key: "yud", text: "Requested foor the screenshot")
                                         
                                         //TODO:- Need to uncomment in order to start the Signature Feature.
-                                        //self.selfieAutographRequest()
+                                        self.selfieAutographRequest()
                                     }
                                     //self.defaultAutographRequest()
                                 }
@@ -1473,31 +1473,34 @@ extension UserCallController {
     private func registerForSelfieTimer(){
     }
     
+    
     private func prepateCanvas(info : CanvasInfo?){
-            
-        CacheImageLoader.sharedInstance.loadImage(info?.screenshot?.screenshot, token: { () -> (Int) in
-            
-            return 0
-        }) { (success, image) in
-            
-            if let slotidFromCanvas = info?.currentSlotId{
-                if let currentId = self.myLiveUnMergedSlot?.id{
-                    if slotidFromCanvas != currentId{
-                        return
-                    }
-                }else{
+        
+        guard let selfieImage = memoryImage
+            else{
+                return
+        }
+        
+        if let slotidFromCanvas = info?.currentSlotId{
+            if let currentId = self.myLiveUnMergedSlot?.id{
+                if slotidFromCanvas != currentId{
                     return
                 }
             }else{
                 return
             }
-            
-            self.userRootView?.canvasContainer?.show(with: image,info:info)
-            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
-            self.userRootView?.remoteVideoContainerView?.updateForSignature()
-            self.updateScreenshotLoaded(info : info)
+        }else{
+            return
         }
+        
+        self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
+        self.userRootView?.remoteVideoContainerView?.updateForSignature()
+        self.updateScreenshotLoaded(info : info)
+        
     }
+    
+
     
     private func updateScreenshotLoaded(info : CanvasInfo?){
         

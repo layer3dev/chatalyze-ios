@@ -75,7 +75,7 @@ class RemoteVideoContainerView: ExtendedView {
         return
     }
     
-    func resetConstraints(){        
+    func resetConstraints(){
                 
         leadingMain?.isActive = false
         trailingMain?.isActive = false
@@ -203,7 +203,6 @@ class RemoteVideoContainerView: ExtendedView {
                 Log.echo(key: "rotation" ,text: "is Flat portrait is Calling in remote video view")
                 Log.echo(key: "rotation" ,text: " and the stream position is \(isStreamPortraitPosition)")
 
-
                 resetConstraints()
                 topAlignedToLocalView?.isActive = true
                 horizontalSpacingToLocalView?.isActive = true
@@ -309,5 +308,9 @@ extension RemoteVideoContainerView:UpdateStreamChangeProtocol{
             return
         }
         self.signatureScreenSetup()
+    }
+    
+    func getContainerSize()->CGSize{
+        return self.frame.size
     }
 }

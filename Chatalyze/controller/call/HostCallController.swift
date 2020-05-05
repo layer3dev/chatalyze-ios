@@ -336,7 +336,7 @@ class HostCallController: VideoCallController {
         updateLableAnimation()
         
         //TODO:- Need to uncomment if the signature feature needs to be enable.
-        //resetAutographCanvasIfNewCallAndSlotExists()
+        resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -1287,7 +1287,7 @@ extension HostCallController{
             if (info.metaInfo?.type == .signRequest)
             {
                 //TODO:- Need to uncomment this in order to enable the selfie feature. 
-                //self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
+                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
             }
         }
     }
