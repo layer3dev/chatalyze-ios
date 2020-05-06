@@ -21,6 +21,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
     @IBOutlet var chatPriceScroll:UIScrollView?
     @IBOutlet var donationScroll:UIScrollView?
     @IBOutlet var screenShotScroll:UIScrollView?
+    @IBOutlet var autographScroll:UIScrollView?
     @IBOutlet var breakScrollView:UIScrollView?
     @IBOutlet var sponsorScroll:UIScrollView?
     @IBOutlet var bookingStyleScroll:UIScrollView?
@@ -39,7 +40,8 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         case breakScroll = 8
         case sponsor = 9
         case bookingStyle = 10
-        case none = 11
+        case autograph = 11
+        case none = 12
     }
     
     var currentInfo = infoType.none
@@ -180,6 +182,13 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
             self.screenShotScroll?.isHidden = false
             return
         }
+      
+      if currentInfo == .autograph {
+             hideAll()
+             self.autographScroll?.isHidden = false
+             return
+           }
+      
         if currentInfo == .breakScroll {
             hideAll()
             self.breakScrollView?.isHidden = false
@@ -230,6 +239,7 @@ class SingleSessionPageMoreDetailAlertController: UIViewController {
         self.breakScrollView?.isHidden = true
         self.sponsorScroll?.isHidden = true
         self.bookingStyleScroll?.isHidden = true
+        self.autographScroll?.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {

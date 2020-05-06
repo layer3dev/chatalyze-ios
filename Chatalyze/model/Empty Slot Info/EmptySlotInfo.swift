@@ -9,7 +9,7 @@
 import Foundation
 
 class EmptySlotInfo:NSObject {
-
+    var index : Int?
     var startDate:Date?
     var endDate:Date?
     var slotInfo:SlotInfo?
@@ -19,13 +19,13 @@ class EmptySlotInfo:NSObject {
         super.init()
     }
     
-    init(startDate:Date?,endDate:Date?) {
+    init(startDate:Date?,endDate:Date?, index : Int) {
         super.init()
         
-        self.fillInfo(startDate:startDate,endDate:endDate)
+        self.fillInfo(startDate:startDate,endDate:endDate, index: index)
     }
     
-    func fillInfo(startDate:Date?,endDate:Date?){
+    func fillInfo(startDate:Date?,endDate:Date?, index : Int){
         
         guard let startDate = startDate else{
             return
@@ -35,5 +35,8 @@ class EmptySlotInfo:NSObject {
         }
         self.startDate = startDate
         self.endDate = endDate
+        self.index = index
     }
+    
+   
 }

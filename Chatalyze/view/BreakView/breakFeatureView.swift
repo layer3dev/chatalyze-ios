@@ -16,9 +16,13 @@ class breakFeatureView : ExtendedView {
     
     func startBreakShowing(time:String){
         
+        self.isHidden = false
+        
         headingLabel?.text = "BREAK"
         nextChatLabel?.text = "Next chat starts in: "
         timeLabel?.text = time
+        
+        
     }
     
     func disableBreakFeature(){
@@ -26,6 +30,8 @@ class breakFeatureView : ExtendedView {
         headingLabel?.text = ""
         nextChatLabel?.text = ""
         timeLabel?.text = ""
+        
+        self.isHidden = true
     }
     
     

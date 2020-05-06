@@ -11,7 +11,6 @@ import UIKit
 class EditSessionFormRootView:ExtendedView {
     
     enum BookingStyle{
-    
         case standard
         case flex
         case none
@@ -33,9 +32,11 @@ class EditSessionFormRootView:ExtendedView {
     
     @IBOutlet var donationInfoLabel:UILabel?
     @IBOutlet var screenShotInfoLabel:UILabel?
+    @IBOutlet var autographInfoLabel:UILabel?
     
     @IBOutlet var donationCustomSwitch:EditCustomSwitch?
     @IBOutlet var screenShotCustomSwitch:EditCustomSwitch?
+    @IBOutlet var autographCustomSwitch:EditCustomSwitch?
     
     @IBOutlet var earningFormulaLbl:UILabel?
     @IBOutlet var totalEarningLabel:UILabel?
@@ -65,6 +66,39 @@ class EditSessionFormRootView:ExtendedView {
         case fiveAndHalf = 10
         case six = 11
         case none = 12
+        
+        func toMinutes() -> Int{
+            switch(self){
+            case .thirtyMinutes:
+                return 30
+            case .oneHour:
+                return 1 * 60
+            case .oneAndHalfHour:
+                return 1 * 60 + 30
+            case .twoHour:
+                return 2 * 60
+            case .twoAndHalf:
+                return 2 * 60 + 30
+            case .three:
+                return 3 * 60
+            case .threeAndHalf:
+                return 3 * 60 + 30
+            case .four:
+                return 4 * 60
+            case .fourAndHalf:
+                return 4 * 60 + 30
+            case .five:
+                return 5 * 60
+            case .fiveAndHalf:
+                return 5 * 60 + 30
+            case .six:
+                return 6 * 60 + 30
+            case .none:
+                return 0
+            @unknown default:
+                return 0
+            }
+        }
     }
     
     var slotSelected:Int?
@@ -122,12 +156,15 @@ class EditSessionFormRootView:ExtendedView {
     @IBOutlet var screenShotSwitch:UISwitch?
     @IBOutlet var donationLabel:UILabel?
     @IBOutlet var screenShotLabel:UILabel?
+    @IBOutlet var autographLabel:UILabel?
     @IBOutlet var sponsorshipViewHeightConstraintForFreeSession:NSLayoutConstraint?
     @IBOutlet var sponsorShipLabel:UILabel?
     
     var eventInfo:EventInfo?
     var isPricingEnable:Bool? = nil
     var controller:EditSessionFormController?
+    
+    private let TAG = "EditSessionFormRootView"
     
     var desiredDate:String {
     
@@ -231,7 +268,6 @@ class EditSessionFormRootView:ExtendedView {
         
         self.isCalendarVisible = false
         UIView.animate(withDuration: 0.25) {
-            
             self.customCalendar?.alpha = 0
             self.customCalenadarSupportView?.alpha = 0
         }
@@ -290,17 +326,18 @@ class EditSessionFormRootView:ExtendedView {
     @IBAction func screenShotSwitch(_ sender: Any){
         
         if screenShotSwitch?.isOn ?? true {
-            
             screenShotSwitch?.setOn(false, animated: true)
             screenShotLabel?.text = "OFF"
+          Log.echo(key: "abhi", text: "Screen shot turnd OFF")
         }else{
             
             screenShotSwitch?.setOn(true, animated: true)
             screenShotLabel?.text = "ON"
+          Log.echo(key: "abhi", text: "Screen shot turnd ON")
         }
     }
     
-    func paintInteface() {        
+    func paintInteface() {
         
         goBackButtonContainer?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ?  32.5 : 22.5
         
@@ -336,6 +373,7 @@ class EditSessionFormRootView:ExtendedView {
         self.breakField?.isCompleteBorderAllow = true
         self.standardField?.isCompleteBorderAllow = true
         self.flexField?.isCompleteBorderAllow = true
+      
         
         self.roundToEditSessionButton()
         
@@ -406,13 +444,17 @@ class EditSessionFormRootView:ExtendedView {
             self?.donationLabel?.text = "OFF"
             return
         }
-        
+        //ScreenShot**************//
         screenShotCustomSwitch?.toggleAction = {[weak self] in
             
             if self?.screenShotCustomSwitch?.isOn ?? false {
+              
                 self?.screenShotLabel?.text = "ON"
                 self?.screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
                 self?.scheduleInfo?.isScreenShotAllow = true
+              self?.turnOnAutograph()
+              self?.autographCustomSwitch?.setOn()
+              self?.autographCustomSwitch?.isUserInteractionEnabled = true
                 UIView.animate(withDuration: 0.15, animations: {
                     self?.screenShotInfoLabel?.alpha = 1
                     self?.layoutIfNeeded()
@@ -420,19 +462,35 @@ class EditSessionFormRootView:ExtendedView {
                 return
 
             }else{
-                
-                self?.screenShotLabel?.text = "OFF"
-                self?.scheduleInfo?.isScreenShotAllow = false
-                UIView.animate(withDuration: 0.15, animations: {
-                    self?.screenShotInfoLabel?.alpha = 0
-                    self?.layoutIfNeeded()
+              
+              self?.screenShotLabel?.text = "OFF"
+              self?.turnOffAutograph()
+              self?.autographInfoLabel?.text = "Screenshots must be turned on in order to sign autographs."
+              self?.scheduleInfo?.isScreenShotAllow = false
+              self?.autographCustomSwitch?.setOff()
+              self?.autographCustomSwitch?.isUserInteractionEnabled = false
+              UIView.animate(withDuration: 0.15, animations: {
+                self?.screenShotInfoLabel?.alpha = 0
+                self?.layoutIfNeeded()
                 })
                 self?.screenShotInfoLabel?.text = ""
                 return
             }
         }
-    }
-    
+      
+      autographCustomSwitch?.toggleAction = {[weak self] in
+        
+        if self?.autographCustomSwitch?.isOn ?? false {
+          self?.turnOnAutograph()
+          
+        }else{
+          
+          self?.turnOffAutograph()
+        }
+      }
+      
+  }
+  
     func initializeCustomCalendar(){
         
         customCalendar?.tappedDate = { (date,dateinStr) in
@@ -450,6 +508,29 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
+  func turnOnAutograph(){
+    self.autographLabel?.text = "ON"
+    self.autographInfoLabel?.text = "Sign digital autographs on the screenshots that get captured."
+    self.scheduleInfo?.isAutographAllow = true
+    UIView.animate(withDuration: 0.15, animations: {
+      self.autographInfoLabel?.alpha = 1
+      self.layoutIfNeeded()
+    })
+    return
+  }
+  
+  func turnOffAutograph(){
+    self.autographLabel?.text = "OFF"
+    self.autographInfoLabel?.text = ""
+    self.scheduleInfo?.isAutographAllow = false
+    UIView.animate(withDuration: 0.15, animations: {
+      self.autographInfoLabel?.alpha = 1
+      self.layoutIfNeeded()
+    })
+    
+    return
+  }
+  
     func paintBookingStyle(){
         
         if self.currentBookingStyle == .standard{
@@ -635,19 +716,30 @@ class EditSessionFormRootView:ExtendedView {
             //donationSwitch?.setOn(false, animated: true)
         }
         
+        if eventInfo.isAutographAllow != "automatic"{
+               turnOffAutographSwitch()
+             }else{
+                turnOnAutographSwitch()
+             }
+        
         if eventInfo.isScreenShotAllowed != "automatic"{
          
             //screenShotSwitch?.setOn(false, animated: true)
             screenShotCustomSwitch?.setOff()
+            turnOffAutographSwitch()
+            autographCustomSwitch?.isUserInteractionEnabled = false
             screenShotLabel?.text = "OFF"
             screenShotInfoLabel?.text = ""
         }else{
 
             //screenShotSwitch?.setOn(true, animated: true)
             screenShotCustomSwitch?.setOn()
+            autographCustomSwitch?.isUserInteractionEnabled = true
             screenShotLabel?.text = "ON"
             screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
         }
+      
+     
         
         handleSponsorToggle()
 
@@ -671,6 +763,21 @@ class EditSessionFormRootView:ExtendedView {
         updatescheduleInfo()
     }
     
+  
+  func turnOffAutographSwitch(){
+    //screenShotSwitch?.setOn(false, animated: true)
+           autographCustomSwitch?.setOff()
+           autographLabel?.text = "OFF"
+           autographInfoLabel?.text = ""
+  }
+  
+  func turnOnAutographSwitch(){
+    //screenShotSwitch?.setOn(true, animated: true)
+    autographCustomSwitch?.setOn()
+    autographLabel?.text = "ON"
+    autographInfoLabel?.text = "You will able to sign autographs for each person you chat with."
+  }
+  
     func handleSponsorToggle(){
         
         if self.eventInfo?.isFree ?? false {
@@ -725,7 +832,6 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     func hideBreak(){
-        
         //Must be used only in PaintChat calculator
         breakHeightConstraintPriority?.priority = UILayoutPriority(rawValue: 999.0)
         self.breakAdapter?.update(emptySlots: [EmptySlotInfo]())
@@ -895,7 +1001,7 @@ class EditSessionFormRootView:ExtendedView {
     @IBAction func paidActionAction(sender:UIButton){
         
         hideSponsorShipView()
-        showHeightPriceFllingField()        
+        showHeightPriceFllingField()
         // Show Price Field existing price
     }
     
@@ -913,7 +1019,7 @@ class EditSessionFormRootView:ExtendedView {
     }
     
     @IBAction func doneEditing(){
-        
+      Log.echo(key: "abhisshek", text: "Create session tapped")
         if !validateFields(){
             return
         }
@@ -1235,9 +1341,12 @@ extension EditSessionFormRootView:XibDatePickerDelegate {
             let dateInStr = dateFormatter.string(from: pickerDate)
             timeField?.textField?.text = dateInStr
             let _ = self.validateTime()
+        
+            
             //birthDay = selectedDate
         }
         
+    
         hidePicker()
         updatescheduleInfo()
         paintChatCalculator()
@@ -1332,15 +1441,16 @@ extension EditSessionFormRootView{
             if let date = dateFormatter.date(from: startDate) {
                 
                 Log.echo(key: "yud", text: "Diffrenece between the current time is \(date.timeIntervalSinceNow)")
-
-                if date.timeIntervalSinceNow <=  0{
-                    
-                    timeField?.showError(text: "Please select the future time")
-                    return false
-                }else{
-                    timeField?.resetErrorStatus()
-                    return true
-                }
+//MARK:- @Joban: We dont require this as user is not allowed to change time on running session.
+              
+//                if date.timeIntervalSinceNow <=  0{
+//
+//                    timeField?.showError(text: "Please select the future time")
+//                    return false
+//                }else{
+//                    timeField?.resetErrorStatus()
+//                    return true
+//                }
             }
             return true
         }
@@ -1383,6 +1493,7 @@ extension EditSessionFormRootView{
         self.isCustomPickerShowing = false
         self.sessionLengthPicker.isHidden = true
         self.chatLengthPicker.isHidden = true
+      
     }
     
     //TODO:- Yet to implement BirthadyFieldScrolling.
@@ -1683,12 +1794,13 @@ extension EditSessionFormRootView {
         chatTotalNumberOfSlots?.attributedText = mutableStr
     }
     
+    
+    
+
         
     func createEmptySlots(){
-        
-        
         //removing the text from the textField as by calling this function means fetching the new Data for empty Slots.
-        self.breakField?.textField?.text = ""
+//        self.breakField?.textField?.text = ""
         
         guard let info = scheduleInfo else{
             hidePaintChatCalculator()
@@ -1723,7 +1835,7 @@ extension EditSessionFormRootView {
                 
                 let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
                 let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
-                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate, index : i)
                 if existingSlots[i].isSelected == true {
                     emptySlotObj.isSelected = true
                 }
@@ -1734,7 +1846,7 @@ extension EditSessionFormRootView {
                 
                 let requiredStartDate = self.scheduleInfo?.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(i)))
                 let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(Double(duration)*60.0))
-                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+                let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate, index : i)
                 self.emptySlotList.append(emptySlotObj)
             }
         }
@@ -2103,13 +2215,24 @@ extension EditSessionFormRootView{
             self.scheduleInfo?.tipEnabled = false
         }
         
+        if autographCustomSwitch?.isOn == true{
+            
+            self.scheduleInfo?.isAutographAllow = true
+        }else{
+            
+            self.scheduleInfo?.isAutographAllow = false
+        }
+        
         if screenShotCustomSwitch?.isOn == true{
             
             self.scheduleInfo?.isScreenShotAllow = true
         }else{
             
             self.scheduleInfo?.isScreenShotAllow = false
+            self.scheduleInfo?.isAutographAllow = false
         }
+        
+        
         
         if self.priceAmountField?.textField?.text ?? "" != "" {
             
@@ -2185,27 +2308,10 @@ extension EditSessionFormRootView{
         if let newDate = self.scheduleInfo?.startDateTime{
             
             let calendar = Calendar.current
-            var date:Date?
-            if  totalTimeOfChat == .thirtyMinutes{
-                
-                date = calendar.date(byAdding: .minute, value: 30, to: newDate)
-                self.scheduleInfo?.endDateTime = date
-                
-            }else if totalTimeOfChat == .oneHour{
-                
-                date = calendar.date(byAdding: .minute, value: 60, to: newDate)
-                self.scheduleInfo?.endDateTime = date
-                
-            }else if totalTimeOfChat == .oneAndHalfHour{
-                
-                date = calendar.date(byAdding: .minute, value: 90, to: newDate)
-                self.scheduleInfo?.endDateTime = date
-                
-            }else if totalTimeOfChat == .twoHour{
-                
-                date = calendar.date(byAdding: .minute, value: 120, to: newDate)
-                self.scheduleInfo?.endDateTime = date
-            }
+            let date = calendar.date(byAdding: .minute, value: totalTimeOfChat.toMinutes(), to: newDate)
+            self.scheduleInfo?.endDateTime = date
+            
+            
             self.scheduleInfo?.duration = chatDuration
         }
         
@@ -2217,13 +2323,22 @@ extension EditSessionFormRootView{
             self.scheduleInfo?.tipEnabled = false
         }
         
-        if screenShotCustomSwitch?.isOn == true{
-            
-            self.scheduleInfo?.isScreenShotAllow = true
-        }else{
-            
-            self.scheduleInfo?.isScreenShotAllow = false
-        }
+      if autographCustomSwitch?.isOn == true{
+        self.scheduleInfo?.isAutographAllow = true
+      }else{
+        self.scheduleInfo?.isAutographAllow = false
+      }
+        
+      if screenShotCustomSwitch?.isOn == true{
+        Log.echo(key: "Abhi", text: "screenShot enabled with autograph")
+        self.scheduleInfo?.isScreenShotAllow = true
+      }else{
+         Log.echo(key: "Abhi", text: "screenShot dis - abled with autograph")
+        self.scheduleInfo?.isScreenShotAllow = false
+        self.scheduleInfo?.isAutographAllow = false
+      }
+      
+      
         
         if self.priceAmountField?.textField?.text ?? "" != "" {
             
@@ -2243,7 +2358,6 @@ extension EditSessionFormRootView{
             self.scheduleInfo?.doublePrice = 0.0
         }
         
-//        paintChatCalculator()
 //        paintMaximumEarningCalculator()
     }
     
@@ -2305,26 +2419,106 @@ extension EditSessionFormRootView{
         }
         param["isFree"] = info.isFree
         param["screenshotAllow"] = info.isScreenShotAllow == true ? info.screenShotParam:NSNull()
+        param["autographAllow"] = info.isAutographAllow == true ? info.autographParam:NSNull()
         param["description"] = info.eventDescription
         param["eventBannerInfo"] = info.bannerImage == nil ? false:true
         param["tipEnabled"] = info.tipEnabled
         param["sponsorshipAmount"] = info.isSponsorEnable
-        var paramsForSlots = [[String:Any]]()
-        if let selectedArray = self.breakAdapter?.emptySlots{
-            for index in 0..<selectedArray.count{
-                if selectedArray[index].isSelected{
-                    if let startDate = selectedArray[index].startDate{
-                        if let endDate = selectedArray[index].endDate{
-                            let info = ["start":"\(startDate)","end":"\(endDate)","slotNo":index+1] as [String : Any]
-                            paramsForSlots.append(info)
-                        }
-                    }
-                }
-            }
-        }
-        param["emptySlots"] = paramsForSlots
+        
+        
+//        var paramsForSlots = [[String:Any]]()
+//        if let selectedArray = self.breakAdapter?.emptySlots{
+//            for index in 0..<selectedArray.count{
+//                if selectedArray[index].isSelected{
+//                    if let startDate = selectedArray[index].startDate{
+//                        if let endDate = selectedArray[index].endDate{
+//                            let info = ["start":"\(startDate)","end":"\(endDate)","slotNo":index+1] as [String : Any]
+//                            paramsForSlots.append(info)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        param["emptySlots"] = extractRawEmptySlots()
         Log.echo(key: "yud", text: "Param are \(param)")
         return param
+    }
+    
+    
+    private func extractRawEmptySlots() -> [[String : Any]]{
+        var rawEmptySlots = [[String : Any]]()
+        let emptySlots = extractEmptySlots()
+    
+        
+        for info in emptySlots{
+            guard let rawInfo = emptySlotToDictionary(info: info)
+                else{
+                    continue
+            }
+            rawEmptySlots.append(rawInfo)
+        }
+        
+        
+        return rawEmptySlots
+    }
+    
+    private func emptySlotToDictionary(info : EmptySlotInfo) -> [String : Any]?{
+        guard let scheduleInfo = self.scheduleInfo
+            else{
+                return nil
+        }
+        
+        Log.echo(key : self.TAG, text : "emptySlotToDictionary -> scheduleInfo")
+        guard let duration = scheduleInfo.duration
+            else{
+                return nil
+        }
+        Log.echo(key : self.TAG, text : "emptySlotToDictionary -> duration")
+        
+        guard let slotIndex = info.index
+            else{
+                return nil
+        }
+        
+        Log.echo(key : self.TAG, text : "emptySlotToDictionary -> slotIndex \(slotIndex)")
+        
+        guard let startDate = scheduleInfo.startDateTime?.addingTimeInterval(TimeInterval(Double(duration)*60.0*Double(slotIndex)))
+            else{
+                return nil
+        }
+        let endDate = startDate.addingTimeInterval(TimeInterval(Double(duration)*60.0))
+            
+        var info = [String : Any]()
+        info["start"] = DateParser.dateToStringInServerFormat(startDate)
+        info["end"] = DateParser.dateToStringInServerFormat(endDate)
+        info["slotNo"] = slotIndex + 1
+        
+        Log.echo(key : self.TAG, text : "raw -> info \(info)")
+        
+        return info
+    }
+    
+    
+    
+    private func extractEmptySlots() ->  [EmptySlotInfo]{
+        Log.echo(key : self.TAG, text : "extractEmptySlots")
+        var emptySlotList = [EmptySlotInfo]()
+        guard let infos = self.breakAdapter?.emptySlots
+            else{
+                return emptySlotList
+        }
+        
+        Log.echo(key : self.TAG, text : "extractEmptySlots emptySlots")
+        
+        for info in infos {
+            if(!info.isSelected){
+                continue
+            }
+            emptySlotList.append(info)
+        }
+        
+        Log.echo(key : self.TAG, text : "extractEmptySlots count -> \(emptySlotList.count)")
+        return emptySlotList
     }
     
     func caluclateHourlyPrice()->Int?{
@@ -2358,7 +2552,11 @@ extension EditSessionFormRootView{
         priceField?.isUserInteractionEnabled = false
         priceAmountField?.isUserInteractionEnabled = false
         screenShotCustomSwitch?.isUserInteractionEnabled = false
+        autographCustomSwitch?.isUserInteractionEnabled = false
         breakField?.isUserInteractionEnabled = false
+        flexField?.isUserInteractionEnabled = false
+        standardField?.isUserInteractionEnabled = false
+
         
         breakField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)
         dateField?.textFieldContainer?.backgroundColor = UIColor(red: 224.0/255.0, green: 224.0/255.0, blue: 224.0/255.0, alpha: 1)

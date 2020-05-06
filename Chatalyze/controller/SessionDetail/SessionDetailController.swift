@@ -101,7 +101,7 @@ class SessionDetailController: InterfaceExtendedController {
             
             let requiredStartDate = self.eventInfo?.startDate?.addingTimeInterval(TimeInterval(duration*60.0*Double(i)))
             let requiredEndDate = requiredStartDate?.addingTimeInterval(TimeInterval(duration*60.0))
-            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate)
+            let emptySlotObj = EmptySlotInfo(startDate: requiredStartDate, endDate: requiredEndDate, index : i)
             self.emptySlotList.append(emptySlotObj)
             if let alreadyBookedInfo = self.eventInfo?.slotsInfoLists{
                 for info in alreadyBookedInfo {

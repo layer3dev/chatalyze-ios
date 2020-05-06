@@ -21,7 +21,9 @@ class ScheduleSessionInfo:NSObject {
     var eventDescription:String?
     var duration:Int?
     var isScreenShotAllow:Bool = false
+    var isAutographAllow:Bool = false
     var screenShotParam = "automatic"
+    var autographParam = "automatic"
     var eventInfo:EventInfo?
     var bannerImage:UIImage?
     var tipEnabled:Bool = false
