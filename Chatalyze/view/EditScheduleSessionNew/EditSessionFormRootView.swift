@@ -728,6 +728,7 @@ class EditSessionFormRootView:ExtendedView {
             screenShotCustomSwitch?.setOff()
             turnOffAutographSwitch()
             autographCustomSwitch?.isUserInteractionEnabled = false
+            self.autographInfoLabel?.text = "Screenshots must be turned on in order to sign autographs."
             screenShotLabel?.text = "OFF"
             screenShotInfoLabel?.text = ""
         }else{
@@ -775,7 +776,7 @@ class EditSessionFormRootView:ExtendedView {
     //screenShotSwitch?.setOn(true, animated: true)
     autographCustomSwitch?.setOn()
     autographLabel?.text = "ON"
-    autographInfoLabel?.text = "You will able to sign autographs for each person you chat with."
+    autographInfoLabel?.text = "Sign digital autographs on the screenshots that get captured."
   }
   
     func handleSponsorToggle(){
