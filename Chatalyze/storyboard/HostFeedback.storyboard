@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,9 +24,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="4BB-rp-YY5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hJ-Fz-ZZ3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
+                                <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfk-Hi-qYu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -236,15 +235,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nzn-PH-ty4" firstAttribute="bottom" secondItem="Xfk-Hi-qYu" secondAttribute="bottom" id="4Wc-c0-51g"/>
+                            <constraint firstItem="4hJ-Fz-ZZ3" firstAttribute="leading" secondItem="nzn-PH-ty4" secondAttribute="leading" id="5vI-TS-nhv"/>
                             <constraint firstItem="zTs-En-JE2" firstAttribute="width" secondItem="XMG-QX-HWb" secondAttribute="width" id="IKN-S9-oAd"/>
-                            <constraint firstItem="4BB-rp-YY5" firstAttribute="leading" secondItem="nzn-PH-ty4" secondAttribute="leading" id="Iks-YI-Owe"/>
-                            <constraint firstItem="nzn-PH-ty4" firstAttribute="trailing" secondItem="4BB-rp-YY5" secondAttribute="trailing" id="S7J-4X-NhF"/>
-                            <constraint firstItem="nzn-PH-ty4" firstAttribute="bottom" secondItem="4BB-rp-YY5" secondAttribute="bottom" id="Tnn-TJ-uCv"/>
                             <constraint firstItem="Xfk-Hi-qYu" firstAttribute="top" secondItem="XMG-QX-HWb" secondAttribute="top" id="VwC-Xy-9NI"/>
                             <constraint firstItem="nzn-PH-ty4" firstAttribute="trailing" secondItem="Xfk-Hi-qYu" secondAttribute="trailing" id="bYP-2o-kZO"/>
-                            <constraint firstItem="4BB-rp-YY5" firstAttribute="top" secondItem="XMG-QX-HWb" secondAttribute="top" id="cgk-ge-krJ"/>
+                            <constraint firstItem="4hJ-Fz-ZZ3" firstAttribute="top" secondItem="nzn-PH-ty4" secondAttribute="top" id="ksl-Ud-9ci"/>
+                            <constraint firstItem="4hJ-Fz-ZZ3" firstAttribute="bottom" secondItem="nzn-PH-ty4" secondAttribute="bottom" id="png-Tb-a3d"/>
                             <constraint firstItem="Xfk-Hi-qYu" firstAttribute="leading" secondItem="nzn-PH-ty4" secondAttribute="leading" id="r2O-eT-1Ox"/>
                             <constraint firstItem="zTs-En-JE2" firstAttribute="height" secondItem="XMG-QX-HWb" secondAttribute="height" id="rn5-JA-el1"/>
+                            <constraint firstItem="4hJ-Fz-ZZ3" firstAttribute="trailing" secondItem="nzn-PH-ty4" secondAttribute="trailing" id="wTD-Kl-H3Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nzn-PH-ty4"/>
                     </view>
@@ -260,6 +259,5 @@
     </scenes>
     <resources>
         <image name="congrats" width="800" height="800"/>
-        <image name="gradientImage" width="1242" height="2208"/>
     </resources>
 </document>
