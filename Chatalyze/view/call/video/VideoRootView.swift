@@ -10,6 +10,7 @@ import UIKit
 
 class VideoRootView: ExtendedView {
    
+    let testView = MemoryFrame()
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
@@ -125,6 +126,125 @@ class VideoRootView: ExtendedView {
     func animateSignatureAccessoryView(){
         //TO be overridden in order to hide and show the signature accessory view.
     }
+    
+    func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
+        return nil
+    }
+}
+
+
+extension VideoRootView{
+    func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
+           
+           guard let remoteView = remoteVideoView
+               else{
+                   completion(nil)
+                   return
+           }
+           
+           guard let localView = localVideoView
+               else{
+                   completion(nil)
+                   return
+           }
+           
+           guard let localImage = getSnapshot(view : localView)
+               else{
+                   completion(nil)
+                   return
+           }
+           
+           guard let remoteImage = getSnapshot(view : remoteView)
+               else{
+                   completion(nil)
+                   return
+           }
+           
+           guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
+               else{
+                   completion(nil)
+                   return
+           }
+           
+           let isPortraitInSize = isPortrait(size: finalImage.size)
+           
+           Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
+           
+           testView.isPortraitInSize = isPortraitInSize
+           if isPortraitInSize ?? true{
+               testView.frame.size = CGSize(width: 636, height: 1130)
+           }else{
+               testView.frame.size = CGSize(width: 1024, height: 576)
+           }
+           testView.screenShotPic?.image = finalImage
+           testView.userPic?.image = hostImage
+           testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")
+           let dateFormatter = DateFormatter()
+           dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+           dateFormatter.dateFormat = "MMM dd, yyyy"
+           dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+           let comingDate = info?.startDate ?? Date()
+           let requireDate = dateFormatter.string(from: comingDate)
+           testView.date?.text = "\(requireDate)"
+           completion(getSnapshot(view: testView))
+           // return finalImage
+       }
+       
+       //Developer Y
+       func isPortrait(size:CGSize)->Bool?{
+           
+           let minimumSize = size
+           let mW = minimumSize.width
+           let mH = minimumSize.height
+           
+           if( mH > mW ) {
+               return true
+           }
+           else if( mW > mH ) {
+               return false
+           }
+           return nil
+       }
+       
+    
+        
+       
+      func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
+           
+           let size = hostPicture.size
+           let localSize = userPicture.size
+           
+           let maxConstant = size.width > size.height ? size.width : size.height
+           
+           let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
+           
+           let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
+           UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+           
+           hostPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+           
+           //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+           
+           userPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
+           
+           let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+           
+           UIGraphicsEndImageContext()
+           
+           return finalImage
+       }
+       
+       
+       
+       private func getSnapshot(view : UIView)->UIImage?{
+           
+           let bounds = view.bounds
+           UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
+           view.drawHierarchy(in: bounds, afterScreenUpdates: true)
+           let image = UIGraphicsGetImageFromCurrentImageContext()
+           UIGraphicsEndImageContext()
+           return image
+       }
 }
 
 

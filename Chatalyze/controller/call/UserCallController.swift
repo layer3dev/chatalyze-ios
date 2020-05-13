@@ -1442,17 +1442,22 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
+            guard let currentSlot = self.myActiveUserSlot
+                else{
+                    return
+            }
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
                 return
             }
-            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
-                return
-            }
-            if currentSlotId != canvasCallBookingId {
-                return
-            }
+//            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
+//                return
+//            }
+//
+//            if currentSlotId != canvasCallBookingId {
+//                return
+//            }
             self.prepateCanvas(info : self.canvasInfo)
         })
         

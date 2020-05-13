@@ -262,6 +262,8 @@ class HostCallController: VideoCallController {
         self.registerForAutographSignatureCall()
         self.signaturAccessoryView?.delegate = self
     }
+    
+    
 
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -304,12 +306,36 @@ class HostCallController: VideoCallController {
                             
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
+                            self.processAutographSelfie()
                         }
                     }
                 }
             }
         })
     }
+    
+    private func processAutographSelfie(){
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        if(!eventInfo.isAutographEnabled){
+            return
+        }
+        
+        self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+            guard let image = image
+            else{
+                return
+            }
+            
+            self.renderCanvas(image : image)
+        })
+        
+    }
+    
+    
     
     
     override func registerForListeners(){
@@ -1287,7 +1313,7 @@ extension HostCallController{
             if (info.metaInfo?.type == .signRequest)
             {
                 //TODO:- Need to uncomment this in order to enable the selfie feature. 
-                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
+//                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
             }
         }
     }
@@ -1320,9 +1346,9 @@ extension HostCallController{
                 return
             }
             
-            self.hostRootView?.canvas?.autoGraphInfo = self.autoGraphInfo
-            self.downLoadScreenShotImage()
+            self.hostRootView?.canvas?.slotInfo = self.eventInfo?.currentSlotInfo?.slotInfo
             
+            self.downLoadScreenShotImage()
             //Download image and send it to the canvas in order to set the image.
         }
     }
@@ -1391,20 +1417,66 @@ extension HostCallController{
                 
                 self.hostRootView?.localVideoView?.isSignatureActive = true
                 self.hostRootView?.localVideoView?.updateLayoutRotation()
-                self.sendScreenshotConfirmation(info)
+                self.sendScreenshotConfirmation()
                 
             })
         }
     }
     
-    private func sendScreenshotConfirmation(_ info : AutographInfo){
+    
+    private func renderCanvas(image : UIImage){
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return
+        }
+        
+        self.hostRootView?.canvas?.slotInfo = currentSlot
+        self.lockDeviceOrientation()
+        self.hostRootView?.canvasContainer?.show(with:image)
+
+        self.hostRootView?.remoteVideoContainerView?.isSignatureActive = true
+        self.hostRootView?.remoteVideoContainerView?.updateForSignature()
+        self.signaturAccessoryView?.isHidden = false
+        self.isSignatureActive = true
+        
+        self.hostRootView?.localVideoView?.isSignatureActive = true
+        self.hostRootView?.localVideoView?.updateLayoutRotation()
+        
+        
+        sendScreenshotConfirmation()
+        
+    }
+     
+    private func generateAutographInfo() -> [String : Any?]{
+        
+        var params = [String : Any?]()
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return params
+        }
+        params["userId"] = currentSlot.userId
+        params["analystId"] = eventInfo?.userId
+        params["screenshot"] = ""
+        params["signed"] = false
+   
+
+        return params
+    }
+    
+    private func sendScreenshotConfirmation(){
+        
+        
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return
+        }
         
         self.view.layoutIfNeeded()
         var params = [String : Any]()
         let size = self.hostRootView?.canvas?.frame.size ?? CGSize()
         params["width"] = size.width
         params["height"] = size.height
-        params["screenshot"] = info.dictValue()
+        params["screenshot"] =  generateAutographInfo()
         
         if let currentSlotId = self.eventInfo?.currentSlotInfo?.slotInfo?.id {
             params["forSlotId"] = "\(currentSlotId)"
@@ -1412,16 +1484,21 @@ extension HostCallController{
 
         var mainParams  = [String : Any]()
         mainParams["id"] = "startedSigning"
-        mainParams["name"] = info.userHashedId
+        mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
     }
     
     func stopSigning(){
         
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return
+        }
+        
         var mainParams  = [String : Any]()
         mainParams["id"] = "stoppedSigning"
-        mainParams["name"] = self.autoGraphInfo?.userHashedId
+        mainParams["name"] = currentSlot.user?.hashedId
         socketClient?.emit(mainParams)
     }
     

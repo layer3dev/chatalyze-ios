@@ -11,6 +11,8 @@ import UIKit
 class VideoView: RTCEAGLVideoView {
     
     private var trackSize : CGSize = CGSize.zero
+    
+    
 
     enum orientation : Int{
         
@@ -29,6 +31,14 @@ class VideoView: RTCEAGLVideoView {
             isLoaded = true
             viewDidLayout()
         }
+    }
+    
+//    - (void)renderFrame:(nullable RTCVideoFrame *)frame;
+    
+    override func renderFrame(_ frame: RTCVideoFrame?) {
+        super.renderFrame(frame)
+        
+    
     }
 
     func viewDidLayout(){
