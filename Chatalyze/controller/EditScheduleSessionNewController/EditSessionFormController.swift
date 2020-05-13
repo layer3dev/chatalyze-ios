@@ -5,7 +5,6 @@
 //  Created by mansa infotech on 19/03/19.
 //  Copyright © 2019 Mansa Infotech. All rights reserved.
 //
-
 import UIKit
 
 class EditSessionFormController: InterfaceExtendedController {
@@ -23,6 +22,7 @@ class EditSessionFormController: InterfaceExtendedController {
         super.viewDidLoad()
         
         load()
+    
     }
     
     @IBAction func moreDetailTitleAction(sender:UIButton){
@@ -98,7 +98,7 @@ class EditSessionFormController: InterfaceExtendedController {
         self.present(controller, animated: true) {
         }
     }
-    
+  
     
     @IBAction func moreDetailChatLengthAction(sender:UIButton){
         
@@ -148,6 +148,18 @@ class EditSessionFormController: InterfaceExtendedController {
         }
     }
     
+    @IBAction func autographMoreInfoAction(sender:UIButton){
+        
+        guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
+            return
+        }
+        controller.currentInfo = .autograph
+        controller.controller = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: true) {
+        }
+    }
+    
     @IBAction func moreDetailBreakAction(sender:UIButton){
         
         guard let controller = SingleSessionPageMoreDetailAlertController.instance() else {
@@ -188,12 +200,13 @@ class EditSessionFormController: InterfaceExtendedController {
         paintBackButton()
         paintNavigationTitle(text: "Edit Session")
         showNavigationBar()
+      
     }
 
     var rootView:EditSessionFormRootView?{
         
         return self.view as? EditSessionFormRootView
-    }    
+    }
     
     func fetchMinimumPlanPriceToScheuleIfExists() {
         
@@ -282,7 +295,6 @@ class EditSessionFormController: InterfaceExtendedController {
     
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -298,4 +310,3 @@ class EditSessionFormController: InterfaceExtendedController {
         return controller
     }
 }
-

@@ -86,7 +86,7 @@ class EventInfo: NSObject {
         notified = json["notified"].string
         started = json["started"].string
         groupId = json["groupId"].string
-        isFlexEnabled = json["flexibleBooking"].boolValue        
+        isFlexEnabled = json["flexibleBooking"].boolValue
         
         paymentTransferred = json["paymentTransferred"].bool
         leadPageUrl = json["leadPageUrl"].string
@@ -119,7 +119,7 @@ class EventInfo: NSObject {
             
             let info = SlotInfo(info: info)
             self.slotsInfoLists.append(info)
-        }        
+        }
     }
     
     private var _price:Double?{

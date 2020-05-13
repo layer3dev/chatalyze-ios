@@ -52,6 +52,7 @@ class MemoryFrame:XibTemplate{
         
         stickerView?.layer.cornerRadius = 4
         stickerView?.layer.masksToBounds = true
+        
     }
     
     func handleUI(){

@@ -116,7 +116,6 @@ extension AspectHostImageView{
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
         print("I am moving")
         
         guard let touch = touches.first
@@ -143,16 +142,15 @@ extension AspectHostImageView{
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
             guard  let touch = touches.first else {
                 return
             }
         
             let point = touch.location(in: self)
             
-            if !self.frame.contains(point){
-                return
-            }
+//            if !self.frame.contains(point){
+//                return
+//            }
         
             let lastTouchPoint = self.sigCoordinates.last
             
@@ -183,7 +181,7 @@ extension AspectHostImageView{
 
     func emptyFlattenedLayers() {
         
-        for case let layer as CAShapeLayer in sublayers {            
+        for case let layer as CAShapeLayer in sublayers {
             layer.removeFromSuperlayer()
             self.drawingLayer = nil
         }

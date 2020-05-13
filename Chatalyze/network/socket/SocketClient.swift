@@ -171,6 +171,8 @@ extension SocketClient{
             }
         }
         
+        
+        
         //websocketDidDisconnect
         socket?.onDisconnect = { (error: Error?) in
             self.isRegistered = false
