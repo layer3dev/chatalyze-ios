@@ -29,6 +29,7 @@ def pod_file
   pod 'FSCalendar'
   pod 'Toast-Swift'
   pod 'CRToast'
+  pod 'libyuv-iOS'
 end
 
 target 'Chatalyze' do

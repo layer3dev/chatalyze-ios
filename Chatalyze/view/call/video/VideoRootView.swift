@@ -134,61 +134,96 @@ class VideoRootView: ExtendedView {
 
 
 extension VideoRootView{
-    func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,completion:((_ image:UIImage?)->())){
+    func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,  completion: @escaping ((_ image:UIImage?)->())){
+            
+        getVideoFrame(listener: {[weak self] (local, remote) in
+            self?.renderScreenshot(localFrame: local, remoteFrame: remote, info: info, completion: completion)
+        })
+        
            
-           guard let remoteView = remoteVideoView
-               else{
-                   completion(nil)
-                   return
-           }
-           
-           guard let localView = localVideoView
-               else{
-                   completion(nil)
-                   return
-           }
-           
-           guard let localImage = getSnapshot(view : localView)
-               else{
-                   completion(nil)
-                   return
-           }
-           
-           guard let remoteImage = getSnapshot(view : remoteView)
-               else{
-                   completion(nil)
-                   return
-           }
-           
-           guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
-               else{
-                   completion(nil)
-                   return
-           }
-           
-           let isPortraitInSize = isPortrait(size: finalImage.size)
-           
-           Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
-           
-           testView.isPortraitInSize = isPortraitInSize
-           if isPortraitInSize ?? true{
-               testView.frame.size = CGSize(width: 636, height: 1130)
-           }else{
-               testView.frame.size = CGSize(width: 1024, height: 576)
-           }
-           testView.screenShotPic?.image = finalImage
-           testView.userPic?.image = hostImage
-           testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")
-           let dateFormatter = DateFormatter()
-           dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-           dateFormatter.dateFormat = "MMM dd, yyyy"
-           dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-           let comingDate = info?.startDate ?? Date()
-           let requireDate = dateFormatter.string(from: comingDate)
-           testView.date?.text = "\(requireDate)"
-           completion(getSnapshot(view: testView))
            // return finalImage
        }
+    
+    
+    private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
+        
+        guard let localImage = localFrame, let remoteImage = remoteFrame
+            else{
+                completion(nil)
+                return
+        }
+        
+        guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
+            else{
+                completion(nil)
+                return
+        }
+        
+        let isPortraitInSize = isPortrait(size: finalImage.size)
+        
+        Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
+        
+        testView.isPortraitInSize = isPortraitInSize
+        if isPortraitInSize ?? true{
+            testView.frame.size = CGSize(width: 636, height: 1130)
+        }else{
+            testView.frame.size = CGSize(width: 1024, height: 576)
+        }
+        testView.screenShotPic?.image = finalImage
+        testView.userPic?.image = nil
+        testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        let comingDate = info?.startDate ?? Date()
+        let requireDate = dateFormatter.string(from: comingDate)
+        testView.date?.text = "\(requireDate)"
+        completion(getSnapshot(view: testView))
+    }
+    
+    
+    private func getVideoFrame(listener : ((_ localFrame : UIImage?, _ remoteFrame : UIImage?) -> ())?){
+        
+        var localFrame : UIImage? = nil
+        var remoteFrame : UIImage? = nil
+        var localListener = listener
+        
+        localVideoView?.getFrame(listener: { (frame) in
+            guard let frame = frame
+                else{
+                    localListener?(nil, remoteFrame)
+                    localListener = nil
+                    return
+            }
+            localFrame = frame
+            if(remoteFrame == nil){
+                return
+            }
+            
+            localListener?(localFrame, remoteFrame)
+            localListener = nil
+    
+        })
+        
+        remoteVideoView?.getFrame(listener: { (frame) in
+            guard let frame = frame
+                else{
+                    localListener?(nil, localFrame)
+                    localListener = nil
+                    return
+            }
+            remoteFrame = frame
+            if(localFrame == nil){
+                return
+            }
+            localListener?(localFrame, remoteFrame)
+            localListener = nil
+            
+        })
+        
+        
+    }
        
        //Developer Y
        func isPortrait(size:CGSize)->Bool?{
@@ -234,6 +269,8 @@ extension VideoRootView{
            return finalImage
        }
        
+    
+      
        
        
        private func getSnapshot(view : UIView)->UIImage?{

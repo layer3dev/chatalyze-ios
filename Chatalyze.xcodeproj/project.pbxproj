@@ -1031,6 +1031,8 @@
 		78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
+		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
+		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
 		FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */; };
 		FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779F207E2B53005F840D /* CanvasContainer.swift */; };
@@ -1778,6 +1780,8 @@
 		C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D748F967C57D2CCE03FC232A /* Pods-Chatalyze Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze Dev/Pods-Chatalyze Dev.release.xcconfig"; sourceTree = "<group>"; };
 		E24DCEBB0C89FC10D70AA757 /* Pods-Chatalyze.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.release.xcconfig"; sourceTree = "<group>"; };
+		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
+		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
 		EA6B7C8968AD8FDF687ED2D1 /* Pods-Chatalyze.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.debug.xcconfig"; sourceTree = "<group>"; };
 		FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotFlagInfo.swift; sourceTree = "<group>"; };
 		FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotInfoFetch.swift; sourceTree = "<group>"; };
@@ -4186,6 +4190,15 @@
 			path = AutographyInfoFetch;
 			sourceTree = "<group>";
 		};
+		E75D9AA7246C6C5000BC2D07 /* FrameRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */,
+				E75D9AA8246C6C6900BC2D07 /* I420Frame.m */,
+			);
+			path = FrameRenderer;
+			sourceTree = "<group>";
+		};
 		FA0A4F9B2078B41600FF9517 /* callInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -4641,6 +4654,7 @@
 		FA74B0ED20639A1A00983141 /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				E75D9AA7246C6C5000BC2D07 /* FrameRenderer */,
 				FA74B14120639C7300983141 /* third_party */,
 				FA74B0F520639B6300983141 /* webrtc_support */,
 				FA74B0EF20639A2C00983141 /* ViewControllerT.h */,
@@ -6750,6 +6764,7 @@
 				47D0B17D21A6C4B5006376A8 /* ServerProcessor.swift in Sources */,
 				47D0B17E21A6C4B5006376A8 /* EventDelayListener.swift in Sources */,
 				47D0B17F21A6C4B5006376A8 /* ForgotRootView.swift in Sources */,
+				E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */,
 				47D0B18021A6C4B5006376A8 /* MicActionView.swift in Sources */,
 				47D0B18121A6C4B5006376A8 /* ARDTURNClient.m in Sources */,
 				FA91056421D652E500060AFF /* OnboardThirdController.swift in Sources */,
@@ -7331,6 +7346,7 @@
 				FAA001A9203ED472003C8A74 /* ServerProcessor.swift in Sources */,
 				473D059C2113266000E121C4 /* EventDelayListener.swift in Sources */,
 				47B6523620AAAF8C0041496C /* ForgotRootView.swift in Sources */,
+				E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */,
 				FA79F107210A042600D16F13 /* MicActionView.swift in Sources */,
 				FA74B13520639B6400983141 /* ARDTURNClient.m in Sources */,
 				FA3B46A721104D19007EA72D /* FrameExtractor.swift in Sources */,
