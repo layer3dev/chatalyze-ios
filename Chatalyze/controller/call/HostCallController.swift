@@ -21,6 +21,7 @@ class HostCallController: VideoCallController {
     var autoGraphInfo:AutographInfo?
     
     var isSignatureActive = false
+    var autographSlotInfo : SlotInfo? = nil
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference:EarlyViewController?
@@ -315,6 +316,7 @@ class HostCallController: VideoCallController {
     }
     
     private func processAutographSelfie(){
+        Log.echo(key: "HostCallController", text: "processAutographSelfie")
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -324,11 +326,16 @@ class HostCallController: VideoCallController {
             return
         }
         
+        Log.echo(key: "HostCallController", text: "getSnapshot")
+        autographSlotInfo = myLiveUnMergedSlot
+        
         self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
             guard let image = image
             else{
                 return
             }
+            
+            Log.echo(key: "HostCallController", text: "call renderCanvas")
             
             self.renderCanvas(image : image)
         })
@@ -1425,7 +1432,7 @@ extension HostCallController{
     
     
     private func renderCanvas(image : UIImage){
-        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+        guard let currentSlot = autographSlotInfo
             else{
                 return
         }
@@ -1442,6 +1449,8 @@ extension HostCallController{
         self.hostRootView?.localVideoView?.isSignatureActive = true
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         
+        Log.echo(key: "HostCallController", text: "send screenshot confirmation")
+        
         
         sendScreenshotConfirmation()
         
@@ -1450,7 +1459,7 @@ extension HostCallController{
     private func generateAutographInfo() -> [String : Any?]{
         
         var params = [String : Any?]()
-        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+        guard let currentSlot = autographSlotInfo
             else{
                 return params
         }
@@ -1466,7 +1475,7 @@ extension HostCallController{
     private func sendScreenshotConfirmation(){
         
         
-        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+        guard let currentSlot = autographSlotInfo
             else{
                 return
         }
@@ -1491,7 +1500,7 @@ extension HostCallController{
     
     func stopSigning(){
         
-        guard let currentSlot = eventInfo?.mergeSlotInfo?.currentSlot
+        guard let currentSlot = autographSlotInfo
             else{
                 return
         }
@@ -1561,11 +1570,24 @@ extension HostCallController{
         
         // id,int userId,int analystId,boolean signed
         
+        
+        
         var params = [String : String]()
-        params["id"] = self.autoGraphInfo?.id ?? ""
-        params["userId"] = self.autoGraphInfo?.userId ?? ""
-        params["analystId"] = self.autoGraphInfo?.analystId ?? ""
+//        params["id"] = self.autoGraphInfo?.id ?? ""
+        
+        params["userId"] = "\(self.autographSlotInfo?.userId ?? 0)"
+        params["analystId"] = "\(self.eventInfo?.userId ?? 0)"
         params["signed"] = "true"
+        
+        params["callbookingId"] = "\(self.autographSlotInfo?.id ?? 0)"
+        params["callScheduleId"] = "\(self.eventInfo?.id ?? 0)"
+        
+        params["defaultImage"] = "false"
+        params["isImplemented"] = "true"
+        
+    
+
+        
         
         Log.echo(key: "yud", text: "Params are \(params) and image is nil = \(image == nil  ? true : false ) and the access token is \(String(describing: SignedUserInfo.sharedInstance?.accessToken))")
         

@@ -14,7 +14,12 @@ class VideoView: RTCEAGLVideoView {
     
     private var frameListener : ((_ image: UIImage?) -> ())?
     private var isFrameRequired = false
-    private let TAG = "VideoView"
+    
+    var TAG : String{
+        get{
+            return "LocalVideoView"
+        }
+    }
 
     enum orientation : Int{
         
@@ -53,35 +58,42 @@ class VideoView: RTCEAGLVideoView {
         }
         
         isFrameRequired = false
-        Log.echo(key: "VideoView", text: "fetch frame")
+        Log.echo(key: self.TAG, text: "fetch frame")
         
         
-        DispatchQueue.global(qos: .background).async {[weak self] in
+        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
         
             guard let _ = self?.frameListener
             else{
                 return
             }
             
+            
             guard let image = self?.frameToImage(frame : frame)
                 else{
                     return
             }
+            
+            Log.echo(key: self?.TAG ?? "", text: "got the image")
             
             self?.dispatchFrame(frame : image)
         }
     }
     
     private func frameToImage(frame: RTCVideoFrame) -> UIImage?{
+        
+        Log.echo(key: self.TAG, text: "frameToImage")
         let frameRenderer = I420Frame(rtcFrame: frame, atTime: Date().timeIntervalSinceNow)
+        Log.echo(key: self.TAG, text: "got Frame Renderer")
         return frameRenderer?.getUIImage()
     }
     
     private func dispatchFrame(frame: UIImage){
         DispatchQueue.main.async {[weak self] in
+            Log.echo(key: self?.TAG ?? "", text: "frame is ready")
             self?.frameListener?(frame)
             self?.frameListener = nil
-            Log.echo(key: "VideoView", text: "sent the frame")
+            Log.echo(key: self?.TAG ?? "", text: "sent the frame")
         }
     }
 

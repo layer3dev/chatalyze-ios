@@ -20,6 +20,12 @@ class LocalVideoView: VideoView {
 
     var isSignatureActive:Bool = false
     
+    override var TAG : String{
+        get{
+            return "LocalVideoView"
+        }
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

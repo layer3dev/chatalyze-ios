@@ -135,8 +135,11 @@ class VideoRootView: ExtendedView {
 
 extension VideoRootView{
     func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,  completion: @escaping ((_ image:UIImage?)->())){
+        
+        Log.echo(key: "VideoRootView", text: "call get Video Frame")
             
         getVideoFrame(listener: {[weak self] (local, remote) in
+            Log.echo(key: "VideoRootView", text: "received BOTH frame")
             self?.renderScreenshot(localFrame: local, remoteFrame: remote, info: info, completion: completion)
         })
         
@@ -185,11 +188,14 @@ extension VideoRootView{
     
     private func getVideoFrame(listener : ((_ localFrame : UIImage?, _ remoteFrame : UIImage?) -> ())?){
         
+        Log.echo(key: "VideoRootView", text: "getVideoFrame")
         var localFrame : UIImage? = nil
         var remoteFrame : UIImage? = nil
         var localListener = listener
         
         localVideoView?.getFrame(listener: { (frame) in
+            
+            Log.echo(key: "VideoRootView", text: "localVideoView frame received")
             guard let frame = frame
                 else{
                     localListener?(nil, remoteFrame)
@@ -207,6 +213,7 @@ extension VideoRootView{
         })
         
         remoteVideoView?.getFrame(listener: { (frame) in
+            Log.echo(key: "VideoRootView", text: "remoteVideoView frame received")
             guard let frame = frame
                 else{
                     localListener?(nil, localFrame)

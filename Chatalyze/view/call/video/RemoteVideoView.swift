@@ -19,6 +19,12 @@ class RemoteVideoView: VideoView {
     
     var streamUpdationDelegate:UpdateStreamChangeProtocol?
     
+    override var TAG : String{
+        get{
+            return "RemoteVideoView"
+        }
+    }
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
