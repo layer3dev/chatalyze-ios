@@ -382,7 +382,7 @@ extension SocketClient{
     fileprivate func sendWrapped(_ data : [String : Any]?, waitForConnection : Bool = true){
         
         let jsonString = data?.JSONDescription() ?? ""
-        Log.echo(key : "_connection_", text : "sendWrapped: \(jsonString)")
+        Log.echo(key : "_connection_", text : jsonString)
         
         if(!waitForConnection){
             self.socket?.write(string: jsonString)

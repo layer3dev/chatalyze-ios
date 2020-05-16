@@ -201,6 +201,11 @@ class UserCallController: VideoCallController {
             return
         }
         
+//        if(!eventInfo.isPreconnectEligible){
+//            setStatusMessage(type: .ideal)
+//            return
+//        }
+        
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
             return
@@ -677,9 +682,10 @@ class UserCallController: VideoCallController {
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
-                
-                let backThread = DispatchQueue(label: "uploading", qos: .background)
+                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
+                    
                     
                     self.encodeImageToBase64(image: image, completion: { (encodedData) in
                         
@@ -1373,41 +1379,11 @@ extension UserCallController{
         })
     }
     
-    private func encodeImageToBase64(image : UIImage?,completion:(_ encodedData:String)->()){
-        
-        guard let image = image
-            else{
-                completion("")
-                return
-        }
-        
-        guard let data = image.jpegData(compressionQuality: 1.0)
-            else{
-                completion("")
-                return
-        }
-        
-        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-        
-        completion(imageBase64)
-    }
+    
     
     
     private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, info:ScreenshotInfo? = nil, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
-        
-        
-        //        guard let image = image
-        //            else{
-        //                completion?(false, nil)
-        //                return
-        //        }
-        
-        //        guard let data = image.jpegData(compressionQuality: 1.0)
-        //            else{
-        //                completion?(false, nil)
-        //                return
-        //        }
-        
+                
         var params = [String : Any]()
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId

@@ -246,13 +246,7 @@ class HostCallController: VideoCallController {
         return self.view as? HostVideoRootView
     }
     
-    func showToastWithMessage(text:String,time:Double){
-        
-        let options = [kCRToastNotificationTypeKey : CRToastType.navigationBar,kCRToastUnderStatusBarKey:false,kCRToastTextKey : text,kCRToastNotificationPreferredHeightKey:4.0,kCRToastTextAlignmentKey:NSTextAlignment.center,kCRToastBackgroundColorKey:UIColor(hexString: "#FAA579"),kCRToastAnimationInTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationOutTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationInDirectionKey:CRToastAnimationDirection.left,kCRToastAnimationOutDirectionKey:CRToastAnimationDirection.right,kCRToastTimeIntervalKey:time] as [String : Any]
-        
-        CRToastManager.showNotification(options: options) {
-        }
-    }
+   
     
     private func initializeVariable(){
         
@@ -456,6 +450,7 @@ class HostCallController: VideoCallController {
         
         if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
             setStatusMessage(type : .userDidNotJoin)
+            resetCanvas()
             return;
         }
         
@@ -1455,6 +1450,19 @@ extension HostCallController{
         sendScreenshotConfirmation()
         
     }
+    
+    
+    
+    /*
+     "color": "",
+            "id": "0",
+            "text": "",
+            "userId": "1833",
+            "analystId": "1674",
+            "signed": false,
+            "paid": false,
+            "screenshot": ""
+     */
      
     private func generateAutographInfo() -> [String : Any?]{
         
@@ -1467,6 +1475,10 @@ extension HostCallController{
         params["analystId"] = eventInfo?.userId
         params["screenshot"] = ""
         params["signed"] = false
+        params["id"] = 0
+        params["color"] = ""
+        params["text"] = ""
+        params["paid"] = false
    
 
         return params
@@ -1487,7 +1499,7 @@ extension HostCallController{
         params["height"] = size.height
         params["screenshot"] =  generateAutographInfo()
         
-        if let currentSlotId = self.eventInfo?.currentSlotInfo?.slotInfo?.id {
+        if let currentSlotId = autographSlotInfo?.id {
             params["forSlotId"] = "\(currentSlotId)"
         }
 
@@ -1513,6 +1525,10 @@ extension HostCallController{
     
     private func resetCanvas(){
         
+        if(!isSignatureActive){
+            return
+        }
+        
         self.releaseDeviceOrientation()
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
@@ -1523,6 +1539,7 @@ extension HostCallController{
         
         self.hostRootView?.localVideoView?.isSignatureActive = false
         self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
+        self.isSignatureActive = false
         
     }
 
@@ -1560,6 +1577,33 @@ extension HostCallController{
         
     }
     
+    
+    private func uploadImage(encodedImage:String, autographSlotInfo : SlotInfo?, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
+                
+        var params = [String : Any]()
+        params["userId"] = autographSlotInfo?.userId
+        params["analystId"] = SignedUserInfo.sharedInstance?.id ?? 0
+        params["callbookingId"] = autographSlotInfo?.id ?? 0
+        params["callScheduleId"] = eventInfo?.id ?? 0
+        params["defaultImage"] = false
+        params["file"] = encodedImage
+        params["isImplemented"] = true
+        params["signed"] = true
+    
+        
+        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
+        
+        //userRootView?.requestAutographButton?.showLoader()
+        SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
+            //self?.userRootView?.requestAutographButton?.hideLoader()
+            
+            DispatchQueue.main.async {
+                completion?(success, info)
+            }
+        }
+    }
+    
+    
     private func uploadAutographImage(){
         
 
@@ -1567,91 +1611,16 @@ extension HostCallController{
             else{
                 return
         }
-        
-        // id,int userId,int analystId,boolean signed
-        
-        
-        
-        var params = [String : String]()
-//        params["id"] = self.autoGraphInfo?.id ?? ""
-        
-        params["userId"] = "\(self.autographSlotInfo?.userId ?? 0)"
-        params["analystId"] = "\(self.eventInfo?.userId ?? 0)"
-        params["signed"] = "true"
-        
-        params["callbookingId"] = "\(self.autographSlotInfo?.id ?? 0)"
-        params["callScheduleId"] = "\(self.eventInfo?.id ?? 0)"
-        
-        params["defaultImage"] = "false"
-        params["isImplemented"] = "true"
-        
-    
-
-        
-        
-        Log.echo(key: "yud", text: "Params are \(params) and image is nil = \(image == nil  ? true : false ) and the access token is \(String(describing: SignedUserInfo.sharedInstance?.accessToken))")
-        
-        let url = AppConnectionConfig.webServiceURL + "/screenshots"
-        
-        uploadImage(urlString: url, image: image, includeToken: false,params: params, progress: { (data) in
-            
-        }) { (success) in
-            
-            if success{
-               
-                self.showToastWithMessage(text:"Autograph saved successfully!",time:2.0)
-
-                Log.echo(key: "yud", text: "image is uploaded done")
-                return
+        encodeImageToBase64(image: image) {[weak self] (encodedImage) in
+            self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: self?.autographSlotInfo) { (success, info) in
+                
             }
-            Log.echo(key: "yud", text: "image uploading is unsuccessfull")
         }
     }
     
     
-    func uploadImage(urlString : String, image : UIImage, includeToken : Bool,  params : [String : String] = [String : String](), progress : @escaping (Double)->(), completion : @escaping (Bool)->()){
-        
-        Log.echo(key: "", text:"UploadImage --> urlString --> \(urlString)")
-        
-        guard let imageData = image.pngData()
-            else{
-                completion(false)
-                return
-        }
-        
-        Alamofire.upload(multipartFormData : { multipartFormData in
-            multipartFormData.append(imageData, withName: "file",
-                                     fileName: "blob", mimeType: "image/png")
-            for (key, value) in params {
-                multipartFormData.append((value.data(using: .utf8))!, withName: key)
-            }
-        },
-                         usingThreshold : 0, to : urlString,
-                         method : .put,
-                         headers :  ["Authorization" : ("Bearer " + (SignedUserInfo.sharedInstance?.accessToken ?? ""))],
-                         encodingCompletion : { encodingResult in
-                            
-                            switch encodingResult {
-                            case .success(let upload, _, _):
-                                
-                                upload.uploadProgress(closure: { (progressInfo) in
-                                    DispatchQueue.main.async {
-                                        let percent =  progressInfo.fractionCompleted
-                                        progress(Double(percent))
-                                    }
-                                })
-                                
-                                upload.validate()
-                                upload.responseJSON { response in
-                                    Log.echo(key: "", text:"jsonResponse  => \(response)")
-                                    completion(true)
-                                }
-                            case .failure(let encodingError):
-                                Log.echo(key: "", text:encodingError)
-                                completion(false)
-                            }
-        })
-    }
+    
+    
 }
 
 extension HostCallController:AutographSignatureBottomResponseInterface{
@@ -1662,19 +1631,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.uploadAutographImage()
         
-        self.hostRootView?.canvasContainer?.hide()
-        self.stopSigning()
+        self.resetCanvas()
         
-        self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
-        self.hostRootView?.remoteVideoContainerView?.updateForCall()
-        self.signaturAccessoryView?.isHidden = true
-        
-        self.hostRootView?.localVideoView?.isSignatureActive = false
-        self.hostRootView?.localVideoView?.updateLayoutOnEndOfCall()
-        
-        self.isSignatureActive = false
-        
-        self.releaseDeviceOrientation()
         self.showToastWithMessage(text: "Autograph saving....", time: 5.0)
     }
     
@@ -1702,6 +1660,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     
     }    
     
+    
     func lockDeviceOrientation(){
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
@@ -1710,12 +1669,16 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
             
             delegate?.isSignatureInCallisActive = true
             
-            if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
-                
+            Log.echo(key: "HostCallController", text: "lockDeviceOrientation -> \(UIDevice.current.orientation)")
+            
+            if UIApplication.shared.statusBarOrientation == .landscapeLeft{
+                Log.echo(key: "HostCallController", text: "lockDeviceOrientation -> left")
                 delegate?.signatureDirection = .landscapeLeft
                 UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
                 
-            }else{
+            }else if UIApplication.shared.statusBarOrientation == .landscapeRight{
+                
+                Log.echo(key: "HostCallController", text: "lockDeviceOrientation -> right")
                 
                 delegate?.signatureDirection = .landscapeRight
                 UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
@@ -1727,6 +1690,9 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         }
     }
+    
+    
+
     
     func releaseDeviceOrientation(){
         

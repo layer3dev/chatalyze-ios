@@ -2,6 +2,8 @@ import UIKit
 import CallKit
 import Foundation
 import SwiftyJSON
+import Toast_Swift
+import CRToast
 
 
 //todo:
@@ -722,6 +724,30 @@ extension VideoCallController{
     func acceptCallUpdate(){
         self.rootView?.switchToCallAccept()
     }
+    
+    
+    func encodeImageToBase64(image : UIImage?,completion: @escaping (_ encodedData:String)->()){
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            guard let image = image
+                else{
+                    completion("")
+                    return
+            }
+            
+            guard let data = image.jpegData(compressionQuality: 1.0)
+                else{
+                    completion("")
+                    return
+            }
+            
+            let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
+            
+            DispatchQueue.main.async {[weak self] in
+                completion(imageBase64)
+            }
+        }
+    }
 }
 
 //instance
@@ -986,13 +1012,15 @@ extension VideoCallController{
         
         Log.echo(key: "yud", text: "Setting up a status type \(type)")
         
-        if(type == .ideal || type == .preConnectedSuccess) {
+        if(type == .ideal) {
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
             self.hideAlertContainer()
             return
         }
+        
+        
         
         if(type == .connected) {
             
@@ -1060,6 +1088,15 @@ extension VideoCallController{
             self.hideChatalyzeLogo()
             self.hidePreConnectLabel()
             return
+        }
+        
+        if type == .preConnectedSuccess {
+        self.showAlertContainer()
+        self.showPreConnectLabel()
+        let requiredMessage = "Get ready to chat!"
+        let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
+        preConnectLbl?.attributedText = secondAttributedString
+        return
         }
     }
     
@@ -1167,5 +1204,13 @@ extension VideoCallController:VideoViewStatusBarAnimationInterface{
     func hidingAnimateStatusBar() {
         
         UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.fade)
+    }
+    
+    func showToastWithMessage(text:String,time:Double){
+        
+        let options = [kCRToastNotificationTypeKey : CRToastType.navigationBar,kCRToastUnderStatusBarKey:false,kCRToastTextKey : text,kCRToastNotificationPreferredHeightKey:4.0,kCRToastTextAlignmentKey:NSTextAlignment.center,kCRToastBackgroundColorKey:UIColor(hexString: "#FAA579"),kCRToastAnimationInTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationOutTypeKey:kCRToastAnimationGravityMagnitudeKey,kCRToastAnimationInDirectionKey:CRToastAnimationDirection.left,kCRToastAnimationOutDirectionKey:CRToastAnimationDirection.right,kCRToastTimeIntervalKey:time] as [String : Any]
+        
+        CRToastManager.showNotification(options: options) {
+        }
     }
 }
