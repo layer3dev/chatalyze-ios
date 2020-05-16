@@ -1633,7 +1633,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         self.resetCanvas()
         
-        self.showToastWithMessage(text: "Autograph saving....", time: 5.0)
+        self.showToastWithMessage(text: "Saving Autograph..", time: 5.0)
     }
     
     func undoAction(sender:UIButton?){

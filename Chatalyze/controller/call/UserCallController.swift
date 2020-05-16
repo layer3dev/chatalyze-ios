@@ -1440,6 +1440,7 @@ extension UserCallController {
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
             self.resetCanvas()
+            self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
         })
     }
     
