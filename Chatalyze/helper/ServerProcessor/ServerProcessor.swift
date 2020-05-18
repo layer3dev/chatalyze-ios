@@ -111,8 +111,8 @@ class ServerProcessor{
         }
         
         
-        Log.echo(key: "yud", text: "param => " + (URLString))
-        Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
+        Log.echo(key: "yud", text: "url => " + (URLString))
+//        Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
         
         let request = Alamofire.request(URLString, method : method.libHttpMethod(), parameters: parameters, encoding: encoding.libEncoding(), headers: headers)
         self.requestRef = request

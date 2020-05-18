@@ -30,7 +30,7 @@ def pod_file
   pod 'Toast-Swift'
   pod 'CRToast'
   pod 'libyuv-iOS'
-  pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"
+  pod "YoutubePlayer-in-WKWebView"
 
 end
 
