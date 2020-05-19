@@ -47,6 +47,8 @@ class UserVideoRootView: UserVideoLayoutView {
 //          @"playsinline" : @1,
 //        };
         youtubePlayerView?.webView?.backgroundColor = UIColor.black
+        youtubePlayerView?.backgroundColor = UIColor.black
+        youtubePlayerView?.delegate = self
         youtubePlayerView?.load(withVideoId: "-KXGw9J5n1o", playerVars : params)
 
     }
@@ -115,5 +117,17 @@ class UserVideoRootView: UserVideoLayoutView {
     }
     
     
+}
+
+extension UserVideoRootView : WKYTPlayerViewDelegate{
+    func playerViewPreferredWebViewBackgroundColor(_ playerView: WKYTPlayerView) -> UIColor {
+        return .black
+    }
+    
+    func playerViewPreferredInitialLoading(_ playerView: WKYTPlayerView) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        return view
+    }
 }
 
