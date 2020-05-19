@@ -74,6 +74,34 @@ class UserCallController: VideoCallController {
         }
     }
     
+    override func processEventInfo(){
+        super.processEventInfo()
+            
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        loadYoutubeVideo(eventInfo: eventInfo)
+    }
+    
+    private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
+        guard let youtubeURL = eventInfo.youtubeURL
+            else{
+                return
+        }
+        userRootView?.youtubeContainerView?.load(rawUrl : youtubeURL)
+    }
+    
+    override func renderIdleMedia(){
+        userRootView?.youtubeContainerView?.show()
+    }
+    
+    override func stopIdleMedia(){
+        userRootView?.youtubeContainerView?.hide()
+    }
+    
+    
     var userRootView : UserVideoRootView?{
         return self.view as? UserVideoRootView
     }
@@ -251,6 +279,8 @@ class UserCallController: VideoCallController {
         }
         setStatusMessage(type: .ideal)
     }
+    
+    
     
     override func isExpired()->Bool{
         

@@ -458,6 +458,15 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    //abstract
+    func renderIdleMedia(){
+        
+    }
+    
+    func stopIdleMedia(){
+        
+    }
+    
     
     private func connectToRoom(info : EventScheduleInfo){
         
@@ -1017,8 +1026,12 @@ extension VideoCallController{
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
             self.hideAlertContainer()
+            renderIdleMedia()
+            
             return
         }
+        
+        stopIdleMedia()
         
         
         

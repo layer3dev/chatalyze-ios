@@ -17,7 +17,7 @@ class UserVideoRootView: UserVideoLayoutView {
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
     @IBOutlet var callInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
-    @IBOutlet var youtubePlayerView : WKYTPlayerView?
+    @IBOutlet var youtubeContainerView : YoutubeContainerView?
 
     
     /*
@@ -32,25 +32,7 @@ class UserVideoRootView: UserVideoLayoutView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        var params = [String : Any]()
-        params["playsinline"]  = 1
-        params["controls=0"] = 0
-        params["fs"] = 0
-        params["iv_load_policy"] = 0
-        params["loop"] = 1
-        params["modestbranding"] = 1
-        params["rel"] = 0
-        params["showInfo"] = 0
-        
-//
-//        NSDictionary *playerVars = @{
-//          @"playsinline" : @1,
-//        };
-        youtubePlayerView?.webView?.backgroundColor = UIColor.black
-        youtubePlayerView?.backgroundColor = UIColor.black
-        youtubePlayerView?.delegate = self
-        youtubePlayerView?.load(withVideoId: "-KXGw9J5n1o", playerVars : params)
-
+    
     }
     
     
@@ -119,15 +101,5 @@ class UserVideoRootView: UserVideoLayoutView {
     
 }
 
-extension UserVideoRootView : WKYTPlayerViewDelegate{
-    func playerViewPreferredWebViewBackgroundColor(_ playerView: WKYTPlayerView) -> UIColor {
-        return .black
-    }
-    
-    func playerViewPreferredInitialLoading(_ playerView: WKYTPlayerView) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor.black
-        return view
-    }
-}
+
 
