@@ -14,6 +14,11 @@ class YoutubeContainerView : ExtendedView {
     @IBOutlet private var youtubePlayerView : WKYTPlayerView?
     @IBOutlet private var heightConstraint : NSLayoutConstraint?
     private var isActive = false
+    @IBOutlet private var topPortraitConstraint : NSLayoutConstraint?
+    @IBOutlet private var topLandscapeConstraint : NSLayoutConstraint?
+    
+    @IBOutlet private var leftConstraint : NSLayoutConstraint?
+    @IBOutlet private var rightConstraint : NSLayoutConstraint?
     
     private var playerConfiguration = [String : Any]()
     
@@ -24,7 +29,72 @@ class YoutubeContainerView : ExtendedView {
         initialization()
     }
     
+    private func listenToRotation(){
+        NotificationCenter.default.addObserver(self, selector: #selector(didRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    @objc func didRotate(){
+        
+        updateLayoutRotation()
+    }
+    
+    func updateLayoutRotation() {
+        
+        if(UIDevice.current.orientation.isFlat){
+            if UIApplication.shared.statusBarOrientation.isLandscape{
+                updateForLandscape()
+            }else{
+                updateForPortrait()
+            }
+            return
+        }
+
+        if (UIDevice.current.orientation.isLandscape) {
+            updateForLandscape()
+            return
+        }
+        if(UIDevice.current.orientation.isPortrait) {
+            updateForPortrait()
+            return
+        }
+    }
+    
+    
+    func updateForPortrait(){
+        
+        topPortraitConstraint?.isActive = true
+        topLandscapeConstraint?.isActive = false
+        leftConstraint?.constant = 0
+        rightConstraint?.constant = 0
+    }
+    
+    var isIPad : Bool{
+        get{
+            return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad
+        }
+    }
+    
+    func updateForLandscape(){
+       
+        topPortraitConstraint?.isActive = false
+        topLandscapeConstraint?.isActive = true
+        
+        var padding = CGFloat(128 + 30)
+        if(isIPad){
+            padding = CGFloat(224 + 30)
+        }
+        
+        leftConstraint?.constant = padding
+        rightConstraint?.constant = padding
+    }
+    
+
+    
+    
     private func initialization(){
+        updateLayoutRotation()
+        listenToRotation()
+        
         
         var params = [String : Any]()
         params["playsinline"]  = 1

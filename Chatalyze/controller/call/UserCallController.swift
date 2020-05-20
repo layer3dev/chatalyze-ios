@@ -235,13 +235,13 @@ class UserCallController: VideoCallController {
 //        }
         
         if(!eventInfo.isWholeConnectEligible){
-            setStatusMessage(type: .ideal)
+            setStatusMessage(type: .idealMedia)
             return
         }
         
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
-                setStatusMessage(type: .ideal)
+                setStatusMessage(type: .idealMedia)
                 return
         }
         
@@ -1469,8 +1469,11 @@ extension UserCallController {
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
+            Log.echo(key: "UserCallController", text: "stoppedSigning")
+            Log.echo(key: "UserCallController", text: json)
+            
             self.resetCanvas()
-            self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
+//            self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
         })
     }
     

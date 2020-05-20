@@ -1015,23 +1015,35 @@ extension VideoCallController{
         case eventDelay = 4
         case eventNotStarted = 5
         case eventCancelled = 6
+        case idealMedia = 7
     }
     
     func setStatusMessage(type : callStatusMessage) {
         
         Log.echo(key: "yud", text: "Setting up a status type \(type)")
         
+        if type == .idealMedia{
+            self.showChatalyzeLogo()
+            self.hidePreConnectLabel()
+            self.hideAlertContainer()
+            renderIdleMedia()
+            return
+        }
+        
+         stopIdleMedia()
+        
         if(type == .ideal) {
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
             self.hideAlertContainer()
-            renderIdleMedia()
             
             return
         }
         
-        stopIdleMedia()
+        
+        
+       
         
         
         
