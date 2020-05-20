@@ -11,6 +11,15 @@ import UIKit
 class VideoView: RTCEAGLVideoView {
     
     private var trackSize : CGSize = CGSize.zero
+    
+    private var frameListener : ((_ image: UIImage?) -> ())?
+    private var isFrameRequired = false
+    
+    var TAG : String{
+        get{
+            return "LocalVideoView"
+        }
+    }
 
     enum orientation : Int{
         
@@ -28,6 +37,63 @@ class VideoView: RTCEAGLVideoView {
             
             isLoaded = true
             viewDidLayout()
+        }
+    }
+    
+    func getFrame(listener : @escaping ((_ frame: UIImage?) -> ())){
+        self.frameListener = listener
+        isFrameRequired = true
+    }
+    
+    override func renderFrame(_ frame: RTCVideoFrame?) {
+        super.renderFrame(frame)
+        
+        if(!isFrameRequired){
+            return
+        }
+        
+        guard let frame = frame
+        else{
+            return
+        }
+        
+        isFrameRequired = false
+        Log.echo(key: self.TAG, text: "fetch frame")
+        
+        
+        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
+        
+            guard let _ = self?.frameListener
+            else{
+                return
+            }
+            
+            
+            guard let image = self?.frameToImage(frame : frame)
+                else{
+                    return
+            }
+            
+            Log.echo(key: self?.TAG ?? "", text: "got the image")
+            
+            self?.dispatchFrame(frame : image)
+        }
+    }
+    
+    private func frameToImage(frame: RTCVideoFrame) -> UIImage?{
+        
+        Log.echo(key: self.TAG, text: "frameToImage")
+        let frameRenderer = I420Frame(rtcFrame: frame, atTime: Date().timeIntervalSinceNow)
+        Log.echo(key: self.TAG, text: "got Frame Renderer")
+        return frameRenderer?.getUIImage()
+    }
+    
+    private func dispatchFrame(frame: UIImage){
+        DispatchQueue.main.async {[weak self] in
+            Log.echo(key: self?.TAG ?? "", text: "frame is ready")
+            self?.frameListener?(frame)
+            self?.frameListener = nil
+            Log.echo(key: self?.TAG ?? "", text: "sent the frame")
         }
     }
 

@@ -10,7 +10,7 @@ class AutographyHostCanvas: ExtendedView {
     @IBOutlet var heightConstraint:NSLayoutConstraint?
     @IBOutlet var widthConstraint:NSLayoutConstraint?
     
-    var autoGraphInfo:AutographInfo?
+    var slotInfo : SlotInfo?
     var counter = 0
     
     @IBOutlet var mainImageView : AutographyImageView?
@@ -134,7 +134,7 @@ extension AutographyHostCanvas{
         params["reset"] = reset
         
         var mainParams  = [String : Any]()
-        mainParams["name"] = self.autoGraphInfo?.userHashedId
+        mainParams["name"] = self.slotInfo?.user?.hashedId
         mainParams["id"] = "broadcastPoints"
         mainParams["message"] = params
         

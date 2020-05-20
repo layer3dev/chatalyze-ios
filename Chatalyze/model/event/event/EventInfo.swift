@@ -55,6 +55,18 @@ class EventInfo: NSObject {
     var callSchduleId:String?
     var isFlexEnabled:Bool?
     
+    
+    var isAutographEnabled : Bool{
+        get{
+            guard let isAutographAllow = isAutographAllow
+            else{
+                return false
+            }
+            return (isAutographAllow == "automatic")
+        }
+    }
+    
+    
     override init(){
         super.init()
     }

@@ -20,5 +20,6 @@
 #import "RTCConnectionInitializer.h"
 #import "RTCMediaStream+Helper.h"
 #import "RTCSingletonStream.h"
+#import "I420Frame.h"
 
 #endif /* BaseImport_h */

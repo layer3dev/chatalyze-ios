@@ -59,6 +59,7 @@
   [_capturer startCaptureWithDevice:device format:format fps:fps];
 }
 
+
 - (void)stopCapture {
   [_capturer stopCapture];
 }

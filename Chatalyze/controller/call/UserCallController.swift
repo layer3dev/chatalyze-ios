@@ -74,6 +74,34 @@ class UserCallController: VideoCallController {
         }
     }
     
+    override func processEventInfo(){
+        super.processEventInfo()
+            
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        
+        loadYoutubeVideo(eventInfo: eventInfo)
+    }
+    
+    private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
+        guard let youtubeURL = eventInfo.youtubeURL
+            else{
+                return
+        }
+        userRootView?.youtubeContainerView?.load(rawUrl : youtubeURL)
+    }
+    
+    override func renderIdleMedia(){
+        userRootView?.youtubeContainerView?.show()
+    }
+    
+    override func stopIdleMedia(){
+        userRootView?.youtubeContainerView?.hide()
+    }
+    
+    
     var userRootView : UserVideoRootView?{
         return self.view as? UserVideoRootView
     }
@@ -201,14 +229,19 @@ class UserCallController: VideoCallController {
             return
         }
         
+//        if(!eventInfo.isPreconnectEligible){
+//            setStatusMessage(type: .ideal)
+//            return
+//        }
+        
         if(!eventInfo.isWholeConnectEligible){
-            setStatusMessage(type: .ideal)
+            setStatusMessage(type: .idealMedia)
             return
         }
         
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
-                setStatusMessage(type: .ideal)
+                setStatusMessage(type: .idealMedia)
                 return
         }
         
@@ -246,6 +279,8 @@ class UserCallController: VideoCallController {
         }
         setStatusMessage(type: .ideal)
     }
+    
+    
     
     override func isExpired()->Bool{
         
@@ -677,9 +712,10 @@ class UserCallController: VideoCallController {
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
-                
-                let backThread = DispatchQueue(label: "uploading", qos: .background)
+                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
+                    
                     
                     self.encodeImageToBase64(image: image, completion: { (encodedData) in
                         
@@ -1373,41 +1409,11 @@ extension UserCallController{
         })
     }
     
-    private func encodeImageToBase64(image : UIImage?,completion:(_ encodedData:String)->()){
-        
-        guard let image = image
-            else{
-                completion("")
-                return
-        }
-        
-        guard let data = image.jpegData(compressionQuality: 1.0)
-            else{
-                completion("")
-                return
-        }
-        
-        let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
-        
-        completion(imageBase64)
-    }
+    
     
     
     private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, info:ScreenshotInfo? = nil, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
-        
-        
-        //        guard let image = image
-        //            else{
-        //                completion?(false, nil)
-        //                return
-        //        }
-        
-        //        guard let data = image.jpegData(compressionQuality: 1.0)
-        //            else{
-        //                completion?(false, nil)
-        //                return
-        //        }
-        
+                
         var params = [String : Any]()
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
@@ -1442,23 +1448,32 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
+            guard let currentSlot = self.myActiveUserSlot
+                else{
+                    return
+            }
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
             guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
                 return
             }
-            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
-                return
-            }
-            if currentSlotId != canvasCallBookingId {
-                return
-            }
+//            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
+//                return
+//            }
+//
+//            if currentSlotId != canvasCallBookingId {
+//                return
+//            }
             self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
             
+            Log.echo(key: "UserCallController", text: "stoppedSigning")
+            Log.echo(key: "UserCallController", text: json)
+            
             self.resetCanvas()
+//            self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
         })
     }
     

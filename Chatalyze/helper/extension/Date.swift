@@ -43,7 +43,7 @@ public extension Date {
         let totalSeconds = Int(self.timeIntervalTillNow)
         //print("logging", "total seconds ->  \(totalSeconds)")
         
-        if(totalSeconds < 0){
+        if(totalSeconds <= 0){
             return (false, "00", "00", "00")
         }
         let hours = (totalSeconds) / 3600

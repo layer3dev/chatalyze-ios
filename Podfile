@@ -29,6 +29,9 @@ def pod_file
   pod 'FSCalendar'
   pod 'Toast-Swift'
   pod 'CRToast'
+  pod 'libyuv-iOS'
+  pod "YoutubePlayer-in-WKWebView"
+
 end
 
 target 'Chatalyze' do
