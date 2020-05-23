@@ -153,8 +153,45 @@ class CallLogger : NSObject {
         emit(info: info)
     }
     
-    func logSocketConnectionState(){
+    private func parseStats(stats : [RTCLegacyStatsReport]) -> [[String : String]]{
+        var list = [[String : String]]()
+        for info in stats{
+            let rawInfo = info.values
+            list.append(rawInfo)
+        }
         
+        return list
+    }
+    
+    @objc func logStats(slotId : Int, stats : [RTCLegacyStatsReport]){
+        let parsedStats = parseStats(stats: stats)
+        let type = "ice_stats"
+        var meta = [String : Any]()
+        meta["type"] = type
+        meta["callbookingId"] = slotId
+        
+        let deviceInfo = DeviceApplicationInfo().rawInfo()
+
+        var statsInfo = [String : Any]()
+        statsInfo["plateform"] = deviceInfo
+        statsInfo["data"] = parsedStats
+        meta["stats"] = statsInfo
+        
+        
+        
+        var info = [String : Any]()
+        info["callbookingId"] = sessionId
+        info["userId"] = userId
+        info["targetUserId"] = userId
+        info["log_type"] = "call_logs"
+        info["type"] = type
+        info["meta"] = meta
+        
+        emit(info: info)
+    }
+    
+    func logSocketConnectionState(){
+    
         let type = "websocket_connection_state"
         var meta = [String : Any]()
         meta["type"] = type
@@ -196,7 +233,7 @@ class CallLogger : NSObject {
     }
     
     private func emit(info : [String : Any]){
-         Log.echo(key: "json dict", text: "\(info)")
+        Log.echo(key: "json dict", text: info.JSONDescription())
          userSocket?.socket?.emit("log", info)
     }
     

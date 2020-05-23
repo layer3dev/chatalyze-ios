@@ -139,6 +139,17 @@ class CallConnection: NSObject {
         socketListener = socketClient?.createListener()
     }
     
+    private func logStats(){
+        let slotId = slotInfo?.id ?? 0
+        connection?.peerConnection?.stats(for: nil, statsOutputLevel: .debug, completionHandler: {[weak self] (infos) in
+            self?.callLogger?.logStats(slotId: slotId, stats: infos)
+        })
+    }
+    
+    
+    
+    
+    
     private func printStats(){
         Log.echo(key: "CallConnection", text: "printStats")
         connection?.peerConnection?.stats(for: nil, statsOutputLevel: .debug, completionHandler: { (infos) in
@@ -194,6 +205,8 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didChange state: ARDAppClientState) {
     }
     
+    
+    
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         
         callLogger?.logConnectionState(connectionState: state)
@@ -201,6 +214,8 @@ extension CallConnection : ARDAppClientDelegate{
         if(isAborted){
             return
         }
+        
+        logStats()
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
@@ -214,7 +229,6 @@ extension CallConnection : ARDAppClientDelegate{
             isCallConnected?()
             renderIfLinked()
             resetVideoBounds()
-            printStats()
             return
         }
         
