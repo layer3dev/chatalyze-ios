@@ -139,29 +139,23 @@ class CallConnection: NSObject {
         socketListener = socketClient?.createListener()
     }
     
-    private func logStats(){
-        let slotId = slotInfo?.id ?? 0
-        connection?.peerConnection?.stats(for: nil, statsOutputLevel: .debug, completionHandler: {[weak self] (infos) in
-            self?.callLogger?.logStats(slotId: slotId, stats: infos)
-        })
+    private func logStats(state: RTCIceConnectionState){
+        
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            let slotId = self?.slotInfo?.id ?? 0
+            self?.connection?.peerConnection?.stats(for: nil, statsOutputLevel: .standard, completionHandler: {[weak self] (infos) in
+                self?.callLogger?.logStats(slotId: slotId, stats: infos)
+                self?.callLogger?.logConnectionState(connectionState: state, stats : infos)
+            })
+        }
+        
     }
     
     
     
     
     
-    private func printStats(){
-        Log.echo(key: "CallConnection", text: "printStats")
-        connection?.peerConnection?.stats(for: nil, statsOutputLevel: .debug, completionHandler: { (infos) in
-            for info in infos{
-                Log.echo(key: "CallConnection", text: "stats -> \(info.values)")
-            }
-            
-        })
-//        [strongSelf.peerConnection statsForTrack:nil
-//         statsOutputLevel:RTCStatsOutputLevelDebug
-//        completionHandler:^(NSArray *stats) {
-    }
+  
     
     func registerForListeners(){
     }
@@ -209,13 +203,18 @@ extension CallConnection : ARDAppClientDelegate{
     
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         
-        callLogger?.logConnectionState(connectionState: state)
+        
         
         if(isAborted){
             return
         }
         
-        logStats()
+        
+//        DispatchQueue.main.asyncAfter(deadline: (.now() + 5.0), execute: {
+//            self.logStats()
+//        })
+        
+        logStats(state : state)
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)

@@ -50,14 +50,35 @@ class CallLogger : NSObject {
     
         emit(info: info)
     }
+    
+    private func extractState(stats : [RTCLegacyStatsReport]) ->  (local : String, remote : String)?{
+        for info in stats{
+            let rawInfo = info.values
+            let connectionState = rawInfo["googActiveConnection"]
+            if(connectionState != "true"){
+                continue
+            }
+            let remote = rawInfo["googRemoteCandidateType"] ?? ""
+            let local = rawInfo["googLocalCandidateType"] ?? ""
+            return (local, remote)
+            break
+        }
+        return nil
+    }
 
-    func logConnectionState(connectionState : RTCIceConnectionState){
+    func logConnectionState(connectionState : RTCIceConnectionState, stats : [RTCLegacyStatsReport]){
         
         let state = getRawConnectionState(state: connectionState)
+        let connectionState = extractState(stats: stats)
+        
+        var statsInfo = [String : Any]()
+        statsInfo["local"] = connectionState?.local
+        statsInfo["remote"] = connectionState?.remote
         
         var meta = [String : Any]()
         meta["type"] = "state"
         meta["callbookingId"] = sessionId
+        meta["stats"] = statsInfo
         
         var info = [String : Any]()
         info["callbookingId"] = sessionId
