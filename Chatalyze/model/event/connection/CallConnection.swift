@@ -139,6 +139,24 @@ class CallConnection: NSObject {
         socketListener = socketClient?.createListener()
     }
     
+    private func logStats(state: RTCIceConnectionState){
+        
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            let slotId = self?.slotInfo?.id ?? 0
+            self?.connection?.peerConnection?.stats(for: nil, statsOutputLevel: .standard, completionHandler: {[weak self] (infos) in
+                self?.callLogger?.logStats(slotId: slotId, stats: infos)
+                self?.callLogger?.logConnectionState(connectionState: state, stats : infos)
+            })
+        }
+        
+    }
+    
+    
+    
+    
+    
+  
+    
     func registerForListeners(){
     }
     
@@ -181,13 +199,22 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didChange state: ARDAppClientState) {
     }
     
+    
+    
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         
-        callLogger?.logConnectionState(connectionState: state)
+        
         
         if(isAborted){
             return
         }
+        
+        
+//        DispatchQueue.main.asyncAfter(deadline: (.now() + 5.0), execute: {
+//            self.logStats()
+//        })
+        
+        logStats(state : state)
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
@@ -368,4 +395,6 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
+    
+    
 }

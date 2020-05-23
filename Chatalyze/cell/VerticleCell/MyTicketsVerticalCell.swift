@@ -102,7 +102,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             self.sponsorView?.isHidden = false
         }
         
-        if let bannerUrl = info.callschedule?.eventBannerUrl{
+        if let bannerUrl = info.callschedule?.user?.profileImage{
             if let url = URL(string:bannerUrl){
                 
                 profileImage?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in

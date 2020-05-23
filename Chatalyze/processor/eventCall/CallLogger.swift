@@ -50,14 +50,35 @@ class CallLogger : NSObject {
     
         emit(info: info)
     }
+    
+    private func extractState(stats : [RTCLegacyStatsReport]) ->  (local : String, remote : String)?{
+        for info in stats{
+            let rawInfo = info.values
+            let connectionState = rawInfo["googActiveConnection"]
+            if(connectionState != "true"){
+                continue
+            }
+            let remote = rawInfo["googRemoteCandidateType"] ?? ""
+            let local = rawInfo["googLocalCandidateType"] ?? ""
+            return (local, remote)
+            break
+        }
+        return nil
+    }
 
-    func logConnectionState(connectionState : RTCIceConnectionState){
+    func logConnectionState(connectionState : RTCIceConnectionState, stats : [RTCLegacyStatsReport]){
         
         let state = getRawConnectionState(state: connectionState)
+        let connectionState = extractState(stats: stats)
+        
+        var statsInfo = [String : Any]()
+        statsInfo["local"] = connectionState?.local
+        statsInfo["remote"] = connectionState?.remote
         
         var meta = [String : Any]()
         meta["type"] = "state"
         meta["callbookingId"] = sessionId
+        meta["stats"] = statsInfo
         
         var info = [String : Any]()
         info["callbookingId"] = sessionId
@@ -153,8 +174,45 @@ class CallLogger : NSObject {
         emit(info: info)
     }
     
-    func logSocketConnectionState(){
+    private func parseStats(stats : [RTCLegacyStatsReport]) -> [[String : String]]{
+        var list = [[String : String]]()
+        for info in stats{
+            let rawInfo = info.values
+            list.append(rawInfo)
+        }
         
+        return list
+    }
+    
+    @objc func logStats(slotId : Int, stats : [RTCLegacyStatsReport]){
+        let parsedStats = parseStats(stats: stats)
+        let type = "ice_stats"
+        var meta = [String : Any]()
+        meta["type"] = type
+        meta["callbookingId"] = slotId
+        
+        let deviceInfo = DeviceApplicationInfo().rawInfo()
+
+        var statsInfo = [String : Any]()
+        statsInfo["plateform"] = deviceInfo
+        statsInfo["data"] = parsedStats
+        meta["stats"] = statsInfo
+        
+        
+        
+        var info = [String : Any]()
+        info["callbookingId"] = sessionId
+        info["userId"] = userId
+        info["targetUserId"] = userId
+        info["log_type"] = "call_logs"
+        info["type"] = type
+        info["meta"] = meta
+        
+        emit(info: info)
+    }
+    
+    func logSocketConnectionState(){
+    
         let type = "websocket_connection_state"
         var meta = [String : Any]()
         meta["type"] = type
@@ -196,7 +254,7 @@ class CallLogger : NSObject {
     }
     
     private func emit(info : [String : Any]){
-         Log.echo(key: "json dict", text: "\(info)")
+        Log.echo(key: "json dict", text: info.JSONDescription())
          userSocket?.socket?.emit("log", info)
     }
     

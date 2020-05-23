@@ -61,6 +61,8 @@ class UserCallConnection: CallConnection {
         }
        
         connection = ARDAppClient(userId: userId, andReceiverId: targetId, andEventId : eventId, andDelegate:self, andLocalStream:self.localMediaPackage)
+        
+    
 
         return connection
     }
