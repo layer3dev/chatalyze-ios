@@ -98,7 +98,7 @@ class YoutubeContainerView : ExtendedView {
         
         var params = [String : Any]()
         params["playsinline"]  = 1
-        params["controls=0"] = 0
+        params["controls"] = 0
         params["fs"] = 0
         params["iv_load_policy"] = 0
         params["loop"] = 1
@@ -138,20 +138,6 @@ class YoutubeContainerView : ExtendedView {
         Log.echo(key: "YoutubeContainerView", text: "videoId -> \(videoId)")
         youtubePlayerView?.load(withVideoId: videoId, playerVars : playerConfiguration)
         
-//        guard let url = URL(string : rawUrl)
-//            else{
-//                Log.echo(key: "YoutubeContainerView", text: "url is null")
-//                return
-//        }
-//
-//        guard let videoId = url["v"]
-//            else{
-//                return
-//        }
-//
-//        Log.echo(key: "YoutubeContainerView", text: "videoId -> \(videoId)")
-        
-//        youtubePlayerView?.load(withVideoId: videoId, playerVars : playerConfiguration)
         
     }
     

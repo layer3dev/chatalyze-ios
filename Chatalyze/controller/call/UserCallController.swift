@@ -1429,7 +1429,7 @@ extension UserCallController{
             params["file"] = encodedImage
         }
         
-        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
+//        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
         
         //userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in

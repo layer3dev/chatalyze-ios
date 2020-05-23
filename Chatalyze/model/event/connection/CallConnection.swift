@@ -139,6 +139,19 @@ class CallConnection: NSObject {
         socketListener = socketClient?.createListener()
     }
     
+    private func printStats(){
+        Log.echo(key: "CallConnection", text: "printStats")
+        connection?.peerConnection?.stats(for: nil, statsOutputLevel: .debug, completionHandler: { (infos) in
+            for info in infos{
+                Log.echo(key: "CallConnection", text: "stats -> \(info.values)")
+            }
+            
+        })
+//        [strongSelf.peerConnection statsForTrack:nil
+//         statsOutputLevel:RTCStatsOutputLevelDebug
+//        completionHandler:^(NSArray *stats) {
+    }
+    
     func registerForListeners(){
     }
     
@@ -201,6 +214,7 @@ extension CallConnection : ARDAppClientDelegate{
             isCallConnected?()
             renderIfLinked()
             resetVideoBounds()
+            printStats()
             return
         }
         
@@ -368,4 +382,6 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
+    
+    
 }
