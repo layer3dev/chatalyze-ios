@@ -13,6 +13,8 @@ import UIKit
 class MemoryFrame:XibTemplate{
     
     @IBOutlet var screenShotPic:UIImageView?
+    @IBOutlet var memoryStickerView : MemoryStickerView?
+    
     @IBOutlet var name:UILabel?
     @IBOutlet var date:UILabel?
     @IBOutlet var memory:UILabel?

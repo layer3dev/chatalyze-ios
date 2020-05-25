@@ -10,7 +10,7 @@ import UIKit
 
 class VideoRootView: ExtendedView {
    
-    let testView = MemoryFrame()
+    var testView = MemoryFrame()
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
@@ -134,21 +134,39 @@ class VideoRootView: ExtendedView {
 
 
 extension VideoRootView{
-    func getPostImageSnapshot(info:EventInfo?,hostImage:UIImage?,  completion: @escaping ((_ image:UIImage?)->())){
+    
+    func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
+        
+        guard let url = info?.eventBannerUrl
+            else{
+                self.getPostImageSnapshot(info: info, eventLogo: nil, completion: completion)
+                return
+        }
+        CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
+            return 0
+        }) { (success, image) in
+            self.getPostImageSnapshot(info: info, eventLogo: UIImage(named : "temp_logo"), completion: completion)
+            return
+        }
+        
+    }
+    
+    func getPostImageSnapshot(info:EventInfo?,eventLogo:UIImage?, completion: @escaping ((_ image:UIImage?)->())){
         
         Log.echo(key: "VideoRootView", text: "call get Video Frame")
             
         getVideoFrame(listener: {[weak self] (local, remote) in
             Log.echo(key: "VideoRootView", text: "received BOTH frame")
-            self?.renderScreenshot(localFrame: local, remoteFrame: remote, info: info, completion: completion)
+            self?.renderScreenshot(localFrame: local, remoteFrame: remote, eventLogo : eventLogo, info: info, completion: completion)
         })
         
-           
-           // return finalImage
-       }
+        
+    }
     
     
-    private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
+    private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
+        
+        testView = MemoryFrame()
         
         guard let localImage = localFrame, let remoteImage = remoteFrame
             else{
@@ -173,15 +191,14 @@ extension VideoRootView{
             testView.frame.size = CGSize(width: 1024, height: 576)
         }
         testView.screenShotPic?.image = finalImage
-        testView.userPic?.image = nil
-        testView.name?.text = ("Chat with ") + (info?.user?.firstName ?? "")
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "MMM dd, yyyy"
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        let comingDate = info?.startDate ?? Date()
-        let requireDate = dateFormatter.string(from: comingDate)
-        testView.date?.text = "\(requireDate)"
+        
+        if let logo = eventLogo{
+            testView.memoryStickerView?.renderImage(image: logo)
+        }
+            
+        
+        
+
         completion(getSnapshot(view: testView))
     }
     

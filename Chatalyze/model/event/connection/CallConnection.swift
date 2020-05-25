@@ -383,7 +383,10 @@ extension CallConnection : ARDAppClientDelegate{
                 else{
                     return
             }
+        
+        Log.echo(key: "CallConnection", text: "Will crash just here")
             remoteView.renderFrame(nil)
+        Log.echo(key: "CallConnection", text: "after crash")
             remoteView.setSize(CGSize.zero)
     }
     

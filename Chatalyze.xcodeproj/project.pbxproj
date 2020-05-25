@@ -1033,6 +1033,10 @@
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
+		E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
+		E7964945247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
+		E796494824795E8B007F4568 /* MemoryStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E796494724795E8B007F4568 /* MemoryStickerView.swift */; };
+		E796494924795E8B007F4568 /* MemoryStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E796494724795E8B007F4568 /* MemoryStickerView.swift */; };
 		E7B4A7F82473CF17000616CD /* YoutubeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7F72473CF17000616CD /* YoutubeContainerView.swift */; };
 		E7B4A7F92473CF17000616CD /* YoutubeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7F72473CF17000616CD /* YoutubeContainerView.swift */; };
 		E7B4A7FC2473D73B000616CD /* URLQueryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7FB2473D73B000616CD /* URLQueryHelper.swift */; };
@@ -1786,6 +1790,8 @@
 		E24DCEBB0C89FC10D70AA757 /* Pods-Chatalyze.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.release.xcconfig"; sourceTree = "<group>"; };
 		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
 		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
+		E7964943247957F2007F4568 /* AutoAspectImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoAspectImageView.swift; sourceTree = "<group>"; };
+		E796494724795E8B007F4568 /* MemoryStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStickerView.swift; sourceTree = "<group>"; };
 		E7B4A7F72473CF17000616CD /* YoutubeContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeContainerView.swift; sourceTree = "<group>"; };
 		E7B4A7FB2473D73B000616CD /* URLQueryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryHelper.swift; sourceTree = "<group>"; };
 		EA6B7C8968AD8FDF687ED2D1 /* Pods-Chatalyze.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.debug.xcconfig"; sourceTree = "<group>"; };
@@ -4205,6 +4211,14 @@
 			path = FrameRenderer;
 			sourceTree = "<group>";
 		};
+		E796494624795E61007F4568 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				E796494724795E8B007F4568 /* MemoryStickerView.swift */,
+			);
+			path = memory;
+			sourceTree = "<group>";
+		};
 		E7B4A7F62473CEF5000616CD /* youtubeContainer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4332,6 +4346,7 @@
 		FA1B362E2064E22F00F2E6BC /* call */ = {
 			isa = PBXGroup;
 			children = (
+				E796494624795E61007F4568 /* memory */,
 				FA1B362F2064E22F00F2E6BC /* video */,
 			);
 			path = call;
@@ -5291,6 +5306,7 @@
 		FAA0018A203ED471003C8A74 /* templateManager */ = {
 			isa = PBXGroup;
 			children = (
+				E7964943247957F2007F4568 /* AutoAspectImageView.swift */,
 				FAD2018520761CC00004E10E /* AspectImageView.swift */,
 				78CA8DC72304107B00583616 /* AspectHostImageView.swift */,
 				FA1B36422064E31000F2E6BC /* TemplateView.swift */,
@@ -6522,6 +6538,7 @@
 				47D0B0D621A6C4B5006376A8 /* EmailSigninHandler.swift in Sources */,
 				47D0B0D721A6C4B5006376A8 /* ARDCaptureController.m in Sources */,
 				47D0B0D821A6C4B5006376A8 /* DeviceInfo.swift in Sources */,
+				E7964945247957F2007F4568 /* AutoAspectImageView.swift in Sources */,
 				47F46A3F22571D1800D344F4 /* SingleSessionPageMoreDetailAlertController.swift in Sources */,
 				47D0B0D921A6C4B5006376A8 /* GreetingDateTimeAdapter.swift in Sources */,
 				4781442E22044E91005398F8 /* ScheduleSessionNewReviewRootView.swift in Sources */,
@@ -6775,6 +6792,7 @@
 				47D0B16F21A6C4B5006376A8 /* CountryPicker.m in Sources */,
 				47D0B17021A6C4B5006376A8 /* TermsConditionController.swift in Sources */,
 				47EA7C06229D56A900EE1857 /* SubmitButtonShadow.swift in Sources */,
+				E796494924795E8B007F4568 /* MemoryStickerView.swift in Sources */,
 				47D0B17121A6C4B5006376A8 /* GreetingsAdapter.swift in Sources */,
 				47D0B17221A6C4B5006376A8 /* RTCIceCandidate+JSON.m in Sources */,
 				47D0B17321A6C4B5006376A8 /* SelfieTimerView.swift in Sources */,
@@ -7106,6 +7124,7 @@
 				FA74B12E20639B6400983141 /* ARDCaptureController.m in Sources */,
 				FA3CC14E2046CD6D007438A3 /* DeviceInfo.swift in Sources */,
 				47F46A3E22571D1800D344F4 /* SingleSessionPageMoreDetailAlertController.swift in Sources */,
+				E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */,
 				47B6525E20AAB3C20041496C /* GreetingDateTimeAdapter.swift in Sources */,
 				FAF44C0A221BFF030044D47B /* DonateTransactionTokenSession.swift in Sources */,
 				4781442D22044E91005398F8 /* ScheduleSessionNewReviewRootView.swift in Sources */,
@@ -7359,6 +7378,7 @@
 				47B6525D20AAB3C20041496C /* GreetingsAdapter.swift in Sources */,
 				47EA7C05229D56A900EE1857 /* SubmitButtonShadow.swift in Sources */,
 				FA74B13B20639B6400983141 /* RTCIceCandidate+JSON.m in Sources */,
+				E796494824795E8B007F4568 /* MemoryStickerView.swift in Sources */,
 				473328C12101FCCD00AB732D /* SelfieTimerView.swift in Sources */,
 				789C3FF7230C04C90084731D /* LocalHostVideoView.swift in Sources */,
 				4730C76121302F3C002EFAC9 /* SessionReviewRootView.swift in Sources */,

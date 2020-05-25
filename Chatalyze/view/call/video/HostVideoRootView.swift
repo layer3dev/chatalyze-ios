@@ -30,12 +30,7 @@ class HostVideoRootView: VideoRootView {
     }
     */
     
-    func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
-        
-        self.getPostImageSnapshot(info: info,hostImage:nil) { (image) in
-            completion(image)
-        }
-    }
+    
     
     override func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
         return self.mergeImage(hostPicture: local, userPicture: remote)

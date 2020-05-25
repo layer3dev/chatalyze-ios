@@ -426,6 +426,19 @@ class VideoCallController : InterfaceExtendedController {
     //overridden
     func processEventInfo(){
         self.checkForDelaySupport()
+        cacheEventLogo()
+    }
+    
+    private func cacheEventLogo(){
+        guard let url = eventInfo?.eventBannerUrl
+            else{
+                return
+        }
+        CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
+            return 0
+        }) { (success, image) in
+            
+        }
     }
     
     //This will still return info - even if call not activated.
