@@ -192,9 +192,9 @@ extension VideoRootView{
         }
         testView.screenShotPic?.image = finalImage
         
-        if let logo = eventLogo{
-            testView.memoryStickerView?.renderImage(image: logo)
-        }
+        
+        testView.memoryStickerView?.renderImage(image: eventLogo)
+    
             
         
         
