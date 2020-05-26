@@ -9,13 +9,11 @@
 import Foundation
 
 class MemoryStickerView : ExtendedView{
-    
     @IBOutlet private var logo : UIImageView?
     @IBOutlet private var dateLabel : UILabel?
     
     @IBOutlet private var logoHeightConstraint : NSLayoutConstraint?
-    
-    
+        
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -38,11 +36,13 @@ class MemoryStickerView : ExtendedView{
         if(image == nil){
             Log.echo(key: "MemoryStickerView", text: "render Image -> image is nil set height to nil")
             logoHeightConstraint?.constant = 0
+            layoutIfNeeded()
             return
         }
         
         Log.echo(key: "MemoryStickerView", text: "render Image -> image is NOT nil, set height to 35")
         logoHeightConstraint?.constant = 35
         logo?.image = image
+        layoutIfNeeded()
     }
 }
