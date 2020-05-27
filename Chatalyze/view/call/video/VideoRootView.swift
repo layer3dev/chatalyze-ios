@@ -145,7 +145,7 @@ extension VideoRootView{
         CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
             return 0
         }) { (success, image) in
-            self.getPostImageSnapshot(info: info, eventLogo: UIImage(named : "temp_logo"), completion: completion)
+            self.getPostImageSnapshot(info: info, eventLogo: image, completion: completion)
             return
         }
         

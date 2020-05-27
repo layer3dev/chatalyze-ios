@@ -98,7 +98,7 @@ class YoutubeContainerView : ExtendedView {
         
         var params = [String : Any]()
         params["playsinline"]  = 1
-        params["controls"] = 0
+        params["controls"] = 1
         params["fs"] = 0
         params["iv_load_policy"] = 0
         params["loop"] = 1
