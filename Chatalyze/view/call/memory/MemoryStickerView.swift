@@ -35,14 +35,18 @@ class MemoryStickerView : ExtendedView{
         Log.echo(key: "MemoryStickerView", text: "render Image -> image -> \(image)")
         if(image == nil){
             Log.echo(key: "MemoryStickerView", text: "render Image -> image is nil set height to nil")
+            if(logoHeightConstraint == nil){
+                Log.echo(key: "MemoryStickerView", text: "render Image -> logoHeightConstraint is nil")
+            }
+            else{
+                Log.echo(key: "MemoryStickerView", text: "render Image -> logoHeightConstraint is NOT nil")
+            }
             logoHeightConstraint?.constant = 0
-            layoutIfNeeded()
             return
         }
         
         Log.echo(key: "MemoryStickerView", text: "render Image -> image is NOT nil, set height to 35")
-        logoHeightConstraint?.constant = 35
+        logoHeightConstraint?.constant = 50
         logo?.image = image
-        layoutIfNeeded()
     }
 }

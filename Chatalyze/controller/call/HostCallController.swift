@@ -180,7 +180,8 @@ class HostCallController: VideoCallController {
         controller.hangup = {
             
             DispatchQueue.main.async {
-                self.toggleHangup()
+                self.processAutographSelfie()
+//                self.toggleHangup()
             }
         }
         

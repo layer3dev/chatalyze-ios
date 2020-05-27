@@ -115,9 +115,9 @@ class CallLogger : NSObject {
         emit(info: info)
     }
     
+    
     //var speedInfo = {maxSpeed : 0, minSpeed : 0, avgSpeed : 0};
     func logSpeed(speed : Double?){
-        
         var speedInfo = [String : Any]()
         speedInfo["maxSpeed"] = speed
         speedInfo["minSpeed"] = speed

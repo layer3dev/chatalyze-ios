@@ -44,7 +44,7 @@ class MemoryFrame:XibTemplate{
         super.layoutSubviews()
        
         paintInterface()
-        handleUI()
+//        handleUI()
     }
     
     func paintInterface(){
