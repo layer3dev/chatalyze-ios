@@ -437,7 +437,7 @@ class VideoCallController : InterfaceExtendedController {
         CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
             return 0
         }) { (success, image) in
-            
+            self.rootView?.callInfoContainer?.logo?.image = image
         }
     }
     
