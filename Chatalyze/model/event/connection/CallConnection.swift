@@ -203,7 +203,7 @@ extension CallConnection : ARDAppClientDelegate{
     
     func appClient(_ client: ARDAppClient!, didChange state: RTCIceConnectionState) {
         
-        
+        logStats(state : state)
         
         if(isAborted){
             return
@@ -214,7 +214,7 @@ extension CallConnection : ARDAppClientDelegate{
 //            self.logStats()
 //        })
         
-        logStats(state : state)
+        
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
         connectionStateListener?.updateConnectionState(state : state, slotInfo : slotInfo)
@@ -383,7 +383,10 @@ extension CallConnection : ARDAppClientDelegate{
                 else{
                     return
             }
+        
+        Log.echo(key: "CallConnection", text: "Will crash just here")
             remoteView.renderFrame(nil)
+        Log.echo(key: "CallConnection", text: "after crash")
             remoteView.setSize(CGSize.zero)
     }
     
