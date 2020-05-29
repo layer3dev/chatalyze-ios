@@ -13,7 +13,7 @@ import UIKit
 class HostVideoRootView: VideoRootView {
     
     @IBOutlet var canvasContainer : CanvasHostContainer?
-    @IBOutlet var callInfoContainer : HostCallInfoContainerView?
+    @IBOutlet var hostCallInfoContainer : HostCallInfoContainerView?
     @IBOutlet var signatureAccessoryViewBottomConstraint:NSLayoutConstraint?
     
     var canvas : AutographyHostCanvas?{

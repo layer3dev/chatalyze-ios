@@ -15,7 +15,7 @@ class UserVideoRootView: UserVideoLayoutView {
     
     
     @IBOutlet var requestAutographButton : RequestAutographContainerView?
-    @IBOutlet var callInfoContainer : UserCallInfoContainerView?
+    @IBOutlet var userCallInfoContainer : UserCallInfoContainerView?
     var extractor : FrameExtractor?
     @IBOutlet var youtubeContainerView : YoutubeContainerView?
 

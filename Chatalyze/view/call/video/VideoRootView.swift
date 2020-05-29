@@ -10,6 +10,8 @@ import UIKit
 
 class VideoRootView: ExtendedView {
    
+    @IBOutlet var callInfoContainer : CallInfoContainerView?
+    
     var testView = MemoryFrame()
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
@@ -69,6 +71,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func paintInterface(){
+        self.headerTopConstraint?.constant = UIApplication.shared.statusBarFrame.size.height + 5.0
         //paintOverlay()
         //self.actionContainer?.isHidden = true
     }

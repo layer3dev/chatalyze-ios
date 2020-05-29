@@ -11,6 +11,7 @@ import UIKit
 class CallInfoContainerView: ExtendedView {
     
     @IBOutlet var timer : UILabel?
+    @IBOutlet var logo : AutoAspectImageView?
 
     /*
     // Only override draw() if you perform custom drawing.
