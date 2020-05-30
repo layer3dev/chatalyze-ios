@@ -1433,6 +1433,16 @@ extension HostCallController{
                 return
         }
         
+        guard let activeSlot = myLiveUnMergedSlot
+            else{
+                return
+        }
+        
+        if(activeSlot.id != currentSlot.id){
+            return
+        }
+        
+        
         self.hostRootView?.canvas?.slotInfo = currentSlot
         self.lockDeviceOrientation()
         self.hostRootView?.canvasContainer?.show(with:image)
