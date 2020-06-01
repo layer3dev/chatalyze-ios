@@ -145,7 +145,7 @@ class CallConnection: NSObject {
             let slotId = self?.slotInfo?.id ?? 0
             self?.connection?.peerConnection?.stats(for: nil, statsOutputLevel: .standard, completionHandler: {[weak self] (infos) in
                 self?.callLogger?.logStats(slotId: slotId, stats: infos)
-                self?.callLogger?.logConnectionState(connectionState: state, stats : infos)
+                self?.callLogger?.logConnectionState(slotId : SlotId, connectionState: state, stats : infos)
             })
         }
         

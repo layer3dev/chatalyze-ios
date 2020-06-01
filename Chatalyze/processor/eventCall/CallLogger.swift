@@ -66,7 +66,7 @@ class CallLogger : NSObject {
         return nil
     }
 
-    func logConnectionState(connectionState : RTCIceConnectionState, stats : [RTCLegacyStatsReport]){
+    func logConnectionState(slotId : Int, connectionState : RTCIceConnectionState, stats : [RTCLegacyStatsReport]){
         
         let state = getRawConnectionState(state: connectionState)
         let connectionState = extractState(stats: stats)
@@ -77,7 +77,7 @@ class CallLogger : NSObject {
         
         var meta = [String : Any]()
         meta["type"] = "state"
-        meta["callbookingId"] = sessionId
+        meta["callbookingId"] = slotId
         meta["stats"] = statsInfo
         
         var info = [String : Any]()
