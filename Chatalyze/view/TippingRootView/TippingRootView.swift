@@ -66,9 +66,10 @@ class TippingRootView: ExtendedView {
         let influencerName = influencer?.fullName ?? ""
         
     
-        tipLabel?.text = "Would you like to say thanks to \(influencerName) by leaving a tip?"
+        //tipLabel?.text = "Would you like to say thanks to \(influencerName) by leaving a tip?"
+        tipLabel?.text = self.scheduleInfo?.tipText
     
-        tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
+        //tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
             else{
                 return
@@ -80,24 +81,24 @@ class TippingRootView: ExtendedView {
     
     @IBAction func infoAlert(sender:UIButton){
         
-        if isAlertShowing{
-            
-            UIView.animate(withDuration: 0.35) {
-                
-                self.alertCustomView?.alpha = 0
-            }
-            self.layoutIfNeeded()
-            isAlertShowing = false
-            return
-        }
-        
-        UIView.animate(withDuration: 0.35) {
-            
-            self.alertCustomView?.alpha = 1
-        }
-        self.layoutIfNeeded()
-        isAlertShowing = true
-        return
+//        if isAlertShowing{
+//
+//            UIView.animate(withDuration: 0.35) {
+//
+//                self.alertCustomView?.alpha = 0
+//            }
+//            self.layoutIfNeeded()
+//            isAlertShowing = false
+//            return
+//        }
+//
+//        UIView.animate(withDuration: 0.35) {
+//
+//            self.alertCustomView?.alpha = 1
+//        }
+//        self.layoutIfNeeded()
+//        isAlertShowing = true
+//        return
     }
 }
 

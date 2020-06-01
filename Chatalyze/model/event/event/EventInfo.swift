@@ -54,6 +54,7 @@ class EventInfo: NSObject {
     var isAutographAllow:String?
     var callSchduleId:String?
     var isFlexEnabled:Bool?
+    var tipText:String?
     
     
     var isAutographEnabled : Bool{
@@ -99,6 +100,7 @@ class EventInfo: NSObject {
         started = json["started"].string
         groupId = json["groupId"].string
         isFlexEnabled = json["flexibleBooking"].boolValue
+        tipText = json["tipText"].stringValue
         
         paymentTransferred = json["paymentTransferred"].bool
         leadPageUrl = json["leadPageUrl"].string
