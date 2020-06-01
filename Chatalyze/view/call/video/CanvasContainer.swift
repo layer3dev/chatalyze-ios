@@ -20,6 +20,9 @@ class CanvasContainer: ExtendedView {
     @IBOutlet var topConstraint:NSLayoutConstraint?
     @IBOutlet var trailingConstraint:NSLayoutConstraint?
     
+    var canvImg:UIImage?
+    var initialFrame:CGRect?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -33,7 +36,8 @@ class CanvasContainer: ExtendedView {
     
     @objc func didRotate() {
         
-        self.updateLayoutRotation()
+//        self.updateLayoutRotation()
+//        self.modifyCanvas()
     }
     
     func updateLayoutRotation() {
@@ -54,6 +58,7 @@ class CanvasContainer: ExtendedView {
         }
         
         if UIDevice.current.orientation.isLandscape{
+            
             if UIDevice.current.userInterfaceIdiom == .pad{
                 
                 topConstraint?.constant = 15
@@ -77,6 +82,8 @@ class CanvasContainer: ExtendedView {
             return
         }
         
+        self.canvImg = image
+        
         guard let canvasInfo = info else{
             return
         }
@@ -88,6 +95,7 @@ class CanvasContainer: ExtendedView {
         }
         
         let newCanvasFrame = AVMakeRect(aspectRatio: canvasImage.size, insideRect: self.frame)
+        initialFrame = self.frame
         
         Log.echo(key: "yud", text: "user host canvas frame is \(newCanvasFrame)")
       
@@ -96,7 +104,6 @@ class CanvasContainer: ExtendedView {
         canvas?.widthConstraint?.constant = newCanvasFrame.width
         canvas?.mainImageView?.image = canvasImage
         canvas?.mainImageView?.canvasInfo = canvasInfo
-        
         self.isSignatureActive = true
     }
     
@@ -133,5 +140,16 @@ class CanvasContainer: ExtendedView {
         self.canvas?.heightConstraint?.constant = 0.0
         self.canvas?.widthConstraint?.constant = 0.0
         self.isSignatureActive = false
+    }
+    
+    func modifyCanvas(){
+                
+        guard let img = canvImg else{
+            return
+        }
+        let newCanvasFrame = AVMakeRect(aspectRatio: img.size, insideRect: self.frame)
+        canvas?.heightConstraint?.constant = newCanvasFrame.height
+        canvas?.widthConstraint?.constant = newCanvasFrame.width
+        //canvas?.mainImageView?.modify()
     }
 }

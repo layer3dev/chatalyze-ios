@@ -11,6 +11,9 @@ import SwiftyJSON
 
 class UserCallController: VideoCallController {
     
+    
+    var isUserScreenLocked = false
+    
     // Id's to manage the default Screenshot
     // Wait for web service approval then call process if required.
     
@@ -136,6 +139,7 @@ class UserCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
     }
+    
     
     func processDefaultSignature(){
         
@@ -1224,11 +1228,11 @@ extension UserCallController{
             
             self.resetCanvas()
             self.localScreenShotAssociatedCallBookingId = nil
+            releaseDeviceOrientation()
             return
         }
         
         if localSlotIdToManageAutograph == nil{
-            
             localSlotIdToManageAutograph =  self.myLiveUnMergedSlot?.id
             return
         }
@@ -1236,6 +1240,7 @@ extension UserCallController{
         if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             
+            self.releaseDeviceOrientation()
             self.resetCanvas()
             self.localScreenShotAssociatedCallBookingId = nil
             //reset the signature
@@ -1457,13 +1462,14 @@ extension UserCallController {
             guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
                 return
             }
-//            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
-//                return
-//            }
-//
-//            if currentSlotId != canvasCallBookingId {
-//                return
-//            }
+            //            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
+            //                return
+            //            }
+            //
+            //            if currentSlotId != canvasCallBookingId {
+            //                return
+            //            }
+            self.lockDeviceOrientationInPortrait()
             self.prepateCanvas(info : self.canvasInfo)
         })
         
@@ -1473,14 +1479,14 @@ extension UserCallController {
             Log.echo(key: "UserCallController", text: json)
             
             self.resetCanvas()
-//            self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
+            self.releaseDeviceOrientation()
+            //self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
         })
     }
     
     private func resetCanvas(){
         
         self.userRootView?.canvasContainer?.hide()
-
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.userRootView?.remoteVideoContainerView?.updateForCall()
     }
@@ -1614,4 +1620,24 @@ extension UserCallController{
     
     func handleAutographInMultipleSlots(){
     }
+}
+
+
+extension UserCallController{
+    
+    func lockDeviceOrientationInPortrait(){
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.isSignatureInCallisActive = true
+        delegate?.signatureDirection = .portrait
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    }
+    
+    func releaseDeviceOrientation(){
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.isSignatureInCallisActive = false
+    }
+    
+    
 }
