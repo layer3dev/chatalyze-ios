@@ -796,7 +796,7 @@ class UserCallController: VideoCallController {
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
-                startLableAnimating(label: userRootView?.callInfoContainer?.timer)
+                startLableAnimating(label: userRootView?.userCallInfoContainer?.timer)
                 return
             }
             if endDate <= 0.0{
@@ -817,7 +817,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
         
-        userRootView?.callInfoContainer?.isHidden = false
+        userRootView?.userCallInfoContainer?.isHidden = false
         futureSessionView?.isHidden = true
         
         guard let startDate = slot.endDate
@@ -830,7 +830,7 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        userRootView?.callInfoContainer?.timer?.text = "Time remaining: \(counddownInfo.time)"
+        userRootView?.userCallInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
     
@@ -845,7 +845,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
+        userRootView?.userCallInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
     }
     
     
@@ -1573,7 +1573,7 @@ extension UserCallController {
         
         DispatchQueue.main.async {
             
-            self.userRootView?.callInfoContainer?.isHidden = true
+            self.userRootView?.userCallInfoContainer?.isHidden = true
             self.futureSessionView?.isHidden = false
             
             guard let startDate = slot.startDate

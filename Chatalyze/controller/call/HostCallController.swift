@@ -638,14 +638,14 @@ class HostCallController: VideoCallController {
         if let array = slotInfo.user?.firstName?.components(separatedBy: " "){
             if array.count >= 1{
                 
-                hostRootView?.callInfoContainer?.slotUserName?.text = array[0]
+                hostRootView?.hostCallInfoContainer?.slotUserName?.text = array[0]
             }else{
                 
-                hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
+                hostRootView?.hostCallInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
             }
         }else{
             
-            hostRootView?.callInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
+            hostRootView?.hostCallInfoContainer?.slotUserName?.text = slotInfo.user?.firstName
         }
         
         //Below method is implemented by Yud
@@ -668,9 +668,9 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderForEmptySlot(){
         
         updateForEmptyBreak()
-        hostRootView?.callInfoContainer?.slotUserName?.text = ""
-        hostRootView?.callInfoContainer?.timer?.text = ""
-        hostRootView?.callInfoContainer?.slotCount?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
+        hostRootView?.hostCallInfoContainer?.timer?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
         
@@ -712,9 +712,9 @@ class HostCallController: VideoCallController {
         
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
         
-        hostRootView?.callInfoContainer?.slotUserName?.text = ""
-        hostRootView?.callInfoContainer?.timer?.text = ""
-        hostRootView?.callInfoContainer?.slotCount?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
+        hostRootView?.hostCallInfoContainer?.timer?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
         sessionRemainingTimeLbl?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
@@ -727,9 +727,9 @@ class HostCallController: VideoCallController {
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
         updateForEmptyBreak()
-        hostRootView?.callInfoContainer?.slotUserName?.text = ""
-        hostRootView?.callInfoContainer?.timer?.text = ""
-        hostRootView?.callInfoContainer?.slotCount?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
+        hostRootView?.hostCallInfoContainer?.timer?.text = ""
+        hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
         self.earlyEndSessionView?.isHidden = true
     }
     
@@ -758,7 +758,7 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "updating the live call")
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
-        hostRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
+        hostRootView?.hostCallInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //don't use merged slot for count
         let slotCount = self.eventInfo?.slotInfos?.count ?? 0
         //don't use merged slot for count
@@ -770,11 +770,11 @@ class HostCallController: VideoCallController {
         if getTotalNUmberOfSlots() > 0{
             
             let slotCountFormatted = "\(currentSlot + 1) of \(getTotalNUmberOfSlots())"
-            hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+            hostRootView?.hostCallInfoContainer?.slotCount?.text = slotCountFormatted
         }else{
             
             let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
-            hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+            hostRootView?.hostCallInfoContainer?.slotCount?.text = slotCountFormatted
         }
         
         Log.echo(key: "yud", text: "Total number of slots are \(getTotalNUmberOfSlots())")
@@ -792,11 +792,11 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        hostRootView?.callInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
+        hostRootView?.hostCallInfoContainer?.timer?.text = "Starts in : \(counddownInfo.time)"
         let slotCount = self.eventInfo?.mergeSlotInfo?.slotInfos?.count ?? 0
         let currentSlot = (self.eventInfo?.mergeSlotInfo?.upcomingSlotInfo?.index ?? 0)
         let slotCountFormatted = "\(currentSlot + 1) of \(slotCount)"
-        hostRootView?.callInfoContainer?.slotCount?.text = slotCountFormatted
+        hostRootView?.hostCallInfoContainer?.slotCount?.text = slotCountFormatted
     }
     
     
@@ -816,7 +816,7 @@ class HostCallController: VideoCallController {
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
-                startLableAnimating(label: hostRootView?.callInfoContainer?.timer)
+                startLableAnimating(label: hostRootView?.hostCallInfoContainer?.timer)
                 return
             }
             
@@ -1432,6 +1432,16 @@ extension HostCallController{
             else{
                 return
         }
+        
+        guard let activeSlot = myLiveUnMergedSlot
+            else{
+                return
+        }
+        
+        if(activeSlot.id != currentSlot.id){
+            return
+        }
+        
         
         self.hostRootView?.canvas?.slotInfo = currentSlot
         self.lockDeviceOrientation()
