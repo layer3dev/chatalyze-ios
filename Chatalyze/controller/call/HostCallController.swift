@@ -1446,10 +1446,7 @@ extension HostCallController{
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
-        
-        
         sendScreenshotConfirmation()
-        
     }
     
     
@@ -1550,7 +1547,6 @@ extension HostCallController{
         
         if self.myLiveUnMergedSlot?.id == nil {
             
-            
             if self.isSignatureActive{
                 Log.echo(key: "point", text: "Resetting the canvase")
 
@@ -1593,7 +1589,6 @@ extension HostCallController{
     
         
 //        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
-        
         //userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
             //self?.userRootView?.requestAutographButton?.hideLoader()
@@ -1606,22 +1601,18 @@ extension HostCallController{
     
     
     private func uploadAutographImage(){
-        
 
         guard let image = self.hostRootView?.canvas?.getSnapshot()
             else{
                 return
         }
+        
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: self?.autographSlotInfo) { (success, info) in
                 
             }
         }
     }
-    
-    
-    
-    
 }
 
 extension HostCallController:AutographSignatureBottomResponseInterface{
@@ -1657,7 +1648,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.hostRootView?.localVideoView?.isSignatureActive = true
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         self.hostRootView?.remoteVideoContainerView?.updateForSignature()
-
     
     }    
     
@@ -1691,14 +1681,13 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
         }
     }
-    
-    
-
-    
+        
     func releaseDeviceOrientation(){
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
+        UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
+
     }
 }
 

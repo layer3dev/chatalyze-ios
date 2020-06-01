@@ -329,4 +329,14 @@ extension AspectImageView{
         UIGraphicsEndImageContext()
         return image
     }
+
+    
+    func modify(){
+        
+        guard getSnapshot() != nil else{
+            return
+        }
+        self.mainImage?.image = _image
+    }
+
 }
