@@ -11,6 +11,9 @@ import SwiftyJSON
 
 class AnalystJoinedListener{
     
+
+    private let TAG = "AnalystJoinedListener"
+    
     private var listener : ((Int?)->())?
     
     init(){
@@ -42,13 +45,11 @@ class AnalystJoinedListener{
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -72,11 +73,12 @@ class AnalystJoinedListener{
                 return
         }
         
-        Log.echo(key: "notification", text: "meta is  ==> \(activityType)")
         
         if(activityType != .slotBooked){
             return
         }
+        
+        Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         
         listener?(callScheduleId)
     }

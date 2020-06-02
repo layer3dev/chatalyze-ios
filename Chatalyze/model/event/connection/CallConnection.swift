@@ -374,7 +374,7 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "CallConnection", text: "RESET REMOTE FRAME")
         remoteView.renderFrame(nil)
-        remoteView.setSize(CGSize.zero)
+//        remoteView.setSize(CGSize.zero)
     }
     
     

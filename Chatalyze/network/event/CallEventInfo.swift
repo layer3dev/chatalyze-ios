@@ -24,7 +24,6 @@ class CallEventInfo{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : EventScheduleInfo?)->())){
         
-        Log.echo(key: "user_socket", text: "Resonse of Fetching call is \(response)")
         
         if(!success){
             completion(false, nil)

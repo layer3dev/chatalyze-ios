@@ -245,7 +245,6 @@ class HostCallController: VideoCallController {
         self.registerForTimerNotification()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
-        self.registerForAutographSignatureCall()
         self.signaturAccessoryView?.delegate = self
     }
     
@@ -1281,36 +1280,6 @@ extension HostCallController{
 
 extension HostCallController{
     
-    func registerForAutographSignatureCall(){
-        
-        UserSocket.sharedInstance?.socket?.on("notification") { data, ack in
-            
-            let rawInfosString = data.JSONDescription()
-            guard let data = rawInfosString.data(using: .utf8)
-                else{
-                    return
-            }
-            Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
-            var rawInfos:[JSON]?
-            do{
-                
-                rawInfos = try JSON(data : data).arrayValue
-            }catch{
-                
-            }
-            if((rawInfos?.count  ?? 0) <= 0){
-                return
-            }
-            let rawInfo = rawInfos?[0]
-            let info = NotificationInfo(info: rawInfo)
-            
-            if (info.metaInfo?.type == .signRequest)
-            {
-                //TODO:- Need to uncomment this in order to enable the selfie feature. 
-//                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
-            }
-        }
-    }
     
     
     func fetchAutographInfo(screenShotId:String?){

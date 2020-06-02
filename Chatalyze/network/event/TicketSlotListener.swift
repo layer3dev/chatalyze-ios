@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class TicketSlotListener{
     
+    private let TAG = "TicketSlotListener"
     var userId : String?
     private var listener : (()->())?
     
@@ -41,13 +42,11 @@ class TicketSlotListener{
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -66,7 +65,6 @@ class TicketSlotListener{
                 return
         }
         
-        Log.echo(key: "notification", text: "userId is \(userId) ToId id  is \(info.toId)")
         
         guard let toId = info.toId else{
             return
@@ -81,22 +79,14 @@ class TicketSlotListener{
             return
         }
         
-        Log.echo(key: "notification", text: "meta is  ==> \(activityType)")
         
         if(activityType != .slotBooked){
             return
         }
         
-//        guard let receivedEventId = metaInfo.callScheduleId
-//            else{
-//                return
-//        }
-//
-//        let receivedEventIdString = String(receivedEventId)
-//
-//        if(receivedEventIdString != eventId){
-//            return
-//        }
+        Log.echo(key: TAG, text: "notification -> \(rawInfo)")
+        
+        
         
         listener?()
     }

@@ -10,6 +10,8 @@ import SwiftyJSON
 
 class EventListener{
     
+    private let TAG = "EventListener"
+    
     private var listener : (()->())?
     
     init(){
@@ -24,7 +26,6 @@ class EventListener{
         
         UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
             
-            Log.echo(key: "yud", text: "Notification data on userSocket is \(data)")
             
             if(data.count <= 0){
                 return
@@ -39,18 +40,16 @@ class EventListener{
     
     private func processNotificationForNewSlot(info : [String : Any]){
        
-        Log.echo(key: "yud", text: "Notification is On \(info.JSONDescription())")
         
         let rawInfosString = info.JSONDescription()
     
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
+        
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
       
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -72,6 +71,8 @@ class EventListener{
         if(activityType != .eventCreated){
             return
         }
+        
+        Log.echo(key: TAG, text: "notification -> \(rawInfosString)")
         
         listener?()
     }
