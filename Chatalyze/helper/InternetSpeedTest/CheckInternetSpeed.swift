@@ -8,14 +8,14 @@
 
 import Foundation
 
-class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
+class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate, URLSessionDownloadDelegate {
 
     var startTime: CFAbsoluteTime?
     var stopTime: CFAbsoluteTime?
-    var bytesReceived: Int = 0
+    var bytesReceived: Int64 = 0
     var isItisFirstByteofData = true
     
-    private var speedTestCompletionHandler: ((_ megabytesPerSecond: Double?, _ error: Error?) -> ())!
+    private var speedTestCompletionHandler: ((_ megabytesPerSecond: Double?, _ error: Error?) -> ())?
     
     var averageSpeedOnThreeTimes = 0.0
     var triedForInternet = 0
@@ -27,9 +27,9 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         speedTestCompletionHandler = completionHandler
     }
     
-    func startDownload(){
+    private func startDownload(){
         
-        guard let url = URL(string: AppConnectionConfig.basicUrl+"/images/sample_image_medium.jpg?version=\(Int.random(in: 0..<999999))") else{
+        guard let url = URL(string: AppConnectionConfig.speedTestURL+"?version=\(Int.random(in: 0..<999999))") else{
             //Log.echo(key: "yud", text: "url is incorrect")
             return
         }
@@ -37,6 +37,7 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         Log.echo(key: "yud", text: "image url is \(url)")
         stopTime = 0.0
         startTime = 0.0
+        
         bytesReceived = 0
         isItisFirstByteofData = true
         
@@ -44,52 +45,62 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = 40.0
         let seesion = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-        seesion.dataTask(with: url).resume()
+        
+        let downloadTask = seesion.downloadTask(with: url)
+        downloadTask.resume()
+        
+//        seesion.dataTask(with: url).resume()
     }
     
-    
-    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    // MARK: protocol stub for tracking download progress
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        
+        Log.echo(key: "speed_logging", text: "downloaded value \(totalBytesWritten)")
+        
         
         if isItisFirstByteofData{
             startTime = CFAbsoluteTimeGetCurrent()
             isItisFirstByteofData = false
         }
         
-        bytesReceived += data.count
+        bytesReceived = totalBytesExpectedToWrite
         stopTime = CFAbsoluteTimeGetCurrent()
+            
+        
     }
     
-    internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        
-        if error != nil{
-            speedTestCompletionHandler(nil,error)
-            return
-        }
-        
-        let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
-        
-        Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
-        Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
-        
-        let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
-        Log.echo(key: "speed_logging", text: "speed is \(speed)")
-        
-        triedForInternet = triedForInternet + 1
-        
-        averageSpeedOnThreeTimes =  averageSpeedOnThreeTimes + speed
-        
-        if(triedForInternet < 2){
-            startDownload()
-            return
-        }
-        
-        let averageSpeed = averageSpeedOnThreeTimes/2.0
-        let roundedAverageSpeed = averageSpeed.roundTo(places: 2)
-        
-        Log.echo(key: "speed_logging", text: "averageSpeed is \(averageSpeed)")
-        Log.echo(key: "speed_logging", text: "roundedAverageSpeed is \(roundedAverageSpeed)")
-        
-        speedTestCompletionHandler(roundedAverageSpeed,nil)        
+    // MARK: protocol stub for download completion tracking
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+            
+//       if error != nil{
+//           speedTestCompletionHandler(nil,error)
+//           return
+//       }
+       
+       let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
+       
+       Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
+       Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
+       
+       let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
+       Log.echo(key: "speed_logging", text: "speed is \(speed)")
+    
+              
+        speedTestCompletionHandler?(speed,nil)
+        speedTestCompletionHandler = nil
     }
+    
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
+        Log.echo(key: "speed_logging", text: "didCompleteWithError is \(error)")
+        speedTestCompletionHandler?(nil,nil)
+        speedTestCompletionHandler = nil
+        return
+        
+    }
+    
+    
+ 
     
 }

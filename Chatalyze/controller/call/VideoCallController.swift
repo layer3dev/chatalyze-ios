@@ -310,6 +310,7 @@ class VideoCallController : InterfaceExtendedController {
         speedHandler?.setSpeedListener(listener: {[weak self] (speed) in
             self?.callLogger?.logSpeed(speed: speed)
         })
+        
         speedHandler?.startSpeedProcessing()
     }
     

@@ -18,6 +18,7 @@ class AppConnectionConfig {
     //static let webServiceURL = "http://192.168.1.35:8080/api"
     static let basicUrl = "https://dev.chatalyze.com"
     static let userSocketURL = "https://dev.chatalyze.com/"
+    static let speedTestURL = "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x.png"
   
     //static let userSocketURL = "http://192.168.1.35:8080/api/"
     static let segmentIOKey = "ssMKoqqpi0hMDJtkFJo6DZtNTIiKEQD0"
