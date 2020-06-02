@@ -34,7 +34,7 @@ class DonationSuccessRootView: ExtendedView {
                 return
         }
         let influencer = scheduleInfo.user
-        let influencerName = influencer?.fullName ?? ""
-        successMessageLabel?.text = "Your tip of $\(price) was placed successfully. You're awesome!"
+        let _ = influencer?.fullName ?? ""
+        successMessageLabel?.text = "You just gave a $\(price) donation. You're awesome!"
     }
 }

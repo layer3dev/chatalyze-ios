@@ -36,6 +36,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var countDountAttrTimerLbl:UILabel?
     @IBOutlet var futureSessionView:UIView?
     @IBOutlet var futureSessionHeaderLbl:UILabel?
+    @IBOutlet var futureSessionPromotionImage:UIImageView?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -285,6 +286,9 @@ class UserCallController: VideoCallController {
     }
     
     
+    override func setFuturePromotionImage(image: UIImage?) {
+        self.futureSessionPromotionImage?.image = image
+    }
     
     override func isExpired()->Bool{
         
@@ -1638,6 +1642,10 @@ extension UserCallController{
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
     }
+}
+
+extension UserCallController{
+    
     
     
 }
