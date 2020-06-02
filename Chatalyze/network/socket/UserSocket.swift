@@ -173,7 +173,7 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "param => \(param)")
         socket?.emit("login", param)
         
-        registrationTimeout.registerForTimeout(seconds: 3.0) {[weak self] in
+        registrationTimeout.registerForTimeout(seconds: 10.0) {[weak self] in
             
             guard let weakSelf = self
                 else{
