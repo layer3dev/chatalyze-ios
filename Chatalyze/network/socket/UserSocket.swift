@@ -144,10 +144,7 @@ extension UserSocket{
             //Changing the color of online offline view
         }
         
-        socket?.on("notification") {data, ack in
-            
-            Log.echo(key: "onAny", text:"socket notification => \(data)")
-        }
+    
         
         
         socket?.onAny({ (data) in

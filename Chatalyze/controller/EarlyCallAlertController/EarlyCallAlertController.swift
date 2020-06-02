@@ -10,6 +10,8 @@ import UIKit
 import NotificationCenter
 
 class EarlyCallAlertController: InterfaceExtendedController {
+    
+    private let TAG = "EarlyCallAlertController"
 
     var requiredDate:Date?
     var info:EventInfo?
@@ -19,6 +21,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
     @IBOutlet var name:UILabel?
     @IBOutlet var topArrowConstraint:NSLayoutConstraint?
     let eventDeletedListener = EventDeletedListener()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,9 +77,18 @@ class EarlyCallAlertController: InterfaceExtendedController {
                 self.view.layoutIfNeeded()
             }
             
-        }){(success) in
+        }){[weak self](success) in
             
-            self.startAnimation()
+            guard let weakSelf = self
+                else{
+                    return
+            }
+            
+            if(weakSelf.isReleased){
+                return
+            }
+            
+            weakSelf.startAnimation()
         }
     }
     
@@ -96,7 +108,19 @@ class EarlyCallAlertController: InterfaceExtendedController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        
+    }
+    
+    override func viewDidRelease() {
+        super.viewDidRelease()
+        
+        Log.echo(key: TAG, text: "viewDidRelease")
+        
+        NotificationCenter.default.removeObserver(self)
+        eventDeletedListener.releaseListener()
         self.timer.invalidate()
+        
+        
     }
     
     func startTimer(){

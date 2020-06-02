@@ -42,17 +42,7 @@ class HostCallController: VideoCallController {
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
        
-    override var isVideoCallInProgress : Bool{
-        
-        guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
-            else{
-                return false
-        }
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            return true
-        }
-        return false
-    }
+   
     
     // Using in order to prevent to showing the message "Participant did not join session before the slot start."
     override var isSlotRunning : Bool {
@@ -387,9 +377,11 @@ class HostCallController: VideoCallController {
             self.earlyControllerReference = nil
             return
         }
+        
         if earlyControllerReference != nil {
             return
         }
+        
         guard let controller = EarlyViewController.instance() else {
             return
         }
@@ -624,7 +616,6 @@ class HostCallController: VideoCallController {
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
-            
             updateCallHeaderForEmptySlot()
             return
         }

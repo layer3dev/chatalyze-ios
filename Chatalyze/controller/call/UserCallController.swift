@@ -55,19 +55,7 @@ class UserCallController: VideoCallController {
     
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
-    override var isVideoCallInProgress : Bool{
-        
-        guard let activeSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
-            else{
-                return false
-        }
-        
-        if(activeSlot.isLIVE && (connection?.isConnected ?? false)){
-            return true
-        }
-        
-        return false
-    }
+    
     
     //public - Need to be access by child
     override var peerConnection : ARDAppClient?{
@@ -638,20 +626,8 @@ class UserCallController: VideoCallController {
         
         // guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
-        if(!isCallConnected){ return }
         
         if !(isCallStreaming){
-            
-            //            if SlotFlagInfo.staticScreenShotSaved{
-            //
-            //                return
-            //            }else{
-            //
-            //                SlotFlagInfo.staticSlotId = -1
-            //                SlotFlagInfo.staticIsTimerInitiated = false
-            //                selfieTimerView?.reset()
-            //                Log.echo(key: "yud", text: "Resetting the screenshots")
-            //            }
             return
         }
         
@@ -1547,9 +1523,7 @@ extension UserCallController {
         socketClient?.emit(params)
     }
     
-    var isCallConnected : Bool{
-        return (self.connection?.isConnected ?? false)
-    }
+    
     
     var isCallStreaming: Bool{
         return (self.connection?.isStreaming ?? false)

@@ -537,7 +537,6 @@ class VideoCallController : InterfaceExtendedController {
         rootView?.hangupListener(listener: {
             
             self.processExitAction(code: .userAction)
-            self.rootView?.callOverlayView?.isHidden = true
         })
         
         socketListener?.onEvent("updatePeerList", completion: { [weak self] (json) in
@@ -623,18 +622,7 @@ class VideoCallController : InterfaceExtendedController {
         return false
     }
     
-    func switchToCallAccept(){
-        self.rootView?.confirmViewLoad(listener: {
-            self.rootView?.switchToCallAccept()
-        })
-    }
     
-    func switchToCallRequest(){
-        
-        self.rootView?.confirmViewLoad(listener: {
-            self.rootView?.switchToCallRequest()
-        })
-    }
     
     
     //isolated from eventInfo
@@ -714,10 +702,7 @@ class VideoCallController : InterfaceExtendedController {
     func verifyScreenshotRequested(){
     }
     
-    //to be overridden by child classes
-    var isVideoCallInProgress : Bool{
-        return false
-    }
+    
     
     //to be overridden by child classes
     var isSlotRunning:Bool{
@@ -743,9 +728,7 @@ extension VideoCallController{
     func startCallRing(){
     }
     
-    func acceptCallUpdate(){
-        self.rootView?.switchToCallAccept()
-    }
+   
     
     
     func encodeImageToBase64(image : UIImage?,completion: @escaping (_ encodedData:String)->()){

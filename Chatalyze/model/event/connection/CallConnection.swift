@@ -34,9 +34,6 @@ class CallConnection: NSObject {
     //no need to use synced time here
     var lastDisconnect : Date?
     
-    //This will tell, if connection is in ACTIVE state. If false, then user is not connected to other user.
-    //This is used for re-connect purposes as well
-    var isConnected : Bool = false
     
     //isStreaming is different from isConnected.
     //This is used for tracking, if selfie-screenshot process can be initiated or not. Not used for re-connect purposes.
@@ -155,8 +152,7 @@ class CallConnection: NSObject {
     
     
     
-  
-    
+
     func registerForListeners(){
     }
     
@@ -205,15 +201,12 @@ extension CallConnection : ARDAppClientDelegate{
         
         logStats(state : state)
         
+        //if aborted, then it shouldn't effect the ACTIVE connection.
         if(isAborted){
             return
         }
         
-        
-//        DispatchQueue.main.asyncAfter(deadline: (.now() + 5.0), execute: {
-//            self.logStats()
-//        })
-        
+
         
         
         Log.echo(key: "_connection_", text: "\(tempIdentifier)  call state --> \(state.rawValue)")
@@ -222,8 +215,6 @@ extension CallConnection : ARDAppClientDelegate{
         if(state == .connected){
            
             lastDisconnect = nil
-            self.controller?.acceptCallUpdate()
-            isConnected = true
             isStreaming = true
             isCallConnected?()
             renderIfLinked()
@@ -284,6 +275,7 @@ extension CallConnection : ARDAppClientDelegate{
             
             self.remoteTrack = remoteTrack
             self.isRendered = false
+        
             if(self.isLinked){
                 self.renderRemoteTrack()
             }
@@ -308,11 +300,10 @@ extension CallConnection : ARDAppClientDelegate{
         renderRemoteTrack()
     }
     
+    
     //Needed to recover from black screen
     //once connection retreive from failure
     func resetVideoBounds(){
-        
-        
             if(!self.isLinked){
                 return
             }
@@ -329,8 +320,8 @@ extension CallConnection : ARDAppClientDelegate{
             remoteView.resetBounds()
     }
     
+    
     func renderRemoteTrack(){
-        
         
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteTrack")
             
@@ -348,7 +339,6 @@ extension CallConnection : ARDAppClientDelegate{
             }
             
             self.resetRemoteFrame()
-            
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteVideo")
             
             self.remoteTrack?.videoTrack?.add(remoteView)
@@ -361,7 +351,6 @@ extension CallConnection : ARDAppClientDelegate{
     
     private func removeLastRenderer(){
         
-        
             guard let remoteView = self.rootView?.remoteVideoView
                 else{
                     return
@@ -369,9 +358,8 @@ extension CallConnection : ARDAppClientDelegate{
             self.remoteTrack?.videoTrack?.remove(remoteView)
     }
     
+    
     private func resetRemoteFrame(){
-        
-        
             if(self.isAborted){
                 return
             }
@@ -384,10 +372,9 @@ extension CallConnection : ARDAppClientDelegate{
                     return
             }
         
-        Log.echo(key: "CallConnection", text: "Will crash just here")
-            remoteView.renderFrame(nil)
-        Log.echo(key: "CallConnection", text: "after crash")
-            remoteView.setSize(CGSize.zero)
+        Log.echo(key: "CallConnection", text: "RESET REMOTE FRAME")
+        remoteView.renderFrame(nil)
+        remoteView.setSize(CGSize.zero)
     }
     
     
@@ -398,6 +385,4 @@ extension CallConnection : ARDAppClientDelegate{
     func appClient(_ client: ARDAppClient!, didGetStats stats: [Any]!) {
         
     }
-    
-    
 }
