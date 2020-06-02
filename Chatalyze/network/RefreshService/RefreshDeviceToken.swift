@@ -14,7 +14,7 @@ class RefreshDeviceToken{
     
     public func update( completion : @escaping ((_ success : Bool, _ error : String, _ response : JSON?)->())){
         
-        let url = AppConnectionConfig.webServiceURL + "v1/authenticate/refresh"
+        let url = AppConnectionConfig.webServiceURL + "/authenticate/refresh"
         
         var params = [String : Any]()
                
