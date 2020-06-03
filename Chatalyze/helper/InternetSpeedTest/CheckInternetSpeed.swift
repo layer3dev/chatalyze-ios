@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate, URLSessionDownloadDelegate {
+class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
 
     var startTime: CFAbsoluteTime?
     var stopTime: CFAbsoluteTime?
@@ -46,58 +46,65 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate, UR
         configuration.timeoutIntervalForResource = 40.0
         let seesion = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
-        let downloadTask = seesion.downloadTask(with: url)
-        downloadTask.resume()
+
         
-//        seesion.dataTask(with: url).resume()
+        seesion.dataTask(with: url).resume()
     }
     
-    // MARK: protocol stub for tracking download progress
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        
-        Log.echo(key: "speed_logging", text: "downloaded value \(totalBytesWritten)")
-        
+    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         
         if isItisFirstByteofData{
             startTime = CFAbsoluteTimeGetCurrent()
             isItisFirstByteofData = false
         }
         
-        bytesReceived = totalBytesExpectedToWrite
+        bytesReceived += Int64(data.count)
         stopTime = CFAbsoluteTimeGetCurrent()
-            
-        
     }
     
-    // MARK: protocol stub for download completion tracking
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-            
-//       if error != nil{
-//           speedTestCompletionHandler(nil,error)
-//           return
-//       }
-       
-       let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
-       
-       Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
-       Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
-       
-       let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
-       Log.echo(key: "speed_logging", text: "speed is \(speed)")
+    internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        
+//        if error != nil{
+//            speedTestCompletionHandler?(nil,error)
+//            return
+//        }
+//
+//        let elapsed = (stopTime ?? 0.0) - (startTime ?? 0.0)
+//
+//        Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
+//        Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
+//
+//        let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
+//        Log.echo(key: "speed_logging", text: "speed is \(speed)")
+//
+//
+//        speedTestCompletionHandler?(speed,nil)
+    }
     
-              
+    func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics){
+        
+        Log.echo(key : "speed", text : "metrics \(metrics.transactionMetrics.count)")
+        Log.echo(key : "speed", text : "metrics \(metrics.transactionMetrics.first)")
+        
+        guard let transactionMetrics = metrics.transactionMetrics.first
+            else{
+                return
+        }
+        
+        guard let endTime = transactionMetrics.responseEndDate?.timeIntervalSince1970, let startTime = transactionMetrics.responseStartDate?.timeIntervalSince1970
+            else{
+                speedTestCompletionHandler?(nil,nil)
+                return
+        }
+
+        let elapsed = endTime - startTime
+
+        Log.echo(key: "speed_logging", text: "ElapseTime is \(elapsed)")
+        Log.echo(key: "speed_logging", text: "Recieved bytes are \(Double(bytesReceived))")
+
+        let speed = Double(bytesReceived * 8) / elapsed / 1024.0 / 1024.0
+        Log.echo(key: "speed_logging", text: "speed is \(speed)")
         speedTestCompletionHandler?(speed,nil)
-        speedTestCompletionHandler = nil
-    }
-    
-    func urlSession(_ session: URLSession,
-                    task: URLSessionTask,
-                    didCompleteWithError error: Error?){
-        Log.echo(key: "speed_logging", text: "didCompleteWithError is \(error)")
-        speedTestCompletionHandler?(nil,nil)
-        speedTestCompletionHandler = nil
-        return
-        
     }
     
     
