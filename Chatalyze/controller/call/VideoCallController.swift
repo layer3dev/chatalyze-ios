@@ -437,9 +437,17 @@ class VideoCallController : InterfaceExtendedController {
         CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
             return 0
         }) { (success, image) in
+            if image == nil{
+                return
+            }
             self.rootView?.callInfoContainer?.logo?.image = image
+            self.setFuturePromotionImage(image: image)
         }
     }
+    //To be overridden
+    func setFuturePromotionImage(image:UIImage?){
+    }
+    
     
     //This will still return info - even if call not activated.
     //if not activated - success will be false and info will have valid data
