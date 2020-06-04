@@ -125,9 +125,13 @@ extension VideoView : RTCVideoViewDelegate{
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
         
         Log.echo(key: "render", text: "didChangeVideoSize --> \(size)")
-        if(size != CGSize.zero){
-            self.trackSize = size
+        
+        if(size == CGSize.zero){
+            return
         }
+        
+        self.isHidden = false
+        self.trackSize = size
         
         self.updateSize(size: size)
     }

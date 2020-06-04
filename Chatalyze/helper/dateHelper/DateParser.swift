@@ -106,7 +106,8 @@ class DateParser: NSObject {
         
         var calendar = Calendar.current
         let requiredTimeZone = TimeZone(abbreviation: "UTC")!
-        calendar.timeZone = requiredTimeZone
+        let defaultTimeZone = TimeZone.autoupdatingCurrent
+        calendar.timeZone = defaultTimeZone
         calendar.locale = Locale(identifier : "en_US_POSIX")
         let dateAtMidnight = calendar.startOfDay(for: Date())
         let dateTime = dateToString(dateAtMidnight, requiredFormat : getFormat, timeZone : requiredTimeZone)

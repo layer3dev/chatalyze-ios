@@ -1031,6 +1031,10 @@
 		78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
+		E70FE91B24890C7E0002649C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; };
+		E70FE91C24890C7E0002649C /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E70FE91E248919830002649C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; };
+		E70FE91F248919830002649C /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
@@ -1345,6 +1349,31 @@
 			remoteInfo = Chatalyze;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E70FE91D24890C7E0002649C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E70FE91C24890C7E0002649C /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70FE920248919830002649C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E70FE91F248919830002649C /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1788,6 +1817,8 @@
 		C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D748F967C57D2CCE03FC232A /* Pods-Chatalyze Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze Dev/Pods-Chatalyze Dev.release.xcconfig"; sourceTree = "<group>"; };
 		E24DCEBB0C89FC10D70AA757 /* Pods-Chatalyze.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.release.xcconfig"; sourceTree = "<group>"; };
+		E70FE9112488F39C0002649C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = ../../webrtc/src/out_ios_libs/WebRTC.framework; sourceTree = "<group>"; };
+		E70FE91824890A990002649C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
 		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
 		E7964943247957F2007F4568 /* AutoAspectImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoAspectImageView.swift; sourceTree = "<group>"; };
@@ -2116,6 +2147,7 @@
 				47D0B18C21A6C4B5006376A8 /* UserNotifications.framework in Frameworks */,
 				47D0B19321A6C4B5006376A8 /* SafariServices.framework in Frameworks */,
 				47D0B19421A6C4B5006376A8 /* Accounts.framework in Frameworks */,
+				E70FE91B24890C7E0002649C /* WebRTC.framework in Frameworks */,
 				47D0B19621A6C4B5006376A8 /* libicucore.tbd in Frameworks */,
 				4712106D221EC186009F3A09 /* StoreKit.framework in Frameworks */,
 				8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */,
@@ -2129,6 +2161,7 @@
 				472D6A33213FC2C000D8FF03 /* UserNotifications.framework in Frameworks */,
 				474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */,
 				47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */,
+				E70FE91E248919830002649C /* WebRTC.framework in Frameworks */,
 				FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */,
 				47B7E0CC22159F12005CFEC0 /* StoreKit.framework in Frameworks */,
 				D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */,
@@ -2155,6 +2188,7 @@
 		0293E8890A9781616FB95EB9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E70FE9112488F39C0002649C /* WebRTC.framework */,
 				478C31482282C2290081CC38 /* FacebookCore.framework */,
 				478C314A2282C2290081CC38 /* FacebookLogin.framework */,
 				478C314C2282C2290081CC38 /* FacebookShare.framework */,
@@ -5678,6 +5712,7 @@
 		FAFFFE8B203D9C7F009B4F96 = {
 			isa = PBXGroup;
 			children = (
+				E70FE91824890A990002649C /* WebRTC.framework */,
 				478C31522282C3740081CC38 /* FBSDKCoreKit.modulemap */,
 				FAFFFE96203D9C80009B4F96 /* Chatalyze */,
 				FAFFFEAB203D9C80009B4F96 /* ChatalyzeTests */,
@@ -5762,6 +5797,7 @@
 				47D0B18B21A6C4B5006376A8 /* Frameworks */,
 				47D0B1A221A6C4B5006376A8 /* Resources */,
 				E2B7C5E67CC66F6C270DC831 /* [CP] Embed Pods Frameworks */,
+				E70FE91D24890C7E0002649C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -5781,6 +5817,7 @@
 				FAFFFE91203D9C7F009B4F96 /* Frameworks */,
 				FAFFFE92203D9C7F009B4F96 /* Resources */,
 				91AB12F1561992A75BDEDDC6 /* [CP] Embed Pods Frameworks */,
+				E70FE920248919830002649C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -6098,7 +6135,6 @@
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageLoader/ImageLoader.framework",
 				"${BUILT_PRODUCTS_DIR}/InputMask/InputMask.framework",
@@ -6125,7 +6161,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageLoader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputMask.framework",
@@ -6198,7 +6233,6 @@
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageLoader/ImageLoader.framework",
 				"${BUILT_PRODUCTS_DIR}/InputMask/InputMask.framework",
@@ -6225,7 +6259,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageLoader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputMask.framework",
@@ -7485,6 +7518,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
@@ -7524,6 +7558,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
@@ -7679,6 +7714,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;
@@ -7715,6 +7751,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = Chatalyze/config/headers/objc/PrefixHeader.h;
 				INFOPLIST_FILE = Chatalyze/Info.plist;

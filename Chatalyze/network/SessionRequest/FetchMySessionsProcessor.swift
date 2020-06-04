@@ -15,7 +15,8 @@ class FetchMySessionsProcessor{
     
     public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : [EventInfo]?)->())){
         
-        let newdate = DateParser.getMidNightDateTimeInString(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssXXX")
+        let newdate = DateParser.getMidNightDateTimeInString(date: Date(), format: "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
+//        let date = DateP
         
         Log.echo(key: "yud", text: "Date is in My sessions fetching \(Date())")
         

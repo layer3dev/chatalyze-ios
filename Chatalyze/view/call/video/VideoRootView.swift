@@ -32,7 +32,6 @@ class VideoRootView: ExtendedView {
     private var hangupListener : (()->())?
     private var loadListener : (()->())?
     
-    var callOverlayView : CallOverlayView?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -67,40 +66,14 @@ class VideoRootView: ExtendedView {
     
     private func initializeVariable(){
         
-        callOverlayView = CallOverlayView()
     }
     
     private func paintInterface(){
         self.headerTopConstraint?.constant = UIApplication.shared.statusBarFrame.size.height + 5.0
-        //paintOverlay()
-        //self.actionContainer?.isHidden = true
     }
     
-    private func paintOverlay(){
-        
-        guard let callOverlayView = self.callOverlayView
-            else{
-                return
-        }
-        self.addSubview(callOverlayView)
-        self.addConstraints(childView: callOverlayView)
-        callOverlayView.isHidden = true
-        callOverlayView.hangupListener {
-            self.hangupListener?()
-        }
-    }
     
-    func switchToCallRequest(){
-        
-        callOverlayView?.isHidden = false
-        actionContainer?.isHidden = true
-    }
     
-    func switchToCallAccept(){
-        
-        callOverlayView?.isHidden = true
-        actionContainer?.isHidden = false
-    }
     
     func addToogleGesture(){
         

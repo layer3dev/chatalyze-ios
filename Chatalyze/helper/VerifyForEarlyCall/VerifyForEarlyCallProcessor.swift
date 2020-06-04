@@ -18,7 +18,6 @@ class VerifyForEarlyCallProcessor: NSObject {
         super.init()
         
         initializeListener()
-        self.fetchInfo()
         eventListener()
     }
     

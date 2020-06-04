@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class EventDelayListener{
     
+    private let TAG = "EventDelayListener"
+    
     var callScheduleId : String?
     private var listener : (()->())?
     
@@ -41,14 +43,12 @@ class EventDelayListener{
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
         
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -67,23 +67,12 @@ class EventDelayListener{
                 return
         }
         
-        Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
         if (activityType != .eventDelay){
             return
         }
         
-//        guard let receivedEventId = metaInfo.callScheduleId
-//            else{
-//                return
-//        }
-//        Log.echo(key: "notification", text: "scheduleId  is  ==>\(receivedEventId) and controller schedule id is \(receivedEventId)")
-//
-//        let receivedEventIdString = String(receivedEventId)
-//
-//        if(receivedEventIdString != callScheduleId){
-//            return
-//        }
+        Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         
         listener?()
     }

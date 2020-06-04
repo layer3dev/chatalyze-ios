@@ -14,6 +14,7 @@ class ServerProcessor{
     
     private var sessionManager : SessionManager?
     private var urlString = ""
+    private let TAG = "ServerProcessor"
     
     init(){
         
@@ -111,7 +112,7 @@ class ServerProcessor{
         }
         
         
-        Log.echo(key: "yud", text: "url => " + (URLString))
+        Log.echo(key: TAG, text: "url => " + (URLString))
 //        Log.echo(key: "yud", text: "param in server Processor=> " + (parameters?.JSONDescription() ?? ""))
         
         let request = Alamofire.request(URLString, method : method.libHttpMethod(), parameters: parameters, encoding: encoding.libEncoding(), headers: headers)
@@ -121,11 +122,10 @@ class ServerProcessor{
             .validate()
             .validate(statusCode: 200 ..< 300)
             .responseJSON { (response) in
-               
-                Log.echo(key: "yud", text: "Response data from the server is  => \(response)")
+                Log.echo(key: self.TAG, text: "url => " + (URLString))
+                Log.echo(key: self.TAG, text: "Response data from the server is  => \(response)")
                 
                 DispatchQueue.main.async(execute: {
-                 
                     self.handleResponse(response)
                     return
                 })

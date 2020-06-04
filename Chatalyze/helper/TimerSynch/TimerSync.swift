@@ -181,6 +181,7 @@ class TimerSync {
         }
         
         Log.echo(key: "precision", text: "precision -> \(precision) -> timeDiff -> \(timeDiff)")
+        
         Log.echo(key: "precision", text: "self.precision -> \(self.precision) -> self.timeDiff -> \(self.timeDiff)")
         
         if(precision > thresholdPrecisionAccuracy){

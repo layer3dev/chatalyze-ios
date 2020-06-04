@@ -42,7 +42,7 @@ class RemoteVideoContainerView: ExtendedView {
         self.remoteVideoView?.streamUpdationDelegate = self
     }
 
-    func paintCorners(){
+    private func paintCorners(){
         
         self.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 5:3
         self.layer.masksToBounds = true
@@ -103,7 +103,6 @@ class RemoteVideoContainerView: ExtendedView {
         
         //This method is required to call during the first time initialization of the screen as the screenshot appears at this time handling flat position is also required to the handle.
         
-        self.paintCorners()
         self.signatureScreenSetup()
     }
         

@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class UpdateEventListener{
     
+    private let TAG = "UpdateEventListener"
+    
     private var listener : (()->())?
     
     private var isReleased = false
@@ -50,14 +52,12 @@ class UpdateEventListener{
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "yud", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
         
-        Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -76,7 +76,6 @@ class UpdateEventListener{
                 return
         }
         
-        Log.echo(key: "yud", text: "Schedules is updated\(activityType)")
         
         if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .eventDelay){
             return
@@ -85,6 +84,8 @@ class UpdateEventListener{
         if(isReleased){
             return
         }
+        
+        Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         
         
         listener?()

@@ -62,6 +62,8 @@ class InternetSpeedHandler{
                         return
                 }
                 
+                
+                
                 weakSelf.listener?(speed)
                 
                 if(speed >= 1.5){
@@ -75,7 +77,7 @@ class InternetSpeedHandler{
     }
     
     private func recursiveCall(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {[weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {[weak self] in
             
             guard let weakSelf = self
                 else{

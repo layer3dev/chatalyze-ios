@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class EventCreateListener{
     
+    private let TAG = "EventCreateListener"
+    
     private var listener : (()->())?
     
     init(){
@@ -40,18 +42,15 @@ class EventCreateListener{
     
     private func processNotificationForNewSlot(info : [String : Any]){
         
-        Log.echo(key: "yud", text: "Notification is On \(info.JSONDescription())")
         
         let rawInfosString = info.JSONDescription()
         
-        Log.echo(key: "notification", text: "raw -> \(rawInfosString)")
         
         guard let data = rawInfosString.data(using: .utf8)
             else{
                 return
         }
         
-        Log.echo(key: "notification", text: "notification ==> \(rawInfosString)")
         
         guard let rawInfo = try? JSON(data : data)
             else{
@@ -73,6 +72,8 @@ class EventCreateListener{
         if(activityType != .eventCreated){
             return
         }
+        
+        Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         
         listener?()
     }

@@ -144,15 +144,12 @@ extension UserSocket{
             //Changing the color of online offline view
         }
         
-        socket?.on("notification") {data, ack in
-            
-            Log.echo(key: "onAny", text:"socket notification => \(data)")
-        }
+    
         
         
         socket?.onAny({ (data) in
             
-            Log.echo(key: "user_socket", text: "onAny \(data)")
+//            Log.echo(key: "user_socket", text: "onAny \(data)")
         })
         
         Log.echo(key: "user_socket", text:"connect request in initializeSocketConnection")
@@ -176,7 +173,7 @@ extension UserSocket{
         Log.echo(key: "user_socket", text: "param => \(param)")
         socket?.emit("login", param)
         
-        registrationTimeout.registerForTimeout(seconds: 3.0) {[weak self] in
+        registrationTimeout.registerForTimeout(seconds: 10.0) {[weak self] in
             
             guard let weakSelf = self
                 else{

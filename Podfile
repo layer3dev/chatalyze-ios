@@ -8,7 +8,7 @@ def pod_file
 
   # Pods for Chatalyze
 
-  pod 'GoogleWebRTC'
+#  pod 'GoogleWebRTC'
   pod 'DeviceKit', '~> 1.3'
   pod 'CropViewController'
   pod 'Alamofire', '~> 4.0'

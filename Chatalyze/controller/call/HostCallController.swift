@@ -42,17 +42,7 @@ class HostCallController: VideoCallController {
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
        
-    override var isVideoCallInProgress : Bool{
-        
-        guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
-            else{
-                return false
-        }
-        if(activeSlot.isLIVE && (getActiveConnection()?.isConnected ?? false)){
-            return true
-        }
-        return false
-    }
+   
     
     // Using in order to prevent to showing the message "Participant did not join session before the slot start."
     override var isSlotRunning : Bool {
@@ -255,7 +245,6 @@ class HostCallController: VideoCallController {
         self.registerForTimerNotification()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
-        self.registerForAutographSignatureCall()
         self.signaturAccessoryView?.delegate = self
     }
     
@@ -387,9 +376,11 @@ class HostCallController: VideoCallController {
             self.earlyControllerReference = nil
             return
         }
+        
         if earlyControllerReference != nil {
             return
         }
+        
         guard let controller = EarlyViewController.instance() else {
             return
         }
@@ -624,7 +615,6 @@ class HostCallController: VideoCallController {
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
-            
             updateCallHeaderForEmptySlot()
             return
         }
@@ -1290,36 +1280,6 @@ extension HostCallController{
 
 extension HostCallController{
     
-    func registerForAutographSignatureCall(){
-        
-        UserSocket.sharedInstance?.socket?.on("notification") { data, ack in
-            
-            let rawInfosString = data.JSONDescription()
-            guard let data = rawInfosString.data(using: .utf8)
-                else{
-                    return
-            }
-            Log.echo(key: "yud", text: "notification ==> \(rawInfosString)")
-            var rawInfos:[JSON]?
-            do{
-                
-                rawInfos = try JSON(data : data).arrayValue
-            }catch{
-                
-            }
-            if((rawInfos?.count  ?? 0) <= 0){
-                return
-            }
-            let rawInfo = rawInfos?[0]
-            let info = NotificationInfo(info: rawInfo)
-            
-            if (info.metaInfo?.type == .signRequest)
-            {
-                //TODO:- Need to uncomment this in order to enable the selfie feature. 
-//                self.fetchAutographInfo(screenShotId:info.metaInfo?.activityId)
-            }
-        }
-    }
     
     
     func fetchAutographInfo(screenShotId:String?){
