@@ -175,6 +175,9 @@ class CallConnection: NSObject {
     //follow all protocols of disconnect
     func disconnect(){
         
+        if(isReleased){
+            return
+        }
         self.isReleased = true
         removeLastRenderer()
         
