@@ -101,6 +101,7 @@ class VideoCallController : InterfaceExtendedController {
     var isEventCancelled = false
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -159,6 +160,8 @@ class VideoCallController : InterfaceExtendedController {
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
     }
+    
+    @IBOutlet var poorInternetBannerView:UIView?
     
     //public - Need to be access by child
     var peerConnection : ARDAppClient?{
@@ -649,6 +652,7 @@ class VideoCallController : InterfaceExtendedController {
         socketListener = socketClient?.createListener()
         multipleVideoTabListner()
         startTimer()
+        self.initializeForLowSpeedBanner()
     }
     
     private func startTimer(){
@@ -726,6 +730,21 @@ class VideoCallController : InterfaceExtendedController {
         //To be overridden by the UserCallController and videoCallController
     }
     
+    private func initializeForLowSpeedBanner(){
+        
+        self.poorInternetBannerView?.layer.cornerRadius = 17.5
+        self.poorInternetBannerView?.layer.masksToBounds = true
+       
+        self.speedHandler?.showBottomBanner = {[weak self] success in
+            
+            if success{
+                self?.poorInternetBannerView?.isHidden = false
+                return
+            }
+            self?.poorInternetBannerView?.isHidden = true
+        }
+        
+    }
 }
 
 //Action Buttons

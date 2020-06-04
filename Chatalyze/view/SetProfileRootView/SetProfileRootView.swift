@@ -90,20 +90,20 @@ extension SetProfileRootView:UITextViewDelegate{
         
         if textView.text.count <= 0 || !self.isImageUploaded{
             
-            setUpMyProfileContainer?.backgroundColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1)
+            setUpMyProfileContainer?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 1)
             return
         }
-        setUpMyProfileContainer?.backgroundColor = UIColor(red: 105.0/255.0, green: 195.0/255.0, blue: 249.0/255.0, alpha: 1)
+        setUpMyProfileContainer?.backgroundColor = UIColor(red: 236.0/255.0, green: 82.0/255.0, blue: 62.0/255.0, alpha: 1)
     }
     
     func verifySetUpProfileButton(){
         
         if self.infoTextView?.text?.count ?? 0 <= 0 || !self.isImageUploaded {
             
-            setUpMyProfileContainer?.backgroundColor = UIColor(red: 208.0/255.0, green: 208.0/255.0, blue: 208.0/255.0, alpha: 1)
+            setUpMyProfileContainer?.backgroundColor = UIColor(red: 217.0/255.0, green: 217.0/255.0, blue: 217.0/255.0, alpha: 1)
             return
         }
-        setUpMyProfileContainer?.backgroundColor = UIColor(red: 105.0/255.0, green: 195.0/255.0, blue: 249.0/255.0, alpha: 1)
+        setUpMyProfileContainer?.backgroundColor = UIColor(red: 236.0/255.0, green: 82.0/255.0, blue: 62.0/255.0, alpha: 1)
     }
     
     func validateField()->Bool{
