@@ -27,9 +27,7 @@ class DonationSuccessController: InterfaceExtendedController {
         
         self.hideNavigationBar()
     }
-    
-    
-    
+        
     var rootView : DonationSuccessRootView?{
         return self.view as? DonationSuccessRootView
     }
@@ -51,7 +49,6 @@ class DonationSuccessController: InterfaceExtendedController {
         controller.eventInfo = scheduleInfo
 //        present(controller, animated: false, completion:nil)
         controller.modalPresentationStyle = .fullScreen
-
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
