@@ -1031,9 +1031,10 @@
 		78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
-		E70FE91924890A990002649C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; };
 		E70FE91B24890C7E0002649C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; };
 		E70FE91C24890C7E0002649C /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E70FE91E248919830002649C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; };
+		E70FE91F248919830002649C /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E70FE91824890A990002649C /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
@@ -1357,6 +1358,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E70FE91C24890C7E0002649C /* WebRTC.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E70FE920248919830002649C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E70FE91F248919830002649C /* WebRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2149,7 +2161,7 @@
 				472D6A33213FC2C000D8FF03 /* UserNotifications.framework in Frameworks */,
 				474BF8A520D912590074EBBC /* SafariServices.framework in Frameworks */,
 				47F7CDF120C7E1E300EAEB43 /* Accounts.framework in Frameworks */,
-				E70FE91924890A990002649C /* WebRTC.framework in Frameworks */,
+				E70FE91E248919830002649C /* WebRTC.framework in Frameworks */,
 				FA74B1532063A1C500983141 /* libicucore.tbd in Frameworks */,
 				47B7E0CC22159F12005CFEC0 /* StoreKit.framework in Frameworks */,
 				D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */,
@@ -5805,6 +5817,7 @@
 				FAFFFE91203D9C7F009B4F96 /* Frameworks */,
 				FAFFFE92203D9C7F009B4F96 /* Resources */,
 				91AB12F1561992A75BDEDDC6 /* [CP] Embed Pods Frameworks */,
+				E70FE920248919830002649C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
