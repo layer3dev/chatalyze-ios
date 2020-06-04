@@ -169,15 +169,16 @@ class CallConnection: NSObject {
     func abort(){
        
         isAborted = true
-        removeLastRenderer()
         disconnect()
     }
     
     //follow all protocols of disconnect
     func disconnect(){
         
-        lastDisconnect = nil
         self.isReleased = true
+        removeLastRenderer()
+        
+        lastDisconnect = nil
         
         self.connection?.disconnect()
         self.remoteTrack = nil
@@ -286,6 +287,7 @@ extension CallConnection : ARDAppClientDelegate{
         if(isLinked){
             return
         }
+        self.rootView?.remoteVideoView?.isHidden = false
         isLinked = true
         renderRemoteTrack()
     }
@@ -374,7 +376,8 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "CallConnection", text: "RESET REMOTE FRAME")
         remoteView.renderFrame(nil)
-//        remoteView.setSize(CGSize.zero)
+        remoteView.isHidden = true
+        remoteView.setSize(CGSize.zero)
     }
     
     
