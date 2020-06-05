@@ -19,6 +19,8 @@ class InternetSpeedHandler{
     private var controller : InterfaceExtendedController?
     private var listener : ((_ speed : Double?)->())?
     
+    var showBottomBanner:((Bool)->())?
+    
     init(controller : InterfaceExtendedController?){
         self.controller = controller
     }
@@ -61,17 +63,14 @@ class InternetSpeedHandler{
                     else{
                         return
                 }
-                
-                
-                
+                                
                 weakSelf.listener?(speed)
                 
                 if(speed >= 1.5){
+                    self?.showBottomBanner?(false)
                     return
                 }
-                
                 weakSelf.showLowSpeedAlert()
-                
             }
         }
     }
@@ -111,6 +110,8 @@ class InternetSpeedHandler{
     }
     
     private func showMediaAlert(alert : VideoCallController.permissionsCheck?){
+        
+        self.showBottomBanner?(true)
         
         if self.controller?.presentedViewController as? MediaAlertController != nil{
             return
