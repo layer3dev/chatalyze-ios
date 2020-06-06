@@ -70,6 +70,7 @@ class HostCallController: VideoCallController {
     override func onExit(code : exitCode){
         super.onExit(code: code)
         
+        changeOrientationToPortrait()
         
         if(code == .prohibited){
             showErrorScreen()
@@ -256,7 +257,6 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "yud", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
-        changeOrientationToPortrait()
     }
     
     

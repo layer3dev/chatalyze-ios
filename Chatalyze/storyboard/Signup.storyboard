@@ -688,24 +688,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhq-Vo-FVf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="372"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="376"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zy-ry-E8d">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zy-ry-E8d">
                                                 <rect key="frame" x="20" y="80" width="166" height="31"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESc-3G-0xI" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="211" width="335" height="33"/>
+                                                <rect key="frame" x="20" y="211" width="335" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-OT-ZC5">
-                                                        <rect key="frame" x="5" y="0.0" width="322" height="30"/>
+                                                        <rect key="frame" x="5" y="0.0" width="322" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="iZt-6k-ngA"/>
+                                                            <constraint firstAttribute="height" constant="45" id="iZt-6k-ngA"/>
                                                         </constraints>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
@@ -714,37 +714,25 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </textField>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eR8-QN-Wk8" userLabel="line_bottom">
-                                                        <rect key="frame" x="0.0" y="30" width="335" height="1"/>
-                                                        <color key="backgroundColor" red="0.71764705880000002" green="0.71764705880000002" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eR8-QN-Wk8" userLabel="line_bottom">
+                                                        <rect key="frame" x="0.0" y="45" width="335" height="0.0"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="Ohk-5I-1vy"/>
+                                                            <constraint firstAttribute="height" id="Ohk-5I-1vy"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqh-nQ-rv4" userLabel="error_label">
-                                                        <rect key="frame" x="2" y="33" width="328" height="0.0"/>
-                                                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
-                                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <variation key="heightClass=regular-widthClass=regular">
-                                                            <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
-                                                        </variation>
-                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="jRv-OT-ZC5" firstAttribute="top" secondItem="ESc-3G-0xI" secondAttribute="top" id="2N0-WK-I5O"/>
                                                     <constraint firstAttribute="trailing" secondItem="jRv-OT-ZC5" secondAttribute="trailing" constant="8" id="4hu-29-yCo"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Yqh-nQ-rv4" secondAttribute="trailing" constant="5" id="89O-wx-dNJ"/>
-                                                    <constraint firstItem="Yqh-nQ-rv4" firstAttribute="leading" secondItem="ESc-3G-0xI" secondAttribute="leading" constant="2" id="8tI-SC-K6X"/>
                                                     <constraint firstItem="eR8-QN-Wk8" firstAttribute="leading" secondItem="ESc-3G-0xI" secondAttribute="leading" id="CWD-EZ-1Bq"/>
                                                     <constraint firstItem="jRv-OT-ZC5" firstAttribute="leading" secondItem="ESc-3G-0xI" secondAttribute="leading" constant="5" id="VKa-Vp-D0J"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Yqh-nQ-rv4" secondAttribute="bottom" id="X7t-yb-A0w"/>
                                                     <constraint firstAttribute="trailing" secondItem="eR8-QN-Wk8" secondAttribute="trailing" id="aOz-h6-TL8"/>
                                                     <constraint firstItem="eR8-QN-Wk8" firstAttribute="top" secondItem="jRv-OT-ZC5" secondAttribute="bottom" id="cjz-6y-lI3">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="5"/>
                                                     </constraint>
-                                                    <constraint firstItem="Yqh-nQ-rv4" firstAttribute="top" secondItem="eR8-QN-Wk8" secondAttribute="bottom" constant="2" id="dfA-Ce-Yed"/>
+                                                    <constraint firstAttribute="bottom" secondItem="eR8-QN-Wk8" secondAttribute="bottom" id="obH-aB-jEg"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="borderView" destination="eR8-QN-Wk8" id="syB-Tc-r9f"/>
@@ -752,8 +740,17 @@
                                                     <outlet property="textField" destination="jRv-OT-ZC5" id="SIk-4N-lD8"/>
                                                 </connections>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqh-nQ-rv4" userLabel="error_label">
+                                                <rect key="frame" x="20" y="258" width="335" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
+                                                </variation>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxX-rK-lx5">
-                                                <rect key="frame" x="20" y="264" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="268" width="335" height="45"/>
                                                 <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="kC6-1f-dRp">
@@ -772,7 +769,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuF-uL-EEV">
-                                                <rect key="frame" x="20" y="312" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="316" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -781,7 +778,7 @@
                                                 </variation>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AK0-ny-Xk5">
-                                                <rect key="frame" x="47.5" y="322" width="280" height="30"/>
+                                                <rect key="frame" x="47.5" y="326" width="280" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAx-7z-aev">
                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
@@ -846,15 +843,16 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="Yqh-nQ-rv4" firstAttribute="leading" secondItem="ESc-3G-0xI" secondAttribute="leading" id="1Dt-lg-WCC"/>
                                             <constraint firstAttribute="bottom" secondItem="AK0-ny-Xk5" secondAttribute="bottom" constant="20" id="7Gg-XN-mah"/>
-                                            <constraint firstItem="rxX-rK-lx5" firstAttribute="top" secondItem="ESc-3G-0xI" secondAttribute="bottom" constant="20" id="Aty-xH-tf0"/>
                                             <constraint firstAttribute="trailing" secondItem="ESc-3G-0xI" secondAttribute="trailing" constant="20" id="BL4-4U-O8a">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="AK0-ny-Xk5" firstAttribute="top" secondItem="ZuF-uL-EEV" secondAttribute="bottom" constant="10" id="IdL-JZ-1yg"/>
                                             <constraint firstItem="7zy-ry-E8d" firstAttribute="top" secondItem="yhq-Vo-FVf" secondAttribute="top" constant="80" id="UEY-xM-xJt"/>
+                                            <constraint firstItem="Yqh-nQ-rv4" firstAttribute="trailing" secondItem="ESc-3G-0xI" secondAttribute="trailing" id="WK1-Oo-dar"/>
                                             <constraint firstAttribute="trailing" secondItem="rxX-rK-lx5" secondAttribute="trailing" constant="20" id="Zsk-uS-rm1">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -864,6 +862,8 @@
                                             <constraint firstItem="ESc-3G-0xI" firstAttribute="top" secondItem="7zy-ry-E8d" secondAttribute="bottom" constant="100" id="gcH-s5-H7D"/>
                                             <constraint firstItem="ZuF-uL-EEV" firstAttribute="top" secondItem="rxX-rK-lx5" secondAttribute="bottom" constant="3" id="i9G-Pf-b8D"/>
                                             <constraint firstItem="AK0-ny-Xk5" firstAttribute="centerX" secondItem="yhq-Vo-FVf" secondAttribute="centerX" id="jPs-Rg-ZHU"/>
+                                            <constraint firstItem="rxX-rK-lx5" firstAttribute="top" secondItem="Yqh-nQ-rv4" secondAttribute="bottom" constant="10" id="lMd-fH-wKX"/>
+                                            <constraint firstItem="Yqh-nQ-rv4" firstAttribute="top" secondItem="ESc-3G-0xI" secondAttribute="bottom" constant="2" id="lS5-aC-Iyz"/>
                                             <constraint firstItem="ZuF-uL-EEV" firstAttribute="leading" secondItem="yhq-Vo-FVf" secondAttribute="leading" constant="20" id="mOo-ZZ-GNh">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
@@ -925,7 +925,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xKQ-ja-5eC" firstAttribute="top" secondItem="Tab-mz-ANj" secondAttribute="top" id="E0C-wX-dfA"/>
                             <constraint firstItem="Tab-mz-ANj" firstAttribute="trailing" secondItem="xKQ-ja-5eC" secondAttribute="trailing" id="WiH-0b-vFV"/>
