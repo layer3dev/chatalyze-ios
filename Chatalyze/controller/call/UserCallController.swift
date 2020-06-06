@@ -1458,8 +1458,12 @@ extension UserCallController {
             Log.echo(key: "UserCallController", text: "stoppedSigning")
             Log.echo(key: "UserCallController", text: json)
             
+            
+            print("user's current orientation after the stopping signature is \(UIDevice.current.orientation) ")
+            
             self.resetCanvas()
             self.releaseDeviceOrientation()
+            //self.setExistingDeviceOrientaion()
             //self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
         })
     }
@@ -1620,6 +1624,40 @@ extension UserCallController{
 
 extension UserCallController{
     
-    
+//    func setExistingDeviceOrientaion(){
+//
+//        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
+//
+//            print("Existing orienatoin is landscapeLeft")
+//            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+//        }
+//        else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight{
+//
+//            print("Existing orienatoin is landscapeRight")
+//            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+//        }
+//
+//        else if UIDevice.current.orientation == UIDeviceOrientation.faceDown{
+//
+//
+//            print("Existing orienatoin is faceDown")
+//            //UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+//        }
+//        else if UIDevice.current.orientation == UIDeviceOrientation.faceUp{
+//            print("Existing orienatoin is faceUp")
+//        }
+//
+//        else if UIDevice.current.orientation == UIDeviceOrientation.portrait{
+//
+//            print("Existing orienatoin is portrait")
+//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        }
+//        else if UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown{
+//
+//            print("Existing orienatoin is portraitUpsideDown")
+//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+//        }
+//        releaseDeviceOrientation()
+//    }
     
 }
