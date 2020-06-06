@@ -14,6 +14,8 @@ import UIKit
 
 class CallConnection: NSObject {
     
+    private let TAG = "CallConnection"
+    
     //temp
     static private var temp = 0
     var tempIdentifier = 0
@@ -175,15 +177,22 @@ class CallConnection: NSObject {
     //follow all protocols of disconnect
     func disconnect(){
         
+        Log.echo(key : self.TAG, text : "disconnect")
         if(isReleased){
             return
         }
+        
         self.isReleased = true
-        removeLastRenderer()
+        
+        Log.echo(key : self.TAG, text : "called removeLastRenderer")
         
         lastDisconnect = nil
         
+        Log.echo(key : self.TAG, text : "disconnect connection")
         self.connection?.disconnect()
+        removeLastRenderer()
+        Log.echo(key : self.TAG, text : "connection disconnected")
+        
         self.remoteTrack = nil
         self.captureController = nil
         self.socketClient = nil
@@ -291,7 +300,6 @@ extension CallConnection : ARDAppClientDelegate{
         if(isLinked){
             return
         }
-        self.rootView?.remoteVideoView?.isHidden = false
         isLinked = true
         renderRemoteTrack()
     }
@@ -344,7 +352,6 @@ extension CallConnection : ARDAppClientDelegate{
                     return
             }
             
-            self.resetRemoteFrame()
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteVideo")
             
             self.remoteTrack?.videoTrack?.add(remoteView)
@@ -356,12 +363,16 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     private func removeLastRenderer(){
-        
             guard let remoteView = self.rootView?.remoteVideoView
                 else{
                     return
             }
+        
+        
+        Log.echo(key : self.TAG, text : "current track state -> \(self.remoteTrack?.videoTrack?.isEnabled)")
+            Log.echo(key : self.TAG, text : "removeLastRenderer")
             self.remoteTrack?.videoTrack?.remove(remoteView)
+            Log.echo(key : self.TAG, text : "last renderer removed")
     }
     
     
@@ -380,7 +391,6 @@ extension CallConnection : ARDAppClientDelegate{
         
         Log.echo(key: "CallConnection", text: "RESET REMOTE FRAME")
         remoteView.renderFrame(nil)
-        remoteView.isHidden = true
         remoteView.setSize(CGSize.zero)
     }
     

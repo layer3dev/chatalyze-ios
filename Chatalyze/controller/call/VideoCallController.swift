@@ -358,6 +358,7 @@ class VideoCallController : InterfaceExtendedController {
             }
             
             self.initialization()
+            
             self.logInternetSpeed()
             Log.echo(key: "yud", text: "Access Manager permission for camera is \(cameraAccess) and for mic Access is \(micAccess)")
         }

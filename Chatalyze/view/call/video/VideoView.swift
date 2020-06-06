@@ -45,40 +45,44 @@ class VideoView: RTCEAGLVideoView {
         isFrameRequired = true
     }
     
-    override func renderFrame(_ frame: RTCVideoFrame?) {
-        super.renderFrame(frame)
-        
-        if(!isFrameRequired){
-            return
-        }
-        
-        guard let frame = frame
-        else{
-            return
-        }
-        
-        isFrameRequired = false
-        Log.echo(key: self.TAG, text: "fetch frame")
-        
-        
-        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
-        
-            guard let _ = self?.frameListener
-            else{
-                return
-            }
-            
-            
-            guard let image = self?.frameToImage(frame : frame)
-                else{
-                    return
-            }
-            
-            Log.echo(key: self?.TAG ?? "", text: "got the image")
-            
-            self?.dispatchFrame(frame : image)
-        }
-    }
+    
+    
+//    override func renderFrame(_ frame: RTCVideoFrame?) {
+//        super.renderFrame(frame)
+//
+//        if(!isFrameRequired){
+//            return
+//        }
+//
+//        guard let frame = frame
+//        else{
+//            return
+//        }
+//
+//        isFrameRequired = false
+//        Log.echo(key: self.TAG, text: "fetch frame")
+//
+//
+//        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
+//
+//            guard let _ = self?.frameListener
+//            else{
+//                return
+//            }
+//
+//
+//            guard let image = self?.frameToImage(frame : frame)
+//                else{
+//                    return
+//            }
+//
+//            Log.echo(key: self?.TAG ?? "", text: "got the image")
+//
+//            self?.dispatchFrame(frame : image)
+//        }
+//    }
+    
+    
     
     private func frameToImage(frame: RTCVideoFrame) -> UIImage?{
         
@@ -124,15 +128,13 @@ extension VideoView : RTCVideoViewDelegate{
     
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
         
-        Log.echo(key: "render", text: "didChangeVideoSize --> \(size)")
+        Log.echo(key: self.TAG, text: "didChangeVideoSize --> \(size)")
         
         if(size == CGSize.zero){
             return
         }
         
-        self.isHidden = false
-        self.trackSize = size
-        
+        self.trackSize = size        
         self.updateSize(size: size)
     }
     

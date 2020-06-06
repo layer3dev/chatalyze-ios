@@ -352,7 +352,6 @@ class HostCallController: VideoCallController {
         refresh()        
         updateLableAnimation()
         
-        //TODO:- Need to uncomment if the signature feature needs to be enable.
         resetAutographCanvasIfNewCallAndSlotExists()
     }
     
