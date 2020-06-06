@@ -134,6 +134,8 @@ extension VideoView : RTCVideoViewDelegate{
             return
         }
         
+       
+        self.isHidden = false
         self.trackSize = size        
         self.updateSize(size: size)
     }

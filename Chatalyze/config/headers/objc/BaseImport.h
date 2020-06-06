@@ -21,5 +21,6 @@
 #import "RTCMediaStream+Helper.h"
 #import "RTCSingletonStream.h"
 #import "I420Frame.h"
+#import "PixelColorUpdateManager.h"
 
 #endif /* BaseImport_h */

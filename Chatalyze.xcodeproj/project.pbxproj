@@ -1031,6 +1031,10 @@
 		78DF78F52307D09D007B2663 /* AutographyFetchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DF78F32307D09D007B2663 /* AutographyFetchInfo.swift */; };
 		8CFE5AF8847D762082AB9E37 /* Pods_Chatalyze_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F7AB08D828D8F152AE334 /* Pods_Chatalyze_Dev.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
+		E70ACD26248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */; };
+		E70ACD27248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */; };
+		E70ACD2A248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
+		E70ACD2B248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
@@ -1788,6 +1792,9 @@
 		C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D748F967C57D2CCE03FC232A /* Pods-Chatalyze Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze Dev/Pods-Chatalyze Dev.release.xcconfig"; sourceTree = "<group>"; };
 		E24DCEBB0C89FC10D70AA757 /* Pods-Chatalyze.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.release.xcconfig"; sourceTree = "<group>"; };
+		E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift.swift"; sourceTree = "<group>"; };
+		E70ACD28248BDE460091BEAD /* PixelColorUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PixelColorUpdateManager.h; sourceTree = "<group>"; };
+		E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixelColorUpdateManager.m; sourceTree = "<group>"; };
 		E70FE9112488F39C0002649C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = ../../webrtc/src/out_ios_libs/WebRTC.framework; sourceTree = "<group>"; };
 		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
 		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
@@ -4204,6 +4211,16 @@
 			path = AutographyInfoFetch;
 			sourceTree = "<group>";
 		};
+		E70ACD24248BBF060091BEAD /* frameGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */,
+				E70ACD28248BDE460091BEAD /* PixelColorUpdateManager.h */,
+				E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */,
+			);
+			path = frameGenerator;
+			sourceTree = "<group>";
+		};
 		E75D9AA7246C6C5000BC2D07 /* FrameRenderer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4695,6 +4712,7 @@
 		FA74B0ED20639A1A00983141 /* objc */ = {
 			isa = PBXGroup;
 			children = (
+				E70ACD24248BBF060091BEAD /* frameGenerator */,
 				E75D9AA7246C6C5000BC2D07 /* FrameRenderer */,
 				FA74B14120639C7300983141 /* third_party */,
 				FA74B0F520639B6300983141 /* webrtc_support */,
@@ -6378,6 +6396,7 @@
 				47D0B06621A6C4B5006376A8 /* DevFlag.swift in Sources */,
 				47D0B06721A6C4B5006376A8 /* HangupController.swift in Sources */,
 				47D0B06821A6C4B5006376A8 /* VideoCallController.swift in Sources */,
+				E70ACD2B248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */,
 				47D0B06921A6C4B5006376A8 /* MySessionsInfo.swift in Sources */,
 				47D0B06A21A6C4B5006376A8 /* ZeroHeightView.swift in Sources */,
 				47D0B06B21A6C4B5006376A8 /* DateParser.swift in Sources */,
@@ -6621,6 +6640,7 @@
 				FADC0D5721C8F392004358B2 /* CallLogger.swift in Sources */,
 				47D0B10621A6C4B5006376A8 /* TabContainerController.swift in Sources */,
 				47D0B10721A6C4B5006376A8 /* EditScheduledSessionRootView.swift in Sources */,
+				E70ACD27248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */,
 				47D0B10821A6C4B5006376A8 /* AnimateLable.swift in Sources */,
 				47D0B10921A6C4B5006376A8 /* GreetingRecipientRootView.swift in Sources */,
 				47D0B10A21A6C4B5006376A8 /* CallQueueRootView.swift in Sources */,
@@ -6964,6 +6984,7 @@
 				47FD6912217DE483001886A6 /* HangupController.swift in Sources */,
 				FA65F542206A589F006CE665 /* VideoCallController.swift in Sources */,
 				47614F84213ABFC000CC9702 /* MySessionsInfo.swift in Sources */,
+				E70ACD2A248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */,
 				FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */,
 				FAA0019A203ED472003C8A74 /* DateParser.swift in Sources */,
 				FA3B46A621104D19007EA72D /* EventValidator.swift in Sources */,
@@ -7207,6 +7228,7 @@
 				6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */,
 				471964392150E31A00BD21D1 /* AnimateLable.swift in Sources */,
 				47B6522D20AAAF710041496C /* GreetingRecipientRootView.swift in Sources */,
+				E70ACD26248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */,
 				FA24BAD6206FAA650064F94F /* CallQueueRootView.swift in Sources */,
 				FADC84EC2074EDB600AD9D65 /* AutographPreviewController.swift in Sources */,
 				FAB71CE520776C3000C24246 /* ActivateEvent.swift in Sources */,

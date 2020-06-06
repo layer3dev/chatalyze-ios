@@ -355,6 +355,10 @@ class HostCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
     }
     
+    
+    
+    
+    
     func verifyForPostSessionEarningScreen() {
     }
     

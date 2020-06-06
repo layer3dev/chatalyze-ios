@@ -36,6 +36,10 @@ class RemoteVideoView: VideoView {
     func updateContainerSize(containerSize : CGSize){
        
         Log.echo(key: self.TAG, text: "updateContainerSize ->> \(containerSize)")
+        
+        if(containerSize.width == 0 || containerSize.height == 0){
+            return
+        }
         self.containerSize = containerSize
         refreshRendererSize()
     }

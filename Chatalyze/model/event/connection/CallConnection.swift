@@ -44,8 +44,8 @@ class CallConnection: NSObject {
     //if connection had been released
     var isReleased : Bool = false
     
-    //flag to see, if this connection is aborted and replaced by another connection
-    var isAborted = false
+//    //flag to see, if this connection is aborted and replaced by another connection
+//    var isAborted = false
     
     var isRendered = false
     
@@ -169,18 +169,17 @@ class CallConnection: NSObject {
     //make connection disappear without effecting remote renderer
 
     func abort(){
-       
-        isAborted = true
         disconnect()
     }
     
     //follow all protocols of disconnect
     func disconnect(){
-        
         Log.echo(key : self.TAG, text : "disconnect")
         if(isReleased){
             return
         }
+        
+        resetRemoteFrame()
         
         self.isReleased = true
         
@@ -198,7 +197,7 @@ class CallConnection: NSObject {
         self.socketClient = nil
         self.socketListener?.releaseListener()
         self.socketListener = nil
-        resetRemoteFrame()
+        
     }
 }
 
@@ -215,7 +214,7 @@ extension CallConnection : ARDAppClientDelegate{
         logStats(state : state)
         
         //if aborted, then it shouldn't effect the ACTIVE connection.
-        if(isAborted){
+        if(isReleased){
             return
         }
         
@@ -280,9 +279,9 @@ extension CallConnection : ARDAppClientDelegate{
         
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) didReceiveRemoteVideoTrack")
             
-            if(self.isAborted){
+            if(self.isReleased){
                 
-                Log.echo(key: "_connection_", text: "\(self.tempIdentifier) isAborted didReceiveRemoteVideoTrack")
+                Log.echo(key: "_connection_", text: "\(self.tempIdentifier) isReleased didReceiveRemoteVideoTrack")
                 return
             }
             
@@ -300,6 +299,10 @@ extension CallConnection : ARDAppClientDelegate{
         if(isLinked){
             return
         }
+        if(isReleased){
+            return
+        }
+        self.rootView?.remoteVideoView?.isHidden = false
         isLinked = true
         renderRemoteTrack()
     }
@@ -322,7 +325,7 @@ extension CallConnection : ARDAppClientDelegate{
                 return
             }
             
-            if(self.isAborted){
+            if(self.isReleased){
                 return
             }
             
@@ -330,7 +333,7 @@ extension CallConnection : ARDAppClientDelegate{
                 else{
                     return
             }
-            
+            remoteView.isHidden = false
             remoteView.resetBounds()
     }
     
@@ -339,7 +342,7 @@ extension CallConnection : ARDAppClientDelegate{
         
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteTrack")
             
-            if(self.isAborted){
+            if(self.isReleased){
                 return
             }
             
@@ -353,10 +356,11 @@ extension CallConnection : ARDAppClientDelegate{
             }
             
             Log.echo(key: "_connection_", text: "\(self.tempIdentifier) renderRemoteVideo")
+            Log.echo(key: self.TAG, text: "track enabled -> \(self.remoteTrack?.videoTrack?.isEnabled)")
             
             self.remoteTrack?.videoTrack?.add(remoteView)
+            self.rootView?.remoteVideoView?.isHidden = false
             
-            //self.remoteTrack?.videoTrack?.source.
             
             self.remoteTrack?.audioTrack?.isEnabled = true
             self.isRendered = true
@@ -377,9 +381,10 @@ extension CallConnection : ARDAppClientDelegate{
     
     
     private func resetRemoteFrame(){
-            if(self.isAborted){
+            if(self.isReleased){
                 return
             }
+        
             
             if(!self.isLinked){
                 return
@@ -389,9 +394,76 @@ extension CallConnection : ARDAppClientDelegate{
                     return
             }
         
-        Log.echo(key: "CallConnection", text: "RESET REMOTE FRAME")
-        remoteView.renderFrame(nil)
-        remoteView.setSize(CGSize.zero)
+            remoteView.renderFrame(nil)
+            remoteView.isHidden = true
+        
+    }
+    
+    private func getBuffer() -> CVPixelBuffer?{
+        var pixelBuffer: CVPixelBuffer? = nil
+        CVPixelBufferCreate(kCFAllocatorDefault, 1280, 720, kCVPixelFormatType_32BGRA, nil, &pixelBuffer)
+        var info = CMSampleTimingInfo(duration: .invalid, presentationTimeStamp: .zero, decodeTimeStamp: .invalid)
+        var formatDesc: CMFormatDescription? = nil
+        if let pixelBuffer = pixelBuffer {
+            CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault, imageBuffer: pixelBuffer, formatDescriptionOut: &formatDesc)
+            PixelColorUpdateManager.blackColor(pixelBuffer)
+            
+        
+            
+//            CVPixelBufferLockBaseAddress(pixelBuffer, [])
+//            let width = CVPixelBufferGetWidth(pixelBuffer)
+//            let height = CVPixelBufferGetHeight(pixelBuffer)
+            
+            
+            
+//            let xx = pixelBuffer.bindMemory(to: RGBA32.self, capacity: width * height)
+//
+//            let pixels = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
+//
+//            guard let rawBuffer = CVPixelBufferGetBaseAddress(pixelBuffer)
+//                else{
+//                    Log.echo(key: self.TAG, text: "NO RAW BUFFER !!!! :(")
+//                    return nil
+//            }
+//            let buffer = rawBuffer.load(as: UInt32.self)
+////            let buffer = UnsafePointer<UInt32>(UInt32(rawBuffer))
+//            for i in 0..<width * height {
+//                buffer[i] = CFSwapInt32HostToBig(0x000000ff)
+//            }
+//            CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
+        }
+        return pixelBuffer
+        
+        
+        
+//         var info = CMSampleTimingInfo(duration: .invalid, presentationTimeStamp: .zero, decodeTimeStamp: .invalid)
+//        var sampleBuffer: CMSampleBuffer? = nil
+//        if let pixelBuffer = pixelBuffer, let formatDesc = formatDesc {
+//            CMSampleBufferCreateReadyWithImageBuffer(
+//                allocator: kCFAllocatorDefault,
+//                imageBuffer: pixelBuffer,
+//                formatDescription: formatDesc,
+//                sampleTiming: &info,
+//                sampleBufferOut: &sampleBuffer)
+//        }
+    }
+    
+    private func getBlackFrame() -> RTCVideoFrame?{
+        let image = UIImage(named: "black_frame")
+        guard let frame = image?.pixelBuffer(width: 1280, height: 720)
+            else{
+                return nil
+        }
+//        guard let frame = getBuffer()
+//            else{
+//                return nil
+//        }
+        let timestamp = Int64(Date().timeIntervalTillNow) * Int64(1000000000)
+        let rtcPixelBuffer = RTCCVPixelBuffer(pixelBuffer: frame)
+        let blackFrame = RTCVideoFrame(buffer: rtcPixelBuffer, rotation: ._0, timeStampNs: timestamp)
+        
+        return blackFrame
+
     }
     
     
