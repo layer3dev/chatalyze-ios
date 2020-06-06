@@ -35,14 +35,18 @@ class RemoteVideoView: VideoView {
     
     func updateContainerSize(containerSize : CGSize){
        
-        Log.echo(key: "remote", text: "updateContainerSize ->> \(containerSize)")
+        Log.echo(key: self.TAG, text: "updateContainerSize ->> \(containerSize)")
+        
+        if(containerSize.width == 0 || containerSize.height == 0){
+            return
+        }
         self.containerSize = containerSize
         refreshRendererSize()
     }
 
     override func updateSize(size: CGSize){
         
-        Log.echo(key: "rotation", text: "updateSize ->> \(size)")
+        Log.echo(key: self.TAG, text: "updateSize ->> \(size)")
         self.streamSize = size
         self.streamUpdationDelegate?.updateForStreamPosition(isPortrait: isPortrait(size: size) ?? true)
         refreshRendererSize()
@@ -52,20 +56,20 @@ class RemoteVideoView: VideoView {
         
         guard let containerSize = self.containerSize
             else{
-                Log.echo(key: "remote", text: "containerSize ->> nil")
+                Log.echo(key: self.TAG, text: "containerSize ->> nil")
                 return
         }
         
         guard let streamSize = self.streamSize
             else{
-                Log.echo(key: "remote", text: "streamSize ->> nil")
+                Log.echo(key: self.TAG, text: "streamSize ->> nil")
                 return
         }
         
-        Log.echo(key: "remote", text: "update aspect ->> nil")
-        Log.echo(key: "remote", text: "containerSize ->> \(containerSize)")
-        Log.echo(key: "remote", text: "streamSize ->> \(streamSize)")
-        Log.echo(key: "remote", text: "Stream way is \(isPortrait(size: streamSize))")
+        Log.echo(key: self.TAG, text: "update aspect ->> nil")
+        Log.echo(key: self.TAG, text: "containerSize ->> \(containerSize)")
+        Log.echo(key: self.TAG, text: "streamSize ->> \(streamSize)")
+        Log.echo(key: self.TAG, text: "Stream way is \(isPortrait(size: streamSize))")
         
         
         if let isStreamPortrait = isPortrait(size: streamSize) {

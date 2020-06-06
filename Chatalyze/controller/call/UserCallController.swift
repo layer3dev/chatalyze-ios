@@ -124,7 +124,6 @@ class UserCallController: VideoCallController {
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
         
-        //TODO:- Need to uncomment in order to start the Signature Feature.
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
     }
@@ -730,7 +729,6 @@ class UserCallController: VideoCallController {
                                         
                                         Log.echo(key: "yud", text: "Requested foor the screenshot")
                                         
-                                        //TODO:- Need to uncomment in order to start the Signature Feature.
                                         self.selfieAutographRequest()
                                     }
                                     //self.defaultAutographRequest()

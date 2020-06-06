@@ -15,6 +15,8 @@ class AppConnectionConfig {
     static let webServiceURL = "https://chatalyze.com/api"
     static let basicUrl = "https://chatalyze.com"
     static let userSocketURL = "https://chatalyze.com/"
+    
+    static let speedTestURL = "https://chatalyze.s3-us-west-2.amazonaws.com/reactions/logo_gmail_lockup_default_1x.png"
  
     static let segmentIOKey = "IAY6kYifbTsfVhtqeRr4nPmC7jL3XGM2"
     
