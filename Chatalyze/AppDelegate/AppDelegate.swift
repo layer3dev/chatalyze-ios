@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var timer : SyncTimer = SyncTimer()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
