@@ -179,9 +179,10 @@ class CallConnection: NSObject {
             return
         }
         
-        resetRemoteFrame()
         
         self.isReleased = true
+        
+        hideRemoteFrame()
         
         Log.echo(key : self.TAG, text : "called removeLastRenderer")
         
@@ -302,7 +303,6 @@ extension CallConnection : ARDAppClientDelegate{
         if(isReleased){
             return
         }
-        self.rootView?.remoteVideoView?.isHidden = false
         isLinked = true
         renderRemoteTrack()
     }
@@ -379,6 +379,24 @@ extension CallConnection : ARDAppClientDelegate{
             Log.echo(key : self.TAG, text : "last renderer removed")
     }
     
+    
+    
+    
+    
+    private func hideRemoteFrame(){
+            
+            if(!self.isLinked){
+                return
+            }
+            guard let remoteView = self.rootView?.remoteVideoView
+                else{
+                    return
+            }
+        
+            remoteView.renderFrame(nil)
+            remoteView.isHidden = true
+        
+    }
     
     private func resetRemoteFrame(){
             if(self.isReleased){
