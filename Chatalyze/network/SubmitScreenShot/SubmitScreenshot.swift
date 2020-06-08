@@ -24,7 +24,7 @@ class SubmitScreenshot{
     
     private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : ScreenshotInfo?)->())){
   
-        Log.echo(key: "yudi", text: "Resonse of submit screenshot  \(response)")
+        Log.echo(key: "yudi", text: "Resonse of submit screenshot  \(String(describing: response))")
         
         if(!success){
             completion(false, nil)
