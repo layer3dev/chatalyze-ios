@@ -393,8 +393,10 @@ extension CallConnection : ARDAppClientDelegate{
                     return
             }
         
-            let blackFrame = getBlackFrame()
-            remoteView.renderFrame(blackFrame)
+//            let blackFrame = getBlackFrame()
+//            remoteView.renderFrame(blackFrame)
+        
+            remoteView.renderFrame(nil)
             remoteView.isHidden = true
         
     }
