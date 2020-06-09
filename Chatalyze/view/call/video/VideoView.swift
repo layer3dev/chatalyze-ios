@@ -47,40 +47,40 @@ class VideoView: RTCEAGLVideoView {
     
     
     
-//    override func renderFrame(_ frame: RTCVideoFrame?) {
-//        super.renderFrame(frame)
-//
-//        if(!isFrameRequired){
-//            return
-//        }
-//
-//        guard let frame = frame
-//        else{
-//            return
-//        }
-//
-//        isFrameRequired = false
-//        Log.echo(key: self.TAG, text: "fetch frame")
-//
-//
-//        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
-//
-//            guard let _ = self?.frameListener
-//            else{
-//                return
-//            }
-//
-//
-//            guard let image = self?.frameToImage(frame : frame)
-//                else{
-//                    return
-//            }
-//
-//            Log.echo(key: self?.TAG ?? "", text: "got the image")
-//
-//            self?.dispatchFrame(frame : image)
-//        }
-//    }
+    override func renderFrame(_ frame: RTCVideoFrame?) {
+        super.renderFrame(frame)
+
+        if(!isFrameRequired){
+            return
+        }
+
+        guard let frame = frame
+        else{
+            return
+        }
+
+        isFrameRequired = false
+        Log.echo(key: self.TAG, text: "fetch frame")
+
+
+        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
+
+            guard let _ = self?.frameListener
+            else{
+                return
+            }
+
+
+            guard let image = self?.frameToImage(frame : frame)
+                else{
+                    return
+            }
+
+            Log.echo(key: self?.TAG ?? "", text: "got the image")
+
+            self?.dispatchFrame(frame : image)
+        }
+    }
     
     
     
