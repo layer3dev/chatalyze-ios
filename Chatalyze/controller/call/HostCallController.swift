@@ -313,6 +313,10 @@ class HostCallController: VideoCallController {
         Log.echo(key: "HostCallController", text: "getSnapshot")
         autographSlotInfo = myLiveUnMergedSlot
         
+        guard let requestedAutographSlotInfo = autographSlotInfo
+            else{
+                return
+        }
         self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
             guard let image = image
             else{
@@ -321,7 +325,7 @@ class HostCallController: VideoCallController {
             
             Log.echo(key: "HostCallController", text: "call renderCanvas")
             
-            self.renderCanvas(image : image)
+            self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
         
     }
@@ -1409,11 +1413,8 @@ extension HostCallController{
     }
     
     
-    private func renderCanvas(image : UIImage){
-        guard let currentSlot = autographSlotInfo
-            else{
-                return
-        }
+    private func renderCanvas(image : UIImage, slotInfo : SlotInfo){
+        let currentSlot = slotInfo
         
         guard let activeSlot = myLiveUnMergedSlot
             else{
@@ -1594,13 +1595,17 @@ extension HostCallController{
     
     private func uploadAutographImage(){
 
+        guard let slotInfo = autographSlotInfo
+            else{
+                return
+        }
         guard let image = self.hostRootView?.canvas?.getSnapshot()
             else{
                 return
         }
         
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
-            self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: self?.autographSlotInfo) { (success, info) in
+            self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
                 
             }
         }
