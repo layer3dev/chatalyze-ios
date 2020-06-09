@@ -182,7 +182,7 @@ class CallConnection: NSObject {
         
         self.isReleased = true
         
-        hideRemoteFrame()
+        resetRemoteFrame()
         
         Log.echo(key : self.TAG, text : "called removeLastRenderer")
         
@@ -239,7 +239,6 @@ extension CallConnection : ARDAppClientDelegate{
             
             //no need to use synced time here
             lastDisconnect = Date()
-            resetRemoteFrame()
             isStreaming = false
         }
         
@@ -258,7 +257,6 @@ extension CallConnection : ARDAppClientDelegate{
         
         /*isConnected = false
         isStreaming = false
-        resetRemoteFrame()
         return*/
     }
     
@@ -383,26 +381,9 @@ extension CallConnection : ARDAppClientDelegate{
     
     
     
-    private func hideRemoteFrame(){
-            
-            if(!self.isLinked){
-                return
-            }
-            guard let remoteView = self.rootView?.remoteVideoView
-                else{
-                    return
-            }
-        
-            remoteView.renderFrame(nil)
-            remoteView.isHidden = true
-        
-    }
+    
     
     private func resetRemoteFrame(){
-            if(self.isReleased){
-                return
-            }
-        
             
             if(!self.isLinked){
                 return
@@ -412,7 +393,8 @@ extension CallConnection : ARDAppClientDelegate{
                     return
             }
         
-            remoteView.renderFrame(nil)
+            let blackFrame = getBlackFrame()
+            remoteView.renderFrame(blackFrame)
             remoteView.isHidden = true
         
     }
@@ -424,7 +406,8 @@ extension CallConnection : ARDAppClientDelegate{
         var formatDesc: CMFormatDescription? = nil
         if let pixelBuffer = pixelBuffer {
             CMVideoFormatDescriptionCreateForImageBuffer(allocator: kCFAllocatorDefault, imageBuffer: pixelBuffer, formatDescriptionOut: &formatDesc)
-            PixelColorUpdateManager.blackColor(pixelBuffer)
+            
+//            PixelColorUpdateManager.blackColor(pixelBuffer)
             
         
             
@@ -467,15 +450,16 @@ extension CallConnection : ARDAppClientDelegate{
     }
     
     private func getBlackFrame() -> RTCVideoFrame?{
-        let image = UIImage(named: "black_frame")
-        guard let frame = image?.pixelBuffer(width: 1280, height: 720)
-            else{
-                return nil
-        }
-//        guard let frame = getBuffer()
+//        let image = UIImage(named: "black_frame")
+//        guard let frame = image?.pixelBuffer(width: 1280, height: 720)
 //            else{
 //                return nil
 //        }
+        
+        guard let frame = getBuffer()
+            else{
+                return nil
+        }
         let timestamp = Int64(Date().timeIntervalTillNow) * Int64(1000000000)
         let rtcPixelBuffer = RTCCVPixelBuffer(pixelBuffer: frame)
         let blackFrame = RTCVideoFrame(buffer: rtcPixelBuffer, rotation: ._0, timeStampNs: timestamp)
