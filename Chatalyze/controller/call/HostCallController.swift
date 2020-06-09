@@ -473,7 +473,7 @@ class HostCallController: VideoCallController {
             else{
                 return nil
         }
-        guard let connection = getWriteConnection(slotInfo: slot)
+        guard let connection = getConnection(slotInfo: slot)
             else{
                 return nil
         }
@@ -486,7 +486,7 @@ class HostCallController: VideoCallController {
             else{
                 return nil
         }
-        guard let connection = getWriteConnection(slotInfo: slot)
+        guard let connection = getConnection(slotInfo: slot)
             else{
                 return nil
         }
@@ -499,7 +499,7 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-        guard let connection = getWriteConnection(slotInfo: slot)
+        guard let connection = getConnection(slotInfo: slot)
             else{
                 return
         }
@@ -958,22 +958,24 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let connection = getWriteConnection(slotInfo : slot)
-            else{
-                Log.echo(key: "handshake", text: "connectUser -> getWriteConnection is nil")
-                return
-        }
-        
         guard let targetHashedId = slot.user?.hashedId
-            else{
-                Log.echo(key: "handshake", text: "connectUser -> targetHashedId is nil")
-                return
-        }
+                   else{
+                       Log.echo(key: "handshake", text: "connectUser -> targetHashedId is nil")
+                       return
+               }
         
         if(!isOnline(hashId: targetHashedId)){
             Log.echo(key: "handshake", text: "isOnline NO -> targetHashedId")
             return
         }
+        
+        guard let connection = getWriteConnection(slotInfo : slot)
+            else{
+                Log.echo(key: "handshake", text: "connectUser -> getConnection is nil")
+                return
+        }
+        
+       
         
         if(connection.isInitiated){
             Log.echo(key: "handshake", text: "connectUser -> isInitiated")
@@ -989,6 +991,23 @@ class HostCallController: VideoCallController {
         Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
         
         connection.initateHandshake()
+    }
+    
+    private func getConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
+        
+        guard let slotInfo = slotInfo
+            else{
+                return nil
+        }
+        
+        guard let targetHashedId = slotInfo.user?.hashedId
+            else{
+                return nil
+        }
+        
+        var connection = connectionInfo[targetHashedId]
+        
+        return connection
     }
     
     
