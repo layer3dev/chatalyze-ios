@@ -34,7 +34,7 @@ class HandlingAppVersion:NSObject {
         var rootController:UIViewController?
         //If user is not logged in
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        Log.echo(key: "yud", text: "Without Login RootView is\(appDelegate?.window?.rootViewController)")
+        Log.echo(key: "yud", text: "Without Login RootView is\(String(describing: appDelegate?.window?.rootViewController))")
         if let root = appDelegate?.window?.rootViewController{
             rootController = root
         }

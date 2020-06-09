@@ -1141,12 +1141,24 @@ extension VideoCallController{
         }
         
         if type == .preConnectedSuccess {
-        self.showAlertContainer()
-        self.showPreConnectLabel()
-        let requiredMessage = "Get ready to chat!"
-        let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
-        preConnectLbl?.attributedText = secondAttributedString
-        return
+            
+            self.showAlertContainer()
+            self.showPreConnectLabel()
+            let requiredMessage = "Get ready to chat!\n"
+            let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
+            
+            let requiredMessageM1 = "Tip:"
+            let requiredMessageM1AttributedString = requiredMessageM1.toAttributedString(font: "Nunito-Bold", size: fontSize-3, color: UIColor.white)
+            
+            
+            let requiredMessageM2 = " If you have any trouble connecting to your call, try hanging up and re-joining."
+            let requiredMessageM2AttributedString = requiredMessageM2.toAttributedString(font: "Nunito-Regular", size: fontSize-3, color: UIColor.white)
+            
+            secondAttributedString.append(requiredMessageM1AttributedString)
+            secondAttributedString.append(requiredMessageM2AttributedString)
+            
+            preConnectLbl?.attributedText = secondAttributedString
+            return
         }
     }
     
