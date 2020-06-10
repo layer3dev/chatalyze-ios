@@ -1035,6 +1035,8 @@
 		E70ACD27248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */; };
 		E70ACD2A248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
 		E70ACD2B248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
+		E72971052490D9D6005196DA /* ValidateDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72971042490D9D6005196DA /* ValidateDevice.swift */; };
+		E72971062490D9D6005196DA /* ValidateDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72971042490D9D6005196DA /* ValidateDevice.swift */; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E75D9AAB246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
 		E7964944247957F2007F4568 /* AutoAspectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7964943247957F2007F4568 /* AutoAspectImageView.swift */; };
@@ -1796,6 +1798,7 @@
 		E70ACD28248BDE460091BEAD /* PixelColorUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PixelColorUpdateManager.h; sourceTree = "<group>"; };
 		E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixelColorUpdateManager.m; sourceTree = "<group>"; };
 		E70FE9112488F39C0002649C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = ../../webrtc/src/out_ios_libs/WebRTC.framework; sourceTree = "<group>"; };
+		E72971042490D9D6005196DA /* ValidateDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDevice.swift; sourceTree = "<group>"; };
 		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
 		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
 		E7964943247957F2007F4568 /* AutoAspectImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoAspectImageView.swift; sourceTree = "<group>"; };
@@ -4221,6 +4224,14 @@
 			path = frameGenerator;
 			sourceTree = "<group>";
 		};
+		E72971032490D9BA005196DA /* deviceSupport */ = {
+			isa = PBXGroup;
+			children = (
+				E72971042490D9D6005196DA /* ValidateDevice.swift */,
+			);
+			path = deviceSupport;
+			sourceTree = "<group>";
+		};
 		E75D9AA7246C6C5000BC2D07 /* FrameRenderer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4492,6 +4503,7 @@
 		FA3B469E21104D19007EA72D /* processor */ = {
 			isa = PBXGroup;
 			children = (
+				E72971032490D9BA005196DA /* deviceSupport */,
 				FAC1901A221ADDB6000E2832 /* inAppPurchase */,
 				FA7656E721F5DFB700C9B403 /* applicationState */,
 				FA5FD1702119CDB200172144 /* eventCall */,
@@ -6802,6 +6814,7 @@
 				47A1EA5A221D839900A4B1DF /* HostCategoryRootView.swift in Sources */,
 				78A471FC2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */,
 				47D0B16821A6C4B5006376A8 /* RemoteVideoView.swift in Sources */,
+				E72971062490D9D6005196DA /* ValidateDevice.swift in Sources */,
 				47BAEDA0220057630042588A /* ScheduleSessionInfo.swift in Sources */,
 				47D0B16921A6C4B5006376A8 /* SlotNoInfoContainer.swift in Sources */,
 				47D0B16A21A6C4B5006376A8 /* JoinCountdownLabel.swift in Sources */,
@@ -7390,6 +7403,7 @@
 				FA24BACB206FA6780064F94F /* SlotNoInfoContainer.swift in Sources */,
 				78A471FB2338AA510002A573 /* SignatureCoordinatesInfo.swift in Sources */,
 				FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */,
+				E72971052490D9D6005196DA /* ValidateDevice.swift in Sources */,
 				47BAED9F220057620042588A /* ScheduleSessionInfo.swift in Sources */,
 				FA74B13D20639B6400983141 /* RTCMediaConstraints+JSON.m in Sources */,
 				47CE2A3F215FA9DB00A4C267 /* UploadUserImage.swift in Sources */,
