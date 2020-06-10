@@ -22,8 +22,9 @@ class RootControllerManager{
         delayLaunchScreen {
             self.showRelevantScreen{
                 Log.echo(key: self.TAG, text: "START VALIDATING")
+                didLoadWindow?()
                 ValidateDevice().showDeviceSupportWarningAlert {
-                    didLoadWindow?()
+                    
                 }
                 
                 
