@@ -299,6 +299,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func updateToken(){
         
+        guard let _ = SignedUserInfo.sharedInstance?.id else {
+            return
+        }
+        
         RefreshDeviceToken().update { (success, message, response) in
             if !success{
                 return

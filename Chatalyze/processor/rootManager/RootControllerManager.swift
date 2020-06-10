@@ -11,14 +11,27 @@ import UIKit
 
 class RootControllerManager{
     
+    private let TAG = "RootControllerManager"
+    
     func setRoot(didLoadWindow:(()->())?){
+        
+        Log.echo(key: TAG, text: "SET ROOT")
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         _ = appDelegate?.window
         delayLaunchScreen {
-            self.showRelevantScreen(didLoadWindow: didLoadWindow)
+            self.showRelevantScreen{
+                Log.echo(key: self.TAG, text: "START VALIDATING")
+                ValidateDevice().showDeviceSupportWarningAlert {
+                    didLoadWindow?()
+                }
+                
+                
+            }
         }
     }
+    
+    
     
     func updateRoot(){
         
@@ -39,15 +52,18 @@ class RootControllerManager{
         let _ =  NavigationBarCustomizer()
         let userInfo = SignedUserInfo.sharedInstance
         if(userInfo == nil){
+            Log.echo(key: self.TAG, text: "SHOW SIGNIN")
             showSigninScreen(didLoadWindow: didLoadWindow)
             AppDelegate.fetchAppVersionInfoToServer()
             //HandlingAppVersion().checkForAlert()
             return
         }
         if isOnBoardShowed(){
+            Log.echo(key: self.TAG, text: "SHOW ONBOARD")
             showOnboardScreen(didLoadWindow:didLoadWindow)
             return
         }
+        Log.echo(key: self.TAG, text: "SHOW HOME")
         showHomeScreen(didLoadWindow: didLoadWindow)
         AppDelegate.fetchAppVersionInfoToServer()
         //HandlingAppVersion().checkForAlert()
@@ -143,6 +159,8 @@ class RootControllerManager{
                 window?.rootViewController = containerController
                 window?.makeKeyAndVisible()
                 initializeAppConnection()
+                
+                Log.echo(key: self.TAG, text: "DID SHOW HOME")
             }
         }
     }

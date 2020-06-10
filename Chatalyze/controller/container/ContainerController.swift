@@ -38,10 +38,7 @@ class ContainerController: NavChildController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        if let didLoaded = self.didLoad{
-            didLoaded()
-        }
+        
         initialization()
         initializeToggleWidth()
         hideSocketVerifierOnAdhoc()
@@ -248,12 +245,18 @@ class ContainerController: NavChildController {
     
     override func viewGotLoaded(){
         super.viewGotLoaded()
+        
+        // Do any additional setup after loading the view.
+        
     }
     
     override func viewLayoutCompleted(){
         super.viewLayoutCompleted()
         
         selectTab(type: initialTabInstance)
+        if let didLoaded = self.didLoad{
+            didLoaded()
+        }
     }
     
     private func initializeVariable(){
