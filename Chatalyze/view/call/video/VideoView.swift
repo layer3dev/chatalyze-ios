@@ -130,13 +130,15 @@ extension VideoView : RTCVideoViewDelegate{
         
         Log.echo(key: self.TAG, text: "didChangeVideoSize --> \(size)")
         
-        if(size == CGSize.zero){
-            return
-        }
+//        if(size == CGSize.zero){
+//            return
+//        }
         
+        if(size != CGSize.zero){
+            self.trackSize = size
+        }
        
         self.isHidden = false
-        self.trackSize = size        
         self.updateSize(size: size)
     }
     
