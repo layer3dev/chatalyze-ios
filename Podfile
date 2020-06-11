@@ -34,6 +34,10 @@ def pod_file
   pod 'CRToast'
   pod 'libyuv-iOS'
   pod "YoutubePlayer-in-WKWebView"
+  pod 'Firebase/Core'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
 
 end

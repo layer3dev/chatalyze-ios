@@ -8,7 +8,6 @@
 
 import UIKit
 import Bugsnag
-import FirebaseCrashlytics
 
 class MyTicketsVerticalController: MyTicketsController{
     
@@ -30,8 +29,6 @@ class MyTicketsVerticalController: MyTicketsController{
         initializeListenrs()
         underLineLearnMore()
         hitEventOnSegmentIO()
-        let arr = ["asa","ghf"]
-        print("arr count is \(arr[3])")
     }
     
     
