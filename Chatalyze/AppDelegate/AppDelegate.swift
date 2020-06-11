@@ -13,6 +13,8 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 import Bugsnag
+import Firebase
+import FirebaseAnalytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var earlyCallProcessor:VerifyForEarlyCallProcessor?
     var isSignatureInCallisActive = false
     var signatureDirection:UIInterfaceOrientationMask = UIInterfaceOrientationMask.portrait
-    
     var timer : SyncTimer = SyncTimer()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
@@ -38,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
-        self.startTimer()        
+        self.startTimer()
+        FirebaseApp.configure()
         return true
     }
     
