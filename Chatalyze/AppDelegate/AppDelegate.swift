@@ -13,8 +13,6 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 import Bugsnag
-import Firebase
-import FirebaseAnalytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -41,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
         self.startTimer()
-        FirebaseApp.configure()
         return true
     }
     
