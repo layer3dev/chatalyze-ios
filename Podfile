@@ -11,7 +11,6 @@ def pod_file
 #  pod 'GoogleWebRTC'
   pod 'GoogleWebRTC', '1.1.25651'
   
-#  pod 'GoogleWebRTC',  '1.1.23895'
   pod 'DeviceKit', '~> 1.3'
   pod 'CropViewController'
   pod 'Alamofire', '~> 4.0'
@@ -34,7 +33,6 @@ def pod_file
   pod 'CRToast'
   pod 'libyuv-iOS'
   pod "YoutubePlayer-in-WKWebView"
-  pod 'Firebase/Analytics'
 
 end
 
