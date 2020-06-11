@@ -88,9 +88,6 @@ class YoutubeContainerView : ExtendedView {
         rightConstraint?.constant = padding
     }
     
-
-    
-    
     private func initialization(){
         updateLayoutRotation()
         listenToRotation()
@@ -98,6 +95,7 @@ class YoutubeContainerView : ExtendedView {
         
         var params = [String : Any]()
         params["playsinline"]  = 1
+        params["allowsInlineMediaPlayback"]=1
         params["controls"] = 1
         params["fs"] = 0
         params["iv_load_policy"] = 0
@@ -112,19 +110,17 @@ class YoutubeContainerView : ExtendedView {
         youtubePlayerView?.webView?.backgroundColor = UIColor.black
         youtubePlayerView?.backgroundColor = UIColor.black
         youtubePlayerView?.delegate = self
-        
-        
     }
     
     private func parseVideoId(rawUrl : String) -> String{
         let parsedPrefix = rawUrl.replacingOccurrences(of: "https://www.youtube.com/embed/", with: "")
         let parsedSuffix = parsedPrefix.replacingOccurrences(of: "?autoplay=0", with: "")
-        
         return parsedSuffix
     }
     
     //https://www.youtube.com/watch?v=-KXGw9J5n1o
     func load(rawUrl : String){
+        
         Log.echo(key: "YoutubeContainerView", text: "rawUrl -> \(rawUrl)")
         
         if(isActive){
@@ -137,11 +133,10 @@ class YoutubeContainerView : ExtendedView {
         
         Log.echo(key: "YoutubeContainerView", text: "videoId -> \(videoId)")
         youtubePlayerView?.load(withVideoId: videoId, playerVars : playerConfiguration)
-        
-        
     }
     
     func show(){
+        
         if(!isActive){
             return
         }
@@ -157,6 +152,7 @@ class YoutubeContainerView : ExtendedView {
     }
     
     func hide(){
+        
         if(!isActive){
             return
         }
@@ -170,10 +166,12 @@ class YoutubeContainerView : ExtendedView {
         
         heightConstraint.priority = UILayoutPriority.init(rawValue: 999)
         youtubePlayerView?.pauseVideo()
+        youtubePlayerView?.removeWebView()
     }
 }
 
 extension YoutubeContainerView : WKYTPlayerViewDelegate{
+    
     func playerViewPreferredWebViewBackgroundColor(_ playerView: WKYTPlayerView) -> UIColor {
         return .black
     }
@@ -182,5 +180,15 @@ extension YoutubeContainerView : WKYTPlayerViewDelegate{
         let view = UIView()
         view.backgroundColor = UIColor.black
         return view
+    }
+    
+    
+    func playerView(_ playerView: WKYTPlayerView, didChangeTo state: WKYTPlayerState) {
+        
+        if state == .ended{
+            
+            self.youtubePlayerView?.playVideo()
+            self.youtubePlayerView?.stopVideo()
+        }
     }
 }
