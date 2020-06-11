@@ -397,6 +397,7 @@ extension CallConnection : ARDAppClientDelegate{
 //            remoteView.renderFrame(blackFrame)
         
             remoteView.renderFrame(nil)
+            remoteView.setSize(CGSize.zero)
             remoteView.isHidden = true
         
     }
