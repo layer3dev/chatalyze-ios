@@ -233,6 +233,9 @@ class UserCallController: VideoCallController {
         
         guard let activeSlot = eventInfo.mergeSlotInfo?.myValidSlot.slotInfo
             else{
+                
+                
+                print("Invalid slot exists")
                 setStatusMessage(type: .idealMedia)
                 return
         }
