@@ -8,6 +8,7 @@
 
 import UIKit
 import Bugsnag
+import FirebaseCrashlytics
 
 class MyTicketsVerticalController: MyTicketsController{
     
@@ -22,14 +23,15 @@ class MyTicketsVerticalController: MyTicketsController{
     override func viewDidLayout() {
         super.viewDidLayout()
 
-        //        Bugsnag.notifyError(NSError(domain:"com.customCrash:MyTickets", code:408, userInfo:nil))
-        
+        //Bugsnag.notifyError(NSError(domain:"com.customCrash:MyTickets", code:408, userInfo:nil))
         initializeFontSize()
         underLineLable()
         getTheRequiredDate()
         initializeListenrs()
         underLineLearnMore()
         hitEventOnSegmentIO()
+        let arr = ["asa","ghf"]
+        print("arr count is \(arr[3])")
     }
     
     

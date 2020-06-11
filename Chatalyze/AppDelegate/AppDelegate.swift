@@ -14,7 +14,7 @@ import SwiftyJSON
 import StoreKit
 import Bugsnag
 import Firebase
-import FirebaseAnalytics
+import FirebaseCrashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
