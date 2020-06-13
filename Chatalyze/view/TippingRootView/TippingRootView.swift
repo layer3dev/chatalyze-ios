@@ -68,6 +68,10 @@ class TippingRootView: ExtendedView {
     
         //tipLabel?.text = "Would you like to say thanks to \(influencerName) by leaving a tip?"
         tipLabel?.text = self.scheduleInfo?.tipText
+        
+        
+        
+        
     
         //tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
