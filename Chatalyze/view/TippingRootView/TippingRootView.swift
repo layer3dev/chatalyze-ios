@@ -90,11 +90,14 @@ class TippingRootView: ExtendedView {
         
         DispatchQueue.main.async {
             
-            guard let tipText = self.scheduleInfo?.tipText else{
+            guard var tipText = self.scheduleInfo?.tipText else{
                 return
             }
             
+            print("Coming tip text is \(tipText)")
+            tipText = tipText.replacingOccurrences(of: "\n", with: " ")
             let tipTextCollection = tipText.components(separatedBy: " ")
+            
             let requiredMutableString = NSMutableAttributedString()
             var fontSize = 16
             if UIDevice.current.userInterfaceIdiom == .pad{
@@ -142,6 +145,8 @@ class TippingRootView: ExtendedView {
         if #available(iOS 10.0, *) {
             
             guard let url = URL(string: urlstr) else{
+                print("wrong url the url \(urlstr)")
+
                 return
             }
             UIApplication.shared.open(url, options: [:])
