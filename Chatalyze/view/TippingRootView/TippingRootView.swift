@@ -25,10 +25,13 @@ class TippingRootView: ExtendedView {
     var isAlertShowing = false
     @IBOutlet var alertCustomView:UIView?
     
+    var urlString:String?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         paintView()
+        setUpGestureOnLabel()
     }
     
     func paintView(){
@@ -52,6 +55,7 @@ class TippingRootView: ExtendedView {
         
         noTipView?.layer.cornerRadius = UIDevice.current.userInterfaceIdiom == .pad ? 35:25
         noTipView?.layer.masksToBounds = true
+        
     }
     
     func fillInfo(scheduleInfo : EventScheduleInfo?){
@@ -63,16 +67,14 @@ class TippingRootView: ExtendedView {
         }
         
         let influencer = scheduleInfo.user
-        let influencerName = influencer?.fullName ?? ""
+        _ = influencer?.fullName ?? ""
         
     
         //tipLabel?.text = "Would you like to say thanks to \(influencerName) by leaving a tip?"
-        tipLabel?.text = self.scheduleInfo?.tipText
+        //tipLabel?.text = self.scheduleInfo?.tipText
+        setDonationText()
         
         
-        
-        
-    
         //tipLabel?.addImage(imageName: "whiteInfoIcon", afterLabel: true)
         guard let image = influencer?.profileImage
             else{
@@ -82,6 +84,75 @@ class TippingRootView: ExtendedView {
         profileImage?.sd_setImage(with: URL(string:image), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
         })
     }
+    
+    
+    func setDonationText(){
+        
+        DispatchQueue.main.async {
+            
+            guard let tipText = self.scheduleInfo?.tipText else{
+                return
+            }
+            
+            let tipTextCollection = tipText.components(separatedBy: " ")
+            let requiredMutableString = NSMutableAttributedString()
+            var fontSize = 16
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                fontSize = 20
+            }
+            for info in tipTextCollection{
+                
+                if info.contains("www.") || info.contains("http") || info.contains("https"){
+                    
+                    let reqText = info + " "
+                    let reqAtr = reqText.toAttributedStringLink(size: fontSize, color: UIColor(red: 97.0/255.0, green: 136.0/255.0, blue: 232.0/255.0, alpha: 1), isUnderLine: true)
+                    requiredMutableString.append(reqAtr)
+                    self.urlString = info
+                    continue
+                    
+                }
+                let reqText = info + " "
+                let reqAtr = reqText.toAttributedString(size: fontSize, color: UIColor.white, isUnderLine: false)
+                requiredMutableString.append(reqAtr)
+            }
+            
+            self.tipLabel?.attributedText = requiredMutableString
+            self.tipLabel?.isUserInteractionEnabled = true
+        }
+    }
+    
+    
+    func setUpGestureOnLabel(){
+          
+           let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
+           self.tipLabel?.addGestureRecognizer(tap)
+           self.tipLabel?.isUserInteractionEnabled = true
+       }
+       
+       @objc func tapLabel(tap: UITapGestureRecognizer) {
+           
+        guard var urlstr = urlString else{
+            return
+        }
+        
+        if !urlstr.contains("https") || !urlstr.contains("http"){
+            urlstr = "https://"+urlstr
+        }
+        
+        if #available(iOS 10.0, *) {
+            
+            guard let url = URL(string: urlstr) else{
+                return
+            }
+            UIApplication.shared.open(url, options: [:])
+            
+            print("opening the url \(url)")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+       
+    
     
     @IBAction func infoAlert(sender:UIButton){
         

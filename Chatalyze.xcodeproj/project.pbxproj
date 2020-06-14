@@ -971,8 +971,6 @@
 		6B99FD3A213786DC000A0421 /* SessionDoneControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */; };
 		6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */; };
 		6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */; };
-		6BD2A1C32492E41400DD8CF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6BD2A1C22492E41400DD8CF8 /* GoogleService-Info.plist */; };
-		6BD2A1C62492E72900DD8CF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6BD2A1C22492E41400DD8CF8 /* GoogleService-Info.plist */; };
 		781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
 		781800B32302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
 		781800B62302DCC6004339D3 /* AutographyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B52302DCC6004339D3 /* AutographyImageView.swift */; };
@@ -1762,7 +1760,6 @@
 		6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneControllerProtocol.swift; sourceTree = "<group>"; };
 		6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionRootView.swift; sourceTree = "<group>"; };
 		6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionController.swift; sourceTree = "<group>"; };
-		6BD2A1C22492E41400DD8CF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		781800B12302CE20004339D3 /* AutographyHostCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyHostCanvas.swift; sourceTree = "<group>"; };
 		781800B52302DCC6004339D3 /* AutographyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageView.swift; sourceTree = "<group>"; };
 		781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageViewProtocol.swift; sourceTree = "<group>"; };
@@ -5749,7 +5746,6 @@
 				47A8B8402268A02F00996ACA /* Emoji.xcassets */,
 				FAFFFEA0203D9C80009B4F96 /* LaunchScreen.storyboard */,
 				FAFFFEA3203D9C80009B4F96 /* Info.plist */,
-				6BD2A1C22492E41400DD8CF8 /* GoogleService-Info.plist */,
 				FAFB7C71206E026F004804D2 /* cell */,
 				47F5A9A720BEA45D00543529 /* Protocols */,
 				FA74B1562063AEEF00983141 /* extension */,
@@ -5942,7 +5938,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BD2A1C62492E72900DD8CF8 /* GoogleService-Info.plist in Resources */,
 				47D0B1A321A6C4B5006376A8 /* signin.storyboard in Resources */,
 				47D0B1A421A6C4B5006376A8 /* Event.storyboard in Resources */,
 				47E372552230F946000B99F9 /* Nunito-Light.ttf in Resources */,
@@ -6037,7 +6032,6 @@
 				47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */,
 				4723081C2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */,
 				47A4D44E21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */,
-				6BD2A1C32492E41400DD8CF8 /* GoogleService-Info.plist in Resources */,
 				47E233652105F40300468412 /* beep.aiff in Resources */,
 				FA91056A21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
 				FAE865CA2068D706006F06B3 /* CallOverlayView.xib in Resources */,
@@ -6134,7 +6128,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 		91AB12F1561992A75BDEDDC6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6154,13 +6148,11 @@
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageLoader/ImageLoader.framework",
 				"${BUILT_PRODUCTS_DIR}/InputMask/InputMask.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
@@ -6169,7 +6161,6 @@
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -6184,13 +6175,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageLoader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputMask.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
@@ -6199,7 +6188,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -6260,13 +6248,11 @@
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${PODS_ROOT}/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework",
 				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageLoader/ImageLoader.framework",
 				"${BUILT_PRODUCTS_DIR}/InputMask/InputMask.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
@@ -6275,7 +6261,6 @@
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -6290,13 +6275,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageLoader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputMask.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
@@ -6305,7 +6288,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
