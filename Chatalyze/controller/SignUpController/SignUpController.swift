@@ -19,9 +19,7 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var headerLabel:UILabel?
     
     @IBAction func signinAction(sender:UIButton){
-        
-       self.signInAction?()
-        //self.navigationController?.popToRootViewController(animated: true)
+        self.signInAction?()
     }
     
     func maketextLinkable(){
