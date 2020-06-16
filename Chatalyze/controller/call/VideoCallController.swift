@@ -769,11 +769,16 @@ extension VideoCallController{
                     return
             }
             
-            guard let data = image.jpegData(compressionQuality: 1.0)
+            guard let data = image.jpegData(compressionQuality: 0.7)
                 else{
                     completion("")
                     return
             }
+            
+            let bytes = data.count
+            let MB = Double(bytes) / 1024.0 / 1024.0 // Note the difference
+            
+            Log.echo(key: "VideoCallController", text: "Image size -> \(MB)")
             
             let imageBase64 = "data:image/png;base64," +  data.base64EncodedString(options: .lineLength64Characters)
             
