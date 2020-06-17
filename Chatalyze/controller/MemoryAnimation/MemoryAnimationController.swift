@@ -217,11 +217,21 @@ class MemoryAnimationController: InterfaceExtendedController {
         
         Log.echo(key: "yud", text: "Exit is calling")
         
-        guard let controller = ReviewController.instance() else {
-            return
-        }
-        controller.eventInfo = self.eventInfo
-        self.navigationController?.pushViewController(controller, animated: true)
+//        guard let controller = ReviewController.instance() else {
+//            return
+//        }
+//        controller.eventInfo = self.eventInfo
+//        self.navigationController?.pushViewController(controller, animated: true)
+      
+      guard let controller = TippingConfirmationController.instance()
+          else{
+              return
+      }
+      
+      controller.scheduleInfo = eventInfo
+      controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
+      controller.memoryImage = self.memoryImage
+     self.navigationController?.pushViewController(controller, animated: true)
     }
     
     /*

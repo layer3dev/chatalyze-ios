@@ -44,7 +44,7 @@ class TippingConfirmationController: InterfaceExtendedController {
     
     @IBAction func noTipAction(){
         
-        if memoryImage == nil{
+//        if memoryImage == nil{
            
             guard let controller = ReviewController.instance() else{
                 return
@@ -52,15 +52,15 @@ class TippingConfirmationController: InterfaceExtendedController {
             controller.eventInfo = scheduleInfo
             self.navigationController?.pushViewController(controller, animated: true)
             return
-        }
+//        }
         
-        guard let controller = MemoryAnimationController.instance() else{
-            return
-        }
-        controller.eventInfo = scheduleInfo
-        controller.memoryImage = self.memoryImage
-        self.navigationController?.pushViewController(controller, animated: true)
-        return
+//        guard let controller = MemoryAnimationController.instance() else{
+//            return
+//        }
+//        controller.eventInfo = scheduleInfo
+//        controller.memoryImage = self.memoryImage
+//        self.navigationController?.pushViewController(controller, animated: true)
+//        return
         
     }
     
