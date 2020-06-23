@@ -31,6 +31,7 @@ class CameraTestController: InterfaceExtendedController {
     var front = true
     var onSuccessTest:((Bool)->())?
     var info:EventInfo?
+    var player = Player()
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
     @IBOutlet var soundMeterView:UIView?
@@ -606,6 +607,11 @@ class CameraTestController: InterfaceExtendedController {
             })
         })
     }
+  
+  @IBAction func playSounAction(){
+    print(123)
+    self.player.playAudioFile()
+  }
     
     @IBAction func dismissAction(){
         
