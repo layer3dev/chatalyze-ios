@@ -17,7 +17,7 @@ class Player {
    
   init() {
   
-    let soundURL = Bundle.main.url(forResource: "beep-01a", withExtension: "mp3")
+    let soundURL = Bundle.main.url(forResource: "bensound-summer (1) (mp3cut.net)", withExtension: "mp3")
     
     do {
       try audioFile = AVAudioPlayer(contentsOf: soundURL!)
