@@ -44,6 +44,8 @@ class CheckInternetSpeed: NSObject,URLSessionDelegate,URLSessionDataDelegate {
         
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = 40.0
+        configuration.requestCachePolicy = .reloadIgnoringCacheData
+        configuration.urlCache = nil
         let seesion = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
 
