@@ -24,8 +24,12 @@ class RootControllerManager{
                 Log.echo(key: self.TAG, text: "START VALIDATING")
                 didLoadWindow?()
                 ValidateDevice().showDeviceSupportWarningAlert {
-                    
+                    ValidateVPN().showVPNWarningAlert {
+                        
+                    }
                 }
+                
+                
                 
                 
             }
