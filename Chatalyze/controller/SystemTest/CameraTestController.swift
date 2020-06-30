@@ -72,7 +72,7 @@ class CameraTestController: InterfaceExtendedController {
             linkSize = 24
         }
         
-        let firstStr = "If the answer to both questions is "
+        let firstStr = "If the answer to these questions is "
         let mutatedStr = firstStr.toMutableAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         let secondStr = "\("Yes"), "
