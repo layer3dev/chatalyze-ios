@@ -988,13 +988,6 @@ class UserCallController: VideoCallController {
     
     func showExitScreen() {
         
-        let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
-        if(isDonationEnabled){
-            
-            showDonateScreen()
-            return
-        }
-        
         if self.memoryImage == nil{
             
             showFeedbackScreen()
@@ -1002,6 +995,13 @@ class UserCallController: VideoCallController {
         }
         
         showMemoryScreen()
+      
+//      let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+//             if(isDonationEnabled){
+//
+//                 showDonateScreen()
+//                 return
+//             }
     }
     
     
