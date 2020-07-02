@@ -16,6 +16,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         paintUI()
         self.checkForShowingHostWelcomeAnimation()
+      showTermsAndCondtionsPageForOrganizationHost()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +47,25 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         self.present(controller, animated: true, completion: {
         })
+    }
+   private func showTermsAndCondtionsPageForOrganizationHost(){
+
+  //    guard let id : Bool = SignedUserInfo.sharedInstance?.isTermsAccepted else{return}
+  //        print("Dhimu Terms and condtions is \(String(describing: id))")
+      guard let isTermsAceepted = SignedUserInfo.sharedInstance?.isTermsAccepted else {
+        return
+      }
+
+      if isTermsAceepted{
+        print("Terms and Condtion are already accepted")
+        return
+      }else{
+         print("Terms and Condtion not accepted")
+      }
+
+     let vc = HostTermsAndContions()
+      vc.modalPresentationStyle = .fullScreen
+      navigationController?.present(vc, animated: true, completion: nil)
     }
     
     var rootView:HostNewUIRootView?{
