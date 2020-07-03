@@ -160,27 +160,47 @@ class EarlyCallAlertController: InterfaceExtendedController {
     }
     
     @IBAction func enterCallRoom(sender:UIButton?){
-     
+        
         guard let currentPresentingController = self.presentingViewController else{
             return
         }
-        
+            
         self.dismiss(animated: false) {
             
             DispatchQueue.main.async {
-                
-                guard let controller = HostCallController.instance()
-                    else{
-                        return
+                let root = currentPresentingController
+                self.validateVPN {
+                    Log.echo(key: "EarlyCallController", text: "validate VPN response")
+                    self.launchSession(currentPresentingController: root)
                 }
-                controller.eventId = String(self.info?.id ?? 0)
-                Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
-                controller.modalPresentationStyle = .fullScreen
-                currentPresentingController.present(controller, animated: true, completion: nil)
+                
             }
         }
     }
+    
+    private func validateVPN(completion : (()->())?){
+        ValidateVPN().showVPNWarningAlert {
+            completion?()
+        }
+    }
+    
+    private func launchSession(currentPresentingController : UIViewController){
+        
+        Log.echo(key: TAG, text: "launchSession")
+        
+        guard let controller = HostCallController.instance()
+            else{
+                return
+        }
+        controller.eventId = String(self.info?.id ?? 0)
+        Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
+        controller.modalPresentationStyle = .fullScreen
+        currentPresentingController.present(controller, animated: true, completion: nil)
+    }
+    
+    
 }
+
 
 extension EarlyCallAlertController{
     
