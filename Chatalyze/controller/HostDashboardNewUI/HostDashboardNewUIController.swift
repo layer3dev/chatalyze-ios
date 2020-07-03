@@ -48,25 +48,29 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         self.present(controller, animated: true, completion: {
         })
     }
-   private func showTermsAndCondtionsPageForOrganizationHost(){
-
-  //    guard let id : Bool = SignedUserInfo.sharedInstance?.isTermsAccepted else{return}
-  //        print("Dhimu Terms and condtions is \(String(describing: id))")
-      guard let isTermsAceepted = SignedUserInfo.sharedInstance?.isTermsAccepted else {
-        return
-      }
-
-      if isTermsAceepted{
-        print("Terms and Condtion are already accepted")
-        return
-      }else{
-         print("Terms and Condtion not accepted")
-      }
-
-     let vc = HostTermsAndContions()
-      vc.modalPresentationStyle = .fullScreen
-      navigationController?.present(vc, animated: true, completion: nil)
+  private func showTermsAndCondtionsPageForOrganizationHost(){
+    
+    
+    guard let organizationId = SignedUserInfo.sharedInstance?.organizationId else {return}
+    
+    if organizationId == ""{
+      return
     }
+    guard let isTermsAceepted = SignedUserInfo.sharedInstance?.isTermsAccepted else {
+      return
+    }
+    
+    if isTermsAceepted{
+      print("Terms and Condtion are already accepted for organization Id\(organizationId)")
+      return
+    }else{
+      print("Terms and Condtion not acceptedfor organization Id\(organizationId)")
+    }
+    
+    let vc = HostTermsAndContions()
+    vc.modalPresentationStyle = .fullScreen
+    navigationController?.present(vc, animated: true, completion: nil)
+  }
     
     var rootView:HostNewUIRootView?{
         return self.view as? HostNewUIRootView
