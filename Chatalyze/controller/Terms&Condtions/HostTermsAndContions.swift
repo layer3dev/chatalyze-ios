@@ -123,7 +123,7 @@ class HostTermsAndContions:UIViewController,UITextViewDelegate{
     txtView.font = UIFont(name: "Nunito-Regular", size: 14)
     }
 
-  let text1 = "Welcome to your new Chatalyze account [\(String(describing: SignedUserInfo.sharedInstance?.email ?? ""))] This account has access to the co,re Chatalyze features that allow you to schedule, manage, and host virtual meet and greets. In addition, your account administrator can schedule and manage events for you. For tips about using this account, visit the Chatalyze Help Center."
+  let text1 = "Welcome to your new Chatalyze account [\(String(describing: SignedUserInfo.sharedInstance?.email ?? ""))] This account has access to the core Chatalyze features that allow you to schedule, manage, and host virtual meet and greets. In addition, your account administrator can schedule and manage events for you. For tips about using this account, visit the Chatalyze Help Center."
 
   let text2  = "\n\nYour administrator will have access to your information stored in this Chatalyze account, including data such as profile pictures and biographical information. Your administrator also can deactivate this account at any time. You can choose to maintain a separate account for personal Chatalyze usage. \n\nClick “Accept” below to indicate that you understand this description of how your [\(String(describing: SignedUserInfo.sharedInstance?.email ?? ""))] account works and agree to the Chatalyze Terms of Service"
 
