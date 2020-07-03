@@ -1045,6 +1045,8 @@
 		E70ACD27248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD25248BBF130091BEAD /* UIImage+CVPixelBuffer.swift.swift */; };
 		E70ACD2A248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
 		E70ACD2B248BDE460091BEAD /* PixelColorUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */; };
+		E720A02E24A528450050FCA5 /* ValidateVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = E720A02D24A528450050FCA5 /* ValidateVPN.swift */; };
+		E720A02F24A528450050FCA5 /* ValidateVPN.swift in Sources */ = {isa = PBXBuildFile; fileRef = E720A02D24A528450050FCA5 /* ValidateVPN.swift */; };
 		E72971052490D9D6005196DA /* ValidateDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72971042490D9D6005196DA /* ValidateDevice.swift */; };
 		E72971062490D9D6005196DA /* ValidateDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72971042490D9D6005196DA /* ValidateDevice.swift */; };
 		E75D9AAA246C6C6A00BC2D07 /* I420Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D9AA8246C6C6900BC2D07 /* I420Frame.m */; };
@@ -1813,6 +1815,7 @@
 		E70ACD28248BDE460091BEAD /* PixelColorUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PixelColorUpdateManager.h; sourceTree = "<group>"; };
 		E70ACD29248BDE460091BEAD /* PixelColorUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PixelColorUpdateManager.m; sourceTree = "<group>"; };
 		E70FE9112488F39C0002649C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = ../../webrtc/src/out_ios_libs/WebRTC.framework; sourceTree = "<group>"; };
+		E720A02D24A528450050FCA5 /* ValidateVPN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateVPN.swift; sourceTree = "<group>"; };
 		E72971042490D9D6005196DA /* ValidateDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDevice.swift; sourceTree = "<group>"; };
 		E75D9AA8246C6C6900BC2D07 /* I420Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I420Frame.m; sourceTree = "<group>"; };
 		E75D9AA9246C6C6A00BC2D07 /* I420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I420Frame.h; sourceTree = "<group>"; };
@@ -4272,6 +4275,14 @@
 			path = frameGenerator;
 			sourceTree = "<group>";
 		};
+		E720A02C24A528310050FCA5 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				E720A02D24A528450050FCA5 /* ValidateVPN.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
 		E72971032490D9BA005196DA /* deviceSupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -4551,6 +4562,7 @@
 		FA3B469E21104D19007EA72D /* processor */ = {
 			isa = PBXGroup;
 			children = (
+				E720A02C24A528310050FCA5 /* network */,
 				E72971032490D9BA005196DA /* deviceSupport */,
 				FAC1901A221ADDB6000E2832 /* inAppPurchase */,
 				FA7656E721F5DFB700C9B403 /* applicationState */,
@@ -6405,6 +6417,7 @@
 				47D0B02D21A6C4B5006376A8 /* EditProfileHostRootView.swift in Sources */,
 				477B4A9C22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */,
 				47D0B02E21A6C4B5006376A8 /* ExtendedScrollView.swift in Sources */,
+				E720A02F24A528450050FCA5 /* ValidateVPN.swift in Sources */,
 				47F4201C2289949D00B6225D /* MemoryAnimationController.swift in Sources */,
 				47D0B02F21A6C4B5006376A8 /* AccountController.swift in Sources */,
 				E7B4A7FD2473D73B000616CD /* URLQueryHelper.swift in Sources */,
@@ -6997,6 +7010,7 @@
 				475B1118210B26E600DADD39 /* EditProfileHostRootView.swift in Sources */,
 				477B4A9B22560CAE001051F6 /* ScheduleSessionSinglePageRootView.swift in Sources */,
 				FA3AF0FD204431810084B154 /* ExtendedScrollView.swift in Sources */,
+				E720A02E24A528450050FCA5 /* ValidateVPN.swift in Sources */,
 				47F4201B2289949D00B6225D /* MemoryAnimationController.swift in Sources */,
 				473646EB20AEDF8500D684FE /* AccountController.swift in Sources */,
 				E7B4A7FC2473D73B000616CD /* URLQueryHelper.swift in Sources */,

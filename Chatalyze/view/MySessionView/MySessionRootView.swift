@@ -25,28 +25,43 @@ class MySessionRootView:ExtendedView{
     func initializeVariable(){
         
         adapter.root = self        
-        adapter.enterSession = {(eventInfo) in            
-            
-            guard let eventInfo = eventInfo
-                else{
-                    //Case less than 30 minute
-                    self.controller?.fetchInfoForListener()
-                    return
+        adapter.enterSession = {[weak self] (eventInfo) in
+            self?.validateVPN {[weak self] in
+                self?.launchSession(eventInfo: eventInfo)
             }
             
-            guard let eventId = eventInfo.id
-                else{
-                    return
-            }
-            
-            guard let controller = HostCallController.instance()
-                else{
-                    return
-            }
-            controller.eventId = String(eventId)
-            controller.modalPresentationStyle = .fullScreen
-            self.controller?.present(controller, animated: true, completion: nil)
         }
+    }
+    
+    
+    private func validateVPN(completion : (()->())?){
+        ValidateVPN().showVPNWarningAlert {
+            completion?()
+        }
+    }
+    
+    
+    
+    private func launchSession(eventInfo : EventInfo?){
+        guard let eventInfo = eventInfo
+            else{
+                //Case less than 30 minute
+                self.controller?.fetchInfoForListener()
+                return
+        }
+        
+        guard let eventId = eventInfo.id
+            else{
+                return
+        }
+        
+        guard let controller = HostCallController.instance()
+            else{
+                return
+        }
+        controller.eventId = String(eventId)
+        controller.modalPresentationStyle = .fullScreen
+        self.controller?.present(controller, animated: true, completion: nil)
     }
     
     

@@ -150,7 +150,19 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
     
     func jointEvent(info:SlotInfo?){
+        validateVPN {[weak self] in
+            self?.launchSession(info: info)
+        }
         
+    }
+    
+    private func validateVPN(completion : (()->())?){
+        ValidateVPN().showVPNWarningAlert {
+            completion?()
+        }
+    }
+    
+    private func launchSession(info : SlotInfo?){
         guard let slotInfo = info
             else{
                 return

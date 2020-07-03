@@ -224,8 +224,11 @@ class MySessionTableViewCell: ExtendedTableCell {
         //self.root?.controller?.present
     }
     
-    func gotoSession(){
-        
+    
+    
+
+    
+    private func gotoSession(){
         if (self.info?.startDate?.timeIntervalSince(Date()) ?? 0.0) > 1800.0{
             
             Log.echo(key: "yud", text: "You'll be able to enter your session 30 minutes before it starts")
