@@ -38,7 +38,6 @@ class DonationSuccessController: InterfaceExtendedController {
             self.showFeedback()
             return
         }
-        self.showMemoryScreen()
     }
     
     private func showFeedback(){

@@ -987,22 +987,17 @@ class UserCallController: VideoCallController {
     }
     
     func showExitScreen() {
-        
-        if self.memoryImage == nil{
-            
-            showFeedbackScreen()
-            return
+        let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+        if self.memoryImage != nil{
+          showMemoryScreen()
         }
-        
-        showMemoryScreen()
-      
-//      let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
-//             if(isDonationEnabled){
-//
-//                 showDonateScreen()
-//                 return
-//             }
-    }
+        else if(isDonationEnabled){
+          showDonateScreen()
+        }
+        else {
+          showFeedbackScreen()
+        }
+      }
     
     
     private func confirmCallLinked(){

@@ -214,35 +214,29 @@ class MemoryAnimationController: InterfaceExtendedController {
     }
     
     @IBAction func dismiss(sender:UIButton?){
-        
-        Log.echo(key: "yud", text: "Exit is calling")
-        
-//        guard let controller = ReviewController.instance() else {
-//            return
-//        }
-//        controller.eventInfo = self.eventInfo
-//        self.navigationController?.pushViewController(controller, animated: true)
-      
+
+    Log.echo(key: "yud", text: "Exit is calling")
+    let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
+    if(isDonationEnabled){
+      // showDonateScreen
       guard let controller = TippingConfirmationController.instance()
-          else{
-              return
+        else{
+          return
       }
-      
       controller.scheduleInfo = eventInfo
       controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
       controller.memoryImage = self.memoryImage
-     self.navigationController?.pushViewController(controller, animated: true)
+      self.navigationController?.pushViewController(controller, animated: true)
+      return
+    }else{
+      guard let controller = ReviewController.instance() else {
+        return
+      }
+      controller.eventInfo = self.eventInfo
+      self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+  }
     
     
     class func instance()->MemoryAnimationController?{
