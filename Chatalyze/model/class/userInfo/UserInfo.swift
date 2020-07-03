@@ -62,7 +62,8 @@ class UserInfo: NSObject {
     var planId:String?
     var isTrialPlanActive:Bool?
     var isSubscriptionPlanExists:Bool?
-    
+    var isTermsAccepted : Bool?
+    var organizationId : String?
     override init(){
         super.init()
     }
@@ -98,7 +99,9 @@ class UserInfo: NSObject {
         profileThumbnail = avatars?["200X200"].stringValue
         defaultImage = HostDefaultScreenshot(info: info["defaultImage"])
         self.eventMobReminder = info["eventMobReminder"]?.boolValue ?? false
-        self.emailNotification  = info["emailNot"]?.boolValue ?? false 
+        self.emailNotification  = info["emailNot"]?.boolValue ?? false
+        self.isTermsAccepted = info["termsAccepted"]?.boolValue
+        self.organizationId = info["organizationId"]?.stringValue
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         if let meta = info["meta"]?.dictionary{
