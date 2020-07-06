@@ -38,13 +38,25 @@ class ValidateVPN {
     
     
     func isVPNConnected() -> Bool {
-        let cfDict = CFNetworkCopySystemProxySettings()
-        let nsDict = cfDict!.takeRetainedValue() as NSDictionary
-        let keys = nsDict["__SCOPED__"] as! NSDictionary
+        guard let cfDict = CFNetworkCopySystemProxySettings()
+            else{
+                return false
+        }
         
+        let nsDict = cfDict.takeRetainedValue() as NSDictionary
+       
+        guard let keys = nsDict["__SCOPED__"] as? NSDictionary
+            else{
+                return false
+        }
+        
+        guard let keyList = keys.allKeys as? [String]
+            else{
+                return false
+        }
         
 
-        for key: String in keys.allKeys as! [String] {
+        for key: String in keyList {
             
             Log.echo(key: TAG, text: "key -> \(key)")
             
