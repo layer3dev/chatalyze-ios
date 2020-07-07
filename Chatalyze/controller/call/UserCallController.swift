@@ -13,7 +13,7 @@ class UserCallController: VideoCallController {
     
     
     var isUserScreenLocked = false
-    
+    var isScrenUploaded :((Bool)->())?
     // Id's to manage the default Screenshot
     // Wait for web service approval then call process if required.
     
@@ -978,6 +978,8 @@ class UserCallController: VideoCallController {
         
         controller.eventInfo = eventInfo
         controller.memoryImage = self.memoryImage
+      controller.userCall = self
+      
         
         presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
@@ -1418,6 +1420,7 @@ extension UserCallController{
             
             DispatchQueue.main.async {
                 completion?(success, info)
+              
             }
         }
     }

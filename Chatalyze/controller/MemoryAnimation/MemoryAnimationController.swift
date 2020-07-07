@@ -16,7 +16,10 @@ class MemoryAnimationController: InterfaceExtendedController {
     
     @IBOutlet var rotationalView:UIView?
     @IBOutlet var landscapeRotationalView:UIView?
-    
+  
+    @IBOutlet weak var statusLbl: UILabel!
+    var userCall : UserCallController?
+  
     var memoryImage:UIImage?
     @IBOutlet var memoryImageView:UIImageView?
     @IBOutlet var memoryLandscapeImageView:UIImageView?
@@ -78,6 +81,14 @@ class MemoryAnimationController: InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+      if (userCall?.isScreenshotStatusLoaded) != nil {
+        statusLbl.isHidden = true
+      }else{
+        statusLbl.isHidden = false
+      }
+
+     
         
         
         let widthOfImageViewP:CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 600:265
@@ -159,6 +170,7 @@ class MemoryAnimationController: InterfaceExtendedController {
     }
     
     func paintImageView(){
+      
         
         self.memoryImageView?.image = memoryImage
         self.memoryLandscapeImageView?.image = memoryImage
