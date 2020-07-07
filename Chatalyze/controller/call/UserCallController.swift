@@ -571,7 +571,7 @@ class UserCallController: VideoCallController {
         }
         
         if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
+            if endtimeOfSlot.timeIntervalTillNow <= 10.0{
                 return
             }
         }
@@ -637,9 +637,9 @@ class UserCallController: VideoCallController {
             return
         }
         
-        if isHangUp{
-            return
-        }
+//        if isHangUp{
+//            return
+//        }
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
