@@ -570,11 +570,13 @@ class UserCallController: VideoCallController {
             return
         }
         
-        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-            if endtimeOfSlot.timeIntervalTillNow <= 10.0{
-                return
-            }
-        }
+      // NOTE: Uncomment only if,client ask to restrict selfie in last few seconds..
+      
+//        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
+//            if endtimeOfSlot.timeIntervalTillNow <= 10.0{
+//                return
+//            }
+//        }
         
         if !isScreenshotStatusLoaded{
             return
