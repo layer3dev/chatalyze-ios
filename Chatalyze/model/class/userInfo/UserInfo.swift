@@ -194,6 +194,12 @@ extension UserInfo{
             return UniqueUserIdentifier().generateUniqueIdentifier(userId: id)
         }
     }
+  
+  @objc var isTermsAndCondtionsAccepted :Bool{
+    get{
+      return self.isTermsAccepted ?? false
+    }
+  }
 }
 
 
