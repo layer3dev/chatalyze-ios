@@ -116,7 +116,7 @@ class UserCallController: VideoCallController {
         Log.echo(key: "yud", text: "Interval timer is working")
         confirmCallLinked()
         verifyIfExpired()
-        processAutograph()
+        initiateSelfie()
 //        DispatchQueue.main.async {
             
 //        }
@@ -558,7 +558,7 @@ class UserCallController: VideoCallController {
         return nil
     }
     
-    private func processAutograph(){
+    private func initiateSelfie(){
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(String(describing: self.eventInfo?.isScreenShotAllowed))")
         
