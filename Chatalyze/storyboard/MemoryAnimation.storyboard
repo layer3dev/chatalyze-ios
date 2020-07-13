@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="landscape" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -183,6 +183,15 @@
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="44"/>
                                         </variation>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't leave this page! Your screenshot is still uploading." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-gL-gPR">
+                                        <rect key="frame" x="20" y="148.5" width="768" height="38.5"/>
+                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="44"/>
+                                        </variation>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47x-GU-HnZ">
                                         <rect key="frame" x="229" y="198.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -302,15 +311,18 @@
                                     <constraint firstItem="VYc-zT-EBr" firstAttribute="top" secondItem="Rvt-0u-yqF" secondAttribute="top" id="eE3-OT-AaJ"/>
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="trailing" secondItem="iOs-G7-Jnv" secondAttribute="trailing" id="egx-C1-jzo"/>
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="top" secondItem="iOs-G7-Jnv" secondAttribute="top" id="gCh-fR-lI5"/>
+                                    <constraint firstItem="elF-gL-gPR" firstAttribute="top" secondItem="dt4-Qn-37W" secondAttribute="bottom" constant="10" id="kfm-3b-dcl"/>
                                     <constraint firstItem="47x-GU-HnZ" firstAttribute="leading" secondItem="iOs-G7-Jnv" secondAttribute="leading" id="mjw-Ba-lFd"/>
                                     <constraint firstItem="iOs-G7-Jnv" firstAttribute="top" secondItem="dt4-Qn-37W" secondAttribute="bottom" constant="60" id="rmt-Nd-XGs">
                                         <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                     </constraint>
                                     <constraint firstItem="Z4j-LC-5qd" firstAttribute="leading" secondItem="Rvt-0u-yqF" secondAttribute="leading" id="rq8-JK-nMq"/>
+                                    <constraint firstItem="elF-gL-gPR" firstAttribute="leading" secondItem="Rvt-0u-yqF" secondAttribute="leading" constant="20" id="uDW-Pp-W3H"/>
                                     <constraint firstAttribute="trailing" secondItem="Z4j-LC-5qd" secondAttribute="trailing" id="v4z-u6-58W"/>
                                     <constraint firstItem="47x-GU-HnZ" firstAttribute="trailing" secondItem="iOs-G7-Jnv" secondAttribute="trailing" id="wDb-Rs-pJK"/>
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="bottom" secondItem="iOs-G7-Jnv" secondAttribute="bottom" id="wtu-9f-OKM"/>
                                     <constraint firstItem="ocN-Rv-5jj" firstAttribute="trailing" secondItem="iOs-G7-Jnv" secondAttribute="trailing" id="wxW-dG-KBx"/>
+                                    <constraint firstAttribute="trailing" secondItem="elF-gL-gPR" secondAttribute="trailing" constant="20" id="xj2-X8-rka"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -340,6 +352,7 @@
                         <outlet property="memoryPortraitWidth" destination="SOI-FJ-NDg" id="mwq-We-N3z"/>
                         <outlet property="portraitShadowView" destination="o7g-gu-255" id="0eC-vT-waB"/>
                         <outlet property="portraitView" destination="TKc-FH-SpF" id="cvI-Hn-pWN"/>
+                        <outlet property="statusLbl" destination="elF-gL-gPR" id="TPq-Kk-slT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NTh-wB-iZ6" userLabel="First Responder" sceneMemberID="firstResponder"/>

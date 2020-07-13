@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -149,10 +149,10 @@
                                 <rect key="frame" x="0.0" y="24" width="414" height="838"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-Kf-uiS">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="402"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="502"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to hang up the current chat and wait until the next one or leave your session completely?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-nW-INd">
-                                                <rect key="frame" x="40" y="80" width="334" height="82"/>
+                                                <rect key="frame" x="40" y="100" width="334" height="82"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTn-TW-i0m">
-                                                <rect key="frame" x="50" y="282" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="302" width="314" height="40"/>
                                                 <color key="backgroundColor" red="1" green="0.24313725490196078" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="fUy-ce-9fB">
@@ -180,7 +180,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Say-TW-jBJ">
-                                                <rect key="frame" x="50" y="342" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="362" width="314" height="40"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="zZn-02-r18">
@@ -198,20 +198,45 @@
                                                     <action selector="exitCallWithSender:" destination="gxo-0p-R6P" eventType="touchUpInside" id="FcX-ay-XJT"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyU-v0-RWK">
+                                                <rect key="frame" x="50" y="422" width="314" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="UDV-2h-TB6">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
+                                                <state key="normal" title="RETURN TO CHAT">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="returnToChatActionWithSender:" destination="gxo-0p-R6P" eventType="touchUpInside" id="3AM-uU-ufD"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="Say-TW-jBJ" firstAttribute="leading" secondItem="Qff-Kf-uiS" secondAttribute="leading" constant="50" id="16U-Sf-AcY">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                             </constraint>
-                                            <constraint firstItem="Lok-nW-INd" firstAttribute="top" secondItem="Qff-Kf-uiS" secondAttribute="top" constant="80" id="7mr-bB-zIo">
+                                            <constraint firstAttribute="trailing" secondItem="yyU-v0-RWK" secondAttribute="trailing" constant="50" id="7gF-aB-tCp">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                            </constraint>
+                                            <constraint firstItem="Lok-nW-INd" firstAttribute="top" secondItem="Qff-Kf-uiS" secondAttribute="top" constant="100" id="7mr-bB-zIo">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                            </constraint>
+                                            <constraint firstItem="yyU-v0-RWK" firstAttribute="leading" secondItem="Qff-Kf-uiS" secondAttribute="leading" constant="50" id="9nJ-3p-ef8">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="Lok-nW-INd" secondAttribute="trailing" constant="40" id="I2E-zX-Gbu">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="125"/>
                                             </constraint>
                                             <constraint firstItem="JTn-TW-i0m" firstAttribute="top" secondItem="Lok-nW-INd" secondAttribute="bottom" constant="120" id="M1r-6I-A7b"/>
-                                            <constraint firstAttribute="bottom" secondItem="Say-TW-jBJ" secondAttribute="bottom" constant="20" id="T6o-SE-cvu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Say-TW-jBJ" secondAttribute="bottom" constant="100" id="T6o-SE-cvu"/>
                                             <constraint firstAttribute="trailing" secondItem="JTn-TW-i0m" secondAttribute="trailing" constant="50" id="Tmc-9m-HKH">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                             </constraint>
@@ -221,6 +246,7 @@
                                             <constraint firstItem="Say-TW-jBJ" firstAttribute="top" secondItem="JTn-TW-i0m" secondAttribute="bottom" constant="20" id="czr-x5-lER">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
+                                            <constraint firstItem="yyU-v0-RWK" firstAttribute="top" secondItem="Say-TW-jBJ" secondAttribute="bottom" constant="20" id="dyx-6w-XGP"/>
                                             <constraint firstItem="JTn-TW-i0m" firstAttribute="leading" secondItem="Qff-Kf-uiS" secondAttribute="leading" constant="50" id="fpc-CD-OPR">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="100"/>
                                             </constraint>
@@ -251,6 +277,7 @@
                     <connections>
                         <outlet property="exitBtn" destination="Say-TW-jBJ" id="yxd-ZW-nXt"/>
                         <outlet property="hangupBtn" destination="JTn-TW-i0m" id="ROh-dk-ehr"/>
+                        <outlet property="returnToChatBtn" destination="yyU-v0-RWK" id="EJ5-if-Lg4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBm-f4-JDT" userLabel="First Responder" sceneMemberID="firstResponder"/>

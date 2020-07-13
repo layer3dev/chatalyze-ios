@@ -15,8 +15,9 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         super.viewDidLoad()
         
         paintUI()
+      rootView?.paintInterface()
         self.checkForShowingHostWelcomeAnimation()
-      showTermsAndCondtionsPageForOrganizationHost()
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,29 +49,29 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         self.present(controller, animated: true, completion: {
         })
     }
-  private func showTermsAndCondtionsPageForOrganizationHost(){
-    
-    
-    guard let organizationId = SignedUserInfo.sharedInstance?.organizationId else {return}
-    
-    if organizationId == ""{
-      return
-    }
-    guard let isTermsAceepted = SignedUserInfo.sharedInstance?.isTermsAccepted else {
-      return
-    }
-    
-    if isTermsAceepted{
-      print("Terms and Condtion are already accepted for organization Id\(organizationId)")
-      return
-    }else{
-      print("Terms and Condtion not acceptedfor organization Id\(organizationId)")
-    }
-    
-    let vc = HostTermsAndContions()
-    vc.modalPresentationStyle = .fullScreen
-    navigationController?.present(vc, animated: true, completion: nil)
-  }
+//  private func showTermsAndCondtionsPageForOrganizationHost(){
+//
+//
+//    guard let organizationId = SignedUserInfo.sharedInstance?.organizationId else {return}
+//
+//    if organizationId == ""{
+//      return
+//    }
+//    guard let isTermsAceepted = SignedUserInfo.sharedInstance?.isTermsAccepted else {
+//      return
+//    }
+//
+//    if isTermsAceepted{
+//      print("Terms and Condtion are already accepted for organization Id\(organizationId)")
+//      return
+//    }else{
+//      print("Terms and Condtion not acceptedfor organization Id\(organizationId)")
+//    }
+//
+//    let vc = HostTermsAndContions()
+//    vc.modalPresentationStyle = .fullScreen
+//    navigationController?.present(vc, animated: true, completion: nil)
+//  }
     
     var rootView:HostNewUIRootView?{
         return self.view as? HostNewUIRootView

@@ -1046,6 +1046,7 @@ extension VideoCallController{
         case eventNotStarted = 5
         case eventCancelled = 6
         case idealMedia = 7
+        case socketDisconnected = 8
     }
     
     func setStatusMessage(type : callStatusMessage) {
@@ -1123,6 +1124,14 @@ extension VideoCallController{
             return
         }
         
+      
+      if (type == .socketDisconnected){
+        self.showAlertContainer()
+        self.showPreConnectLabel()
+       
+        preConnectLbl?.text = "Unable to connect to video server. Trying to reconnect..."
+        return
+      }
         if type == .userDidNotJoin {
             
             self.showAlertContainer()

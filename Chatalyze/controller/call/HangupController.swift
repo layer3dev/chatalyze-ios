@@ -14,6 +14,7 @@ class HangupController: InterfaceExtendedController {
     var hangup:(()->())?
     @IBOutlet var exitBtn:UIButton?
     @IBOutlet var hangupBtn:UIButton?
+    @IBOutlet var returnToChatBtn: UIButton?
     var isHungUp:Bool?
     var isDisableHangup:Bool?
 
@@ -87,6 +88,13 @@ class HangupController: InterfaceExtendedController {
             })
         }
     }
+  
+  @IBAction func returnToChatAction(sender:UIButton){
+    
+    DispatchQueue.main.async {
+      self.dismiss(animated: true, completion: nil)
+    }
+  }
     
 
     /*
