@@ -146,6 +146,7 @@ class HostCallController: VideoCallController {
             }
             return false
         }
+      self.selfieTimerView?.reset()
         return true
     }
     
@@ -255,7 +256,7 @@ class HostCallController: VideoCallController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        Log.echo(key: "yud", text: "I am resetting the selfieTimer")
+        Log.echo(key: "dhi", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
     }
     
@@ -1135,6 +1136,7 @@ extension HostCallController : CallConnectionProtocol{
 extension HostCallController:GetisHangedUpDelegate{
     
     func restartSelfie() {
+      
     }
     
     func getHangUpStatus() -> Bool {

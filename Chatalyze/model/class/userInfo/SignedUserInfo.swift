@@ -110,6 +110,8 @@ class SignedUserInfo: UserInfo , NSCoding{
         planId = aDecoder.decodeObject(forKey: "planId") as? String
         isTrialPlanActive = (aDecoder.decodeObject(forKey: "isTrialPlanActive") as? Bool)
         isSubscriptionPlanExists = (aDecoder.decodeObject(forKey:"isSubscriptionPlanExists") as? Bool)
+      isTermsAccepted = (aDecoder.decodeObject(forKey:"termsAccepted") as? Bool)
+      organizationId = aDecoder.decodeObject(forKey: "organizationId") as? String
     }
         
     func encode(with aCoder: NSCoder) {
@@ -140,6 +142,9 @@ class SignedUserInfo: UserInfo , NSCoding{
         aCoder.encode(planId, forKey: "planId")
         aCoder.encode(isTrialPlanActive, forKey: "isTrialPlanActive")
         aCoder.encode(isSubscriptionPlanExists, forKey: "isSubscriptionPlanExists")
+      
+        aCoder.encode(isTermsAccepted, forKey: "termsAccepted")
+        aCoder.encode(organizationId, forKey: "organizationId")
     }
     
     func clear(){

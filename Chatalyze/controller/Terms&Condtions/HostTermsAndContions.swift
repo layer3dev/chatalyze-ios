@@ -75,19 +75,18 @@ class HostTermsAndContions:UIViewController,UITextViewDelegate{
       EditProfileProcessor().edit(params: param) { (success, message, response) in
 
           self.stopLoader()
-          if !success{
-
-              guard let info = SignedUserInfo.sharedInstance else{
-                  return
-              }
-              info.isTermsAccepted = true
-              info.save()
-              self.dismiss(animated: true) {
-              }
-              return
+        if success{
+          
+          guard let info = SignedUserInfo.sharedInstance else{
+            return
           }
-          self.dismiss(animated: true) {
-          }
+          info.isTermsAccepted = true
+          info.save()
+          
+          self.dismiss(animated: true)
+          
+        }
+          
       }
   }
 
