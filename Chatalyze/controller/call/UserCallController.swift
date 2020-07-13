@@ -145,13 +145,15 @@ class UserCallController: VideoCallController {
             return
         }
         
-        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
-                
-                Log.echo(key: "yud", text: "Returning because of less than 30 seconds.")
-                return
-            }
-        }
+       // NOTE: Uncomment only if,client ask to restrict autograph in last few seconds..
+      
+//        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
+//            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
+//                
+//                Log.echo(key: "yud", text: "Returning because of less than 30 seconds.")
+//                return
+//            }
+//        }
         
         
         // In order to reset the process after the slot
@@ -217,9 +219,11 @@ class UserCallController: VideoCallController {
         }
         
         if(!isSocketConnected){
-            setStatusMessage(type: .ideal)
+          Log.echo(key: "dhi", text: "webSocket is disconnected")
+            setStatusMessage(type: .socketDisconnected)
             return
         }
+      
         
 //        if(!eventInfo.isPreconnectEligible){
 //            setStatusMessage(type: .ideal)
