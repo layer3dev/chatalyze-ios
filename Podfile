@@ -12,7 +12,7 @@ def pod_file
   pod 'GoogleWebRTC', '1.1.25651'
   
 #  pod 'GoogleWebRTC',  '1.1.23895'
-  pod 'DeviceKit', '~> 1.3'
+  pod 'DeviceKit'
   pod 'CropViewController'
   pod 'Alamofire', '~> 4.0'
   pod 'SwiftyJSON'
