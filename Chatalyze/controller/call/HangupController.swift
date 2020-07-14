@@ -52,9 +52,11 @@ class HangupController: InterfaceExtendedController {
         if isHanged{
             
             hangupBtn?.setTitle("RESUME CURRENT CHAT", for: .normal)
-            return
-        }
-        hangupBtn?.setTitle("HANG UP CURRENT CHAT", for: .normal)
+           
+        }else{
+          hangupBtn?.setTitle("HANG UP CURRENT CHAT", for: .normal)
+      }
+        
     }
     
     
