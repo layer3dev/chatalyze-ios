@@ -44,6 +44,7 @@ class ValidateVPN {
         }
         
         let nsDict = cfDict.takeRetainedValue() as NSDictionary
+        Log.echo(key: TAG, text: "nsDict -> \(nsDict)")
        
         guard let keys = nsDict["__SCOPED__"] as? NSDictionary
             else{
@@ -59,8 +60,10 @@ class ValidateVPN {
         for key: String in keyList {
             
             Log.echo(key: TAG, text: "key -> \(key)")
+            let key = key.lowercased()
             
-            if (key == "tap" || key == "tun" || key == "ppp" || key == "ipsec" || key == "ipsec0" || key == "utun0" || key == "utun1") {
+            
+            if (key.contains("tap")  || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") || key.contains("utun")) {
                 return true
             }
         }
