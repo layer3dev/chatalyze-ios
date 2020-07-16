@@ -166,11 +166,13 @@ class HostCallController: VideoCallController {
             
             DispatchQueue.main.async {
                 self.processExitAction(code : .userAction)
-              let callHangedUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
-              if callHangedUp ?? false {
+             
+              guard let isCalledHangedUp =  self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp else {return}
+              if  isCalledHangedUp{
                  self.toggleHangup()
               }
-             
+              
+
             }
         }
         

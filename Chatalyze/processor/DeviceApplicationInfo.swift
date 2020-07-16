@@ -14,7 +14,7 @@ class DeviceApplicationInfo {
     
     func rawInfo()->[String : Any]{
         
-        let device = Device()
+      let device = Device.current
         let iOSVersion = UIDevice.current.systemVersion
         var info = [String : Any]()
         
