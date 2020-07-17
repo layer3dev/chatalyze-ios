@@ -1128,8 +1128,13 @@ extension VideoCallController{
       if (type == .socketDisconnected){
         self.showAlertContainer()
         self.showPreConnectLabel()
-       
-        preConnectLbl?.text = "Unable to connect to video server. Trying to reconnect..."
+        
+        
+        let requiredMessage = "Unable to connect to video server. Trying to reconnect..."
+        let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
+        
+        
+        preConnectLbl?.attributedText = secondAttributedString
         return
       }
         if type == .userDidNotJoin {
