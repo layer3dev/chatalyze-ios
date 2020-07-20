@@ -86,8 +86,18 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     @IBAction func testmyPhone(sender:UIButton?){
         
-        self.gotoSystemTest()
+         DispatchQueue.main.async {
+               self.validateVPN {
+                 Log.echo(key: "dhi", text: "validate VPN response on SystemCheck")
+                self.gotoSystemTest()
+               }
+             }
     }
+  private func validateVPN(completion : (()->())?){
+         ValidateVPN().showVPNWarningAlert {
+             completion?()
+         }
+     }
     
     func gotoSystemTest(){
         
