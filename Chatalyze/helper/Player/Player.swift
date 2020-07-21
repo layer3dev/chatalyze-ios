@@ -57,16 +57,16 @@ class Player {
     
     
     do {
-      try session.setCategory(AVAudioSession.Category.playback,options: [.allowAirPlay,.allowBluetoothA2DP,.allowBluetooth])
+      try session.setCategory(.playAndRecord,options: [.defaultToSpeaker,.allowBluetoothA2DP,.allowBluetooth,.allowAirPlay])
       
     
       
-      let output = AVAudioSession.sharedInstance().currentRoute.outputs[0].portType
+      let output = session.currentRoute.outputs[0].portType
       if output.rawValue == "Speaker"{
-        try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+        try session.overrideOutputAudioPort(.speaker)
       }
       else{
-        try AVAudioSession.sharedInstance().overrideOutputAudioPort(.none)
+        try session.overrideOutputAudioPort(.none)
       }
       print("Voice Out \(output)" )
     }
