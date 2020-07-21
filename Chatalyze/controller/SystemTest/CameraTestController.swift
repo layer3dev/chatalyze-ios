@@ -36,6 +36,7 @@ class CameraTestController: InterfaceExtendedController {
     var onlySystemTest = false
     @IBOutlet var soundMeterView:UIView?
     @IBOutlet var statusLbl:UILabel?
+    var isSoundPlaying = false
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -46,7 +47,17 @@ class CameraTestController: InterfaceExtendedController {
         paintStatusMessage()
         setUpGestureOnLabel()
         initializeLink()
+        initializePlayer()
         return
+    }
+    
+    func initializePlayer(){
+        
+        player.initialize {
+            
+            self.isSoundPlaying = false
+            self.checkForMicrphone()
+        }
     }
     
     
@@ -199,12 +210,12 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     @objc func levelTimerCallback() {
-        
+            
         self.recorder?.updateMeters()
         let peakPower = self.recorder?.peakPower(forChannel: 0)
         let level = self.recorder?.averagePower(forChannel: 0)
         //Log.echo(key: "yud", text: "LEVEL IS \(level) and the peak power is \(peakPower)")
-        DispatchQueue.main.async {         
+        DispatchQueue.main.async {
             self.updateUI(level:Double(level ?? 0.0))
         }
         let isLoud = level ?? 0.0 > self.LEVEL_THRESHOLD
@@ -212,16 +223,17 @@ class CameraTestController: InterfaceExtendedController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Log.echo(key: "yud", text: "I am dissapearing")
         
         DispatchQueue.main.async {
             CameraTestController.levelTimer.invalidate()
+            self.player.stopAudioFile()
         }
     }
     
     func updateUI(level:Double){
         
         if level <= 0{
+            
             
             //Earlier 45 was 40
             //Earlier 20 was 40
@@ -238,6 +250,9 @@ class CameraTestController: InterfaceExtendedController {
             
             let newPowerOne = 50.0+level
             let percentageOne = ((newPowerOne/50))
+            
+
+            
             progressView?.progress = Float(percentageOne)
             let numberOfViewToShownOne = Int(((percentageOne*100))*(20/100))
             
@@ -274,11 +289,11 @@ class CameraTestController: InterfaceExtendedController {
         CameraTestController.levelTimer.invalidate()
         // Log.echo(key: "yud", text: "Checking for the microphone access")
         let documents = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0])
-        
+
         let url = documents.appendingPathComponent("record.caf")
-        
+
         let recordSettings: [String: Any] = [
-            
+
             AVFormatIDKey:              kAudioFormatAppleIMA4,
             AVSampleRateKey:            44100.0,
             AVNumberOfChannelsKey:      2,
@@ -286,23 +301,23 @@ class CameraTestController: InterfaceExtendedController {
             AVLinearPCMBitDepthKey:     16,
             AVEncoderAudioQualityKey:   AVAudioQuality.max.rawValue
         ]
-        
+
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try
                 audioSession.setCategory(.playAndRecord, mode: .default, options: [])
-            //                audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
+            //audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord), mode: .continuous)
             try audioSession.setActive(true)
             try recorder = AVAudioRecorder(url:url, settings: recordSettings)
-            
+
         } catch {
             return
         }
-        
+
         recorder?.prepareToRecord()
         recorder?.isMeteringEnabled = true
         recorder?.record()
-        
+
         CameraTestController.levelTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(levelTimerCallback), userInfo: nil, repeats: true)
     }
     
@@ -511,7 +526,7 @@ class CameraTestController: InterfaceExtendedController {
             checkforMicrophoneAccess()
             Log.echo(key: "yud", text: "Your Authorisation is authorized")
             return
-        case .restricted:            
+        case .restricted:
             Log.echo(key: "yud", text: "Your Authorisation is restricted")
             alertToProvideCameraAccess()
             return
@@ -570,7 +585,7 @@ class CameraTestController: InterfaceExtendedController {
                 guard let controller = FreeEventPaymentController.instance() else{
                     return
                 }
-                controller.info = self.info                
+                controller.info = self.info
                 DispatchQueue.main.async {
                    
                     
@@ -609,7 +624,11 @@ class CameraTestController: InterfaceExtendedController {
     }
   
   @IBAction func playSounAction(){
-    print(123)
+
+    self.recorder?.stop()
+    resetSoundMeter()
+    isSoundPlaying = true
+    CameraTestController.levelTimer.invalidate()
     self.player.playAudioFile()
   }
     

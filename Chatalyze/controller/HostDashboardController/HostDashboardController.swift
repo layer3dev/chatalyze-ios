@@ -288,7 +288,17 @@ class HostDashboardController: MyScheduledSessionsController {
     
     @IBAction func systemTestAction(sender:UIButton){
         
-        self.gotoSystemTest()
+        DispatchQueue.main.async {
+          self.validateVPN {
+            Log.echo(key: "dhi", text: "validate VPN response on SystemCheck")
+            self.gotoSystemTest()
+          }
+        }
+    }
+  private func validateVPN(completion : (()->())?){
+        ValidateVPN().showVPNWarningAlert {
+            completion?()
+        }
     }
     
     @IBAction func settingAction(sender:UIButton){

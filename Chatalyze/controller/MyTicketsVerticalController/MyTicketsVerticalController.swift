@@ -186,16 +186,18 @@ class MyTicketsVerticalController: MyTicketsController{
     
     
     @IBAction func systemTest(sender:UIButton){
-      
-//        if HandlingAppVersion().getAlertMessage() != "" {
-//            
-//            showAlert(sender: sender)
-//            return
-//        }
-        
+      DispatchQueue.main.async {
+      self.validateVPN {
+        Log.echo(key: "dhi", text: "validate VPN response on SystemCheck")
         self.goToSystemTest()
+      }
     }
-    
+  }
+      private func validateVPN(completion : (()->())?){
+      ValidateVPN().showVPNWarningAlert {
+          completion?()
+      }
+    }
     /*
      // MARK: - Navigation
      // In a storyboard-based application, you will often want to do a little preparation before navigation

@@ -9,96 +9,54 @@
 import Foundation
 import AVFoundation
 
-class Player {
+class Player : NSObject{
+    
+    var audioFile: AVAudioPlayer!
+    var audioEnded:(()->())?
+    
+    override init() {
+        super.init()
+        
+        let soundURL = Bundle.main.url(forResource: "testMusic", withExtension: "mp3")
 
-   
-    var audioFile: AVAudioPlayer?
-  var session = AVAudioSession.sharedInstance()
-   
-  init() {
-    
-    
-    self.session = AVAudioSession.sharedInstance()
-    let currentRoute = self.session.currentRoute
-    if currentRoute.outputs.count != 0 {
-      for description in currentRoute.outputs {
-        if description.portType == AVAudioSession.Port.bluetoothA2DP {
-          print("headphone plugged in")
-          
-          do {
-            try session.overrideOutputAudioPort(.none)
-          } catch {
-            print("errr is \(error.localizedDescription)")
-          }
-          
-          
-        } else {
-          print("headphone pulled out")
+        do {
+            try audioFile = AVAudioPlayer(contentsOf: soundURL!)
+        } catch {
+            print(error)
         }
-      }
-    } else {
-      print("requires connection to device")
     }
     
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(audioRouteChangeListener),
-      name: AVAudioSession.routeChangeNotification,
-      object: nil)
-    
-    let soundURL = Bundle.main.url(forResource: "testMusic", withExtension: "mp3")
-    
-    do {
-      try audioFile = AVAudioPlayer(contentsOf: soundURL!)
-    } catch {
-      print(error)
+    func initialize(_ completion:@escaping ()->()){
+        
+        self.audioFile.delegate = self
+        self.audioEnded = completion
     }
     
-    
-    
-    do {
-      try session.setCategory(AVAudioSession.Category.playback,options: [.allowAirPlay,.allowBluetoothA2DP,.allowBluetooth])
-      
-    
-      
-      let output = AVAudioSession.sharedInstance().currentRoute.outputs[0].portType
-      if output.rawValue == "Speaker"{
-        try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-      }
-      else{
-        try AVAudioSession.sharedInstance().overrideOutputAudioPort(.none)
-      }
-      print("Voice Out \(output)" )
-    }
-    catch{
-      print(error.localizedDescription)
-    }
-  }
-
     // Methods
     func playAudioFile() {
-  
-      audioFile?.play()
-      
+        
+        let session = AVAudioSession.sharedInstance()
+        
+        do {
+            //try session.setCategory(AVAudioSession.Category.playback)
+            try session.setCategory(AVAudioSession.Category.playback, options: [AVAudioSession.CategoryOptions.allowAirPlay,AVAudioSession.CategoryOptions.allowBluetooth,AVAudioSession.CategoryOptions.allowBluetoothA2DP])
+        }
+        catch{
+        }
+        
+        audioFile.play()
     }
-  
-  
-  func stopAudioFile() {
-    audioFile?.stop()
-  }
-  
-  @objc dynamic private func audioRouteChangeListener(notification:NSNotification) {
-      let audioRouteChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
+    
+    func stopAudioFile() {
+        audioFile.stop()
+    }
+}
 
-      switch audioRouteChangeReason {
-      case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
-          print("headphone plugged in")
-      case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
-          print("headphone pulled out")
-      
-      default:
-          break
-      }
-  }
 
+
+extension Player: AVAudioPlayerDelegate{
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.audioEnded?()
+    }
 }

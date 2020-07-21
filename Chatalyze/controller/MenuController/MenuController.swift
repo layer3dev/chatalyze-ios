@@ -51,8 +51,19 @@ class MenuController: InterfaceExtendedController {
     
     @IBAction func testMyAction(sender:UIButton){
         
-        self.selectedSlideBarTab?(MenuRootView.MenuType.test)
+        DispatchQueue.main.async {
+          self.validateVPN {
+            Log.echo(key: "dhi", text: "validate VPN response on SystemCheck")
+            self.selectedSlideBarTab?(MenuRootView.MenuType.test)
+          }
+        }
     }
+  private func validateVPN(completion : (()->())?){
+      ValidateVPN().showVPNWarningAlert {
+          completion?()
+      }
+  }
+
     
     
     private func initialize(){
