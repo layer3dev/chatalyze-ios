@@ -130,6 +130,7 @@ class SelfieTimerView:ExtendedView {
         
         //player = nil
         //SelfieTimerView.testTimer.invalidate()
+      self.selfieTimerAnimateFlag = 0
         self.testTimer.releaseListener()
         autographTime = 0
         self.isScreenShotTaken = false
@@ -139,6 +140,7 @@ class SelfieTimerView:ExtendedView {
     private func invalidateTimerForHost(){
         
         player?.stop()
+      self.selfieTimerAnimateFlag = 0
         //player = nil
         //SelfieTimerView.hostTimer.invalidate()
         self.hostTimer.releaseListener()
