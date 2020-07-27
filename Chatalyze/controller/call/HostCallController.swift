@@ -302,6 +302,7 @@ class HostCallController: VideoCallController {
                                if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
                                  
                                  if endDate < 60.0 && endDate >= 55{
+                                  self.selfieTimerView?.isScreenShotTaken = false
                                    return
                                  }
                                }
