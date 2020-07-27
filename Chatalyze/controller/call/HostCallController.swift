@@ -265,7 +265,6 @@ class HostCallController: VideoCallController {
         
         Log.echo(key: "dhi", text: "I am resetting the selfieTimer")
         selfieTimerView?.reset()
-      resetCanvas()
     }
     
     
@@ -297,16 +296,6 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
                         self.selfieTimerView?.screenShotListner = {
-                          guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
-                                 else{return}
-                               if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
-                                 
-                                 if endDate < 60.0 && endDate >= 55{
-                                  self.selfieTimerView?.isScreenShotTaken = false
-                                   return
-                                 }
-                               }
-                        
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -839,9 +828,9 @@ class HostCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
           
-//          if endDate < 10.0  {
-//            selfieTimerView?.reset()
-//                     }
+          if endDate < 12.0 && (eventInfo?.isAutographEnabled ?? false) {
+            selfieTimerView?.reset()
+                     }
           
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
