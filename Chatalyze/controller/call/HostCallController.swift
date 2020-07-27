@@ -296,7 +296,6 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
                         self.selfieTimerView?.screenShotListner = {
-                            
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -308,6 +307,16 @@ class HostCallController: VideoCallController {
     }
     
     private func processAutographSelfie(){
+      
+  
+//       guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
+//        else{return}
+//      if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+//
+//        if endDate < 60.0 && endDate >= 55{
+//          return
+//        }
+//      }
         Log.echo(key: "HostCallController", text: "processAutographSelfie")
         guard let eventInfo = self.eventInfo
             else{
@@ -317,7 +326,7 @@ class HostCallController: VideoCallController {
         if(!eventInfo.isAutographEnabled){
             return
         }
-        
+    
         Log.echo(key: "HostCallController", text: "getSnapshot")
         autographSlotInfo = myLiveUnMergedSlot
         
@@ -332,6 +341,7 @@ class HostCallController: VideoCallController {
             }
             
             Log.echo(key: "HostCallController", text: "call renderCanvas")
+          
             
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
@@ -818,7 +828,7 @@ class HostCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
           
-          if endDate < 10.0  {
+          if endDate < 12.0 && (eventInfo?.isAutographEnabled ?? false) {
             selfieTimerView?.reset()
                      }
           
@@ -1575,6 +1585,7 @@ extension HostCallController{
             Log.echo(key: "yud", text: "Providing id is changed for new slot")
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
+          selfieTimerView?.reset()
             //reset the signature
             return
         }
