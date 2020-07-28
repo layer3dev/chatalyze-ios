@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookLogin
+import AuthenticationServices
 
 class SigninController: InterfaceExtendedController {
     
@@ -15,7 +16,11 @@ class SigninController: InterfaceExtendedController {
     var signUpHandler:(()->())?
     var didLoad:(()->())?
     
-    @IBOutlet var unavailableSignUpAlertLabel:UILabel?
+  @IBOutlet weak var appleSiginView: UIView?
+  @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint!
+
+  
+  @IBOutlet var unavailableSignUpAlertLabel:UILabel?
     
     func paintUnavailableSignUpAlertLabel(){
         
@@ -81,11 +86,19 @@ class SigninController: InterfaceExtendedController {
         
         initializeVariable()
         paintInterface()
+      self.appleSiginView?.clipsToBounds = true
+      self.appleSiginView?.layer.cornerRadius = (appleSiginView?.frame.height)! / 2
     }
     
     fileprivate func initializeVariable(){
         
         rootView?.controller = self
+      if #available(iOS 13.0, *) {
+        GetApppleSignInButton.sharedGetApppleSignInButton?.getButtonWith(target: self, selector: #selector(appleLoginAction), superView: self.appleSiginView ?? UIView(), isActiveConstraintsNeeded: true)
+      } else {
+        // Fallback on earlier versions
+        appleSiginHightContraint.constant = 0
+      }
     }
     
     fileprivate func paintInterface(){
@@ -98,6 +111,25 @@ class SigninController: InterfaceExtendedController {
     var rootView : SigninRootView?{
         return self.view as? SigninRootView
     }
+  
+  @objc func appleLoginAction(){
+    Log.echo(key: "dhi", text:"apple btn tapped")
+    if #available(iOS 13.0, *) {
+      let provider = ASAuthorizationAppleIDProvider()
+      let request = provider.createRequest()
+      request.requestedScopes = [.fullName,.email]
+      let controller = ASAuthorizationController(authorizationRequests: [request])
+      controller.delegate = self
+      controller.presentationContextProvider = self
+      controller.performRequests()
+    } else {
+      // Fallback on earlier versions
+    }
+    
+    
+    
+    
+  }
     
     @IBAction func learnMoreAction(sender:UIButton){
         
@@ -117,4 +149,35 @@ extension SigninController{
         let controller = storyboard.instantiateViewController(withIdentifier: "signin") as? SigninController
         return controller
     }
+}
+
+extension SigninController : ASAuthorizationControllerDelegate{
+  
+  @available(iOS 13.0, *)
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    
+    switch authorization.credential {
+    case  let credential as ASAuthorizationAppleIDCredential:
+    let user = AppleUserDetails(credentails: credential)
+//    performSegue(withIdentifier: "segue", sender: user)
+      break
+    default:break
+    }
+  }
+  
+  @available(iOS 13.0, *)
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    Log.echo(key: "dhi", text: "we got error while Sigin in with Apple:\(error.localizedDescription)")
+  }
+  
+}
+
+extension SigninController : ASAuthorizationControllerPresentationContextProviding{
+  @available(iOS 13.0, *)
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    
+    return view.window!
+  }
+  
+  
 }

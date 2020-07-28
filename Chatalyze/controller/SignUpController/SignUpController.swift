@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class SignUpController: InterfaceExtendedController {
   
@@ -17,7 +18,9 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var signInLabel:UILabel?
     var signInAction:(()->())?
     @IBOutlet var headerLabel:UILabel?
-    
+  @IBOutlet weak var appleSigninView: UIView!
+  @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint!
+  
     @IBAction func signinAction(sender:UIButton){
         self.signInAction?()
     }
@@ -111,11 +114,19 @@ class SignUpController: InterfaceExtendedController {
         tapActionPrivacyLbl()
         maketextLinkable()
         SEGAnalytics.shared().track("SignUp Page")
+      self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height)! / 2
     }
     
     func initialization(){
         
         rootView?.controller = self
+      self.appleSigninView?.clipsToBounds = true
+      if #available(iOS 13.0, *) {
+        GetApppleSignInButton.sharedGetApppleSignInButton?.getButtonWith(target: self, selector: #selector(appleLoginAction), superView: self.appleSigninView ?? UIView(), isActiveConstraintsNeeded: true)
+      } else {
+        // Fallback on earlier versions
+        appleSiginHightConstraint.constant = 0
+      }
     }
     
     func paintInterface(){
@@ -123,6 +134,23 @@ class SignUpController: InterfaceExtendedController {
         paintNavigationTitle(text: "SIGN UP")
         paintBackButton()
     }
+  
+  @objc func appleLoginAction(){
+     Log.echo(key: "dhi", text:"apple btn tapped")
+     if #available(iOS 13.0, *) {
+       let provider = ASAuthorizationAppleIDProvider()
+       let request = provider.createRequest()
+       request.requestedScopes = [.fullName,.email]
+       let controller = ASAuthorizationController(authorizationRequests: [request])
+       controller.delegate = self
+       controller.presentationContextProvider = self
+       controller.performRequests()
+     } else {
+       // Fallback on earlier versions
+     }
+     
+
+   }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -170,4 +198,35 @@ extension SignUpController {
         let controller = storyboard.instantiateViewController(withIdentifier: "SignUpController") as? SignUpController
         return controller
     }
+}
+
+extension SignUpController: ASAuthorizationControllerDelegate{
+  
+  @available(iOS 13.0, *)
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    
+    switch authorization.credential {
+    case  let credential as ASAuthorizationAppleIDCredential:
+    let user = AppleUserDetails(credentails: credential)
+//    performSegue(withIdentifier: "segue", sender: user)
+      break
+    default:break
+    }
+  }
+  
+  @available(iOS 13.0, *)
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    Log.echo(key: "dhi", text: "we got error while Sigin in with Apple:\(error.localizedDescription)")
+  }
+  
+}
+
+extension SignUpController : ASAuthorizationControllerPresentationContextProviding{
+  @available(iOS 13.0, *)
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    
+    return view.window!
+  }
+  
+  
 }

@@ -1038,6 +1038,10 @@
 		9930157524AE0683004FBC2E /* HostTermsAndContions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930157324AE0683004FBC2E /* HostTermsAndContions.swift */; };
 		9930157824AE06FE004FBC2E /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930157724AE06FE004FBC2E /* Constraints.swift */; };
 		9930157924AE06FE004FBC2E /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930157724AE06FE004FBC2E /* Constraints.swift */; };
+		9933599E24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933599D24D05D7F00F045B1 /* GetApppleSignInButton.swift */; };
+		9933599F24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9933599D24D05D7F00F045B1 /* GetApppleSignInButton.swift */; };
+		993359A124D079DF00F045B1 /* AppleUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993359A024D079DF00F045B1 /* AppleUserDetails.swift */; };
+		993359A224D079DF00F045B1 /* AppleUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993359A024D079DF00F045B1 /* AppleUserDetails.swift */; };
 		996B898024A351560080E372 /* testMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 996B897F24A351550080E372 /* testMusic.mp3 */; };
 		996B898124A351560080E372 /* testMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 996B897F24A351550080E372 /* testMusic.mp3 */; };
 		D0DC3379595908FC6DD333C7 /* Pods_Chatalyze.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */; };
@@ -1807,6 +1811,8 @@
 		992C6F3224A22A610080B3BD /* bensound-summer (1) (mp3cut.net).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-summer (1) (mp3cut.net).mp3"; sourceTree = "<group>"; };
 		9930157324AE0683004FBC2E /* HostTermsAndContions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostTermsAndContions.swift; sourceTree = "<group>"; };
 		9930157724AE06FE004FBC2E /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		9933599D24D05D7F00F045B1 /* GetApppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetApppleSignInButton.swift; sourceTree = "<group>"; };
+		993359A024D079DF00F045B1 /* AppleUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleUserDetails.swift; sourceTree = "<group>"; };
 		996B897F24A351550080E372 /* testMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = testMusic.mp3; sourceTree = "<group>"; };
 		C62173027BD8F678E539ADF9 /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D748F967C57D2CCE03FC232A /* Pods-Chatalyze Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze Dev/Pods-Chatalyze Dev.release.xcconfig"; sourceTree = "<group>"; };
@@ -4265,6 +4271,15 @@
 			path = Constraints;
 			sourceTree = "<group>";
 		};
+		9933599C24D05D4B00F045B1 /* AppleSigin */ = {
+			isa = PBXGroup;
+			children = (
+				9933599D24D05D7F00F045B1 /* GetApppleSignInButton.swift */,
+				993359A024D079DF00F045B1 /* AppleUserDetails.swift */,
+			);
+			path = AppleSigin;
+			sourceTree = "<group>";
+		};
 		E70ACD24248BBF060091BEAD /* frameGenerator */ = {
 			isa = PBXGroup;
 			children = (
@@ -5249,6 +5264,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				9933599C24D05D4B00F045B1 /* AppleSigin */,
 				9930157224AE0659004FBC2E /* Terms&Condtions */,
 				FAFB7C77206E04A5004804D2 /* adapter */,
 				473E3B42211B147900DC60BC /* AccountController */,
@@ -6505,6 +6521,7 @@
 				47D0B06E21A6C4B5006376A8 /* NotificationInfo.swift in Sources */,
 				47032F892205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */,
 				47D0B06F21A6C4B5006376A8 /* NoEventLabel.swift in Sources */,
+				9933599F24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */,
 				4712106C221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */,
 				47D0B07021A6C4B5006376A8 /* UserEventQueueController.swift in Sources */,
 				47D0B07121A6C4B5006376A8 /* GreetingController.swift in Sources */,
@@ -6608,6 +6625,7 @@
 				47D0B0B621A6C4B5006376A8 /* CallInfoContainerView.swift in Sources */,
 				47D0B0B721A6C4B5006376A8 /* GreetingCell.swift in Sources */,
 				47D0B0B821A6C4B5006376A8 /* SessionTitleController.swift in Sources */,
+				993359A224D079DF00F045B1 /* AppleUserDetails.swift in Sources */,
 				47F689CF21F5FEE600DBDD72 /* XibTemplate.swift in Sources */,
 				47D0B0B921A6C4B5006376A8 /* ScheduleSessionRequest.swift in Sources */,
 				47D7CC1021BE85D300CAFCF1 /* ObsoleteAlertController.swift in Sources */,
@@ -7098,6 +7116,7 @@
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
 				47032F882205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */,
 				4712106B221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */,
+				9933599E24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */,
 				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
 				47B6525020AAB0170041496C /* GreetingController.swift in Sources */,
 				47614F72213A919C00CC9702 /* SessionRequestWithImageProcessor.swift in Sources */,
@@ -7201,6 +7220,7 @@
 				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
 				47B6527920AAB5030041496C /* GreetingCell.swift in Sources */,
 				47B4F4AE211C593500299686 /* SessionTitleController.swift in Sources */,
+				993359A124D079DF00F045B1 /* AppleUserDetails.swift in Sources */,
 				47F689CE21F5FEE600DBDD72 /* XibTemplate.swift in Sources */,
 				4730C76421304B49002EFAC9 /* ScheduleSessionRequest.swift in Sources */,
 				47D7CC0E21BE85C200CAFCF1 /* ObsoleteAlertController.swift in Sources */,

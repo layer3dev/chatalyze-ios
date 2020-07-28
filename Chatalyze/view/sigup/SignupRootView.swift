@@ -137,6 +137,10 @@ class SignupRootView:ExtendedView{
         })
     }
     
+  
+  @IBAction fileprivate func appleLoginAction(){
+    
+  }
     
     func showWelcomeScreen(response:@escaping (()->())){
         
