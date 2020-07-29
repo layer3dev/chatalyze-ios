@@ -121,11 +121,18 @@ class SignUpController: InterfaceExtendedController {
         
         rootView?.controller = self
       self.appleSigninView?.clipsToBounds = true
+      if UIDevice.current.userInterfaceIdiom == .phone{
+               self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height)! / 2
+           }else{
+             self.appleSigninView?.layer.cornerRadius = 65/2
+           }
       if #available(iOS 13.0, *) {
         GetApppleSignInButton.sharedGetApppleSignInButton?.getButtonWith(target: self, selector: #selector(appleLoginAction), superView: self.appleSigninView ?? UIView(), isActiveConstraintsNeeded: true)
       } else {
         // Fallback on earlier versions
-        appleSiginHightConstraint.constant = 0
+        appleSigninView?.translatesAutoresizingMaskIntoConstraints = false
+        appleSigninView?.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        
       }
     }
     

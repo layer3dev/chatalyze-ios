@@ -18,7 +18,9 @@ class SigninController: InterfaceExtendedController {
     
   @IBOutlet weak var appleSiginView: UIView?
   @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint!
-
+  
+  @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint!
+  
   
   @IBOutlet var unavailableSignUpAlertLabel:UILabel?
     
@@ -87,7 +89,12 @@ class SigninController: InterfaceExtendedController {
         initializeVariable()
         paintInterface()
       self.appleSiginView?.clipsToBounds = true
-      self.appleSiginView?.layer.cornerRadius = (appleSiginView?.frame.height)! / 2
+      if UIDevice.current.userInterfaceIdiom == .phone{
+          self.appleSiginView?.layer.cornerRadius = (appleSiginView?.frame.height)! / 2
+      }else{
+        self.appleSiginView?.layer.cornerRadius = 65/2
+      }
+    
     }
     
     fileprivate func initializeVariable(){
@@ -97,8 +104,12 @@ class SigninController: InterfaceExtendedController {
         GetApppleSignInButton.sharedGetApppleSignInButton?.getButtonWith(target: self, selector: #selector(appleLoginAction), superView: self.appleSiginView ?? UIView(), isActiveConstraintsNeeded: true)
       } else {
         // Fallback on earlier versions
-        appleSiginHightContraint.constant = 0
-      }
+      self.view.layoutIfNeeded()
+//        appleSiginHightContraint.constant = 0
+        appleSiginView?.translatesAutoresizingMaskIntoConstraints = false
+        appleSiginView?.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        self.view.layoutIfNeeded()
+            }
     }
     
     fileprivate func paintInterface(){
