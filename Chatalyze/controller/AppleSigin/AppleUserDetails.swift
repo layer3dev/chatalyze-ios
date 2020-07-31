@@ -14,13 +14,13 @@ struct AppleUserDetails {
   
   
   let id: String
-  let firstName: String
+  let fullname: String
   let lastName: String
   let email:String
   
   init(credentails: ASAuthorizationAppleIDCredential) {
     self.id = credentails.user
-    self.firstName = credentails.fullName?.givenName ?? ""
+    self.fullname = credentails.fullName?.givenName ?? ""
     self.lastName = credentails.fullName?.familyName ?? ""
     self.email = credentails.email ?? ""
   }
@@ -31,7 +31,7 @@ extension AppleUserDetails: CustomDebugStringConvertible{
   var debugDescription: String {
     return """
     id: \(id)
-    First Name : \(firstName)
+    First Name : \(fullname)
     Last Name : \(lastName)
     Email : \(email)
     """

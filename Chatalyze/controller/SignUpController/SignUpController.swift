@@ -151,6 +151,7 @@ class SignUpController: InterfaceExtendedController {
        let controller = ASAuthorizationController(authorizationRequests: [request])
        controller.delegate = self
        controller.presentationContextProvider = self
+      
        controller.performRequests()
      } else {
        // Fallback on earlier versions
@@ -214,8 +215,21 @@ extension SignUpController: ASAuthorizationControllerDelegate{
     
     switch authorization.credential {
     case  let credential as ASAuthorizationAppleIDCredential:
-    let user = AppleUserDetails(credentails: credential)
-//    performSegue(withIdentifier: "segue", sender: user)
+      let authorizationCode = String(data: credential.authorizationCode!, encoding: .utf8)
+    
+      
+      SigninController().showLoader()
+      let fullName = "\(credential.fullName?.givenName ?? "") \(credential.fullName?.familyName ?? "")"
+      AppleLogin().signup(clientId: "com.chatalyze.dev", authCode: authorizationCode, name: fullName) { (success, message, info) in
+        SigninController().stopLoader()
+      if(success){
+        print(info!)
+       SigninRootView().registerWithSegmentAnalytics(info : info)
+        
+        RootControllerManager().updateRoot()
+        return
+      }
+    }
       break
     default:break
     }
