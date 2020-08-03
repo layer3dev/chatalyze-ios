@@ -220,7 +220,7 @@ extension SignUpController: ASAuthorizationControllerDelegate{
       
       SigninController().showLoader()
       let fullName = "\(credential.fullName?.givenName ?? "") \(credential.fullName?.familyName ?? "")"
-      AppleLogin().signup(clientId: "com.chatalyze.dev", authCode: authorizationCode, name: fullName) { (success, message, info) in
+      AppleLogin().signup(clientId: Bundle.main.bundleIdentifier, authCode: authorizationCode, name: fullName) { (success, message, info) in
         SigninController().stopLoader()
       if(success){
         print(info!)

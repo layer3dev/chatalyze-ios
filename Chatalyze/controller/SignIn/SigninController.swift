@@ -169,14 +169,14 @@ extension SigninController : ASAuthorizationControllerDelegate{
     
     switch authorization.credential {
     case  let credential as ASAuthorizationAppleIDCredential:
-    print(credential.fullName?.givenName)
-    print(credential.fullName?.familyName)
+ 
     let fullName = "\(credential.fullName?.givenName) \(credential.fullName?.familyName)"
     let authorizationCode = String(data: credential.authorizationCode!, encoding: .utf8)
     SigninController().showLoader()
-    AppleLogin().signin(clientId: "com.chatalyze.dev", authCode: authorizationCode, name: fullName) { (success, message, info) in
+    AppleLogin().signin(clientId: Bundle.main.bundleIdentifier, authCode: authorizationCode, name: fullName) { (success, message, info) in
+      SigninController().stopLoader()
+      
       if(success){
-        SigninController().stopLoader()
         print(info!)
         SigninRootView().registerWithSegmentAnalytics(info : info)
         RootControllerManager().updateRoot()
