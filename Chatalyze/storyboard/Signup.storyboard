@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,10 +31,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aX-A4-lz5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="613.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="663.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-86-aLF">
-                                                <rect key="frame" x="40" y="40" width="295" height="27.5"/>
+                                                <rect key="frame" x="40" y="30" width="295" height="27.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -42,8 +42,17 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="26"/>
                                                 </variation>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3B-B8-YoW">
+                                                <rect key="frame" x="30" y="92.5" width="315" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="2J8-dQ-YdS">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    </constraint>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQX-yQ-mbW" userLabel="signin_button" customClass="RoundCornerViews" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="107.5" width="315" height="45"/>
+                                                <rect key="frame" x="30" y="157.5" width="315" height="45"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-Vt-1il">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
@@ -193,7 +202,7 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-oR-jbh">
-                                                <rect key="frame" x="20" y="172.5" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="222.5" width="335" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GM-IL-4iR">
                                                         <rect key="frame" x="0.0" y="19.5" width="71" height="1"/>
@@ -233,7 +242,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-pb-cqo">
-                                                <rect key="frame" x="20" y="232.5" width="335" height="163"/>
+                                                <rect key="frame" x="20" y="282.5" width="335" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7z-Zg-ehs" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="47"/>
@@ -456,7 +465,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-LW-djS" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="425.5" width="335" height="55"/>
+                                                <rect key="frame" x="20" y="475.5" width="335" height="55"/>
                                                 <color key="backgroundColor" red="0.92549019607843142" green="0.32156862745098036" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="4wV-0z-6b0">
@@ -475,7 +484,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree to our Terms of Service " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-9G-PX1">
-                                                <rect key="frame" x="20" y="498.5" width="335" height="22"/>
+                                                <rect key="frame" x="20" y="548.5" width="335" height="22"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -493,7 +502,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and Privacy Policy. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-sw-lXw">
-                                                <rect key="frame" x="20" y="520.5" width="335" height="22"/>
+                                                <rect key="frame" x="20" y="570.5" width="335" height="22"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -511,7 +520,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account? Sign in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-z4-1eZ" userLabel="Already have an account? Sign in">
-                                                <rect key="frame" x="77.5" y="562.5" width="220" height="22"/>
+                                                <rect key="frame" x="77.5" y="612.5" width="220" height="22"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="220" id="20b-TX-gjH">
@@ -534,7 +543,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IY-lkz">
-                                                <rect key="frame" x="30" y="483.5" width="315" height="0.0"/>
+                                                <rect key="frame" x="30" y="533.5" width="315" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -543,7 +552,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoV-ui-4cW">
-                                                <rect key="frame" x="217.5" y="553.5" width="80" height="40"/>
+                                                <rect key="frame" x="217.5" y="603.5" width="80" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="KPt-Bt-8SU">
@@ -562,8 +571,8 @@
                                             <constraint firstAttribute="trailing" secondItem="c9Q-IY-lkz" secondAttribute="trailing" constant="30" id="22i-8e-bXe">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
-                                            <constraint firstItem="bRA-86-aLF" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="40" id="2qX-OX-KBv">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            <constraint firstItem="bRA-86-aLF" firstAttribute="top" secondItem="8aX-A4-lz5" secondAttribute="top" constant="30" id="2qX-OX-KBv">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstItem="Jgg-LW-djS" firstAttribute="top" secondItem="rEI-pb-cqo" secondAttribute="bottom" constant="30" id="3q6-6F-5O8">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="50"/>
@@ -607,6 +616,9 @@
                                             <constraint firstItem="bRA-86-aLF" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="40" id="T3n-sh-Rga"/>
                                             <constraint firstItem="lMo-9G-PX1" firstAttribute="trailing" secondItem="Jgg-LW-djS" secondAttribute="trailing" id="TDB-OD-k7i"/>
                                             <constraint firstItem="oY5-sw-lXw" firstAttribute="trailing" secondItem="lMo-9G-PX1" secondAttribute="trailing" id="WEw-eK-tlu"/>
+                                            <constraint firstItem="C3B-B8-YoW" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="30" id="Wcc-PU-zPR">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
                                             <constraint firstItem="DA2-oR-jbh" firstAttribute="top" secondItem="XQX-yQ-mbW" secondAttribute="bottom" constant="20" id="bbM-13-Jxv">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                                             </constraint>
@@ -615,17 +627,23 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="35"/>
                                             </constraint>
                                             <constraint firstItem="o2w-z4-1eZ" firstAttribute="centerX" secondItem="8aX-A4-lz5" secondAttribute="centerX" id="lhH-5a-ai1"/>
+                                            <constraint firstItem="dS1-hG-UaT" firstAttribute="top" secondItem="C3B-B8-YoW" secondAttribute="bottom" constant="20" id="oDl-4m-QFC">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
                                             <constraint firstItem="c9Q-IY-lkz" firstAttribute="leading" secondItem="8aX-A4-lz5" secondAttribute="leading" constant="30" id="oUk-BF-TGR">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="bRA-86-aLF" secondAttribute="trailing" constant="40" id="px9-L6-qoG"/>
-                                            <constraint firstItem="XQX-yQ-mbW" firstAttribute="top" secondItem="bRA-86-aLF" secondAttribute="bottom" constant="40" id="qa3-rZ-3xB">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                                            </constraint>
                                             <constraint firstItem="rEI-pb-cqo" firstAttribute="top" secondItem="DA2-oR-jbh" secondAttribute="bottom" constant="20" id="rD4-fv-vPQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                                             </constraint>
                                             <constraint firstItem="oY5-sw-lXw" firstAttribute="top" secondItem="lMo-9G-PX1" secondAttribute="bottom" id="ty0-eC-TOK"/>
+                                            <constraint firstAttribute="trailing" secondItem="C3B-B8-YoW" secondAttribute="trailing" constant="30" id="zQs-Nl-ore">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstItem="C3B-B8-YoW" firstAttribute="top" secondItem="bRA-86-aLF" secondAttribute="bottom" constant="35" id="zi6-sm-GR0">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                            </constraint>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="subviews">
@@ -665,6 +683,8 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="appleSiginHightConstraint" destination="2J8-dQ-YdS" id="Fnl-M7-s3w"/>
+                        <outlet property="appleSigninView" destination="C3B-B8-YoW" id="TwO-Ep-Ixu"/>
                         <outlet property="headerLabel" destination="bRA-86-aLF" id="qEp-5f-qrD"/>
                         <outlet property="privacyLbl" destination="oY5-sw-lXw" id="5GY-xi-kym"/>
                         <outlet property="rootView" destination="lbB-pR-cYQ" id="tSY-Rg-v2J"/>
@@ -688,10 +708,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhq-Vo-FVf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="376"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="371"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zy-ry-E8d">
-                                                <rect key="frame" x="20" y="80" width="166" height="31"/>
+                                                <rect key="frame" x="20" y="80" width="160.5" height="26"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -700,7 +720,7 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESc-3G-0xI" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="211" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="206" width="335" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jRv-OT-ZC5">
                                                         <rect key="frame" x="5" y="0.0" width="322" height="45"/>
@@ -741,7 +761,7 @@
                                                 </connections>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqh-nQ-rv4" userLabel="error_label">
-                                                <rect key="frame" x="20" y="258" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="253" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -750,7 +770,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxX-rK-lx5">
-                                                <rect key="frame" x="20" y="268" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="263" width="335" height="45"/>
                                                 <color key="backgroundColor" red="0.92549019607843142" green="0.32156862745098036" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="kC6-1f-dRp">
@@ -769,7 +789,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuF-uL-EEV">
-                                                <rect key="frame" x="20" y="316" width="335" height="0.0"/>
+                                                <rect key="frame" x="20" y="311" width="335" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -778,15 +798,15 @@
                                                 </variation>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AK0-ny-Xk5">
-                                                <rect key="frame" x="47.5" y="326" width="280" height="30"/>
+                                                <rect key="frame" x="47.5" y="321" width="280" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAx-7z-aev">
                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Don't have an account ! ">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="system" size="16"/>
-                                                                    <font key="NSOriginalFont" metaFont="system" size="16"/>
+                                                                    <font key="NSFont" metaFont="label" size="16"/>
+                                                                    <font key="NSOriginalFont" metaFont="label" size="16"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
@@ -794,8 +814,8 @@
                                                                 <attributes>
                                                                     <color key="NSBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <color key="NSColor" red="1" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <font key="NSFont" metaFont="system" size="16"/>
-                                                                    <font key="NSOriginalFont" metaFont="system" size="16"/>
+                                                                    <font key="NSFont" metaFont="label" size="16"/>
+                                                                    <font key="NSOriginalFont" metaFont="label" size="16"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>

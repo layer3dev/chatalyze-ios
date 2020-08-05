@@ -38,6 +38,12 @@ class SigninRootView: ExtendedView {
             self.fbLogin()
         //})
     }
+  
+  
+  @IBAction fileprivate func appleLoginAction(){
+    
+    Log.echo(key: "dhi", text: "AppleLogin tapped")
+  }
     
     func paintCurveSignInView(){
         
@@ -237,7 +243,7 @@ extension SigninRootView{
         }
     }
     
-    private func registerWithSegmentAnalytics(info : SignedUserInfo?){
+     func registerWithSegmentAnalytics(info : SignedUserInfo?){
         guard let info = info
             else{
                 return
