@@ -18,8 +18,8 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var signInLabel:UILabel?
     var signInAction:(()->())?
     @IBOutlet var headerLabel:UILabel?
-  @IBOutlet weak var appleSigninView: UIView!
-  @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var appleSigninView: UIView?
+  @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint?
   
     @IBAction func signinAction(sender:UIButton){
         self.signInAction?()
@@ -114,7 +114,7 @@ class SignUpController: InterfaceExtendedController {
         tapActionPrivacyLbl()
         maketextLinkable()
         SEGAnalytics.shared().track("SignUp Page")
-      self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height)! / 2
+      self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height) ?? 45 / 2
     }
     
     func initialization(){
@@ -122,7 +122,7 @@ class SignUpController: InterfaceExtendedController {
         rootView?.controller = self
       self.appleSigninView?.clipsToBounds = true
       if UIDevice.current.userInterfaceIdiom == .phone{
-               self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height)! / 2
+               self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height) ?? 40 / 2
            }else{
              self.appleSigninView?.layer.cornerRadius = 65/2
            }
@@ -215,7 +215,7 @@ extension SignUpController: ASAuthorizationControllerDelegate{
     
     switch authorization.credential {
     case  let credential as ASAuthorizationAppleIDCredential:
-      let authorizationCode = String(data: credential.authorizationCode!, encoding: .utf8)
+      let authorizationCode = String(data: credential.authorizationCode ?? Data(), encoding: .utf8)
     
       
       SigninController().showLoader()
@@ -223,7 +223,7 @@ extension SignUpController: ASAuthorizationControllerDelegate{
       AppleLogin().signup(clientId: Bundle.main.bundleIdentifier, authCode: authorizationCode, name: fullName) { (success, message, info) in
         SigninController().stopLoader()
       if(success){
-        print(info!)
+        
        SigninRootView().registerWithSegmentAnalytics(info : info)
         
         RootControllerManager().updateRoot()
