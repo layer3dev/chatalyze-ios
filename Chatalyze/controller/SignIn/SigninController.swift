@@ -17,9 +17,9 @@ class SigninController: InterfaceExtendedController {
     var didLoad:(()->())?
     
   @IBOutlet weak var appleSiginView: UIView?
-  @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint!
+  @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint?
   
-  @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint!
+  @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint?
   
   
   @IBOutlet var unavailableSignUpAlertLabel:UILabel?
