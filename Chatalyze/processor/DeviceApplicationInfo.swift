@@ -13,8 +13,8 @@ import DeviceKit
 class DeviceApplicationInfo {
     
     func rawInfo()->[String : Any]{
-        
-      let device = Device.current
+      
+        let device = Device()
         let iOSVersion = UIDevice.current.systemVersion
         var info = [String : Any]()
         

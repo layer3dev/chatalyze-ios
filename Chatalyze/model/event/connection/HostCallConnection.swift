@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import TwilioVideo
 
 class HostCallConnection: CallConnection {
     
+    //New info above
+    
     //This variable will store timestamp when signalling gets triggered from host and will be used as a timeout to restart signalling process after 10 seconds.
-    //no need to use synced time here
+    
+    //no need to use synced time here.
+                
     var signallingStartTimestamp : Date?
     var isInitiated = false
-    
     
     private var disposeListener : (()->())?
     
@@ -29,17 +33,10 @@ class HostCallConnection: CallConnection {
     }
     
     func interval(){
-        
-        if(isReleased){
-            return
-        }
-        
-        resetIfBroken()
-        processTimeout()
     }
     
-    
     private func processTimeout(){
+        
         if(!isSignallingCompleted){
             return
         }
@@ -58,10 +55,11 @@ class HostCallConnection: CallConnection {
         
         Log.echo(key: "_connection_", text: "disconnect timedout")
         self.lastDisconnect = nil
-        processCallFailure()
+        // processCallFailure()
     }
     
     private func resetIfBroken(){
+        
         let isSignallingBroken = isBroken()
         if(!isSignallingBroken){
             return
@@ -72,10 +70,10 @@ class HostCallConnection: CallConnection {
         signallingStartTimestamp = nil
         
         //not able to recover from unstable state in this case
-//      initateHandshake()
+        //      initateHandshake()
         
         //need to reset everything and restart
-        processCallFailure()
+        // processCallFailure()
     }
     
     var isSignallingCompleted : Bool{
@@ -88,7 +86,8 @@ class HostCallConnection: CallConnection {
                 return false
         }
         
-        return connection.isSignallingCompleted()
+        return true
+        //  return connection.isSignallingCompleted()
         
     }
     
@@ -102,7 +101,7 @@ class HostCallConnection: CallConnection {
         }
         
         if(isSignallingCompleted){
-           return false
+            return false
         }
         
         Log.echo(key: "_connection_", text: "signalling countdown \(timestamp.timeIntervalSinceNow)")
@@ -114,10 +113,8 @@ class HostCallConnection: CallConnection {
         
         Log.echo(key: "_connection_", text: "signalling timedout")
         return true
-
-        
     }
-
+    
     
     override var targetHashId : String?{
         get{
@@ -141,42 +138,14 @@ class HostCallConnection: CallConnection {
         }
     }
     
-    override func getWriteConnection() ->ARDAppClient?{
-        guard let slotInfo = slotInfo
-            else{
-                return nil
-        }
-        
-        guard let targetId = slotInfo.user?.hashedId
-            else{
-                return nil
-        }
-        
-        guard let userId = SignedUserInfo.sharedInstance?.hashedId
-            else{
-                return nil
-        }
-        
-        guard let roomId = self.roomId
-            else{
-                return nil
-        }
-        
-        connection = ARDAppClient(userId: userId, andReceiverId: targetId, andEventId : eventId, andDelegate:self, andLocalStream:self.localMediaPackage)
-        
-        return connection
-        
-    }
-    
-    
     override func registerForListeners(){
         super.registerForListeners()
         
         socketListener?.onEvent("startReceivingVideo", completion: { [weak self] (json) in
+            
             if(self?.socketClient == nil){
                 return
             }
-            
             
             guard let json = json
                 else{
@@ -186,8 +155,8 @@ class HostCallConnection: CallConnection {
             let sender = json["sender"].stringValue
             
             guard let targetHashId = self?.targetHashId
-            else{
-                return
+                else{
+                    return
             }
             
             if(sender != targetHashId){
@@ -198,18 +167,16 @@ class HostCallConnection: CallConnection {
             }
             
             self?.completeHandshake(targetHashedId: sender)
-            
         })
     }
     
     
     func completeHandshake(targetHashedId : String){
-        
+
         guard let selfId = SignedUserInfo.sharedInstance?.hashedId
             else{
                 return
         }
-        
         
         var params = [String : Any]()
         params["sender"] = targetHashedId
@@ -222,15 +189,34 @@ class HostCallConnection: CallConnection {
         signallingStartTimestamp = Date()
     }
     
-    func initateHandshake(){
-        markSignallingAsStarted()
-        guard let slotInfo = self.slotInfo
-            else{
-                return
-        }
-        isInitiated = true
-        sendHandshakeMessage(slotInfo: slotInfo)
-    }
+//    func initateHandshake(){
+//
+//        //{ userId: chat.userId, chatId: chat.id, hangUp: $scope.hangedUp });
+//
+////        print("Handshake is calling")
+////
+////        guard let userId = self.slotInfo?.userId else{
+////            return
+////        }
+////
+////        guard let chatId = self.slotInfo?.id else{
+////            return
+////        }
+////
+////        let parameter:[String:Any] = ["userId":"\(userId)","chatId":"\(chatId)","hangUp":"false"]
+////
+////        print("preconnect called with param \(parameter)")
+////
+////        UserSocket.sharedInstance?.socket?.emit("callroom:preconnect",parameter)
+////
+////        //markSignallingAsStarted()
+////        guard let slotInfo = self.slotInfo
+////            else{
+////                return
+////        }
+////        isInitiated = true
+//        //sendHandshakeMessage(slotInfo: slotInfo)
+//    }
     
     
     private func sendHandshakeMessage(slotInfo : SlotInfo){
@@ -250,9 +236,5 @@ class HostCallConnection: CallConnection {
         params["receiver"] = selfId
         
         socketClient?.emit(id: "receiveVideoRequest", data: params)
-    }
-    
-    override func disconnect(){
-        super.disconnect()
     }
 }

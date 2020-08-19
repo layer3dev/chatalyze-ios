@@ -968,9 +968,25 @@
 		47FFCB1A223FA3F600B23049 /* GetPlanRequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FFCB18223FA3F600B23049 /* GetPlanRequestProcessor.swift */; };
 		47FFCB1D223FAE4B00B23049 /* PlanInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FFCB1C223FAE4B00B23049 /* PlanInfo.swift */; };
 		47FFCB1E223FAE4B00B23049 /* PlanInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FFCB1C223FAE4B00B23049 /* PlanInfo.swift */; };
+		6B0B86C824E9C4B600EF7E3C /* HostRoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86C724E9C4B600EF7E3C /* HostRoomInfo.swift */; };
+		6B0B86C924E9C4B600EF7E3C /* HostRoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86C724E9C4B600EF7E3C /* HostRoomInfo.swift */; };
+		6B0B86CB24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86CA24E9C4CA00EF7E3C /* OnlineSessionInfo.swift */; };
+		6B0B86CC24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86CA24E9C4CA00EF7E3C /* OnlineSessionInfo.swift */; };
+		6B0B86CE24E9CC4F00EF7E3C /* VideoViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86CD24E9CC4F00EF7E3C /* VideoViewNew.swift */; };
+		6B0B86CF24E9CC4F00EF7E3C /* VideoViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86CD24E9CC4F00EF7E3C /* VideoViewNew.swift */; };
+		6B0B86D224E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86D124E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift */; };
+		6B0B86D324E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B86D124E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift */; };
 		6B99FD3A213786DC000A0421 /* SessionDoneControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */; };
 		6B9B12E32137FAF900B5D4DE /* EditScheduledSessionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */; };
 		6B9B12E52137FB3700B5D4DE /* EditScheduledSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */; };
+		6BDA658724EADAE600C2E3EE /* PreconnectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658624EADAE600C2E3EE /* PreconnectInfo.swift */; };
+		6BDA658824EADAE600C2E3EE /* PreconnectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658624EADAE600C2E3EE /* PreconnectInfo.swift */; };
+		6BDA658A24EADAED00C2E3EE /* TwillioRoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658924EADAED00C2E3EE /* TwillioRoomInfo.swift */; };
+		6BDA658B24EADAED00C2E3EE /* TwillioRoomInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658924EADAED00C2E3EE /* TwillioRoomInfo.swift */; };
+		6BDA658D24EADAF500C2E3EE /* TwillioTokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658C24EADAF500C2E3EE /* TwillioTokenInfo.swift */; };
+		6BDA658E24EADAF600C2E3EE /* TwillioTokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658C24EADAF500C2E3EE /* TwillioTokenInfo.swift */; };
+		6BDA659024EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658F24EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift */; };
+		6BDA659124EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDA658F24EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift */; };
 		781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
 		781800B32302CE20004339D3 /* AutographyHostCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B12302CE20004339D3 /* AutographyHostCanvas.swift */; };
 		781800B62302DCC6004339D3 /* AutographyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781800B52302DCC6004339D3 /* AutographyImageView.swift */; };
@@ -1775,9 +1791,17 @@
 		47FFCB1C223FAE4B00B23049 /* PlanInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanInfo.swift; sourceTree = "<group>"; };
 		4B33F35EC5472B963084153E /* Pods_Chatalyze.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6524C6AEDD863F235C48FA25 /* Pods_Chatalyze_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatalyze_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B0B86C724E9C4B600EF7E3C /* HostRoomInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostRoomInfo.swift; sourceTree = "<group>"; };
+		6B0B86CA24E9C4CA00EF7E3C /* OnlineSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineSessionInfo.swift; sourceTree = "<group>"; };
+		6B0B86CD24E9CC4F00EF7E3C /* VideoViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewNew.swift; sourceTree = "<group>"; };
+		6B0B86D124E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserTwillioTokenProcessor.swift; sourceTree = "<group>"; };
 		6B99FD39213786DC000A0421 /* SessionDoneControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDoneControllerProtocol.swift; sourceTree = "<group>"; };
 		6B9B12E22137FAF900B5D4DE /* EditScheduledSessionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionRootView.swift; sourceTree = "<group>"; };
 		6B9B12E42137FB3700B5D4DE /* EditScheduledSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledSessionController.swift; sourceTree = "<group>"; };
+		6BDA658624EADAE600C2E3EE /* PreconnectInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreconnectInfo.swift; sourceTree = "<group>"; };
+		6BDA658924EADAED00C2E3EE /* TwillioRoomInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwillioRoomInfo.swift; sourceTree = "<group>"; };
+		6BDA658C24EADAF500C2E3EE /* TwillioTokenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwillioTokenInfo.swift; sourceTree = "<group>"; };
+		6BDA658F24EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchHostTwillioTokenProcessor.swift; sourceTree = "<group>"; };
 		781800B12302CE20004339D3 /* AutographyHostCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyHostCanvas.swift; sourceTree = "<group>"; };
 		781800B52302DCC6004339D3 /* AutographyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageView.swift; sourceTree = "<group>"; };
 		781800B82302DD32004339D3 /* AutographyImageViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutographyImageViewProtocol.swift; sourceTree = "<group>"; };
@@ -4153,6 +4177,25 @@
 			path = PlanInfo;
 			sourceTree = "<group>";
 		};
+		6B0B86D024E9CEF600EF7E3C /* FetchTwillioToken */ = {
+			isa = PBXGroup;
+			children = (
+				6B0B86D124E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift */,
+				6BDA658F24EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift */,
+			);
+			path = FetchTwillioToken;
+			sourceTree = "<group>";
+		};
+		6BDA658524EADAB400C2E3EE /* TwillioTokenInfo */ = {
+			isa = PBXGroup;
+			children = (
+				6BDA658C24EADAF500C2E3EE /* TwillioTokenInfo.swift */,
+				6BDA658924EADAED00C2E3EE /* TwillioRoomInfo.swift */,
+				6BDA658624EADAE600C2E3EE /* PreconnectInfo.swift */,
+			);
+			path = TwillioTokenInfo;
+			sourceTree = "<group>";
+		};
 		781800B02302CDDB004339D3 /* autographyHostCanvas */ = {
 			isa = PBXGroup;
 			children = (
@@ -4492,6 +4535,7 @@
 				47A94006227C2A3B00FB08D5 /* RoundedButtonView.swift */,
 				789C3FF4230BE90C0084731D /* RemoteHostContainerView.swift */,
 				789C3FF6230C04C90084731D /* LocalHostVideoView.swift */,
+				6B0B86CD24E9CC4F00EF7E3C /* VideoViewNew.swift */,
 				787CBB4B230D555300314058 /* AutographSignatureReponseBottomView.swift */,
 				782529A2230E5EDC000149B3 /* SelectedMultipleColorClassView.swift */,
 				782529A5230E5F5F000149B3 /* multipleColorSelcedCllases */,
@@ -4648,6 +4692,7 @@
 				47FFCB1B223FAE3600B23049 /* PlanInfo */,
 				47A47DF822A69385008C942D /* BillingInfo */,
 				78DF78EB2307CDEF007B2663 /* AutographInfo */,
+				6BDA658524EADAB400C2E3EE /* TwillioTokenInfo */,
 				78A471F92338AA3C0002A573 /* signatureCoordinatesInfo */,
 			);
 			path = model;
@@ -4739,6 +4784,8 @@
 		FA573C0E207CBE77006447A1 /* call */ = {
 			isa = PBXGroup;
 			children = (
+				6B0B86CA24E9C4CA00EF7E3C /* OnlineSessionInfo.swift */,
+				6B0B86C724E9C4B600EF7E3C /* HostRoomInfo.swift */,
 				FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */,
 			);
 			path = call;
@@ -5092,6 +5139,7 @@
 				47D7539922719B440069F629 /* FetchOldTickets */,
 				474AA3DC2281A452005ACBB4 /* FetchReferralUrl  */,
 				787003C122F9A96600023297 /* VerifyForSignatureImplementation */,
+				6B0B86D024E9CEF600EF7E3C /* FetchTwillioToken */,
 				47A47DF422A6919C008C942D /* FetchBillingDetails */,
 			);
 			path = network;
@@ -6255,6 +6303,7 @@
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${PODS_ROOT}/TwilioVideo/Build/iOS/TwilioVideo.framework",
 				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
 			);
@@ -6282,6 +6331,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
 			);
@@ -6355,6 +6405,7 @@
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${PODS_ROOT}/TwilioVideo/Build/iOS/TwilioVideo.framework",
 				"${BUILT_PRODUCTS_DIR}/YLProgressBar/YLProgressBar.framework",
 				"${BUILT_PRODUCTS_DIR}/YoutubePlayer-in-WKWebView/YoutubePlayer_in_WKWebView.framework",
 			);
@@ -6382,6 +6433,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLProgressBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YoutubePlayer_in_WKWebView.framework",
 			);
@@ -6434,6 +6486,7 @@
 				479F168C2202FA68007B08FC /* ScheduleSessionEarningRootView.swift in Sources */,
 				47D0B02421A6C4B5006376A8 /* ExtendedCollectionCell.swift in Sources */,
 				47D0B02521A6C4B5006376A8 /* InternetReachabilityCheck.swift in Sources */,
+				6B0B86CC24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */,
 				47D0B02621A6C4B5006376A8 /* TabElementView.swift in Sources */,
 				47D0B02721A6C4B5006376A8 /* UpdateForEditScheduleSessionDelgete.swift in Sources */,
 				47668BF02253485A002BA2E4 /* FetchPastEventsProcessor.swift in Sources */,
@@ -6508,6 +6561,7 @@
 				47D0B05C21A6C4B5006376A8 /* GreetingDateTimeController.swift in Sources */,
 				47D0B05D21A6C4B5006376A8 /* ExtendedController.swift in Sources */,
 				47D0B05E21A6C4B5006376A8 /* VideoView.swift in Sources */,
+				6BDA658B24EADAED00C2E3EE /* TwillioRoomInfo.swift in Sources */,
 				47A64225229675D700E74C85 /* MemoryImageShadow.swift in Sources */,
 				47D0B05F21A6C4B5006376A8 /* GreetingDateTimeRootView.swift in Sources */,
 				FA91055821D652E500060AFF /* OnboardFifthController.swift in Sources */,
@@ -6532,6 +6586,7 @@
 				47D0B06D21A6C4B5006376A8 /* SessionDoneRootView.swift in Sources */,
 				47D0B06E21A6C4B5006376A8 /* NotificationInfo.swift in Sources */,
 				47032F892205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */,
+				6BDA658824EADAE600C2E3EE /* PreconnectInfo.swift in Sources */,
 				47D0B06F21A6C4B5006376A8 /* NoEventLabel.swift in Sources */,
 				9933599F24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */,
 				4712106C221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */,
@@ -6579,6 +6634,7 @@
 				47D0B08921A6C4B5006376A8 /* FieldValidator.swift in Sources */,
 				47121064221E8953009F3A09 /* FetchHostCategory.swift in Sources */,
 				FA12867B2217F1B0000A6560 /* DonateProductFetch.swift in Sources */,
+				6B0B86C924E9C4B600EF7E3C /* HostRoomInfo.swift in Sources */,
 				47D0B08A21A6C4B5006376A8 /* EmailResetPasswordRequest.swift in Sources */,
 				4781442B22044E4F005398F8 /* ScheduleSessionNewDoneController.swift in Sources */,
 				47D0B08B21A6C4B5006376A8 /* SubmitPaypalEmailProcessor.swift in Sources */,
@@ -6633,6 +6689,7 @@
 				47D0B0B121A6C4B5006376A8 /* PaymentRootView.swift in Sources */,
 				47D0B0B321A6C4B5006376A8 /* SocketClient.swift in Sources */,
 				47D0B0B421A6C4B5006376A8 /* ScheduleSessionPageViewController.swift in Sources */,
+				6B0B86D324E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift in Sources */,
 				47D0B0B521A6C4B5006376A8 /* ScheduleSessionController.swift in Sources */,
 				47D0B0B621A6C4B5006376A8 /* CallInfoContainerView.swift in Sources */,
 				47D0B0B721A6C4B5006376A8 /* GreetingCell.swift in Sources */,
@@ -6708,7 +6765,9 @@
 				47D0B0E321A6C4B5006376A8 /* EventLandingController.swift in Sources */,
 				FA91056021D652E500060AFF /* OnBoardPageViewController.swift in Sources */,
 				47D0B0E421A6C4B5006376A8 /* GreetingRootView.swift in Sources */,
+				6B0B86CF24E9CC4F00EF7E3C /* VideoViewNew.swift in Sources */,
 				47D0B0E521A6C4B5006376A8 /* UINib.swift in Sources */,
+				6BDA659124EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift in Sources */,
 				47D7CC1821BE8A5600CAFCF1 /* HandlingAppVersion.swift in Sources */,
 				477C35202257729C00732495 /* ThreeSidedRoundedView.swift in Sources */,
 				FA7656EA21F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */,
@@ -6917,6 +6976,7 @@
 				474AA3DF2281A62B005ACBB4 /* FetchReferralUrl.swift in Sources */,
 				47D0B15D21A6C4B5006376A8 /* CallEventInfo.swift in Sources */,
 				47D0B15E21A6C4B5006376A8 /* TimerSync.swift in Sources */,
+				6BDA658E24EADAF600C2E3EE /* TwillioTokenInfo.swift in Sources */,
 				47D0B15F21A6C4B5006376A8 /* Date.swift in Sources */,
 				4781443422044EC0005398F8 /* ScheduleSessionNewDoneRootView.swift in Sources */,
 				47D0B16021A6C4B5006376A8 /* DeactivateAccountProcessor.swift in Sources */,
@@ -7030,6 +7090,7 @@
 				FAD695C2218863F800CFCC52 /* CallQueueInterface.swift in Sources */,
 				FAFB7C76206E02D7004804D2 /* ExtendedCollectionCell.swift in Sources */,
 				47EF658E20C947F9000D9BC3 /* InternetReachabilityCheck.swift in Sources */,
+				6B0B86CB24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */,
 				47B6523E20AAAFA40041496C /* TabElementView.swift in Sources */,
 				47F9514621395E750024F3A2 /* UpdateForEditScheduleSessionDelgete.swift in Sources */,
 				47668BEF2253485A002BA2E4 /* FetchPastEventsProcessor.swift in Sources */,
@@ -7104,6 +7165,7 @@
 				47B6525120AAB0170041496C /* GreetingDateTimeController.swift in Sources */,
 				FAA001AB203ED472003C8A74 /* ExtendedController.swift in Sources */,
 				FA1B36412064E22F00F2E6BC /* VideoView.swift in Sources */,
+				6BDA658A24EADAED00C2E3EE /* TwillioRoomInfo.swift in Sources */,
 				47A64224229675D700E74C85 /* MemoryImageShadow.swift in Sources */,
 				47B6522A20AAAF710041496C /* GreetingDateTimeRootView.swift in Sources */,
 				FAD20188207622DF0004E10E /* BroadcastInfo.swift in Sources */,
@@ -7128,6 +7190,7 @@
 				FAB71CE92077A57F00C24246 /* NotificationInfo.swift in Sources */,
 				FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */,
 				47032F882205A28400119D42 /* EditScheduleSessionNewRootView.swift in Sources */,
+				6BDA658724EADAE600C2E3EE /* PreconnectInfo.swift in Sources */,
 				4712106B221E9CAA009F3A09 /* HostCategoryCell.swift in Sources */,
 				9933599E24D05D7F00F045B1 /* GetApppleSignInButton.swift in Sources */,
 				FA24BAD1206FA9490064F94F /* UserEventQueueController.swift in Sources */,
@@ -7175,6 +7238,7 @@
 				FAA001A6203ED472003C8A74 /* FieldValidator.swift in Sources */,
 				FA9858E220637AED00989CBB /* EmailResetPasswordRequest.swift in Sources */,
 				FA12867A2217F1B0000A6560 /* DonateProductFetch.swift in Sources */,
+				6B0B86C824E9C4B600EF7E3C /* HostRoomInfo.swift in Sources */,
 				475B1121210B46E400DADD39 /* SubmitPaypalEmailProcessor.swift in Sources */,
 				4781442A22044E4F005398F8 /* ScheduleSessionNewDoneController.swift in Sources */,
 				4732C039217F466200320B45 /* AnalystJoinedAndScheduleUpdated.swift in Sources */,
@@ -7229,6 +7293,7 @@
 				FAA001CF203EE2BC003C8A74 /* AppInfoConfig.swift in Sources */,
 				FA74B14E2063A05B00983141 /* SocketClient.swift in Sources */,
 				4702A3F72136762E0046EA21 /* ScheduleSessionPageViewController.swift in Sources */,
+				6B0B86D224E9CF0300EF7E3C /* FetchUserTwillioTokenProcessor.swift in Sources */,
 				4702A3F52136715A0046EA21 /* ScheduleSessionController.swift in Sources */,
 				FA0A4F9D2078B44000FF9517 /* CallInfoContainerView.swift in Sources */,
 				47B6527920AAB5030041496C /* GreetingCell.swift in Sources */,
@@ -7304,7 +7369,9 @@
 				47B6522E20AAAF710041496C /* GreetingRootView.swift in Sources */,
 				FA91055F21D652E500060AFF /* OnBoardPageViewController.swift in Sources */,
 				FAA001A3203ED472003C8A74 /* UINib.swift in Sources */,
+				6B0B86CE24E9CC4F00EF7E3C /* VideoViewNew.swift in Sources */,
 				47D7CC1721BE8A5600CAFCF1 /* HandlingAppVersion.swift in Sources */,
+				6BDA659024EAECF600C2E3EE /* FetchHostTwillioTokenProcessor.swift in Sources */,
 				477C351F2257729C00732495 /* ThreeSidedRoundedView.swift in Sources */,
 				FA7656E921F5DFC600C9B403 /* ApplicationStateListener.swift in Sources */,
 				FAB71CF02077C0DE00C24246 /* EventCountDownLabel.swift in Sources */,
@@ -7513,6 +7580,7 @@
 				47BAED9B220029FE0042588A /* EmptySlotInfo.swift in Sources */,
 				FAA0019E203ED472003C8A74 /* Date.swift in Sources */,
 				47AD143120AD57D9006AF9D6 /* DeactivateAccountProcessor.swift in Sources */,
+				6BDA658D24EADAF500C2E3EE /* TwillioTokenInfo.swift in Sources */,
 				FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */,
 				4781443322044EC0005398F8 /* ScheduleSessionNewDoneRootView.swift in Sources */,
 				47A8B83A22688A3000996ACA /* AchievementsCollectionCell.swift in Sources */,
@@ -7673,7 +7741,7 @@
 				SWIFT_VERSION = 5.0;
 				"SWIFT_WHOLE_MODULE_OPTIMIZATION[arch=*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s armv7";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Debug;
 		};
@@ -7712,7 +7780,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s armv7";
+				VALID_ARCHS = "arm64 armv7s";
 			};
 			name = Release;
 		};
@@ -7767,7 +7835,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -7823,7 +7891,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;

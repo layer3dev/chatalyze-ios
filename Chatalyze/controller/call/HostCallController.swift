@@ -12,8 +12,12 @@ import SDWebImage
 import Alamofire
 import Toast_Swift
 import CRToast
+import TwilioVideo
 
 class HostCallController: VideoCallController {
+    
+    var currentTwillioRoom:HostCallConnection?
+    var preconnectTwillioRoom:HostCallConnection?
     
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
@@ -138,6 +142,10 @@ class HostCallController: VideoCallController {
     func chatalyzeIconVisibility(){
     }
     
+    override var localCameraPreviewView:VideoView?{
+        return self.rootView?.localVideoView?.streamingVideoView
+    }
+    
     var isCallHangedUp:Bool{
         
         if let hangUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp{
@@ -234,13 +242,7 @@ class HostCallController: VideoCallController {
         param["name"] = hashedUserId
         socketClient?.emit(param)
     }
-    
-    //public - Need to be access by child
-    override var peerConnection : ARDAppClient?{
-        get{
-            return getActiveConnection()?.connection
-        }
-    }
+
     
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
@@ -334,17 +336,17 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-        self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
-            guard let image = image
-            else{
-                return
-            }
-            
-            Log.echo(key: "HostCallController", text: "call renderCanvas")
-          
-            
-            self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
-        })
+//        self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+//            guard let image = image
+//            else{
+//                return
+//            }
+//
+//            Log.echo(key: "HostCallController", text: "call renderCanvas")
+//
+//
+//            self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
+//        })
         
     }
     
@@ -369,11 +371,10 @@ class HostCallController: VideoCallController {
         verifyForEarlyFeature()
         triggerIntervalToChildConnections()
         processEvent()
-        confirmCallLinked()
         updateCallHeaderInfo()
         refresh()        
         updateLableAnimation()
-        
+        self.currentTwillioRoom?.switchStream(info:self.eventInfo)
         resetAutographCanvasIfNewCallAndSlotExists()
     }
     
@@ -515,20 +516,6 @@ class HostCallController: VideoCallController {
         return connection
     }
     
-    private func confirmCallLinked(){
-        
-        guard let slot = eventInfo?.mergeSlotInfo?.currentSlot
-            else{
-                return
-        }
-        guard let connection = getConnection(slotInfo: slot)
-            else{
-                return
-        }
-        if(slot.isLIVE){
-            connection.linkCall()
-        }
-    }
     
     private func updateCallHeaderInfo(){
         
@@ -862,27 +849,159 @@ class HostCallController: VideoCallController {
         
         Log.echo(key : "delay", text : "processEvent")
         
-        if(!(socketClient?.isConnected ?? false)){
-            Log.echo(key : "delay", text : "processEvent socket NOT connected")
+        if !(UserSocket.sharedInstance?.isRegisteredToServer ?? false){
             return
         }
         
         guard let eventInfo = self.eventInfo
             else{
-                Log.echo(key: "processEvent", text: "processEvent -> eventInfo is nil")
+                Log.echo(key: "ping", text: "evenInfo is nil")
                 return
         }
         
         if(eventInfo.started == nil){
-            Log.echo(key: "processEvent", text: "event not activated yet")
+            Log.echo(key: "ping", text: "event is not started yet")
             return
         }
         
-        disconnectStaleConnection()
-        preconnectUser()
-        connectLiveUser()
-        verifyIfExpired()
+        //disconnectStaleConnection()
+        callRoomSwitchingHandler()
+        preconnectTwillioRoomHandler()
     }
+    
+    func resetAllRooms(){
+          
+          if let ctr = currentTwillioRoom{
+              ctr.disconnect()
+              self.currentTwillioRoom = nil
+          }
+          
+          if let pcr = preconnectTwillioRoom{
+              pcr.disconnect()
+              self.preconnectTwillioRoom = nil
+          }
+      }
+    
+       func callRoomSwitchingHandler(){
+            
+            //case: Event does not exists
+            guard let _ = self.eventInfo
+                else{
+                    resetAllRooms()
+                    return
+            }
+            
+            //case: No event exists
+            guard let currentSlotId = self.eventInfo?.mergeSlotInfo?.currentSlot?.id else{
+                resetCurrentRoom()
+                return
+            }
+            
+            //case : when pre connect exists
+            if let preconnectRoom = self.preconnectTwillioRoom{
+                
+                //case: when preconnect becomes current room.
+                if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
+                    
+                    if preconnectRoom.isFetchingTokenToServer{
+                    }
+                    else if !preconnectRoom.isFetchingTokenToServer && preconnectRoom.accessToken == ""{
+                        fetchTwillioDeviceToken(twillioRoom: self.preconnectTwillioRoom ?? HostCallConnection())
+                    }
+                    else {
+                        
+                        resetCurrentRoom()
+                        self.currentTwillioRoom = preconnectTwillioRoom
+                        //switch to new call through media
+                        self.preconnectTwillioRoom = nil
+                    }
+                   return
+                }
+                
+                else{
+                    // No action required.
+                    // case: yet to become the current room to preconnected
+                }
+                return
+            }
+            
+            //case: Current room exits and verify its correct existence.
+            if let currentRoom = self.currentTwillioRoom{
+                //case when correct room is connected and call is working fine.
+                
+                if currentRoom.slotInfo?.id == self.eventInfo?.mergeSlotInfo?.currentSlot?.id{
+                    return
+                }
+                resetCurrentRoom()
+        }
+        createNewTwillioRoom()
+    }
+    
+    func resetCurrentRoom(){
+        
+        if let ctr = currentTwillioRoom{
+            ctr.disconnect()
+            self.currentTwillioRoom = nil
+        }
+    }
+        
+        func createNewTwillioRoom(){
+            
+            guard let _ = self.eventInfo
+                else{
+                    return
+            }
+            
+            guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot else{
+                return
+            }
+            
+           
+            if self.currentTwillioRoom == nil{
+                
+                self.currentTwillioRoom = HostCallConnection()
+                self.currentTwillioRoom?.slotInfo = currentSlot
+                self.currentTwillioRoom?.eventInfo = self.eventInfo
+                self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
+                self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+                fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
+                //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
+                return
+            }
+        }
+        
+        func preconnectTwillioRoomHandler(){
+            
+            guard let eventInfo = self.eventInfo
+                else{
+                    Log.echo(key: "NewArch", text: "Missing event ID")
+                    return
+            }
+            
+            
+            guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+                else{
+                    Log.echo(key: "NewArch", text: "preConnectUser -> preconnectSlot is nil")
+                    return
+            }
+            
+            if preconnectTwillioRoom == nil{
+                //create a object with all info and sent to fetch the token for the call.
+                Log.echo(key: "NewArch", text: "creating the preconnect room")
+
+                if preConnectSlot.id != nil{
+                    
+                    self.preconnectTwillioRoom = HostCallConnection()
+                    self.preconnectTwillioRoom?.slotInfo = preConnectSlot
+                    self.preconnectTwillioRoom?.eventInfo = self.eventInfo
+                    self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
+                    self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+                    fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
+                }
+            
+                return
+            }
+        }
     
     private func verifyIfExpired(){
         
@@ -935,90 +1054,90 @@ class HostCallController: VideoCallController {
         }
     }
     
-    private func preconnectUser(){
-        
-        guard let eventInfo = self.eventInfo
-            else{
-                Log.echo(key: "processEvent", text: "preConnectUser -> eventInfo is nil")
-                return
-        }
-        
-        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
-            else{
-                
-                //Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
-                return
-        }
-        
-        connectUser(slotInfo: preConnectSlot)
-    }
+//    private func preconnectUser(){
+//
+//        guard let eventInfo = self.eventInfo
+//            else{
+//                Log.echo(key: "processEvent", text: "preConnectUser -> eventInfo is nil")
+//                return
+//        }
+//
+//        guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
+//            else{
+//
+//                //Log.echo(key: "processEvent", text: "preConnectUser -> preconnectSlot is nil")
+//                return
+//        }
+//
+//        connectUser(slotInfo: preConnectSlot)
+//    }
     
     
-    private func connectLiveUser(){
-        
-        guard let eventInfo = self.eventInfo
-            else{
-                Log.echo(key: "handshake", text: "connectLiveUser -> eventInfo is nil")
-                return
-        }
-        
-        guard let slot = eventInfo.mergeSlotInfo?.currentSlot
-            else{
-                Log.echo(key: "handshake", text: "connectLiveUser -> slot is nil")
-                return
-        }
-        
-        connectUser(slotInfo: slot)
-    }
+//    private func connectLiveUser(){
+//
+//        guard let eventInfo = self.eventInfo
+//            else{
+//                Log.echo(key: "handshake", text: "connectLiveUser -> eventInfo is nil")
+//                return
+//        }
+//
+//        guard let slot = eventInfo.mergeSlotInfo?.currentSlot
+//            else{
+//                Log.echo(key: "handshake", text: "connectLiveUser -> slot is nil")
+//                return
+//        }
+//
+//        connectUser(slotInfo: slot)
+//    }
     
-    private func connectUser(slotInfo : SlotInfo?){
-        
-        guard let eventInfo = self.eventInfo
-            else{
-                Log.echo(key: "handshake", text: "connectUser -> eventInfo is nil")
-                return
-        }
-        
-        guard let slot = slotInfo
-            else{
-                Log.echo(key: "handshake", text: "connectUser -> slot is nil")
-                return
-        }
-        
-        guard let targetHashedId = slot.user?.hashedId
-                   else{
-                       Log.echo(key: "handshake", text: "connectUser -> targetHashedId is nil")
-                       return
-               }
-        
-        if(!isOnline(hashId: targetHashedId)){
-            Log.echo(key: "handshake", text: "isOnline NO -> targetHashedId")
-            return
-        }
-        
-        guard let connection = getWriteConnection(slotInfo : slot)
-            else{
-                Log.echo(key: "handshake", text: "connectUser -> getConnection is nil")
-                return
-        }
-        
-       
-        
-        if(connection.isInitiated){
-            Log.echo(key: "handshake", text: "connectUser -> isInitiated")
-            return
-        }
-        
-        
-        if(slot.isHangedUp){
-            Log.echo(key: "handshake", text: "connectUser -> isHangedUp")
-            return
-        }
-        
-        Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
-        
-        connection.initateHandshake()
-    }
+//    private func connectUser(slotInfo : SlotInfo?){
+//
+//        guard let eventInfo = self.eventInfo
+//            else{
+//                Log.echo(key: "handshake", text: "connectUser -> eventInfo is nil")
+//                return
+//        }
+//
+//        guard let slot = slotInfo
+//            else{
+//                Log.echo(key: "handshake", text: "connectUser -> slot is nil")
+//                return
+//        }
+//
+//        guard let targetHashedId = slot.user?.hashedId
+//                   else{
+//                       Log.echo(key: "handshake", text: "connectUser -> targetHashedId is nil")
+//                       return
+//               }
+//
+//        if(!isOnline(hashId: targetHashedId)){
+//            Log.echo(key: "handshake", text: "isOnline NO -> targetHashedId")
+//            return
+//        }
+//
+//        guard let connection = getWriteConnection(slotInfo : slot)
+//            else{
+//                Log.echo(key: "handshake", text: "connectUser -> getConnection is nil")
+//                return
+//        }
+//
+//
+//
+//        if(connection.isInitiated){
+//            Log.echo(key: "handshake", text: "connectUser -> isInitiated")
+//            return
+//        }
+//
+//
+//        if(slot.isHangedUp){
+//            Log.echo(key: "handshake", text: "connectUser -> isHangedUp")
+//            return
+//        }
+//
+//        Log.echo(key: "handshake", text: "connectUser -> initateHandshake")
+//
+//        connection.initateHandshake()
+//    }
     
     private func getConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
         
@@ -1038,29 +1157,29 @@ class HostCallController: VideoCallController {
     }
     
     
-    private func getWriteConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
-        
-        guard let slotInfo = slotInfo
-            else{
-                return nil
-        }
-        
-        guard let targetHashedId = slotInfo.user?.hashedId
-            else{
-                return nil
-        }
-        
-        var connection = connectionInfo[targetHashedId]
-        if(connection == nil){
-            connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
-        }
-        connection?.setDisposeListener(disposeListener: { [weak self] in
-            self?.connectionInfo[targetHashedId] = nil
-        })
-        connectionInfo[targetHashedId] = connection
-        connection?.slotInfo = slotInfo
-        return connection
-    }
+//    private func getWriteConnection(slotInfo : SlotInfo?) ->HostCallConnection?{
+//
+//        guard let slotInfo = slotInfo
+//            else{
+//                return nil
+//        }
+//
+//        guard let targetHashedId = slotInfo.user?.hashedId
+//            else{
+//                return nil
+//        }
+//
+//        var connection = connectionInfo[targetHashedId]
+//        if(connection == nil){
+//            connection = HostCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
+//        }
+//        connection?.setDisposeListener(disposeListener: { [weak self] in
+//            self?.connectionInfo[targetHashedId] = nil
+//        })
+//        connectionInfo[targetHashedId] = connection
+//        connection?.slotInfo = slotInfo
+//        return connection
+//    }
     
     //{"id":"receiveVideoRequest","data":{"sender":"chedddiicdaibdia","receiver":"jgefjedaafbecahc"}}
     
@@ -1126,6 +1245,20 @@ class HostCallController: VideoCallController {
         
     }
     
+    override func processExitAction(code : exitCode){
+        super.processExitAction(code: code)
+        
+        //print("disconnection is calling in host")
+        //self.connection?.disconnect()
+        
+        resetAllRooms()
+        
+        //        if code != .prohibited{
+        //            UserSocket.sharedInstance?.socket?.emit("callroom:close")
+        //        }
+        //self.connection = nil
+    }
+    
     override func eventCancelled(){
         self.processExitAction(code: .userAction)
         //Event Cancelled
@@ -1145,13 +1278,6 @@ extension HostCallController{
         let storyboard = UIStoryboard(name: "call_view", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "host_video_call") as? HostCallController
         return controller
-    }
-}
-
-//not in use at the moment
-extension HostCallController : CallConnectionProtocol{
-    
-    func updateConnectionState(state : RTCIceConnectionState, slotInfo : SlotInfo?){
     }
 }
 
@@ -1465,19 +1591,6 @@ extension HostCallController{
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
         sendScreenshotConfirmation()
     }
-    
-    
-    
-    /*
-     "color": "",
-            "id": "0",
-            "text": "",
-            "userId": "1833",
-            "analystId": "1674",
-            "signed": false,
-            "paid": false,
-            "screenshot": ""
-     */
      
     private func generateAutographInfo() -> [String : Any?]{
         
@@ -1494,8 +1607,6 @@ extension HostCallController{
         params["color"] = ""
         params["text"] = ""
         params["paid"] = false
-   
-
         return params
     }
     
@@ -1561,7 +1672,6 @@ extension HostCallController{
     private func resetAutographCanvasIfNewCallAndSlotExists(){
         
         //if current slot id is nil then return
-        
         if self.myLiveUnMergedSlot?.id == nil {
             
             if self.isSignatureActive{
@@ -1604,12 +1714,8 @@ extension HostCallController{
         params["file"] = encodedImage
         params["isImplemented"] = true
         params["signed"] = true
-    
         
-//        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
-        //userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
-            //self?.userRootView?.requestAutographButton?.hideLoader()
             
             DispatchQueue.main.async {
                 completion?(success, info)
@@ -1631,7 +1737,6 @@ extension HostCallController{
         
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
-                
             }
         }
     }
@@ -1642,11 +1747,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     func doneAction(sender:UIButton?){
         
         print("done is calling")
-        
         self.uploadAutographImage()
-        
         self.resetCanvas()
-        
         self.showToastWithMessage(text: "Saving Autograph..", time: 5.0)
     }
     
@@ -1710,6 +1812,38 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
 
+    }
+}
+
+
+//MARK:- Fetching the Twillio Access token
+
+extension HostCallController{
+    
+    func fetchTwillioDeviceToken(twillioRoom:HostCallConnection){
+        
+        print("calling the fetch Twillio Device token")
+        
+        twillioRoom.isFetchingTokenToServer = true
+        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: twillioRoom.slotInfo?.id) { (success, error, info) in
+            print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
+
+            twillioRoom.isFetchingTokenToServer = false
+            if !success {
+                return
+            }
+            
+            guard let token = info?.token else{
+                return
+            }
+            guard let room = info?.room else{
+                return
+            }
+            
+            twillioRoom.accessToken = token
+            twillioRoom.roomName = room
+            twillioRoom.connectCall()
+        }
     }
 }
 

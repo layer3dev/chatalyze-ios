@@ -4,6 +4,7 @@ import Foundation
 import SwiftyJSON
 import Toast_Swift
 import CRToast
+import TwilioVideo
 
 
 //todo:
@@ -45,12 +46,12 @@ class VideoCallController : InterfaceExtendedController {
     
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
-    var localMediaPackage : CallMediaTrack?
+    var localMediaPackage : CallMediaTrack? = CallMediaTrack()
     
     private var accessManager : MediaPermissionAccess?
     
     private var callLogger : CallLogger?
-    private var localTrack : RTCVideoTrack?
+    private var localTrack : LocalVideoTrack?
     
     private let eventSlotListener = EventSlotListener()
     //Implementing the eventDeleteListener
@@ -101,7 +102,10 @@ class VideoCallController : InterfaceExtendedController {
     var isEventCancelled = false
     
     
-    
+    var camera:CameraSource?
+    var localCameraPreviewView:VideoView?{
+        return nil
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -419,7 +423,8 @@ class VideoCallController : InterfaceExtendedController {
             self?.eventInfo = info
             
             self?.processEventInfo()
-            
+            self?.startLocalStreaming()
+            self?.registerForAppState()
             Log.echo(key: "delay", text: "processed")
 
             if(isActivated){
@@ -862,51 +867,139 @@ extension VideoCallController{
     
     func startLocalStream() {
         
-        localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
-            
-            DispatchQueue.main.async {
+        
+        if (self.localMediaPackage?.audioTrack == nil) {
+            self.writeLocalAudioTrack()
+        }
+        
+        // Create a video track which captures from the camera.
+        if (self.localMediaPackage?.videoTrack == nil) {
+            self.writeLocalVideoTrack()
+        }
+        
+        
+//        localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
+//
+//            DispatchQueue.main.async {
+//
+//
+//            guard let localCapturer = capturer
+//                else{
+//                    return
+//            }
+//
+//            guard let localView = self?.rootView?.localVideoView
+//                else{
+//                    return
+//            }
+//
+//            let captureSession = localCapturer.captureSession
+//            //localView.captureSession = captureSession
+//
+//            let settingsModel = ARDSettingsModel()
+//            settingsModel.storeVideoResolutionSetting("1280x720")
+//            self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
+//            self?.captureController?.startCapture()
+//            }
+//        }
+        
+//        DispatchQueue.main.async {
+//
+//
+//            guard let localView = self.rootView?.localVideoView
+//            else{
+//                return
+//        }
+//
+//        if let localTrack = self.localTrack{
+//            localTrack.remove(localView)
+//            self.localTrack = nil
+//            localView.renderFrame(nil)
+//        }
+//
+//        Log.echo(key: "local stream", text: "got local stream")
+//
+//            self.localTrack = self.localMediaPackage?.videoTrack
+//            self.localTrack?.add(localView)
+//        }
+    }
+    
+    
+    
+    func writeLocalAudioTrack(){
+        
+        let options = AudioOptions(){(builder) in
+            builder.isSoftwareAecEnabled = true
+        }
+    
+        self.localMediaPackage?.audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
+        
+        
+    }
+    
+        
+    func writeLocalVideoTrack() {
+        
+        guard let frontCamera = CameraSource.captureDevice(position: .front) else{
+            return
+        }
+        
+        guard let _ = CameraSource.captureDevice(position: .back) else{
+            return
+        }
+        
+        let options = CameraSourceOptions { (builder) in
+            // To support building with Xcode 10.x.
+            #if XCODE_1100
+            if #available(iOS 13.0, *) {
+                // Track UIWindowScene events for the key window's scene.
+                // The example app disables multi-window support in the .plist (see UIApplicationSceneManifestKey).
                 
-            
-            guard let localCapturer = capturer
-                else{
+                guard let scene = UIApplication.shared.keyWindow?.windowScene else{
                     return
+                }
+                builder.orientationTracker = UserInterfaceTracker(scene: scene)
             }
-            
-            guard let localView = self?.rootView?.localVideoView
-                else{
-                    return
-            }
-            
-            let captureSession = localCapturer.captureSession
-            //localView.captureSession = captureSession
-            
-            let settingsModel = ARDSettingsModel()
-            settingsModel.storeVideoResolutionSetting("1280x720")
-            self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-            self?.captureController?.startCapture()
-            }
+            #endif
         }
         
-        DispatchQueue.main.async {
-            
+        // Preview our local camera track in the local video preview view.
+        camera = CameraSource(options: options, delegate: self)
         
-            guard let localView = self.rootView?.localVideoView
-            else{
-                return
+        guard let cameraInstance = camera else{
+            Log.echo(key: "yud", text: "Empty camera instance")
+            return
         }
         
-        if let localTrack = self.localTrack{
-            localTrack.remove(localView)
-            self.localTrack = nil
-            localView.renderFrame(nil)
-        }
+        self.localMediaPackage?.videoTrack = LocalVideoTrack(source: cameraInstance, enabled: true, name: "Camera")
         
-        Log.echo(key: "local stream", text: "got local stream")
-          
-            self.localTrack = self.localMediaPackage?.videoTrack
-            self.localTrack?.add(localView)
+        // Add renderer to video track for local preview
+        guard let localPreviewView = self.localCameraPreviewView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        self.localMediaPackage?.videoTrack?.addRenderer(localPreviewView)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCallController.flipCamera))
+        //localPreviewView.addGestureRecognizer(tap)
+        
+        cameraInstance.startCapture(device: frontCamera) { (captureDevice, videoFormat, error) in
+            if let _ = error {
+                
+            } else {
+
+                //localPreviewView.shouldMirror = !(captureDevice.position == .front)
+                localPreviewView.shouldMirror = false
+                localPreviewView.contentMode = .scaleAspectFill
+                self.fetchTwillioRoomInfoFromServer()
+            }
         }
     }
+    
+    //overridden
+    func fetchTwillioRoomInfoFromServer(){
+    }
+       
 }
 
 extension VideoCallController{
@@ -1295,3 +1388,162 @@ extension VideoCallController:VideoViewStatusBarAnimationInterface{
         }
     }
 }
+
+extension VideoCallController{
+    
+    @objc func flipCamera() {
+        var newDevice: AVCaptureDevice?
+        
+        if let camera = self.camera, let captureDevice = camera.device {
+            if captureDevice.position == .front {
+                newDevice = CameraSource.captureDevice(position: .back)
+            } else {
+                newDevice = CameraSource.captureDevice(position: .front)
+            }
+            
+            if let newDevice = newDevice {
+                camera.selectCaptureDevice(newDevice) { (captureDevice, videoFormat, error) in
+                    if let error = error {
+                        //self.logMessage(messageText: "Error selecting capture device.\ncode = \((error as NSError).code) error = \(error.localizedDescription)")
+                    } else {
+                        //self.previewView.shouldMirror = (captureDevice.position == .front)
+                        
+                        //self.previewView.shouldMirror = false
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+extension VideoCallController:CameraSourceDelegate{
+        
+    func cameraSourceDidFail(source: CameraSource, error: Error) {
+        
+        Log.echo(key: "Twill", text: "Camera source failed with error: \(error.localizedDescription)")
+        
+        guard let localPreviewView = self.localCameraPreviewView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack = nil
+        self.camera?.stopCapture()
+        self.camera = nil
+        self.startLocalStreaming()
+    }
+    
+    func cameraSourceInterruptionEnded(source: CameraSource) {
+        
+        Log.echo(key: "Twill", text: "Camera source cameraSourceInterruptionEnded with error: \(source) ans the track is \(String(describing: self.localMediaPackage?.videoTrack?.isEnabled))")
+    }
+    
+    func cameraSourceWasInterrupted(source: CameraSource, reason: AVCaptureSession.InterruptionReason) {
+        
+        //source.stopCapture()
+        
+        Log.echo(key: "Twill", text: "Camera source cameraSourceWasInterrupted with error: \(reason.rawValue) case-->0 videoDeviceNotAvailableInBackground--> 1audioDeviceInUseByAnotherClient-->2videoDeviceInUseByAnotherClient-->3videoDeviceNotAvailableWithMultipleForegroundApps")
+
+        if reason.rawValue == 3 {
+                        
+            guard let cameraInstance = camera else{
+                Log.echo(key: "yud", text: "Empty camera instance")
+                return
+            }
+            
+            guard let frontCamera = CameraSource.captureDevice(position: .front) else{
+                return
+            }
+            
+            cameraInstance.stopCapture()
+            
+            cameraInstance.startCapture(device: frontCamera) { (captureDevice, videoFormat, error) in
+                if let _ = error {
+                } else {
+                }
+            }
+            Log.echo(key: "Twill", text: "Restarted the local stream")
+        }
+    }
+}
+
+
+//MARK:- Running the global our camera
+
+extension VideoCallController{
+    
+    
+    // MARK:- Local Streaming methods
+    func startLocalStreaming() {
+        
+        if (self.localMediaPackage?.audioTrack == nil) {
+            self.writeLocalAudioTrack()
+        }
+        
+        // Create a video track which captures from the camera.
+        if (self.localMediaPackage?.videoTrack == nil) {
+            self.writeLocalVideoTrack()
+        }
+    }
+    
+    fileprivate func registerForAppState(){
+                        
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc func appMovedToBackground(){
+        
+        Log.echo(key: "Twill", text: "App is moving to the background in call room.")
+        //self.disableCamera()
+        self.disconnectManualConnection()
+    }
+    
+    @objc func disconnectManualConnection(){
+        //To be overridden
+    }
+    
+    @objc func connectManualConnection(){
+        //To be overridden
+    }
+    
+    @objc func appMovedToForeground(){
+       
+        Log.echo(key: "Twill", text: "App is moving to the forground in call room.")
+        
+       
+        
+        self.connectManualConnection()
+    }
+    
+    fileprivate func unregisterForAppState(){
+        
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    func disableCamera(){
+        
+        guard let localPreviewView = self.localCameraPreviewView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack = nil
+        self.camera?.stopCapture()
+        self.camera = nil
+    }
+    
+    func enableCamera(){
+         
+        self.startLocalStreaming()
+    }
+}
+
+

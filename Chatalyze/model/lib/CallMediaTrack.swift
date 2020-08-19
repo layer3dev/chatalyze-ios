@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TwilioVideo
 
 @objc class CallMediaTrack: NSObject {
     
@@ -15,8 +16,8 @@ import UIKit
     
     private var isMediaDisabled = false
     
-    @objc var audioTrack : RTCAudioTrack?
-    @objc var videoTrack : RTCVideoTrack?
+    @objc var audioTrack : LocalAudioTrack?
+    @objc var videoTrack : LocalVideoTrack?
     
     var muteAudio : Bool{
         get{
