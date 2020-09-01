@@ -722,9 +722,7 @@ class UserCallController: VideoCallController {
         
         
         // Once the selfie timer has been come
-        
-        // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
-        
+        // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return
         // guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
         
@@ -796,10 +794,9 @@ class UserCallController: VideoCallController {
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
-                    
                     self.encodeImageToBase64(image: image, completion: { (encodedData) in
                         
-                        Log.echo(key: "yud", text: "encoded image is \(image)")
+                        Log.echo(key: "yud", text: "encoded image is \(String(describing: image))")
                         
                         DispatchQueue.main.async {
                             

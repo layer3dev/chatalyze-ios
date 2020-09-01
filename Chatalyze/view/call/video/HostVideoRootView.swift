@@ -33,8 +33,8 @@ class HostVideoRootView: VideoRootView {
     
     
     override func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
-        //return self.mergeImage(hostPicture: local, userPicture: remote)
-        return self.mergePicture(local: remote, remote: local)
+        return self.mergeImage(hostPicture: local, userPicture: remote)
+        //return self.mergePicture(local: remote, remote: local)
     }
     
     override func shouldTapAllow(touch: UITouch) -> Bool {

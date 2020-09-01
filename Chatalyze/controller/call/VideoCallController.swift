@@ -11,6 +11,8 @@ import TwilioVideo
 //refresh procedure is being written redundantly
 class VideoCallController : InterfaceExtendedController {
     
+    var isStatusBarRequiredToHidden = false
+    
     enum permissionsCheck:Int{
         
         case micPermission = 0
@@ -1370,14 +1372,28 @@ extension VideoCallController {
 
 extension VideoCallController:VideoViewStatusBarAnimationInterface{
     
+    override var prefersStatusBarHidden: Bool{
+        return isStatusBarRequiredToHidden
+    }
+    
     func visibleAnimateStatusBar() {
         
-        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
+        //UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.fade)
+        //self.isStatusBarRequiredToHidden = false
+        UIApplication.shared.isStatusBarHidden = false
+        //setNeedsStatusBarAppearanceUpdate()
+        print("showing status bar \(self.prefersStatusBarHidden)")
+
     }
     
     func hidingAnimateStatusBar() {
         
-        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.fade)
+        //UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.fade)
+        //self.isStatusBarRequiredToHidden = true
+        UIApplication.shared.isStatusBarHidden = true
+        //setNeedsStatusBarAppearanceUpdate()
+        print("showing status bar \(self.prefersStatusBarHidden)")
+
     }
     
     func showToastWithMessage(text:String,time:Double){
@@ -1514,9 +1530,6 @@ extension VideoCallController{
     @objc func appMovedToForeground(){
        
         Log.echo(key: "Twill", text: "App is moving to the forground in call room.")
-        
-       
-        
         self.connectManualConnection()
     }
     

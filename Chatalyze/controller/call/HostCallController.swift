@@ -45,9 +45,6 @@ class HostCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
     
-       
-   
-    
     // Using in order to prevent to showing the message "Participant did not join session before the slot start."
     override var isSlotRunning : Bool {
         
@@ -154,7 +151,8 @@ class HostCallController: VideoCallController {
             }
             return false
         }
-      self.selfieTimerView?.reset()
+    
+        self.selfieTimerView?.reset()
         return true
     }
     
@@ -179,8 +177,6 @@ class HostCallController: VideoCallController {
               if  isCalledHangedUp{
                  self.toggleHangup()
               }
-              
-
             }
         }
         
@@ -271,8 +267,12 @@ class HostCallController: VideoCallController {
     
     
     private func registerForTimerNotification(){
+        print("Registering socket with timer notification \(socketListener) nd the selfie timer is \(selfieTimerView)")
+        
         
         socketListener?.onEvent("screenshotCountDown", completion: { (response) in
+            
+            print(" I git the reponse \(response)")
             
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
@@ -294,10 +294,14 @@ class HostCallController: VideoCallController {
                             requiredDate = dateFormatter.date(from: date)
                         }
                         
+                        print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
                         self.selfieTimerView?.screenShotListner = {
+                            
+                            print(" I got the mimic screenshot")
+                            
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -336,17 +340,15 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-//        self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
-//            guard let image = image
-//            else{
-//                return
-//            }
-//
-//            Log.echo(key: "HostCallController", text: "call renderCanvas")
-//
-//
-//            self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
-//        })
+        self.hostRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+            guard let image = image
+                else{
+                    return
+            }
+            
+            Log.echo(key: "HostCallController", text: "call renderCanvas")
+            self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
+        })
         
     }
     
@@ -377,10 +379,6 @@ class HostCallController: VideoCallController {
         self.currentTwillioRoom?.switchStream(info:self.eventInfo)
         resetAutographCanvasIfNewCallAndSlotExists()
     }
-    
-    
-    
-    
     
     func verifyForPostSessionEarningScreen() {
     }
@@ -713,7 +711,6 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderForBreakSlot(){
         
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
-        
         hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
         hostRootView?.hostCallInfoContainer?.timer?.text = ""
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
@@ -945,30 +942,30 @@ class HostCallController: VideoCallController {
         }
     }
         
-        func createNewTwillioRoom(){
-            
-            guard let _ = self.eventInfo
-                else{
-                    return
-            }
-            
-            guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot else{
+    func createNewTwillioRoom(){
+        
+        guard let _ = self.eventInfo
+            else{
                 return
-            }
-            
-           
-            if self.currentTwillioRoom == nil{
-                
-                self.currentTwillioRoom = HostCallConnection()
-                self.currentTwillioRoom?.slotInfo = currentSlot
-                self.currentTwillioRoom?.eventInfo = self.eventInfo
-                self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
-                self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
-                fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
-                //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
-                return
-            }
         }
+        
+        guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot else{
+            return
+        }
+        
+        
+        if self.currentTwillioRoom == nil{
+            
+            self.currentTwillioRoom = HostCallConnection()
+            self.currentTwillioRoom?.slotInfo = currentSlot
+            self.currentTwillioRoom?.eventInfo = self.eventInfo
+            self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
+            self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
+            //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
+            return
+        }
+    }
         
         func preconnectTwillioRoomHandler(){
             
@@ -1235,8 +1232,13 @@ class HostCallController: VideoCallController {
         })
     }
     
+ 
+//    var isCallConnected : Bool{
+//        return (self.connection?.isConnected ?? false)
+//    }
+    
     var isCallStreaming: Bool{
-        return (self.getActiveConnection()?.isStreaming ?? false)
+        return (self.currentTwillioRoom?.isStreaming ?? false)
     }
     
     
@@ -1288,6 +1290,8 @@ extension HostCallController:GetisHangedUpDelegate{
     }
     
     func getHangUpStatus() -> Bool {
+        
+        print("jfghjfhgjdf\(isCallHangedUp) and is straming \(isCallStreaming)")
         return isCallHangedUp || (!isCallStreaming)
     }
 }
@@ -1422,7 +1426,6 @@ extension HostCallController{
     
     func getTotalNUmberOfSlots()->Int{
         
-        
         guard let startTime = self.eventInfo?.startDate else {
             return 0
         }
@@ -1452,12 +1455,8 @@ extension HostCallController{
     }
 }
 
-
-
 extension HostCallController{
-    
-    
-    
+        
     func fetchAutographInfo(screenShotId:String?){
         
         guard let id = screenShotId else{
@@ -1676,7 +1675,7 @@ extension HostCallController{
             
             if self.isSignatureActive{
                 Log.echo(key: "point", text: "Resetting the canvase")
-
+                
                 self.resetCanvas()
                 self.isSignatureActive = false
             }
@@ -1691,11 +1690,11 @@ extension HostCallController{
         }
         
         if localSlotIdToManageAutograph != self.myLiveUnMergedSlot?.id {
-          
+            
             Log.echo(key: "yud", text: "Providing id is changed for new slot")
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
-          selfieTimerView?.reset()
+            selfieTimerView?.reset()
             //reset the signature
             return
         }

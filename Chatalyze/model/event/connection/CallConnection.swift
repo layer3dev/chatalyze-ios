@@ -569,7 +569,7 @@ extension CallConnection : RemoteParticipantDelegate {
             self.removeConnectedRender()
             return
         }
-
+        
 //        guard let hashId = self.eventInfo?.user?.hashedId else {
 //            self.removeConnectedRender()
 //            return
@@ -580,20 +580,26 @@ extension CallConnection : RemoteParticipantDelegate {
 
         if currentParticipant.count > 0{
 
-            print("remote participant hash Id is \(currentParticipant.first?.remoteParticipant?.identity) and the current user identity is \(currentSlotHashId)")
+            print("remote participant hash Id is \(String(describing: currentParticipant.first?.remoteParticipant?.identity)) and the current user identity is \(currentSlotHashId)")
             
             print("Got the existing particpant having the count \(currentParticipant.count) with the rendered info is \(currentParticipant[0].isRendered)")
 
             if !currentParticipant[0].isRendered{
+                
                 if let track = currentParticipant[0].remoteVideoTrack {
+                
+                    DispatchQueue.main.async {
+                        
+                        self.removeInvalidRenderer(info : info)
+                        
+                        if !(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp ?? false){
 
+                            track.addRenderer(self.remoteView!)
+                            currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
+                            currentParticipant[0].isRendered = true
+                        }
+                    }
                     print("Making render true and remote view is \(String(describing: self.remoteView)) and the remote render is \(track)")
-
-                    self.removeInvalidRenderer(info : info)
-
-                    track.addRenderer(self.remoteView!)
-                    currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
-                    currentParticipant[0].isRendered = true
                 }
             }
         }else{
