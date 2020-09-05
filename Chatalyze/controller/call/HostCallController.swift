@@ -313,7 +313,6 @@ class HostCallController: VideoCallController {
     }
     
     private func processAutographSelfie(){
-      
   
 //       guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
 //        else{return}
@@ -323,6 +322,7 @@ class HostCallController: VideoCallController {
 //          return
 //        }
 //      }
+        
         Log.echo(key: "HostCallController", text: "processAutographSelfie")
         guard let eventInfo = self.eventInfo
             else{
@@ -349,9 +349,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "HostCallController", text: "call renderCanvas")
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
-        
     }
-    
     
     
     

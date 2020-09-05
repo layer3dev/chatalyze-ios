@@ -11,6 +11,9 @@ import TwilioVideo
 //refresh procedure is being written redundantly
 class VideoCallController : InterfaceExtendedController {
     
+    private var callLogger : CallLogger?
+
+    
     var isStatusBarRequiredToHidden = false
     
     enum permissionsCheck:Int{
@@ -52,7 +55,6 @@ class VideoCallController : InterfaceExtendedController {
     
     private var accessManager : MediaPermissionAccess?
     
-    private var callLogger : CallLogger?
     private var localTrack : LocalVideoTrack?
     
     private let eventSlotListener = EventSlotListener()
@@ -968,12 +970,14 @@ extension VideoCallController{
         // Preview our local camera track in the local video preview view.
         camera = CameraSource(options: options, delegate: self)
         
+        
         guard let cameraInstance = camera else{
             Log.echo(key: "yud", text: "Empty camera instance")
             return
         }
         
         self.localMediaPackage?.videoTrack = LocalVideoTrack(source: cameraInstance, enabled: true, name: "Camera")
+        
         
         // Add renderer to video track for local preview
         guard let localPreviewView = self.localCameraPreviewView else{
@@ -1556,6 +1560,18 @@ extension VideoCallController{
     func enableCamera(){
          
         self.startLocalStreaming()
+    }
+}
+
+extension CameraSource:VideoRenderer{
+    public func renderFrame(_ frame: VideoFrame) {
+      
+        print("REndering frames are \(frame)")
+    }
+    
+    public func updateVideoSize(_ videoSize: CMVideoDimensions, orientation: VideoOrientation) {
+
+        print("updating the video size is \(videoSize)")
     }
 }
 
