@@ -139,38 +139,59 @@ class VideoRootView: ExtendedView {
         
     }
     
+ 
     func getPostImageSnapshot(info:EventInfo?,eventLogo:UIImage?, completion: @escaping ((_ image:UIImage?)->())){
         
         Log.echo(key: "VideoRootView", text: "call get Video Frame")
+            
+        getVideoFrame(listener: {[weak self] (local, remote) in
+            Log.echo(key: "VideoRootView", text: "received BOTH frame")
+            self?.renderScreenshot(localFrame: local, remoteFrame: remote, eventLogo : eventLogo, info: info, completion: completion)
+        })
+    }
+    
+    private func getVideoFrame(listener : ((_ localFrame : UIImage?, _ remoteFrame : UIImage?) -> ())?){
         
-        guard let localView = self.localVideoView else{
-            print("missing local video ")
-            completion(nil)
-            return
-        }
+        Log.echo(key: "VideoRootView", text: "getVideoFrame")
+        var localFrame : UIImage? = nil
+        var remoteFrame : UIImage? = nil
+        var localListener = listener
         
-        guard let remoteView = self.remoteVideoView else{
-            print("missing remote video ")
-
-            completion(nil)
-            return
-        }
+        localVideoView?.getFrame(listener: { (frame) in
+            
+            Log.echo(key: "VideoRootView", text: "localVideoView frame received")
+            guard let frame = frame
+                else{
+                    localListener?(nil, remoteFrame)
+                    localListener = nil
+                    return
+            }
+            localFrame = frame
+            if(remoteFrame == nil){
+                return
+            }
+            
+            localListener?(localFrame, remoteFrame)
+            localListener = nil
+    
+        })
         
-        guard let localViewImage = self.getSnapshot(view : localView) else{
-            print("missing local image ")
-
-            completion(nil)
-            return
-        }
-        
-        guard let remoteViewImage = self.getSnapshot(view : remoteView) else{
-            print("missing remote image ")
-
-            completion(nil)
-            return 
-        }
-        
-        self.renderScreenshot(localFrame: localViewImage, remoteFrame: remoteViewImage, eventLogo : eventLogo, info: info, completion: completion)
+        remoteVideoView?.getFrame(listener: { (frame) in
+            Log.echo(key: "VideoRootView", text: "remoteVideoView frame received")
+            guard let frame = frame
+                else{
+                    localListener?(nil, localFrame)
+                    localListener = nil
+                    return
+            }
+            remoteFrame = frame
+            if(localFrame == nil){
+                return
+            }
+            localListener?(localFrame, remoteFrame)
+            localListener = nil
+            
+        })
     }
         
 

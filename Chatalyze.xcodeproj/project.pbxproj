@@ -1085,6 +1085,8 @@
 		E7B4A7F92473CF17000616CD /* YoutubeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7F72473CF17000616CD /* YoutubeContainerView.swift */; };
 		E7B4A7FC2473D73B000616CD /* URLQueryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7FB2473D73B000616CD /* URLQueryHelper.swift */; };
 		E7B4A7FD2473D73B000616CD /* URLQueryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4A7FB2473D73B000616CD /* URLQueryHelper.swift */; };
+		E7EFBAD52504249700771152 /* VideoRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EFBAD42504249700771152 /* VideoRendererView.swift */; };
+		E7EFBAD62504249700771152 /* VideoRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EFBAD42504249700771152 /* VideoRendererView.swift */; };
 		FA00779C207DDC8B005F840D /* SlotFlagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */; };
 		FA00779E207DECA6005F840D /* ScreenshotInfoFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */; };
 		FA0077A0207E2B53005F840D /* CanvasContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00779F207E2B53005F840D /* CanvasContainer.swift */; };
@@ -1862,6 +1864,7 @@
 		E796494724795E8B007F4568 /* MemoryStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStickerView.swift; sourceTree = "<group>"; };
 		E7B4A7F72473CF17000616CD /* YoutubeContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeContainerView.swift; sourceTree = "<group>"; };
 		E7B4A7FB2473D73B000616CD /* URLQueryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryHelper.swift; sourceTree = "<group>"; };
+		E7EFBAD42504249700771152 /* VideoRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRendererView.swift; sourceTree = "<group>"; };
 		EA6B7C8968AD8FDF687ED2D1 /* Pods-Chatalyze.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatalyze.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chatalyze/Pods-Chatalyze.debug.xcconfig"; sourceTree = "<group>"; };
 		FA00779B207DDC8B005F840D /* SlotFlagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotFlagInfo.swift; sourceTree = "<group>"; };
 		FA00779D207DECA6005F840D /* ScreenshotInfoFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotInfoFetch.swift; sourceTree = "<group>"; };
@@ -4546,6 +4549,7 @@
 				787CBB4B230D555300314058 /* AutographSignatureReponseBottomView.swift */,
 				782529A2230E5EDC000149B3 /* SelectedMultipleColorClassView.swift */,
 				782529A5230E5F5F000149B3 /* multipleColorSelcedCllases */,
+				E7EFBAD42504249700771152 /* VideoRendererView.swift */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -6892,6 +6896,7 @@
 				47D0B12821A6C4B5006376A8 /* ContactUsController.swift in Sources */,
 				4787237F222574EF007994FC /* EarlyViewController.swift in Sources */,
 				FA12868C22180742000A6560 /* DonateProductValueFetch.swift in Sources */,
+				E7EFBAD62504249700771152 /* VideoRendererView.swift in Sources */,
 				47D0B12921A6C4B5006376A8 /* PeerInfo.swift in Sources */,
 				47D0B12A21A6C4B5006376A8 /* HostHomeController.swift in Sources */,
 				47D0B12B21A6C4B5006376A8 /* GoogleSignIn.swift in Sources */,
@@ -7498,6 +7503,7 @@
 				FA12868B22180742000A6560 /* DonateProductValueFetch.swift in Sources */,
 				FAE9EF78206CE84800C45F8D /* HostHomeController.swift in Sources */,
 				47C6951221539BE500BB13BF /* GoogleSignIn.swift in Sources */,
+				E7EFBAD52504249700771152 /* VideoRendererView.swift in Sources */,
 				FA128696221835BF000A6560 /* DonateActionButtonView.swift in Sources */,
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */,
@@ -7920,7 +7926,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "Apple Development: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
@@ -7939,7 +7945,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_feature_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_develop;
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
@@ -7957,7 +7963,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chatalyze, Inc. (KX8JP4WZ3W)";
+				CODE_SIGN_IDENTITY = "Apple Development: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 80;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
@@ -7976,7 +7982,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "21150510-e165-4b76-8e9c-1cc58c4ef059";
-				PROVISIONING_PROFILE_SPECIFIER = chatalyze_feature_AppStore;
+				PROVISIONING_PROFILE_SPECIFIER = chatalyze_develop;
 				SKIP_INSTALL = NO;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chatalyze/config/headers/objc/Chatalyze-Bridging-Header.h";
