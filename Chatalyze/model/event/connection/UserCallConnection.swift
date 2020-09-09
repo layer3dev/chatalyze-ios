@@ -32,6 +32,7 @@ class UserCallConnection: NSObject {
             
     var remoteParticipant: RemoteParticipant?
     var remoteView:VideoView?
+    var renderer : VideoFrameRenderer?
     
     static private var temp = 0
     var tempIdentifier = 0
@@ -80,12 +81,13 @@ class UserCallConnection: NSObject {
     var socketListener : SocketListener?
 
             
-    init(eventInfo : EventScheduleInfo?, localMediaPackage : CallMediaTrack?, controller : VideoCallController?,roomName:String,accessToken:String,remoteVideo:VideoView){
+    init(eventInfo : EventScheduleInfo?, localMediaPackage : CallMediaTrack?, controller : VideoCallController?,roomName:String,accessToken:String,remoteVideo:RemoteVideoView){
         super.init()
         
         self.eventInfo = eventInfo
         self.localMediaPackage = localMediaPackage
-        self.remoteView = remoteVideo
+        self.remoteView = remoteVideo.streamingVideoView
+        self.renderer = remoteVideo.getRenderer()
         self.roomName = roomName
         self.accessToken = accessToken
         self.controller = controller
@@ -399,8 +401,17 @@ extension UserCallConnection : RoomDelegate {
             self.remoteParticipant = nil
         }
         
+        guard let remoteView = self.remoteView else {
+            return
+        }
+        
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         if self.remoteVideoTrack != nil{
-            self.remoteVideoTrack?.removeRenderer(self.remoteView!)
+            self.remoteVideoTrack?.removeRenderer(remoteView)
+            self.remoteVideoTrack?.removeRenderer(renderer)
             self.remoteAudioTrack?.isPlaybackEnabled = false
         }
         
@@ -490,9 +501,16 @@ extension UserCallConnection : RemoteParticipantDelegate {
             print("remote view is nil")
             return
         }
+        
+        guard let renderer = self.renderer
+            else{
+                return
+                
+        }
         isRendered = true
         print("Rendered successfully!")
         remotetrack.addRenderer(view)
+        remotetrack.addRenderer(renderer)
         self.remoteAudioTrack?.isPlaybackEnabled = true
     }
     
@@ -504,12 +522,17 @@ extension UserCallConnection : RemoteParticipantDelegate {
             return
         }
         
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         if self.remoteVideoTrack != nil{
             if self.remoteView != nil {
                 
                 print("successfull unrendered")
                 self.remoteAudioTrack?.isPlaybackEnabled = false
                 self.remoteVideoTrack?.removeRenderer(self.remoteView!)
+                self.remoteVideoTrack?.removeRenderer(renderer)
             }
         }
         self.remoteVideoTrack = nil
@@ -531,9 +554,14 @@ extension UserCallConnection : RemoteParticipantDelegate {
             return
         }
         
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         if participant.identity == hashId{
             
             videoTrack.removeRenderer(view)
+            videoTrack.removeRenderer(renderer)
             self.remoteVideoTrack = nil
             self.isRendered = false
             Log.echo(key: "yud", text: "Participant identity is confirmed as host for didUnsubscribeFromVideoTrack")

@@ -12,8 +12,11 @@ import TwilioVideo
 
 class VideoViewOld: UIView {
     
+    private let TAG = "VideoViewOld"
+    
+    private var videoRenderer = VideoFrameRenderer()
     private var trackSize : CGSize = CGSize.zero
-    @IBOutlet var streamingVideoView : VideoRendererView?
+    @IBOutlet var streamingVideoView : VideoView?
     @IBOutlet var testImage:UIImageView?
 
     enum orientation : Int{
@@ -53,8 +56,16 @@ class VideoViewOld: UIView {
         print("calling updateSize")
     }
     
+    func getRenderer() -> VideoFrameRenderer{
+        return videoRenderer
+    }
+    
     func getFrame(listener : @escaping ((_ frame: UIImage?) -> ())){
-        streamingVideoView?.getFrame(listener: listener)
+        Log.echo(key: TAG, text: "request frame")
+        videoRenderer.getFrame{(frame) in
+            Log.echo(key: self.TAG, text: "got the frame \(frame)" )
+            listener(frame)
+        }
     }
     
     
