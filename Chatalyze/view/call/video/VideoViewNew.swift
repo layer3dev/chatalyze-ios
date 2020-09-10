@@ -14,7 +14,6 @@ class VideoViewOld: UIView {
     
     private let TAG = "VideoViewOld"
     
-    private var videoRenderer = VideoFrameRenderer()
     private var trackSize : CGSize = CGSize.zero
     @IBOutlet var streamingVideoView : VideoView?
     @IBOutlet var testImage:UIImageView?
@@ -57,12 +56,12 @@ class VideoViewOld: UIView {
     }
     
     func getRenderer() -> VideoFrameRenderer{
-        return videoRenderer
+        return VideoFrameRenderer()
     }
     
     func getFrame(listener : @escaping ((_ frame: UIImage?) -> ())){
         Log.echo(key: TAG, text: "request frame")
-        videoRenderer.getFrame{(frame) in
+        getRenderer().getFrame{(frame) in
             Log.echo(key: self.TAG, text: "got the frame \(frame)" )
             listener(frame)
         }

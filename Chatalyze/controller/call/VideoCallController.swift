@@ -953,11 +953,15 @@ extension VideoCallController{
             return
         }
         
+        
         guard let _ = CameraSource.captureDevice(position: .back) else{
             return
         }
         
         let options = CameraSourceOptions { (builder) in
+            
+            
+            
             // To support building with Xcode 10.x.
             #if XCODE_1100
             if #available(iOS 13.0, *) {
@@ -967,7 +971,7 @@ extension VideoCallController{
                 guard let scene = UIApplication.shared.keyWindow?.windowScene else{
                     return
                 }
-                builder.orientationTracker = UserInterfaceTracker(scene: scene)
+//                builder.orientationTracker = UserInterfaceTracker(scene: scene)
             }
             #endif
         }
@@ -1011,6 +1015,10 @@ extension VideoCallController{
             }
         }
     }
+    
+
+    
+    
     
     //overridden
     func fetchTwillioRoomInfoFromServer(){

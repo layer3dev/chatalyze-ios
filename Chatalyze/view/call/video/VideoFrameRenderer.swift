@@ -65,11 +65,11 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
         }
     }
     
-    private func frameToImage(frame: VideoFrame) -> UIImage?{
+    func frameToImage(frame: VideoFrame) -> UIImage?{
                 
         var pixelBuffer: CVPixelBuffer? = nil
 
-        var status = CVPixelBufferCreate(kCFAllocatorDefault,
+        _ = CVPixelBufferCreate(kCFAllocatorDefault,
                                          Int(frame.width),
                                          Int(frame.height),
                                          kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
@@ -81,14 +81,14 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
                 Log.echo(key : TAG, text : "pixel is nil")
                 return nil
         }
-                
-        
+
+
         convertI420toNV12(fromFrame: frame, toPixelBuffer: pixel)
         
         let ciImage = CIImage.init(cvImageBuffer: pixel, options: nil)
         let context = CIContext(options: nil)
         
-        guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return nil }
+        guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return UIImage() }
         let image = UIImage(cgImage: cgImage)
         return image
     }

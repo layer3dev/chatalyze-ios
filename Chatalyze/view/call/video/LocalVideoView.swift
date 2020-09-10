@@ -12,6 +12,8 @@ import UIKit
 //AVMakeRectWithAspectRatioInsideRect
 class LocalVideoView: VideoViewOld {
     
+    private var frameRender = CameraVideoFrameRenderer()
+    
     @IBOutlet var widthConstraint : NSLayoutConstraint?
     @IBOutlet var heightConstraint : NSLayoutConstraint?
     
@@ -33,6 +35,10 @@ class LocalVideoView: VideoViewOld {
         // Drawing code
     }
     */
+    
+    override func getRenderer() -> VideoFrameRenderer{
+        return frameRender
+    }
 
     override func viewDidLayout() {
         super.viewDidLayout()
