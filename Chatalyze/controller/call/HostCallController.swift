@@ -143,6 +143,11 @@ class HostCallController: VideoCallController {
         return self.rootView?.localVideoView?.streamingVideoView
     }
     
+    
+    override var localVideoRenderer:VideoFrameRenderer?{
+        return self.rootView?.localVideoView?.getRenderer()
+    }
+    
     var isCallHangedUp:Bool{
         
         if let hangUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp{
@@ -952,6 +957,8 @@ class HostCallController: VideoCallController {
         }
         
         
+        
+        
         if self.currentTwillioRoom == nil{
             
             self.currentTwillioRoom = HostCallConnection()
@@ -959,6 +966,7 @@ class HostCallController: VideoCallController {
             self.currentTwillioRoom?.eventInfo = self.eventInfo
             self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
             self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+            self.currentTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
             fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
             //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
             return
@@ -991,6 +999,7 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+                    self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
                 }
             
@@ -1804,7 +1813,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     }
         
     func releaseDeviceOrientation(){
-        
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
