@@ -109,8 +109,10 @@ class VideoCallController : InterfaceExtendedController {
     var localCameraPreviewView:VideoView?{
         return nil
     }
-    
-    
+
+    var localVideoRenderer:VideoFrameRenderer?{
+        return nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -965,11 +967,13 @@ extension VideoCallController{
             return
         }
         
+        
         guard let _ = CameraSource.captureDevice(position: .back) else{
             return
         }
         
         let options = CameraSourceOptions { (builder) in
+            
             // To support building with Xcode 10.x.
             #if XCODE_1100
             if #available(iOS 13.0, *) {
@@ -1001,7 +1005,12 @@ extension VideoCallController{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.addRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.addRenderer(renderer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCallController.flipCamera))
         //localPreviewView.addGestureRecognizer(tap)
@@ -1018,6 +1027,10 @@ extension VideoCallController{
             }
         }
     }
+    
+
+    
+    
     
     //overridden
     func fetchTwillioRoomInfoFromServer(){
@@ -1464,7 +1477,11 @@ extension VideoCallController:CameraSourceDelegate{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
         self.localMediaPackage?.videoTrack = nil
         self.camera?.stopCapture()
         self.camera = nil
@@ -1568,7 +1585,11 @@ extension VideoCallController{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
         self.localMediaPackage?.videoTrack = nil
         self.camera?.stopCapture()
         self.camera = nil

@@ -101,6 +101,10 @@ class UserCallController: VideoCallController {
         return self.rootView?.localVideoView?.streamingVideoView
     }
     
+    override var localVideoRenderer:VideoFrameRenderer?{
+        return self.rootView?.localVideoView?.getRenderer()
+    }
+    
     override func initialization(){
         super.initialization()
         
@@ -204,7 +208,7 @@ class UserCallController: VideoCallController {
             self.connection?.slotId = currentSlot.id
             self.connection?.remoteView = remoteVideoView
             self.connection?.slotInfo = currentSlot
-
+            self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
             fetchTwillioToken(twillioRoom: self.connection!, slotId: currentSlot.id)
             return
         }
@@ -224,6 +228,7 @@ class UserCallController: VideoCallController {
                         self.connection?.slotId = preconnectSlot.id
                         self.connection?.remoteView = remoteVideoView
                         self.connection?.slotInfo = preconnectSlot
+                        self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                         fetchTwillioToken(twillioRoom: self.connection!, slotId: preconnectSlot.id)
                         return
                     }
