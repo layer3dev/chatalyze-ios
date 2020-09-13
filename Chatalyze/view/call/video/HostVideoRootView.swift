@@ -32,11 +32,32 @@ class HostVideoRootView: VideoRootView {
     
     
     
-    override func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
-        return self.mergeImage(hostPicture: local, userPicture: remote)
-        //return self.mergePicture(local: remote, remote: local)
-    }
     
+    override func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
+        
+        let size = hostPicture.size
+        let localSize = userPicture.size
+        
+        let maxConstant = size.width > size.height ? size.width : size.height
+        
+        let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
+        
+        let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        
+        userPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        
+        //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+        
+        hostPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return finalImage
+    }
+        
     override func shouldTapAllow(touch: UITouch) -> Bool {
         
         Log.echo(key: "yud", text: "self self.canvasContainer?.isSignatureActive is \(self.canvasContainer?.isSignatureActive)")

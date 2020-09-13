@@ -189,36 +189,6 @@ class HostCallConnection: CallConnection {
         signallingStartTimestamp = Date()
     }
     
-//    func initateHandshake(){
-//
-//        //{ userId: chat.userId, chatId: chat.id, hangUp: $scope.hangedUp });
-//
-////        print("Handshake is calling")
-////
-////        guard let userId = self.slotInfo?.userId else{
-////            return
-////        }
-////
-////        guard let chatId = self.slotInfo?.id else{
-////            return
-////        }
-////
-////        let parameter:[String:Any] = ["userId":"\(userId)","chatId":"\(chatId)","hangUp":"false"]
-////
-////        print("preconnect called with param \(parameter)")
-////
-////        UserSocket.sharedInstance?.socket?.emit("callroom:preconnect",parameter)
-////
-////        //markSignallingAsStarted()
-////        guard let slotInfo = self.slotInfo
-////            else{
-////                return
-////        }
-////        isInitiated = true
-//        //sendHandshakeMessage(slotInfo: slotInfo)
-//    }
-    
-    
     private func sendHandshakeMessage(slotInfo : SlotInfo){
         
         guard let targetId = slotInfo.user?.hashedId

@@ -104,12 +104,6 @@ class VideoRootView: ExtendedView {
         //TO be overridden in order to hide and show the signature accessory view.
     }
     
-    func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
-        return nil
-    }
-    
-    
-    
     //***************
     
     private func getSnapshot(view : UIView)->UIImage?{

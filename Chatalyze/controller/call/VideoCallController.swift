@@ -11,8 +11,7 @@ import TwilioVideo
 //refresh procedure is being written redundantly
 class VideoCallController : InterfaceExtendedController {
     
-    private var callLogger : CallLogger?
-
+    var callLogger : CallLogger?
     
     var isStatusBarRequiredToHidden = false
     
@@ -110,6 +109,9 @@ class VideoCallController : InterfaceExtendedController {
     var localCameraPreviewView:VideoView?{
         return nil
     }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -148,6 +150,7 @@ class VideoCallController : InterfaceExtendedController {
         eventSlotListener.setListener(listener: nil)
         timer.pauseTimer()
         socketClient?.disconnect()
+        trackWebSocketDisconnected()
         socketListener?.releaseListener()
         self.socketClient = nil
         self.socketListener = nil
@@ -167,6 +170,17 @@ class VideoCallController : InterfaceExtendedController {
     
     var actionContainer : VideoActionContainer?{
         return rootView?.actionContainer
+    }
+    
+    func trackWebSocketDisconnected(){
+        
+        let metaInfo = [String:Any]()
+        let action = "websocketDisconnected"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    //To be override
+    func trackCurrentChatCompleted(){
     }
     
     @IBOutlet var poorInternetBannerView:UIView?
@@ -506,6 +520,9 @@ class VideoCallController : InterfaceExtendedController {
     private func connectToRoom(info : EventScheduleInfo){
         
         socketClient?.connect(roomId: (info.roomId))
+        socketClient?.socketDisconnect = {
+            self.trackWebSocketDisconnected()
+        }
     }
     
     private func updateUserOfExit(){
@@ -644,13 +661,13 @@ class VideoCallController : InterfaceExtendedController {
         return false
     }
     
-    
-    
-    
     //isolated from eventInfo
     private func initializeVariable(){
         
-        callLogger = CallLogger(sessionId: eventId)
+        if let id = self.eventId{
+            callLogger = CallLogger(sessionId: id)
+        }
+        
         speedHandler = InternetSpeedHandler(controller : self)
         appDelegate?.allowRotate = true
         lastPresentingController = self.presentingViewController
