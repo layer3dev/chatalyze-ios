@@ -284,7 +284,7 @@ extension CallConnection{
         let connectOptions = ConnectOptions(token: accessToken) { (builder) in
             
             builder.isDominantSpeakerEnabled = true
-            
+            builder.networkPrivacyPolicy = .allowAll
             // Use the local media that we prepared earlier.
             
             Log.echo(key: "NewArch", text: "audio track is nil and the is Hangup \(String(describing: self.localMediaPackage?.isDisabled))")
