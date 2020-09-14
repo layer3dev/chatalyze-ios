@@ -8,9 +8,9 @@
 
 import UIKit
 import SwiftyJSON
+import TwilioVideo
 
 class UserCallController: VideoCallController {
-    
     
     var isUserScreenLocked = false
     var isScrenUploaded :((Bool)->())?
@@ -57,18 +57,9 @@ class UserCallController: VideoCallController {
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
     
-    
-    //public - Need to be access by child
-    override var peerConnection : ARDAppClient?{
-        
-        get{
-            return connection?.connection
-        }
-    }
-    
     override func processEventInfo(){
         super.processEventInfo()
-            
+        
         guard let eventInfo = self.eventInfo
             else{
                 return
@@ -84,6 +75,8 @@ class UserCallController: VideoCallController {
         }
         userRootView?.youtubeContainerView?.load(rawUrl : youtubeURL)
     }
+    
+   
     
     override func renderIdleMedia(){
         userRootView?.youtubeContainerView?.show()
@@ -103,6 +96,11 @@ class UserCallController: VideoCallController {
         return localMediaPackage?.isDisabled ?? true
     }
     
+  
+    override var localCameraPreviewView: VideoView?{
+        return self.rootView?.localVideoView?.streamingVideoView
+    }
+    
     override func initialization(){
         super.initialization()
         
@@ -114,18 +112,130 @@ class UserCallController: VideoCallController {
         super.interval()
         
         Log.echo(key: "yud", text: "Interval timer is working")
-        confirmCallLinked()
-        verifyIfExpired()
-        initiateSelfie()
-//        DispatchQueue.main.async {
-            
-//        }
-        //TODO:- Insert below two functions in  the main thread once the signature feature is enabled.
+        trackCallTochatComplete()
+        DispatchQueue.main.async {
+            self.verifyIfExpired()
+            self.processAutograph()
+        }
+        //TODO:- Insert below two functions in the main thread once the signature feature is enabled.
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
-        
+        self.twillioCallSwitcher()
+        self.connectToCallAndRender()
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
+        //MISSING REFERSH STREAM LOCK
+    }
+    
+    func trackCallTochatComplete(){
+        
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                return
+        }
+        
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            if endDate >= 1.0 && endDate < 2.0{
+               
+                trackCurrentChatCompleted()
+                return
+            }
+        }
+    }
+    
+    func twillioCallSwitcher(){
+        
+        guard let conn = self.connection else{
+            return
+        }
+        conn.handleCallConnectionAndStreaming(info:self.myLiveUnMergedSlot)
+    }
+    
+    func resetStaleConnection(){
+        
+        if self.connection == nil {
+            print("Already stale connection")
+            return
+        }
+        
+        if self.myLiveUnMergedSlot == nil && self.eventInfo?.mergeSlotInfo?.preConnectSlot == nil{
+         
+            print("connection resetted")
+            self.connection?.disconnect()
+            self.connection = nil
+        }
+    }
+    
+    //MARK:- New socket connection
+    func connectToCallAndRender(){
+        
+        //print("Usersocket status is \(String(describing: UserSocket.sharedInstance?.isRegisteredToServer))")
+        //print("Current merged active slot iString(describing: d \(self.myActiveUserSlot)?.id) single unmerged slot iString(describing: d \(self.myLiveUnMergedSlot)?.id) and preconnectSlotId is  and real preconnect iString(describing: s \(self.eventInfo?.mergeSlotInfo?.preConnectSlot)?.id)")
+        //Yet to give the support of resetting the session if no slot is present.
+        
+        
+        if self.connection != nil {
+            resetStaleConnection()
+            Log.echo(key: "NewArch", text: "Connection already created.")
+            return
+        }
+        
+        guard let eventInfo = self.eventInfo else{
+            Log.echo(key: "NewArch", text: "Missing eventInfo ")
+            return
+        }
+        
+        guard let localMediaPackage = self.localMediaPackage else{
+            Log.echo(key: "NewArch", text: "Missing localMediapackage")
+            return
+        }
+                
+        guard let remoteVideoView = self.rootView?.remoteVideoView?.streamingVideoView else{
+            Log.echo(key: "NewArch", text: "Missing remoteView")
+            return
+        }
+        
+        if let currentSlot = self.myLiveUnMergedSlot{
+            
+            print("My slot is  running ")
+            self.connection = UserCallConnection()
+            self.connection?.localMediaPackage = localMediaPackage
+            self.connection?.eventInfo = eventInfo
+            self.connection?.slotId = currentSlot.id
+            self.connection?.remoteView = remoteVideoView
+            self.connection?.slotInfo = currentSlot
+
+            fetchTwillioToken(twillioRoom: self.connection!, slotId: currentSlot.id)
+            return
+        }
+        
+        if let preconnectSlot = self.eventInfo?.mergeSlotInfo?.preConnectSlot {
+            
+            ///If preconnect slot exists. Need to verify too that it is exists or not.
+            //(eventInfo : EventScheduleInfo?, localMediaPackage : CallMediaTrack?, controller : VideoCallController?,roomName:String,accessToken:String,remoteVideo:VideoView)
+             let userId = String(preconnectSlot.userId ?? -1)
+                if let id = SignedUserInfo.sharedInstance?.id{
+                    if userId == id{
+                        print("Yes I got the preconnect slot")
+
+                        self.connection = UserCallConnection()
+                        self.connection?.localMediaPackage = localMediaPackage
+                        self.connection?.eventInfo = eventInfo
+                        self.connection?.slotId = preconnectSlot.id
+                        self.connection?.remoteView = remoteVideoView
+                        self.connection?.slotInfo = preconnectSlot
+                        fetchTwillioToken(twillioRoom: self.connection!, slotId: preconnectSlot.id)
+                        return
+                    }
+                }
+            
+            
+            print("Preconnect slot user id is \(String(describing: preconnectSlot.userId)) and self user id is \(SignedUserInfo.sharedInstance?.id)")
+            
+        }
+        
+        //print("Handling call connection with the slot info unmerges slot \(self.myLiveUnMergedSlot)")
+        
     }
     
     
@@ -145,15 +255,15 @@ class UserCallController: VideoCallController {
             return
         }
         
-       // NOTE: Uncomment only if,client ask to restrict autograph in last few seconds..
-      
-//        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-//            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
-//                
-//                Log.echo(key: "yud", text: "Returning because of less than 30 seconds.")
-//                return
-//            }
-//        }
+        // NOTE: Uncomment only if,client ask to restrict autograph in last few seconds..
+        
+        //        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
+        //            if endtimeOfSlot.timeIntervalTillNow <= 30.0{
+        //
+        //                Log.echo(key: "yud", text: "Returning because of less than 30 seconds.")
+        //                return
+        //            }
+        //        }
         
         
         // In order to reset the process after the slot
@@ -162,7 +272,7 @@ class UserCallController: VideoCallController {
             //Log.echo(key: "yudi", text: " new id is \(id) saved id is \(localSlotIdToManageDefaultScreenshot)")
             
             if id != localSlotIdToManageDefaultScreenshot {
-              
+                
                 Log.echo(key: "yudi", text: "default signature is initialized to false")
                 defaultSignatureInitiated = false
             }
@@ -219,16 +329,16 @@ class UserCallController: VideoCallController {
         }
         
         if(!isSocketConnected){
-          Log.echo(key: "dhi", text: "webSocket is disconnected")
+            Log.echo(key: "dhi", text: "webSocket is disconnected")
             setStatusMessage(type: .socketDisconnected)
             return
         }
-      
         
-//        if(!eventInfo.isPreconnectEligible){
-//            setStatusMessage(type: .ideal)
-//            return
-//        }
+        
+        //        if(!eventInfo.isPreconnectEligible){
+        //            setStatusMessage(type: .ideal)
+        //            return
+        //        }
         
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .idealMedia)
@@ -371,31 +481,31 @@ class UserCallController: VideoCallController {
         
         registerForScheduleUpdateListener()
         
-        //call initiation
-        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
-            
-            if(self?.socketClient == nil){
-                return
-            }
-            self?.hangup(hangup: false)
-            self?.processCallInitiation(data : json)
-        })
-        
-        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
-            
-            if(self?.socketClient == nil){
-                return
-            }
-            self?.initiateCall()
-        })
-        
-        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
-            
-            if(self?.socketClient == nil){
-                return
-            }
-            self?.connection?.linkCall()
-        })
+        //        //call initiation
+        //        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
+        //
+        //            if(self?.socketClient == nil){
+        //                return
+        //            }
+        //            self?.hangup(hangup: false)
+        //            self?.processCallInitiation(data : json)
+        //        })
+        //
+        //        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
+        //
+        //            if(self?.socketClient == nil){
+        //                return
+        //            }
+        //            self?.initiateCall()
+        //        })
+        //
+        //        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
+        //
+        //            if(self?.socketClient == nil){
+        //                return
+        //            }
+        //            self?.connection?.linkCall()
+        //        })
         
         //call initiation
         socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
@@ -440,6 +550,13 @@ class UserCallController: VideoCallController {
         
         if(!hangup){
             resetMuteActions()
+        }
+        
+        //Reset the selfie timer if it is not initiated yet.
+        if !SlotFlagInfo.staticScreenShotSaved{
+            
+            self.selfieTimerView?.reset()
+            SlotFlagInfo.staticIsTimerInitiated = false
         }
         localMediaPackage?.isDisabled = hangup
     }
@@ -491,18 +608,18 @@ class UserCallController: VideoCallController {
         }
     }
     
-    private func initiateCall(){
-        
-        guard let slotInfo = myCurrentUserSlot
-            else{
-                return
-        }
-        
-        disposeCurrentConnection()
-        self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
-        connection?.initiateCall()
-        startCallRing()
-    }
+    //    private func initiateCall(){
+    //
+    //        guard let slotInfo = myCurrentUserSlot
+    //            else{
+    //                return
+    //        }
+    //
+    //        disposeCurrentConnection()
+    //        self.connection = UserCallConnection(eventInfo: eventInfo, slotInfo: slotInfo, localMediaPackage : localMediaPackage, controller: self)
+    //        connection?.initiateCall()
+    //        startCallRing()
+    //    }
     
     
     var myLiveUnMergedSlot : SlotInfo?{
@@ -562,7 +679,7 @@ class UserCallController: VideoCallController {
         return nil
     }
     
-    private func initiateSelfie(){
+    private func processAutograph(){
         
         Log.echo(key: "yud", text: "ScreenShot allowed is \(String(describing: self.eventInfo?.isScreenShotAllowed))")
         
@@ -574,13 +691,13 @@ class UserCallController: VideoCallController {
             return
         }
         
-      // NOTE: Uncomment only if,client ask to restrict selfie in last few seconds..
-      
-//        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
-//            if endtimeOfSlot.timeIntervalTillNow <= 10.0{
-//                return
-//            }
-//        }
+        // NOTE: Uncomment only if,client ask to restrict selfie in last few seconds..
+        
+        //        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
+        //            if endtimeOfSlot.timeIntervalTillNow <= 10.0{
+        //                return
+        //            }
+        //        }
         
         if !isScreenshotStatusLoaded{
             return
@@ -633,9 +750,7 @@ class UserCallController: VideoCallController {
         
         
         // Once the selfie timer has been come
-        
-        // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return  }
-        
+        // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return
         // guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
         
@@ -690,10 +805,9 @@ class UserCallController: VideoCallController {
         selfieTimerView?.screenShotListner = {
             
             Log.echo(key: "yud", text: "I got the scrrenshot listener response")
-            
             _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                Log.echo(key: "yud", text: "recieved memory image is \(image)")
+                Log.echo(key: "yud", text: "recieved memory image is \(String(describing: image))")
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
@@ -708,10 +822,9 @@ class UserCallController: VideoCallController {
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
-                    
                     self.encodeImageToBase64(image: image, completion: { (encodedData) in
                         
-                        Log.echo(key: "yud", text: "encoded image is \(image)")
+                        Log.echo(key: "yud", text: "encoded image is \(String(describing: image))")
                         
                         DispatchQueue.main.async {
                             
@@ -783,7 +896,7 @@ class UserCallController: VideoCallController {
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
                 isAnimating = true
-                startLableAnimating(label: userRootView?.userCallInfoContainer?.timer)
+                startLableAnimating(label: userRootView?.callInfoContainer?.timer)
                 return
             }
             if endDate <= 0.0{
@@ -804,7 +917,7 @@ class UserCallController: VideoCallController {
     
     private func updateCallHeaderForLiveCall(slot : SlotInfo){
         
-        userRootView?.userCallInfoContainer?.isHidden = false
+        userRootView?.callInfoContainer?.isHidden = false
         futureSessionView?.isHidden = true
         
         guard let startDate = slot.endDate
@@ -817,7 +930,7 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        userRootView?.userCallInfoContainer?.timer?.text = "\(counddownInfo.time)"
+        userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
     
@@ -832,7 +945,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        userRootView?.userCallInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
+        userRootView?.callInfoContainer?.timer?.text = "Call will start in : \(counddownInfo.time)"
     }
     
     
@@ -846,6 +959,7 @@ class UserCallController: VideoCallController {
         if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
+        
         self.processExitAction(code : .expired)
     }
     
@@ -984,8 +1098,8 @@ class UserCallController: VideoCallController {
         
         controller.eventInfo = eventInfo
         controller.memoryImage = self.memoryImage
-      controller.userCall = self
-      
+        controller.userCall = self
+        
         
         presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
@@ -997,26 +1111,13 @@ class UserCallController: VideoCallController {
     func showExitScreen() {
         let isDonationEnabled = self.eventInfo?.tipEnabled ?? false
         if self.memoryImage != nil{
-          showMemoryScreen()
+            showMemoryScreen()
         }
         else if(isDonationEnabled){
-          showDonateScreen()
+            showDonateScreen()
         }
         else {
-          showFeedbackScreen()
-        }
-      }
-    
-    
-    private func confirmCallLinked(){
-        
-        guard let slot = myCurrentUserSlot
-            else{
-                return
-        }
-        if(slot.isLIVE){
-            
-            self.connection?.linkCall()
+            showFeedbackScreen()
         }
     }
     
@@ -1128,6 +1229,22 @@ class UserCallController: VideoCallController {
     override func hitEventOnSegmentIO(){
         
         SEGAnalytics.shared().track("Chat Enter Attendee")
+    }
+    
+     override func trackCurrentChatCompleted(){
+        
+        guard let userId =   SignedUserInfo.sharedInstance?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        guard let chatId =  self.eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in joinedroom is \(metaInfo)")
+        let action = "chatCompleted"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
     }
 }
 
@@ -1402,7 +1519,7 @@ extension UserCallController{
     
     
     private func uploadImage(encodedImage:String = "",image : UIImage?,isDefaultImage:Bool = false, info:ScreenshotInfo? = nil, completion : ((_ success : Bool, _ info : ScreenshotInfo?)->())?){
-                
+        
         var params = [String : Any]()
         params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
         params["analystId"] = hostId
@@ -1418,7 +1535,7 @@ extension UserCallController{
             params["file"] = encodedImage
         }
         
-//        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
+        //        Log.echo(key: "yudi", text: "Uploaded params are \(params)")
         
         //userRootView?.requestAutographButton?.showLoader()
         SubmitScreenshot().submitScreenshot(params: params) { (success, info) in
@@ -1426,7 +1543,7 @@ extension UserCallController{
             
             DispatchQueue.main.async {
                 completion?(success, info)
-              
+                
             }
         }
     }
@@ -1510,7 +1627,7 @@ extension UserCallController {
         
     }
     
-
+    
     
     private func updateScreenshotLoaded(info : CanvasInfo?){
         
@@ -1560,7 +1677,7 @@ extension UserCallController {
         
         DispatchQueue.main.async {
             
-            self.userRootView?.userCallInfoContainer?.isHidden = true
+            self.userRootView?.callInfoContainer?.isHidden = true
             self.futureSessionView?.isHidden = false
             
             guard let startDate = slot.startDate
@@ -1590,13 +1707,13 @@ extension UserCallController {
 extension UserCallController{
     
     @IBAction func testAction(sender:UIButton){
-      
+        
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.userRootView?.remoteVideoContainerView?.updateForSignature()
         
         self.userRootView?.canvasContainer?.show(with: UIImage(named: "testingImage"), info: nil)
         //self.userRootView?.canvas?.image =
-
+        
     }
     
     @IBAction func updateForCallFeature(){
@@ -1629,40 +1746,61 @@ extension UserCallController{
 
 extension UserCallController{
     
-//    func setExistingDeviceOrientaion(){
-//
-//        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
-//
-//            print("Existing orienatoin is landscapeLeft")
-//            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-//        }
-//        else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight{
-//
-//            print("Existing orienatoin is landscapeRight")
-//            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-//        }
-//
-//        else if UIDevice.current.orientation == UIDeviceOrientation.faceDown{
-//
-//
-//            print("Existing orienatoin is faceDown")
-//            //UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-//        }
-//        else if UIDevice.current.orientation == UIDeviceOrientation.faceUp{
-//            print("Existing orienatoin is faceUp")
-//        }
-//
-//        else if UIDevice.current.orientation == UIDeviceOrientation.portrait{
-//
-//            print("Existing orienatoin is portrait")
-//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-//        }
-//        else if UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown{
-//
-//            print("Existing orienatoin is portraitUpsideDown")
-//            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-//        }
-//        releaseDeviceOrientation()
-//    }
+    //    func setExistingDeviceOrientaion(){
+    //
+    //        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
+    //
+    //            print("Existing orienatoin is landscapeLeft")
+    //            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+    //        }
+    //        else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight{
+    //
+    //            print("Existing orienatoin is landscapeRight")
+    //            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+    //        }
+    //
+    //        else if UIDevice.current.orientation == UIDeviceOrientation.faceDown{
+    //
+    //
+    //            print("Existing orienatoin is faceDown")
+    //            //UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+    //        }
+    //        else if UIDevice.current.orientation == UIDeviceOrientation.faceUp{
+    //            print("Existing orienatoin is faceUp")
+    //        }
+    //
+    //        else if UIDevice.current.orientation == UIDeviceOrientation.portrait{
+    //
+    //            print("Existing orienatoin is portrait")
+    //            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    //        }
+    //        else if UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown{
+    //
+    //            print("Existing orienatoin is portraitUpsideDown")
+    //            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+    //        }
+    //        releaseDeviceOrientation()
+    //    }
     
+}
+
+
+//MARK:- Fetching the twillio access token
+extension UserCallController{
+    
+    func fetchTwillioToken(twillioRoom:UserCallConnection,slotId:Int?){
+        
+        
+        FetchUserTwillioTokenProcessor().fetch(chatId: self.eventId, slotId: slotId) { (success, error, info) in
+            
+            if !success{
+                return
+            }
+            twillioRoom.roomName = info?.room ?? ""
+            twillioRoom.accessToken = info?.token ?? ""
+            if twillioRoom.accessToken != ""{
+                twillioRoom.connectToRoom()
+            }
+        }
+    }
 }

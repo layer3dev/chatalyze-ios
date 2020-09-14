@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -497,13 +497,23 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF0-kf-hbK" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="207" y="431" width="0.0" height="0.0"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWA-6B-tjp" customClass="TVIVideoView">
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="oWA-6B-tjp" secondAttribute="bottom" id="2IG-7c-wxB"/>
                                             <constraint firstAttribute="width" id="R3F-fs-Z6x"/>
+                                            <constraint firstAttribute="trailing" secondItem="oWA-6B-tjp" secondAttribute="trailing" id="v5P-qs-cN7"/>
+                                            <constraint firstItem="oWA-6B-tjp" firstAttribute="leading" secondItem="GF0-kf-hbK" secondAttribute="leading" id="xJZ-LO-QRP"/>
                                             <constraint firstAttribute="height" id="yjp-cz-f1N"/>
+                                            <constraint firstItem="oWA-6B-tjp" firstAttribute="top" secondItem="GF0-kf-hbK" secondAttribute="top" id="zbZ-mG-XgZ"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="heightConstraint" destination="yjp-cz-f1N" id="8jI-e7-HAr"/>
+                                            <outlet property="streamingVideoView" destination="oWA-6B-tjp" id="tIG-NC-4Kp"/>
                                             <outlet property="widthConstraint" destination="R3F-fs-Z6x" id="GYM-77-ycj"/>
                                         </connections>
                                     </view>
@@ -531,19 +541,30 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-mP-7LN" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="341" y="88" width="60" height="112"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKb-9G-ARD" customClass="TVIVideoView">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="112"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="FKb-9G-ARD" firstAttribute="leading" secondItem="Yk6-mP-7LN" secondAttribute="leading" id="2xi-k8-Pwd"/>
+                                    <constraint firstAttribute="trailing" secondItem="FKb-9G-ARD" secondAttribute="trailing" id="ANg-Ab-cr1"/>
+                                    <constraint firstItem="FKb-9G-ARD" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="top" id="DOq-qe-HjE"/>
                                     <constraint firstAttribute="width" constant="60" id="Obw-b3-wVM">
                                         <variation key="heightClass=regular-widthClass=regular" constant="120"/>
                                     </constraint>
                                     <constraint firstAttribute="height" constant="112" id="Pwt-4D-5LN">
                                         <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                     </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="FKb-9G-ARD" secondAttribute="bottom" id="z3z-wg-NC4"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomConstraint" destination="GWG-w6-Q9Y" id="LPt-TB-kZh"/>
                                     <outlet property="heightConstraint" destination="Pwt-4D-5LN" id="gEl-7f-Cq0"/>
+                                    <outlet property="streamingVideoView" destination="FKb-9G-ARD" id="noa-wE-qRK"/>
                                     <outlet property="topConstraint" destination="SJS-tz-KdS" id="3GW-cd-Gie"/>
                                     <outlet property="widthConstraint" destination="Obw-b3-wVM" id="nLk-MM-744"/>
                                 </connections>
@@ -1089,7 +1110,6 @@
                             <outlet property="localVideoView" destination="Yk6-mP-7LN" id="4UB-Yi-hbv"/>
                             <outlet property="remoteVideoContainerView" destination="gKG-jl-gLG" id="L2a-bh-pYG"/>
                             <outlet property="requestAutographButton" destination="SrS-mz-6Sq" id="Puh-tg-Tkf"/>
-                            <outlet property="userCallInfoContainer" destination="MyL-nW-36r" id="f9B-U9-Rvf"/>
                             <outlet property="youtubeContainerView" destination="e8t-Fe-NIm" id="GPW-FA-Nug"/>
                         </connections>
                     </view>
@@ -1588,10 +1608,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIo-zX-9yT" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="309" width="374" height="278"/>
+                                                <rect key="frame" x="20" y="314" width="374" height="268.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work - you made it through the queue! More chat slots are available. Would you like to:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="bXV-dt-0ab">
-                                                        <rect key="frame" x="15" y="30" width="349" height="44"/>
+                                                        <rect key="frame" x="15" y="30" width="349" height="37.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <color key="textColor" red="0.35294117650000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1600,10 +1620,10 @@
                                                         </variation>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fdo-an-etr" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="59.5" y="104" width="255.5" height="45"/>
+                                                        <rect key="frame" x="61.5" y="97.5" width="251" height="45"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KEEP REGISTRATION OPEN &amp; WAIT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Js-ua-U3u">
-                                                                <rect key="frame" x="10" y="0.0" width="235.5" height="45"/>
+                                                                <rect key="frame" x="10" y="0.0" width="231" height="45"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1613,7 +1633,7 @@
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfE-iM-sw5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="255.5" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="251" height="45"/>
                                                                 <connections>
                                                                     <action selector="keepRegistrationWithSender:" destination="mh0-yc-sqt" eventType="touchUpInside" id="KEe-Gm-xQf"/>
                                                                 </connections>
@@ -1639,7 +1659,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsr-IW-Uzz">
-                                                        <rect key="frame" x="175.5" y="164" width="23.5" height="22"/>
+                                                        <rect key="frame" x="175.5" y="157.5" width="23.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <color key="textColor" red="0.35294117650000001" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1648,10 +1668,10 @@
                                                         </variation>
                                                     </label>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFu-Wz-h6p" customClass="TippingAlertShadow" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="62" y="208" width="250" height="45"/>
+                                                        <rect key="frame" x="62.5" y="198.5" width="249" height="45"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CLOSE REGISTRATION AND END SESSION" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfw-GL-qqC">
-                                                                <rect key="frame" x="5" y="0.0" width="240" height="45"/>
+                                                                <rect key="frame" x="5" y="0.0" width="239" height="45"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="12"/>
                                                                 <color key="textColor" red="0.3529411764705882" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
@@ -1661,7 +1681,7 @@
                                                                 </variation>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdJ-kI-PTj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="250" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="249" height="45"/>
                                                                 <connections>
                                                                     <action selector="closeRegistrationEndSessionWithSender:" destination="mh0-yc-sqt" eventType="touchUpInside" id="auY-au-FHk"/>
                                                                 </connections>
@@ -1839,13 +1859,23 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gn-Ql-ZQG" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="207" y="431" width="0.0" height="0.0"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yp4-hC-0dC" customClass="TVIVideoView">
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="W2u-ML-UXk"/>
+                                            <constraint firstAttribute="bottom" secondItem="Yp4-hC-0dC" secondAttribute="bottom" id="eAl-uM-pQZ"/>
+                                            <constraint firstItem="Yp4-hC-0dC" firstAttribute="leading" secondItem="0gn-Ql-ZQG" secondAttribute="leading" id="heB-IB-Qsk"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yp4-hC-0dC" secondAttribute="trailing" id="oRD-Sd-wv6"/>
+                                            <constraint firstItem="Yp4-hC-0dC" firstAttribute="top" secondItem="0gn-Ql-ZQG" secondAttribute="top" id="wmh-Ia-6zh"/>
                                             <constraint firstAttribute="width" id="xu7-v9-NWN"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="heightConstraint" destination="W2u-ML-UXk" id="217-F0-GHr"/>
+                                            <outlet property="streamingVideoView" destination="Yp4-hC-0dC" id="a9B-LO-tO6"/>
                                             <outlet property="widthConstraint" destination="xu7-v9-NWN" id="LPq-27-jG2"/>
                                         </connections>
                                     </view>
@@ -2291,12 +2321,22 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W51-oe-Gfn" customClass="LocalHostVideoView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="341" y="112" width="60" height="110"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hrp-2G-qYS" customClass="TVIVideoView">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="110"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="7Nj-i3-YMj">
                                         <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                     </constraint>
+                                    <constraint firstItem="Hrp-2G-qYS" firstAttribute="leading" secondItem="W51-oe-Gfn" secondAttribute="leading" id="H2n-DJ-72A"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hrp-2G-qYS" secondAttribute="bottom" id="Jq7-2T-sXY"/>
+                                    <constraint firstItem="Hrp-2G-qYS" firstAttribute="top" secondItem="W51-oe-Gfn" secondAttribute="top" id="cl6-8T-LHC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hrp-2G-qYS" secondAttribute="trailing" id="oyZ-hS-qw3"/>
                                     <constraint firstAttribute="width" constant="60" id="s8f-yB-Ec2">
                                         <variation key="heightClass=regular-widthClass=regular" constant="120"/>
                                     </constraint>
@@ -2304,6 +2344,7 @@
                                 <connections>
                                     <outlet property="bottomConstraint" destination="JrL-q0-elV" id="jWi-h4-nqm"/>
                                     <outlet property="heightConstraint" destination="7Nj-i3-YMj" id="bz5-Pf-dn2"/>
+                                    <outlet property="streamingVideoView" destination="Hrp-2G-qYS" id="QHn-ef-hsX"/>
                                     <outlet property="topConstraint" destination="CAh-96-eSy" id="6jf-qh-9Lr"/>
                                     <outlet property="userLeadingForProtraitOnSignature" destination="RAW-bi-HuM" id="S1x-Im-9GS"/>
                                     <outlet property="userTopForProtraitOnSignature" destination="ThD-Cr-hrz" id="W0K-cZ-1NM"/>

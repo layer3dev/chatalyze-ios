@@ -15,6 +15,8 @@ class VideoActionContainer: ExtendedView {
     
     @IBOutlet var bottomSpace : NSLayoutConstraint?
     
+    var isactionContainerVisible = true
+    
     let hiddenPaddingValue = -100.0
     let visiblePaddingValue = 15.0
     
@@ -50,11 +52,14 @@ class VideoActionContainer: ExtendedView {
         //For iPhone
         if UIDevice.current.userInterfaceIdiom == .phone{
             
-            if(bottomSpace.constant == CGFloat(visiblePaddingValue)){
+            //if(bottomSpace.constant == CGFloat(visiblePaddingValue)){
+            if isactionContainerVisible{
+                self.isactionContainerVisible = false
                 self.bottomSpace?.constant = CGFloat(hiddenPaddingValue)
                 //self.alpha = 0.0
                 return
             }
+            self.isactionContainerVisible = true
             self.bottomSpace?.constant = CGFloat(visiblePaddingValue)
             //self.alpha = 1.0
             return
@@ -62,11 +67,14 @@ class VideoActionContainer: ExtendedView {
         
         
         //For iPad
-        if(bottomSpace.constant == CGFloat(visiblePaddingValueiPad)){
+        //if(bottomSpace.constant == CGFloat(visiblePaddingValueiPad)){
+        if isactionContainerVisible{
+            self.isactionContainerVisible = false
             self.bottomSpace?.constant = CGFloat(hiddenPaddingValueiPad)
             //self.alpha = 0.0
             return
         }
+        self.isactionContainerVisible = true
         self.bottomSpace?.constant = CGFloat(visiblePaddingValueiPad)
     }
     

@@ -9,7 +9,7 @@
 
 import UIKit
 
-class RemoteVideoView: VideoView {
+class RemoteVideoView: VideoViewOld {
     
     @IBOutlet private var widthConstraint : NSLayoutConstraint?
     @IBOutlet private var heightConstraint : NSLayoutConstraint?
@@ -19,22 +19,14 @@ class RemoteVideoView: VideoView {
     
     var streamUpdationDelegate:UpdateStreamChangeProtocol?
     
-    override var TAG : String{
+    var TAG : String{
         get{
             return "RemoteVideoView"
         }
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-    
     func updateContainerSize(containerSize : CGSize){
-       
+        
         Log.echo(key: self.TAG, text: "updateContainerSize ->> \(containerSize)")
         
         if(containerSize.width == 0 || containerSize.height == 0){
@@ -43,7 +35,7 @@ class RemoteVideoView: VideoView {
         self.containerSize = containerSize
         refreshRendererSize()
     }
-
+    
     override func updateSize(size: CGSize){
         
         Log.echo(key: self.TAG, text: "updateSize ->> \(size)")
@@ -69,7 +61,7 @@ class RemoteVideoView: VideoView {
         Log.echo(key: self.TAG, text: "update aspect ->> nil")
         Log.echo(key: self.TAG, text: "containerSize ->> \(containerSize)")
         Log.echo(key: self.TAG, text: "streamSize ->> \(streamSize)")
-        Log.echo(key: self.TAG, text: "Stream way is \(isPortrait(size: streamSize))")
+        Log.echo(key: self.TAG, text: "Stream way is \(String(describing: isPortrait(size: streamSize)))")
         
         
         if let isStreamPortrait = isPortrait(size: streamSize) {
@@ -107,19 +99,12 @@ class RemoteVideoView: VideoView {
     
     private func updateViewSize(size: CGSize){
         self.layoutIfNeeded()
-
+        
         self.widthConstraint?.constant = !size.width.isNaN ? size.width : 0
         self.heightConstraint?.constant = !size.height.isNaN ? size.height : 0
-        
-        UIView.animate(withDuration: 1.0, animations: {
-            self.layoutIfNeeded()
-            
-        }) { (success) in
-            
-        }
     }
     
-    //Developer Y    
+    //Developer Y
     func isPortrait(size:CGSize)->Bool?{
         
         let minimumSize = size

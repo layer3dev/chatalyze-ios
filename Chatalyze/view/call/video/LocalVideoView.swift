@@ -10,7 +10,7 @@
 import UIKit
 
 //AVMakeRectWithAspectRatioInsideRect
-class LocalVideoView: VideoView {
+class LocalVideoView: VideoViewOld {
     
     @IBOutlet var widthConstraint : NSLayoutConstraint?
     @IBOutlet var heightConstraint : NSLayoutConstraint?
@@ -20,11 +20,11 @@ class LocalVideoView: VideoView {
 
     var isSignatureActive:Bool = false
     
-    override var TAG : String{
-        get{
-            return "LocalVideoView"
-        }
-    }
+//    override var TAG : String{
+//        get{
+//            return "LocalVideoView"
+//        }
+//    }
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -123,5 +123,4 @@ class LocalVideoView: VideoView {
     override func updateSize(size: CGSize) {
         super.updateSize(size: size)
     }
-
 }

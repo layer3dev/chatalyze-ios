@@ -9,4 +9,5 @@
 import Foundation
 protocol UpdateStreamChangeProtocol {
     func updateForStreamPosition(isPortrait:Bool)
+    func getContainerSize()->CGSize
 }
