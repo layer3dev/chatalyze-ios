@@ -12,9 +12,6 @@ import AVFoundation
 
 class FrameExtractor: NSObject {
     
-
-
-    
     var captureSession : AVCaptureSession?
     private let sessionQueue = DispatchQueue(label: "session queue")
     private let context = CIContext()

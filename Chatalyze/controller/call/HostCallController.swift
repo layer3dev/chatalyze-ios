@@ -243,13 +243,10 @@ class HostCallController: VideoCallController {
         param["name"] = hashedUserId
         socketClient?.emit(param)
     }
-
     
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
     }
-    
-   
     
     private func initializeVariable(){
         
@@ -259,9 +256,6 @@ class HostCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
     }
-    
-    
-
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -1810,9 +1804,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.hostRootView?.localVideoView?.isSignatureActive = true
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         self.hostRootView?.remoteVideoContainerView?.updateForSignature()
-    
-    }    
-    
+    }
     
     func lockDeviceOrientation(){
         
@@ -1845,10 +1837,10 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     }
         
     func releaseDeviceOrientation(){
+        
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
-
     }
 }
 

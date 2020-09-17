@@ -560,7 +560,7 @@ extension UserCallConnection : RemoteParticipantDelegate {
         isRendered = true
         print("Rendered successfully!")
         remotetrack.addRenderer(view)
-
+        remotetrack.addRenderer(renderer)
         trackRemoteScreenDisplayed()
         self.remoteAudioTrack?.isPlaybackEnabled = true
     }

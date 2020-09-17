@@ -548,6 +548,7 @@ extension CallConnection : RemoteParticipantDelegate {
      
         // We are subscribed to the remote Participant's video Track. We will start receiving the
         // remote Participant's video frames now.
+    
 
         logMessage(messageText: "Subscribed to \(publication.trackName) video track for Participant \(participant.identity)")
 
@@ -655,11 +656,10 @@ extension CallConnection : RemoteParticipantDelegate {
                         return
                     }
                     
-                
                     DispatchQueue.main.async {
                         
                         self.removeInvalidRenderer(info : info)
-                        
+
                         if !(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp ?? false){
 
                             track.addRenderer(self.remoteView!)
