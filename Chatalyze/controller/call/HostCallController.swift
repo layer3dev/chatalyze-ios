@@ -143,6 +143,11 @@ class HostCallController: VideoCallController {
         return self.rootView?.localVideoView?.streamingVideoView
     }
     
+    
+    override var localVideoRenderer:VideoFrameRenderer?{
+        return self.rootView?.localVideoView?.getRenderer()
+    }
+    
     var isCallHangedUp:Bool{
         
         if let hangUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp{
@@ -238,13 +243,10 @@ class HostCallController: VideoCallController {
         param["name"] = hashedUserId
         socketClient?.emit(param)
     }
-
     
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
     }
-    
-   
     
     private func initializeVariable(){
         
@@ -254,9 +256,6 @@ class HostCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
     }
-    
-    
-
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -984,6 +983,8 @@ class HostCallController: VideoCallController {
         }
         
         
+        
+        
         if self.currentTwillioRoom == nil{
             
             self.currentTwillioRoom = HostCallConnection()
@@ -991,6 +992,7 @@ class HostCallController: VideoCallController {
             self.currentTwillioRoom?.slotInfo = currentSlot
             self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
             self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+            self.currentTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
             fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
             //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
             return
@@ -1023,6 +1025,7 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
                     self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
+                    self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
                 }
             
@@ -1801,9 +1804,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.hostRootView?.localVideoView?.isSignatureActive = true
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         self.hostRootView?.remoteVideoContainerView?.updateForSignature()
-    
-    }    
-    
+    }
     
     func lockDeviceOrientation(){
         
@@ -1840,7 +1841,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
-
     }
 }
 

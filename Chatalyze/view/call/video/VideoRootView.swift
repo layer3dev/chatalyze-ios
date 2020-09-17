@@ -42,6 +42,7 @@ class VideoRootView: ExtendedView {
      }
      */
     
+    
     func confirmViewLoad(listener : (()->())?){
         self.loadListener = listener
         
@@ -72,9 +73,6 @@ class VideoRootView: ExtendedView {
     private func paintInterface(){
         self.headerTopConstraint?.constant = UIApplication.shared.statusBarFrame.size.height + 5.0
     }
-    
-    
-    
     
     func addToogleGesture(){
         
@@ -130,41 +128,63 @@ class VideoRootView: ExtendedView {
             self.getPostImageSnapshot(info: info, eventLogo: image, completion: completion)
             return
         }
-        
     }
     
+ 
     func getPostImageSnapshot(info:EventInfo?,eventLogo:UIImage?, completion: @escaping ((_ image:UIImage?)->())){
         
         Log.echo(key: "VideoRootView", text: "call get Video Frame")
+            
+        getVideoFrame(listener: {[weak self] (local, remote) in
+            Log.echo(key: "VideoRootView", text: "received BOTH frame")
+            self?.renderScreenshot(localFrame: local, remoteFrame: remote, eventLogo : eventLogo, info: info, completion: completion)
+        })
+    }
+    
+    private func getVideoFrame(listener : ((_ localFrame : UIImage?, _ remoteFrame : UIImage?) -> ())?){
         
-        guard let localView = self.localVideoView else{
-            print("missing local video ")
-            completion(nil)
-            return
-        }
+        Log.echo(key: "VideoRootView", text: "getVideoFrame")
+        var localFrame : UIImage? = nil
+        var remoteFrame : UIImage? = nil
+        var localListener = listener
         
-        guard let remoteView = self.remoteVideoView else{
-            print("missing remote video ")
+        localVideoView?.getFrame(listener: { (frame) in
+            
+            Log.echo(key: "VideoRootView", text: "localVideoView frame received")
+            guard let frame = frame
+                else{
+                    localListener?(nil, remoteFrame)
+                    localListener = nil
+                    return
+            }
+            localFrame = frame
+            if(remoteFrame == nil){
+                return
+            }
+            
+            localListener?(localFrame, remoteFrame)
+            
+            localListener = nil
+    
+        })
+        
+        remoteVideoView?.getFrame(listener: { (frame) in
+            Log.echo(key: "VideoRootView", text: "remoteVideoView frame received")
 
-            completion(nil)
-            return
-        }
-        
-        guard let localViewImage = self.getSnapshot(view : localView) else{
-            print("missing local image ")
-
-            completion(nil)
-            return
-        }
-        
-        guard let remoteViewImage = self.getSnapshot(view : remoteView) else{
-            print("missing remote image ")
-
-            completion(nil)
-            return 
-        }
-        
-        self.renderScreenshot(localFrame: localViewImage, remoteFrame: remoteViewImage, eventLogo : eventLogo, info: info, completion: completion)
+            guard let frame = frame
+                else{
+                    localListener?(nil, localFrame)
+                    localListener = nil
+                    return
+            }
+            remoteFrame = frame
+            if(localFrame == nil){
+                return
+            }
+            localListener?(localFrame, remoteFrame)
+            localListener = nil
+            
+        })
     }
         
 
@@ -228,6 +248,8 @@ class VideoRootView: ExtendedView {
     
     //Developer Y
     func isPortrait(size:CGSize)->Bool?{
+        
+        print("size of the frame is \(size)")
         
         let minimumSize = size
         let mW = minimumSize.width

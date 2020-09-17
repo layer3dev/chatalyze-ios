@@ -12,27 +12,35 @@ import UIKit
 //AVMakeRectWithAspectRatioInsideRect
 class LocalVideoView: VideoViewOld {
     
+    private var frameRender = CameraVideoFrameRenderer()
+    
     @IBOutlet var widthConstraint : NSLayoutConstraint?
     @IBOutlet var heightConstraint : NSLayoutConstraint?
     
     @IBOutlet var topConstraint : NSLayoutConstraint?
     @IBOutlet var bottomConstraint : NSLayoutConstraint?
+    
+    var getLocalImage:((UIImage?)->())?
 
     var isSignatureActive:Bool = false
     
-//    override var TAG : String{
-//        get{
-//            return "LocalVideoView"
-//        }
-//    }
+    //    override var TAG : String{
+    //        get{
+    //            return "LocalVideoView"
+    //        }
+    //    }
     
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    
+    override func getRenderer() -> VideoFrameRenderer{
+        return frameRender
     }
-    */
 
     override func viewDidLayout() {
         super.viewDidLayout()

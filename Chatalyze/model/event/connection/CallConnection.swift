@@ -33,6 +33,8 @@ class CallConnection: NSObject {
 
     var roomParticipantsList = [HostRoomInfo]()
     var remoteView:VideoView?
+    var renderer : VideoFrameRenderer?
+
 
     static private var temp = 0
     var tempIdentifier = 0
@@ -546,6 +548,7 @@ extension CallConnection : RemoteParticipantDelegate {
      
         // We are subscribed to the remote Participant's video Track. We will start receiving the
         // remote Participant's video frames now.
+    
 
         logMessage(messageText: "Subscribed to \(publication.trackName) video track for Participant \(participant.identity)")
 
@@ -574,11 +577,18 @@ extension CallConnection : RemoteParticipantDelegate {
     
     func removeWholeRenders(){
         
+        
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         // Removing all the reneders tracks
         let isPartcipantExists = self.roomParticipantsList.filter({$0.isRendered == true})
         if isPartcipantExists.count > 0{
             
             isPartcipantExists[0].remoteVideoTrack?.removeRenderer(self.remoteView!)
+            isPartcipantExists[0].remoteVideoTrack?.removeRenderer(renderer)
+            
             isPartcipantExists[0].remoteAudioTrack?.isPlaybackEnabled = false
             self.roomParticipantsList.removeAll()
             return
@@ -590,8 +600,13 @@ extension CallConnection : RemoteParticipantDelegate {
         let isPartcipantExists = self.roomParticipantsList.filter({$0.isRendered == true})
         if isPartcipantExists.count > 0{
             
+            guard let renderer = self.renderer else{
+                return
+            }
+            
             isPartcipantExists[0].remoteAudioTrack?.isPlaybackEnabled = false
             isPartcipantExists[0].remoteVideoTrack?.removeRenderer(self.remoteView!)
+            isPartcipantExists[0].remoteVideoTrack?.removeRenderer(renderer)
             isPartcipantExists[0].isRendered = false
             return
         }
@@ -636,14 +651,19 @@ extension CallConnection : RemoteParticipantDelegate {
             if !currentParticipant[0].isRendered{
                 
                 if let track = currentParticipant[0].remoteVideoTrack {
-                
+                    
+                    guard let renderer = self.renderer else{
+                        return
+                    }
+                    
                     DispatchQueue.main.async {
                         
                         self.removeInvalidRenderer(info : info)
-                        
+
                         if !(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp ?? false){
 
                             track.addRenderer(self.remoteView!)
+                            track.addRenderer(renderer)
                             currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
                             currentParticipant[0].isRendered = true
                             self.trackRemoteScreenDisplayed()
@@ -663,12 +683,17 @@ extension CallConnection : RemoteParticipantDelegate {
     func removePreviousRenderer(){
         
         let connectedParticipant = self.roomParticipantsList.filter({$0.isRendered == true})
+        
+        guard let renderer = self.renderer else{
+            return
+        }
     
         for info in connectedParticipant{
             if let track = info.remoteVideoTrack{
                 
                 info.remoteAudioTrack?.isPlaybackEnabled = false
                 track.removeRenderer(self.remoteView!)
+                track.removeRenderer(renderer)
             }
         }
     }
@@ -682,6 +707,10 @@ extension CallConnection : RemoteParticipantDelegate {
         let currentSlotUserHash = info.mergeSlotInfo?.currentSlot?.user?.hashedId
         let preConnectSlotUserHash = info.mergeSlotInfo?.preConnectSlot?.user?.hashedId
         
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         for info in self.roomParticipantsList{
             if(info.remoteParticipant?.identity == currentSlotUserHash){
                 continue
@@ -693,6 +722,7 @@ extension CallConnection : RemoteParticipantDelegate {
             info.remoteAudioTrack?.isPlaybackEnabled = false
             if let remoteView = self.remoteView{
                 info.remoteVideoTrack?.removeRenderer(remoteView)
+                info.remoteVideoTrack?.removeRenderer(renderer)
             }
         }
     }
@@ -706,11 +736,16 @@ extension CallConnection : RemoteParticipantDelegate {
         
         logMessage(messageText: "Unsubscribed from \(publication.trackName) video track for Participant \(participant.identity)")
         
+        guard let renderer = self.renderer else{
+            return
+        }
+        
         let isPartcipantExists = self.roomParticipantsList.filter({$0.remoteParticipant == participant})
         if isPartcipantExists.count > 0{
 
             print("Adding the video track at the participant having the identity of \(isPartcipantExists)")
             isPartcipantExists[0].remoteVideoTrack?.removeRenderer(self.remoteView!)
+            isPartcipantExists[0].remoteVideoTrack?.removeRenderer(renderer)
             self.roomParticipantsList = self.roomParticipantsList.filter({$0.remoteParticipant != participant})
             trackLostRemoteVideoStream()
             return

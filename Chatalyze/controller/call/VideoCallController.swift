@@ -110,7 +110,9 @@ class VideoCallController : InterfaceExtendedController {
         return nil
     }
     
-    
+    var localVideoRenderer:VideoFrameRenderer?{
+        return nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,7 +195,7 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func resetMuteActions(){
-
+        
         actionContainer?.audioView?.unmute()
         actionContainer?.videoView?.unmute()
         
@@ -285,7 +287,7 @@ class VideoCallController : InterfaceExtendedController {
         }
         
         if roleType == .user{
-           
+            
             self.onExit(code : code)
             return
         }
@@ -444,7 +446,7 @@ class VideoCallController : InterfaceExtendedController {
             self?.startLocalStreaming()
             self?.registerForAppState()
             Log.echo(key: "delay", text: "processed")
-
+            
             if(isActivated){
                 Log.echo(key: "delay", text: "event is activated")
             }
@@ -614,7 +616,7 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
-        
+    
     private func processUpdatePeerList(json : JSON?){
         
         guard let json = json
@@ -761,7 +763,7 @@ class VideoCallController : InterfaceExtendedController {
         
         self.poorInternetBannerView?.layer.cornerRadius = 17.5
         self.poorInternetBannerView?.layer.masksToBounds = true
-       
+        
         self.speedHandler?.showBottomBanner = {[weak self] success in
             
             if success{
@@ -783,7 +785,7 @@ extension VideoCallController{
     func startCallRing(){
     }
     
-   
+    
     
     
     func encodeImageToBase64(image : UIImage?,completion: @escaping (_ encodedData:String)->()){
@@ -899,50 +901,50 @@ extension VideoCallController{
         }
         
         
-//        localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
-//
-//            DispatchQueue.main.async {
-//
-//
-//            guard let localCapturer = capturer
-//                else{
-//                    return
-//            }
-//
-//            guard let localView = self?.rootView?.localVideoView
-//                else{
-//                    return
-//            }
-//
-//            let captureSession = localCapturer.captureSession
-//            //localView.captureSession = captureSession
-//
-//            let settingsModel = ARDSettingsModel()
-//            settingsModel.storeVideoResolutionSetting("1280x720")
-//            self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
-//            self?.captureController?.startCapture()
-//            }
-//        }
+        //        localMediaPackage = streamCapturer.getMediaCapturer {[weak self] (capturer) in
+        //
+        //            DispatchQueue.main.async {
+        //
+        //
+        //            guard let localCapturer = capturer
+        //                else{
+        //                    return
+        //            }
+        //
+        //            guard let localView = self?.rootView?.localVideoView
+        //                else{
+        //                    return
+        //            }
+        //
+        //            let captureSession = localCapturer.captureSession
+        //            //localView.captureSession = captureSession
+        //
+        //            let settingsModel = ARDSettingsModel()
+        //            settingsModel.storeVideoResolutionSetting("1280x720")
+        //            self?.captureController = ARDCaptureController(capturer: localCapturer, settings: settingsModel)
+        //            self?.captureController?.startCapture()
+        //            }
+        //        }
         
-//        DispatchQueue.main.async {
-//
-//
-//            guard let localView = self.rootView?.localVideoView
-//            else{
-//                return
-//        }
-//
-//        if let localTrack = self.localTrack{
-//            localTrack.remove(localView)
-//            self.localTrack = nil
-//            localView.renderFrame(nil)
-//        }
-//
-//        Log.echo(key: "local stream", text: "got local stream")
-//
-//            self.localTrack = self.localMediaPackage?.videoTrack
-//            self.localTrack?.add(localView)
-//        }
+        //        DispatchQueue.main.async {
+        //
+        //
+        //            guard let localView = self.rootView?.localVideoView
+        //            else{
+        //                return
+        //        }
+        //
+        //        if let localTrack = self.localTrack{
+        //            localTrack.remove(localView)
+        //            self.localTrack = nil
+        //            localView.renderFrame(nil)
+        //        }
+        //
+        //        Log.echo(key: "local stream", text: "got local stream")
+        //
+        //            self.localTrack = self.localMediaPackage?.videoTrack
+        //            self.localTrack?.add(localView)
+        //        }
     }
     
     
@@ -952,24 +954,27 @@ extension VideoCallController{
         let options = AudioOptions(){(builder) in
             builder.isSoftwareAecEnabled = true
         }
-    
+        
         self.localMediaPackage?.audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
         
         
     }
     
-        
+    
     func writeLocalVideoTrack() {
         
         guard let frontCamera = CameraSource.captureDevice(position: .front) else{
             return
         }
         
+        
         guard let _ = CameraSource.captureDevice(position: .back) else{
             return
         }
+    
         
         let options = CameraSourceOptions { (builder) in
+            
             // To support building with Xcode 10.x.
             #if XCODE_1100
             if #available(iOS 13.0, *) {
@@ -980,6 +985,7 @@ extension VideoCallController{
                     return
                 }
                 builder.orientationTracker = UserInterfaceTracker(scene: scene)
+//                builder.orientationTracker = VideoOrientation.up
             }
             #endif
         }
@@ -1001,7 +1007,12 @@ extension VideoCallController{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.addRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.addRenderer(renderer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCallController.flipCamera))
         //localPreviewView.addGestureRecognizer(tap)
@@ -1010,7 +1021,7 @@ extension VideoCallController{
             if let _ = error {
                 
             } else {
-
+                
                 //localPreviewView.shouldMirror = !(captureDevice.position == .front)
                 localPreviewView.shouldMirror = false
                 localPreviewView.contentMode = .scaleAspectFill
@@ -1019,10 +1030,14 @@ extension VideoCallController{
         }
     }
     
+    
+    
+    
+    
     //overridden
     func fetchTwillioRoomInfoFromServer(){
     }
-       
+    
 }
 
 extension VideoCallController{
@@ -1177,7 +1192,7 @@ extension VideoCallController{
             return
         }
         
-         stopIdleMedia()
+        stopIdleMedia()
         
         if(type == .ideal) {
             
@@ -1190,7 +1205,7 @@ extension VideoCallController{
         
         
         
-       
+        
         
         
         
@@ -1240,19 +1255,19 @@ extension VideoCallController{
             return
         }
         
-      
-      if (type == .socketDisconnected){
-        self.showAlertContainer()
-        self.showPreConnectLabel()
         
-        
-        let requiredMessage = "Unable to connect to video server. Trying to reconnect..."
-        let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
-        
-        
-        preConnectLbl?.attributedText = secondAttributedString
-        return
-      }
+        if (type == .socketDisconnected){
+            self.showAlertContainer()
+            self.showPreConnectLabel()
+            
+            
+            let requiredMessage = "Unable to connect to video server. Trying to reconnect..."
+            let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
+            
+            
+            preConnectLbl?.attributedText = secondAttributedString
+            return
+        }
         if type == .userDidNotJoin {
             
             self.showAlertContainer()
@@ -1282,15 +1297,15 @@ extension VideoCallController{
             let requiredMessage = "Get ready to chat!"
             let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             
-//            let requiredMessageM1 = "Tip:"
-//            let requiredMessageM1AttributedString = requiredMessageM1.toAttributedString(font: "Nunito-Bold", size: fontSize-3, color: UIColor.white)
-//
-//
-//            let requiredMessageM2 = " If you have any trouble connecting to your call, try hanging up and re-joining."
-//            let requiredMessageM2AttributedString = requiredMessageM2.toAttributedString(font: "Nunito-Regular", size: fontSize-3, color: UIColor.white)
-//
-//            secondAttributedString.append(requiredMessageM1AttributedString)
-//            secondAttributedString.append(requiredMessageM2AttributedString)
+            //            let requiredMessageM1 = "Tip:"
+            //            let requiredMessageM1AttributedString = requiredMessageM1.toAttributedString(font: "Nunito-Bold", size: fontSize-3, color: UIColor.white)
+            //
+            //
+            //            let requiredMessageM2 = " If you have any trouble connecting to your call, try hanging up and re-joining."
+            //            let requiredMessageM2AttributedString = requiredMessageM2.toAttributedString(font: "Nunito-Regular", size: fontSize-3, color: UIColor.white)
+            //
+            //            secondAttributedString.append(requiredMessageM1AttributedString)
+            //            secondAttributedString.append(requiredMessageM2AttributedString)
             
             preConnectLbl?.attributedText = secondAttributedString
             return
@@ -1404,7 +1419,7 @@ extension VideoCallController:VideoViewStatusBarAnimationInterface{
         UIApplication.shared.isStatusBarHidden = false
         //setNeedsStatusBarAppearanceUpdate()
         print("showing status bar \(self.prefersStatusBarHidden)")
-
+        
     }
     
     func hidingAnimateStatusBar() {
@@ -1414,7 +1429,7 @@ extension VideoCallController:VideoViewStatusBarAnimationInterface{
         UIApplication.shared.isStatusBarHidden = true
         //setNeedsStatusBarAppearanceUpdate()
         print("showing status bar \(self.prefersStatusBarHidden)")
-
+        
     }
     
     func showToastWithMessage(text:String,time:Double){
@@ -1455,7 +1470,7 @@ extension VideoCallController{
 
 
 extension VideoCallController:CameraSourceDelegate{
-        
+    
     func cameraSourceDidFail(source: CameraSource, error: Error) {
         
         Log.echo(key: "Twill", text: "Camera source failed with error: \(error.localizedDescription)")
@@ -1464,7 +1479,11 @@ extension VideoCallController:CameraSourceDelegate{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
         self.localMediaPackage?.videoTrack = nil
         self.camera?.stopCapture()
         self.camera = nil
@@ -1481,9 +1500,9 @@ extension VideoCallController:CameraSourceDelegate{
         //source.stopCapture()
         
         Log.echo(key: "Twill", text: "Camera source cameraSourceWasInterrupted with error: \(reason.rawValue) case-->0 videoDeviceNotAvailableInBackground--> 1audioDeviceInUseByAnotherClient-->2videoDeviceInUseByAnotherClient-->3videoDeviceNotAvailableWithMultipleForegroundApps")
-
+        
         if reason.rawValue == 3 {
-                        
+            
             guard let cameraInstance = camera else{
                 Log.echo(key: "yud", text: "Empty camera instance")
                 return
@@ -1525,7 +1544,7 @@ extension VideoCallController{
     }
     
     fileprivate func registerForAppState(){
-                        
+        
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
@@ -1549,7 +1568,7 @@ extension VideoCallController{
     }
     
     @objc func appMovedToForeground(){
-       
+        
         Log.echo(key: "Twill", text: "App is moving to the forground in call room.")
         self.connectManualConnection()
     }
@@ -1568,27 +1587,19 @@ extension VideoCallController{
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        guard let renderer = self.localVideoRenderer else{
+            return
+        }
         self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
         self.localMediaPackage?.videoTrack = nil
         self.camera?.stopCapture()
         self.camera = nil
     }
     
     func enableCamera(){
-         
+        
         self.startLocalStreaming()
-    }
-}
-
-extension CameraSource:VideoRenderer{
-    public func renderFrame(_ frame: VideoFrame) {
-      
-        print("REndering frames are \(frame)")
-    }
-    
-    public func updateVideoSize(_ videoSize: CMVideoDimensions, orientation: VideoOrientation) {
-
-        print("updating the video size is \(videoSize)")
     }
 }
 

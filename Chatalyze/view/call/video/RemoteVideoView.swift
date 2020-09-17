@@ -11,6 +11,8 @@ import UIKit
 
 class RemoteVideoView: VideoViewOld {
     
+    private var frameRender = VideoFrameRenderer()
+
     @IBOutlet private var widthConstraint : NSLayoutConstraint?
     @IBOutlet private var heightConstraint : NSLayoutConstraint?
     
@@ -23,6 +25,10 @@ class RemoteVideoView: VideoViewOld {
         get{
             return "RemoteVideoView"
         }
+    }
+     
+    override func getRenderer() -> VideoFrameRenderer{
+        return frameRender
     }
     
     func updateContainerSize(containerSize : CGSize){
