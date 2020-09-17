@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import TwilioVideo
+import SDWebImage
 
 class UserCallController: VideoCallController {
     
@@ -49,11 +50,27 @@ class UserCallController: VideoCallController {
         return .user
     }
     
+   
+    
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     var isScreenshotPromptPage = false
     
+    
+    lazy var custumBckGrndImg  : UIImageView = {
+        let ui = UIImageView()
+        ui.backgroundColor = .clear
+        ui.contentMode = .scaleAspectFill
+        return ui
+    }()
+    
+    
+    func layoutCustomBackGrnd(){
+        self.view.addSubview(custumBckGrndImg)
+        self.view.sendSubviewToBack(custumBckGrndImg)
+        custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+    }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
     
@@ -66,6 +83,19 @@ class UserCallController: VideoCallController {
         }
         
         loadYoutubeVideo(eventInfo: eventInfo)
+        loadbackgrndImg(eveninfo: eventInfo)
+    }
+    
+    private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        guard let imgURL = eventInfo?.backgroundURL
+            else{
+                custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
+                return
+        }
+        if let url = URL(string: imgURL){
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            })
+        }
     }
     
     private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
@@ -107,7 +137,7 @@ class UserCallController: VideoCallController {
     
     override func initialization(){
         super.initialization()
-        
+        layoutCustomBackGrnd()
         initializeVariable()
         registerForAutographListener()
     }

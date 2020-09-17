@@ -62,10 +62,47 @@ class HostCallController: VideoCallController {
         return .analyst
     }
     
+    lazy var custumBckGrndImg  : UIImageView = {
+           let ui = UIImageView()
+           ui.backgroundColor = .clear
+           ui.contentMode = .scaleAspectFill
+           return ui
+       }()
+       
+       
+       func layoutCustomBackGrnd(){
+           self.view.addSubview(custumBckGrndImg)
+           self.view.sendSubviewToBack(custumBckGrndImg)
+           custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+       }
+    
+    
+    private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        guard let imgURL = eventInfo?.backgroundURL
+            else{
+                custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
+                return
+        }
+        if let url = URL(string: imgURL){
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            })
+        }
+    }
     override func initialization(){
         super.initialization()
         
         initializeVariable()
+         layoutCustomBackGrnd()
+    }
+    
+    override func processEventInfo(){
+        super.processEventInfo()
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        loadbackgrndImg(eveninfo: eventInfo)
     }
     
     override func onExit(code : exitCode){
