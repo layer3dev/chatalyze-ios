@@ -55,6 +55,7 @@ class EventInfo: NSObject {
     var isAutographAllow:String?
     var callSchduleId:String?
     var isFlexEnabled:Bool?
+    var isRecordingEnabled : Bool?
     var tipText:String?
     
     
@@ -89,6 +90,7 @@ class EventInfo: NSObject {
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
+        isRecordingEnabled = json["recordingEnabled"].boolValue
         userId = json["userId"].int
         title = json["title"].string
         eventDescription = json["description"].string
