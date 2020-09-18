@@ -280,5 +280,9 @@ class UserVideoRootView: UserVideoLayoutView {
     //    }
     //}
     
+    override func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
+        return self.mergeImage(hostPicture: remote, userPicture: local)
+    }
+    
     
 }

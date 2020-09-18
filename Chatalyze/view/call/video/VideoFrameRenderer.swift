@@ -83,8 +83,7 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
     }
     
     func getImage(cgImage : CGImage, frame: VideoFrame) -> UIImage{
-        let image = UIImage(cgImage: cgImage, scale : 1.0, orientation: getOrientation(frame: frame))
-               return image
+        return UIImage(cgImage : cgImage, scale : 1.0, orientation: getOrientation(frame: frame))
     }
     
     @discardableResult

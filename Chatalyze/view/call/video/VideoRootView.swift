@@ -211,39 +211,45 @@ class VideoRootView: ExtendedView {
     }
     
     
-    private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
-        
-        testView = MemoryFrame()
-        print("rendering success full")
-        
-        guard let localImage = localFrame, let remoteImage = remoteFrame
-            else{
-                print("rendering missing local image and remote image ")
-                completion(nil)
-                return
-        }
-        
-        //mergeImage(hostPicture: localImage, userPicture: remoteImage)
-        guard let finalImage = mergeImage(hostPicture: remoteImage, userPicture: localImage)
-            else{
-                print("rendering mergeIMAGE missing")
-                completion(nil)
-                return
-        }
-        
-        let isPortraitInSize = isPortrait(size: finalImage.size)
-        
-        Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
-        
-        testView.isPortraitInSize = isPortraitInSize
-        if isPortraitInSize ?? true{
-            testView.frame.size = CGSize(width: 636, height: 1130)
-        }else{
-            testView.frame.size = CGSize(width: 1024, height: 576)
-        }
-        testView.screenShotPic?.image = finalImage
-        testView.memoryStickerView?.renderImage(image: eventLogo)
-        completion(getSnapshot(view: testView))
+
+   private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
+       
+       testView = MemoryFrame()
+       
+       guard let localImage = localFrame, let remoteImage = remoteFrame
+           else{
+               completion(nil)
+               return
+       }
+       
+       guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
+           else{
+               completion(nil)
+               return
+       }
+       
+       let isPortraitInSize = isPortrait(size: finalImage.size)
+       
+       Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
+       
+       testView.isPortraitInSize = isPortraitInSize
+       if isPortraitInSize ?? true{
+           testView.frame.size = CGSize(width: 636, height: 1130)
+       }else{
+           testView.frame.size = CGSize(width: 1024, height: 576)
+       }
+       testView.screenShotPic?.image = finalImage
+       
+       
+       testView.memoryStickerView?.renderImage(image: eventLogo)
+   
+           
+       
+       completion(getSnapshot(view: testView))
+   }
+    
+    func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
+        return nil
     }
     
     //Developer Y
@@ -265,31 +271,30 @@ class VideoRootView: ExtendedView {
     }
         
     
-    func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
-        
-        let size = hostPicture.size
-        let localSize = userPicture.size
-        
-        let maxConstant = size.width > size.height ? size.width : size.height
-        
-        let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
-        
-        let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        
-        hostPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        
-        //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
-        
-        userPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
-        
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return finalImage
-    }
-    
+        func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
+            
+            let size = hostPicture.size
+            let localSize = userPicture.size
+            
+            let maxConstant = size.width > size.height ? size.width : size.height
+            
+            let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
+            
+            let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
+            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+            
+            hostPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            
+            //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+            
+            userPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
+            
+            let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            return finalImage
+        }
 }
 
 

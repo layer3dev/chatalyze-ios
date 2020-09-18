@@ -139,4 +139,8 @@ class HostVideoRootView: VideoRootView {
         self.actionContainer?.toggleContainer()
         self.animateHeader()
     }
+    
+    override func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
+        return self.mergeImage(hostPicture: local, userPicture: remote)
+    }
 }

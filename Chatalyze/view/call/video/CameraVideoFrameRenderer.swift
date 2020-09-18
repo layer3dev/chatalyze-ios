@@ -26,28 +26,9 @@ class CameraVideoFrameRenderer : VideoFrameRenderer {
         return image
     }
     
-    private func getOrientation(frame : VideoFrame) -> UIImage.Orientation{
-        let orientation = frame.orientation
-        Log.echo(key: TAG, text: "orientation -> \(orientation)")
-        
-        switch orientation {
-        case VideoOrientation.up:
-            return UIImage.Orientation.up
-        case VideoOrientation.down:
-            return UIImage.Orientation.down
-        case VideoOrientation.left:
-            return UIImage.Orientation.right
-        case VideoOrientation.right:
-            return UIImage.Orientation.left
-        default:
-            return UIImage.Orientation.up
-        
-        }
-    }
-    
  
     
-    
+ 
 }
 
 
