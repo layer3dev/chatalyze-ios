@@ -76,9 +76,15 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
         let context = CIContext(options: nil)
         
         guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return UIImage() }
-        let image = UIImage(cgImage: cgImage)
+        
+        let image = getImage(cgImage: cgImage, frame : frame)
         //let image = UIImage(cgImage: cgImage, scale : 1.0, orientation: UIImage.Orientation.up)
         return image
+    }
+    
+    func getImage(cgImage : CGImage, frame: VideoFrame) -> UIImage{
+        let image = UIImage(cgImage: cgImage, scale : 1.0, orientation: getOrientation(frame: frame))
+               return image
     }
     
     @discardableResult
@@ -119,6 +125,28 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
                                  height
         )
         return success == 0
+    }
+    
+   
+    
+    
+    private func getOrientation(frame : VideoFrame) -> UIImage.Orientation{
+        let orientation = frame.orientation
+        Log.echo(key: TAG, text: "orientation -> \(orientation)")
+        
+        switch orientation {
+        case VideoOrientation.up:
+            return UIImage.Orientation.up
+        case VideoOrientation.down:
+            return UIImage.Orientation.down
+        case VideoOrientation.left:
+            return UIImage.Orientation.right
+        case VideoOrientation.right:
+            return UIImage.Orientation.left
+        default:
+            return UIImage.Orientation.up
+        
+        }
     }
     
     private func dispatchFrame(frame: UIImage){

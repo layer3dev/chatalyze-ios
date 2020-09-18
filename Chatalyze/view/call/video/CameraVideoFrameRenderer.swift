@@ -17,18 +17,12 @@ class CameraVideoFrameRenderer : VideoFrameRenderer {
 
     override func frameToImage(frame: VideoFrame) -> UIImage?{
                 
-        var ciImage = CIImage.init(cvImageBuffer: frame.imageBuffer, options: nil)
-        if #available(iOS 11.0, *) {
-//            ciImage = ciImage.oriented(CGImagePropertyOrientation.right)
-        } else {
-            // Fallback on earlier versions
-        }
+        let ciImage = CIImage.init(cvImageBuffer: frame.imageBuffer, options: nil)
         let context = CIContext(options: nil)
-        
         Log.echo(key: TAG, text: "width -> \(frame.width), height-> \(frame.height) & orientation -> \(frame.orientation.rawValue)")
         
         guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return UIImage() }
-        let image = UIImage(cgImage: cgImage, scale : 1.0, orientation: getOrientation(frame: frame))
+        let image = getImage(cgImage: cgImage, frame : frame)
         return image
     }
     
