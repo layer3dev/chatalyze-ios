@@ -72,7 +72,7 @@ class HostCallController: VideoCallController {
     
     lazy var recordingLbl : UILabel = {
         let lbl = UILabel()
-        lbl.text = " ● RECORDING "
+        lbl.text = "  ● Recording  "
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
@@ -83,6 +83,7 @@ class HostCallController: VideoCallController {
        
        func layoutCustomBackGrnd(){
            self.view.addSubview(custumBckGrndImg)
+           self.recordingLbl.clipsToBounds = true
            self.view.sendSubviewToBack(custumBckGrndImg)
            custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
        }
@@ -558,6 +559,7 @@ class HostCallController: VideoCallController {
         }
         
         if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+            checkforRecordingStatus()
             setStatusMessage(type: .connected)
             
             return
@@ -894,6 +896,7 @@ class HostCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            checkforRecordingStatus()
           
           if endDate < 12.0 && (eventInfo?.isAutographEnabled ?? false) {
             selfieTimerView?.reset()

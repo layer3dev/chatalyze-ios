@@ -67,7 +67,7 @@ class UserCallController: VideoCallController {
     
     lazy var recordingLbl : UILabel = {
         let lbl = UILabel()
-        lbl.text = " ● RECORDING "
+        lbl.text = "  ● Recording  "
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
@@ -79,6 +79,7 @@ class UserCallController: VideoCallController {
     
     func layoutCustomBackGrnd(){
         self.view.addSubview(custumBckGrndImg)
+        self.recordingLbl.clipsToBounds = true
         self.view.sendSubviewToBack(custumBckGrndImg)
         custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
     }
@@ -959,6 +960,7 @@ class UserCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            checkforRecordingStatus()
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
