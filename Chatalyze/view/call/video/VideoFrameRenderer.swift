@@ -144,7 +144,7 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
         }
     }
     
-    
+
 }
 
 
