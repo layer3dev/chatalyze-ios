@@ -23,6 +23,8 @@ class SocketClient : NSObject{
     
     fileprivate var connectionCounter = 0
     
+    var socketDisconnect:(()->())?
+    
     var roomId : String = "0"
 
     fileprivate var isRegistered = false
@@ -176,9 +178,10 @@ extension SocketClient{
         //websocketDidDisconnect
         socket?.onDisconnect = { (error: Error?) in
             self.isRegistered = false
-            
+            self.socketDisconnect?()
             Log.echo(key: "timestamp", text:"socket websocketDidDisconnect")
             DispatchQueue.main.asyncAfter(deadline: (.now() + 0.5), execute: {
+                
                 if(self.connectionFlag){
                     self.socket?.connect()
                 }

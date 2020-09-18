@@ -42,13 +42,25 @@ class CallConnection: NSObject {
     var connection : Room?
 
     var eventInfo : EventScheduleInfo?
-    var slotInfo : SlotInfo?
+    
+    var _slotInfo:SlotInfo?
+    var slotInfo : SlotInfo?{
+        get{
+            return self._slotInfo
+        }
+        set{
+         
+            let value = newValue
+            _slotInfo = value
+            initialization()
+        }
+    }
     var controller : VideoCallController?
     var localMediaPackage : CallMediaTrack?
 
     var connectionStateListener : CallConnectionProtocol?
 
-    //private var callLogger : CallLogger?
+    private var callLogger : CallLogger?
     
     //this variable will be used to speed up the re-connect. This will store last disconnect timestamp and will force to create a new connection after 2 seconds
     
@@ -191,7 +203,7 @@ class CallConnection: NSObject {
     override init() {
         super.init()
         
-        initialization()
+        //initialization()
     }
     
     private func initialization(){
@@ -203,18 +215,25 @@ class CallConnection: NSObject {
     private func initVariable(){
         
         _ = eventInfo?.id ?? 0
-        //callLogger = CallLogger(sessionId: "\(eventId)", targetUserId: targetUserId)
+        
+        print("Initiization of the callLogger at the host side \(eventId) and the target user id is \(targetUserId)")
+        
+        guard let sd = eventId else{
+            return
+        }
+        
+        guard let userId = targetUserId else{
+            return
+        }
         socketClient = SocketClient.sharedInstance
         socketListener = socketClient?.createListener()
+        callLogger = CallLogger(sessionId: sd, targetUserId: userId)
     }
     
     func registerForListeners(){
     }
     
-    func getWriteConnection() ->Room?{
-       return nil
-    }
-    
+
     func callFailed(){
     }
     
@@ -267,7 +286,7 @@ extension CallConnection{
         let connectOptions = ConnectOptions(token: accessToken) { (builder) in
             
             builder.isDominantSpeakerEnabled = true
-            
+            builder.networkPrivacyPolicy = .allowAll
             // Use the local media that we prepared earlier.
             
             Log.echo(key: "NewArch", text: "audio track is nil and the is Hangup \(String(describing: self.localMediaPackage?.isDisabled))")
@@ -330,7 +349,6 @@ extension CallConnection{
             return
         }
         
-
         self.connection?.delegate = nil
         self.connection?.disconnect()
         self.removeWholeRenders()
@@ -381,6 +399,26 @@ extension CallConnection{
 // MARK:- RoomDelegate
 extension CallConnection : RoomDelegate {
     
+    
+    private func logStats(room:Room){
+        
+        DispatchQueue.global(qos: .background).async {[weak self] in
+            let slotId = self?.slotInfo?.id ?? 0
+
+            print("slot id during sending the logs at host side after room connection \(slotId) and the call logger is \(String(describing: self?.callLogger))")
+            self?.connection?.getStats({[weak self] (infos) in
+                
+                
+                print("Array of thr TWillio Info is \(infos)")
+                
+                self?.callLogger?.logStats(slotId: slotId, stats: infos)
+                self?.callLogger?.logConnectionState(slotId : slotId, connectionState: room.state, stats : infos)
+            })
+        }
+        
+    }
+
+    
     func roomDidConnect(room: Room) {
                         
         // At the moment, this example only supports rendering one Participant at a time.
@@ -388,6 +426,11 @@ extension CallConnection : RoomDelegate {
         logMessage(messageText: "Connected to room \(room.name) as \(room.localParticipant?.identity ?? "") and computed hashId id \(String(describing: self.eventInfo?.user?.hashedId)) and teh computed self hashId is \(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.user?.hashedId)) amd there remoteparticipanats counts is \(room.remoteParticipants.count)")
         self.isConnecting = false
         self.remoteView?.shouldMirror = false
+        logStats(room: room)
+        self.trackJoinedCallRoomLogs()
+        self.connection?.getStats({ (associatedTracks) in
+            
+        })
         if (room.remoteParticipants.count > 0) {
             
             for info in room.remoteParticipants {
@@ -405,6 +448,8 @@ extension CallConnection : RoomDelegate {
         logMessage(messageText: "Disconnected from room \(room.name), error = \(String(describing: error))")
         self.isConnecting = false
         reconnect()
+        trackDisconnectSelf()
+
 
         // Connect(sender: nil)
     }
@@ -443,6 +488,8 @@ extension CallConnection : RoomDelegate {
         let roomInfo = HostRoomInfo()
         roomInfo.remoteParticipant = participant
         self.roomParticipantsList.append(roomInfo)
+        trackRemoteUserConnected()
+
         
         
        logMessage(messageText: "Participant \(participant.identity) connected with \(participant.remoteAudioTracks.count) audio and \(participant.remoteVideoTracks.count) video tracks")
@@ -457,6 +504,8 @@ extension CallConnection : RoomDelegate {
             let updatedArray = self.roomParticipantsList.filter({$0.remoteParticipant != participant})
             
             self.roomParticipantsList = updatedArray
+            trackRemoteUserDisconnected()
+
             Log.echo(key: "NewArch", text: "Participants already exits is disconnected")
             return
         }
@@ -499,6 +548,7 @@ extension CallConnection : RemoteParticipantDelegate {
      
         // We are subscribed to the remote Participant's video Track. We will start receiving the
         // remote Participant's video frames now.
+    
 
         logMessage(messageText: "Subscribed to \(publication.trackName) video track for Participant \(participant.identity)")
 
@@ -512,7 +562,7 @@ extension CallConnection : RemoteParticipantDelegate {
             //videoTrack.addRenderer(self.remoteView!)
             self.remoteView?.shouldMirror = false
             self.remoteView?.contentMode = .scaleAspectFit
-            
+            trackGetRemoteVideoStream()
             return
         }
         
@@ -606,17 +656,17 @@ extension CallConnection : RemoteParticipantDelegate {
                         return
                     }
                     
-                
                     DispatchQueue.main.async {
                         
                         self.removeInvalidRenderer(info : info)
-                        
+
                         if !(self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp ?? false){
 
                             track.addRenderer(self.remoteView!)
                             track.addRenderer(renderer)
                             currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
                             currentParticipant[0].isRendered = true
+                            self.trackRemoteScreenDisplayed()
                         }
                     }
                     print("Making render true and remote view is \(String(describing: self.remoteView)) and the remote render is \(track)")
@@ -697,17 +747,9 @@ extension CallConnection : RemoteParticipantDelegate {
             isPartcipantExists[0].remoteVideoTrack?.removeRenderer(self.remoteView!)
             isPartcipantExists[0].remoteVideoTrack?.removeRenderer(renderer)
             self.roomParticipantsList = self.roomParticipantsList.filter({$0.remoteParticipant != participant})
+            trackLostRemoteVideoStream()
             return
         }
-
-//        if (self.remoteParticipant == participant) {
-//
-//            self.remoteVideoTrack = videoTrack
-//            videoTrack.removeRenderer(self.remoteView!)
-//            self.remoteParticipant = nil
-//            //self.remoteView?.removeFromSuperview()
-//            //self.remoteView = nil
-//        }
     }
 
     func didSubscribeToAudioTrack(audioTrack: RemoteAudioTrack, publication: RemoteAudioTrackPublication, participant: RemoteParticipant) {
@@ -724,6 +766,7 @@ extension CallConnection : RemoteParticipantDelegate {
             
             isPartcipantExists[0].remoteAudioTrack = audioTrack
             isPartcipantExists[0].remoteAudioTrack?.isPlaybackEnabled = false
+            trackGetRemoteAudioStream()
         }
 
         // We are subscribed to the remote Participant's audio Track. We will start receiving the
@@ -739,7 +782,8 @@ extension CallConnection : RemoteParticipantDelegate {
         // We are unsubscribed from the remote Participant's audio Track. We will no longer receive the
         
         // remote Participant's audio.
-        
+        trackLostRemoteAudioStream()
+
         logMessage(messageText: "Unsubscribed from \(publication.trackName) audio track for Participant \(participant.identity)")
     }
 
@@ -769,3 +813,168 @@ extension CallConnection : RemoteParticipantDelegate {
         logMessage(messageText: "FailedToSubscribe \(publication.trackName) video track, error = \(String(describing: error))")
     }
 }
+
+
+
+extension CallConnection{
+    
+    func trackJoinedCallRoomLogs(){
+        
+        guard let userId = SignedUserInfo.sharedInstance?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in joinedroom is \(metaInfo)")
+        let action = "joinedroom"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    //trackAction(session.id, user.id, );
+    
+    func trackDisconnectSelf(){
+        
+        let action = "disconnected"
+        self.callLogger?.trackLogs(action: action, metaInfo: [String:Any]())
+    }
+    
+    func trackRemoteScreenDisplayed(){
+        
+        //    3) LogTrackService.trackAction(session.id, user.id, 'remoteStreamDisplayed', { chatId: currentChat.id, userId: currentChat.userId });
+        
+        guard let userId =  SignedUserInfo.sharedInstance?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in joinedroom is \(metaInfo)")
+        let action = "remoteStreamDisplayed"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    //    4) LogTrackService.trackAction(session.id, user.id, 'chatCompleted', { userId: currentChat.userId, chatId: currentChat.id});
+    
+    
+    //    6) LogTrackService.trackAction(session.id, user.id, 'gotRemoteTrack', { trackType: track.kind, userId: cb.userId, chatId: cb.id});
+    
+    
+    func trackGetRemoteVideoStream(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId,"trackType":"video"] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "gotRemoteTrack"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    func trackGetRemoteAudioStream(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId,"trackType":"audio"] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "gotRemoteTrack"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    func trackLostRemoteVideoStream(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId,"trackType":"video"] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "gotRemoteTrack"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    func trackLostRemoteAudioStream(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId,"trackType":"audio"] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "lostRemoteTrack"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
+    //    7 )LogTrackService.trackAction(session.id, user.id, 'userConnected', {userId: cb.userId, chatId: cb.id});
+    
+    
+    func trackRemoteUserConnected(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "userConnected"
+        //    7 )LogTrackService.trackAction(session.id, user.id, 'userConnected', {userId: cb.userId, chatId: cb.id});
+        
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+        
+    }
+    
+    //    9) LogTrackService.trackAction(session.id, user.id, 'userDisconnected', {userId:cb.userId, chatId: cb.id});
+    
+    func trackRemoteUserDisconnected(){
+        
+        guard let userId =  self.slotInfo?.userId else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        guard let chatId =  self.slotInfo?.id else {
+            print("User id is missing in trackGetRemoteVideoStream")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in trackGetRemoteVideoStream is \(metaInfo)")
+        let action = "userDisconnected"
+        //    7 )LogTrackService.trackAction(session.id, user.id, 'userConnected', {userId: cb.userId, chatId: cb.id});
+        
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+        
+    }
+}
+
+
+
+
+

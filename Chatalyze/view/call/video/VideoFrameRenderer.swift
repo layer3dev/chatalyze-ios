@@ -12,77 +12,64 @@ import TwilioVideo
 //import libyuv
 
 class VideoFrameRenderer : NSObject, VideoRenderer {
-
+    
     func updateVideoSize(_ videoSize: CMVideoDimensions, orientation: VideoOrientation) {
         
     }
     
-    
     private let TAG = "VideoFrameRenderer"
-    
     
     private var frameListener : ((_ image: UIImage?) -> ())?
     private var isFrameRequired = false
-
-   
-    
-
     
     func getFrame(listener : @escaping ((_ frame: UIImage?) -> ())){
         self.frameListener = listener
         isFrameRequired = true
     }
-    
-
-    
+        
     func renderFrame(_ frame: VideoFrame) {
-
+        
         if(!isFrameRequired){
             return
         }
-
-    
         isFrameRequired = false
         Log.echo(key: self.TAG, text: "fetch frame")
-
-
+        
         DispatchQueue.global(qos: .userInteractive).async {[weak self] in
-
+            
             guard let _ = self?.frameListener
-            else{
-                return
+                else{
+                    return
             }
-
-
+            
             guard let image = self?.frameToImage(frame : frame)
                 else{
                     return
             }
-
+            
             Log.echo(key: self?.TAG ?? "", text: "got the image")
-
+            
             self?.dispatchFrame(frame : image)
         }
     }
     
     func frameToImage(frame: VideoFrame) -> UIImage?{
-                
+        
         var pixelBuffer: CVPixelBuffer? = nil
-
+        
         _ = CVPixelBufferCreate(kCFAllocatorDefault,
-                                         Int(frame.width),
-                                         Int(frame.height),
-                                         kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
-                                         [:] as CFDictionary,
-                                         &pixelBuffer);
+                                Int(frame.width),
+                                Int(frame.height),
+                                kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
+                                [:] as CFDictionary,
+                                &pixelBuffer);
         
         guard let pixel = pixelBuffer
             else{
                 Log.echo(key : TAG, text : "pixel is nil")
                 return nil
         }
-
-
+        
         convertI420toNV12(fromFrame: frame, toPixelBuffer: pixel)
         
         let ciImage = CIImage.init(cvImageBuffer: pixel, options: nil)
@@ -90,13 +77,13 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
         
         guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return UIImage() }
         let image = UIImage(cgImage: cgImage)
+        //let image = UIImage(cgImage: cgImage, scale : 1.0, orientation: UIImage.Orientation.up)
         return image
     }
     
     @discardableResult
     fileprivate func convertI420toNV12(fromFrame frame: VideoFrame, toPixelBuffer pixelBuffer: CVPixelBuffer) -> Bool {
-    
-    
+        
         CVPixelBufferLockBaseAddress(frame.imageBuffer, CVPixelBufferLockFlags(rawValue: 0))
         CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags(rawValue: 0))
         
@@ -131,11 +118,11 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
                                  width,
                                  height
         )
-        
         return success == 0
     }
     
     private func dispatchFrame(frame: UIImage){
+        
         DispatchQueue.main.async {[weak self] in
             Log.echo(key: self?.TAG ?? "", text: "frame is ready")
             self?.frameListener?(frame)
@@ -143,7 +130,6 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
             Log.echo(key: self?.TAG ?? "", text: "sent the frame")
         }
     }
-    
 
 }
 

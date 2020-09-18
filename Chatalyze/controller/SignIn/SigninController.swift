@@ -17,9 +17,9 @@ class SigninController: InterfaceExtendedController {
     var didLoad:(()->())?
     
   @IBOutlet weak var appleSiginView: UIView?
-  @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint!
+  @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint?
   
-  @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint!
+  @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint?
   
   
   @IBOutlet var unavailableSignUpAlertLabel:UILabel?
@@ -90,7 +90,7 @@ class SigninController: InterfaceExtendedController {
         paintInterface()
       self.appleSiginView?.clipsToBounds = true
       if UIDevice.current.userInterfaceIdiom == .phone{
-          self.appleSiginView?.layer.cornerRadius = (appleSiginView?.frame.height)! / 2
+        self.appleSiginView?.layer.cornerRadius = (appleSiginView?.frame.height ?? 40) / 2
       }else{
         self.appleSiginView?.layer.cornerRadius = 65/2
       }
@@ -136,10 +136,6 @@ class SigninController: InterfaceExtendedController {
     } else {
       // Fallback on earlier versions
     }
-    
-    
-    
-    
   }
     
     @IBAction func learnMoreAction(sender:UIButton){
@@ -171,13 +167,13 @@ extension SigninController : ASAuthorizationControllerDelegate{
     case  let credential as ASAuthorizationAppleIDCredential:
  
     let fullName = "\(credential.fullName?.givenName) \(credential.fullName?.familyName)"
-    let authorizationCode = String(data: credential.authorizationCode!, encoding: .utf8)
+    let authorizationCode = String(data: credential.authorizationCode  ?? Data() , encoding: .utf8)
     SigninController().showLoader()
     AppleLogin().signin(clientId: Bundle.main.bundleIdentifier, authCode: authorizationCode, name: fullName) { (success, message, info) in
       SigninController().stopLoader()
       
       if(success){
-        print(info!)
+        
         SigninRootView().registerWithSegmentAnalytics(info : info)
         RootControllerManager().updateRoot()
         return

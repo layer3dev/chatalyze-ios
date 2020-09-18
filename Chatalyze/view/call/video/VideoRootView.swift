@@ -42,6 +42,7 @@ class VideoRootView: ExtendedView {
      }
      */
     
+    
     func confirmViewLoad(listener : (()->())?){
         self.loadListener = listener
         
@@ -73,9 +74,6 @@ class VideoRootView: ExtendedView {
         self.headerTopConstraint?.constant = UIApplication.shared.statusBarFrame.size.height + 5.0
     }
     
-    
-    
-    
     func addToogleGesture(){
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleContainer(gesture:)))
@@ -104,12 +102,6 @@ class VideoRootView: ExtendedView {
         //TO be overridden in order to hide and show the signature accessory view.
     }
     
-    func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
-        return nil
-    }
-    
-    
-    
     //***************
     
     private func getSnapshot(view : UIView)->UIImage?{
@@ -136,7 +128,6 @@ class VideoRootView: ExtendedView {
             self.getPostImageSnapshot(info: info, eventLogo: image, completion: completion)
             return
         }
-        
     }
     
  
@@ -172,12 +163,14 @@ class VideoRootView: ExtendedView {
             }
             
             localListener?(localFrame, remoteFrame)
+            
             localListener = nil
     
         })
         
         remoteVideoView?.getFrame(listener: { (frame) in
             Log.echo(key: "VideoRootView", text: "remoteVideoView frame received")
+
             guard let frame = frame
                 else{
                     localListener?(nil, localFrame)
@@ -255,6 +248,8 @@ class VideoRootView: ExtendedView {
     
     //Developer Y
     func isPortrait(size:CGSize)->Bool?{
+        
+        print("size of the frame is \(size)")
         
         let minimumSize = size
         let mW = minimumSize.width

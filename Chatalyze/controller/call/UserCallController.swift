@@ -116,6 +116,7 @@ class UserCallController: VideoCallController {
         super.interval()
         
         Log.echo(key: "yud", text: "Interval timer is working")
+        trackCallTochatComplete()
         DispatchQueue.main.async {
             self.verifyIfExpired()
             self.processAutograph()
@@ -128,6 +129,22 @@ class UserCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
         //MISSING REFERSH STREAM LOCK
+    }
+    
+    func trackCallTochatComplete(){
+        
+        guard let currentSlot = eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo
+            else{
+                return
+        }
+        
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            if endDate >= 1.0 && endDate < 2.0{
+               
+                trackCurrentChatCompleted()
+                return
+            }
+        }
     }
     
     func twillioCallSwitcher(){
@@ -188,7 +205,9 @@ class UserCallController: VideoCallController {
             self.connection = UserCallConnection()
             self.connection?.localMediaPackage = localMediaPackage
             self.connection?.eventInfo = eventInfo
+            self.connection?.slotId = currentSlot.id
             self.connection?.remoteView = remoteVideoView
+            self.connection?.slotInfo = currentSlot
             self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
             fetchTwillioToken(twillioRoom: self.connection!, slotId: currentSlot.id)
             return
@@ -206,7 +225,9 @@ class UserCallController: VideoCallController {
                         self.connection = UserCallConnection()
                         self.connection?.localMediaPackage = localMediaPackage
                         self.connection?.eventInfo = eventInfo
+                        self.connection?.slotId = preconnectSlot.id
                         self.connection?.remoteView = remoteVideoView
+                        self.connection?.slotInfo = preconnectSlot
                         self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                         fetchTwillioToken(twillioRoom: self.connection!, slotId: preconnectSlot.id)
                         return
@@ -214,8 +235,7 @@ class UserCallController: VideoCallController {
                 }
             
             
-            print("Preconnect slot user id is \(preconnectSlot.userId) and self user id is \(SignedUserInfo.sharedInstance?.id)")
-                        
+            print("Preconnect slot user id is \(String(describing: preconnectSlot.userId)) and self user id is \(SignedUserInfo.sharedInstance?.id)")
             
         }
         
@@ -536,6 +556,13 @@ class UserCallController: VideoCallController {
         if(!hangup){
             resetMuteActions()
         }
+        
+        //Reset the selfie timer if it is not initiated yet.
+        if !SlotFlagInfo.staticScreenShotSaved{
+            
+            self.selfieTimerView?.reset()
+            SlotFlagInfo.staticIsTimerInitiated = false
+        }
         localMediaPackage?.isDisabled = hangup
     }
     
@@ -736,9 +763,9 @@ class UserCallController: VideoCallController {
             return
         }
         
-        //        if isHangUp{
-        //            return
-        //        }
+//        if isHangUp{
+//            return
+//        }
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -785,7 +812,7 @@ class UserCallController: VideoCallController {
             Log.echo(key: "yud", text: "I got the scrrenshot listener response")
             _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
                 
-                Log.echo(key: "yud", text: "recieved memory image is \(image)")
+                Log.echo(key: "yud", text: "recieved memory image is \(String(describing: image))")
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
@@ -937,6 +964,7 @@ class UserCallController: VideoCallController {
         if let _ = eventInfo.mergeSlotInfo?.myUpcomingSlot{
             return
         }
+        
         self.processExitAction(code : .expired)
     }
     
@@ -1206,6 +1234,22 @@ class UserCallController: VideoCallController {
     override func hitEventOnSegmentIO(){
         
         SEGAnalytics.shared().track("Chat Enter Attendee")
+    }
+    
+     override func trackCurrentChatCompleted(){
+        
+        guard let userId =   SignedUserInfo.sharedInstance?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        guard let chatId =  self.eventInfo?.mergeSlotInfo?.myValidSlot.slotInfo?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in joinedroom is \(metaInfo)")
+        let action = "chatCompleted"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
     }
 }
 

@@ -70,13 +70,11 @@ class SelfieTimerView:ExtendedView {
         }
         requiredDate = startDate
         
-        
         //        SelfieTimerView.testTimer.invalidate()
         //        SelfieTimerView.hostTimer.invalidate()
         
         self.testTimer.releaseListener()
         self.hostTimer.releaseListener()
-        
         
         //SelfieTimerView.hostTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self,    selector:(#selector(self.updateAnlalyst)) , userInfo: nil, repeats: true)
         
@@ -299,7 +297,7 @@ class SelfieTimerView:ExtendedView {
         
         if let date = requiredDate {
             
-            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(requiredDate) and the diffrence is \(date.timeIntervalTillNow)")
+            Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(String(describing: requiredDate)) and the diffrence is \(date.timeIntervalTillNow)")
             
             let difference = date.timeIntervalTillNow
             

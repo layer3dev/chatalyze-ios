@@ -243,13 +243,10 @@ class HostCallController: VideoCallController {
         param["name"] = hashedUserId
         socketClient?.emit(param)
     }
-
     
     var hostRootView : HostVideoRootView?{
         return self.view as? HostVideoRootView
     }
-    
-   
     
     private func initializeVariable(){
         
@@ -259,9 +256,6 @@ class HostCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
     }
-    
-    
-
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -272,12 +266,12 @@ class HostCallController: VideoCallController {
     
     
     private func registerForTimerNotification(){
-        print("Registering socket with timer notification \(socketListener) nd the selfie timer is \(selfieTimerView)")
-        
+      
+        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
         socketListener?.onEvent("screenshotCountDown", completion: { (response) in
             
-            print(" I git the reponse \(response)")
+            print(" I got the reponse \(String(describing: response))")
             
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
@@ -373,6 +367,7 @@ class HostCallController: VideoCallController {
     override func interval(){
         super.interval()
         
+        trackChatCompletedLog()
         verifyForEarlyFeature()
         triggerIntervalToChildConnections()
         processEvent()
@@ -381,6 +376,21 @@ class HostCallController: VideoCallController {
         updateLableAnimation()
         self.currentTwillioRoom?.switchStream(info:self.eventInfo)
         resetAutographCanvasIfNewCallAndSlotExists()
+    }
+    
+    func trackChatCompletedLog(){
+        
+        guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
+            else{
+                return
+        }
+        
+        if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            if endDate < 2.0 && endDate >= 1.0 {
+                self.trackCurrentChatCompleted()
+                return
+            }
+        }
     }
     
     func verifyForPostSessionEarningScreen() {
@@ -845,6 +855,22 @@ class HostCallController: VideoCallController {
         }
     }
     
+    override func trackCurrentChatCompleted(){
+        
+        guard let userId =  self.eventInfo?.mergeSlotInfo?.currentSlot?.userId else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        guard let chatId =  self.eventInfo?.mergeSlotInfo?.currentSlot?.id else {
+            print("User id is missing in joinedroom")
+            return
+        }
+        let metaInfo = ["userId":userId,"chatId":chatId] as [String : Any]
+        print("Meta info in joinedroom is \(metaInfo)")
+        let action = "chatCompleted"
+        self.callLogger?.trackLogs(action: action, metaInfo: metaInfo)
+    }
+    
     private func processEvent(){
         
         Log.echo(key : "delay", text : "processEvent")
@@ -962,8 +988,8 @@ class HostCallController: VideoCallController {
         if self.currentTwillioRoom == nil{
             
             self.currentTwillioRoom = HostCallConnection()
-            self.currentTwillioRoom?.slotInfo = currentSlot
             self.currentTwillioRoom?.eventInfo = self.eventInfo
+            self.currentTwillioRoom?.slotInfo = currentSlot
             self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
             self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
             self.currentTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
@@ -995,8 +1021,8 @@ class HostCallController: VideoCallController {
                 if preConnectSlot.id != nil{
                     
                     self.preconnectTwillioRoom = HostCallConnection()
-                    self.preconnectTwillioRoom?.slotInfo = preConnectSlot
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
+                    self.preconnectTwillioRoom?.slotInfo = preConnectSlot
                     self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
@@ -1778,9 +1804,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.hostRootView?.localVideoView?.isSignatureActive = true
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         self.hostRootView?.remoteVideoContainerView?.updateForSignature()
-    
-    }    
-    
+    }
     
     func lockDeviceOrientation(){
         
@@ -1813,10 +1837,10 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
     }
         
     func releaseDeviceOrientation(){
+        
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
-
     }
 }
 
