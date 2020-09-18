@@ -72,10 +72,11 @@ class HostCallController: VideoCallController {
     
     lazy var recordingLbl : UILabel = {
         let lbl = UILabel()
-        lbl.text = "➊ RECORDING"
+        lbl.text = " ● RECORDING "
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
+        lbl.layer.cornerRadius = 15
         lbl.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return lbl
     }()
@@ -492,9 +493,9 @@ class HostCallController: VideoCallController {
     func checkforRecordingStatus(){
   
         if ((eventInfo?.isRecordingEnabled ?? false)){
-            self.recordingLbl.isHidden = true
-        }else{
             self.recordingLbl.isHidden = false
+        }else{
+            self.recordingLbl.isHidden = true
         }
     }
     
@@ -521,6 +522,7 @@ class HostCallController: VideoCallController {
         //we want to keep showing the logo, so do nothing
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
+            checkforRecordingStatus()
             return
         }
         
@@ -551,11 +553,13 @@ class HostCallController: VideoCallController {
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
+            checkforRecordingStatus()
             return
         }
         
         if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
+            
             return
         }
         

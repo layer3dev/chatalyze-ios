@@ -65,11 +65,29 @@ class UserCallController: VideoCallController {
         return ui
     }()
     
+    lazy var recordingLbl : UILabel = {
+        let lbl = UILabel()
+        lbl.text = " ● RECORDING "
+        lbl.textColor = .white
+        lbl.backgroundColor = .red
+        lbl.isHidden = true
+        lbl.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        lbl.layer.cornerRadius = 15
+        return lbl
+    }()
+    
     
     func layoutCustomBackGrnd(){
         self.view.addSubview(custumBckGrndImg)
         self.view.sendSubviewToBack(custumBckGrndImg)
         custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+    }
+    
+    func layoutrecordingOption(){
+        self.view.addSubview(recordingLbl)
+        self.view.bringSubviewToFront(recordingLbl)
+        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
+        recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
     }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
@@ -138,6 +156,7 @@ class UserCallController: VideoCallController {
     override func initialization(){
         super.initialization()
         layoutCustomBackGrnd()
+        layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
     }
@@ -354,6 +373,15 @@ class UserCallController: VideoCallController {
         }
     }
     
+    func checkforRecordingStatus(){
+  
+        if ((eventInfo?.isRecordingEnabled ?? false)){
+            self.recordingLbl.isHidden = false
+        }else{
+            self.recordingLbl.isHidden = true
+        }
+    }
+    
     override func updateStatusMessage(){
         super.updateStatusMessage()
         
@@ -377,6 +405,7 @@ class UserCallController: VideoCallController {
         
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .idealMedia)
+            checkforRecordingStatus()
             return
         }
         
@@ -402,12 +431,14 @@ class UserCallController: VideoCallController {
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type : .preConnectedSuccess)
+            checkforRecordingStatus()
             return;
         }
         
         
         if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
+            checkforRecordingStatus()
             return;
         }
         
@@ -419,6 +450,7 @@ class UserCallController: VideoCallController {
         
         if(connection.isStreaming){
             setStatusMessage(type: .preConnectedSuccess)
+            checkforRecordingStatus()
             return
         }
         setStatusMessage(type: .ideal)
