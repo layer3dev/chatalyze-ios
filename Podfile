@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '11.0'
 
 
 def pod_file
@@ -34,7 +34,8 @@ def pod_file
   pod 'CRToast'
   pod 'libyuv-iOS'
   pod "YoutubePlayer-in-WKWebView"
-  pod 'TwilioVideo'
+  pod 'TwilioVideo', '~> 3.7'
+  platform :ios, '11.0'
 end
 
 target 'Chatalyze' do
