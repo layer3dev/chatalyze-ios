@@ -540,10 +540,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yk6-mP-7LN" customClass="LocalVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="337" y="83" width="60" height="112"/>
+                                <rect key="frame" x="341" y="88" width="60" height="112"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKb-9G-ARD" customClass="TVIVideoView">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="92"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="112"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -559,7 +559,7 @@
                                     <constraint firstAttribute="height" constant="112" id="Pwt-4D-5LN">
                                         <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="FKb-9G-ARD" secondAttribute="bottom" constant="20" id="z3z-wg-NC4"/>
+                                    <constraint firstAttribute="bottom" secondItem="FKb-9G-ARD" secondAttribute="bottom" id="z3z-wg-NC4"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="bottomConstraint" destination="GWG-w6-Q9Y" id="LPt-TB-kZh"/>
@@ -767,7 +767,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccG-Ux-JqL">
-                                <rect key="frame" x="10" y="75" width="307" height="80"/>
+                                <rect key="frame" x="10" y="75" width="311" height="80"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="W8C-hp-RyG" customClass="AutoAspectImageView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="5" width="120" height="35"/>
@@ -783,7 +783,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNt-tC-RBA">
-                                        <rect key="frame" x="2" y="50" width="300" height="0.0"/>
+                                        <rect key="frame" x="2" y="50" width="304" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                         <color key="textColor" red="0.60392156860000001" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -792,7 +792,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yi-2S-ZcF">
-                                        <rect key="frame" x="2" y="65" width="300" height="0.0"/>
+                                        <rect key="frame" x="2" y="65" width="304" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                         <color key="textColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1027,16 +1027,16 @@
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="w8v-wO-emD" secondAttribute="bottom" id="Cgh-Mn-e43"/>
                             <constraint firstItem="SrS-mz-6Sq" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" constant="15" id="EbQ-DL-YTo"/>
                             <constraint firstItem="X6y-Z9-AIW" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="El1-bB-bkR"/>
-                            <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="750" constant="30" id="GWG-w6-Q9Y">
+                            <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="750" constant="13" id="GWG-w6-Q9Y">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="X6y-Z9-AIW" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.55" priority="1" id="H8e-WA-CiI" userLabel="canvas_proportional_height"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" constant="8" id="Itj-JF-uUM" userLabel="container_leading"/>
-                            <constraint firstItem="e8t-Fe-NIm" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="998" constant="50" id="J8D-MF-6Id"/>
+                            <constraint firstItem="e8t-Fe-NIm" firstAttribute="top" secondItem="Yk6-mP-7LN" secondAttribute="bottom" priority="998" constant="15" id="J8D-MF-6Id"/>
                             <constraint firstItem="gKG-jl-gLG" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="J9J-9v-qRG"/>
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="JYY-Vj-Vzj"/>
                             <constraint firstItem="fgE-qL-xbk" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="Jyc-V9-rcB"/>
-                            <constraint firstAttribute="trailing" secondItem="Yk6-mP-7LN" secondAttribute="trailing" constant="17" id="L8x-JR-QUB">
+                            <constraint firstAttribute="trailing" secondItem="Yk6-mP-7LN" secondAttribute="trailing" constant="13" id="L8x-JR-QUB">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="tT6-Gm-3ac" secondAttribute="trailing" id="MlZ-Yc-LkH"/>
@@ -1044,7 +1044,7 @@
                             <constraint firstAttribute="trailing" secondItem="X6y-Z9-AIW" secondAttribute="trailing" id="NV6-w6-Tg7"/>
                             <constraint firstItem="w8v-wO-emD" firstAttribute="leading" secondItem="Wkh-om-R74" secondAttribute="leading" id="NoB-Pc-sY8"/>
                             <constraint firstAttribute="trailing" secondItem="w8v-wO-emD" secondAttribute="trailing" id="Rn8-q1-dMt"/>
-                            <constraint firstItem="Yk6-mP-7LN" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="8" id="SJS-tz-KdS" userLabel="local_video_top_constraint">
+                            <constraint firstItem="Yk6-mP-7LN" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="13" id="SJS-tz-KdS" userLabel="local_video_top_constraint">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="f3n-S7-m9z" firstAttribute="top" secondItem="3ww-fe-4Gf" secondAttribute="bottom" constant="15" id="Spt-Th-0hA">
@@ -2320,10 +2320,10 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W51-oe-Gfn" customClass="LocalHostVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="339" y="109" width="60" height="110"/>
+                                <rect key="frame" x="341" y="112" width="60" height="110"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hrp-2G-qYS" customClass="TVIVideoView">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="90"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -2334,7 +2334,7 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                     </constraint>
                                     <constraint firstItem="Hrp-2G-qYS" firstAttribute="leading" secondItem="W51-oe-Gfn" secondAttribute="leading" id="H2n-DJ-72A"/>
-                                    <constraint firstAttribute="bottom" secondItem="Hrp-2G-qYS" secondAttribute="bottom" constant="20" id="Jq7-2T-sXY"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hrp-2G-qYS" secondAttribute="bottom" id="Jq7-2T-sXY"/>
                                     <constraint firstItem="Hrp-2G-qYS" firstAttribute="top" secondItem="W51-oe-Gfn" secondAttribute="top" id="cl6-8T-LHC"/>
                                     <constraint firstAttribute="trailing" secondItem="Hrp-2G-qYS" secondAttribute="trailing" id="oyZ-hS-qw3"/>
                                     <constraint firstAttribute="width" constant="60" id="s8f-yB-Ec2">
@@ -2485,7 +2485,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-ll-xed" customClass="AutographSignatureReponseBottomView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="741" width="414" height="111"/>
+                                <rect key="frame" x="0.0" y="751" width="414" height="111"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-ee-czJ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -2767,7 +2767,7 @@
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="zDx-ox-dtP" secondAttribute="trailing" id="BdQ-hW-jVc"/>
                             <constraint firstItem="2jc-qd-pdu" firstAttribute="leading" secondItem="983-al-Eik" secondAttribute="leading" id="C3w-GQ-9YY"/>
-                            <constraint firstItem="W51-oe-Gfn" firstAttribute="top" secondItem="xOq-gm-0If" secondAttribute="bottom" constant="10" id="CAh-96-eSy" userLabel="local_top_constraint">
+                            <constraint firstItem="W51-oe-Gfn" firstAttribute="top" secondItem="xOq-gm-0If" secondAttribute="bottom" constant="13" id="CAh-96-eSy" userLabel="local_top_constraint">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="bXp-R4-gA0" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="CHA-OT-7jm"/>
@@ -2783,7 +2783,7 @@
                             </constraint>
                             <constraint firstItem="bXp-R4-gA0" firstAttribute="leading" secondItem="983-al-Eik" secondAttribute="leading" constant="10" id="K2g-Vp-ptb"/>
                             <constraint firstItem="9w1-Mh-Zlh" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="Kmd-wJ-WnX"/>
-                            <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="wiC-ll-xed" secondAttribute="bottom" constant="10" id="LO3-bM-kaG"/>
+                            <constraint firstItem="gfZ-P5-C5a" firstAttribute="top" secondItem="wiC-ll-xed" secondAttribute="bottom" id="LO3-bM-kaG"/>
                             <constraint firstAttribute="trailing" secondItem="enf-5c-RI5" secondAttribute="trailing" id="MYi-I6-6e4"/>
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="leading" secondItem="983-al-Eik" secondAttribute="leading" constant="10" id="RAW-bi-HuM"/>
                             <constraint firstItem="FTR-Nd-IVU" firstAttribute="leading" secondItem="983-al-Eik" secondAttribute="leading" id="SG0-ck-9QJ"/>
@@ -2810,7 +2810,7 @@
                             <constraint firstItem="enf-5c-RI5" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="kVH-oL-BJx"/>
                             <constraint firstAttribute="trailing" secondItem="LJU-il-QGD" secondAttribute="trailing" id="lLd-g0-Dg4"/>
                             <constraint firstAttribute="trailing" secondItem="2jc-qd-pdu" secondAttribute="trailing" id="n1P-P8-Cqm"/>
-                            <constraint firstAttribute="trailing" secondItem="W51-oe-Gfn" secondAttribute="trailing" constant="15" id="n8h-pv-bzo">
+                            <constraint firstAttribute="trailing" secondItem="W51-oe-Gfn" secondAttribute="trailing" constant="13" id="n8h-pv-bzo">
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="FTR-Nd-IVU" secondAttribute="trailing" id="oij-e7-VDY"/>
