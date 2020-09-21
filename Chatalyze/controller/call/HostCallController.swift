@@ -560,7 +560,6 @@ class HostCallController: VideoCallController {
         }
         
         if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
-            checkforRecordingStatus()
             setStatusMessage(type: .connected)
             
             return
@@ -742,12 +741,12 @@ class HostCallController: VideoCallController {
             
             //when call is not running but we have the slot in the future
             updateTimeRamaingCallHeaderForUpcomingSlot()
+            recordingLbl.isHidden = true
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
         }
         else{
-            
+            recordingLbl.isHidden = false
             //Updating the info text when the call is live.
-            checkforRecordingStatus()
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
         }
@@ -815,6 +814,7 @@ class HostCallController: VideoCallController {
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
         updateForEmptyBreak()
+        
         hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
         hostRootView?.hostCallInfoContainer?.timer?.text = ""
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
@@ -901,7 +901,7 @@ class HostCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
-//            checkforRecordingStatus()
+            
           
           if endDate < 12.0 && (eventInfo?.isAutographEnabled ?? false) {
             selfieTimerView?.reset()
@@ -1007,7 +1007,7 @@ class HostCallController: VideoCallController {
                 
                 //case: when preconnect becomes current room.
                 if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
-                    checkforRecordingStatus()
+                   
                     if preconnectRoom.isFetchingTokenToServer{
                     }
                     else if !preconnectRoom.isFetchingTokenToServer && preconnectRoom.accessToken == ""{
@@ -1065,7 +1065,6 @@ class HostCallController: VideoCallController {
         
         
         if self.currentTwillioRoom == nil{
-            checkforRecordingStatus()
             self.currentTwillioRoom = HostCallConnection()
             self.currentTwillioRoom?.eventInfo = self.eventInfo
             self.currentTwillioRoom?.slotInfo = currentSlot
@@ -1092,14 +1091,12 @@ class HostCallController: VideoCallController {
                     Log.echo(key: "NewArch", text: "preConnectUser -> preconnectSlot is nil")
                     return
             }
-            checkforRecordingStatus()
             
             if preconnectTwillioRoom == nil{
                 //create a object with all info and sent to fetch the token for the call.
                 Log.echo(key: "NewArch", text: "creating the preconnect room")
                 checkforRecordingStatus()
                 if preConnectSlot.id != nil{
-                    checkforRecordingStatus()
                     self.preconnectTwillioRoom = HostCallConnection()
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
