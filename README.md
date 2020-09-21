@@ -54,6 +54,6 @@ $ pods install
 
 License
 ----
-© Copyright 2018 Chatalyze - All Rights Reserved.
+© Copyright 2020 Chatalyze - All Rights Reserved.
 
 
