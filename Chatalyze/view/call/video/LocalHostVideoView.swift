@@ -109,7 +109,7 @@ class LocalHostVideoView: LocalVideoView {
             
             if(isIPad){
                 
-                heightConstraint?.constant = 126
+                heightConstraint?.constant = 140
                 widthConstraint?.constant = 224
                 return
             }

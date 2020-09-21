@@ -24,6 +24,9 @@ class HostCallController: VideoCallController {
     var localSlotIdToManageAutograph :Int? = nil
     var autoGraphInfo:AutographInfo?
     
+    var isPreConnected = false
+    
+    
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     
@@ -555,11 +558,13 @@ class HostCallController: VideoCallController {
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
+            Log.echo(key: "vijay", text: "checkforRecordingStatus 558")
             checkforRecordingStatus()
             return
         }
         
         if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+            Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
             
             return
@@ -712,11 +717,18 @@ class HostCallController: VideoCallController {
         if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
             recordingLbl.isHidden = true
             updateCallHeaderForEmptySlot()
+            Log.echo(key: "Vijay", text: "breakSlot @ 715")
             return
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false{
-            recordingLbl.isHidden = true
+            if self.isPreConnected{
+                recordingLbl.isHidden = false
+            }else{
+                recordingLbl.isHidden = true
+            }
+            
+            Log.echo(key: "Vijay", text: "breakSlot @ 720")
             updateCallHeaderForBreakSlot()
             return
         }
@@ -918,6 +930,8 @@ class HostCallController: VideoCallController {
             if endDate <= 0.0{
                 
                 isAnimating = false
+                self.isPreConnected = false
+                Log.echo(key: "vijay", text: " call end @ 934")
                 stopLableAnimation()
                 return
             }
@@ -971,6 +985,7 @@ class HostCallController: VideoCallController {
         //disconnectStaleConnection()
         callRoomSwitchingHandler()
         preconnectTwillioRoomHandler()
+        Log.echo(key: "vijay", text: "checkforRecordingStatus 978")
         
     }
     
@@ -1001,10 +1016,10 @@ class HostCallController: VideoCallController {
                 resetCurrentRoom()
                 return
             }
-            
+        Log.echo(key: "vijay", text: "PreCoonect @ 1106")
             //case : when pre connect exists
             if let preconnectRoom = self.preconnectTwillioRoom{
-                
+                Log.echo(key: "vijay", text: "when pre connect exists @ 1021")
                 //case: when preconnect becomes current room.
                 if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
                    
@@ -1089,14 +1104,17 @@ class HostCallController: VideoCallController {
             guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
                 else{
                     Log.echo(key: "NewArch", text: "preConnectUser -> preconnectSlot is nil")
+                     isPreConnected = false
                     return
             }
-            
             if preconnectTwillioRoom == nil{
                 //create a object with all info and sent to fetch the token for the call.
                 Log.echo(key: "NewArch", text: "creating the preconnect room")
-                checkforRecordingStatus()
+                
                 if preConnectSlot.id != nil{
+                    self.isPreConnected = true
+                    checkforRecordingStatus()
+                    Log.echo(key: "vijay", text: "checkforRecordingStatus 1103")
                     self.preconnectTwillioRoom = HostCallConnection()
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
