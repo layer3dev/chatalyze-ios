@@ -112,7 +112,7 @@ class UserCallController: VideoCallController {
                 return
         }
         if let url = URL(string: imgURL){
-            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
     }
@@ -959,7 +959,7 @@ class UserCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
-            checkforRecordingStatus()
+//            checkforRecordingStatus()
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
@@ -997,7 +997,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
+        checkforRecordingStatus()
         userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }

@@ -108,7 +108,7 @@ class HostCallController: VideoCallController {
                 return
         }
         if let url = URL(string: imgURL){
-            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
     }
