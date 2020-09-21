@@ -95,7 +95,7 @@ class HostCallController: VideoCallController {
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
-        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
+        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
         recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
     }
     
@@ -701,7 +701,7 @@ class HostCallController: VideoCallController {
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
-                recordingLbl.isHidden = true
+//                recordingLbl.isHidden = true
                 updateCallHeaderForEmptySlot()
                 return
         }
@@ -753,11 +753,11 @@ class HostCallController: VideoCallController {
             
             //when call is not running but we have the slot in the future
             updateTimeRamaingCallHeaderForUpcomingSlot()
-            recordingLbl.isHidden = true
+            
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
         }
         else{
-            recordingLbl.isHidden = false
+            
             //Updating the info text when the call is live.
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
@@ -930,7 +930,6 @@ class HostCallController: VideoCallController {
             if endDate <= 0.0{
                 
                 isAnimating = false
-                self.isPreConnected = false
                 Log.echo(key: "vijay", text: " call end @ 934")
                 stopLableAnimation()
                 return
@@ -1017,12 +1016,13 @@ class HostCallController: VideoCallController {
                 return
             }
         Log.echo(key: "vijay", text: "PreCoonect @ 1106")
+        checkforRecordingStatus()
             //case : when pre connect exists
             if let preconnectRoom = self.preconnectTwillioRoom{
                 Log.echo(key: "vijay", text: "when pre connect exists @ 1021")
                 //case: when preconnect becomes current room.
                 if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
-                   
+                  
                     if preconnectRoom.isFetchingTokenToServer{
                     }
                     else if !preconnectRoom.isFetchingTokenToServer && preconnectRoom.accessToken == ""{

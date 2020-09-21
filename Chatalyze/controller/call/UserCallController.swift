@@ -87,7 +87,7 @@ class UserCallController: VideoCallController {
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
-        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
+        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
         recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
     }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
