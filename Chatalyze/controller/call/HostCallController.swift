@@ -523,7 +523,6 @@ class HostCallController: VideoCallController {
         //we want to keep showing the logo, so do nothing
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .ideal)
-            checkforRecordingStatus()
             return
         }
         

@@ -406,7 +406,6 @@ class UserCallController: VideoCallController {
         
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .idealMedia)
-            checkforRecordingStatus()
             return
         }
         
