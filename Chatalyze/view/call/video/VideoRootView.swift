@@ -111,6 +111,8 @@ class VideoRootView: ExtendedView {
         view.drawHierarchy(in: bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+        Log.echo(key: "getSnapshot", text: "image -> \(image)")
         return image
     }
        
@@ -233,27 +235,39 @@ class VideoRootView: ExtendedView {
        Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
        
        testView.isPortraitInSize = isPortraitInSize
-       if isPortraitInSize ?? true{
-           testView.frame.size = CGSize(width: 636, height: 1130)
-       }else{
-           testView.frame.size = CGSize(width: 1024, height: 576)
-       }
+       testView.frame.size = extractFrame(image: finalImage)
        testView.screenShotPic?.image = finalImage
-       
-       
        testView.memoryStickerView?.renderImage(image: eventLogo)
-   
-           
        
        completion(getSnapshot(view: testView))
    }
+    
+    private func extractFrame(image : UIImage) -> CGSize{
+        let isPortraitSize = isPortrait(size: image.size)
+        if(isPortraitSize){
+            return extractPortraitFrame(image: image)
+        }
+        return extractLandscapeFrame(image: image)
+    }
+    
+    private func extractPortraitFrame(image : UIImage) -> CGSize{
+        let height = CGFloat(1130)
+        let width = (image.size.width / image.size.height) * height
+        return CGSize(width: width, height: height)
+    }
+    
+    private func extractLandscapeFrame(image : UIImage) -> CGSize{
+        let width = CGFloat(1024)
+        let height = (width / image.size.width) * image.size.height
+        return CGSize(width: width, height: height)
+    }
     
     func mergePicture(local : UIImage, remote : UIImage) -> UIImage?{
         return nil
     }
     
     //Developer Y
-    func isPortrait(size:CGSize)->Bool?{
+    func isPortrait(size:CGSize)->Bool{
         
         print("size of the frame is \(size)")
         
@@ -261,13 +275,10 @@ class VideoRootView: ExtendedView {
         let mW = minimumSize.width
         let mH = minimumSize.height
         
-        if( mH > mW ) {
+        if( mH >= mW ) {
             return true
         }
-        else if( mW > mH ) {
-            return false
-        }
-        return nil
+        return false
     }
         
     
