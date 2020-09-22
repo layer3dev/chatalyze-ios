@@ -249,6 +249,7 @@ class UserCallController: VideoCallController {
         if self.connection != nil {
             resetStaleConnection()
             Log.echo(key: "NewArch", text: "Connection already created.")
+            checkforRecordingStatus()
             return
         }
         
@@ -1008,7 +1009,7 @@ class UserCallController: VideoCallController {
         
         userRootView?.callInfoContainer?.isHidden = false
         futureSessionView?.isHidden = true
-        
+        checkforRecordingStatus()
         guard let startDate = slot.endDate
             else{
                 return
@@ -1018,7 +1019,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        checkforRecordingStatus()
+        
         userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }
