@@ -31,6 +31,8 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     
+    var isPreConnected = false
+    
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -71,8 +73,14 @@ class UserCallController: VideoCallController {
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
-        lbl.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        lbl.layer.cornerRadius = 15
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            lbl.layer.cornerRadius = 8
+            lbl.font = UIFont.systemFont(ofSize: 8, weight: .bold)
+        }else{
+            lbl.layer.cornerRadius = 12
+            lbl.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        }
         return lbl
     }()
     
@@ -87,7 +95,12 @@ class UserCallController: VideoCallController {
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
-        recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 30))
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 16))
+        }else{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 24))
+        }
         recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
     }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
@@ -175,6 +188,11 @@ class UserCallController: VideoCallController {
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
         self.twillioCallSwitcher()
+        if isPreConnected{
+            checkforRecordingStatus()
+        }else{
+            recordingLbl.isHidden = true
+        }
         self.connectToCallAndRender()
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
@@ -190,7 +208,7 @@ class UserCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             if endDate >= 1.0 && endDate < 2.0{
-               
+                self.isPreConnected = false
                 trackCurrentChatCompleted()
                 return
             }
@@ -271,7 +289,8 @@ class UserCallController: VideoCallController {
                 if let id = SignedUserInfo.sharedInstance?.id{
                     if userId == id{
                         print("Yes I got the preconnect slot")
-
+                        checkforRecordingStatus()
+                        self.isPreConnected = true
                         self.connection = UserCallConnection()
                         self.connection?.localMediaPackage = localMediaPackage
                         self.connection?.eventInfo = eventInfo
@@ -288,6 +307,8 @@ class UserCallController: VideoCallController {
             print("Preconnect slot user id is \(String(describing: preconnectSlot.userId)) and self user id is \(SignedUserInfo.sharedInstance?.id)")
             
         }
+        
+        Log.echo(key: "vijay", text: "pre-Connect is nill")
         
         //print("Handling call connection with the slot info unmerges slot \(self.myLiveUnMergedSlot)")
         
