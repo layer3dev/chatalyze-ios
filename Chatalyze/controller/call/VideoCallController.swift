@@ -48,6 +48,8 @@ class VideoCallController : InterfaceExtendedController {
     var socketClient : SocketClient?
     var socketListener : SocketListener?
     
+    
+    
     private let streamCapturer = RTCSingletonStream()
     private var captureController : ARDCaptureController?
     var localMediaPackage : CallMediaTrack? = CallMediaTrack()

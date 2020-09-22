@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import TwilioVideo
+import SDWebImage
 
 class UserCallController: VideoCallController {
     
@@ -30,6 +31,8 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     
+    var isPreConnected = false
+    
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -49,11 +52,57 @@ class UserCallController: VideoCallController {
         return .user
     }
     
+   
+    
     var connection : UserCallConnection?
     private var screenshotInfo : ScreenshotInfo?
     private var canvasInfo : CanvasInfo?
     var isScreenshotPromptPage = false
     
+    
+    lazy var custumBckGrndImg  : UIImageView = {
+        let ui = UIImageView()
+        ui.backgroundColor = .clear
+        ui.contentMode = .scaleAspectFill
+        return ui
+    }()
+    
+    lazy var recordingLbl : UILabel = {
+        let lbl = UILabel()
+        lbl.text = "  ● Recording  "
+        lbl.textColor = .white
+        lbl.backgroundColor = .red
+        lbl.isHidden = true
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            lbl.layer.cornerRadius = 8
+            lbl.font = UIFont.systemFont(ofSize: 8, weight: .bold)
+        }else{
+            lbl.layer.cornerRadius = 12
+            lbl.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        }
+        return lbl
+    }()
+    
+    
+    func layoutCustomBackGrnd(){
+        self.view.addSubview(custumBckGrndImg)
+        self.recordingLbl.clipsToBounds = true
+        self.view.sendSubviewToBack(custumBckGrndImg)
+        custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+    }
+    
+    func layoutrecordingOption(){
+        self.view.addSubview(recordingLbl)
+        self.view.bringSubviewToFront(recordingLbl)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 16))
+        }else{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 24))
+        }
+        recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
+    }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
     
     
@@ -66,6 +115,19 @@ class UserCallController: VideoCallController {
         }
         
         loadYoutubeVideo(eventInfo: eventInfo)
+        loadbackgrndImg(eveninfo: eventInfo)
+    }
+    
+    private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        guard let imgURL = eventInfo?.backgroundURL
+            else{
+                custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
+                return
+        }
+        if let url = URL(string: imgURL){
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            })
+        }
     }
     
     private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
@@ -107,7 +169,8 @@ class UserCallController: VideoCallController {
     
     override func initialization(){
         super.initialization()
-        
+        layoutCustomBackGrnd()
+        layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
     }
@@ -125,6 +188,11 @@ class UserCallController: VideoCallController {
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
         self.twillioCallSwitcher()
+        if isPreConnected{
+            checkforRecordingStatus()
+        }else{
+            recordingLbl.isHidden = true
+        }
         self.connectToCallAndRender()
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
@@ -140,7 +208,7 @@ class UserCallController: VideoCallController {
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             if endDate >= 1.0 && endDate < 2.0{
-               
+                self.isPreConnected = false
                 trackCurrentChatCompleted()
                 return
             }
@@ -221,7 +289,8 @@ class UserCallController: VideoCallController {
                 if let id = SignedUserInfo.sharedInstance?.id{
                     if userId == id{
                         print("Yes I got the preconnect slot")
-
+                        checkforRecordingStatus()
+                        self.isPreConnected = true
                         self.connection = UserCallConnection()
                         self.connection?.localMediaPackage = localMediaPackage
                         self.connection?.eventInfo = eventInfo
@@ -238,6 +307,8 @@ class UserCallController: VideoCallController {
             print("Preconnect slot user id is \(String(describing: preconnectSlot.userId)) and self user id is \(SignedUserInfo.sharedInstance?.id)")
             
         }
+        
+        Log.echo(key: "vijay", text: "pre-Connect is nill")
         
         //print("Handling call connection with the slot info unmerges slot \(self.myLiveUnMergedSlot)")
         
@@ -324,6 +395,15 @@ class UserCallController: VideoCallController {
         }
     }
     
+    func checkforRecordingStatus(){
+  
+        if ((eventInfo?.isRecordingEnabled ?? false)){
+            self.recordingLbl.isHidden = false
+        }else{
+            self.recordingLbl.isHidden = true
+        }
+    }
+    
     override func updateStatusMessage(){
         super.updateStatusMessage()
         
@@ -372,12 +452,14 @@ class UserCallController: VideoCallController {
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type : .preConnectedSuccess)
+            checkforRecordingStatus()
             return;
         }
         
         
         if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
+            checkforRecordingStatus()
             return;
         }
         
@@ -389,6 +471,7 @@ class UserCallController: VideoCallController {
         
         if(connection.isStreaming){
             setStatusMessage(type: .preConnectedSuccess)
+            checkforRecordingStatus()
             return
         }
         setStatusMessage(type: .ideal)
@@ -897,6 +980,7 @@ class UserCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+//            checkforRecordingStatus()
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 
@@ -934,7 +1018,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
+        checkforRecordingStatus()
         userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //userRootView?.callInfoContainer?.timer?.text = "\(counddownInfo.time)"
     }

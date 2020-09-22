@@ -38,6 +38,7 @@ class EventInfo: NSObject {
     var isPrivate : Bool?
     //var tag : Tag? //:todo
     var isFree : Bool?
+    var backgroundURL : String?
     var eventFeedbackInfo : String?
     var createdAt : String?
     var updatedAt : String?
@@ -54,6 +55,7 @@ class EventInfo: NSObject {
     var isAutographAllow:String?
     var callSchduleId:String?
     var isFlexEnabled:Bool?
+    var isRecordingEnabled : Bool?
     var tipText:String?
     
     
@@ -87,6 +89,8 @@ class EventInfo: NSObject {
         start = json["start"].string
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
+        backgroundURL = json["backgroundURL"].string
+        isRecordingEnabled = json["recordingEnabled"].boolValue
         userId = json["userId"].int
         title = json["title"].string
         eventDescription = json["description"].string
@@ -120,6 +124,7 @@ class EventInfo: NSObject {
 
         isScreenShotAllowed = json["screenshotAllow"].string
         isAutographAllow = json["autographAllow"].string
+        
         
         emptySlotsArray = json["emptySlots"].array
         

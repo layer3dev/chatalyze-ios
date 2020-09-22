@@ -24,6 +24,9 @@ class HostCallController: VideoCallController {
     var localSlotIdToManageAutograph :Int? = nil
     var autoGraphInfo:AutographInfo?
     
+    var isPreConnected = false
+    
+    
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     
@@ -50,6 +53,7 @@ class HostCallController: VideoCallController {
         
         guard let activeSlot = eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
+            recordingLbl.isHidden = true
                 return false
         }
         if(activeSlot.isLIVE){
@@ -62,10 +66,79 @@ class HostCallController: VideoCallController {
         return .analyst
     }
     
+    lazy var custumBckGrndImg  : UIImageView = {
+           let ui = UIImageView()
+           ui.backgroundColor = .clear
+           ui.contentMode = .scaleAspectFill
+           return ui
+       }()
+       
+    
+    lazy var recordingLbl : UILabel = {
+        let lbl = UILabel()
+        lbl.text = "  ● Recording  "
+        lbl.textColor = .white
+        lbl.backgroundColor = .red
+        lbl.isHidden = true
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            lbl.layer.cornerRadius = 8
+            lbl.font = UIFont.systemFont(ofSize: 8, weight: .bold)
+        }else{
+            lbl.layer.cornerRadius = 12
+            lbl.font = UIFont.systemFont(ofSize: 11, weight: .bold)
+        }
+        return lbl
+    }()
+       
+       func layoutCustomBackGrnd(){
+           self.view.addSubview(custumBckGrndImg)
+           self.recordingLbl.clipsToBounds = true
+           self.view.sendSubviewToBack(custumBckGrndImg)
+           custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+       }
+    
+    func layoutrecordingOption(){
+        self.view.addSubview(recordingLbl)
+        self.view.bringSubviewToFront(recordingLbl)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 16))
+        }else{
+            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 24))
+        }
+        recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
+    }
+    
+    
+    
+    private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        guard let imgURL = eventInfo?.backgroundURL
+            else{
+                custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
+                return
+        }
+        if let url = URL(string: imgURL){
+            custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            })
+        }
+    }
     override func initialization(){
         super.initialization()
         
         initializeVariable()
+        layoutrecordingOption()
+         layoutCustomBackGrnd()
+    }
+    
+    override func processEventInfo(){
+        super.processEventInfo()
+        
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        loadbackgrndImg(eveninfo: eventInfo)
     }
     
     override func onExit(code : exitCode){
@@ -433,6 +506,15 @@ class HostCallController: VideoCallController {
         })
     }
     
+    func checkforRecordingStatus(){
+  
+        if ((eventInfo?.isRecordingEnabled ?? false)){
+            self.recordingLbl.isHidden = false
+        }else{
+            self.recordingLbl.isHidden = true
+        }
+    }
+    
     
     override func updateStatusMessage(){
         super.updateStatusMessage()
@@ -448,6 +530,7 @@ class HostCallController: VideoCallController {
         
         if(eventInfo.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
+            checkforRecordingStatus()
             return
         }
         
@@ -463,6 +546,7 @@ class HostCallController: VideoCallController {
         guard let activeSlot = eventInfo.mergeSlotInfo?.upcomingSlot
             else{
                 setStatusMessage(type: .ideal)
+                recordingLbl.isHidden = true
                 return
         }
         
@@ -485,11 +569,15 @@ class HostCallController: VideoCallController {
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)
+            Log.echo(key: "vijay", text: "checkforRecordingStatus 558")
+            checkforRecordingStatus()
             return
         }
         
         if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+            Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
+            
             return
         }
         
@@ -624,7 +712,7 @@ class HostCallController: VideoCallController {
         
         guard let slotInfo = self.eventInfo?.mergeSlotInfo?.upcomingSlot
             else{
-                
+//                recordingLbl.isHidden = true
                 updateCallHeaderForEmptySlot()
                 return
         }
@@ -632,18 +720,26 @@ class HostCallController: VideoCallController {
         if  self.eventInfo?.isCurrentSlotIsEmptySlot ?? false && slotInfo.id == nil {
             
             //this will execute only if we do not have the future tickets and current slot is not the break slot.
-            
+            recordingLbl.isHidden = true
             updateCallHeaderForEmptySlot()
             return
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false && !(self.eventInfo?.isValidSlotAvailable ?? false ){
+            recordingLbl.isHidden = true
             updateCallHeaderForEmptySlot()
+            Log.echo(key: "Vijay", text: "breakSlot @ 715")
             return
         }
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false{
+            if self.isPreConnected{
+                recordingLbl.isHidden = false
+            }else{
+                recordingLbl.isHidden = true
+            }
             
+            Log.echo(key: "Vijay", text: "breakSlot @ 720")
             updateCallHeaderForBreakSlot()
             return
         }
@@ -668,6 +764,7 @@ class HostCallController: VideoCallController {
             
             //when call is not running but we have the slot in the future
             updateTimeRamaingCallHeaderForUpcomingSlot()
+            
             updateNewHeaderInfoForFutureSession(slot : slotInfo)
         }
         else{
@@ -724,6 +821,7 @@ class HostCallController: VideoCallController {
     private func updateCallHeaderForBreakSlot(){
         
         //let countdownTime = "\(slotInfo.endDate?.countdownTimeFromNowAppended())"
+//        recordingLbl.isHidden = true
         hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
         hostRootView?.hostCallInfoContainer?.timer?.text = ""
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
@@ -739,6 +837,7 @@ class HostCallController: VideoCallController {
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
         
         updateForEmptyBreak()
+        
         hostRootView?.hostCallInfoContainer?.slotUserName?.text = ""
         hostRootView?.hostCallInfoContainer?.timer?.text = ""
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
@@ -769,6 +868,7 @@ class HostCallController: VideoCallController {
         }
         
         Log.echo(key: "yud", text: "updating the live call")
+        checkforRecordingStatus()
         //hostRootView?.callInfoContainer?.timer?.text = "Time remaining\(counddownInfo.time)"
         hostRootView?.hostCallInfoContainer?.timer?.text = "\(counddownInfo.time)"
         //don't use merged slot for count
@@ -824,6 +924,7 @@ class HostCallController: VideoCallController {
         }
         
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
+            
           
           if endDate < 12.0 && (eventInfo?.isAutographEnabled ?? false) {
             selfieTimerView?.reset()
@@ -840,6 +941,7 @@ class HostCallController: VideoCallController {
             if endDate <= 0.0{
                 
                 isAnimating = false
+                Log.echo(key: "vijay", text: " call end @ 934")
                 stopLableAnimation()
                 return
             }
@@ -893,6 +995,8 @@ class HostCallController: VideoCallController {
         //disconnectStaleConnection()
         callRoomSwitchingHandler()
         preconnectTwillioRoomHandler()
+        Log.echo(key: "vijay", text: "checkforRecordingStatus 978")
+        
     }
     
     func resetAllRooms(){
@@ -922,13 +1026,14 @@ class HostCallController: VideoCallController {
                 resetCurrentRoom()
                 return
             }
-            
+        Log.echo(key: "vijay", text: "PreCoonect @ 1106")
+        checkforRecordingStatus()
             //case : when pre connect exists
             if let preconnectRoom = self.preconnectTwillioRoom{
-                
+                Log.echo(key: "vijay", text: "when pre connect exists @ 1021")
                 //case: when preconnect becomes current room.
                 if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
-                    
+                  
                     if preconnectRoom.isFetchingTokenToServer{
                     }
                     else if !preconnectRoom.isFetchingTokenToServer && preconnectRoom.accessToken == ""{
@@ -986,7 +1091,6 @@ class HostCallController: VideoCallController {
         
         
         if self.currentTwillioRoom == nil{
-            
             self.currentTwillioRoom = HostCallConnection()
             self.currentTwillioRoom?.eventInfo = self.eventInfo
             self.currentTwillioRoom?.slotInfo = currentSlot
@@ -1011,15 +1115,17 @@ class HostCallController: VideoCallController {
             guard let preConnectSlot = eventInfo.mergeSlotInfo?.preConnectSlot
                 else{
                     Log.echo(key: "NewArch", text: "preConnectUser -> preconnectSlot is nil")
+                     isPreConnected = false
                     return
             }
-            
             if preconnectTwillioRoom == nil{
                 //create a object with all info and sent to fetch the token for the call.
                 Log.echo(key: "NewArch", text: "creating the preconnect room")
-
+                
                 if preConnectSlot.id != nil{
-                    
+                    self.isPreConnected = true
+                    checkforRecordingStatus()
+                    Log.echo(key: "vijay", text: "checkforRecordingStatus 1103")
                     self.preconnectTwillioRoom = HostCallConnection()
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
@@ -1027,7 +1133,9 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
+                    
                 }
+                
             
                 return
             }

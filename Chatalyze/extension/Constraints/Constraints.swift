@@ -41,6 +41,26 @@ extension UIView{
 
 
   }
+    func centerX(inView view : UIView, offset: CGSize = .zero) {
+      centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: offset.width).isActive = true
+    }
+    
+    func centerY(inView view : UIView, offset: CGSize = .zero) {
+      centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: offset.height).isActive = true
+    }
+    
+    func centerXY(inView view : UIView, offset: CGSize = .zero) {
+      centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: offset.width).isActive = true
+      centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: offset.height).isActive = true
+    }
+    
+    func heightEqualToView(_ view : UIView, multiplier: CGFloat) {
+      heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier).isActive = true
+    }
+    
+    func widthEqualToView(_ view : UIView, multiplier: CGFloat) {
+      widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: multiplier).isActive = true
+    }
 }
 
 extension UIColor {

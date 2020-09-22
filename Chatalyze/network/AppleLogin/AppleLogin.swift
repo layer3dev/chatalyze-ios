@@ -2,7 +2,7 @@
 //  AppleLogin.swift
 //  Chatalyze
 //
-//  Created by Mansa Mac-3 on 7/31/20.
+//  Created by Abhishek Dhiman on 7/31/20.
 //  Copyright © 2020 Mansa Infotech. All rights reserved.
 //
 
