@@ -25,7 +25,7 @@ class HostCallController: VideoCallController {
     var autoGraphInfo:AutographInfo?
     
     var isPreConnected = false
-    
+    var recordingLblTopAnchor: NSLayoutConstraint?
     
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
@@ -101,13 +101,34 @@ class HostCallController: VideoCallController {
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
+        recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: 2)
+        recordingLblTopAnchor?.isActive = true
         
         if UIDevice.current.userInterfaceIdiom == .phone{
-            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 16))
+            recordingLbl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 16))
         }else{
-            recordingLbl.anchor(top: self.localCameraPreviewView?.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 24))
+            recordingLbl.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 0, height: 24))
         }
         recordingLbl.centerX(inView: self.localCameraPreviewView ?? UIView())
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if UIDevice.current.orientation.isLandscape{
+            self.recordingLblTopAnchor?.isActive = false
+            if UIDevice.current.userInterfaceIdiom == .phone{
+                recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: -90)
+            }else{
+                recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: -153)
+            }
+            self.recordingLblTopAnchor?.isActive = true
+            
+        }else{
+            self.recordingLblTopAnchor?.isActive = false
+            recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: 2)
+            recordingLblTopAnchor?.isActive = true
+        }
     }
     
     
