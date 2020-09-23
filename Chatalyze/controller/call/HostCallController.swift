@@ -117,7 +117,11 @@ class HostCallController: VideoCallController {
         
         if UIDevice.current.orientation.isLandscape{
             self.recordingLblTopAnchor?.isActive = false
-            recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: -147)
+            if UIDevice.current.userInterfaceIdiom == .phone{
+                recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: -90)
+            }else{
+                recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: -153)
+            }
             self.recordingLblTopAnchor?.isActive = true
             
         }else{
