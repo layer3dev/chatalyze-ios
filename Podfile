@@ -33,6 +33,7 @@ def pod_file
   pod 'Toast-Swift'
   pod 'CRToast'
   pod 'libyuv-iOS'
+  pod 'GoogleSignIn'
   pod "YoutubePlayer-in-WKWebView"
   pod 'TwilioVideo', '~> 3.7'
   platform :ios, '11.0'

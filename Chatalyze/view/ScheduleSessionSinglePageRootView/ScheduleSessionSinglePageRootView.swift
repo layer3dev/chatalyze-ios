@@ -7,6 +7,9 @@
 //
 
 //EditSessionFormRootView
+
+import Analytics
+
 class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
     
    override func save(){

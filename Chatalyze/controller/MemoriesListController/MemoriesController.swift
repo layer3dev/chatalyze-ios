@@ -13,6 +13,7 @@ protocol getMemoryScrollInsets {
 }
 
 import UIKit
+import Analytics
 
 class MemoriesController: InterfaceExtendedController {
 

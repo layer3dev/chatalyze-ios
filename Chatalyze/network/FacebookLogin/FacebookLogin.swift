@@ -13,6 +13,7 @@ import FacebookCore
 import FBSDKCoreKit
 import FacebookLogin
 import Bugsnag
+import Analytics
 
 class FacebookLogin{
     

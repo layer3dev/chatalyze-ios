@@ -13,6 +13,8 @@ import FBSDKLoginKit
 import SwiftyJSON
 import StoreKit
 import Bugsnag
+import Analytics
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()

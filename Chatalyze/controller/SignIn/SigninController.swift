@@ -9,6 +9,7 @@
 import UIKit
 import FacebookLogin
 import AuthenticationServices
+import GoogleSignIn
 
 class SigninController: InterfaceExtendedController {
     
@@ -18,6 +19,8 @@ class SigninController: InterfaceExtendedController {
     
   @IBOutlet weak var appleSiginView: UIView?
   @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint?
+    
+    @IBOutlet fileprivate var googleSignInBtn:GIDSignInButton?
   
   @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint?
   
@@ -94,7 +97,17 @@ class SigninController: InterfaceExtendedController {
       }else{
         self.appleSiginView?.layer.cornerRadius = 65/2
       }
-    
+        
+        //google Sgnin-in btn
+        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance().presentingViewController = self
+        if UIDevice.current.userInterfaceIdiom == .phone{
+          self.googleSignInBtn?.layer.cornerRadius = (appleSiginView?.frame.height ?? 40) / 2
+        }else{
+            self.googleSignInBtn?.layer.cornerRadius = 34.5
+        }
+        googleSignInBtn?.layer.masksToBounds = true
+        
     }
     
     fileprivate func initializeVariable(){
@@ -145,6 +158,34 @@ class SigninController: InterfaceExtendedController {
         }
         
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension SigninController : GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        rootView?.resetErrorStatus()
+        SigninController().showLoader()
+        if error != nil{
+            rootView?.showError(text: error.localizedDescription)
+            SigninController().stopLoader()
+            return
+        }
+        
+              let idToken = user.authentication.idToken
+           let code = user.userID
+        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
+            SigninController().stopLoader()
+            
+            if(success){
+                
+                SigninRootView().registerWithSegmentAnalytics(info : info)
+                RootControllerManager().updateRoot()
+                return
+            }else{
+                self.rootView?.showError(text: message)
+               
+            }
+        }
     }
 }
 

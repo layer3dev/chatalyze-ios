@@ -13,6 +13,7 @@ import Alamofire
 import Toast_Swift
 import CRToast
 import TwilioVideo
+import Analytics
 
 class HostCallController: VideoCallController {
     

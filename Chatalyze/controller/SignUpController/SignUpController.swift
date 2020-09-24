@@ -8,6 +8,8 @@
 
 import UIKit
 import AuthenticationServices
+import Analytics
+import GoogleSignIn
 
 class SignUpController: InterfaceExtendedController {
   
@@ -18,8 +20,9 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var signInLabel:UILabel?
     var signInAction:(()->())?
     @IBOutlet var headerLabel:UILabel?
-  @IBOutlet weak var appleSigninView: UIView?
-  @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint?
+   @IBOutlet weak var appleSigninView: UIView?
+   @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var googleSignupBtn : GIDSignInButton?
   
     @IBAction func signinAction(sender:UIButton){
         self.signInAction?()
@@ -114,7 +117,7 @@ class SignUpController: InterfaceExtendedController {
         tapActionPrivacyLbl()
         maketextLinkable()
         SEGAnalytics.shared().track("SignUp Page")
-      self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height) ?? 45 / 2
+      
     }
     
     func initialization(){
@@ -122,7 +125,8 @@ class SignUpController: InterfaceExtendedController {
         rootView?.controller = self
       self.appleSigninView?.clipsToBounds = true
       if UIDevice.current.userInterfaceIdiom == .phone{
-               self.appleSigninView?.layer.cornerRadius = (appleSigninView?.frame.height) ?? 40 / 2
+        self.appleSigninView?.layer.cornerRadius = 20
+
            }else{
              self.appleSigninView?.layer.cornerRadius = 65/2
            }
@@ -134,6 +138,23 @@ class SignUpController: InterfaceExtendedController {
         appleSigninView?.heightAnchor.constraint(equalToConstant: 0).isActive = true
         
       }
+        
+        GIDSignIn.sharedInstance()?.delegate = self
+        GIDSignIn.sharedInstance().presentingViewController = self
+        googleSignupBtn?.clipsToBounds = true
+        googleSignupBtn?.colorScheme = .dark
+        if #available(iOS 13.0, *) {
+            googleSignupBtn?.layer.cornerCurve = .circular
+        } else {
+            // Fallback on earlier versions
+        }
+//        if UIDevice.current.userInterfaceIdiom == .phone{
+//            self.googleSignupBtn?.layer.cornerRadius = 45/2
+//        }else{
+//            self.googleSignupBtn?.layer.cornerRadius = 32.5
+//        }
+        googleSignupBtn?.accessibilityAttributedLabel = NSAttributedString(string: "Continue with Google")
+        
     }
     
     func paintInterface(){
@@ -205,6 +226,34 @@ extension SignUpController {
         let storyboard = UIStoryboard(name: "Signup", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SignUpController") as? SignUpController
         return controller
+    }
+}
+
+extension SignUpController : GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        rootView?.resetErrorStatus()
+        SignUpController().showLoader()
+        if error != nil{
+            rootView?.showError(text: error.localizedDescription)
+            SignUpController().stopLoader()
+            return
+        }
+        
+        let idToken = user.authentication.accessToken
+        
+        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
+            SignUpController().stopLoader()
+            
+            if(success){
+                
+                SigninRootView().registerWithSegmentAnalytics(info : info)
+                RootControllerManager().updateRoot()
+                 return
+            }else{
+                self.rootView?.showError(text: message)
+               
+            }
+        }
     }
 }
 
