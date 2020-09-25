@@ -22,7 +22,7 @@ class SignUpController: InterfaceExtendedController {
     @IBOutlet var headerLabel:UILabel?
    @IBOutlet weak var appleSigninView: UIView?
    @IBOutlet weak var appleSiginHightConstraint: NSLayoutConstraint?
-    @IBOutlet weak var googleSignupBtn : GIDSignInButton?
+    @IBOutlet weak var googleSignupView : UIView?
   
     @IBAction func signinAction(sender:UIButton){
         self.signInAction?()
@@ -141,19 +141,13 @@ class SignUpController: InterfaceExtendedController {
         
         GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance().presentingViewController = self
-        googleSignupBtn?.clipsToBounds = true
-        googleSignupBtn?.colorScheme = .dark
-        if #available(iOS 13.0, *) {
-            googleSignupBtn?.layer.cornerCurve = .circular
-        } else {
-            // Fallback on earlier versions
+        googleSignupView?.clipsToBounds = true
+       
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            self.googleSignupView?.layer.cornerRadius = 45/2
+        }else{
+            self.googleSignupView?.layer.cornerRadius = 65/2
         }
-//        if UIDevice.current.userInterfaceIdiom == .phone{
-//            self.googleSignupBtn?.layer.cornerRadius = 45/2
-//        }else{
-//            self.googleSignupBtn?.layer.cornerRadius = 32.5
-//        }
-        googleSignupBtn?.accessibilityAttributedLabel = NSAttributedString(string: "Continue with Google")
         
     }
     
@@ -207,9 +201,7 @@ class SignUpController: InterfaceExtendedController {
     
     @IBAction func googleSignIn(){
         
-        if let action = googleSignInAction{
-            action()
-        }
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
 

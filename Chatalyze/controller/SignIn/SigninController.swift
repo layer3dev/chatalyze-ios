@@ -20,7 +20,7 @@ class SigninController: InterfaceExtendedController {
   @IBOutlet weak var appleSiginView: UIView?
   @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint?
     
-    @IBOutlet fileprivate var googleSignInBtn:GIDSignInButton?
+    @IBOutlet fileprivate var googleSignInView: UIView?
   
   @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint?
   
@@ -68,9 +68,7 @@ class SigninController: InterfaceExtendedController {
     
     @IBAction func googleSignIn(){
         
-        if let action = googleSignInAction{
-            action()
-        }
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     override func viewDidLoad() {
@@ -102,11 +100,11 @@ class SigninController: InterfaceExtendedController {
         GIDSignIn.sharedInstance()?.delegate = self
         GIDSignIn.sharedInstance().presentingViewController = self
         if UIDevice.current.userInterfaceIdiom == .phone{
-          self.googleSignInBtn?.layer.cornerRadius = (appleSiginView?.frame.height ?? 40) / 2
+            self.googleSignInView?.layer.cornerRadius = 45/2
         }else{
-            self.googleSignInBtn?.layer.cornerRadius = 34.5
+            self.googleSignInView?.layer.cornerRadius = 65/2
         }
-        googleSignInBtn?.layer.masksToBounds = true
+        googleSignInView?.layer.masksToBounds = true
         
     }
     
@@ -171,8 +169,7 @@ extension SigninController : GIDSignInDelegate{
             return
         }
         
-              let idToken = user.authentication.idToken
-           let code = user.userID
+              let idToken = user.authentication.accessToken
         GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
             SigninController().stopLoader()
             
