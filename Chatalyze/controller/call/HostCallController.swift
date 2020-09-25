@@ -1064,6 +1064,8 @@ class HostCallController: VideoCallController {
                     else {
                         
                         resetCurrentRoom()
+                        self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
+                        self.preconnectTwillioRoom?.localMediaPackage?.audioTrack?.isEnabled = true
                         self.currentTwillioRoom = preconnectTwillioRoom
                         //switch to new call through media
                         self.preconnectTwillioRoom = nil
@@ -1151,7 +1153,8 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom = HostCallConnection()
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
-                    self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
+                    self.preconnectTwillioRoom?.localMediaPackage = nil
+                    self.preconnectTwillioRoom?.localMediaPackage?.audioTrack?.isEnabled = false
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
