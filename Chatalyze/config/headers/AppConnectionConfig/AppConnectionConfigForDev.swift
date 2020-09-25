@@ -39,7 +39,7 @@ class AppConnectionConfig {
     static let basicUrl = "https://dev.chatalyze.com"
     //    static let userSocketURL = "https://dev.chatalyze.com/"
     
-    static let userSocketURL = "https://web.chatalyze.com/"
+    static let userSocketURL = "https://dev.chatalyze.com/"
     
     //static let userSocketURL = "http://192.168.1.35:8080/api/"
     static let segmentIOKey = "ssMKoqqpi0hMDJtkFJo6DZtNTIiKEQD0"
