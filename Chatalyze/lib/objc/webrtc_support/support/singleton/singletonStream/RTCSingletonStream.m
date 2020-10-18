@@ -67,7 +67,7 @@ static NSString * const kARDVideoTrackKind = @"video";
         mediaPackage.audioTrack = track;
         self->_localVideoTrack = [self createLocalVideoTrack];
         if (self->_localVideoTrack) {
-            mediaPackage.videoTrack = self->_localVideoTrack;
+//            mediaPackage.videoTrack = self->_localVideoTrack;
         }
     });
     return mediaPackage;

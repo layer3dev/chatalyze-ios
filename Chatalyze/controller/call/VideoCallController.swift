@@ -965,43 +965,9 @@ extension VideoCallController{
     
     func writeLocalVideoTrack() {
         
-        guard let frontCamera = CameraSource.captureDevice(position: .front) else{
-            return
-        }
-        
-        
-        guard let _ = CameraSource.captureDevice(position: .back) else{
-            return
-        }
     
         
-        let options = CameraSourceOptions { (builder) in
-            
-            // To support building with Xcode 10.x.
-            #if XCODE_1100
-            if #available(iOS 13.0, *) {
-                // Track UIWindowScene events for the key window's scene.
-                // The example app disables multi-window support in the .plist (see UIApplicationSceneManifestKey).
-                
-                guard let scene = UIApplication.shared.keyWindow?.windowScene else{
-                    return
-                }
-                builder.orientationTracker = UserInterfaceTracker(scene: scene)
-//                builder.orientationTracker = VideoOrientation.up
-            }
-            #endif
-        }
-        
-        // Preview our local camera track in the local video preview view.
-        camera = CameraSource(options: options, delegate: self)
-        
-        
-        guard let cameraInstance = camera else{
-            Log.echo(key: "yud", text: "Empty camera instance")
-            return
-        }
-        
-        self.localMediaPackage?.videoTrack = LocalVideoTrack(source: cameraInstance, enabled: true, name: "Camera")
+        self.localMediaPackage?.videoTrack = LocalCameraVideoTrack(doesRequireMultipleTracks: true)
         
         
         // Add renderer to video track for local preview
@@ -1013,23 +979,13 @@ extension VideoCallController{
         guard let renderer = self.localVideoRenderer else{
             return
         }
-        self.localMediaPackage?.videoTrack?.addRenderer(localPreviewView)
-        self.localMediaPackage?.videoTrack?.addRenderer(renderer)
+        self.localMediaPackage?.videoTrack?.previewTrack.track?.addRenderer(localPreviewView)
+        self.localMediaPackage?.videoTrack?.previewTrack.track?.addRenderer(renderer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCallController.flipCamera))
         //localPreviewView.addGestureRecognizer(tap)
         
-        cameraInstance.startCapture(device: frontCamera) { (captureDevice, videoFormat, error) in
-            if let _ = error {
-                
-            } else {
-                
-                //localPreviewView.shouldMirror = !(captureDevice.position == .front)
-                localPreviewView.shouldMirror = false
-                localPreviewView.contentMode = .scaleAspectFill
-                self.fetchTwillioRoomInfoFromServer()
-            }
-        }
+       
     }
     
     
@@ -1471,60 +1427,7 @@ extension VideoCallController{
 }
 
 
-extension VideoCallController:CameraSourceDelegate{
-    
-    func cameraSourceDidFail(source: CameraSource, error: Error) {
-        
-        Log.echo(key: "Twill", text: "Camera source failed with error: \(error.localizedDescription)")
-        
-        guard let localPreviewView = self.localCameraPreviewView else{
-            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
-            return
-        }
-        guard let renderer = self.localVideoRenderer else{
-            return
-        }
-        self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
-        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
-        self.localMediaPackage?.videoTrack = nil
-        self.camera?.stopCapture()
-        self.camera = nil
-        self.startLocalStreaming()
-    }
-    
-    func cameraSourceInterruptionEnded(source: CameraSource) {
-        
-        Log.echo(key: "Twill", text: "Camera source cameraSourceInterruptionEnded with error: \(source) ans the track is \(String(describing: self.localMediaPackage?.videoTrack?.isEnabled))")
-    }
-    
-    func cameraSourceWasInterrupted(source: CameraSource, reason: AVCaptureSession.InterruptionReason) {
-        
-        //source.stopCapture()
-        
-        Log.echo(key: "Twill", text: "Camera source cameraSourceWasInterrupted with error: \(reason.rawValue) case-->0 videoDeviceNotAvailableInBackground--> 1audioDeviceInUseByAnotherClient-->2videoDeviceInUseByAnotherClient-->3videoDeviceNotAvailableWithMultipleForegroundApps")
-        
-        if reason.rawValue == 3 {
-            
-            guard let cameraInstance = camera else{
-                Log.echo(key: "yud", text: "Empty camera instance")
-                return
-            }
-            
-            guard let frontCamera = CameraSource.captureDevice(position: .front) else{
-                return
-            }
-            
-            cameraInstance.stopCapture()
-            
-            cameraInstance.startCapture(device: frontCamera) { (captureDevice, videoFormat, error) in
-                if let _ = error {
-                } else {
-                }
-            }
-            Log.echo(key: "Twill", text: "Restarted the local stream")
-        }
-    }
-}
+
 
 
 //MARK:- Running the global our camera
@@ -1583,21 +1486,6 @@ extension VideoCallController{
         notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    func disableCamera(){
-        
-        guard let localPreviewView = self.localCameraPreviewView else{
-            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
-            return
-        }
-        guard let renderer = self.localVideoRenderer else{
-            return
-        }
-        self.localMediaPackage?.videoTrack?.removeRenderer(localPreviewView)
-        self.localMediaPackage?.videoTrack?.removeRenderer(renderer)
-        self.localMediaPackage?.videoTrack = nil
-        self.camera?.stopCapture()
-        self.camera = nil
-    }
     
     func enableCamera(){
         

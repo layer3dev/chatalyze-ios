@@ -56,7 +56,17 @@ class CallConnection: NSObject {
         }
     }
     var controller : VideoCallController?
-    var localMediaPackage : CallMediaTrack?
+    
+    private var _localMediaPackage : CallMediaTrack?
+    
+    var localMediaPackage : CallMediaTrack?{
+        get{
+            return _localMediaPackage
+        }
+        set{
+            _localMediaPackage = newValue
+        }
+    }
 
     var connectionStateListener : CallConnectionProtocol?
 
@@ -258,6 +268,8 @@ class CallConnection: NSObject {
         self.socketClient = nil
         self.socketListener?.releaseListener()
         self.socketListener = nil
+        
+        
         //self.removeWholeRenders()
         //resetRemoteFrame()
     }
@@ -301,8 +313,13 @@ extension CallConnection{
                 Log.echo(key: "NewArch", text: "")
             }
             
+            guard let videoTrack = self.localMediaPackage?.videoTrack?.bufferTrack
+            else{
+                return
+            }
+            
             builder.audioTracks = self.localMediaPackage?.audioTrack != nil ? [self.localMediaPackage!.audioTrack!] : [LocalAudioTrack]()
-            builder.videoTracks = self.localMediaPackage?.videoTrack != nil ? [self.localMediaPackage!.videoTrack!] : [LocalVideoTrack]()
+            builder.videoTracks = self.localMediaPackage?.videoTrack != nil ? [videoTrack] : [LocalVideoTrack]()
             
 //            // Use the preferred audio codec
 //            if let preferredAudioCodec = Settings.shared.audioCodec {

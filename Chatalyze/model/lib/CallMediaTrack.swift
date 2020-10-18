@@ -11,15 +11,17 @@ import TwilioVideo
 
 @objc class CallMediaTrack: NSObject {
     
-    private var isAudioMuted = false
-    private var isVideoMuted = false
+    internal var isAudioMuted = false
+    internal var isVideoMuted = false
     
-    private var isMediaDisabled = false
+    internal var isMediaDisabled = false
     
     @objc var audioTrack : LocalAudioTrack?
-    @objc var videoTrack : LocalVideoTrack?
+    var videoTrack : LocalCameraVideoTrack?
     
-    var muteAudio : Bool{
+    
+    
+    internal var muteAudio : Bool{
         get{
             return isAudioMuted
         }
@@ -32,7 +34,7 @@ import TwilioVideo
         }
     }
     
-    var muteVideo : Bool{
+    internal var muteVideo : Bool{
         get{
             return isVideoMuted
         }
@@ -40,12 +42,12 @@ import TwilioVideo
             if(isVideoMuted == newValue){
                 return
             }
-            videoTrack?.isEnabled = !newValue
+            videoTrack?.mute()
             isVideoMuted = newValue
         }
     }
     
-    var isDisabled : Bool{
+    internal var isDisabled : Bool{
         get{
             return isMediaDisabled
         }
@@ -59,10 +61,10 @@ import TwilioVideo
         }
     }
     
-    private func enableMedia(){
+    internal func enableMedia(){
         
         audioTrack?.isEnabled = true
-        videoTrack?.isEnabled = true
+        videoTrack?.unmute()
         
         //Client wanted to activate both video and audio, when host recovers from hangup state, even if video/audio would had been muted earlier
         /*if(!muteAudio){
@@ -74,9 +76,9 @@ import TwilioVideo
         }*/
     }
     
-    private func disableMedia(){
+    internal func disableMedia(){
         audioTrack?.isEnabled = false
-        videoTrack?.isEnabled = false
+        videoTrack?.unmute()
     }
 }
 

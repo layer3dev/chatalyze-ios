@@ -449,8 +449,8 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
                                                        delegate:self];
     
     
-    [_peerConnection addTrack:self.localMediaPackage.audioTrack streamIds:@[ kARDMediaStreamId ]];
-    [_peerConnection addTrack:self.localMediaPackage.videoTrack streamIds:@[ kARDMediaStreamId ]];
+//    [_peerConnection addTrack:self.localMediaPackage.audioTrack streamIds:@[ kARDMediaStreamId ]];
+//    [_peerConnection addTrack:self.localMediaPackage.videoTrack streamIds:@[ kARDMediaStreamId ]];
     
     
     
@@ -462,7 +462,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
     
     CallMediaTrack *mediaPackage = [CallMediaTrack new];
     mediaPackage.audioTrack = receiverAudioTrack;
-    mediaPackage.videoTrack = receiverVideoTrack;
+//    mediaPackage.videoTrack = receiverVideoTrack;
     receiverAudioTrack.isEnabled = false;
     
     [_delegate appClient:self didReceiveRemoteMediaTrack:mediaPackage];
@@ -620,7 +620,7 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp andType:(ARDSignalingMe
         [self->_peerConnection addTrack:track streamIds:@[ kARDMediaStreamId ]];
         self->_localVideoTrack = [self createLocalVideoTrack];
         if (self->_localVideoTrack) {
-            mediaPackage.videoTrack = self->_localVideoTrack;
+//            mediaPackage.videoTrack = self->_localVideoTrack;
         }
     });
     

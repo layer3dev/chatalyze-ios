@@ -270,11 +270,17 @@ extension UserCallConnection{
         // Prepare local media which we will share with Room Participants.
         // Preparing the connect options with the access token that we fetched (or hardcoded).
         
+        guard let videoTrack = self.localMediaPackage?.videoTrack?.bufferTrack
+        else{
+            return
+        }
+        
         let connectOptions = ConnectOptions(token: accessToken) { (builder) in
+            
             
             // Use the local media that we prepared earlier.
             builder.audioTracks = self.localMediaPackage?.audioTrack != nil ? [self.localMediaPackage!.audioTrack!] : [LocalAudioTrack]()
-            builder.videoTracks = self.localMediaPackage?.videoTrack != nil ? [self.localMediaPackage!.videoTrack!] : [LocalVideoTrack]()
+            builder.videoTracks = self.localMediaPackage?.videoTrack != nil ? [videoTrack] : [LocalVideoTrack]()
             
 //            // Use the preferred audio codec
 //            if let preferredAudioCodec = Settings.shared.audioCodec {
