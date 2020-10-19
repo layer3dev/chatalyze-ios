@@ -893,12 +893,9 @@ extension VideoCallController{
     func startLocalStream() {
         
         
-        if (self.localMediaPackage?.audioTrack == nil) {
-            self.writeLocalAudioTrack()
-        }
         
         // Create a video track which captures from the camera.
-        if (self.localMediaPackage?.videoTrack == nil) {
+        if (self.localMediaPackage?.mediaTrack == nil) {
             self.writeLocalVideoTrack()
         }
         
@@ -957,7 +954,6 @@ extension VideoCallController{
             builder.isSoftwareAecEnabled = true
         }
         
-        self.localMediaPackage?.audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
         
         
     }
@@ -967,7 +963,7 @@ extension VideoCallController{
         
     
         
-        self.localMediaPackage?.videoTrack = LocalCameraVideoTrack(doesRequireMultipleTracks: true)
+        self.localMediaPackage?.mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
         
         
         // Add renderer to video track for local preview
@@ -979,8 +975,8 @@ extension VideoCallController{
         guard let renderer = self.localVideoRenderer else{
             return
         }
-        self.localMediaPackage?.videoTrack?.previewTrack.track?.addRenderer(localPreviewView)
-        self.localMediaPackage?.videoTrack?.previewTrack.track?.addRenderer(renderer)
+        self.localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(localPreviewView)
+        self.localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(renderer)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCallController.flipCamera))
         //localPreviewView.addGestureRecognizer(tap)
@@ -1438,12 +1434,10 @@ extension VideoCallController{
     // MARK:- Local Streaming methods
     func startLocalStreaming() {
         
-        if (self.localMediaPackage?.audioTrack == nil) {
-            self.writeLocalAudioTrack()
-        }
+        
         
         // Create a video track which captures from the camera.
-        if (self.localMediaPackage?.videoTrack == nil) {
+        if (self.localMediaPackage?.mediaTrack == nil) {
             self.writeLocalVideoTrack()
         }
     }

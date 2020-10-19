@@ -16,8 +16,7 @@ import TwilioVideo
     
     internal var isMediaDisabled = false
     
-    @objc var audioTrack : LocalAudioTrack?
-    var videoTrack : LocalCameraVideoTrack?
+    var mediaTrack : LocalMediaVideoTrack?
     
     
     
@@ -29,7 +28,7 @@ import TwilioVideo
             if(isAudioMuted == newValue){
                 return
             }
-            audioTrack?.isEnabled = !newValue
+            mediaTrack?.muteAudio()
             isAudioMuted = newValue
         }
     }
@@ -42,7 +41,7 @@ import TwilioVideo
             if(isVideoMuted == newValue){
                 return
             }
-            videoTrack?.mute()
+            mediaTrack?.muteVideo()
             isVideoMuted = newValue
         }
     }
@@ -63,8 +62,8 @@ import TwilioVideo
     
     internal func enableMedia(){
         
-        audioTrack?.isEnabled = true
-        videoTrack?.unmute()
+        mediaTrack?.unmuteAudio()
+        mediaTrack?.unmuteVideo()
         
         //Client wanted to activate both video and audio, when host recovers from hangup state, even if video/audio would had been muted earlier
         /*if(!muteAudio){
@@ -77,8 +76,8 @@ import TwilioVideo
     }
     
     internal func disableMedia(){
-        audioTrack?.isEnabled = false
-        videoTrack?.unmute()
+        mediaTrack?.muteAudio()
+        mediaTrack?.muteVideo()
     }
 }
 

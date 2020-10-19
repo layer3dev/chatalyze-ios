@@ -10,20 +10,36 @@ import Foundation
 import UIKit
 import TwilioVideo
 
-class LocalVideoTrackWrapper{
+class LocalMediaTrackWrapper{
     
     let isPreview : Bool
     var isLocked = false
-    let track : LocalVideoTrack?
+    let videoTrack : LocalVideoTrack?
+    var audioTrack : LocalAudioTrack?
+
     
     init(isPreview : Bool, source : LocalCameraSource) {
         self.isPreview = isPreview
-        track = LocalVideoTrack(source: source)
+        
+        videoTrack = LocalVideoTrack(source: source)
+        
+        let options = AudioOptions(){(builder) in
+            builder.isSoftwareAecEnabled = true
+        }
+        
+        if(isPreview){
+            return
+        }
+        
+        audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
+        
     }
     
     convenience init(source : LocalCameraSource){
         self.init(isPreview: false, source : source)
     }
+    
+    
     
     
     

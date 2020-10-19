@@ -58,6 +58,7 @@ class CallConnection: NSObject {
     var controller : VideoCallController?
     
     private var _localMediaPackage : CallMediaTrack?
+    private var bufferTrack : LocalMediaTrackWrapper?
     
     var localMediaPackage : CallMediaTrack?{
         get{
@@ -65,8 +66,11 @@ class CallConnection: NSObject {
         }
         set{
             _localMediaPackage = newValue
+            bufferTrack = newValue?.mediaTrack?.bufferTrack
         }
     }
+    
+    
 
     var connectionStateListener : CallConnectionProtocol?
 
@@ -263,11 +267,13 @@ class CallConnection: NSObject {
         lastDisconnect = nil
         self.isReleased = true
         self.connection?.disconnect()
+        self.bufferTrack?.isLocked = false
         self.connection = nil
         self.remoteTrack = nil
         self.socketClient = nil
         self.socketListener?.releaseListener()
         self.socketListener = nil
+        
         
         
         //self.removeWholeRenders()
@@ -303,23 +309,25 @@ extension CallConnection{
             
             Log.echo(key: "NewArch", text: "audio track is nil and the is Hangup \(String(describing: self.localMediaPackage?.isDisabled))")
 
-            if self.localMediaPackage?.audioTrack == nil{
-                
-            }
+        
             
-            if self.localMediaPackage?.videoTrack == nil{
-                
-                Log.echo(key: "NewArch", text: "video track is nil and the is Hangup \(String(describing: self.localMediaPackage?.isDisabled))")
-                Log.echo(key: "NewArch", text: "")
-            }
-            
-            guard let videoTrack = self.localMediaPackage?.videoTrack?.bufferTrack
+            guard let bufferTrack = self.bufferTrack
             else{
                 return
             }
             
-            builder.audioTracks = self.localMediaPackage?.audioTrack != nil ? [self.localMediaPackage!.audioTrack!] : [LocalAudioTrack]()
-            builder.videoTracks = self.localMediaPackage?.videoTrack != nil ? [videoTrack] : [LocalVideoTrack]()
+            guard let audioTrack = bufferTrack.audioTrack
+            else{
+                return
+            }
+            
+            guard let videoTrack = bufferTrack.videoTrack
+            else{
+                return
+            }
+            
+            builder.audioTracks = [audioTrack]
+            builder.videoTracks = [videoTrack]
             
 //            // Use the preferred audio codec
 //            if let preferredAudioCodec = Settings.shared.audioCodec {

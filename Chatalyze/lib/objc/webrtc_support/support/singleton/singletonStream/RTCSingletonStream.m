@@ -64,7 +64,7 @@ static NSString * const kARDVideoTrackKind = @"video";
         RTCAudioSource *source = [self->_factory audioSourceWithConstraints:constraints];
         RTCAudioTrack *track = [self->_factory audioTrackWithSource:source
                                                       trackId:kARDAudioTrackId];
-        mediaPackage.audioTrack = track;
+//        mediaPackage.audioTrack = track;
         self->_localVideoTrack = [self createLocalVideoTrack];
         if (self->_localVideoTrack) {
 //            mediaPackage.videoTrack = self->_localVideoTrack;
