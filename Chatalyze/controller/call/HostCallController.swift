@@ -13,7 +13,6 @@ import Alamofire
 import Toast_Swift
 import CRToast
 import TwilioVideo
-import Analytics
 
 class HostCallController: VideoCallController {
     
@@ -467,7 +466,7 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         processEvent()
         updateCallHeaderInfo()
-        refresh()        
+        refresh()
         updateLableAnimation()
         self.currentTwillioRoom?.switchStream(info:self.eventInfo)
         resetAutographCanvasIfNewCallAndSlotExists()
@@ -1064,8 +1063,6 @@ class HostCallController: VideoCallController {
                     else {
                         
                         resetCurrentRoom()
-                        self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
-                        self.preconnectTwillioRoom?.localMediaPackage?.audioTrack?.isEnabled = true
                         self.currentTwillioRoom = preconnectTwillioRoom
                         //switch to new call through media
                         self.preconnectTwillioRoom = nil
@@ -1153,8 +1150,7 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom = HostCallConnection()
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
-                    self.preconnectTwillioRoom?.localMediaPackage = nil
-                    self.preconnectTwillioRoom?.localMediaPackage?.audioTrack?.isEnabled = false
+                    self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
@@ -1646,7 +1642,7 @@ extension HostCallController{
                 return
             }
             
-            if String(infoCallBookingId) != String(currentSlotId){                          
+            if String(infoCallBookingId) != String(currentSlotId){
                 return
             }
             
@@ -1979,7 +1975,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
 
 
 //MARK:- Fetching the Twillio Access token
-
 extension HostCallController{
     
     func fetchTwillioDeviceToken(twillioRoom:HostCallConnection){
