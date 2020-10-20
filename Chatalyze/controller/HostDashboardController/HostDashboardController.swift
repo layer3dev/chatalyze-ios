@@ -8,6 +8,7 @@
 
 import UIKit
 import Bugsnag
+import Analytics
 
 class HostDashboardController: MyScheduledSessionsController {
     

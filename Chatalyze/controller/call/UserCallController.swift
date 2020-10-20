@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import TwilioVideo
 import SDWebImage
+import Analytics
 
 class UserCallController: VideoCallController {
     

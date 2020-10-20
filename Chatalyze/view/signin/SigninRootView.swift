@@ -12,6 +12,8 @@ import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Bugsnag
+import Analytics
+import GoogleSignIn
 
 
 class SigninRootView: ExtendedView {
@@ -29,6 +31,7 @@ class SigninRootView: ExtendedView {
     
     @IBOutlet fileprivate var signInView:UIView?
     @IBOutlet fileprivate var facebookView:UIView?
+    @IBOutlet fileprivate var googleSignInBtn:GIDSignInButton?
     
     @IBAction fileprivate func fbLoginAction(){
         

@@ -8,6 +8,7 @@
 
 import UIKit
 import Bugsnag
+import Analytics
 
 class MyTicketsVerticalController: MyTicketsController{
     

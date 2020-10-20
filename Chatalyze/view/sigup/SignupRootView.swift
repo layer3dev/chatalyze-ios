@@ -12,6 +12,7 @@ import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Bugsnag
+import Analytics
 
 class SignupRootView:ExtendedView{
     

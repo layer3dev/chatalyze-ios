@@ -1,6 +1,11 @@
 PODS:
   - Alamofire (4.9.1)
   - Analytics (3.6.10)
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
   - Bugsnag (5.23.1)
   - CropViewController (2.5.2)
   - CRToast (0.0.9)
@@ -22,7 +27,19 @@ PODS:
   - FBSDKLoginKit/Login (5.15.1):
     - FBSDKCoreKit (~> 5.0)
   - FSCalendar (2.8.1)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleWebRTC (1.1.25651)
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.4.0):
+    - GTMSessionFetcher/Full (= 1.4.0)
+  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Full (1.4.0):
+    - GTMSessionFetcher/Core (= 1.4.0)
   - HCSStarRatingView (1.5)
   - ImageLoader (0.15.0)
   - InputMask (6.0.0)
@@ -53,6 +70,7 @@ DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FSCalendar
+  - GoogleSignIn
   - GoogleWebRTC (= 1.1.25651)
   - HCSStarRatingView (~> 1.5)
   - ImageLoader
@@ -73,6 +91,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Analytics
+    - AppAuth
     - Bugsnag
     - CropViewController
     - CRToast
@@ -82,7 +101,10 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FSCalendar
+    - GoogleSignIn
     - GoogleWebRTC
+    - GTMAppAuth
+    - GTMSessionFetcher
     - HCSStarRatingView
     - ImageLoader
     - InputMask
@@ -101,6 +123,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Bugsnag: caa15cf2a5d9278f04e1dda70c0cc6d42d3c9625
   CropViewController: 1aac40093c5739e60d992b04724a55d12a689a4c
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
@@ -110,7 +133,10 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
   FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleWebRTC: ba7b063ececfa10584748ef09acadb888daf06bb
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   ImageLoader: e0635d52020d64dc7687e3a3b14dc53212ac0442
   InputMask: f340bdc905a4c4f377e44d865f129f752ac2383d
@@ -126,6 +152,6 @@ SPEC CHECKSUMS:
   YLProgressBar: 0c0796a6e9b5e5d5040d15c8911e802b67ccb939
   YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
 
-PODFILE CHECKSUM: 0caaf5999e217283d358d55428d02b8b549e2043
+PODFILE CHECKSUM: 2e37df4eb80ceb110e4f4f860d621eb206aa59c2
 
 COCOAPODS: 1.9.3

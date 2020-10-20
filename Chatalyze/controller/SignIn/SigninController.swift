@@ -9,6 +9,7 @@
 import UIKit
 import FacebookLogin
 import AuthenticationServices
+import GoogleSignIn
 
 class SigninController: InterfaceExtendedController {
     
@@ -18,6 +19,8 @@ class SigninController: InterfaceExtendedController {
     
   @IBOutlet weak var appleSiginView: UIView?
   @IBOutlet weak var appleSiginHightContraint: NSLayoutConstraint?
+    
+    @IBOutlet fileprivate var googleSignInView: UIView?
   
   @IBOutlet weak var verticleContraintForAppleSignIn: NSLayoutConstraint?
   
@@ -65,9 +68,9 @@ class SigninController: InterfaceExtendedController {
     
     @IBAction func googleSignIn(){
         
-        if let action = googleSignInAction{
-            action()
-        }
+        
+        GIDSignIn.sharedInstance().presentingViewController = self
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     override func viewDidLoad() {
@@ -94,7 +97,17 @@ class SigninController: InterfaceExtendedController {
       }else{
         self.appleSiginView?.layer.cornerRadius = 65/2
       }
-    
+        
+        //google Sgnin-in btn
+        GIDSignIn.sharedInstance()?.delegate = self
+        
+        if UIDevice.current.userInterfaceIdiom == .phone{
+            self.googleSignInView?.layer.cornerRadius = 45/2
+        }else{
+            self.googleSignInView?.layer.cornerRadius = 65/2
+        }
+        googleSignInView?.layer.masksToBounds = true
+        
     }
     
     fileprivate func initializeVariable(){
@@ -145,6 +158,33 @@ class SigninController: InterfaceExtendedController {
         }
         
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension SigninController : GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        rootView?.resetErrorStatus()
+        SigninController().showLoader()
+        if error != nil{
+            rootView?.showError(text: error.localizedDescription)
+            SigninController().stopLoader()
+            return
+        }
+        
+              let idToken = user.authentication.accessToken
+        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
+            SigninController().stopLoader()
+            
+            if(success){
+                
+                SigninRootView().registerWithSegmentAnalytics(info : info)
+                RootControllerManager().updateRoot()
+                return
+            }else{
+                self.rootView?.showError(text: message)
+               
+            }
+        }
     }
 }
 
