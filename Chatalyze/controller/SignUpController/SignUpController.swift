@@ -140,7 +140,7 @@ class SignUpController: InterfaceExtendedController {
       }
         
         GIDSignIn.sharedInstance()?.delegate = self
-        GIDSignIn.sharedInstance().presentingViewController = self
+       
         googleSignupView?.clipsToBounds = true
        
         if UIDevice.current.userInterfaceIdiom == .phone{
@@ -200,8 +200,9 @@ class SignUpController: InterfaceExtendedController {
     
     
     @IBAction func googleSignIn(){
-        
+        GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
+        
     }
     
 

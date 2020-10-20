@@ -68,6 +68,8 @@ class SigninController: InterfaceExtendedController {
     
     @IBAction func googleSignIn(){
         
+        
+        GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance()?.signIn()
     }
     
@@ -98,7 +100,7 @@ class SigninController: InterfaceExtendedController {
         
         //google Sgnin-in btn
         GIDSignIn.sharedInstance()?.delegate = self
-        GIDSignIn.sharedInstance().presentingViewController = self
+        
         if UIDevice.current.userInterfaceIdiom == .phone{
             self.googleSignInView?.layer.cornerRadius = 45/2
         }else{
