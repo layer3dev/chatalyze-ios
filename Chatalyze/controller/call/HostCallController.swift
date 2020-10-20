@@ -832,6 +832,12 @@ class HostCallController: VideoCallController {
         let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         self.earlyEndSessionView?.isHidden = false
+        if countdownTime == "00 : 00 : 00" {
+            self.makeRegistrationClose()
+            return
+        }else{
+            Log.echo(key: "vijay", text: "call not over yet")
+        }
     }
     
     private func updateForEmptyBreak(){
