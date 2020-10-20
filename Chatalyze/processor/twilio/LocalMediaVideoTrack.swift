@@ -59,27 +59,27 @@ class LocalMediaVideoTrack {
     }
     
     func muteVideo(){
-        previewTrack.videoTrack?.isEnabled = false
-        trackOne?.videoTrack?.isEnabled = false
-        trackOne?.videoTrack?.isEnabled = false
+        previewTrack.muteVideo()
+        trackOne?.muteVideo()
+        trackTwo?.muteVideo()
     }
     
     func unmuteVideo(){
-        previewTrack.videoTrack?.isEnabled = true
-        trackOne?.videoTrack?.isEnabled = true
-        trackOne?.videoTrack?.isEnabled = true
+        previewTrack.unmuteVideo()
+        trackOne?.unmuteVideo()
+        trackTwo?.unmuteVideo()
     }
     
     func muteAudio(){
-        previewTrack.audioTrack?.isEnabled = false
-        trackOne?.audioTrack?.isEnabled = false
-        trackOne?.audioTrack?.isEnabled = false
+        previewTrack.muteAudio()
+        trackOne?.muteAudio()
+        trackTwo?.muteAudio()
     }
     
     func unmuteAudio(){
-        previewTrack.audioTrack?.isEnabled = true
-        trackOne?.audioTrack?.isEnabled = true
-        trackOne?.audioTrack?.isEnabled = true
+        previewTrack.unmuteAudio()
+        trackOne?.unmuteAudio()
+        trackTwo?.unmuteAudio()
     }
     
     func start(){

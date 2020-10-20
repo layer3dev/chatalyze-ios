@@ -67,6 +67,7 @@ class CallConnection: NSObject {
         set{
             _localMediaPackage = newValue
             bufferTrack = newValue?.mediaTrack?.bufferTrack
+            bufferTrack?.acquireLock()
         }
     }
     
@@ -267,7 +268,7 @@ class CallConnection: NSObject {
         lastDisconnect = nil
         self.isReleased = true
         self.connection?.disconnect()
-        self.bufferTrack?.isLocked = false
+        self.bufferTrack?.releaseLock()
         self.connection = nil
         self.remoteTrack = nil
         self.socketClient = nil
@@ -584,7 +585,6 @@ extension CallConnection : RemoteParticipantDelegate {
             isPartcipantExists[0].remoteVideoTrack = videoTrack
             
             //isPartcipantExists[0].isRendered = true
-            //videoTrack.addRenderer(self.remoteView!)
             self.remoteView?.shouldMirror = false
             self.remoteView?.contentMode = .scaleAspectFit
             trackGetRemoteVideoStream()
@@ -643,7 +643,7 @@ extension CallConnection : RemoteParticipantDelegate {
 
     }
         
-    func switchStream(info:EventScheduleInfo?){
+    func switchStream(info : EventScheduleInfo?){
 
         guard let data = info else{
             print("removing the whole setream")
@@ -653,16 +653,11 @@ extension CallConnection : RemoteParticipantDelegate {
 
         self.eventInfo = data
         guard let currentSlotHashId  = self.eventInfo?.mergeSlotInfo?.currentSlot?.user?.hashedId else{
-
             print("removing the current stream")
             self.removeConnectedRender()
             return
         }
         
-//        guard let hashId = self.eventInfo?.user?.hashedId else {
-//            self.removeConnectedRender()
-//            return
-//        }
 
         print("Get the merge slot Info")
         let currentParticipant = self.roomParticipantsList.filter({$0.remoteParticipant?.identity == currentSlotHashId})
@@ -689,6 +684,9 @@ extension CallConnection : RemoteParticipantDelegate {
 
                             track.addRenderer(self.remoteView!)
                             track.addRenderer(renderer)
+                            
+                            self.bufferTrack?.unmute()
+                            
                             currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
                             currentParticipant[0].isRendered = true
                             self.trackRemoteScreenDisplayed()

@@ -47,7 +47,7 @@ class LocalCameraSource : NSObject{
     func startCapturer(){
         Log.echo(key: TAG, text: "startCapturer")
         capturer?.start(listener: { (frame) in
-            Log.echo(key: self.TAG, text: "frame received")
+//            Log.echo(key: self.TAG, text: "frame received")
             
             for sink in self.sinkList{
                 sink.onVideoFrame(frame)

@@ -28,7 +28,12 @@ import TwilioVideo
             if(isAudioMuted == newValue){
                 return
             }
-            mediaTrack?.muteAudio()
+            if(newValue){
+                mediaTrack?.muteAudio()
+            }else{
+                mediaTrack?.unmuteAudio()
+            }
+            
             isAudioMuted = newValue
         }
     }
@@ -41,7 +46,11 @@ import TwilioVideo
             if(isVideoMuted == newValue){
                 return
             }
-            mediaTrack?.muteVideo()
+            if(newValue){
+                mediaTrack?.muteVideo()
+            }else{
+                mediaTrack?.unmuteVideo()
+            }
             isVideoMuted = newValue
         }
     }

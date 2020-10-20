@@ -151,6 +151,7 @@ class VideoCallController : InterfaceExtendedController {
         speedHandler?.release()
         ARDAppClient.releaseLocalStream()
         captureController?.stopCapture()
+        self.localMediaPackage?.mediaTrack?.stop()
         eventSlotListener.setListener(listener: nil)
         timer.pauseTimer()
         socketClient?.disconnect()
@@ -963,8 +964,10 @@ extension VideoCallController{
         
     
         
-        self.localMediaPackage?.mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
+        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
+        self.localMediaPackage?.mediaTrack = mediaTrack
         
+        mediaTrack.start()
         
         // Add renderer to video track for local preview
         guard let localPreviewView = self.localCameraPreviewView else{
