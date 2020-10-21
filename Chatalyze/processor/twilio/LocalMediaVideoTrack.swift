@@ -16,6 +16,7 @@ class LocalMediaVideoTrack {
     var trackOne : LocalMediaTrackWrapper?
     var trackTwo : LocalMediaTrackWrapper?
     
+    
     private let doesRequireMultipleTracks : Bool
     
     
@@ -24,13 +25,18 @@ class LocalMediaVideoTrack {
         self.doesRequireMultipleTracks = doesRequireMultipleTracks
         source = LocalCameraSource()
         previewTrack = LocalMediaTrackWrapper(isPreview : true, source: source)
+        previewTrack.trackTag = "TrackPreview"
 
         if(!doesRequireMultipleTracks){
             return
         }
         
         trackOne = LocalMediaTrackWrapper(source: source)
+        trackOne?.trackTag = "TrackOne"
+        
         trackTwo = LocalMediaTrackWrapper(source: source)
+        trackTwo?.trackTag = "TrackTwo"
+        
         initialization()
     }
     
