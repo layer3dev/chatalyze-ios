@@ -17,6 +17,8 @@ class CallLogger : NSObject {
     private var targetUserId : String = "0"
     private var userSocket : UserSocket? = UserSocket.sharedInstance
     
+    private let TAG = "CallLogger"
+    
     override init() {
         super.init()
     }
@@ -234,6 +236,29 @@ class CallLogger : NSObject {
         
     }
     
+    /*
+     SocketService.emit('log', {
+     height: height, width: width,
+     chatId: chatId, sessionId: sessionId,
+     log_type: 'videoResolution'
+     });
+     */
+    func logVideoResolution(slotId : Int, size : CGSize){
+       
+        Log.echo(key : TAG, text : "logVideoResolution")
+        
+        var params = [String : Any]()
+        params["chatId"] = slotId
+        params["sessionId"] = sessionId
+        
+        params["width"] = size.width
+        params["height"] = size.height
+        params["log_type"] = "videoResolution"
+        
+        
+        emit(info: params)
+    }
+    
     
     
     private func getRawConnectionState(state : Room.State)->String{
@@ -313,4 +338,6 @@ extension CallLogger{
         print("Complete data in trackLogs is \(mainInfo)")
         emit(info: mainInfo)
     }
+    
+    
 }

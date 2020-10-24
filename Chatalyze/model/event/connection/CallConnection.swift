@@ -35,6 +35,7 @@ class CallConnection: NSObject {
     var remoteView:VideoView?
     var renderer : VideoFrameRenderer?
 
+    private var TAG = "CallConnection"
 
     static private var temp = 0
     var tempIdentifier = 0
@@ -53,6 +54,7 @@ class CallConnection: NSObject {
             let value = newValue
             _slotInfo = value
             initialization()
+            self.TAG = "\(self.TAG) \(newValue?.slotNo)"
         }
     }
     var controller : VideoCallController?
@@ -67,6 +69,7 @@ class CallConnection: NSObject {
         set{
             _localMediaPackage = newValue
             bufferTrack = newValue?.mediaTrack?.bufferTrack
+            bufferTrack?.trackTag = "\(bufferTrack?.trackTag) \(slotInfo?.slotNo)"
             bufferTrack?.acquireLock()
         }
     }
@@ -269,6 +272,8 @@ class CallConnection: NSObject {
         self.isReleased = true
         self.connection?.disconnect()
         self.bufferTrack?.releaseLock()
+        self.bufferTrack = nil
+        
         self.connection = nil
         self.remoteTrack = nil
         self.socketClient = nil
@@ -280,6 +285,9 @@ class CallConnection: NSObject {
         //self.removeWholeRenders()
         //resetRemoteFrame()
     }
+    
+    
+   
 }
 
 extension CallConnection{
@@ -362,10 +370,36 @@ extension CallConnection{
         // Connect to the Room using the options we provided.
         self.connection = TwilioVideoSDK.connect(options: connectOptions, delegate: self)
         
+        logResolution()
+        
         logMessage(messageText: "Attempting to connect to room ABCD")
     }
     
   
+    private func logResolution(){
+        Log.echo(key: TAG, text: "logResolution")
+        guard let videoTrack = bufferTrack?.videoTrack
+        else{
+            return
+        }
+        
+        let slotId = self.slotInfo?.id ?? 0
+        
+        Log.echo(key : TAG, text : "logVideoResolution slotId -> \(slotId)")
+        
+        guard let cameraSource = videoTrack.source as? LocalCameraSource
+        else{
+            return
+        }
+        
+        Log.echo(key : TAG, text : "logVideoResolution cameraSource received")
+        
+        guard let frameResolution = cameraSource.frameResolution else { return }
+        
+        Log.echo(key : TAG, text : "logVideoResolution executed")
+        
+        callLogger?.logVideoResolution(slotId : slotId, size : frameResolution)
+    }
     
     
     private func reconnect(){
@@ -445,10 +479,36 @@ extension CallConnection : RoomDelegate {
     }
 
     
+    private func updateTrack(){
+        Log.echo(key: self.TAG, text: "updateTrack")
+        if(slotInfo?.isReadyToGoLive ?? false){
+            Log.echo(key: self.TAG, text: "activate")
+            self.bufferTrack?.activate()
+            return
+        }
+        
+        Log.echo(key: self.TAG, text: "deactivate")
+        self.bufferTrack?.mute()
+    }
+    
+    func roomDidStartRecording(room: Room) {
+        Log.echo(key: TAG, text: "roomDidStartRecording")
+    }
+    
+    func roomDidStopRecording(room: Room) {
+        Log.echo(key: TAG, text: "roomDidStartRecording")
+    }
+    
+    
     func roomDidConnect(room: Room) {
+        
+        Log.echo(key: TAG, text: "roomDidConnect -> \(room.isRecording)")
+        
+        
+        self.updateTrack()
+        
                         
         // At the moment, this example only supports rendering one Participant at a time.
- 
         logMessage(messageText: "Connected to room \(room.name) as \(room.localParticipant?.identity ?? "") and computed hashId id \(String(describing: self.eventInfo?.user?.hashedId)) and teh computed self hashId is \(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.user?.hashedId)) amd there remoteparticipanats counts is \(room.remoteParticipants.count)")
         self.isConnecting = false
         self.remoteView?.shouldMirror = false
@@ -468,6 +528,8 @@ extension CallConnection : RoomDelegate {
             }
         }
     }
+    
+    
 
     func roomDidDisconnect(room: Room, error: Error?) {
         
@@ -642,8 +704,27 @@ extension CallConnection : RemoteParticipantDelegate {
 //        }
 
     }
+    
+    
+    private func activateStream(){
+        let isReadyToGoLive = slotInfo?.isReadyToGoLive ?? false
+        if(!isReadyToGoLive){
+            return
+        }
+        
+        if(bufferTrack?.isActivated ?? false){
+            return
+        }
+        
+        Log.echo(key: TAG, text: "activateStream")
+        
+        bufferTrack?.activate()
+    }
         
     func switchStream(info : EventScheduleInfo?){
+        
+        
+        activateStream()
 
         guard let data = info else{
             print("removing the whole setream")
@@ -685,8 +766,8 @@ extension CallConnection : RemoteParticipantDelegate {
                             track.addRenderer(self.remoteView!)
                             track.addRenderer(renderer)
                             
-                            self.bufferTrack?.unmute()
-                            
+                            Log.echo(key: self.TAG, text: "addRenderer")
+                                                        
                             currentParticipant[0].remoteAudioTrack?.isPlaybackEnabled = true
                             currentParticipant[0].isRendered = true
                             self.trackRemoteScreenDisplayed()

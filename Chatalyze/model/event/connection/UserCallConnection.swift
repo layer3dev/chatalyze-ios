@@ -13,6 +13,7 @@ import TwilioVideo
 class UserCallConnection: NSObject {
 
     private var _slotId:Int?
+    private let TAG = "UserCallConnection"
     
     var slotId:Int?{
         get{
@@ -270,7 +271,7 @@ extension UserCallConnection{
         // Prepare local media which we will share with Room Participants.
         // Preparing the connect options with the access token that we fetched (or hardcoded).
         
-        guard let bufferTrack = self.localMediaPackage?.mediaTrack?.bufferTrack
+        guard let bufferTrack = self.localMediaPackage?.mediaTrack?.previewTrack
         else{
             return
         }
@@ -320,8 +321,37 @@ extension UserCallConnection{
 
         // Connect to the Room using the options we provided.
         self.connection = TwilioVideoSDK.connect(options: connectOptions, delegate: self)
+        
+        logResolution()
 
         logMessage(messageText: "Attempting to connect to room \(roomName)")
+    }
+    
+    
+    
+    private func logResolution(){
+        Log.echo(key: TAG, text: "logResolution")
+        guard let videoTrack = self.localMediaPackage?.mediaTrack?.previewTrack.videoTrack
+        else{
+            return
+        }
+        
+        let slotId = self.slotInfo?.id ?? 0
+        
+        Log.echo(key : TAG, text : "logVideoResolution slotId -> \(slotId)")
+        
+        guard let cameraSource = videoTrack.source as? LocalCameraSource
+        else{
+            return
+        }
+        
+        Log.echo(key : TAG, text : "logVideoResolution cameraSource received")
+        
+        guard let frameResolution = cameraSource.frameResolution else { return }
+        
+        Log.echo(key : TAG, text : "logVideoResolution executed")
+        
+        callLogger?.logVideoResolution(slotId : slotId, size : frameResolution)
     }
 
     

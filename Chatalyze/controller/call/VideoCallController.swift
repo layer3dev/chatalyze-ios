@@ -962,9 +962,9 @@ extension VideoCallController{
     
     func writeLocalVideoTrack() {
         
-    
-        
-        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
+        let doesRequireMultipleTracks = (roomType == .analyst)
+
+        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: doesRequireMultipleTracks)
         self.localMediaPackage?.mediaTrack = mediaTrack
         
         mediaTrack.start()

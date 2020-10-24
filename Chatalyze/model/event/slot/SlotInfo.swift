@@ -119,6 +119,41 @@ class SlotInfo: SlotTimeInfo {
         }
     }
     
+    
+    //used by host to unmute the stream one second advance
+    var isReadyToGoLive : Bool{
+        
+        get{
+            guard let startDate = startDate
+                else{
+                    return false
+            }
+            
+            guard let endDate = endDate
+                else{
+                    return false
+            }
+            
+            if(isReadyToActivate(date : startDate) && endDate.isFuture()){
+                return true
+            }
+        
+            return false
+        }
+    }
+    
+    
+    private func isReadyToActivate(date : Date)->Bool{
+             
+        let timeInterval = date.timeIntervalTillNow
+        if(timeInterval <= 1){
+            return true
+        }
+        return false
+    }
+    
+    
+    
     var isFuture : Bool{
         
         get{

@@ -11,7 +11,9 @@ import UIKit
 import TwilioVideo
 
 class LocalCameraSource : NSObject{
-
+    
+    
+    var frameResolution : CGSize? = nil
     private var capturer : LocalCameraVideoCapturer?
     fileprivate let TAG = "LocalCameraSource"
     private var sinkList = [VideoSink]()
@@ -46,13 +48,25 @@ class LocalCameraSource : NSObject{
     
     func startCapturer(){
         Log.echo(key: TAG, text: "startCapturer")
-        capturer?.start(listener: { (frame) in
+        capturer?.start(listener: {(frame) in
+            self.updateVideoFrameResolution(frame : frame)
 //            Log.echo(key: self.TAG, text: "frame received")
             
             for sink in self.sinkList{
                 sink.onVideoFrame(frame)
             }
         })
+    }
+    
+    private func updateVideoFrameResolution(frame : VideoFrame){
+        let orientation = frame.orientation
+        var width = frame.width
+        var height = frame.height
+        if(orientation == .left || orientation == .right){
+            width = frame.height
+            height = frame.width
+        }
+        frameResolution = CGSize(width : width, height : height)
     }
     
     func stop(){

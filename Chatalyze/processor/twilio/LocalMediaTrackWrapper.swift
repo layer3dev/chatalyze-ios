@@ -18,6 +18,14 @@ class LocalMediaTrackWrapper{
     let videoTrack : LocalVideoTrack?
     var audioTrack : LocalAudioTrack?
     
+    var isActivated : Bool{
+        get{
+            return _isActivated
+        }
+    }
+    
+    private var _isActivated = false
+    
     private var isVideoMuted = false
     private var isAudioMuted = false
     
@@ -33,11 +41,14 @@ class LocalMediaTrackWrapper{
         
         videoTrack = LocalVideoTrack(source: source)
         
+        
         let options = AudioOptions(){(builder) in
             builder.isSoftwareAecEnabled = true
         }
         
         if(isPreview){
+            isLocked = true
+            _isActivated = true
             return
         }
         
@@ -68,21 +79,41 @@ class LocalMediaTrackWrapper{
     func unmuteVideo(){
         isVideoMuted = false
         Log.echo(key: TAG, text: "unmuteVideo isLocked -> \(isLocked)")
-        if(!isLocked){
+        
+        if(!_isActivated){
             return
         }
+        
         videoTrack?.isEnabled = true
     }
     
     func unmuteAudio(){
         isAudioMuted = false
         Log.echo(key: TAG, text: "unmuteAudio isLocked -> \(isLocked)")
-        if(!isLocked){
+        if(!_isActivated){
             return
         }
         audioTrack?.isEnabled = true
     }
     
+    func activate(){
+        Log.echo(key: TAG, text: "activate")
+        if(_isActivated){
+            return
+        }
+        _isActivated = true
+        unmute()
+    }
+    
+    func deactivate(){
+        Log.echo(key: TAG, text: "deactivate")
+        if(!_isActivated){
+            return
+        }
+        
+        _isActivated = false
+        mute()
+    }
     
     func mute(){
         Log.echo(key: TAG, text: "muteAll")
@@ -93,35 +124,27 @@ class LocalMediaTrackWrapper{
     
     func unmute(){
         Log.echo(key: TAG, text: "unmuteAll -> \(isLocked) isAudioMuted-> \(isAudioMuted) isVideoMuted-> \(isVideoMuted)")
-        if(!isLocked){
-            return
-        }
-    
-        
+      
         Log.echo(key: TAG, text: "executed")
-        
         if(!isAudioMuted){
             audioTrack?.isEnabled = true
         }
         
-        
         if(!isVideoMuted){
             videoTrack?.isEnabled = true
         }
-    
     }
     
     func acquireLock(){
         Log.echo(key: TAG, text: "acquireLock")
         isLocked = true
-        mute()
+        unmute()
     }
     
     func releaseLock(){
         Log.echo(key: TAG, text: "releaseLock")
         isLocked = false
-        mute()
+        deactivate()
     }
-    
     
 }
