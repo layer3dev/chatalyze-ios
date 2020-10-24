@@ -43,5 +43,6 @@ class AppConnectionConfig {
 //    static let segmentIOKey = "ssMKoqqpi0hMDJtkFJo6DZtNTIiKEQD0"
 //
 //    static let bugsnagKey = "ad58414db7ea062a861a66c71474e6fb"
+
 }
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,14 +25,14 @@
             <objects>
                 <viewController storyboardIdentifier="signin" automaticallyAdjustsScrollViewInsets="NO" id="6vG-OF-g2X" customClass="SigninController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="30p-YF-ADJ" customClass="SigninRootView" customModule="Chatalyze" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradientImage" translatesAutoresizingMaskIntoConstraints="NO" id="J3N-js-LEr">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This app is only available to registered  Chatalyze users. Learn more" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAZ-7C-39E">
-                                <rect key="frame" x="40" y="618.5" width="295" height="38.5"/>
+                                <rect key="frame" x="40" y="819" width="334" height="33"/>
                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -40,13 +41,13 @@
                                 </variation>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nhn-qQ-gYN" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqY-XA-gh3" userLabel="container_view">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="538"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="551"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in to Chatalyze" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOa-jx-m6A">
-                                                <rect key="frame" x="40" y="60" width="295" height="27.5"/>
+                                                <rect key="frame" x="40" y="40" width="334" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -55,8 +56,8 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6t-x1-0ha">
-                                                <rect key="frame" x="30" y="122.5" width="315" height="45"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="30" y="93.5" width="354" height="45"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="Cap-bS-KbU">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
@@ -64,13 +65,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kev-wh-JXH" userLabel="signin_button">
-                                                <rect key="frame" x="30" y="187.5" width="315" height="45"/>
+                                                <rect key="frame" x="30" y="148.5" width="354" height="45"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fbImage" translatesAutoresizingMaskIntoConstraints="NO" id="3Py-f2-bM6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-k8-wxW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ss-k8-wxW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                         <connections>
                                                             <action selector="fbLoginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="nty-pB-Eia"/>
                                                         </connections>
@@ -104,7 +105,7 @@
                                                                     <constraint firstAttribute="width" constant="40" id="H3I-Cv-MsY"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5g-Zp-nz4">
                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
                                                             </button>
                                                         </subviews>
@@ -130,11 +131,8 @@
                                                                     <constraint firstAttribute="height" constant="40" id="NP8-e8-S5Y"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBy-ho-b3o">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBy-ho-b3o">
                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                                <connections>
-                                                                    <action selector="googleSignIn" destination="6vG-OF-g2X" eventType="touchUpInside" id="MWJ-YS-PTg"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -159,7 +157,7 @@
                                                                     <constraint firstAttribute="width" constant="40" id="4QO-np-UMv"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-7E-GMK">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-7E-GMK">
                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                             </button>
                                                         </subviews>
@@ -185,7 +183,7 @@
                                                                     <constraint firstAttribute="width" constant="40" id="kU6-9Q-1At"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPr-FT-UTl">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPr-FT-UTl">
                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                             </button>
                                                         </subviews>
@@ -210,18 +208,46 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5a-dU-Dgp">
+                                                <rect key="frame" x="30" y="203.5" width="354" height="45"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleISignin" translatesAutoresizingMaskIntoConstraints="NO" id="ZuK-uK-hXb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tox-Jb-uae">
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
+                                                        <connections>
+                                                            <action selector="googleSignIn" destination="6vG-OF-g2X" eventType="touchUpInside" id="dDf-OQ-KHk"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="ZuK-uK-hXb" secondAttribute="bottom" id="68J-Oi-URL"/>
+                                                    <constraint firstAttribute="height" constant="45" id="8el-YM-6R2">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="bottom" secondItem="Tox-Jb-uae" secondAttribute="bottom" id="GXF-7G-nxH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tox-Jb-uae" secondAttribute="trailing" id="Mw8-Bp-VFW"/>
+                                                    <constraint firstItem="Tox-Jb-uae" firstAttribute="top" secondItem="B5a-dU-Dgp" secondAttribute="top" id="TiV-7x-f6g"/>
+                                                    <constraint firstItem="ZuK-uK-hXb" firstAttribute="top" secondItem="B5a-dU-Dgp" secondAttribute="top" id="bi2-2K-fhH"/>
+                                                    <constraint firstItem="ZuK-uK-hXb" firstAttribute="leading" secondItem="B5a-dU-Dgp" secondAttribute="leading" id="eDt-Vg-5vk"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ZuK-uK-hXb" secondAttribute="trailing" id="mvP-Ye-qRO"/>
+                                                    <constraint firstItem="Tox-Jb-uae" firstAttribute="leading" secondItem="B5a-dU-Dgp" secondAttribute="leading" id="nzy-s1-oAE"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-Sz-0CY" userLabel="or_label">
-                                                <rect key="frame" x="30" y="252.5" width="315" height="19.5"/>
+                                                <rect key="frame" x="30" y="268.5" width="354" height="16.5"/>
                                                 <subviews>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMN-3M-FFC" userLabel="line_left">
-                                                        <rect key="frame" x="0.0" y="9.5" width="73.5" height="1"/>
+                                                        <rect key="frame" x="0.0" y="8" width="93.5" height="1"/>
                                                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="Dkr-Kn-uhM"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qtQ-gD-cWI">
-                                                        <rect key="frame" x="93.5" y="0.0" width="128.5" height="19.5"/>
+                                                        <rect key="frame" x="113.5" y="0.0" width="127" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -230,7 +256,7 @@
                                                         </variation>
                                                     </label>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBU-ma-Uyn" userLabel="line_right">
-                                                        <rect key="frame" x="242" y="9.5" width="73" height="1"/>
+                                                        <rect key="frame" x="260.5" y="8" width="93.5" height="1"/>
                                                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="tjE-VA-Uqk"/>
@@ -251,13 +277,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXC-fy-Deb" userLabel="field_container">
-                                                <rect key="frame" x="30" y="292" width="315" height="104"/>
+                                                <rect key="frame" x="30" y="305" width="354" height="104"/>
                                                 <subviews>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8i-fD-pYg" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="44"/>
                                                         <subviews>
                                                             <view opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TIP-a0-8jX" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="siJ-Pn-qYe">
@@ -266,7 +292,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="euf-68-IS9">
-                                                                <rect key="frame" x="10" y="0.0" width="297" height="45"/>
+                                                                <rect key="frame" x="10" y="0.0" width="336" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="Goy-NN-rPp">
                                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
@@ -280,14 +306,14 @@
                                                                 </variation>
                                                             </textField>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-sU-X2A" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="45" width="315" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="45" width="354" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" id="Mto-Jq-Or0"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U68-8H-raV" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="44" width="308" height="0.0"/>
+                                                                <rect key="frame" x="2" y="44" width="347" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -321,10 +347,10 @@
                                                         </connections>
                                                     </view>
                                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOb-CP-mah" userLabel="password_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="59" width="315" height="45"/>
+                                                        <rect key="frame" x="0.0" y="59" width="354" height="45"/>
                                                         <subviews>
                                                             <view opaque="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQI-CS-pqw" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="dRP-lr-k6q">
@@ -333,7 +359,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Brb-he-JqO">
-                                                                <rect key="frame" x="10" y="0.0" width="297" height="45"/>
+                                                                <rect key="frame" x="10" y="0.0" width="336" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="yaO-4G-pUI">
                                                                         <variation key="heightClass=regular-widthClass=regular" constant="65"/>
@@ -347,14 +373,14 @@
                                                                 </variation>
                                                             </textField>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSS-db-yKG" userLabel="line_bottom">
-                                                                <rect key="frame" x="0.0" y="45" width="315" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="45" width="354" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" id="g4q-hO-WOz"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kp3-wL-blm" userLabel="error_label">
-                                                                <rect key="frame" x="2" y="45" width="308" height="0.0"/>
+                                                                <rect key="frame" x="2" y="45" width="347" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -402,10 +428,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-R9-tgU" userLabel="signin_button">
-                                                <rect key="frame" x="30" y="431" width="315" height="45"/>
+                                                <rect key="frame" x="30" y="444" width="354" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQK-eI-kBI">
-                                                        <rect key="frame" x="130" y="10" width="55.5" height="25"/>
+                                                        <rect key="frame" x="149.5" y="12" width="55.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -413,8 +439,8 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDF-0P-hEx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDF-0P-hEx">
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                         <connections>
                                                             <action selector="loginAction" destination="30p-YF-ADJ" eventType="touchUpInside" id="He8-js-eMN"/>
                                                         </connections>
@@ -434,7 +460,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-9i-LL8" userLabel="error_label">
-                                                <rect key="frame" x="5" y="481" width="365" height="0.0"/>
+                                                <rect key="frame" x="5" y="494" width="404" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -443,10 +469,10 @@
                                                 </variation>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPR-gj-jhO" userLabel="forgot_password">
-                                                <rect key="frame" x="87.5" y="488" width="200" height="30"/>
+                                                <rect key="frame" x="107" y="501" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-ik-gjO">
-                                                        <rect key="frame" x="43.5" y="0.0" width="113" height="19.5"/>
+                                                        <rect key="frame" x="43" y="0.0" width="114" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -454,7 +480,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93m-m9-jyy">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93m-m9-jyy">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <connections>
@@ -477,10 +503,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXt-2N-n7m" userLabel="forgot_password">
-                                                <rect key="frame" x="87.5" y="578" width="200" height="30"/>
+                                                <rect key="frame" x="107" y="591" width="200" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C34-r8-ptv">
-                                                        <rect key="frame" x="17" y="8" width="166.5" height="22"/>
+                                                        <rect key="frame" x="15" y="11" width="170.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -488,7 +514,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAa-Qm-vPK">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAa-Qm-vPK">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                                     </button>
                                                 </subviews>
@@ -507,10 +533,10 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yub-cQ-D52" userLabel="signin_button" customClass="Signupview" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="613" width="315" height="40"/>
+                                                <rect key="frame" x="30" y="626" width="354" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-Vw-eRN">
-                                                        <rect key="frame" x="126" y="9" width="63.5" height="22"/>
+                                                        <rect key="frame" x="144.5" y="10.5" width="65" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -518,8 +544,8 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7k-Qi-OmV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="40"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z7k-Qi-OmV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="40"/>
                                                         <connections>
                                                             <action selector="signupActionWithSender:" destination="6vG-OF-g2X" eventType="touchUpInside" id="9su-se-510"/>
                                                         </connections>
@@ -547,8 +573,8 @@
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="top" secondItem="HXC-fy-Deb" secondAttribute="bottom" constant="35" id="4j8-hv-RR4">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                             </constraint>
-                                            <constraint firstItem="a6t-x1-0ha" firstAttribute="top" secondItem="mOa-jx-m6A" secondAttribute="bottom" constant="35" id="60k-9w-G2c">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                            <constraint firstItem="a6t-x1-0ha" firstAttribute="top" secondItem="mOa-jx-m6A" secondAttribute="bottom" constant="30" id="60k-9w-G2c">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="50"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="a8e-R9-tgU" secondAttribute="trailing" constant="30" id="6Co-u5-jsQ">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
@@ -577,10 +603,10 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="a8e-R9-tgU" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="NYv-C9-FBD"/>
-                                            <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="Kev-wh-JXH" secondAttribute="bottom" constant="20" id="UJA-aa-Mum">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
-                                            </constraint>
                                             <constraint firstAttribute="trailing" secondItem="Yub-cQ-D52" secondAttribute="trailing" constant="30" id="bSk-Ei-KNB">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                            </constraint>
+                                            <constraint firstItem="B5a-dU-Dgp" firstAttribute="leading" secondItem="JqY-XA-gh3" secondAttribute="leading" constant="30" id="dzD-wq-OAh">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="eNd-GY-FnF"/>
@@ -601,8 +627,11 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="Yub-cQ-D52" firstAttribute="top" secondItem="jXt-2N-n7m" secondAttribute="bottom" constant="5" id="iAH-G7-7I6"/>
-                                            <constraint firstItem="mOa-jx-m6A" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="60" id="l7L-pW-Bwo">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                            <constraint firstItem="mOa-jx-m6A" firstAttribute="top" secondItem="JqY-XA-gh3" secondAttribute="top" constant="40" id="l7L-pW-Bwo">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                            </constraint>
+                                            <constraint firstAttribute="trailing" secondItem="B5a-dU-Dgp" secondAttribute="trailing" constant="30" id="lne-fc-71b">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstAttribute="trailing" secondItem="DSF-9i-LL8" secondAttribute="trailing" constant="5" id="njT-TO-vSP">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
@@ -611,8 +640,12 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                             </constraint>
                                             <constraint firstItem="hPR-gj-jhO" firstAttribute="centerX" secondItem="JqY-XA-gh3" secondAttribute="centerX" id="oqG-6c-WlX"/>
-                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="top" secondItem="a6t-x1-0ha" secondAttribute="bottom" constant="20" id="pbW-tr-Q4n">
-                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            <constraint firstItem="Kev-wh-JXH" firstAttribute="top" secondItem="a6t-x1-0ha" secondAttribute="bottom" constant="10" id="pbW-tr-Q4n">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                            </constraint>
+                                            <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="B5a-dU-Dgp" secondAttribute="bottom" constant="20" id="qXL-Ec-OOD"/>
+                                            <constraint firstItem="B5a-dU-Dgp" firstAttribute="top" secondItem="Kev-wh-JXH" secondAttribute="bottom" constant="10" id="r53-AG-Hd3">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                                             </constraint>
                                             <constraint firstItem="DSF-9i-LL8" firstAttribute="top" secondItem="a8e-R9-tgU" secondAttribute="bottom" constant="5" id="svs-1D-JpF"/>
                                             <constraint firstItem="MnL-Sz-0CY" firstAttribute="top" secondItem="JPB-V4-VB2" secondAttribute="bottom" constant="30" id="tq9-7V-03v">
@@ -638,13 +671,14 @@
                                     <constraint firstAttribute="bottom" secondItem="JqY-XA-gh3" secondAttribute="bottom" id="ssE-i0-Kod" userLabel="scroll_container_bottom"/>
                                 </constraints>
                             </scrollView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKa-4C-9oa">
-                                <rect key="frame" x="40" y="618.5" width="295" height="38.5"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKa-4C-9oa">
+                                <rect key="frame" x="40" y="819" width="334" height="33"/>
                                 <connections>
                                     <action selector="learnMoreActionWithSender:" destination="6vG-OF-g2X" eventType="touchUpInside" id="4pu-CA-dWk"/>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2DS-Ex-5f5"/>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="KKa-4C-9oa" firstAttribute="top" secondItem="ZAZ-7C-39E" secondAttribute="top" id="13g-KM-OEf"/>
@@ -667,7 +701,6 @@
                                 <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                             </constraint>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2DS-Ex-5f5"/>
                         <connections>
                             <outlet property="emailField" destination="k8i-fD-pYg" id="DNc-vR-hdg"/>
                             <outlet property="errorLabel" destination="DSF-9i-LL8" id="w9u-Fi-T8I"/>
@@ -682,12 +715,13 @@
                     <connections>
                         <outlet property="appleSiginHightContraint" destination="Cap-bS-KbU" id="mfv-cT-zXg"/>
                         <outlet property="appleSiginView" destination="a6t-x1-0ha" id="FKR-c9-6ZP"/>
+                        <outlet property="googleSignInView" destination="B5a-dU-Dgp" id="uZ0-Hl-S6m"/>
                         <outlet property="unavailableSignUpAlertLabel" destination="ZAZ-7C-39E" id="Crf-xS-Fqe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvd-3O-Efu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="-250.52473763118442"/>
+            <point key="canvasLocation" x="298.55072463768118" y="-251.11607142857142"/>
         </scene>
         <!--Sign In Learn More Controller-->
         <scene sceneID="1jt-Pw-sYv">
@@ -698,16 +732,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZw-tl-dDE">
-                                <rect key="frame" x="0.0" y="64" width="320" height="936"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="902"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGD-Ra-ZKI">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="652.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="590.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tz-mX-VdO">
-                                                <rect key="frame" x="0.0" y="20" width="320" height="171.5"/>
+                                                <rect key="frame" x="0.0" y="20" width="320" height="152.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is Chatalyze?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kN-td-8XM">
-                                                        <rect key="frame" x="20" y="20" width="290" height="22"/>
+                                                        <rect key="frame" x="20" y="20" width="290" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -716,7 +750,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he7-aI-U0w">
-                                                        <rect key="frame" x="20" y="62" width="290" height="109.5"/>
+                                                        <rect key="frame" x="20" y="59" width="290" height="93.5"/>
                                                         <string key="text">Chatalyze is a tool for influencers, creators, experts, and teachers (“Hosts") to easily host one-on-one video chat “sessions” with multiple followers or clients.</string>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.49411764705882355" green="0.49411764705882355" blue="0.49411764705882355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -738,10 +772,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17u-4Y-Zbs">
-                                                <rect key="frame" x="0.0" y="191.5" width="320" height="198"/>
+                                                <rect key="frame" x="0.0" y="172.5" width="320" height="176"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How exactly does it work?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcJ-OB-AgB">
-                                                        <rect key="frame" x="20" y="25" width="290" height="22"/>
+                                                        <rect key="frame" x="20" y="25" width="290" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -750,7 +784,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qo-ve-7C7">
-                                                        <rect key="frame" x="20" y="67" width="290" height="131"/>
+                                                        <rect key="frame" x="20" y="64" width="290" height="112"/>
                                                         <string key="text">Using Chatalyze, a host can set up a queue of 1:1 video chat slots, share a private booking link with their followers or clients, and then automatically connect one-by-one with each person booked in their queue.</string>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -772,10 +806,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4FC-yb-5IB">
-                                                <rect key="frame" x="0.0" y="389.5" width="320" height="154.5"/>
+                                                <rect key="frame" x="0.0" y="348.5" width="320" height="139"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why is there only an option to sign in?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyP-Ic-dkG">
-                                                        <rect key="frame" x="20" y="25" width="290" height="22"/>
+                                                        <rect key="frame" x="20" y="25" width="290" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -784,7 +818,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mc-R9-WUo">
-                                                        <rect key="frame" x="20" y="67" width="290" height="87.5"/>
+                                                        <rect key="frame" x="20" y="64" width="290" height="75"/>
                                                         <string key="text">This app is for registered Chatalyze users only. Register for Chatalyze to gain access to this app and our web version. Sorry you can’t sign up here!</string>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -806,10 +840,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASB-nr-KCt">
-                                                <rect key="frame" x="0.0" y="574" width="320" height="58.5"/>
+                                                <rect key="frame" x="0.0" y="517.5" width="320" height="53"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have specific questions? Feel free to contact us. We’ll be happy to help!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hne-ak-ZNi">
-                                                        <rect key="frame" x="20" y="10" width="290" height="38.5"/>
+                                                        <rect key="frame" x="20" y="10" width="290" height="33"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="14"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -823,8 +857,8 @@
                                                     <constraint firstItem="hne-ak-ZNi" firstAttribute="top" secondItem="ASB-nr-KCt" secondAttribute="top" constant="10" id="ogn-PR-KpA"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pii-C6-xvU">
-                                                <rect key="frame" x="0.0" y="574" width="320" height="58.5"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pii-C6-xvU">
+                                                <rect key="frame" x="0.0" y="517.5" width="320" height="53"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="11"/>
                                                 <connections>
@@ -869,7 +903,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn More" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srU-4l-j41">
-                                        <rect key="frame" x="0.0" y="24.5" width="320" height="25"/>
+                                        <rect key="frame" x="0.0" y="26.5" width="320" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -884,7 +918,7 @@
                                                     <constraint firstAttribute="width" constant="20" id="sHY-3v-gr5"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20R-aa-ylb">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20R-aa-ylb">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="64"/>
                                                 <connections>
                                                     <action selector="backActionWithSender:" destination="FLU-Dr-PUe" eventType="touchUpInside" id="GDg-DH-nIR"/>
@@ -919,6 +953,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="oiG-tw-frW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="a24-vm-5bc" firstAttribute="trailing" secondItem="oiG-tw-frW" secondAttribute="trailing" id="HPH-Uw-mc9"/>
@@ -930,7 +965,6 @@
                             <constraint firstItem="oGD-Ra-ZKI" firstAttribute="width" secondItem="CSD-7i-VwQ" secondAttribute="width" id="xer-3c-7yg"/>
                             <constraint firstItem="BZw-tl-dDE" firstAttribute="leading" secondItem="oiG-tw-frW" secondAttribute="leading" id="zbt-vy-HBY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="oiG-tw-frW"/>
                     </view>
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
@@ -947,9 +981,13 @@
         <image name="back_white" width="50" height="50"/>
         <image name="facebook_new" width="50" height="50"/>
         <image name="fbImage" width="260" height="45"/>
+        <image name="googleISignin" width="512" height="89"/>
         <image name="google_new" width="50" height="50"/>
         <image name="gradientImage" width="1242" height="2208"/>
         <image name="pateron" width="50" height="50"/>
         <image name="twitter_new" width="50" height="50"/>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

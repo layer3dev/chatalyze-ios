@@ -13,6 +13,7 @@ import Alamofire
 import Toast_Swift
 import CRToast
 import TwilioVideo
+import Analytics
 
 class HostCallController: VideoCallController {
     
@@ -466,7 +467,7 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         processEvent()
         updateCallHeaderInfo()
-        refresh()        
+        refresh()
         updateLableAnimation()
         
         self.preconnectTwillioRoom?.switchStream(info: self.eventInfo)
@@ -834,6 +835,12 @@ class HostCallController: VideoCallController {
         let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         self.earlyEndSessionView?.isHidden = false
+        if countdownTime == "00 : 00 : 00" {
+            self.makeRegistrationClose()
+            return
+        }else{
+            Log.echo(key: "vijay", text: "call not over yet")
+        }
     }
     
     private func updateForEmptyBreak(){
@@ -1644,7 +1651,7 @@ extension HostCallController{
                 return
             }
             
-            if String(infoCallBookingId) != String(currentSlotId){                          
+            if String(infoCallBookingId) != String(currentSlotId){
                 return
             }
             
@@ -1977,7 +1984,6 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
 
 
 //MARK:- Fetching the Twillio Access token
-
 extension HostCallController{
     
     func fetchTwillioDeviceToken(twillioRoom:HostCallConnection){

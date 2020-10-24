@@ -23,7 +23,7 @@ class GoogleSignIn{
         var params = [String : Any]()
         params["code"] = accessToken
         params["clientId"] = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
-        params["redirectUrl"] = "https://dev.chatalyze.com"
+        params["redirectUri"] = "https://dev.chatalyze.com"
         params["accessToken"] = accessToken
         params["roleId"] = LoginSignUpContainerController.roleId
         params["rememberMe"] = true

@@ -8,6 +8,7 @@
 
 import UIKit
 import YLProgressBar
+import Analytics
 
 class SessionScheduleNewController: UIViewController {
     

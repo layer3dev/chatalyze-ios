@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Analytics
 
 protocol ScheduleSessionNewDoneControllerDelegate {
     func backToRootController()
