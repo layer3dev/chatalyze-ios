@@ -46,13 +46,14 @@ class LocalMediaTrackWrapper{
             builder.isSoftwareAecEnabled = true
         }
         
+        audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
+        
         if(isPreview){
             isLocked = true
             _isActivated = true
             return
         }
         
-        audioTrack = LocalAudioTrack(options: options, enabled: true, name: "Microphone")
         
         mute()
         
