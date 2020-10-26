@@ -284,21 +284,28 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-            let size = hostPicture.size
-            let localSize = userPicture.size
+//            let size = hostPicture.size
+//            let localSize = userPicture.size
+            
+            let cropHost = cropImageToSquare(image: hostPicture)
+            let size = cropHost!.size
+            Log.echo(key: "atul-->HostImg", text: "host img sixze\(String(describing: cropHost!.size))")
+            
+            let cropLocal = cropImageToSquare(image: userPicture)
+            let localSize = cropLocal!.size
+            Log.echo(key: "atul-->LocalImg", text: "Local img sixze\(String(describing: cropLocal!.size))")
             
             let maxConstant = size.width > size.height ? size.width : size.height
             
-            let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
+            let localContainerSize = CGSize(width: maxConstant / 2, height: maxConstant / 2)
             
             let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
             
-            hostPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            cropHost?.draw(in: CGRect(x: 0, y: 0, width: size.width / 2, height: size.height / 2))
+        
             
-            //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
-            
-            userPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
+            userPicture.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: size.width / 2 , height: size.height / 2))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -306,6 +313,40 @@ class VideoRootView: ExtendedView {
             
             return finalImage
         }
+    
+    
+    func cropImageToSquare(image: UIImage) -> UIImage? {
+        var imageHeight = image.size.height
+        var imageWidth = image.size.width
+
+        if imageHeight > imageWidth {
+            imageHeight = imageWidth
+        }
+        else {
+            imageWidth = imageHeight
+        }
+
+        let size = CGSize(width: imageWidth, height: imageHeight)
+
+        let refWidth : CGFloat = CGFloat(image.cgImage!.width)
+        let refHeight : CGFloat = CGFloat(image.cgImage!.height)
+
+        let x = (refWidth - size.width) / 2
+        let y = (refHeight - size.height) / 2
+
+        let cropRect = CGRect(x: x, y: y, width: size.width, height: size.height)
+        if let imageRef = image.cgImage!.cropping(to: cropRect) {
+            return UIImage(cgImage: imageRef, scale: 0, orientation: image.imageOrientation)
+        }
+
+       return nil
+    }
+    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage{
+        
+        let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
+        let cropped:UIImage = UIImage(cgImage:imageRef)
+        return cropped
+    }
 }
 
 
