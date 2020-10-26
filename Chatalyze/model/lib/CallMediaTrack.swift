@@ -11,15 +11,16 @@ import TwilioVideo
 
 @objc class CallMediaTrack: NSObject {
     
-    private var isAudioMuted = false
-    private var isVideoMuted = false
+    internal var isAudioMuted = false
+    internal var isVideoMuted = false
     
-    private var isMediaDisabled = false
+    internal var isMediaDisabled = false
     
-    @objc var audioTrack : LocalAudioTrack?
-    @objc var videoTrack : LocalVideoTrack?
+    var mediaTrack : LocalMediaVideoTrack?
     
-    var muteAudio : Bool{
+    
+    
+    internal var muteAudio : Bool{
         get{
             return isAudioMuted
         }
@@ -27,12 +28,17 @@ import TwilioVideo
             if(isAudioMuted == newValue){
                 return
             }
-            audioTrack?.isEnabled = !newValue
+            if(newValue){
+                mediaTrack?.muteAudio()
+            }else{
+                mediaTrack?.unmuteAudio()
+            }
+            
             isAudioMuted = newValue
         }
     }
     
-    var muteVideo : Bool{
+    internal var muteVideo : Bool{
         get{
             return isVideoMuted
         }
@@ -40,12 +46,16 @@ import TwilioVideo
             if(isVideoMuted == newValue){
                 return
             }
-            videoTrack?.isEnabled = !newValue
+            if(newValue){
+                mediaTrack?.muteVideo()
+            }else{
+                mediaTrack?.unmuteVideo()
+            }
             isVideoMuted = newValue
         }
     }
     
-    var isDisabled : Bool{
+    internal var isDisabled : Bool{
         get{
             return isMediaDisabled
         }
@@ -59,10 +69,10 @@ import TwilioVideo
         }
     }
     
-    private func enableMedia(){
+    internal func enableMedia(){
         
-        audioTrack?.isEnabled = true
-        videoTrack?.isEnabled = true
+        mediaTrack?.unmuteAudio()
+        mediaTrack?.unmuteVideo()
         
         //Client wanted to activate both video and audio, when host recovers from hangup state, even if video/audio would had been muted earlier
         /*if(!muteAudio){
@@ -74,9 +84,9 @@ import TwilioVideo
         }*/
     }
     
-    private func disableMedia(){
-        audioTrack?.isEnabled = false
-        videoTrack?.isEnabled = false
+    internal func disableMedia(){
+        mediaTrack?.muteAudio()
+        mediaTrack?.muteVideo()
     }
 }
 

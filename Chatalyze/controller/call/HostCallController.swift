@@ -469,6 +469,8 @@ class HostCallController: VideoCallController {
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
+        
+        self.preconnectTwillioRoom?.switchStream(info: self.eventInfo)
         self.currentTwillioRoom?.switchStream(info:self.eventInfo)
         resetAutographCanvasIfNewCallAndSlotExists()
     }
