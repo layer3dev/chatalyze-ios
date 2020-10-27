@@ -8,12 +8,16 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 
 class MemoryFrame:XibTemplate{
     
     @IBOutlet var screenShotPic:UIImageView?
+    @IBOutlet var backGrndImg : UIImageView?
     @IBOutlet var memoryStickerView : MemoryStickerView?
+    var userInfo : EventInfo?
+    @IBOutlet var chatlyzeLbl : UILabel?
     
     @IBOutlet var name:UILabel?
     @IBOutlet var date:UILabel?
@@ -44,8 +48,18 @@ class MemoryFrame:XibTemplate{
         super.layoutSubviews()
        
         paintInterface()
+        loadbackgrndImg(eveninfo: userInfo!)
+        for family in UIFont.familyNames.sorted(){
+            let names = UIFont.fontNames(forFamilyName: family)
+            Log.echo(key: "atul_font", text: "family:\(names)")
+        }
 //        handleUI()
+//        chatlyzeLbl?.backgroundColor = .black
+//        chatlyzeLbl?.textColor = .white
+//        chatlyzeLbl?.font = UIFont(name: "PermanentMarker-Regular", size: 20)
     }
+    
+    
     
     func paintInterface(){
         
@@ -90,9 +104,21 @@ class MemoryFrame:XibTemplate{
         memoryLead?.constant = 10
         
         name?.font = UIFont(name: "Nunito-Bold", size: 24)
-        date?.font = UIFont(name: "Nunito-Bold", size: 20)
+//        date?.font = UIFont(name: "Nunito-Bold", size: 20)
         memory?.font = UIFont(name: "Nunito-Bold", size: 15)
     }
+    
+    private func loadbackgrndImg(eveninfo: EventInfo){
+            guard let imgURL = eveninfo.backgroundURL
+                else{
+                backGrndImg?.backgroundColor = .white
+                    return
+            }
+            if let url = URL(string: imgURL){
+                backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                })
+            }
+        }
     
     func setUIForLandscape(){
         
@@ -116,7 +142,7 @@ class MemoryFrame:XibTemplate{
         memoryLead?.constant = 13
         
         name?.font = UIFont(name: "Nunito-Bold", size: 34)
-        date?.font = UIFont(name: "Nunito-Bold", size: 28)
+//        date?.font = UIFont(name: "Nunito-Bold", size: 28)
         memory?.font = UIFont(name: "Nunito-Bold", size: 20)
     }
 }

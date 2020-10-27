@@ -238,6 +238,7 @@ class VideoRootView: ExtendedView {
        testView.frame.size = extractFrame(image: finalImage)
        testView.screenShotPic?.image = finalImage
        testView.memoryStickerView?.renderImage(image: eventLogo)
+       testView.userInfo = info
        
        completion(getSnapshot(view: testView))
    }
@@ -299,13 +300,13 @@ class VideoRootView: ExtendedView {
             
             let localContainerSize = CGSize(width: maxConstant / 2, height: maxConstant / 2)
             
-            let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
+            let aspectSize = AVMakeRect(aspectRatio: size, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
             
-            cropHost?.draw(in: CGRect(x: 0, y: 0, width: size.width / 2, height: size.height / 2))
+            cropHost?.draw(in: CGRect(x: 0, y: 0, width: aspectSize.width, height: size.height))
         
             
-            userPicture.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: size.width / 2 , height: size.height / 2))
+            userPicture.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: size.width / 2 , height: size.height))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -332,7 +333,7 @@ class VideoRootView: ExtendedView {
         let refHeight : CGFloat = CGFloat(image.cgImage!.height)
 
         let x = (refWidth - size.width) / 2
-        let y = (refHeight - size.height) / 2
+        let y = CGFloat(0)
 
         let cropRect = CGRect(x: x, y: y, width: size.width, height: size.height)
         if let imageRef = image.cgImage!.cropping(to: cropRect) {
