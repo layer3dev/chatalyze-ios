@@ -252,7 +252,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func extractPortraitFrame(image : UIImage) -> CGSize{
-        let height = CGFloat(1130)
+        let height = CGFloat(1030)
         let width = (image.size.width / image.size.height) * height
         return CGSize(width: width, height: height)
     }
@@ -297,16 +297,26 @@ class VideoRootView: ExtendedView {
             Log.echo(key: "atul-->LocalImg", text: "Local img sixze\(String(describing: cropLocal!.size))")
             
             let maxConstant = size.width > size.height ? size.width : size.height
+            let maxConstantLocal = localSize.width > localSize.height ? localSize.width : localSize.height
             
-            let localContainerSize = CGSize(width: maxConstant / 2, height: maxConstant / 2)
+            let localContainerSize = CGSize(width: maxConstant, height: maxConstant / 2)
+            let HostContainerSize = CGSize(width: maxConstantLocal / 2, height: maxConstantLocal / 2)
             
             let aspectSize = AVMakeRect(aspectRatio: size, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
+            
+            let aspectLocal = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: HostContainerSize))
+            
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
             
             cropHost?.draw(in: CGRect(x: 0, y: 0, width: aspectSize.width, height: size.height))
         
             
-            userPicture.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: size.width / 2 , height: size.height))
+
+            if UIDevice.current.orientation == UIDeviceOrientation.portrait{
+                userPicture.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: size.width / 2 , height: size.height))
+            }else{
+                cropLocal?.draw(in: CGRect(x: (size.width / 2 + 5), y: 0, width: aspectLocal.width , height: size.height))
+            }
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -335,18 +345,12 @@ class VideoRootView: ExtendedView {
         let x = (refWidth - size.width) / 2
         let y = CGFloat(0)
 
-        let cropRect = CGRect(x: x, y: y, width: size.width, height: size.height)
+        let cropRect = CGRect(x: x - 20, y: y, width: size.width, height: size.height)
         if let imageRef = image.cgImage!.cropping(to: cropRect) {
             return UIImage(cgImage: imageRef, scale: 0, orientation: image.imageOrientation)
         }
 
        return nil
-    }
-    func cropImage(imageToCrop:UIImage, toRect rect:CGRect) -> UIImage{
-        
-        let imageRef:CGImage = imageToCrop.cgImage!.cropping(to: rect)!
-        let cropped:UIImage = UIImage(cgImage:imageRef)
-        return cropped
     }
 }
 
