@@ -125,6 +125,7 @@ class UserCallConnection: NSObject {
         self.controller = controller
         self.connectToRoom()
         
+       
         print("connecting is calling")
     }
     
@@ -329,7 +330,7 @@ extension UserCallConnection{
     
     
     
-    private func logResolution(){
+     func logResolution(){
         Log.echo(key: TAG, text: "logResolution")
         guard let videoTrack = self.localMediaPackage?.mediaTrack?.previewTrack.videoTrack
         else{

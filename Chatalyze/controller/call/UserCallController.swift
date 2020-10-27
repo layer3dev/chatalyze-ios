@@ -199,6 +199,7 @@ class UserCallController: VideoCallController {
         layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func interval(){
@@ -223,6 +224,18 @@ class UserCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
         //MISSING REFERSH STREAM LOCK
+    }
+    
+    @objc func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+            connection?.logResolution()
+        }
+
+        if UIDevice.current.orientation.isPortrait {
+            print("Portrait")
+            connection?.logResolution()
+        }
     }
     
     func trackCallTochatComplete(){
