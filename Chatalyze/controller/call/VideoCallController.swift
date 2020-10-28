@@ -80,7 +80,7 @@ class VideoCallController : InterfaceExtendedController {
     //there is no need of this callback
     var peerInfos : [PeerInfo] = [PeerInfo]()
     
-    private var speedHandler : InternetSpeedHandler?
+     var speedHandler : InternetSpeedHandler?
     
     //in case if user opens up
     var isProhibited = false

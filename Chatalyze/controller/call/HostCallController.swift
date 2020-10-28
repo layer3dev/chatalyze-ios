@@ -532,6 +532,16 @@ class HostCallController: VideoCallController {
     }
     
     func checkforRecordingStatus(){
+        
+        self.speedHandler?.showBottomBanner = {[weak self] success in
+            
+            if success{
+                //already shared the resolution
+            }else{
+                self?.currentTwillioRoom?.logResolution()
+            }
+            
+        }
   
         if ((eventInfo?.isRecordingEnabled ?? false)){
             self.recordingLbl.isHidden = false

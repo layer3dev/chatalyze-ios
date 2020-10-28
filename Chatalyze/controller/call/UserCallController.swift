@@ -437,6 +437,15 @@ class UserCallController: VideoCallController {
     
     func checkforRecordingStatus(){
   
+        self.speedHandler?.showBottomBanner = {[weak self] success in
+            
+            if success{
+                //already shared the resolution
+            }else{
+                self?.connection?.logResolution()
+            }
+            
+        }
         if ((eventInfo?.isRecordingEnabled ?? false)){
             self.recordingLbl.isHidden = false
         }else{
