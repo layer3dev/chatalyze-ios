@@ -57,6 +57,7 @@ class MemoryFrame:XibTemplate{
 //        chatlyzeLbl?.backgroundColor = .black
 //        chatlyzeLbl?.textColor = .white
 //        chatlyzeLbl?.font = UIFont(name: "PermanentMarker-Regular", size: 20)
+        chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)))
     }
     
     
