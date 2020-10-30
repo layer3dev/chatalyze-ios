@@ -284,18 +284,39 @@ class VideoRootView: ExtendedView {
         
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
-
-            var cropHostPic = self.cropToBounds(image: hostPicture, width: 300, height: 800)
             
+            let maxWidth = min(hostPicture.size.width, userPicture.size.width)
+            
+            var cropHostPic : UIImage?
+            var cropUserPic : UIImage?
+            
+            
+            if hostPicture.size.width < hostPicture.size.height{
+                cropHostPic = resizeImage(image: hostPicture, targetSize: CGSize(width: 300, height: 600))
+                Log.echo(key: "dhimu", text: "host picture is portrait")
+            }else{
+                cropHostPic = hostPicture.crop(to: CGSize(width: 300, height: 600))
+                Log.echo(key: "dhimu", text: "host picture is landscape")
+            }
+            
+            if userPicture.size.width > userPicture.size.height{
+                cropUserPic = userPicture.crop(to: CGSize(width: 300, height: 600))
+                Log.echo(key: "dhimu", text: "user picture is landscape")
+            }else{
+                cropUserPic = resizeImage(image: userPicture, targetSize: CGSize(width: 300, height: 600))
+                Log.echo(key: "dhimu", text: "user picture is portarit")
+            }
            
-            var cropUserPic = self.cropToBounds(image: userPicture, width: 300, height: 800)
-            let aspactLocal = cropUserPic.aspectFittedToWidth(sourceImage: cropUserPic, scaledToWidth: 200)
-            let finalFrame = CGSize(width: 700, height: 500)
+            
+            let aspactHost = cropHostPic
+            let aspactLocal = cropUserPic
+            
+            let finalFrame = CGSize(width: 600, height: 500)
 
             UIGraphicsBeginImageContextWithOptions(finalFrame, false, UIScreen.main.scale)
             
-            aspactHost.draw(at: CGPoint(x: 0, y: 0))
-            aspactLocal.draw(at: CGPoint(x: aspactHost.size.width + 5, y: 0))
+            aspactHost?.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost!.size))
+            aspactLocal?.draw(in: CGRect(origin: CGPoint(x: ((aspactHost?.size.width)!) + 5, y: 0), size: aspactHost!.size))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -304,41 +325,32 @@ class VideoRootView: ExtendedView {
             return finalImage
         }
     
-    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
 
-            let cgimage = image.cgImage!
-            let contextImage: UIImage = UIImage(cgImage: cgimage)
-            let contextSize: CGSize = contextImage.size
-            var posX: CGFloat = 0.0
-            var posY: CGFloat = 0.0
-            var cgwidth: CGFloat = CGFloat(width)
-            var cgheight: CGFloat = CGFloat(height)
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
 
-            // See what size is longer and create the center off of that
-            if contextSize.width > contextSize.height {
-                posX = ((contextSize.width - contextSize.height) / 2)
-                posY = 0
-                cgwidth = contextSize.height
-                cgheight = contextSize.height
-            } else {
-                posX = 0
-                posY = ((contextSize.height - contextSize.width) / 2)
-                cgwidth = contextSize.width
-                cgheight = contextSize.width
-            }
-
-            let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-
-            // Create bitmap image from context using the rect
-            let imageRef: CGImage = cgimage.cropping(to: rect)!
-
-            // Create a new image based on the imageRef and rotate back to the original orientation
-            let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
-
-        return image.fixOrientation()
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: targetSize.width, height: targetSize.height)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
 
-    
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
+    }
+
 }
 
 
@@ -356,41 +368,71 @@ extension VideoRootView:UIGestureRecognizerDelegate{
 
 extension UIImage
 {
-    
-    func aspectFittedToHeight(_ newHeight: CGFloat) -> UIImage
-        {
-            let scale = newHeight / self.size.height
-            let newWidth = self.size.width * scale
-            let newSize = CGSize(width: newWidth, height: newHeight)
-            let renderer = UIGraphicsImageRenderer(size: newSize)
 
-            return renderer.image { _ in
-                self.draw(in: CGRect(origin: .zero, size: newSize))
-            }
-        }
-    func aspectFittedToWidth (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
-        let oldWidth = sourceImage.size.width
-        let scaleFactor = scaledToWidth / oldWidth
-
-        let newHeight = sourceImage.size.height * scaleFactor
-        let newWidth = oldWidth * scaleFactor
-
-        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-        sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-    
     
     func imageScaledToFit(to size: CGSize) -> UIImage? {
-           let scaledRect = AVMakeRectWithAspectRatioInsideRect(aspectRatio: self.size, insideRect: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let scaledRect = AVMakeRect(aspectRatio: self.size, insideRect: CGRect(x: 0, y: 0, width: size.width, height: size.height))
            UIGraphicsBeginImageContextWithOptions(size, false, 0)
            draw(in: scaledRect)
            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
            UIGraphicsEndImageContext()
            return scaledImage
        }
+    func crop(to:CGSize) -> UIImage {
+
+        guard let cgimage = self.cgImage else { return self }
+
+        let contextImage: UIImage = UIImage(cgImage: cgimage)
+
+        guard let newCgImage = contextImage.cgImage else { return self }
+
+        let contextSize: CGSize = contextImage.size
+
+        //Set to square
+        var posX: CGFloat = 0.0
+        var posY: CGFloat = 0.0
+        let cropAspect: CGFloat = to.width / to.height
+
+        var cropWidth: CGFloat = to.width
+        var cropHeight: CGFloat = to.height
+
+        if to.width > to.height { //Landscape
+            cropWidth = contextSize.width
+            cropHeight = contextSize.width / cropAspect
+            posY = (contextSize.height - cropHeight) / 2
+        } else if to.width < to.height { //Portrait
+            cropHeight = contextSize.height
+            cropWidth = contextSize.height * cropAspect
+            posX = (contextSize.width - cropWidth) / 2
+        } else { //Square
+            if contextSize.width >= contextSize.height { //Square on landscape (or square)
+                cropHeight = contextSize.height
+                cropWidth = contextSize.height * cropAspect
+                posX = (contextSize.width - cropWidth) / 2
+            }else{ //Square on portrait
+                cropWidth = contextSize.width
+                cropHeight = contextSize.width / cropAspect
+                posY = (contextSize.height - cropHeight) / 2
+            }
+        }
+
+        let rect: CGRect = CGRect(x: posX, y: posY, width: cropWidth, height: cropHeight)
+
+        // Create bitmap image from context using the rect
+        guard let imageRef: CGImage = newCgImage.cropping(to: rect) else { return self}
+
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let cropped: UIImage = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+
+        UIGraphicsBeginImageContextWithOptions(to, false, self.scale)
+        cropped.draw(in: CGRect(x: 0, y: 0, width: to.width, height: to.height))
+        let resized = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resized?.fixOrientation() ?? self
+      
+    }
+
     
 
     // Extension to fix orientation of an UIImage without EXIF
@@ -454,6 +496,28 @@ extension UIImage
 
             // something failed -- return original
             return self
+        }
+    
+    func square() -> UIImage? {
+            if size.width == size.height {
+                return self
+            }
+
+            let cropWidth = min(size.width, size.height)
+
+            let cropRect = CGRect(
+                x: (size.width - cropWidth) * scale / 2.0,
+                y: (size.height - cropWidth) * scale / 2.0,
+                width: cropWidth * scale,
+                height: cropWidth * scale
+            )
+
+            guard let imageRef = cgImage?.cropping(to: cropRect) else {
+                return nil
+            }
+
+            let imaege = UIImage(cgImage: imageRef, scale: scale, orientation: imageOrientation)
+          return imaege.fixOrientation()
         }
   
     
