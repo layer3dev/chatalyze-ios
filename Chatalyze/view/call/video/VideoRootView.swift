@@ -308,15 +308,15 @@ class VideoRootView: ExtendedView {
             }
            
             
-            let aspactHost = cropHostPic
-            let aspactLocal = cropUserPic
+            let aspactHost = cropUserPic?.imageScaledToFit(to: CGSize(width: 300, height: 700))
+            let aspactLocal = imageWithImage(sourceImage: cropUserPic!, scaledToWidth: 300)
             
             let finalFrame = CGSize(width: 600, height: 500)
 
-            UIGraphicsBeginImageContextWithOptions(finalFrame, false, UIScreen.main.scale)
+            UIGraphicsBeginImageContextWithOptions(finalFrame, false, 0.0)
             
-            aspactHost?.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost!.size))
-            aspactLocal?.draw(in: CGRect(origin: CGPoint(x: ((aspactHost?.size.width)!) + 5, y: 0), size: aspactHost!.size))
+            aspactHost!.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost!.size))
+            aspactLocal.draw(in: CGRect(origin: CGPoint(x: ((aspactHost!.size.width)) + 5, y: 0), size: aspactHost!.size))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -350,6 +350,20 @@ class VideoRootView: ExtendedView {
 
         return newImage!
     }
+    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+        let oldWidth = sourceImage.size.width
+        let scaleFactor = scaledToWidth / oldWidth
+
+        let newHeight = sourceImage.size.height * scaleFactor
+        let newWidth = oldWidth * scaleFactor
+
+        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
+        sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+
 
 }
 
@@ -497,28 +511,6 @@ extension UIImage
             // something failed -- return original
             return self
         }
-    
-    func square() -> UIImage? {
-            if size.width == size.height {
-                return self
-            }
 
-            let cropWidth = min(size.width, size.height)
-
-            let cropRect = CGRect(
-                x: (size.width - cropWidth) * scale / 2.0,
-                y: (size.height - cropWidth) * scale / 2.0,
-                width: cropWidth * scale,
-                height: cropWidth * scale
-            )
-
-            guard let imageRef = cgImage?.cropping(to: cropRect) else {
-                return nil
-            }
-
-            let imaege = UIImage(cgImage: imageRef, scale: scale, orientation: imageOrientation)
-          return imaege.fixOrientation()
-        }
-  
     
 }
