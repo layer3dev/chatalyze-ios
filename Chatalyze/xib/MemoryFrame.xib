@@ -70,10 +70,11 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="6XJ-ll-uji" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="top" id="EzL-Lh-ej2"/>
+                        <constraint firstAttribute="bottom" secondItem="dLH-ec-k8n" secondAttribute="bottom" constant="20" id="NX5-8S-xaO"/>
                         <constraint firstAttribute="height" constant="80" id="PPO-Fc-JWi"/>
                         <constraint firstAttribute="trailing" secondItem="dLH-ec-k8n" secondAttribute="trailing" constant="15" id="QAG-cH-Jqi"/>
                         <constraint firstItem="6XJ-ll-uji" firstAttribute="leading" secondItem="QVu-wr-dDL" secondAttribute="leading" id="V7D-4I-rHE"/>
-                        <constraint firstItem="dLH-ec-k8n" firstAttribute="centerY" secondItem="QVu-wr-dDL" secondAttribute="centerY" id="c5n-gE-Art"/>
+                        <constraint firstItem="dLH-ec-k8n" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="top" constant="20" id="wCX-Rk-MpJ"/>
                     </constraints>
                     <connections>
                         <outlet property="dateLabel" destination="dLH-ec-k8n" id="pSJ-cg-VD9"/>
@@ -84,8 +85,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-ig-5E3" userLabel="chatalyze_container" customClass="MemoryStickerView" customModule="Chatalyze" customModuleProvider="target">
                     <rect key="frame" x="15" y="929" width="570" height="80"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Powerd by Chatalyze   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btj-dw-fY2">
-                            <rect key="frame" x="0.0" y="20" width="332" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Powered by Chatalyze   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btj-dw-fY2">
+                            <rect key="frame" x="0.0" y="20" width="347" height="40"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="28"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,9 +95,10 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="btj-dw-fY2" firstAttribute="top" secondItem="6sk-ig-5E3" secondAttribute="top" constant="20" id="52J-Du-5o3"/>
+                        <constraint firstAttribute="bottom" secondItem="btj-dw-fY2" secondAttribute="bottom" constant="20" id="IxF-ws-4Gc"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="WRH-9L-vGQ"/>
                         <constraint firstAttribute="height" constant="80" id="jty-Eo-wW4"/>
-                        <constraint firstItem="btj-dw-fY2" firstAttribute="centerY" secondItem="6sk-ig-5E3" secondAttribute="centerY" id="p11-Cc-Oqy"/>
                         <constraint firstItem="btj-dw-fY2" firstAttribute="leading" secondItem="6sk-ig-5E3" secondAttribute="leading" id="zah-Qm-3Rj"/>
                     </constraints>
                 </view>

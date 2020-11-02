@@ -295,12 +295,13 @@ class VideoRootView: ExtendedView {
                 cropHostPic = resizeImage(image: hostPicture, targetSize: CGSize(width: 300, height: 600))
                 Log.echo(key: "dhimu", text: "host picture is portrait")
             }else{
-                cropHostPic = hostPicture.crop(to: CGSize(width: 300, height: 600))
+                
+                cropHostPic = hostPicture.crop(to: CGSize(width: 500, height: 700))
                 Log.echo(key: "dhimu", text: "host picture is landscape")
             }
             
             if userPicture.size.width > userPicture.size.height{
-                cropUserPic = userPicture.crop(to: CGSize(width: 300, height: 600))
+                cropUserPic = userPicture.crop(to: CGSize(width: 500, height: 700))
                 Log.echo(key: "dhimu", text: "user picture is landscape")
             }else{
                 cropUserPic = resizeImage(image: userPicture, targetSize: CGSize(width: 300, height: 600))
@@ -308,15 +309,21 @@ class VideoRootView: ExtendedView {
             }
            
             
-            let aspactHost = cropUserPic?.imageScaledToFit(to: CGSize(width: 300, height: 700))
-            let aspactLocal = imageWithImage(sourceImage: cropUserPic!, scaledToWidth: 300)
+            let aspactHost = imageWithImage(sourceImage: cropHostPic!, scaledToWidth: 200)
+            let aspactLocal = imageWithImage(sourceImage: cropUserPic!, scaledToWidth: 200)
             
-            let finalFrame = CGSize(width: 600, height: 500)
+            let finalWidth = aspactHost.size.width + aspactLocal.size.width
+            let finalHeight = aspactLocal.size.height < aspactLocal.size.height ? aspactLocal.size.height : aspactHost.size.height
+            
+            
+    
+
+            let finalFrame = CGSize(width: finalWidth, height: finalHeight)
 
             UIGraphicsBeginImageContextWithOptions(finalFrame, false, 0.0)
             
-            aspactHost!.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost!.size))
-            aspactLocal.draw(in: CGRect(origin: CGPoint(x: ((aspactHost!.size.width)) + 5, y: 0), size: aspactHost!.size))
+            aspactHost.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost.size))
+            aspactLocal.draw(in: CGRect(origin: CGPoint(x: ((aspactHost.size.width)) + 5, y: 0), size: aspactHost.size))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -363,6 +370,7 @@ class VideoRootView: ExtendedView {
         UIGraphicsEndImageContext()
         return newImage!
     }
+    
 
 
 }
@@ -413,7 +421,7 @@ extension UIImage
         if to.width > to.height { //Landscape
             cropWidth = contextSize.width
             cropHeight = contextSize.width / cropAspect
-            posY = (contextSize.height - cropHeight) / 2
+            posX = (contextSize.width - cropWidth) / 2
         } else if to.width < to.height { //Portrait
             cropHeight = contextSize.height
             cropWidth = contextSize.height * cropAspect
