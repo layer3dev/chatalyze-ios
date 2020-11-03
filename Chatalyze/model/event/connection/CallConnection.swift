@@ -376,7 +376,7 @@ extension CallConnection{
     }
     
   
-    private func logResolution(){
+     func logResolution(){
         Log.echo(key: TAG, text: "logResolution")
         guard let videoTrack = bufferTrack?.videoTrack
         else{
@@ -397,8 +397,9 @@ extension CallConnection{
         guard let frameResolution = cameraSource.frameResolution else { return }
         
         Log.echo(key : TAG, text : "logVideoResolution executed")
+        Log.echo(key : "dhimu_FR", text : "Host Resolution : \(frameResolution)")
         
-        callLogger?.logVideoResolution(slotId : slotId, size : frameResolution)
+        callLogger?.logVideoResolutionHost(size: frameResolution)
     }
     
     

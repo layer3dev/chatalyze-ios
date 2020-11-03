@@ -296,12 +296,12 @@ class VideoRootView: ExtendedView {
                 Log.echo(key: "dhimu", text: "host picture is portrait")
             }else{
                 
-                cropHostPic = hostPicture.crop(to: CGSize(width: 500, height: 700))
+                cropHostPic = hostPicture.crop(to: CGSize(width: 621, height: 1000))
                 Log.echo(key: "dhimu", text: "host picture is landscape")
             }
             
             if userPicture.size.width > userPicture.size.height{
-                cropUserPic = userPicture.crop(to: CGSize(width: 500, height: 700))
+                cropUserPic = userPicture.crop(to: CGSize(width: 621, height: 1000))
                 Log.echo(key: "dhimu", text: "user picture is landscape")
             }else{
                 cropUserPic = resizeImage(image: userPicture, targetSize: CGSize(width: 300, height: 600))
@@ -313,7 +313,7 @@ class VideoRootView: ExtendedView {
             let aspactLocal = imageWithImage(sourceImage: cropUserPic!, scaledToWidth: 200)
             
             let finalWidth = aspactHost.size.width + aspactLocal.size.width
-            let finalHeight = aspactLocal.size.height < aspactLocal.size.height ? aspactLocal.size.height : aspactHost.size.height
+            let finalHeight = aspactLocal.size.height > aspactLocal.size.height ? aspactLocal.size.height : aspactHost.size.height
             
             
     
@@ -371,7 +371,17 @@ class VideoRootView: ExtendedView {
         return newImage!
     }
     
+    func resizeImage(image: UIImage, newHeight: CGFloat) -> UIImage {
 
+        let scale = newHeight / image.size.height
+        let newWidth = image.size.width * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
+    }
 
 }
 

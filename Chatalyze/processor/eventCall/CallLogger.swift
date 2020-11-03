@@ -259,6 +259,21 @@ class CallLogger : NSObject {
         emit(info: params)
     }
     
+    func logVideoResolutionHost( size : CGSize){
+       
+        Log.echo(key : TAG, text : "logVideoResolution")
+        
+        var params = [String : Any]()
+        params["sessionId"] = sessionId
+        
+        params["width"] = size.width
+        params["height"] = size.height
+        params["log_type"] = "videoResolution"
+        
+        
+        emit(info: params)
+    }
+    
     
     
     private func getRawConnectionState(state : Room.State)->String{

@@ -151,6 +151,7 @@ class HostCallController: VideoCallController {
         initializeVariable()
         layoutrecordingOption()
          layoutCustomBackGrnd()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func processEventInfo(){
@@ -531,6 +532,16 @@ class HostCallController: VideoCallController {
     }
     
     func checkforRecordingStatus(){
+        
+        self.speedHandler?.showBottomBanner = {[weak self] success in
+            
+            if success{
+                //already shared the resolution
+            }else{
+                self?.currentTwillioRoom?.logResolution()
+            }
+            
+        }
   
         if ((eventInfo?.isRecordingEnabled ?? false)){
             self.recordingLbl.isHidden = false
@@ -1132,6 +1143,18 @@ class HostCallController: VideoCallController {
             return
         }
     }
+    
+    @objc func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+            currentTwillioRoom?.logResolution()
+        }
+
+        if UIDevice.current.orientation.isPortrait {
+            print("Portrait")
+            currentTwillioRoom?.logResolution()
+        }
+    }
         
         func preconnectTwillioRoomHandler(){
             
@@ -1163,6 +1186,7 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
                     fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
+                    
                     
                 }
                 
@@ -2009,6 +2033,7 @@ extension HostCallController{
             twillioRoom.accessToken = token
             twillioRoom.roomName = room
             twillioRoom.connectCall()
+            
         }
     }
 }
