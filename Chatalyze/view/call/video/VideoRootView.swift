@@ -285,45 +285,42 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-            let maxWidth = min(hostPicture.size.width, userPicture.size.width)
-            
-            var cropHostPic : UIImage?
-            var cropUserPic : UIImage?
+            var cropHostPic = UIImage()
+            var cropUserPic = UIImage()
             
             
             if hostPicture.size.width < hostPicture.size.height{
-                cropHostPic = resizeImage(image: hostPicture, targetSize: CGSize(width: 300, height: 600))
+                cropHostPic = hostPicture
+                
                 Log.echo(key: "dhimu", text: "host picture is portrait")
             }else{
                 
-                cropHostPic = hostPicture.crop(to: CGSize(width: 621, height: 1000))
+                cropHostPic = hostPicture.crop(to: CGSize(width: 300, height: 720))
                 Log.echo(key: "dhimu", text: "host picture is landscape")
             }
             
             if userPicture.size.width > userPicture.size.height{
-                cropUserPic = userPicture.crop(to: CGSize(width: 621, height: 1000))
+                cropUserPic = userPicture.crop(to: CGSize(width: 300, height: 720))
                 Log.echo(key: "dhimu", text: "user picture is landscape")
             }else{
-                cropUserPic = resizeImage(image: userPicture, targetSize: CGSize(width: 300, height: 600))
+                cropUserPic = userPicture
                 Log.echo(key: "dhimu", text: "user picture is portarit")
             }
            
             
-            let aspactHost = imageWithImage(sourceImage: cropHostPic!, scaledToWidth: 200)
-            let aspactLocal = imageWithImage(sourceImage: cropUserPic!, scaledToWidth: 200)
+            let aspactHost = cropHostPic.sd_resizedImage(with: CGSize(width: 200, height: 400), scaleMode: .aspectFill)
+            let aspactLocal =  cropUserPic.sd_resizedImage(with: CGSize(width: 200, height: 400), scaleMode: .aspectFill)
             
-            let finalWidth = aspactHost.size.width + aspactLocal.size.width
-            let finalHeight = aspactLocal.size.height > aspactLocal.size.height ? aspactLocal.size.height : aspactHost.size.height
+            let finalWidth = (aspactHost?.size.width)! * 2
+            let finalHeight = (aspactHost?.size.height)! > aspactLocal!.size.height ? aspactHost!.size.height : aspactLocal!.size.height
             
-            
-    
 
             let finalFrame = CGSize(width: finalWidth, height: finalHeight)
 
             UIGraphicsBeginImageContextWithOptions(finalFrame, false, 0.0)
             
-            aspactHost.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: aspactHost.size))
-            aspactLocal.draw(in: CGRect(origin: CGPoint(x: ((aspactHost.size.width)) + 5, y: 0), size: aspactHost.size))
+            aspactHost!.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: finalWidth / 2, height: finalHeight)))
+            aspactLocal!.draw(in: CGRect(origin: CGPoint(x: ((aspactHost!.size.width)) + 5, y: 0), size: CGSize(width: finalWidth / 2, height: finalHeight)))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -331,57 +328,6 @@ class VideoRootView: ExtendedView {
             
             return finalImage
         }
-    
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: targetSize.width, height: targetSize.height)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        }
-
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return newImage!
-    }
-    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
-        let oldWidth = sourceImage.size.width
-        let scaleFactor = scaledToWidth / oldWidth
-
-        let newHeight = sourceImage.size.height * scaleFactor
-        let newWidth = oldWidth * scaleFactor
-
-        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-        sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-    
-    func resizeImage(image: UIImage, newHeight: CGFloat) -> UIImage {
-
-        let scale = newHeight / image.size.height
-        let newWidth = image.size.width * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return newImage!
-    }
 
 }
 
@@ -398,18 +344,7 @@ extension VideoRootView:UIGestureRecognizerDelegate{
     }
 }
 
-extension UIImage
-{
-
-    
-    func imageScaledToFit(to size: CGSize) -> UIImage? {
-        let scaledRect = AVMakeRect(aspectRatio: self.size, insideRect: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-           UIGraphicsBeginImageContextWithOptions(size, false, 0)
-           draw(in: scaledRect)
-           let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-           UIGraphicsEndImageContext()
-           return scaledImage
-       }
+extension UIImage{
     func crop(to:CGSize) -> UIImage {
 
         guard let cgimage = self.cgImage else { return self }

@@ -53,11 +53,8 @@ class MemoryFrame:XibTemplate{
             let names = UIFont.fontNames(forFamilyName: family)
             Log.echo(key: "atul_font", text: "family:\(names)")
         }
-//        handleUI()
-//        chatlyzeLbl?.backgroundColor = .black
-//        chatlyzeLbl?.textColor = .white
-//        chatlyzeLbl?.font = UIFont(name: "PermanentMarker-Regular", size: 20)
-        chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)))
+
+        chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
     
     
