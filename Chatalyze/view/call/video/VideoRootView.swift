@@ -192,7 +192,7 @@ class VideoRootView: ExtendedView {
 
     private func frameSize(childSize : CGSize) -> CGSize{
         //Log.echo(key: TAG, text: "childSize -> \(childSize)")
-        let constant = CGFloat(1200)
+        let constant = CGFloat(600)
         let size = childSize
         
         let isViewPortrait = isPortrait(size: size) ?? true
@@ -236,6 +236,9 @@ class VideoRootView: ExtendedView {
        
        testView.isPortraitInSize = isPortraitInSize
        testView.frame.size = extractFrame(image: finalImage)
+    let size = extractFrame(image: finalImage)
+    Log.echo(key: "vijay_FRR", text: "\(size)")
+    
        testView.screenShotPic?.image = finalImage
        testView.memoryStickerView?.renderImage(image: eventLogo)
        testView.userInfo = info
@@ -252,7 +255,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func extractPortraitFrame(image : UIImage) -> CGSize{
-        let height = CGFloat(1030)
+        let height = CGFloat(600)
         let width = (image.size.width / image.size.height) * height
         return CGSize(width: width, height: height)
     }
@@ -287,6 +290,8 @@ class VideoRootView: ExtendedView {
             
             var cropHostPic = UIImage()
             var cropUserPic = UIImage()
+            var aspactHost : UIImage?
+            var aspactLocal : UIImage?
             
             
             if hostPicture.size.width < hostPicture.size.height{
@@ -308,8 +313,17 @@ class VideoRootView: ExtendedView {
             }
            
             
-            let aspactHost = cropHostPic.sd_resizedImage(with: CGSize(width: 200, height: 400), scaleMode: .aspectFill)
-            let aspactLocal =  cropUserPic.sd_resizedImage(with: CGSize(width: 200, height: 400), scaleMode: .aspectFill)
+            let iphoneSize = CGSize(width: 100, height: 200)
+            let ipadSize = CGSize(width: 200, height: 400)
+            
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                 aspactHost = cropHostPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+                 aspactLocal =  cropUserPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+            }else{
+                 aspactHost = cropHostPic.sd_resizedImage(with: iphoneSize, scaleMode: .aspectFill)
+                 aspactLocal =  cropUserPic.sd_resizedImage(with: iphoneSize, scaleMode: .aspectFill)
+            }
+           
             
             let finalWidth = (aspactHost?.size.width)! * 2
             let finalHeight = (aspactHost?.size.height)! > aspactLocal!.size.height ? aspactHost!.size.height : aspactLocal!.size.height

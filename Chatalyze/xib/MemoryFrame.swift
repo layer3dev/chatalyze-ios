@@ -63,7 +63,7 @@ class MemoryFrame:XibTemplate{
         
         userPic?.layer.cornerRadius = 4
         userPic?.layer.masksToBounds = true
-        
+        screenShotPic?.layer.masksToBounds = true
         stickerView?.layer.cornerRadius = 4
         stickerView?.layer.masksToBounds = true
         

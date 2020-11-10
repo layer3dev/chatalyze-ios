@@ -353,7 +353,12 @@ extension UserCallConnection{
         Log.echo(key : TAG, text : "logVideoResolution executed")
         Log.echo(key : "dhimu_FR", text : "User Resolution : \(frameResolution)")
         
-        callLogger?.logVideoResolution(slotId : slotId, size : frameResolution)
+        if frameResolution.width > frameResolution.height{
+            Log.echo(key: "atul", text: "width is greater")
+            callLogger?.logVideoResolution(slotId : slotId, size : CGSize(width: frameResolution.width / 2, height: frameResolution.height / 2))
+        }else{
+            callLogger?.logVideoResolution(slotId : slotId, size : frameResolution)
+        }
     }
 
     
