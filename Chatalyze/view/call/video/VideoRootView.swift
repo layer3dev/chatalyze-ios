@@ -313,15 +313,15 @@ class VideoRootView: ExtendedView {
             }
            
             
-            let iphoneSize = CGSize(width: 100, height: 200)
+           
             let ipadSize = CGSize(width: 200, height: 400)
             
             if UIDevice.current.userInterfaceIdiom == .pad{
                  aspactHost = cropHostPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
                  aspactLocal =  cropUserPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
             }else{
-                 aspactHost = cropHostPic.sd_resizedImage(with: iphoneSize, scaleMode: .aspectFill)
-                 aspactLocal =  cropUserPic.sd_resizedImage(with: iphoneSize, scaleMode: .aspectFill)
+                 aspactHost = cropHostPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+                 aspactLocal =  cropUserPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
             }
            
             
