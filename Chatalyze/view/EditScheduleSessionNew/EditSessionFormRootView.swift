@@ -1674,9 +1674,7 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                         let finalSeconds = Double(chatLengthArray[0]) ?? 0
                         Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                         chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
-                    }
-                   
-                    if Int(chatLengthArray[0]) ?? 0 <= 1 {
+                    }else if Int(chatLengthArray[0]) ?? 0 <= 1 {
                         chatLength?.textField?.text = chatLengthArray[0] + " min"
                     }else{
                         chatLength?.textField?.text = chatLengthArray[0] + " mins"
