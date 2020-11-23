@@ -151,7 +151,7 @@ class HostCallController: VideoCallController {
         initializeVariable()
         layoutrecordingOption()
          layoutCustomBackGrnd()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func processEventInfo(){

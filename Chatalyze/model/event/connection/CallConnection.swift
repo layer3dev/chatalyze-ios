@@ -397,8 +397,15 @@ extension CallConnection{
         guard let frameResolution = cameraSource.frameResolution else { return }
         
         Log.echo(key : TAG, text : "logVideoResolution executed")
+        Log.echo(key : "dhimu_FR", text : "Host Resolution : \(frameResolution)")
         
-        callLogger?.logVideoResolutionHost(size: frameResolution)
+        if frameResolution.width > frameResolution.height{
+            Log.echo(key: "atul", text: "width is greater")
+            callLogger?.logVideoResolutionHost(size: CGSize(width: frameResolution.width / 2, height: frameResolution.height / 2))
+        }else{
+            callLogger?.logVideoResolutionHost(size: frameResolution)
+        }
+       
     }
     
     

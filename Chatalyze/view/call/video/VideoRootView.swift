@@ -192,7 +192,7 @@ class VideoRootView: ExtendedView {
 
     private func frameSize(childSize : CGSize) -> CGSize{
         //Log.echo(key: TAG, text: "childSize -> \(childSize)")
-        let constant = CGFloat(1200)
+        let constant = CGFloat(600)
         let size = childSize
         
         let isViewPortrait = isPortrait(size: size) ?? true
@@ -236,8 +236,12 @@ class VideoRootView: ExtendedView {
        
        testView.isPortraitInSize = isPortraitInSize
        testView.frame.size = extractFrame(image: finalImage)
+    let size = extractFrame(image: finalImage)
+    Log.echo(key: "vijay_FRR", text: "\(size)")
+    
        testView.screenShotPic?.image = finalImage
        testView.memoryStickerView?.renderImage(image: eventLogo)
+       testView.userInfo = info
        
        completion(getSnapshot(view: testView))
    }
@@ -251,7 +255,7 @@ class VideoRootView: ExtendedView {
     }
     
     private func extractPortraitFrame(image : UIImage) -> CGSize{
-        let height = CGFloat(1130)
+        let height = CGFloat(600)
         let width = (image.size.width / image.size.height) * height
         return CGSize(width: width, height: height)
     }
@@ -284,21 +288,53 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-            let size = hostPicture.size
-            let localSize = userPicture.size
+            var cropHostPic = UIImage()
+            var cropUserPic = UIImage()
+            var aspactHost : UIImage?
+            var aspactLocal : UIImage?
             
-            let maxConstant = size.width > size.height ? size.width : size.height
             
-            let localContainerSize = CGSize(width: maxConstant/4, height: maxConstant/4)
+            if hostPicture.size.width < hostPicture.size.height{
+                cropHostPic = hostPicture
+                
+                Log.echo(key: "dhimu", text: "host picture is portrait")
+            }else{
+                
+                cropHostPic = hostPicture.crop(to: CGSize(width: 300, height: 720))
+                Log.echo(key: "dhimu", text: "host picture is landscape")
+            }
             
-            let aspectSize = AVMakeRect(aspectRatio: localSize, insideRect: CGRect(origin: CGPoint.zero, size: localContainerSize))
-            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+            if userPicture.size.width > userPicture.size.height{
+                cropUserPic = userPicture.crop(to: CGSize(width: 300, height: 720))
+                Log.echo(key: "dhimu", text: "user picture is landscape")
+            }else{
+                cropUserPic = userPicture
+                Log.echo(key: "dhimu", text: "user picture is portarit")
+            }
+           
             
-            hostPicture.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+           
+            let ipadSize = CGSize(width: 200, height: 400)
             
-            //local.draw(in: CGRect(x: (size.width - aspectSize.width+20), y: (size.height - aspectSize.height), width: aspectSize.width, height: aspectSize.height))
+            if UIDevice.current.userInterfaceIdiom == .pad{
+                 aspactHost = cropHostPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+                 aspactLocal =  cropUserPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+            }else{
+                 aspactHost = cropHostPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+                 aspactLocal =  cropUserPic.sd_resizedImage(with: ipadSize, scaleMode: .aspectFill)
+            }
+           
             
-            userPicture.draw(in: CGRect(x: (size.width - aspectSize.width-10), y: 10, width: aspectSize.width, height: aspectSize.height))
+            let finalWidth = (aspactHost?.size.width)! * 2
+            let finalHeight = (aspactHost?.size.height)! > aspactLocal!.size.height ? aspactHost!.size.height : aspactLocal!.size.height
+            
+
+            let finalFrame = CGSize(width: finalWidth, height: finalHeight)
+
+            UIGraphicsBeginImageContextWithOptions(finalFrame, false, 0.0)
+            
+            aspactHost!.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: finalWidth / 2, height: finalHeight)))
+            aspactLocal!.draw(in: CGRect(origin: CGPoint(x: ((aspactHost!.size.width)) + 5, y: 0), size: CGSize(width: finalWidth / 2, height: finalHeight)))
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
@@ -306,6 +342,7 @@ class VideoRootView: ExtendedView {
             
             return finalImage
         }
+
 }
 
 
@@ -321,3 +358,126 @@ extension VideoRootView:UIGestureRecognizerDelegate{
     }
 }
 
+extension UIImage{
+    func crop(to:CGSize) -> UIImage {
+
+        guard let cgimage = self.cgImage else { return self }
+
+        let contextImage: UIImage = UIImage(cgImage: cgimage)
+
+        guard let newCgImage = contextImage.cgImage else { return self }
+
+        let contextSize: CGSize = contextImage.size
+
+        //Set to square
+        var posX: CGFloat = 0.0
+        var posY: CGFloat = 0.0
+        let cropAspect: CGFloat = to.width / to.height
+
+        var cropWidth: CGFloat = to.width
+        var cropHeight: CGFloat = to.height
+
+        if to.width > to.height { //Landscape
+            cropWidth = contextSize.width
+            cropHeight = contextSize.width / cropAspect
+            posX = (contextSize.width - cropWidth) / 2
+        } else if to.width < to.height { //Portrait
+            cropHeight = contextSize.height
+            cropWidth = contextSize.height * cropAspect
+            posX = (contextSize.width - cropWidth) / 2
+        } else { //Square
+            if contextSize.width >= contextSize.height { //Square on landscape (or square)
+                cropHeight = contextSize.height
+                cropWidth = contextSize.height * cropAspect
+                posX = (contextSize.width - cropWidth) / 2
+            }else{ //Square on portrait
+                cropWidth = contextSize.width
+                cropHeight = contextSize.width / cropAspect
+                posY = (contextSize.height - cropHeight) / 2
+            }
+        }
+
+        let rect: CGRect = CGRect(x: posX, y: posY, width: cropWidth, height: cropHeight)
+
+        // Create bitmap image from context using the rect
+        guard let imageRef: CGImage = newCgImage.cropping(to: rect) else { return self}
+
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let cropped: UIImage = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+
+        UIGraphicsBeginImageContextWithOptions(to, false, self.scale)
+        cropped.draw(in: CGRect(x: 0, y: 0, width: to.width, height: to.height))
+        let resized = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resized?.fixOrientation() ?? self
+      
+    }
+
+    
+
+    // Extension to fix orientation of an UIImage without EXIF
+        func fixOrientation() -> UIImage {
+
+            guard let cgImage = cgImage else { return self }
+
+            if imageOrientation == .up { return self }
+
+            var transform = CGAffineTransform.identity
+
+            switch imageOrientation {
+
+            case .down, .downMirrored:
+                transform = transform.translatedBy(x: size.width, y: size.height)
+                transform = transform.rotated(by: CGFloat(M_PI))
+
+            case .left, .leftMirrored:
+                transform = transform.translatedBy(x: size.width, y: 0)
+                transform = transform.rotated(by: CGFloat(M_PI_2))
+
+            case .right, .rightMirrored:
+                transform = transform.translatedBy(x: 0, y: size.height)
+                transform = transform.rotated(by: CGFloat(-M_PI_2))
+
+            case .up, .upMirrored:
+                break
+            }
+
+            switch imageOrientation {
+
+            case .upMirrored, .downMirrored:
+                transform.translatedBy(x: size.width, y: 0)
+                transform.scaledBy(x: -1, y: 1)
+
+            case .leftMirrored, .rightMirrored:
+                transform.translatedBy(x: size.height, y: 0)
+                transform.scaledBy(x: -1, y: 1)
+
+            case .up, .down, .left, .right:
+                break
+            }
+
+            if let ctx = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: cgImage.colorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) {
+
+                ctx.concatenate(transform)
+
+                switch imageOrientation {
+
+                case .left, .leftMirrored, .right, .rightMirrored:
+                    ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
+
+                default:
+                    ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                }
+
+                if let finalImage = ctx.makeImage() {
+                    return (UIImage(cgImage: finalImage))
+                }
+            }
+
+            // something failed -- return original
+            return self
+        }
+
+    
+}
