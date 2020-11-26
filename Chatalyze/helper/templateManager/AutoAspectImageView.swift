@@ -134,9 +134,16 @@ extension AutoAspectImageView {
         Log.echo(key: "AutoAspectImageView", text: "self.bounds.height -> \(self.bounds.height)")
         let multiplier : CGFloat = (self.bounds.height / newImage.size.height);
         
-        let newWidth =  multiplier * newImage.size.width
+        var newWidth =  multiplier * newImage.size.width
         Log.echo(key: "AutoAspectImageView", text: "newWidth -> \(newWidth)")
-        return newWidth
+        
+        if newWidth >= 160{
+             newWidth = newWidth - 40
+            return newWidth
+        }else{
+            return newWidth
+        }
+
     }
     
     fileprivate func calculateHeight() -> CGFloat{

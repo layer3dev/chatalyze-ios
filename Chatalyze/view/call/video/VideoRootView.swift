@@ -479,5 +479,4 @@ extension UIImage{
             return self
         }
 
-    
 }
