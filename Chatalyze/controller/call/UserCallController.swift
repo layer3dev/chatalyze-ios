@@ -40,6 +40,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     @IBOutlet var countDountAttrTimerLbl:UILabel?
     @IBOutlet var futureSessionView:UIView?
+    @IBOutlet var futureSessionBlackBox:UIView?
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     
@@ -1818,6 +1819,8 @@ extension UserCallController {
             self.userRootView?.callInfoContainer?.isHidden = true
             self.futureSessionView?.isHidden = false
             
+            
+            
             guard let startDate = slot.startDate
                 else{
                     return
@@ -1833,10 +1836,10 @@ extension UserCallController {
             if  UIDevice.current.userInterfaceIdiom == .pad {
                 fontSize = 26
             }
-            
+            self.futureSessionBlackBox?.backgroundColor = .black
             self.futureSessionHeaderLbl?.text = "Chat starts in:"
             
-            self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+            self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: .white)
         }
     }
 }
