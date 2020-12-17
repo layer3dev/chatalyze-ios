@@ -26,6 +26,11 @@ class RemoteVideoView: VideoViewOld {
             return "RemoteVideoView"
         }
     }
+    
+    func recreateRenderer(){
+        frameRender = VideoFrameRenderer()
+    }
+    
      
     override func getRenderer() -> VideoFrameRenderer{
         return frameRender

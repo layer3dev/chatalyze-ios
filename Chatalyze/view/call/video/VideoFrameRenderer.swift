@@ -9,7 +9,8 @@
 
 import UIKit
 import TwilioVideo
-//import libyuv
+
+
 
 class VideoFrameRenderer : NSObject, VideoRenderer {
     
@@ -28,6 +29,8 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
     }
         
     func renderFrame(_ frame: VideoFrame) {
+        
+        
         
         if(!isFrameRequired){
             return
@@ -53,7 +56,33 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
         }
     }
     
+    
+    
     func frameToImage(frame: VideoFrame) -> UIImage?{
+        var image = convertI420FrameToImage(frame: frame)
+        if(image != nil){
+            return image
+        }
+        
+        image = convertRawFrameToImage(frame: frame)
+        return image
+    }
+    
+    
+    
+    func convertRawFrameToImage(frame: VideoFrame) -> UIImage?{
+    
+        let ciImage = CIImage.init(cvImageBuffer: frame.imageBuffer, options: nil)
+        let context = CIContext(options: nil)
+        Log.echo(key: TAG, text: "width -> \(frame.width), height-> \(frame.height) & orientation -> \(frame.orientation.rawValue)")
+
+        guard let cgImage = context.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)) else { return UIImage() }
+        let image = getImage(cgImage: cgImage, frame : frame)
+        return image
+        
+    }
+    
+  func convertI420FrameToImage(frame: VideoFrame) -> UIImage?{
         
         var pixelBuffer: CVPixelBuffer? = nil
         
@@ -70,7 +99,13 @@ class VideoFrameRenderer : NSObject, VideoRenderer {
                 return nil
         }
         
-        convertI420toNV12(fromFrame: frame, toPixelBuffer: pixel)
+        let success = convertI420toNV12(fromFrame: frame, toPixelBuffer: pixel)
+    
+        if(!success){
+            return nil
+        }
+        
+        Log.echo(key: TAG, text: "convertI420toNV12 success -> \(success)")
         
         let ciImage = CIImage.init(cvImageBuffer: pixel, options: nil)
         let context = CIContext(options: nil)
