@@ -1755,7 +1755,8 @@ extension UserCallController {
                 return
             }
         }else{
-            return
+            //toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get return
+//            return
         }
         
         self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
