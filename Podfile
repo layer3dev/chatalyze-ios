@@ -35,8 +35,9 @@ def pod_file
   pod 'libyuv-iOS'
   pod 'GoogleSignIn'
   pod "YoutubePlayer-in-WKWebView"
-  pod 'TwilioVideo', '~> 3.7'
-  platform :ios, '11.0'
+  pod 'TwilioVideo', '~> 4.0.1'
+  
+  platform :ios, '12.0'
 end
 
 target 'Chatalyze' do
