@@ -570,7 +570,7 @@ extension UserCallConnection : RemoteParticipantDelegate {
     
     func didSubscribeToVideoTrack(videoTrack: RemoteVideoTrack, publication: RemoteVideoTrackPublication, participant: RemoteParticipant) {
         
-        Log.echo(key: TAG, text: "didSubscribeToVideoTrack")
+        Log.echo(key: TAG, text: "didSubscribeToVideoTrack -> isSwitchedOff \(videoTrack.isSwitchedOff), isEnabled -> \(videoTrack.isEnabled)")
       
         // We are subscribed to the remote Participant's video Track. We will start receiving the
         
