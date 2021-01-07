@@ -40,6 +40,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var selfieTimerView:SelfieTimerView?
     @IBOutlet var countDountAttrTimerLbl:UILabel?
     @IBOutlet var futureSessionView:UIView?
+    @IBOutlet var futureSessionBlackBox:UIView?
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     
@@ -837,22 +838,26 @@ class UserCallController: VideoCallController {
         //        }
         
         if !isScreenshotStatusLoaded{
+            callLogger?.logSelfieLogs(speed: 843)
             return
         }
         
         //don't take screenshot if don't have local stream
         guard let localMedia = localMediaPackage
             else{
+            callLogger?.logSelfieLogs(speed: 850)
                 return
         }
         
         //don't take screenshot if hangedup
         if(localMedia.isDisabled){
+            callLogger?.logSelfieLogs(speed: 856)
             return
         }
         
         //if current slot id is nil then return
         if self.myLiveUnMergedSlot?.id == nil {
+            callLogger?.logSelfieLogs(speed: 862)
             Log.echo(key: "yud", text: "my unmerged slot is nil")
             return
         }
@@ -860,6 +865,7 @@ class UserCallController: VideoCallController {
         //Server response for screenShot saved
         if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
             if isScreenShotSaved {
+                callLogger?.logSelfieLogs(speed: 870)
                 return
             }
         }
@@ -872,15 +878,18 @@ class UserCallController: VideoCallController {
                 if !(isCallStreaming){
                     
                     if SlotFlagInfo.staticScreenShotSaved {
+                        callLogger?.logSelfieLogs(speed: 883)
                         return
                     }else{
-                        
+                        callLogger?.logSelfieLogs(speed: 886)
                         SlotFlagInfo.staticSlotId = -1
                         SlotFlagInfo.staticIsTimerInitiated = false
                         selfieTimerView?.reset()
                     }
+                    callLogger?.logSelfieLogs(speed: 891)
                     return
                 }
+                callLogger?.logSelfieLogs(speed: 894)
                 return
             }
         }
@@ -892,6 +901,7 @@ class UserCallController: VideoCallController {
         
         
         if !(isCallStreaming){
+            callLogger?.logSelfieLogs(speed: 906)
             return
         }
         
@@ -918,8 +928,11 @@ class UserCallController: VideoCallController {
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+            let timerSet = true
+            Log.echo(key: "timerIsStartedAtul", text: "\(timerSet)")
+            callLogger?.logSelfieLogs(speed: 933)
             socketClient?.emit(data)
-            Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
+            Log.echo(key: "VijaySelfie", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
@@ -1743,20 +1756,24 @@ extension UserCallController {
         
         guard let selfieImage = memoryImage
             else{
+            Log.echo(key: "vijayS", text: "return@1764")
                 return
         }
         
         if let slotidFromCanvas = info?.currentSlotId{
             if let currentId = self.myLiveUnMergedSlot?.id{
                 if slotidFromCanvas != currentId{
+                    Log.echo(key: "vijayS", text: "return@1770")
                     return
                 }
             }else{
+                Log.echo(key: "vijayS", text: "return@1775")
                 return
             }
         }else{
+
             //toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get return
-//            return
+
         }
         
         self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
@@ -1819,6 +1836,8 @@ extension UserCallController {
             self.userRootView?.callInfoContainer?.isHidden = true
             self.futureSessionView?.isHidden = false
             
+            
+            
             guard let startDate = slot.startDate
                 else{
                     return
@@ -1834,10 +1853,10 @@ extension UserCallController {
             if  UIDevice.current.userInterfaceIdiom == .pad {
                 fontSize = 26
             }
-            
+            self.futureSessionBlackBox?.backgroundColor = .black
             self.futureSessionHeaderLbl?.text = "Chat starts in:"
             
-            self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#Faa579"),isUnderLine: false)
+            self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: .white)
         }
     }
 }
