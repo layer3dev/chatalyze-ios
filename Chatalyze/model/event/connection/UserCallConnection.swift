@@ -15,6 +15,9 @@ class UserCallConnection: NSObject {
     private var _slotId:Int?
     private let TAG = "UserCallConnection"
     
+    //temp
+    private static var counter = 0
+    
     var slotId:Int?{
         get{
             return _slotId
@@ -112,6 +115,16 @@ class UserCallConnection: NSObject {
     var slotInfo:SlotInfo?
 
     
+    override init() {
+        super.init()
+        
+        UserCallConnection.counter = UserCallConnection.counter + 1
+        
+        Log.echo(key: TAG, text: "init -> counter -> \(UserCallConnection.counter)")
+        
+    }
+    
+    
     init(eventInfo : EventScheduleInfo?, localMediaPackage : CallMediaTrack?, controller : VideoCallController?,roomName:String,accessToken:String,remoteVideo:RemoteVideoView){
 
         super.init()
@@ -153,11 +166,7 @@ class UserCallConnection: NSObject {
         return "\(sessionId)"
     }
     
-    override init() {
-        super.init()
-        
-        //initialization()
-    }
+  
     
      func initialization(){
     
@@ -425,13 +434,11 @@ extension UserCallConnection : RoomDelegate {
         
         if (room.remoteParticipants.count > 0) {
         
-                        
             let participant = room.remoteParticipants.filter({$0.identity == hashId})
             
             print("filtered remote count ois\(participant.count)")
             
             if participant.count > 0{
-                
                 logMessage(messageText: "host identified in the room in room name \(room.name) as \(room.localParticipant?.identity ?? "") and count of the participant is \(participant)")
                 logMessage(messageText: "Room delegate called")
                             
@@ -470,6 +477,8 @@ extension UserCallConnection : RoomDelegate {
     
     func participantDidConnect(room: Room, participant: RemoteParticipant) {
         
+        Log.echo(key: TAG, text: "participantDidConnect")
+        
         logMessage(messageText: "Participant participantDidConnect \(participant.identity) connected with \(participant.remoteAudioTracks.count) audio and \(participant.remoteVideoTracks.count) video tracks")
                 
         
@@ -489,6 +498,9 @@ extension UserCallConnection : RoomDelegate {
     }
     
     func participantDidDisconnect(room: Room, participant: RemoteParticipant) {
+        
+        
+        Log.echo(key: TAG, text: "participantDidDisconnect")
         
         print("remote removed particpant identity is \(String(describing: self.remoteView))")
         
@@ -532,12 +544,14 @@ extension UserCallConnection : RemoteParticipantDelegate {
     
     func remoteParticipantDidPublishVideoTrack(participant: RemoteParticipant, publication: RemoteVideoTrackPublication) {
         // Remote Participant has offered to share the video Track.
+        Log.echo(key: TAG, text: "remoteParticipantDidPublishVideoTrack")
         
         logMessage(messageText: "Participant \(participant.identity) published \(publication.trackName) video track")
     }
     
     func remoteParticipantDidUnpublishVideoTrack(participant: RemoteParticipant, publication: RemoteVideoTrackPublication) {
         // Remote Participant has stopped sharing the video Track.
+        Log.echo(key: TAG, text: "remoteParticipantDidUnpublishVideoTrack")
         
         logMessage(messageText: "Participant \(participant.identity) unpublished \(publication.trackName) video track")
     }
@@ -555,6 +569,8 @@ extension UserCallConnection : RemoteParticipantDelegate {
     }
     
     func didSubscribeToVideoTrack(videoTrack: RemoteVideoTrack, publication: RemoteVideoTrackPublication, participant: RemoteParticipant) {
+        
+        Log.echo(key: TAG, text: "didSubscribeToVideoTrack")
       
         // We are subscribed to the remote Participant's video Track. We will start receiving the
         
@@ -567,6 +583,7 @@ extension UserCallConnection : RemoteParticipantDelegate {
         guard let hashId = self.eventInfo?.user?.hashedId else{
             return
         }
+        
 
         if participant.identity == hashId{
             
@@ -606,11 +623,13 @@ extension UserCallConnection : RemoteParticipantDelegate {
             return
         }
         
+        
         guard let renderer = self.renderer
             else{
                 return
                 
         }
+        
         isRendered = true
         print("Rendered successfully!")
         remotetrack.addRenderer(view)
@@ -621,7 +640,8 @@ extension UserCallConnection : RemoteParticipantDelegate {
     
     func removeRender(){
         
-        print("Successfull existing remote track \(String(describing: self.remoteVideoTrack)) and the remote view is \(String(describing: self.remoteView) )")
+        Log.echo(key: TAG, text: "removeRenderer method")
+        print("Successfull exiting remote track \(String(describing: self.remoteVideoTrack)) and the remote view is \(String(describing: self.remoteView) )")
         
         if !self.isRendered{
             return
@@ -647,6 +667,8 @@ extension UserCallConnection : RemoteParticipantDelegate {
     
     
     func didUnsubscribeFromVideoTrack(videoTrack: RemoteVideoTrack, publication: RemoteVideoTrackPublication, participant: RemoteParticipant) {
+        
+        Log.echo(key: TAG, text: "didUnsubscribeFromVideoTrack")
         
         logMessage(messageText: "Unsubscribed from \(publication.trackName) video track for Participant \(participant.identity)")
         
