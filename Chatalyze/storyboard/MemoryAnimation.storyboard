@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="landscape" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,19 +20,19 @@
         <scene sceneID="feM-mM-95Y">
             <objects>
                 <viewController storyboardIdentifier="MemoryAnimation" id="ivB-iV-M6Z" customClass="MemoryAnimationController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="grc-Qw-Iuj">
-                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="grc-Qw-Iuj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKc-FH-SpF">
-                                <rect key="frame" x="44" y="0.0" width="808" height="393"/>
+                            <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="TKc-FH-SpF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ma-a3-gy7">
-                                        <rect key="frame" x="0.0" y="0.0" width="808" height="393"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have a new memory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goZ-dP-C1X">
-                                        <rect key="frame" x="20" y="100" width="768" height="38.5"/>
+                                        <rect key="frame" x="20" y="85" width="364" height="38.5"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -40,12 +40,12 @@
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="44"/>
                                         </variation>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7g-gu-255">
-                                        <rect key="frame" x="271.5" y="158.5" width="265" height="375"/>
+                                    <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="o7g-gu-255">
+                                        <rect key="frame" x="94.5" y="133.5" width="225" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="port" translatesAutoresizingMaskIntoConstraints="NO" id="0XL-gu-w9e">
-                                        <rect key="frame" x="271.5" y="158.5" width="265" height="375"/>
+                                        <rect key="frame" x="74.5" y="133.5" width="265" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="265" id="SOI-FJ-NDg">
@@ -56,15 +56,15 @@
                                             </constraint>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ix-bn-f8R">
-                                        <rect key="frame" x="271.5" y="158.5" width="265" height="375"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ix-bn-f8R">
+                                        <rect key="frame" x="74.5" y="133.5" width="265" height="375"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="jumpToScroller" destination="ivB-iV-M6Z" eventType="touchUpInside" id="HbL-GI-tkU"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Kd-RD-mKj">
-                                        <rect key="frame" x="728" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="334" y="0.0" width="80" height="80"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cross" translatesAutoresizingMaskIntoConstraints="NO" id="ASb-Wr-BvK">
                                                 <rect key="frame" x="32.5" y="32.5" width="15" height="15"/>
@@ -77,7 +77,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF0-Yb-bqS">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF0-Yb-bqS">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <connections>
                                                     <action selector="dismissWithSender:" destination="ivB-iV-M6Z" eventType="touchUpInside" id="58P-dJ-4fB"/>
@@ -97,7 +97,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IrG-Xu-hHV" customClass="MemoryShareShadowView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="271.5" y="553.5" width="265" height="55"/>
+                                        <rect key="frame" x="74.5" y="528.5" width="265" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5y-uw-9Ra" customClass="MemoryAnimationView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="265" height="55"/>
@@ -112,7 +112,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="40"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp3-WT-ccW">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp3-WT-ccW">
                                                 <rect key="frame" x="0.0" y="0.0" width="265" height="55"/>
                                                 <connections>
                                                     <action selector="ShareActionWithSender:" destination="ivB-iV-M6Z" eventType="touchUpInside" id="HUM-FT-Vha"/>
@@ -142,7 +142,7 @@
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="8ix-bn-f8R" firstAttribute="trailing" secondItem="0XL-gu-w9e" secondAttribute="trailing" id="09k-BN-WqY"/>
-                                    <constraint firstItem="o7g-gu-255" firstAttribute="trailing" secondItem="0XL-gu-w9e" secondAttribute="trailing" id="1G5-iH-HqP"/>
+                                    <constraint firstItem="o7g-gu-255" firstAttribute="trailing" secondItem="0XL-gu-w9e" secondAttribute="trailing" constant="-20" id="1G5-iH-HqP"/>
                                     <constraint firstItem="goZ-dP-C1X" firstAttribute="leading" secondItem="TKc-FH-SpF" secondAttribute="leading" constant="20" id="1hW-Vd-fQY"/>
                                     <constraint firstItem="8ix-bn-f8R" firstAttribute="top" secondItem="0XL-gu-w9e" secondAttribute="top" id="7W4-9g-ARA"/>
                                     <constraint firstAttribute="trailing" secondItem="7ma-a3-gy7" secondAttribute="trailing" id="BRy-1u-GXY"/>
@@ -153,29 +153,29 @@
                                     <constraint firstItem="IrG-Xu-hHV" firstAttribute="top" secondItem="0XL-gu-w9e" secondAttribute="bottom" constant="20" id="VA8-29-FIw"/>
                                     <constraint firstItem="4Kd-RD-mKj" firstAttribute="top" secondItem="TKc-FH-SpF" secondAttribute="top" id="VPd-5p-u0W"/>
                                     <constraint firstAttribute="bottom" secondItem="7ma-a3-gy7" secondAttribute="bottom" id="XFA-YH-o9v"/>
-                                    <constraint firstItem="0XL-gu-w9e" firstAttribute="top" secondItem="goZ-dP-C1X" secondAttribute="bottom" constant="20" id="d8F-mG-3RZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="goZ-dP-C1X" secondAttribute="trailing" constant="20" id="ef2-y9-xZD"/>
+                                    <constraint firstItem="0XL-gu-w9e" firstAttribute="top" secondItem="goZ-dP-C1X" secondAttribute="bottom" constant="10" id="d8F-mG-3RZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="goZ-dP-C1X" secondAttribute="trailing" constant="30" id="ef2-y9-xZD"/>
                                     <constraint firstItem="7ma-a3-gy7" firstAttribute="top" secondItem="TKc-FH-SpF" secondAttribute="top" id="fIg-fV-Y5s"/>
-                                    <constraint firstItem="goZ-dP-C1X" firstAttribute="top" secondItem="4Kd-RD-mKj" secondAttribute="bottom" constant="20" id="gum-Di-hYP">
+                                    <constraint firstItem="goZ-dP-C1X" firstAttribute="top" secondItem="4Kd-RD-mKj" secondAttribute="bottom" constant="5" id="gum-Di-hYP">
                                         <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
                                     <constraint firstItem="o7g-gu-255" firstAttribute="top" secondItem="0XL-gu-w9e" secondAttribute="top" id="i0q-4N-6J6"/>
                                     <constraint firstItem="8ix-bn-f8R" firstAttribute="bottom" secondItem="0XL-gu-w9e" secondAttribute="bottom" id="m5l-a2-8eY"/>
                                     <constraint firstItem="8ix-bn-f8R" firstAttribute="leading" secondItem="0XL-gu-w9e" secondAttribute="leading" id="ooI-R2-K7M"/>
-                                    <constraint firstItem="o7g-gu-255" firstAttribute="leading" secondItem="0XL-gu-w9e" secondAttribute="leading" id="qf2-8c-JZB"/>
+                                    <constraint firstItem="o7g-gu-255" firstAttribute="leading" secondItem="0XL-gu-w9e" secondAttribute="leading" constant="20" id="qf2-8c-JZB"/>
                                     <constraint firstItem="IrG-Xu-hHV" firstAttribute="trailing" secondItem="0XL-gu-w9e" secondAttribute="trailing" id="roS-Wc-uRa"/>
                                     <constraint firstItem="0XL-gu-w9e" firstAttribute="centerX" secondItem="TKc-FH-SpF" secondAttribute="centerX" id="u4y-c6-G5h"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rvt-0u-yqF">
-                                <rect key="frame" x="44" y="0.0" width="808" height="393"/>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Rvt-0u-yqF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z4j-LC-5qd">
-                                        <rect key="frame" x="0.0" y="0.0" width="808" height="393"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have a new memory" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dt4-Qn-37W">
-                                        <rect key="frame" x="20" y="100" width="768" height="38.5"/>
+                                        <rect key="frame" x="30" y="90" width="354" height="38.5"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -184,7 +184,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't leave this page! Your screenshot is still uploading." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elF-gL-gPR">
-                                        <rect key="frame" x="20" y="148.5" width="768" height="38.5"/>
+                                        <rect key="frame" x="20" y="133.5" width="374" height="76.5"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -192,12 +192,12 @@
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="44"/>
                                         </variation>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47x-GU-HnZ">
-                                        <rect key="frame" x="229" y="198.5" width="350" height="350"/>
+                                    <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="47x-GU-HnZ">
+                                        <rect key="frame" x="32" y="188.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="user_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="iOs-G7-Jnv">
-                                        <rect key="frame" x="229" y="198.5" width="350" height="350"/>
+                                        <rect key="frame" x="32" y="188.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="350" id="RIT-vj-mgm">
@@ -208,15 +208,15 @@
                                             </constraint>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqn-w8-AIh">
-                                        <rect key="frame" x="229" y="198.5" width="350" height="350"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqn-w8-AIh">
+                                        <rect key="frame" x="32" y="188.5" width="350" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="jumpToScroller" destination="ivB-iV-M6Z" eventType="touchUpInside" id="Q0U-Y2-oaN"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYc-zT-EBr">
-                                        <rect key="frame" x="728" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="334" y="0.0" width="80" height="80"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cross" translatesAutoresizingMaskIntoConstraints="NO" id="jl5-hY-5Gv">
                                                 <rect key="frame" x="32.5" y="32.5" width="15" height="15"/>
@@ -229,7 +229,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-p8-gF7">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-p8-gF7">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <connections>
                                                     <action selector="dismissWithSender:" destination="ivB-iV-M6Z" eventType="touchUpInside" id="qis-Sp-Ry3"/>
@@ -249,7 +249,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocN-Rv-5jj" customClass="MemoryShareShadowView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="229" y="563.5" width="350" height="55"/>
+                                        <rect key="frame" x="32" y="553.5" width="350" height="55"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAO-tr-heT" customClass="MemoryAnimationView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
@@ -264,7 +264,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="40"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI9-9X-1k3">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI9-9X-1k3">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="55"/>
                                                 <connections>
                                                     <action selector="ShareActionWithSender:" destination="ivB-iV-M6Z" eventType="touchUpInside" id="LCA-AW-q4k"/>
@@ -296,7 +296,7 @@
                                     <constraint firstAttribute="trailing" secondItem="VYc-zT-EBr" secondAttribute="trailing" id="9IU-M2-3Oi"/>
                                     <constraint firstItem="iOs-G7-Jnv" firstAttribute="centerX" secondItem="Rvt-0u-yqF" secondAttribute="centerX" id="GeY-jg-JiD"/>
                                     <constraint firstAttribute="bottom" secondItem="Z4j-LC-5qd" secondAttribute="bottom" id="Hp0-u5-mix"/>
-                                    <constraint firstItem="dt4-Qn-37W" firstAttribute="leading" secondItem="Rvt-0u-yqF" secondAttribute="leading" constant="20" id="I7R-xl-Lyb"/>
+                                    <constraint firstItem="dt4-Qn-37W" firstAttribute="leading" secondItem="Rvt-0u-yqF" secondAttribute="leading" constant="30" id="I7R-xl-Lyb"/>
                                     <constraint firstItem="ocN-Rv-5jj" firstAttribute="top" secondItem="iOs-G7-Jnv" secondAttribute="bottom" constant="15" id="KLC-hB-vAb"/>
                                     <constraint firstItem="ocN-Rv-5jj" firstAttribute="leading" secondItem="iOs-G7-Jnv" secondAttribute="leading" id="NTr-ZJ-hW6"/>
                                     <constraint firstItem="47x-GU-HnZ" firstAttribute="top" secondItem="iOs-G7-Jnv" secondAttribute="top" id="Oqc-ho-dPN"/>
@@ -304,14 +304,14 @@
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="leading" secondItem="iOs-G7-Jnv" secondAttribute="leading" id="RYY-Bt-OHp"/>
                                     <constraint firstItem="47x-GU-HnZ" firstAttribute="bottom" secondItem="iOs-G7-Jnv" secondAttribute="bottom" id="VBP-IV-WfT"/>
                                     <constraint firstItem="ocN-Rv-5jj" firstAttribute="centerX" secondItem="Rvt-0u-yqF" secondAttribute="centerX" id="YJE-Kt-69r"/>
-                                    <constraint firstAttribute="trailing" secondItem="dt4-Qn-37W" secondAttribute="trailing" constant="20" id="Zpd-Pm-XCa"/>
-                                    <constraint firstItem="dt4-Qn-37W" firstAttribute="top" secondItem="VYc-zT-EBr" secondAttribute="bottom" constant="20" id="dZr-ky-DeB">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    <constraint firstAttribute="trailing" secondItem="dt4-Qn-37W" secondAttribute="trailing" constant="30" id="Zpd-Pm-XCa"/>
+                                    <constraint firstItem="dt4-Qn-37W" firstAttribute="top" secondItem="VYc-zT-EBr" secondAttribute="bottom" constant="10" id="dZr-ky-DeB">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
                                     </constraint>
                                     <constraint firstItem="VYc-zT-EBr" firstAttribute="top" secondItem="Rvt-0u-yqF" secondAttribute="top" id="eE3-OT-AaJ"/>
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="trailing" secondItem="iOs-G7-Jnv" secondAttribute="trailing" id="egx-C1-jzo"/>
                                     <constraint firstItem="yqn-w8-AIh" firstAttribute="top" secondItem="iOs-G7-Jnv" secondAttribute="top" id="gCh-fR-lI5"/>
-                                    <constraint firstItem="elF-gL-gPR" firstAttribute="top" secondItem="dt4-Qn-37W" secondAttribute="bottom" constant="10" id="kfm-3b-dcl"/>
+                                    <constraint firstItem="elF-gL-gPR" firstAttribute="top" secondItem="dt4-Qn-37W" secondAttribute="bottom" constant="5" id="kfm-3b-dcl"/>
                                     <constraint firstItem="47x-GU-HnZ" firstAttribute="leading" secondItem="iOs-G7-Jnv" secondAttribute="leading" id="mjw-Ba-lFd"/>
                                     <constraint firstItem="iOs-G7-Jnv" firstAttribute="top" secondItem="dt4-Qn-37W" secondAttribute="bottom" constant="60" id="rmt-Nd-XGs">
                                         <variation key="heightClass=regular-widthClass=regular" constant="70"/>
@@ -326,6 +326,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="9P0-JQ-OMq"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9P0-JQ-OMq" firstAttribute="bottom" secondItem="TKc-FH-SpF" secondAttribute="bottom" id="JXn-jU-7Yl"/>
@@ -337,7 +338,6 @@
                             <constraint firstItem="TKc-FH-SpF" firstAttribute="leading" secondItem="9P0-JQ-OMq" secondAttribute="leading" id="nnU-Yc-2Ai"/>
                             <constraint firstItem="9P0-JQ-OMq" firstAttribute="bottom" secondItem="Rvt-0u-yqF" secondAttribute="bottom" id="r3W-r9-mcy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9P0-JQ-OMq"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>

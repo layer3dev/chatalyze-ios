@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -180,7 +180,7 @@
                                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                                                             </variation>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3a-tb-ME0">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3a-tb-ME0">
                                                                             <rect key="frame" x="0.0" y="0.0" width="542" height="45"/>
                                                                             <connections>
                                                                                 <action selector="jointEventWithSend:" destination="XRa-ku-4Rv" eventType="touchUpInside" id="75d-nn-gMR"/>
@@ -252,7 +252,7 @@
                                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
                                                                             </variation>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-VN-d4p">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIH-VN-d4p">
                                                                             <rect key="frame" x="0.0" y="0.0" width="582" height="39.666666666666664"/>
                                                                             <connections>
                                                                                 <action selector="systemTestWithSender:" destination="XRa-ku-4Rv" eventType="touchUpInside" id="WFj-eo-tEf"/>
@@ -344,6 +344,7 @@
                                 </variation>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="AgG-Se-I0z"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="C48-S5-B0E" firstAttribute="centerY" secondItem="Hlq-35-qGG" secondAttribute="centerY" id="Ahg-um-vxr"/>
@@ -355,7 +356,6 @@
                             <constraint firstItem="l0R-ZR-aKV" firstAttribute="top" secondItem="Hlq-35-qGG" secondAttribute="top" id="wWE-Ti-UjK"/>
                             <constraint firstItem="AgG-Se-I0z" firstAttribute="trailing" secondItem="C48-S5-B0E" secondAttribute="trailing" constant="20" id="xqt-3W-Utz"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="AgG-Se-I0z"/>
                         <connections>
                             <outlet property="adapter" destination="l0R-ZR-aKV" id="YJk-o4-dXR"/>
                         </connections>
@@ -592,6 +592,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="M90-MM-KSE"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="M90-MM-KSE" firstAttribute="trailing" secondItem="vIr-05-7yY" secondAttribute="trailing" id="5jq-mB-Gmz"/>
@@ -606,7 +607,6 @@
                             <constraint firstItem="M90-MM-KSE" firstAttribute="trailing" secondItem="ak3-oJ-LwE" secondAttribute="trailing" id="xcS-Sr-gUA"/>
                             <constraint firstItem="vIr-05-7yY" firstAttribute="leading" secondItem="M90-MM-KSE" secondAttribute="leading" id="zrz-jW-8jd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="M90-MM-KSE"/>
                         <connections>
                             <outlet property="adapter" destination="vIr-05-7yY" id="17c-Ed-Dsh"/>
                         </connections>
@@ -679,6 +679,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DVu-vS-nvc"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DVu-vS-nvc" firstAttribute="bottom" secondItem="oQj-Ay-KDh" secondAttribute="bottom" id="1rn-m9-6aW"/>
@@ -689,7 +690,6 @@
                             <constraint firstItem="oQj-Ay-KDh" firstAttribute="top" secondItem="DVu-vS-nvc" secondAttribute="top" constant="95" id="vgW-e0-fNO"/>
                             <constraint firstAttribute="trailing" secondItem="nEr-m3-FZq" secondAttribute="trailing" id="ybL-Eb-Qwb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DVu-vS-nvc"/>
                         <connections>
                             <outlet property="userName" destination="Fvh-T8-ZgF" id="UTd-Cp-lIt"/>
                         </connections>
@@ -861,7 +861,7 @@
                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-fW-bES">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-fW-bES">
                                                                             <rect key="frame" x="0.0" y="0.0" width="281" height="45"/>
                                                                             <connections>
                                                                                 <action selector="jointEventWithSend:" destination="wE3-9K-djs" eventType="touchUpInside" id="NvS-Y2-3iP"/>
@@ -922,7 +922,7 @@
                                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                                             </variation>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3O6-cd-SzW">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3O6-cd-SzW">
                                                                             <rect key="frame" x="0.0" y="0.0" width="321" height="50"/>
                                                                             <connections>
                                                                                 <action selector="systemTestWithSender:" destination="wE3-9K-djs" eventType="touchUpInside" id="KGF-Io-cD4"/>
@@ -1005,6 +1005,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qfj-FA-6u0"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NPk-Ag-wE4" firstAttribute="centerX" secondItem="OFj-jb-cVg" secondAttribute="centerX" id="Bkc-cP-7uY"/>
@@ -1016,7 +1017,6 @@
                             <constraint firstItem="qfj-FA-6u0" firstAttribute="trailing" secondItem="EdO-5L-VbD" secondAttribute="trailing" id="sCR-Lu-mwm"/>
                             <constraint firstItem="EdO-5L-VbD" firstAttribute="leading" secondItem="qfj-FA-6u0" secondAttribute="leading" id="vUU-ph-Lud"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qfj-FA-6u0"/>
                         <connections>
                             <outlet property="adapter" destination="EdO-5L-VbD" id="8Pm-XK-NZa"/>
                         </connections>
@@ -1096,7 +1096,7 @@
                                                                                         </constraint>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFM-6s-mQw">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFM-6s-mQw">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                                                                     <connections>
                                                                                         <action selector="twitterShareActionWithSender:" destination="A96-tT-bRd" eventType="touchUpInside" id="ZNe-1x-aBZ"/>
@@ -1127,7 +1127,7 @@
                                                                                         </constraint>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDc-cx-Qb6">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDc-cx-Qb6">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                                                                     <connections>
                                                                                         <action selector="saveImageInGalleryWithSender:" destination="A96-tT-bRd" eventType="touchUpInside" id="aTB-W8-6jt"/>
@@ -1167,7 +1167,7 @@
                                                                         <constraint firstAttribute="width" secondItem="IAg-5o-rIP" secondAttribute="height" multiplier="100:69" id="eno-6Z-7v2"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfa-ag-V0I">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfa-ag-V0I">
                                                                     <rect key="frame" x="0.0" y="0.0" width="400" height="276"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <connections>
@@ -1298,6 +1298,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="9V5-Nv-mWg"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9V5-Nv-mWg" firstAttribute="trailing" secondItem="NRn-NS-8Ma" secondAttribute="trailing" id="FXp-OQ-O9Q"/>
@@ -1313,7 +1314,6 @@
                             <constraint firstItem="NRn-NS-8Ma" firstAttribute="leading" secondItem="9V5-Nv-mWg" secondAttribute="leading" id="q94-XK-tlv"/>
                             <constraint firstItem="9V5-Nv-mWg" firstAttribute="bottom" secondItem="NRn-NS-8Ma" secondAttribute="bottom" id="yWb-Ng-cCT"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9V5-Nv-mWg"/>
                         <connections>
                             <outlet property="adapter" destination="Gwp-v9-6Ge" id="LJn-f2-L9u"/>
                         </connections>
@@ -1340,7 +1340,7 @@
                                 <rect key="frame" x="0.0" y="-20" width="414" height="756"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vsp-mN-8ZI">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="520.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="512.66666666666663"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="htZ-s8-BT5">
                                                 <rect key="frame" x="0.0" y="80" width="414" height="0.0"/>
@@ -1350,7 +1350,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We hope you enjoyed your chat!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdY-0M-POI">
-                                                <rect key="frame" x="20" y="80" width="344" height="27.333333333333329"/>
+                                                <rect key="frame" x="20" y="80" width="344" height="23.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1359,7 +1359,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you rate your experience?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAK-QZ-qfm">
-                                                <rect key="frame" x="20" y="177.33333333333334" width="344" height="26"/>
+                                                <rect key="frame" x="20" y="173.33333333333334" width="344" height="22.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="19"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1367,8 +1367,8 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="26"/>
                                                 </variation>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
-                                                <rect key="frame" x="20" y="223.33333333333334" width="252" height="55.000000000000028"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuQ-oO-hES" customClass="HCSStarRatingView">
+                                                <rect key="frame" x="20" y="215.66666666666666" width="252" height="54.999999999999972"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="cNF-OE-aMG">
@@ -1396,7 +1396,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJc-AW-012">
-                                                <rect key="frame" x="20" y="318.33333333333331" width="364" height="32"/>
+                                                <rect key="frame" x="20" y="310.66666666666669" width="364" height="32"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Any comments?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yx-JS-YfZ">
                                                         <rect key="frame" x="1" y="0.0" width="363" height="32"/>
@@ -1448,10 +1448,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4b0-xM-dEr">
-                                                <rect key="frame" x="20" y="410.33333333333331" width="374" height="45"/>
+                                                <rect key="frame" x="20" y="402.66666666666669" width="374" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUBMIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfS-32-uFf">
-                                                        <rect key="frame" x="10" y="10.333333333333373" width="354" height="24.666666666666671"/>
+                                                        <rect key="frame" x="10" y="12" width="354" height="21"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -1459,7 +1459,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWN-He-uAf">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWN-He-uAf">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                         <connections>
                                                             <action selector="submitButtonWithSender:" destination="ypQ-kN-4pH" eventType="touchUpInside" id="Sco-HZ-gqu"/>
@@ -1483,10 +1483,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kd9-eY-gHT">
-                                                <rect key="frame" x="20" y="455.33333333333331" width="374" height="45"/>
+                                                <rect key="frame" x="20" y="447.66666666666669" width="374" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CLOSE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lA6-7H-AEo">
-                                                        <rect key="frame" x="10" y="10.333333333333373" width="354" height="24.666666666666671"/>
+                                                        <rect key="frame" x="10" y="12" width="354" height="21"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -1494,7 +1494,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pi5-pj-YWe">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pi5-pj-YWe">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                         <connections>
                                                             <action selector="dismiss" destination="ypQ-kN-4pH" eventType="touchUpInside" id="paU-ON-Jxa"/>
@@ -1530,7 +1530,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAi-Bj-3FJ">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAi-Bj-3FJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <connections>
                                                             <action selector="dismiss" destination="ypQ-kN-4pH" eventType="touchUpInside" id="GSZ-Wr-AiK"/>
@@ -1614,6 +1614,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="WUT-zo-Kqr"/>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WUT-zo-Kqr" firstAttribute="trailing" secondItem="cnR-Af-X6l" secondAttribute="trailing" id="EcW-BR-Qbo"/>
@@ -1621,7 +1622,6 @@
                             <constraint firstItem="WUT-zo-Kqr" firstAttribute="bottom" secondItem="cnR-Af-X6l" secondAttribute="bottom" id="jS9-Hn-6ZD"/>
                             <constraint firstItem="cnR-Af-X6l" firstAttribute="top" secondItem="WUT-zo-Kqr" secondAttribute="top" constant="-20" id="wFM-GI-git"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WUT-zo-Kqr"/>
                         <connections>
                             <outlet property="ratingView" destination="cuQ-oO-hES" id="Nbi-fg-jUZ"/>
                         </connections>
@@ -1868,7 +1868,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sza-k1-O5K">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sza-k1-O5K">
                                                         <rect key="frame" x="0.0" y="0.0" width="175" height="45"/>
                                                         <connections>
                                                             <action selector="addToCalendarActionWithSender:" destination="edC-LW-WFU" eventType="touchUpInside" id="gfN-xj-jAn"/>
@@ -1963,7 +1963,7 @@
                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                                         </variation>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3z7-qB-bfX">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3z7-qB-bfX">
                                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
                                                                         <connections>
                                                                             <action selector="countryActionWithSender:" destination="edC-LW-WFU" eventType="touchUpInside" id="AOG-zP-pid"/>
@@ -2074,7 +2074,7 @@
                                                                     </constraint>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hz-QN-GEd">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Hz-QN-GEd">
                                                                 <rect key="frame" x="0.0" y="0.0" width="55" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="55" id="Dcv-re-jKl"/>
@@ -2167,7 +2167,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgO-qy-Gnw">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JgO-qy-Gnw">
                                                         <rect key="frame" x="0.0" y="0.0" width="364" height="45"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="Udw-zr-9Oe">
@@ -2212,7 +2212,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vga-eM-BXO">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vga-eM-BXO">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <connections>
                                                             <action selector="cancelActionWithSendre:" destination="KVT-qh-TKn" eventType="touchUpInside" id="KTw-A0-Ipb"/>
@@ -2312,7 +2312,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYf-2M-mHd">
                                                 <rect key="frame" x="294" y="0.0" width="120" height="35"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM8-VJ-7Dp">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM8-VJ-7Dp">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
                                                         <connections>
                                                             <action selector="countryActionWithSender:" destination="edC-LW-WFU" eventType="touchUpInside" id="6xm-6V-61z"/>
@@ -2362,6 +2362,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="snq-dr-Yhs"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="snq-dr-Yhs" firstAttribute="trailing" secondItem="kRj-kB-igr" secondAttribute="trailing" id="F76-5w-ARP"/>
@@ -2373,7 +2374,6 @@
                             <constraint firstItem="I9f-w3-cbd" firstAttribute="centerX" secondItem="snq-dr-Yhs" secondAttribute="centerX" id="sz8-wN-Yqz"/>
                             <constraint firstItem="1k7-I7-61c" firstAttribute="top" secondItem="snq-dr-Yhs" secondAttribute="top" id="y0u-UT-xv0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="snq-dr-Yhs"/>
                         <connections>
                             <outlet property="addtocalendarView" destination="Bbs-qd-ETf" id="muU-HU-5h5"/>
                             <outlet property="chatDetailLbl" destination="Ayp-9F-hdW" id="aXv-P8-b3d"/>
@@ -2449,7 +2449,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9I-VV-4vA">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9I-VV-4vA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="284" height="45"/>
                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                 <connections>
@@ -2482,7 +2482,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyy-9D-v3c">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jyy-9D-v3c">
                                                                 <rect key="frame" x="0.0" y="0.0" width="344" height="45"/>
                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                 <connections>
@@ -2555,7 +2555,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltZ-IM-qX3">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltZ-IM-qX3">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <connections>
                                                             <action selector="cancelAction" destination="Kl5-UT-zOQ" eventType="touchUpInside" id="vi4-Sh-ydS"/>
@@ -2601,6 +2601,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="PBc-ZC-Ign"/>
                         <color key="backgroundColor" white="0.0" alpha="0.900390625" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5oH-Bz-AsC" firstAttribute="leading" secondItem="PBc-ZC-Ign" secondAttribute="leading" id="27U-JM-vUJ"/>
@@ -2609,7 +2610,6 @@
                             <constraint firstItem="5oH-Bz-AsC" firstAttribute="top" secondItem="Kl5-UT-zOQ" secondAttribute="top" id="TvP-JX-1Dh"/>
                             <constraint firstItem="PBc-ZC-Ign" firstAttribute="bottom" secondItem="5oH-Bz-AsC" secondAttribute="bottom" id="Usm-Ih-rUt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="PBc-ZC-Ign"/>
                         <connections>
                             <outlet property="beginView" destination="1nB-nI-sIo" id="WKO-yj-nbU"/>
                             <outlet property="cancelView" destination="AmA-QP-naO" id="BtZ-jF-XTT"/>
@@ -2655,7 +2655,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiG-He-2c8">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiG-He-2c8">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <connections>
                                                             <action selector="cancelActionWithSendre:" destination="KVT-qh-TKn" eventType="touchUpInside" id="A00-wb-DhT"/>
@@ -2854,7 +2854,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNS-Wp-zCP">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNS-Wp-zCP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
                                                                 <connections>
                                                                     <action selector="selectCardOneActionWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="Yku-RO-XBn"/>
@@ -2945,7 +2945,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHh-Jy-pvl">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHh-Jy-pvl">
                                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
                                                                 <connections>
                                                                     <action selector="selectCardSecondActionWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="DPx-cx-5CF"/>
@@ -3053,7 +3053,7 @@
                                                                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                                                                     </variation>
                                                                                                 </label>
-                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNP-Ru-xV0">
+                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNP-Ru-xV0">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
                                                                                                 </button>
                                                                                             </subviews>
@@ -3143,7 +3143,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="28"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLH-Pg-8OQ">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLH-Pg-8OQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="addAnotherCardInfoWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="FZ3-mr-7IW"/>
@@ -3276,7 +3276,7 @@
                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                                         </variation>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGp-lS-MWk">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGp-lS-MWk">
                                                                         <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <connections>
@@ -3399,7 +3399,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-Jh-fQW">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3Z-Jh-fQW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="314" height="45"/>
                                                                 <connections>
                                                                     <action selector="saveCardActionWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="sRV-eB-0pU"/>
@@ -3527,7 +3527,7 @@
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jm-jI-6zl">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jm-jI-6zl">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                         <connections>
                                             <action selector="submitPaymentWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="kAI-tE-GC6"/>
@@ -3574,7 +3574,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BD4-Lb-qeK">
                                                 <rect key="frame" x="294" y="0.0" width="120" height="35"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdu-Xy-6fx">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdu-Xy-6fx">
                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
                                                         <connections>
                                                             <action selector="pickerDoneActionWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="faR-aC-ufB"/>
@@ -3624,6 +3624,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cvn-VF-NYh"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FrM-QR-43k" firstAttribute="leading" secondItem="cvn-VF-NYh" secondAttribute="leading" constant="20" id="0pD-CI-zOu"/>
@@ -3641,7 +3642,6 @@
                             <constraint firstItem="cvn-VF-NYh" firstAttribute="trailing" secondItem="jSv-yf-SMM" secondAttribute="trailing" id="xuy-XP-N9d"/>
                             <constraint firstItem="zYS-uV-mYJ" firstAttribute="leading" secondItem="cvn-VF-NYh" secondAttribute="leading" id="yOh-Xz-ZG5"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cvn-VF-NYh"/>
                         <connections>
                             <outlet property="CardInfoHeightContraint" destination="gHl-Fr-QqM" id="SRJ-oT-TLG"/>
                             <outlet property="addOtherCardInfoHeightContraint" destination="jrB-FM-w3D" id="eKk-hW-bEu"/>
@@ -3733,7 +3733,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="28"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRY-hD-MEE">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRY-hD-MEE">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                         <connections>
                                                             <action selector="cameraTestWithSender:" destination="ldO-t0-XXf" eventType="touchUpInside" id="yOd-zr-BRo"/>
@@ -3829,7 +3829,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZg-Rc-J7n">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZg-Rc-J7n">
                                                         <rect key="frame" x="0.0" y="0.0" width="208" height="30"/>
                                                         <connections>
                                                             <action selector="animateInfo" destination="14q-81-2gg" eventType="touchUpInside" id="tPs-Mq-AzD"/>
@@ -3875,7 +3875,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ml-IX-Rf4">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ml-IX-Rf4">
                                                         <rect key="frame" x="0.0" y="0.0" width="208" height="30"/>
                                                         <connections>
                                                             <action selector="animateInfo" destination="14q-81-2gg" eventType="touchUpInside" id="wtz-ha-BCA"/>
@@ -3910,7 +3910,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0V-Sx-hiV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0V-Sx-hiV">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
                                                         <connections>
                                                             <action selector="continueToCameraTest" destination="ldO-t0-XXf" eventType="touchUpInside" id="RK4-a1-Iqa"/>
@@ -4011,7 +4011,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDS-io-DPi">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDS-io-DPi">
                                                         <rect key="frame" x="0.0" y="0.0" width="215" height="30"/>
                                                         <connections>
                                                             <action selector="animateInfo" destination="14q-81-2gg" eventType="touchUpInside" id="eSz-7V-NYV"/>
@@ -4045,7 +4045,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SmD-pO-Cng">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SmD-pO-Cng">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
                                                         <connections>
                                                             <action selector="retryTest" destination="ldO-t0-XXf" eventType="touchUpInside" id="o9P-eJ-Ig4"/>
@@ -4138,7 +4138,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuF-r7-cTu">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuF-r7-cTu">
                                                         <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
                                                         <connections>
                                                             <action selector="animateInfo" destination="14q-81-2gg" eventType="touchUpInside" id="d8m-zO-iCX"/>
@@ -4172,7 +4172,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11u-Kt-sUI">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11u-Kt-sUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="35"/>
                                                         <connections>
                                                             <action selector="retryTest" destination="ldO-t0-XXf" eventType="touchUpInside" id="0Ky-mU-V82"/>
@@ -4256,7 +4256,7 @@
                                             </constraint>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfH-SC-E9k">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfH-SC-E9k">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <connections>
                                             <action selector="dismissAction" destination="ldO-t0-XXf" eventType="touchUpInside" id="YLU-BA-CP0"/>
@@ -4278,6 +4278,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gYj-b6-Vki"/>
                         <color key="backgroundColor" white="0.0" alpha="0.75361194350000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Jop-lM-PMC" firstAttribute="leading" secondItem="gYj-b6-Vki" secondAttribute="leading" id="0xy-9M-2hf"/>
@@ -4288,7 +4289,6 @@
                             <constraint firstItem="Jop-lM-PMC" firstAttribute="top" secondItem="gYj-b6-Vki" secondAttribute="top" id="WEw-Sj-1X2"/>
                             <constraint firstItem="vtV-XE-zxW" firstAttribute="width" secondItem="R4M-VT-rf7" secondAttribute="width" id="jX1-hN-CzH"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gYj-b6-Vki"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
@@ -4359,7 +4359,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-Q6-Vzd">
                                                 <rect key="frame" x="48.666666666666657" y="260.33333333333331" width="317" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srf-dU-dEY" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srf-dU-dEY" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4368,7 +4368,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFZ-kn-fHJ" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFZ-kn-fHJ" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="16.000000000000007" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4377,7 +4377,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="va2-Y7-o1X" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="va2-Y7-o1X" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="32.000000000000007" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4386,7 +4386,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAr-Ot-Anx" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IAr-Ot-Anx" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="48.000000000000007" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4395,7 +4395,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVj-bw-AiC" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVj-bw-AiC" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="64" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4404,7 +4404,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZxJ-kJ-7nS" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZxJ-kJ-7nS" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="80" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4413,7 +4413,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9H-nN-2wN" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9H-nN-2wN" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="96" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4422,7 +4422,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUV-on-iqd" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUV-on-iqd" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="112" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4431,7 +4431,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFB-tp-mu4" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFB-tp-mu4" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="128" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4440,7 +4440,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7U-Jd-xH6" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7U-Jd-xH6" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="144" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4449,7 +4449,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc0-vB-mH3" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gc0-vB-mH3" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="160" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4458,7 +4458,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Id9-tP-KcV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Id9-tP-KcV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="176" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4467,7 +4467,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMM-uP-R3A" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMM-uP-R3A" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="192" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4476,7 +4476,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gF4-08-kZB" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gF4-08-kZB" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="208.00000000000003" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4485,7 +4485,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAH-18-kPV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAH-18-kPV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="224.00000000000003" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4494,7 +4494,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0u-h0-xNN" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="16" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0u-h0-xNN" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="240.00000000000003" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4503,7 +4503,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEc-Zx-ZK9" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEc-Zx-ZK9" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="256" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4512,7 +4512,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-XV-0yG" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibl-XV-0yG" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="272" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4521,7 +4521,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LzD-Jd-ypV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LzD-Jd-ypV" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="288" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4530,7 +4530,7 @@
                                                             </constraint>
                                                         </constraints>
                                                     </button>
-                                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOi-xq-sU5" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
+                                                    <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOi-xq-sU5" customClass="SoundMeterButton" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="304" y="0.0" width="13" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -4560,7 +4560,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ixO-NO-sZx" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="155.33333333333334" y="374" width="103.33333333333334" height="45"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-LT-sgs">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6w-LT-sgs">
                                                         <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="45"/>
                                                         <connections>
                                                             <action selector="playSounAction" destination="mV5-U8-ALt" eventType="touchUpInside" id="xUA-IG-ang"/>
@@ -4614,7 +4614,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GM0-sq-oVt" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="72.333333333333343" y="574" width="269.33333333333326" height="45"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5L-O6-Jv1">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5L-O6-Jv1">
                                                         <rect key="frame" x="0.0" y="0.0" width="269.33333333333331" height="45"/>
                                                         <connections>
                                                             <action selector="proccedsWithSender:" destination="mV5-U8-ALt" eventType="touchUpInside" id="7BM-sF-IlJ"/>
@@ -4705,7 +4705,7 @@
                                             </constraint>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddp-BW-ozc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddp-BW-ozc">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <connections>
                                             <action selector="dismissAction" destination="mV5-U8-ALt" eventType="touchUpInside" id="Zcs-qP-AYs"/>
@@ -4728,6 +4728,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="BQz-oX-f0O"/>
                         <color key="backgroundColor" white="0.0" alpha="0.75286279970000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="G51-38-a3n" firstAttribute="width" secondItem="2WV-Ki-Rgf" secondAttribute="width" id="J6K-Hg-dkR"/>
@@ -4740,7 +4741,6 @@
                             <constraint firstItem="GM0-sq-oVt" firstAttribute="width" secondItem="2WV-Ki-Rgf" secondAttribute="width" multiplier="65%" id="w3x-0G-beo"/>
                             <constraint firstItem="4so-px-ZZx" firstAttribute="top" secondItem="BQz-oX-f0O" secondAttribute="top" id="xC4-Bu-7JU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="BQz-oX-f0O"/>
                     </view>
                     <connections>
                         <outlet property="cameraPreview" destination="7b5-Li-iht" id="Xx8-2u-7hJ"/>
@@ -4776,7 +4776,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cw-7Y-Snc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cw-7Y-Snc">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <connections>
                                                     <action selector="cancelActionWithSender:" destination="dK9-Bw-fOD" eventType="touchUpInside" id="at2-4z-JqC"/>
@@ -4886,7 +4886,7 @@
                                                     <constraint firstItem="qPU-Wb-1Ma" firstAttribute="leading" secondItem="3fN-lu-GsC" secondAttribute="leading" id="iak-qM-4lu"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooj-7R-nlY">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooj-7R-nlY">
                                                 <rect key="frame" x="83" y="247.66666666666669" width="228" height="40"/>
                                                 <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -4944,6 +4944,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="WzY-Tc-Lnm"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ooj-7R-nlY" firstAttribute="width" secondItem="Hpf-oO-th9" secondAttribute="width" multiplier="55%" id="3Yy-YX-QFP"/>
@@ -4952,7 +4953,6 @@
                             <constraint firstItem="rjS-Fe-cUp" firstAttribute="top" secondItem="WzY-Tc-Lnm" secondAttribute="top" id="MMr-Si-Sdz"/>
                             <constraint firstItem="WzY-Tc-Lnm" firstAttribute="trailing" secondItem="rjS-Fe-cUp" secondAttribute="trailing" id="kd0-1e-pSn"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WzY-Tc-Lnm"/>
                     </view>
                     <connections>
                         <outlet property="emailField" destination="qPU-Wb-1Ma" id="irY-H5-NNB"/>
@@ -5007,7 +5007,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjZ-y1-EFC">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjZ-y1-EFC">
                                                         <rect key="frame" x="20" y="40" width="374" height="45"/>
                                                         <color key="backgroundColor" red="0.98039215686274506" green="0.6470588235294118" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -5090,7 +5090,7 @@
                                                                     </constraint>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6S-3O-g1b">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6S-3O-g1b">
                                                                 <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="45"/>
                                                                 <connections>
                                                                     <action selector="shareWithSender:" destination="dQb-lJ-HDW" eventType="touchUpInside" id="CmZ-lT-xhL"/>
@@ -5361,6 +5361,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="dNO-OK-IZQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oB2-bq-Yy6" firstAttribute="leading" secondItem="dNO-OK-IZQ" secondAttribute="leading" id="278-AU-kEP"/>
@@ -5372,7 +5373,6 @@
                             <constraint firstItem="dNO-OK-IZQ" firstAttribute="bottom" secondItem="oB2-bq-Yy6" secondAttribute="bottom" id="f6N-e0-XCs"/>
                             <constraint firstItem="oB2-bq-Yy6" firstAttribute="top" secondItem="dNO-OK-IZQ" secondAttribute="top" id="gNe-Q1-Kxk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="dNO-OK-IZQ"/>
                         <connections>
                             <outlet property="costofEventLbl" destination="cNj-sY-Otp" id="MBc-Uk-p8L"/>
                             <outlet property="dateTimeLbl" destination="535-wy-exq" id="ft4-cC-mxn"/>
@@ -5449,6 +5449,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Pbn-2Y-mS8"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BKS-C0-dCU" firstAttribute="leading" secondItem="7Qg-sc-r4x" secondAttribute="leading" id="Hzq-Ab-tQS"/>
@@ -5459,7 +5460,6 @@
                             <constraint firstItem="BKS-C0-dCU" firstAttribute="top" secondItem="Pbn-2Y-mS8" secondAttribute="top" id="ivX-8C-dKD"/>
                             <constraint firstItem="Pbn-2Y-mS8" firstAttribute="trailing" secondItem="HSE-GQ-gXE" secondAttribute="trailing" id="jRG-dw-ele"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Pbn-2Y-mS8"/>
                         <connections>
                             <outlet property="userName" destination="K7b-8T-j1M" id="XYn-DI-k4p"/>
                         </connections>
@@ -5501,7 +5501,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TlU-3P-Voz">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TlU-3P-Voz">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <connections>
                                                     <action selector="closeWithSender:" destination="UNd-Bn-ZYI" eventType="touchUpInside" id="JTa-bC-X37"/>
@@ -5545,7 +5545,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-td-edF">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xu7-td-edF">
                                                 <rect key="frame" x="114.33333333333333" y="159.66666666666669" width="165.33333333333337" height="40"/>
                                                 <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -5564,7 +5564,7 @@
                                                     <action selector="confirmActionWithSender:" destination="UNd-Bn-ZYI" eventType="touchUpInside" id="yK1-FX-Hwv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-io-zZf">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-io-zZf">
                                                 <rect key="frame" x="114.33333333333333" y="199.33333333333331" width="165.33333333333337" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -5628,6 +5628,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cmp-uf-Sa5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vcc-Fz-tlE" firstAttribute="top" secondItem="cmp-uf-Sa5" secondAttribute="top" id="29k-5u-mAX"/>
@@ -5636,7 +5637,6 @@
                             <constraint firstItem="xu7-td-edF" firstAttribute="width" secondItem="b1m-mr-AfA" secondAttribute="width" multiplier="40%" id="Bhc-F2-BZi"/>
                             <constraint firstItem="cmp-uf-Sa5" firstAttribute="bottom" secondItem="vcc-Fz-tlE" secondAttribute="bottom" id="GiV-B9-pGK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cmp-uf-Sa5"/>
                     </view>
                     <connections>
                         <outlet property="errorLable" destination="oYk-te-XWl" id="z0b-zb-zcj"/>
@@ -5716,7 +5716,7 @@
                                                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                                                     </variation>
                                                                                 </label>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEc-42-6iK">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEc-42-6iK">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="33"/>
                                                                                     <connections>
                                                                                         <action selector="selectCardOneActionWithSender:" destination="KVT-qh-TKn" eventType="touchUpInside" id="ZrM-8X-E1c"/>
@@ -5802,7 +5802,7 @@
                                     <constraint firstAttribute="height" constant="150" id="jZ6-dh-E0F"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S25-in-eDh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S25-in-eDh">
                                 <rect key="frame" x="20" y="50" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="C7Z-46-xIA"/>
@@ -5813,7 +5813,7 @@
                                     <action selector="ticketsAction" destination="dEK-2H-Heb" eventType="touchUpInside" id="1S8-Qr-P76"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRF-Ss-1mG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRF-Ss-1mG">
                                 <rect key="frame" x="244" y="60" width="150" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="dUt-Eg-0nd"/>
@@ -5831,6 +5831,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4mc-RO-pSg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bw0-bc-IOy" firstAttribute="centerX" secondItem="yry-OJ-Qbn" secondAttribute="centerX" id="5Lg-Rw-bz8"/>
@@ -5843,7 +5844,6 @@
                             <constraint firstItem="xgB-jb-hzx" firstAttribute="top" secondItem="4mc-RO-pSg" secondAttribute="top" constant="400" id="nNb-hM-KjU"/>
                             <constraint firstItem="4mc-RO-pSg" firstAttribute="trailing" secondItem="xgB-jb-hzx" secondAttribute="trailing" id="sX8-dp-2o6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4mc-RO-pSg"/>
                     </view>
                     <connections>
                         <outlet property="label" destination="bw0-bc-IOy" id="JUK-ug-xgD"/>
@@ -5895,7 +5895,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDe-40-au2">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDe-40-au2">
                                                                 <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="75"/>
                                                             </button>
                                                         </subviews>
@@ -5948,7 +5948,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkH-uW-BCA">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkH-uW-BCA">
                                                                 <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="75"/>
                                                             </button>
                                                         </subviews>
@@ -6001,7 +6001,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4We-x1-vpn">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4We-x1-vpn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="93.333333333333329" height="75"/>
                                                             </button>
                                                         </subviews>
@@ -6077,7 +6077,7 @@
                                                                     <constraint firstAttribute="height" constant="2" id="tTZ-B4-Lov"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iK3-6j-NCO">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iK3-6j-NCO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="102.66666666666667" height="40"/>
                                                                 <connections>
                                                                     <action selector="payoutDetailActionWithSender:" destination="xbv-iv-qf7" eventType="touchUpInside" id="G8g-fO-vpq"/>
@@ -6118,7 +6118,7 @@
                                                                     <constraint firstAttribute="height" constant="2" id="pwK-rg-4qt"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pA-0t-2ZE">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pA-0t-2ZE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="118.66666666666667" height="40"/>
                                                                 <connections>
                                                                     <action selector="paymentHistoryActionWithSender:" destination="xbv-iv-qf7" eventType="touchUpInside" id="JDd-Gd-brt"/>
@@ -6232,7 +6232,7 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="rDR-Rj-WBL">
                                                 <rect key="frame" x="199" y="440" width="91" height="45"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-gs-95v">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-gs-95v">
                                                 <rect key="frame" x="199" y="440" width="91" height="45"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -6564,7 +6564,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anu-w6-Rfg">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anu-w6-Rfg">
                                                         <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                         <connections>
                                                             <action selector="closeWithSender:" destination="UNd-Bn-ZYI" eventType="touchUpInside" id="FtL-2S-j7U"/>
@@ -6626,6 +6626,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="OfT-9o-0xl"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9bL-VL-wgf" firstAttribute="leading" secondItem="OfT-9o-0xl" secondAttribute="leading" id="2Bw-xR-B7j"/>
@@ -6643,7 +6644,6 @@
                             </constraint>
                             <constraint firstItem="9bL-VL-wgf" firstAttribute="top" secondItem="xbv-iv-qf7" secondAttribute="top" id="mbP-bE-oLw"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="OfT-9o-0xl"/>
                         <connections>
                             <outlet property="paymentAdapter" destination="Uqz-4N-cWU" id="lzL-iC-aWV"/>
                             <outlet property="paymentHistory" destination="e31-wD-sOU" id="lyG-Ai-1uM"/>
@@ -6710,7 +6710,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="20"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sB5-oj-D6Q">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sB5-oj-D6Q">
                                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="35"/>
                                                                 <connections>
                                                                     <action selector="systemTestWithSender:" destination="14q-81-2gg" eventType="touchUpInside" id="tHl-4N-oC1"/>
@@ -6912,7 +6912,7 @@
                                                                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                                                     </variation>
                                                                                                 </label>
-                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bL2-90-jR0">
+                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bL2-90-jR0">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="249.33333333333334" height="45"/>
                                                                                                     <connections>
                                                                                                         <action selector="jointEventWithSend:" destination="jK6-2d-oy8" eventType="touchUpInside" id="fMh-l3-bO1"/>
@@ -7139,7 +7139,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nw5-M1-dxn">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nw5-M1-dxn">
                                                         <rect key="frame" x="145" y="249.33333333333331" width="124" height="30"/>
                                                         <connections>
                                                             <action selector="showUserAnimation" destination="14q-81-2gg" eventType="touchUpInside" id="Gnp-Ih-Elh"/>
@@ -7209,7 +7209,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9h7-VU-PAZ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9h7-VU-PAZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 <connections>
                                                     <action selector="disableInfoAction" destination="14q-81-2gg" eventType="touchUpInside" id="yZH-gA-cPz"/>
@@ -7269,6 +7269,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="bLV-vL-ebP"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bLV-vL-ebP" firstAttribute="bottom" secondItem="gZh-T3-yqJ" secondAttribute="bottom" id="32x-8Z-cyM"/>
@@ -7288,7 +7289,6 @@
                             <constraint firstItem="bLV-vL-ebP" firstAttribute="trailing" secondItem="yeL-he-3da" secondAttribute="trailing" id="lgf-Lc-1ez"/>
                             <constraint firstItem="gZh-T3-yqJ" firstAttribute="top" secondItem="bLV-vL-ebP" secondAttribute="top" id="mLh-rB-41E"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="bLV-vL-ebP"/>
                         <connections>
                             <outlet property="tableAdapter" destination="POo-v4-oOn" id="2Zx-WT-hKE"/>
                         </connections>
@@ -7351,7 +7351,7 @@
                                             <constraint firstAttribute="height" constant="20" id="uJf-qZ-ewT"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-cc-RXN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-cc-RXN">
                                         <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
                                         <connections>
                                             <action selector="closeController" destination="0Kr-zV-8jn" eventType="touchUpInside" id="AAb-8h-pxX"/>
@@ -7379,7 +7379,7 @@
                                             <constraint firstAttribute="height" constant="20" id="CYi-YK-Mzp"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxr-Ps-NnD">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxr-Ps-NnD">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="40"/>
                                         <connections>
                                             <action selector="twitterShareActionWithSender:" destination="0Kr-zV-8jn" eventType="touchUpInside" id="8JK-Lv-jUb"/>
@@ -7408,7 +7408,7 @@
                                             <constraint firstAttribute="width" constant="20" id="YMh-tP-qM3"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u9-eO-2lW">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u9-eO-2lW">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="40"/>
                                         <connections>
                                             <action selector="deleteMemoryWithSender:" destination="0Kr-zV-8jn" eventType="touchUpInside" id="JaY-MA-ivq"/>
@@ -7428,6 +7428,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7RV-DG-U9R"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PNe-0a-g5j" firstAttribute="leading" secondItem="sTi-RN-zEh" secondAttribute="leading" id="8Kk-es-z9i"/>
@@ -7443,7 +7444,6 @@
                             <constraint firstItem="1QT-if-wKX" firstAttribute="leading" secondItem="7RV-DG-U9R" secondAttribute="leading" id="oYa-3i-xOU"/>
                             <constraint firstItem="7RV-DG-U9R" firstAttribute="bottom" secondItem="1QT-if-wKX" secondAttribute="bottom" id="xc4-iV-0f6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7RV-DG-U9R"/>
                     </view>
                     <connections>
                         <outlet property="pageScroller" destination="PNe-0a-g5j" id="OdU-WF-xfH"/>
@@ -7456,6 +7456,11 @@
             <point key="canvasLocation" x="-1616" y="25"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="cuQ-oO-hES">
+            <size key="intrinsicContentSize" width="252" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ErrorAlert" width="120" height="120"/>
         <image name="USA" width="40" height="30"/>

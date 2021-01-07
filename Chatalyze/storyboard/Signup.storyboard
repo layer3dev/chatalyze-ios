@@ -32,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8aX-A4-lz5">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="688.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="643.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-86-aLF">
                                                 <rect key="frame" x="40" y="30" width="295" height="27.5"/>
@@ -200,13 +200,13 @@
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePt-EA-Gpx">
-                                                <rect key="frame" x="30" y="192.5" width="315" height="45"/>
+                                                <rect key="frame" x="30" y="192.5" width="315" height="0.0"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleISignin" translatesAutoresizingMaskIntoConstraints="NO" id="sNO-D6-Noh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="0.0"/>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUE-2L-WXD">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="45"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="0.0"/>
                                                         <connections>
                                                             <action selector="googleSignIn" destination="10E-j5-GEd" eventType="touchUpInside" id="xPc-CQ-sK8"/>
                                                         </connections>
@@ -219,10 +219,9 @@
                                                     <constraint firstItem="bUE-2L-WXD" firstAttribute="leading" secondItem="ePt-EA-Gpx" secondAttribute="leading" id="Ahv-nB-EiB"/>
                                                     <constraint firstItem="DjD-Bz-xIF" firstAttribute="trailing" secondItem="sNO-D6-Noh" secondAttribute="trailing" id="Ih8-8K-DhC"/>
                                                     <constraint firstAttribute="bottom" secondItem="bUE-2L-WXD" secondAttribute="bottom" id="PKg-c2-eQn"/>
-                                                    <constraint firstAttribute="height" constant="45" id="YRN-wq-ALe">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="65"/>
+                                                    <constraint firstAttribute="height" id="YRN-wq-ALe">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="Yfk-jc-GF0"/>
                                                     <constraint firstItem="sNO-D6-Noh" firstAttribute="leading" secondItem="DjD-Bz-xIF" secondAttribute="leading" id="a1a-DX-ccm"/>
                                                     <constraint firstItem="sNO-D6-Noh" firstAttribute="bottom" secondItem="DjD-Bz-xIF" secondAttribute="bottom" id="edp-77-ESD"/>
                                                     <constraint firstItem="sNO-D6-Noh" firstAttribute="top" secondItem="DjD-Bz-xIF" secondAttribute="top" id="f9s-eI-fFS"/>
@@ -230,7 +229,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DA2-oR-jbh">
-                                                <rect key="frame" x="20" y="247.5" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="202.5" width="335" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GM-IL-4iR">
                                                         <rect key="frame" x="0.0" y="19.5" width="71" height="1"/>
@@ -270,7 +269,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEI-pb-cqo">
-                                                <rect key="frame" x="20" y="307.5" width="335" height="163"/>
+                                                <rect key="frame" x="20" y="262.5" width="335" height="163"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7z-Zg-ehs" userLabel="email_field" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="47"/>
@@ -493,7 +492,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgg-LW-djS" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="500.5" width="335" height="55"/>
+                                                <rect key="frame" x="20" y="455.5" width="335" height="55"/>
                                                 <color key="backgroundColor" red="0.92549019607843142" green="0.32156862745098036" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="4wV-0z-6b0">
@@ -512,7 +511,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree to our Terms of Service " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="lMo-9G-PX1">
-                                                <rect key="frame" x="20" y="573.5" width="335" height="22"/>
+                                                <rect key="frame" x="20" y="528.5" width="335" height="22"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -530,7 +529,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and Privacy Policy. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oY5-sw-lXw">
-                                                <rect key="frame" x="20" y="595.5" width="335" height="22"/>
+                                                <rect key="frame" x="20" y="550.5" width="335" height="22"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -548,7 +547,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have an account? Sign in" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-z4-1eZ" userLabel="Already have an account? Sign in">
-                                                <rect key="frame" x="77.5" y="637.5" width="220" height="22"/>
+                                                <rect key="frame" x="77.5" y="592.5" width="220" height="22"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="220" id="20b-TX-gjH">
@@ -571,7 +570,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-IY-lkz">
-                                                <rect key="frame" x="30" y="558.5" width="315" height="0.0"/>
+                                                <rect key="frame" x="30" y="513.5" width="315" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -580,7 +579,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoV-ui-4cW">
-                                                <rect key="frame" x="217.5" y="628.5" width="80" height="40"/>
+                                                <rect key="frame" x="217.5" y="583.5" width="80" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="KPt-Bt-8SU">

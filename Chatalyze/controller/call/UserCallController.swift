@@ -199,7 +199,7 @@ class UserCallController: VideoCallController {
         layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func interval(){
