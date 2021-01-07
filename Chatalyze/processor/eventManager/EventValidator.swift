@@ -10,16 +10,28 @@ import Foundation
 
 class EventValidator{
     
-    func isPreconnectEligible(start : Date, end : Date)->Bool{
+    func isPreconnectEligible(start : Date, end : Date, duration: Double)->Bool{
+        
+        
         if(end.isPast()){
             return false
         }
         
         let startTime = start.timeIntervalTillNow
-        if(startTime <= 30 && startTime > 0){
-            return true
-        }
+        Log.echo(key: "vijay", text: "duration received\(duration)")
         
+        if duration == 30 || duration == 15 {
+            if(startTime <= 15 && startTime > 0){
+                Log.echo(key: "vijay", text: "PreConnected:True")
+                return true
+            }
+        }else{
+            if(startTime <= 30 && startTime > 0){
+                Log.echo(key: "vijay", text: "PreConnected:True")
+                return true
+            }
+        }
+        Log.echo(key: "vijay", text: "PreConnected:False")
         return false
     }
     

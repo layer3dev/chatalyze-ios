@@ -221,7 +221,12 @@ class SlotInfo: SlotTimeInfo {
                 else{
                     return false
             }
-            return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
+            let timeDiffrenece = endDate.timeIntervalSince(startDate)
+            
+            let duration = Double(timeDiffrenece)
+            
+            Log.echo(key: "vijay", text: "duration calulates from from start & end : \(duration)")
+            return EventValidator().isPreconnectEligible(start: startDate, end: endDate, duration: duration)
         }
     }
 }

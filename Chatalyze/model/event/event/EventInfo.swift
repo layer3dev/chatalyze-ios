@@ -273,7 +273,13 @@ class EventInfo: NSObject {
                     return false
             }
             
-            return EventValidator().isPreconnectEligible(start: startDate, end: endDate)
+            guard let callduration = duration
+                else{
+                    return false
+                }
+            let finalDuration = callduration * 60
+            
+            return EventValidator().isPreconnectEligible(start: startDate, end: endDate, duration: finalDuration)
         }
     }
     
