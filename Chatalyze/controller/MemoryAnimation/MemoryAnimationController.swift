@@ -87,7 +87,7 @@ class MemoryAnimationController: InterfaceExtendedController {
       }else{
         statusLbl.isHidden = false
       }
-
+        saveImage()
      
         
         
@@ -167,6 +167,28 @@ class MemoryAnimationController: InterfaceExtendedController {
             return false
         }
         return nil
+    }
+    
+    func saveImage() {
+
+        guard let selectedImage = self.memoryImage else {
+            return
+        }
+
+        UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    //MARK: - Save Image callback
+
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+
+        if let error = error {
+
+            print(error.localizedDescription)
+
+        } else {
+
+            print("Success")
+        }
     }
     
     func paintImageView(){
