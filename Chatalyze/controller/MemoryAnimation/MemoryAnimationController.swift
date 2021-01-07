@@ -186,7 +186,7 @@ class MemoryAnimationController: InterfaceExtendedController {
             print(error.localizedDescription)
 
         } else {
-
+            UserCallController().showToastWithMessage(text: "Memory saved..", time: 5.0)
             print("Success")
         }
     }
