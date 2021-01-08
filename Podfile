@@ -35,8 +35,12 @@ def pod_file
   pod 'libyuv-iOS'
   pod 'GoogleSignIn'
   pod "YoutubePlayer-in-WKWebView"
+<<<<<<< HEAD
   pod 'TwilioVideo', '~> 4.0.1'
   
+=======
+  pod 'TwilioVideo', '~> 4.0'
+>>>>>>> 20a5d080315628eb893dd687a7bc90986f7ac93d
   platform :ios, '12.0'
 end
 

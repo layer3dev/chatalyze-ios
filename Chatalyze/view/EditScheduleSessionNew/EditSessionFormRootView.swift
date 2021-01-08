@@ -1555,7 +1555,18 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
+        
+        if pickerView == chatLengthPicker.picker{
+            
+            if (Float(chatLengthArray[row]) ?? 0) < Float(0.9){
+                let finalSeconds = Double(chatLengthArray[row]) ?? 0
+                Log.echo(key: "vijay", text: "\(finalSeconds*60)")
+                return  "\(Int(finalSeconds*60)) seconds" as String
+            }
+        }
+         
         if pickerView == chatLengthPicker.picker {
+            
             return (chatLengthArray[row]+"\(Int(chatLengthArray[row]) ?? 0 <= 1 ? " min":" mins")") as String
         }
         
@@ -1574,13 +1585,19 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 return
             }
             
-            if Int(chatLengthArray[row]) ?? 0 <= 1 {
+            if (Float(chatLengthArray[row]) ?? 0) < Float(0.9){
+                let finalSeconds = Double(chatLengthArray[row]) ?? 0
+                Log.echo(key: "vijay", text: "\(finalSeconds*60)")
+                chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
+            }else if Int(chatLengthArray[row]) ?? 0 <= 1 {
                 
                 chatLength?.textField?.text = chatLengthArray[row] + " min"
             }else{
                
                 chatLength?.textField?.text = chatLengthArray[row] + " mins"
             }
+            
+            
             slotSelected = Int(chatLengthArray[row])
             let _ = self.validateSlotTime()
             return
@@ -1652,8 +1669,12 @@ extension EditSessionFormRootView:CustomPickerDelegate{
             if chatLengthPicker.picker?.selectedRow(inComponent: 0) == 0 {
                 
                 if chatLengthArray.count >= 1 {
-                   
-                    if Int(chatLengthArray[0]) ?? 0 <= 1 {
+                    
+                    if (Float(chatLengthArray[0]) ?? 0) < Float(0.9){
+                        let finalSeconds = Double(chatLengthArray[0]) ?? 0
+                        Log.echo(key: "vijay", text: "\(finalSeconds*60)")
+                        chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
+                    }else if Int(chatLengthArray[0]) ?? 0 <= 1 {
                         chatLength?.textField?.text = chatLengthArray[0] + " min"
                     }else{
                         chatLength?.textField?.text = chatLengthArray[0] + " mins"
