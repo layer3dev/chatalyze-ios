@@ -24,6 +24,7 @@ class NotificationMetaInfo{
         case updatedCallSchedule = 8
         case analystJoined = 9
         case eventDeleted = 10
+        case eventChatDurationUpdated = 11
     }
     
     var activityId : String?
@@ -96,6 +97,8 @@ extension NotificationMetaInfo{
             return .eventDeleted
         case "schedule_cancelled":
             return .eventDeleted
+        case "event_chat_duration_extended":
+            return .eventChatDurationUpdated
         default:
             return .undefined
         }
