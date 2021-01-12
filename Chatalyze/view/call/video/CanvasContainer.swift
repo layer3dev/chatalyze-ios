@@ -79,12 +79,14 @@ class CanvasContainer: ExtendedView {
     func show(with image:UIImage?,info:CanvasInfo?){
         
         guard let canvasImage = image else{
+            Log.echo(key: "vijayS", text: "returened@82")
             return
         }
         
         self.canvImg = image
         
         guard let canvasInfo = info else{
+            Log.echo(key: "vijayS", text: "returened@89")
             return
         }
         

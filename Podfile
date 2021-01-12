@@ -36,7 +36,6 @@ def pod_file
   pod 'GoogleSignIn'
   pod "YoutubePlayer-in-WKWebView"
   pod 'TwilioVideo', '~> 4.0.1'
-  
   platform :ios, '12.0'
 end
 
