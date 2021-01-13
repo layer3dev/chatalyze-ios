@@ -87,7 +87,6 @@ class MemoryAnimationController: InterfaceExtendedController {
       }else{
         statusLbl.isHidden = false
       }
-        saveImage()
      
         
         
