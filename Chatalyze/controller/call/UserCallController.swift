@@ -5,7 +5,6 @@
 //  Created by Sumant Handa on 27/03/18.
 //  Copyright © 2018 Mansa Infotech. All rights reserved.
 //
-
 import UIKit
 import SwiftyJSON
 import TwilioVideo
@@ -228,18 +227,6 @@ class UserCallController: VideoCallController {
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
         //MISSING REFERSH STREAM LOCK
-    }
-    
-    @objc func rotated() {
-        if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
-            connection?.logResolution()
-        }
-
-        if UIDevice.current.orientation.isPortrait {
-            print("Portrait")
-            connection?.logResolution()
-        }
     }
     
     func trackCallTochatComplete(){
@@ -737,7 +724,7 @@ class UserCallController: VideoCallController {
         }
         
         //Reset the selfie timer if it is not initiated yet.
-        if !SlotFlagInfo.staticScreenShotSaved{
+        if !(isSelfieTimerInitiated){
             
             self.selfieTimerView?.reset()
             SlotFlagInfo.staticIsTimerInitiated = false
@@ -884,26 +871,22 @@ class UserCallController: VideoCallController {
         //        }
         
         if !isScreenshotStatusLoaded{
-            callLogger?.logSelfieLogs(speed: 843)
             return
         }
         
         //don't take screenshot if don't have local stream
         guard let localMedia = localMediaPackage
             else{
-            callLogger?.logSelfieLogs(speed: 850)
                 return
         }
         
         //don't take screenshot if hangedup
         if(localMedia.isDisabled){
-            callLogger?.logSelfieLogs(speed: 856)
             return
         }
         
         //if current slot id is nil then return
         if self.myLiveUnMergedSlot?.id == nil {
-            callLogger?.logSelfieLogs(speed: 862)
             Log.echo(key: "yud", text: "my unmerged slot is nil")
             return
         }
@@ -911,7 +894,6 @@ class UserCallController: VideoCallController {
         //Server response for screenShot saved
         if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
             if isScreenShotSaved {
-                callLogger?.logSelfieLogs(speed: 870)
                 return
             }
         }
@@ -924,7 +906,7 @@ class UserCallController: VideoCallController {
                 if !(isCallStreaming){
                     
                     if SlotFlagInfo.staticScreenShotSaved {
-                        callLogger?.logSelfieLogs(speed: 883)
+                        Log.echo(key: "vijayTimer", text: "@909")
                         return
                     }else{
                         callLogger?.logSelfieLogs(speed: 886)
@@ -932,10 +914,10 @@ class UserCallController: VideoCallController {
                         SlotFlagInfo.staticIsTimerInitiated = false
                         selfieTimerView?.reset()
                     }
-                    callLogger?.logSelfieLogs(speed: 891)
+                    Log.echo(key: "vijayTimer", text: "@917")
                     return
                 }
-                callLogger?.logSelfieLogs(speed: 894)
+                Log.echo(key: "vijayTimer", text: "@920")
                 return
             }
         }
@@ -947,7 +929,6 @@ class UserCallController: VideoCallController {
         
         
         if !(isCallStreaming){
-            callLogger?.logSelfieLogs(speed: 906)
             return
         }
         
@@ -974,11 +955,9 @@ class UserCallController: VideoCallController {
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-            let timerSet = true
-            Log.echo(key: "timerIsStartedAtul", text: "\(timerSet)")
-            callLogger?.logSelfieLogs(speed: 933)
+            isSelfieTimerInitiated = false
             socketClient?.emit(data)
-            Log.echo(key: "VijaySelfie", text: "Sent time stamp data is \(data)")
+            Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
@@ -1007,6 +986,7 @@ class UserCallController: VideoCallController {
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
+                self.isSelfieTimerInitiated = true
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
