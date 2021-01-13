@@ -323,6 +323,26 @@ class UserCallController: VideoCallController {
         //print("Handling call connection with the slot info unmerges slot \(self.myLiveUnMergedSlot)")
         
     }
+    func saveImage() {
+
+            guard let selectedImage = self.memoryImage else {
+                return
+            }
+
+            UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+        //MARK: - Save Image callback
+        @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+
+            if let error = error {
+
+                print(error.localizedDescription)
+
+            } else {
+                
+                print("Success")
+            }
+        }
     
     
     private func initiateTwilioConnection(slotInfo : SlotInfo){
@@ -980,7 +1000,7 @@ class UserCallController: VideoCallController {
         selfieTimerView?.screenShotListner = {
             
             Log.echo(key: "yud", text: "I got the scrrenshot listener response")
-            _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: {(image) in
+            _ = self.userRootView?.getSnapshot(info: self.eventInfo, completion: { [self](image) in
                 
                 Log.echo(key: "yud", text: "recieved memory image is \(String(describing: image))")
                 
@@ -995,6 +1015,7 @@ class UserCallController: VideoCallController {
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                self.saveImage()
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
