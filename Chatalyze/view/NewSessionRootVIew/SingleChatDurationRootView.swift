@@ -140,7 +140,7 @@ class SingleChatDurationRootView:ExtendedView {
     }
     
     
-    var chatDuration:Int?{
+    var chatDuration:Float?{
         
         get{
             
@@ -211,7 +211,7 @@ extension SingleChatDurationRootView {
             return
         }
         
-        totalSlots = totalDurationInMinutes/singleChatDuration
+        totalSlots = totalDurationInMinutes/Int(singleChatDuration)
         
         var fontSizeTotalSlot = 30
         var normalFont = 20

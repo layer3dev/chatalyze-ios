@@ -101,7 +101,7 @@ class EditSessionFormRootView:ExtendedView {
         }
     }
     
-    var slotSelected:Int?
+    var slotSelected:Float?
     @IBOutlet var slotDurationErrorLbl:UILabel?
     @IBOutlet var chatCalculatorLbl:UILabel?
     @IBOutlet var chatTotalNumberOfSlots:UILabel?
@@ -618,7 +618,7 @@ class EditSessionFormRootView:ExtendedView {
         customCalendar?.setSelectionDate(date: self.eventInfo?.startDate)
         self.timeField?.textField?.text = desiredTime
         
-        slotSelected = Int(eventInfo.duration ?? 0.0)
+        slotSelected = Float(eventInfo.duration ?? 0.0)
         
         Log.echo(key: "yud", text: "is flex really enabled \(info?.isFlexEnabled)")
         
@@ -1589,6 +1589,9 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 let finalSeconds = Double(chatLengthArray[row]) ?? 0
                 Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                 chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
+                let selectedRow = Float(chatLengthArray[row])
+                slotSelected = (selectedRow)
+                return
             }else if Int(chatLengthArray[row]) ?? 0 <= 1 {
                 
                 chatLength?.textField?.text = chatLengthArray[row] + " min"
@@ -1598,7 +1601,7 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
             }
             
             
-            slotSelected = Int(chatLengthArray[row])
+            slotSelected = Float(chatLengthArray[row])
             let _ = self.validateSlotTime()
             return
         }
@@ -1679,7 +1682,7 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                     }else{
                         chatLength?.textField?.text = chatLengthArray[0] + " mins"
                     }
-                    slotSelected = Int(chatLengthArray[0])
+                    slotSelected = Float(chatLengthArray[0])
                 }
             }
             let _ = validateSlotTime()
@@ -1721,9 +1724,9 @@ extension EditSessionFormRootView {
             return
         }
         
-        let totalDurationInMinutes = Int(endDate.timeIntervalSince(startDate)/60.0)
+        let totalDurationInMinutes = Float(endDate.timeIntervalSince(startDate)/60.0)
         
-        var totalSlots = 0
+        var totalSlots :Float = 0
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
            
@@ -1751,7 +1754,7 @@ extension EditSessionFormRootView {
             
             chatCalculatorLbl?.text = "\(totalDurationInMinutes) min session length / \(singleChatDuration) min chat length ="
             
-            let mutableStr  = "\(totalSlots-(getEmptySlotSelectedCount()))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+            let mutableStr  = "\(totalSlots-Float((getEmptySlotSelectedCount())))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
             
             let nextStr = " available 1:1 chats"
             let nextAttrStr  = nextStr.toAttributedString(font: "Nunito-Regular", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
@@ -1786,7 +1789,7 @@ extension EditSessionFormRootView {
         
         let totalDurationInMinutes = Int(endDate.timeIntervalSince(startDate)/60.0)
         
-        var totalSlots = 0
+        var totalSlots :Float = 0
         
         guard let singleChatDuration = self.scheduleInfo?.duration else{
             
@@ -1795,7 +1798,7 @@ extension EditSessionFormRootView {
             return
         }
         
-        totalSlots = totalDurationInMinutes/singleChatDuration
+        totalSlots = Float(totalDurationInMinutes) / singleChatDuration
         
         var fontSizeTotalSlot = 30
         var normalFont = 20
@@ -1807,7 +1810,7 @@ extension EditSessionFormRootView {
         }
         
         
-        let mutableStr  = "\(totalSlots-(getEmptySlotSelectedCount()))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+        let mutableStr  = "\(totalSlots-Float((getEmptySlotSelectedCount())))".toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSizeTotalSlot, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         
         let nextStr = " available 1:1 chats"
         let nextAttrStr  = nextStr.toAttributedString(font: "Nunito-Regular", size: (normalFont-3), color: UIColor(hexString: "#808080"), isUnderLine: false)
@@ -2298,7 +2301,7 @@ extension EditSessionFormRootView{
         return nil
     }
     
-    var chatDuration:Int?{
+    var chatDuration:Float?{
         get{
             return self.slotSelected
         }
