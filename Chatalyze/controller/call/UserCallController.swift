@@ -48,6 +48,8 @@ class UserCallController: VideoCallController {
     
     var isScreenshotStatusLoaded = false
     
+    private var isFetchingTwilioAccessToken = false
+    
     //Ends
     //This is webRTC connection responsible for signalling and handling the reconnect
     
@@ -221,6 +223,7 @@ class UserCallController: VideoCallController {
         }else{
             recordingLbl.isHidden = true
         }
+        
         self.connectToCallAndRender()
         resetAutographCanvasIfNewCallAndSlotExists()
         processDefaultSignature()
@@ -298,27 +301,12 @@ class UserCallController: VideoCallController {
             return
         }
         
-        guard let localMediaPackage = self.localMediaPackage else{
-            Log.echo(key: "NewArch", text: "Missing localMediapackage")
-            return
-        }
-                
-        guard let remoteVideoView = self.rootView?.remoteVideoView?.streamingVideoView else{
-            Log.echo(key: "NewArch", text: "Missing remoteView")
+        if(isFetchingTwilioAccessToken){
             return
         }
         
         if let currentSlot = self.myLiveUnMergedSlot{
-            
-            print("My slot is  running ")
-            self.connection = UserCallConnection()
-            self.connection?.localMediaPackage = localMediaPackage
-            self.connection?.eventInfo = eventInfo
-            self.connection?.slotId = currentSlot.id
-            self.connection?.remoteView = remoteVideoView
-            self.connection?.slotInfo = currentSlot
-            self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-            fetchTwillioToken(twillioRoom: self.connection!, slotId: currentSlot.id)
+            initiateTwilioConnection(slotInfo: currentSlot)
             return
         }
         
@@ -332,14 +320,8 @@ class UserCallController: VideoCallController {
                         print("Yes I got the preconnect slot")
                         checkforRecordingStatus()
                         self.isPreConnected = true
-                        self.connection = UserCallConnection()
-                        self.connection?.localMediaPackage = localMediaPackage
-                        self.connection?.eventInfo = eventInfo
-                        self.connection?.slotId = preconnectSlot.id
-                        self.connection?.remoteView = remoteVideoView
-                        self.connection?.slotInfo = preconnectSlot
-                        self.connection?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-                        fetchTwillioToken(twillioRoom: self.connection!, slotId: preconnectSlot.id)
+                        
+                        initiateTwilioConnection(slotInfo: preconnectSlot)
                         return
                     }
                 }
@@ -354,6 +336,70 @@ class UserCallController: VideoCallController {
         //print("Handling call connection with the slot info unmerges slot \(self.myLiveUnMergedSlot)")
         
     }
+    
+    
+    private func initiateTwilioConnection(slotInfo : SlotInfo){
+        
+        if(isFetchingTwilioAccessToken){
+            return
+        }
+       
+        guard let slotId = slotInfo.id
+        else{
+            return
+        }
+        
+        isFetchingTwilioAccessToken = true
+        
+        fetchTwillioToken(slotId: slotId) {[weak self] (info) in
+            
+            self?.isFetchingTwilioAccessToken = false
+            
+            guard let info = info
+            else{
+                return
+            }
+            
+            self?.createTwilioConnection(slotInfo: slotInfo, tokenInfo: info)
+            
+        }
+        
+    }
+    
+    
+    func createTwilioConnection(slotInfo : SlotInfo, tokenInfo : TwillioTokenInfo){
+        guard let localMediaPackage = self.localMediaPackage else{
+            Log.echo(key: "NewArch", text: "Missing localMediapackage")
+            return
+        }
+                
+        guard let remoteVideoView = self.rootView?.remoteVideoView?.streamingVideoView else{
+            Log.echo(key: "NewArch", text: "Missing remoteView")
+            return
+        }
+        
+        guard let accessToken = tokenInfo.token
+        else {
+            return
+        }
+        
+        
+        print("My slot is  running ")
+        let connection = UserCallConnection()
+        self.connection = connection
+        connection.localMediaPackage = localMediaPackage
+        connection.eventInfo = eventInfo
+        connection.slotId = slotInfo.id
+        connection.remoteView = remoteVideoView
+        connection.slotInfo = slotInfo
+        connection.renderer = self.rootView?.remoteVideoView?.getRenderer()
+        
+        connection.roomName = tokenInfo.room ?? ""
+        connection.accessToken = accessToken
+        connection.connectToRoom()
+    }
+    
+    
     
     
     func processDefaultSignature(){
@@ -1946,19 +1992,23 @@ extension UserCallController{
 //MARK:- Fetching the twillio access token
 extension UserCallController{
     
-    func fetchTwillioToken(twillioRoom:UserCallConnection,slotId:Int?){
+    func fetchTwillioToken(slotId:Int, listener : @escaping((_ info : TwillioTokenInfo?) -> ())){
         
         
         FetchUserTwillioTokenProcessor().fetch(chatId: self.eventId, slotId: slotId) { (success, error, info) in
             
             if !success{
+                listener(nil)
                 return
             }
-            twillioRoom.roomName = info?.room ?? ""
-            twillioRoom.accessToken = info?.token ?? ""
-            if twillioRoom.accessToken != ""{
-                twillioRoom.connectToRoom()
+            
+            guard let info = info
+            else{
+                listener(nil)
+                return
             }
+            
+            listener(info)
         }
     }
 }
