@@ -630,10 +630,14 @@ class EditSessionFormRootView:ExtendedView {
             self.paintFlexBookingStyle()
         }
      
-        if slotSelected ?? 0 <= 1 {
-            self.chatLength?.textField?.text = "\(slotSelected ?? 0) min"
+        if slotSelected ?? 0 < Float(0.9){
+            let finalSeconds = slotSelected ?? 0
+            Log.echo(key: "vijay", text: "\(finalSeconds*60)")
+            chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
+        } else if slotSelected ?? 0 <= 1 {
+            self.chatLength?.textField?.text = "\(Int(slotSelected ?? Float())) min"
         }else{
-            self.chatLength?.textField?.text = "\(slotSelected ?? 0) mins"
+            self.chatLength?.textField?.text = "\(Int(slotSelected ?? Float())) mins"
         }
         
         if let totalLengthOfChat = eventInfo.endDate?.timeIntervalSince(eventInfo.startDate ?? Date()){
