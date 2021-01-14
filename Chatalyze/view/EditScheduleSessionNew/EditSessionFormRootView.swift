@@ -634,6 +634,7 @@ class EditSessionFormRootView:ExtendedView {
             let finalSeconds = slotSelected ?? 0
             Log.echo(key: "vijay", text: "\(finalSeconds*60)")
             chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
+            
         } else if slotSelected ?? 0 <= 1 {
             self.chatLength?.textField?.text = "\(Int(slotSelected ?? Float())) min"
         }else{
