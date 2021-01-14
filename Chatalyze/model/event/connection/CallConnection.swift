@@ -304,6 +304,9 @@ extension CallConnection{
         
         // Preparing the connect options with the access token that we fetched (or hardcoded).
         
+        if(isReleased){
+            return
+        }
         
         if isConnecting{
             return

@@ -245,7 +245,6 @@ class HostCallController: VideoCallController {
     }
     
     var isCallHangedUp:Bool{
-        
         if let hangUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp{
             if hangUp{
                 return true
@@ -1037,7 +1036,6 @@ class HostCallController: VideoCallController {
         callRoomSwitchingHandler()
         preconnectTwillioRoomHandler()
         Log.echo(key: "vijay", text: "checkforRecordingStatus 978")
-        
     }
     
     func resetAllRooms(){
@@ -1074,27 +1072,11 @@ class HostCallController: VideoCallController {
                 Log.echo(key: "vijay", text: "when pre connect exists @ 1021")
                 //case: when preconnect becomes current room.
                 if currentSlotId == preconnectRoom.slotInfo?.id ?? 0{
-                  
-                    if preconnectRoom.isFetchingTokenToServer{
-                    }
-                    else if !preconnectRoom.isFetchingTokenToServer && preconnectRoom.accessToken == ""{
-                        fetchTwillioDeviceToken(twillioRoom: self.preconnectTwillioRoom ?? HostCallConnection())
-                    }
-                    else {
-                        
-                        resetCurrentRoom()
-                        self.currentTwillioRoom = preconnectTwillioRoom
-                        //switch to new call through media
-                        self.preconnectTwillioRoom = nil
-                    }
-                   return
+                    resetCurrentRoom()
+                    self.currentTwillioRoom = preconnectTwillioRoom
+                    //switch to new call through media
+                    self.preconnectTwillioRoom = nil
                 }
-                
-                else{
-                    // No action required.
-                    // case: yet to become the current room to preconnected
-                }
-                return
             }
             
             //case: Current room exits and verify its correct existence.
@@ -1132,15 +1114,26 @@ class HostCallController: VideoCallController {
         
         
         if self.currentTwillioRoom == nil{
-            self.currentTwillioRoom = HostCallConnection()
+            let currentTwillioRoom = HostCallConnection()
+            
+            self.currentTwillioRoom = currentTwillioRoom
             self.currentTwillioRoom?.eventInfo = self.eventInfo
             self.currentTwillioRoom?.slotInfo = currentSlot
             self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
             self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
             self.currentTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom ?? HostCallConnection())
+            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom)
             //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
             return
+        }
+        
+        guard let currentTwillioRoom = self.currentTwillioRoom
+        else{
+            return
+        }
+        
+        if(currentTwillioRoom.accessToken == "" && !currentTwillioRoom.isFetchingTokenToServer){
+            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom)
         }
     }
     
@@ -1178,20 +1171,28 @@ class HostCallController: VideoCallController {
                 if preConnectSlot.id != nil{
                     self.isPreConnected = true
                     checkforRecordingStatus()
+                    
                     Log.echo(key: "vijay", text: "checkforRecordingStatus 1103")
-                    self.preconnectTwillioRoom = HostCallConnection()
+                    let preconnectTwillioRoom = HostCallConnection()
+                    self.preconnectTwillioRoom = preconnectTwillioRoom
                     self.preconnectTwillioRoom?.eventInfo = self.eventInfo
                     self.preconnectTwillioRoom?.slotInfo = preConnectSlot
                     self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-                    fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom ?? HostCallConnection())
-                    
-                    
+                    fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom)
                 }
                 
-            
                 return
+            }
+            
+            guard let room = preconnectTwillioRoom
+            else{
+                return
+            }
+           
+            if(room.accessToken == "" && !room.isFetchingTokenToServer){
+                fetchTwillioDeviceToken(twillioRoom: room)
             }
         }
     
