@@ -1106,11 +1106,9 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot else{
+        guard let currentSlot = self.eventInfo?.currentSlot else{
             return
         }
-        
-        
         
         
         if self.currentTwillioRoom == nil{
