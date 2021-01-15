@@ -19,7 +19,7 @@ class ScheduleSessionInfo:NSObject {
     var isFree:Bool = false
     var title:String? = "Chat Session"
     var eventDescription:String?
-    var duration:Int?
+    var duration:Float?
     var isScreenShotAllow:Bool = false
     var isAutographAllow:Bool = false
     var screenShotParam = "automatic"
@@ -52,7 +52,7 @@ class ScheduleSessionInfo:NSObject {
                 return nil
             }
             let duration = end.timeIntervalSince(start)
-            return Int(Int((duration/60.0))/singleChatTime)
+            return Int(Float(Int((duration/60.0)))/singleChatTime)
         }
     }
     
