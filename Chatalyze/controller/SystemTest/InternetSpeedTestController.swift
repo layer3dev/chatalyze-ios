@@ -323,7 +323,6 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     
     @IBAction func dismissAction(){
-        self.dismissDelegate?.launchCallRoom(result: true)
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
                 
