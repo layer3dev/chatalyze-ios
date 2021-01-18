@@ -586,6 +586,12 @@ class HostCallController: VideoCallController {
                 return
         }
         
+        if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+            Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
+            setStatusMessage(type: .connected)
+            return
+        }
+        
         if(!isSocketConnected){
             setStatusMessage(type: .socketDisconnected)
             return
@@ -610,12 +616,6 @@ class HostCallController: VideoCallController {
             return
         }
         
-        if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
-            Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
-            setStatusMessage(type: .connected)
-            
-            return
-        }
         
         setStatusMessage(type: .ideal)
     }
