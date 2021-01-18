@@ -22,6 +22,8 @@ class HostCallController: VideoCallController {
     
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
+    private let TAG = "HostCallController"
+    
     var localSlotIdToManageAutograph :Int? = nil
     var autoGraphInfo:AutographInfo?
     
@@ -1110,7 +1112,10 @@ class HostCallController: VideoCallController {
             return
         }
         
-        
+        guard let activeCurrentSlot = self.eventInfo?.currentSlot
+        else{
+            return
+        }
         
         
         if self.currentTwillioRoom == nil{
@@ -1122,7 +1127,9 @@ class HostCallController: VideoCallController {
             self.currentTwillioRoom?.localMediaPackage = self.localMediaPackage
             self.currentTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
             self.currentTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom)
+            
+            Log.echo(key: self.TAG, text: "currentTwilioRoom - fetch FetchToken")
+            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom, targetSlotInfo: activeCurrentSlot)
             //print("Creating the new call room from \(String(describing: createNewTwillioRoom))")
             return
         }
@@ -1133,7 +1140,8 @@ class HostCallController: VideoCallController {
         }
         
         if(currentTwillioRoom.accessToken == "" && !currentTwillioRoom.isFetchingTokenToServer){
-            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom)
+            Log.echo(key: self.TAG, text: "currentTwilioRoom - refresh FetchToken")
+            fetchTwillioDeviceToken(twillioRoom: currentTwillioRoom, targetSlotInfo: activeCurrentSlot)
         }
     }
     
@@ -1180,7 +1188,9 @@ class HostCallController: VideoCallController {
                     self.preconnectTwillioRoom?.localMediaPackage = self.localMediaPackage
                     self.preconnectTwillioRoom?.remoteView = self.rootView!.remoteVideoView!.streamingVideoView!
                     self.preconnectTwillioRoom?.renderer = self.rootView?.remoteVideoView?.getRenderer()
-                    fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom)
+                    
+                    Log.echo(key: self.TAG, text: "preconnect - fetch FetchToken")
+                    fetchTwillioDeviceToken(twillioRoom: preconnectTwillioRoom, targetSlotInfo: preConnectSlot)
                 }
                 
                 return
@@ -1192,7 +1202,8 @@ class HostCallController: VideoCallController {
             }
            
             if(room.accessToken == "" && !room.isFetchingTokenToServer){
-                fetchTwillioDeviceToken(twillioRoom: room)
+                Log.echo(key: self.TAG, text: "preconnect - refresh FetchToken")
+                fetchTwillioDeviceToken(twillioRoom: room, targetSlotInfo: preConnectSlot)
             }
         }
     
@@ -2011,12 +2022,12 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
 //MARK:- Fetching the Twillio Access token
 extension HostCallController{
     
-    func fetchTwillioDeviceToken(twillioRoom:HostCallConnection){
+    func fetchTwillioDeviceToken(twillioRoom:HostCallConnection, targetSlotInfo : SlotInfo?){
         
         print("calling the fetch Twillio Device token")
         
         twillioRoom.isFetchingTokenToServer = true
-        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: twillioRoom.slotInfo?.id) { (success, error, info) in
+        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id) { (success, error, info) in
             print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
 
             twillioRoom.isFetchingTokenToServer = false
@@ -2034,7 +2045,6 @@ extension HostCallController{
             twillioRoom.accessToken = token
             twillioRoom.roomName = room
             twillioRoom.connectCall()
-            
         }
     }
 }
