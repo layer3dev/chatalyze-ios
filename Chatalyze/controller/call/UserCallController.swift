@@ -937,6 +937,7 @@ class UserCallController: VideoCallController {
                     Log.echo(key: "vijayTimer", text: "@917")
                     return
                 }
+                
                 Log.echo(key: "vijayTimer", text: "@920")
                 return
             }
@@ -952,9 +953,10 @@ class UserCallController: VideoCallController {
             return
         }
         
-//        if isHangUp{
-//            return
-//        }
+        if isSelfieTimerInitiated{
+            Log.echo(key: "vijayTimer", text: "screenShotSaved already")
+            return
+        }
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -986,7 +988,10 @@ class UserCallController: VideoCallController {
                 
                 //UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
                 SlotFlagInfo.staticSlotId = id
-                SlotFlagInfo.staticIsTimerInitiated = true
+                if self.isSelfieTimerInitiated{
+                    SlotFlagInfo.staticIsTimerInitiated = true
+                }
+                
             }
             
             //for testing
@@ -1010,6 +1015,7 @@ class UserCallController: VideoCallController {
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
+                isSelfieTimerInitiated = false
                 let slotInfo = self.myLiveUnMergedSlot
                 
                 
