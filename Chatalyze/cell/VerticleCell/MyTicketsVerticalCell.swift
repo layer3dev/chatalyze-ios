@@ -22,7 +22,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     @IBOutlet var title:UILabel?
     var delegate:MyTicketCellDelegate?
     var info:EventSlotInfo?
-    
+    let controller =  CameraTestController()
     var formattedStartTime:String?
     var formattedEndTime:String?
     var formattedStartDate:String?
@@ -41,6 +41,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         super.viewDidLayout()
         
         paintInterface()
+        
+        
     }
     
     func paintInterface() {
@@ -204,7 +206,24 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             showAlert(sender: send ?? UIButton())
             return
         }
-        delegate?.jointEvent(info:self.info)
+        performSystemTestFirstToContinueWithCall()
+    }
+    
+    // @Abhishek: System check will be performed every time before entering to call room.
+    func performSystemTestFirstToContinueWithCall(){
+        guard let controller = InternetSpeedTestController.instance() else{
+            return
+        }
+        controller.onlySystemTest = true
+        controller.onDoneBlock = { result in
+            if result{
+                Log.echo(key: "vijay", text: "\(result) called")
+                self.delegate?.jointEvent(info:self.info)
+            }
+        }
+        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
+        })
     }
     
     @IBAction func systemTest(sender:UIButton?){

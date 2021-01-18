@@ -30,6 +30,7 @@ class CameraTestController: InterfaceExtendedController {
     var rootController:InternetSpeedTestController?
     var front = true
     var onSuccessTest:((Bool)->())?
+    var onDoneBlock : ((Bool) -> ())?
     var info:EventInfo?
     var player = Player()
     var isOnlySystemTestForTicket = false
@@ -575,6 +576,9 @@ class CameraTestController: InterfaceExtendedController {
     @IBAction func procceds(sender:UIButton){
         
         self.dismiss(animated: false, completion: {
+            if let handler2 = self.onDoneBlock{
+                handler2(true)
+            }
             
             if self.onlySystemTest{
                 return
@@ -636,8 +640,12 @@ class CameraTestController: InterfaceExtendedController {
         
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
+               
                 if let handler = self.onSuccessTest{
                     handler(true)
+                }
+                if let handler2 = self.onDoneBlock{
+                    handler2(true)
                 }
             })
         }
