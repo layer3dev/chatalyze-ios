@@ -744,8 +744,8 @@ class UserCallController: VideoCallController {
         }
         
         //Reset the selfie timer if it is not initiated yet.
-        if !(isSelfieTimerInitiated){
-            
+        if !SlotFlagInfo.staticScreenShotSaved{
+            Log.echo(key: "vijayTimer", text: "@748")
             self.selfieTimerView?.reset()
             SlotFlagInfo.staticIsTimerInitiated = false
         }
@@ -929,7 +929,7 @@ class UserCallController: VideoCallController {
                         Log.echo(key: "vijayTimer", text: "@909")
                         return
                     }else{
-                        callLogger?.logSelfieLogs(speed: 886)
+                        
                         SlotFlagInfo.staticSlotId = -1
                         SlotFlagInfo.staticIsTimerInitiated = false
                         selfieTimerView?.reset()
@@ -953,10 +953,9 @@ class UserCallController: VideoCallController {
             return
         }
         
-        if isSelfieTimerInitiated{
-            Log.echo(key: "vijayTimer", text: "screenShotSaved already")
-            return
-        }
+//        if isHangUp{
+//            return
+//        }
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -977,7 +976,6 @@ class UserCallController: VideoCallController {
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-            isSelfieTimerInitiated = false
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
@@ -988,10 +986,7 @@ class UserCallController: VideoCallController {
                 
                 //UserDefaults.standard.set(id, forKey: "selfieTimerCurrentSlotId")
                 SlotFlagInfo.staticSlotId = id
-                if self.isSelfieTimerInitiated{
-                    SlotFlagInfo.staticIsTimerInitiated = true
-                }
-                
+                SlotFlagInfo.staticIsTimerInitiated = true
             }
             
             //for testing
@@ -1011,17 +1006,14 @@ class UserCallController: VideoCallController {
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
-                self.isSelfieTimerInitiated = true
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
-                isSelfieTimerInitiated = false
                 let slotInfo = self.myLiveUnMergedSlot
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
-                self.saveImage()
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
@@ -1809,18 +1801,15 @@ extension UserCallController {
         
         guard let selfieImage = memoryImage
             else{
-            Log.echo(key: "vijayS", text: "return@1764")
                 return
         }
         
         if let slotidFromCanvas = info?.currentSlotId{
             if let currentId = self.myLiveUnMergedSlot?.id{
                 if slotidFromCanvas != currentId{
-                    Log.echo(key: "vijayS", text: "return@1770")
                     return
                 }
             }else{
-                Log.echo(key: "vijayS", text: "return@1775")
                 return
             }
         }else{
