@@ -1540,6 +1540,20 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
         self.addSubview(sessionLengthPicker)
     }
     
+    func disableSwitch(){
+        screenShotLabel?.text = "OFF"
+        autographLabel?.text = "OFF"
+        screenShotCustomSwitch?.setOff()
+        autographCustomSwitch?.setOff()
+        screenShotCustomSwitch?.isUserInteractionEnabled = false
+        autographCustomSwitch?.isUserInteractionEnabled = false
+    }
+    
+    func enableSwitch(){
+        screenShotCustomSwitch?.isUserInteractionEnabled = true
+        autographCustomSwitch?.isUserInteractionEnabled = true
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         return 1
@@ -1596,12 +1610,14 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
                 let selectedRow = Float(chatLengthArray[row])
                 slotSelected = (selectedRow)
+                screenShotCustomSwitch?.setOff()
+                disableSwitch()
                 return
             }else if Int(chatLengthArray[row]) ?? 0 <= 1 {
-                
+                enableSwitch()
                 chatLength?.textField?.text = chatLengthArray[row] + " min"
             }else{
-               
+                enableSwitch()
                 chatLength?.textField?.text = chatLengthArray[row] + " mins"
             }
             

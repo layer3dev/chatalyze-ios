@@ -42,7 +42,7 @@ class SessionDetailTableCell: ExtendedTableCell {
         if let date = self.emptySlotInfo?.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm"
+            dateFormatter.dateFormat = "h:mm:ss"
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             let requireOne = dateFormatter.string(from: date)
@@ -50,7 +50,7 @@ class SessionDetailTableCell: ExtendedTableCell {
             if let date = self.emptySlotInfo?.endDate{
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "h:mm a"
+                dateFormatter.dateFormat = "h:mm:ss a"
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
                 dateFormatter.amSymbol = "AM"

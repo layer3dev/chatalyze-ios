@@ -16,6 +16,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     var rootController:EventController?
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
+    var onDoneBlock : ((Bool) -> ())?
     var dismissListner:((Bool)->())?
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
@@ -199,6 +200,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             controller.info = self.info
             controller.rootController = self
             controller.onSuccessTest = self.onSuccessTest
+            controller.onDoneBlock = self.onDoneBlock
             controller.isOnlySystemTestForTicket = self.isOnlySystemTestForTicket
             controller.onlySystemTest = self.onlySystemTest
             controller.dismissListner = {
@@ -321,9 +323,9 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     
     @IBAction func dismissAction(){
-        
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
+                
                 if let listner = self.dismissListner{
                     listner(false)
                 }
