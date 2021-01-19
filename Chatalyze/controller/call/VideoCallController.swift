@@ -1162,10 +1162,6 @@ extension VideoCallController{
         
         
         
-        
-        
-        
-        
         if(type == .connected) {
             
             self.hideAlertContainer()
@@ -1248,12 +1244,10 @@ extension VideoCallController{
         }
         
         if type == .preConnectedSuccess {
-            
             self.showAlertContainer()
             self.showPreConnectLabel()
             let requiredMessage = "Get ready to chat!"
             let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
-            
             
             preConnectLbl?.attributedText = secondAttributedString
             return
