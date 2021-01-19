@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         Log.echo(key: "yud", text: "ApplicationDidBecomeActive is calling")
-
+//        setupNotifications()
         earlyCallProcessor?.eventInfoArray.removeAll()
         verifyingAccessToken()
         startTimer()

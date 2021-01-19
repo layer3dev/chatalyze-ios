@@ -197,9 +197,24 @@ class CameraTestController: InterfaceExtendedController {
         
         if self.viewIfLoaded?.window != nil {
             self.checkForMicrphone()
+            handleRouteChange()
         }
     }
     
+    func handleRouteChange() {
+       let session = AVAudioSession.sharedInstance()
+       
+        do {
+            //try session.setCategory(AVAudioSession.Category.playback)
+            try session.setCategory(AVAudioSession.Category.playAndRecord,mode: .default, options:[AVAudioSession.CategoryOptions.allowAirPlay,AVAudioSession.CategoryOptions.allowBluetooth,AVAudioSession.CategoryOptions.allowBluetoothA2DP])
+            try session.overrideOutputAudioPort(.speaker)
+            try session.setActive(true)
+            
+        }
+       catch{
+       }
+       // To be implemente d.
+   }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -209,6 +224,7 @@ class CameraTestController: InterfaceExtendedController {
             self.checkForMicrphone()
         }
     }
+    
     
     @objc func levelTimerCallback() {
             
@@ -574,7 +590,7 @@ class CameraTestController: InterfaceExtendedController {
     }
     
     @IBAction func procceds(sender:UIButton){
-        
+        self.recorder?.stop()
         self.dismiss(animated: false, completion: {
             if let handler2 = self.onDoneBlock{
                 handler2(true)
@@ -637,7 +653,7 @@ class CameraTestController: InterfaceExtendedController {
   }
     
     @IBAction func dismissAction(){
-        
+        self.recorder?.stop()
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
                
