@@ -206,24 +206,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             showAlert(sender: send ?? UIButton())
             return
         }
-        performSystemTestFirstToContinueWithCall()
-    }
-    
-    // @Abhishek: System check will be performed every time before entering to call room.
-    func performSystemTestFirstToContinueWithCall(){
-        guard let controller = InternetSpeedTestController.instance() else{
-            return
-        }
-        controller.onlySystemTest = true
-        controller.onDoneBlock = { result in
-            if result{
-                Log.echo(key: "vijay", text: "\(result) called")
-                self.delegate?.jointEvent(info:self.info)
-            }
-        }
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-        })
+        self.delegate?.jointEvent(info:self.info)
     }
     
     @IBAction func systemTest(sender:UIButton?){

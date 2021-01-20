@@ -770,7 +770,7 @@ class HostCallController: VideoCallController {
         
         if self.eventInfo?.isCurrentSlotIsBreak ?? false{
             if self.isPreConnected{
-                recordingLbl.isHidden = false
+                checkforRecordingStatus()
             }else{
                 recordingLbl.isHidden = true
             }

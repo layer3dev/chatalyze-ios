@@ -251,24 +251,9 @@ class MySessionTableViewCell: ExtendedTableCell {
             showAlert(sender: sender ?? UIButton())
             return
         }
-        performSystemTestFirstToContinueWithCall()
-        
+        self.gotoSession()
     }
-    func performSystemTestFirstToContinueWithCall(){
-        guard let controller = InternetSpeedTestController.instance() else{
-            return
-        }
-        controller.onlySystemTest = true
-        controller.onDoneBlock = { result in
-            if result{
-                Log.echo(key: "vijay", text: "\(result) called")
-                self.gotoSession()
-            }
-        }
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
-        })
-    }
+
 }
 
 extension MySessionTableViewCell{
