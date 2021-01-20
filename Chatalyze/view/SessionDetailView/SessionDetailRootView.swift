@@ -95,7 +95,9 @@ class SessionDetailRootView: ExtendedView {
             }
             
             self.priceLbl?.text =  (info.price ?? 0.0)  == 0.0 ? "Free": "$\(String(format: "%.2f", info.price ?? 0.0)) per chat"
-            self.durationLbl?.text = "\(Int(info.duration ?? 0.0)) min chats"
+//            self.durationLbl?.text = "\(Float(info.duration ?? 0.0)) min chats"
+            self.durationLbl?.text = (Float(info.duration ?? 0.0) < 1.0) ? "\(Int(Float(info.duration ?? 0.0)*60.0)) seconds chats":"\(Int(info.duration ?? 0.0)) min chats"
+           
 
             if let startDate = info.startDate{
                 if let endDate = info.endDate{

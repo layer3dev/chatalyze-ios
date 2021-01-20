@@ -31,7 +31,7 @@ class UserCallController: VideoCallController {
     
     //Animation Responsible
     var isAnimating = false
-    
+    var isSlefieScreenShotSaved = false
     var isPreConnected = false
     
     //variable and outlet responsible for the SelfieTimer
@@ -744,10 +744,12 @@ class UserCallController: VideoCallController {
         }
         
         //Reset the selfie timer if it is not initiated yet.
-        if !SlotFlagInfo.staticScreenShotSaved{
+        if !isSlefieScreenShotSaved{
             Log.echo(key: "vijayTimer", text: "@748")
             self.selfieTimerView?.reset()
             SlotFlagInfo.staticIsTimerInitiated = false
+        }else{
+            Log.echo(key: "vijayTimer", text: "timer didnt get reset")
         }
         localMediaPackage?.isDisabled = hangup
     }
@@ -926,7 +928,7 @@ class UserCallController: VideoCallController {
                 if !(isCallStreaming){
                     
                     if SlotFlagInfo.staticScreenShotSaved {
-                        Log.echo(key: "vijayTimer", text: "@909")
+                        Log.echo(key: "vijayTimer", text: "SlotFlagInfo.staticScreenShotSaved \(SlotFlagInfo.staticScreenShotSaved)")
                         return
                     }else{
                         
@@ -938,7 +940,7 @@ class UserCallController: VideoCallController {
                     return
                 }
                 
-                Log.echo(key: "vijayTimer", text: "@920")
+//                Log.echo(key: "vijayTimer", text: "@920")
                 return
             }
         }
@@ -981,6 +983,7 @@ class UserCallController: VideoCallController {
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
+            isSlefieScreenShotSaved = false
             self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
             if let id = self.myLiveUnMergedSlot?.id {
                 
@@ -1009,11 +1012,13 @@ class UserCallController: VideoCallController {
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
+                isSlefieScreenShotSaved = true
                 let slotInfo = self.myLiveUnMergedSlot
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                saveImage()
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
