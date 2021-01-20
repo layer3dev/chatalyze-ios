@@ -1018,6 +1018,7 @@ class UserCallController: VideoCallController {
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                saveImage()
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
