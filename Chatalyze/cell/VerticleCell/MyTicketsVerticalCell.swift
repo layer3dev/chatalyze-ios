@@ -22,7 +22,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
     @IBOutlet var title:UILabel?
     var delegate:MyTicketCellDelegate?
     var info:EventSlotInfo?
-    
+    let controller =  CameraTestController()
     var formattedStartTime:String?
     var formattedEndTime:String?
     var formattedStartDate:String?
@@ -41,6 +41,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         super.viewDidLayout()
         
         paintInterface()
+        
+        
     }
     
     func paintInterface() {
@@ -145,7 +147,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm")
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss")
             formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEE, MMM dd, yyyy")
             formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "") \(TimeZone.current.abbreviation() ?? "")"
         }
@@ -160,7 +162,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss a")
         }
     }
     
@@ -204,7 +206,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
             showAlert(sender: send ?? UIButton())
             return
         }
-        delegate?.jointEvent(info:self.info)
+        self.delegate?.jointEvent(info:self.info)
     }
     
     @IBAction func systemTest(sender:UIButton?){

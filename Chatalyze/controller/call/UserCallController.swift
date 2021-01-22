@@ -31,7 +31,7 @@ class UserCallController: VideoCallController {
     
     //Animation Responsible
     var isAnimating = false
-    
+    var isSlefieScreenShotSaved = false
     var isPreConnected = false
     
     //variable and outlet responsible for the SelfieTimer
@@ -744,10 +744,12 @@ class UserCallController: VideoCallController {
         }
         
         //Reset the selfie timer if it is not initiated yet.
-        if !(isSelfieTimerInitiated){
-            
+        if !isSlefieScreenShotSaved{
+            Log.echo(key: "vijayTimer", text: "@748")
             self.selfieTimerView?.reset()
             SlotFlagInfo.staticIsTimerInitiated = false
+        }else{
+            Log.echo(key: "vijayTimer", text: "timer didnt get reset")
         }
         localMediaPackage?.isDisabled = hangup
     }
@@ -926,10 +928,10 @@ class UserCallController: VideoCallController {
                 if !(isCallStreaming){
                     
                     if SlotFlagInfo.staticScreenShotSaved {
-                        Log.echo(key: "vijayTimer", text: "@909")
+                        Log.echo(key: "vijayTimer", text: "SlotFlagInfo.staticScreenShotSaved \(SlotFlagInfo.staticScreenShotSaved)")
                         return
                     }else{
-                        callLogger?.logSelfieLogs(speed: 886)
+                        
                         SlotFlagInfo.staticSlotId = -1
                         SlotFlagInfo.staticIsTimerInitiated = false
                         selfieTimerView?.reset()
@@ -937,7 +939,8 @@ class UserCallController: VideoCallController {
                     Log.echo(key: "vijayTimer", text: "@917")
                     return
                 }
-                Log.echo(key: "vijayTimer", text: "@920")
+                
+//                Log.echo(key: "vijayTimer", text: "@920")
                 return
             }
         }
@@ -975,12 +978,12 @@ class UserCallController: VideoCallController {
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-            isSelfieTimerInitiated = false
             socketClient?.emit(data)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
+            isSlefieScreenShotSaved = false
             self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
             if let id = self.myLiveUnMergedSlot?.id {
                 
@@ -1006,16 +1009,16 @@ class UserCallController: VideoCallController {
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
-                self.isSelfieTimerInitiated = true
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
+                isSlefieScreenShotSaved = true
                 let slotInfo = self.myLiveUnMergedSlot
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
-                self.saveImage()
+                saveImage()
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
@@ -1803,23 +1806,21 @@ extension UserCallController {
         
         guard let selfieImage = memoryImage
             else{
-            Log.echo(key: "vijayS", text: "return@1764")
                 return
         }
         
         if let slotidFromCanvas = info?.currentSlotId{
             if let currentId = self.myLiveUnMergedSlot?.id{
                 if slotidFromCanvas != currentId{
-                    Log.echo(key: "vijayS", text: "return@1770")
                     return
                 }
             }else{
-                Log.echo(key: "vijayS", text: "return@1775")
                 return
             }
         }else{
 
-            //toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get return
+//            toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get
+            return
 
         }
         

@@ -253,6 +253,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         }
         self.gotoSession()
     }
+
 }
 
 extension MySessionTableViewCell{

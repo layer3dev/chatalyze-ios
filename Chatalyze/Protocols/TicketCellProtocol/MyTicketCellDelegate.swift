@@ -12,3 +12,8 @@ protocol MyTicketCellDelegate {
     func jointEvent(info:SlotInfo?)
     func systemTest()
 }
+
+
+protocol DimissListener{
+    func launchCallRoom(result:Bool?)
+}
