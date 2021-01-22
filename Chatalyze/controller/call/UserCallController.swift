@@ -927,7 +927,7 @@ class UserCallController: VideoCallController {
                 
                 if !(isCallStreaming){
                     
-                    if SlotFlagInfo.staticScreenShotSaved {
+                    if isSlefieScreenShotSaved {
                         Log.echo(key: "vijayTimer", text: "SlotFlagInfo.staticScreenShotSaved \(SlotFlagInfo.staticScreenShotSaved)")
                         return
                     }else{
@@ -941,6 +941,7 @@ class UserCallController: VideoCallController {
                 }
                 
 //                Log.echo(key: "vijayTimer", text: "@920")
+                Log.echo(key: "SelfieTimer", text: "@944")
                 return
             }
         }

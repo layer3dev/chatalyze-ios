@@ -20,12 +20,19 @@ class EventValidator{
         let startTime = start.timeIntervalTillNow
         Log.echo(key: "vijay", text: "duration received\(duration)")
         
-        if duration == 30 || duration == 15 {
+        if duration == 15 {
+            if(startTime <= 12 && startTime > 0){
+                Log.echo(key: "vijay", text: "PreConnected:True")
+                return true
+            }
+        }else if duration == 30 {
             if(startTime <= 15 && startTime > 0){
                 Log.echo(key: "vijay", text: "PreConnected:True")
                 return true
             }
-        }else{
+
+        }
+        else{
             if(startTime <= 30 && startTime > 0){
                 Log.echo(key: "vijay", text: "PreConnected:True")
                 return true
