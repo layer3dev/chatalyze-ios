@@ -18,9 +18,10 @@ class EventValidator{
         }
         
         let startTime = start.timeIntervalTillNow
-        Log.echo(key: "vijay", text: "duration received\(duration)")
+        let durations = UserDefaults.standard.double(forKey: "duration")
+        Log.echo(key: "vijay", text: "duration received\(durations * 60)")
         
-        switch duration {
+        switch durations*60 {
         case 30:
             if(startTime <= 15 && startTime > 0){
                 Log.echo(key: "vijay30Seconds", text: "PreConnected:True")
