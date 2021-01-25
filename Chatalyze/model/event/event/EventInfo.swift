@@ -95,6 +95,7 @@ class EventInfo: NSObject {
         title = json["title"].string
         eventDescription = json["description"].string
         duration = json["duration"].doubleValue
+        UserDefaults.standard.set(duration, forKey: "duration")
         _price = json["price"].doubleValue
         backgroundcolor = json["backgroundcolor"].string
         bordercolor = json["bordercolor"].string
