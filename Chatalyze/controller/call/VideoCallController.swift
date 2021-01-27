@@ -1148,7 +1148,7 @@ extension VideoCallController{
             return
         }
         
-        stopIdleMedia()
+   
         
         if(type == .ideal) {
             
@@ -1245,6 +1245,7 @@ extension VideoCallController{
         if type == .preConnectedSuccess {
             self.showAlertContainer()
             self.showPreConnectLabel()
+            stopIdleMedia()
             let requiredMessage = "Get ready to chat!"
             let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             

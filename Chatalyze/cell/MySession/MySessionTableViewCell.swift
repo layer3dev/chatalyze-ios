@@ -126,6 +126,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             if let endDate = info.endDate{
                 let timeDiffrence = endDate.timeIntervalSince(startDate)
                 if let durate  = info.duration{
+                    UserDefaults.standard.setValue(durate, forKey: "durate")
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
                     self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.checkExactEmptySlots())) booked"
                 }
