@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var earlyCallProcessor:VerifyForEarlyCallProcessor?
     var isSignatureInCallisActive = false
     var signatureDirection:UIInterfaceOrientationMask = UIInterfaceOrientationMask.portrait
-    var timer : SyncTimer = SyncTimer()
+    var timer : SyncTimer?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         handlePushNotification(launch:launchOptions)
         UIApplication.shared.registerForRemoteNotifications()
+        timer = SyncTimer()
         self.startTimer()
         return true
     }
@@ -97,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Log.echo(key: "yud", text: "Application did enter to background.")
 
-        timer.pauseTimer()
+        timer?.pauseTimer()
         self.shownEarlySessionIdList.removeAll()
 
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -132,11 +133,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func startTimer(){
 
-        timer.ping { [weak self] in
+        timer?.ping { [weak self] in
             self?.executeInterval()
         }
         
-        timer.startTimer()
+        timer?.startTimer()
     }
     
     func executeInterval(){

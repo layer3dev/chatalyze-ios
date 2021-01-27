@@ -272,7 +272,10 @@ class HostCallController: VideoCallController {
         
         controller.exit = {
             
+            Log.echo(key: self.TAG, text: "Host Tapped on Exit")
+            
             DispatchQueue.main.async {
+                Log.echo(key: self.TAG, text: "call processExitAction")
                 self.processExitAction(code : .userAction)
              
               guard let isCalledHangedUp =  self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp else {return}
@@ -463,6 +466,8 @@ class HostCallController: VideoCallController {
     
     override func interval(){
         super.interval()
+        
+        Log.echo(key: TAG, text: "interval")
         
         trackChatCompletedLog()
         verifyForEarlyFeature()
@@ -1043,6 +1048,7 @@ class HostCallController: VideoCallController {
     }
     
     func resetAllRooms(){
+        Log.echo(key: TAG, text: "resetAllRooms")
           if let ctr = currentTwillioRoom{
               ctr.disconnect()
               self.currentTwillioRoom = nil
