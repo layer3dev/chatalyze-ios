@@ -1151,6 +1151,7 @@ extension VideoCallController{
         case eventCancelled = 6
         case idealMedia = 7
         case socketDisconnected = 8
+        case breakSlot = 9
     }
     
     func setStatusMessage(type : callStatusMessage) {
@@ -1167,7 +1168,7 @@ extension VideoCallController{
         
    
         
-        if(type == .ideal) {
+        if(type == .ideal || type == .breakSlot) {
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()

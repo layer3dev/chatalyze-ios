@@ -566,6 +566,12 @@ class UserCallController: VideoCallController {
             return;
         }
         
+        if(activeSlot.isBreak){
+            Log.echo(key: "vijay", text: "Break Slot")
+            setStatusMessage(type: .breakSlot)
+            return;
+        }
+        
         guard let connection = connection
             else{
                 setStatusMessage(type: .ideal)
