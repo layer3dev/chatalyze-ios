@@ -467,7 +467,9 @@ class HostCallController: VideoCallController {
         trackChatCompletedLog()
         verifyForEarlyFeature()
         triggerIntervalToChildConnections()
+        
         processEvent()
+        
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
@@ -1041,7 +1043,6 @@ class HostCallController: VideoCallController {
     }
     
     func resetAllRooms(){
-          
           if let ctr = currentTwillioRoom{
               ctr.disconnect()
               self.currentTwillioRoom = nil

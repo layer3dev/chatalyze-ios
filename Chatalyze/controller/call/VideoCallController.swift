@@ -255,7 +255,6 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func processExitAction(code : exitCode){
-        
         timer.pauseTimer()
         self.exit(code : code)
         updateUserOfExit()
