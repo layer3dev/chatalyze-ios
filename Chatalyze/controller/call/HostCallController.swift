@@ -34,7 +34,7 @@ class HostCallController: VideoCallController {
     var autographSlotInfo : SlotInfo? = nil
     
     //In order to maintain the refrence for the Early Controller.
-    var earlyControllerReference:EarlyViewController?
+    var earlyControllerReference : EarlyViewController?
     
     //Outlet for sessioninfo.
     @IBOutlet var sessionHeaderLbl:UILabel?
@@ -2042,8 +2042,8 @@ extension HostCallController{
         
         twillioRoom.isFetchingTokenToServer = true
         FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id) { (success, error, info) in
+            
             print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
-
             twillioRoom.isFetchingTokenToServer = false
             if !success {
                 return

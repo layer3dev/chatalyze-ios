@@ -472,7 +472,7 @@ class UserCallController: VideoCallController {
             if isRequested{
                 
                 Log.echo(key: "yudi", text: "I am also requesting the requested file")
-                
+        
                 self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
                 return
             }

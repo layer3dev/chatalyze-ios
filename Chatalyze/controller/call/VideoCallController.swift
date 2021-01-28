@@ -908,9 +908,6 @@ extension VideoCallController{
 extension VideoCallController{
     
     func startLocalStream() {
-        
-        
-        
         // Create a video track which captures from the camera.
         if (self.localMediaPackage?.mediaTrack == nil) {
             self.writeLocalVideoTrack()
