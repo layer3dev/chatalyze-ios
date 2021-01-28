@@ -593,9 +593,16 @@ class HostCallController: VideoCallController {
                 return
         }
         
-        if(activeSlot.isLIVE && (getActiveConnection()?.isStreaming ?? false)){
+        
+        if(activeSlot.isLIVE && (currentTwillioRoom?.isStreaming ?? false)){
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
+            return
+        }
+        
+        if(activeSlot.isBreak){
+            Log.echo(key: "vijay", text: "Break Slot")
+            setStatusMessage(type: .breakSlot)
             return
         }
         
