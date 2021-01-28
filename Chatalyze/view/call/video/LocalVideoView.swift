@@ -12,6 +12,8 @@ import UIKit
 //AVMakeRectWithAspectRatioInsideRect
 class LocalVideoView: VideoViewOld {
     
+    private let TAG = "LocalVideoView"
+    
     private var frameRender = CameraVideoFrameRenderer()
     
     @IBOutlet var widthConstraint : NSLayoutConstraint?
@@ -66,22 +68,28 @@ class LocalVideoView: VideoViewOld {
         updateLayoutRotation()
     }
     
+    
     func updateLayoutRotation() {
-        
+        Log.echo(key: TAG, text: "updateLayoutRotation")
         if(UIDevice.current.orientation.isFlat){
+            Log.echo(key: TAG, text: "isFlat")
             if UIApplication.shared.statusBarOrientation.isLandscape{
+                Log.echo(key: TAG, text: "isFlat updateForLandscape")
                 updateForLandscape()
             }else{
+                Log.echo(key: TAG, text: "isFlat updateForPortrait")
                 updateForPortrait()
             }
             return
         }
 
         if (UIDevice.current.orientation.isLandscape) {
+            Log.echo(key: TAG, text: "isLandscape")
             updateForLandscape()
             return
         }
         if(UIDevice.current.orientation.isPortrait) {
+            Log.echo(key: TAG, text: "isPortrait")
             updateForPortrait()
             return
         }
@@ -116,7 +124,6 @@ class LocalVideoView: VideoViewOld {
         bottomConstraint?.isActive = true
         
         if(isIPad){
-            
             heightConstraint?.constant = 126
             widthConstraint?.constant = 224
             return

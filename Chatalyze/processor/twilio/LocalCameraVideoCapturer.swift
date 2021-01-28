@@ -101,8 +101,23 @@ class LocalCameraVideoCapturer : NSObject{
         updateOrientation()
     }
     
+    
     private func updateOrientation(){
-        orientation = UIDevice.current.orientation
+        let newOrientation = UIDevice.current.orientation
+        if(newOrientation != UIDeviceOrientation.faceUp && newOrientation != UIDeviceOrientation.faceDown){
+            orientation = newOrientation
+            return
+        }
+        
+        
+        DispatchQueue.main.async {[weak self] in
+            if(UIApplication.shared.statusBarOrientation.isLandscape){
+                self?.orientation = UIDeviceOrientation.landscapeLeft
+                return
+            }
+            self?.orientation = UIDeviceOrientation.portrait
+        }
+        
     }
     
     
