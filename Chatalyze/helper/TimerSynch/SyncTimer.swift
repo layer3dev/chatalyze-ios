@@ -12,6 +12,10 @@ import UIKit
 
 class SyncTimer: NSObject {
     
+    private let TAG = "SyncTimer"
+    
+    var shouldLog = false
+    
     fileprivate var closure : (()->Void)?
     fileprivate var timer : Timer?
     
@@ -36,6 +40,8 @@ class SyncTimer: NSObject {
     
     @objc func processData(_ timer : Timer){
         
+
+        
         weak var weakSelf = self
         DispatchQueue.main.async(execute: {
             guard let weak = weakSelf
@@ -53,6 +59,12 @@ class SyncTimer: NSObject {
             }
             
             weak.lastRefresh = seconds
+            
+            //flag to log the closure trigger
+            if(weak.shouldLog){
+                Log.echo(key: weak.TAG, text: "processData")
+            }
+            
             weak.closure?()
         })
     }
@@ -60,6 +72,8 @@ class SyncTimer: NSObject {
     
     
     func pauseTimer(){
+        
+        Log.echo(key: TAG, text: "pauseTimer")
         
         guard let timerUW = timer
             else{

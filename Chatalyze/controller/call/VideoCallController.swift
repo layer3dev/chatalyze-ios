@@ -11,7 +11,13 @@ import TwilioVideo
 //refresh procedure is being written redundantly
 class VideoCallController : InterfaceExtendedController {
     
+    private let TAG = "VideoCallController"
+    
     var callLogger : CallLogger?
+    
+    
+    //added this flag to prevent issue with thread race caused because of thread lock done by Twilio Disconnect - causing timer thread to choke and execute even after the invalidate process because it was already triggered but choked in queue.
+    var isProcessTerminated = false
     
     var isStatusBarRequiredToHidden = false
     
@@ -67,7 +73,7 @@ class VideoCallController : InterfaceExtendedController {
     let applicationStateListener = ApplicationStateListener()
     
     //used for tracking the call time and auto-connect process
-    var timer : SyncTimer = SyncTimer()
+    let timer : SyncTimer = SyncTimer()
     
     fileprivate var audioManager : AudioManager?
     
@@ -255,6 +261,8 @@ class VideoCallController : InterfaceExtendedController {
     }
     
     func processExitAction(code : exitCode){
+        Log.echo(key: TAG, text: "processExitAction -> \(code)")
+        isProcessTerminated = true
         
         timer.pauseTimer()
         self.exit(code : code)
@@ -689,6 +697,10 @@ class VideoCallController : InterfaceExtendedController {
     
     private func startTimer(){
         
+        Log.echo(key: TAG, text: "startTimer")
+        
+        timer.shouldLog = true
+        
         timer.ping { [weak self] in
             self?.executeInterval()
         }
@@ -699,6 +711,10 @@ class VideoCallController : InterfaceExtendedController {
     private func executeInterval(){
         
         if(isReleased){
+            return
+        }
+        if(isProcessTerminated){
+            Log.echo(key: TAG, text: "isProcessTerminated -> TRUE - STOP RIGHT THERE")
             return
         }
         if(!isReady){

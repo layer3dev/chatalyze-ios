@@ -280,8 +280,6 @@ class CallConnection: NSObject {
         self.socketListener?.releaseListener()
         self.socketListener = nil
         
-        
-        
         //self.removeWholeRenders()
         //resetRemoteFrame()
     }
