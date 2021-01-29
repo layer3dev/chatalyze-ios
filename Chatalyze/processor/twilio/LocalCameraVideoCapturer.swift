@@ -109,15 +109,6 @@ class LocalCameraVideoCapturer : NSObject{
             return
         }
         
-        
-        DispatchQueue.main.async {[weak self] in
-            if(UIApplication.shared.statusBarOrientation.isLandscape){
-                self?.orientation = UIDeviceOrientation.landscapeLeft
-                return
-            }
-            self?.orientation = UIDeviceOrientation.portrait
-        }
-        
     }
     
     
