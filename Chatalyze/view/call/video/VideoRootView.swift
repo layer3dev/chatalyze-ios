@@ -14,6 +14,7 @@ class VideoRootView: ExtendedView {
     @IBOutlet var callInfoContainer : CallInfoContainerView?
     
     var testView = MemoryFrame()
+    var defualtImage = String()
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
@@ -217,6 +218,8 @@ class VideoRootView: ExtendedView {
    private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
        
        testView = MemoryFrame()
+   
+    
        
        guard let localImage = localFrame, let remoteImage = remoteFrame
            else{
@@ -224,11 +227,18 @@ class VideoRootView: ExtendedView {
                return
        }
        
-       guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
+       guard var finalImage = mergePicture(local: localImage, remote: remoteImage)
            else{
                completion(nil)
                return
        }
+    
+    let image = UIImageView()
+    var defulatImage = image.sd_setImage(with: URL(string:self.defualtImage), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+        if let image = image{
+            finalImage = image
+        }
+    })
        
        let isPortraitInSize = isPortrait(size: finalImage.size)
        
