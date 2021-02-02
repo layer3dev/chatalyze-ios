@@ -29,7 +29,8 @@ class HostCallController: VideoCallController {
     
     var isPreConnected = false
     var recordingLblTopAnchor: NSLayoutConstraint?
-    
+    var defaultImageUrl = String()
+    var defaultImage : UIImage?
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     
@@ -101,6 +102,25 @@ class HostCallController: VideoCallController {
            custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
        }
     
+    func getDefulatImage(roomId : String){
+        RequestDefaultImage().fetchInfo(id: roomId) { (success, imageURL) in
+            if success{
+                if let image = imageURL{
+                    Log.echo(key: "vijayDefault", text: "imageURL is \(image)")
+                    SDWebImageDownloader().downloadImage(with: URL(string: image), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
+                        guard let img = image else {
+                            // No image handle this error
+                            Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                            return
+                        }
+                        self.defaultImage = img
+                        Log.echo(key: "vijayDefault", text: "defaultImage Found")
+                    }
+                }
+            }
+        }
+    }
+    
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
@@ -137,6 +157,12 @@ class HostCallController: VideoCallController {
     
     
     private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        if let room_id = eventInfo?.room_id{
+            self.getDefulatImage(roomId: room_id)
+        }else{
+            Log.echo(key: "vijayDefault", text: "no roomId founf")
+        }
+        
         guard let imgURL = eventInfo?.backgroundURL
             else{
                 custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
@@ -443,6 +469,13 @@ class HostCallController: VideoCallController {
             guard let image = image
                 else{
                     return
+            }
+            
+            if let defaultImg = self.defaultImage {
+                self.renderCanvas(image : defaultImg, slotInfo : requestedAutographSlotInfo)
+                return
+            }else{
+                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
             }
             
             Log.echo(key: "HostCallController", text: "call renderCanvas")

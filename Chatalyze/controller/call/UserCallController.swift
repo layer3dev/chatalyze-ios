@@ -201,7 +201,10 @@ class UserCallController: VideoCallController {
         layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
+        RequestDefaultImage().fetchInfo(id: roomId ?? "4hRkl") { (success, response) in
+            Log.echo(key: "vijayRequest", text: "\(response)")
+        }
+
     }
     
     override func interval(){
