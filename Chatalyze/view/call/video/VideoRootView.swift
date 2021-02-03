@@ -14,6 +14,7 @@ class VideoRootView: ExtendedView {
     @IBOutlet var callInfoContainer : CallInfoContainerView?
     
     var testView = MemoryFrame()
+    var defaultImage : UIImage?
     var defualtImage = String()
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
@@ -63,12 +64,19 @@ class VideoRootView: ExtendedView {
     private func initialization(){
         
         initializeVariable()
+        getDefaultImage()
         paintInterface()
         addToogleGesture()
+        
     }
     
     private func initializeVariable(){
         
+    }
+    
+    private func getDefaultImage(){
+        let roomId = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        self.getDefulatImage(roomId: roomId)
     }
     
     private func paintInterface(){
@@ -81,6 +89,25 @@ class VideoRootView: ExtendedView {
         tapGesture.numberOfTapsRequired = 1
         tapGesture.delegate = self
         self.addGestureRecognizer(tapGesture)
+    }
+    
+    private func getDefulatImage(roomId : String){
+        RequestDefaultImage().fetchInfo(id: roomId) { (success, imageURL) in
+            if success{
+                if let image = imageURL{
+                    Log.echo(key: "vijayDefault", text: "imageURL is \(image)")
+                    SDWebImageDownloader().downloadImage(with: URL(string: image), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
+                        guard let img = image else {
+                            // No image handle this error
+                            Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                            return
+                        }
+                        self.defaultImage = img
+                        Log.echo(key: "vijayDefault", text: "defaultImage Found")
+                    }
+                }
+            }
+        }
     }
     
     func hangupListener(listener : (()->())?){
@@ -227,19 +254,12 @@ class VideoRootView: ExtendedView {
                return
        }
        
-       guard var finalImage = mergePicture(local: localImage, remote: remoteImage)
+       guard let finalImage = mergePicture(local: localImage, remote: remoteImage)
            else{
                completion(nil)
                return
        }
-    
-    let image = UIImageView()
-    var defulatImage = image.sd_setImage(with: URL(string:self.defualtImage), placeholderImage: UIImage(named:"user_placeholder"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-        if let image = image{
-            finalImage = image
-        }
-    })
-       
+           
        let isPortraitInSize = isPortrait(size: finalImage.size)
        
        Log.echo(key: "yud", text: "is image is portrait \(String(describing: isPortraitInSize))")
@@ -297,6 +317,12 @@ class VideoRootView: ExtendedView {
         
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
+            
+            if let defaultImg = self.defaultImage {
+                return defaultImg
+            }else{
+                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+            }
             
             var cropHostPic = UIImage()
             var cropUserPic = UIImage()
