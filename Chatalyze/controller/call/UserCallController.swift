@@ -201,10 +201,7 @@ class UserCallController: VideoCallController {
         layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
-        RequestDefaultImage().fetchInfo(id: roomId ?? "4hRkl") { (success, response) in
-            Log.echo(key: "vijayRequest", text: "\(response)")
-        }
-
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func interval(){
@@ -475,7 +472,7 @@ class UserCallController: VideoCallController {
             if isRequested{
                 
                 Log.echo(key: "yudi", text: "I am also requesting the requested file")
-        
+                
                 self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
                 return
             }
