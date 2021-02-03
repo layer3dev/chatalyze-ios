@@ -748,6 +748,15 @@ class VideoCallController : InterfaceExtendedController {
         }
     }
     
+    
+    var room_Id : String?{
+        
+        get{
+            Log.echo(key: "vijayDedaults", text: "\(String(describing: eventInfo?.room_id))")
+            return self.eventInfo?.room_id
+        }
+    }
+    
     func callFailed(){
     }
     

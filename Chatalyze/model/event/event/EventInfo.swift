@@ -93,6 +93,7 @@ class EventInfo: NSObject {
         backgroundURL = json["backgroundURL"].string
         isRecordingEnabled = json["recordingEnabled"].boolValue
         room_id = json["room_id"].stringValue
+        UserDefaults.standard.set(room_id, forKey: "room_id")
         userId = json["userId"].int
         title = json["title"].string
         eventDescription = json["description"].string
