@@ -98,7 +98,7 @@ class ServerProcessor{
         _ URLString: String,
         parameters: [String: Any]? = nil,
         encoding: encoding = .defaultEncoding,
-        headers: [String: String]? = nil, authorize : Bool = false,
+        headers: [String: String]? = nil, authorize : Bool = true,
         completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
         
         self.completion = completion

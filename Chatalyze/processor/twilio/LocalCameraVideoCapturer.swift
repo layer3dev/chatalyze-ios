@@ -50,10 +50,7 @@ class LocalCameraVideoCapturer : NSObject{
     }
     
     private func configureCaptureSessionInput(){
-//        guard let device = AVCaptureDevice.default(for: .video)
-//        else{
-//            return
-//        }
+
         
         guard let device = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: .video, position: .front)
         else{
@@ -66,6 +63,7 @@ class LocalCameraVideoCapturer : NSObject{
         else{
             return
         }
+//        session?.sessionPreset = .hd1280x720
         session?.beginConfiguration()
         session?.addInput(input)
         session?.commitConfiguration()
@@ -101,8 +99,14 @@ class LocalCameraVideoCapturer : NSObject{
         updateOrientation()
     }
     
+    
     private func updateOrientation(){
-        orientation = UIDevice.current.orientation
+        let newOrientation = UIDevice.current.orientation
+        if(newOrientation != UIDeviceOrientation.faceUp && newOrientation != UIDeviceOrientation.faceDown){
+            orientation = newOrientation
+            return
+        }
+        
     }
     
     

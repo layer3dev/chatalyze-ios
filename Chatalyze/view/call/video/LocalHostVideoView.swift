@@ -10,6 +10,8 @@ import UIKit
 
 class LocalHostVideoView: LocalVideoView {
     
+    private let TAG = "LocalHostVideoView"
+    
     //During the signature on calling the portrait mode
     @IBOutlet var userTopForProtraitOnSignature:NSLayoutConstraint?
     @IBOutlet var userLeadingForProtraitOnSignature:NSLayoutConstraint?
@@ -24,16 +26,20 @@ class LocalHostVideoView: LocalVideoView {
     }
     
     override func updateLayoutRotation() {
-        
+        Log.echo(key: TAG, text: "updateLayoutRotation")
         if(UIDevice.current.orientation.isFlat){
             
+            Log.echo(key: TAG, text: "isFlat")
+            
             if UIApplication.shared.statusBarOrientation.isLandscape{
+                
+                Log.echo(key: TAG, text: "isFlat landscape")
             
                 Log.echo(key: "rotation", text: "rotation is of the landscape flat \(isSignatureActive)")
                 updateForLandscape()
            
             }else{
-                
+                Log.echo(key: TAG, text: "isFlat portrait")
                 Log.echo(key: "rotation", text: "rotation is of the portrait flat \(isSignatureActive)")
                 updateForPortrait()
             }
@@ -42,12 +48,15 @@ class LocalHostVideoView: LocalVideoView {
         }
 
         if (UIDevice.current.orientation.isLandscape) {
+            Log.echo(key: TAG, text: "landscape")
             
             Log.echo(key: "rotation", text: "rotation is of the landscape \(isSignatureActive)")
             updateForLandscape()
             return
             
         } else {
+            
+            Log.echo(key: TAG, text: "portrait")
             
             Log.echo(key: "rotation", text: "rotation is of the portrait and the signature is \(isSignatureActive)")
             updateForPortrait()
@@ -62,6 +71,8 @@ class LocalHostVideoView: LocalVideoView {
     }
     
     override func updateForPortrait(){
+        
+        Log.echo(key: TAG, text: "updateForPortrait")
         
         if isSignatureActive{
             
@@ -99,6 +110,8 @@ class LocalHostVideoView: LocalVideoView {
     }
     
     override func updateForLandscape(){
+        
+        Log.echo(key: TAG, text: "updateForLandscape")
         
         if isSignatureActive{
             
