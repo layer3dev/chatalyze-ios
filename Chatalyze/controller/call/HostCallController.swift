@@ -1861,8 +1861,15 @@ extension HostCallController{
         mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
+        removeBlurImageViewInfailure()
+        
     }
     
+    private func removeBlurImageViewInfailure(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+            self.hostRootView?.canvasContainer?.removeBlurImageView()
+        }
+    }
     func stopSigning(){
         
         guard let currentSlot = autographSlotInfo
