@@ -49,6 +49,12 @@ class CanvasHostContainer: ExtendedView {
         self.isSignatureActive = true
     }
     
+    func removeBlurImageView(){
+        canvas?.mainImageView?.blurImageView?.isHidden = false
+        canvas?.signatureAccessoryDoneButton?.isUserInteractionEnabled = false
+        canvas?.mainImageView?.isUserInteractionEnabled = false
+    }
+    
     private func showInPortrait(){
         
         canvasHeightZeroConstraint?.priority = UILayoutPriority(1.0)

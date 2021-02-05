@@ -29,7 +29,8 @@ class HostCallController: VideoCallController {
     
     var isPreConnected = false
     var recordingLblTopAnchor: NSLayoutConstraint?
-    
+    var defaultImageUrl = String()
+    var defaultImage : UIImage?
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     
@@ -101,6 +102,7 @@ class HostCallController: VideoCallController {
            custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
        }
     
+    
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
         self.view.bringSubviewToFront(recordingLbl)
@@ -137,6 +139,12 @@ class HostCallController: VideoCallController {
     
     
     private func loadbackgrndImg(eveninfo: EventScheduleInfo){
+        if let room_id = eventInfo?.room_id{
+            
+        }else{
+            Log.echo(key: "vijayDefault", text: "no roomId founf")
+        }
+        
         guard let imgURL = eventInfo?.backgroundURL
             else{
                 custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
@@ -495,7 +503,6 @@ class HostCallController: VideoCallController {
                 else{
                     return
             }
-            
             Log.echo(key: "HostCallController", text: "call renderCanvas")
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
@@ -1905,8 +1912,15 @@ extension HostCallController{
         mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
+        removeBlurImageViewInfailure()
+        
     }
     
+    private func removeBlurImageViewInfailure(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+            self.hostRootView?.canvasContainer?.removeBlurImageView()
+        }
+    }
     func stopSigning(){
         
         guard let currentSlot = autographSlotInfo
