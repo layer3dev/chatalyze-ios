@@ -139,12 +139,6 @@ class HostCallController: VideoCallController {
     
     
     private func loadbackgrndImg(eveninfo: EventScheduleInfo){
-        if let room_id = eventInfo?.room_id{
-            
-        }else{
-            Log.echo(key: "vijayDefault", text: "no roomId founf")
-        }
-        
         guard let imgURL = eventInfo?.backgroundURL
             else{
                 custumBckGrndImg.backgroundColor = UIColor(hexString: "#25282E")
