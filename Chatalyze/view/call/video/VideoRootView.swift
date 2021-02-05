@@ -318,11 +318,11 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-            if let defaultImg = self.defaultImage {
-                return defaultImg
-            }else{
-                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
-            }
+//            if let defaultImg = self.defaultImage {
+//                return defaultImg
+//            }else{
+//                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+//            }
             
             var cropHostPic = UIImage()
             var cropUserPic = UIImage()
