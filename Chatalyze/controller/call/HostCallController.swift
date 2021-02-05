@@ -19,7 +19,7 @@ class HostCallController: VideoCallController {
     
     var currentTwillioRoom:HostCallConnection?
     var preconnectTwillioRoom:HostCallConnection?
-    
+    var isMutalPointReceived = false
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
     private let TAG = "HostCallController"
@@ -352,6 +352,7 @@ class HostCallController: VideoCallController {
         
         self.hostRootView?.delegateCutsom = self
         self.registerForTimerNotification()
+        self.registerForSignRequest()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
@@ -392,7 +393,7 @@ class HostCallController: VideoCallController {
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
-                        
+                        self.sendConfirmationForSelfieTimeStampReceived(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -410,6 +411,56 @@ class HostCallController: VideoCallController {
             }
         })
     }
+    
+    private func sendConfirmationForSelfieTimeStampReceived(timerStartsAt :String){
+
+            var params = [String : Any]()
+            params["callbookingId"] = self.myLiveUnMergedSlot?.id ?? 0
+            params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
+            params["targetUserId"] = self.eventInfo?.mergeSlotInfo?.currentSlot?.userId
+            params["log_type"] = "call_logs"
+            params["type"] = "action_info"
+            params["date"] = Date()
+            params["action"] = "screenshotCountDown"
+            params["timerStartsAt"] = timerStartsAt
+            print("Emitting the parameters in the screenShotLoaded \(params)")
+            socketClient?.emit(params)
+        }
+    
+    private func registerForSignRequest(){
+
+            UserSocket.sharedInstance?.socket?.on("notification") {data, ack in
+
+                let rawInfosString = data.JSONDescription()
+                guard let data = rawInfosString.data(using: .utf8)
+                    else{
+                        return
+                }
+                Log.echo(key: "vijay", text: "notification ==> \(rawInfosString)")
+                var rawInfos:[JSON]?
+                do{
+
+                    rawInfos = try JSON(data : data).arrayValue
+                }catch{
+
+                }
+                if((rawInfos?.count  ?? 0) <= 0){
+                    return
+                }
+                let rawInfo = rawInfos?[0]
+                let info = NotificationInfo(info: rawInfo)
+
+                if (info.metaInfo?.type == .signRequest){
+                    if self.isMutalPointReceived{
+                        return
+                    }
+                    let activityid = info.metaInfo?.activityId
+                    self.fetchAutographInfo(screenShotId: activityid)
+
+                }
+            }
+        }
+
     
     private func processAutographSelfie(){
   
@@ -1879,7 +1930,7 @@ extension HostCallController{
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
-
+        self.isMutalPointReceived = false
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.hostRootView?.remoteVideoContainerView?.updateForCall()
         
