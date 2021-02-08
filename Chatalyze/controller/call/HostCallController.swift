@@ -397,6 +397,7 @@ class HostCallController: VideoCallController {
                         }
                         self.sendConfirmationForSelfieTimeStampReceived(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
+                        self.isMutalPointReceived = true
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
@@ -422,10 +423,11 @@ class HostCallController: VideoCallController {
             params["targetUserId"] = self.eventInfo?.mergeSlotInfo?.currentSlot?.userId
             params["log_type"] = "call_logs"
             params["type"] = "action_info"
-            params["date"] = Date()
+            params["date"] = "\(Date())"
             params["action"] = "screenshotCountDown"
             params["timerStartsAt"] = timerStartsAt
             print("Emitting the parameters in the screenShotLoaded \(params)")
+            Log.echo(key: "VijayRegisterForSignRequest", text: "\(params)")
             socketClient?.emit(params)
         }
     
@@ -438,7 +440,7 @@ class HostCallController: VideoCallController {
                     else{
                         return
                 }
-                Log.echo(key: "vijay", text: "notification ==> \(rawInfosString)")
+                Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
                 var rawInfos:[JSON]?
                 do{
 
@@ -453,7 +455,9 @@ class HostCallController: VideoCallController {
                 let info = NotificationInfo(info: rawInfo)
 
                 if (info.metaInfo?.type == .signRequest){
+                    //@abhishek : This will return & won't execute if Host already got the selfie timer.
                     if self.isMutalPointReceived{
+                        Log.echo(key: "vijay", text: "\(self.isMutalPointReceived)")
                         return
                     }
                     let activityid = info.metaInfo?.activityId
@@ -1906,6 +1910,7 @@ extension HostCallController{
         mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
+        //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
         removeBlurImageViewInfailure()
         
     }

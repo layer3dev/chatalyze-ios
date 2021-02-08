@@ -50,9 +50,9 @@ class CanvasHostContainer: ExtendedView {
     }
     
     func removeBlurImageView(){
-        canvas?.mainImageView?.blurImageView?.isHidden = false
-        canvas?.signatureAccessoryDoneButton?.isUserInteractionEnabled = false
-        canvas?.mainImageView?.isUserInteractionEnabled = false
+        canvas?.mainImageView?.blurImageView?.isHidden = true
+        canvas?.signatureAccessoryDoneButton?.isUserInteractionEnabled = true
+        canvas?.mainImageView?.isUserInteractionEnabled = true
     }
     
     private func showInPortrait(){

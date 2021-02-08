@@ -1873,10 +1873,11 @@ extension UserCallController {
             params["targetUserId"] = self.eventInfo?.user?.id
             params["log_type"] = "call_logs"
             params["type"] = "action_info"
-            params["date"] = Date()
+            params["date"] = "\(Date())"
             params["action"] = "screenshotCountDown"
             params["timerStartsAt"] = timerStartsAt
             print("Emitting the parameters in the screenShotLoaded \(params)")
+           Log.echo(key: "VijayRegisterForSignRequest", text: "\(params)")
             socketClient?.emit(params)
         }
 
