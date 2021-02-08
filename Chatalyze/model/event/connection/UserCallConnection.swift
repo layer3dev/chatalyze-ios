@@ -209,6 +209,10 @@ class UserCallConnection: NSObject {
     
     
     private func reconnect(){
+        if isRoomConnected {
+            Log.echo(key: self.TAG, text: "@213\(isRoomConnected)")
+            return
+        }
         logMessage(messageText: "reconnect called")
         if(isReleased){
             return
@@ -273,6 +277,11 @@ extension UserCallConnection{
     //MARK:- Main Connection
     func connectToRoom()  {
         
+        
+        if isRoomConnected{
+            Log.echo(key: self.TAG, text: "@306\(isRoomConnected)")
+            return
+        }
         logMessage(messageText: "Connect method is call")
         
         // Configure access token either from server or manually.
@@ -295,6 +304,9 @@ extension UserCallConnection{
         else{
             return
         }
+        
+       
+        isRoomConnected = true
         
         
         let connectOptions = ConnectOptions(token: accessToken) { (builder) in
@@ -332,7 +344,7 @@ extension UserCallConnection{
         // Connect to the Room using the options we provided.
         self.connection = TwilioVideoSDK.connect(options: connectOptions, delegate: self)
         
-        logResolution()
+//        logResolution()
 
         logMessage(messageText: "Attempting to connect to room \(roomName)")
     }
@@ -457,13 +469,14 @@ extension UserCallConnection : RoomDelegate {
         
         logMessage(messageText: "Disconnected from room \(room.name), error = \(String(describing: error))")
         trackDisconnectSelf()
+        isRoomConnected = false
         reconnect()
     }
     
     func roomDidFailToConnect(room: Room, error: Error) {
        
         logMessage(messageText: "Failed to connect to room with error = \(String(describing: error))")
-        
+        isRoomConnected = false
         reconnect()
     }
     

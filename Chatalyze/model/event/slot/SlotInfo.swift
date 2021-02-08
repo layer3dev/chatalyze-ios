@@ -225,7 +225,7 @@ class SlotInfo: SlotTimeInfo {
             
             let duration = Double(timeDiffrenece)
             
-            Log.echo(key: "vijay", text: "duration calulates from from start & end : \(duration)")
+        
             return EventValidator().isPreconnectEligible(start: startDate, end: endDate, duration: duration)
         }
     }

@@ -496,7 +496,7 @@ class UserCallController: VideoCallController {
             if success{
                 //already shared the resolution
             }else{
-                self?.connection?.logResolution()
+//                self?.connection?.logResolution()
             }
             
         }
