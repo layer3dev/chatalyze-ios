@@ -403,7 +403,7 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.screenShotListner = {
                             
                             print(" I got the mimic screenshot")
-                            
+                           
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -422,10 +422,11 @@ class HostCallController: VideoCallController {
             params["targetUserId"] = self.eventInfo?.mergeSlotInfo?.currentSlot?.userId
             params["log_type"] = "call_logs"
             params["type"] = "action_info"
-            params["date"] = Date()
+            params["date"] = "\(Date())"
             params["action"] = "screenshotCountDown"
             params["timerStartsAt"] = timerStartsAt
             print("Emitting the parameters in the screenShotLoaded \(params)")
+            Log.echo(key: "VijayRegisterForSignRequest", text: "\(params)")
             socketClient?.emit(params)
         }
     
@@ -438,7 +439,7 @@ class HostCallController: VideoCallController {
                     else{
                         return
                 }
-                Log.echo(key: "vijay", text: "notification ==> \(rawInfosString)")
+                Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
                 var rawInfos:[JSON]?
                 do{
 
@@ -453,7 +454,10 @@ class HostCallController: VideoCallController {
                 let info = NotificationInfo(info: rawInfo)
 
                 if (info.metaInfo?.type == .signRequest){
+                    //@abhishek : This will return & won't execute if Host already got the selfie timer.
                     if self.isMutalPointReceived{
+                        self.stopLoader()
+                        Log.echo(key: "vijayIsMutalPointReceived", text: "\(self.isMutalPointReceived)")
                         return
                     }
                     let activityid = info.metaInfo?.activityId
@@ -1861,6 +1865,7 @@ extension HostCallController{
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
+        isMutalPointReceived = true
         sendScreenshotConfirmation()
     }
      
@@ -1906,6 +1911,7 @@ extension HostCallController{
         mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
+        //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
         removeBlurImageViewInfailure()
         
     }
@@ -1938,7 +1944,6 @@ extension HostCallController{
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
-        self.isMutalPointReceived = false
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.hostRootView?.remoteVideoContainerView?.updateForCall()
         
@@ -1975,6 +1980,7 @@ extension HostCallController{
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
             selfieTimerView?.reset()
+            isMutalPointReceived = false
             //reset the signature
             return
         }
