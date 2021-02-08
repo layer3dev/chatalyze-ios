@@ -397,14 +397,13 @@ class HostCallController: VideoCallController {
                         }
                         self.sendConfirmationForSelfieTimeStampReceived(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
-                        self.isMutalPointReceived = true
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
                         
                         self.selfieTimerView?.screenShotListner = {
                             
                             print(" I got the mimic screenshot")
-                            
+                           
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -457,7 +456,8 @@ class HostCallController: VideoCallController {
                 if (info.metaInfo?.type == .signRequest){
                     //@abhishek : This will return & won't execute if Host already got the selfie timer.
                     if self.isMutalPointReceived{
-                        Log.echo(key: "vijay", text: "\(self.isMutalPointReceived)")
+                        self.stopLoader()
+                        Log.echo(key: "vijayIsMutalPointReceived", text: "\(self.isMutalPointReceived)")
                         return
                     }
                     let activityid = info.metaInfo?.activityId
@@ -1865,6 +1865,7 @@ extension HostCallController{
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
+        isMutalPointReceived = true
         sendScreenshotConfirmation()
     }
      
@@ -1943,7 +1944,6 @@ extension HostCallController{
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
-        self.isMutalPointReceived = false
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.hostRootView?.remoteVideoContainerView?.updateForCall()
         
@@ -1980,6 +1980,7 @@ extension HostCallController{
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
             selfieTimerView?.reset()
+            isMutalPointReceived = false
             //reset the signature
             return
         }
