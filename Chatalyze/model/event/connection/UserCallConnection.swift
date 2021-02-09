@@ -500,7 +500,6 @@ extension UserCallConnection : RoomDelegate {
         
         logMessage(messageText: "Participant participantDidConnect \(participant.identity) connected with \(participant.remoteAudioTracks.count) audio and \(participant.remoteVideoTracks.count) video tracks")
                 
-        isConnecting = true
         for info in participant.remoteAudioTracks{
             info.remoteTrack?.isPlaybackEnabled = false
         }
@@ -549,7 +548,7 @@ extension UserCallConnection : RoomDelegate {
             self.remoteVideoTrack?.removeRenderer(renderer)
             self.remoteAudioTrack?.isPlaybackEnabled = false
         }
-        isConnecting = false
+
         self.isRendered = false
         self.remoteVideoTrack = nil
         self.remoteAudioTrack = nil
@@ -634,10 +633,7 @@ extension UserCallConnection : RemoteParticipantDelegate {
             return
         }
         
-        if isConnecting{
-            print("Connection already reconnecting")
-            return
-        }
+       
         guard let remotetrack = self.remoteVideoTrack else{
             print("remote track is empty")
             return
@@ -663,7 +659,6 @@ extension UserCallConnection : RemoteParticipantDelegate {
     }
     
     func removeRender(){
-        isConnecting = false
         Log.echo(key: TAG, text: "removeRenderer method")
         print("Successfull exiting remote track \(String(describing: self.remoteVideoTrack)) and the remote view is \(String(describing: self.remoteView) )")
         
@@ -693,7 +688,6 @@ extension UserCallConnection : RemoteParticipantDelegate {
     func didUnsubscribeFromVideoTrack(videoTrack: RemoteVideoTrack, publication: RemoteVideoTrackPublication, participant: RemoteParticipant) {
         
         Log.echo(key: TAG, text: "didUnsubscribeFromVideoTrack")
-        isConnecting = false
         logMessage(messageText: "Unsubscribed from \(publication.trackName) video track for Participant \(participant.identity)")
         
         guard let hashId = self.eventInfo?.user?.hashedId else{
