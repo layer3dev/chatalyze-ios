@@ -395,7 +395,7 @@ class HostCallController: VideoCallController {
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
-                        self.sendConfirmationForSelfieTimeStampReceived(timerStartsAt: date)
+                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -413,22 +413,6 @@ class HostCallController: VideoCallController {
             }
         })
     }
-    
-    private func sendConfirmationForSelfieTimeStampReceived(timerStartsAt :String){
-
-            var params = [String : Any]()
-            params["callbookingId"] = self.myLiveUnMergedSlot?.id ?? 0
-            params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
-            params["targetUserId"] = self.eventInfo?.mergeSlotInfo?.currentSlot?.userId
-            params["log_type"] = "call_logs"
-            params["type"] = "action_info"
-            params["date"] = "\(Date())"
-            params["action"] = "screenshotCountDown"
-            params["timerStartsAt"] = timerStartsAt
-            print("Emitting the parameters in the screenShotLoaded \(params)")
-            Log.echo(key: "VijayRegisterForSignRequest", text: "\(params)")
-            socketClient?.emit(params)
-        }
     
     private func registerForSignRequest(){
 

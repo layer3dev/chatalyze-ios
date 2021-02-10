@@ -11,7 +11,7 @@ import Foundation
 class AppInfoConfig {
     static var appName = "Chatalyze"
     static var deviceType = "ios"
-    static var appversion = "1.40"
+    static var appversion = "1.41"
     static var appType = "featured"
     //TODO:- Change the version
 }
