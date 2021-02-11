@@ -59,6 +59,17 @@ PODS:
   - TwilioVideo (4.2.0)
   - YLProgressBar (3.11.0)
   - YoutubePlayer-in-WKWebView (0.3.4)
+  - ZendeskChatProvidersSDK (2.10.0)
+  - ZendeskChatSDK (2.10.0):
+    - ZendeskChatProvidersSDK (~> 2.10.0)
+    - ZendeskMessagingSDK (~> 3.8.1)
+  - ZendeskCommonUISDK (6.1.0)
+  - ZendeskMessagingAPISDK (3.8.1):
+    - ZendeskSDKConfigurationsSDK (~> 1.1.7)
+  - ZendeskMessagingSDK (3.8.1):
+    - ZendeskCommonUISDK (~> 6.1.0)
+    - ZendeskMessagingAPISDK (~> 3.8.1)
+  - ZendeskSDKConfigurationsSDK (1.1.7)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -86,6 +97,7 @@ DEPENDENCIES:
   - TwilioVideo
   - YLProgressBar (~> 3.11.0)
   - YoutubePlayer-in-WKWebView
+  - ZendeskChatSDK
 
 SPEC REPOS:
   trunk:
@@ -119,6 +131,12 @@ SPEC REPOS:
     - TwilioVideo
     - YLProgressBar
     - YoutubePlayer-in-WKWebView
+    - ZendeskChatProvidersSDK
+    - ZendeskChatSDK
+    - ZendeskCommonUISDK
+    - ZendeskMessagingAPISDK
+    - ZendeskMessagingSDK
+    - ZendeskSDKConfigurationsSDK
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -151,7 +169,13 @@ SPEC CHECKSUMS:
   TwilioVideo: 094b79836ae4c1d05c0f162362176cd76b0ed872
   YLProgressBar: 0c0796a6e9b5e5d5040d15c8911e802b67ccb939
   YoutubePlayer-in-WKWebView: af2f5929fc78882d94bfdfeea999b661b78d9717
+  ZendeskChatProvidersSDK: dcda37575fba7ae503f3dc03313424ef1b2e729d
+  ZendeskChatSDK: 389196ae1688de1104ac05a40c5f89a9e76db838
+  ZendeskCommonUISDK: 92ca6b16956430a2cb61c89aeaa6ca123d1f81fd
+  ZendeskMessagingAPISDK: 986919a8f6f11a7019660d1ff798f1efb42fa572
+  ZendeskMessagingSDK: bf9a06f0cbb219617d9cf60a46aba1b68c8f3b30
+  ZendeskSDKConfigurationsSDK: 45fa87ec8418697f7fce5e56bec472052f0aedb5
 
-PODFILE CHECKSUM: 5790918e168550d4fae875cb0beafbf3c04f87e9
+PODFILE CHECKSUM: a43ce207c2c78519954c005c2801c668afb60473
 
 COCOAPODS: 1.10.0

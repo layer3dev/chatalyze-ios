@@ -9,6 +9,7 @@
 import Foundation
 import HCSStarRatingView
 
+
 class ReviewRootView:ExtendedView{
     
     @IBOutlet var ratingView:HCSStarRatingView?
