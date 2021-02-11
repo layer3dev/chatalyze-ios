@@ -38,7 +38,7 @@ class UserCallConnection: NSObject {
         }
     }
     
-    var isConnecting = false
+
     
     var isRoomConnected = false
     var isRendered = false
@@ -210,6 +210,10 @@ class UserCallConnection: NSObject {
     
     
     private func reconnect(){
+        if isRoomConnected{
+            Log.echo(key: self.TAG, text: "Connection already setup")
+            return
+        }
         logMessage(messageText: "reconnect called")
         if(isReleased){
             return
@@ -296,10 +300,7 @@ extension UserCallConnection{
             return
         }
         
-        if isConnecting{
-            return
-        }
-        isConnecting = true
+
         
         let connectOptions = ConnectOptions(token: accessToken) { (builder) in
             
@@ -432,7 +433,6 @@ extension UserCallConnection : RoomDelegate {
         guard let hashId = self.eventInfo?.user?.hashedId else { return }
         
         isRoomConnected = true
-        self.isConnecting = false
         logStats(room: room)
         self.trackJoinedCallRoomLogs()
         
@@ -461,14 +461,12 @@ extension UserCallConnection : RoomDelegate {
         
         logMessage(messageText: "Disconnected from room \(room.name), error = \(String(describing: error))")
         trackDisconnectSelf()
-        self.isConnecting = false
         reconnect()
     }
     
     func roomDidFailToConnect(room: Room, error: Error) {
        
         logMessage(messageText: "Failed to connect to room with error = \(String(describing: error))")
-        self.isConnecting = false
         reconnect()
     }
     

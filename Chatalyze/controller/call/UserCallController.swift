@@ -735,6 +735,7 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
+        connection = nil
         
         //temp
         
