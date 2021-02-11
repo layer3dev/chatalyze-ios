@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ChatSDK
+import MessagingSDK
 
 class ReviewController: InterfaceExtendedController{
    
@@ -18,6 +20,7 @@ class ReviewController: InterfaceExtendedController{
     @IBOutlet var reasonLable:UILabel?
     var eventInfo : EventScheduleInfo?
     var dismissListner:(()->())?
+    let TAG = "ReviewController"
     
     override func viewDidLayout(){
         super.viewDidLayout()
@@ -90,6 +93,19 @@ class ReviewController: InterfaceExtendedController{
         }
     }
     
+    @IBAction func showChatController(){
+        Log.echo(key: self.TAG, text: "chatControllerShown called")
+        do {
+            let chatEngine = try ChatEngine.engine()
+    
+            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+            self.presentModally(viewController)
+//            self.navigationController?.present(viewController, animated: true, completion: nil)
+        } catch {
+            // handle error
+        }
+    }
+    
     
     @IBAction func dismiss(){
         
@@ -142,5 +158,20 @@ extension ReviewController:UITextViewDelegate{
             
             reasonLable?.text = "Any comments?"
         }
+    }
+    private func presentModally(_ viewController: UIViewController,
+                                presenationStyle: UIModalPresentationStyle = .overFullScreen) {
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissViewController))
+        leftBarButtonItem.tintColor = .white
+        
+         viewController.navigationItem.leftBarButtonItem = leftBarButtonItem
+
+              let navigationController = UINavigationController(rootViewController: viewController)
+              navigationController.modalPresentationStyle = presenationStyle
+              present(navigationController, animated: true)
+          }
+    @objc private func dismissViewController() {
+      dismiss(animated: true, completion: nil)
     }
 }

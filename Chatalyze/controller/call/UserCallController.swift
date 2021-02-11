@@ -986,7 +986,7 @@ class UserCallController: VideoCallController {
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
-            sendConfirmationForSelfieTimeStamp(timerStartsAt: requiredWebCompatibleTimeStamp)
+            callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
@@ -1864,24 +1864,6 @@ extension UserCallController {
         print("Emitting the parameters in the screenShotLoaded \(params)")
         socketClient?.emit(params)
     }
-    
-    private func sendConfirmationForSelfieTimeStamp(timerStartsAt :String){
-
-            var params = [String : Any]()
-            params["callbookingId"] = self.myLiveUnMergedSlot?.id ?? 0
-            params["userId"] = SignedUserInfo.sharedInstance?.id ?? "0"
-            params["targetUserId"] = self.eventInfo?.user?.id
-            params["log_type"] = "call_logs"
-            params["type"] = "action_info"
-            params["date"] = "\(Date())"
-            params["action"] = "screenshotCountDown"
-            params["timerStartsAt"] = timerStartsAt
-            print("Emitting the parameters in the screenShotLoaded \(params)")
-           Log.echo(key: "VijayRegisterForSignRequest", text: "\(params)")
-            socketClient?.emit(params)
-        }
-
-    
     
     var isCallStreaming: Bool{
         return (self.connection?.isStreaming ?? false)
