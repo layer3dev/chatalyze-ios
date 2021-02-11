@@ -57,6 +57,7 @@ class EventInfo: NSObject {
     var isFlexEnabled:Bool?
     var isRecordingEnabled : Bool?
     var tipText:String?
+    var room_id:String?
     
     
     var isAutographEnabled : Bool{
@@ -91,6 +92,8 @@ class EventInfo: NSObject {
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
         isRecordingEnabled = json["recordingEnabled"].boolValue
+        room_id = json["room_id"].stringValue
+        UserDefaults.standard.set(room_id, forKey: "room_id")
         userId = json["userId"].int
         title = json["title"].string
         eventDescription = json["description"].string

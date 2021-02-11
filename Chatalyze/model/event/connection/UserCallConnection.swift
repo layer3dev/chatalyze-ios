@@ -277,7 +277,6 @@ extension UserCallConnection{
         
         // Configure access token either from server or manually.
         // If the default wasn't changed, try fetching from server.
-
         // Prepare local media which we will share with Room Participants.
         // Preparing the connect options with the access token that we fetched (or hardcoded).
         

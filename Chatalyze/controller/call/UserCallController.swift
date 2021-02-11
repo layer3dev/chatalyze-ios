@@ -472,7 +472,7 @@ class UserCallController: VideoCallController {
             if isRequested{
                 
                 Log.echo(key: "yudi", text: "I am also requesting the requested file")
-        
+                
                 self.serviceRequestAutograph(info : self.eventInfo?.user?.defaultImage?.screenshotInfo())
                 return
             }
@@ -496,7 +496,7 @@ class UserCallController: VideoCallController {
             if success{
                 //already shared the resolution
             }else{
-                self?.connection?.logResolution()
+//                self?.connection?.logResolution()
             }
             
         }
@@ -986,6 +986,7 @@ class UserCallController: VideoCallController {
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
             socketClient?.emit(data)
+            callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
@@ -1863,8 +1864,6 @@ extension UserCallController {
         print("Emitting the parameters in the screenShotLoaded \(params)")
         socketClient?.emit(params)
     }
-    
-    
     
     var isCallStreaming: Bool{
         return (self.connection?.isStreaming ?? false)

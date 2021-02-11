@@ -19,7 +19,7 @@ class HostCallController: VideoCallController {
     
     var currentTwillioRoom:HostCallConnection?
     var preconnectTwillioRoom:HostCallConnection?
-    
+    var isMutalPointReceived = false
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
     private let TAG = "HostCallController"
@@ -29,7 +29,8 @@ class HostCallController: VideoCallController {
     
     var isPreConnected = false
     var recordingLblTopAnchor: NSLayoutConstraint?
-    
+    var defaultImageUrl = String()
+    var defaultImage : UIImage?
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     
@@ -100,6 +101,7 @@ class HostCallController: VideoCallController {
            self.view.sendSubviewToBack(custumBckGrndImg)
            custumBckGrndImg.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
        }
+    
     
     func layoutrecordingOption(){
         self.view.addSubview(recordingLbl)
@@ -352,6 +354,7 @@ class HostCallController: VideoCallController {
         
         self.hostRootView?.delegateCutsom = self
         self.registerForTimerNotification()
+        self.registerForSignRequest()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
@@ -392,7 +395,7 @@ class HostCallController: VideoCallController {
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
-                        
+                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
                         self.selfieTimerView?.startAnimationForHost(date: requiredDate)
@@ -400,7 +403,7 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.screenShotListner = {
                             
                             print(" I got the mimic screenshot")
-                            
+                           
                             self.mimicScreenShotFlash()
                             self.selfieTimerView?.reset()
                             self.processAutographSelfie()
@@ -410,6 +413,44 @@ class HostCallController: VideoCallController {
             }
         })
     }
+    
+    private func registerForSignRequest(){
+
+            UserSocket.sharedInstance?.socket?.on("notification") {data, ack in
+
+                let rawInfosString = data.JSONDescription()
+                guard let data = rawInfosString.data(using: .utf8)
+                    else{
+                        return
+                }
+                Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
+                var rawInfos:[JSON]?
+                do{
+
+                    rawInfos = try JSON(data : data).arrayValue
+                }catch{
+
+                }
+                if((rawInfos?.count  ?? 0) <= 0){
+                    return
+                }
+                let rawInfo = rawInfos?[0]
+                let info = NotificationInfo(info: rawInfo)
+
+                if (info.metaInfo?.type == .signRequest){
+                    //@abhishek : This will return & won't execute if Host already got the selfie timer.
+                    if self.isMutalPointReceived{
+                        self.stopLoader()
+                        Log.echo(key: "vijayIsMutalPointReceived", text: "\(self.isMutalPointReceived)")
+                        return
+                    }
+                    let activityid = info.metaInfo?.activityId
+                    self.fetchAutographInfo(screenShotId: activityid)
+
+                }
+            }
+        }
+
     
     private func processAutographSelfie(){
   
@@ -444,7 +485,6 @@ class HostCallController: VideoCallController {
                 else{
                     return
             }
-            
             Log.echo(key: "HostCallController", text: "call renderCanvas")
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
@@ -1809,6 +1849,7 @@ extension HostCallController{
         self.hostRootView?.localVideoView?.updateLayoutRotation()
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
+        isMutalPointReceived = true
         sendScreenshotConfirmation()
     }
      
@@ -1854,8 +1895,16 @@ extension HostCallController{
         mainParams["name"] = currentSlot.user?.hashedId
         mainParams["message"] = params
         socketClient?.emit(mainParams)
+        //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
+        removeBlurImageViewInfailure()
+        
     }
     
+    private func removeBlurImageViewInfailure(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3.0) {
+            self.hostRootView?.canvasContainer?.removeBlurImageView()
+        }
+    }
     func stopSigning(){
         
         guard let currentSlot = autographSlotInfo
@@ -1879,7 +1928,6 @@ extension HostCallController{
         self.stopSigning()
         self.hostRootView?.canvasContainer?.hide()
         self.signaturAccessoryView?.isHidden = true
-
         self.hostRootView?.remoteVideoContainerView?.isSignatureActive = false
         self.hostRootView?.remoteVideoContainerView?.updateForCall()
         
@@ -1916,6 +1964,7 @@ extension HostCallController{
             localSlotIdToManageAutograph = self.myLiveUnMergedSlot?.id
             self.resetCanvas()
             selfieTimerView?.reset()
+            isMutalPointReceived = false
             //reset the signature
             return
         }

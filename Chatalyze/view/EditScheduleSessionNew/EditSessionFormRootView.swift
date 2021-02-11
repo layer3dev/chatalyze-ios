@@ -45,6 +45,8 @@ class EditSessionFormRootView:ExtendedView {
    
     var isBreakShowing = false
     
+    var isThirtySeconds = false
+    
     @IBOutlet var breakHeightConstraintPriority:NSLayoutConstraint?
     @IBOutlet private var maxEarningHeightConstraint:NSLayoutConstraint?
     @IBOutlet var chatCalculatorHeightConstrait:NSLayoutConstraint?
@@ -452,9 +454,15 @@ class EditSessionFormRootView:ExtendedView {
                 self?.screenShotLabel?.text = "ON"
                 self?.screenShotInfoLabel?.text = "A screenshot will automatically capture for each person you chat with."
                 self?.scheduleInfo?.isScreenShotAllow = true
-              self?.turnOnAutograph()
-              self?.autographCustomSwitch?.setOn()
-              self?.autographCustomSwitch?.isUserInteractionEnabled = true
+                if self?.isThirtySeconds ?? false {
+                    self?.turnOffAutograph()
+                    self?.autographCustomSwitch?.setOff()
+                    self?.autographCustomSwitch?.isUserInteractionEnabled = false
+                }else{
+                    self?.turnOnAutograph()
+                    self?.autographCustomSwitch?.setOn()
+                    self?.autographCustomSwitch?.isUserInteractionEnabled = true
+                }
                 UIView.animate(withDuration: 0.15, animations: {
                     self?.screenShotInfoLabel?.alpha = 1
                     self?.layoutIfNeeded()
@@ -1609,9 +1617,21 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                 chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
                 if finalSeconds == 0.25{
+                    self.isThirtySeconds = false
                     screenShotCustomSwitch?.setOff()
                     disableSwitch()
-                }else{
+                }else if finalSeconds == 0.5{
+                    screenShotCustomSwitch?.setOn()
+                    self.screenShotCustomSwitch?.isUserInteractionEnabled = true
+                    isThirtySeconds = true
+                    self.turnOffAutograph()
+                    self.autographCustomSwitch?.setOff()
+                    self.autographCustomSwitch?.isUserInteractionEnabled = false
+                    Log.echo(key: "vijay", text: "call is for 30 seconds")
+                } else if finalSeconds > 0.4{
+                    self.isThirtySeconds = false
+                    Log.echo(key: "vijay", text: "call is not for 30 seconds")
+                    self.autographCustomSwitch?.isUserInteractionEnabled = true
                     screenShotCustomSwitch?.setOn()
                     enableSwitch()
                 }
@@ -1620,9 +1640,11 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 
                 return
             }else if Int(chatLengthArray[row]) ?? 0 <= 1 {
+                self.isThirtySeconds = false
                 enableSwitch()
                 chatLength?.textField?.text = chatLengthArray[row] + " min"
             }else{
+                self.isThirtySeconds = false
                 enableSwitch()
                 chatLength?.textField?.text = chatLengthArray[row] + " mins"
             }
@@ -1705,9 +1727,21 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                         Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                         chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
                         if finalSeconds == 0.25{
+                            self.isThirtySeconds = false
                             screenShotCustomSwitch?.setOff()
                             disableSwitch()
-                        }else{
+                        }else if finalSeconds == 0.5{
+                            screenShotCustomSwitch?.setOn()
+                            self.screenShotCustomSwitch?.isUserInteractionEnabled = true
+                            isThirtySeconds = true
+                            self.turnOffAutograph()
+                            self.autographCustomSwitch?.setOff()
+                            self.autographCustomSwitch?.isUserInteractionEnabled = false
+                            Log.echo(key: "vijay", text: "call is for 30 seconds")
+                            
+                        } else{
+                            self.isThirtySeconds = false
+                            self.autographCustomSwitch?.isUserInteractionEnabled = true
                             screenShotCustomSwitch?.setOn()
                             enableSwitch()
                         }

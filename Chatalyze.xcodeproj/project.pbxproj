@@ -1335,6 +1335,8 @@
 		FAD6BA3C2064F7FB00942F27 /* EventDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA3B2064F7FB00942F27 /* EventDate.swift */; };
 		FAD6BA41206502E100942F27 /* NoEventContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA40206502E100942F27 /* NoEventContainerView.swift */; };
 		FAD6BA432065031700942F27 /* ZeroHeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD6BA422065031700942F27 /* ZeroHeightView.swift */; };
+		FAD87E3C25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD87E3B25C865F40026B6B0 /* RequestDefaultImage.swift */; };
+		FAD87E3D25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD87E3B25C865F40026B6B0 /* RequestDefaultImage.swift */; };
 		FAD9CD982063B54B00A177AC /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD972063B54B00A177AC /* ExtendedLabel.swift */; };
 		FAD9CD9A2063B5A400A177AC /* NoEventLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD992063B5A400A177AC /* NoEventLabel.swift */; };
 		FAD9CD9C2063BA3400A177AC /* JoinCountdownLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */; };
@@ -1978,7 +1980,7 @@
 		FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarCustomizer.swift; sourceTree = "<group>"; };
 		FA5FD1712119CE0E00172144 /* MediaPermissionAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPermissionAccess.swift; sourceTree = "<group>"; };
 		FA65F541206A589E006CE665 /* VideoCallController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCallController.swift; sourceTree = "<group>"; };
-		FA65F543206A58E3006CE665 /* UserCallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallController.swift; sourceTree = "<group>"; };
+		FA65F543206A58E3006CE665 /* UserCallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCallController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		FA65F545206A58F2006CE665 /* HostCallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostCallController.swift; sourceTree = "<group>"; };
 		FA65F54E206A750E006CE665 /* RTCConnectionInitializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCConnectionInitializer.h; sourceTree = "<group>"; };
 		FA65F54F206A750E006CE665 /* RTCConnectionInitializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTCConnectionInitializer.m; sourceTree = "<group>"; };
@@ -2148,6 +2150,7 @@
 		FAD6BA3B2064F7FB00942F27 /* EventDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDate.swift; sourceTree = "<group>"; };
 		FAD6BA40206502E100942F27 /* NoEventContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventContainerView.swift; sourceTree = "<group>"; };
 		FAD6BA422065031700942F27 /* ZeroHeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroHeightView.swift; sourceTree = "<group>"; };
+		FAD87E3B25C865F40026B6B0 /* RequestDefaultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDefaultImage.swift; sourceTree = "<group>"; };
 		FAD9CD972063B54B00A177AC /* ExtendedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		FAD9CD992063B5A400A177AC /* NoEventLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventLabel.swift; sourceTree = "<group>"; };
 		FAD9CD9B2063BA3400A177AC /* JoinCountdownLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCountdownLabel.swift; sourceTree = "<group>"; };
@@ -5144,6 +5147,7 @@
 		FA85D3B62045B82700E7815A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				FAD87E3A25C865CC0026B6B0 /* RequestDefaultImage */,
 				78DF78F22307D07E007B2663 /* AutographyInfoFetch */,
 				FA1286772217F187000A6560 /* inAppPurchase */,
 				FAB71CE320776BF500C24246 /* event */,
@@ -5700,6 +5704,14 @@
 			);
 			name = home;
 			path = view/home;
+			sourceTree = "<group>";
+		};
+		FAD87E3A25C865CC0026B6B0 /* RequestDefaultImage */ = {
+			isa = PBXGroup;
+			children = (
+				FAD87E3B25C865F40026B6B0 /* RequestDefaultImage.swift */,
+			);
+			path = RequestDefaultImage;
 			sourceTree = "<group>";
 		};
 		FAD9CD922063B43100A177AC /* home */ = {
@@ -7023,6 +7035,7 @@
 				FA91054C21D61FB300060AFF /* LogNotification.swift in Sources */,
 				47C3891C22AE892400A46A5E /* VerifyForEarlyCallProcessor.swift in Sources */,
 				47D0B12E21A6C4B5006376A8 /* OpenCallAlertController.swift in Sources */,
+				FAD87E3D25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */,
 				47D0B12F21A6C4B5006376A8 /* SubmitCallReviewProcessor.swift in Sources */,
 				E732AD50253CAFAA00205675 /* HostCallMediaTrack.swift in Sources */,
 				47D0B13021A6C4B5006376A8 /* NavigationBarCustomizer.swift in Sources */,
@@ -7638,6 +7651,7 @@
 				47C3891B22AE892400A46A5E /* VerifyForEarlyCallProcessor.swift in Sources */,
 				47E2F02A20DBC1DD006BD93B /* SubmitCallReviewProcessor.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
+				FAD87E3C25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */,
 				FAB71CEA2077A57F00C24246 /* NotificationMetaInfo.swift in Sources */,
 				E732AD4F253CAFAA00205675 /* HostCallMediaTrack.swift in Sources */,
 				47D2D5672237D36C0067C13D /* ScheduleSessionTitleRootView.swift in Sources */,
@@ -8056,7 +8070,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 85;
+				CURRENT_PROJECT_VERSION = 87;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8068,7 +8082,7 @@
 				INFOPLIST_FILE = Chatalyze/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 85;
+				MARKETING_VERSION = 87;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8093,7 +8107,7 @@
 				CODE_SIGN_ENTITLEMENTS = Chatalyze/Chatalyze.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development: Jordan Winawer (PTGTWSZY2Y)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 85;
+				CURRENT_PROJECT_VERSION = 87;
 				DEVELOPMENT_TEAM = KX8JP4WZ3W;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -8105,7 +8119,7 @@
 				INFOPLIST_FILE = Chatalyze/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 85;
+				MARKETING_VERSION = 87;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatalyze;
 				PRODUCT_NAME = "$(TARGET_NAME)";

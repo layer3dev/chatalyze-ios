@@ -289,7 +289,23 @@ class CallLogger : NSObject {
         emit(info: params)
     }
     
-    
+    func logSelfieTimerAcknowledgment(timerStartsAt:String){
+       
+        var meta = [String : Any]()
+        meta["action"] = "screenshotCountDown"
+        meta["date"] = "\(Date())"
+        meta["timerStartsAt"] = timerStartsAt
+        
+        var info = [String : Any]()
+        info["callbookingId"] = sessionId
+        info["userId"] = userId
+        info["targetUserId"] = targetUserId
+        info["log_type"] = "call_logs"
+        info["type"] = "action_info"
+        info["meta"] = meta
+        Log.echo(key: "VijaySelfieTimerAck", text: "\(info)")
+        emit(info: info)
+    }
     
     private func getRawConnectionState(state : Room.State)->String{
         let rawValue = state.rawValue
