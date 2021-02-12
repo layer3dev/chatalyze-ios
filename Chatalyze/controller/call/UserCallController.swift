@@ -735,6 +735,7 @@ class UserCallController: VideoCallController {
         super.processExitAction(code : code)
         
         connection?.disconnect()
+        connection = nil
         
         //temp
         
@@ -962,6 +963,10 @@ class UserCallController: VideoCallController {
             return
         }
         
+        // TODO:- If connection drops and connect number of times, this will saves from sending n number of selfie pings
+        if connection?.isRoomConnected ?? false && isSlefieScreenShotSaved{
+            return
+        }
 //        if isHangUp{
 //            return
 //        }
