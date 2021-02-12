@@ -357,6 +357,8 @@ extension UserCallConnection{
         
         guard let cameraSource = videoTrack.source as? LocalCameraSource
         else{
+            Log.echo(key : TAG, text : "logVideoResolution cameraSource not received")
+            
             return
         }
         

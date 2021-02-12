@@ -125,6 +125,7 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             }
             
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            controller.topPresentedController = RootControllerManager().getCurrentController()
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })

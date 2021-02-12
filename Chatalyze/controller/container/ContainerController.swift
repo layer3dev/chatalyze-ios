@@ -559,7 +559,7 @@ class ContainerController: NavChildController {
             }
             
             controller.onlySystemTest = true
-            
+            controller.topPresentedController = self.navController
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.navController?.present(controller, animated: false, completion: {
             })

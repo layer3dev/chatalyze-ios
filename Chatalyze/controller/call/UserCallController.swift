@@ -1218,6 +1218,7 @@ class UserCallController: VideoCallController {
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })
+        Log.echo(key: "SystemCheck", text: "@1222 dismiss")
     }
     
     override func showErrorScreen() {
