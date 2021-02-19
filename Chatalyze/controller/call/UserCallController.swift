@@ -870,7 +870,17 @@ class UserCallController: VideoCallController {
         calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
         calendar.locale = Locale(identifier: "en_US_POSIX")
         let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
-        let requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
+        let slotDuration = eventInfo?.duration
+        
+        var requiredDate :Date?
+        if slotDuration == 0.25 || slotDuration == 0.5{
+            Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
+             requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
+        }else{
+            Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
+            requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
+        }
+        
         Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
         Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
         if let verifiedDate = requiredDate{
