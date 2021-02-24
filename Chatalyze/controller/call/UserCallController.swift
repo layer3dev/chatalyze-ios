@@ -873,12 +873,12 @@ class UserCallController: VideoCallController {
         let slotDuration = eventInfo?.duration
         
         var requiredDate :Date?
-        if slotDuration == 0.25 || slotDuration == 0.5{
+        if slotDuration == 0.25{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
              requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
         }else{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
-            requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
+            requiredDate = calendar.date(byAdding: .second, value: 5, to: date)
         }
         
         Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
