@@ -264,6 +264,25 @@ class EventInfo: NSObject {
         }
     }
     
+    
+    //if slot is of 15 seconds
+    var isMicroSlot : Bool{
+        get{
+            guard let slotDuration = self.duration
+            else{
+                return false
+            }
+            if(slotDuration == 0.25){
+                return true
+            }
+            
+            return false
+            
+        }
+    }
+    
+    
+    
     var isPreconnectEligible : Bool{
         
         get{

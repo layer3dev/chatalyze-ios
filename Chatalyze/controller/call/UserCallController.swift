@@ -13,6 +13,8 @@ import Analytics
 
 class UserCallController: VideoCallController {
     
+    private let TAG = "UserCallController"
+    
     var isUserScreenLocked = false
     var isScrenUploaded :((Bool)->())?
     // Id's to manage the default Screenshot
@@ -32,6 +34,7 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     var isSlefieScreenShotSaved = false
+    
     var isPreConnected = false
     
     //variable and outlet responsible for the SelfieTimer
@@ -864,21 +867,26 @@ class UserCallController: VideoCallController {
     
     func getTimeStampAfterEightSecond()->Date?{
         
+        guard let eventInfo = self.eventInfo
+        else{
+            return nil
+        }
+        
         let date = TimerSync.sharedInstance.getDate()
         Log.echo(key: "yud", text: "Synced date is \(date)")
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
         calendar.locale = Locale(identifier: "en_US_POSIX")
         let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
-        let slotDuration = eventInfo?.duration
+        let slotDuration = eventInfo.duration
         
         var requiredDate :Date?
-        if slotDuration == 0.25 || slotDuration == 0.5{
+        if eventInfo.isMicroSlot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
              requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
         }else{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
-            requiredDate = calendar.date(byAdding: .second, value: 8, to: date)
+            requiredDate = calendar.date(byAdding: .second, value: 5, to: date)
         }
         
         Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
@@ -930,12 +938,16 @@ class UserCallController: VideoCallController {
             return
         }
         
+        
+        Log.echo(key: TAG, text: "CheckmyLiveUnMergedSlot?.isScreenshotSaved")
         //Server response for screenShot saved
         if let isScreenShotSaved = self.myLiveUnMergedSlot?.isScreenshotSaved{
             if isScreenShotSaved {
                 return
             }
         }
+        
+        Log.echo(key: TAG, text: "CheckSlotFlagInfo.staticSlotId")
         
         //if the lastActive Id is same and the saveScreenShotFromWebisSaved then return else let them pass.
         
@@ -968,18 +980,22 @@ class UserCallController: VideoCallController {
         // guard let isSelfieTimerInitiated = self.myActiveUserSlot?.isSelfieTimerInitiated else { return
         // guard let isScreenshotSaved = self.myActiveUserSlot?.isScreenshotSaved else { return  }
         
+        Log.echo(key: TAG, text: "CheckisCallStreaming")
         
         if !(isCallStreaming){
             return
         }
         
-        // TODO:- If connection drops and connect number of times, this will saves from sending n number of selfie pings
-        if connection?.isRoomConnected ?? false && isSlefieScreenShotSaved{
-            return
-        }
+        Log.echo(key: TAG, text: "CheckisSlefieScreenShotSaved")
+//        // TODO:- If connection drops and connect number of times, this will saves from sending n number of selfie pings
+//        if connection?.isRoomConnected ?? false && isSlefieScreenShotSaved{
+//            return
+//        }
 //        if isHangUp{
 //            return
 //        }
+        
+        Log.echo(key: TAG, text: "GetTimestamp")
         
         //here it is need to send the ping to host for the screenshot
         if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
@@ -1017,7 +1033,11 @@ class UserCallController: VideoCallController {
             
             //for testing
             selfieTimerView?.requiredDate = requiredTimeStamp
-            selfieTimerView?.startAnimation()
+            
+            if let eventInfo = self.eventInfo{
+                selfieTimerView?.startAnimation(eventInfo : eventInfo)
+            }
+            
         }
     }
     

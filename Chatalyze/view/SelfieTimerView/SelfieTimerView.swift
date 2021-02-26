@@ -34,6 +34,8 @@ class SelfieTimerView:ExtendedView {
     var delegate:GetisHangedUpDelegate?
     var selfieTimerAnimateFlag = 0
     
+    private var eventInfo : EventInfo?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -55,14 +57,16 @@ class SelfieTimerView:ExtendedView {
         invalidateTimer()
     }
     
-    func startAnimation(){
+    func startAnimation(eventInfo : EventInfo){
+        self.eventInfo = eventInfo
         
         self.invalidateTimer()
         self.invalidateTimerForHost()
         self.runTimer()
     }
     
-    func startAnimationForHost(date:Date?){
+    func startAnimationForHost(date:Date?, eventInfo : EventInfo){
+        self.eventInfo = eventInfo
         
         autographTime = 13
         guard let startDate = date else {
@@ -295,6 +299,11 @@ class SelfieTimerView:ExtendedView {
     
     @objc func updateTimer(){
         
+        guard let eventInfo = self.eventInfo
+        else{
+            return
+        }
+        
         if let date = requiredDate {
             
             Log.echo(key: "selfie_timer", text: "The current time date is \(currentDateTimeGMT()) and the Required Date is \(String(describing: requiredDate)) and the diffrence is \(date.timeIntervalTillNow)")
@@ -303,7 +312,10 @@ class SelfieTimerView:ExtendedView {
             
             Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
             
-            if difference <= -3 {
+            let threshold = eventInfo.isMicroSlot ? 0 : -3
+            
+            
+            if Int(difference) <= threshold {
                 
                 self.showSelfieTimerAnimationGrayandGreen()
                 if let isHangedUp = delegate?.getHangUpStatus(){

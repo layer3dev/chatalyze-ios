@@ -398,7 +398,11 @@ class HostCallController: VideoCallController {
                         self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
-                        self.selfieTimerView?.startAnimationForHost(date: requiredDate)
+                        
+                        if let eventInfo = self.eventInfo{
+                            self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
+                        }
+                        
                         
                         self.selfieTimerView?.screenShotListner = {
                             
