@@ -369,7 +369,7 @@ class HostCallController: VideoCallController {
             }
             DispatchQueue.main.async {
 //                self.processAutographSelfie()
-                self.toggleHangup()
+                self?.toggleHangup()
             }
         })
     }
