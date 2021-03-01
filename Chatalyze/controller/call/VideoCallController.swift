@@ -65,6 +65,8 @@ class VideoCallController : InterfaceExtendedController {
     private var localTrack : LocalVideoTrack?
     
     private let eventSlotListener = EventSlotListener()
+    private let scheduleUpdateListener = ScheduleUpdateListener()
+
     //Implementing the eventDeleteListener
     
     private var eventDeleteListener = EventDeletedListener()
@@ -170,6 +172,8 @@ class VideoCallController : InterfaceExtendedController {
     private func releaseListener(){
         
         eventSlotListener.releaseListener()
+        self.scheduleUpdateListener.releaseListener()
+
         eventDeleteListener.releaseListener()
         updatedEventScheduleListener.releaseListener()
         applicationStateListener.releaseListener()
@@ -620,6 +624,11 @@ class VideoCallController : InterfaceExtendedController {
         
         updatedEventScheduleListener.setListener {[weak self] in
             self?.refreshScheduleInfo()
+        }
+        
+        scheduleUpdateListener.setListener {
+            
+            self.refreshScheduleInfo()
         }
         
         applicationStateListener.setForegroundListener {[weak self] in
