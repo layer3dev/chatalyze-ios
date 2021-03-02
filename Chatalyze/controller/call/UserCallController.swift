@@ -28,7 +28,6 @@ class UserCallController: VideoCallController {
     var localScreenShotAssociatedCallBookingId:Int? = nil
     
     var memoryImage:UIImage?
-    let scheduleUpdateListener = ScheduleUpdateListener()
     var recordingLblTopAnchor: NSLayoutConstraint?
     
     //Animation Responsible
@@ -667,19 +666,12 @@ class UserCallController: VideoCallController {
         self.userRootView?.delegateCutsom = self
     }
     
-    private func registerForScheduleUpdateListener(){
-        
-        scheduleUpdateListener.setListener {
-            
-            self.refreshScheduleInfo()
-        }
-    }
+    
     
     
     override func registerForListeners(){
         super.registerForListeners()
         
-        registerForScheduleUpdateListener()
         
         //        //call initiation
         //        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
@@ -1467,7 +1459,6 @@ class UserCallController: VideoCallController {
     override func viewDidRelease() {
         super.viewDidRelease()
         
-        self.scheduleUpdateListener.releaseListener()
     }
     
     override func hitEventOnSegmentIO(){
