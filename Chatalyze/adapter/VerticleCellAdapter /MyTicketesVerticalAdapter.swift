@@ -177,7 +177,26 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         }
         controller.eventId = String(eventId)
         controller.modalPresentationStyle = .fullScreen
-        self.root?.controller?.present(controller, animated: false, completion: nil)
+        
+        // display modal before the call room.
+        guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
+            return
+        }
+
+        internetSpeedTestcontroller.onlySystemTest = true
+        internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
+        internetSpeedTestcontroller.onDoneBlock = { success in
+            if success{
+                if success{
+                    self.root?.controller?.present(controller, animated: false, completion: nil)
+                }
+            }
+        }
+        RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
+        })
+        
+        
     }
     
     func systemTest(){

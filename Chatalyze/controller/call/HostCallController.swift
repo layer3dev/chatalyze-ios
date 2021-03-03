@@ -151,7 +151,7 @@ class HostCallController: VideoCallController {
     }
     override func initialization(){
         super.initialization()
-        showSystemCheck()
+       
         initializeVariable()
         layoutrecordingOption()
          layoutCustomBackGrnd()
@@ -615,40 +615,7 @@ class HostCallController: VideoCallController {
             self.recordingLbl.isHidden = true
         }
     }
-    func showSystemCheck(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.systemCheck()
-        }
-    }
-    
-    func systemCheck(){
-        
-        guard let controller = InternetSpeedTestController.instance() else{
-            return
-        }
-        controller.onlySystemTest = true
-        
-        controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        guard let presentingController =  RootControllerManager().getCurrentController()
-            else{
-                Log.echo(key: "_connection_", text: "presentingController is nil")
-                return
-        }
-        let topController = self.getTopMostPresentedController()
-        controller.topPresentedController = topController
-        controller.onDoneBlock = { sucess in
-            if sucess{
-                self.writeLocalVideoTrack()
-                self.resetCurrentRoom()
-                Log.echo(key: "vijay", text: "dimissCalled")
-            }
-            
-        }
-        topController?.present(controller, animated: true, completion: {
-        })
-    }
-    
-    
+
     
     override func updateStatusMessage(){
         super.updateStatusMessage()

@@ -173,7 +173,21 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         }*/
         controller.eventId = String(eventId)
         controller.modalPresentationStyle = .fullScreen
-        self.root?.controller?.present(controller, animated: false, completion: nil)        
+        guard let controllers = InternetSpeedTestController.instance() else{
+            return
+        }
+        
+        controllers.onlySystemTest = true
+        
+        controllers.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controllers.topPresentedController = RootControllerManager().getCurrentController()
+        controllers.onDoneBlock = { result in
+            self.root?.controller?.present(controller, animated: false, completion: nil)
+        }
+        RootControllerManager().getCurrentController()?.present(controllers, animated: false, completion: {
+        })
+        
+            
     }
     
     func systemTest(){
