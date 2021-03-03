@@ -1066,8 +1066,8 @@ class UserCallController: VideoCallController {
                             self.uploadImage(encodedImage: encodedData, image: nil, completion: { (success, info) in
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
-                                
                                 isSlefieScreenShotSaved = false
+                                
                                 DispatchQueue.main.async {
                                     
                                     let isExpired = slotInfo?.isExpired ?? true
