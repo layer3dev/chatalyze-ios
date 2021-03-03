@@ -1549,11 +1549,8 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func disableSwitch(){
-        screenShotLabel?.text = "OFF"
         autographLabel?.text = "OFF"
-        screenShotCustomSwitch?.setOff()
         autographCustomSwitch?.setOff()
-        screenShotCustomSwitch?.isUserInteractionEnabled = false
         autographCustomSwitch?.isUserInteractionEnabled = false
     }
     
@@ -1617,8 +1614,11 @@ extension EditSessionFormRootView:UIPickerViewDelegate, UIPickerViewDataSource{
                 Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                 chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
                 if finalSeconds == 0.25{
-                    self.isThirtySeconds = false
-                    screenShotCustomSwitch?.setOff()
+                    self.isThirtySeconds = true
+                    screenShotCustomSwitch?.setOn()
+                    self.screenShotCustomSwitch?.isUserInteractionEnabled = true
+                    self.turnOffAutograph()
+//                    screenShotCustomSwitch?.setOff()
                     disableSwitch()
                 }else if finalSeconds == 0.5{
                     screenShotCustomSwitch?.setOn()
@@ -1727,8 +1727,8 @@ extension EditSessionFormRootView:CustomPickerDelegate{
                         Log.echo(key: "vijay", text: "\(finalSeconds*60)")
                         chatLength?.textField?.text = "\(Int(finalSeconds*60)) seconds" as String
                         if finalSeconds == 0.25{
-                            self.isThirtySeconds = false
-                            screenShotCustomSwitch?.setOff()
+                            self.isThirtySeconds = true
+                            screenShotCustomSwitch?.setOn()
                             disableSwitch()
                         }else if finalSeconds == 0.5{
                             screenShotCustomSwitch?.setOn()

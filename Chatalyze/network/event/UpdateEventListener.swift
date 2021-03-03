@@ -77,7 +77,7 @@ class UpdateEventListener{
         }
         
         
-        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .eventDelay){
+        if !(activityType == .schedule_updated || activityType == .updatedCallSchedule || activityType == .eventDelay  || activityType == .eventChatDurationUpdated){
             Log.echo(key: "vijayUpdate", text: "event type is\(activityType)")
             return
         }

@@ -354,10 +354,24 @@ class HostCallController: VideoCallController {
         
         self.hostRootView?.delegateCutsom = self
         self.registerForTimerNotification()
+        self.registerForHangupRequest()
         self.registerForSignRequest()
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
+    }
+    
+    private func registerForHangupRequest(){
+        socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
+            
+            if(self?.socketClient == nil){
+                return
+            }
+            DispatchQueue.main.async {
+//                self.processAutographSelfie()
+                self?.toggleHangup()
+            }
+        })
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -398,7 +412,11 @@ class HostCallController: VideoCallController {
                         self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
-                        self.selfieTimerView?.startAnimationForHost(date: requiredDate)
+                        
+                        if let eventInfo = self.eventInfo{
+                            self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
+                        }
+                        
                         
                         self.selfieTimerView?.screenShotListner = {
                             
