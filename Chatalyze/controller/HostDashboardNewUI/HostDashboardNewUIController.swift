@@ -107,6 +107,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        controller.topPresentedController = RootControllerManager().getCurrentController()
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }

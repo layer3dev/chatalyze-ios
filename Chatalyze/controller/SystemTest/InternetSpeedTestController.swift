@@ -17,11 +17,12 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
     var onDoneBlock : ((Bool) -> ())?
+    var onSuccessCameraTest : ((Bool) -> ())?
     var dismissListner:((Bool)->())?
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
-    
+    var topPresentedController : UIViewController?
     @IBOutlet var systemTestView:UIView?
     @IBOutlet var warningView:UIView?
     @IBOutlet var errorView:UIView?
@@ -213,9 +214,12 @@ class InternetSpeedTestController: InterfaceExtendedController {
                 }
             }
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            RootControllerManager().getCurrentController()?.present(controller, animated: false){
+            let topController = self.topPresentedController
+            
+            Log.echo(key: "vijayController", text: "\(topController)")
+            topController?.present(controller, animated: false){
             }
-        }       
+        }
     }
     
     @IBAction func rotateImage(sender:UIButton?){
@@ -325,7 +329,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBAction func dismissAction(){
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
-                
+                Log.echo(key: "dimiss", text: "dimiss")
                 if let listner = self.dismissListner{
                     listner(false)
                 }

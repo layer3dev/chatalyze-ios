@@ -309,7 +309,7 @@ class UserCallController: VideoCallController {
                         print("Yes I got the preconnect slot")
                         checkforRecordingStatus()
                         self.isPreConnected = true
-                        
+                        isSlefieScreenShotSaved = false
                         initiateTwilioConnection(slotInfo: preconnectSlot)
                         return
                     }
@@ -980,9 +980,9 @@ class UserCallController: VideoCallController {
         
         Log.echo(key: TAG, text: "CheckisSlefieScreenShotSaved")
 //        // TODO:- If connection drops and connect number of times, this will saves from sending n number of selfie pings
-//        if connection?.isRoomConnected ?? false && isSlefieScreenShotSaved{
-//            return
-//        }
+        if connection?.isRoomConnected ?? false && isSlefieScreenShotSaved{
+            return
+        }
 //        if isHangUp{
 //            return
 //        }
@@ -1066,7 +1066,7 @@ class UserCallController: VideoCallController {
                             self.uploadImage(encodedImage: encodedData, image: nil, completion: { (success, info) in
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
-                                
+                                isSlefieScreenShotSaved = false
                                 
                                 DispatchQueue.main.async {
                                     
@@ -1240,6 +1240,7 @@ class UserCallController: VideoCallController {
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })
+        Log.echo(key: "SystemCheck", text: "@1222 dismiss")
     }
     
     override func showErrorScreen() {
