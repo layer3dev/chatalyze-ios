@@ -64,6 +64,7 @@ class UserInfo: NSObject {
     var isSubscriptionPlanExists:Bool?
     var isTermsAccepted : Bool?
     var organizationId : String?
+    var removeLogo : Bool?
     override init(){
         super.init()
     }
@@ -104,6 +105,8 @@ class UserInfo: NSObject {
         self.organizationId = info["organizationId"]?.stringValue
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
+        self.removeLogo = info["removeLogo"]?.boolValue
+        
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
         }else{

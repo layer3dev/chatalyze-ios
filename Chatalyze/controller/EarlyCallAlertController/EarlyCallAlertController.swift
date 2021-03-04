@@ -171,7 +171,25 @@ class EarlyCallAlertController: InterfaceExtendedController {
                 let root = currentPresentingController
                 self.validateVPN {
                     Log.echo(key: "EarlyCallController", text: "validate VPN response")
-                    self.launchSession(currentPresentingController: root)
+                    
+                    guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
+                        return
+                    }
+
+                    internetSpeedTestcontroller.onlySystemTest = true
+                    internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                    internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
+                    internetSpeedTestcontroller.onDoneBlock = { success in
+                        if success{
+                            if success{
+                                self.launchSession(currentPresentingController: root)
+                            }
+                        }
+                    }
+                    RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
+                    })
+                    
+//                    self.launchSession(currentPresentingController: root)
                 }
                 
             }

@@ -11,6 +11,7 @@ import UIKit
 class VideoActionView: ExtendedView {
     
     @IBOutlet var actionImage : UIImageView?
+    @IBOutlet var extendBtnWidthAnchor: NSLayoutConstraint?
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -19,6 +20,18 @@ class VideoActionView: ExtendedView {
         // Drawing code
     }
     */
+    
+    func hideBtn(){
+        // extend chat button to hide off before call get randered
+        extendBtnWidthAnchor =  self.widthAnchor.constraint(equalToConstant: 0)
+        self.layoutIfNeeded()
+    }
+    
+    
+    func showExtendBtn(){
+        extendBtnWidthAnchor = self.widthAnchor.constraint(equalToConstant: 100)
+        self.layoutIfNeeded()
+    }
     
     func mute(){
         actionImage?.image = UIImage(named : "newDisableCamera")

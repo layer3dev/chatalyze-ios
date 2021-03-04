@@ -14,6 +14,7 @@ class VideoActionContainer: ExtendedView {
     @IBOutlet var videoView : VideoActionView?
     
     @IBOutlet var bottomSpace : NSLayoutConstraint?
+    @IBOutlet var extendChatView : ExtendChatView?
     
     var isactionContainerVisible = true
     

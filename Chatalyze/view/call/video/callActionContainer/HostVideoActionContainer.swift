@@ -12,6 +12,7 @@ class HostVideoActionContainer: VideoActionContainer {
     
     @IBOutlet var hangupView : HangupActionView?
     
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
