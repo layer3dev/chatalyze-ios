@@ -44,6 +44,10 @@ class MemoryFrame:XibTemplate{
     @IBOutlet var memoryTrail:NSLayoutConstraint?
     @IBOutlet var memoryLead:NSLayoutConstraint?
     
+    @IBOutlet weak var logoBottomHight: NSLayoutConstraint?
+    
+    var isLogoRemoved:Bool?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
        
@@ -53,7 +57,7 @@ class MemoryFrame:XibTemplate{
             let names = UIFont.fontNames(forFamilyName: family)
             Log.echo(key: "atul_font", text: "family:\(names)")
         }
-
+        
         chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
     
@@ -107,6 +111,9 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
+        self.isLogoRemoved = userInfo?.user?.removeLogo
+        checkIfChatalyzelogoToBeRemoved()
+        
             guard let imgURL = eveninfo.backgroundURL
                 else{
                 backGrndImg?.backgroundColor = .white
@@ -116,7 +123,24 @@ class MemoryFrame:XibTemplate{
                 backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
             }
+        // to check if powered by chatalyze is being hidden
+        
         }
+    
+    func checkIfChatalyzelogoToBeRemoved(){
+       
+        
+        guard let isLogoActive = isLogoRemoved else {
+            Log.echo(key: "removeLogoVijay", text: "No value found!!")
+            return
+        }
+        if isLogoActive{
+            self.logoBottomHight?.constant = 0
+        }else{
+            self.logoBottomHight?.constant = 40
+        }
+        self.view?.layoutIfNeeded()
+    }
     
     func setUIForLandscape(){
         

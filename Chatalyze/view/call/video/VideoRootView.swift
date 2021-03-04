@@ -271,6 +271,7 @@ class VideoRootView: ExtendedView {
     
        testView.screenShotPic?.image = finalImage
        testView.memoryStickerView?.renderImage(image: eventLogo)
+    
        testView.userInfo = info
        
        completion(getSnapshot(view: testView))
