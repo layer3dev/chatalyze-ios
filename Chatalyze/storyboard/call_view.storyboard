@@ -2199,13 +2199,50 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxZ-yE-t4X" customClass="HostVideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="102" y="831" width="210" height="50"/>
+                                <rect key="frame" x="87" y="831" width="240" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bKx-XZ-8g3">
-                                        <rect key="frame" x="0.0" y="0.0" width="210" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="50"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l9v-V4-RRE" customClass="ExtendChatView" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extend" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS2-ih-G1U">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="20"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5P-Rb-wi0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
+                                                        <connections>
+                                                            <action selector="chatExtendAction" destination="osS-h4-4wh" eventType="touchUpInside" id="7LT-px-Xad"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.99991279840000002" green="1" blue="0.99988144639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="S5P-Rb-wi0" firstAttribute="leading" secondItem="l9v-V4-RRE" secondAttribute="leading" id="9oj-WJ-h6S"/>
+                                                    <constraint firstItem="LS2-ih-G1U" firstAttribute="top" secondItem="l9v-V4-RRE" secondAttribute="top" id="DHc-9f-uAR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="LS2-ih-G1U" secondAttribute="trailing" id="HA2-co-QVh"/>
+                                                    <constraint firstAttribute="height" constant="50" id="ICp-Cz-BQK">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="trailing" secondItem="S5P-Rb-wi0" secondAttribute="trailing" id="MDc-Yn-aeg"/>
+                                                    <constraint firstItem="LS2-ih-G1U" firstAttribute="leading" secondItem="l9v-V4-RRE" secondAttribute="leading" id="OwS-pm-4Qd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="S5P-Rb-wi0" secondAttribute="bottom" id="Ph7-fl-koR"/>
+                                                    <constraint firstItem="S5P-Rb-wi0" firstAttribute="top" secondItem="l9v-V4-RRE" secondAttribute="top" id="Ylz-s4-63R"/>
+                                                    <constraint firstAttribute="width" id="l9S-cX-AVS">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="bottom" secondItem="LS2-ih-G1U" secondAttribute="bottom" id="urA-Qc-wFq"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="extendBtnWidthAnchor" destination="l9S-cX-AVS" id="tbB-nP-GKf"/>
+                                                </connections>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-L3-3zH" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="30" y="0.0" width="50" height="50"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newCamera" translatesAutoresizingMaskIntoConstraints="NO" id="Elq-gM-lZb">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -2238,39 +2275,8 @@
                                                     <outlet property="actionImage" destination="Elq-gM-lZb" id="71k-4L-ErQ"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-ew-0Ka" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="80" y="0.0" width="50" height="50"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newEndCall" translatesAutoresizingMaskIntoConstraints="NO" id="x5d-PQ-CWA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNa-nb-2Ef">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                        <connections>
-                                                            <action selector="hangupAction" destination="osS-h4-4wh" eventType="touchUpInside" id="LsE-Ai-U0C"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="Dqb-uV-oNK"/>
-                                                    <constraint firstAttribute="bottom" secondItem="jNa-nb-2Ef" secondAttribute="bottom" id="Egx-bU-9wr"/>
-                                                    <constraint firstAttribute="height" constant="50" id="MhH-bO-X5v">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
-                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="VBg-wf-d9F"/>
-                                                    <constraint firstAttribute="bottom" secondItem="x5d-PQ-CWA" secondAttribute="bottom" id="dca-hc-5OD"/>
-                                                    <constraint firstAttribute="trailing" secondItem="jNa-nb-2Ef" secondAttribute="trailing" id="fRz-L4-sV8"/>
-                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="kyA-vX-R8F"/>
-                                                    <constraint firstAttribute="width" constant="50" id="mPE-en-cT8">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
-                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="sKf-Nh-yYm"/>
-                                                    <constraint firstAttribute="trailing" secondItem="x5d-PQ-CWA" secondAttribute="trailing" id="zb9-OP-fde"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4e-s9-rYj" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="160" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="110" y="0.0" width="50" height="50"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newMic" translatesAutoresizingMaskIntoConstraints="NO" id="yWb-YW-7RX">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -2303,6 +2309,37 @@
                                                     <outlet property="actionImage" destination="yWb-YW-7RX" id="5Lt-Oo-yG7"/>
                                                 </connections>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-ew-0Ka" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="190" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newEndCall" translatesAutoresizingMaskIntoConstraints="NO" id="x5d-PQ-CWA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNa-nb-2Ef">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <connections>
+                                                            <action selector="hangupAction" destination="osS-h4-4wh" eventType="touchUpInside" id="LsE-Ai-U0C"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="Dqb-uV-oNK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jNa-nb-2Ef" secondAttribute="bottom" id="Egx-bU-9wr"/>
+                                                    <constraint firstAttribute="height" constant="50" id="MhH-bO-X5v">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="VBg-wf-d9F"/>
+                                                    <constraint firstAttribute="bottom" secondItem="x5d-PQ-CWA" secondAttribute="bottom" id="dca-hc-5OD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jNa-nb-2Ef" secondAttribute="trailing" id="fRz-L4-sV8"/>
+                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="kyA-vX-R8F"/>
+                                                    <constraint firstAttribute="width" constant="50" id="mPE-en-cT8">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="sKf-Nh-yYm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="x5d-PQ-CWA" secondAttribute="trailing" id="zb9-OP-fde"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <variation key="heightClass=regular-widthClass=regular" spacing="50"/>
                                     </stackView>
@@ -2317,6 +2354,7 @@
                                 <connections>
                                     <outlet property="audioView" destination="C4e-s9-rYj" id="Th7-fT-gx6"/>
                                     <outlet property="bottomSpace" destination="jRj-cQ-8lN" id="DfI-9b-Zuk"/>
+                                    <outlet property="extendChatView" destination="l9v-V4-RRE" id="DdS-Vf-gn4"/>
                                     <outlet property="hangupView" destination="Ugr-ew-0Ka" id="sky-bW-U56"/>
                                     <outlet property="videoView" destination="0P4-L3-3zH" id="h53-eW-9dM"/>
                                 </connections>
@@ -2870,7 +2908,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blw-KB-trx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4600" y="-1769"/>
+            <point key="canvasLocation" x="4598.5507246376819" y="-1769.1964285714284"/>
         </scene>
     </scenes>
     <resources>

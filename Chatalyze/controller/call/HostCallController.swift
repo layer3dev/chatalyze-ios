@@ -306,6 +306,26 @@ class HostCallController: VideoCallController {
     }
     
     
+    @IBAction private func chatExtendAction(){
+        Log.echo(key: self.TAG, text: "chatExtendAction")
+        self.extendChat()
+    }
+    
+    private func extendChat(){
+        
+        guard let sessionId = eventId else{
+            Log.echo(key: "vijayExtend", text: "session id not found !!!")
+            return
+        }
+        
+        ExtendChatService().sendRequest(id: sessionId) { (success, message) in
+            if success{
+                self.showToastWithMessage(text: "Chat Extended Successfully", time: 5.0)
+                Log.echo(key: "vijayChatExtend", text: message)
+            }
+        }
+    }
+    
     private func toggleHangup(){
         
         guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
@@ -359,6 +379,7 @@ class HostCallController: VideoCallController {
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
+        hostActionContainer?.extendChatView?.hideBtn()
     }
     
     private func registerForHangupRequest(){
@@ -880,6 +901,7 @@ class HostCallController: VideoCallController {
             //Updating the info text when the call is live.
             updateFutureCallHeaderForEmptySlot()
             updateCallHeaderForLiveCall(slot: slotInfo)
+            hostActionContainer?.extendChatView?.showExtendBtn()
         }
     }
     

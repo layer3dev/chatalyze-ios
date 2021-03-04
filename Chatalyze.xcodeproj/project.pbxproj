@@ -1179,6 +1179,10 @@
 		FA41AC63207BA53C002A7525 /* EventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA41AC62207BA53C002A7525 /* EventListener.swift */; };
 		FA42C1F02547DC7E00D296B5 /* PermanentMarker.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA42C1EF2547DC7E00D296B5 /* PermanentMarker.ttf */; };
 		FA42C1F52547DDDA00D296B5 /* PermanentMarker.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA42C1EF2547DC7E00D296B5 /* PermanentMarker.ttf */; };
+		FA44882825F09AF8001FE69F /* ExtendChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44882725F09AF8001FE69F /* ExtendChatView.swift */; };
+		FA44882925F09AF9001FE69F /* ExtendChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44882725F09AF8001FE69F /* ExtendChatView.swift */; };
+		FA44885C25F0B9C1001FE69F /* ExtendChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */; };
+		FA44885D25F0B9C1001FE69F /* ExtendChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */; };
 		FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */; };
 		FA581945204165CA00D088F1 /* SigninController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581944204165CA00D088F1 /* SigninController.swift */; };
 		FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */; };
@@ -1964,6 +1968,8 @@
 		FA416810207237C000789E22 /* EventSlotNumberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSlotNumberLabel.swift; sourceTree = "<group>"; };
 		FA41AC62207BA53C002A7525 /* EventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListener.swift; sourceTree = "<group>"; };
 		FA42C1EF2547DC7E00D296B5 /* PermanentMarker.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PermanentMarker.ttf; sourceTree = "<group>"; };
+		FA44882725F09AF8001FE69F /* ExtendChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendChatView.swift; sourceTree = "<group>"; };
+		FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendChatService.swift; sourceTree = "<group>"; };
 		FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnServerInfo.swift; sourceTree = "<group>"; };
 		FA58193A2041647800D088F1 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
 		FA58193B2041647900D088F1 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
@@ -4832,6 +4838,14 @@
 			path = roomText;
 			sourceTree = "<group>";
 		};
+		FA44885A25F0B979001FE69F /* ExtendChat */ = {
+			isa = PBXGroup;
+			children = (
+				FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */,
+			);
+			path = ExtendChat;
+			sourceTree = "<group>";
+		};
 		FA573C0E207CBE77006447A1 /* call */ = {
 			isa = PBXGroup;
 			children = (
@@ -5125,6 +5139,7 @@
 				FA79F100210A032A00D16F13 /* VideoActionContainer.swift */,
 				FA79F102210A039600D16F13 /* HostVideoActionContainer.swift */,
 				FA79F108210A044900D16F13 /* HangupActionView.swift */,
+				FA44882725F09AF8001FE69F /* ExtendChatView.swift */,
 			);
 			path = callActionContainer;
 			sourceTree = "<group>";
@@ -5140,6 +5155,7 @@
 		FA85D3B62045B82700E7815A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				FA44885A25F0B979001FE69F /* ExtendChat */,
 				FAD87E3A25C865CC0026B6B0 /* RequestDefaultImage */,
 				78DF78F22307D07E007B2663 /* AutographyInfoFetch */,
 				FA1286772217F187000A6560 /* inAppPurchase */,
@@ -6585,6 +6601,7 @@
 				47D0B01321A6C4B5006376A8 /* TicketSlotListener.swift in Sources */,
 				47D0B01421A6C4B5006376A8 /* ARDSettingsModel.m in Sources */,
 				47D0B01521A6C4B5006376A8 /* HostDashboardRootView.swift in Sources */,
+				FA44882925F09AF9001FE69F /* ExtendChatView.swift in Sources */,
 				47D0B01621A6C4B5006376A8 /* MenuInfo.swift in Sources */,
 				47D0B01721A6C4B5006376A8 /* HostCallQueueRootView.swift in Sources */,
 				47D0B01821A6C4B5006376A8 /* ARDBitrateTracker.m in Sources */,
@@ -7001,6 +7018,7 @@
 				479FB7502240FBF100408229 /* EditSessionFormRootView.swift in Sources */,
 				47D0B12421A6C4B5006376A8 /* EventInfoExtension.swift in Sources */,
 				47B6EE0521ABFC63009E155A /* EventCreateListener.swift in Sources */,
+				FA44885D25F0B9C1001FE69F /* ExtendChatService.swift in Sources */,
 				47D0B12521A6C4B5006376A8 /* EditProfileRootview.swift in Sources */,
 				47D0B12621A6C4B5006376A8 /* EventPaymentController.swift in Sources */,
 				47A8B8342268873500996ACA /* AchievmentsController.swift in Sources */,
@@ -7201,6 +7219,7 @@
 				472F2D942110772D00C7BAEF /* TicketSlotListener.swift in Sources */,
 				FA74B13120639B6400983141 /* ARDSettingsModel.m in Sources */,
 				47111CE82158BBBA00DFBC08 /* HostDashboardRootView.swift in Sources */,
+				FA44882825F09AF8001FE69F /* ExtendChatView.swift in Sources */,
 				47C9EF6421550D3900478D85 /* MenuInfo.swift in Sources */,
 				FA24BADA206FAA830064F94F /* HostCallQueueRootView.swift in Sources */,
 				FA74B12D20639B6400983141 /* ARDBitrateTracker.m in Sources */,
@@ -7617,6 +7636,7 @@
 				FAE9EF7E206CEA8B00C45F8D /* EventInfoExtension.swift in Sources */,
 				47B6EE0421ABFAF1009E155A /* EventCreateListener.swift in Sources */,
 				47DF899B20AC180000FEA916 /* EditProfileRootview.swift in Sources */,
+				FA44885C25F0B9C1001FE69F /* ExtendChatService.swift in Sources */,
 				472D617E20BD6FC20016A761 /* EventPaymentController.swift in Sources */,
 				47A8B8332268873500996ACA /* AchievmentsController.swift in Sources */,
 				FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */,

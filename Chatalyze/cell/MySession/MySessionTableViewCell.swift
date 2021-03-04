@@ -266,6 +266,8 @@ class MySessionTableViewCell: ExtendedTableCell {
                 }
             }
         }
+        RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
+        })
 //        self.gotoSession()
     }
 
