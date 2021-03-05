@@ -52,6 +52,7 @@ class UserInfo: NSObject {
     var profileImage : String?
     var profileThumbnail : String?
     var defaultImage : HostDefaultScreenshot?
+    var orgranization : Bool?
     var eventMobReminder:Bool = false
     var emailNotification:Bool = false
     var isOnline = false
@@ -106,7 +107,8 @@ class UserInfo: NSObject {
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         self.removeLogo = info["removeLogo"]?.boolValue
-        
+        let organizations = info["organization"]
+        orgranization = organizations?["removeLogo"].boolValue
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
         }else{

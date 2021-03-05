@@ -2239,6 +2239,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="extendBtnWidthAnchor" destination="l9S-cX-AVS" id="tbB-nP-GKf"/>
+                                                    <outlet property="extendLbl" destination="LS2-ih-G1U" id="Nsw-PY-10I"/>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-L3-3zH" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
@@ -2275,8 +2276,39 @@
                                                     <outlet property="actionImage" destination="Elq-gM-lZb" id="71k-4L-ErQ"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4e-s9-rYj" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-ew-0Ka" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="110" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newEndCall" translatesAutoresizingMaskIntoConstraints="NO" id="x5d-PQ-CWA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNa-nb-2Ef">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <connections>
+                                                            <action selector="hangupAction" destination="osS-h4-4wh" eventType="touchUpInside" id="LsE-Ai-U0C"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="Dqb-uV-oNK"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jNa-nb-2Ef" secondAttribute="bottom" id="Egx-bU-9wr"/>
+                                                    <constraint firstAttribute="height" constant="50" id="MhH-bO-X5v">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="VBg-wf-d9F"/>
+                                                    <constraint firstAttribute="bottom" secondItem="x5d-PQ-CWA" secondAttribute="bottom" id="dca-hc-5OD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jNa-nb-2Ef" secondAttribute="trailing" id="fRz-L4-sV8"/>
+                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="kyA-vX-R8F"/>
+                                                    <constraint firstAttribute="width" constant="50" id="mPE-en-cT8">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                                    </constraint>
+                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="sKf-Nh-yYm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="x5d-PQ-CWA" secondAttribute="trailing" id="zb9-OP-fde"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4e-s9-rYj" customClass="MicActionView" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="190" y="0.0" width="50" height="50"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newMic" translatesAutoresizingMaskIntoConstraints="NO" id="yWb-YW-7RX">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -2308,37 +2340,6 @@
                                                 <connections>
                                                     <outlet property="actionImage" destination="yWb-YW-7RX" id="5Lt-Oo-yG7"/>
                                                 </connections>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-ew-0Ka" customClass="HangupActionView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="190" y="0.0" width="50" height="50"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newEndCall" translatesAutoresizingMaskIntoConstraints="NO" id="x5d-PQ-CWA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNa-nb-2Ef">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                        <connections>
-                                                            <action selector="hangupAction" destination="osS-h4-4wh" eventType="touchUpInside" id="LsE-Ai-U0C"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="Dqb-uV-oNK"/>
-                                                    <constraint firstAttribute="bottom" secondItem="jNa-nb-2Ef" secondAttribute="bottom" id="Egx-bU-9wr"/>
-                                                    <constraint firstAttribute="height" constant="50" id="MhH-bO-X5v">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
-                                                    <constraint firstItem="jNa-nb-2Ef" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="VBg-wf-d9F"/>
-                                                    <constraint firstAttribute="bottom" secondItem="x5d-PQ-CWA" secondAttribute="bottom" id="dca-hc-5OD"/>
-                                                    <constraint firstAttribute="trailing" secondItem="jNa-nb-2Ef" secondAttribute="trailing" id="fRz-L4-sV8"/>
-                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="top" secondItem="Ugr-ew-0Ka" secondAttribute="top" id="kyA-vX-R8F"/>
-                                                    <constraint firstAttribute="width" constant="50" id="mPE-en-cT8">
-                                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
-                                                    </constraint>
-                                                    <constraint firstItem="x5d-PQ-CWA" firstAttribute="leading" secondItem="Ugr-ew-0Ka" secondAttribute="leading" id="sKf-Nh-yYm"/>
-                                                    <constraint firstAttribute="trailing" secondItem="x5d-PQ-CWA" secondAttribute="trailing" id="zb9-OP-fde"/>
-                                                </constraints>
                                             </view>
                                         </subviews>
                                         <variation key="heightClass=regular-widthClass=regular" spacing="50"/>

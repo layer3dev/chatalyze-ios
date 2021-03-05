@@ -16,6 +16,7 @@ class CallEventInfo{
         
         
         let url = AppConnectionConfig.webServiceURL + "/schedules/calls/\(eventId)"
+        Log.echo(key: "vijayAPI", text: url)
         
         ServerProcessor().request(.get, url, encoding: .defaultEncoding, authorize : true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)

@@ -13,6 +13,20 @@ class ExtendChatView: ExtendedView {
 
     @IBOutlet var extendBtnWidthAnchor: NSLayoutConstraint?
     
+    @IBOutlet var extendLbl:UILabel?
+    
+    func showExtending(){
+        extendLbl?.text = "Extending"
+        self.isUserInteractionEnabled = false
+        self.layoutIfNeeded()
+    }
+    
+    func showExtend(){
+        extendLbl?.text = "Extend"
+        self.isUserInteractionEnabled = true
+        self.layoutIfNeeded()
+    }
+    
     func hideBtn(){
         // extend chat button to hide off before call get randered
         
@@ -23,7 +37,7 @@ class ExtendChatView: ExtendedView {
     
     
     func showExtendBtn(){
-        extendBtnWidthAnchor?.constant = 100
+        extendBtnWidthAnchor?.constant = 120
         self.layoutIfNeeded()
     }
     

@@ -33,6 +33,7 @@ class HostCallController: VideoCallController {
     var defaultImage : UIImage?
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
+    var isExtendChatDisbaled = false
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -307,7 +308,12 @@ class HostCallController: VideoCallController {
     
     
     @IBAction private func chatExtendAction(){
+        if isExtendChatDisbaled{
+            Log.echo(key: "isExtendChatDisbaled", text: "\(isExtendChatDisbaled)")
+            return
+        }
         Log.echo(key: self.TAG, text: "chatExtendAction")
+        hostActionContainer?.extendChatView?.showExtending()
         self.extendChat()
     }
     
@@ -320,6 +326,7 @@ class HostCallController: VideoCallController {
         
         ExtendChatService().sendRequest(id: sessionId) { (success, message) in
             if success{
+                self.hostActionContainer?.extendChatView?.showExtend()
                 self.showToastWithMessage(text: "Chat Extended Successfully", time: 5.0)
                 Log.echo(key: "vijayChatExtend", text: message)
             }
@@ -1066,6 +1073,10 @@ class HostCallController: VideoCallController {
             selfieTimerView?.reset()
                      }
           
+            
+            if endDate < 10.0 && endDate >= 1.0{
+                isExtendChatDisbaled = true
+            }
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {
                 

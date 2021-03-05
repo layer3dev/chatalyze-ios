@@ -40,7 +40,6 @@ class SlotInfo: SlotTimeInfo {
     var price:String?
     var eventTitle:String?
     var sponserId:Int?
-    var removeLogo: Bool?
     
     override init(info : JSON?){
         super.init(info : info)
@@ -83,7 +82,6 @@ class SlotInfo: SlotTimeInfo {
         deletedAt = json["deletedAt"].string
         user = UserInfo(userInfoJSON: json["user"])
         href = json["href"].string
-        removeLogo = json["removeLogo"].boolValue
         
         if let callScheduleInfo = json["callschedule"].dictionary{
          
