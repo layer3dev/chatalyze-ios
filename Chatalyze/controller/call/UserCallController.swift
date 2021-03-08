@@ -158,6 +158,9 @@ class UserCallController: VideoCallController {
             custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
+        
+     let organization  =  eveninfo.user?.organization
+        Log.echo(key: "dhimu", text: "\(organization)")
     }
     
     private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
