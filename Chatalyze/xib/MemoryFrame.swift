@@ -127,7 +127,9 @@ class MemoryFrame:XibTemplate{
     func checkForPoweredByChatalyzeLogo(){
         //we are getting diffrent value at diffrent location for organization host and normal host to disable powered by Chatalyze logo.
         
-        if let isOrganizationHostWithRemovedLogo = isLogoRemeovedForOrganizationHost{
+        guard  let isOrganizationHostWithRemovedLogo = isLogoRemeovedForOrganizationHost else{return}
+        
+        if isOrganizationHostWithRemovedLogo{
             checkIfChatalyzelogoToBeRemoved(isLogoActive: isOrganizationHostWithRemovedLogo)
             return
         }else{
