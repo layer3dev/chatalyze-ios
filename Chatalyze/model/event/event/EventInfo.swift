@@ -58,6 +58,7 @@ class EventInfo: NSObject {
     var isRecordingEnabled : Bool?
     var tipText:String?
     var room_id:String?
+    var organization: Bool?
     
     
     var isAutographEnabled : Bool{
@@ -133,6 +134,7 @@ class EventInfo: NSObject {
         emptySlotsArray = json["emptySlots"].array
         
         user = UserInfo(userInfoJSON: json["user"])
+        Log.echo(key: "vijayInfo", text: "\(user)")
         href = json["href"].string
         if let  callBokingArray = json["callbookings"].array {
             self.callBookings = callBokingArray

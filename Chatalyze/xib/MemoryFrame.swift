@@ -47,17 +47,14 @@ class MemoryFrame:XibTemplate{
     @IBOutlet weak var logoBottomHight: NSLayoutConstraint?
     
     var isLogoRemoved:Bool?
+    var isLogoRemeovedForOrganizationHost : Bool?
     
     override func layoutSubviews() {
         super.layoutSubviews()
        
         paintInterface()
         loadbackgrndImg(eveninfo: userInfo!)
-        for family in UIFont.familyNames.sorted(){
-            let names = UIFont.fontNames(forFamilyName: family)
-            Log.echo(key: "atul_font", text: "family:\(names)")
-        }
-        
+        checkForPoweredByChatalyzeLogo()
         chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
     
@@ -111,8 +108,7 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
-        self.isLogoRemoved = userInfo?.user?.removeLogo
-        checkIfChatalyzelogoToBeRemoved()
+    
         
             guard let imgURL = eveninfo.backgroundURL
                 else{
@@ -127,13 +123,26 @@ class MemoryFrame:XibTemplate{
         
         }
     
-    func checkIfChatalyzelogoToBeRemoved(){
-       
+    
+    func checkForPoweredByChatalyzeLogo(){
+        //we are getting diffrent value at diffrent location for organization host and normal host to disable powered by Chatalyze logo.
         
-        guard let isLogoActive = isLogoRemoved else {
-            Log.echo(key: "removeLogoVijay", text: "No value found!!")
+        guard  let isOrganizationHostWithRemovedLogo = isLogoRemeovedForOrganizationHost else{return}
+        
+        if isOrganizationHostWithRemovedLogo{
+            checkIfChatalyzelogoToBeRemoved(isLogoActive: isOrganizationHostWithRemovedLogo)
             return
+        }else{
+            if let userInfo = self.userInfo{
+                guard let isPoweredByChatlyzeHidden = userInfo.user?.removeLogo else{return}
+                checkIfChatalyzelogoToBeRemoved(isLogoActive: isPoweredByChatlyzeHidden)
+            }
         }
+
+    }
+    
+    func checkIfChatalyzelogoToBeRemoved(isLogoActive: Bool){
+       
         if isLogoActive{
             self.logoBottomHight?.constant = 0
         }else{

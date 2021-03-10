@@ -158,6 +158,9 @@ class UserCallController: VideoCallController {
             custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
+        
+     let organization  =  eveninfo.user?.organization
+        Log.echo(key: "dhimu", text: "\(organization)")
     }
     
     private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
@@ -1859,7 +1862,13 @@ extension UserCallController {
 
         }
         
-        self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        if  let image = userRootView?.defaultImage{
+            self.userRootView?.canvasContainer?.show(with: image,info:info)
+            Log.echo(key: "panku", text: "defaultImage found")
+        }else{
+            Log.echo(key: "panku", text: "defaultImage not found")
+            self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        }
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.userRootView?.remoteVideoContainerView?.updateForSignature()
         self.updateScreenshotLoaded(info : info)

@@ -52,7 +52,7 @@ class UserInfo: NSObject {
     var profileImage : String?
     var profileThumbnail : String?
     var defaultImage : HostDefaultScreenshot?
-    var orgranization : Bool?
+    var organization : OrganizationInfo?
     var eventMobReminder:Bool = false
     var emailNotification:Bool = false
     var isOnline = false
@@ -82,6 +82,7 @@ class UserInfo: NSObject {
             else{
                 return
         }
+        Log.echo(key: "VijayRe", text: "\(info)")
         id = info["id"]?.stringValue
         firstName = info["firstName"]?.stringValue
         middleName = info["middleName"]?.stringValue
@@ -107,8 +108,8 @@ class UserInfo: NSObject {
         self.countryCode =  (info["countryCode"]?.stringValue) ?? ""
         self.allowFreeSession  = info["allowFreeSession"]?.boolValue
         self.removeLogo = info["removeLogo"]?.boolValue
-        let organizations = info["organization"]
-        orgranization = organizations?["removeLogo"].boolValue
+        self.organization = OrganizationInfo(userInfoJSON: info["organization"])
+       
         if let meta = info["meta"]?.dictionary{
             self.shouldAskForPlan = meta["askPlan"]?.boolValue
         }else{
