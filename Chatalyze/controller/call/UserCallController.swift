@@ -1862,7 +1862,13 @@ extension UserCallController {
 
         }
         
-        self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        if  let image = userRootView?.defaultImage{
+            self.userRootView?.canvasContainer?.show(with: image,info:info)
+            Log.echo(key: "panku", text: "defaultImage found")
+        }else{
+            Log.echo(key: "panku", text: "defaultImage not found")
+            self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        }
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.userRootView?.remoteVideoContainerView?.updateForSignature()
         self.updateScreenshotLoaded(info : info)

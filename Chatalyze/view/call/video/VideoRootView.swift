@@ -15,7 +15,7 @@ class VideoRootView: ExtendedView {
     
     var testView = MemoryFrame()
     var defaultImage : UIImage?
-    var defualtImage = String()
+    
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
@@ -93,7 +93,7 @@ class VideoRootView: ExtendedView {
         self.addGestureRecognizer(tapGesture)
     }
     
-    private func getDefulatImage(roomId : String){
+     func getDefulatImage(roomId : String){
         RequestDefaultImage().fetchInfo(id: roomId) { (success, response) in
             if success{
                 
@@ -329,12 +329,18 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-            if let defaultImg = self.defaultImage {
-                return defaultImg
-            }else{
-                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+            if let userType = SignedUserInfo.sharedInstance?.role {
+                
+                if userType == .analyst{
+                    if let defaultImg = self.defaultImage {
+                        return defaultImg
+                    }else{
+                        Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                    }
+                }
+                
             }
-            
+        
             var cropHostPic = UIImage()
             var cropUserPic = UIImage()
             var aspactHost : UIImage?
