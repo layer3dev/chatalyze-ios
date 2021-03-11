@@ -1074,8 +1074,10 @@ class HostCallController: VideoCallController {
                      }
           
             
-            if endDate < 10.0 && endDate >= 1.0{
+            if endDate < 5.0 && endDate >= 1.0{
                 isExtendChatDisbaled = true
+            }else{
+                isExtendChatDisbaled = false
             }
             
             if endDate < 16.0 && endDate >= 1.0 && isAnimating == false {

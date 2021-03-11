@@ -34,7 +34,7 @@ def pod_file
   pod 'CRToast'
   pod 'libyuv-iOS'
   pod 'GoogleSignIn'
-  pod "YoutubePlayer-in-WKWebView"
+  pod 'YoutubePlayer-in-WKWebView', '~> 0.3'
   pod 'TwilioVideo'
   pod 'ZendeskChatSDK'
   platform :ios, '12.0'
