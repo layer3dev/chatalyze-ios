@@ -36,6 +36,7 @@ class VideoRootView: ExtendedView {
     
     private var hangupListener : (()->())?
     private var loadListener : (()->())?
+    private var defaultImgListner : (()->())?
     
     
     /*
@@ -99,9 +100,9 @@ class VideoRootView: ExtendedView {
                 
                 if let info = response{
                     let defaulImage = info["user"]["defaultImage"]["url"].stringValue
-                    
-                      let isOrhanizationHost = info["user"]["organization"]["removeLogo"].boolValue
-                        self.isLogoRemeovedForOrganizationHost = isOrhanizationHost
+                     
+                    let isOrhanizationHost = info["user"]["organization"]["removeLogo"].boolValue
+                    self.isLogoRemeovedForOrganizationHost = isOrhanizationHost
                     Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(self.isLogoRemeovedForOrganizationHost)")
                     
                     Log.echo(key: "abhi", text: "\(isOrhanizationHost)")
