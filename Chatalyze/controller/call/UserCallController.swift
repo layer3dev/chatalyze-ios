@@ -33,7 +33,7 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     var isSlefieScreenShotSaved = false
-    
+    var defaultImage : UIImage?
     var isPreConnected = false
     
     //variable and outlet responsible for the SelfieTimer
@@ -143,7 +143,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
+        loadDefaultImage(eventInfo: eventInfo)
         loadYoutubeVideo(eventInfo: eventInfo)
         loadbackgrndImg(eveninfo: eventInfo)
     }
@@ -169,6 +169,15 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.youtubeContainerView?.load(rawUrl : youtubeURL)
+       
+    }
+    
+    func loadDefaultImage(eventInfo : EventScheduleInfo){
+        guard let url = eventInfo.room_id
+        else{
+            return
+        }
+        downloadDefaultImage(with: url)
     }
     
    
@@ -1862,7 +1871,8 @@ extension UserCallController {
 
         }
         
-        if  let image = userRootView?.defaultImage{
+        if  let image = self.defaultImage{
+            
             self.userRootView?.canvasContainer?.show(with: image,info:info)
             Log.echo(key: "panku", text: "defaultImage found")
         }else{
@@ -1875,6 +1885,25 @@ extension UserCallController {
         
     }
     
+    func downloadDefaultImage(with url : String){
+        RequestDefaultImage().fetchInfo(id: url) { (success, response) in
+            if success{
+                
+                if let info = response{
+                    let defaulImage = info["user"]["defaultImage"]["url"].stringValue
+                    SDWebImageDownloader().downloadImage(with: URL(string: defaulImage), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
+                        guard let img = image else {
+                            // No image handle this error
+                            Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                            return
+                        }
+                        self.defaultImage = img
+                        Log.echo(key: "vijayDefault", text: "defaultImage Found")
+                    }
+                }
+            }
+        }
+    }
     
     
     private func updateScreenshotLoaded(info : CanvasInfo?){
