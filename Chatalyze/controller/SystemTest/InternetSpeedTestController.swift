@@ -204,10 +204,10 @@ class InternetSpeedTestController: InterfaceExtendedController {
             controller.onDoneBlock = self.onDoneBlock
             controller.isOnlySystemTestForTicket = self.isOnlySystemTestForTicket
             controller.onlySystemTest = self.onlySystemTest
-            controller.dismissListner = {
+            controller.dismissListner = { [weak self] in
                 DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: {
-                        if let listner = self.dismissListner{
+                    self?.dismiss(animated: false, completion: {
+                        if let listner = self?.dismissListner{
                             listner(false)
                         }
                     })
