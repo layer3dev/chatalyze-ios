@@ -36,7 +36,7 @@ class HostDashboardController: MyScheduledSessionsController {
         SEGAnalytics.shared().track("My Session Page")
     }
     
-    func animate(){       
+    func animate(){
         
         if shouldStartAnimation == false {
             return
@@ -81,7 +81,7 @@ class HostDashboardController: MyScheduledSessionsController {
         rootView?.paintNewUI()
         self.shouldStartAnimation = true
         animate()
-    }    
+    }
 
     
     override func showShareView(){
@@ -254,7 +254,7 @@ class HostDashboardController: MyScheduledSessionsController {
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
         self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
-        }        
+        }
     }
     
     @IBAction func scheduleSessionAction(sender:UIButton){
@@ -282,7 +282,6 @@ class HostDashboardController: MyScheduledSessionsController {
         }
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.topPresentedController = RootControllerManager().getCurrentController()
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }

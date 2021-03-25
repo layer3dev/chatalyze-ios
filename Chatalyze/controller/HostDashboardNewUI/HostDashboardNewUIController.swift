@@ -80,7 +80,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     func paintUI(){
         
         paintNavigationTitle(text: "Dashboard")
-        paintSettingButton()        
+        paintSettingButton()
     }
     
     
@@ -107,7 +107,6 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.topPresentedController = RootControllerManager().getCurrentController()
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
@@ -155,7 +154,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
         
         guard let controller = EditProfileHostController.instance() else{
             return
-        }        
+        }
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

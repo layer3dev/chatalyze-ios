@@ -107,7 +107,7 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if indexPath.row == self.ticketsListingArray.count-1{
-            if root?.controller?.currentEventShowing == .past {                
+            if root?.controller?.currentEventShowing == .past {
                 root?.controller?.fetchPreviousTicketsInfoForPagination()
             }
         }
@@ -177,26 +177,7 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         }
         controller.eventId = String(eventId)
         controller.modalPresentationStyle = .fullScreen
-        
-        // display modal before the call room.
-        guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
-            return
-        }
-
-        internetSpeedTestcontroller.onlySystemTest = true
-        internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
-        internetSpeedTestcontroller.onDoneBlock = { success in
-            if success{
-                if success{
-                    self.root?.controller?.present(controller, animated: false, completion: nil)
-                }
-            }
-        }
-        RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
-        })
-        
-        
+        self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
     func systemTest(){
@@ -206,7 +187,6 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
         }
         controller.onlySystemTest = true
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.topPresentedController =  RootControllerManager().getCurrentController()
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }

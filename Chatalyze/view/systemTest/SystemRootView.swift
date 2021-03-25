@@ -52,13 +52,13 @@ extension SystemRootView:UIGestureRecognizerDelegate{
     @IBAction func cancelAction(){
         
         DispatchQueue.main.async {
-            self.controller?.dismiss(animated: false, completion: {                
+            self.controller?.dismiss(animated: false, completion: {
                 //                if let listner = self.controller?.dismissListner{
                 //                    listner(false)
                 //                }
             })
         }
-    }   
+    }
     
     @IBAction func skipAction(sender:UIButton?){
         
@@ -125,7 +125,6 @@ extension SystemRootView:UIGestureRecognizerDelegate{
             }
             
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            controller.topPresentedController = RootControllerManager().getCurrentController()
             RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
             })
         })

@@ -252,23 +252,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             showAlert(sender: sender ?? UIButton())
             return
         }
-        guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
-            return
-        }
-
-        internetSpeedTestcontroller.onlySystemTest = true
-        internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
-        internetSpeedTestcontroller.onDoneBlock = { success in
-            if success{
-                if success{
-                    self.gotoSession()
-                }
-            }
-        }
-        RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
-        })
-//        self.gotoSession()
+        self.gotoSession()
     }
 
 }

@@ -87,6 +87,10 @@ class UpdateEventListener{
             return
         }
         
+        if activityType == .eventChatDurationUpdated{
+            HostCallController().showToastWithMessage(text: "Chat Extended Successfully", time: 5.0)
+        }
+        
         Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         
         
