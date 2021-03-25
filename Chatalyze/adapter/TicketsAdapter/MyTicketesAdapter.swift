@@ -57,7 +57,7 @@ class MyTicketesAdapter: ExtendedView {
         myTicketsCollectionView?.alwaysBounceVertical = false
         self.myTicketsCollectionView?.dataSource = self
         self.myTicketsCollectionView?.delegate = self
-    }    
+    }
 }
 
 extension MyTicketesAdapter:UICollectionViewDataSource{
@@ -173,21 +173,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         }*/
         controller.eventId = String(eventId)
         controller.modalPresentationStyle = .fullScreen
-        guard let controllers = InternetSpeedTestController.instance() else{
-            return
-        }
-        
-        controllers.onlySystemTest = true
-        
-        controllers.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controllers.topPresentedController = RootControllerManager().getCurrentController()
-        controllers.onDoneBlock = { result in
-            self.root?.controller?.present(controller, animated: false, completion: nil)
-        }
-        RootControllerManager().getCurrentController()?.present(controllers, animated: false, completion: {
-        })
-        
-            
+        self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
     func systemTest(){
@@ -206,7 +192,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         controller.onlySystemTest = true
         
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.topPresentedController = RootControllerManager().getCurrentController()
+        
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }
