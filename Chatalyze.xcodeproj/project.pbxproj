@@ -1183,6 +1183,12 @@
 		FA44882925F09AF9001FE69F /* ExtendChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44882725F09AF8001FE69F /* ExtendChatView.swift */; };
 		FA44885C25F0B9C1001FE69F /* ExtendChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */; };
 		FA44885D25F0B9C1001FE69F /* ExtendChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */; };
+		FA4597EA2615BFAA00B07826 /* ClaimCustomTickets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */; };
+		FA4597EB2615BFAA00B07826 /* ClaimCustomTickets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */; };
+		FA4597F22615D1A400B07826 /* ClaimCustomTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */; };
+		FA4597F32615D1A400B07826 /* ClaimCustomTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */; };
+		FA4597FE2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */; };
+		FA4597FF2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */; };
 		FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */; };
 		FA581945204165CA00D088F1 /* SigninController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581944204165CA00D088F1 /* SigninController.swift */; };
 		FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */; };
@@ -1972,6 +1978,9 @@
 		FA42C1EF2547DC7E00D296B5 /* PermanentMarker.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PermanentMarker.ttf; sourceTree = "<group>"; };
 		FA44882725F09AF8001FE69F /* ExtendChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendChatView.swift; sourceTree = "<group>"; };
 		FA44885B25F0B9C1001FE69F /* ExtendChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendChatService.swift; sourceTree = "<group>"; };
+		FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ClaimCustomTickets.storyboard; sourceTree = "<group>"; };
+		FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimCustomTicket.swift; sourceTree = "<group>"; };
+		FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimCustomTicketRootView.swift; sourceTree = "<group>"; };
 		FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnServerInfo.swift; sourceTree = "<group>"; };
 		FA58193A2041647800D088F1 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
 		FA58193B2041647900D088F1 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
@@ -4850,6 +4859,22 @@
 			path = ExtendChat;
 			sourceTree = "<group>";
 		};
+		FA4597F02615D17600B07826 /* ClaimCustomEvents */ = {
+			isa = PBXGroup;
+			children = (
+				FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */,
+			);
+			path = ClaimCustomEvents;
+			sourceTree = "<group>";
+		};
+		FA4597FC2615D2D300B07826 /* ClaimCustomTicketRootView */ = {
+			isa = PBXGroup;
+			children = (
+				FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */,
+			);
+			path = ClaimCustomTicketRootView;
+			sourceTree = "<group>";
+		};
 		FA573C0E207CBE77006447A1 /* call */ = {
 			isa = PBXGroup;
 			children = (
@@ -5266,6 +5291,7 @@
 		FA912D9B2041899D002891EC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				FA4597FC2615D2D300B07826 /* ClaimCustomTicketRootView */,
 				FA12869422183592000A6560 /* donate */,
 				47828230218438D000A003F4 /* MyTicketsVerticleRootView */,
 				4782822F2184389B00A003F4 /* HostDashBoardRootView */,
@@ -5390,6 +5416,7 @@
 				47B486002289836D002FA804 /* MemoryAnimation.storyboard */,
 				470658ED229D1294007904D9 /* HostDashboardNewUI.storyboard */,
 				47C3891222AE76D900A46A5E /* EarlyEventAlert.storyboard */,
+				FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -5397,6 +5424,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				FA4597F02615D17600B07826 /* ClaimCustomEvents */,
 				9933599C24D05D4B00F045B1 /* AppleSigin */,
 				9930157224AE0659004FBC2E /* Terms&Condtions */,
 				FAFB7C77206E04A5004804D2 /* adapter */,
@@ -6202,6 +6230,7 @@
 				47D0B1BB21A6C4B5006376A8 /* countDown_original.mp3 in Resources */,
 				47E372492230F946000B99F9 /* Nunito-BoldItalic.ttf in Resources */,
 				47D0B1BC21A6C4B5006376A8 /* call_view.storyboard in Resources */,
+				FA4597EB2615BFAA00B07826 /* ClaimCustomTickets.storyboard in Resources */,
 				47A8B837226887CE00996ACA /* Achievements.storyboard in Resources */,
 				47D0B1BD21A6C4B5006376A8 /* no_event.xib in Resources */,
 				996B898124A351560080E372 /* testMusic.mp3 in Resources */,
@@ -6285,6 +6314,7 @@
 				47E2336721060C9400468412 /* countDown_original.mp3 in Resources */,
 				47E372482230F946000B99F9 /* Nunito-BoldItalic.ttf in Resources */,
 				FA1B362B2064E0A500F2E6BC /* call_view.storyboard in Resources */,
+				FA4597EA2615BFAA00B07826 /* ClaimCustomTickets.storyboard in Resources */,
 				47A8B836226887CE00996ACA /* Achievements.storyboard in Resources */,
 				FA74B1552063A52800983141 /* no_event.xib in Resources */,
 				996B898024A351560080E372 /* testMusic.mp3 in Resources */,
@@ -6795,6 +6825,7 @@
 				781800BD2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */,
 				47011DF32267428E007394B6 /* ScheduleSessionSinglePageDoneController.swift in Sources */,
 				47D0B09421A6C4B5006376A8 /* SoundMeterButton.swift in Sources */,
+				FA4597F32615D1A400B07826 /* ClaimCustomTicket.swift in Sources */,
 				47D0B09521A6C4B5006376A8 /* ExtendedLabel.swift in Sources */,
 				47E372312230F4BB000B99F9 /* ProFeatureEndTrialController.swift in Sources */,
 				47D0B09621A6C4B5006376A8 /* UpdateEventListener.swift in Sources */,
@@ -7038,6 +7069,7 @@
 				47D0B12A21A6C4B5006376A8 /* HostHomeController.swift in Sources */,
 				47D0B12B21A6C4B5006376A8 /* GoogleSignIn.swift in Sources */,
 				FA765FFF21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */,
+				FA4597FF2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */,
 				781800B32302CE20004339D3 /* AutographyHostCanvas.swift in Sources */,
 				FA128697221835BF000A6560 /* DonateActionButtonView.swift in Sources */,
 				47D0B12C21A6C4B5006376A8 /* SyncTimer.swift in Sources */,
@@ -7414,6 +7446,7 @@
 				781800BC2302DE10004339D3 /* AutographyCanvasProtocol.swift in Sources */,
 				47011DF22267428E007394B6 /* ScheduleSessionSinglePageDoneController.swift in Sources */,
 				FAD9CD982063B54B00A177AC /* ExtendedLabel.swift in Sources */,
+				FA4597F22615D1A400B07826 /* ClaimCustomTicket.swift in Sources */,
 				473D059A2112D38500E121C4 /* UpdateEventListener.swift in Sources */,
 				47E372302230F4BB000B99F9 /* ProFeatureEndTrialController.swift in Sources */,
 				FAA00199203ED472003C8A74 /* DateStringFormatter.swift in Sources */,
@@ -7657,6 +7690,7 @@
 				FA72A0B920862ABC00C3C7AE /* SyncTimer.swift in Sources */,
 				781800B22302CE20004339D3 /* AutographyHostCanvas.swift in Sources */,
 				789C3FF5230BE90C0084731D /* RemoteHostContainerView.swift in Sources */,
+				FA4597FE2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */,
 				FA765FFE21EDE56100737BA8 /* InternetSpeedHandler.swift in Sources */,
 				47F5A9AD20BEBE1100543529 /* EventPaymentProcessor.swift in Sources */,
 				47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */,
