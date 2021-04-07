@@ -23,21 +23,39 @@ class CustomTicketsRootView: ExtendedView {
         
     }
     
-    func fillInfo(info:[MemoriesInfo]?){
+    func fillInfo(info:[CustomTicketsInfo]?){
             
             guard let info = info else{
                 return
             }
-            adapter?.controller = self.controller
+            adapter!.controller = self.controller
             adapter?.initailizeAdapter(info:info)
         }
     
-    func insertPageData(info:MemoriesInfo?){
-            
-            guard let info = info else {
-                return
-            }
-            adapter?.insertPageData(info:info)
-        }
+//    func insertPageData(info:CustomTicketsInfo?){
+//
+//            guard let info = info else {
+//                return
+//            }
+//            adapter?.insertPageData(info:info)
+//        }
     
+    func hidePaginationLoader(){
+             
+        adapter?.hidePaginationLoader()
+    }
+    
+//    func fetchDataForPagination(){
+//
+//        controller?.fetchDataForPagination()
+//    }
+
+    func updateTableContentOffset(offset:CGFloat?){
+        
+        guard let offset = offset else {
+            return
+        }
+        self.controller?.updateTableContentOffset(offset:offset)
+    }
+
 }

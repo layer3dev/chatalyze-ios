@@ -18,7 +18,7 @@ class PaymentHistoryProcessor{
                 
         var param:[String:Any] = [String:Any]()        
         url = url+id
-        param["limit"] = 10
+        param["limit"] = 1
         param["offset"] = offset ?? 0
       
         Log.echo(key: "yud", text: "Url is \(url)")
