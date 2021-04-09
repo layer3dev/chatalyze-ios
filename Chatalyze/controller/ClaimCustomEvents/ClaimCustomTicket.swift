@@ -18,5 +18,6 @@ class ClaimCustomTicketController: InterfaceExtendedController {
     
     var rootView : ClaimCustomTicketRootView?{
         return self.view as? ClaimCustomTicketRootView
+        
     }
 }
