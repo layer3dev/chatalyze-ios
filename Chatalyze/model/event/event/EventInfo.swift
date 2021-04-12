@@ -57,6 +57,7 @@ class EventInfo: NSObject {
     var isFlexEnabled:Bool?
     var isRecordingEnabled : Bool?
     var tipText:String?
+    var bufferSeconds : Int?
     var room_id:String?
     var organization: Bool?
     
@@ -89,6 +90,7 @@ class EventInfo: NSObject {
         }
         id = json["id"].int
         start = json["start"].string
+        bufferSeconds = json["bufferSeconds"].intValue
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
