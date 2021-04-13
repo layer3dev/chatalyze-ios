@@ -46,6 +46,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var sessionSlotView:UIView?
     @IBOutlet var breakView:breakFeatureView?
     @IBOutlet var earlyEndSessionView:UIView?
+    @IBOutlet var upNextSlotInfoView:UpNextSlotInfoView?
     
     //For animation.
     var isAnimating = false
@@ -914,6 +915,11 @@ class HostCallController: VideoCallController {
         totalAttrText.append(totalSlots)
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
+        
+        if let bufferSec = eventInfo?.bufferSeconds{
+            self.preConnectLbl?.text = ""
+            upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+        }
     }
     
     private func updateCallHeaderAfterEventStart(){
@@ -1052,7 +1058,7 @@ class HostCallController: VideoCallController {
         sessionHeaderLbl?.text = ""
         self.earlyEndSessionView?.isHidden = true
         breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
-        
+        upNextSlotInfoView?.hideUpNextSlotInfo()
     }
     
     private func updateTimeRamaingCallHeaderForUpcomingSlot(){
@@ -1063,6 +1069,7 @@ class HostCallController: VideoCallController {
         hostRootView?.hostCallInfoContainer?.timer?.text = ""
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
         self.earlyEndSessionView?.isHidden = true
+        upNextSlotInfoView?.hideUpNextSlotInfo()
     }
     
     private func updateFutureCallHeaderForEmptySlot(){
@@ -1073,6 +1080,7 @@ class HostCallController: VideoCallController {
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
         self.earlyEndSessionView?.isHidden = true
+        upNextSlotInfoView?.hideUpNextSlotInfo()
     }
     
     
@@ -1769,6 +1777,12 @@ extension HostCallController {
         totalAttrText.append(totalSlots)
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
+        
+        if let bufferSec = eventInfo?.bufferSeconds{
+            self.preConnectLbl?.text = ""
+            upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+        }
+
     }
 }
 
