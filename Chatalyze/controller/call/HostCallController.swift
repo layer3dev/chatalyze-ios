@@ -317,6 +317,11 @@ class HostCallController: VideoCallController {
         self.extendChat()
     }
     
+    @IBAction func sendSelfieReq(_ sender: Any) {
+        sendTimeStampToUser()
+    }
+    
+    
     private func extendChat(){
         
         guard let sessionId = eventId else{
@@ -459,6 +464,79 @@ class HostCallController: VideoCallController {
             }
         })
     }
+    
+    
+    func sendTimeStampToUser(){
+        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
+            Log.echo(key: "yud", text: "Again restarting the screenshots")
+            
+            //In order to convert into the Web Format
+            //E, d MMM yyyy HH:mm:ss z
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+            let requiredWebCompatibleTimeStamp = dateFormatter.string(from: requiredTimeStamp)
+            
+            Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
+            //End
+            var data:[String:Any] = [String:Any]()
+            var messageData:[String:Any] = [String:Any]()
+            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
+            //name : callServerId($scope.currentBooking.user.id)
+            data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+            socketClient?.emit(data)
+            callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
+            Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
+            
+            self.selfieTimerView?.reset()
+            
+            if let eventInfo = self.eventInfo{
+                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
+            }
+            
+            self.selfieTimerView?.screenShotListner = {
+                
+                print(" I got the mimic screenshot")
+               
+                self.mimicScreenShotFlash()
+                self.selfieTimerView?.reset()
+                self.processAutographSelfie()
+            }
+        }
+    }
+    
+    func getTimeStampAfterEightSecond()->Date?{
+        
+        guard let eventInfo = self.eventInfo
+        else{
+            return nil
+        }
+        
+        let date = TimerSync.sharedInstance.getDate()
+        Log.echo(key: "yud", text: "Synced date is \(date)")
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "UTC") ?? TimeZone.current
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        let components = calendar.dateComponents([.year,.month,.day,.hour,.second,.minute], from: date)
+        let slotDuration = eventInfo.duration
+        
+        var requiredDate :Date?
+        if eventInfo.isMicroSlot{
+            Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
+             requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
+        }else{
+            Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
+            requiredDate = calendar.date(byAdding: .second, value: 5, to: date)
+        }
+        
+        Log.echo(key: "yud", text: "Current date is \(String(describing: calendar.date(from: components)))")
+        Log.echo(key: "yud", text: "Required date is \(String(describing: requiredDate))")
+        if let verifiedDate = requiredDate{
+            return verifiedDate
+        }
+        return nil
+    }
+    
     
     private func registerForSignRequest(){
 

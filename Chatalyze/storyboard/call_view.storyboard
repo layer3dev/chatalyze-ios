@@ -2393,6 +2393,14 @@
                                     <outlet property="widthConstraint" destination="s8f-yB-Ec2" id="GjN-ID-IQr"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqj-ka-XpC">
+                                <rect key="frame" x="20" y="701.66666666666663" width="116" height="30"/>
+                                <color key="backgroundColor" red="0.98354035620000002" green="0.25926443929999998" blue="0.29990172389999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Send Selfie Piing"/>
+                                <connections>
+                                    <action selector="sendSelfieReq:" destination="osS-h4-4wh" eventType="touchUpInside" id="WYP-8n-qTm"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qZ-TC-KPH" userLabel="option_container" customClass="HostVideoActionContainer" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="8" y="192" width="40" height="184"/>
                                 <subviews>
@@ -2827,6 +2835,7 @@
                             <constraint firstItem="9w1-Mh-Zlh" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="Kmd-wJ-WnX"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="bottom" secondItem="wiC-ll-xed" secondAttribute="bottom" id="LO3-bM-kaG"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="trailing" secondItem="enf-5c-RI5" secondAttribute="trailing" id="MYi-I6-6e4"/>
+                            <constraint firstItem="sqj-ka-XpC" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" constant="20" id="QTe-7J-TDJ"/>
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" constant="10" id="RAW-bi-HuM"/>
                             <constraint firstItem="FTR-Nd-IVU" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" id="SG0-ck-9QJ"/>
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="top" secondItem="bXp-R4-gA0" secondAttribute="bottom" constant="10" id="TAH-a0-zmr"/>
@@ -2856,6 +2865,7 @@
                                 <variation key="heightClass=regular-widthClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="trailing" secondItem="FTR-Nd-IVU" secondAttribute="trailing" id="oij-e7-VDY"/>
+                            <constraint firstItem="wiC-ll-xed" firstAttribute="top" secondItem="sqj-ka-XpC" secondAttribute="bottom" constant="20" id="rZs-ak-SvA"/>
                             <constraint firstItem="7qZ-TC-KPH" firstAttribute="centerY" secondItem="983-al-Eik" secondAttribute="centerY" id="rp2-N1-evP"/>
                             <constraint firstItem="enf-5c-RI5" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" id="u91-I3-GzI"/>
                             <constraint firstAttribute="bottom" secondItem="enf-5c-RI5" secondAttribute="bottom" id="uOh-zQ-SPT"/>
@@ -2869,11 +2879,11 @@
                                 <exclude reference="7qZ-TC-KPH"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="ABd-J3-a1W"/>
-                                <exclude reference="JrL-q0-elV"/>
                                 <exclude reference="Cvc-fL-z74"/>
                                 <exclude reference="K2g-Vp-ptb"/>
                                 <exclude reference="gxt-cQ-dSK"/>
+                                <exclude reference="ABd-J3-a1W"/>
+                                <exclude reference="JrL-q0-elV"/>
                                 <exclude reference="RAW-bi-HuM"/>
                                 <exclude reference="TAH-a0-zmr"/>
                                 <exclude reference="ThD-Cr-hrz"/>
