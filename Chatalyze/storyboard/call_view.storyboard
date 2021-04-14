@@ -1938,6 +1938,31 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdn-hf-f7V" customClass="PhotoBoothView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="20" y="671.66666666666663" width="60" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bJ-d8-0Hk">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <state key="normal" backgroundImage="photoboothCam"/>
+                                        <connections>
+                                            <action selector="sendSelfieReq:" destination="osS-h4-4wh" eventType="touchUpInside" id="Dps-2i-1VQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3bJ-d8-0Hk" firstAttribute="top" secondItem="pdn-hf-f7V" secondAttribute="top" id="1f6-B9-z2N"/>
+                                    <constraint firstAttribute="trailing" secondItem="3bJ-d8-0Hk" secondAttribute="trailing" id="6j5-M5-ugj"/>
+                                    <constraint firstAttribute="bottom" secondItem="3bJ-d8-0Hk" secondAttribute="bottom" id="Nhh-uh-b4k"/>
+                                    <constraint firstAttribute="width" constant="60" id="Vf8-ZE-bJG">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                    </constraint>
+                                    <constraint firstItem="3bJ-d8-0Hk" firstAttribute="leading" secondItem="pdn-hf-f7V" secondAttribute="leading" id="nc8-kO-NNG"/>
+                                    <constraint firstAttribute="height" constant="60" id="tQI-jJ-sCM">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                    </constraint>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tc-nK-KIJ" userLabel="upNextView" customClass="UpNextSlotInfoView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="62" y="361.66666666666669" width="290" height="172.66666666666669"/>
                                 <subviews>
@@ -1945,19 +1970,19 @@
                                         <rect key="frame" x="5" y="5" width="280" height="162.66666666666666"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfg-dR-IcA">
-                                                <rect key="frame" x="15" y="0.0" width="250" height="73"/>
+                                                <rect key="frame" x="15" y="0.0" width="250" height="96"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Regular" family="Mukta Mahee" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SARAH THOMAS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yW2-Rh-euU">
-                                                <rect key="frame" x="65.333333333333357" y="73" width="149.66666666666663" height="47"/>
+                                                <rect key="frame" x="65.333333333333357" y="96" width="149.66666666666663" height="35"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Bold" family="Mukta Mahee" pointSize="21"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00: 00:05" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rw-Br-IWF">
-                                                <rect key="frame" x="101.66666666666666" y="120.00000000000001" width="77" height="42.666666666666671"/>
+                                                <rect key="frame" x="101.66666666666666" y="131" width="77" height="31.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Bold" family="Mukta Mahee" pointSize="19"/>
                                                 <color key="textColor" red="0.98354035620000002" green="0.25926443929999998" blue="0.29990172389999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2828,6 +2853,7 @@
                             <constraint firstItem="9w1-Mh-Zlh" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="Kmd-wJ-WnX"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="bottom" secondItem="wiC-ll-xed" secondAttribute="bottom" id="LO3-bM-kaG"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="trailing" secondItem="enf-5c-RI5" secondAttribute="trailing" id="MYi-I6-6e4"/>
+                            <constraint firstItem="pdn-hf-f7V" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" constant="20" id="PTl-pU-GW2"/>
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" constant="10" id="RAW-bi-HuM"/>
                             <constraint firstItem="FTR-Nd-IVU" firstAttribute="leading" secondItem="aba-cg-Hq3" secondAttribute="leading" id="SG0-ck-9QJ"/>
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="top" secondItem="bXp-R4-gA0" secondAttribute="bottom" constant="10" id="TAH-a0-zmr"/>
@@ -2835,6 +2861,7 @@
                             <constraint firstItem="W51-oe-Gfn" firstAttribute="top" secondItem="bXp-R4-gA0" secondAttribute="bottom" constant="10" id="ThD-Cr-hrz"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="bottom" secondItem="FTR-Nd-IVU" secondAttribute="bottom" id="Wow-A9-FLj"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="bottom" secondItem="2jc-qd-pdu" secondAttribute="bottom" id="YTQ-vc-NOd"/>
+                            <constraint firstItem="wiC-ll-xed" firstAttribute="top" secondItem="pdn-hf-f7V" secondAttribute="bottom" constant="20" id="aMG-xp-38c"/>
                             <constraint firstItem="zDx-ox-dtP" firstAttribute="top" secondItem="983-al-Eik" secondAttribute="top" id="agV-q6-RSh"/>
                             <constraint firstItem="JGG-Np-sut" firstAttribute="top" secondItem="xOq-gm-0If" secondAttribute="bottom" id="avz-Kh-KDN"/>
                             <constraint firstItem="aba-cg-Hq3" firstAttribute="trailing" secondItem="xOq-gm-0If" secondAttribute="trailing" id="cNL-8n-guT"/>
@@ -2874,11 +2901,11 @@
                                 <exclude reference="7qZ-TC-KPH"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="ABd-J3-a1W"/>
+                                <exclude reference="JrL-q0-elV"/>
                                 <exclude reference="Cvc-fL-z74"/>
                                 <exclude reference="K2g-Vp-ptb"/>
                                 <exclude reference="gxt-cQ-dSK"/>
-                                <exclude reference="ABd-J3-a1W"/>
-                                <exclude reference="JrL-q0-elV"/>
                                 <exclude reference="RAW-bi-HuM"/>
                                 <exclude reference="TAH-a0-zmr"/>
                                 <exclude reference="ThD-Cr-hrz"/>
@@ -2901,6 +2928,7 @@
                         <outlet property="breakView" destination="FTR-Nd-IVU" id="Iwx-lL-dpd"/>
                         <outlet property="chatalyzeLogo" destination="yDQ-pA-GAP" id="W3u-Uz-5ma"/>
                         <outlet property="earlyEndSessionView" destination="enf-5c-RI5" id="51d-cc-PcX"/>
+                        <outlet property="photoBothView" destination="pdn-hf-f7V" id="LfX-e7-3NF"/>
                         <outlet property="poorInternetBannerView" destination="4D8-l2-sZm" id="kKG-ms-Jra"/>
                         <outlet property="preConnectLbl" destination="mIT-sI-zpO" id="eaG-JT-wN6"/>
                         <outlet property="selfieTimerView" destination="LJU-il-QGD" id="p4c-cQ-OXE"/>
@@ -2927,6 +2955,7 @@
         <image name="newCamera" width="70" height="70"/>
         <image name="newEndCall" width="70" height="70"/>
         <image name="newMic" width="70" height="70"/>
+        <image name="photoboothCam" width="75" height="75"/>
         <image name="request_autograph" width="75" height="75"/>
         <image name="slowNetwork" width="128" height="128"/>
         <image name="videocam_on" width="24" height="24"/>

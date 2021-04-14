@@ -285,6 +285,20 @@ class EventInfo: NSObject {
         }
     }
     
+    var isHostManualScreenshot : Bool{
+        get {
+            guard let screenshotType = self.isScreenShotAllowed else {
+                return false
+            }
+            if screenshotType == "manual"{
+                return true
+            }
+            return false
+        }
+        
+        
+    }
+    
     
     
     var isPreconnectEligible : Bool{

@@ -312,7 +312,11 @@ class SelfieTimerView:ExtendedView {
             
             Log.echo(key: "selfie_timer", text: "The diffrence in time date is \(difference)")
             
-            let threshold = eventInfo.isMicroSlot ? 0 : -3
+            var threshold = eventInfo.isMicroSlot ? 0 : -3
+            if eventInfo.isHostManualScreenshot{
+                threshold = 0
+            }
+            
             
             
             if Int(difference) <= threshold {

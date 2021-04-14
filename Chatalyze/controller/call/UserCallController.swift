@@ -673,6 +673,7 @@ class UserCallController: VideoCallController {
     private func initializeVariable(){
         
         initializeGetCommondForTakeScreenShot()
+        registerForHostManualTriggeredTimeStamp()
         registerForListeners()
         self.selfieTimerView?.delegate = self
         self.userRootView?.delegateCutsom = self
@@ -684,34 +685,6 @@ class UserCallController: VideoCallController {
     override func registerForListeners(){
         super.registerForListeners()
         
-        
-        //        //call initiation
-        //        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.hangup(hangup: false)
-        //            self?.processCallInitiation(data : json)
-        //        })
-        //
-        //        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.initiateCall()
-        //        })
-        //
-        //        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.connection?.linkCall()
-        //        })
-        
-        //call initiation
         socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
             
             if(self?.socketClient == nil){
@@ -719,6 +692,7 @@ class UserCallController: VideoCallController {
             }
             self?.processHangupEvent(data : json)
         })
+        
     }
     
     private func processHangupEvent(data : JSON?){
@@ -913,6 +887,10 @@ class UserCallController: VideoCallController {
             return
         }
         
+        if eventInfo?.isHostManualScreenshot ?? false{
+            return
+        }
+        
         // NOTE: Uncomment only if,client ask to restrict selfie in last few seconds..
         
         //        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
@@ -998,6 +976,7 @@ class UserCallController: VideoCallController {
 //        if isHangUp{
 //            return
 //        }
+        
         
         Log.echo(key: TAG, text: "GetTimestamp")
         
@@ -1108,6 +1087,49 @@ class UserCallController: VideoCallController {
                 }
             })
         }
+    }
+    
+    func registerForHostManualTriggeredTimeStamp(){
+        
+        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
+        
+        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
+            
+            print(" I got the reponse \(String(describing: response))")
+            
+            if let responseDict:[String:JSON] = response?.dictionary{
+                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    
+                    if let date = dateDict["timerStartsAt"]?.stringValue{
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+                        
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                        var requiredDate:Date?
+                        
+                        if let newdate = dateFormatter.date(from: date){
+                            
+                            requiredDate = newdate
+                        }else{
+                            
+                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+                            requiredDate = dateFormatter.date(from: date)
+                        }
+                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
+                        print("required date is \(date) and the sending ")
+                        self.selfieTimerView?.reset()
+                        
+                        self.selfieTimerView?.requiredDate = requiredDate
+                        
+                        if let eventInfo = self.eventInfo{
+                            self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                        }
+                        
+                    }
+                }
+            }
+        })
     }
     
     
