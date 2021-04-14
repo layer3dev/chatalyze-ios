@@ -939,8 +939,11 @@ class HostCallController: VideoCallController {
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
         
         if let bufferSec = eventInfo?.bufferSeconds{
-            self.preConnectLbl?.text = ""
-            upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+            if bufferSec > 0{
+                self.preConnectLbl?.text = ""
+                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+            }
+            
         }
     }
     
@@ -1801,8 +1804,11 @@ extension HostCallController {
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
         
         if let bufferSec = eventInfo?.bufferSeconds{
-            self.preConnectLbl?.text = ""
-            upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+            if bufferSec > 0{
+                self.preConnectLbl?.text = ""
+                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+            }
+            
         }
 
     }
