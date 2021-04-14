@@ -47,6 +47,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var breakView:breakFeatureView?
     @IBOutlet var earlyEndSessionView:UIView?
     @IBOutlet var upNextSlotInfoView:UpNextSlotInfoView?
+    @IBOutlet var photoBothView : PhotoBoothView?
     
     //For animation.
     var isAnimating = false
@@ -353,9 +354,12 @@ class HostCallController: VideoCallController {
         
         if(!isHangedUp){
             resetMuteActions()
+            self.photoBothView?.showPhotoboothcanvas()
+        }else{
+            self.photoBothView?.hidePhotoboothcanvas()
         }
         refreshStreamLock()
-        
+       
         let hashedUserId = slot.user?.hashedId ?? ""
         updateUserOfHangup(hashedUserId : hashedUserId, hangup : isHangedUp)
     }
@@ -417,6 +421,11 @@ class HostCallController: VideoCallController {
     
     
     private func registerForTimerNotification(){
+        
+        // @abhishek: If host activated photobooth,this should get return
+        if eventInfo?.isHostManualScreenshot ?? false{
+            return
+        }
       
         print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
@@ -452,13 +461,16 @@ class HostCallController: VideoCallController {
                         }
                         
                         
-                        self.selfieTimerView?.screenShotListner = {
+                        self.selfieTimerView?.screenShotListner = {[weak self] in
                             
                             print(" I got the mimic screenshot")
+                            if let weakSelf = self {
+                                weakSelf.mimicScreenShotFlash()
+                                weakSelf.photoBothView?.isUserInteractionEnabled = true
+                                weakSelf.selfieTimerView?.reset()
+                                weakSelf.processAutographSelfie()
+                            }
                            
-                            self.mimicScreenShotFlash()
-                            self.selfieTimerView?.reset()
-                            self.processAutographSelfie()
                         }
                     }
                 }
@@ -468,7 +480,7 @@ class HostCallController: VideoCallController {
     
     
     func sendTimeStampToUser(){
-        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
+        if let requiredTimeStamp =  self.getTimeStampAfterEightSecond(){
             Log.echo(key: "yud", text: "Again restarting the screenshots")
             
             //In order to convert into the Web Format
@@ -490,18 +502,21 @@ class HostCallController: VideoCallController {
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
             self.selfieTimerView?.reset()
+            photoBothView?.isUserInteractionEnabled = false
+            selfieTimerView?.requiredDate = requiredTimeStamp
             
             if let eventInfo = self.eventInfo{
-                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
+                self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
             }
             
-            self.selfieTimerView?.screenShotListner = {
-                
-                print(" I got the mimic screenshot")
-               
-                self.mimicScreenShotFlash()
-                self.selfieTimerView?.reset()
-                self.processAutographSelfie()
+            self.selfieTimerView?.screenShotListner = {[weak self] in
+                if let weakSelf = self {
+                    print(" I got the mimic screenshot")
+                    weakSelf.photoBothView?.isUserInteractionEnabled = true
+                    weakSelf.mimicScreenShotFlash()
+                    weakSelf.selfieTimerView?.reset()
+                    weakSelf.processAutographSelfie()
+                }
             }
         }
     }
@@ -522,7 +537,7 @@ class HostCallController: VideoCallController {
         let slotDuration = eventInfo.duration
         
         var requiredDate :Date?
-        if eventInfo.isMicroSlot{
+        if eventInfo.isHostManualScreenshot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
              requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
         }else{
@@ -762,17 +777,23 @@ class HostCallController: VideoCallController {
         if(activeSlot.isLIVE && (currentTwillioRoom?.isStreaming ?? false)){
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
+            if !self.isCallHangedUp{
+                photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
+            }
+           
             return
         }
         
         if(activeSlot.isBreak){
             Log.echo(key: "vijay", text: "Break Slot")
             setStatusMessage(type: .breakSlot)
+            photoBothView?.hidePhotoboothcanvas()
             return
         }
         
         if(!isSocketConnected){
             setStatusMessage(type: .socketDisconnected)
+            photoBothView?.hidePhotoboothcanvas()
             return
         }
         
@@ -784,6 +805,7 @@ class HostCallController: VideoCallController {
         
         if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
             setStatusMessage(type : .userDidNotJoin)
+            photoBothView?.hidePhotoboothcanvas()
             resetCanvas()
             return;
         }
