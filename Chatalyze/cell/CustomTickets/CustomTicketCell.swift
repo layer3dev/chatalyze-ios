@@ -18,8 +18,13 @@ class CustomTicketCell: ExtendedTableCell {
         
     }
     
-    @IBOutlet weak var hostName: UILabel?
-    @IBOutlet weak var starTime: UILabel?
+    @IBOutlet weak var eventNameLbl : UILabel?
+    @IBOutlet weak var hostNamelbl: UILabel?
+    @IBOutlet weak var starTimeLbl: UILabel?
+    @IBOutlet weak var ticketDiscriptionLbl : UILabel?
+    @IBOutlet weak var claimBtnHight: NSLayoutConstraint?
+    
+    
     
     func fillInfo(info:CustomTicketsInfo?){
         
@@ -28,8 +33,8 @@ class CustomTicketCell: ExtendedTableCell {
         }
         
         self.info = info
-        self.hostName?.text = info.title
-        self.starTime?.text = info.startTime
+        self.hostNamelbl?.text = info.title
+        self.starTimeLbl?.text = info.startTime
         
     }
     
