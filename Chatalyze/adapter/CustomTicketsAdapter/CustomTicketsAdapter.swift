@@ -89,13 +89,13 @@ extension CustomTicketsAdapter : UITableViewDataSource,UITableViewDelegate{
         
       let lastSectionIndex = tableView.numberOfSections - 1
       let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-      if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex && self.controller!.dataLimitReached == false && self.controller!.isfetchingPaginationData == false {
+      if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex && self.controller?.dataLimitReached == false && self.controller?.isfetchingPaginationData == false {
         let spinner = UIActivityIndicatorView(style: .gray)
         spinner.startAnimating()
         spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(60))
         self.customTicketsListingTableView?.tableFooterView = spinner
         self.customTicketsListingTableView?.tableFooterView?.isHidden = false
-        self.controller!.fetchDataForPagination()
+        self.controller?.fetchDataForPagination()
       } else {
         self.customTicketsListingTableView?.tableFooterView?.isHidden = true
         

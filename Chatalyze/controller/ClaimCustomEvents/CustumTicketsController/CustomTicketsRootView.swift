@@ -28,7 +28,7 @@ class CustomTicketsRootView: ExtendedView {
             guard let info = info else{
                 return
             }
-            adapter!.controller = self.controller
+            adapter?.controller = self.controller
             adapter?.initailizeAdapter(info:info)
         }
     

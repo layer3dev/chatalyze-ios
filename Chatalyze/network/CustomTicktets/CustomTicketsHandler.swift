@@ -20,7 +20,7 @@ class CustomTicketsHandler: NSObject {
         param["offset"] = offset
         
         ServerProcessor().request(.get, url, parameters: param, encoding: .customGETEncoding, authorize: true) { (success, response) in
-            self.handleResponse(with: success, response: response!, completion: completion)
+            self.handleResponse(with: success, response: response, completion: completion)
         }
         
     }
