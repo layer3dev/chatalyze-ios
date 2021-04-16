@@ -111,31 +111,11 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 
 
 extension MyTicketesAdapter:MyTicketCellDelegate{
-    
-    //    private func verifyForEventDelay(){
-    //
-    //        guard let slotInfo = slotInfo else{
-    //            return
-    //        }
-    //
-    //Verifying that event is delayed or not started yet
-    
-    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-    //
-    //            showAlertMessage()
-    //            statusLbl?.text = "Session has not started yet."
-    //            return
-    //        }
-    //
-    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-    //
-    //            showAlertMessage()
-    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-    //            return
-    //        }
-    //    }
-    //
-    
+ 
+    func claimTicket() {
+        //
+        Log.echo(key: "dhi", text: "claim ticket tapped")
+    }
     func jointEvent(info:SlotInfo?){
         
         guard let slotInfo = info

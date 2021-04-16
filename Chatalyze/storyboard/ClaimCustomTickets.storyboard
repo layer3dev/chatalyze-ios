@@ -182,10 +182,71 @@
             </objects>
             <point key="canvasLocation" x="-65.217391304347828" y="79.6875"/>
         </scene>
+        <!--Custom Tickets Controller-->
+        <scene sceneID="l2n-wE-Myc">
+            <objects>
+                <viewController restorationIdentifier="CustomTicketsController" storyboardIdentifier="CustomTicketsController" id="war-Dg-DDV" customClass="CustomTicketsController" customModule="Chatalyze" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ygv-24-OPp" customClass="CustomTicketsRootView" customModule="Chatalyze" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ge-k9-Z8a" customClass="CustomTicketsAdapter" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lht-ts-TJU">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CustomTicketCell" rowHeight="93" id="bVF-Yv-1K9" customClass="CustomTicketCell" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="414" height="93"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bVF-Yv-1K9" id="dai-Kv-bFx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="lht-ts-TJU" secondAttribute="bottom" id="2qy-rf-2RX"/>
+                                    <constraint firstItem="lht-ts-TJU" firstAttribute="top" secondItem="1ge-k9-Z8a" secondAttribute="top" id="I6Q-Lk-Gzw"/>
+                                    <constraint firstItem="lht-ts-TJU" firstAttribute="leading" secondItem="1ge-k9-Z8a" secondAttribute="leading" id="h3D-BZ-8DZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="lht-ts-TJU" secondAttribute="trailing" id="h8W-Qz-Ic7"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="customTicketsListingTableView" destination="lht-ts-TJU" id="8Nr-na-BfU"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f7K-rA-Ssg"/>
+                        <color key="backgroundColor" systemColor="linkColor"/>
+                        <constraints>
+                            <constraint firstItem="f7K-rA-Ssg" firstAttribute="trailing" secondItem="1ge-k9-Z8a" secondAttribute="trailing" id="K8W-FA-LuP"/>
+                            <constraint firstItem="1ge-k9-Z8a" firstAttribute="top" secondItem="f7K-rA-Ssg" secondAttribute="top" id="Svo-Ml-ch1"/>
+                            <constraint firstItem="f7K-rA-Ssg" firstAttribute="bottom" secondItem="1ge-k9-Z8a" secondAttribute="bottom" id="WfV-oD-Iju"/>
+                            <constraint firstItem="1ge-k9-Z8a" firstAttribute="leading" secondItem="f7K-rA-Ssg" secondAttribute="leading" id="vz2-nU-deU"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="adapter" destination="1ge-k9-Z8a" id="x5J-hz-awt"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="rootView" destination="ygv-24-OPp" id="epm-eB-bfN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t1a-pj-HdT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="679.71014492753625" y="79.6875"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

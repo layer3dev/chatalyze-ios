@@ -456,6 +456,19 @@ class ContainerController: NavChildController {
             self.closeToggle()
             return
         }
+        
+        else if typeOfAction == .claimTickets{
+            
+            guard let rootController = MyTicketsVerticalController.instance() else{
+                return
+            }
+            
+            guard let controller = CustomTicketsController.instance() else {
+                return
+            }
+            
+            navController?.setViewControllers([rootController,controller], animated: true)
+        }
             
         else if typeOfAction == .tickets{
             

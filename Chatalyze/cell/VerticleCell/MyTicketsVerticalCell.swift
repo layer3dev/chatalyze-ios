@@ -209,6 +209,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         self.delegate?.jointEvent(info:self.info)
     }
     
+    
     @IBAction func systemTest(sender:UIButton?){
         
         delegate?.systemTest()
