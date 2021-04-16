@@ -48,8 +48,8 @@ class MyTicketsController: InterfaceExtendedController{
     @IBOutlet var claimTicketBorder : UIView?
     
     
-    var dataLimitReached = false
-    var isfetchingPaginationData = false
+    var isFetchingCustomEventCompleted = false
+    var isCustomEventsFetching = false
     var customTicketsArray = [CustomTicketsInfo]()
     
     
@@ -338,90 +338,99 @@ class MyTicketsController: InterfaceExtendedController{
         
         self.showLoader()
         
-        CustomTicketsHandler().fetchInfo(with: id, offset: 0) {[weak self] (success, info) in
-            
-            self?.stopLoader()
-           
-            if let allocatedSelf = self {
-                allocatedSelf.view.isUserInteractionEnabled = true
+        CustomTicketsHandler().fetchInfo(with: id, offset: 0) {(success, info) in
+            self.stopLoader()
+        
+            DispatchQueue.main.async {
+        
+                self.customTicketsArray.removeAll()
+                self.rootview?.adapter?.initializeCollectionFlowLayout()
+                self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
+                self.stopLoader()
+                
                 if !success {
-                    allocatedSelf.dataLimitReached = true
-                    allocatedSelf.rootview?.tableAdapter?.hideFooterSpinner()
-                    allocatedSelf.customTicketsArray.removeAll()
+                    
+                    self.noTicketLbl?.isHidden = false
+                    self.noTicketView?.isHidden = false
                     return
                 }
                 
-                guard let infos = info else {
-                    allocatedSelf.dataLimitReached = true
-                    allocatedSelf.rootview?.tableAdapter?.hideFooterSpinner()
-                    return
-                }
-                if infos.count == 0 {
-                    if allocatedSelf.rootview?.tableAdapter?.customTicketsListingArray.count ?? Int() > 0 {
-                        allocatedSelf.rootview?.tableAdapter?.initailizeAdapterForCustomTickets(info: [])
+                if let info = info {
+                    
+                    if info.count <= 0 {
+                        
+                        self.noTicketLbl?.isHidden = false
+                        self.noTicketView?.isHidden = false
+                        self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
+                        return
                     }
-                    allocatedSelf.dataLimitReached = true
-                    allocatedSelf.stopLoader()
+                    self.customTicketsArray = info
+                    self.noTicketLbl?.isHidden = true
+                    self.noTicketView?.isHidden = true
+                    self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
                     return
                 }
-                
-                allocatedSelf.rootview?.tableAdapter?.initailizeAdapterForCustomTickets(info: info)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    allocatedSelf.noTicketLbl?.isHidden = true
-                    allocatedSelf.noTicketView?.isHidden = true
-                    allocatedSelf.isfetchingPaginationData = false
-                }
-                if infos.count < 5 {
-                    allocatedSelf.noTicketLbl?.isHidden = true
-                    allocatedSelf.dataLimitReached = true
-                    return
-                }
+                self.noTicketLbl?.isHidden = false
+                self.noTicketView?.isHidden = false
                 return
             }
         }
     }
     
-    func fetchDataForPagination(){
-        if (self.isfetchingPaginationData == true) {
-          return
-        }
-        self.isfetchingPaginationData = true
-        guard let offset = self.rootview?.tableAdapter?.customTicketsListingArray.count else {return}
+    
+    func fetchCustomTicketsInfoForPagination(){
         
-        guard let userId = SignedUserInfo.sharedInstance?.id else {
+        Log.echo(key: "yud", text: "calling is failed")
+
+        guard let id = SignedUserInfo.sharedInstance?.id else {
             return
         }
         
-        CustomTicketsHandler().fetchInfo(with: userId, offset: offset) {[weak self] (success, info) in
-        
-            self?.stopLoader()
-            if let allocatedSelf = self {
-              if !success {
-                allocatedSelf.dataLimitReached = true
-                allocatedSelf.rootview?.tableAdapter?.hideFooterSpinner()
-                return
-              }
-              guard let infos = info else {
-                allocatedSelf.dataLimitReached = true
-                allocatedSelf.rootview?.tableAdapter?.hideFooterSpinner()
-                return
-              }
-              if infos.count == 0 {
-                allocatedSelf.dataLimitReached = true
-                allocatedSelf.rootview?.tableAdapter?.hideFooterSpinner()
-                return
-              }
-                allocatedSelf.rootview?.tableAdapter?.addNewResultsWith(info: info)
-              DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                allocatedSelf.isfetchingPaginationData = false
-              }
-              if infos.count < 2 {
-                allocatedSelf.dataLimitReached = true
-                return
-              }
-              return
-            }
+        if currentEventShowing == .upcoming {
+            return
         }
+        
+        if isCustomEventsFetching {
+            return
+        }
+        
+        if isFetchingCustomEventCompleted {
+            return
+        }
+        
+        self.isCustomEventsFetching = true
+        
+        Log.echo(key: "yud", text: "calling is passed")
+        
+        CustomTicketsHandler().fetchInfo(with: id, offset: self.customTicketsArray.count) {(success, info) in
+            
+            
+            DispatchQueue.main.async {
+                
+                self.isCustomEventsFetching = false
+                if success{
+                    if let array = info {
+                        if array.count >= self.limit {
+                            
+                            for info in array{
+                                self.customTicketsArray.append(info)
+                                self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
+                            }
+                        }else if array.count < 8 {
+                            
+                            self.isFetchingCustomEventCompleted = true
+                            self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
+                        }
+                        return
+                    }
+                }
+                self.isFetchingCustomEventCompleted = true
+                self.rootview?.fillCustomTicketsInfo(info: self.customTicketsArray)
+                return
+            }
+            
+        }
+        
     }
     
     func fetchPreviousTicketsInfoForPagination(){

@@ -12,9 +12,11 @@ import SwiftyJSON
 
 class CustomTicketsInfo : NSObject{
     
-    var startTime : String?
+    var start : String?
+    var end : String?
     var room_id : String?
     var title: String?
+    var hostName : String?
     
     override init(){
         super.init()
@@ -32,36 +34,12 @@ class CustomTicketsInfo : NSObject{
                 return
         }
         
-       
         self.room_id = json["room_id"].stringValue
         self.title = json["title"].stringValue
-        startTime = json["start"].stringValue
-        
+        self.start = json["start"].stringValue
+        self.end = json["end"].stringValue
+        self.hostName = json["user"]["firstName"].stringValue
     }
     
-}
-
-
-class CustumTicketsMeta: NSObject {
-    var endTime : String?
-    
-    
-    override init(){
-        super.init()
-    }
-    
-    init(info : JSON?){
-        super.init()
-        fillInfo(info: info)
-    }
-    
-    func fillInfo(info : JSON?) {
-        guard let json = info
-            else{
-                return
-        }
-        endTime = json["end"].stringValue
-        
-    }
 }
 

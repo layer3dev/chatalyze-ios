@@ -22,7 +22,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-        myTicketsVerticalTableView?.register(UINib(nibName: "CustomTicketCell", bundle: nil), forCellReuseIdentifier: "CustomTicketCell")
+//        myTicketsVerticalTableView?.register(UINib(nibName: "CustomTicketCell", bundle: nil), forCellReuseIdentifier: "CustomTicketCell")
         
         myTicketsVerticalTableView?.separatorStyle = .none
         myTicketsVerticalTableView?.dataSource = self
@@ -34,25 +34,6 @@ class MyTicketesVerticalAdapter: ExtendedView {
         self.heightOfTableViewContainer?.constant = requiredHeight
     }
     
-    
-    func hidePaginationLoader(){
-        
-        spinner.stopAnimating()
-        self.myTicketsVerticalTableView?.tableFooterView?.isHidden = true
-    }
-    
-    func addNewResultsWith(info: [CustomTicketsInfo]?) {
-      guard let info = info else {
-        return
-      }
-      self.customTicketsListingArray.append(contentsOf: info)
-      self.myTicketsVerticalTableView?.reloadData()
-    }
-    
-    func hideFooterSpinner() {
-      self.myTicketsVerticalTableView?.tableFooterView = nil
-      self.myTicketsVerticalTableView?.reloadData()
-    }
     
     func initializeForTableContentHeight(){
     }
@@ -106,7 +87,10 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if root?.controller?.currentEventShowing == .custom{
-            return 5
+            if self.root?.controller?.isFetchingCustomEventCompleted ?? false || self.customTicketsListingArray.count == 0{
+                return customTicketsListingArray.count
+            }
+            return customTicketsListingArray.count+1
         }
         
         if root?.controller?.currentEventShowing == .past{
@@ -121,20 +105,19 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if self.root?.controller?.currentEventShowing == .custom{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTicketCell", for: indexPath) as? CustomTicketCell
-
-//            if indexPath.row < self.customTicketsListingArray.count{
-//
-//                cell?.eventNameLbl?.text = "Abhishek"
-//                cell?.backgroundColor = .blue
-//                return cell ?? CustomTicketCell()
-//            }
-            
+            if indexPath.row < self.customTicketsListingArray.count{
                 
-                cell?.eventNameLbl?.text = "Abhishek"
-                cell?.backgroundColor = .blue
-                return cell ?? CustomTicketCell()
-         
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTicketCell", for: indexPath) as? CustomTicketCell else{
+                    return UITableViewCell()
+                }
+                cell.rootAdapter = self
+                cell.delegate = self
+                cell.selectionStyle = .none
+                cell.fillInfo(info: customTicketsListingArray[indexPath.row])
+                return cell
+                
+            }
+            
         }
         
         if indexPath.row < self.ticketsListingArray.count{
@@ -166,32 +149,21 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
         return UITableViewCell()
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        
-//        if self.root?.controller?.currentEventShowing == .custom {
-//            let lastSectionIndex = tableView.numberOfSections - 1
-//            let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-//            if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex && self.root?.controller?.dataLimitReached == false && self.root?.controller?.isfetchingPaginationData == false {
-//                let spinner = UIActivityIndicatorView(style: .gray)
-//                spinner.startAnimating()
-//                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(60))
-//                self.myTicketsVerticalTableView?.tableFooterView = spinner
-//                self.myTicketsVerticalTableView?.tableFooterView?.isHidden = false
-//                self.root?.controller?.fetchDataForPagination()
-//            } else {
-//                self.myTicketsVerticalTableView?.tableFooterView?.isHidden = true
-//                
-//            }
-//            
-//            return
-//        }
-//        
-//        if indexPath.row == self.ticketsListingArray.count-1{
-//            if root?.controller?.currentEventShowing == .past {
-//                root?.controller?.fetchPreviousTicketsInfoForPagination()
-//            }
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        
+        if indexPath.row == self.ticketsListingArray.count-1{
+            
+            if root?.controller?.currentEventShowing == .past {
+                root?.controller?.fetchPreviousTicketsInfoForPagination()
+            }
+            
+            if root?.controller?.currentEventShowing == .custom{
+                root?.controller?.fetchCustomTicketsInfoForPagination()
+            }
+        }
+        
+    }
 }
 
 extension MyTicketesVerticalAdapter:UITableViewDelegate{
@@ -203,19 +175,11 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if self.root?.controller?.currentEventShowing == .custom {
-            return 320.0
-        }
-        
         return UITableView.automaticDimension
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        if self.root?.controller?.currentEventShowing == .custom{
-            return
-            
-        }
+      
         Log.echo(key: "yud", text: "scroll content offset is \(scrollView.contentOffset.y)")
         
         if scrollView.contentOffset.y <= (UIDevice.current.userInterfaceIdiom == .pad ? 90:75) {
@@ -235,6 +199,11 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
 
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
+    func claimTicket() {
+        //
+        Log.echo(key: "dhi", text: "claim ticket")
+    }
+    
     
     func jointEvent(info:SlotInfo?){
         validateVPN {[weak self] in

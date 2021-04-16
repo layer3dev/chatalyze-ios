@@ -16,7 +16,7 @@ class CustomTicketsHandler: NSObject {
         
         let url = AppConnectionConfig.webServiceURL + "/users/" + id + "/claimlist"
         var param : [String: Any] = [String: Any]()
-        param["limit"] = 2
+        param["limit"] = 8
         param["offset"] = offset
         
         ServerProcessor().request(.get, url, parameters: param, encoding: .customGETEncoding, authorize: true) { (success, response) in
