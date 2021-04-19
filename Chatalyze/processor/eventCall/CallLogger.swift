@@ -28,7 +28,7 @@ class CallLogger : NSObject {
         self.sessionId = sessionId ?? "0"
         let userId = SignedUserInfo.sharedInstance?.id ?? "0"
         self.userId = userId
-        self.targetUserId = targetUserId ?? "userId"
+        self.targetUserId = targetUserId ?? userId
     }
     
     
