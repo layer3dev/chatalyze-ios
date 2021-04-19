@@ -35,6 +35,7 @@ class UserCallController: VideoCallController {
     var isSlefieScreenShotSaved = false
     var defaultImage : UIImage?
     var isPreConnected = false
+    var isConnectionDroppedInBtw = false
     
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
@@ -532,8 +533,14 @@ class UserCallController: VideoCallController {
         
         if(!isSocketConnected){
             Log.echo(key: "dhi", text: "webSocket is disconnected")
+            self.isConnectionDroppedInBtw = true
             setStatusMessage(type: .socketDisconnected)
             return
+        }else{
+            if isConnectionDroppedInBtw {
+                isConnectionDroppedInBtw = false
+                self.refreshScheduleInfo()
+            }
         }
         
         
@@ -1101,7 +1108,7 @@ class UserCallController: VideoCallController {
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
                     if let date = dateDict["timerStartsAt"]?.stringValue{
-                        
+                        self.connection?.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                         
@@ -1116,7 +1123,7 @@ class UserCallController: VideoCallController {
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
                             requiredDate = dateFormatter.date(from: date)
                         }
-                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
+                        
                         print("required date is \(date) and the sending ")
                         self.selfieTimerView?.reset()
                         
