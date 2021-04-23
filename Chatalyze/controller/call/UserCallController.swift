@@ -1108,7 +1108,12 @@ class UserCallController: VideoCallController {
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
                     if let date = dateDict["timerStartsAt"]?.stringValue{
-                        self.connection?.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
+                        var data:[String:Any] = [String:Any]()
+                        var messageData:[String:Any] = [String:Any]()
+                        messageData = ["timerStartsAt":"\(date)"]
+                        //name : callServerId($scope.currentBooking.user.id)
+                        data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+                        self.socketClient?.emit(data)
                         let dateFormatter = DateFormatter()
                         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                         
