@@ -64,7 +64,7 @@ class UserCallConnection: NSObject {
     
     var connectionStateListener : CallConnectionProtocol?
     
-    private var callLogger : CallLogger?
+     var callLogger : CallLogger?
     
     //this variable will be used to speed up the re-connect. This will store last disconnect timestamp and will force to create a new connection after 2 seconds
     //For now, will be used at host's end, but could be used for user in future

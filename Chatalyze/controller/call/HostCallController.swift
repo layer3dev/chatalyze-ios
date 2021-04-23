@@ -354,9 +354,13 @@ class HostCallController: VideoCallController {
         
         if(!isHangedUp){
             resetMuteActions()
-            self.photoBothView?.showPhotoboothcanvas()
+            if self.eventInfo?.isHostManualScreenshot ?? false{
+                self.photoBothView?.showPhotoboothcanvas()
+            }
         }else{
+            if self.eventInfo?.isHostManualScreenshot ?? false{
             self.photoBothView?.hidePhotoboothcanvas()
+            }
         }
         refreshStreamLock()
        
