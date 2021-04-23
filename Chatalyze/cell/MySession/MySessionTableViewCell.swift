@@ -252,23 +252,22 @@ class MySessionTableViewCell: ExtendedTableCell {
             showAlert(sender: sender ?? UIButton())
             return
         }
-        guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
-            return
-        }
-
-        internetSpeedTestcontroller.onlySystemTest = true
-        internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
-        internetSpeedTestcontroller.onDoneBlock = { success in
-            if success{
-                if success{
-                    self.gotoSession()
-                }
-            }
-        }
-        RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
-        })
-//        self.gotoSession()
+        //@abhishek: calling tbe below function, the local stream get stuck if app moved to background
+//        guard let controller = InternetSpeedTestController.instance() else {
+//            return
+//        }
+//
+//        controller.onlySystemTest = true
+//        controller.modalPresentationStyle = .fullScreen
+//        controller.onDoneBlock =  {[weak self](success)in
+//            DispatchQueue.main.async {
+//                self?.gotoSession()
+//            }
+//
+//        }
+//
+//        RootControllerManager().getCurrentController()?.present(controller, animated: true, completion: nil)
+        self.gotoSession()
     }
 
 }

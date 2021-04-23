@@ -57,7 +57,9 @@ class EventInfo: NSObject {
     var isFlexEnabled:Bool?
     var isRecordingEnabled : Bool?
     var tipText:String?
+    var bufferSeconds : Int?
     var room_id:String?
+    var organization: Bool?
     
     
     var isAutographEnabled : Bool{
@@ -88,6 +90,7 @@ class EventInfo: NSObject {
         }
         id = json["id"].int
         start = json["start"].string
+        bufferSeconds = json["bufferSeconds"].intValue
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
@@ -133,6 +136,7 @@ class EventInfo: NSObject {
         emptySlotsArray = json["emptySlots"].array
         
         user = UserInfo(userInfoJSON: json["user"])
+        Log.echo(key: "vijayInfo", text: "\(user)")
         href = json["href"].string
         if let  callBokingArray = json["callbookings"].array {
             self.callBookings = callBokingArray
@@ -279,6 +283,20 @@ class EventInfo: NSObject {
             return false
             
         }
+    }
+    
+    var isHostManualScreenshot : Bool{
+        get {
+            guard let screenshotType = self.isScreenShotAllowed else {
+                return false
+            }
+            if screenshotType == "manual"{
+                return true
+            }
+            return false
+        }
+        
+        
     }
     
     

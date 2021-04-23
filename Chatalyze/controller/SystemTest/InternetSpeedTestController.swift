@@ -17,12 +17,11 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBOutlet var loaderImage:UIView?
     var onSuccessTest:((Bool)->())?
     var onDoneBlock : ((Bool) -> ())?
-    var onSuccessCameraTest : ((Bool) -> ())?
     var dismissListner:((Bool)->())?
     var info:EventInfo?
     var isOnlySystemTestForTicket = false
     var onlySystemTest = false
-    var topPresentedController : UIViewController?
+    
     @IBOutlet var systemTestView:UIView?
     @IBOutlet var warningView:UIView?
     @IBOutlet var errorView:UIView?
@@ -198,26 +197,24 @@ class InternetSpeedTestController: InterfaceExtendedController {
             guard let controller = CameraTestController.instance() else {
                 return
             }
+            
             controller.info = self.info
             controller.rootController = self
             controller.onSuccessTest = self.onSuccessTest
             controller.onDoneBlock = self.onDoneBlock
             controller.isOnlySystemTestForTicket = self.isOnlySystemTestForTicket
             controller.onlySystemTest = self.onlySystemTest
-            controller.dismissListner = {
+            controller.dismissListner = { [weak self] in
                 DispatchQueue.main.async {
-                    self.dismiss(animated: false, completion: {
-                        if let listner = self.dismissListner{
+                    self?.dismiss(animated: false, completion: {
+                        if let listner = self?.dismissListner{
                             listner(false)
                         }
                     })
                 }
             }
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            let topController = self.topPresentedController
-            
-            Log.echo(key: "vijayController", text: "\(topController)")
-            topController?.present(controller, animated: false){
+            RootControllerManager().getCurrentController()?.present(controller, animated: false){
             }
         }
     }
@@ -271,7 +268,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
         }
         
         self.speedLbl?.text = "Checking your system. This will just take a moment."
-        //self.showLoader()        
+        //self.showLoader()
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             
             DispatchQueue.main.async {
@@ -329,7 +326,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
     @IBAction func dismissAction(){
         DispatchQueue.main.async {
             self.dismiss(animated: false, completion: {
-                Log.echo(key: "dimiss", text: "dimiss")
+                
                 if let listner = self.dismissListner{
                     listner(false)
                 }

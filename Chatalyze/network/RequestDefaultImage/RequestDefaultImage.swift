@@ -12,7 +12,7 @@ import SwiftyJSON
 class RequestDefaultImage{
 
         
-        public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : String?)->())){
+        public func fetchInfo(id : String, completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
             
             //https://chatitat.incamerasports.com/api/screenshots/?analystId=39&limit=5&offset=0
             var url = AppConnectionConfig.webServiceURL + "/schedules/calls/room"
@@ -23,7 +23,7 @@ class RequestDefaultImage{
             }
         }
         
-        private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : String?)->())){
+        private func handleResponse(withSuccess success : Bool, response : JSON?, completion : @escaping ((_ success : Bool, _ response : JSON?)->())){
             
             
             if(!success){
@@ -33,8 +33,8 @@ class RequestDefaultImage{
             
             let info = response
             Log.echo(key: "yud", text: "Resonse of Fetch Info in defaultImage \(String(describing: response))")
-            let defaulImage = info?["user"]["defaultImage"]["url"].stringValue
-            completion(true, defaulImage)
+           
+            completion(true, info)
             return
         }
     }

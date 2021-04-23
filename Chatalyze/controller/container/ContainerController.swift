@@ -82,29 +82,29 @@ class ContainerController: NavChildController {
     }
     
 //    func askForStarterPlanIfNotAskedYet(){
-//        
+//
 //        guard let userType = SignedUserInfo.sharedInstance?.role else{
 //            return
 //        }
-//        
+//
 //        if userType == .user{
 //            return
 //        }
-//        
+//
 //        guard let shouldAskForPlan = SignedUserInfo.sharedInstance?.shouldAskForPlan else{
 //            return
 //        }
-//        
+//
 //        Log.echo(key: "container", text: "Should I ask for plan \(shouldAskForPlan)")
-//        
+//
 //        if !shouldAskForPlan {
 //            return
 //        }
-//        
+//
 //        guard let controller = ProFeatureEndTrialController.instance() else{
 //            return
 //        }
-//        
+//
 //        self.getTopMostPresentedController()?.present(controller, animated: true, completion: {
 //        })
 //    }
@@ -209,7 +209,7 @@ class ContainerController: NavChildController {
     
     @objc  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {          
+            switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.right:
                 print("Swiped right")
                 closeToggle()
@@ -456,6 +456,19 @@ class ContainerController: NavChildController {
             self.closeToggle()
             return
         }
+        
+        else if typeOfAction == .claimTickets{
+            
+            guard let rootController = MyTicketsVerticalController.instance() else{
+                return
+            }
+            
+            guard let controller = CustomTicketsController.instance() else {
+                return
+            }
+            
+            navController?.setViewControllers([rootController,controller], animated: true)
+        }
             
         else if typeOfAction == .tickets{
             
@@ -559,7 +572,7 @@ class ContainerController: NavChildController {
             }
             
             controller.onlySystemTest = true
-            controller.topPresentedController = self.navController
+            
             controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.navController?.present(controller, animated: false, completion: {
             })
@@ -576,7 +589,7 @@ class ContainerController: NavChildController {
             
             guard let rootController = MyTicketsVerticalController.instance() else{
                 return
-            }            
+            }
             guard let controller = AchievmentsController.instance() else{
                 return
             }

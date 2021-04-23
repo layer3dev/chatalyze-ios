@@ -22,6 +22,9 @@ class MyTicketsRootView:ExtendedView{
     func fillInfo(info:[EventSlotInfo]?){
     }
     
+    func fillCustomTicketsInfo(info:[CustomTicketsInfo]){
+        
+    }
     func initializeLayout(){
     }
     

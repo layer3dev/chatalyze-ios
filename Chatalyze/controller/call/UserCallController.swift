@@ -33,7 +33,7 @@ class UserCallController: VideoCallController {
     //Animation Responsible
     var isAnimating = false
     var isSlefieScreenShotSaved = false
-    
+    var defaultImage : UIImage?
     var isPreConnected = false
     
     //variable and outlet responsible for the SelfieTimer
@@ -143,7 +143,7 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
-        
+        loadDefaultImage(eventInfo: eventInfo)
         loadYoutubeVideo(eventInfo: eventInfo)
         loadbackgrndImg(eveninfo: eventInfo)
     }
@@ -158,6 +158,9 @@ class UserCallController: VideoCallController {
             custumBckGrndImg.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
             })
         }
+        
+     let organization  =  eveninfo.user?.organization
+        Log.echo(key: "dhimu", text: "\(organization)")
     }
     
     private func loadYoutubeVideo(eventInfo : EventScheduleInfo){
@@ -166,6 +169,15 @@ class UserCallController: VideoCallController {
                 return
         }
         userRootView?.youtubeContainerView?.load(rawUrl : youtubeURL)
+       
+    }
+    
+    func loadDefaultImage(eventInfo : EventScheduleInfo){
+        guard let url = eventInfo.room_id
+        else{
+            return
+        }
+        downloadDefaultImage(with: url)
     }
     
    
@@ -661,6 +673,7 @@ class UserCallController: VideoCallController {
     private func initializeVariable(){
         
         initializeGetCommondForTakeScreenShot()
+        registerForHostManualTriggeredTimeStamp()
         registerForListeners()
         self.selfieTimerView?.delegate = self
         self.userRootView?.delegateCutsom = self
@@ -672,34 +685,6 @@ class UserCallController: VideoCallController {
     override func registerForListeners(){
         super.registerForListeners()
         
-        
-        //        //call initiation
-        //        socketListener?.onEvent("startSendingVideo", completion: { [weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.hangup(hangup: false)
-        //            self?.processCallInitiation(data : json)
-        //        })
-        //
-        //        socketListener?.onEvent("startConnecting", completion: { [weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.initiateCall()
-        //        })
-        //
-        //        socketListener?.onEvent("linkCall", completion: {[weak self] (json) in
-        //
-        //            if(self?.socketClient == nil){
-        //                return
-        //            }
-        //            self?.connection?.linkCall()
-        //        })
-        
-        //call initiation
         socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
             
             if(self?.socketClient == nil){
@@ -707,6 +692,7 @@ class UserCallController: VideoCallController {
             }
             self?.processHangupEvent(data : json)
         })
+        
     }
     
     private func processHangupEvent(data : JSON?){
@@ -901,6 +887,10 @@ class UserCallController: VideoCallController {
             return
         }
         
+        if eventInfo?.isHostManualScreenshot ?? false{
+            return
+        }
+        
         // NOTE: Uncomment only if,client ask to restrict selfie in last few seconds..
         
         //        if let endtimeOfSlot = myLiveUnMergedSlot?.endDate{
@@ -986,6 +976,7 @@ class UserCallController: VideoCallController {
 //        if isHangUp{
 //            return
 //        }
+        
         
         Log.echo(key: TAG, text: "GetTimestamp")
         
@@ -1096,6 +1087,49 @@ class UserCallController: VideoCallController {
                 }
             })
         }
+    }
+    
+    func registerForHostManualTriggeredTimeStamp(){
+        
+        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
+        
+        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
+            
+            print(" I got the reponse \(String(describing: response))")
+            
+            if let responseDict:[String:JSON] = response?.dictionary{
+                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    
+                    if let date = dateDict["timerStartsAt"]?.stringValue{
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+                        
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                        var requiredDate:Date?
+                        
+                        if let newdate = dateFormatter.date(from: date){
+                            
+                            requiredDate = newdate
+                        }else{
+                            
+                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+                            requiredDate = dateFormatter.date(from: date)
+                        }
+                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
+                        print("required date is \(date) and the sending ")
+                        self.selfieTimerView?.reset()
+                        
+                        self.selfieTimerView?.requiredDate = requiredDate
+                        
+                        if let eventInfo = self.eventInfo{
+                            self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                        }
+                        
+                    }
+                }
+            }
+        })
     }
     
     
@@ -1859,13 +1893,39 @@ extension UserCallController {
 
         }
         
-        self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        if  let image = self.defaultImage{
+            
+            self.userRootView?.canvasContainer?.show(with: image,info:info)
+            Log.echo(key: "panku", text: "defaultImage found")
+        }else{
+            Log.echo(key: "panku", text: "defaultImage not found")
+            self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+        }
         self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
         self.userRootView?.remoteVideoContainerView?.updateForSignature()
         self.updateScreenshotLoaded(info : info)
         
     }
     
+    func downloadDefaultImage(with url : String){
+        RequestDefaultImage().fetchInfo(id: url) { (success, response) in
+            if success{
+                
+                if let info = response{
+                    let defaulImage = info["user"]["defaultImage"]["url"].stringValue
+                    SDWebImageDownloader().downloadImage(with: URL(string: defaulImage), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
+                        guard let img = image else {
+                            // No image handle this error
+                            Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                            return
+                        }
+                        self.defaultImage = img
+                        Log.echo(key: "vijayDefault", text: "defaultImage Found")
+                    }
+                }
+            }
+        }
+    }
     
     
     private func updateScreenshotLoaded(info : CanvasInfo?){

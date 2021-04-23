@@ -8,6 +8,7 @@
 
 import Foundation
 import YoutubePlayer_in_WKWebView
+import AVFoundation
 
 class YoutubeContainerView : ExtendedView {
     
@@ -128,8 +129,13 @@ class YoutubeContainerView : ExtendedView {
         }
         
         isActive = true
+//        rawUrl -> https://www.youtube.com/embed/ADyiVY5wiVk?autoplay=0&modestbranding=1&rel=0&iv_load_policy=3&mode=opaque&autohide=1&showinfo=0&wmode=transparent&fs=0
         
-        let videoId = parseVideoId(rawUrl: rawUrl)
+        // Used to extract particular youTube video link.
+        let fullUrl = rawUrl.components(separatedBy: "?")
+        let youTubeUrl    = fullUrl[0]
+        
+        let videoId = parseVideoId(rawUrl: youTubeUrl)
         
         Log.echo(key: "YoutubeContainerView", text: "videoId -> \(videoId)")
         youtubePlayerView?.load(withVideoId: videoId, playerVars : playerConfiguration)

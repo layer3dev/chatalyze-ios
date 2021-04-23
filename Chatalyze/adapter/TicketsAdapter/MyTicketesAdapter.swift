@@ -57,7 +57,7 @@ class MyTicketesAdapter: ExtendedView {
         myTicketsCollectionView?.alwaysBounceVertical = false
         self.myTicketsCollectionView?.dataSource = self
         self.myTicketsCollectionView?.delegate = self
-    }    
+    }
 }
 
 extension MyTicketesAdapter:UICollectionViewDataSource{
@@ -111,31 +111,11 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 
 
 extension MyTicketesAdapter:MyTicketCellDelegate{
-    
-    //    private func verifyForEventDelay(){
-    //
-    //        guard let slotInfo = slotInfo else{
-    //            return
-    //        }
-    //
-    //Verifying that event is delayed or not started yet
-    
-    //    if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "" ) == ""){
-    //
-    //            showAlertMessage()
-    //            statusLbl?.text = "Session has not started yet."
-    //            return
-    //        }
-    //
-    //        if ((slotInfo.started ?? "") == "") && ((slotInfo.notified ?? "") == "delayed"){
-    //
-    //            showAlertMessage()
-    //            statusLbl?.text = "This event has been delayed. Please stay tuned for an updated start time."
-    //            return
-    //        }
-    //    }
-    //
-    
+ 
+    func claimTicket() {
+        //
+        Log.echo(key: "dhi", text: "claim ticket tapped")
+    }
     func jointEvent(info:SlotInfo?){
         
         guard let slotInfo = info
@@ -173,21 +153,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         }*/
         controller.eventId = String(eventId)
         controller.modalPresentationStyle = .fullScreen
-        guard let controllers = InternetSpeedTestController.instance() else{
-            return
-        }
-        
-        controllers.onlySystemTest = true
-        
-        controllers.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controllers.topPresentedController = RootControllerManager().getCurrentController()
-        controllers.onDoneBlock = { result in
-            self.root?.controller?.present(controller, animated: false, completion: nil)
-        }
-        RootControllerManager().getCurrentController()?.present(controllers, animated: false, completion: {
-        })
-        
-            
+        self.root?.controller?.present(controller, animated: false, completion: nil)
     }
     
     func systemTest(){
@@ -206,7 +172,7 @@ extension MyTicketesAdapter:MyTicketCellDelegate{
         controller.onlySystemTest = true
         
         controller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        controller.topPresentedController = RootControllerManager().getCurrentController()
+        
         RootControllerManager().getCurrentController()?.present(controller, animated: false, completion: {
         })
     }

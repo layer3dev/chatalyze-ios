@@ -30,4 +30,16 @@ class MyTicketsVerticalRootView:MyTicketsRootView {
             self.tableAdapter?.initailizeAdapter(info:info)
         }
     }
+    
+    override func fillCustomTicketsInfo(info: [CustomTicketsInfo]?) {
+        
+        DispatchQueue.main.async {
+         
+            Log.echo(key: "yud", text: "Override fill info is calling")
+            guard let info = info else {
+                return
+            }
+            self.tableAdapter?.initailizeAdapterForCustomTickets(info: info)
+        }
+    }
 }

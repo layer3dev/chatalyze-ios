@@ -15,7 +15,7 @@ class VideoRootView: ExtendedView {
     
     var testView = MemoryFrame()
     var defaultImage : UIImage?
-    var defualtImage = String()
+    
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
     @IBOutlet var headerView:UIView?
@@ -32,8 +32,11 @@ class VideoRootView: ExtendedView {
         }
     }
     
+    var isLogoRemeovedForOrganizationHost :Bool?
+    
     private var hangupListener : (()->())?
     private var loadListener : (()->())?
+    private var defaultImgListner : (()->())?
     
     
     /*
@@ -91,12 +94,19 @@ class VideoRootView: ExtendedView {
         self.addGestureRecognizer(tapGesture)
     }
     
-    private func getDefulatImage(roomId : String){
-        RequestDefaultImage().fetchInfo(id: roomId) { (success, imageURL) in
+     func getDefulatImage(roomId : String){
+        RequestDefaultImage().fetchInfo(id: roomId) { (success, response) in
             if success{
-                if let image = imageURL{
-                    Log.echo(key: "vijayDefault", text: "imageURL is \(image)")
-                    SDWebImageDownloader().downloadImage(with: URL(string: image), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
+                
+                if let info = response{
+                    let defaulImage = info["user"]["defaultImage"]["url"].stringValue
+                     
+                    let isOrhanizationHost = info["user"]["organization"]["removeLogo"].boolValue
+                    self.isLogoRemeovedForOrganizationHost = isOrhanizationHost
+                    Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(self.isLogoRemeovedForOrganizationHost)")
+                    
+                    Log.echo(key: "abhi", text: "\(isOrhanizationHost)")
+                    SDWebImageDownloader().downloadImage(with: URL(string: defaulImage), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
                         guard let img = image else {
                             // No image handle this error
                             Log.echo(key: "vijayDefault", text: "no defaultImage Found")
@@ -271,7 +281,8 @@ class VideoRootView: ExtendedView {
     
        testView.screenShotPic?.image = finalImage
        testView.memoryStickerView?.renderImage(image: eventLogo)
-    
+      testView.isLogoRemeovedForOrganizationHost = isLogoRemeovedForOrganizationHost
+    Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(isLogoRemeovedForOrganizationHost)")
        testView.userInfo = info
        
        completion(getSnapshot(view: testView))
@@ -319,12 +330,18 @@ class VideoRootView: ExtendedView {
     
         func mergeImage(hostPicture : UIImage, userPicture : UIImage)->UIImage?{
             
-//            if let defaultImg = self.defaultImage {
-//                return defaultImg
-//            }else{
-//                Log.echo(key: "vijayDefault", text: "no defaultImage Found")
-//            }
-            
+            if let userType = SignedUserInfo.sharedInstance?.role {
+                
+                if userType == .analyst{
+                    if let defaultImg = self.defaultImage {
+                        return defaultImg
+                    }else{
+                        Log.echo(key: "vijayDefault", text: "no defaultImage Found")
+                    }
+                }
+                
+            }
+        
             var cropHostPic = UIImage()
             var cropUserPic = UIImage()
             var aspactHost : UIImage?

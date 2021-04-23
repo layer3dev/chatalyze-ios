@@ -112,6 +112,8 @@ class MenuCell: ExtendedTableCell {
             }
             else if selectedIndexName == "Achievements"{
                 return MenuRootView.MenuType.achievements
+            }else if selectedIndexName ==  "Claim Tickets"{
+                return MenuRootView.MenuType.claimTickets
             }
             
             return MenuRootView.MenuType.none

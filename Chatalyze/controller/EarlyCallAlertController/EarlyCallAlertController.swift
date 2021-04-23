@@ -155,7 +155,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
         
         let hourString = String(format: "%02d", hours)
         let minuteString = String(format: "%02d", minutes)
-        let secondString = String(format: "%02d", seconds)        
+        let secondString = String(format: "%02d", seconds)
         return ( hourString, minuteString, secondString)
     }
     
@@ -171,25 +171,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
                 let root = currentPresentingController
                 self.validateVPN {
                     Log.echo(key: "EarlyCallController", text: "validate VPN response")
-                    
-                    guard let internetSpeedTestcontroller = InternetSpeedTestController.instance() else{
-                        return
-                    }
-
-                    internetSpeedTestcontroller.onlySystemTest = true
-                    internetSpeedTestcontroller.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-                    internetSpeedTestcontroller.topPresentedController = RootControllerManager().getCurrentController()
-                    internetSpeedTestcontroller.onDoneBlock = { success in
-                        if success{
-                            if success{
-                                self.launchSession(currentPresentingController: root)
-                            }
-                        }
-                    }
-                    RootControllerManager().getCurrentController()?.present(internetSpeedTestcontroller, animated: false, completion: {
-                    })
-                    
-//                    self.launchSession(currentPresentingController: root)
+                    self.launchSession(currentPresentingController: root)
                 }
                 
             }
