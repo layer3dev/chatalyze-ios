@@ -866,7 +866,7 @@ class UserCallController: VideoCallController {
         let slotDuration = eventInfo.duration
         
         var requiredDate :Date?
-        if eventInfo.isMicroSlot{
+        if eventInfo.isMicroSlot || eventInfo.isHostManualScreenshot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
              requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
         }else{
@@ -1109,35 +1109,32 @@ class UserCallController: VideoCallController {
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
                     if let date = dateDict["timerStartsAt"]?.stringValue{
-                        var data:[String:Any] = [String:Any]()
-                        var messageData:[String:Any] = [String:Any]()
-                        messageData = ["timerStartsAt":"\(date)"]
-                        //name : callServerId($scope.currentBooking.user.id)
-                        data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-                        self.socketClient?.emit(data)
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                         
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                        var requiredDate:Date?
-                        
-                        if let newdate = dateFormatter.date(from: date){
-                            ///
-                            requiredDate = newdate
-                        }else{
+                        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
                             
+                            Log.echo(key: "yud", text: "Again restarting the screenshots")
+                            
+                            //In order to convert into the Web Format
+                            //E, d MMM yyyy HH:mm:ss z
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
-                            requiredDate = dateFormatter.date(from: date)
+                            let requiredWebCompatibleTimeStamp = dateFormatter.string(from: requiredTimeStamp)
+                            
+                            Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
+                            //End
+                            var data:[String:Any] = [String:Any]()
+                            var messageData:[String:Any] = [String:Any]()
+                            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
+                            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+//                            self.socketClient?.emit(data)
+                            selfieTimerView?.requiredDate = requiredTimeStamp
+                            
+                            if let eventInfo = self.eventInfo{
+                                selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                            }
                         }
-                        
-                        print("required date is \(date) and the sending ")
-                        //for testing
-                        selfieTimerView?.requiredDate = requiredDate
-                        
-                        if let eventInfo = self.eventInfo{
-                            selfieTimerView?.startAnimation(eventInfo : eventInfo)
-                        }
-                        
+                        //name : callServerId($scope.currentBooking.user.id)
                         
                     }
                 }
