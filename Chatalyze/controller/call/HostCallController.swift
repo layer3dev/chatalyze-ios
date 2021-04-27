@@ -427,9 +427,7 @@ class HostCallController: VideoCallController {
     private func registerForTimerNotification(){
         
         // @abhishek: If host activated photobooth,this should get return
-        if eventInfo?.isHostManualScreenshot ?? false{
-            return
-        }
+    
       
         print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
@@ -505,23 +503,23 @@ class HostCallController: VideoCallController {
             callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
+
+//            photoBothView?.isUserInteractionEnabled = false
             self.selfieTimerView?.reset()
-            photoBothView?.isUserInteractionEnabled = false
-            selfieTimerView?.requiredDate = requiredTimeStamp
             
             if let eventInfo = self.eventInfo{
-                self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
             }
             
-            self.selfieTimerView?.screenShotListner = {[weak self] in
-                if let weakSelf = self {
-                    print(" I got the mimic screenshot")
-                    weakSelf.photoBothView?.isUserInteractionEnabled = true
-                    weakSelf.mimicScreenShotFlash()
-                    weakSelf.selfieTimerView?.reset()
-                    weakSelf.processAutographSelfie()
-                }
-            }
+//            self.selfieTimerView?.screenShotListner = {[weak self] in
+//                if let weakSelf = self {
+//                    print(" I got the mimic screenshot")
+//                    weakSelf.photoBothView?.isUserInteractionEnabled = true
+//                    weakSelf.mimicScreenShotFlash()
+//                    weakSelf.selfieTimerView?.reset()
+//                    weakSelf.processAutographSelfie()
+//                }
+//            }
         }
     }
     

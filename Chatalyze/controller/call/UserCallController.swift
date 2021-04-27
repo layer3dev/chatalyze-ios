@@ -1050,8 +1050,7 @@ class UserCallController: VideoCallController {
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
-                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
-                saveImage()
+               
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
@@ -1064,6 +1063,8 @@ class UserCallController: VideoCallController {
                             self.uploadImage(encodedImage: encodedData, image: nil, completion: { (success, info) in
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
+                                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                                saveImage()
                                 isSlefieScreenShotSaved = false
                                 
                                 DispatchQueue.main.async {
@@ -1100,7 +1101,7 @@ class UserCallController: VideoCallController {
         
         print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
-        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
+        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
             
             print(" I got the reponse \(String(describing: response))")
             
@@ -1130,13 +1131,13 @@ class UserCallController: VideoCallController {
                         }
                         
                         print("required date is \(date) and the sending ")
-                        self.selfieTimerView?.reset()
-                        
-                        self.selfieTimerView?.requiredDate = requiredDate
+                        //for testing
+                        selfieTimerView?.requiredDate = requiredDate
                         
                         if let eventInfo = self.eventInfo{
-                            self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                            selfieTimerView?.startAnimation(eventInfo : eventInfo)
                         }
+                        
                         
                     }
                 }
