@@ -1127,7 +1127,7 @@ class UserCallController: VideoCallController {
                             var messageData:[String:Any] = [String:Any]()
                             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
                             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-//                            self.socketClient?.emit(data)
+                            self.socketClient?.emit(data)
                             selfieTimerView?.requiredDate = requiredTimeStamp
                             
                             if let eventInfo = self.eventInfo{
