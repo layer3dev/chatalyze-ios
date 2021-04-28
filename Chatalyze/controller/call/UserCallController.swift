@@ -1114,8 +1114,7 @@ class UserCallController: VideoCallController {
                             
                             Log.echo(key: "yud", text: "Again restarting the screenshots")
                             
-                            //In order to convert into the Web Format
-                            //E, d MMM yyyy HH:mm:ss z
+
                             let dateFormatter = DateFormatter()
                             dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
@@ -1134,7 +1133,7 @@ class UserCallController: VideoCallController {
                                 selfieTimerView?.startAnimation(eventInfo : eventInfo)
                             }
                         }
-                        //name : callServerId($scope.currentBooking.user.id)
+                   
                         
                     }
                 }
