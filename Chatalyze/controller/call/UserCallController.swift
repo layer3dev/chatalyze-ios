@@ -866,7 +866,7 @@ class UserCallController: VideoCallController {
         let slotDuration = eventInfo.duration
         
         var requiredDate :Date?
-        if eventInfo.isMicroSlot{
+        if eventInfo.isMicroSlot || eventInfo.isHostManualScreenshot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
              requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
         }else{
@@ -1050,8 +1050,7 @@ class UserCallController: VideoCallController {
                 
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
-                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
-                saveImage()
+               
                 let backThread = DispatchQueue(label: "uploading", qos: .userInteractive)
                 backThread.async {
                     
@@ -1064,6 +1063,8 @@ class UserCallController: VideoCallController {
                             self.uploadImage(encodedImage: encodedData, image: nil, completion: { (success, info) in
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
+                                self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                                saveImage()
                                 isSlefieScreenShotSaved = false
                                 
                                 DispatchQueue.main.async {
@@ -1100,7 +1101,7 @@ class UserCallController: VideoCallController {
         
         print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
-        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
+        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
             
             print(" I got the reponse \(String(describing: response))")
             
@@ -1108,35 +1109,31 @@ class UserCallController: VideoCallController {
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
                     if let date = dateDict["timerStartsAt"]?.stringValue{
-                        var data:[String:Any] = [String:Any]()
-                        var messageData:[String:Any] = [String:Any]()
-                        messageData = ["timerStartsAt":"\(date)"]
-                        //name : callServerId($scope.currentBooking.user.id)
-                        data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-                        self.socketClient?.emit(data)
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                         
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                        var requiredDate:Date?
-                        
-                        if let newdate = dateFormatter.date(from: date){
-                            ///
-                            requiredDate = newdate
-                        }else{
+                        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
                             
+                            Log.echo(key: "yud", text: "Again restarting the screenshots")
+                            
+
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
                             dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
-                            requiredDate = dateFormatter.date(from: date)
+                            let requiredWebCompatibleTimeStamp = dateFormatter.string(from: requiredTimeStamp)
+                            
+                            Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
+                            //End
+                            var data:[String:Any] = [String:Any]()
+                            var messageData:[String:Any] = [String:Any]()
+                            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
+                            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+                            self.socketClient?.emit(data)
+                            selfieTimerView?.requiredDate = requiredTimeStamp
+                            
+                            if let eventInfo = self.eventInfo{
+                                selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                            }
                         }
-                        
-                        print("required date is \(date) and the sending ")
-                        self.selfieTimerView?.reset()
-                        
-                        self.selfieTimerView?.requiredDate = requiredDate
-                        
-                        if let eventInfo = self.eventInfo{
-                            self.selfieTimerView?.startAnimation(eventInfo : eventInfo)
-                        }
+                   
                         
                     }
                 }
