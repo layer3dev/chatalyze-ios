@@ -1,15 +1,15 @@
 //
-//  CustomTicketCell.swift
+//  ClaimTicketCell.swift
 //  Chatalyze
 //
-//  Created by Abhishek Dhiman on 06/04/21.
+//  Created by Abhishek Dhiman on 29/04/21.
 //  Copyright © 2021 Mansa Infotech. All rights reserved.
 //
 
 import UIKit
 
-class CustomTicketCell: ExtendedTableCell {
-
+class ClaimTicketCell: ExtendedTableCell {
+    
     
     var info:CustomTicketsInfo?
     var rootAdapter:MyTicketesVerticalAdapter?
@@ -19,6 +19,8 @@ class CustomTicketCell: ExtendedTableCell {
     override func viewDidLayout() {
         super.viewDidLayout()
         
+       
+        
     }
     
     @IBOutlet  weak var eventNamelbl : UILabel?
@@ -26,7 +28,7 @@ class CustomTicketCell: ExtendedTableCell {
     @IBOutlet  weak var eventStartDate : UILabel?
     @IBOutlet  weak var discriptionLbl : UILabel?
     @IBOutlet weak var claimButtonhight: NSLayoutConstraint?
-    
+    @IBOutlet weak var borderView : UIView?
     
     var formattedStartTime:String?
     var formattedEndTime:String?
@@ -34,6 +36,7 @@ class CustomTicketCell: ExtendedTableCell {
     var fromattedEndDate:String?
     var discriptiontext : String?
     var checkinTime : String?
+    var sessionId : String?
     
     
       
@@ -45,15 +48,22 @@ class CustomTicketCell: ExtendedTableCell {
         
        
         self.info = info
-        checkInTime(time: info.start! ?? "")
+        checkInTime(time: info.start ?? "")
         initializeDesiredDatesFormat(info: info)
         self.eventNamelbl?.text = info.title
         self.hostNameLbl?.text = info.hostName
+        self.sessionId = info.room_id
         self.selectionStyle = .none
     }
     
     @IBAction func claimTicket(send:UIButton?){
-        delegate?.claimTicket(info: PurchaseTicketRequest())
+        
+        guard  let userid =  SignedUserInfo.sharedInstance?.id else {
+            Log.echo(key: "ClaimTicket", text: "User id is missing")
+            return
+        }
+        let request = PurchaseTicketRequest(sessionid: sessionId ?? "", userId: userid, date: Data())
+        delegate?.claimTicket(info: request)
     }
     
     
@@ -61,8 +71,8 @@ class CustomTicketCell: ExtendedTableCell {
         _formattedEndTime = info.end
         _formattedStartTime = info.start
         self.eventStartDate?.text = self.formattedStartDate
-        self.discriptionLbl?.text = getDiscriptionForSlot(with: formattedStartTime, endTime: formattedEndTime)
-     
+        self.discriptionLbl?.attributedText = getDiscriptionForSlot(with: formattedStartTime, endTime: formattedEndTime)
+
     }
     
     
@@ -92,12 +102,13 @@ class CustomTicketCell: ExtendedTableCell {
     }
     
 
-    func getDiscriptionForSlot(with startTime : String?,endTime : String?)-> String?{
+    func getDiscriptionForSlot(with startTime : String?,endTime : String?)-> NSAttributedString?{
         
         if let date = DateParser.UTCStringToDate(info?.start ?? "") {
             
             if date.timeIntervalSince(Date()) > 1800.0{
                 disableClaimBtn()
+              
                 return self.slotInfoBeforeCheckIn(withStartTime: startTime ?? "", endTime: endTime ?? "")
                 
             }else{
@@ -105,28 +116,45 @@ class CustomTicketCell: ExtendedTableCell {
                 return self.slotInfoAfterCheckIn(withStartTime: startTime ?? "", andEndTime: endTime ?? "")
             }
         }
-        return "fefefefef"
+        return NSAttributedString()
     }
     
     
-    func slotInfoBeforeCheckIn(withStartTime  startTime: String, endTime : String) -> String?{
-        
-        var discriptiontext : String?
+    func slotInfoBeforeCheckIn(withStartTime  startTime: String, endTime : String) -> NSAttributedString?{
         
         
-  
-        discriptiontext = "Your check-in time is from \(checkinTime ?? "") - \(formattedStartTime ?? ""). Please note that failure to check in on time may result in loss of your spot.\n\n Upon check in, you will receive a specific time between \(formattedStartTime ?? "") and \(formattedEndTime ?? "") for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time."
+        let part1 = NSAttributedString(string: "Your check-in time is from ")
+        
+        let text = "\(checkinTime ?? "") - \(formattedStartTime ?? ""). Please note that failure to check in on time may result in loss of your spot.\n\n "
+        
+        let text2 = "Upon check in, you will receive a specific time between \(formattedStartTime ?? "") and \(formattedEndTime ?? "") for your meet and greet. \n\n. To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time."
+        
+        let text3 = "Upon check in, you will receive a specific time between \(formattedStartTime ?? "") and \(formattedEndTime ?? "") for your meet and greet. \n\n. To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time."
+        
+        var part2 = NSAttributedString(string: text)
+         part2 =  text.toAttributedString(font: AppThemeConfig.boldFont, size: 14, color: .black, isUnderLine: false)
         
         
-        return discriptiontext
+        let part3 = NSAttributedString(string: text3)
+        
+        let combination = NSMutableAttributedString()
+        combination.append(part1)
+        combination.append(part2)
+        combination.append(part3)
+        
+        return combination
     }
     
     
-    func slotInfoAfterCheckIn(withStartTime startTime : String?,andEndTime endTime : String) -> String{
+    func slotInfoAfterCheckIn(withStartTime startTime : String?,andEndTime endTime : String) -> NSAttributedString{
         var discription : String?
         
         discription = "Claim your ticket to meet\(info?.hostName ?? "").Upon claiming your ticket, you will receive a specific time between \(startTime ?? "") and \(endTime) for your meet and greet."
-        return discription ?? ""
+        let attText = NSAttributedString(string: discription ?? "")
+        
+        let mutableText = NSMutableAttributedString()
+        mutableText.append(attText)
+        return mutableText
     }
     
     
@@ -150,10 +178,18 @@ class CustomTicketCell: ExtendedTableCell {
     
     func enableClaimBtn(){
         if UIDevice.current.userInterfaceIdiom == .pad{
-            self.claimButtonhight?.constant = 85
-        }else{
             self.claimButtonhight?.constant = 65
+        }else{
+            self.claimButtonhight?.constant = 50
         }
+        
     }
   
 }
+
+struct PurchaseTicketRequest {
+    var sessionid : String?
+    var userId : String?
+    var date: Data?
+}
+

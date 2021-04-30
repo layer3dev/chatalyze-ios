@@ -111,10 +111,11 @@ extension MyTicketesAdapter:UICollectionViewDelegate{
 
 
 extension MyTicketesAdapter:MyTicketCellDelegate{
- 
-    func claimTicket() {
-        //
+
+    func claimTicket(info: PurchaseTicketRequest?) {
         Log.echo(key: "dhi", text: "claim ticket tapped")
+        
+ 
     }
     func jointEvent(info:SlotInfo?){
         

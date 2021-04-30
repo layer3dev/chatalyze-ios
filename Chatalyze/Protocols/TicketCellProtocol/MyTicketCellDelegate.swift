@@ -11,7 +11,7 @@ protocol MyTicketCellDelegate {
     
     func jointEvent(info:SlotInfo?)
     func systemTest()
-    func claimTicket()
+    func claimTicket(info : PurchaseTicketRequest?)
 }
 
 

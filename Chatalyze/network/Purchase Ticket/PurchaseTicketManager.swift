@@ -14,7 +14,7 @@ class PurchaseTicketManager: NSObject {
     func fethcInfo (userId : String , sessionId: String , date: String, completionHandler : @escaping (_ success : Bool, _ response:JSON?)->Void){
         
         
-        var url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
+        let url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
         
         var param : [String:Any] = [String:Any]()
         param["userId"] = userId

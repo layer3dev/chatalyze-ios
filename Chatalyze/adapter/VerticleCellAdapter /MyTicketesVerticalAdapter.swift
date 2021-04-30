@@ -22,8 +22,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     override func viewDidLayout() {
         super.viewDidLayout()
         
-//        myTicketsVerticalTableView?.register(UINib(nibName: "CustomTicketCell", bundle: nil), forCellReuseIdentifier: "CustomTicketCell")
-        
+        myTicketsVerticalTableView?.register(UINib(nibName: "ClaimTicketCell", bundle: nil), forCellReuseIdentifier: "ClaimTicketCell")
         myTicketsVerticalTableView?.separatorStyle = .none
         myTicketsVerticalTableView?.dataSource = self
         myTicketsVerticalTableView?.delegate = self
@@ -90,7 +89,8 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
             if self.root?.controller?.isFetchingCustomEventCompleted ?? false || self.customTicketsListingArray.count == 0{
                 return customTicketsListingArray.count
             }
-            return customTicketsListingArray.count+1
+            return customTicketsListingArray.count
+            
         }
         
         if root?.controller?.currentEventShowing == .past{
@@ -105,18 +105,29 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if self.root?.controller?.currentEventShowing == .custom{
-            if indexPath.row < self.customTicketsListingArray.count{
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTicketCell", for: indexPath) as? CustomTicketCell else{
-                    return UITableViewCell()
-                }
-                cell.rootAdapter = self
-                cell.delegate = self
-                cell.selectionStyle = .none
-                cell.fillInfo(info: customTicketsListingArray[indexPath.row])
-                return cell
+            //            if indexPath.row < self.customTicketsListingArray.count{
+            //
+            //                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTicketCell", for: indexPath) as? CustomTicketCell else{
+            //                    return UITableViewCell()
+            //                }
+            //                cell.rootAdapter = self
+            //                cell.delegate = self
+            //                cell.selectionStyle = .none
+            //                cell.fillInfo(info: customTicketsListingArray[indexPath.row])
+            //                return cell
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ClaimTicketCell", for: indexPath) as? ClaimTicketCell else{
+                return UITableViewCell()
                 
             }
+            cell.rootAdapter = self
+            cell.delegate = self
+            cell.selectionStyle = .none
+            cell.borderView?.layer.borderColor = UIColor(hexString: "#E4E4E4").cgColor
+            cell.borderView?.layer.borderWidth = 1
+            cell.fillInfo(info: customTicketsListingArray[indexPath.row])
+            return cell
+            
             
         }
         
@@ -199,9 +210,26 @@ extension MyTicketesVerticalAdapter:UITableViewDelegate{
 
 
 extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
-    func claimTicket() {
-        //
+    
+    func claimTicket(info: PurchaseTicketRequest?) {
         Log.echo(key: "dhi", text: "claim ticket")
+        
+        guard let info = info else {
+            return
+        }
+       
+        PurchaseTicketManager().fethcInfo(userId: info.userId ?? "", sessionId: info.sessionid ?? "", date: "\(Date())") { (success, response) in
+            if success{
+                let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default) { (success) in
+                    //
+                    Log.echo(key: "MyTicketesVerticalAdapter", text: "successfully claimed!")
+                    
+                }
+                alert.addAction(action)
+                RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     
