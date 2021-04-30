@@ -48,7 +48,7 @@ class ClaimTicketCell: ExtendedTableCell {
         
        
         self.info = info
-        checkInTime(time: info.start!)
+        checkInTime(time: info.start ?? "")
         initializeDesiredDatesFormat(info: info)
         self.eventNamelbl?.text = info.title
         self.hostNameLbl?.text = info.hostName
