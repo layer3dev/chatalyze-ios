@@ -1105,8 +1105,8 @@
 		FA0077A2207E2CF9005F840D /* UserVideoLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0077A1207E2CF9005F840D /* UserVideoLayoutView.swift */; };
 		FA03EA26262055710061C0CA /* UpNextSlotInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA25262055710061C0CA /* UpNextSlotInfoView.swift */; };
 		FA03EA27262055710061C0CA /* UpNextSlotInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA25262055710061C0CA /* UpNextSlotInfoView.swift */; };
-		FA03EA9C262402EF0061C0CA /* PurchaseTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA9B262402EF0061C0CA /* PurchaseTicket.swift */; };
-		FA03EA9D262402EF0061C0CA /* PurchaseTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA9B262402EF0061C0CA /* PurchaseTicket.swift */; };
+		FA03EA9C262402EF0061C0CA /* PurchaseTicketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA9B262402EF0061C0CA /* PurchaseTicketManager.swift */; };
+		FA03EA9D262402EF0061C0CA /* PurchaseTicketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03EA9B262402EF0061C0CA /* PurchaseTicketManager.swift */; };
 		FA08125322537629002BD378 /* UserSocketRegistrationTimeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08125222537628002BD378 /* UserSocketRegistrationTimeout.swift */; };
 		FA08125422537629002BD378 /* UserSocketRegistrationTimeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08125222537628002BD378 /* UserSocketRegistrationTimeout.swift */; };
 		FA09C391261C03C600AFFF9A /* CustomTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09C38F261C03C600AFFF9A /* CustomTicketCell.swift */; };
@@ -1248,6 +1248,10 @@
 		FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F108210A044900D16F13 /* HangupActionView.swift */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
 		FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */; };
+		FA8CEB9B263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */; };
+		FA8CEB9C263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */; };
+		FA8CEB9D263AF49700FA7D00 /* ClaimTicketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8CEB9A263AF49700FA7D00 /* ClaimTicketCell.xib */; };
+		FA8CEB9E263AF49700FA7D00 /* ClaimTicketCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA8CEB9A263AF49700FA7D00 /* ClaimTicketCell.xib */; };
 		FA91054721D6195D00060AFF /* MediaAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054621D6195D00060AFF /* MediaAlertController.swift */; };
 		FA91054821D6195D00060AFF /* MediaAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054621D6195D00060AFF /* MediaAlertController.swift */; };
 		FA91054B21D61FB300060AFF /* LogNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA91054A21D61FB300060AFF /* LogNotification.swift */; };
@@ -1925,7 +1929,7 @@
 		FA00779F207E2B53005F840D /* CanvasContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContainer.swift; sourceTree = "<group>"; };
 		FA0077A1207E2CF9005F840D /* UserVideoLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVideoLayoutView.swift; sourceTree = "<group>"; };
 		FA03EA25262055710061C0CA /* UpNextSlotInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpNextSlotInfoView.swift; sourceTree = "<group>"; };
-		FA03EA9B262402EF0061C0CA /* PurchaseTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTicket.swift; sourceTree = "<group>"; };
+		FA03EA9B262402EF0061C0CA /* PurchaseTicketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseTicketManager.swift; sourceTree = "<group>"; };
 		FA08125222537628002BD378 /* UserSocketRegistrationTimeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSocketRegistrationTimeout.swift; sourceTree = "<group>"; };
 		FA09C38F261C03C600AFFF9A /* CustomTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTicketCell.swift; sourceTree = "<group>"; };
 		FA0A4F9C2078B44000FF9517 /* CallInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallInfoContainerView.swift; sourceTree = "<group>"; };
@@ -2095,6 +2099,8 @@
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
 		FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackIdentifierInfo.swift; sourceTree = "<group>"; };
+		FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimTicketCell.swift; sourceTree = "<group>"; };
+		FA8CEB9A263AF49700FA7D00 /* ClaimTicketCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClaimTicketCell.xib; sourceTree = "<group>"; };
 		FA91054621D6195D00060AFF /* MediaAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaAlertController.swift; sourceTree = "<group>"; };
 		FA91054A21D61FB300060AFF /* LogNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogNotification.swift; sourceTree = "<group>"; };
 		FA91054D21D6218200060AFF /* ProductionFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionFlag.swift; sourceTree = "<group>"; };
@@ -4496,7 +4502,7 @@
 		FA03EA9A262402B80061C0CA /* Purchase Ticket */ = {
 			isa = PBXGroup;
 			children = (
-				FA03EA9B262402EF0061C0CA /* PurchaseTicket.swift */,
+				FA03EA9B262402EF0061C0CA /* PurchaseTicketManager.swift */,
 			);
 			path = "Purchase Ticket";
 			sourceTree = "<group>";
@@ -5784,6 +5790,8 @@
 			isa = PBXGroup;
 			children = (
 				FA09C38F261C03C600AFFF9A /* CustomTicketCell.swift */,
+				FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */,
+				FA8CEB9A263AF49700FA7D00 /* ClaimTicketCell.xib */,
 			);
 			path = CustomTickets;
 			sourceTree = "<group>";
@@ -6280,6 +6288,7 @@
 				47D0B1A321A6C4B5006376A8 /* signin.storyboard in Resources */,
 				47D0B1A421A6C4B5006376A8 /* Event.storyboard in Resources */,
 				47E372552230F946000B99F9 /* Nunito-Light.ttf in Resources */,
+				FA8CEB9E263AF49700FA7D00 /* ClaimTicketCell.xib in Resources */,
 				47D0B1A521A6C4B5006376A8 /* LaunchScreen.storyboard in Resources */,
 				47D0B1A621A6C4B5006376A8 /* Questrial-Regular.otf in Resources */,
 				47E3724F2230F946000B99F9 /* Nunito-ExtraLight.ttf in Resources */,
@@ -6364,6 +6373,7 @@
 				47B6521C20AAAE800041496C /* signin.storyboard in Resources */,
 				47B6521A20AAADB30041496C /* Event.storyboard in Resources */,
 				47E372542230F946000B99F9 /* Nunito-Light.ttf in Resources */,
+				FA8CEB9D263AF49700FA7D00 /* ClaimTicketCell.xib in Resources */,
 				FAFFFEA2203D9C80009B4F96 /* LaunchScreen.storyboard in Resources */,
 				470EEC0D2165E70000DB705D /* Questrial-Regular.otf in Resources */,
 				47E3724E2230F946000B99F9 /* Nunito-ExtraLight.ttf in Resources */,
@@ -6763,6 +6773,7 @@
 				6B0B86CC24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */,
 				47D0B02621A6C4B5006376A8 /* TabElementView.swift in Sources */,
 				47D0B02721A6C4B5006376A8 /* UpdateForEditScheduleSessionDelgete.swift in Sources */,
+				FA8CEB9C263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */,
 				47668BF02253485A002BA2E4 /* FetchPastEventsProcessor.swift in Sources */,
 				47D0B02821A6C4B5006376A8 /* Log.swift in Sources */,
 				47D0B02921A6C4B5006376A8 /* FieldManagingScrollView.swift in Sources */,
@@ -7033,7 +7044,7 @@
 				47F46A3F22571D1800D344F4 /* SingleSessionPageMoreDetailAlertController.swift in Sources */,
 				47D0B0D921A6C4B5006376A8 /* GreetingDateTimeAdapter.swift in Sources */,
 				4781442E22044E91005398F8 /* ScheduleSessionNewReviewRootView.swift in Sources */,
-				FA03EA9D262402EF0061C0CA /* PurchaseTicket.swift in Sources */,
+				FA03EA9D262402EF0061C0CA /* PurchaseTicketManager.swift in Sources */,
 				47D0B0DA21A6C4B5006376A8 /* AspectImageView.swift in Sources */,
 				FAF44C0B221BFF030044D47B /* DonateTransactionTokenSession.swift in Sources */,
 				47D0B0DB21A6C4B5006376A8 /* TestClass.swift in Sources */,
@@ -7393,6 +7404,7 @@
 				6B0B86CB24E9C4CA00EF7E3C /* OnlineSessionInfo.swift in Sources */,
 				47B6523E20AAAFA40041496C /* TabElementView.swift in Sources */,
 				47F9514621395E750024F3A2 /* UpdateForEditScheduleSessionDelgete.swift in Sources */,
+				FA8CEB9B263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */,
 				47668BEF2253485A002BA2E4 /* FetchPastEventsProcessor.swift in Sources */,
 				FAA001A8203ED472003C8A74 /* Log.swift in Sources */,
 				FA3AF0FB20442FEF0084B154 /* FieldManagingScrollView.swift in Sources */,
@@ -7663,7 +7675,7 @@
 				47B6525E20AAB3C20041496C /* GreetingDateTimeAdapter.swift in Sources */,
 				FAF44C0A221BFF030044D47B /* DonateTransactionTokenSession.swift in Sources */,
 				4781442D22044E91005398F8 /* ScheduleSessionNewReviewRootView.swift in Sources */,
-				FA03EA9C262402EF0061C0CA /* PurchaseTicket.swift in Sources */,
+				FA03EA9C262402EF0061C0CA /* PurchaseTicketManager.swift in Sources */,
 				FAD2018620761CC00004E10E /* AspectImageView.swift in Sources */,
 				47E97BCE214B83F90046109B /* TestClass.swift in Sources */,
 				47B6525320AAB0170041496C /* GreetingrecipientController.swift in Sources */,
