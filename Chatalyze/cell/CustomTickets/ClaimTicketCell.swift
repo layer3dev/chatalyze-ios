@@ -36,7 +36,7 @@ class ClaimTicketCell: ExtendedTableCell {
     var fromattedEndDate:String?
     var discriptiontext : String?
     var checkinTime : String?
-    var sessionId : String?
+    var sessionId : Int?
     
     
       
@@ -62,7 +62,7 @@ class ClaimTicketCell: ExtendedTableCell {
             Log.echo(key: "ClaimTicket", text: "User id is missing")
             return
         }
-        let request = PurchaseTicketRequest(sessionid: sessionId ?? "", userId: userid, date: Data())
+        let request = PurchaseTicketRequest(sessionid: sessionId ?? Int(), userId: Int(userid), date: Data())
         delegate?.claimTicket(info: request)
     }
     
@@ -188,8 +188,8 @@ class ClaimTicketCell: ExtendedTableCell {
 }
 
 struct PurchaseTicketRequest {
-    var sessionid : String?
-    var userId : String?
+    var sessionid : Int?
+    var userId : Int?
     var date: Data?
 }
 

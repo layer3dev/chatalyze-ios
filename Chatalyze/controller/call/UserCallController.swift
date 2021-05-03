@@ -1476,6 +1476,9 @@ class UserCallController: VideoCallController {
         
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
             
+            //@abhishek : Improvement: Display queue content to attendees before host joins event so attendees can view this content any time they enter the event.
+            loadYoutubeVideo(eventInfo: self.eventInfo ?? EventScheduleInfo(info: JSON()) )
+            userRootView?.youtubeContainerView?.show()
             setStatusMessage(type: .eventNotStarted)
             return
             // statusLbl?.text = "Session has not started yet."
