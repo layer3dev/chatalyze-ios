@@ -1234,7 +1234,7 @@ extension VideoCallController{
             
             self.showAlertContainer()
             self.showPreConnectLabel()
-            let requiredMessage = "Session has not started."
+            let requiredMessage = "Session has not startedd."
             let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.white)
             preConnectLbl?.attributedText = secondAttributedString
             return

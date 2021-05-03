@@ -14,7 +14,7 @@ class CustomTicketsInfo : NSObject{
     
     var start : String?
     var end : String?
-    var room_id : String?
+    var room_id : Int?
     var title: String?
     var hostName : String?
     
@@ -34,7 +34,7 @@ class CustomTicketsInfo : NSObject{
                 return
         }
         
-        self.room_id = json["room_id"].stringValue
+        self.room_id = json["id"].intValue
         self.title = json["title"].stringValue
         self.start = json["start"].stringValue
         self.end = json["end"].stringValue

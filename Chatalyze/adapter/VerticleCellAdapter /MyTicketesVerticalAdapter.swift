@@ -218,7 +218,7 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
             return
         }
        
-        PurchaseTicketManager().fethcInfo(userId: info.userId ?? "", sessionId: info.sessionid ?? "", date: "\(Date())") { (success, response) in
+        PurchaseTicketManager().fethcInfo(userId: info.userId ?? Int(), sessionId: info.sessionid ?? Int(), date: "\(Date())") { (success, response) in
             if success{
                 let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ok", style: .default) { (success) in

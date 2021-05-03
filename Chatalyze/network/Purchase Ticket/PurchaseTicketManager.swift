@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class PurchaseTicketManager: NSObject {
     
-    func fethcInfo (userId : String , sessionId: String , date: String, completionHandler : @escaping (_ success : Bool, _ response:JSON?)->Void){
+    func fethcInfo (userId : Int? , sessionId: Int? , date: String, completionHandler : @escaping (_ success : Bool, _ response:JSON?)->Void){
         
         
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
@@ -25,7 +25,7 @@ class PurchaseTicketManager: NSObject {
         
         Log.echo(key: "PurchaseTicket", text: "API Request is : -\(param)")
         
-        ServerProcessor().request(.post, url, parameters: param, encoding: .defaultEncoding, authorize: true) { (success, response) in
+        ServerProcessor().request(.post, url, parameters: param, encoding: .jsonEncoding, authorize: true) { (success, response) in
             
             self.handleResponse(success: success, response: response, completionHandler: completionHandler)
         }
