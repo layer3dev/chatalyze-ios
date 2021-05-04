@@ -1355,8 +1355,18 @@ class UserCallController: VideoCallController {
             return
         }
         
-        controller.eventInfo = eventInfo
-        presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        if let htmlData = eventInfo?.eventFeedbackInfo{
+            guard let vc = PostChatFeedbackController.instance() else{
+                return
+            }
+            vc.htmlData = htmlData
+            presentingController.navController?.topViewController?.navigationController?.pushViewController(vc, animated: true)
+
+        }else{
+            controller.eventInfo = eventInfo
+            presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
+        }
+        
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
         })

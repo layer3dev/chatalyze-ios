@@ -1246,6 +1246,10 @@
 		FA79F106210A042600D16F13 /* VideoActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F104210A042500D16F13 /* VideoActionView.swift */; };
 		FA79F107210A042600D16F13 /* MicActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F105210A042500D16F13 /* MicActionView.swift */; };
 		FA79F109210A044900D16F13 /* HangupActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79F108210A044900D16F13 /* HangupActionView.swift */; };
+		FA7AC72F264122470097A7DB /* PostChatFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC72E264122470097A7DB /* PostChatFeedbackController.swift */; };
+		FA7AC730264122470097A7DB /* PostChatFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC72E264122470097A7DB /* PostChatFeedbackController.swift */; };
+		FA7AC7362641293E0097A7DB /* feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC7352641293E0097A7DB /* feedback.storyboard */; };
+		FA7AC7372641293E0097A7DB /* feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC7352641293E0097A7DB /* feedback.storyboard */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
 		FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */; };
 		FA8CEB9B263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */; };
@@ -2095,6 +2099,8 @@
 		FA79F104210A042500D16F13 /* VideoActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoActionView.swift; sourceTree = "<group>"; };
 		FA79F105210A042500D16F13 /* MicActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicActionView.swift; sourceTree = "<group>"; };
 		FA79F108210A044900D16F13 /* HangupActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangupActionView.swift; sourceTree = "<group>"; };
+		FA7AC72E264122470097A7DB /* PostChatFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatFeedbackController.swift; sourceTree = "<group>"; };
+		FA7AC7352641293E0097A7DB /* feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = feedback.storyboard; sourceTree = "<group>"; };
 		FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCSingletonStream+Internal.h"; sourceTree = "<group>"; };
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
@@ -5224,6 +5230,14 @@
 			path = callActionContainer;
 			sourceTree = "<group>";
 		};
+		FA7AC72D264122020097A7DB /* PostChatFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				FA7AC72E264122470097A7DB /* PostChatFeedbackController.swift */,
+			);
+			path = PostChatFeedback;
+			sourceTree = "<group>";
+		};
 		FA7E747D209B072C001C3374 /* objc */ = {
 			isa = PBXGroup;
 			children = (
@@ -5472,6 +5486,7 @@
 				470658ED229D1294007904D9 /* HostDashboardNewUI.storyboard */,
 				47C3891222AE76D900A46A5E /* EarlyEventAlert.storyboard */,
 				FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */,
+				FA7AC7352641293E0097A7DB /* feedback.storyboard */,
 			);
 			path = storyboard;
 			sourceTree = "<group>";
@@ -5479,6 +5494,7 @@
 		FAA0016E203ED3E2003C8A74 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				FA7AC72D264122020097A7DB /* PostChatFeedback */,
 				FA4597F02615D17600B07826 /* ClaimCustomEvents */,
 				9933599C24D05D4B00F045B1 /* AppleSigin */,
 				9930157224AE0659004FBC2E /* Terms&Condtions */,
@@ -6294,6 +6310,7 @@
 				47E3724F2230F946000B99F9 /* Nunito-ExtraLight.ttf in Resources */,
 				47D0B1A721A6C4B5006376A8 /* Assets.xcassets in Resources */,
 				47B486022289836D002FA804 /* MemoryAnimation.storyboard in Resources */,
+				FA7AC7372641293E0097A7DB /* feedback.storyboard in Resources */,
 				47D0B1A821A6C4B5006376A8 /* Main.storyboard in Resources */,
 				47D0B1A921A6C4B5006376A8 /* Welcome.storyboard in Resources */,
 				47D0B1AA21A6C4B5006376A8 /* ScheduleSession.storyboard in Resources */,
@@ -6379,6 +6396,7 @@
 				47E3724E2230F946000B99F9 /* Nunito-ExtraLight.ttf in Resources */,
 				FAFFFE9F203D9C80009B4F96 /* Assets.xcassets in Resources */,
 				47B486012289836D002FA804 /* MemoryAnimation.storyboard in Resources */,
+				FA7AC7362641293E0097A7DB /* feedback.storyboard in Resources */,
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
 				470F0B6A21521D1F003F8EE7 /* Welcome.storyboard in Resources */,
 				47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */,
@@ -6807,6 +6825,7 @@
 				782529B2230E5F5F000149B3 /* ColorWheel.swift in Sources */,
 				47D0B03F21A6C4B5006376A8 /* EventSoldOutController.swift in Sources */,
 				47D0B04021A6C4B5006376A8 /* ImageDownloadGalleryManager.swift in Sources */,
+				FA7AC730264122470097A7DB /* PostChatFeedbackController.swift in Sources */,
 				47D0B04121A6C4B5006376A8 /* SigninFieldView.swift in Sources */,
 				47D0B04221A6C4B5006376A8 /* ScheduleSessionDelegate.swift in Sources */,
 				47D0B04321A6C4B5006376A8 /* CallConnection.swift in Sources */,
@@ -7438,6 +7457,7 @@
 				782529B1230E5F5F000149B3 /* ColorWheel.swift in Sources */,
 				473566BF2107217700F62C97 /* EventSoldOutController.swift in Sources */,
 				47C3373320D5269B0078580E /* ImageDownloadGalleryManager.swift in Sources */,
+				FA7AC72F264122470097A7DB /* PostChatFeedbackController.swift in Sources */,
 				FA3AF105204437B20084B154 /* SigninFieldView.swift in Sources */,
 				4711747A213D30A000253AB8 /* ScheduleSessionDelegate.swift in Sources */,
 				47A4D45221F3580D00FCC5CC /* SetUpHostProfile.swift in Sources */,
