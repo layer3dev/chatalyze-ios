@@ -46,7 +46,7 @@ class PostChatFeedbackController: InterfaceExtendedController {
         webview?.loadHTMLString(htmlString, baseURL: nil)
     }
     @objc private func dismissViewController() {
-      dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 
 
