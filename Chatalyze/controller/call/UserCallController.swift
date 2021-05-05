@@ -2067,41 +2067,21 @@ extension UserCallController{
 
 extension UserCallController{
     
-    //    func setExistingDeviceOrientaion(){
-    //
-    //        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
-    //
-    //            print("Existing orienatoin is landscapeLeft")
-    //            UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-    //        }
-    //        else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight{
-    //
-    //            print("Existing orienatoin is landscapeRight")
-    //            UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-    //        }
-    //
-    //        else if UIDevice.current.orientation == UIDeviceOrientation.faceDown{
-    //
-    //
-    //            print("Existing orienatoin is faceDown")
-    //            //UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-    //        }
-    //        else if UIDevice.current.orientation == UIDeviceOrientation.faceUp{
-    //            print("Existing orienatoin is faceUp")
-    //        }
-    //
-    //        else if UIDevice.current.orientation == UIDeviceOrientation.portrait{
-    //
-    //            print("Existing orienatoin is portrait")
-    //            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-    //        }
-    //        else if UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown{
-    //
-    //            print("Existing orienatoin is portraitUpsideDown")
-    //            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-    //        }
-    //        releaseDeviceOrientation()
-    //    }
+    private func presentModally(_ viewController: UIViewController,
+                                presenationStyle: UIModalPresentationStyle = .overFullScreen) {
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissViewController))
+        leftBarButtonItem.tintColor = .white
+        
+         viewController.navigationItem.leftBarButtonItem = leftBarButtonItem
+
+              let navigationController = UINavigationController(rootViewController: viewController)
+              navigationController.modalPresentationStyle = presenationStyle
+              present(navigationController, animated: true)
+          }
+    @objc private func dismissViewController() {
+      dismiss(animated: true, completion: nil)
+    }
     
 }
 

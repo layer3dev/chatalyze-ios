@@ -29,6 +29,12 @@ class PostChatFeedbackController: InterfaceExtendedController {
     
     func paintInterface(){
         paintNavigationTitle(text: "PostChatfeedback")
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissViewController))
+        leftBarButtonItem.tintColor = .white
+        
+         self.navigationItem.leftBarButtonItem = leftBarButtonItem
+          
     }
 
     
@@ -39,6 +45,10 @@ class PostChatFeedbackController: InterfaceExtendedController {
         }
         webview?.loadHTMLString(htmlString, baseURL: nil)
     }
+    @objc private func dismissViewController() {
+      dismiss(animated: true, completion: nil)
+    }
+
 
 }
 
