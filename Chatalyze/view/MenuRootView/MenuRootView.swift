@@ -33,7 +33,7 @@ class MenuRootView:ExtendedView{
         case proFeature = 16
         case achievements = 17
         case referAndEarn = 18
-        case claimTickets = 19
+        case changeLanguage = 19
         case none = 5
     }
     var selectedSlideBarTab:((MenuRootView.MenuType?)->())?
@@ -61,10 +61,10 @@ class MenuRootView:ExtendedView{
     
     func underLineLable(){
         
-        var testingText = "TEST MY PHONE"
+        var testingText = "TEST MY PHONE".localized() ?? ""
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD"
+            testingText = "TEST MY IPAD".localized() ?? ""
         }
         
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: fontSize)] as? [NSAttributedString.Key : Any]{

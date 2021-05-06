@@ -243,13 +243,13 @@ extension InterfaceExtendedController:UIGestureRecognizerDelegate{
 
 extension UIViewController : NVActivityIndicatorViewable{
     
-    func showLoader(text : String = "Loading..."){
+    func showLoader(text : String = "Loading...".localized() ?? ""){
         
         let size = CGSize(width: 30, height: 30)
         self.startAnimating(size, message: text, type: .lineScale)
     }
     
-    func updateLoaderMessage(text : String = "Loading..."){
+    func updateLoaderMessage(text : String = "Loading...".localized() ?? ""){
         
         NVActivityIndicatorPresenter.sharedInstance.setMessage(text)
     }

@@ -156,7 +156,7 @@ class MyTicketsController: InterfaceExtendedController{
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "My Tickets")
+        paintNavigationTitle(text: "My Tickets".localized())
         initializeVariable()
         //paintInterface()
         registerEventSlotListner()

@@ -1252,6 +1252,16 @@
 		FA7AC7372641293E0097A7DB /* feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC7352641293E0097A7DB /* feedback.storyboard */; };
 		FA7AC74226415A990097A7DB /* SpotInLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC74126415A990097A7DB /* SpotInLineView.swift */; };
 		FA7AC74326415A990097A7DB /* SpotInLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC74126415A990097A7DB /* SpotInLineView.swift */; };
+		FA7AC75F26439C020097A7DB /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC75E26439C020097A7DB /* ExtensionString.swift */; };
+		FA7AC76026439C020097A7DB /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC75E26439C020097A7DB /* ExtensionString.swift */; };
+		FA7AC76726439DCB0097A7DB /* LocalizedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC76626439DCB0097A7DB /* LocalizedLabel.swift */; };
+		FA7AC76826439DCB0097A7DB /* LocalizedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC76626439DCB0097A7DB /* LocalizedLabel.swift */; };
+		FA7AC7762643A0780097A7DB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC7752643A0780097A7DB /* en.strings */; };
+		FA7AC7772643A0780097A7DB /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC7752643A0780097A7DB /* en.strings */; };
+		FA7AC77D2643A0B60097A7DB /* fr.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC77C2643A0B60097A7DB /* fr.strings */; };
+		FA7AC77E2643A0B60097A7DB /* fr.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA7AC77C2643A0B60097A7DB /* fr.strings */; };
+		FA7AC7852643A7460097A7DB /* LocalizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC7842643A7460097A7DB /* LocalizedButton.swift */; };
+		FA7AC7862643A7460097A7DB /* LocalizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7AC7842643A7460097A7DB /* LocalizedButton.swift */; };
 		FA85D3B82045B89300E7815A /* FacebookProfileFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */; };
 		FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8BA4002181CB2400601B0B /* CallbackIdentifierInfo.swift */; };
 		FA8CEB9B263AF49700FA7D00 /* ClaimTicketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8CEB99263AF49700FA7D00 /* ClaimTicketCell.swift */; };
@@ -2104,6 +2114,11 @@
 		FA7AC72E264122470097A7DB /* PostChatFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostChatFeedbackController.swift; sourceTree = "<group>"; };
 		FA7AC7352641293E0097A7DB /* feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = feedback.storyboard; sourceTree = "<group>"; };
 		FA7AC74126415A990097A7DB /* SpotInLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotInLineView.swift; sourceTree = "<group>"; };
+		FA7AC75E26439C020097A7DB /* ExtensionString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
+		FA7AC76626439DCB0097A7DB /* LocalizedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedLabel.swift; sourceTree = "<group>"; };
+		FA7AC7752643A0780097A7DB /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		FA7AC77C2643A0B60097A7DB /* fr.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = fr.strings; sourceTree = "<group>"; };
+		FA7AC7842643A7460097A7DB /* LocalizedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedButton.swift; sourceTree = "<group>"; };
 		FA7E747B209B0277001C3374 /* RTCSingletonStream+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RTCSingletonStream+Internal.h"; sourceTree = "<group>"; };
 		FA7E747E209B0741001C3374 /* RTCSingletonStreamProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RTCSingletonStreamProtocol.h; sourceTree = "<group>"; };
 		FA85D3B72045B89300E7815A /* FacebookProfileFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProfileFetch.swift; sourceTree = "<group>"; };
@@ -5185,6 +5200,8 @@
 		FA74B1562063AEEF00983141 /* extension */ = {
 			isa = PBXGroup;
 			children = (
+				FA7AC7832643A6FA0097A7DB /* Extension+UiButton */,
+				FA7AC76526439D850097A7DB /* Extension+UILabel */,
 				9930157624AE06D2004FBC2E /* Constraints */,
 				FA72A0B3208602DC00C3C7AE /* helper */,
 				FAE9EF7C206CEA7400C45F8D /* model */,
@@ -5198,6 +5215,7 @@
 		FA74B1572063AEFA00983141 /* string */ = {
 			isa = PBXGroup;
 			children = (
+				FA7AC75D26439BD50097A7DB /* StringExtension */,
 				FA74B1582063AEFA00983141 /* attributedString */,
 			);
 			path = string;
@@ -5247,6 +5265,39 @@
 				FA7AC74126415A990097A7DB /* SpotInLineView.swift */,
 			);
 			path = SpotNumberView;
+			sourceTree = "<group>";
+		};
+		FA7AC74826439A2A0097A7DB /* LangSupport */ = {
+			isa = PBXGroup;
+			children = (
+				FA7AC7752643A0780097A7DB /* en.strings */,
+				FA7AC77C2643A0B60097A7DB /* fr.strings */,
+			);
+			path = LangSupport;
+			sourceTree = "<group>";
+		};
+		FA7AC75D26439BD50097A7DB /* StringExtension */ = {
+			isa = PBXGroup;
+			children = (
+				FA7AC75E26439C020097A7DB /* ExtensionString.swift */,
+			);
+			path = StringExtension;
+			sourceTree = "<group>";
+		};
+		FA7AC76526439D850097A7DB /* Extension+UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				FA7AC76626439DCB0097A7DB /* LocalizedLabel.swift */,
+			);
+			path = "Extension+UILabel";
+			sourceTree = "<group>";
+		};
+		FA7AC7832643A6FA0097A7DB /* Extension+UiButton */ = {
+			isa = PBXGroup;
+			children = (
+				FA7AC7842643A7460097A7DB /* LocalizedButton.swift */,
+			);
+			path = "Extension+UiButton";
 			sourceTree = "<group>";
 		};
 		FA7E747D209B072C001C3374 /* objc */ = {
@@ -6105,6 +6156,7 @@
 		FAFFFE96203D9C80009B4F96 /* Chatalyze */ = {
 			isa = PBXGroup;
 			children = (
+				FA7AC74826439A2A0097A7DB /* LangSupport */,
 				992C6F2724A20F390080B3BD /* Music */,
 				4711747B213D480D00253AB8 /* Chatalyze.entitlements */,
 				473E3B3D211B13DC00DC60BC /* AppDelegate */,
@@ -6293,6 +6345,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = FAFFFE8B203D9C7F009B4F96;
 			productRefGroup = FAFFFE95203D9C80009B4F96 /* Products */;
@@ -6326,6 +6379,7 @@
 				47D0B1A821A6C4B5006376A8 /* Main.storyboard in Resources */,
 				47D0B1A921A6C4B5006376A8 /* Welcome.storyboard in Resources */,
 				47D0B1AA21A6C4B5006376A8 /* ScheduleSession.storyboard in Resources */,
+				FA7AC77E2643A0B60097A7DB /* fr.strings in Resources */,
 				4723081D2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */,
 				47A4D44F21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */,
 				FA91056B21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
@@ -6381,6 +6435,7 @@
 				47D0B1BE21A6C4B5006376A8 /* ContactUs.storyboard in Resources */,
 				47D0B1BF21A6C4B5006376A8 /* call.xcassets in Resources */,
 				47D0B1C021A6C4B5006376A8 /* MySessions.storyboard in Resources */,
+				FA7AC7772643A0780097A7DB /* en.strings in Resources */,
 				47D0B1C121A6C4B5006376A8 /* Account.storyboard in Resources */,
 				47E372432230F946000B99F9 /* Nunito-Black.ttf in Resources */,
 				47D0B1C221A6C4B5006376A8 /* CountryPicker.bundle in Resources */,
@@ -6412,6 +6467,7 @@
 				FAFFFE9D203D9C80009B4F96 /* Main.storyboard in Resources */,
 				470F0B6A21521D1F003F8EE7 /* Welcome.storyboard in Resources */,
 				47B4F4AA211C3C8E00299686 /* ScheduleSession.storyboard in Resources */,
+				FA7AC77D2643A0B60097A7DB /* fr.strings in Resources */,
 				4723081C2264B3CE00B4540E /* UserTicketUI.storyboard in Resources */,
 				47A4D44E21F3466800FCC5CC /* OpenSans-Bold.ttf in Resources */,
 				FA91056A21D6579D00060AFF /* OnBoardingFlow.storyboard in Resources */,
@@ -6467,6 +6523,7 @@
 				470A3AD02111BA3300988F1D /* ContactUs.storyboard in Resources */,
 				FAE865C62068C620006F06B3 /* call.xcassets in Resources */,
 				47614F74213AB47E00CC9702 /* MySessions.storyboard in Resources */,
+				FA7AC7762643A0780097A7DB /* en.strings in Resources */,
 				47AD143520ADAED1006AF9D6 /* Account.storyboard in Resources */,
 				47E372422230F946000B99F9 /* Nunito-Black.ttf in Resources */,
 				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
@@ -6788,6 +6845,7 @@
 				47D0B01B21A6C4B5006376A8 /* ButtonCorners.swift in Sources */,
 				FA03EA27262055710061C0CA /* UpNextSlotInfoView.swift in Sources */,
 				47D0B01C21A6C4B5006376A8 /* CalendarCell.swift in Sources */,
+				FA7AC7862643A7460097A7DB /* LocalizedButton.swift in Sources */,
 				47D0B01D21A6C4B5006376A8 /* FAQController.swift in Sources */,
 				47D0B01E21A6C4B5006376A8 /* LaunchDelayController.swift in Sources */,
 				47D0B01F21A6C4B5006376A8 /* ExtendedTextField.swift in Sources */,
@@ -7186,6 +7244,7 @@
 				47D0B11821A6C4B5006376A8 /* SigninButtonContainer.swift in Sources */,
 				47D0B11921A6C4B5006376A8 /* EventController.swift in Sources */,
 				47D0B11A21A6C4B5006376A8 /* UserHomeController.swift in Sources */,
+				FA7AC76026439C020097A7DB /* ExtensionString.swift in Sources */,
 				4700C59D22A515B700B8B681 /* TestMyPhoneShadow.swift in Sources */,
 				787CBB4D230D555300314058 /* AutographSignatureReponseBottomView.swift in Sources */,
 				9926A82524D40C1F00872C65 /* AppleLogin.swift in Sources */,
@@ -7286,6 +7345,7 @@
 				47D0B14E21A6C4B5006376A8 /* RTCSingletonStream.m in Sources */,
 				781800B72302DCC6004339D3 /* AutographyImageView.swift in Sources */,
 				47D0B14F21A6C4B5006376A8 /* RequestAutograph.swift in Sources */,
+				FA7AC76826439DCB0097A7DB /* LocalizedLabel.swift in Sources */,
 				E7B4A7F92473CF17000616CD /* YoutubeContainerView.swift in Sources */,
 				47D0B15021A6C4B5006376A8 /* EventScheduleInfo.swift in Sources */,
 				FAF44C0E221C27930044D47B /* DonateCompleteTransaction.swift in Sources */,
@@ -7421,6 +7481,7 @@
 				47B6527820AAB5030041496C /* CalendarCell.swift in Sources */,
 				FA03EA26262055710061C0CA /* UpNextSlotInfoView.swift in Sources */,
 				477A942321E3294C00517F3E /* ShareLinkShadow.swift in Sources */,
+				FA7AC7852643A7460097A7DB /* LocalizedButton.swift in Sources */,
 				4753BA0221900FE00060777B /* FAQController.swift in Sources */,
 				FAA00170203ED3F1003C8A74 /* LaunchDelayController.swift in Sources */,
 				FAA001AF203ED472003C8A74 /* ExtendedTextField.swift in Sources */,
@@ -7819,6 +7880,7 @@
 				FAE9EF76206CE83D00C45F8D /* UserHomeController.swift in Sources */,
 				FA41680E2072238600789E22 /* RTCMediaStream+Helper.m in Sources */,
 				4700C59C22A515B700B8B681 /* TestMyPhoneShadow.swift in Sources */,
+				FA7AC75F26439C020097A7DB /* ExtensionString.swift in Sources */,
 				FA8BA4012181CB2400601B0B /* CallbackIdentifierInfo.swift in Sources */,
 				787CBB4C230D555300314058 /* AutographSignatureReponseBottomView.swift in Sources */,
 				9926A82424D40C1F00872C65 /* AppleLogin.swift in Sources */,
@@ -7919,6 +7981,7 @@
 				781800B62302DCC6004339D3 /* AutographyImageView.swift in Sources */,
 				FA24BAD3206FA9730064F94F /* HostEventQueueController.swift in Sources */,
 				FAF44C0D221C27930044D47B /* DonateCompleteTransaction.swift in Sources */,
+				FA7AC76726439DCB0097A7DB /* LocalizedLabel.swift in Sources */,
 				E7B4A7F82473CF17000616CD /* YoutubeContainerView.swift in Sources */,
 				FA74B13220639B6400983141 /* ARDSettingsStore.m in Sources */,
 				FAE2D14C210B8A4D00CED3FA /* EventScheduleCoreInfo.swift in Sources */,
@@ -8159,6 +8222,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -8222,6 +8286,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
