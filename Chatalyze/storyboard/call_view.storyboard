@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -824,6 +825,37 @@
                                     <constraint firstItem="fvb-Tk-ave" firstAttribute="leading" secondItem="W8C-hp-RyG" secondAttribute="leading" constant="10" id="Lm6-VY-FuQ"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWm-cz-6GQ" customClass="SpotInLineView" customModule="Chatalyze" customModuleProvider="target">
+                                <rect key="frame" x="20" y="64" width="374" height="74.666666666666686"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="03" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9D-cD-0RQ">
+                                        <rect key="frame" x="10" y="0.0" width="354" height="38"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKk-iG-IiO">
+                                        <rect key="frame" x="0.0" y="38" width="374" height="36.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="27"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="AKk-iG-IiO" secondAttribute="bottom" id="3A1-Vx-JIi"/>
+                                    <constraint firstItem="AKk-iG-IiO" firstAttribute="top" secondItem="h9D-cD-0RQ" secondAttribute="bottom" id="EyB-P7-OrP"/>
+                                    <constraint firstItem="h9D-cD-0RQ" firstAttribute="top" secondItem="VWm-cz-6GQ" secondAttribute="top" id="G1U-Jx-3SZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="h9D-cD-0RQ" secondAttribute="trailing" constant="10" id="Knw-Ek-OEa"/>
+                                    <constraint firstItem="AKk-iG-IiO" firstAttribute="leading" secondItem="VWm-cz-6GQ" secondAttribute="leading" id="PNf-9t-7Hz"/>
+                                    <constraint firstAttribute="trailing" secondItem="AKk-iG-IiO" secondAttribute="trailing" id="drC-RR-3Zk"/>
+                                    <constraint firstItem="h9D-cD-0RQ" firstAttribute="leading" secondItem="VWm-cz-6GQ" secondAttribute="leading" constant="10" id="oO9-1z-wEH"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="estimatedStartTimeLbl" destination="AKk-iG-IiO" id="1ry-sM-AcN"/>
+                                    <outlet property="spotNumberlbl" destination="h9D-cD-0RQ" id="O8N-gk-mVB"/>
+                                </connections>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT6-Gm-3ac" customClass="SelfieTimerView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                 <subviews>
@@ -1068,6 +1100,8 @@
                             </constraint>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="e8t-Fe-NIm" secondAttribute="trailing" id="Xwi-l8-N0o" userLabel="trailing_youtube_container"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="centerY" secondItem="Wkh-om-R74" secondAttribute="centerY" id="Y6o-1n-DTN"/>
+                            <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="VWm-cz-6GQ" secondAttribute="trailing" constant="20" id="Zqm-dk-Pqp"/>
+                            <constraint firstItem="VWm-cz-6GQ" firstAttribute="leading" secondItem="1uu-DP-PrY" secondAttribute="leading" constant="20" id="bvi-Pd-7fH"/>
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="top" secondItem="Wkh-om-R74" secondAttribute="top" id="dVu-79-4lK"/>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="fgE-qL-xbk" secondAttribute="trailing" id="dh6-7d-hMH"/>
                             <constraint firstItem="3ww-fe-4Gf" firstAttribute="centerX" secondItem="1uu-DP-PrY" secondAttribute="centerX" id="dxH-92-lYX"/>
@@ -1080,6 +1114,7 @@
                             </constraint>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="bottom" secondItem="SrS-mz-6Sq" secondAttribute="bottom" constant="12" id="uyT-p7-6gO"/>
                             <constraint firstItem="fgE-qL-xbk" firstAttribute="top" secondItem="Wkh-om-R74" secondAttribute="top" id="wYC-pZ-cXW"/>
+                            <constraint firstItem="VWm-cz-6GQ" firstAttribute="top" secondItem="1uu-DP-PrY" secondAttribute="top" constant="20" id="wq8-P2-nXG"/>
                             <constraint firstItem="gKG-jl-gLG" firstAttribute="trailing" secondItem="Yk6-mP-7LN" secondAttribute="trailing" id="y2b-CU-9aD"/>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="bottom" secondItem="hBm-jJ-TVI" secondAttribute="bottom" constant="76" id="yvp-r2-xmR">
                                 <variation key="heightClass=regular-widthClass=regular" constant="125"/>
@@ -1091,9 +1126,9 @@
                                 <exclude reference="kkC-tM-BOh"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="zm9-ou-qsT"/>
                                 <exclude reference="N5B-Ra-mvT"/>
                                 <exclude reference="y2b-CU-9aD"/>
+                                <exclude reference="zm9-ou-qsT"/>
                                 <exclude reference="COQ-Q9-Hgg"/>
                                 <exclude reference="jdq-Kx-aL1"/>
                                 <exclude reference="EbQ-DL-YTo"/>
@@ -2998,5 +3033,8 @@
         <image name="request_autograph" width="75" height="75"/>
         <image name="slowNetwork" width="128" height="128"/>
         <image name="videocam_on" width="24" height="24"/>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

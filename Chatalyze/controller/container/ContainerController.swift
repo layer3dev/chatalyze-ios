@@ -457,17 +457,27 @@ class ContainerController: NavChildController {
             return
         }
         
-        else if typeOfAction == .claimTickets{
+        else if typeOfAction == .changeLanguage{
             
-            guard let rootController = MyTicketsVerticalController.instance() else{
-                return
+            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Change Language".localized(), preferredStyle: .alert)
+            
+            let enAction = UIAlertAction(title: "English", style: .default) { (action) in
+                UserDefaults.standard.set("en", forKey: LanguageKey)
+                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
             }
             
-            guard let controller = CustomTicketsController.instance() else {
-                return
+            let frAction = UIAlertAction(title: "French", style: .default) { (action) in
+                UserDefaults.standard.set("fr", forKey: LanguageKey)
+                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
             }
             
-            navController?.setViewControllers([rootController,controller], animated: true)
+            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(enAction)
+            alert.addAction(frAction)
+            alert.addAction(cancel)
+            
+            RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
         }
             
         else if typeOfAction == .tickets{
@@ -863,3 +873,8 @@ extension ContainerController{
     
 }
 
+
+struct AppNotification {
+    
+    static let  changeLanguage = Notification.Name("changeLanguage")
+}

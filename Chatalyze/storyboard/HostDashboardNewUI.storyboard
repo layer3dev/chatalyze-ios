@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -115,16 +113,19 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newSplash" translatesAutoresizingMaskIntoConstraints="NO" id="Smj-bV-gak">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ New session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsg-Pw-I0N">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ New session" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsg-Pw-I0N" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="+ New session"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AM3-AU-k9y">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AM3-AU-k9y">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                         <connections>
                                                             <action selector="scheduleSessionActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="cST-fg-OXj"/>
@@ -157,16 +158,19 @@
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vit-4W-EfN" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="10" width="187" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test my phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1A-NY-RT7">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test my phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1A-NY-RT7" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Test my phone"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoa-P2-UC7">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoa-P2-UC7">
                                                         <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
                                                         <connections>
                                                             <action selector="testmyPhoneWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="zio-90-XXW"/>
@@ -261,11 +265,14 @@
                                                             <constraint firstAttribute="height" constant="30" id="bKN-G4-cTX"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My sessions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45z-dC-T94">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My sessions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45z-dC-T94" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="70" y="0.0" width="289" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="My sessions"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="22"/>
                                                         </variation>
@@ -284,7 +291,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="cRA-sb-JU2"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIG-aK-bPh">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIG-aK-bPh">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="mySessionActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="dE2-Lb-C6l"/>
@@ -323,11 +330,14 @@
                                                             <constraint firstAttribute="width" constant="30" id="Sra-3U-2cB"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payout details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFe-Mz-lfd">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payout details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFe-Mz-lfd" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="70" y="0.0" width="289" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Payout details"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="22"/>
                                                         </variation>
@@ -346,7 +356,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="YQx-c6-u3f"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fco-5Z-x2L">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fco-5Z-x2L">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="payOutDetailsActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="4Zo-jR-9wt"/>
@@ -387,7 +397,7 @@
                                                             <constraint firstAttribute="width" constant="30" id="UGd-vZ-XQW"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get in touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbK-z0-z0m">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get in touch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DbK-z0-z0m" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="70" y="0.0" width="289" height="50"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -410,7 +420,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="wZc-Cf-Zpm"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZA-NV-Svc">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZA-NV-Svc">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="getInTouchActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="9bw-fV-abP"/>
@@ -474,7 +484,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="ycA-Fe-RKT"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSE-aX-nhL">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSE-aX-nhL">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="chatScreenShotActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="r4l-te-GaK"/>
@@ -538,7 +548,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="eRQ-xR-BUg"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUe-Mg-4jE">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUe-Mg-4jE">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <connections>
                                                             <action selector="referFriendAndEarnActionWithSender:" destination="lkv-Kc-9Cz" eventType="touchUpInside" id="GwN-Nk-3k7"/>
@@ -601,6 +611,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="JJi-D1-w4m"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9wO-MM-mJJ" firstAttribute="leading" secondItem="JJi-D1-w4m" secondAttribute="leading" id="CYI-wT-tCx"/>
@@ -611,7 +622,6 @@
                             <constraint firstItem="JJi-D1-w4m" firstAttribute="bottom" secondItem="9wO-MM-mJJ" secondAttribute="bottom" id="uFk-Jf-ZdC"/>
                             <constraint firstItem="9wO-MM-mJJ" firstAttribute="top" secondItem="22j-xc-mFt" secondAttribute="bottom" id="zqr-Tw-cbY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="JJi-D1-w4m"/>
                         <connections>
                             <outlet property="profilePic" destination="Bav-Aa-23I" id="xBk-XW-dXV"/>
                             <outlet property="userDetail" destination="IFm-Qp-2uT" id="sja-F5-gaY"/>
@@ -624,14 +634,31 @@
             <point key="canvasLocation" x="-594.20289855072474" y="-249.45652173913047"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="45z-dC-T94">
+            <size key="intrinsicContentSize" width="88.666666666666671" height="18.666666666666668"/>
+        </designable>
+        <designable name="DbK-z0-z0m">
+            <size key="intrinsicContentSize" width="88" height="18.666666666666668"/>
+        </designable>
+        <designable name="F1A-NY-RT7">
+            <size key="intrinsicContentSize" width="104.66666666666667" height="18.666666666666668"/>
+        </designable>
+        <designable name="uFe-Mz-lfd">
+            <size key="intrinsicContentSize" width="101.66666666666667" height="18.666666666666668"/>
+        </designable>
+        <designable name="zsg-Pw-I0N">
+            <size key="intrinsicContentSize" width="105" height="18.666666666666668"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="dollorDashboard" width="1080" height="1080"/>
-        <image name="messageDashboard" width="1080" height="1080"/>
-        <image name="newDashboardSetting" width="1080" height="1080"/>
+        <image name="dollorDashboard" width="100" height="100"/>
+        <image name="messageDashboard" width="80" height="80"/>
+        <image name="newDashboardSetting" width="100" height="100"/>
         <image name="newSplash" width="1080" height="1080"/>
-        <image name="rightArrowDashboard" width="1080" height="1080"/>
-        <image name="textMessageDashboard" width="1080" height="1080"/>
+        <image name="rightArrowDashboard" width="100" height="100"/>
+        <image name="textMessageDashboard" width="100" height="100"/>
         <image name="user_placeholder" width="200" height="200"/>
-        <image name="videoRecorderDashboard" width="1080" height="1080"/>
+        <image name="videoRecorderDashboard" width="100" height="100"/>
     </resources>
 </document>

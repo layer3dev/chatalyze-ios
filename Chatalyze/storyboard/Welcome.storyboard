@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -77,7 +77,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="22"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-Ok-J9e">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-Ok-J9e">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
@@ -110,7 +110,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="22"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNg-UE-PYH">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eNg-UE-PYH">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
                                                                 <connections>
                                                                     <action selector="userActionWithSender:" destination="VAk-oV-gP6" eventType="touchUpInside" id="pgK-Rb-5vb"/>
@@ -224,7 +224,7 @@
                                     </constraint>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz4-8V-0hB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz4-8V-0hB">
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="JaE-v1-W5S"/>
@@ -235,6 +235,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qaL-XR-Eq9"/>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uz4-8V-0hB" firstAttribute="leading" secondItem="qaL-XR-Eq9" secondAttribute="leading" id="1Bp-ZT-snn"/>
@@ -255,7 +256,6 @@
                             <constraint firstItem="qaL-XR-Eq9" firstAttribute="trailing" secondItem="M2B-Ic-BG4" secondAttribute="trailing" id="cFm-gL-IaL"/>
                             <constraint firstItem="uz4-8V-0hB" firstAttribute="top" secondItem="nSq-gc-4jc" secondAttribute="top" id="eN8-Eo-65r"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qaL-XR-Eq9"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcT-jD-WSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -282,11 +282,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="664-CI-vA8" customClass="LoginSignUpTabView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-wd-hvo">
-                                                        <rect key="frame" x="67.5" y="16.5" width="52.5" height="22"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-wd-hvo" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="69.5" y="18" width="49" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Sign in"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
                                                         </variation>
@@ -298,7 +301,7 @@
                                                             <constraint firstAttribute="height" constant="3" id="iF0-P8-5Na"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txt-yt-xO6">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txt-yt-xO6">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
@@ -328,7 +331,7 @@
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="55"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-gp-gGS">
-                                                        <rect key="frame" x="66.5" y="16.5" width="54.5" height="22"/>
+                                                        <rect key="frame" x="66.5" y="18" width="55" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -343,7 +346,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="2nN-8N-uGR"/>
                                                         </constraints>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-Fe-t4w">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-Fe-t4w">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="55"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <variation key="heightClass=regular-widthClass=regular">
@@ -399,6 +402,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4qq-St-Ls1"/>
                         <color key="backgroundColor" red="0.12549019607843137" green="0.13725490196078433" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="E2w-fW-If0" firstAttribute="top" secondItem="JEt-XI-lhY" secondAttribute="top" id="MQj-35-hcc"/>
@@ -410,7 +414,6 @@
                             <constraint firstItem="4qq-St-Ls1" firstAttribute="trailing" secondItem="E2w-fW-If0" secondAttribute="trailing" id="tmW-jY-Jv0"/>
                             <constraint firstItem="4qq-St-Ls1" firstAttribute="bottom" secondItem="P4M-GR-KQ1" secondAttribute="bottom" id="tmm-jP-nMN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4qq-St-Ls1"/>
                     </view>
                     <connections>
                         <outlet property="signInTab" destination="664-CI-vA8" id="Bqs-AX-IYN"/>
@@ -430,6 +433,11 @@
             <point key="canvasLocation" x="1606" y="-465"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="OSq-wd-hvo">
+            <size key="intrinsicContentSize" width="49" height="19"/>
+        </designable>
+    </designables>
     <resources>
         <image name="back_white" width="50" height="50"/>
         <image name="gradientImage" width="1242" height="2208"/>

@@ -107,10 +107,10 @@ class MyTicketsVerticalController: MyTicketsController{
     
     func underLineLable(){
         
-        var testingText = "TEST MY PHONE"
+        var testingText = "TEST MY PHONE".localized() ?? ""
         self.testingText = testingText
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD"
+            testingText = "TEST MY IPAD".localized() ?? ""
             self.testingText = testingText
         }
         
@@ -124,7 +124,7 @@ class MyTicketsVerticalController: MyTicketsController{
 
     func underLineLearnMore(){
         
-        let testingText = "HOW IT WORKS"
+        let testingText = "HOW IT WORKS".localized() ?? ""
         var fontSize:CGFloat = 16
         if UIDevice.current.userInterfaceIdiom == .pad{
             fontSize = 20

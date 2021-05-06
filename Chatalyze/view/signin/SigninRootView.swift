@@ -103,10 +103,10 @@ class SigninRootView: ExtendedView {
     
     fileprivate func initializeVariable(){
         
-        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email",
+        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email".localized() ?? "",
                                                                attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
-        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password",
+        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password".localized() ?? "",
                                                                           attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         emailField?.textField?.delegate = self
         passwordField?.textField?.delegate = self
