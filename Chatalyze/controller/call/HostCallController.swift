@@ -301,7 +301,7 @@ class HostCallController: VideoCallController {
         controller.isDisableHangup = isDisableHangup
         
         //self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
-        controller.isHungUp = self.eventInfo?.mergeSlotInfo?.currentSlot?.isHangedUp
+        controller.isHungUp = SlotFlagInfo.isCallHangedUp
         
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true, completion: {
@@ -342,22 +342,28 @@ class HostCallController: VideoCallController {
     
     private func toggleHangup(){
         
+        //abhishek : the hangup status of current running slot is not being saved at server end,So we need have respactive record at local level.
+        // As after extanding chat,the eventSlotInfo get reveised, so hanged up status get revised too.
+
+        
         guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 return
         }
         
-        let isHangedUp = !slot.isHangedUp
-        slot.isHangedUp = isHangedUp
+        let isHangedUp = !SlotFlagInfo.isCallHangedUp
+        SlotFlagInfo.isCallHangedUp = isHangedUp
         
         isHangedUp ? hostActionContainer?.hangupView?.deactivate() : hostActionContainer?.activateFromHangup()
         
         if(!isHangedUp){
+            SlotFlagInfo.isCallHangedUp = false
             resetMuteActions()
             if self.eventInfo?.isHostManualScreenshot ?? false{
                 self.photoBothView?.showPhotoboothcanvas()
             }
         }else{
+            SlotFlagInfo.isCallHangedUp = true
             if self.eventInfo?.isHostManualScreenshot ?? false{
             self.photoBothView?.hidePhotoboothcanvas()
             }
@@ -370,12 +376,12 @@ class HostCallController: VideoCallController {
     
     private func refreshStreamLock(){
         
-        guard let slot = self.eventInfo?.mergeSlotInfo?.currentSlot
+        guard let _ = self.eventInfo?.mergeSlotInfo?.currentSlot
             else{
                 localMediaPackage?.isDisabled = false
                 return
         }
-        localMediaPackage?.isDisabled = slot.isHangedUp
+        localMediaPackage?.isDisabled = SlotFlagInfo.isCallHangedUp
     }
     
     private func updateUserOfHangup(hashedUserId : String, hangup : Bool){
@@ -400,7 +406,7 @@ class HostCallController: VideoCallController {
         self.registerForListeners()
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
-        hostActionContainer?.extendChatView?.hideBtn()
+        hostActionContainer?.extendChatView?.hideExtendBtn()
     }
     
     private func registerForHangupRequest(){
@@ -790,6 +796,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "vijay", text: "Break Slot")
             setStatusMessage(type: .breakSlot)
             photoBothView?.hidePhotoboothcanvas()
+            hostActionContainer?.extendChatView?.hideExtendBtn()
             return
         }
         
@@ -1187,7 +1194,7 @@ class HostCallController: VideoCallController {
                      }
           
             
-            if endDate < 5.0 && endDate >= 1.0{
+            if endDate <= 10.0 && endDate >= 1.0{
                 isExtendChatDisbaled = true
             }else{
                 isExtendChatDisbaled = false

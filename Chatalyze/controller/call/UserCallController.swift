@@ -232,7 +232,7 @@ class UserCallController: VideoCallController {
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
         self.twillioCallSwitcher()
-        if isPreConnected{
+        if isPreConnected{       
             checkforRecordingStatus()
         }else{
             recordingLbl.isHidden = true

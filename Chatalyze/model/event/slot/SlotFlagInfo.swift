@@ -20,6 +20,8 @@ class SlotFlagInfo: NSObject {
     static var staticSlotId = -1
     static var staticIsTimerInitiated = false
     static var staticScreenShotSaved = false
+    static var isCallHangedUp = false
+    
     
     func updateFlags(info : SlotFlagInfo){
         

@@ -27,7 +27,7 @@ class ExtendChatView: ExtendedView {
         self.layoutIfNeeded()
     }
     
-    func hideBtn(){
+    func hideExtendBtn(){
         // extend chat button to hide off before call get randered
         
         extendBtnWidthAnchor?.constant = 0
