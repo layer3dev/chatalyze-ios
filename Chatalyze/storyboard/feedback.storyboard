@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="prs-Op-bX3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zdr-xh-wer">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,10 +35,15 @@
                             <constraint firstItem="Zdr-xh-wer" firstAttribute="leading" secondItem="D1T-pJ-p7T" secondAttribute="leading" id="7a6-Lm-bit"/>
                             <constraint firstItem="D1T-pJ-p7T" firstAttribute="trailing" secondItem="Zdr-xh-wer" secondAttribute="trailing" id="ALJ-ta-e45"/>
                             <constraint firstItem="Zdr-xh-wer" firstAttribute="top" secondItem="D1T-pJ-p7T" secondAttribute="top" id="HUJ-ws-kvH"/>
+                            <constraint firstItem="D1T-pJ-p7T" firstAttribute="trailing" secondItem="prs-Op-bX3" secondAttribute="trailing" id="Oyg-Ed-YFN"/>
+                            <constraint firstItem="prs-Op-bX3" firstAttribute="top" secondItem="D1T-pJ-p7T" secondAttribute="top" id="PVh-La-ifa"/>
+                            <constraint firstItem="prs-Op-bX3" firstAttribute="leading" secondItem="D1T-pJ-p7T" secondAttribute="leading" id="Qf4-ys-p01"/>
                             <constraint firstItem="D1T-pJ-p7T" firstAttribute="bottom" secondItem="Zdr-xh-wer" secondAttribute="bottom" id="WhW-IW-fi5"/>
+                            <constraint firstItem="D1T-pJ-p7T" firstAttribute="bottom" secondItem="prs-Op-bX3" secondAttribute="bottom" id="ZHM-nG-6Nu"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="baclkgroundImg" destination="prs-Op-bX3" id="BB7-SF-GiZ"/>
                         <outlet property="webview" destination="Zdr-xh-wer" id="wMT-bk-elD"/>
                     </connections>
                 </viewController>

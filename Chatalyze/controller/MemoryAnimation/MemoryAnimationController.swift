@@ -259,12 +259,25 @@ class MemoryAnimationController: InterfaceExtendedController {
       controller.scheduleInfo = eventInfo
       controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
       controller.memoryImage = self.memoryImage
+        if let htmlData = eventInfo?.eventFeedbackInfo{
+            controller.feedbackUrl = htmlData
+            controller.backgrndImgUrl = eventInfo?.backgroundURL
+        }
+      
       self.navigationController?.pushViewController(controller, animated: true)
       return
     }else{
       guard let controller = ReviewController.instance() else {
         return
       }
+        if let htmlsData = self.eventInfo?.eventFeedbackInfo{
+            guard let vc = PostChatFeedbackController.instance() else {
+              return
+            }
+            vc.htmlData = htmlsData
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
+        }
       controller.eventInfo = self.eventInfo
       self.navigationController?.pushViewController(controller, animated: true)
     }

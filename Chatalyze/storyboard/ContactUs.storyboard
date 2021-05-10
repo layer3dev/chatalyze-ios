@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,19 +28,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrq-ls-Jfs" customClass="FieldManagingScrollView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfa-6z-JCq">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="616.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="594.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Mm-5c-FpR">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send us a message and we'll get back to you ASAP." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-nm-m2Y">
-                                                        <rect key="frame" x="20" y="40" width="335" height="38.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send us a message and we'll get back to you ASAP." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-nm-m2Y" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="40" width="335" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                         <color key="textColor" red="0.54509803921568623" green="0.58431372549019611" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Send us a message and we'll get back to you ASAP."/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="19"/>
                                                         </variation>
@@ -61,7 +62,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phR-JL-ieA">
-                                                <rect key="frame" x="20" y="118.5" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="96.5" width="335" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVg-0W-aa5">
                                                         <rect key="frame" x="10" y="0.0" width="325" height="45"/>
@@ -85,10 +86,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jay-c6-4nS">
-                                                <rect key="frame" x="20" y="183.5" width="335" height="155"/>
+                                                <rect key="frame" x="20" y="161.5" width="335" height="155"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nC-o1-6PG">
-                                                        <rect key="frame" x="10" y="7" width="325" height="22"/>
+                                                        <rect key="frame" x="10" y="7" width="325" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" red="0.54509803921568623" green="0.58431372549019611" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -123,8 +124,8 @@
                                                     <constraint firstItem="4nC-o1-6PG" firstAttribute="leading" secondItem="jay-c6-4nS" secondAttribute="leading" constant="10" id="zzH-Lv-Qdf"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJE-al-Lie" customClass="ButtonCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="265" y="378.5" width="90" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJE-al-Lie" customClass="ButtonCorners" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="265" y="356.5" width="90" height="40"/>
                                                 <color key="backgroundColor" red="0.98039215690000003" green="0.64705882349999999" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="90" id="AUx-E1-dh0">
@@ -181,6 +182,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="L5b-1m-9tj"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Wrq-ls-Jfs" firstAttribute="top" secondItem="L5b-1m-9tj" secondAttribute="top" id="NYH-dh-W3e"/>
@@ -189,7 +191,6 @@
                             <constraint firstItem="tfa-6z-JCq" firstAttribute="width" secondItem="mbL-eS-LqX" secondAttribute="width" id="k4S-i4-cg7"/>
                             <constraint firstItem="Wrq-ls-Jfs" firstAttribute="leading" secondItem="L5b-1m-9tj" secondAttribute="leading" id="ob4-8C-pg7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="L5b-1m-9tj"/>
                     </view>
                     <connections>
                         <outlet property="contactPlaceholderLbl" destination="4nC-o1-6PG" id="ncl-6L-DsC"/>
@@ -450,7 +451,7 @@
                                                     <constraint firstAttribute="height" constant="20" id="gDG-ui-HtX"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbp-hT-nz1">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbp-hT-nz1">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="64"/>
                                                 <connections>
                                                     <action selector="backActionWithSender:" destination="lo2-Pz-yc0" eventType="touchUpInside" id="g9d-bw-F2S"/>
@@ -485,6 +486,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="SVI-wP-eeV"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="kYl-Zg-VzV" firstAttribute="top" secondItem="Nuq-ST-dUg" secondAttribute="top" id="0Kv-Z0-f7n"/>
@@ -496,7 +498,6 @@
                             <constraint firstItem="kYl-Zg-VzV" firstAttribute="trailing" secondItem="SVI-wP-eeV" secondAttribute="trailing" id="iAX-ew-Hvu"/>
                             <constraint firstItem="kYl-Zg-VzV" firstAttribute="leading" secondItem="SVI-wP-eeV" secondAttribute="leading" id="mQT-Q0-cgU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="SVI-wP-eeV"/>
                     </view>
                     <connections>
                         <outlet property="contactPlaceholderLbl" destination="ve0-8S-F3Z" id="RPQ-Qs-0hY"/>
@@ -517,6 +518,11 @@
             <point key="canvasLocation" x="386" y="-672"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="s4N-nm-m2Y">
+            <size key="intrinsicContentSize" width="326" height="16.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="back_white" width="50" height="50"/>
         <image name="gradientImage" width="1242" height="2208"/>

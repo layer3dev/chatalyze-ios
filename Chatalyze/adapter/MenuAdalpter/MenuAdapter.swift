@@ -139,7 +139,7 @@ extension MenuAdapter:UITableViewDataSource{
         }
         cell.selectedSlideBarTab = self.selectedSlideBarTab
         if indexPath.row < currentArray.count{
-            cell.optionName?.text = currentArray[indexPath.row]
+            cell.optionName?.text = currentArray[indexPath.row].localized()
         }
         return cell
     }

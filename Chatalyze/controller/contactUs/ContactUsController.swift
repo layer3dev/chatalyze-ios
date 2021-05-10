@@ -57,7 +57,7 @@ class ContactUsController: InterfaceExtendedController {
     func painteInterface(){
         
         initializeVariable()
-        paintNavigationTitle(text: "Contact Us")
+        paintNavigationTitle(text: "Contact Us".localized())
         paintBackButton()
         paintSettingButton()
         paintBorder()
