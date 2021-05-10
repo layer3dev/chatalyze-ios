@@ -77,7 +77,7 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "My Sessions")
+        paintNavigationTitle(text: "My Sessions".localized())
         rootView?.paintNewUI()
         self.shouldStartAnimation = true
         animate()

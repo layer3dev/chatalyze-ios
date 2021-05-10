@@ -8,17 +8,22 @@
 
 import UIKit
 import WebKit
+import SDWebImage
 
 class PostChatFeedbackController: InterfaceExtendedController {
     
   
     @IBOutlet weak var webview : WKWebView?
+    @IBOutlet weak var baclkgroundImg : UIImageView?
+    
     var htmlData : String?
+    var backgrndImgUrl : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initialization()
         loadwebViewContent()
+        setBackGrndImg()
     }
     
   
@@ -28,13 +33,26 @@ class PostChatFeedbackController: InterfaceExtendedController {
     }
     
     func paintInterface(){
-        paintNavigationTitle(text: "PostChatfeedback")
+        paintNavigationTitle(text: "")
         
-        let leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissViewController))
+        let leftBarButtonItem = UIBarButtonItem(title: "X", style: .done, target: self, action: #selector(dismissViewController))
         leftBarButtonItem.tintColor = .white
         
-         self.navigationItem.leftBarButtonItem = leftBarButtonItem
+         self.navigationItem.rightBarButtonItem = leftBarButtonItem
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItems = []
+        
+        self.webview?.isOpaque = false
+        self.webview?.backgroundColor = UIColor.clear
           
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationItem.setHidesBackButton(true, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.navigationController?.navigationItem.hidesBackButton = true
     }
 
     
@@ -45,8 +63,21 @@ class PostChatFeedbackController: InterfaceExtendedController {
         }
         webview?.loadHTMLString(htmlString, baseURL: nil)
     }
+    
+    
+    func setBackGrndImg(){
+        if let imgUrl = self.backgrndImgUrl{
+            SDWebImageDownloader().downloadImage(with: URL(string: imgUrl), completed: { (image, data, error, success) in
+                if let img = image{
+                    self.baclkgroundImg?.image = img
+                    self.baclkgroundImg?.contentMode = .scaleToFill
+                }
+            })
+        }
+    }
+    
     @objc private func dismissViewController() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
 

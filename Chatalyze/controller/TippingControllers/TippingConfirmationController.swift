@@ -16,6 +16,8 @@ class TippingConfirmationController: InterfaceExtendedController {
     var donateProduct:DonateProduct?
     var appStateManager:ApplicationConfirmForeground?
     var memoryImage:UIImage?
+    var feedbackUrl : String?
+    var backgrndImgUrl : String?
     
     private var isProcessingLastTransaction = false
     
@@ -50,6 +52,17 @@ class TippingConfirmationController: InterfaceExtendedController {
                 return
             }
             controller.eventInfo = scheduleInfo
+        
+        if let htmlData = self.feedbackUrl{
+            guard let vc = PostChatFeedbackController.instance() else{
+                return
+            }
+            vc.htmlData = htmlData
+            vc.backgrndImgUrl = backgrndImgUrl ?? ""
+            vc.navigationController?.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
+        }
             self.navigationController?.pushViewController(controller, animated: true)
             return
 //        }

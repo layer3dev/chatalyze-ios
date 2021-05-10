@@ -1337,6 +1337,10 @@ class UserCallController: VideoCallController {
         controller.scheduleInfo = eventInfo
         controller.slotId = eventInfo?.myLastCompletedSlot?.id ?? 0
         controller.memoryImage = self.memoryImage
+        if let htmlData = eventInfo?.eventFeedbackInfo{
+            controller.feedbackUrl = htmlData
+            controller.backgrndImgUrl = eventInfo?.backgroundURL
+        }
         presentingController.navController?.topViewController?.navigationController?.pushViewController(controller, animated: true)
         
         self.getRootPresentingController()?.dismiss(animated: true, completion: {
@@ -1360,6 +1364,8 @@ class UserCallController: VideoCallController {
                 return
             }
             vc.htmlData = htmlData
+            vc.navigationController?.navigationItem.hidesBackButton = true
+            vc.backgrndImgUrl = eventInfo?.backgroundURL
             presentingController.navController?.topViewController?.navigationController?.pushViewController(vc, animated: true)
 
         }else{

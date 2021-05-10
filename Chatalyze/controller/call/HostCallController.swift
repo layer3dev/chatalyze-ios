@@ -951,6 +951,8 @@ class HostCallController: VideoCallController {
             if bufferSec > 0{
                 self.preConnectLbl?.text = ""
                 upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+                hostActionContainer?.extendChatView?.hideExtendBtn()
+                
             }
             
         }
@@ -1816,6 +1818,7 @@ extension HostCallController {
             if bufferSec > 0{
                 self.preConnectLbl?.text = ""
                 upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+                hostActionContainer?.extendChatView?.hideExtendBtn()
             }
             
         }
