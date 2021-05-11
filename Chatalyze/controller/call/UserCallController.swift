@@ -45,6 +45,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionBlackBox:UIView?
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
+    @IBOutlet var spotNumberView : SpotInLineView?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -189,6 +190,7 @@ class UserCallController: VideoCallController {
     
     override func stopIdleMedia(){
         userRootView?.youtubeContainerView?.hide()
+        spotNumberView?.hideSpotInView()
     }
     
     
@@ -231,6 +233,7 @@ class UserCallController: VideoCallController {
         //TODO:- Insert below two functions in the main thread once the signature feature is enabled.
         self.updateCallHeaderInfo()
         self.updateLableAnimation()
+        self.trackUserSpotInfo()
         self.twillioCallSwitcher()
         if isPreConnected{       
             checkforRecordingStatus()
@@ -258,6 +261,38 @@ class UserCallController: VideoCallController {
                 return
             }
         }
+    }
+    
+    func trackUserSpotInfo(){
+        
+        if isCallStreaming{
+            spotNumberView?.hideSpotInView()
+            return
+        }
+        
+        var hostRunningSlot = 0
+        guard let currentSlotInfo = self.eventInfo?.myUpcomingSlotInfo else{
+            Log.echo(key: self.TAG, text: "FAILED! to get USER current Slot info")
+            spotNumberView?.hideSpotInView()
+            return
+        }
+        
+        if let hostCurrentSlot = self.eventInfo?.currentSlotInfo  {
+            hostRunningSlot = hostCurrentSlot.index
+        }
+        
+    
+        let spotInfo = currentSlotInfo.index - hostRunningSlot
+        var desiredSpotInfoFormat : String?
+        
+        if spotInfo < 10{
+            desiredSpotInfoFormat = "0\(spotInfo)"
+        }else{
+            desiredSpotInfoFormat = "\(spotInfo)"
+        }
+        
+        spotNumberView?.showSlotInViewInfo(withSlotNo: desiredSpotInfoFormat ?? "",
+                                           andTime: "EST:\(currentSlotInfo.slotInfo?.startDate?.toTimeString() ?? "")" )
     }
     
     func twillioCallSwitcher(){
@@ -583,6 +618,7 @@ class UserCallController: VideoCallController {
         
         if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
+            spotNumberView?.hideSpotInView()
             checkforRecordingStatus()
             return;
         }

@@ -23,5 +23,9 @@ class SpotInLineView: ExtendedView {
         self.spotNumberlbl?.text = slotNumber
         self.estimatedStartTimeLbl?.text = estimatedStartTime
     }
+    func hideSpotInView(){
+        self.isHidden = true
+    }
+    
 
 }

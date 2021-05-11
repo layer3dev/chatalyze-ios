@@ -17,6 +17,12 @@ public extension Date {
         return DateParser.dateToString(self, requiredFormat : defaultFormat)
     }
     
+    func toTimeString() -> String?{
+        let defaultFormat = "hh:mm a"
+        return DateParser.dateToString(self, requiredFormat : defaultFormat)
+        
+    }
+    
     func countdownTimeFromNowAppended()->(isActive : Bool, time : String)?{
    
         guard let time = countdownTimeFromNow()
