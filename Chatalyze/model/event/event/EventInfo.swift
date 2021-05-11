@@ -58,6 +58,7 @@ class EventInfo: NSObject {
     var isRecordingEnabled : Bool?
     var tipText:String?
     var bufferSeconds : Int?
+    var displaySpot : Bool?
     var room_id:String?
     var organization: Bool?
     
@@ -91,6 +92,7 @@ class EventInfo: NSObject {
         id = json["id"].int
         start = json["start"].string
         bufferSeconds = json["bufferSeconds"].intValue
+        displaySpot = json["displaySpot"].boolValue
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string

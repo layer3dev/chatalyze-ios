@@ -77,7 +77,7 @@ class HostDashboardController: MyScheduledSessionsController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        paintNavigationTitle(text: "My Sessions".localized())
+        paintNavigationTitle(text: "Events".localized())
         rootView?.paintNewUI()
         self.shouldStartAnimation = true
         animate()
@@ -147,10 +147,10 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func initializeName(){
         
-        var testingText = "TEST MY PHONE"
+        var testingText = "Test my system"
         self.testingText = testingText
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD"
+            testingText = "Test my system"
             self.testingText = testingText
         }
     }

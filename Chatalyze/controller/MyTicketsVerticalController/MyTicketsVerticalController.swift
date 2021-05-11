@@ -107,10 +107,10 @@ class MyTicketsVerticalController: MyTicketsController{
     
     func underLineLable(){
         
-        var testingText = "TEST MY PHONE".localized() ?? ""
+        var testingText = "Test my system".localized() ?? ""
         self.testingText = testingText
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD".localized() ?? ""
+            testingText = "Test my system".localized() ?? ""
             self.testingText = testingText
         }
         

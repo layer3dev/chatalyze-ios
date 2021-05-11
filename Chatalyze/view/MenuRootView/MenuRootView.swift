@@ -61,10 +61,10 @@ class MenuRootView:ExtendedView{
     
     func underLineLable(){
         
-        var testingText = "TEST MY PHONE".localized() ?? ""
+        var testingText = "Test my system".localized() ?? ""
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD".localized() ?? ""
+            testingText = "Test my system".localized() ?? ""
         }
         
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: fontSize)] as? [NSAttributedString.Key : Any]{
