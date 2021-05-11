@@ -96,7 +96,7 @@ class HostDashboardRootView: MySessionRootView {
     
     func underLineLable() {
         
-        var testingText = "TEST MY PHONE"
+        var testingText = "Test my system"
         
         if UIDevice.current.userInterfaceIdiom == .pad{
             testingText = "TEST MY IPAD"

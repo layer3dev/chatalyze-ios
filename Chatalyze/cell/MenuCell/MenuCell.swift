@@ -62,7 +62,7 @@ class MenuCell: ExtendedTableCell {
                 if selectedIndexName == "My sessions"{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }
-                else if selectedIndexName == "Payout details"{
+                else if selectedIndexName == "Payment dashboard"{
                     return MenuRootView.MenuType.paymentAnalyst
                 }
                 else if selectedIndexName == "Schedule Session"{

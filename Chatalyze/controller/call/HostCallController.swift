@@ -893,7 +893,14 @@ class HostCallController: VideoCallController {
         }
         
         //Editing For the remaining time
-        let countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        var countdownTime = ""
+//         countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        
+        if countdownInfo.hours != "00"{
+            countdownTime =  "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        }else{
+            countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
+        }
         
         let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
         sessionRemainingTimeLbl?.attributedText = timeRemaining

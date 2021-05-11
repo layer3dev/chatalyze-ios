@@ -265,6 +265,13 @@ class UserCallController: VideoCallController {
     
     func trackUserSpotInfo(){
         
+        if !(eventInfo?.displaySpot ?? false){
+            self.futureSessionBlackBox?.isHidden = false
+            return
+        }else{
+            self.futureSessionBlackBox?.isHidden = true
+        }
+        
         if isCallStreaming{
             spotNumberView?.hideSpotInView()
             return
@@ -292,7 +299,7 @@ class UserCallController: VideoCallController {
         }
         
         spotNumberView?.showSlotInViewInfo(withSlotNo: desiredSpotInfoFormat ?? "",
-                                           andTime: "EST:\(currentSlotInfo.slotInfo?.startDate?.toTimeString() ?? "")" )
+                                           andTime: "EST : \(currentSlotInfo.slotInfo?.startDate?.toTimeString() ?? "")" )
     }
     
     func twillioCallSwitcher(){
