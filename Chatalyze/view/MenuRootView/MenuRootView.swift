@@ -11,7 +11,7 @@ import Foundation
 class MenuRootView:ExtendedView{
     
     @IBOutlet var underLineLbl:UILabel?
-    var fontSize:CGFloat = 16.0
+    var fontSize:CGFloat = 18.0
     
     enum MenuType:Int{
         
