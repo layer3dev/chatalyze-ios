@@ -275,6 +275,7 @@ class MemoryAnimationController: InterfaceExtendedController {
               return
             }
             vc.htmlData = htmlsData
+            vc.backgrndImgUrl = self.eventInfo?.backgroundURL
             self.navigationController?.pushViewController(vc, animated: true)
             return
         }

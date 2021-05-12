@@ -14,11 +14,11 @@ extension String {
     func localized() -> String? {
         
         
-        var defaultLanguage = "fr"
+        var defaultLanguage = "en"
         
-        if let selectedLanguage = UserDefaults.standard.string(forKey: LanguageKey){
-            defaultLanguage = selectedLanguage
-        }
+//        if let selectedLanguage = UserDefaults.standard.string(forKey: LanguageKey){
+//            defaultLanguage = selectedLanguage
+//        }
         return NSLocalizedString(
             self,
             tableName: defaultLanguage,

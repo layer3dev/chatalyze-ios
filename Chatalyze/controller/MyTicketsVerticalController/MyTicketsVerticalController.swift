@@ -12,9 +12,10 @@ import Analytics
 
 class MyTicketsVerticalController: MyTicketsController{
     
-    var fontSize:CGFloat = 16.0
+    var fontSize:CGFloat = 18.0
     @IBOutlet var underLineLbl:UILabel?
     @IBOutlet var showView:UIView?
+    @IBOutlet var noTicketslbl : UILabel?
     var isShow = false
     var eventDeleteListener = EventDeletedListener()
     var testingText = ""
@@ -30,6 +31,8 @@ class MyTicketsVerticalController: MyTicketsController{
         initializeListenrs()
         underLineLearnMore()
         hitEventOnSegmentIO()
+        // was not getting  translated on storyBoard
+        noTicketslbl?.text = "No Chat Tickets".localized() ?? ""
     }
 
     

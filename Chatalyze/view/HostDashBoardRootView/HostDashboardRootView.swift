@@ -12,7 +12,7 @@ import SDWebImage
 class HostDashboardRootView: MySessionRootView {
     
     @IBOutlet var underLineLbl:UILabel?
-    var fontSize:CGFloat = 16.0
+    var fontSize:CGFloat = 18.0
     @IBOutlet private var settingButtonContainer:ButtonContainerCorners?
     @IBOutlet private var urlBorderView:ButtonContainerCorners?
     @IBOutlet var profileImage:UIImageView?

@@ -84,25 +84,25 @@ class CameraTestController: InterfaceExtendedController {
             linkSize = 24
         }
         
-        let firstStr = "If the answer to these questions is "
+        let firstStr = "If the answer to these questions is ".localized() ?? ""
         let mutatedStr = firstStr.toMutableAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let secondStr = "\("Yes"), "
+        let secondStr = "\("Yes".localized() ?? ""), "
         let secondAttributedStr = secondStr.toAttributedString(font: AppThemeConfig.boldFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let thirdStr = "your phone passes the test. If not, please check our "
+        let thirdStr = "your phone passes the test. If not, please check our ".localized() ?? ""
         let thirdAttributedStr = thirdStr.toAttributedString(font: AppThemeConfig.defaultFont, size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let forthStr = "Help Center"
+        let forthStr = "Help Center".localized() ?? ""
         let fourthAttributesStr = forthStr.toAttributedStringLink(font: "Nunito-Regular" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
-        let fifthStr = " or "
+        let fifthStr = " or ".localized() ?? ""
         let fifthAttributesStr = fifthStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
-        let sixthStr = "contact us"
+        let sixthStr = "contact us".localized() ?? ""
         let sixthAttributesStr = sixthStr.toAttributedStringLink(font: "Nunito-Regular" , size: linkSize , color:UIColor(hexString: AppThemeConfig.themeColor),isUnderLine:true)
         
-        let seventhStr = " for support."
+        let seventhStr = " for support.".localized() ?? ""
         let seventhAttributesStr = seventhStr.toAttributedString(font: AppThemeConfig.defaultFont , size: fontSize , color:UIColor(hexString: "#999999"))
         
         mutatedStr.append(secondAttributedStr)
