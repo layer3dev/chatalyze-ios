@@ -1108,7 +1108,7 @@ class UserCallController: VideoCallController {
                                 Log.echo(key: "yud", text: "I got upload response")
                                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
                                 saveImage()
-                                isSlefieScreenShotSaved = false
+                            
                                 
                                 DispatchQueue.main.async {
                                     
