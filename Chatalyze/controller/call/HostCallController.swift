@@ -517,15 +517,7 @@ class HostCallController: VideoCallController {
                 self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
             }
             
-//            self.selfieTimerView?.screenShotListner = {[weak self] in
-//                if let weakSelf = self {
-//                    print(" I got the mimic screenshot")
-//                    weakSelf.photoBothView?.isUserInteractionEnabled = true
-//                    weakSelf.mimicScreenShotFlash()
-//                    weakSelf.selfieTimerView?.reset()
-//                    weakSelf.processAutographSelfie()
-//                }
-//            }
+
         }
     }
     

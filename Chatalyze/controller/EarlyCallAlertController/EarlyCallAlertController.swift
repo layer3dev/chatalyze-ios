@@ -21,6 +21,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
     @IBOutlet var name:UILabel?
     @IBOutlet var topArrowConstraint:NSLayoutConstraint?
     let eventDeletedListener = EventDeletedListener()
+    let scheduleUpdateListener = ScheduleUpdateListener()
     
 
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
         self.startTimer()
         self.fillInfo()
         self.startAnimation()
+        self.scheduleUpdate()
         self.eventListener()
         self.initializeNotification()
     }
@@ -61,6 +63,24 @@ class EarlyCallAlertController: InterfaceExtendedController {
             }
         }
     }
+    
+    func scheduleUpdate(){
+           scheduleUpdateListener.setListenerForNewStartDate { (eventInfoArray) in
+               Log.echo(key: self.TAG, text: "\(eventInfoArray)")
+
+               for info in eventInfoArray {
+                   if ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) < 900 && ((info.startDate?.timeIntervalSince(Date()) ?? 0.0) >= 0)) {
+
+                       self.requiredDate = info.startDate
+                       self.startTimer()
+                   }else{
+                       self.dismiss(animated: true) {
+                           RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "Your session start time has been updated.", successTitle: "OK", rejectTitle: "", showCancel: false, completion: nil)
+                       }
+                   }
+               }
+           }
+       }
     
     
     func startAnimation(){

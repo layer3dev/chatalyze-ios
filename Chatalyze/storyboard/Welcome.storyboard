@@ -330,11 +330,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3N3-X6-UW2" customClass="LoginSignUpTabView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="55"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-gp-gGS">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FU6-gp-gGS" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="66.5" y="18" width="55" height="19"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Sign up"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <variation key="heightClass=regular-widthClass=regular">
                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="22"/>
                                                         </variation>
@@ -434,6 +437,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="FU6-gp-gGS">
+            <size key="intrinsicContentSize" width="55" height="19"/>
+        </designable>
         <designable name="OSq-wd-hvo">
             <size key="intrinsicContentSize" width="49" height="19"/>
         </designable>

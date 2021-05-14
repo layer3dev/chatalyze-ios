@@ -480,10 +480,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnC-yQ-Es2" customClass="MenuAdapter" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="165" width="256" height="386"/>
+                                <rect key="frame" x="0.0" y="165" width="256" height="389"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-0B-S4l">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="386"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="389"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="72" id="W2u-vn-ZG2" customClass="MenuCell" customModule="Chatalyze" customModuleProvider="target">
@@ -565,7 +565,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7c-eO-aZP">
-                                <rect key="frame" x="0.0" y="551" width="256" height="52"/>
+                                <rect key="frame" x="0.0" y="554" width="256" height="49"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHR-r0-Sxi">
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="0.5"/>
@@ -574,17 +574,20 @@
                                             <constraint firstAttribute="height" constant="0.5" id="Lw8-TX-kpb"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blf-w7-GKk">
-                                        <rect key="frame" x="30" y="15" width="206" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Out" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blf-w7-GKk" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
+                                        <rect key="frame" x="30" y="15" width="206" height="19"/>
                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Sign Out"/>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="20"/>
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4O-oK-lMx">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="49"/>
                                         <connections>
                                             <action selector="signOut" destination="3EV-fe-T8z" eventType="touchUpInside" id="beA-gv-HR7"/>
                                         </connections>
@@ -637,6 +640,11 @@
             <point key="canvasLocation" x="-2309" y="125"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="blf-w7-GKk">
+            <size key="intrinsicContentSize" width="63" height="19"/>
+        </designable>
+    </designables>
     <resources>
         <image name="tab_account_unselect" width="40" height="40"/>
         <image name="tab_event_select" width="40" height="40"/>
