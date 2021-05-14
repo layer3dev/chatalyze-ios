@@ -21,7 +21,7 @@ extension String {
 //        }
         return NSLocalizedString(
             self,
-            tableName: defaultLanguage,
+            tableName: "Localizable",
             bundle: .main,
             value: self,
             comment: self)

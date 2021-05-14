@@ -459,25 +459,25 @@ class ContainerController: NavChildController {
         
         else if typeOfAction == .changeLanguage{
             
-            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Change Language".localized(), preferredStyle: .alert)
-            
-            let enAction = UIAlertAction(title: "English", style: .default) { (action) in
-                UserDefaults.standard.set("en", forKey: LanguageKey)
-                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
-            }
-            
-            let frAction = UIAlertAction(title: "French", style: .default) { (action) in
-                UserDefaults.standard.set("fr", forKey: LanguageKey)
-                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
-            }
-            
-            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
-            
-            alert.addAction(enAction)
-            alert.addAction(frAction)
-            alert.addAction(cancel)
-            
-            RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
+//            let alert = UIAlertController(title: AppInfoConfig.appName, message: "Change Language".localized(), preferredStyle: .alert)
+//            
+//            let enAction = UIAlertAction(title: "English", style: .default) { (action) in
+//                UserDefaults.standard.set("en", forKey: LanguageKey)
+//                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
+//            }
+//            
+//            let frAction = UIAlertAction(title: "French", style: .default) { (action) in
+//                UserDefaults.standard.set("fr", forKey: LanguageKey)
+//                NotificationCenter.default.post(name: AppNotification.changeLanguage, object: nil )
+//            }
+//            
+//            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+//            
+//            alert.addAction(enAction)
+//            alert.addAction(frAction)
+//            alert.addAction(cancel)
+//            
+//            RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
         }
             
         else if typeOfAction == .tickets{

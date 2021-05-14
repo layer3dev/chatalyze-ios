@@ -267,7 +267,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
             return
         }
         
-        self.speedLbl?.text = "Checking your system. This will just take a moment."
+        self.speedLbl?.text = "Checking your system. This will just take a moment.".localized()
         //self.showLoader()
         CheckInternetSpeed().testDownloadSpeedWithTimeOut(timeOut: 10.0) { (speed, error) in
             

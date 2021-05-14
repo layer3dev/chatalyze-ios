@@ -1195,6 +1195,8 @@
 		FA4597F32615D1A400B07826 /* ClaimCustomTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */; };
 		FA4597FE2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */; };
 		FA4597FF2615D2F300B07826 /* ClaimCustomTicketRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */; };
+		FA46D3B7264E060F00048E77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA46D3BA264E060F00048E77 /* Localizable.strings */; };
+		FA46D3B8264E060F00048E77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA46D3BA264E060F00048E77 /* Localizable.strings */; };
 		FA573C10207CBE9D006447A1 /* TurnServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */; };
 		FA581945204165CA00D088F1 /* SigninController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581944204165CA00D088F1 /* SigninController.swift */; };
 		FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA581946204173E600D088F1 /* NavigationBarCustomizer.swift */; };
@@ -2022,6 +2024,9 @@
 		FA4597E92615BFAA00B07826 /* ClaimCustomTickets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ClaimCustomTickets.storyboard; sourceTree = "<group>"; };
 		FA4597F12615D1A400B07826 /* ClaimCustomTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimCustomTicket.swift; sourceTree = "<group>"; };
 		FA4597FD2615D2F300B07826 /* ClaimCustomTicketRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimCustomTicketRootView.swift; sourceTree = "<group>"; };
+		FA46D3B9264E060F00048E77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA46D3BF264E061400048E77 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA46D3C4264E062C00048E77 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA573C0F207CBE9D006447A1 /* TurnServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnServerInfo.swift; sourceTree = "<group>"; };
 		FA58193A2041647800D088F1 /* FacebookCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookCore.framework; path = Carthage/Build/iOS/FacebookCore.framework; sourceTree = "<group>"; };
 		FA58193B2041647900D088F1 /* FacebookLogin.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookLogin.framework; path = Carthage/Build/iOS/FacebookLogin.framework; sourceTree = "<group>"; };
@@ -5273,6 +5278,7 @@
 			children = (
 				FA948841264B7C820008D6D6 /* en.strings */,
 				FA948845264B7C8E0008D6D6 /* fr.strings */,
+				FA46D3BA264E060F00048E77 /* Localizable.strings */,
 			);
 			path = LangSupport;
 			sourceTree = "<group>";
@@ -6347,6 +6353,7 @@
 				en,
 				Base,
 				es,
+				th,
 			);
 			mainGroup = FAFFFE8B203D9C7F009B4F96;
 			productRefGroup = FAFFFE95203D9C80009B4F96 /* Products */;
@@ -6439,6 +6446,7 @@
 				FA94883F264B7C820008D6D6 /* en.strings in Resources */,
 				47D0B1C121A6C4B5006376A8 /* Account.storyboard in Resources */,
 				47E372432230F946000B99F9 /* Nunito-Black.ttf in Resources */,
+				FA46D3B8264E060F00048E77 /* Localizable.strings in Resources */,
 				47D0B1C221A6C4B5006376A8 /* CountryPicker.bundle in Resources */,
 				47E372472230F946000B99F9 /* Nunito-Bold.ttf in Resources */,
 				477B4A9422560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */,
@@ -6527,6 +6535,7 @@
 				FA94883E264B7C820008D6D6 /* en.strings in Resources */,
 				47AD143520ADAED1006AF9D6 /* Account.storyboard in Resources */,
 				47E372422230F946000B99F9 /* Nunito-Black.ttf in Resources */,
+				FA46D3B7264E060F00048E77 /* Localizable.strings in Resources */,
 				47F0D71620F8B53400A689FA /* CountryPicker.bundle in Resources */,
 				47E372462230F946000B99F9 /* Nunito-Bold.ttf in Resources */,
 				477B4A9322560B3B001051F6 /* ScheduleSessionSinglePage.storyboard in Resources */,
@@ -8119,6 +8128,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		FA46D3BA264E060F00048E77 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA46D3B9264E060F00048E77 /* en */,
+				FA46D3BF264E061400048E77 /* es */,
+				FA46D3C4264E062C00048E77 /* th */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		FA948841264B7C820008D6D6 /* en.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

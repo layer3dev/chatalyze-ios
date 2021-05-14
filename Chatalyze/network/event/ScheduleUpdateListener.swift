@@ -13,6 +13,8 @@ class ScheduleUpdateListener{
     
     private var listener : (()->())?
     
+    private var newEventInfo : (([EventInfo])->())?
+    
     private var isReleased = false
     
     func releaseListener(){
@@ -28,6 +30,10 @@ class ScheduleUpdateListener{
         self.listener = listener
     }
     
+    func setListenerForNewStartDate(newEventInfo : (([EventInfo])->())?){
+           self.newEventInfo = newEventInfo
+       }
+    
     func initializeListener(){
         UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
             
@@ -40,6 +46,28 @@ class ScheduleUpdateListener{
                 return
             }
             weakSelf.listener?()
+            let rawInfosString = data.JSONDescription()
+
+
+                       guard let rawData = rawInfosString.data(using: .utf8)
+                           else{
+                               return
+                       }
+
+
+                       guard let jsonResponse = try? JSON(data : rawData)
+                           else{
+                               return
+                       }
+
+                      let rawInfo = jsonResponse.arrayValue
+
+                       var eventArray:[EventInfo] = [EventInfo]()
+                       for info in rawInfo{
+                           let obj = EventInfo(info: info)
+                           eventArray.append(obj)
+                           weakSelf.newEventInfo?(eventArray)
+                       }
         })
         
 
