@@ -79,7 +79,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     func paintUI(){
         
-        paintNavigationTitle(text: "Dashboard")
+        paintNavigationTitle(text: "Dashboard".localized() ?? "")
         paintSettingButton()
     }
     

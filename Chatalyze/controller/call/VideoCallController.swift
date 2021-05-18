@@ -1234,7 +1234,7 @@ extension VideoCallController{
             
             self.showAlertContainer()
             self.showPreConnectLabel()
-            let requiredMessage = "Session has not started."
+            let requiredMessage = "Session has not started.".localized() ?? ""
             let secondAttributedString = requiredMessage.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor.white)
             preConnectLbl?.attributedText = secondAttributedString
             return
@@ -1246,7 +1246,7 @@ extension VideoCallController{
             self.showPreConnectLabel()
             
             
-            let requiredMessage = "Unable to connect to video server. Trying to reconnect..."
+            let requiredMessage = "Unable to connect to video server. Trying to reconnect...".localized() ?? ""
             let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             
             
@@ -1257,9 +1257,9 @@ extension VideoCallController{
             
             self.showAlertContainer()
             self.showPreConnectLabel()
-            let firstStr = (roomType == .user) ? "Host" : "Participant"
+            let firstStr = (roomType == .user) ? "Host".localized() ?? "" : "Participant".localized() ?? ""
             let firstMutableAttributedStr = firstStr.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: AppThemeConfig.themeColor))
-            let secondStr = " hasn't joined the session."
+            let secondStr = " hasn't joined the session.".localized() ?? ""
             let secondAttributedString = secondStr.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             firstMutableAttributedStr.append(secondAttributedString)
             Log.echo(key: "yud", text: "Required str is \(firstMutableAttributedStr)")
@@ -1279,7 +1279,7 @@ extension VideoCallController{
             self.showAlertContainer()
             self.showPreConnectLabel()
             stopIdleMedia()
-            let requiredMessage = "Get ready to chat!"
+            let requiredMessage = "Get ready to chat!".localized() ?? ""
             let secondAttributedString = requiredMessage.toMutableAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: UIColor.white)
             
             preConnectLbl?.attributedText = secondAttributedString
@@ -1321,8 +1321,8 @@ extension VideoCallController{
     
     func showCancelEventAlert() {
         
-        let textOne = "We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please "
-        let texttwo = "contact us."
+        let textOne = "We apologize. It looks like the host is unavailable today. You will receive a refund for your purchase. If you have any questions or concerns. Please ".localized() ?? ""
+        let texttwo = "contact us.".localized() ?? ""
         let mutableAttrOne = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: false)
         let attrTwo = texttwo.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 24 : 18, color: UIColor.white, isUnderLine: true)
         mutableAttrOne.append(attrTwo)

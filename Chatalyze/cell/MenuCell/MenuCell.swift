@@ -59,31 +59,31 @@ class MenuCell: ExtendedTableCell {
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
                 
-                if selectedIndexName == "My sessions"{
+                if selectedIndexName == "My sessions".localized() ?? ""{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }
-                else if selectedIndexName == "Payment dashboard"{
+                else if selectedIndexName == "Payment dashboard".localized() ?? ""{
                     return MenuRootView.MenuType.paymentAnalyst
                 }
-                else if selectedIndexName == "Schedule Session"{
+                else if selectedIndexName == "Schedule Session".localized() ?? ""{
                     return MenuRootView.MenuType.scheduledSessionAnalyst
                 }
-                else if selectedIndexName == "Edit Profile"{
+                else if selectedIndexName == "Edit Profile".localized() ?? ""{
                     return MenuRootView.MenuType.editProfileAnalyst
                 }
-                else if selectedIndexName == "Get in touch"{
+                else if selectedIndexName == "Get in touch".localized() ?? ""{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
-                else if selectedIndexName == "Support"{
+                else if selectedIndexName == "Support".localized() ?? ""{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
-                else if selectedIndexName == "Settings"{
+                else if selectedIndexName == "Settings".localized() ?? ""{
                     return MenuRootView.MenuType.settings
                 }
-                else if selectedIndexName == "Chatalyze Pro"{
+                else if selectedIndexName == "Chatalyze Pro".localized() ?? ""{
                     return MenuRootView.MenuType.proFeature
                 }
-                else if selectedIndexName == "Refer friends and earn"{
+                else if selectedIndexName == "Refer friends and earn".localized() ?? ""{
                     return MenuRootView.MenuType.referAndEarn
                 }                
                 return MenuRootView.MenuType.none

@@ -46,13 +46,13 @@ class SignupRootView:ExtendedView{
     
     fileprivate func changePlaceHolderColor(){
         
-        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email",
+        emailField?.textField?.attributedPlaceholder = NSAttributedString(string: "Email".localized() ?? "",
                                                                           attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
-        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password",
+        passwordField?.textField?.attributedPlaceholder = NSAttributedString(string: "Password".localized() ?? "",
                                                                              attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
       
-        firstName?.textField?.attributedPlaceholder = NSAttributedString(string: "Full Name",
+        firstName?.textField?.attributedPlaceholder = NSAttributedString(string: "Full Name".localized() ?? "",
                                                                              attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
     
@@ -221,12 +221,12 @@ extension SignupRootView{
         
         if(emailField?.textField?.text == ""){
             
-            emailField?.showError(text: "Email is required")
+            emailField?.showError(text: "Email is required".localized() ?? "")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
             
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized() ?? "")
             return false
         }
         emailField?.resetErrorStatus()
@@ -237,7 +237,7 @@ extension SignupRootView{
         
         if(passwordField?.textField?.text == ""){
             
-            passwordField?.showError(text: "Password is required")
+            passwordField?.showError(text: "Password is required".localized() ?? "")
             return false
         }
         passwordField?.resetErrorStatus()
@@ -248,13 +248,13 @@ extension SignupRootView{
         
         if(firstName?.textField?.text == ""){
             
-            firstName?.showError(text: "Firstname is required")
+            firstName?.showError(text: "Firstname is required".localized() ?? "")
             return false
         }
             
         else if !(FieldValidator.sharedInstance.validatePlainString(firstName?.textField?.text ?? "")){
             
-            firstName?.showError(text: "Firstname looks incorrect !")
+            firstName?.showError(text: "Firstname looks incorrect !".localized() ?? "")
             return false
         }
         firstName?.resetErrorStatus()

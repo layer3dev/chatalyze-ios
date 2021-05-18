@@ -190,11 +190,11 @@ class SignUpController: InterfaceExtendedController {
     func updateSigUpHeaderInfo(){
         
         if LoginSignUpContainerController.roleId == 3 {
-            self.headerLabel?.text = "Fan sign up"
+            self.headerLabel?.text = "Fan sign up".localized() ?? ""
         }
         
         if LoginSignUpContainerController.roleId == 2{
-            self.headerLabel?.text = "Creator sign up"
+            self.headerLabel?.text = "Creator sign up".localized() ?? ""
         }
     }
     
