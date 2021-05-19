@@ -34,6 +34,7 @@ class HostCallController: VideoCallController {
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     var isExtendChatDisbaled = false
+    var isAutograpaghinProcess = false
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -510,7 +511,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
 
-//            photoBothView?.isUserInteractionEnabled = false
+//
             self.selfieTimerView?.reset()
             
             if let eventInfo = self.eventInfo{
@@ -626,6 +627,8 @@ class HostCallController: VideoCallController {
                     return
             }
             Log.echo(key: "HostCallController", text: "call renderCanvas")
+            self.isAutograpaghinProcess = true
+            self.photoBothView?.hidePhotoboothcanvas()
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
     }
@@ -778,6 +781,9 @@ class HostCallController: VideoCallController {
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
             if !self.isCallHangedUp{
+                if isAutograpaghinProcess{
+                    return
+                }
                 photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
             }
            
@@ -2037,6 +2043,7 @@ extension HostCallController{
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
         isMutalPointReceived = true
+        self.photoBothView?.hidePhotoboothcanvas()
         sendScreenshotConfirmation()
     }
      
@@ -2205,6 +2212,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         print("done is calling")
         self.uploadAutographImage()
         self.resetCanvas()
+        isAutograpaghinProcess = false
+        self.photoBothView?.showPhotoboothcanvas()
         self.showToastWithMessage(text: "Saving Autograph..", time: 5.0)
     }
     

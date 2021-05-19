@@ -726,7 +726,7 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         if(!isReady){
-            return
+//            return
         }
         interval()
     }

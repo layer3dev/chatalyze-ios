@@ -12,6 +12,8 @@ import SDWebImage
 
 class PostChatFeedbackController: InterfaceExtendedController {
     
+    let TAG = "PostChatFeedbackController"
+    
   
     @IBOutlet weak var webview : WKWebView?
     @IBOutlet weak var baclkgroundImg : UIImageView?
@@ -61,7 +63,13 @@ class PostChatFeedbackController: InterfaceExtendedController {
         guard let htmlString = self.htmlData else {
             return
         }
-        webview?.loadHTMLString(htmlString, baseURL: nil)
+        
+        guard let feedbackurl = URL(string: htmlString) else{
+            Log.echo(key: self.TAG, text: "feedbackUrl not found!!")
+            return
+        }
+        let urlRequest = URLRequest(url: feedbackurl)
+        webview?.load(urlRequest)
     }
     
     

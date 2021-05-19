@@ -89,30 +89,30 @@ class MenuCell: ExtendedTableCell {
                 return MenuRootView.MenuType.none
             }
             
-            if selectedIndexName == "Contact Us"{
+            if selectedIndexName == "Contact Us".localized() ?? ""{
                 return MenuRootView.MenuType.contactUsUser
             }
-            else if selectedIndexName == "Edit Profile"{
+            else if selectedIndexName == "Edit Profile".localized() ?? ""{
                 return MenuRootView.MenuType.editProfileUser
             }
-            else if selectedIndexName == "Payment History"{
+            else if selectedIndexName == "Payment History".localized() ?? ""{
                 return MenuRootView.MenuType.paymentUser
             }
-            else if selectedIndexName == "Memories"{
+            else if selectedIndexName == "Memories".localized() ?? ""{
                 return MenuRootView.MenuType.autograph
             }
-            else if selectedIndexName == "My Tickets"{
+            else if selectedIndexName == "My Tickets".localized() ?? ""{
                 return MenuRootView.MenuType.tickets
             }
-            else if selectedIndexName == "Purchase"{
+            else if selectedIndexName == "Purchase".localized() ?? ""{
                 return MenuRootView.MenuType.events
             }
-            else if selectedIndexName == "Settings"{
+            else if selectedIndexName == "Settings".localized() ?? ""{
                 return MenuRootView.MenuType.settings
             }
-            else if selectedIndexName == "Achievements"{
+            else if selectedIndexName == "Achievements".localized() ?? ""{
                 return MenuRootView.MenuType.achievements
-            }else if selectedIndexName ==  "Change Language"{
+            }else if selectedIndexName ==  "Change Language".localized() ?? ""{
                 return MenuRootView.MenuType.changeLanguage
             }
             
