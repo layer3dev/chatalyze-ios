@@ -725,6 +725,8 @@ class VideoCallController : InterfaceExtendedController {
             Log.echo(key: TAG, text: "isProcessTerminated -> TRUE - STOP RIGHT THERE")
             return
         }
+        
+        // @abhishek : as advised we need to show timer to user, irrespactive if event started or not.
         if(!isReady){
 //            return
         }

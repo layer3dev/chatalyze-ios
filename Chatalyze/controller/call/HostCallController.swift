@@ -781,6 +781,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
             if !self.isCallHangedUp{
+                // @abhishek : the selfie button should not appear to HOSt, while signing the autograpgh
                 if isAutograpaghinProcess{
                     return
                 }
