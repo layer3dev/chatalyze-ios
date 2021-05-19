@@ -150,7 +150,7 @@ class ReferralController: InterfaceExtendedController {
     
     func paintInterface(){
         
-        paintNavigationTitle(text: "Refer Friends")
+        paintNavigationTitle(text: "Refer Friends".localized() ?? "")
         paintBackButton()
         paintSettingButton()
         //paintHideBackButton()
@@ -204,7 +204,7 @@ class ReferralController: InterfaceExtendedController {
         DispatchQueue.main.async {
             
             // Invite a friend and get 5% of their earning for a year. Terms apply
-            let textOne = "Invite friends and get 5% of their earnings for a year. "
+            let textOne = "Invite friends and get 5% of their earnings for a year. ".localized() ?? ""
             let textOneMutable = textOne.toMutableAttributedString(font: "Nunito-Regular", size: UIDevice.current.userInterfaceIdiom == .pad ? 19:15, color: UIColor.white, isUnderLine: false)
             
             let textTwo = "Terms apply "

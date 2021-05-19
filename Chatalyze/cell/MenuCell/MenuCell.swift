@@ -59,60 +59,60 @@ class MenuCell: ExtendedTableCell {
         if let role = SignedUserInfo.sharedInstance?.role{
             if role == .analyst  {
                 
-                if selectedIndexName == "My sessions"{
+                if selectedIndexName == "My sessions".localized() ?? ""{
                     return MenuRootView.MenuType.mySessionAnalyst
                 }
-                else if selectedIndexName == "Payment dashboard"{
+                else if selectedIndexName == "Payment dashboard".localized() ?? ""{
                     return MenuRootView.MenuType.paymentAnalyst
                 }
-                else if selectedIndexName == "Schedule Session"{
+                else if selectedIndexName == "Schedule Session".localized() ?? ""{
                     return MenuRootView.MenuType.scheduledSessionAnalyst
                 }
-                else if selectedIndexName == "Edit Profile"{
+                else if selectedIndexName == "Edit Profile".localized() ?? ""{
                     return MenuRootView.MenuType.editProfileAnalyst
                 }
-                else if selectedIndexName == "Get in touch"{
+                else if selectedIndexName == "Get in touch".localized() ?? ""{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
-                else if selectedIndexName == "Support"{
+                else if selectedIndexName == "Support".localized() ?? ""{
                     return MenuRootView.MenuType.contactUsAnalyst
                 }
-                else if selectedIndexName == "Settings"{
+                else if selectedIndexName == "Settings".localized() ?? ""{
                     return MenuRootView.MenuType.settings
                 }
-                else if selectedIndexName == "Chatalyze Pro"{
+                else if selectedIndexName == "Chatalyze Pro".localized() ?? ""{
                     return MenuRootView.MenuType.proFeature
                 }
-                else if selectedIndexName == "Refer friends and earn"{
+                else if selectedIndexName == "Refer friends and earn".localized() ?? ""{
                     return MenuRootView.MenuType.referAndEarn
                 }                
                 return MenuRootView.MenuType.none
             }
             
-            if selectedIndexName == "Contact Us"{
+            if selectedIndexName == "Contact Us".localized() ?? ""{
                 return MenuRootView.MenuType.contactUsUser
             }
-            else if selectedIndexName == "Edit Profile"{
+            else if selectedIndexName == "Edit Profile".localized() ?? ""{
                 return MenuRootView.MenuType.editProfileUser
             }
-            else if selectedIndexName == "Payment History"{
+            else if selectedIndexName == "Payment History".localized() ?? ""{
                 return MenuRootView.MenuType.paymentUser
             }
-            else if selectedIndexName == "Memories"{
+            else if selectedIndexName == "Memories".localized() ?? ""{
                 return MenuRootView.MenuType.autograph
             }
-            else if selectedIndexName == "My Tickets"{
+            else if selectedIndexName == "My Tickets".localized() ?? ""{
                 return MenuRootView.MenuType.tickets
             }
-            else if selectedIndexName == "Purchase"{
+            else if selectedIndexName == "Purchase".localized() ?? ""{
                 return MenuRootView.MenuType.events
             }
-            else if selectedIndexName == "Settings"{
+            else if selectedIndexName == "Settings".localized() ?? ""{
                 return MenuRootView.MenuType.settings
             }
-            else if selectedIndexName == "Achievements"{
+            else if selectedIndexName == "Achievements".localized() ?? ""{
                 return MenuRootView.MenuType.achievements
-            }else if selectedIndexName ==  "Change Language"{
+            }else if selectedIndexName ==  "Change Language".localized() ?? ""{
                 return MenuRootView.MenuType.changeLanguage
             }
             

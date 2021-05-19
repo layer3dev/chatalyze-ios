@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class RoundCornerButton: UIButton {
+class RoundCornerButton: LocalizedButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()

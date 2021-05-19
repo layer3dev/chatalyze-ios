@@ -591,6 +591,13 @@ class UserCallController: VideoCallController {
         //            return
         //        }
         
+         if let _ = eventInfo.started{
+            
+         }else{
+            setStatusMessage(type: .eventNotStarted)
+            return
+         }
+        
         if(!eventInfo.isWholeConnectEligible){
             setStatusMessage(type: .idealMedia)
             return

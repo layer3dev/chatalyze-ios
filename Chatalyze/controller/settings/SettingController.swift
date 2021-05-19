@@ -87,7 +87,7 @@ class SettingController : InterfaceExtendedController {
         
         paintBackButton()
         paintSettingButton()
-        paintNavigationTitle(text : "Settings")
+        paintNavigationTitle(text: "Settings".localized() ?? "" )
     }
     
     @IBAction func settingAction(sender:UIButton){

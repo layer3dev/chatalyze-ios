@@ -47,7 +47,7 @@ class MemoriesController: InterfaceExtendedController {
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
     
-        paintNavigationTitle(text: "Chat Screenshots")
+        paintNavigationTitle(text: "Chat Screenshots".localized() ?? "")
         getPaymentInfo()
     }
     

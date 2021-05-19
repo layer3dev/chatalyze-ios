@@ -34,6 +34,7 @@ class HostCallController: VideoCallController {
     var isSignatureActive = false
     var autographSlotInfo : SlotInfo? = nil
     var isExtendChatDisbaled = false
+    var isAutograpaghinProcess = false
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -83,7 +84,7 @@ class HostCallController: VideoCallController {
     
     lazy var recordingLbl : UILabel = {
         let lbl = UILabel()
-        lbl.text = "  ● Recording  "
+        lbl.text = "  ● Recording  ".localized() ?? ""
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
@@ -334,7 +335,7 @@ class HostCallController: VideoCallController {
         ExtendChatService().sendRequest(id: sessionId) { (success, message) in
             if success{
                 self.hostActionContainer?.extendChatView?.showExtend()
-                self.showToastWithMessage(text: "Chat Extended Successfully", time: 5.0)
+                self.showToastWithMessage(text: "Chat Extended Successfully".localized() ?? "", time: 5.0)
                 Log.echo(key: "vijayChatExtend", text: message)
             }
         }
@@ -510,7 +511,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
             
 
-//            photoBothView?.isUserInteractionEnabled = false
+//
             self.selfieTimerView?.reset()
             
             if let eventInfo = self.eventInfo{
@@ -626,6 +627,8 @@ class HostCallController: VideoCallController {
                     return
             }
             Log.echo(key: "HostCallController", text: "call renderCanvas")
+            self.isAutograpaghinProcess = true
+            self.photoBothView?.hidePhotoboothcanvas()
             self.renderCanvas(image : image, slotInfo : requestedAutographSlotInfo)
         })
     }
@@ -778,6 +781,10 @@ class HostCallController: VideoCallController {
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
             setStatusMessage(type: .connected)
             if !self.isCallHangedUp{
+                // @abhishek : the selfie button should not appear to HOSt, while signing the autograpgh
+                if isAutograpaghinProcess{
+                    return
+                }
                 photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
             }
            
@@ -875,7 +882,7 @@ class HostCallController: VideoCallController {
         }
         
         // Below code is responsible befor the event start.
-        sessionHeaderLbl?.text = "Session starts in:"
+        sessionHeaderLbl?.text = "Session starts in:".localized() ?? ""
         
         var fontSize = 18
         var remainingTimeFontSize = 20
@@ -1051,7 +1058,7 @@ class HostCallController: VideoCallController {
         }
         
         // Below code is responsible befor the event start.
-        sessionHeaderLbl?.text = "Session ends in:"
+        sessionHeaderLbl?.text = "Session ends in:".localized() ?? ""
         
         var fontSize = 18
         var remainingTimeFontSize = 20
@@ -1749,7 +1756,7 @@ extension HostCallController {
                 return
         }
         
-        sessionHeaderLbl?.text = "Chat starts in:"
+        sessionHeaderLbl?.text = "Chat starts in:".localized() ?? ""
         
         let slotCount = self.eventInfo?.slotInfos?.count
         let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
@@ -1854,14 +1861,14 @@ extension HostCallController{
     
     @IBAction func endSessionEarly(sender:UIButton?){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end your session?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to end your session?".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "End session early", style: .default, handler: { (success) in
+        alert.addAction(UIAlertAction(title: "End session early".localized() ?? "", style: .default, handler: { (success) in
             
             self.makeRegistrationClose()
         }))
         
-        alert.addAction(UIAlertAction(title: "Keep registration open", style: .cancel, handler: { (success) in
+        alert.addAction(UIAlertAction(title: "Keep registration open".localized() ?? "", style: .cancel, handler: { (success) in
         }))
         
         self.present(alert, animated: true) {
@@ -2037,6 +2044,7 @@ extension HostCallController{
         
         Log.echo(key: "HostCallController", text: "send screenshot confirmation")
         isMutalPointReceived = true
+        self.photoBothView?.hidePhotoboothcanvas()
         sendScreenshotConfirmation()
     }
      
@@ -2205,6 +2213,8 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         print("done is calling")
         self.uploadAutographImage()
         self.resetCanvas()
+        isAutograpaghinProcess = false
+        self.photoBothView?.showPhotoboothcanvas()
         self.showToastWithMessage(text: "Saving Autograph..", time: 5.0)
     }
     

@@ -248,11 +248,11 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
         
         //Link your PayPal account to Chatalyze so you can receive payouts. More details
         
-        let text = "Link your PayPal account to Chatalyze so you can receive payouts. "
+        let text = "Link your PayPal account to Chatalyze so you can receive payouts. ".localized() ?? ""
         
         let textMutable = text.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         
-        let text1 = "More details"
+        let text1 = "More details".localized() ?? ""
         
         let text1Attr = text1.toAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(red: 172.0/255.0, green: 172.0/255.0, blue: 172.0/255.0, alpha: 1), isUnderLine: false)
         

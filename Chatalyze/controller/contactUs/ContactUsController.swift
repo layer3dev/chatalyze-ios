@@ -48,10 +48,10 @@ class ContactUsController: InterfaceExtendedController {
             NSAttributedString(string: "Subject", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
         
         emailField?.attributedPlaceholder =
-            NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
+            NSAttributedString(string: "Email".localized() ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
         
         nameField?.attributedPlaceholder =
-            NSAttributedString(string: "Full name", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
+            NSAttributedString(string: "Full name".localized() ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#8B959E"),NSAttributedString.Key.font:UIFont(name: "Nunito-Regular", size: fontSize)])
     }
     
     func painteInterface(){
