@@ -726,9 +726,9 @@ class VideoCallController : InterfaceExtendedController {
             return
         }
         
-        // @abhishek : as advised we need to show timer to user, irrespactive if event started or not.
+    
         if(!isReady){
-//            return
+            return
         }
         interval()
     }

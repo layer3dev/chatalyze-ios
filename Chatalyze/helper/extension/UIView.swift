@@ -60,7 +60,7 @@ public extension UIView {
         self.addConstraints(constraints)
     }
     
-    func addCenterVerticalConstraint(childView : UIView){
+    @objc func addCenterVerticalConstraint(childView : UIView){
         
         let metrics = [String : Int]()
         childView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ public extension UIView {
         self.addConstraints(constraints)
     }
     
-    func addWidthConstraint(width : CGFloat){
+    @objc func addWidthConstraint(width : CGFloat){
         let metrics = [String : Int]()
         let viewInfos = ["self" : self]
         let constraint = String(format : "H:[self(%f)]", width)
@@ -84,7 +84,7 @@ public extension UIView {
         
     }
     
-    func addHeightConstraint(height : CGFloat){
+    @objc func addHeightConstraint(height : CGFloat){
         
         let metrics = [String : Int]()
         let viewInfos = ["self" : self]
@@ -95,7 +95,7 @@ public extension UIView {
 }
 
 extension UIView {
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+    @objc func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
