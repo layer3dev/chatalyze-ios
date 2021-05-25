@@ -35,6 +35,7 @@ class HostCallController: VideoCallController {
     var autographSlotInfo : SlotInfo? = nil
     var isExtendChatDisbaled = false
     var isAutograpaghinProcess = false
+    var enableSelfieBtn = false
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -321,6 +322,15 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction func sendSelfieReq(_ sender: Any) {
+        if enableSelfieBtn{
+            Log.echo(key: "AbhishekD", text: "\(enableSelfieBtn)")
+            return
+        }
+        
+        if isAutograpaghinProcess{
+            Log.echo(key: "AbhishekD", text: "\(isAutograpaghinProcess)")
+            return
+        }
         sendTimeStampToUser()
     }
     
@@ -466,6 +476,7 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.reset()
                         
                         if let eventInfo = self.eventInfo{
+                            self.enableSelfieBtn = true
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
                         }
                         
@@ -478,6 +489,7 @@ class HostCallController: VideoCallController {
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
                                 weakSelf.selfieTimerView?.reset()
                                 weakSelf.processAutographSelfie()
+                                weakSelf.enableSelfieBtn = false
                             }
                            
                         }
@@ -783,6 +795,9 @@ class HostCallController: VideoCallController {
             if !self.isCallHangedUp{
                 // @abhishek : the selfie button should not appear to HOSt, while signing the autograpgh
                 if isAutograpaghinProcess{
+                    return
+                }
+                if !eventInfo.isHostManualScreenshot{
                     return
                 }
                 photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
@@ -2214,7 +2229,9 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         self.uploadAutographImage()
         self.resetCanvas()
         isAutograpaghinProcess = false
-        self.photoBothView?.showPhotoboothcanvas()
+        if eventInfo?.isHostManualScreenshot ?? false{
+            self.photoBothView?.showPhotoboothcanvas()
+        }
         self.showToastWithMessage(text: "Saving Autograph..", time: 5.0)
     }
     

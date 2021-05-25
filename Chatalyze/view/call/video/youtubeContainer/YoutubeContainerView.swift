@@ -171,8 +171,8 @@ class YoutubeContainerView : ExtendedView {
         }
         
         heightConstraint.priority = UILayoutPriority.init(rawValue: 999)
-        youtubePlayerView?.pauseVideo()
-        youtubePlayerView?.removeWebView()
+//        youtubePlayerView?.pauseVideo()
+//        youtubePlayerView?.removeWebView()
     }
 }
 
