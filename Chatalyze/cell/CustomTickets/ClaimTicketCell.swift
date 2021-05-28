@@ -149,7 +149,7 @@ class ClaimTicketCell: ExtendedTableCell {
     func slotInfoAfterCheckIn(withStartTime startTime : String?,andEndTime endTime : String) -> NSAttributedString{
         var discription : String?
         
-        discription = "Claim your ticket to meet\(info?.hostName ?? "").Upon claiming your ticket, you will receive a specific time between \(startTime ?? "") and \(endTime) for your meet and greet."
+        discription = "Claim your ticket to meet \(info?.hostName ?? ""). Upon claiming your ticket, you will receive a specific time between \(startTime ?? "") and \(endTime) for your meet and greet."
         let attText = NSAttributedString(string: discription ?? "")
         
         let mutableText = NSMutableAttributedString()

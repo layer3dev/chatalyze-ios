@@ -225,6 +225,12 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
                     //
                     Log.echo(key: "MyTicketesVerticalAdapter", text: "successfully claimed!")
                     
+                    guard let myTicketsController = MyTicketsVerticalController.instance()
+                        else{
+                        return
+                    }
+                    
+                    RootControllerManager().getCurrentController()?.navController?.pushViewController(myTicketsController, animated: true)
                 }
                 alert.addAction(action)
                 RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)

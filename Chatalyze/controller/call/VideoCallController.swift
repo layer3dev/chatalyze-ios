@@ -617,6 +617,7 @@ class VideoCallController : InterfaceExtendedController {
                 
                 self?.isEventCancelled = true
                 self?.eventCancelled()
+                
                 Log.echo(key: "yud", text: "Matched Event Id is \(String(describing: deletedEventID))")
             }
         }
