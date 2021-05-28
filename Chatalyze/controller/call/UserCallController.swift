@@ -274,6 +274,7 @@ class UserCallController: VideoCallController {
         
         if isCallStreaming{
             spotNumberView?.hideSpotInView()
+            userRootView?.youtubeContainerView?.hide()
             return
         }
         
@@ -1553,6 +1554,7 @@ class UserCallController: VideoCallController {
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "") == "delayed"){
             
             setStatusMessage(type: .eventDelay)
+            userRootView?.youtubeContainerView?.hide()
             return
             // statusLbl?.text = "This session has been delayed. Please stay tuned for an updated start time."
         }
@@ -1566,6 +1568,7 @@ class UserCallController: VideoCallController {
         
         self.eventInfo = nil
         setStatusMessage(type: .eventCancelled)
+        userRootView?.youtubeContainerView?.hide()
         //Event Cancelled
     }
     

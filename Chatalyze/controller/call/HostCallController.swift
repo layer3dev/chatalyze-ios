@@ -331,6 +331,7 @@ class HostCallController: VideoCallController {
             Log.echo(key: "AbhishekD", text: "\(isAutograpaghinProcess)")
             return
         }
+        enableSelfieBtn = true
         sendTimeStampToUser()
     }
     
@@ -476,7 +477,6 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.reset()
                         
                         if let eventInfo = self.eventInfo{
-                            self.enableSelfieBtn = true
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
                         }
                         
@@ -485,11 +485,11 @@ class HostCallController: VideoCallController {
                             
                             print(" I got the mimic screenshot")
                             if let weakSelf = self {
+                                weakSelf.enableSelfieBtn = false
                                 weakSelf.mimicScreenShotFlash()
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
                                 weakSelf.selfieTimerView?.reset()
                                 weakSelf.processAutographSelfie()
-                                weakSelf.enableSelfieBtn = false
                             }
                            
                         }
@@ -531,6 +531,59 @@ class HostCallController: VideoCallController {
             }
             
 
+        }
+    }
+    
+    
+    private func showupNextSlotInfo(){
+        
+        if let bufferSec = eventInfo?.bufferSeconds{
+            if bufferSec > 0{
+                
+                guard let startDate = self.eventInfo?.startDate
+                else{
+                    return
+                }
+                
+                guard let countdownInfo = startDate.countdownTimeFromNow()
+                else{
+                    return
+                }
+                self.preConnectLbl?.text = ""
+                let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
+                let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+                
+                var username = ""
+                if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName  {
+                    username = name
+                }
+                
+                var fontSize = 18
+                var remainingTimeFontSize = 20
+                if  UIDevice.current.userInterfaceIdiom == .pad{
+                    fontSize = 24
+                    remainingTimeFontSize = 26
+                }
+                
+                //Editing For the remaining time
+                var countdownTime = ""
+            
+                
+                if countdownInfo.hours != "00"{
+                    countdownTime =  "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
+                }else{
+                    countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
+                }
+                
+               
+                let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
+                
+                let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
+                Log.echo(key:"Abhije", text: "\(timeRemaining)")
+                
+                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+                hostActionContainer?.extendChatView?.hideExtendBtn()
+            }
         }
     }
     
@@ -892,6 +945,7 @@ class HostCallController: VideoCallController {
         if(!countdownInfo.isActive){
             
             // countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
+            showupNextSlotInfo()
             updateCallHeaderAfterEventStart()
             return
         }
@@ -968,15 +1022,17 @@ class HostCallController: VideoCallController {
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
         
-        if let bufferSec = eventInfo?.bufferSeconds{
-            if bufferSec > 0{
-                self.preConnectLbl?.text = ""
-                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
-                hostActionContainer?.extendChatView?.hideExtendBtn()
-                
+        if eventInfo?.isPreconnectEligible ?? false{
+            if let bufferSec = eventInfo?.bufferSeconds{
+                if bufferSec > 0{
+                    self.preConnectLbl?.text = ""
+                    upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+                    hostActionContainer?.extendChatView?.hideExtendBtn()
+                    
+                }
             }
-            
         }
+        
     }
     
     private func updateCallHeaderAfterEventStart(){
@@ -1092,6 +1148,7 @@ class HostCallController: VideoCallController {
         self.photoBothView?.hidePhotoboothcanvas()
         self.hostActionContainer?.extendChatView?.hideExtendBtn()
         if countdownTime == "00 : 00 : 00" {
+            upNextSlotInfoView?.hideUpNextSlotInfo()
             self.makeRegistrationClose()
             return
         }else{
@@ -1837,14 +1894,6 @@ extension HostCallController {
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
         
-        if let bufferSec = eventInfo?.bufferSeconds{
-            if bufferSec > 0{
-                self.preConnectLbl?.text = ""
-                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
-                hostActionContainer?.extendChatView?.hideExtendBtn()
-            }
-            
-        }
 
     }
 }

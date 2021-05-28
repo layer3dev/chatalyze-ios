@@ -77,15 +77,7 @@ class MyTicketsController: InterfaceExtendedController{
     }
     
     @IBAction func showUpcomingEvents(sender:UIButton?){
-    
-        highlightSelectedTab(with: upcomingBorder, tabLbl: upcomingLabel)
-        
-        currentEventShowing = .upcoming
-        
-        resetPastData()
-        resetCustomTicketData()
-        
-        fetchInfo()
+        showUpcoming()
     }
     
     
@@ -99,6 +91,17 @@ class MyTicketsController: InterfaceExtendedController{
         resetUpcomingData()
         
         fetchCustomTickets()
+    }
+    
+    func showUpcoming(){
+        highlightSelectedTab(with: upcomingBorder, tabLbl: upcomingLabel)
+        
+        currentEventShowing = .upcoming
+        
+        resetPastData()
+        resetCustomTicketData()
+        
+        fetchInfo()
     }
     
     
