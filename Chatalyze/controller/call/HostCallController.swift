@@ -323,12 +323,12 @@ class HostCallController: VideoCallController {
     
     @IBAction func sendSelfieReq(_ sender: Any) {
         if enableSelfieBtn{
-            Log.echo(key: "AbhishekD", text: "\(enableSelfieBtn)")
+            Log.echo(key: TAG, text: "\(enableSelfieBtn)")
             return
         }
         
         if isAutograpaghinProcess{
-            Log.echo(key: "AbhishekD", text: "\(isAutograpaghinProcess)")
+            Log.echo(key: TAG, text: "\(isAutograpaghinProcess)")
             return
         }
         enableSelfieBtn = true
@@ -481,6 +481,12 @@ class HostCallController: VideoCallController {
                         }
                         
                         
+                        self.selfieTimerView?.selfieInvokeListner = {[weak self] in
+                            
+                            Log.echo(key: "AbhishekD", text: "Selfie timer")
+                        }
+                        
+                        
                         self.selfieTimerView?.screenShotListner = {[weak self] in
                             
                             print(" I got the mimic screenshot")
@@ -491,7 +497,6 @@ class HostCallController: VideoCallController {
                                 weakSelf.selfieTimerView?.reset()
                                 weakSelf.processAutographSelfie()
                             }
-                           
                         }
                     }
                 }

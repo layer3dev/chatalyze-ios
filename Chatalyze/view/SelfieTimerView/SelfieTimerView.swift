@@ -25,6 +25,7 @@ class SelfieTimerView:ExtendedView {
     var selfieAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var whiteAttribute:[NSAttributedString.Key : Any] = [NSAttributedString.Key : Any]()
     var screenShotListner:(()->())?
+    var selfieInvokeListner :(()->())?
     
     @IBOutlet var selfieTimeLbl:UILabel?
     var isScreenShotTaken = false
@@ -192,6 +193,10 @@ class SelfieTimerView:ExtendedView {
                     self.playOne()
                     self.selfieTimerAnimateFlag = 0
                 }else{
+                    if let invokeSelfieBooth = self.selfieInvokeListner{
+                        invokeSelfieBooth()
+                    }
+                    
                     self.showSelfieTimerAnimationGrayandGreen()
                 }
             })
