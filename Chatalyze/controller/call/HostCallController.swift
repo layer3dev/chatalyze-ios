@@ -50,6 +50,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var earlyEndSessionView:UIView?
     @IBOutlet var upNextSlotInfoView:UpNextSlotInfoView?
     @IBOutlet var photoBothView : PhotoBoothView?
+    @IBOutlet var selfieWindowView : SelfieWindowView?
     
     //For animation.
     var isAnimating = false
@@ -484,6 +485,11 @@ class HostCallController: VideoCallController {
                         self.selfieTimerView?.selfieInvokeListner = {[weak self] in
                             
                             Log.echo(key: "AbhishekD", text: "Selfie timer")
+                            if let weakSelf = self {
+                                if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
+                                    weakSelf.selfieWindowView?.show()
+                                }
+                            }
                         }
                         
                         
@@ -491,6 +497,14 @@ class HostCallController: VideoCallController {
                             
                             print(" I got the mimic screenshot")
                             if let weakSelf = self {
+                                weakSelf.hostRootView?.getSnapshot(info: weakSelf.eventInfo, completion: {(image) in
+                                    if let image = image{
+                                        weakSelf.selfieWindowView?.setSelfieImage(with: image)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 02) {
+                                            self?.selfieWindowView?.hide()
+                                        }
+                                    }
+                                })
                                 weakSelf.enableSelfieBtn = false
                                 weakSelf.mimicScreenShotFlash()
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
@@ -504,6 +518,9 @@ class HostCallController: VideoCallController {
         })
     }
     
+    @IBAction func closeSefleWindow(){
+        
+    }
     
     func sendTimeStampToUser(){
         if let requiredTimeStamp =  self.getTimeStampAfterEightSecond(){
@@ -554,6 +571,7 @@ class HostCallController: VideoCallController {
                 else{
                     return
                 }
+                Log.echo(key: "BufferInfo", text: "\(countdownInfo)")
                 self.preConnectLbl?.text = ""
                 let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
                 let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)

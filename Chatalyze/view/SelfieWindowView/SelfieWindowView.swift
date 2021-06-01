@@ -13,13 +13,30 @@ class SelfieWindowView:ExtendedView {
     
     @IBOutlet weak var hostStream : UIView?
     @IBOutlet weak var LocalStream : UIView?
-    @IBOutlet weak var finalmemoryImg : UIImageView?
+    @IBOutlet weak var finalMemoryImg : UIImageView?
     @IBOutlet weak var reTakeSelfieBtn : UIButton?
     @IBOutlet weak var photoboothLbl : UILabel?
+    @IBOutlet weak var crossBtn : UIButton?
     
     override func viewDidLayout() {
         super.viewDidLayout()
     }
     
+    func setSelfieImage(with image:UIImage?){
+        
+        guard let image = image else{
+            Log.echo(key: "AbhishekD", text: "No Image found!")
+            return
+        }
+        self.finalMemoryImg?.image = image
+    }
+    
+    func show(){
+        self.isHidden = false
+    }
+    
+    func hide(){
+        self.isHidden = true
+    }
     
 }
