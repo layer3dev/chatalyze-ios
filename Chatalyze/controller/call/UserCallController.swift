@@ -278,7 +278,7 @@ class UserCallController: VideoCallController {
             return
         }
         
-        var hostRunningSlot = 0
+        var hostRunningSlot = -1
         guard let currentSlotInfo = self.eventInfo?.myUpcomingSlotInfo else{
             Log.echo(key: self.TAG, text: "FAILED! to get USER current Slot info")
             spotNumberView?.hideSpotInView()
@@ -289,6 +289,9 @@ class UserCallController: VideoCallController {
             hostRunningSlot = hostCurrentSlot.index
         }
         
+        Log.echo(key: "SlotInfo", text: " Host current Slot is\(hostRunningSlot)")
+        Log.echo(key: "SlotInfo", text: " user current Slot is\(currentSlotInfo.index)")
+        
     
         let spotInfo = currentSlotInfo.index - hostRunningSlot
         var desiredSpotInfoFormat : String?
@@ -298,7 +301,7 @@ class UserCallController: VideoCallController {
         }else{
             desiredSpotInfoFormat = "\(spotInfo)"
         }
-        
+        Log.echo(key: "SlotInfo", text: " Spot is: \(spotInfo)")
         spotNumberView?.showSlotInViewInfo(withSlotNo: desiredSpotInfoFormat ?? "",
                                            andTime: "EST : \(currentSlotInfo.slotInfo?.startDate?.toTimeString() ?? "")" )
     }
