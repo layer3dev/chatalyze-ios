@@ -323,16 +323,7 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction func sendSelfieReq(_ sender: Any) {
-        if enableSelfieBtn{
-            Log.echo(key: TAG, text: "\(enableSelfieBtn)")
-            return
-        }
-        
-        if isAutograpaghinProcess{
-            Log.echo(key: TAG, text: "\(isAutograpaghinProcess)")
-            return
-        }
-        enableSelfieBtn = true
+        photoBothView?.disableBtn()
         sendTimeStampToUser()
     }
     
@@ -488,6 +479,8 @@ class HostCallController: VideoCallController {
                             if let weakSelf = self {
                                 if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
                                     weakSelf.selfieWindowView?.show()
+                                    weakSelf.selfieWindowView?.showLocal(localMediaPackage: self?.localMediaPackage)
+                                    
                                 }
                             }
                         }
@@ -505,7 +498,7 @@ class HostCallController: VideoCallController {
                                         }
                                     }
                                 })
-                                weakSelf.enableSelfieBtn = false
+                                weakSelf.photoBothView?.enableBtn()
                                 weakSelf.mimicScreenShotFlash()
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
                                 weakSelf.selfieTimerView?.reset()
@@ -556,59 +549,7 @@ class HostCallController: VideoCallController {
         }
     }
     
-    
-    private func showupNextSlotInfo(){
-        
-        if let bufferSec = eventInfo?.bufferSeconds{
-            if bufferSec > 0{
-                
-                guard let startDate = self.eventInfo?.startDate
-                else{
-                    return
-                }
-                
-                guard let countdownInfo = startDate.countdownTimeFromNow()
-                else{
-                    return
-                }
-                Log.echo(key: "BufferInfo", text: "\(countdownInfo)")
-                self.preConnectLbl?.text = ""
-                let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
-                let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
-                
-                var username = ""
-                if let name = self.eventInfo?.mergeSlotInfo?.upcomingSlot?.user?.firstName  {
-                    username = name
-                }
-                
-                var fontSize = 18
-                var remainingTimeFontSize = 20
-                if  UIDevice.current.userInterfaceIdiom == .pad{
-                    fontSize = 24
-                    remainingTimeFontSize = 26
-                }
-                
-                //Editing For the remaining time
-                var countdownTime = ""
-            
-                
-                if countdownInfo.hours != "00"{
-                    countdownTime =  "\(countdownInfo.hours) : \(countdownInfo.minutes) : \(countdownInfo.seconds)"
-                }else{
-                    countdownTime = "\(countdownInfo.minutes) : \(countdownInfo.seconds)"
-                }
-                
-               
-                let totalSlots = "\(slotCount)".toAttributedString(font:"Nunito-ExtraBold", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
-                
-                let timeRemaining = countdownTime.toAttributedString(font: "Nunito-ExtraBold", size: remainingTimeFontSize, color: UIColor(hexString: "#FAA579"), isUnderLine: false)
-                Log.echo(key:"Abhije", text: "\(timeRemaining)")
-                
-                upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
-                hostActionContainer?.extendChatView?.hideExtendBtn()
-            }
-        }
-    }
+
     
     func getTimeStampAfterEightSecond()->Date?{
         
@@ -682,16 +623,7 @@ class HostCallController: VideoCallController {
 
     
     private func processAutographSelfie(){
-  
-//       guard let currentSlot = self.eventInfo?.mergeSlotInfo?.currentSlot
-//        else{return}
-//      if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
-//
-//        if endDate < 60.0 && endDate >= 55{
-//          return
-//        }
-//      }
-        
+   
         Log.echo(key: "HostCallController", text: "processAutographSelfie")
         guard let eventInfo = self.eventInfo
             else{
@@ -876,7 +808,10 @@ class HostCallController: VideoCallController {
                 if !eventInfo.isHostManualScreenshot{
                     return
                 }
-                photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
+                if !SlotFlagInfo.isCallHangedUp{
+                    photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
+                }
+                
             }
            
             return
@@ -964,11 +899,12 @@ class HostCallController: VideoCallController {
             else{
                 return
         }
-        
+       
+       
         if(!countdownInfo.isActive){
             
             // countdownLabel?.updateText(label: "Your chat is finished ", countdown: "finished")
-            showupNextSlotInfo()
+           
             updateCallHeaderAfterEventStart()
             return
         }
@@ -1049,6 +985,8 @@ class HostCallController: VideoCallController {
             if let bufferSec = eventInfo?.bufferSeconds{
                 if bufferSec > 0{
                     self.preConnectLbl?.text = ""
+                    sessionTotalSlotNumLbl?.text = ""
+                    self.photoBothView?.hidePhotoboothcanvas()
                     upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
                     hostActionContainer?.extendChatView?.hideExtendBtn()
                     
@@ -1917,7 +1855,18 @@ extension HostCallController {
         
         sessionTotalSlotNumLbl?.attributedText = totalAttrText
         
-
+        if eventInfo?.mergeSlotInfo?.upcomingSlot?.isPreconnectEligible ?? false{
+                    if let bufferSec = eventInfo?.bufferSeconds{
+                        if bufferSec > 0{
+                            self.preConnectLbl?.text = ""
+                            sessionCurrentSlotLbl?.text = ""
+                            self.photoBothView?.hidePhotoboothcanvas()
+                            upNextSlotInfoView?.showUpComingSlotInfo(slotNo: "\(currentSlot + 1)", upComingUser: username, time: timeRemaining.string, totalSlots: totalSlots.string)
+                            hostActionContainer?.extendChatView?.hideExtendBtn()
+        
+                        }
+                    }
+                }
     }
 }
 

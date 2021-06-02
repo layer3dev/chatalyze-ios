@@ -40,6 +40,7 @@ class MyTicketsVerticalController: MyTicketsController{
         super.viewWillAppear(animated)
         
         self.showNavigationBar()
+        paintHideBackButton()
     }
     
     func hitEventOnSegmentIO(){

@@ -229,7 +229,10 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
                         else{
                         return
                     }
-                    
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.leftBarButtonItems = []
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.hidesBackButton = true
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.setHidesBackButton(true, animated: true)
+
                     RootControllerManager().getCurrentController()?.navController?.pushViewController(myTicketsController, animated: true)
                 }
                 alert.addAction(action)
