@@ -13,6 +13,8 @@ class PhotoBoothView: ExtendedView {
     
     var eventInfo : EventInfo?
     
+    @IBOutlet weak var selfieBtn : UIButton?
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         hidePhotoboothcanvas()
@@ -28,6 +30,16 @@ class PhotoBoothView: ExtendedView {
         }else{
             self.isHidden = true
         }
+    }
+    
+    func disableBtn(){
+        self.selfieBtn?.isEnabled = false
+        self.selfieBtn?.setBackgroundImage(#imageLiteral(resourceName: "dot"), for: .disabled)
+    }
+    
+    func enableBtn(){
+        self.selfieBtn?.isEnabled = true
+        self.selfieBtn?.setBackgroundImage(#imageLiteral(resourceName: "photoboothCam"), for: .normal)
     }
     
     func hidePhotoboothcanvas(){

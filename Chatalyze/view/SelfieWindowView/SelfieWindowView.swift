@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import TwilioVideo
 
 class SelfieWindowView:ExtendedView {
     
@@ -17,11 +18,13 @@ class SelfieWindowView:ExtendedView {
     @IBOutlet weak var reTakeSelfieBtn : UIButton?
     @IBOutlet weak var photoboothLbl : UILabel?
     @IBOutlet weak var crossBtn : UIButton?
+    @IBOutlet weak var localVideoView : LocalHostVideoView?
+
     
     override func viewDidLayout() {
         super.viewDidLayout()
     }
-    
+        
     func setSelfieImage(with image:UIImage?){
         
         guard let image = image else{
@@ -37,6 +40,25 @@ class SelfieWindowView:ExtendedView {
     
     func hide(){
         self.isHidden = true
+    }
+    
+    func showLocal(localMediaPackage : CallMediaTrack?){
+        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
+        localMediaPackage?.mediaTrack = mediaTrack
+        
+        mediaTrack.start()
+        
+        guard let localPreviewView = localVideoView?.streamingVideoView else{
+            return
+        }
+        
+        guard let renderer = localVideoView?.getRenderer() else{
+            return
+        }
+        
+        localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(localPreviewView)
+        localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(renderer)
+        
     }
     
 }

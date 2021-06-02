@@ -2064,6 +2064,9 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="75"/>
                                     </constraint>
                                 </constraints>
+                                <connections>
+                                    <outlet property="selfieBtn" destination="3bJ-d8-0Hk" id="sC6-KN-hZJ"/>
+                                </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tc-nK-KIJ" userLabel="upNextView" customClass="UpNextSlotInfoView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="62" y="361.66666666666669" width="290" height="172.66666666666669"/>
@@ -2960,9 +2963,24 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-Co-Cqc">
                                         <rect key="frame" x="5" y="45.333333333333314" width="362.66666666666669" height="412"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-D1-DvQ">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-D1-DvQ" customClass="LocalHostVideoView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="179" height="412"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dc3-um-SX5" customClass="TVIVideoView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="179" height="412"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="dc3-um-SX5" secondAttribute="trailing" id="LRR-X9-cTu"/>
+                                                    <constraint firstItem="dc3-um-SX5" firstAttribute="leading" secondItem="Okw-D1-DvQ" secondAttribute="leading" id="R8Y-KP-aa4"/>
+                                                    <constraint firstItem="dc3-um-SX5" firstAttribute="top" secondItem="Okw-D1-DvQ" secondAttribute="top" id="iVn-ah-Xgv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dc3-um-SX5" secondAttribute="bottom" id="nPG-hB-tJ8"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="streamingVideoView" destination="dc3-um-SX5" id="qvZ-at-Hu2"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-UM-owU">
                                                 <rect key="frame" x="184" y="0.0" width="178.66666666666663" height="412"/>
@@ -2996,7 +3014,7 @@
                                     <outlet property="LocalStream" destination="2xO-UM-owU" id="tnc-Pj-SRD"/>
                                     <outlet property="crossBtn" destination="1kB-Ux-eUd" id="Z7K-QB-BQ2"/>
                                     <outlet property="finalMemoryImg" destination="XbE-hQ-Twp" id="k5X-Au-pAq"/>
-                                    <outlet property="hostStream" destination="Okw-D1-DvQ" id="PhF-3v-2OE"/>
+                                    <outlet property="localVideoView" destination="Okw-D1-DvQ" id="yUk-a9-fnP"/>
                                     <outlet property="photoboothLbl" destination="cd9-RU-Hq6" id="CXq-zi-ahq"/>
                                     <outlet property="reTakeSelfieBtn" destination="ntN-Qg-SCw" id="Ohv-1a-GeX"/>
                                 </connections>
@@ -3198,6 +3216,9 @@
         <image name="request_autograph" width="75" height="75"/>
         <image name="slowNetwork" width="128" height="128"/>
         <image name="videocam_on" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

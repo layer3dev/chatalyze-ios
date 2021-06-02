@@ -75,7 +75,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
                        self.startTimer()
                    }else{
                        self.dismiss(animated: true) {
-                           RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "Your session start time has been updated.", successTitle: "OK", rejectTitle: "", showCancel: false, completion: nil)
+//                           RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: "Your session start time has been updated.", successTitle: "OK", rejectTitle: "", showCancel: false, completion: nil)
                        }
                    }
                }

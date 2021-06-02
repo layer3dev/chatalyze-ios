@@ -17,6 +17,7 @@ class LocalMediaVideoTrack {
     var trackTwo : LocalMediaTrackWrapper?
     
     
+    
     private let doesRequireMultipleTracks : Bool
     
     
