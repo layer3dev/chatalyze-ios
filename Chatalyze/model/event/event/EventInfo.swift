@@ -39,6 +39,7 @@ class EventInfo: NSObject {
     //var tag : Tag? //:todo
     var isFree : Bool?
     var backgroundURL : String?
+    var selfieFrameURL : String?
     var eventFeedbackInfo : String?
     var createdAt : String?
     var updatedAt : String?
@@ -96,6 +97,7 @@ class EventInfo: NSObject {
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
+        selfieFrameURL = json["selfieFrameURL"].string
         isRecordingEnabled = json["recordingEnabled"].boolValue
         room_id = json["room_id"].stringValue
         UserDefaults.standard.set(room_id, forKey: "room_id")
