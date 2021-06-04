@@ -39,6 +39,7 @@ class EventInfo: NSObject {
     //var tag : Tag? //:todo
     var isFree : Bool?
     var backgroundURL : String?
+    var selfieFrameURL : String?
     var eventFeedbackInfo : String?
     var createdAt : String?
     var updatedAt : String?

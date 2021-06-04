@@ -56,8 +56,8 @@ class SelfieWindowView:ExtendedView {
             return
         }
         
-        localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(localPreviewView)
-        localMediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(renderer)
+        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(localPreviewView)
+        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(renderer)
         
     }
     
