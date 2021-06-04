@@ -63,7 +63,7 @@ class ClaimTicketCell: ExtendedTableCell {
         endCheckInTime(time: info.start ?? "")
         initializeDesiredDatesFormat(info: info)
         self.eventNamelbl?.text = info.title
-        self.hostNameLbl?.text = info.hostName
+        self.hostNameLbl?.text = "Hosted By:" + "\(info.hostName ?? "")"
         self.sessionId = info.room_id
         self.selectionStyle = .none
         rootAdapter?.root?.controller?.noTicketLbl?.isHidden = true
@@ -208,7 +208,7 @@ class ClaimTicketCell: ExtendedTableCell {
         
         let eventStartTime = "\(startTime ?? "" )" + " \(timezone ?? "" )" + " and" + " \(endTime )" + " \(timezone ?? "")"
         
-        discription = "Claim your ticket to meet \(info?.hostName ?? ""). Upon claiming your ticket, you will receive a specific time between" + " \(eventStartTime) " + "for your meet and greet."
+        discription = "Claim your ticket to meet Host : \(info?.hostName ?? ""). Upon claiming your ticket, you will receive a specific time between" + " \(eventStartTime) " + "for your meet and greet."
         
         
         let attText = NSAttributedString(string: discription ?? "")

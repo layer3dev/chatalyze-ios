@@ -62,7 +62,7 @@ class EventInfo: NSObject {
     var displaySpot : Bool?
     var room_id:String?
     var organization: Bool?
-    var selfieFrameURL : String?
+
     
     
     var isAutographEnabled : Bool{

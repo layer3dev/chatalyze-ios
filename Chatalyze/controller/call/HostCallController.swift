@@ -935,7 +935,8 @@ class HostCallController: VideoCallController {
         //Editing  for the current Chat
         
         let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
-        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+        var currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
+        currentSlot = currentSlot - (self.eventInfo?.emptySlotsArray?.count ?? 0)
         
         if slotCount <= 0{
             //This info will only be show if slots are greater than one.
@@ -943,6 +944,7 @@ class HostCallController: VideoCallController {
         }
         
         let currentSlotText = "Chat \(currentSlot+1): "
+        
         let currentMutatedSlotText = currentSlotText.toMutableAttributedString(font: "Nunito-Regular", size: fontSize, color: UIColor(hexString: "#9a9a9a"), isUnderLine: false)
         
         //new username without last name
@@ -1789,10 +1791,12 @@ extension HostCallController {
                 return
         }
         
+        
         sessionHeaderLbl?.text = "Chat starts in:".localized() ?? ""
         
-        let slotCount = self.eventInfo?.slotInfos?.count
-        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+        let slotCount =  ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
+        var currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
+        currentSlot = currentSlot - (self.eventInfo?.emptySlotsArray?.count ?? 0)
         
         var fontSize = 18
         var remainingTimeFontSize = 20
