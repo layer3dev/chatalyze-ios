@@ -108,7 +108,19 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
-    
+        DispatchQueue.main.async { [self] in
+            if let selfieFrame = eveninfo.selfieFrameURL{
+                Log.echo(key: "SelfieFrameLINK", text: "I have received the selfie frame, will apply this one")
+//                self.backGrndImg?.isHidden = true
+                if let url = URL(string: selfieFrame){
+                    self.backGrndImg?.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "newSplash"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+                        self.backGrndImg?.image = image
+                    })
+                    return
+                }
+        }
+        
+        }
         
             guard let imgURL = eveninfo.backgroundURL
                 else{

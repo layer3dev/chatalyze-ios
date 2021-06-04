@@ -105,23 +105,14 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if self.root?.controller?.currentEventShowing == .custom{
-            //            if indexPath.row < self.customTicketsListingArray.count{
-            //
-            //                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTicketCell", for: indexPath) as? CustomTicketCell else{
-            //                    return UITableViewCell()
-            //                }
-            //                cell.rootAdapter = self
-            //                cell.delegate = self
-            //                cell.selectionStyle = .none
-            //                cell.fillInfo(info: customTicketsListingArray[indexPath.row])
-            //                return cell
-            
+        
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ClaimTicketCell", for: indexPath) as? ClaimTicketCell else{
                 return UITableViewCell()
                 
             }
             cell.rootAdapter = self
             cell.delegate = self
+            cell.controller = self.root
             cell.selectionStyle = .none
             cell.borderView?.layer.borderColor = UIColor(hexString: "#E4E4E4").cgColor
             cell.borderView?.layer.borderWidth = 1

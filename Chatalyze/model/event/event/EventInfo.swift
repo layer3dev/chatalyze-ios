@@ -61,6 +61,7 @@ class EventInfo: NSObject {
     var displaySpot : Bool?
     var room_id:String?
     var organization: Bool?
+    var selfieFrameURL : String?
     
     
     var isAutographEnabled : Bool{
@@ -96,6 +97,7 @@ class EventInfo: NSObject {
         end = json["end"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
+        selfieFrameURL = json["selfieFrameURL"].string
         isRecordingEnabled = json["recordingEnabled"].boolValue
         room_id = json["room_id"].stringValue
         UserDefaults.standard.set(room_id, forKey: "room_id")
