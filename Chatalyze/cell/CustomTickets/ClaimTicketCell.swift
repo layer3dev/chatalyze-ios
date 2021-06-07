@@ -63,7 +63,7 @@ class ClaimTicketCell: ExtendedTableCell {
         endCheckInTime(time: info.start ?? "")
         initializeDesiredDatesFormat(info: info)
         self.eventNamelbl?.text = info.title
-        self.hostNameLbl?.text = "Hosted By:" + "\(info.hostName ?? "")"
+        self.hostNameLbl?.text = "Hosted By : " + "\(info.hostName ?? "")"
         self.sessionId = info.room_id
         self.selectionStyle = .none
         rootAdapter?.root?.controller?.noTicketLbl?.isHidden = true
@@ -173,11 +173,11 @@ class ClaimTicketCell: ExtendedTableCell {
         
         
         let part1 = NSAttributedString(string: "Your check-in time is from ")
-        let checkInTimeInfo = "\(checkinTime ?? "") " + "\(timezone ?? "")" + "- \(endCheckinTime ?? "")" + " \(timezone ?? "")"
+        let checkInTimeInfo = "\(checkinTime ?? "") " + "- \(endCheckinTime ?? "")" + " \(timezone ?? "")"
         
         let text = "\(checkInTimeInfo). Please note that failure to check in on time may result in loss of your spot."
 
-        let eventStartTimeinfo = "\(formattedStartTime ?? "" )" + " \(timezone ?? "" )" + " and" + " \(formattedEndTime ?? "")" + " \(timezone ?? "")"
+        let eventStartTimeinfo = "\(formattedStartTime ?? "" )" + " and" + " \(formattedEndTime ?? "")" + " \(timezone ?? "")"
         
         let text3 = " Upon check in, you will receive a specific time between " + "\(eventStartTimeinfo)" + " for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time."
         
@@ -206,7 +206,7 @@ class ClaimTicketCell: ExtendedTableCell {
     func slotInfoAfterCheckIn(withStartTime startTime : String?,andEndTime endTime : String) -> NSAttributedString{
         var discription : String?
         
-        let eventStartTime = "\(startTime ?? "" )" + " \(timezone ?? "" )" + " and" + " \(endTime )" + " \(timezone ?? "")"
+        let eventStartTime = "\(startTime ?? "" )" +  " and" + " \(endTime )" + " \(timezone ?? "")"
         
         discription = "Claim your ticket to meet Host : \(info?.hostName ?? ""). Upon claiming your ticket, you will receive a specific time between" + " \(eventStartTime) " + "for your meet and greet."
         

@@ -935,8 +935,7 @@ class HostCallController: VideoCallController {
         //Editing  for the current Chat
         
         let slotCount = ((self.eventInfo?.slotInfos?.count ?? 0) - (self.eventInfo?.emptySlotsArray?.count ?? 0))
-        var currentSlot = (self.eventInfo?.currentSlotInfo?.index ?? 0)
-        currentSlot = currentSlot - (self.eventInfo?.emptySlotsArray?.count ?? 0)
+        let currentSlot = (self.eventInfo?.upcomingSlotInfo?.index ?? 0)
         
         if slotCount <= 0{
             //This info will only be show if slots are greater than one.

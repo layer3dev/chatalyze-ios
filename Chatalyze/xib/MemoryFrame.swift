@@ -53,7 +53,8 @@ class MemoryFrame:XibTemplate{
         super.layoutSubviews()
        
         paintInterface()
-        loadbackgrndImg(eveninfo: userInfo!)
+        loadbackgrndImg(eveninfo: userInfo ?? EventInfo())
+        setCustomSelfieFrame()
         checkForPoweredByChatalyzeLogo()
         chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
@@ -108,20 +109,6 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
-        DispatchQueue.main.async { [self] in
-            if let selfieFrame = eveninfo.selfieFrameURL{
-                Log.echo(key: "SelfieFrameLINK", text: "I have received the selfie frame, will apply this one")
-//                self.backGrndImg?.isHidden = true
-                if let url = URL(string: selfieFrame){
-                    self.backGrndImg?.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "newSplash"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-                        self.backGrndImg?.image = image
-                    })
-                    return
-                }
-        }
-        
-        }
-        
             guard let imgURL = eveninfo.backgroundURL
                 else{
                 backGrndImg?.backgroundColor = .white
@@ -131,9 +118,18 @@ class MemoryFrame:XibTemplate{
                 backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
             }
-        // to check if powered by chatalyze is being hidden
-        
         }
+    
+    func setCustomSelfieFrame(){
+        guard let imgURL = userInfo?.selfieFrameURL
+            else{
+                return
+        }
+        if let url = URL(string: imgURL){
+            backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            })
+        }
+    }
     
     
     func checkForPoweredByChatalyzeLogo(){

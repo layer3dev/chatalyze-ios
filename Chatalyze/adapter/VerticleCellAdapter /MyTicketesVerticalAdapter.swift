@@ -8,6 +8,7 @@
 
 
 import UIKit
+import SwiftyJSON
 
 class MyTicketesVerticalAdapter: ExtendedView {
     
@@ -209,17 +210,22 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
             return
         }
        
-        PurchaseTicketManager().fethcInfo(userId: info.userId ?? Int(), sessionId: info.sessionid ?? Int(), date: "\(Date())") { (success, response) in
+        PurchaseTicketManager().fethcInfo(userId: info.userId ?? Int(), sessionId: info.sessionid ?? Int(), date: "\(Date())") { (success, message) in
+            RootControllerManager().getCurrentController()?.showLoader()
+            
+            guard let myTicketsController = MyTicketsVerticalController.instance()
+                else{
+                return
+            }
+            
             if success{
-                let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket", preferredStyle: .alert)
+                RootControllerManager().getCurrentController()?.stopLoader()
+                let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket!", preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ok", style: .default) { (success) in
                     //
                     Log.echo(key: "MyTicketesVerticalAdapter", text: "successfully claimed!")
                     
-                    guard let myTicketsController = MyTicketsVerticalController.instance()
-                        else{
-                        return
-                    }
+                    
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.leftBarButtonItems = []
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.hidesBackButton = true
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.setHidesBackButton(true, animated: true)
@@ -228,7 +234,18 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
                 }
                 alert.addAction(action)
                 RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
+            }else{
+                RootControllerManager().getCurrentController()?.stopLoader()
+                RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: message ?? "", successTitle: "Ok", showCancel: false) { _ in
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.leftBarButtonItems = []
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.hidesBackButton = true
+                    RootControllerManager().getCurrentController()?.navController?.navigationItem.setHidesBackButton(true, animated: true)
+
+                    RootControllerManager().getCurrentController()?.navController?.pushViewController(myTicketsController, animated: true)
+                }
+                
             }
+            
         }
     }
     
