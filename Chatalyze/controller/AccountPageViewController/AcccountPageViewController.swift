@@ -23,8 +23,7 @@ class AcccountPageViewController: UIPageViewController {
     let memoryController = MemoriesController.instance()
     let settingController = SettingController.instance()
     let sessionController = SessionController.instance()
-    let customTicketController = CustomTicketsController.instance()
-    
+   
     
     
     lazy var pages: [UIViewController] = ({
@@ -45,7 +44,7 @@ class AcccountPageViewController: UIPageViewController {
         memoryController?.delegate = self
         settingController?.delegate = self
         sessionController?.delegate = self
-        customTicketController?.delegate? = self
+       
         //Do any additional setup after loading the view.
     }
     
@@ -85,7 +84,7 @@ class AcccountPageViewController: UIPageViewController {
 }
 
 
-extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInstet,getTicketsScrollInsets,getCustomTicketScrollInsets {
+extension AcccountPageViewController:getMemoryScrollInsets,getSettingScrollInstet,getTicketsScrollInsets {
     func getCutomtickScrollInset(offset: CGFloat?) {
         guard let offset = offset else {
             return

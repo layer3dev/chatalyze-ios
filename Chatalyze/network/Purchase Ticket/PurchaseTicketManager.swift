@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class PurchaseTicketManager: NSObject {
     
-    func fethcInfo (userId : Int? , sessionId: Int? , date: String, completionHandler : @escaping (_ success : Bool, _ response:JSON?)->Void){
+    func fethcInfo (userId : Int? , sessionId: Int? , date: String, completionHandler : @escaping (_ success : Bool, _ error:String?)->Void){
         
         
         let url = AppConnectionConfig.webServiceURL + "/bookings/calls/purchaseTicket/"
@@ -32,21 +32,24 @@ class PurchaseTicketManager: NSObject {
         
     }
     
-    private func handleResponse(success : Bool, response: JSON?,completionHandler : @escaping (_ success : Bool, _ response:JSON?)->Void){
+    private func handleResponse(success : Bool, response: JSON?,completionHandler : @escaping (_ success : Bool, _ error:String?)->Void){
         
         Log.echo(key: "PurchaseTicketManager", text: "Responsw from PurchaseTicketManager is :\(response)")
+        let message = response?["message"].stringValue
         
         if !success{
-            completionHandler(false,nil)
-        }
-        
-        
-        guard let rawInfo = response else {
-            completionHandler(false,nil)
+            completionHandler(false,message)
             return
         }
         
-       completionHandler(true,rawInfo)
+        
+        
+        guard let _ = response else {
+            completionHandler(false,message)
+            return
+        }
+
+       completionHandler(true,message)
         
     }
 }

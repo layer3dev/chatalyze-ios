@@ -45,6 +45,7 @@ class MemoryFrame:XibTemplate{
     @IBOutlet var memoryLead:NSLayoutConstraint?
     
     @IBOutlet weak var logoBottomHight: NSLayoutConstraint?
+    @IBOutlet weak var selfieFrameImg : UIImageView?
     
     var isLogoRemoved:Bool?
     var isLogoRemeovedForOrganizationHost : Bool?
@@ -53,7 +54,8 @@ class MemoryFrame:XibTemplate{
         super.layoutSubviews()
        
         paintInterface()
-        loadbackgrndImg(eveninfo: userInfo!)
+        loadbackgrndImg(eveninfo: userInfo ?? EventInfo())
+        setCustomSelfieFrame()
         checkForPoweredByChatalyzeLogo()
         chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
@@ -108,8 +110,6 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
-    
-        
             guard let imgURL = eveninfo.backgroundURL
                 else{
                 backGrndImg?.backgroundColor = .white
@@ -119,9 +119,19 @@ class MemoryFrame:XibTemplate{
                 backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
             }
-        // to check if powered by chatalyze is being hidden
-        
         }
+    
+    func setCustomSelfieFrame(){
+        guard let imgURL = userInfo?.selfieFrameURL
+            else{
+                return
+        }
+        self.backGrndImg?.isHidden = true
+        if let url = URL(string: imgURL){
+            selfieFrameImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: .delayPlaceholder, completed: { (image, error, cache, url) in
+            })
+        }
+    }
     
     
     func checkForPoweredByChatalyzeLogo(){

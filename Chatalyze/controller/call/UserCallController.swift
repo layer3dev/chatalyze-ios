@@ -36,7 +36,7 @@ class UserCallController: VideoCallController {
     var defaultImage : UIImage?
     var isPreConnected = false
     var isConnectionDroppedInBtw = false
-    
+    var hostRunningSlot = -1
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -278,22 +278,22 @@ class UserCallController: VideoCallController {
             return
         }
         
-        var hostRunningSlot = -1
         guard let currentSlotInfo = self.eventInfo?.myUpcomingSlotInfo else{
             Log.echo(key: self.TAG, text: "FAILED! to get USER current Slot info")
             spotNumberView?.hideSpotInView()
             return
         }
         
+        
         if let hostCurrentSlot = self.eventInfo?.currentSlotInfo  {
             hostRunningSlot = hostCurrentSlot.index
+            
         }
-        
-        Log.echo(key: "SlotInfo", text: " Host current Slot is\(hostRunningSlot)")
+        Log.echo(key: "showSlotInViewInfo", text: "HOST CURRENT SLOT : \(hostRunningSlot)")
         Log.echo(key: "SlotInfo", text: " user current Slot is\(currentSlotInfo.index)")
         
     
-        let spotInfo = currentSlotInfo.index - hostRunningSlot
+        let spotInfo = abs(currentSlotInfo.index - hostRunningSlot)
         var desiredSpotInfoFormat : String?
         
         if spotInfo < 10{
