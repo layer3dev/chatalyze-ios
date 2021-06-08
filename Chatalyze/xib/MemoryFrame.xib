@@ -21,6 +21,7 @@
                 <outlet property="logoBottomHight" destination="tha-YU-DBA" id="bfF-av-7Gl"/>
                 <outlet property="memoryStickerView" destination="QVu-wr-dDL" id="ORt-e3-QPE"/>
                 <outlet property="screenShotPic" destination="2rn-XK-VAz" id="dIJ-Kk-t9f"/>
+                <outlet property="selfieFrameImg" destination="MCz-kJ-ya3" id="rq1-KW-YKa"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,6 +29,9 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="924"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MCz-kJ-ya3">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="924"/>
+                </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="75G-Tx-KN0">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="924"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -124,10 +128,14 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2rn-XK-VAz" secondAttribute="trailing" constant="30" id="1cg-Hv-X6v"/>
+                <constraint firstItem="MCz-kJ-ya3" firstAttribute="leading" secondItem="IKX-E3-gpU" secondAttribute="leading" id="9p7-6b-nsC"/>
                 <constraint firstItem="2rn-XK-VAz" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="bottom" constant="10" id="A2E-T2-aQc"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="top" secondItem="2rn-XK-VAz" secondAttribute="bottom" constant="10" id="BbK-Ww-MJM"/>
                 <constraint firstItem="75G-Tx-KN0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="D1s-al-dCa"/>
+                <constraint firstItem="IKX-E3-gpU" firstAttribute="trailing" secondItem="MCz-kJ-ya3" secondAttribute="trailing" id="DfJ-Ct-DTb"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="bottom" secondItem="75G-Tx-KN0" secondAttribute="bottom" constant="-10" id="GY2-g1-g0H"/>
+                <constraint firstItem="MCz-kJ-ya3" firstAttribute="top" secondItem="IKX-E3-gpU" secondAttribute="top" id="ZTC-GK-dTm"/>
+                <constraint firstItem="IKX-E3-gpU" firstAttribute="bottom" secondItem="MCz-kJ-ya3" secondAttribute="bottom" id="aHg-6W-QER"/>
                 <constraint firstItem="QVu-wr-dDL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" multiplier="15" constant="30" id="aOW-p6-aER">
                     <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                 </constraint>

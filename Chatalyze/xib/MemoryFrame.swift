@@ -45,6 +45,7 @@ class MemoryFrame:XibTemplate{
     @IBOutlet var memoryLead:NSLayoutConstraint?
     
     @IBOutlet weak var logoBottomHight: NSLayoutConstraint?
+    @IBOutlet weak var selfieFrameImg : UIImageView?
     
     var isLogoRemoved:Bool?
     var isLogoRemeovedForOrganizationHost : Bool?
@@ -125,8 +126,9 @@ class MemoryFrame:XibTemplate{
             else{
                 return
         }
+        self.backGrndImg?.isHidden = true
         if let url = URL(string: imgURL){
-            backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
+            selfieFrameImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: .delayPlaceholder, completed: { (image, error, cache, url) in
             })
         }
     }
