@@ -45,7 +45,6 @@ class MemoryFrame:XibTemplate{
     @IBOutlet var memoryLead:NSLayoutConstraint?
     
     @IBOutlet weak var logoBottomHight: NSLayoutConstraint?
-    @IBOutlet weak var selfieFrameImg : UIImageView?
     
     var isLogoRemoved:Bool?
     var isLogoRemeovedForOrganizationHost : Bool?
@@ -115,6 +114,8 @@ class MemoryFrame:XibTemplate{
                 backGrndImg?.backgroundColor = .white
                     return
             }
+        Log.echo(key: "Nitin sir", text: " backgrnd Frame\(String(describing: URL(string: imgURL)))")
+  
             if let url = URL(string: imgURL){
                 backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
@@ -128,9 +129,13 @@ class MemoryFrame:XibTemplate{
         }
         self.backGrndImg?.isHidden = true
         if let url = URL(string: imgURL){
-            selfieFrameImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: .delayPlaceholder, completed: { (image, error, cache, url) in
+            backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: .delayPlaceholder, completed: { (image, error, cache, url) in
             })
         }
+        
+//        if let url = URL(string: imgURL) {
+//            self.backGrndImg?.image = UIImage(url: url)
+//        }
     }
     
     
@@ -187,3 +192,16 @@ class MemoryFrame:XibTemplate{
         memory?.font = UIFont(name: "Nunito-Bold", size: 20)
     }
 }
+extension UIImage {
+  convenience init?(url: URL?) {
+    guard let url = url else { return nil }
+            
+    do {
+      self.init(data: try Data(contentsOf: url))
+    } catch {
+      print("Cannot load image from url: \(url) with error: \(error)")
+      return nil
+    }
+  }
+}
+
