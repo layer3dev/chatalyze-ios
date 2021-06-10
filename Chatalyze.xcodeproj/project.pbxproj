@@ -1174,6 +1174,8 @@
 		FA3CC1452046CA2A007438A3 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC1432046CA2A007438A3 /* UserInfo.swift */; };
 		FA3CC14E2046CD6D007438A3 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC14C2046CD6D007438A3 /* DeviceInfo.swift */; };
 		FA3CC14F2046CD6D007438A3 /* SessionDeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3CC14D2046CD6D007438A3 /* SessionDeviceInfo.swift */; };
+		FA3EAFC02670C22300309930 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EAFBF2670C22300309930 /* ImageDownloader.swift */; };
+		FA3EAFC12670C22300309930 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EAFBF2670C22300309930 /* ImageDownloader.swift */; };
 		FA3FAA062075F5D000CC4AF8 /* ScreenshotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA052075F5D000CC4AF8 /* ScreenshotInfo.swift */; };
 		FA3FAA082076037B00CC4AF8 /* RequestAutographController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA072076037B00CC4AF8 /* RequestAutographController.swift */; };
 		FA3FAA0C2076046400CC4AF8 /* RequestAutographRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3FAA0B2076046400CC4AF8 /* RequestAutographRootView.swift */; };
@@ -1997,6 +1999,7 @@
 		FA3CC1432046CA2A007438A3 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		FA3CC14C2046CD6D007438A3 /* DeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		FA3CC14D2046CD6D007438A3 /* SessionDeviceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDeviceInfo.swift; sourceTree = "<group>"; };
+		FA3EAFBF2670C22300309930 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		FA3FAA052075F5D000CC4AF8 /* ScreenshotInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotInfo.swift; sourceTree = "<group>"; };
 		FA3FAA072076037B00CC4AF8 /* RequestAutographController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAutographController.swift; sourceTree = "<group>"; };
 		FA3FAA0B2076046400CC4AF8 /* RequestAutographRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAutographRootView.swift; sourceTree = "<group>"; };
@@ -4865,6 +4868,14 @@
 			path = deviceInfo;
 			sourceTree = "<group>";
 		};
+		FA3EAFBE2670C20900309930 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				FA3EAFBF2670C22300309930 /* ImageDownloader.swift */,
+			);
+			path = ImageDownloader;
+			sourceTree = "<group>";
+		};
 		FA3FAA042075F5C300CC4AF8 /* autograph */ = {
 			isa = PBXGroup;
 			children = (
@@ -5609,6 +5620,7 @@
 		FAA00171203ED471003C8A74 /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				FA3EAFBE2670C20900309930 /* ImageDownloader */,
 				992C6F2B24A210590080B3BD /* Player */,
 				47E7CC7D229279E8004BAD3C /* Segment */,
 				47F689CC21F5FEE600DBDD72 /* XibTemplate */,
@@ -7239,6 +7251,7 @@
 				47D0B12C21A6C4B5006376A8 /* SyncTimer.swift in Sources */,
 				47D0B12D21A6C4B5006376A8 /* EventPaymentProcessor.swift in Sources */,
 				FA91054C21D61FB300060AFF /* LogNotification.swift in Sources */,
+				FA3EAFC12670C22300309930 /* ImageDownloader.swift in Sources */,
 				47C3891C22AE892400A46A5E /* VerifyForEarlyCallProcessor.swift in Sources */,
 				47D0B12E21A6C4B5006376A8 /* OpenCallAlertController.swift in Sources */,
 				FAD87E3D25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */,
@@ -7870,6 +7883,7 @@
 				47E97BD0214BCFA90046109B /* OpenCallAlertController.swift in Sources */,
 				FA91054B21D61FB300060AFF /* LogNotification.swift in Sources */,
 				47C3891B22AE892400A46A5E /* VerifyForEarlyCallProcessor.swift in Sources */,
+				FA3EAFC02670C22300309930 /* ImageDownloader.swift in Sources */,
 				47E2F02A20DBC1DD006BD93B /* SubmitCallReviewProcessor.swift in Sources */,
 				FA581947204173E600D088F1 /* NavigationBarCustomizer.swift in Sources */,
 				FAD87E3C25C865F40026B6B0 /* RequestDefaultImage.swift in Sources */,
