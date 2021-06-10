@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SDWebImage
+import Alamofire
 
 
 class MemoryFrame:XibTemplate{
@@ -48,13 +49,13 @@ class MemoryFrame:XibTemplate{
     
     var isLogoRemoved:Bool?
     var isLogoRemeovedForOrganizationHost : Bool?
+    var selfieFrameImg : UIImage?
     
     override func layoutSubviews() {
         super.layoutSubviews()
        
         paintInterface()
         loadbackgrndImg(eveninfo: userInfo ?? EventInfo())
-        setCustomSelfieFrame()
         checkForPoweredByChatalyzeLogo()
         chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
@@ -109,33 +110,22 @@ class MemoryFrame:XibTemplate{
     }
     
     private func loadbackgrndImg(eveninfo: EventInfo){
-            guard let imgURL = eveninfo.backgroundURL
-                else{
-                backGrndImg?.backgroundColor = .white
-                    return
-            }
-        Log.echo(key: "Nitin sir", text: " backgrnd Frame\(String(describing: URL(string: imgURL)))")
-  
+        
+        if let img = selfieFrameImg {
+            Log.echo(key: "getSnapshot", text: "I have receuved the img")
+            self.backGrndImg?.image = img
+            return
+        }
+        
+        if let imgURL = eveninfo.backgroundURL {
             if let url = URL(string: imgURL){
                 backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
             }
         }
-    
-    func setCustomSelfieFrame(){
-        guard let imgURL = userInfo?.selfieFrameURL
-            else{
-                return
-        }
-        self.backGrndImg?.isHidden = true
-        if let url = URL(string: imgURL){
-            backGrndImg?.sd_setImage(with: url, placeholderImage: UIImage(named: "base_img"), options: .delayPlaceholder, completed: { (image, error, cache, url) in
-            })
-        }
+    // if no background found, put it white
+        backGrndImg?.backgroundColor = .white
         
-//        if let url = URL(string: imgURL) {
-//            self.backGrndImg?.image = UIImage(url: url)
-//        }
     }
     
     

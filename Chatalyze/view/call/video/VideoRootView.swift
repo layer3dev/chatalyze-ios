@@ -15,6 +15,8 @@ class VideoRootView: ExtendedView {
     
     var testView = MemoryFrame()
     var defaultImage : UIImage?
+    var selfieFrameImage : UIImage?
+    var eventBannerImg : UIImage?
     
     @IBOutlet var headerTopConstraint:NSLayoutConstraint?
     var isStatusBarhiddenDuringAnimation = true
@@ -157,27 +159,62 @@ class VideoRootView: ExtendedView {
     
     func getSnapshot(info:EventInfo?,completion:@escaping ((_ image:UIImage?)->())){
         
-        guard let url = info?.eventBannerUrl
-            else{
-                self.getPostImageSnapshot(info: info, eventLogo: nil, completion: completion)
+        //        guard let url = info?.eventBannerUrl
+        //            else{
+        //                self.getPostImageSnapshot(info: info, eventLogo: nil, completion: completion)
+        //                return
+        //        }
+        //        CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
+        //            return 0
+        //        }) { (success, image) in
+        //            self.getPostImageSnapshot(info: info, eventLogo: image, completion: completion)
+        //            return
+        //        }
+        
+        
+        if let eventInfo = info{
+            if let bannerUrl = eventInfo.eventBannerUrl{
+                Log.echo(key: "getSnapshot", text: " got bannerUrl, will check if i have frame URL as well")
+                CacheImageLoader.sharedInstance.loadImage(bannerUrl, token: {()->(Int) in
+                    return 0
+                }) { success, bannerImg in
+                    
+                    // check if it contains selfie frame as well
+                    if let frameUrl = eventInfo.selfieFrameURL{
+                        Log.echo(key: "getSnapshot", text: " got frame URL as well")
+
+                        CacheImageLoader.sharedInstance.loadImage(frameUrl, token: {()->(Int) in return 0}) { success, frameImg in
+                            self.getPostImageSnapshot(info: info, eventLogo: bannerImg, frameImg: frameImg , completion: completion)
+                            return
+                        }
+                    }else{
+                        self.getPostImageSnapshot(info: info, eventLogo: bannerImg, frameImg: nil , completion: completion)
+                        return
+                    }
+                }
+            }else if let frameUrl = eventInfo.selfieFrameURL{
+                Log.echo(key: "getSnapshot", text: "only got frame URL")
+                CacheImageLoader.sharedInstance.loadImage(frameUrl, token: {()->(Int) in return 0}) { success, frameImg in
+                    self.getPostImageSnapshot(info: info, eventLogo: nil, frameImg: frameImg , completion: completion)
+                    return
+                }
+            }else{
+                Log.echo(key: "getSnapshot", text: "No URL found")
+                self.getPostImageSnapshot(info: info, eventLogo: nil, frameImg: nil , completion: completion)
                 return
+            }
         }
-        CacheImageLoader.sharedInstance.loadImage(url, token: { () -> (Int) in
-            return 0
-        }) { (success, image) in
-            self.getPostImageSnapshot(info: info, eventLogo: image, completion: completion)
-            return
-        }
+        
     }
     
  
-    func getPostImageSnapshot(info:EventInfo?,eventLogo:UIImage?, completion: @escaping ((_ image:UIImage?)->())){
+    func getPostImageSnapshot(info:EventInfo?,eventLogo:UIImage?,frameImg : UIImage?, completion: @escaping ((_ image:UIImage?)->())){
         
         Log.echo(key: "VideoRootView", text: "call get Video Frame")
             
         getVideoFrame(listener: {[weak self] (local, remote) in
             Log.echo(key: "VideoRootView", text: "received BOTH frame")
-            self?.renderScreenshot(localFrame: local, remoteFrame: remote, eventLogo : eventLogo, info: info, completion: completion)
+            self?.renderScreenshot(localFrame: local, frameImg: frameImg, remoteFrame: remote, eventLogo : eventLogo, info: info, completion: completion)
         })
     }
     
@@ -252,7 +289,7 @@ class VideoRootView: ExtendedView {
     
     
 
-   private func renderScreenshot(localFrame : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
+    private func renderScreenshot(localFrame : UIImage?, frameImg : UIImage?, remoteFrame : UIImage?, eventLogo : UIImage?, info:EventInfo?,completion:((_ image:UIImage?)->())){
        
        testView = MemoryFrame()
    
@@ -280,6 +317,7 @@ class VideoRootView: ExtendedView {
     Log.echo(key: "vijay_FRR", text: "\(size)")
     
        testView.screenShotPic?.image = finalImage
+        testView.selfieFrameImg = frameImg
        testView.memoryStickerView?.renderImage(image: eventLogo)
       testView.isLogoRemeovedForOrganizationHost = isLogoRemeovedForOrganizationHost
     Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(isLogoRemeovedForOrganizationHost)")
