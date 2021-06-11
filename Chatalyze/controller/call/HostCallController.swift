@@ -697,6 +697,11 @@ class HostCallController: VideoCallController {
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             if endDate < 2.0 && endDate >= 1.0 {
                 self.trackCurrentChatCompleted()
+                SlotFlagInfo.isCallHangedUp = false
+                resetMuteActions()
+                hostActionContainer?.hangupView?.deactivate()
+                let hashedUserId = currentSlot.user?.hashedId ?? ""
+                updateUserOfHangup(hashedUserId : hashedUserId, hangup : false)
                 return
             }
         }
