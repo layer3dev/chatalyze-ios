@@ -37,6 +37,7 @@ class UserCallController: VideoCallController {
     var isPreConnected = false
     var isConnectionDroppedInBtw = false
     var hostRunningSlot = -1
+    var memoryImageListner : (()->())?
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -46,6 +47,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     @IBOutlet var spotNumberView : SpotInLineView?
+    
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -735,6 +737,7 @@ class UserCallController: VideoCallController {
         
         initializeGetCommondForTakeScreenShot()
         registerForHostManualTriggeredTimeStamp()
+        showAutographCanvas()
         registerForListeners()
         self.selfieTimerView?.delegate = self
         self.userRootView?.delegateCutsom = self
@@ -1118,6 +1121,10 @@ class UserCallController: VideoCallController {
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
                                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                                if let lisnter = self.memoryImageListner{
+                                    Log.echo(key: "memoryImageListner", text: "Listener actiicated!")
+                                    lisnter()
+                                }
                                 saveImage()
                             
                                 
@@ -1150,6 +1157,16 @@ class UserCallController: VideoCallController {
             })
         }
     }
+    
+    func showAutographCanvas(){
+
+          self.memoryImageListner = {
+              Log.echo(key: "memoryImageListner", text: "Listened successfully!")
+              if let info = self.canvasInfo{
+                  self.prepateCanvas(info: info)
+              }
+          }
+      }
     
     func registerForHostManualTriggeredTimeStamp(){
         
@@ -1926,7 +1943,7 @@ extension UserCallController {
             //                return
             //            }
             self.lockDeviceOrientationInPortrait()
-            self.prepateCanvas(info : self.canvasInfo)
+//            self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
