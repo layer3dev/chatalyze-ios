@@ -149,9 +149,10 @@ class MemoryFrame:XibTemplate{
     func checkIfChatalyzelogoToBeRemoved(isLogoActive: Bool){
        
         if isLogoActive{
-            self.logoBottomHight?.constant = 0
+//            self.logoBottomHight?.constant = 0
+            chatlyzeLbl?.text = ""
         }else{
-            self.logoBottomHight?.constant = 40
+//            self.logoBottomHight?.constant = 40
         }
         self.view?.layoutIfNeeded()
     }

@@ -29,6 +29,7 @@ class UserCallController: VideoCallController {
     
     var memoryImage:UIImage?
     var recordingLblTopAnchor: NSLayoutConstraint?
+    var memoryImageListner : (()->())?
     
     //Animation Responsible
     var isAnimating = false
@@ -37,7 +38,6 @@ class UserCallController: VideoCallController {
     var isPreConnected = false
     var isConnectionDroppedInBtw = false
     var hostRunningSlot = -1
-    var memoryImageListner : (()->())?
     //variable and outlet responsible for the SelfieTimer
     var isSelfieTimerInitiated = false
     @IBOutlet var selfieTimerView:SelfieTimerView?
@@ -47,7 +47,6 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     @IBOutlet var spotNumberView : SpotInLineView?
-    
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -737,8 +736,8 @@ class UserCallController: VideoCallController {
         
         initializeGetCommondForTakeScreenShot()
         registerForHostManualTriggeredTimeStamp()
-        showAutographCanvas()
         registerForListeners()
+        showAutographCanvas()
         self.selfieTimerView?.delegate = self
         self.userRootView?.delegateCutsom = self
     }
@@ -1123,7 +1122,7 @@ class UserCallController: VideoCallController {
                                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
                                 if let lisnter = self.memoryImageListner{
                                     Log.echo(key: "memoryImageListner", text: "Listener actiicated!")
-                                    lisnter()
+                                   lisnter()
                                 }
                                 saveImage()
                             
@@ -1159,14 +1158,14 @@ class UserCallController: VideoCallController {
     }
     
     func showAutographCanvas(){
-
-          self.memoryImageListner = {
-              Log.echo(key: "memoryImageListner", text: "Listened successfully!")
-              if let info = self.canvasInfo{
-                  self.prepateCanvas(info: info)
-              }
-          }
-      }
+        
+        self.memoryImageListner = {
+            Log.echo(key: "memoryImageListner", text: "Listened successfully!")
+            if let info = self.canvasInfo{
+                self.prepateCanvas(info: info)
+            }
+        }
+    }
     
     func registerForHostManualTriggeredTimeStamp(){
         
@@ -1926,15 +1925,15 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            guard let currentSlot = self.myActiveUserSlot
-                else{
-                    return
-            }
+//            guard let currentSlot = self.myActiveUserSlot
+//                else{
+//                    return
+//            }
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
-            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
-                return
-            }
+//            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
+//                return
+//            }
             //            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
             //                return
             //            }
@@ -1974,38 +1973,44 @@ extension UserCallController {
     
     private func prepateCanvas(info : CanvasInfo?){
         
-        guard let selfieImage = memoryImage
-            else{
-                return
-        }
-        
-        if let slotidFromCanvas = info?.currentSlotId{
-            if let currentId = self.myLiveUnMergedSlot?.id{
-                if slotidFromCanvas != currentId{
+       
+            Log.echo(key: "PankajD", text: "memory image received!")
+            guard let selfieImage = self.memoryImage
+                else{
+                Log.echo(key: "PankajD", text: "@1962")
+                    return
+            }
+            
+            if let slotidFromCanvas = info?.currentSlotId{
+                if let currentId = self.myLiveUnMergedSlot?.id{
+                    if slotidFromCanvas != currentId{
+                        Log.echo(key: "PankajD", text: "@169")
+                        return
+                    }
+                }else{
+                    Log.echo(key: "PankajD", text: "@1973")
                     return
                 }
             }else{
+
+    //            toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get
+                Log.echo(key: "PankajD", text: "@1979")
                 return
+
             }
-        }else{
-
-//            toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get
-            return
-
-        }
-        
-        if  let image = self.defaultImage{
             
-            self.userRootView?.canvasContainer?.show(with: image,info:info)
-            Log.echo(key: "panku", text: "defaultImage found")
-        }else{
-            Log.echo(key: "panku", text: "defaultImage not found")
-            self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
-        }
-        self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
-        self.userRootView?.remoteVideoContainerView?.updateForSignature()
-        self.updateScreenshotLoaded(info : info)
-        
+            if  let image = self.defaultImage{
+                
+                self.userRootView?.canvasContainer?.show(with: image,info:info)
+                Log.echo(key: "panku", text: "defaultImage found")
+            }else{
+                Log.echo(key: "panku", text: "defaultImage not found")
+                self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+            }
+            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
+            self.userRootView?.remoteVideoContainerView?.updateForSignature()
+            self.updateScreenshotLoaded(info : info)
+
     }
     
     func downloadDefaultImage(with url : String){

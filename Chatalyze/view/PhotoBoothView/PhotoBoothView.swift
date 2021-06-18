@@ -12,8 +12,10 @@ import UIKit
 class PhotoBoothView: ExtendedView {
     
     var eventInfo : EventInfo?
+    @IBOutlet var photoboothWidthAnchor : NSLayoutConstraint?
     
     @IBOutlet weak var selfieBtn : UIButton?
+    @IBOutlet weak var hostActionStack: UIStackView?
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -27,8 +29,11 @@ class PhotoBoothView: ExtendedView {
         
         if info.isHostManualScreenshot{
             self.isHidden = false
+            showPhotoboothcanvas()
         }else{
             self.isHidden = true
+            self.hostActionStack?.removeArrangedSubview(self)
+            layoutIfNeeded()
         }
     }
     
@@ -39,15 +44,23 @@ class PhotoBoothView: ExtendedView {
     
     func enableBtn(){
         self.selfieBtn?.isEnabled = true
-        self.selfieBtn?.setBackgroundImage(#imageLiteral(resourceName: "photoboothCam"), for: .normal)
+        self.selfieBtn?.setBackgroundImage(#imageLiteral(resourceName: "photoBooth"), for: .normal)
     }
     
     func hidePhotoboothcanvas(){
         self.isHidden = true
+        photoboothWidthAnchor?.constant = 0
     }
     
     func showPhotoboothcanvas(){
-        self.isHidden = false
+//        self.isHidden = false
+        
+        if UIDevice.current.userInterfaceIdiom == .pad{
+            photoboothWidthAnchor?.constant = 100
+        }else{
+            photoboothWidthAnchor?.constant = 80
+        }
+        layoutIfNeeded()
     }
     
 }

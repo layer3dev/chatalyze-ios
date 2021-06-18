@@ -493,9 +493,7 @@ class HostCallController: VideoCallController {
                                 weakSelf.hostRootView?.getSnapshot(info: weakSelf.eventInfo, completion: {(image) in
                                     if let image = image{
                                         weakSelf.selfieWindowView?.setSelfieImage(with: image)
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 02) {
-                                            self?.selfieWindowView?.hide()
-                                        }
+                
                                     }
                                 })
                                 weakSelf.photoBothView?.enableBtn()
@@ -677,7 +675,7 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         
         processEvent()
-        
+//        photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
@@ -697,11 +695,6 @@ class HostCallController: VideoCallController {
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             if endDate < 2.0 && endDate >= 1.0 {
                 self.trackCurrentChatCompleted()
-                SlotFlagInfo.isCallHangedUp = false
-                resetMuteActions()
-                hostActionContainer?.hangupView?.deactivate()
-                let hashedUserId = currentSlot.user?.hashedId ?? ""
-                updateUserOfHangup(hashedUserId : hashedUserId, hangup : false)
                 return
             }
         }

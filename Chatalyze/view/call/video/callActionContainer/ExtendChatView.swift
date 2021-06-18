@@ -37,7 +37,7 @@ class ExtendChatView: ExtendedView {
     
     
     func showExtendBtn(){
-        extendBtnWidthAnchor?.constant = 120
+        extendBtnWidthAnchor?.constant = 50
         self.layoutIfNeeded()
     }
     

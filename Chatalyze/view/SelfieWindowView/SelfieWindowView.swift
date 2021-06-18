@@ -15,10 +15,10 @@ class SelfieWindowView:ExtendedView {
     @IBOutlet weak var hostStream : UIView?
     @IBOutlet weak var LocalStream : UIView?
     @IBOutlet weak var finalMemoryImg : UIImageView?
-    @IBOutlet weak var reTakeSelfieBtn : UIButton?
-    @IBOutlet weak var photoboothLbl : UILabel?
-    @IBOutlet weak var crossBtn : UIButton?
     @IBOutlet weak var localVideoView : LocalHostVideoView?
+    @IBOutlet weak var retakeContainerWidthAnchor : NSLayoutConstraint?
+    @IBOutlet weak var saveContainerWidthAnchor : NSLayoutConstraint?
+    @IBOutlet weak var selfieActionContainerWidthAnchor : NSLayoutConstraint?
 
     
     override func viewDidLayout() {
@@ -43,22 +43,17 @@ class SelfieWindowView:ExtendedView {
     }
     
     func showLocal(localMediaPackage : CallMediaTrack?){
-        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
-        localMediaPackage?.mediaTrack = mediaTrack
+        self.finalMemoryImg?.image = nil
         
-        mediaTrack.start()
-        
-        guard let localPreviewView = localVideoView?.streamingVideoView else{
-            return
-        }
-        
-        guard let renderer = localVideoView?.getRenderer() else{
-            return
-        }
-        
-        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(localPreviewView)
-        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(renderer)
+//        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(localPreviewView)
+//        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(renderer)
         
     }
+    
+    @IBAction func closePhotoBooth(){
+        hide()
+    }
+    
+    
     
 }
