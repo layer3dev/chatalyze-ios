@@ -14,6 +14,8 @@ import Toast_Swift
 import CRToast
 import TwilioVideo
 import Analytics
+import ChatSDK
+import MessagingSDK
 
 class HostCallController: VideoCallController {
     
@@ -324,7 +326,7 @@ class HostCallController: VideoCallController {
     
     @IBAction func sendSelfieReq(_ sender: Any) {
         photoBothView?.disableBtn()
-        sendTimeStampToUser()
+        selfieWindowView?.show()
     }
     
     
@@ -473,17 +475,17 @@ class HostCallController: VideoCallController {
                         }
                         
                         
-                        self.selfieTimerView?.selfieInvokeListner = {[weak self] in
-                            
-                            Log.echo(key: "AbhishekD", text: "Selfie timer")
-                            if let weakSelf = self {
-                                if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
-                                    weakSelf.selfieWindowView?.show()
-                                    weakSelf.selfieWindowView?.showLocal(localMediaPackage: self?.localMediaPackage)
-                                    
-                                }
-                            }
-                        }
+//                        self.selfieTimerView?.selfieInvokeListner = {[weak self] in
+//
+//                            Log.echo(key: "AbhishekD", text: "Selfie timer")
+//                            if let weakSelf = self {
+//                                if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
+//                                    weakSelf.selfieWindowView?.show()
+//                                    weakSelf.selfieWindowView?.showLocal(localMediaPackage: self?.localMediaPackage)
+//
+//                                }
+//                            }
+//                        }
                         
                         
                         self.selfieTimerView?.screenShotListner = {[weak self] in
@@ -509,8 +511,33 @@ class HostCallController: VideoCallController {
         })
     }
     
-    @IBAction func closeSefleWindow(){
-        
+    
+    @IBAction func photoboothSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth selfie Action tapped!!")
+        selfieTimerView?.mimicFlash()
+    }
+    
+    @IBAction func retakeSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth Re-Take selfie Action tapped!!")
+        self.photoboothSelfieAction()
+    }
+    
+    @IBAction func saveSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth selfie save Action tapped!!")
+    }
+    
+    @IBAction func showChatDeskWindow(){
+        Log.echo(key: TAG, text: "Chat view Controller tapped")
+        Log.echo(key: self.TAG, text: "chatControllerShown called")
+        do {
+            let chatEngine = try ChatEngine.engine()
+    
+            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+           self.presentModally(viewController)
+//            self.navigationController?.present(viewController, animated: true, completion: nil)
+        } catch {
+            // handle error
+        }
     }
     
     func sendTimeStampToUser(){
@@ -537,13 +564,11 @@ class HostCallController: VideoCallController {
             
 
 //
-            self.selfieTimerView?.reset()
+//            self.selfieTimerView?.reset()
             
-            if let eventInfo = self.eventInfo{
-                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
-            }
-            
-
+//            if let eventInfo = self.eventInfo{
+//                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
+//            }
         }
     }
     
@@ -567,7 +592,7 @@ class HostCallController: VideoCallController {
         var requiredDate :Date?
         if eventInfo.isHostManualScreenshot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
-             requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
+             requiredDate = calendar.date(byAdding: .second, value: 0, to: date)
         }else{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
             requiredDate = calendar.date(byAdding: .second, value: 5, to: date)
@@ -2314,6 +2339,22 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
+    }
+    
+    private func presentModally(_ viewController: UIViewController,
+                                presenationStyle: UIModalPresentationStyle = .overFullScreen) {
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "RETURN TO CHAT", style: .done, target: self, action: #selector(dismissViewController))
+        leftBarButtonItem.tintColor = UIColor(hexString: AppThemeConfig.themeColor)
+        
+        viewController.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = presenationStyle
+        present(navigationController, animated: true)
+    }
+    @objc private func dismissViewController() {
+      dismiss(animated: true, completion: nil)
     }
 }
 

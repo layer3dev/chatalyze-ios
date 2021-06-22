@@ -37,7 +37,12 @@ class ExtendChatView: ExtendedView {
     
     
     func showExtendBtn(){
-        extendBtnWidthAnchor?.constant = 50
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            extendBtnWidthAnchor?.constant = 70
+        }else{
+            extendBtnWidthAnchor?.constant = 50
+        }
+        
         self.layoutIfNeeded()
     }
     

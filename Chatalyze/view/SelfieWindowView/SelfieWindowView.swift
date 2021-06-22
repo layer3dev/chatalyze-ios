@@ -16,11 +16,8 @@ class SelfieWindowView:ExtendedView {
     @IBOutlet weak var LocalStream : UIView?
     @IBOutlet weak var finalMemoryImg : UIImageView?
     @IBOutlet weak var localVideoView : LocalHostVideoView?
-    @IBOutlet weak var retakeContainerWidthAnchor : NSLayoutConstraint?
-    @IBOutlet weak var saveContainerWidthAnchor : NSLayoutConstraint?
-    @IBOutlet weak var selfieActionContainerWidthAnchor : NSLayoutConstraint?
+    @IBOutlet weak var streamStackViews  : UIStackView?
 
-    
     override func viewDidLayout() {
         super.viewDidLayout()
     }
@@ -32,6 +29,7 @@ class SelfieWindowView:ExtendedView {
             return
         }
         self.finalMemoryImg?.image = image
+        self.streamStackViews?.isHidden = true
     }
     
     func show(){
@@ -43,14 +41,14 @@ class SelfieWindowView:ExtendedView {
     }
     
     func showLocal(localMediaPackage : CallMediaTrack?){
+        self.streamStackViews?.isHidden = false
         self.finalMemoryImg?.image = nil
         
-//        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(localPreviewView)
-//        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(renderer)
         
     }
     
     @IBAction func closePhotoBooth(){
+        self.finalMemoryImg?.image = nil
         hide()
     }
     
