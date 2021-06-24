@@ -95,25 +95,10 @@ class SessionTicketCell : ExtendedTableCell {
         self.title?.text = "\(info.eventTitle ?? "")"
         self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
         
-//        if info.sponserId == nil{
-//            self.sponsorView?.isHidden = true
-//        }else{
-//            self.sponsorView?.isHidden = false
-//        }
-        
-//        if let bannerUrl = info.callschedule?.user?.profileImage{
-//            if let url = URL(string:bannerUrl){
-//
-//                profileImage?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
-//                })
-//                return
-//            }
-//            fetchBackgroudImg()
-//            fetchProfileImage()
-//            return
-//        }
         fetchBackgroudImg()
         fetchProfileImage()
+        mainView?.layer.cornerRadius = 12
+        sponsorView?.layer.cornerRadius = 12
     }
         
     func fetchProfileImage(){
@@ -128,6 +113,8 @@ class SessionTicketCell : ExtendedTableCell {
                 self.profileImage?.image = #imageLiteral(resourceName: "user_placeholder")
             }
 //
+        }else{
+            self.profileImage?.image = #imageLiteral(resourceName: "user_placeholder")
         }
         
     }
@@ -140,7 +127,11 @@ class SessionTicketCell : ExtendedTableCell {
                     self.sponsorView?.image = image
                 })
 //                return
+            }else{
+                self.sponsorView?.backgroundColor = .systemGray
             }
+        }else{
+            self.sponsorView?.backgroundColor = .systemGray
         }
     }
     

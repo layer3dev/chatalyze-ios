@@ -38,6 +38,7 @@ class HostCallController: VideoCallController {
     var isExtendChatDisbaled = false
     var isAutograpaghinProcess = false
     var enableSelfieBtn = false
+    var memoryImage:UIImage?
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -141,6 +142,16 @@ class HostCallController: VideoCallController {
             self.recordingLblTopAnchor?.isActive = false
             recordingLblTopAnchor = recordingLbl.topAnchor.constraint(equalTo: self.localCameraPreviewView?.bottomAnchor ?? NSLayoutAnchor(), constant: 2)
             recordingLblTopAnchor?.isActive = true
+        }
+    }
+    
+    private func initializeGetCommondForTakeScreenShot(){
+        selfieTimerView?.screenShotListner = {
+            self.hostRootView?.getSnapshot(info:  self.eventInfo, completion: { [self](image) in
+                self.memoryImage = image
+                selfieWindowView?.setSelfieImage(with: image)
+                self.mimicScreenShotFlash()
+            })
         }
     }
     
@@ -327,6 +338,7 @@ class HostCallController: VideoCallController {
     @IBAction func sendSelfieReq(_ sender: Any) {
         photoBothView?.disableBtn()
         selfieWindowView?.show()
+        sendTimeStampToUser()
     }
     
     
@@ -413,6 +425,7 @@ class HostCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
         hostActionContainer?.extendChatView?.hideExtendBtn()
+        initializeGetCommondForTakeScreenShot()
     }
     
     private func registerForHangupRequest(){
@@ -474,20 +487,6 @@ class HostCallController: VideoCallController {
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
                         }
                         
-                        
-//                        self.selfieTimerView?.selfieInvokeListner = {[weak self] in
-//
-//                            Log.echo(key: "AbhishekD", text: "Selfie timer")
-//                            if let weakSelf = self {
-//                                if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
-//                                    weakSelf.selfieWindowView?.show()
-//                                    weakSelf.selfieWindowView?.showLocal(localMediaPackage: self?.localMediaPackage)
-//
-//                                }
-//                            }
-//                        }
-                        
-                        
                         self.selfieTimerView?.screenShotListner = {[weak self] in
                             
                             print(" I got the mimic screenshot")
@@ -514,7 +513,16 @@ class HostCallController: VideoCallController {
     
     @IBAction func photoboothSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie Action tapped!!")
-        selfieTimerView?.mimicFlash()
+        
+        if let eventInfo = self.eventInfo{
+            selfieTimerView?.takeInstantScreenshot(eventInfo:eventInfo)
+        }
+        // send captured selfie configation
+        var data:[String:Any] = [String:Any]()
+        var messageData:[String:Any] = [String:Any]()
+        messageData = ["captureSelfie":true]
+        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+        socketClient?.emit(data)
     }
     
     @IBAction func retakeSelfieAction(){
@@ -561,14 +569,7 @@ class HostCallController: VideoCallController {
             socketClient?.emit(data)
             callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
-            
-
-//
-//            self.selfieTimerView?.reset()
-            
-//            if let eventInfo = self.eventInfo{
-//                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
-//            }
+        
         }
     }
     

@@ -628,9 +628,6 @@
                                             <constraint firstItem="RZC-eV-M56" firstAttribute="centerY" secondItem="t7m-zc-kBM" secondAttribute="centerY" id="xWe-ML-HBy"/>
                                             <constraint firstAttribute="width" secondItem="t7m-zc-kBM" secondAttribute="height" multiplier="1:1" id="yzT-Gk-L9d"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="actionImage" destination="RZC-eV-M56" id="pAS-3B-4SC"/>
-                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3g-Uc-jRf" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48" width="40" height="40"/>
@@ -657,7 +654,7 @@
                                             <constraint firstItem="mSf-kX-2sS" firstAttribute="centerY" secondItem="t3g-Uc-jRf" secondAttribute="centerY" id="tl8-pd-g3z"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="actionImage" destination="mSf-kX-2sS" id="KkA-88-y5Q"/>
+                                            <outlet property="actionImg" destination="pTG-he-6Ik" id="nRV-qt-Zgj"/>
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQf-tK-ods">
@@ -946,8 +943,9 @@
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newCamera" translatesAutoresizingMaskIntoConstraints="NO" id="zrZ-j9-wTM">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO8-aK-2Gq">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO8-aK-2Gq">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <state key="normal" image="newCamera"/>
                                                         <connections>
                                                             <action selector="videoDisableAction" destination="ddm-i3-FOl" eventType="touchUpInside" id="d7e-D2-QhM"/>
                                                         </connections>
@@ -971,7 +969,7 @@
                                                     <constraint firstItem="zrZ-j9-wTM" firstAttribute="top" secondItem="pcC-X9-R1p" secondAttribute="top" id="xRp-aO-c17"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="actionImage" destination="zrZ-j9-wTM" id="41e-JX-oBC"/>
+                                                    <outlet property="actionImg" destination="ZO8-aK-2Gq" id="LNg-v9-lo0"/>
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vfv-3h-EKa">
@@ -1011,8 +1009,9 @@
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newMic" translatesAutoresizingMaskIntoConstraints="NO" id="FSE-2I-4lQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eev-XE-6l3">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eev-XE-6l3">
                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <state key="normal" image="newMic"/>
                                                         <connections>
                                                             <action selector="audioMuteAction" destination="ddm-i3-FOl" eventType="touchUpInside" id="JbA-n3-7q6"/>
                                                         </connections>
@@ -1036,7 +1035,7 @@
                                                     <constraint firstItem="FSE-2I-4lQ" firstAttribute="leading" secondItem="dus-3L-jzK" secondAttribute="leading" id="tbN-TV-dOs"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="actionImage" destination="FSE-2I-4lQ" id="zzo-i4-ZRg"/>
+                                                    <outlet property="actionImage" destination="Eev-XE-6l3" id="1Ug-CA-41d"/>
                                                 </connections>
                                             </view>
                                         </subviews>
@@ -2042,10 +2041,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdn-hf-f7V">
-                                <rect key="frame" x="20" y="671.66666666666663" width="60" height="60"/>
+                                <rect key="frame" x="20" y="681.66666666666663" width="50" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bJ-d8-0Hk">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <state key="normal" backgroundImage="chatIcon"/>
                                         <connections>
                                             <action selector="showChatDeskWindow" destination="osS-h4-4wh" eventType="touchUpInside" id="IDr-jj-AgE"/>
@@ -2057,12 +2056,12 @@
                                     <constraint firstItem="3bJ-d8-0Hk" firstAttribute="top" secondItem="pdn-hf-f7V" secondAttribute="top" id="1f6-B9-z2N"/>
                                     <constraint firstAttribute="trailing" secondItem="3bJ-d8-0Hk" secondAttribute="trailing" id="6j5-M5-ugj"/>
                                     <constraint firstAttribute="bottom" secondItem="3bJ-d8-0Hk" secondAttribute="bottom" id="Nhh-uh-b4k"/>
-                                    <constraint firstAttribute="width" constant="60" id="Vf8-ZE-bJG">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                    <constraint firstAttribute="width" constant="50" id="Vf8-ZE-bJG">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                     </constraint>
                                     <constraint firstItem="3bJ-d8-0Hk" firstAttribute="leading" secondItem="pdn-hf-f7V" secondAttribute="leading" id="nc8-kO-NNG"/>
-                                    <constraint firstAttribute="height" constant="60" id="tQI-jJ-sCM">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                    <constraint firstAttribute="height" constant="50" id="tQI-jJ-sCM">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
                                     </constraint>
                                 </constraints>
                             </view>

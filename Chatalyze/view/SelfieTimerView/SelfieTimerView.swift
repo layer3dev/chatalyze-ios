@@ -66,6 +66,14 @@ class SelfieTimerView:ExtendedView {
         self.runTimer()
     }
     
+    func takeInstantScreenshot(eventInfo : EventInfo){
+        self.eventInfo = eventInfo
+        
+        self.invalidateTimer()
+        self.invalidateTimerForHost()
+        self.mimicFlash()
+    }
+    
     func startAnimationForHost(date:Date?, eventInfo : EventInfo){
         self.eventInfo = eventInfo
         
