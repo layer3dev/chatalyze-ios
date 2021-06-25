@@ -1057,55 +1057,63 @@
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCK-Xs-gSY" userLabel="selfie_window" customClass="SelfieWindowView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="20.666666666666657" y="194.33333333333331" width="372.66666666666674" height="517.33333333333348"/>
+                                <rect key="frame" x="41.333333333333343" y="273.66666666666663" width="331.33333333333326" height="358.66666666666663"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Booth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLk-dy-mnr">
-                                        <rect key="frame" x="139" y="5" width="94.666666666666686" height="20.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Booth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLk-dy-mnr">
+                                        <rect key="frame" x="20" y="5" width="291.33333333333331" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ob-KG-Nzk">
+                                        <rect key="frame" x="296.33333333333337" y="2.6666666666666288" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="M6A-wb-ZAI"/>
+                                            <constraint firstAttribute="width" constant="25" id="nGT-uu-Qoo"/>
+                                        </constraints>
+                                        <state key="normal" image="blackcross"/>
+                                        <connections>
+                                            <action selector="closePhotoBooth" destination="BCK-Xs-gSY" eventType="touchUpInside" id="mgv-gp-1io"/>
+                                        </connections>
+                                    </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c9e-Id-E8x">
-                                        <rect key="frame" x="5" y="35.333333333333314" width="362.66666666666669" height="427"/>
+                                        <rect key="frame" x="5" y="35.333333333333314" width="321.33333333333331" height="303.33333333333331"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aDG-Bp-dvf">
-                                        <rect key="frame" x="5" y="35.333333333333314" width="362.66666666666669" height="412"/>
+                                        <rect key="frame" x="5" y="35.333333333333314" width="321.33333333333331" height="303.33333333333331"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcL-uV-bU7">
-                                                <rect key="frame" x="0.0" y="0.0" width="179" height="412"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="158.33333333333334" height="303.33333333333331"/>
                                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-8H-hku">
-                                                <rect key="frame" x="184" y="0.0" width="178.66666666666663" height="412"/>
+                                                <rect key="frame" x="163.33333333333331" y="0.0" width="158" height="303.33333333333331"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ads-fF-ahw">
-                                        <rect key="frame" x="141" y="467.33333333333326" width="91" height="30"/>
-                                        <state key="normal" title="ReTake Selfie"/>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="aDG-Bp-dvf" secondAttribute="trailing" constant="5" id="56d-bN-EMH"/>
-                                    <constraint firstItem="cLk-dy-mnr" firstAttribute="top" secondItem="BCK-Xs-gSY" secondAttribute="top" constant="5" id="N7J-P0-hjm"/>
-                                    <constraint firstItem="cLk-dy-mnr" firstAttribute="centerX" secondItem="BCK-Xs-gSY" secondAttribute="centerX" id="O9o-lV-3Am"/>
-                                    <constraint firstItem="c9e-Id-E8x" firstAttribute="top" secondItem="cLk-dy-mnr" secondAttribute="bottom" constant="10" id="Rp9-uO-32C"/>
+                                    <constraint firstAttribute="bottom" secondItem="c9e-Id-E8x" secondAttribute="bottom" constant="20" id="KA0-wh-vLS"/>
+                                    <constraint firstAttribute="bottom" secondItem="aDG-Bp-dvf" secondAttribute="bottom" constant="20" id="Or2-Vj-ciC"/>
+                                    <constraint firstItem="6Ob-KG-Nzk" firstAttribute="centerY" secondItem="cLk-dy-mnr" secondAttribute="centerY" id="Qlc-Up-cQc"/>
+                                    <constraint firstAttribute="trailing" secondItem="6Ob-KG-Nzk" secondAttribute="trailing" constant="10" id="S06-ev-IOg"/>
                                     <constraint firstAttribute="trailing" secondItem="c9e-Id-E8x" secondAttribute="trailing" constant="5" id="Sdw-r0-QJl"/>
-                                    <constraint firstItem="aDG-Bp-dvf" firstAttribute="top" secondItem="cLk-dy-mnr" secondAttribute="bottom" constant="10" id="WGZ-QT-7Tx"/>
-                                    <constraint firstItem="ads-fF-ahw" firstAttribute="top" secondItem="aDG-Bp-dvf" secondAttribute="bottom" constant="20" id="flb-bg-ely"/>
-                                    <constraint firstItem="ads-fF-ahw" firstAttribute="top" secondItem="c9e-Id-E8x" secondAttribute="bottom" constant="5" id="m83-Br-EzA"/>
+                                    <constraint firstItem="cLk-dy-mnr" firstAttribute="leading" secondItem="BCK-Xs-gSY" secondAttribute="leading" constant="20" id="Yte-mC-Tkz"/>
+                                    <constraint firstAttribute="trailing" secondItem="cLk-dy-mnr" secondAttribute="trailing" constant="20" id="Z6e-RJ-nQd"/>
+                                    <constraint firstItem="aDG-Bp-dvf" firstAttribute="top" secondItem="c9e-Id-E8x" secondAttribute="top" id="jWU-jk-21c"/>
+                                    <constraint firstItem="cLk-dy-mnr" firstAttribute="top" secondItem="BCK-Xs-gSY" secondAttribute="top" constant="5" id="m56-PT-Ggq"/>
                                     <constraint firstItem="c9e-Id-E8x" firstAttribute="leading" secondItem="BCK-Xs-gSY" secondAttribute="leading" constant="5" id="pRH-g5-VpY"/>
-                                    <constraint firstItem="c9e-Id-E8x" firstAttribute="top" secondItem="cLk-dy-mnr" secondAttribute="bottom" constant="10" id="qMa-dC-sxJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="ads-fF-ahw" secondAttribute="bottom" constant="20" id="vFo-II-GJC"/>
                                     <constraint firstItem="aDG-Bp-dvf" firstAttribute="leading" secondItem="BCK-Xs-gSY" secondAttribute="leading" constant="5" id="y61-4C-Qko"/>
-                                    <constraint firstItem="ads-fF-ahw" firstAttribute="centerX" secondItem="BCK-Xs-gSY" secondAttribute="centerX" id="ygR-ha-c2V"/>
+                                    <constraint firstItem="c9e-Id-E8x" firstAttribute="top" secondItem="cLk-dy-mnr" secondAttribute="bottom" constant="10" id="yvL-4y-cnk"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="LocalStream" destination="mdl-8H-hku" id="of2-Jt-RXm"/>
                                     <outlet property="finalMemoryImg" destination="c9e-Id-E8x" id="uIY-Bc-b6H"/>
                                     <outlet property="hostStream" destination="wcL-uV-bU7" id="ish-HX-qxs"/>
+                                    <outlet property="streamStackViews" destination="aDG-Bp-dvf" id="Fnc-ah-xyV"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -1156,12 +1164,12 @@
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="e8t-Fe-NIm" secondAttribute="trailing" id="Xwi-l8-N0o" userLabel="trailing_youtube_container"/>
                             <constraint firstItem="kkC-tM-BOh" firstAttribute="centerY" secondItem="Wkh-om-R74" secondAttribute="centerY" id="Y6o-1n-DTN"/>
                             <constraint firstItem="tT6-Gm-3ac" firstAttribute="top" secondItem="Wkh-om-R74" secondAttribute="top" id="dVu-79-4lK"/>
-                            <constraint firstItem="BCK-Xs-gSY" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.577381" id="dWP-9t-zCF"/>
+                            <constraint firstItem="BCK-Xs-gSY" firstAttribute="height" secondItem="Wkh-om-R74" secondAttribute="height" multiplier="0.4" id="dWP-9t-zCF"/>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="fgE-qL-xbk" secondAttribute="trailing" id="dh6-7d-hMH"/>
                             <constraint firstItem="3ww-fe-4Gf" firstAttribute="centerX" secondItem="1uu-DP-PrY" secondAttribute="centerX" id="dxH-92-lYX"/>
                             <constraint firstItem="ccG-Ux-JqL" firstAttribute="top" secondItem="fgE-qL-xbk" secondAttribute="bottom" constant="-50" id="eWS-fU-V8h"/>
                             <constraint firstItem="Yk6-mP-7LN" firstAttribute="top" secondItem="gKG-jl-gLG" secondAttribute="bottom" constant="15" id="jdq-Kx-aL1"/>
-                            <constraint firstItem="BCK-Xs-gSY" firstAttribute="width" secondItem="Wkh-om-R74" secondAttribute="width" multiplier="0.900161" id="kiG-em-jLW"/>
+                            <constraint firstItem="BCK-Xs-gSY" firstAttribute="width" secondItem="Wkh-om-R74" secondAttribute="width" multiplier="0.8" id="kiG-em-jLW"/>
                             <constraint firstItem="1uu-DP-PrY" firstAttribute="trailing" secondItem="gKG-jl-gLG" secondAttribute="trailing" id="lMN-eJ-V92"/>
                             <constraint firstItem="e8t-Fe-NIm" firstAttribute="leading" secondItem="1uu-DP-PrY" secondAttribute="leading" id="n76-OQ-zDS"/>
                             <constraint firstItem="BCK-Xs-gSY" firstAttribute="centerY" secondItem="1uu-DP-PrY" secondAttribute="centerY" id="o0r-Di-IYn"/>
@@ -1231,6 +1239,7 @@
                         <outlet property="poorInternetBannerView" destination="hBm-jJ-TVI" id="gy8-yG-ffv"/>
                         <outlet property="preConnectLbl" destination="4HO-qv-0AG" id="se1-RP-zPG"/>
                         <outlet property="selfieTimerView" destination="tT6-Gm-3ac" id="8tZ-5G-RhR"/>
+                        <outlet property="selfieWindiwView" destination="BCK-Xs-gSY" id="bvG-Tx-QuW"/>
                         <outlet property="spotNumberView" destination="VWm-cz-6GQ" id="t9s-nR-Ors"/>
                     </connections>
                 </viewController>
@@ -2072,19 +2081,19 @@
                                         <rect key="frame" x="5" y="5" width="280" height="162.66666666666666"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfg-dR-IcA">
-                                                <rect key="frame" x="15" y="0.0" width="250" height="96"/>
+                                                <rect key="frame" x="15" y="0.0" width="250" height="95.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Regular" family="Mukta Mahee" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SARAH THOMAS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yW2-Rh-euU">
-                                                <rect key="frame" x="65.333333333333357" y="96" width="149.66666666666663" height="35"/>
+                                                <rect key="frame" x="65.333333333333357" y="95.666666666666629" width="149.66666666666663" height="35"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Bold" family="Mukta Mahee" pointSize="21"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00: 00:05" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rw-Br-IWF">
-                                                <rect key="frame" x="101.66666666666666" y="131" width="77" height="31.666666666666657"/>
+                                                <rect key="frame" x="101.66666666666666" y="130.66666666666663" width="77" height="32"/>
                                                 <fontDescription key="fontDescription" name="MuktaMahee-Bold" family="Mukta Mahee" pointSize="19"/>
                                                 <color key="textColor" red="0.98354035620000002" green="0.25926443929999998" blue="0.29990172389999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2999,17 +3008,17 @@
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XbE-hQ-Twp">
-                                        <rect key="frame" x="10" y="42.333333333333343" width="311.33333333333331" height="374"/>
+                                        <rect key="frame" x="10" y="42.333333333333343" width="311.33333333333331" height="133.66666666666666"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-Co-Cqc">
-                                        <rect key="frame" x="10" y="42.333333333333343" width="311.33333333333331" height="374"/>
+                                        <rect key="frame" x="10" y="42.333333333333343" width="311.33333333333331" height="133.66666666666666"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-D1-DvQ" customClass="LocalHostVideoView" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="374"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="133.66666666666666"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dc3-um-SX5" customClass="TVIVideoView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="374"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="133.66666666666666"/>
                                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                     </view>
                                                 </subviews>
@@ -3025,19 +3034,19 @@
                                                 </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-UM-owU">
-                                                <rect key="frame" x="158.33333333333331" y="0.0" width="153" height="374"/>
+                                                <rect key="frame" x="158.33333333333331" y="0.0" width="153" height="133.66666666666666"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                             </view>
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdY-r4-XpH" customClass="SelfieActionContainerView" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="426.33333333333337" width="311.33333333333331" height="46.333333333333314"/>
+                                        <rect key="frame" x="10" y="186.00000000000003" width="311.33333333333331" height="286.66666666666674"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MZP-vP-6sK">
-                                                <rect key="frame" x="30.666666666666657" y="0.0" width="249.99999999999997" height="50"/>
+                                                <rect key="frame" x="30.666666666666657" y="0.0" width="249.99999999999997" height="290.33333333333331"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwG-9l-ZQY" customClass="VideoActionView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="0.0" y="120.33333333333331" width="50" height="50"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selfieCamera" translatesAutoresizingMaskIntoConstraints="NO" id="CV0-Bz-Y7N">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -3068,7 +3077,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vfc-hf-HFb" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="60" y="0.0" width="90" height="50"/>
+                                                        <rect key="frame" x="60" y="120.33333333333331" width="90" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retake" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQO-41-ECY">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
@@ -3102,7 +3111,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dre-Uy-m0K" customClass="RoundCornerButton" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="160" y="0.0" width="90" height="50"/>
+                                                        <rect key="frame" x="160" y="120.33333333333331" width="90" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guO-k9-nUS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>

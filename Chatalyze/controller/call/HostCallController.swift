@@ -175,7 +175,6 @@ class HostCallController: VideoCallController {
         initializeVariable()
         layoutrecordingOption()
          layoutCustomBackGrnd()
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func processEventInfo(){
@@ -492,12 +491,6 @@ class HostCallController: VideoCallController {
                             
                             print(" I got the mimic screenshot")
                             if let weakSelf = self {
-                                weakSelf.hostRootView?.getSnapshot(info: weakSelf.eventInfo, completion: {(image) in
-                                    if let image = image{
-                                        weakSelf.selfieWindowView?.setSelfieImage(with: image)
-                
-                                    }
-                                })
                                 weakSelf.photoBothView?.enableBtn()
                                 weakSelf.mimicScreenShotFlash()
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
@@ -1451,17 +1444,6 @@ class HostCallController: VideoCallController {
         }
     }
     
-    @objc func rotated() {
-        if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
-            currentTwillioRoom?.logResolution()
-        }
-
-        if UIDevice.current.orientation.isPortrait {
-            print("Portrait")
-            currentTwillioRoom?.logResolution()
-        }
-    }
         
         func preconnectTwillioRoomHandler(){
             

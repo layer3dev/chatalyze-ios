@@ -20,6 +20,8 @@ class SelfieWindowView:ExtendedView {
 
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
         
     func setSelfieImage(with image:UIImage?){
@@ -33,6 +35,7 @@ class SelfieWindowView:ExtendedView {
     }
     
     func show(){
+        self.streamStackViews?.isHidden = false
         self.isHidden = false
     }
     
@@ -52,6 +55,16 @@ class SelfieWindowView:ExtendedView {
         hide()
     }
     
-    
+    @objc func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+          
+        }
+
+        if UIDevice.current.orientation.isPortrait {
+            print("Portrait")
+        
+        }
+    }
     
 }

@@ -124,7 +124,7 @@ class ClaimTicketCell: ExtendedTableCell {
         set{
             let startDate = DateParser.UTCStringToDate(info?.start ?? "") ?? Date()
             let calender = Calendar.current
-            let newDate = calender.date(byAdding: .minute, value: -40, to: startDate) ?? Date()
+            let newDate = calender.date(byAdding: .minute, value: -120, to: startDate) ?? Date()
             let diffence = newDate.timeIntervalSince(Date())
             Log.echo(key: "timeDiffence", text: "\(diffence)")
             counter = Int(diffence)
@@ -225,7 +225,7 @@ class ClaimTicketCell: ExtendedTableCell {
             return
         }
         let calender = Calendar.current
-        let newDate = calender.date(byAdding: .minute, value: -40, to: checkInDate)
+        let newDate = calender.date(byAdding: .minute, value: -120, to: checkInDate)
         
         guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: "h:mm a") else{
             return
@@ -240,7 +240,7 @@ class ClaimTicketCell: ExtendedTableCell {
             return
         }
         let calender = Calendar.current
-        let newDate = calender.date(byAdding: .minute, value: -10, to: checkInDate)
+        let newDate = calender.date(byAdding: .minute, value: -30, to: checkInDate)
         
         guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: "h:mm a") else{
             return
