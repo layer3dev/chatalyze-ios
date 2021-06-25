@@ -24,6 +24,9 @@ class MyTicketesVerticalAdapter: ExtendedView {
         super.viewDidLayout()
         
         myTicketsVerticalTableView?.register(UINib(nibName: "ClaimTicketCell", bundle: nil), forCellReuseIdentifier: "ClaimTicketCell")
+        
+        myTicketsVerticalTableView?.register(UINib(nibName: "SessionTicketCell", bundle: nil), forCellReuseIdentifier: "SessionTicketCell")
+        
         myTicketsVerticalTableView?.separatorStyle = .none
         myTicketsVerticalTableView?.dataSource = self
         myTicketsVerticalTableView?.delegate = self
@@ -125,7 +128,7 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
         
         if indexPath.row < self.ticketsListingArray.count{
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyTicketsVerticalCell", for: indexPath) as? MyTicketsVerticalCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SessionTicketCell", for: indexPath) as? SessionTicketCell else {
                 return UITableViewCell()
             }
             cell.rootAdapter = self

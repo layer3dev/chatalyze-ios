@@ -29,6 +29,7 @@ class UserCallController: VideoCallController {
     
     var memoryImage:UIImage?
     var recordingLblTopAnchor: NSLayoutConstraint?
+    var memoryImageListner : (()->())?
     
     //Animation Responsible
     var isAnimating = false
@@ -46,6 +47,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     @IBOutlet var spotNumberView : SpotInLineView?
+    @IBOutlet var selfieWindiwView : SelfieWindowView?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -218,6 +220,7 @@ class UserCallController: VideoCallController {
         layoutrecordingOption()
         initializeVariable()
         registerForAutographListener()
+        registerForMimicFlashForManualSelfie()
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
@@ -736,6 +739,7 @@ class UserCallController: VideoCallController {
         initializeGetCommondForTakeScreenShot()
         registerForHostManualTriggeredTimeStamp()
         registerForListeners()
+        showAutographCanvas()
         self.selfieTimerView?.delegate = self
         self.userRootView?.delegateCutsom = self
     }
@@ -1096,12 +1100,22 @@ class UserCallController: VideoCallController {
                 
                 self.memoryImage = image
                 self.mimicScreenShotFlash()
+                if (eventInfo?.isHostManualScreenshot ?? false){
+                    selfieWindiwView?.setSelfieImage(with: image)
+                    var data:[String:Any] = [String:Any]()
+                    var messageData:[String:Any] = [String:Any]()
+                    messageData = ["capturedSelfie":true]
+                    data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+                    self.socketClient?.emit(data)
+                    Log.echo(key: "abhishekD", text: "Ohh.!! its manual selfie,I need to return from here without saving, HOST suppose to save")
+                    return
+                }
                 self.myLiveUnMergedSlot?.isScreenshotSaved = true
                 self.myLiveUnMergedSlot?.isSelfieTimerInitiated = true
                 SlotFlagInfo.staticScreenShotSaved = true
                 isSlefieScreenShotSaved = true
                 let slotInfo = self.myLiveUnMergedSlot
-                
+               
                 
                 Log.echo(key: "yud", text: "Memory image is nil \(self.memoryImage == nil ? true : false )")
                
@@ -1118,6 +1132,10 @@ class UserCallController: VideoCallController {
                                 
                                 Log.echo(key: "yud", text: "I got upload response")
                                 self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+                                if let lisnter = self.memoryImageListner{
+                                    Log.echo(key: "memoryImageListner", text: "Listener actiicated!")
+                                   lisnter()
+                                }
                                 saveImage()
                             
                                 
@@ -1151,6 +1169,16 @@ class UserCallController: VideoCallController {
         }
     }
     
+    func showAutographCanvas(){
+        
+        self.memoryImageListner = {
+            Log.echo(key: "memoryImageListner", text: "Listened successfully!")
+            if let info = self.canvasInfo{
+                self.prepateCanvas(info: info)
+            }
+        }
+    }
+    
     func registerForHostManualTriggeredTimeStamp(){
         
         print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
@@ -1158,42 +1186,29 @@ class UserCallController: VideoCallController {
         socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
             
             print(" I got the reponse \(String(describing: response))")
+            self.selfieWindiwView?.show()
+            
+        })
+    }
+    
+    func registerForMimicFlashForManualSelfie(){
+        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
             
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
-                    if let date = dateDict["timerStartsAt"]?.stringValue{
-                        
-                        if let requiredTimeStamp =  getTimeStampAfterEightSecond(){
-                            
-                            Log.echo(key: "yud", text: "Again restarting the screenshots")
-                            
-
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
-                            let requiredWebCompatibleTimeStamp = dateFormatter.string(from: requiredTimeStamp)
-                            
-                            Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
-                            //End
-                            var data:[String:Any] = [String:Any]()
-                            var messageData:[String:Any] = [String:Any]()
-                            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
-                            data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-                            self.socketClient?.emit(data)
-                            selfieTimerView?.requiredDate = requiredTimeStamp
-                            
+                    if let isSelfieToCapture = dateDict["captureSelfie"]?.boolValue{
+                        if isSelfieToCapture{
                             if let eventInfo = self.eventInfo{
-                                selfieTimerView?.startAnimation(eventInfo : eventInfo)
+                                self.selfieTimerView?.takeInstantScreenshot(eventInfo: eventInfo)
                             }
                         }
-                   
-                        
                     }
                 }
             }
         })
     }
+
     
     
     private func updateCallHeaderInfo(){
@@ -1909,15 +1924,15 @@ extension UserCallController {
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             
-            guard let currentSlot = self.myActiveUserSlot
-                else{
-                    return
-            }
+//            guard let currentSlot = self.myActiveUserSlot
+//                else{
+//                    return
+//            }
             let rawInfo = json?["message"]
             self.canvasInfo = CanvasInfo(info : rawInfo)
-            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
-                return
-            }
+//            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
+//                return
+//            }
             //            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
             //                return
             //            }
@@ -1926,7 +1941,7 @@ extension UserCallController {
             //                return
             //            }
             self.lockDeviceOrientationInPortrait()
-            self.prepateCanvas(info : self.canvasInfo)
+//            self.prepateCanvas(info : self.canvasInfo)
         })
         
         socketListener?.onEvent("stoppedSigning", completion: { (json) in
@@ -1957,38 +1972,44 @@ extension UserCallController {
     
     private func prepateCanvas(info : CanvasInfo?){
         
-        guard let selfieImage = memoryImage
-            else{
-                return
-        }
-        
-        if let slotidFromCanvas = info?.currentSlotId{
-            if let currentId = self.myLiveUnMergedSlot?.id{
-                if slotidFromCanvas != currentId{
+       
+            Log.echo(key: "PankajD", text: "memory image received!")
+            guard let selfieImage = self.memoryImage
+                else{
+                Log.echo(key: "PankajD", text: "@1962")
+                    return
+            }
+            
+            if let slotidFromCanvas = info?.currentSlotId{
+                if let currentId = self.myLiveUnMergedSlot?.id{
+                    if slotidFromCanvas != currentId{
+                        Log.echo(key: "PankajD", text: "@169")
+                        return
+                    }
+                }else{
+                    Log.echo(key: "PankajD", text: "@1973")
                     return
                 }
             }else{
+
+    //            toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get
+                Log.echo(key: "PankajD", text: "@1979")
                 return
+
             }
-        }else{
-
-//            toDo:@abhisheK: we dont get any keyName "forSlotID" in "StartSigning" emit so it get
-            return
-
-        }
-        
-        if  let image = self.defaultImage{
             
-            self.userRootView?.canvasContainer?.show(with: image,info:info)
-            Log.echo(key: "panku", text: "defaultImage found")
-        }else{
-            Log.echo(key: "panku", text: "defaultImage not found")
-            self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
-        }
-        self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
-        self.userRootView?.remoteVideoContainerView?.updateForSignature()
-        self.updateScreenshotLoaded(info : info)
-        
+            if  let image = self.defaultImage{
+                
+                self.userRootView?.canvasContainer?.show(with: image,info:info)
+                Log.echo(key: "panku", text: "defaultImage found")
+            }else{
+                Log.echo(key: "panku", text: "defaultImage not found")
+                self.userRootView?.canvasContainer?.show(with: selfieImage,info:info)
+            }
+            self.userRootView?.remoteVideoContainerView?.isSignatureActive = true
+            self.userRootView?.remoteVideoContainerView?.updateForSignature()
+            self.updateScreenshotLoaded(info : info)
+
     }
     
     func downloadDefaultImage(with url : String){

@@ -10,7 +10,7 @@ import UIKit
 
 class VideoActionView: ExtendedView {
     
-    @IBOutlet var actionImage : UIImageView?
+    @IBOutlet var actionImg : UIButton?
     @IBOutlet var extendBtnWidthAnchor: NSLayoutConstraint?
 
     /*
@@ -34,10 +34,12 @@ class VideoActionView: ExtendedView {
     }
     
     func mute(){
-        actionImage?.image = UIImage(named : "newDisableCamera")
+        actionImg?.setImage(UIImage(named : "newDisableCamera"), for: .normal)
+        self.layoutIfNeeded()
     }
     
     func unmute(){
-        actionImage?.image = UIImage(named : "newCamera")
+        actionImg?.setImage(UIImage(named : "newCamera"), for: .normal)
+        self.layoutIfNeeded()
     }
 }

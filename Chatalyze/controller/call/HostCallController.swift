@@ -14,6 +14,8 @@ import Toast_Swift
 import CRToast
 import TwilioVideo
 import Analytics
+import ChatSDK
+import MessagingSDK
 
 class HostCallController: VideoCallController {
     
@@ -36,6 +38,7 @@ class HostCallController: VideoCallController {
     var isExtendChatDisbaled = false
     var isAutograpaghinProcess = false
     var enableSelfieBtn = false
+    var memoryImage:UIImage?
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -142,6 +145,17 @@ class HostCallController: VideoCallController {
         }
     }
     
+    private func initializeGetCommondForTakeScreenShot(){
+        selfieTimerView?.screenShotListner = {
+            self.hostRootView?.getSnapshot(info:  self.eventInfo, completion: { [self](image) in
+                self.memoryImage = image
+                selfieWindowView?.setSelfieImage(with: image)
+                self.registerForCapturedScreenshot()
+                self.mimicScreenShotFlash()
+            })
+        }
+    }
+    
     
     
     private func loadbackgrndImg(eveninfo: EventScheduleInfo){
@@ -161,7 +175,6 @@ class HostCallController: VideoCallController {
         initializeVariable()
         layoutrecordingOption()
          layoutCustomBackGrnd()
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func processEventInfo(){
@@ -324,6 +337,7 @@ class HostCallController: VideoCallController {
     
     @IBAction func sendSelfieReq(_ sender: Any) {
         photoBothView?.disableBtn()
+        selfieWindowView?.show()
         sendTimeStampToUser()
     }
     
@@ -411,6 +425,7 @@ class HostCallController: VideoCallController {
         self.selfieTimerView?.delegate = self
         self.signaturAccessoryView?.delegate = self
         hostActionContainer?.extendChatView?.hideExtendBtn()
+        initializeGetCommondForTakeScreenShot()
     }
     
     private func registerForHangupRequest(){
@@ -472,32 +487,10 @@ class HostCallController: VideoCallController {
                             self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
                         }
                         
-                        
-                        self.selfieTimerView?.selfieInvokeListner = {[weak self] in
-                            
-                            Log.echo(key: "AbhishekD", text: "Selfie timer")
-                            if let weakSelf = self {
-                                if weakSelf.eventInfo?.isHostManualScreenshot ?? false{
-                                    weakSelf.selfieWindowView?.show()
-                                    weakSelf.selfieWindowView?.showLocal(localMediaPackage: self?.localMediaPackage)
-                                    
-                                }
-                            }
-                        }
-                        
-                        
                         self.selfieTimerView?.screenShotListner = {[weak self] in
                             
                             print(" I got the mimic screenshot")
                             if let weakSelf = self {
-                                weakSelf.hostRootView?.getSnapshot(info: weakSelf.eventInfo, completion: {(image) in
-                                    if let image = image{
-                                        weakSelf.selfieWindowView?.setSelfieImage(with: image)
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 02) {
-                                            self?.selfieWindowView?.hide()
-                                        }
-                                    }
-                                })
                                 weakSelf.photoBothView?.enableBtn()
                                 weakSelf.mimicScreenShotFlash()
                                 weakSelf.photoBothView?.isUserInteractionEnabled = true
@@ -511,8 +504,42 @@ class HostCallController: VideoCallController {
         })
     }
     
-    @IBAction func closeSefleWindow(){
+    
+    @IBAction func photoboothSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth selfie Action tapped!!")
         
+        if let eventInfo = self.eventInfo{
+            selfieTimerView?.takeInstantScreenshot(eventInfo:eventInfo)
+        }
+        // send captured selfie configation
+        var data:[String:Any] = [String:Any]()
+        var messageData:[String:Any] = [String:Any]()
+        messageData = ["captureSelfie":true]
+        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+        socketClient?.emit(data)
+    }
+    
+    @IBAction func retakeSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth Re-Take selfie Action tapped!!")
+        self.photoboothSelfieAction()
+    }
+    
+    @IBAction func saveSelfieAction(){
+        Log.echo(key: TAG, text: "Photobooth selfie save Action tapped!!")
+    }
+    
+    @IBAction func showChatDeskWindow(){
+        Log.echo(key: TAG, text: "Chat view Controller tapped")
+        Log.echo(key: self.TAG, text: "chatControllerShown called")
+        do {
+            let chatEngine = try ChatEngine.engine()
+    
+            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+           self.presentModally(viewController)
+//            self.navigationController?.present(viewController, animated: true, completion: nil)
+        } catch {
+            // handle error
+        }
     }
     
     func sendTimeStampToUser(){
@@ -536,17 +563,17 @@ class HostCallController: VideoCallController {
             socketClient?.emit(data)
             callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
-            
-
-//
-            self.selfieTimerView?.reset()
-            
-            if let eventInfo = self.eventInfo{
-                self.selfieTimerView?.startAnimationForHost(date: requiredTimeStamp, eventInfo: eventInfo)
-            }
-            
-
+        
         }
+    }
+    
+    private func registerForCapturedScreenshot(){
+        // send captured selfie configation
+        var data:[String:Any] = [String:Any]()
+        var messageData:[String:Any] = [String:Any]()
+        messageData = ["capturedSelfie":true]
+        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+        socketClient?.emit(data)
     }
     
 
@@ -569,7 +596,7 @@ class HostCallController: VideoCallController {
         var requiredDate :Date?
         if eventInfo.isHostManualScreenshot{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
-             requiredDate = calendar.date(byAdding: .second, value: 3, to: date)
+             requiredDate = calendar.date(byAdding: .second, value: 0, to: date)
         }else{
             Log.echo(key: "vijaySlotDuration", text: "\(slotDuration)")
             requiredDate = calendar.date(byAdding: .second, value: 5, to: date)
@@ -677,7 +704,7 @@ class HostCallController: VideoCallController {
         triggerIntervalToChildConnections()
         
         processEvent()
-        
+//        photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
         updateCallHeaderInfo()
         refresh()
         updateLableAnimation()
@@ -697,11 +724,6 @@ class HostCallController: VideoCallController {
         if let endDate = (currentSlot.endDate?.timeIntervalTillNow) {
             if endDate < 2.0 && endDate >= 1.0 {
                 self.trackCurrentChatCompleted()
-                SlotFlagInfo.isCallHangedUp = false
-                resetMuteActions()
-                hostActionContainer?.hangupView?.deactivate()
-                let hashedUserId = currentSlot.user?.hashedId ?? ""
-                updateUserOfHangup(hashedUserId : hashedUserId, hangup : false)
                 return
             }
         }
@@ -1422,17 +1444,6 @@ class HostCallController: VideoCallController {
         }
     }
     
-    @objc func rotated() {
-        if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
-            currentTwillioRoom?.logResolution()
-        }
-
-        if UIDevice.current.orientation.isPortrait {
-            print("Portrait")
-            currentTwillioRoom?.logResolution()
-        }
-    }
         
         func preconnectTwillioRoomHandler(){
             
@@ -2321,6 +2332,22 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
+    }
+    
+    private func presentModally(_ viewController: UIViewController,
+                                presenationStyle: UIModalPresentationStyle = .overFullScreen) {
+        
+        let leftBarButtonItem = UIBarButtonItem(title: "RETURN TO CHAT", style: .done, target: self, action: #selector(dismissViewController))
+        leftBarButtonItem.tintColor = UIColor(hexString: AppThemeConfig.themeColor)
+        
+        viewController.navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = presenationStyle
+        present(navigationController, animated: true)
+    }
+    @objc private func dismissViewController() {
+      dismiss(animated: true, completion: nil)
     }
 }
 

@@ -11,7 +11,8 @@ import UIKit
 class MicActionView: UIView {
     
     
-    @IBOutlet var actionImage : UIImageView?
+//    @IBOutlet var actionImage : UIImageView?
+    @IBOutlet var actionImage : UIButton?
     
     /*
     // Only override draw() if you perform custom drawing.
@@ -22,11 +23,13 @@ class MicActionView: UIView {
     */
     
     func mute(){
-        actionImage?.image = UIImage(named : "newMute")
+        actionImage?.setImage(UIImage(named : "newMute"), for: .normal)
+        layoutIfNeeded()
     }
     
     func unmute(){
-        actionImage?.image = UIImage(named : "newMic")
+        actionImage?.setImage(UIImage(named : "newMic"), for: .normal)
+        layoutIfNeeded()
     }
 
 

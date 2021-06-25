@@ -62,6 +62,7 @@ class EventInfo: NSObject {
     var displaySpot : Bool?
     var room_id:String?
     var organization: Bool?
+    var ticketFrame : String?
 
     
     
@@ -96,6 +97,7 @@ class EventInfo: NSObject {
         bufferSeconds = json["bufferSeconds"].intValue
         displaySpot = json["displaySpot"].boolValue
         end = json["end"].string
+        ticketFrame = json["ticketFrameURL"].string
         youtubeURL = json["youtubeURL"].string
         backgroundURL = json["backgroundURL"].string
         selfieFrameURL = json["selfieFrameURL"].string

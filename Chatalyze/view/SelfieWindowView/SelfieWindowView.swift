@@ -15,14 +15,13 @@ class SelfieWindowView:ExtendedView {
     @IBOutlet weak var hostStream : UIView?
     @IBOutlet weak var LocalStream : UIView?
     @IBOutlet weak var finalMemoryImg : UIImageView?
-    @IBOutlet weak var reTakeSelfieBtn : UIButton?
-    @IBOutlet weak var photoboothLbl : UILabel?
-    @IBOutlet weak var crossBtn : UIButton?
     @IBOutlet weak var localVideoView : LocalHostVideoView?
+    @IBOutlet weak var streamStackViews  : UIStackView?
 
-    
     override func viewDidLayout() {
         super.viewDidLayout()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rotated), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
         
     func setSelfieImage(with image:UIImage?){
@@ -32,9 +31,11 @@ class SelfieWindowView:ExtendedView {
             return
         }
         self.finalMemoryImg?.image = image
+        self.streamStackViews?.isHidden = true
     }
     
     func show(){
+        self.streamStackViews?.isHidden = false
         self.isHidden = false
     }
     
@@ -43,22 +44,27 @@ class SelfieWindowView:ExtendedView {
     }
     
     func showLocal(localMediaPackage : CallMediaTrack?){
-        let mediaTrack = LocalMediaVideoTrack(doesRequireMultipleTracks: true)
-        localMediaPackage?.mediaTrack = mediaTrack
+        self.streamStackViews?.isHidden = false
+        self.finalMemoryImg?.image = nil
         
-        mediaTrack.start()
         
-        guard let localPreviewView = localVideoView?.streamingVideoView else{
-            return
+    }
+    
+    @IBAction func closePhotoBooth(){
+        self.finalMemoryImg?.image = nil
+        hide()
+    }
+    
+    @objc func rotated() {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+          
         }
+
+        if UIDevice.current.orientation.isPortrait {
+            print("Portrait")
         
-        guard let renderer = localVideoView?.getRenderer() else{
-            return
         }
-        
-        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(localPreviewView)
-        localMediaPackage?.mediaTrack?.trackThree.videoTrack?.addRenderer(renderer)
-        
     }
     
 }

@@ -11,6 +11,9 @@
         <array key="PermanentMarker.ttf">
             <string>PermanentMarker</string>
         </array>
+        <array key="YouTubeSans-Bold.ttf">
+            <string>YouTubeSans-Bold</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MemoryFrame" customModule="Chatalyze" customModuleProvider="target">
@@ -18,7 +21,6 @@
                 <outlet property="backGrndImg" destination="75G-Tx-KN0" id="MpR-Ag-B2f"/>
                 <outlet property="chatlyzeLbl" destination="btj-dw-fY2" id="u8d-DJ-5zJ"/>
                 <outlet property="date" destination="dLH-ec-k8n" id="YxM-pD-wj5"/>
-                <outlet property="logoBottomHight" destination="tha-YU-DBA" id="bfF-av-7Gl"/>
                 <outlet property="memoryStickerView" destination="QVu-wr-dDL" id="ORt-e3-QPE"/>
                 <outlet property="screenShotPic" destination="2rn-XK-VAz" id="dIJ-Kk-t9f"/>
             </connections>
@@ -33,10 +35,10 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVu-wr-dDL" userLabel="logo_container" customClass="MemoryStickerView" customModule="Chatalyze" customModuleProvider="target">
-                    <rect key="frame" x="30" y="10" width="470" height="40"/>
+                    <rect key="frame" x="30" y="10" width="470" height="50"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XJ-ll-uji">
-                            <rect key="frame" x="0.0" y="-7.5" width="0.0" height="55"/>
+                            <rect key="frame" x="0.0" y="-2.5" width="0.0" height="55"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="100" verticalHuggingPriority="100" horizontalCompressionResistancePriority="100" verticalCompressionResistancePriority="100" translatesAutoresizingMaskIntoConstraints="NO" id="CbJ-X0-8xg" customClass="AutoAspectImageView" customModule="Chatalyze" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="2.5" width="0.0" height="50"/>
@@ -61,29 +63,14 @@
                                 <constraint firstItem="CbJ-X0-8xg" firstAttribute="centerY" secondItem="6XJ-ll-uji" secondAttribute="centerY" id="zVq-Yh-hZv"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateDateDateDateDateDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLH-ec-k8n">
-                            <rect key="frame" x="261.5" y="0.0" width="178.5" height="40"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="heightClass=regular-widthClass=regular">
-                                <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="20"/>
-                            </variation>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="6XJ-ll-uji" firstAttribute="centerY" secondItem="QVu-wr-dDL" secondAttribute="centerY" id="H8M-55-WbZ"/>
-                        <constraint firstAttribute="bottom" secondItem="dLH-ec-k8n" secondAttribute="bottom" id="NX5-8S-xaO"/>
-                        <constraint firstAttribute="height" constant="40" id="PPO-Fc-JWi">
+                        <constraint firstAttribute="height" constant="50" id="PPO-Fc-JWi">
                             <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                         </constraint>
-                        <constraint firstAttribute="trailing" secondItem="dLH-ec-k8n" secondAttribute="trailing" constant="30" id="QAG-cH-Jqi">
-                            <variation key="heightClass=regular-widthClass=regular" constant="30"/>
-                        </constraint>
                         <constraint firstItem="6XJ-ll-uji" firstAttribute="leading" secondItem="QVu-wr-dDL" secondAttribute="leading" id="V7D-4I-rHE"/>
-                        <constraint firstItem="dLH-ec-k8n" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="top" id="wCX-Rk-MpJ"/>
                     </constraints>
                     <connections>
                         <outlet property="dateLabel" destination="dLH-ec-k8n" id="pSJ-cg-VD9"/>
@@ -92,10 +79,10 @@
                     </connections>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-ig-5E3" userLabel="chatalyze_container" customClass="MemoryStickerView" customModule="Chatalyze" customModuleProvider="target">
-                    <rect key="frame" x="30" y="874" width="455" height="40"/>
+                    <rect key="frame" x="30" y="864" width="455" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Powered by Chatalyze   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btj-dw-fY2">
-                            <rect key="frame" x="0.0" y="0.0" width="173.5" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="173.5" height="50"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,19 +91,32 @@
                                 <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="20"/>
                             </variation>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateDateDateDateDateDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLH-ec-k8n">
+                            <rect key="frame" x="202" y="0.0" width="238" height="50"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="33"/>
+                            </variation>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="btj-dw-fY2" firstAttribute="top" secondItem="6sk-ig-5E3" secondAttribute="top" id="52J-Du-5o3"/>
+                        <constraint firstItem="dLH-ec-k8n" firstAttribute="top" secondItem="6sk-ig-5E3" secondAttribute="top" id="ITX-It-nuU"/>
                         <constraint firstAttribute="bottom" secondItem="btj-dw-fY2" secondAttribute="bottom" id="IxF-ws-4Gc"/>
-                        <constraint firstAttribute="height" constant="40" id="tha-YU-DBA">
+                        <constraint firstItem="dLH-ec-k8n" firstAttribute="centerY" secondItem="btj-dw-fY2" secondAttribute="centerY" id="W5b-tP-kqA"/>
+                        <constraint firstAttribute="bottom" secondItem="dLH-ec-k8n" secondAttribute="bottom" id="brp-Mc-vz3"/>
+                        <constraint firstAttribute="height" constant="50" id="tha-YU-DBA">
                             <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                         </constraint>
                         <constraint firstItem="btj-dw-fY2" firstAttribute="leading" secondItem="6sk-ig-5E3" secondAttribute="leading" id="zah-Qm-3Rj"/>
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2rn-XK-VAz">
-                    <rect key="frame" x="30" y="60" width="440" height="804"/>
+                    <rect key="frame" x="30" y="60" width="440" height="799"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
             </subviews>
@@ -124,14 +124,15 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2rn-XK-VAz" secondAttribute="trailing" constant="30" id="1cg-Hv-X6v"/>
-                <constraint firstItem="2rn-XK-VAz" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="bottom" constant="10" id="A2E-T2-aQc"/>
-                <constraint firstItem="6sk-ig-5E3" firstAttribute="top" secondItem="2rn-XK-VAz" secondAttribute="bottom" constant="10" id="BbK-Ww-MJM"/>
+                <constraint firstItem="2rn-XK-VAz" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="bottom" id="A2E-T2-aQc"/>
+                <constraint firstItem="6sk-ig-5E3" firstAttribute="top" secondItem="2rn-XK-VAz" secondAttribute="bottom" constant="5" id="BbK-Ww-MJM"/>
                 <constraint firstItem="75G-Tx-KN0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="D1s-al-dCa"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="bottom" secondItem="75G-Tx-KN0" secondAttribute="bottom" constant="-10" id="GY2-g1-g0H"/>
                 <constraint firstItem="QVu-wr-dDL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" multiplier="15" constant="30" id="aOW-p6-aER">
                     <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                 </constraint>
                 <constraint firstItem="QVu-wr-dDL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="e7m-YK-TiY"/>
+                <constraint firstItem="dLH-ec-k8n" firstAttribute="trailing" secondItem="2rn-XK-VAz" secondAttribute="trailing" id="idi-tg-9Dw"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="jyi-un-oHI">
                     <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                 </constraint>
