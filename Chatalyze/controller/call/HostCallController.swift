@@ -150,6 +150,7 @@ class HostCallController: VideoCallController {
             self.hostRootView?.getSnapshot(info:  self.eventInfo, completion: { [self](image) in
                 self.memoryImage = image
                 selfieWindowView?.setSelfieImage(with: image)
+                self.registerForCapturedScreenshot()
                 self.mimicScreenShotFlash()
             })
         }
@@ -571,6 +572,15 @@ class HostCallController: VideoCallController {
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
         
         }
+    }
+    
+    private func registerForCapturedScreenshot(){
+        // send captured selfie configation
+        var data:[String:Any] = [String:Any]()
+        var messageData:[String:Any] = [String:Any]()
+        messageData = ["capturedSelfie":true]
+        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+        socketClient?.emit(data)
     }
     
 
