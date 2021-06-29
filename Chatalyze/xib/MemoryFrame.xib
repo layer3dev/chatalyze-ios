@@ -8,9 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="PermanentMarker.ttf">
-            <string>PermanentMarker</string>
-        </array>
         <array key="YouTubeSans-Bold.ttf">
             <string>YouTubeSans-Bold</string>
         </array>
@@ -81,24 +78,24 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sk-ig-5E3" userLabel="chatalyze_container" customClass="MemoryStickerView" customModule="Chatalyze" customModuleProvider="target">
                     <rect key="frame" x="30" y="864" width="455" height="50"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Powered by Chatalyze   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btj-dw-fY2">
-                            <rect key="frame" x="0.0" y="0.0" width="173.5" height="50"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Powered by Chatalyze  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="btj-dw-fY2">
+                            <rect key="frame" x="0.0" y="0.0" width="216" height="50"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                             <variation key="heightClass=regular-widthClass=regular">
-                                <fontDescription key="fontDescription" name="PermanentMarker" family="Permanent Marker" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="26"/>
                             </variation>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DateDateDateDateDateDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLH-ec-k8n">
-                            <rect key="frame" x="202" y="0.0" width="238" height="50"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 Jan 2021" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLH-ec-k8n">
+                            <rect key="frame" x="334.5" y="0.0" width="105.5" height="50"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="20"/>
+                            <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="21"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                             <variation key="heightClass=regular-widthClass=regular">
-                                <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="33"/>
+                                <fontDescription key="fontDescription" name="YouTubeSans-Bold" family="YouTube Sans" pointSize="25"/>
                             </variation>
                         </label>
                     </subviews>
@@ -116,7 +113,7 @@
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2rn-XK-VAz">
-                    <rect key="frame" x="30" y="60" width="440" height="799"/>
+                    <rect key="frame" x="30" y="70" width="440" height="789"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
             </subviews>
@@ -124,7 +121,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="2rn-XK-VAz" secondAttribute="trailing" constant="30" id="1cg-Hv-X6v"/>
-                <constraint firstItem="2rn-XK-VAz" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="bottom" id="A2E-T2-aQc"/>
+                <constraint firstItem="2rn-XK-VAz" firstAttribute="top" secondItem="QVu-wr-dDL" secondAttribute="bottom" constant="10" id="A2E-T2-aQc"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="top" secondItem="2rn-XK-VAz" secondAttribute="bottom" constant="5" id="BbK-Ww-MJM"/>
                 <constraint firstItem="75G-Tx-KN0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="D1s-al-dCa"/>
                 <constraint firstItem="6sk-ig-5E3" firstAttribute="bottom" secondItem="75G-Tx-KN0" secondAttribute="bottom" constant="-10" id="GY2-g1-g0H"/>

@@ -17,14 +17,24 @@ class SelfieActionContainerView: ExtendedView {
     @IBOutlet weak var saveContainerWidthAnchor : NSLayoutConstraint?
     @IBOutlet weak var selfieActionContainerWidthAnchor : NSLayoutConstraint?
     
+    @IBOutlet var reatakeContainerView : UIView?
+    @IBOutlet var saveContainerView : UIView?
+    
     
     override func viewDidLayout() {
         super.viewDidLayout()
-        
+        paintInterface()
+        self.clipsToBounds = true
     }
     
-    private func enableCamera(){
+    func paintInterface(){
+        reatakeContainerView?.layer.cornerRadius = 45/2
+        saveContainerView?.layer.cornerRadius =  45 / 2
+    }
+    
+     func enableCamera(){
         self.disableRetakeAndSave()
+        layoutIfNeeded()
         if  UIDevice.current.userInterfaceIdiom == .pad{
             selfieActionContainerWidthAnchor?.constant = 70
         }else{
@@ -33,7 +43,7 @@ class SelfieActionContainerView: ExtendedView {
   
     }
     
-    private func enableRetakeAndSave(){
+     func enableRetakeAndSave(){
         self.disableCamera()
         if  UIDevice.current.userInterfaceIdiom == .pad{
             self.retakeContainerWidthAnchor?.constant = reatkeConatainerWidth

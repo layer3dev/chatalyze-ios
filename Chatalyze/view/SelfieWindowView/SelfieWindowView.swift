@@ -17,6 +17,7 @@ class SelfieWindowView:ExtendedView {
     @IBOutlet weak var finalMemoryImg : UIImageView?
     @IBOutlet weak var localVideoView : LocalHostVideoView?
     @IBOutlet weak var streamStackViews  : UIStackView?
+    @IBOutlet weak var selfieActionContainer : SelfieActionContainerView?
 
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -26,17 +27,10 @@ class SelfieWindowView:ExtendedView {
         
     func setSelfieImage(with image:UIImage?){
         
-        guard let image = image else{
-            Log.echo(key: "AbhishekD", text: "No Image found!")
-            return
-        }
-        self.finalMemoryImg?.image = image
-        self.streamStackViews?.isHidden = true
     }
     
     func show(){
-        self.streamStackViews?.isHidden = false
-        self.isHidden = false
+      
     }
     
     func hide(){
@@ -46,7 +40,6 @@ class SelfieWindowView:ExtendedView {
     func showLocal(localMediaPackage : CallMediaTrack?){
         self.streamStackViews?.isHidden = false
         self.finalMemoryImg?.image = nil
-        
         
     }
     

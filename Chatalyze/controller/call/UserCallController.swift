@@ -10,6 +10,8 @@ import SwiftyJSON
 import TwilioVideo
 import SDWebImage
 import Analytics
+import ChatSDK
+import MessagingSDK
 
 class UserCallController: VideoCallController {
     
@@ -47,7 +49,7 @@ class UserCallController: VideoCallController {
     @IBOutlet var futureSessionHeaderLbl:UILabel?
     @IBOutlet var futureSessionPromotionImage:UIImageView?
     @IBOutlet var spotNumberView : SpotInLineView?
-    @IBOutlet var selfieWindiwView : SelfieWindowView?
+    @IBOutlet var selfieWindiwView : UserSelfieBooth?
     
     // isScreenshotStatusLoaded variable will let us know after verifying that screenShot is saved or not through the webservice.
     
@@ -408,6 +410,19 @@ class UserCallController: VideoCallController {
             }
         }
     
+    @IBAction func openChatController(_ sender: Any) {
+        Log.echo(key: TAG, text: "Chat view Controller tapped")
+        Log.echo(key: self.TAG, text: "chatControllerShown called")
+        do {
+            let chatEngine = try ChatEngine.engine()
+    
+            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+           self.presentModally(viewController)
+//            self.navigationController?.present(viewController, animated: true, completion: nil)
+        } catch {
+            // handle error
+        }
+    }
     
     private func initiateTwilioConnection(slotInfo : SlotInfo){
         
@@ -1186,8 +1201,15 @@ class UserCallController: VideoCallController {
         socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
             
             print(" I got the reponse \(String(describing: response))")
-            self.selfieWindiwView?.show()
             
+            if let responseDict:[String:JSON] = response?.dictionary{
+                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+                    
+                    if let _ = dateDict["timerStartsAt"]?.boolValue{
+                        self.selfieWindiwView?.show()
+                    }
+                }
+            }
         })
     }
     

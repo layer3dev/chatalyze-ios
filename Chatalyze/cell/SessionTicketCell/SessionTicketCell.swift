@@ -30,7 +30,10 @@ class SessionTicketCell : ExtendedTableCell {
     var fromattedEndDate:String?
     
     @IBOutlet var joinButtonContainer:UIView?
+    @IBOutlet var stripContainerView : UIView?
     @IBOutlet var joinButtonLayerView:UIView?
+    
+    @IBOutlet weak var buttonInsideLayer: UIView!
     @IBOutlet var mainView:UIView?
     
     @IBOutlet var profileImage:UIImageView?
@@ -94,21 +97,31 @@ class SessionTicketCell : ExtendedTableCell {
         initializeDesiredDatesFormat(info:info)
         self.title?.text = "\(info.eventTitle ?? "")"
         self.hostName?.text = "\(info.callschedule?.user?.firstName ?? "")"
-        
+ 
         fetchBackgroudImg()
         fetchProfileImage()
+        mainView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         mainView?.layer.cornerRadius = 12
+        mainView?.layer.masksToBounds = true
+        
+        joinButtonContainer?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        joinButtonContainer?.layer.cornerRadius = 12
+        joinButtonContainer?.layer.masksToBounds = true
+        
         sponsorView?.layer.cornerRadius = 12
+        buttonInsideLayer.layer.cornerRadius = 6
+        buttonInsideLayer.clipsToBounds = true
+        
     }
         
     func fetchProfileImage(){
         self.profileImage?.image = nil
-        if let profileImage = self.profileImageStr{
+        if let profileImage = info?.callschedule?.user?.profileImage{
             if let url = URL(string:profileImage){
                 
                 self.profileImage?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                 })
-//                return
+                return
             }else{
                 self.profileImage?.image = #imageLiteral(resourceName: "user_placeholder")
             }
@@ -121,17 +134,17 @@ class SessionTicketCell : ExtendedTableCell {
     
     func fetchBackgroudImg(){
         self.sponsorView?.image = nil
-        if let urlString = self.ticketFrameStr{
+        if let urlString = info?.callschedule?.ticketFrame{
             if let url = URL(string: urlString){
                 self.sponsorView?.sd_setImage(with: url, placeholderImage: UIImage(named:"base"), options: SDWebImageOptions.highPriority, completed: { (image, error, cache, url) in
                     self.sponsorView?.image = image
                 })
-//                return
+                return
             }else{
-                self.sponsorView?.backgroundColor = .systemGray
+                self.sponsorView?.backgroundColor = #colorLiteral(red: 0.8979603648, green: 0.8980895877, blue: 0.8979321122, alpha: 1)
             }
         }else{
-            self.sponsorView?.backgroundColor = .systemGray
+            self.sponsorView?.backgroundColor = #colorLiteral(red: 0.8979603648, green: 0.8980895877, blue: 0.8979321122, alpha: 1)
         }
     }
     

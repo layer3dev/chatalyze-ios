@@ -48,13 +48,14 @@ class PhotoBoothView: ExtendedView {
     }
     
     func hidePhotoboothcanvas(){
+        disableBtn()
         self.isHidden = true
         photoboothWidthAnchor?.constant = 0
     }
     
     func showPhotoboothcanvas(){
 //        self.isHidden = false
-        
+        enableBtn()
         if UIDevice.current.userInterfaceIdiom == .pad{
             photoboothWidthAnchor?.constant = 100
         }else{

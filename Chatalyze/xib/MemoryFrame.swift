@@ -57,7 +57,7 @@ class MemoryFrame:XibTemplate{
         paintInterface()
         loadbackgrndImg(eveninfo: userInfo ?? EventInfo())
         checkForPoweredByChatalyzeLogo()
-        chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
+//        chatlyzeLbl?.drawText(in: CGRect().inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 0, right: 5)))
     }
     
     

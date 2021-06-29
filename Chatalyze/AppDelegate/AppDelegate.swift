@@ -86,6 +86,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.isRootInitialize = true
         }
         _ = RTCConnectionInitializer()
+        
+        let fontFamilyNames = UIFont.familyNames
+
+        for familyName in fontFamilyNames {
+            print("Font Family Name = [\(familyName)]")
+            let names = UIFont.fontNames(forFamilyName: familyName)
+            print("Font Names = [\(names)]")
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
