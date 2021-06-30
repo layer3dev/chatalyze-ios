@@ -44,6 +44,7 @@ class SelfieWindowView:ExtendedView {
     }
     
     @IBAction func closePhotoBooth(){
+        releaseDeviceOrientation()
         self.finalMemoryImg?.image = nil
         hide()
     }
@@ -58,6 +59,13 @@ class SelfieWindowView:ExtendedView {
             print("Portrait")
         
         }
+    }
+    
+    func releaseDeviceOrientation(){
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.isSignatureInCallisActive = false
+        delegate?.allowRotate = true
     }
     
 }

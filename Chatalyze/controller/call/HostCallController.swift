@@ -39,6 +39,7 @@ class HostCallController: VideoCallController {
     var isAutograpaghinProcess = false
     var enableSelfieBtn = false
     var memoryImage:UIImage?
+    var capturedSlefieSlotInfo : SlotInfo?
     
     //In order to maintain the refrence for the Early Controller.
     var earlyControllerReference : EarlyViewController?
@@ -336,6 +337,8 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction func sendSelfieReq(_ sender: Any) {
+        changeOrientationToPortrait()
+        lockDeviceOrientation()
         photoBothView?.disableBtn()
         selfieWindowView?.show()
         sendTimeStampToUser()
@@ -512,6 +515,9 @@ class HostCallController: VideoCallController {
             selfieTimerView?.takeInstantScreenshot(eventInfo:eventInfo)
         }
         // send captured selfie configation
+        if let slotInfo = myLiveUnMergedSlot{
+            self.capturedSlefieSlotInfo = slotInfo
+        }
         registerForCaptureScreenshot()
     }
     
@@ -523,7 +529,7 @@ class HostCallController: VideoCallController {
     @IBAction func saveSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie save Action tapped!!")
         
-        guard let slotInfo = myLiveUnMergedSlot
+        guard let slotInfo = capturedSlefieSlotInfo
             else{
                 return
         }
@@ -532,6 +538,7 @@ class HostCallController: VideoCallController {
             return
         }
         self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+//        self.releaseDeviceOrientation()
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
             }
@@ -1134,6 +1141,7 @@ class HostCallController: VideoCallController {
         hostRootView?.hostCallInfoContainer?.slotCount?.text = ""
         sessionCurrentSlotLbl?.text = ""
         sessionTotalSlotNumLbl?.text = ""
+        selfieWindowView?.hide()
         
         guard let endDate = self.eventInfo?.endDate
             else{
@@ -1191,6 +1199,7 @@ class HostCallController: VideoCallController {
         sessionTotalSlotNumLbl?.text = ""
         sessionHeaderLbl?.text = ""
         self.earlyEndSessionView?.isHidden = true
+        self.selfieWindowView?.hide()
         breakView?.startBreakShowing(time: "\(String(describing: self.eventInfo?.mergeSlotInfo?.currentSlot?.endDate?.countdownTimeFromNowAppended()?.time ?? ""))")
         upNextSlotInfoView?.hideUpNextSlotInfo()
     }
@@ -2360,6 +2369,7 @@ extension HostCallController:AutographSignatureBottomResponseInterface{
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.isSignatureInCallisActive = false
+        delegate?.allowRotate = true
         UIDevice.current.setValue(UIInterfaceOrientationMask.all.rawValue, forKey: "orientation")
     }
     

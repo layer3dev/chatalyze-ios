@@ -29,7 +29,7 @@ class HostSelfieBoothView: SelfieWindowView {
         if UIDevice.current.userInterfaceIdiom == .pad{
             self.conatinerheightAnchor?.isActive = false
             self.containerWidthAnchor?.isActive = false
-            self.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, padding: .zero, size: .init(width: 650, height: 650))
+            self.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, padding: .zero, size: .init(width: 550, height: 550))
         }else{
             self.conatinerheightAnchor?.isActive = false
             self.containerWidthAnchor?.isActive = false

@@ -753,6 +753,7 @@ class UserCallController: VideoCallController {
         
         initializeGetCommondForTakeScreenShot()
         registerForHostManualTriggeredTimeStamp()
+        registerOnScreenShotGotSaved()
         registerForListeners()
         showAutographCanvas()
         self.selfieTimerView?.delegate = self
@@ -1206,10 +1207,21 @@ class UserCallController: VideoCallController {
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
                     
                     if let _ = dateDict["timerStartsAt"]?.boolValue{
+                        self.changeOrientationToPortrait()
+                        self.lockDeviceOrientationInPortrait()
                         self.selfieWindiwView?.show()
                     }
                 }
             }
+        })
+    }
+    
+    func registerOnScreenShotGotSaved(){
+        socketListener?.onEvent("chatalyze_selfie_saved", completion: { [self] (response) in
+            
+            print(" I got the reponse \(String(describing: response))")
+            self.selfieWindiwView?.hide()
+            
         })
     }
     
