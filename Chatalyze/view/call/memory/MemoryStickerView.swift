@@ -27,7 +27,7 @@ class MemoryStickerView : ExtendedView{
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         let selfieDate = Date()
         let requireDate = dateFormatter.string(from: selfieDate)
-        dateLabel?.text = " \(requireDate) "
+        dateLabel?.text = " \(requireDate)  "
     }
     
     func renderImage(image : UIImage?){

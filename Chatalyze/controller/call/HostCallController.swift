@@ -53,7 +53,7 @@ class HostCallController: VideoCallController {
     @IBOutlet var earlyEndSessionView:UIView?
     @IBOutlet var upNextSlotInfoView:UpNextSlotInfoView?
     @IBOutlet var photoBothView : PhotoBoothView?
-    @IBOutlet var selfieWindowView : SelfieWindowView?
+    @IBOutlet var selfieWindowView : HostSelfieBoothView?
     
     //For animation.
     var isAnimating = false
@@ -512,20 +512,30 @@ class HostCallController: VideoCallController {
             selfieTimerView?.takeInstantScreenshot(eventInfo:eventInfo)
         }
         // send captured selfie configation
-        var data:[String:Any] = [String:Any]()
-        var messageData:[String:Any] = [String:Any]()
-        messageData = ["captureSelfie":true]
-        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
-        socketClient?.emit(data)
+        registerForCaptureScreenshot()
     }
     
     @IBAction func retakeSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth Re-Take selfie Action tapped!!")
-        self.photoboothSelfieAction()
+        photoboothSelfieAction()
     }
     
     @IBAction func saveSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie save Action tapped!!")
+        
+        guard let slotInfo = myLiveUnMergedSlot
+            else{
+                return
+        }
+        
+        guard let image = self.memoryImage else {
+            return
+        }
+        self.showToastWithMessage(text: "Saving Memory..", time: 5.0)
+        encodeImageToBase64(image: image) {[weak self] (encodedImage) in
+            self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+            }
+        }
     }
     
     @IBAction func showChatDeskWindow(){
@@ -572,6 +582,14 @@ class HostCallController: VideoCallController {
         var data:[String:Any] = [String:Any]()
         var messageData:[String:Any] = [String:Any]()
         messageData = ["capturedSelfie":true]
+        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+        socketClient?.emit(data)
+    }
+    
+    private func registerForCaptureScreenshot(){
+        var data:[String:Any] = [String:Any]()
+        var messageData:[String:Any] = [String:Any]()
+        messageData = ["captureSelfie":true]
         data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
         socketClient?.emit(data)
     }
@@ -711,7 +729,7 @@ class HostCallController: VideoCallController {
         
         self.preconnectTwillioRoom?.switchStream(info: self.eventInfo)
         self.currentTwillioRoom?.switchStream(info:self.eventInfo)
-        resetAutographCanvasIfNewCallAndSlotExists()
+        self.resetAutographCanvasIfNewCallAndSlotExists()
     }
     
     func trackChatCompletedLog(){
@@ -835,6 +853,16 @@ class HostCallController: VideoCallController {
                 if !eventInfo.isHostManualScreenshot{
                     return
                 }
+                
+                if localMediaPackage?.isVideoMuted ?? false{
+                    photoBothView?.hidePhotoboothcanvas()
+                    return
+                }
+//                if !(self.currentTwillioRoom?.remoteView?.videoDimensions.height == 0) {
+//                    photoBothView?.hidePhotoboothcanvas()
+//                    return
+//                }
+
                 if !SlotFlagInfo.isCallHangedUp{
                     photoBothView?.checkForAutomatedBothStyle(eventInfo: self.eventInfo)
                 }
@@ -1135,6 +1163,7 @@ class HostCallController: VideoCallController {
         sessionRemainingTimeLbl?.attributedText = timeRemaining
         self.earlyEndSessionView?.isHidden = false
         self.photoBothView?.hidePhotoboothcanvas()
+        self.selfieWindowView?.hide()
         self.hostActionContainer?.extendChatView?.hideExtendBtn()
         if countdownTime == "00 : 00 : 00" {
             upNextSlotInfoView?.hideUpNextSlotInfo()
