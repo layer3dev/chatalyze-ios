@@ -1217,11 +1217,9 @@ class UserCallController: VideoCallController {
     }
     
     func registerOnScreenShotGotSaved(){
-        socketListener?.onEvent("chatalyze_selfie_saved", completion: { [self] (response) in
-            
-            print(" I got the reponse \(String(describing: response))")
-            self.selfieWindiwView?.hide()
-            
+        
+        UserSocket.sharedInstance?.socket?.on("chatalyze_selfie_saved", callback: {[weak self] (data, emitter) in
+            self?.selfieWindiwView?.hide()
         })
     }
     
