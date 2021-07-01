@@ -56,7 +56,7 @@ class UserSelfieBooth: SelfieWindowView {
     }
     // shows selfieBooth
     override func show() {
-        self.finalMemoryImg = nil
+        self.memoryImage?.image = nil
         self.streamStackViews?.isHidden = false
         self.isHidden = false
     }
@@ -71,6 +71,10 @@ class UserSelfieBooth: SelfieWindowView {
         self.streamStackViews?.isHidden = true
     }
  
+    override func hide(){
+        self.memoryImage?.image = nil
+        self.isHidden = true
+    }
 }
 
 extension NSLayoutConstraint {
