@@ -341,8 +341,13 @@ class HostCallController: VideoCallController {
         changeOrientationToPortrait()
         lockDeviceOrientation()
         photoBothView?.disableBtn()
-   
-        selfieWindowView?.show(with: self.localMediaPackage, remoteStream:currentTwillioRoom?.currentStream)
+        guard let remotePreviewView = self.selfieWindowView?.remoteVideoView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        selfieWindowView?.show(with: self.localMediaPackage, remoteStream: nil)
+        currentTwillioRoom?.addRenderer(remoteView: remotePreviewView)
+//        selfieWindowView?.show(with: self.localMediaPackage, remoteStream:currentTwillioRoom?.currentStream)
         sendTimeStampToUser()
     }
     
@@ -543,6 +548,7 @@ class HostCallController: VideoCallController {
 //        self.releaseDeviceOrientation()
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+                self?.photoBothView?.hidePhotoboothcanvas()
             }
         }
     }
@@ -884,7 +890,7 @@ class HostCallController: VideoCallController {
         if(activeSlot.isBreak){
             Log.echo(key: "vijay", text: "Break Slot")
             setStatusMessage(type: .breakSlot)
-//            photoBothView?.hidePhotoboothcanvas()
+            photoBothView?.hidePhotoboothcanvas()
             hostActionContainer?.extendChatView?.hideExtendBtn()
             return
         }

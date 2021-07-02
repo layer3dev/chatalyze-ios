@@ -843,6 +843,31 @@ extension CallConnection : RemoteParticipantDelegate {
     }
     
     
+    func addRenderer(remoteView: RemoteVideoView?){
+        let isPartcipantExists = self.roomParticipantsList.filter({$0.isRendered == true})
+        guard let localPreviewView = remoteView?.streamingVideoView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        guard let remoteRenderer = remoteView?.getRenderer() else{
+            return
+        }
+        localPreviewView.contentMode = .scaleAspectFill
+        removePreviousRenderer()
+        removeInvalidRenderer(info: self.eventInfo)
+        for index in 0..<(isPartcipantExists[0].remoteVideoTrack?.renderers.count ?? 0) {
+            if index != 0 {
+                isPartcipantExists[0].remoteVideoTrack?.removeRenderer((isPartcipantExists[0].remoteVideoTrack?.renderers[index])!)
+            }
+        }
+        isPartcipantExists[0].remoteVideoTrack?.removeRenderer(localPreviewView)
+        isPartcipantExists[0].remoteVideoTrack?.removeRenderer(remoteRenderer)
+        isPartcipantExists[0].remoteVideoTrack?.addRenderer(localPreviewView)
+        isPartcipantExists[0].remoteVideoTrack?.addRenderer(remoteRenderer)
+        isPartcipantExists[0].isRendered = false
+    }
+
+    
     func didUnsubscribeFromVideoTrack(videoTrack: RemoteVideoTrack, publication: RemoteVideoTrackPublication, participant: RemoteParticipant) {
         
         // We are unsubscribed from the remote Participant's video Track. We will no longer receive the

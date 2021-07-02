@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1112,13 +1111,28 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aDG-Bp-dvf">
                                         <rect key="frame" x="5" y="35.333333333333314" width="321.33333333333331" height="303.33333333333331"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcL-uV-bU7">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcL-uV-bU7" customClass="TVIVideoView">
                                                 <rect key="frame" x="0.0" y="0.0" width="158.33333333333334" height="303.33333333333331"/>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-8H-hku" customClass="TVIVideoView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-8H-hku" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="163.33333333333331" y="0.0" width="158" height="303.33333333333331"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YcD-Fg-dHm" customClass="TVIVideoView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="158" height="303.33333333333331"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="YcD-Fg-dHm" firstAttribute="leading" secondItem="mdl-8H-hku" secondAttribute="leading" id="8X3-ci-kmd"/>
+                                                    <constraint firstItem="YcD-Fg-dHm" firstAttribute="top" secondItem="mdl-8H-hku" secondAttribute="top" id="FMD-kJ-5Vz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="YcD-Fg-dHm" secondAttribute="trailing" id="PjH-V8-InB"/>
+                                                    <constraint firstAttribute="bottom" secondItem="YcD-Fg-dHm" secondAttribute="bottom" id="q0L-xC-wn4"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="streamingVideoView" destination="YcD-Fg-dHm" id="iDy-pc-7mE"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                     </stackView>
@@ -1142,7 +1156,9 @@
                                 <connections>
                                     <outlet property="conatinerheightAnchor" destination="dWP-9t-zCF" id="Ifn-9c-eem"/>
                                     <outlet property="containerWidthAnchor" destination="kiG-em-jLW" id="jeA-lG-hbc"/>
+                                    <outlet property="localSteamingVideo" destination="wcL-uV-bU7" id="ogh-mH-Ihv"/>
                                     <outlet property="memoryImage" destination="c9e-Id-E8x" id="oqC-7i-Idg"/>
+                                    <outlet property="remoteStreamVideo" destination="mdl-8H-hku" id="uBJ-db-9Ad"/>
                                     <outlet property="streamStackViews" destination="aDG-Bp-dvf" id="Fnc-ah-xyV"/>
                                 </connections>
                             </view>
@@ -1965,7 +1981,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting to load the screenshot on the user side." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSG-vB-Pqm">
-                                                <rect key="frame" x="0.0" y="-12.333333333333334" width="414" height="24.666666666666668"/>
+                                                <rect key="frame" x="0.0" y="-10.666666666666666" width="414" height="21.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -2082,7 +2098,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdn-hf-f7V">
-                                <rect key="frame" x="20" y="696.66666666666663" width="50" height="50"/>
+                                <rect key="frame" x="20" y="704" width="50" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bJ-d8-0Hk">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -2338,7 +2354,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting for chats to get booked..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVx-Mg-Kza" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="382.66666666666669" width="384" height="71"/>
+                                        <rect key="frame" x="15" y="387.66666666666669" width="384" height="60.666666666666686"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2350,10 +2366,10 @@
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5sy-jz-Xhn" customClass="RoundCornerViews" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="73" y="493.66666666666674" width="268" height="55"/>
+                                        <rect key="frame" x="73" y="488.33333333333326" width="268.33333333333331" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End session early" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ax-iX-d7k" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="40" y="0.0" width="188" height="55"/>
+                                                <rect key="frame" x="40.000000000000014" y="0.0" width="188.33333333333337" height="55"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="24"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2366,7 +2382,7 @@
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXI-Vz-yK6">
-                                                <rect key="frame" x="0.0" y="0.0" width="268" height="55"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="268.33333333333331" height="55"/>
                                                 <connections>
                                                     <action selector="endSessionEarlyWithSender:" destination="osS-h4-4wh" eventType="touchUpInside" id="kKQ-rE-1yZ"/>
                                                     <action selector="keepRegistrationWithSender:" destination="mh0-yc-sqt" eventType="touchUpInside" id="EFf-3v-GIp"/>
@@ -2780,7 +2796,7 @@
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wiC-ll-xed" customClass="AutographSignatureReponseBottomView" customModule="Chatalyze" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="751.66666666666663" width="414" height="110.33333333333337"/>
+                                <rect key="frame" x="0.0" y="759" width="414" height="103"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-ee-czJ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -2792,7 +2808,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0a-Xq-cab">
-                                        <rect key="frame" x="0.0" y="44.666666666666742" width="414" height="1"/>
+                                        <rect key="frame" x="0.0" y="41" width="414" height="1"/>
                                         <color key="backgroundColor" red="0.48627450980392156" green="0.48627450980392156" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="oQM-ec-IfI">
@@ -2801,7 +2817,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autograph" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EJ-Gs-869">
-                                        <rect key="frame" x="0.0" y="10.000000000000002" width="414" height="24.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="10" width="414" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2810,7 +2826,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Am0-7E-OVO">
-                                        <rect key="frame" x="19.999999999999996" y="65.666666666666742" width="45.666666666666657" height="24.666666666666671"/>
+                                        <rect key="frame" x="20.000000000000004" y="62" width="44.333333333333343" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.10588235294117647" green="0.51764705882352935" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2819,7 +2835,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlY-dK-C6k">
-                                        <rect key="frame" x="349.33333333333331" y="65.666666666666742" width="44.666666666666686" height="24.666666666666671"/>
+                                        <rect key="frame" x="351" y="62" width="43" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.1058823529" green="0.51764705879999995" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2828,7 +2844,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ca0-PD-Anw">
-                                        <rect key="frame" x="160.66666666666666" y="65.666666666666742" width="45.333333333333343" height="24.666666666666671"/>
+                                        <rect key="frame" x="162.33333333333334" y="62" width="43.666666666666657" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2837,7 +2853,7 @@
                                         </variation>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tYk-gx-a67">
-                                        <rect key="frame" x="212" y="58" width="40" height="40"/>
+                                        <rect key="frame" x="212" y="52.666666666666629" width="40" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="D44-q6-N2p">
@@ -2849,19 +2865,19 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgR-gw-lEI">
-                                        <rect key="frame" x="0.0" y="45.66666666666675" width="65.666666666666671" height="64.666666666666686"/>
+                                        <rect key="frame" x="0.0" y="42" width="64.333333333333329" height="61"/>
                                         <connections>
                                             <action selector="undoActionWithSender:" destination="wiC-ll-xed" eventType="touchUpInside" id="PgI-Sa-3qh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcY-S9-kQL">
-                                        <rect key="frame" x="160.66666666666666" y="45.66666666666675" width="91.333333333333343" height="64.666666666666686"/>
+                                        <rect key="frame" x="162.33333333333334" y="42" width="89.666666666666657" height="61"/>
                                         <connections>
                                             <action selector="colorActionWithSender:" destination="wiC-ll-xed" eventType="touchUpInside" id="Rhy-uN-51F"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozg-mO-Oxb">
-                                        <rect key="frame" x="349.33333333333331" y="45.66666666666675" width="64.666666666666686" height="64.666666666666686"/>
+                                        <rect key="frame" x="351" y="42" width="63" height="61"/>
                                         <connections>
                                             <action selector="doneActionWithSender:" destination="wiC-ll-xed" eventType="touchUpInside" id="nse-KO-yEM"/>
                                         </connections>
@@ -3173,7 +3189,22 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-UM-owU" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="168.66666666666663" y="0.0" width="163.33333333333337" height="331"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKM-Br-9dd" customClass="TVIVideoView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="163.33333333333334" height="331"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="GKM-Br-9dd" secondAttribute="bottom" id="Ns8-kD-ibw"/>
+                                                    <constraint firstItem="GKM-Br-9dd" firstAttribute="leading" secondItem="2xO-UM-owU" secondAttribute="leading" id="hfc-GR-Uim"/>
+                                                    <constraint firstItem="GKM-Br-9dd" firstAttribute="top" secondItem="2xO-UM-owU" secondAttribute="top" id="ozQ-nN-dtR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GKM-Br-9dd" secondAttribute="trailing" id="pNf-UC-el9"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="streamingVideoView" destination="GKM-Br-9dd" id="eiw-Xy-lyo"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                     </stackView>
@@ -3202,6 +3233,7 @@
                                     <outlet property="containerWidthAnchor" destination="i5y-1W-Cd7" id="UoF-sX-b7G"/>
                                     <outlet property="localSteamingVideo" destination="Okw-D1-DvQ" id="P82-6X-gxe"/>
                                     <outlet property="memoryImage" destination="XbE-hQ-Twp" id="47z-vV-lCg"/>
+                                    <outlet property="remoteVideoView" destination="2xO-UM-owU" id="AEV-sQ-anV"/>
                                     <outlet property="selfieActionContainer" destination="cdY-r4-XpH" id="St1-uY-4FN"/>
                                     <outlet property="streamStackViews" destination="bnA-Co-Cqc" id="XCw-dF-e0Y"/>
                                 </connections>
@@ -3374,7 +3406,7 @@
     </scenes>
     <designables>
         <designable name="4ax-iX-d7k">
-            <size key="intrinsicContentSize" width="188" height="33"/>
+            <size key="intrinsicContentSize" width="188.33333333333334" height="28"/>
         </designable>
         <designable name="6Js-ua-U3u">
             <size key="intrinsicContentSize" width="235.33333333333334" height="19.333333333333332"/>
@@ -3383,10 +3415,10 @@
             <size key="intrinsicContentSize" width="661.66666666666663" height="22"/>
         </designable>
         <designable name="cWj-we-uGH">
-            <size key="intrinsicContentSize" width="204.66666666666666" height="24.666666666666668"/>
+            <size key="intrinsicContentSize" width="202.66666666666666" height="21"/>
         </designable>
         <designable name="nVx-Mg-Kza">
-            <size key="intrinsicContentSize" width="400.33333333333331" height="35.666666666666664"/>
+            <size key="intrinsicContentSize" width="387.33333333333331" height="30.333333333333332"/>
         </designable>
         <designable name="tsr-IW-Uzz">
             <size key="intrinsicContentSize" width="23.666666666666668" height="22"/>
@@ -3408,11 +3440,5 @@
         <image name="selfieCamera" width="100" height="100"/>
         <image name="slowNetwork" width="128" height="128"/>
         <image name="videocam_on" width="24" height="24"/>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

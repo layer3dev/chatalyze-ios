@@ -1209,7 +1209,11 @@ class UserCallController: VideoCallController {
                     if let _ = dateDict["timerStartsAt"]?.boolValue{
                         self.changeOrientationToPortrait()
                         self.lockDeviceOrientationInPortrait()
-                        self.selfieWindiwView?.show(with: localMediaPackage, remoteStream: connection?.remoteVideoTrack)
+                        self.selfieWindiwView?.show(with: localMediaPackage, remoteStream: nil)
+                        guard let remoteView = selfieWindiwView?.remoteStreamVideo else {
+                            return
+                        }
+                        self.connection?.addRenderer(remoteView: remoteView)
                     }
                 }
             }

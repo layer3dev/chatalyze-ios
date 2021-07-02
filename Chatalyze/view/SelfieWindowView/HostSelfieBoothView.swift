@@ -52,7 +52,7 @@ class HostSelfieBoothView: SelfieWindowView {
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
-        
+        localSteamingVideo?.contentMode = .scaleAspectFill
         let rander = getRenderer()
         if  mediaPackage?.mediaTrack != nil{
             mediaPackage?.mediaTrack?.previewTrack.videoTrack?.removeRenderer(localPreviewView)
@@ -98,7 +98,6 @@ class HostSelfieBoothView: SelfieWindowView {
         self.memoryImage?.image = nil
         self.streamStackViews?.isHidden = false
         writeLocalStream(mediaPackage: mediaPackage)
-
         self.selfieActionContainer?.enableCamera()
         self.isHidden = false
     }
