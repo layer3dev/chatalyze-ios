@@ -706,6 +706,22 @@ extension UserCallConnection : RemoteParticipantDelegate {
     
     }
     
+    func addRenderer(remoteView: RemoteVideoView?){
+        guard let localPreviewView = remoteView?.streamingVideoView else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        guard let remoteRenderer = remoteView?.getRenderer() else{
+            return
+        }
+        localPreviewView.contentMode = .scaleAspectFill
+        self.remoteVideoTrack?.removeRenderer(localPreviewView)
+        self.remoteVideoTrack?.removeRenderer(remoteRenderer)
+        self.remoteVideoTrack?.addRenderer(localPreviewView)
+        self.remoteVideoTrack?.addRenderer(remoteRenderer)
+    }
+
+    
     func didSubscribeToAudioTrack(audioTrack: RemoteAudioTrack, publication: RemoteAudioTrackPublication, participant: RemoteParticipant) {
         
         logMessage(messageText: "Subscribed to \(publication.trackName) audio track for Participant \(participant.identity)and the host hash id is \(self.eventInfo?.user?.hashedId)")

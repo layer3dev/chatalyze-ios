@@ -18,7 +18,7 @@ class UserSelfieBooth: SelfieWindowView {
     @IBOutlet var conatinerheightAnchor : NSLayoutConstraint?
     @IBOutlet var memoryImage : UIImageView?
     @IBOutlet var localSteamingVideo : VideoView?
-    @IBOutlet var remoteStreamVideo : VideoView?
+    @IBOutlet var remoteStreamVideo : RemoteVideoView?
 
     
     
@@ -38,12 +38,11 @@ class UserSelfieBooth: SelfieWindowView {
     }
 
     func writeLocalStream(mediaPackage : CallMediaTrack?){
-        guard let localPreviewView = self.localSteamingVideo else{
+        guard let localPreviewView = self.localSteamingVideo else {
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
-        localSteamingVideo?.shouldMirror = false
-
+        localSteamingVideo?.contentMode = .scaleAspectFill
         let rander = getRenderer()
         if  mediaPackage?.mediaTrack != nil{
             mediaPackage?.mediaTrack?.previewTrack.videoTrack?.removeRenderer(localPreviewView)
@@ -76,19 +75,22 @@ class UserSelfieBooth: SelfieWindowView {
         }
     }
     // shows selfieBooth
-    override  func show( with mediaPackage : CallMediaTrack?,remoteStream : RemoteVideoTrack?){
-        self.memoryImage?.image = nil
-        self.streamStackViews?.isHidden = false
-        writeLocalStream(mediaPackage: mediaPackage)
-        guard let remotePreviewView = self.remoteStreamVideo else{
-            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
-            return
+        override func show( with mediaPackage : CallMediaTrack?,remoteStream : RemoteVideoTrack?){
+            self.memoryImage?.image = nil
+            self.streamStackViews?.isHidden = false
+            writeLocalStream(mediaPackage: mediaPackage)
+            self.selfieActionContainer?.enableCamera()
+            self.isHidden = false
         }
-        let rander = getRenderer()
-        remoteStream?.addRenderer(remotePreviewView)
-        remoteStream?.addRenderer(rander)
-        self.isHidden = false
-    }
+//        writeLocalStream(mediaPackage: mediaPackage)
+//        guard let remotePreviewView = self.remoteStreamVideo else{
+//            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+//            return
+//        }
+//        let rander = getRenderer()
+//        remoteStream?.addRenderer(remotePreviewView)
+//        remoteStream?.addRenderer(rander)
+//    }
     
     // will set image on selfie frame
     override func setSelfieImage(with image: UIImage?) {
