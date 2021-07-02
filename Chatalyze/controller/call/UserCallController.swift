@@ -1223,6 +1223,7 @@ class UserCallController: VideoCallController {
     func registerOnScreenShotGotSaved(){
         
         UserSocket.sharedInstance?.socket?.on("chatalyze_selfie_saved", callback: {[weak self] (data, emitter) in
+            self?.saveImage()
             self?.selfieWindiwView?.hide()
         })
     }

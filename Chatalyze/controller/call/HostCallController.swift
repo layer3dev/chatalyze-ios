@@ -535,7 +535,7 @@ class HostCallController: VideoCallController {
     
     @IBAction func saveSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie save Action tapped!!")
-        
+        selfieWindowView?.hide()
         guard let slotInfo = capturedSlefieSlotInfo
             else{
                 return
@@ -548,7 +548,6 @@ class HostCallController: VideoCallController {
 //        self.releaseDeviceOrientation()
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
-                self?.photoBothView?.hidePhotoboothcanvas()
             }
         }
     }
