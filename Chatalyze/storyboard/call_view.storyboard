@@ -1116,7 +1116,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="158.33333333333334" height="303.33333333333331"/>
                                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-8H-hku">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-8H-hku" customClass="TVIVideoView">
                                                 <rect key="frame" x="163.33333333333331" y="0.0" width="158" height="303.33333333333331"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                             </view>
@@ -1140,10 +1140,8 @@
                                     <constraint firstItem="c9e-Id-E8x" firstAttribute="top" secondItem="cLk-dy-mnr" secondAttribute="bottom" constant="10" id="yvL-4y-cnk"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="LocalStream" destination="mdl-8H-hku" id="of2-Jt-RXm"/>
                                     <outlet property="conatinerheightAnchor" destination="dWP-9t-zCF" id="Ifn-9c-eem"/>
                                     <outlet property="containerWidthAnchor" destination="kiG-em-jLW" id="jeA-lG-hbc"/>
-                                    <outlet property="hostStream" destination="wcL-uV-bU7" id="ish-HX-qxs"/>
                                     <outlet property="memoryImage" destination="c9e-Id-E8x" id="oqC-7i-Idg"/>
                                     <outlet property="streamStackViews" destination="aDG-Bp-dvf" id="Fnc-ah-xyV"/>
                                 </connections>
@@ -3169,11 +3167,11 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-Co-Cqc">
                                         <rect key="frame" x="10" y="35.000000000000028" width="332" height="331"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-D1-DvQ" customClass="LocalHostVideoView" customModule="Chatalyze" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okw-D1-DvQ" customClass="TVIVideoView">
                                                 <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="331"/>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-UM-owU">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xO-UM-owU" customClass="RemoteVideoView" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="168.66666666666663" y="0.0" width="163.33333333333337" height="331"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                             </view>
@@ -3200,10 +3198,9 @@
                                     <constraint firstItem="cdY-r4-XpH" firstAttribute="top" secondItem="XbE-hQ-Twp" secondAttribute="bottom" constant="5" id="vrI-lX-QCt"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="LocalStream" destination="2xO-UM-owU" id="tnc-Pj-SRD"/>
                                     <outlet property="conatinerheightAnchor" destination="ETK-O1-ctJ" id="KFe-K5-eIr"/>
                                     <outlet property="containerWidthAnchor" destination="i5y-1W-Cd7" id="UoF-sX-b7G"/>
-                                    <outlet property="localVideoView" destination="Okw-D1-DvQ" id="yUk-a9-fnP"/>
+                                    <outlet property="localSteamingVideo" destination="Okw-D1-DvQ" id="P82-6X-gxe"/>
                                     <outlet property="memoryImage" destination="XbE-hQ-Twp" id="47z-vV-lCg"/>
                                     <outlet property="selfieActionContainer" destination="cdY-r4-XpH" id="St1-uY-4FN"/>
                                     <outlet property="streamStackViews" destination="bnA-Co-Cqc" id="XCw-dF-e0Y"/>

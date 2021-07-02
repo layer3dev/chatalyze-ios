@@ -21,6 +21,7 @@ class HostCallController: VideoCallController {
     
     var currentTwillioRoom:HostCallConnection?
     var preconnectTwillioRoom:HostCallConnection?
+    var roomParticipantsList = [HostRoomInfo]()
     var isMutalPointReceived = false
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
@@ -340,7 +341,8 @@ class HostCallController: VideoCallController {
         changeOrientationToPortrait()
         lockDeviceOrientation()
         photoBothView?.disableBtn()
-        selfieWindowView?.show()
+   
+        selfieWindowView?.show(with: self.localMediaPackage, remoteStream:currentTwillioRoom?.currentStream)
         sendTimeStampToUser()
     }
     
@@ -882,7 +884,7 @@ class HostCallController: VideoCallController {
         if(activeSlot.isBreak){
             Log.echo(key: "vijay", text: "Break Slot")
             setStatusMessage(type: .breakSlot)
-            photoBothView?.hidePhotoboothcanvas()
+//            photoBothView?.hidePhotoboothcanvas()
             hostActionContainer?.extendChatView?.hideExtendBtn()
             return
         }

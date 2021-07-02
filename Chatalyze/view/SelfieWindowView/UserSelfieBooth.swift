@@ -7,15 +7,18 @@
 //
 
 import Foundation
-
+import TwilioVideo
 
 
 class UserSelfieBooth: SelfieWindowView {
     
-    
+    private let TAG = "UserSelfieBooth"
+    private var trackSize : CGSize = CGSize.zero
     @IBOutlet var containerWidthAnchor : NSLayoutConstraint?
     @IBOutlet var conatinerheightAnchor : NSLayoutConstraint?
     @IBOutlet var memoryImage : UIImageView?
+    @IBOutlet var localSteamingVideo : VideoView?
+    @IBOutlet var remoteStreamVideo : VideoView?
 
     
     
@@ -30,7 +33,25 @@ class UserSelfieBooth: SelfieWindowView {
     
     }
     
+    private func initialization(){
+        self.localSteamingVideo?.delegate = self
+    }
 
+    func writeLocalStream(mediaPackage : CallMediaTrack?){
+        guard let localPreviewView = self.localSteamingVideo else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        localSteamingVideo?.shouldMirror = false
+
+        let rander = getRenderer()
+        if  mediaPackage?.mediaTrack != nil{
+            mediaPackage?.mediaTrack?.previewTrack.videoTrack?.removeRenderer(localPreviewView)
+            mediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(localPreviewView)
+            mediaPackage?.mediaTrack?.previewTrack.videoTrack?.removeRenderer(rander)
+            mediaPackage?.mediaTrack?.previewTrack.videoTrack?.addRenderer(rander)
+        }
+    }
     func handleViewConstarints(){
         
         if UIDevice.current.userInterfaceIdiom == .pad{
@@ -55,9 +76,17 @@ class UserSelfieBooth: SelfieWindowView {
         }
     }
     // shows selfieBooth
-    override func show() {
+    override  func show( with mediaPackage : CallMediaTrack?,remoteStream : RemoteVideoTrack?){
         self.memoryImage?.image = nil
         self.streamStackViews?.isHidden = false
+        writeLocalStream(mediaPackage: mediaPackage)
+        guard let remotePreviewView = self.remoteStreamVideo else{
+            Log.echo(key: "yud", text: "Empty localCameraPreviewView")
+            return
+        }
+        let rander = getRenderer()
+        remoteStream?.addRenderer(remotePreviewView)
+        remoteStream?.addRenderer(rander)
         self.isHidden = false
     }
     
@@ -75,6 +104,79 @@ class UserSelfieBooth: SelfieWindowView {
         self.memoryImage?.image = nil
         self.isHidden = true
     }
+    
+    
+    func updateSize(size: CGSize){
+        
+        print("calling updateSize")
+    }
+    
+    func getRenderer() -> VideoFrameRenderer{
+        return VideoFrameRenderer()
+    }
+    
+    func getFrame(listener : @escaping ((_ frame: UIImage?) -> ())){
+        Log.echo(key: TAG, text: "request frame")
+        getRenderer().getFrame{(frame) in
+            Log.echo(key: self.TAG, text: "got the frame \(frame)" )
+            listener(frame)
+        }
+    }
+    
+    
+}
+
+extension UserSelfieBooth : VideoViewDelegate,VideoRenderer{
+
+    func renderFrame(_ frame: VideoFrame) {
+        print("getting the frame")
+    }
+    
+    func updateVideoSize(_ videoSize: CMVideoDimensions, orientation: VideoOrientation) {
+    }
+   
+    func videoViewDidReceiveData(view: VideoView) {
+        
+        let dimensions = view.videoDimensions
+        let height = CGFloat(dimensions.height)
+        let width = CGFloat(dimensions.width)
+        let obtainedSize =  CGSize(width: width, height: height)
+        
+        if(obtainedSize != CGSize.zero){
+            self.trackSize = obtainedSize
+        }
+        
+        Log.echo(key: "Twill", text: "Updating the size videoViewDidReceiveData \(self.trackSize) and the obtained size is \(obtainedSize)")
+        self.updateSize(size: obtainedSize)
+    }
+    
+    
+    func videoViewDimensionsDidChange(view: VideoView, dimensions: CMVideoDimensions) {
+        
+        Log.echo(key: "render", text: "didChangeVideoSize --> \(dimensions)")
+        
+        print("videoViewDimensionsDidChange is \(dimensions)")
+        
+        let height = CGFloat(dimensions.height)
+        let width = CGFloat(dimensions.width)
+        let obtainedSize =  CGSize(width: width, height: height)
+        
+        if(obtainedSize != CGSize.zero){
+            self.trackSize = obtainedSize
+        }
+        
+        Log.echo(key: "Twill", text: "Updating the size of \(self.trackSize) and the obtained size is \(obtainedSize)")
+        
+        self.updateSize(size: obtainedSize)
+    }
+    
+    func resetBounds(){
+        
+        self.updateSize(size: self.trackSize)
+    }
+    
+
+
 }
 
 extension NSLayoutConstraint {

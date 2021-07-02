@@ -59,6 +59,8 @@ class CallConnection: NSObject {
     }
     var controller : VideoCallController?
     
+    var currentStream : RemoteVideoTrack?
+    
     private var _localMediaPackage : CallMediaTrack?
     private var bufferTrack : LocalMediaTrackWrapper?
     
@@ -138,6 +140,7 @@ class CallConnection: NSObject {
         if currentParticipant.count > 0 {
             
             if currentParticipant[0].isRendered{
+                self.currentStream = currentParticipant[0].remoteVideoTrack
                 return true
             }
             return false
@@ -156,7 +159,7 @@ class CallConnection: NSObject {
     /*flags*/
     var isLinked = false
     
-    private var remoteTrack : CallMediaTrack?
+     var remoteTrack : CallMediaTrack?
     var socketClient : SocketClient?
     var socketListener : SocketListener?
     

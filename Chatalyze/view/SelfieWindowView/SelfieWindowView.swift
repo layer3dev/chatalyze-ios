@@ -29,7 +29,7 @@ class SelfieWindowView:ExtendedView {
         
     }
     
-    func show(){
+    func show( with mediaPackage : CallMediaTrack?,remoteStream : RemoteVideoTrack?){
       
     }
     
