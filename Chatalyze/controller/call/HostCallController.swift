@@ -2406,7 +2406,7 @@ extension HostCallController{
         print("calling the fetch Twillio Device token")
         
         twillioRoom.isFetchingTokenToServer = true
-        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id) { (success, error, info) in
+        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id, greenRoom: nil) { (success, error, info) in
             
             print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
             twillioRoom.isFetchingTokenToServer = false

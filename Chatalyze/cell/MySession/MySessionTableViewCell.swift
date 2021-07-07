@@ -39,7 +39,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         painInterface()
         roundToMainView()
     }
-    
+        
     func paintPastFields(){
         
         if isPastEvents{

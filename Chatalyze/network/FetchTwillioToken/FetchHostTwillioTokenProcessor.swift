@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class FetchHostTwillioTokenProcessor {
     
-  public func fetch(sessionId:String?,chatID:Int?, completion : @escaping ((_ success : Bool, _ error : String,_ info:TwillioTokenInfo?)->())){
+    public func fetch(sessionId:String?,chatID:Int?,greenRoom:Bool?, completion : @escaping ((_ success : Bool, _ error : String,_ info:TwillioTokenInfo?)->())){
         
         let url = AppConnectionConfig.webServiceURL + "/schedules/token"
         
@@ -20,13 +20,16 @@ class FetchHostTwillioTokenProcessor {
             return
         }
     
-    guard let chatid = chatID else{
-              completion(false, "Missing chat id",nil)
-              return
-          }
+        guard let chatid = chatID else{
+                  completion(false, "Missing chat id",nil)
+                  return
+              }
         var param = [String:Any]()
         param["sessionId"] = id
         param["chatId"] = chatid
+        if let green = greenRoom {
+            param["greenRoom"] = green
+        }
         
         Log.echo(key: "twillio", text: "VerifyForSignatureImplementation is \(url) and the params are \(param)")
         

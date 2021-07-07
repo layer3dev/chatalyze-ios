@@ -23,6 +23,8 @@ class GreenRoomCallController: VideoCallController {
     var preconnectTwillioRoom:HostCallConnection?
     var roomParticipantsList = [HostRoomInfo]()
     var isMutalPointReceived = false
+    var callback : (()->())?
+    
     @IBOutlet var signaturAccessoryView:AutographSignatureReponseBottomView?
     
     private let TAG = "HostCallController"
@@ -335,6 +337,12 @@ class GreenRoomCallController: VideoCallController {
         Log.echo(key: self.TAG, text: "chatExtendAction")
         hostActionContainer?.extendChatView?.showExtending()
         self.extendChat()
+    }
+    
+    @IBAction func btnJoinEventAction(_ sender: Any) {
+        self.dismiss(animated: true) {
+            self.callback?()
+        }
     }
     
     @IBAction func sendSelfieReq(_ sender: Any) {
@@ -2406,7 +2414,7 @@ extension GreenRoomCallController{
         print("calling the fetch Twillio Device token")
         
         twillioRoom.isFetchingTokenToServer = true
-        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id) { (success, error, info) in
+        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id, greenRoom: true) { (success, error, info) in
             
             print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
             twillioRoom.isFetchingTokenToServer = false
