@@ -208,7 +208,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
         
         Log.echo(key: TAG, text: "launchSession")
         
-        guard let controller = HostCallController.instance()
+        guard let controller = GreenRoomCallController.instance()
             else{
                 return
         }

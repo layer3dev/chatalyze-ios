@@ -59,7 +59,7 @@ class HostEventQueueController: EventQueueController {
             
             Log.echo(key: "rotate", text: "Host Call Controllern new instance Host Event Queue Controller")
             
-            guard let controller = HostCallController.instance()
+            guard let controller = GreenRoomCallController.instance()
                 else{
                     return
             }

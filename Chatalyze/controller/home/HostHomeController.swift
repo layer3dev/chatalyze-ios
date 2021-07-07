@@ -48,7 +48,7 @@ class HostHomeController: HomeController {
             return
         }
         
-        guard let controller = HostCallController.instance()
+        guard let controller = GreenRoomCallController.instance()
             else{
                 return
         }

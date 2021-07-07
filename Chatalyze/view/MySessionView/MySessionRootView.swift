@@ -55,7 +55,7 @@ class MySessionRootView:ExtendedView{
                 return
         }
         
-        guard let controller = HostCallController.instance()
+        guard let controller = GreenRoomCallController.instance()
             else{
                 return
         }
