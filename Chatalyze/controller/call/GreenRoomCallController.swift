@@ -1825,7 +1825,7 @@ extension GreenRoomCallController{
     
     class func instance()->GreenRoomCallController?{
         
-        let storyboard = UIStoryboard(name: "call_view", bundle: nil)
+        let storyboard = UIStoryboard(name: "greenroom", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "GreenRoomCallController") as? GreenRoomCallController
         return controller
     }
