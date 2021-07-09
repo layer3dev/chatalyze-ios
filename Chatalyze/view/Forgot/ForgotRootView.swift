@@ -81,7 +81,7 @@ class ForgotRootView:ExtendedView{
     }
     
     func initialisation(){
-        
+        emailField?.textField?.placeholder = "Email".localized()
         emailField?.textField?.delegate = self
         scrollView?.bottomContentOffset = scrollViewBottomConstraints
     }
@@ -102,11 +102,11 @@ extension ForgotRootView{
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email field can't be left empty !".localized())
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized())
             return false
         }
         emailField?.resetErrorStatus()

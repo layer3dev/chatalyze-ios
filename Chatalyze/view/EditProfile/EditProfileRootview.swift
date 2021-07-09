@@ -81,6 +81,11 @@ class EditProfileRootview: ExtendedView {
     func paintInterface(){
                 
         paintButton()
+        oldPasswordField?.textField?.placeholder = "Old password".localized() ?? ""
+        newPasswordField?.textField?.placeholder = "New password".localized() ?? ""
+        emailField?.textField?.placeholder = "Email".localized() ?? ""
+        nameField?.textField?.placeholder = "Full name".localized() ?? ""
+        mobileNumberField?.textField?.placeholder = "Phone number".localized() ?? ""
         nameField?.isCompleteBorderAllow = true
         emailField?.isCompleteBorderAllow = true
         oldPasswordField?.isCompleteBorderAllow = true
