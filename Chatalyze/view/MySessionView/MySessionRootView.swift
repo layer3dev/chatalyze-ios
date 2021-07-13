@@ -55,19 +55,19 @@ class MySessionRootView:ExtendedView{
                 return
         }
         
-        guard let controller = GreenRoomCallController.instance()
+        guard let controller = HostCallController.instance()
             else{
                 return
         }
-        controller.callback = {
-            guard let controller = HostCallController.instance()
-                else{
-                    return
-            }
-            controller.eventId = String(eventId)
-            controller.modalPresentationStyle = .fullScreen
-            self.controller?.present(controller, animated: true, completion: nil)
-        }
+//        controller.callback = {
+//            guard let controller = HostCallController.instance()
+//                else{
+//                    return
+//            }
+//            controller.eventId = String(eventId)
+//            controller.modalPresentationStyle = .fullScreen
+//            self.controller?.present(controller, animated: true, completion: nil)
+//        }
         controller.eventId = String(eventId)
         controller.callType = "green"
         controller.modalPresentationStyle = .fullScreen

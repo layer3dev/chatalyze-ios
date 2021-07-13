@@ -48,21 +48,21 @@ class HostHomeController: HomeController {
             return
         }
         
-        guard let controller = GreenRoomCallController.instance()
+        guard let controller = HostCallController.instance()
         else {
             return
         }
         controller.eventId = String(eventId)
         controller.callType = "green"
-        controller.callback = {
-            guard let controller = HostCallController.instance()
-            else {
-                return
-            }
-            controller.eventId = String(eventId)
-            controller.modalPresentationStyle = .fullScreen
-            self.present(controller, animated: true, completion: nil)
-        }
+//        controller.callback = {
+//            guard let controller = HostCallController.instance()
+//            else {
+//                return
+//            }
+//            controller.eventId = String(eventId)
+//            controller.modalPresentationStyle = .fullScreen
+//            self.present(controller, animated: true, completion: nil)
+//        }
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true, completion: nil)
     }

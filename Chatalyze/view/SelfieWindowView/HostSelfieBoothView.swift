@@ -102,6 +102,12 @@ class HostSelfieBoothView: SelfieWindowView {
         self.isHidden = false
     }
     
+    override func retakeSelfie() {
+        self.memoryImage?.image = nil
+        self.streamStackViews?.isHidden = false
+        self.selfieActionContainer?.disableRetakeAndSave()
+    }
+    
     func updateSize(size: CGSize){
         
         print("calling updateSize")

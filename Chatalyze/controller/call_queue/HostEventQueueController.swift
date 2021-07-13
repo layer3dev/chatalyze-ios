@@ -59,7 +59,7 @@ class HostEventQueueController: EventQueueController {
             
             Log.echo(key: "rotate", text: "Host Call Controllern new instance Host Event Queue Controller")
             
-            guard let controller = GreenRoomCallController.instance()
+            guard let controller = HostCallController.instance()
                 else{
                     return
             }
@@ -72,23 +72,23 @@ class HostEventQueueController: EventQueueController {
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
             controller.callType = "green"
-            controller.callback = {
-                guard let controller = HostCallController.instance()
-                else {
-                    return
-                }
-                guard let eventId = self.eventInfo?.id
-                else {
-                    return
-                }
-                controller.eventInfo = eventInfo
-                controller.eventId = "\(eventId)"
-                self.viewDidRelease()
-                controller.modalPresentationStyle = .fullScreen
-                self.navigationController?.present(controller, animated: true, completion: {
-                    self.navigationController?.popViewController(animated: false)
-                })
-            }
+//            controller.callback = {
+//                guard let controller = HostCallController.instance()
+//                else {
+//                    return
+//                }
+//                guard let eventId = self.eventInfo?.id
+//                else {
+//                    return
+//                }
+//                controller.eventInfo = eventInfo
+//                controller.eventId = "\(eventId)"
+//                self.viewDidRelease()
+//                controller.modalPresentationStyle = .fullScreen
+//                self.navigationController?.present(controller, animated: true, completion: {
+//                    self.navigationController?.popViewController(animated: false)
+//                })
+//            }
             self.viewDidRelease()
             controller.modalPresentationStyle = .fullScreen
             self.navigationController?.present(controller, animated: true, completion: {

@@ -208,22 +208,22 @@ class EarlyCallAlertController: InterfaceExtendedController {
         
         Log.echo(key: TAG, text: "launchSession")
         
-        guard let controller = GreenRoomCallController.instance()
+        guard let controller = HostCallController.instance()
         else {
             return
         }
         controller.eventId = String(self.info?.id ?? 0)
         controller.callType = "green"
-        controller.callback = {
-            guard let controller = HostCallController.instance()
-            else {
-                return
-            }
-            controller.eventId = String(self.info?.id ?? 0)
-            Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
-            controller.modalPresentationStyle = .fullScreen
-            currentPresentingController.present(controller, animated: true, completion: nil)
-        }
+//        controller.callback = {
+//            guard let controller = HostCallController.instance()
+//            else {
+//                return
+//            }
+//            controller.eventId = String(self.info?.id ?? 0)
+//            Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
+//            controller.modalPresentationStyle = .fullScreen
+//            currentPresentingController.present(controller, animated: true, completion: nil)
+//        }
         Log.echo(key: "yud", text: "controller present is \(currentPresentingController)")
         controller.modalPresentationStyle = .fullScreen
         currentPresentingController.present(controller, animated: true, completion: nil)
