@@ -81,7 +81,7 @@ class UserCallController: VideoCallController {
     
     lazy var recordingLbl : UILabel = {
         let lbl = UILabel()
-        lbl.text = "  ● Recording  "
+        lbl.text = "  ● Recording  ".localized() ?? ""
         lbl.textColor = .white
         lbl.backgroundColor = .red
         lbl.isHidden = true
@@ -2137,7 +2137,7 @@ extension UserCallController {
                 fontSize = 26
             }
             self.futureSessionBlackBox?.backgroundColor = .black
-            self.futureSessionHeaderLbl?.text = "Chat starts in:"
+            self.futureSessionHeaderLbl?.text = "Chat starts in:".localized() ?? ""
             
             self.countDountAttrTimerLbl?.attributedText = remainingTime.toAttributedString(font: "Nunito-ExtraBold", size: fontSize, color: .white)
         }

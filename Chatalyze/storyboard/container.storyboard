@@ -400,7 +400,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qlk-bb-bK5">
                                         <rect key="frame" x="60" y="145" width="136" height="0.0"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYv-pX-l3S">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYv-pX-l3S" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                 <rect key="frame" x="9" y="0.0" width="118.5" height="0.0"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="TEST MY SYSTEM">
@@ -411,6 +411,9 @@
                                                     </fragment>
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="TEST MY SYSTEM"/>
+                                                </userDefinedRuntimeAttributes>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <attributedString key="attributedText">
                                                         <fragment content="TEST MY SYSTEM">

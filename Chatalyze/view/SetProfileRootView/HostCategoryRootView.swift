@@ -149,7 +149,7 @@ class HostCategoryRootView:ExtendedView {
             
             if otherField?.textField?.text?.replacingOccurrences(of: " ", with: "") == ""{
                 
-                otherField?.showError(text: "Category is required.")
+                otherField?.showError(text: "Category is required.".localized())
                 
             }else{
                 
@@ -162,7 +162,7 @@ class HostCategoryRootView:ExtendedView {
         
         if selectedIndex == -1 && self.categoryList.count > 0{
             
-            errorLabel?.text = "Please select the category."
+            errorLabel?.text = "Category is required.".localized()
             return
         }
         errorLabel?.text = ""

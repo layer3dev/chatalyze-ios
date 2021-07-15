@@ -148,7 +148,7 @@ class MyTicketsVerticalController: MyTicketsController{
         
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let uploadAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) { (success) in
+        let uploadAction = UIAlertAction(title: "Update".localized(), style: UIAlertAction.Style.default) { (success) in
           
             HandlingAppVersion.goToAppStoreForUpdate()
         }
@@ -158,7 +158,7 @@ class MyTicketsVerticalController: MyTicketsController{
              self.goToSystemTest()
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (success) in
+        let cancel = UIAlertAction(title: "Cancel".localized(), style: UIAlertAction.Style.default) { (success) in
         }
         
         alertActionSheet.addAction(cancel)

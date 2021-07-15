@@ -147,10 +147,10 @@ class HostDashboardController: MyScheduledSessionsController {
     
     func initializeName(){
         
-        var testingText = "Test my system"
+        var testingText = "Test my system".localized() ?? ""
         self.testingText = testingText
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "Test my system"
+            testingText = "Test my system".localized() ?? ""
             self.testingText = testingText
         }
     }
@@ -179,7 +179,7 @@ class HostDashboardController: MyScheduledSessionsController {
         
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let uploadAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) { (success) in
+        let uploadAction = UIAlertAction(title: "Update".localized() ?? "", style: UIAlertAction.Style.default) { (success) in
             
             HandlingAppVersion.goToAppStoreForUpdate()
         }
@@ -189,7 +189,7 @@ class HostDashboardController: MyScheduledSessionsController {
             self.gotoSystemTest()
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (success) in
+        let cancel = UIAlertAction(title: "Cancel".localized(), style: UIAlertAction.Style.default) { (success) in
         }
         
         alertActionSheet.addAction(cancel)
@@ -253,7 +253,7 @@ class HostDashboardController: MyScheduledSessionsController {
         str = str + "\(SignedUserInfo.sharedInstance?.id ?? "0")"
         str  = str.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
-        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     

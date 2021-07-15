@@ -102,7 +102,7 @@ extension ForgotRootView{
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !".localized())
+            emailField?.showError(text: "Email is required".localized())
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){

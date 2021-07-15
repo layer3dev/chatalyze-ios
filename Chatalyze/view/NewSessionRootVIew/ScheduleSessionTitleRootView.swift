@@ -115,7 +115,7 @@ extension ScheduleSessionTitleRootView{
         
         if(titleField?.textField?.text?.replacingOccurrences(of: " ", with: "") ?? "" == ""){
             
-            titleField?.showError(text: "Title is required.")
+            titleField?.showError(text: "Title is required.".localized() ?? "")
             return false
         }
         titleField?.resetErrorStatus()

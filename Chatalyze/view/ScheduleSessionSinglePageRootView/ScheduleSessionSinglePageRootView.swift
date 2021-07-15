@@ -30,7 +30,7 @@ class ScheduleSessionSinglePageRootView : EditSessionFormRootView {
                 
                 if !success{
                     
-                    self.controller?.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                    self.controller?.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                         //self.controller?.navigationController?.popToRootViewController(animated: true)
                     })
                     return

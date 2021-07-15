@@ -1057,7 +1057,7 @@ class EditSessionFormRootView:ExtendedView {
             self.controller?.stopLoader()
             if success{
                 
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Session details edited successfully.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                     
                     self.controller?.navigationController?.popViewController(animated: true)
                 })
@@ -1255,7 +1255,7 @@ extension EditSessionFormRootView{
         
         if(titleField?.textField?.text?.replacingOccurrences(of: " ", with: "") ?? "" == ""){
             
-            titleField?.showError(text: "Title is required.")
+            titleField?.showError(text: "Title is required.".localized() ?? "")
             return false
         }
         titleField?.resetErrorStatus()
@@ -1273,7 +1273,7 @@ extension EditSessionFormRootView {
         
         if self.currentBookingStyle == .none{
             
-            self.standardField?.showError(text: "Booking style is required.")
+            self.standardField?.showError(text: "Booking style is required.".localized() ?? "")
             return false
         }
         self.standardField?.resetErrorStatus()
@@ -1283,7 +1283,7 @@ extension EditSessionFormRootView {
     func validateDate()->Bool {
         
         if(dateField?.textField?.text == ""){
-            dateField?.showError(text: "Date is required.")
+            dateField?.showError(text: "Date is required.".localized() ?? "")
             return false
         }
         dateField?.resetErrorStatus()
@@ -1294,7 +1294,7 @@ extension EditSessionFormRootView {
         
         if slotSelected == 60 && totalTimeOfChat == .thirtyMinutes{
             
-            sessionLength?.showError(text: "Session length must be greater or equal to the chat length.")
+            sessionLength?.showError(text: "Session length must be greater or equal to the chat length.".localized() ?? "")
             return false
         }
         sessionLength?.resetErrorStatus()
@@ -1304,7 +1304,7 @@ extension EditSessionFormRootView {
     func validateSessionLength()->Bool {
         
         if totalTimeOfChat == .none{
-            sessionLength?.showError(text: "Session length is required.")
+            sessionLength?.showError(text: "Session length is required.".localized() ?? "")
             return false
         }
         sessionLength?.resetErrorStatus()
@@ -1434,7 +1434,7 @@ extension EditSessionFormRootView{
         
         if(timeField?.textField?.text == ""){
             
-            timeField?.showError(text: "Time is required.")
+            timeField?.showError(text: "Time is required.".localized() ?? "")
             return false
         }
         timeField?.resetErrorStatus()
@@ -1988,7 +1988,7 @@ extension EditSessionFormRootView {
         
         if(slotSelected == 0 || slotSelected == nil){
             
-            chatLength?.showError(text:"1:1 chat length is required.")
+            chatLength?.showError(text:"1:1 chat length is required.".localized() ?? "")
             return false
         }
         chatLength?.resetErrorStatus()
@@ -2172,7 +2172,7 @@ extension EditSessionFormRootView {
         
         if self.isPricingEnable == nil {
             
-            priceAmountField?.showError(text: "Please set your ticket price.")
+            priceAmountField?.showError(text: "Please set your ticket price.".localized() ?? "")
             return false
         }
         
@@ -2182,13 +2182,13 @@ extension EditSessionFormRootView {
         
         if(priceAmountField?.textField?.text == ""){
             
-            priceAmountField?.showError(text: "Price is required.")
+            priceAmountField?.showError(text: "Price is required.".localized() ?? "")
             return false
         }
         
         else if isPriceZero(text: priceAmountField?.textField?.text){
             
-            priceAmountField?.showError(text: "Please select free for free sessions.")
+            priceAmountField?.showError(text: "Please select free for free sessions.".localized() ?? "")
             return false
         }
         
@@ -2200,7 +2200,7 @@ extension EditSessionFormRootView {
             
         else if isExceedsMaximumPrice(text: priceAmountField?.textField?.text){
             
-            priceAmountField?.showError(text: "Price can't be more than 9999.")
+            priceAmountField?.showError(text: "Price can't be more than 9999.".localized() ?? "")
             return false
         }
         priceAmountField?.resetErrorStatus()

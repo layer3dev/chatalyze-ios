@@ -60,11 +60,11 @@ class EditHostSessionController: EditScheduledSessionController{
             self.stopLoader()
             if success{
                 
-                self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 })
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred".l, successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
             })
             return
         }
@@ -95,12 +95,12 @@ class EditHostSessionController: EditScheduledSessionController{
                 self.stopLoader()
                 if success{
                     
-                    self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                    self.alert(withTitle: AppInfoConfig.appName, message: "Session info edited successfully".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                     
                     })
                     return
                 }
-                self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred", successTitle: "OK", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: "Error occurred".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 
                 })
                 return

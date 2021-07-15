@@ -105,7 +105,7 @@ class HostSelfieBoothView: SelfieWindowView {
     override func retakeSelfie() {
         self.memoryImage?.image = nil
         self.streamStackViews?.isHidden = false
-        self.selfieActionContainer?.disableRetakeAndSave()
+        self.selfieActionContainer?.enableCamera()
     }
     
     func updateSize(size: CGSize){

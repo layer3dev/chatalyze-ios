@@ -40,13 +40,13 @@ class ContactUsWithoutUserIdController:ContactUsController {
         
         if name == ""{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Name field can't be left empty.", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Name field can't be left empty.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "", showCancel: false) { (success) in
             }
         }
         
         if email == ""{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Email field can't be left empty.", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Email is required".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "", showCancel: false) { (success) in
             }
         }
         
@@ -54,7 +54,7 @@ class ContactUsWithoutUserIdController:ContactUsController {
         
         if !emailValidator{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Email looks incorrect.", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Email looks incorrect !".localized() ?? "", successTitle: "Ok", rejectTitle: "", showCancel: false) { (success) in
             }
             return
         }
@@ -63,7 +63,7 @@ class ContactUsWithoutUserIdController:ContactUsController {
         
         if text == ""{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Message field cannot be blank", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Message field cannot be blank".localized() ?? "", showCancel: false, completion: { (success) in
             })
             return
         }
@@ -80,7 +80,7 @@ class ContactUsWithoutUserIdController:ContactUsController {
                 //                self.alert(withTitle: AppInfoConfig.appName, message: "Error", showCancel: false, completion: { (success) in
                 //                })
                 
-                self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!".localized() ?? "", showCancel: false, completion: { (success) in
                     
                     self.contactTextView?.text = ""
                     self.contactPlaceholderLbl?.text = "Enter Message"
@@ -90,7 +90,7 @@ class ContactUsWithoutUserIdController:ContactUsController {
                 })
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!".localized() ?? "", showCancel: false, completion: { (success) in
                 self.contactTextView?.text = ""
                 self.contactPlaceholderLbl?.text = "Enter Message";
                 DispatchQueue.main.async {

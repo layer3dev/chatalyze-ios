@@ -62,7 +62,7 @@ extension EventAdapter:UITableViewDelegate{
             
             let alert = UIAlertController(title: AppInfoConfig.appName, message: "Only users can book for the session!", preferredStyle: UIAlertController.Style.alert)
             
-            alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (action) in
             }))
             self.root?.controller?.present(alert, animated: false, completion: {
             })            

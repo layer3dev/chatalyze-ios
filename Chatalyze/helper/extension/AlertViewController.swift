@@ -19,13 +19,13 @@ extension UIViewController {
         var successTitle = successTitle
         
         if(successTitle == ""){
-            successTitle = showCancel ? "Yes" : "OK"
+            successTitle = showCancel ? "Yes".localized() ?? "" : "OK".localized() ?? ""
         }
         
         var rejectTitle = rejectTitle
         
         if(rejectTitle == ""){
-            rejectTitle = "No"
+            rejectTitle = "No".localized() ?? ""
         }
         
         

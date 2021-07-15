@@ -931,11 +931,14 @@
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDG-Oq-beP">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDG-Oq-beP" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="351" y="62" width="43" height="21"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="18"/>
                                         <color key="textColor" red="0.1058823529" green="0.51764705879999995" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Done"/>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                         </variation>
@@ -1149,7 +1152,7 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3q-6J-E8h" userLabel="selfie_window" customClass="HostSelfieBoothView" customModule="Chatalyze" customModuleProvider="target">
                                 <rect key="frame" x="31" y="232.5" width="352" height="431"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Booth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ARt-a6-KYv">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo Booth" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ARt-a6-KYv" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                         <rect key="frame" x="5" y="5" width="342" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="9gs-aq-6Pq">
@@ -1159,6 +1162,9 @@
                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Photo Booth"/>
+                                        </userDefinedRuntimeAttributes>
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="24"/>
                                         </variation>
@@ -1249,12 +1255,15 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFf-mi-pQ5">
                                                         <rect key="frame" x="166" y="0.0" width="90" height="45"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBD-8Y-VfA">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBD-8Y-VfA" customClass="LocalizedButton" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="45"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                                 <state key="normal" title="Save">
                                                                     <color key="titleColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Save"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="saveSelfieAction" destination="ZWQ-jw-dnj" eventType="touchUpInside" id="wcN-q5-Tqw"/>
                                                                 </connections>
@@ -1520,8 +1529,14 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="0vE-wW-C9N">
+            <size key="intrinsicContentSize" width="84.5" height="21"/>
+        </designable>
         <designable name="YhJ-uS-uwm">
             <size key="intrinsicContentSize" width="188.5" height="28"/>
+        </designable>
+        <designable name="oDG-Oq-beP">
+            <size key="intrinsicContentSize" width="43" height="21"/>
         </designable>
         <designable name="s6K-vF-GJE">
             <size key="intrinsicContentSize" width="387.5" height="30.5"/>

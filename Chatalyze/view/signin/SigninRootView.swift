@@ -128,12 +128,12 @@ extension SigninRootView{
         
         if(emailField?.textField?.text == ""){
             
-            emailField?.showError(text: "Email is required")
+            emailField?.showError(text: "Email is required".localized() ?? "")
             return false
         }
         
         if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized() ?? "")
             return false
         }
         
@@ -145,7 +145,7 @@ extension SigninRootView{
         
         if(passwordField?.textField?.text == ""){
             
-            passwordField?.showError(text: "Password is required")
+            passwordField?.showError(text: "Password is required".localized() ?? "")
             return false
         }
         passwordField?.resetErrorStatus()
@@ -193,7 +193,7 @@ extension SigninRootView{
                 self?.showError(text: error.localizedDescription)
                 Log.echo(key: "yud", text: "Error in the facebook is \(error.localizedDescription)")
             case .cancelled:
-                self?.showError(text: "Login Cancelled !")
+                self?.showError(text: "Login Cancelled !".localized())
             case .success( _,  _, let accessToken):
                 self?.fetchFBUserInfo(accessToken: accessToken)
                 Log.echo(key: "yud", text: "Succes facebook token is \(accessToken)")

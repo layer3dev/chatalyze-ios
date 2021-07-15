@@ -415,11 +415,11 @@ extension EventPaymentRootView{
     fileprivate func validateCard()->Bool{
         
         if(cardField?.textField?.text == ""){
-            cardField?.showError(text: "Card field can't be left empty !")
+            cardField?.showError(text: "Card field can't be left empty !".localized())
             return false
         }
         else if ((cardField?.textField?.text?.count ?? 0) < 19){
-            cardField?.showError(text: "Card number looks incorrect !")
+            cardField?.showError(text: "Card number looks incorrect !".localized())
             return false
         }
         cardField?.resetErrorStatus()
@@ -429,7 +429,7 @@ extension EventPaymentRootView{
     fileprivate func validateExpiryField()->Bool{
         
         if(dateMonthField?.textField?.text == ""){
-            dateMonthField?.showError(text: "Expiry field can't be left empty !")
+            dateMonthField?.showError(text: "Expiry field can't be left empty !".localized())
             return false
         }
         dateMonthField?.resetErrorStatus()
@@ -439,11 +439,11 @@ extension EventPaymentRootView{
     fileprivate func cvcValidate()->Bool{
         
         if(cvcField?.textField?.text == ""){
-            cvcField?.showError(text: "CVC field can't be left empty !")
+            cvcField?.showError(text: "CVC field can't be left empty !".localized())
             return false
         }
         else if ((cvcField?.textField?.text?.count ?? 0) < 3){
-            cvcField?.showError(text: "CVC looks incorrect !")
+            cvcField?.showError(text: "CVC looks incorrect !".localized())
             return false
         }
         cvcField?.resetErrorStatus()

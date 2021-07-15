@@ -25,7 +25,7 @@ class SessionTitleRootView:ExtendedView{
         
         if(titleField?.textField?.text == ""){
             
-            titleField?.showError(text: "Title field can't be left empty !")
+            titleField?.showError(text: "Title field can't be left empty !".localized())
             return false
         }
         titleField?.resetErrorStatus()

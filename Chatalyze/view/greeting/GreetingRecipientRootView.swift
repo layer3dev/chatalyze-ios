@@ -161,11 +161,11 @@ extension GreetingRecipientRootView{
         
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required".localized() ?? "")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized() ?? "")
             return false
         }
         emailField?.resetErrorStatus()
@@ -176,11 +176,11 @@ extension GreetingRecipientRootView{
         
         
         if(firstName?.textField?.text == ""){
-            firstName?.showError(text: "Firstname field can't be left empty !")
+            firstName?.showError(text: "Firstname field can't be left empty !".localized())
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(firstName?.textField?.text ?? "")){
-            firstName?.showError(text: "Firstname looks incorrect !")
+            firstName?.showError(text: "Firstname looks incorrect !".localized() ?? "")
             return false
         }
         firstName?.resetErrorStatus()
@@ -190,7 +190,7 @@ extension GreetingRecipientRootView{
     fileprivate func valiadteOccasion()->Bool{
         
         if(occasionFieldView?.textField?.text == ""){
-            occasionFieldView?.showError(text: "Occasion field can't be left empty !")
+            occasionFieldView?.showError(text: "Occasion field can't be left empty !".localized())
             return false
         }
         occasionFieldView?.resetErrorStatus()
@@ -201,7 +201,7 @@ extension GreetingRecipientRootView{
         
         
         if(note1Field?.textField?.text == ""){
-            note1Field?.showError(text: "Note field can't be left empty !")
+            note1Field?.showError(text: "Note field can't be left empty !".localized())
             return false
         }
         note1Field?.resetErrorStatus()
@@ -211,7 +211,7 @@ extension GreetingRecipientRootView{
         
         
         if( note2Field?.textField?.text == ""){
-            note2Field?.showError(text: "Note field can't be left empty !")
+            note2Field?.showError(text: "Note field can't be left empty !".localized())
             return false
         }
         note2Field?.resetErrorStatus()
@@ -221,7 +221,7 @@ extension GreetingRecipientRootView{
         
         
         if(note3Field?.textField?.text == ""){
-            note3Field?.showError(text: "Note field can't be left empty !")
+            note3Field?.showError(text: "Note field can't be left empty !".localized())
             return false
         }
         note3Field?.resetErrorStatus()

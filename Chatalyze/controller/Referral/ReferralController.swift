@@ -118,7 +118,7 @@ class ReferralController: InterfaceExtendedController {
                 self.errorLabel?.text = message
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Invitation sent successfully.", successTitle: "OK", rejectTitle: "", showCancel: false , completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Invitation sent successfully.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "", showCancel: false , completion: { (success) in
                 
                 self.emailAddress?.text  = ""
             })
@@ -262,7 +262,7 @@ class ReferralController: InterfaceExtendedController {
         var str = self.sharingLbl?.text
         str  = str?.replacingOccurrences(of: " ", with: "")
         UIPasteboard.general.string = str
-        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.", successTitle: "OK", rejectTitle: "cancel", showCancel: false) { (success) in
+        self.alert(withTitle:AppInfoConfig.appName, message: "Text copied to clipboard.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     

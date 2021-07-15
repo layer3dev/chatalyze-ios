@@ -96,10 +96,10 @@ class HostDashboardRootView: MySessionRootView {
     
     func underLineLable() {
         
-        var testingText = "Test my system"
+        var testingText = "Test my system".localized() ?? ""
         
         if UIDevice.current.userInterfaceIdiom == .pad{
-            testingText = "TEST MY IPAD"
+            testingText = "TEST MY IPAD".localized() ?? ""
         }
 
         if let underlineAttribute = [kCTUnderlineStyleAttributeName: NSUnderlineStyle.single.rawValue,NSAttributedString.Key.font:UIFont(name: "Nunito-ExtraBold", size: fontSize) ?? UIFont(name: "Nunito-ExtraBold", size: 16)] as? [NSAttributedString.Key : Any]{

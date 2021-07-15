@@ -190,17 +190,17 @@ class SessionTicketCell : ExtendedTableCell {
         
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let uploadAction = UIAlertAction(title: "Update App", style: UIAlertAction.Style.default) { (success) in
+        let uploadAction = UIAlertAction(title: "Update App".localized() ?? "", style: UIAlertAction.Style.default) { (success) in
             
             HandlingAppVersion.goToAppStoreForUpdate()
         }
         
-        let callRoomAction = UIAlertAction(title: "Continue to Session", style: UIAlertAction.Style.default) { (success) in
+        let callRoomAction = UIAlertAction(title: "Continue to Session".localized() ?? "", style: UIAlertAction.Style.default) { (success) in
             
             self.delegate?.jointEvent(info:self.info)
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.destructive) { (success) in
+        let cancel = UIAlertAction(title: "Cancel".localized() ?? "", style: UIAlertAction.Style.destructive) { (success) in
         }
         
         alertActionSheet.addAction(uploadAction)

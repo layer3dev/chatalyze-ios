@@ -34,7 +34,7 @@ class EditProfileHostRootView : EditProfileRootview {
                 return
             }
             
-            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 
                 self.fetchProfile()
             })
