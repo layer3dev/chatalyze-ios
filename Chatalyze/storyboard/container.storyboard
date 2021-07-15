@@ -400,29 +400,16 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qlk-bb-bK5">
                                         <rect key="frame" x="60" y="145" width="136" height="0.0"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYv-pX-l3S" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="9" y="0.0" width="118.5" height="0.0"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="TEST MY SYSTEM">
-                                                        <attributes>
-                                                            <color key="NSColor" red="0.59215686274509804" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" metaFont="system" size="14"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEST MY SYSTEM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYv-pX-l3S" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
+                                                <rect key="frame" x="8.5" y="0.0" width="119" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
+                                                <color key="textColor" red="0.59215686274509804" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="TEST MY SYSTEM"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="TEST MY SYSTEM">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.59215686274509804" green="0.80784313725490198" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" metaFont="system" size="19"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="18"/>
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g94-me-bid">
@@ -646,6 +633,9 @@
     <designables>
         <designable name="blf-w7-GKk">
             <size key="intrinsicContentSize" width="63" height="19"/>
+        </designable>
+        <designable name="kYv-pX-l3S">
+            <size key="intrinsicContentSize" width="119" height="16.5"/>
         </designable>
     </designables>
     <resources>

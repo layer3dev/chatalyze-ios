@@ -514,7 +514,6 @@ class HostCallController: VideoCallController {
         })
     }
     
-    
     @IBAction func photoboothSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie Action tapped!!")
         
@@ -531,6 +530,7 @@ class HostCallController: VideoCallController {
     @IBAction func retakeSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth Re-Take selfie Action tapped!!")
         selfieWindowView?.retakeSelfie()
+        sendTimeStampToUser()
     }
     
     @IBAction func saveSelfieAction(){
