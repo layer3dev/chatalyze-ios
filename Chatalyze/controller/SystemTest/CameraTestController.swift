@@ -367,9 +367,9 @@ class CameraTestController: InterfaceExtendedController {
     
     func errorInCamera(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Oops some unexpected error in the camera!!", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Oops some unexpected error in the camera!!".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+        alert.addAction(UIAlertAction(title:"Ok".localized() ?? "", style: UIAlertAction.Style.default, handler: { (action) in
             self.dismiss(animated: false, completion: {
                 if let listner = self.dismissListner{
                     listner()
@@ -382,8 +382,8 @@ class CameraTestController: InterfaceExtendedController {
     
     func errorInCapturing(error:Error?){
         
-        let alert = UIAlertController(title: "Chatalyze", message: error?.localizedDescription ?? "Oops some unexpected error during streaming!!", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+        let alert = UIAlertController(title: "Chatalyze", message: error?.localizedDescription ?? "Oops some unexpected error during streaming!!".localized(), preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title:"Ok".localized(), style: UIAlertAction.Style.default, handler: { (action) in
             self.dismiss(animated: false, completion: {
                 if let listener = self.dismissListner{
                     listener()
@@ -568,8 +568,8 @@ class CameraTestController: InterfaceExtendedController {
     
     func alertToProvideCameraAccess(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide camera access to chatalyze from the settings", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide camera access to chatalyze from the settings".localized(), preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title:"Ok".localized(), style: UIAlertAction.Style.default, handler: { (action) in
             //            self.rootController?.dismiss(animated: true, completion: {
             //                if let listener = self.dismissListner{
             //                    listener()
@@ -582,7 +582,7 @@ class CameraTestController: InterfaceExtendedController {
             //            })
         }))
         
-        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title:"Cancel".localized(), style: UIAlertAction.Style.cancel, handler: { (action) in
             
         }))
         self.present(alert, animated: false) {
@@ -686,9 +686,9 @@ class CameraTestController: InterfaceExtendedController {
     
     func alertToProvideMicrophoneAccess(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide microphone access to chatalyze from the settings".localized(), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+        alert.addAction(UIAlertAction(title:"Ok".localized(), style: UIAlertAction.Style.default, handler: { (action) in
             //            self.rootController?.dismiss(animated: true, completion: {
             if let settingUrl = URL(string: UIApplication.openSettingsURLString){
                 UIApplication.shared.openURL(settingUrl)
@@ -696,7 +696,7 @@ class CameraTestController: InterfaceExtendedController {
             exit(0)
             //            })
         }))
-        alert.addAction(UIAlertAction(title:"Cancel", style: UIAlertAction.Style.cancel, handler: { (action) in
+        alert.addAction(UIAlertAction(title:"Cancel".localized(), style: UIAlertAction.Style.cancel, handler: { (action) in
             
         }))
         
@@ -759,7 +759,7 @@ extension CameraTestController:UITextViewDelegate {
         }
         
         
-        if characterRange == testTextView?.text?.range(of: "contact us")?.nsRange {
+        if characterRange == testTextView?.text?.range(of: "contact us".localized() ?? "")?.nsRange {
             
             DispatchQueue.main.async {
                 
@@ -792,7 +792,7 @@ extension CameraTestController:UITextViewDelegate {
             Log.echo(key: "yud", text: "contact us is called")
         }
         
-        if  characterRange == testTextView?.text?.range(of: "Help Center")?.nsRange {
+        if  characterRange == testTextView?.text?.range(of: "Help Center".localized() ?? "")?.nsRange {
             
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: {

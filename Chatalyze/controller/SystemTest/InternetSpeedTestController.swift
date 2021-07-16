@@ -67,25 +67,25 @@ class InternetSpeedTestController: InterfaceExtendedController {
     
     func appVersionAlert(){
         
-        self.alert(withTitle: AppInfoConfig.appName, message: "Your app version is outdated, To avoid potential issues, please update to the latest version", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        self.alert(withTitle: AppInfoConfig.appName, message: "Your app version is outdated, To avoid potential issues, please update to the latest version".localized() ?? "", successTitle: "Ok".localized() ?? "" ,rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     
     func slowInternetConnectionAlert(){
      
-        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be slow. Please update your internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be slow. Please update your internet and then try testing again.".localized() ?? "", successTitle: "Ok".localized() ?? "" ,rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     
     func averageInternetConnectionAlert(){
         
-        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be average. You can update your internet or continue for the system test", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        self.alert(withTitle: AppInfoConfig.appName, message: "You internet connection seem to be average. You can update your internet or continue for the system test".localized() ?? "", successTitle: "Ok".localized() ?? "" ,rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     
     func noInternetConnectionAlert(){
        
-        self.alert(withTitle: AppInfoConfig.appName, message: "You seem to be offline. Please connect to the internet and then try testing again.", successTitle: "Ok" ,rejectTitle: "Cancel", showCancel: false) { (success) in
+        self.alert(withTitle: AppInfoConfig.appName, message: "You seem to be offline. Please connect to the internet and then try testing again.".localized() ?? "", successTitle: "Ok".localized() ?? "" ,rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
         }
     }
     
@@ -304,7 +304,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         
                         //Check for outdated warning Too.
                     
-                        self.speedLbl?.text = "Success"
+                    self.speedLbl?.text = "Success".localized() ?? ""
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.cameraTest(sender: nil)
                         }

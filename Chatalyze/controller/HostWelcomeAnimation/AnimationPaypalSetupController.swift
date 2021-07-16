@@ -43,7 +43,7 @@ class AnimationPaypalSetupController: PaymentSetupPaypalController {
                 
                 if !success {
                     
-                    self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "cancel", showCancel: false, completion: { (success) in
+                    self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                     })
                     return
                 }

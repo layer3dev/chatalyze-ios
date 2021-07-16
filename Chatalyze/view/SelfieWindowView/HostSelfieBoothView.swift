@@ -52,6 +52,7 @@ class HostSelfieBoothView: SelfieWindowView {
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        localSteamingVideo?.shouldMirror = true
         localSteamingVideo?.contentMode = .scaleAspectFill
         let rander = getRenderer()
         if  mediaPackage?.mediaTrack != nil{
@@ -100,6 +101,12 @@ class HostSelfieBoothView: SelfieWindowView {
         writeLocalStream(mediaPackage: mediaPackage)
         self.selfieActionContainer?.enableCamera()
         self.isHidden = false
+    }
+    
+    override func retakeSelfie() {
+        self.memoryImage?.image = nil
+        self.streamStackViews?.isHidden = false
+        self.selfieActionContainer?.enableCamera()
     }
     
     func updateSize(size: CGSize){

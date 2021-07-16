@@ -219,8 +219,8 @@ class PaymentSuccessRootView: ExtendedView {
             self.controller?.stopLoader()
             if success{
                 
-                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+                let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar".localized(), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (alert) in
                 }))
                 self.controller?.present(alert, animated: false, completion: {
                 })
@@ -256,9 +256,9 @@ class PaymentSuccessRootView: ExtendedView {
     
     func noPermission(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.".localized(), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (alert) in
             
             if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                 if #available(iOS 10.0, *) {
@@ -385,7 +385,7 @@ extension PaymentSuccessRootView{
         
         if(countryCodeField?.textField?.text == ""){
             
-            countryCodeField?.showError(text: "CountryCode field can't be left empty !")
+            countryCodeField?.showError(text: "CountryCode field can't be left empty !".localized())
             return false
         }
         countryCodeField?.resetErrorStatus()
@@ -396,11 +396,11 @@ extension PaymentSuccessRootView{
         
         if(mobileNumberField?.textField?.text == ""){
             
-            mobileNumberField?.showError(text: "Mobile number field can't be left empty !")
+            mobileNumberField?.showError(text: "Mobile number field can't be left empty !".localized())
             return false
         }else if (mobileNumberField?.textField?.text?.count ?? 0) < 10{
             
-            mobileNumberField?.showError(text: "Mobile number looks incorrect !")
+            mobileNumberField?.showError(text: "Mobile number looks incorrect !".localized())
             return false
         }
         mobileNumberField?.resetErrorStatus()

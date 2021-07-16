@@ -399,9 +399,9 @@ class EditScheduleSessionNewRootView:ExtendedView  {
                     
                 } else {
                     
-                    let alert = UIAlertController(title: AppInfoConfig.appName, message: "Please give the camera permission from the settings", preferredStyle: UIAlertController.Style.alert)
+                    let alert = UIAlertController(title: AppInfoConfig.appName, message: "Please provide camera access to chatalyze from the settings".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
                     
-                    alert.addAction(UIAlertAction(title: "ok", style: .default, handler: { (UIAlertAction) in
+                    alert.addAction(UIAlertAction(title: "Ok".localized(), style: .default, handler: { (UIAlertAction) in
                         
                         UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
                         

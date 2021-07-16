@@ -38,7 +38,7 @@ class EditProfileController: InterfaceExtendedController {
                 self.rootView?.fillInfo()
             }
             else{
-                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                     self.navigationController?.popViewController(animated: true)
                 })
             }

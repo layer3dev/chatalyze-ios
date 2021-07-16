@@ -97,7 +97,7 @@ extension SessionNewDateRootView{
         
         if(dateFld?.textField?.text == ""){
             
-            dateFld?.showError(text: "Date is required.")
+            dateFld?.showError(text: "Date is required.".localized())
             return false
         }
         dateFld?.resetErrorStatus()

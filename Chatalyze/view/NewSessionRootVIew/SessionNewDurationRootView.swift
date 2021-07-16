@@ -183,7 +183,7 @@ class SessionNewDurationRootView:ExtendedView {
 
         if(selectedDurationType == .none){
 
-            showError(message: "Session duration is required.")
+            showError(message: "Session duration is required.".localized())
             return false
         }
         resetErrorStatus()

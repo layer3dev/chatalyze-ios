@@ -514,7 +514,6 @@ class HostCallController: VideoCallController {
         })
     }
     
-    
     @IBAction func photoboothSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth selfie Action tapped!!")
         
@@ -530,7 +529,8 @@ class HostCallController: VideoCallController {
     
     @IBAction func retakeSelfieAction(){
         Log.echo(key: TAG, text: "Photobooth Re-Take selfie Action tapped!!")
-        photoboothSelfieAction()
+        selfieWindowView?.retakeSelfie()
+        sendTimeStampToUser()
     }
     
     @IBAction func saveSelfieAction(){
@@ -548,6 +548,7 @@ class HostCallController: VideoCallController {
 //        self.releaseDeviceOrientation()
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+                
             }
         }
     }
@@ -2301,6 +2302,7 @@ extension HostCallController{
         
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+                
             }
         }
     }
@@ -2406,7 +2408,7 @@ extension HostCallController{
         print("calling the fetch Twillio Device token")
         
         twillioRoom.isFetchingTokenToServer = true
-        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id) { (success, error, info) in
+        FetchHostTwillioTokenProcessor().fetch(sessionId: eventId, chatID: targetSlotInfo?.id, greenRoom: nil) { (success, error, info) in
             
             print("got the  the fetch Twillio Device token with the token \(String(describing: info?.room)) and the access Token  \(String(describing: info?.token))")
             twillioRoom.isFetchingTokenToServer = false

@@ -208,6 +208,12 @@ class EventInfo: NSObject {
             return "call-\(self.id ?? 0)"
         }
     }
+    
+    var greenRoomId : String{
+        get{
+            return "green-\(self.id ?? 0)"
+        }
+    }
         
     var isLIVE : Bool{
       

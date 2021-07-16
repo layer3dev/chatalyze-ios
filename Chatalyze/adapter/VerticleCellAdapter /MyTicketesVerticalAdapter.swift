@@ -223,8 +223,8 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
             
             if success{
                 RootControllerManager().getCurrentController()?.stopLoader()
-                let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket!", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Ok", style: .default) { (success) in
+                let alert = UIAlertController(title: AppInfoConfig.appName, message: "You have successfully claimed the ticket!".localized(), preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok".localized(), style: .default) { (success) in
                     //
                     Log.echo(key: "MyTicketesVerticalAdapter", text: "successfully claimed!")
                     
@@ -239,7 +239,7 @@ extension MyTicketesVerticalAdapter:MyTicketCellDelegate{
                 RootControllerManager().getCurrentController()?.present(alert, animated: true, completion: nil)
             }else{
                 RootControllerManager().getCurrentController()?.stopLoader()
-                RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: message ?? "", successTitle: "Ok", showCancel: false) { _ in
+                RootControllerManager().getCurrentController()?.alert(withTitle: AppInfoConfig.appName, message: message ?? "", successTitle: "Ok".localized() ?? "", showCancel: false) { _ in
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.leftBarButtonItems = []
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.hidesBackButton = true
                     RootControllerManager().getCurrentController()?.navController?.navigationItem.setHidesBackButton(true, animated: true)

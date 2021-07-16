@@ -172,14 +172,14 @@ class ClaimTicketCell: ExtendedTableCell {
     func slotInfoBeforeCheckIn(withStartTime  startTime: String, endTime : String) -> NSAttributedString?{
         
         
-        let part1 = NSAttributedString(string: "Your check-in time is from ")
+        let part1 = NSAttributedString(string: "Your check-in time is from ".localized() ?? "")
         let checkInTimeInfo = "\(checkinTime ?? "") " + "- \(endCheckinTime ?? "")" + " \(timezone ?? "")"
         
-        let text = "\(checkInTimeInfo). Please note that failure to check in on time may result in loss of your spot."
+        let text = "\(checkInTimeInfo). \("Please note that failure to check in on time may result in loss of your spot.".localized() ?? "")"
 
-        let eventStartTimeinfo = "\(formattedStartTime ?? "" )" + " and" + " \(formattedEndTime ?? "")" + " \(timezone ?? "")"
+        let eventStartTimeinfo = "\(formattedStartTime ?? "" )" + (" and".localized() ?? "") + " \(formattedEndTime ?? "")" + " \(timezone ?? "")"
         
-        let text3 = " Upon check in, you will receive a specific time between " + "\(eventStartTimeinfo)" + " for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time."
+        let text3 = " Upon check in, you will receive a specific time between ".localized() ?? "" + "\(eventStartTimeinfo)" + (" for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time.".localized() ?? "")
         
         var part2 = NSAttributedString(string: text)
          part2 =  text.toAttributedString(font: AppThemeConfig.boldFont, size: 14, color: .black, isUnderLine: false)
@@ -206,9 +206,9 @@ class ClaimTicketCell: ExtendedTableCell {
     func slotInfoAfterCheckIn(withStartTime startTime : String?,andEndTime endTime : String) -> NSAttributedString{
         var discription : String?
         
-        let eventStartTime = "\(startTime ?? "" )" +  " and" + " \(endTime )" + " \(timezone ?? "")"
+        let eventStartTime = "\(startTime ?? "" )" +  (" and".localized() ?? "") + " \(endTime )" + " \(timezone ?? "")"
         
-        discription = "Claim your ticket to meet Host : \(info?.hostName ?? ""). Upon claiming your ticket, you will receive a specific time between" + " \(eventStartTime) " + "for your meet and greet."
+        discription = "\("Claim your ticket to meet Host :".localized() ?? "") \(info?.hostName ?? ""). \("Upon claiming your ticket, you will receive a specific time between".localized() ?? "") \(eventStartTime) \("for your meet and greet.".localized() ?? "")"
         
         
         let attText = NSAttributedString(string: discription ?? "")

@@ -30,7 +30,7 @@ class ValidateDevice {
         
         Log.echo(key: TAG, text: "SHOWING ALERT :(")
         
-        controller.alert(withTitle: "Warning", message: "Your iOS version is out of date. This might cause chat connectivity issues. If possible, please upgrade to iOS 13 or higher. If you choose not to upgrade and have trouble connecting to a chat, try hanging up and re-joining.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false) { (success) in
+        controller.alert(withTitle: "Warning".localized() ?? "", message: "Your iOS version is out of date. This might cause chat connectivity issues. If possible, please upgrade to iOS 13 or higher. If you choose not to upgrade and have trouble connecting to a chat, try hanging up and re-joining.".localized() ?? "", successTitle: "OK".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
             didLoadWindow?()
         }
         

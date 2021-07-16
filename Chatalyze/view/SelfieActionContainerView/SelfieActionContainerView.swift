@@ -58,7 +58,7 @@ class SelfieActionContainerView: ExtendedView {
         self.selfieActionContainerWidthAnchor?.constant = 0
     }
     
-    private func disableRetakeAndSave(){
+    func disableRetakeAndSave(){
         self.retakeContainerWidthAnchor?.constant = 0
         self.saveContainerWidthAnchor?.constant = 0
     }

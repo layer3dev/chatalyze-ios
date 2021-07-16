@@ -81,6 +81,11 @@ class EditProfileRootview: ExtendedView {
     func paintInterface(){
                 
         paintButton()
+        oldPasswordField?.textField?.placeholder = "Old password".localized() ?? ""
+        newPasswordField?.textField?.placeholder = "New password".localized() ?? ""
+        emailField?.textField?.placeholder = "Email".localized() ?? ""
+        nameField?.textField?.placeholder = "Full name".localized() ?? ""
+        mobileNumberField?.textField?.placeholder = "Phone number".localized() ?? ""
         nameField?.isCompleteBorderAllow = true
         emailField?.isCompleteBorderAllow = true
         oldPasswordField?.isCompleteBorderAllow = true
@@ -258,7 +263,7 @@ class EditProfileRootview: ExtendedView {
                 return
             }
             
-            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 
                 self.fetchProfile()
             })
@@ -313,7 +318,7 @@ class EditProfileRootview: ExtendedView {
                 return
             }
             
-            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile updated".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 
                 self.fetchProfile()
             })
@@ -538,14 +543,14 @@ extension EditProfileRootview{
     
     @IBAction func deactivateAccount(sender:UIButton){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to deactivate your account?", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Are you sure you want to deactivate your account?".localized(), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (alert) in
             
             self.deactivate()
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: { (alert) in
         }))
         
         self.controller?.present(alert, animated: true, completion: {
@@ -657,11 +662,11 @@ extension EditProfileRootview{
      func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required".localized() ?? "")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized() ?? "")
             return false
         }
         emailField?.resetErrorStatus()
@@ -672,7 +677,7 @@ extension EditProfileRootview{
         
         if(oldPasswordField?.textField?.text == ""){
        
-            oldPasswordField?.showError(text: "Old password field can't be left empty !")
+            oldPasswordField?.showError(text: "Old password field can't be left empty !".localized())
             return false
         }        
         oldPasswordField?.resetErrorStatus()
@@ -684,14 +689,14 @@ extension EditProfileRootview{
         
         if(newPasswordField?.textField?.text == ""){
         
-            newPasswordField?.showError(text: "New password field can't be left empty !")
+            newPasswordField?.showError(text: "New password field can't be left empty !".localized())
             return false
         }
         
         if let text = newPasswordField?.textField?.text {
             if (!text.containsNumbers()) || !(text.containsUpperCaseLetter()) || !(text.containsLowerCaseLetter()){
               
-                newPasswordField?.showError(text: "Password field should contain an uppercase letter , a numeric and a lowercase letter !")
+                newPasswordField?.showError(text: "Password field should contain an uppercase letter , a numeric and a lowercase letter !".localized())
                 return false
             }
         }
@@ -704,12 +709,12 @@ extension EditProfileRootview{
         
         if(confirmPasswordField?.textField?.text == ""){
             
-            confirmPasswordField?.showError(text: "Confirm password field can't be left empty !")
+            confirmPasswordField?.showError(text: "Confirm password field can't be left empty !".localized())
             return false
         }
         else if (confirmPasswordField?.textField?.text != newPasswordField?.textField?.text){
             
-            confirmPasswordField?.showError(text: "Password does not match to new password!")
+            confirmPasswordField?.showError(text: "Password does not match to new password!".localized())
             return false
         }
         confirmPasswordField?.resetErrorStatus()
@@ -720,11 +725,11 @@ extension EditProfileRootview{
      func validateName()->Bool{
         
         if(nameField?.textField?.text == ""){
-            nameField?.showError(text: "Name field can't be left empty !")
+            nameField?.showError(text: "Name field can't be left empty !".localized())
             return false
         }
         else if !(FieldValidator.sharedInstance.validatePlainString(nameField?.textField?.text ?? "")){
-            nameField?.showError(text: "Name looks incorrect !")
+            nameField?.showError(text: "Name looks incorrect !".localized())
             return false
         }
         nameField?.resetErrorStatus()
@@ -734,7 +739,7 @@ extension EditProfileRootview{
      func validateCountryCode()->Bool{
         
         if(countryCodeField?.textField?.text == ""){
-            countryCodeField?.showError(text: "CountryCode field can't be left empty !")
+            countryCodeField?.showError(text: "CountryCode field can't be left empty !".localized())
             return false
         }
         countryCodeField?.resetErrorStatus()
@@ -752,7 +757,7 @@ extension EditProfileRootview{
             
             if (mobileNumberField?.textField?.text?.count ?? 0) < 8{
                 
-                mobileNumberField?.showError(text: "Mobile number looks incorrect !")
+                mobileNumberField?.showError(text: "Mobile number looks incorrect !".localized())
                 return false
             }
             
@@ -760,7 +765,7 @@ extension EditProfileRootview{
        else if mobileNumberField?.textField?.text?.count  ?? 0 == 0{
            
             if chatUpdates == true{
-                mobileNumberField?.showError(text: "Please provide the mobile number!!")
+                mobileNumberField?.showError(text: "Please provide the mobile number!!".localized())
                 return false
             }
         }
@@ -774,7 +779,7 @@ extension EditProfileRootview{
         
         if (mobileNumberField?.textField?.text?.count ?? 0) == 0 && chatUpdates{
             
-            mobileNumberField?.showError(text: "Please fill mobile number")
+            mobileNumberField?.showError(text: "Please fill mobile number".localized())
             return false
         }
         mobileNumberField?.resetErrorStatus()
@@ -893,7 +898,7 @@ extension EditProfileRootview{
     
     @IBAction func removeImage(sender:UIButton?){
         
-        self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Are you sure to remove profile picture?", successTitle: "Yes", rejectTitle: "No", showCancel: true, completion: { (success) in
+        self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Are you sure to remove profile picture?".localized() ?? "", successTitle: "Yes".localized() ?? "", rejectTitle: "No".localized() ?? "", showCancel: true, completion: { (success) in
             
             if !success{
                 return
@@ -909,7 +914,7 @@ extension EditProfileRootview{
             self.controller?.stopLoader()
             if success{
                 
-                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile picture changed successfully.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.controller?.alert(withTitle: AppInfoConfig.appName, message: "Profile picture changed successfully.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                    
                     self.userImage?.image = UIImage(named:"editUploadImagePlaceholder")
                     self.controller?.fetchInfo()

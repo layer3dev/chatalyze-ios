@@ -104,7 +104,7 @@ extension SessionNewTimeRootView{
         
         if(timeFld?.textField?.text == ""){
             
-            timeFld?.showError(text: "Time is required.")
+            timeFld?.showError(text: "Time is required.".localized())
             return false
         }
         timeFld?.resetErrorStatus()
@@ -128,7 +128,7 @@ extension SessionNewTimeRootView{
                 
                 if date.timeIntervalSinceNow <=  0{
                     
-                    timeFld?.showError(text: "Please select the future time")
+                    timeFld?.showError(text: "Please select the future time".localized())
                     return false
                 }else{                   
                     timeFld?.resetErrorStatus()

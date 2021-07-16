@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,7 +53,7 @@
                                                     </constraint>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc1-9T-ylY">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dc1-9T-ylY">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <connections>
                                                     <action selector="backButtonWithSender:" destination="snF-gN-oa0" eventType="touchUpInside" id="h8O-mA-qhl"/>
@@ -106,6 +106,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hra-9A-TNl"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Fdf-yX-oxR" firstAttribute="leading" secondItem="hra-9A-TNl" secondAttribute="leading" id="6X8-Jo-ber">
@@ -123,7 +124,6 @@
                             <constraint firstItem="hra-9A-TNl" firstAttribute="trailing" secondItem="6om-ZT-Hzc" secondAttribute="trailing" id="zUx-I3-ena"/>
                             <constraint firstItem="Fdf-yX-oxR" firstAttribute="top" secondItem="6om-ZT-Hzc" secondAttribute="bottom" id="zpt-cF-qSj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hra-9A-TNl"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <connections>
@@ -177,7 +177,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FyP-eY-o7J" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-sr-cpV">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-sr-cpV">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="15"/>
@@ -206,7 +206,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDr-8H-GOI" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIz-4S-9uP">
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIz-4S-9uP">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -240,7 +240,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nzE-Ef-Zv5" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxx-Si-yLI">
+                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxx-Si-yLI">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -269,7 +269,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zh-CW-qnr" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jk3-uu-ago">
+                                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jk3-uu-ago">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -303,7 +303,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMx-Kq-B35" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I9Q-ne-Ar5">
+                                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I9Q-ne-Ar5">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -332,7 +332,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMA-93-yM7" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmA-6H-BUb">
+                                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmA-6H-BUb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -366,7 +366,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlW-sT-5ww" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2a-vg-yS3" userLabel="60 mins">
+                                                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2a-vg-yS3" userLabel="60 mins">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -395,7 +395,7 @@
                                                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qo8-jK-BQE" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-x8-rgC" userLabel="30 mins">
+                                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LgD-x8-rgC" userLabel="30 mins">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -604,7 +604,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHV-Tn-RhW">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHV-Tn-RhW">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="9If-Za-o1L" eventType="touchUpInside" id="wcq-xQ-XcU"/>
@@ -638,6 +638,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hOc-5j-C8K"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hOc-5j-C8K" firstAttribute="bottom" secondItem="n5V-I8-yCn" secondAttribute="bottom" id="9r7-Ux-Agc"/>
@@ -649,7 +650,6 @@
                             <constraint firstItem="hOc-5j-C8K" firstAttribute="trailing" secondItem="n5V-I8-yCn" secondAttribute="trailing" id="hXU-cZ-GWe"/>
                             <constraint firstItem="hZL-ap-PB0" firstAttribute="width" secondItem="9If-Za-o1L" secondAttribute="width" id="jaS-X9-J91"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="hOc-5j-C8K"/>
                         <connections>
                             <outlet property="chatCalculatorLbl" destination="eqq-x2-deT" id="Xcz-A8-OEi"/>
                             <outlet property="chatCalculatorView" destination="4Fc-Tg-mqu" id="W9X-6O-PMs"/>
@@ -682,13 +682,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZqJ-x8-IVT">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="363.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0z-DE-EVc">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="189.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you want your session to take place?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqb-Fd-r2B">
-                                                        <rect key="frame" x="20" y="40" width="280" height="49.5"/>
+                                                        <rect key="frame" x="20" y="40" width="280" height="42"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="18"/>
                                                         <color key="textColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -697,7 +697,7 @@
                                                         </variation>
                                                     </label>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o3b-BF-6lH" customClass="SigninFieldView" customModule="Chatalyze" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="129.5" width="280" height="50"/>
+                                                        <rect key="frame" x="20" y="122" width="280" height="50"/>
                                                         <subviews>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7E-mj-nKF" userLabel="email_field">
                                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
@@ -712,7 +712,7 @@
                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                                         </variation>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mf4-II-Pe2">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mf4-II-Pe2">
                                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <connections>
@@ -788,7 +788,7 @@
                                                 </constraints>
                                             </view>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fH-XE-zQc" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="229.5" width="280" height="114"/>
+                                                <rect key="frame" x="20" y="222" width="280" height="103"/>
                                                 <subviews>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nh4-Fg-HhG" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="15" y="23" width="50" height="50"/>
@@ -812,7 +812,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Pup" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwq-5z-6qa">
-                                                        <rect key="frame" x="73" y="20" width="197" height="20.5"/>
+                                                        <rect key="frame" x="73" y="20" width="197" height="17.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito SemiBold" pointSize="15"/>
                                                         <color key="textColor" red="0.22352941176470587" green="0.22352941176470587" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -821,7 +821,7 @@
                                                         </variation>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to schedule in advance so your community has time to book chats!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="VCR-fl-Y2i">
-                                                        <rect key="frame" x="73" y="40.5" width="202" height="53.5"/>
+                                                        <rect key="frame" x="73" y="37.5" width="202" height="45.5"/>
                                                         <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="13"/>
                                                         <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -885,7 +885,7 @@
                                         <rect key="frame" x="20" y="20" width="280" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEXT  →" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWh-UA-BbB">
-                                                <rect key="frame" x="106.5" y="9" width="67.5" height="22"/>
+                                                <rect key="frame" x="107.5" y="10.5" width="65.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -893,7 +893,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cg-2q-aIc">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cg-2q-aIc">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="HYi-W6-XcY" eventType="touchUpInside" id="14s-9q-GYo"/>
@@ -927,6 +927,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="frE-Ab-T3x"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="3Av-2m-Z67" firstAttribute="top" secondItem="frE-Ab-T3x" secondAttribute="top" id="5An-Gd-Imr"/>
@@ -938,7 +939,6 @@
                             <constraint firstItem="frE-Ab-T3x" firstAttribute="bottom" secondItem="ypx-8V-iji" secondAttribute="bottom" id="qU6-hS-84J"/>
                             <constraint firstItem="frE-Ab-T3x" firstAttribute="trailing" secondItem="ypx-8V-iji" secondAttribute="trailing" id="qd9-tE-HpD"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="frE-Ab-T3x"/>
                         <connections>
                             <outlet property="chatPupView" destination="1fH-XE-zQc" id="NeM-h1-ALy"/>
                             <outlet property="dateFld" destination="o3b-BF-6lH" id="8RI-S5-0Vj"/>
@@ -986,7 +986,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4T-05-EmR" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZV-zm-er8">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZV-zm-er8">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
@@ -1015,7 +1015,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ovf-nh-mWW" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Duu-wQ-ebk">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Duu-wQ-ebk">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
@@ -1049,7 +1049,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RK0-X6-lsr" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYu-v4-8t1">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYu-v4-8t1">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
@@ -1078,7 +1078,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjo-1f-eoc" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nga-A8-vnl">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nga-A8-vnl">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="17"/>
@@ -1252,7 +1252,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bU-XU-Log">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bU-XU-Log">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="heR-6z-q9X" eventType="touchUpInside" id="lEI-8V-pIr"/>
@@ -1286,6 +1286,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="44b-H4-ZlJ"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1JZ-KG-DDm" firstAttribute="leading" secondItem="44b-H4-ZlJ" secondAttribute="leading" id="31c-V6-TaI"/>
@@ -1297,7 +1298,6 @@
                             <constraint firstItem="7hC-Ur-aDN" firstAttribute="leading" secondItem="44b-H4-ZlJ" secondAttribute="leading" id="iz8-x3-4H0"/>
                             <constraint firstItem="44b-H4-ZlJ" firstAttribute="bottom" secondItem="7hC-Ur-aDN" secondAttribute="bottom" id="jaI-du-O0o"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="44b-H4-ZlJ"/>
                         <connections>
                             <outlet property="chatPupView" destination="GvZ-a3-6mo" id="3eg-BQ-TUv"/>
                             <outlet property="errorLbl" destination="ng6-rh-Bhy" id="GMC-5t-rHJ"/>
@@ -1628,7 +1628,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hU-Lb-YS5">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hU-Lb-YS5">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="ijU-5J-Amt" eventType="touchUpInside" id="ASI-jM-vUz"/>
@@ -1671,6 +1671,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="WRL-wj-kOE"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WRL-wj-kOE" firstAttribute="trailing" secondItem="Ofj-vV-tbO" secondAttribute="trailing" id="1SG-Wg-3KZ"/>
@@ -1682,7 +1683,6 @@
                             <constraint firstItem="Ofj-vV-tbO" firstAttribute="bottom" secondItem="WRL-wj-kOE" secondAttribute="bottom" id="pd8-pA-utU"/>
                             <constraint firstItem="Ofj-vV-tbO" firstAttribute="leading" secondItem="WRL-wj-kOE" secondAttribute="leading" id="tZK-zI-dvJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WRL-wj-kOE"/>
                         <connections>
                             <outlet property="chatPupView" destination="OhE-I9-9r8" id="JbN-OT-yhP"/>
                             <outlet property="earningFormulaLbl" destination="usL-OZ-XxV" id="8hZ-qD-65G"/>
@@ -1734,13 +1734,16 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1z1-Qs-mlQ" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ee-mU-Lrq">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ee-mU-Lrq" customClass="LocalizedButton" customModule="Chatalyze" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                                 <state key="normal" title="Yes">
                                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Yes"/>
+                                                                                </userDefinedRuntimeAttributes>
                                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
                                                                                 </variation>
@@ -1763,7 +1766,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFt-Ox-4zL" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAI-0z-u5C">
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAI-0z-u5C">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117647058818" green="0.88627450980392153" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -1936,7 +1939,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeM-ia-jeI">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeM-ia-jeI">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextButtonActionWithSender:" destination="qHP-xJ-oIO" eventType="touchUpInside" id="Q6y-WN-GIb"/>
@@ -1980,6 +1983,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="L70-hB-8hU"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="L70-hB-8hU" firstAttribute="bottom" secondItem="AG1-or-i15" secondAttribute="bottom" id="1De-Q9-1ny"/>
@@ -1991,7 +1995,6 @@
                             <constraint firstItem="AG1-or-i15" firstAttribute="leading" secondItem="L70-hB-8hU" secondAttribute="leading" id="rH8-fg-6i6"/>
                             <constraint firstItem="L70-hB-8hU" firstAttribute="trailing" secondItem="oly-iS-gsJ" secondAttribute="trailing" id="xOW-Sb-csN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="L70-hB-8hU"/>
                         <connections>
                             <outlet property="chatPupView" destination="9sb-cP-A8Y" id="5pn-8v-IWV"/>
                             <outlet property="isSocialNoBtn" destination="SAI-0z-u5C" id="2Gf-jb-blU"/>
@@ -2047,7 +2050,7 @@
                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="24"/>
                                                                         </variation>
                                                                     </textField>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvU-CL-9pi">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvU-CL-9pi">
                                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <connections>
@@ -2226,7 +2229,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeS-DV-qjP">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeS-DV-qjP">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="HSH-en-CbG" eventType="touchUpInside" id="h4W-d9-rxQ"/>
@@ -2260,6 +2263,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="mwp-1Q-A9m"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="usT-6l-xce" firstAttribute="top" secondItem="HSH-en-CbG" secondAttribute="top" id="9H5-kn-5cS"/>
@@ -2271,7 +2275,6 @@
                             <constraint firstItem="usT-6l-xce" firstAttribute="leading" secondItem="HSH-en-CbG" secondAttribute="leading" id="uHH-0n-PkY"/>
                             <constraint firstItem="igU-Et-CIB" firstAttribute="width" secondItem="HSH-en-CbG" secondAttribute="width" id="zEa-wV-BEl"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mwp-1Q-A9m"/>
                         <connections>
                             <outlet property="chatPupView" destination="c3V-Hn-fgf" id="82c-J8-Inq"/>
                             <outlet property="nextView" destination="WD5-Gb-D5C" id="ZqG-OU-iLH"/>
@@ -2693,7 +2696,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWd-fN-EST">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWd-fN-EST">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                                 <connections>
                                                     <action selector="scheduleActionWithSender:" destination="lk2-Jf-GNN" eventType="touchUpInside" id="g60-Pg-i19"/>
@@ -2736,6 +2739,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XGu-Bh-hOm"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sld-YF-ufJ" firstAttribute="top" secondItem="XGu-Bh-hOm" secondAttribute="top" id="2tl-M3-JCI"/>
@@ -2747,7 +2751,6 @@
                             <constraint firstItem="nOG-mB-gKK" firstAttribute="width" secondItem="lk2-Jf-GNN" secondAttribute="width" id="YeP-pP-fgd"/>
                             <constraint firstItem="2qL-LS-iCi" firstAttribute="leading" secondItem="XGu-Bh-hOm" secondAttribute="leading" id="tKl-f7-H41"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XGu-Bh-hOm"/>
                         <connections>
                             <outlet property="chatPupView" destination="hE0-Qa-URY" id="RlX-Gg-GLk"/>
                             <outlet property="dateLbl" destination="vvA-qA-ddd" id="mR6-F2-qVC"/>
@@ -2850,16 +2853,19 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3G-d1-fMn">
                                                         <rect key="frame" x="0.0" y="17" width="90" height="25"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE LINK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUd-FG-eqd">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE LINK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUd-FG-eqd" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="12"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="PROFILE LINK"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                     <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="16"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFW-e4-j5k">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFW-e4-j5k">
                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                             </button>
@@ -2971,7 +2977,7 @@
                                                                             <constraint firstAttribute="width" constant="1" id="wN5-xv-QIb"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVp-CY-jgX">
+                                                                    <button opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVp-CY-jgX">
                                                                         <rect key="frame" x="0.0" y="0.0" width="86.5" height="35"/>
                                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
@@ -3027,7 +3033,7 @@
                                                                             <constraint firstAttribute="width" constant="1" id="CaT-s4-pAR"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVh-gV-A0m">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVh-gV-A0m">
                                                                         <rect key="frame" x="0.0" y="0.0" width="87" height="35"/>
                                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
@@ -3078,7 +3084,7 @@
                                                                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                                                                         </variation>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vY-sP-ujh">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vY-sP-ujh">
                                                                         <rect key="frame" x="0.0" y="0.0" width="86.5" height="35"/>
                                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <connections>
@@ -3173,7 +3179,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u1-J0-HeE">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u1-J0-HeE">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="backToSessionWithSender:" destination="bAP-Xr-PfT" eventType="touchUpInside" id="ig7-Kr-lr5"/>
@@ -3216,6 +3222,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="0hC-ay-FI5"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="FN5-3a-HJi" firstAttribute="width" secondItem="SKU-mc-Kpc" secondAttribute="width" id="1Km-bl-YV2"/>
@@ -3227,7 +3234,6 @@
                             <constraint firstItem="0hC-ay-FI5" firstAttribute="trailing" secondItem="uAD-2a-CVC" secondAttribute="trailing" id="oRz-bV-Lsc"/>
                             <constraint firstItem="0hC-ay-FI5" firstAttribute="bottom" secondItem="cHe-by-3VA" secondAttribute="bottom" id="p9q-zn-9Rj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="0hC-ay-FI5"/>
                     </view>
                     <connections>
                         <outlet property="chatPupView" destination="vwg-Pt-Wln" id="Nva-Jc-wXL"/>
@@ -3284,7 +3290,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JW-Ol-oCO">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JW-Ol-oCO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="274" height="40"/>
                                                                 <connections>
                                                                     <action selector="doneEditingActionWithSender:" destination="fPt-OR-XK4" eventType="touchUpInside" id="PUs-pS-a0Y"/>
@@ -3377,7 +3383,7 @@
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWJ-xz-gsb">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWJ-xz-gsb">
                                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
                                                                 <connections>
                                                                     <action selector="disableEditSessionNameAction" destination="j5n-hY-AaS" eventType="touchUpInside" id="hwL-eZ-Qtj"/>
@@ -3452,16 +3458,19 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beH-Lk-SlB" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="147" y="91" width="120" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-U1-tIi">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGr-U1-tIi" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="42" y="9" width="36" height="22"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Save"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CW-hK-MdM">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CW-hK-MdM">
                                                                 <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                                 <connections>
                                                                     <action selector="saveTitleActionWithSender:" destination="j5n-hY-AaS" eventType="touchUpInside" id="ipr-vQ-2Yk"/>
@@ -3817,16 +3826,19 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhC-JW-h6o" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="108.5" width="120" height="40"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM8-AE-0hh">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oM8-AE-0hh" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="42" y="9" width="36" height="22"/>
                                                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Save"/>
+                                                                        </userDefinedRuntimeAttributes>
                                                                         <variation key="heightClass=regular-widthClass=regular">
                                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                         </variation>
                                                                     </label>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wLy-f5-yDj">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wLy-f5-yDj">
                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                                         <connections>
                                                                             <action selector="saveDescriptionActionWithSender:" destination="j5n-hY-AaS" eventType="touchUpInside" id="8WS-Br-ybj"/>
@@ -4048,15 +4060,18 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfx-na-x3Y" userLabel="signin_button" customClass="SigninButtonContainer" customModule="Chatalyze" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="157.5" width="140" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPLOAD " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qay-JQ-pqM">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UPLOAD " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qay-JQ-pqM" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="14"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="UPLOAD"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                                 </variation>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qje-c3-JF8">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qje-c3-JF8">
                                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
                                                                 <connections>
                                                                     <action selector="uploadImageWithSender:" destination="j5n-hY-AaS" eventType="touchUpInside" id="naX-4J-3BG"/>
@@ -4194,7 +4209,7 @@
                                                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                         </variation>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Rf-f7-vpV">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Rf-f7-vpV">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
                                                     </button>
                                                 </subviews>
@@ -4286,6 +4301,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="GgB-WH-9Jw"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GgB-WH-9Jw" firstAttribute="bottom" secondItem="JXT-ko-CpJ" secondAttribute="bottom" id="9rl-Q3-hDv"/>
@@ -4293,7 +4309,6 @@
                             <constraint firstItem="JXT-ko-CpJ" firstAttribute="top" secondItem="j5n-hY-AaS" secondAttribute="top" id="bZm-DK-fDP"/>
                             <constraint firstItem="GgB-WH-9Jw" firstAttribute="trailing" secondItem="JXT-ko-CpJ" secondAttribute="trailing" id="uh1-lY-7I7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="GgB-WH-9Jw"/>
                         <connections>
                             <outlet property="contentBottomOffsetConstraints" destination="ZLF-1y-gS3" id="XDM-9X-TRl"/>
                             <outlet property="costofEventLbl" destination="Cca-Fd-PQ8" id="2B3-um-Atb"/>
@@ -4366,13 +4381,16 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMK-Gn-hIv" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CK-Np-BkA">
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6CK-Np-BkA" customClass="LocalizedButton" customModule="Chatalyze" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
                                                                                 <state key="normal" title="Yes">
                                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
+                                                                                <userDefinedRuntimeAttributes>
+                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizeLanguage" value="Yes"/>
+                                                                                </userDefinedRuntimeAttributes>
                                                                                 <variation key="heightClass=regular-widthClass=regular">
                                                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="22"/>
                                                                                 </variation>
@@ -4395,7 +4413,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gDr-yA-G86" userLabel="email_field" customClass="ButtonContainerCorners" customModule="Chatalyze" customModuleProvider="target">
                                                                         <rect key="frame" x="150" y="0.0" width="130" height="50"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-gd-ZdG">
+                                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-gd-ZdG">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
                                                                                 <color key="backgroundColor" red="0.95294117649999999" green="0.8862745098" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="16"/>
@@ -4567,7 +4585,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUT-HM-3ba">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUT-HM-3ba">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextButtonActionWithSender:" destination="Eu9-8D-iS2" eventType="touchUpInside" id="jqb-e2-0t6"/>
@@ -4611,6 +4629,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MV7-z8-hEj"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="FxY-5P-ivF" firstAttribute="width" secondItem="Eu9-8D-iS2" secondAttribute="width" id="6CB-Ou-5kg"/>
@@ -4622,7 +4641,6 @@
                             <constraint firstItem="MV7-z8-hEj" firstAttribute="bottom" secondItem="5jb-XO-x33" secondAttribute="bottom" id="pLT-EY-Y4w"/>
                             <constraint firstItem="MV7-z8-hEj" firstAttribute="trailing" secondItem="lxf-TV-x4e" secondAttribute="trailing" id="z6E-PM-uft"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MV7-z8-hEj"/>
                         <connections>
                             <outlet property="chatPupView" destination="DJL-Sb-RRY" id="CD0-up-Axg"/>
                             <outlet property="isDonationNoBtn" destination="W6s-gd-ZdG" id="9oD-ho-onp"/>
@@ -4970,7 +4988,7 @@
                                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito ExtraBold" pointSize="24"/>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPX-pI-dRu">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPX-pI-dRu">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
                                                 <connections>
                                                     <action selector="nextActionWithSender:" destination="7p8-yS-lvX" eventType="touchUpInside" id="ZlX-vT-zCS"/>
@@ -5013,6 +5031,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ihP-jo-FB8"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1Gc-fr-zg2" firstAttribute="bottom" secondItem="ihP-jo-FB8" secondAttribute="bottom" id="0s3-FH-buB"/>
@@ -5024,7 +5043,6 @@
                             <constraint firstItem="ihP-jo-FB8" firstAttribute="top" secondItem="1Gc-fr-zg2" secondAttribute="top" id="oWz-ET-nb0"/>
                             <constraint firstItem="ihP-jo-FB8" firstAttribute="bottom" secondItem="N6z-sk-0QG" secondAttribute="bottom" id="zni-xD-FSj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ihP-jo-FB8"/>
                         <connections>
                             <outlet property="chatPupView" destination="l7c-b1-bN3" id="9yW-vf-9Gl"/>
                             <outlet property="nextView" destination="N6z-sk-0QG" id="giq-YG-6lc"/>

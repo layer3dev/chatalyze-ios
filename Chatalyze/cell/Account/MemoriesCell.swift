@@ -156,9 +156,9 @@ extension MemoriesCell{
         if error != nil {
             
             //We got back an error!
-            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Please provide the access to save the photos in the Gallery.", preferredStyle: .alert)
+            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Please provide the access to save the photos in the Gallery.".localized() ?? "", preferredStyle: .alert)
           
-            ac.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (alert) in
+            ac.addAction(UIAlertAction(title: "OK".localized() ?? "", style: UIAlertAction.Style.default, handler: { (alert) in
                 
                 if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                     if #available(iOS 10.0, *) {
@@ -174,7 +174,7 @@ extension MemoriesCell{
             
         } else {
             
-            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Your memory has been saved to your photos.", preferredStyle: .alert)
+            let ac = UIAlertController(title: AppInfoConfig.appName, message: "Your memory has been saved to your photos.".localized() ?? "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             self.controller?.present(ac, animated: true)
         }

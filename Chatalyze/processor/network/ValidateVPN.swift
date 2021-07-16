@@ -30,7 +30,7 @@ class ValidateVPN {
         
         Log.echo(key: TAG, text: "SHOWING ALERT :(")
         
-        controller.alert(withTitle: "Warning", message: "We detect you are on a virtual private network (VPN), which puts you at high risk of having connectivity issues on Chatalyze. Please disconnect from your VPN before participating in any chats.", successTitle: "OK", rejectTitle: "Cancel", showCancel: false) { (success) in
+        controller.alert(withTitle: "Warning".localized() ?? "", message: "We detect you are on a virtual private network (VPN), which puts you at high risk of having connectivity issues on Chatalyze. Please disconnect from your VPN before participating in any chats.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false) { (success) in
             didLoadWindow?()
         }
         

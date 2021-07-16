@@ -39,7 +39,7 @@ class MySessionTableViewCell: ExtendedTableCell {
         painInterface()
         roundToMainView()
     }
-    
+        
     func paintPastFields(){
         
         if isPastEvents{
@@ -128,7 +128,7 @@ class MySessionTableViewCell: ExtendedTableCell {
                 if let durate  = info.duration{
                     UserDefaults.standard.setValue(durate, forKey: "durate")
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.checkExactEmptySlots())) booked"
+                    self.ticketsBooked?.text = "\(info.callBookings.count) \("of".localized() ?? "") \(totalnumberofslots-(self.checkExactEmptySlots())) \("booked".localized() ?? "")"
                 }
             }
         }
@@ -197,15 +197,15 @@ class MySessionTableViewCell: ExtendedTableCell {
         
         let alertActionSheet = UIAlertController(title: AppInfoConfig.appName, message: alertMessage, preferredStyle: UIAlertController.Style.actionSheet)
         
-        let uploadAction = UIAlertAction(title: "Update App", style: UIAlertAction.Style.default) { (success) in
+        let uploadAction = UIAlertAction(title: "Update App".localized() ?? "", style: UIAlertAction.Style.default) { (success) in
             HandlingAppVersion.goToAppStoreForUpdate()
         }
         
-        let callRoomAction = UIAlertAction(title: "Continue to Session", style: UIAlertAction.Style.default) { (success) in
+        let callRoomAction = UIAlertAction(title: "Continue to Session".localized() ?? "", style: UIAlertAction.Style.default) { (success) in
             self.gotoSession()
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.destructive) { (success) in
+        let cancel = UIAlertAction(title: "Cancel".localized() ?? "", style: UIAlertAction.Style.destructive) { (success) in
         }
         
         alertActionSheet.addAction(uploadAction)
@@ -379,9 +379,9 @@ extension MySessionTableViewCell{
                 
                 if success{
                     
-                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
+                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
                     
-                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+                    alert.addAction(UIAlertAction(title: "Ok".localized() ?? "", style: UIAlertAction.Style.default, handler: { (alert) in
                     }))
                     
                     RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
@@ -419,9 +419,9 @@ extension MySessionTableViewCell{
     
     func noPermission(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.".localized(), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (alert) in
             
             if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                 if #available(iOS 10.0, *) {
@@ -438,9 +438,9 @@ extension MySessionTableViewCell{
     
     func alreadyExisitingEventError(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Event is already added to the calendar.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Event is already added to the calendar.".localized(), preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok".localized(), style: UIAlertAction.Style.default, handler: { (alert) in
         }))
         RootControllerManager().getCurrentController()?.present(alert, animated: false, completion: {
         })

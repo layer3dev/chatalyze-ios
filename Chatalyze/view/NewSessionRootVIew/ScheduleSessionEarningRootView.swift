@@ -349,7 +349,7 @@ extension ScheduleSessionEarningRootView{
 
         if(priceField?.textField?.text == ""){
             
-            priceField?.showError(text: "Price is required.")
+            priceField?.showError(text: "Price is required.".localized())
             return false
         }
         else if !isPriceZero(text: priceField?.textField?.text){

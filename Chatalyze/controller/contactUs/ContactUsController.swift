@@ -95,7 +95,7 @@ class ContactUsController: InterfaceExtendedController {
         
         if text == ""{
             
-            self.alert(withTitle: AppInfoConfig.appName, message: "Message field cannot be blank", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Message field cannot be blank".localized() ?? "", showCancel: false, completion: { (success) in
             })
             return
         }
@@ -122,19 +122,19 @@ class ContactUsController: InterfaceExtendedController {
                 //                self.alert(withTitle: AppInfoConfig.appName, message: "Error", showCancel: false, completion: { (success) in
                 //                })
                 
-                self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!".localized() ?? "", showCancel: false, completion: { (success) in
                     
                     self.contactTextView?.text = ""
-                    self.contactPlaceholderLbl?.text = "Enter Message"
+                    self.contactPlaceholderLbl?.text = "Enter Message".localized()
                     DispatchQueue.main.async {
                         self.navigationController?.popToRootViewController(animated: true)
                     }
                 })
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Thank you for your message. We'll get back to you shortly!".localized() ?? "", showCancel: false, completion: { (success) in
                 self.contactTextView?.text = ""
-                self.contactPlaceholderLbl?.text = "Enter Message";
+                self.contactPlaceholderLbl?.text = "Enter Message".localized() ?? "";
                 DispatchQueue.main.async {
                     self.navigationController?.popToRootViewController(animated: true)
                 }

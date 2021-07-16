@@ -157,11 +157,11 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email is required.")
+            emailField?.showError(text: "Email is required".localized() ?? "")
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect!")
+            emailField?.showError(text: "Email looks incorrect !".localized() ?? "")
             return false
         }
         emailField?.resetErrorStatus()
@@ -181,11 +181,11 @@ class PaymentSetupPaypalController: InterfaceExtendedController {
             
             if !success{
                 
-                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+                self.alert(withTitle: AppInfoConfig.appName, message: message, successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
                 })
                 return
             }
-            self.alert(withTitle: AppInfoConfig.appName, message: "Paypal account saved successfully.", successTitle: "Ok", rejectTitle: "Cancel", showCancel: false, completion: { (success) in
+            self.alert(withTitle: AppInfoConfig.appName, message: "Paypal account saved successfully.".localized() ?? "", successTitle: "Ok".localized() ?? "", rejectTitle: "Cancel".localized() ?? "", showCancel: false, completion: { (success) in
             })
         }
     }

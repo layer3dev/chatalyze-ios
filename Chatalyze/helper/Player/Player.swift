@@ -17,7 +17,7 @@ class Player : NSObject{
     override init() {
         super.init()
         
-        let soundURL = Bundle.main.url(forResource: "testMusic", withExtension: "mp3")
+        let soundURL = Bundle.main.url(forResource: Locale.current.languageCode == "en" ? "testMusic" : Locale.current.languageCode == "th" ? "testMusic_th" : "testMusic_vi", withExtension: "mp3")
 
         do {
             try audioFile = AVAudioPlayer(contentsOf: soundURL!)

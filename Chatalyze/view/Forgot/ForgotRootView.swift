@@ -39,7 +39,7 @@ class ForgotRootView:ExtendedView{
           
             if success{
                 
-                self.showError(text: "Password reset link sent. Please check your email \(email)")
+                self.showError(text: (("Password reset link sent. Please check your email ".localized() ?? "") + "\(email)"))
                 self.errorLabel?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
                 self.emailField?.textField?.text = ""
                 return
@@ -81,7 +81,7 @@ class ForgotRootView:ExtendedView{
     }
     
     func initialisation(){
-        
+        emailField?.textField?.placeholder = "Email".localized()
         emailField?.textField?.delegate = self
         scrollView?.bottomContentOffset = scrollViewBottomConstraints
     }
@@ -102,11 +102,11 @@ extension ForgotRootView{
     fileprivate func validateEmail()->Bool{
         
         if(emailField?.textField?.text == ""){
-            emailField?.showError(text: "Email field can't be left empty !")
+            emailField?.showError(text: "Email is required".localized())
             return false
         }
         else if !(FieldValidator.sharedInstance.validateEmailFormat(emailField?.textField?.text ?? "")){
-            emailField?.showError(text: "Email looks incorrect !")
+            emailField?.showError(text: "Email looks incorrect !".localized())
             return false
         }
         emailField?.resetErrorStatus()

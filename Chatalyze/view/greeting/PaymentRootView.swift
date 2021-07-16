@@ -89,7 +89,7 @@ extension PaymentRootView{
     fileprivate func validateCard()->Bool{
         
         if(cardNumber?.textField?.text == ""){
-            cardNumber?.showError(text: "Card field can't be left empty !")
+            cardNumber?.showError(text: "Card field can't be left empty !".localized())
             return false
         }
         cardNumber?.resetErrorStatus()
@@ -99,7 +99,7 @@ extension PaymentRootView{
     fileprivate func validateExpirydate()->Bool{
         
         if(expirydate?.textField?.text == ""){
-            expirydate?.showError(text: "Expiry date field can't be left empty !")
+            expirydate?.showError(text: "Expiry date field can't be left empty !".localized())
             return false
         }
         expirydate?.resetErrorStatus()
@@ -109,7 +109,7 @@ extension PaymentRootView{
     fileprivate func valiadteCVCNumber()->Bool{
         
         if(cvcNumber?.textField?.text == ""){
-            cvcNumber?.showError(text: "CVC field can't be left empty !")
+            cvcNumber?.showError(text: "CVC field can't be left empty !".localized())
             return false
         }
         cvcNumber?.resetErrorStatus()

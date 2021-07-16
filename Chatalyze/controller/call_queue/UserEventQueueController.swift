@@ -122,7 +122,7 @@ class UserEventQueueController: EventQueueController {
         if ((eventInfo.started ?? "") == "") && ((eventInfo.notified ?? "" ) == ""){
             
             showAlertMessage()
-            statusLbl?.text = "Session has not started yet."
+            statusLbl?.text = "Session has not started.".localized()
             return
         }
         

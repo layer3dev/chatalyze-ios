@@ -98,6 +98,12 @@ class SlotInfo: SlotTimeInfo {
         }
     }
     
+    var greenRoomId : String{
+        get{
+            return "call-\(self.callscheduleId ?? 0)"
+        }
+    }
+
     var isLIVE : Bool{
         
         get{

@@ -74,8 +74,8 @@ class SessionDoneRootView:ExtendedView{
                 
                 if success{
                     
-                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar", preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+                    let alert = UIAlertController(title: "Chatalyze", message: "Event successfully added to calendar".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok".localized() ?? "", style: UIAlertAction.Style.default, handler: { (alert) in
                     }))
                     self.controller?.present(alert, animated: false, completion: {
                     })
@@ -112,9 +112,9 @@ class SessionDoneRootView:ExtendedView{
     
     func noPermission(){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide the permission to access the calender.".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { (alert) in
+        alert.addAction(UIAlertAction(title: "Ok".localized() ?? "", style: UIAlertAction.Style.default, handler: { (alert) in
             
             if let settingUrl = URL(string:UIApplication.openSettingsURLString){
                 if #available(iOS 10.0, *) {

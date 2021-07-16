@@ -14,7 +14,7 @@ class VideoCallController : InterfaceExtendedController {
     private let TAG = "VideoCallController"
     
     var callLogger : CallLogger?
-    
+    var callType = ""
     
     //added this flag to prevent issue with thread race caused because of thread lock done by Twilio Disconnect - causing timer thread to choke and execute even after the invalidate process because it was already triggered but choked in queue.
     var isProcessTerminated = false
@@ -535,7 +535,7 @@ class VideoCallController : InterfaceExtendedController {
     
     private func connectToRoom(info : EventScheduleInfo){
         
-        socketClient?.connect(roomId: (info.roomId))
+        socketClient?.connect(roomId: (callType == "green" ? info.greenRoomId : info.roomId))
         socketClient?.socketDisconnect = {
             self.trackWebSocketDisconnected()
         }
@@ -756,7 +756,7 @@ class VideoCallController : InterfaceExtendedController {
     var roomId : String?{
         
         get{
-            return self.eventInfo?.roomId
+            return callType == "green" ? self.eventInfo?.greenRoomId : self.eventInfo?.roomId
         }
     }
     
@@ -764,7 +764,7 @@ class VideoCallController : InterfaceExtendedController {
     var room_Id : String?{
         
         get{
-            Log.echo(key: "vijayDedaults", text: "\(String(describing: eventInfo?.room_id))")
+            Log.echo(key: "vijayDedaults", text: "\(String(describing: (eventInfo?.room_id)))")
             return self.eventInfo?.room_id
         }
     }

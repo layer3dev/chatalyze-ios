@@ -33,7 +33,7 @@ class ExtendChatService {
         }
         
         Log.echo(key: "vijayExtendChat", text: "Resonse of Fetch Info in extend \(String(describing: response))")
-        let message = "Chat extended successfully !!"
+        let message = "Chat extended successfully".localized() ?? ""
         completion(true, message)
         return
     }

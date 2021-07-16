@@ -71,15 +71,28 @@ class HostEventQueueController: EventQueueController {
             
             controller.eventInfo = eventInfo
             controller.eventId = "\(eventId)"
+//            controller.callType = "green"
+//            controller.callback = {
+//                guard let controller = HostCallController.instance()
+//                else {
+//                    return
+//                }
+//                guard let eventId = self.eventInfo?.id
+//                else {
+//                    return
+//                }
+//                controller.eventInfo = eventInfo
+//                controller.eventId = "\(eventId)"
+//                self.viewDidRelease()
+//                controller.modalPresentationStyle = .fullScreen
+//                self.navigationController?.present(controller, animated: true, completion: {
+//                    self.navigationController?.popViewController(animated: false)
+//                })
+//            }
             self.viewDidRelease()
-            
-            
             controller.modalPresentationStyle = .fullScreen
             self.navigationController?.present(controller, animated: true, completion: {
-                
                 self.navigationController?.popViewController(animated: false)
-                
-               
             })
         }
     }

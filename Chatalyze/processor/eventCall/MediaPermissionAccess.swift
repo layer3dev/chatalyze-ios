@@ -148,9 +148,9 @@ class MediaPermissionAccess{
     
     private func alertToProvideMediaAccess(callback : (()->())?){
         
-        let alert = UIAlertController(title: "Chatalyze", message: "Please provide Camera & Microphone access to be able to continue to session.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Chatalyze", message: "Please provide Camera & Microphone access to be able to continue to session.".localized() ?? "", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title:"OK", style: UIAlertAction.Style.default, handler: { (action) in
+        alert.addAction(UIAlertAction(title:"OK".localized() ?? "", style: UIAlertAction.Style.default, handler: { (action) in
             self.controller.dismiss(animated: true, completion: {
                 callback?()
                 if let settingUrl = URL(string: UIApplication.openSettingsURLString){

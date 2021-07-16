@@ -183,7 +183,7 @@ class ScheduleSessionNewReviewRootView: ExtendedRootView {
         self.resetErrorlabel()
         let isThisFutureTime = self.isThisFutureTime()
         if !isThisFutureTime {
-            self.showError(message: "Please select the future time")
+            self.showError(message: "Please select the future time".localized() ?? "")
             return
         }        
         if selectedImage != nil{
