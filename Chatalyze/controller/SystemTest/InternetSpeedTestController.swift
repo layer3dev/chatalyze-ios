@@ -304,7 +304,7 @@ class InternetSpeedTestController: InterfaceExtendedController {
                         
                         //Check for outdated warning Too.
                     
-                        self.speedLbl?.text = "Success"
+                    self.speedLbl?.text = "Success".localized() ?? ""
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.cameraTest(sender: nil)
                         }

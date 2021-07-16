@@ -128,7 +128,7 @@ class MySessionTableViewCell: ExtendedTableCell {
                 if let durate  = info.duration{
                     UserDefaults.standard.setValue(durate, forKey: "durate")
                     let totalnumberofslots = Int(timeDiffrence/(durate*60))
-                    self.ticketsBooked?.text = "\(info.callBookings.count) of \(totalnumberofslots-(self.checkExactEmptySlots())) booked"
+                    self.ticketsBooked?.text = "\(info.callBookings.count) \("of".localized() ?? "") \(totalnumberofslots-(self.checkExactEmptySlots())) \("booked".localized() ?? "")"
                 }
             }
         }

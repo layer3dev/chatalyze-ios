@@ -69,7 +69,7 @@ class MySessionRootView:ExtendedView{
 //            self.controller?.present(controller, animated: true, completion: nil)
 //        }
         controller.eventId = String(eventId)
-        controller.callType = "green"
+//        controller.callType = "green"
         controller.modalPresentationStyle = .fullScreen
         self.controller?.present(controller, animated: true, completion: nil)
     }

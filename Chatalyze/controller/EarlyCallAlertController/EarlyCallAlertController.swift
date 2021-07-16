@@ -213,7 +213,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
             return
         }
         controller.eventId = String(self.info?.id ?? 0)
-        controller.callType = "green"
+//        controller.callType = "green"
 //        controller.callback = {
 //            guard let controller = HostCallController.instance()
 //            else {

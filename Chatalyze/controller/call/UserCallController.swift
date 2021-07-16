@@ -2190,7 +2190,7 @@ extension UserCallController{
     private func presentModally(_ viewController: UIViewController,
                                 presenationStyle: UIModalPresentationStyle = .overFullScreen) {
         
-        let leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissViewController))
+        let leftBarButtonItem = UIBarButtonItem(title: "Close".localized() ?? "", style: .done, target: self, action: #selector(dismissViewController))
         leftBarButtonItem.tintColor = .white
         
          viewController.navigationItem.leftBarButtonItem = leftBarButtonItem

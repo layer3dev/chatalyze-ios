@@ -759,7 +759,7 @@ extension CameraTestController:UITextViewDelegate {
         }
         
         
-        if characterRange == testTextView?.text?.range(of: "contact us")?.nsRange {
+        if characterRange == testTextView?.text?.range(of: "contact us".localized() ?? "")?.nsRange {
             
             DispatchQueue.main.async {
                 
@@ -792,7 +792,7 @@ extension CameraTestController:UITextViewDelegate {
             Log.echo(key: "yud", text: "contact us is called")
         }
         
-        if  characterRange == testTextView?.text?.range(of: "Help Center")?.nsRange {
+        if  characterRange == testTextView?.text?.range(of: "Help Center".localized() ?? "")?.nsRange {
             
             DispatchQueue.main.async {
                 self.dismiss(animated: true, completion: {

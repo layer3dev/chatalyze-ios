@@ -241,7 +241,7 @@ extension SigninRootView{
                 RootControllerManager().updateRoot()
                 return
             }
-            self?.showError(text: message)
+            self?.showError(text: message.localized() ?? "")
             return
         }
     }

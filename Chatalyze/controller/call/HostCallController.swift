@@ -548,6 +548,7 @@ class HostCallController: VideoCallController {
 //        self.releaseDeviceOrientation()
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+                
             }
         }
     }
@@ -2301,6 +2302,7 @@ extension HostCallController{
         
         encodeImageToBase64(image: image) {[weak self] (encodedImage) in
             self?.uploadImage(encodedImage: encodedImage, autographSlotInfo: slotInfo) { (success, info) in
+                
             }
         }
     }

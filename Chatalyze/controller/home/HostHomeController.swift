@@ -53,7 +53,7 @@ class HostHomeController: HomeController {
             return
         }
         controller.eventId = String(eventId)
-        controller.callType = "green"
+//        controller.callType = "green"
 //        controller.callback = {
 //            guard let controller = HostCallController.instance()
 //            else {

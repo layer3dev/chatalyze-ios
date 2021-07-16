@@ -25,6 +25,7 @@ class MemoryStickerView : ExtendedView{
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
         dateFormatter.dateFormat = "MMM dd, yyyy"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        dateFormatter.locale =  Locale(identifier: "en_US_POSIX")
         let selfieDate = Date()
         let requireDate = dateFormatter.string(from: selfieDate)
         dateLabel?.text = " \(requireDate)  "

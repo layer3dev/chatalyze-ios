@@ -52,6 +52,7 @@ class HostSelfieBoothView: SelfieWindowView {
             Log.echo(key: "yud", text: "Empty localCameraPreviewView")
             return
         }
+        localSteamingVideo?.shouldMirror = true
         localSteamingVideo?.contentMode = .scaleAspectFill
         let rander = getRenderer()
         if  mediaPackage?.mediaTrack != nil{
