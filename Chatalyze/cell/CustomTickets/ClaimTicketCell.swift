@@ -48,8 +48,20 @@ class ClaimTicketCell: ExtendedTableCell {
     var endCheckinTime : String?
     var endTimeToChedkin : String?
     var sessionId : Int?
+    var dateFormate: String? = String()
+    var timeFortmate : String? = String()
     
     
+    func getLangSupoortedDateFormat(){
+        if Locale.current.languageCode == "en"{
+            dateFormate = "EEE, MMM dd, yyyy"
+            timeFortmate = "h:mm a"
+        }else{
+            dateFormate = "dd/MM/yyyy"
+            timeFortmate = "H:mm"
+        }
+        
+    }
       
     func fillInfo(info:CustomTicketsInfo?){
         
@@ -59,6 +71,7 @@ class ClaimTicketCell: ExtendedTableCell {
         
        
         self.info = info
+        getLangSupoortedDateFormat()
         checkInTime(time: info.start ?? "")
         endCheckInTime(time: info.start ?? "")
         initializeDesiredDatesFormat(info: info)
@@ -98,8 +111,8 @@ class ClaimTicketCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
-            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "EEE, MMM dd, yyyy")
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: timeFortmate)
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: dateFormate)
         }
     }
     
@@ -112,7 +125,7 @@ class ClaimTicketCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: timeFortmate)
         }
     }
     
@@ -227,7 +240,7 @@ class ClaimTicketCell: ExtendedTableCell {
         let calender = Calendar.current
         let newDate = calender.date(byAdding: .minute, value: -120, to: checkInDate)
         
-        guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: "h:mm a") else{
+        guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: timeFortmate ?? "") else{
             return
         }
     
@@ -242,7 +255,7 @@ class ClaimTicketCell: ExtendedTableCell {
         let calender = Calendar.current
         let newDate = calender.date(byAdding: .minute, value: -30, to: checkInDate)
         
-        guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: "h:mm a") else{
+        guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: timeFortmate ?? "") else{
             return
         }
     
