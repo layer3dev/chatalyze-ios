@@ -33,10 +33,14 @@ class SessionDetailRootView: ExtendedView {
     @IBOutlet var confirmButton:UIButton?
     @IBOutlet var cancelView:ButtonContainerCorners?
     
+    var dateFormate = String()
+    var timeFortmate = String()
+    
     override func viewDidLayout() {
         super.viewDidLayout()
         
         paintInterface()
+        getLangSupoortedDateFormat()
         underLineCancelButton()
     }
     
@@ -57,6 +61,15 @@ class SessionDetailRootView: ExtendedView {
         }
     }
     
+    func getLangSupoortedDateFormat(){
+        if Locale.current.languageCode == "en"{
+            dateFormate = "EEEE, MMMM dd, yyyy"
+            timeFortmate = "h:mm"
+        }else{
+            dateFormate = "dd/MM/yyyy"
+            timeFortmate = "H:mm"
+        }
+    }
     func underLineCancelButton(){
         
         DispatchQueue.main.async {
@@ -130,7 +143,7 @@ class SessionDetailRootView: ExtendedView {
         if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
+            dateFormatter.dateFormat = dateFormate
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.dateLbl?.text = "\(dateFormatter.string(from: date))"
@@ -139,7 +152,7 @@ class SessionDetailRootView: ExtendedView {
         if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm"
+            dateFormatter.dateFormat = timeFortmate
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             let requireOne = dateFormatter.string(from: date)

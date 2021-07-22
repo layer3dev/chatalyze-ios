@@ -163,7 +163,12 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
+            if Locale.current.languageCode == "en"{
+                dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
+            }else{
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+            }
+           
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             self.dateLbl?.text = "\(dateFormatter.string(from: date))"
@@ -172,7 +177,12 @@ class MySessionTableViewCell: ExtendedTableCell {
         if let date = info.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm"
+            if Locale.current.languageCode == "en"{
+                dateFormatter.dateFormat = "h:mm"
+            }else{
+                dateFormatter.dateFormat = "H:mm"
+            }
+            
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             let requireOne = dateFormatter.string(from: date)
@@ -180,11 +190,16 @@ class MySessionTableViewCell: ExtendedTableCell {
             if let date = info.endDate{
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "h:mm a"
+                if Locale.current.languageCode == "en"{
+                    dateFormatter.dateFormat = "h:mm"
+                    dateFormatter.locale = Locale.current
+                    dateFormatter.amSymbol = "AM"
+                    dateFormatter.pmSymbol = "PM"
+                }else{
+                    dateFormatter.dateFormat = "H:mm"
+                }
                 dateFormatter.timeZone = TimeZone.current
-                dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
+               
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
                 Log.echo(key: "yud", text: "Locale abbrvation is ")
             }
