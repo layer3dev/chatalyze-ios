@@ -23,7 +23,7 @@ class MemoryStickerView : ExtendedView{
     private func setDate(){
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "MMM dd, yyyy"
+        dateFormatter.dateFormat = "dd MMM, yyyy"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         dateFormatter.locale =  Locale(identifier: "en_US_POSIX")
         let selfieDate = Date()

@@ -338,6 +338,9 @@ class HostCallController: VideoCallController {
     }
     
     @IBAction func sendSelfieReq(_ sender: Any) {
+        if !(selfieWindowView?.isHidden ?? true) {
+            return
+        }
         changeOrientationToPortrait()
         lockDeviceOrientation()
         photoBothView?.disableBtn()
