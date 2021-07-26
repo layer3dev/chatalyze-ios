@@ -53,13 +53,13 @@ class PaymentSuccessInfo: NSObject {
             
             let startDate = newValue
             
-            self.startTime = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            self.startTime = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
             
-            self.startDate = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
+            self.startDate = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : "dd/MM/yyyy")
             
-            self.endDate = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "MMM dd, yyyy")
+            self.endDate = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : "dd/MM/yyyy")
             
-            self.endTime = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm a")
+            self.endTime = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
         }
     }
     

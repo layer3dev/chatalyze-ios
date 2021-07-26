@@ -13,6 +13,8 @@ class MemoryStickerView : ExtendedView{
     @IBOutlet private var dateLabel : UILabel?
     
     @IBOutlet private var logoHeightConstraint : NSLayoutConstraint?
+    
+    var isInternational : Bool?
         
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -23,7 +25,11 @@ class MemoryStickerView : ExtendedView{
     private func setDate(){
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-        dateFormatter.dateFormat = "dd MMM, yyyy"
+        if let isInternational = isInternational {
+            dateFormatter.dateFormat = isInternational ? "dd MMM, yyyy" : "MMM dd, yyyy"
+        } else {
+            dateFormatter.dateFormat = "dd MMM, yyyy"
+        }
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         dateFormatter.locale =  Locale(identifier: "en_US_POSIX")
         let selfieDate = Date()

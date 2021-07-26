@@ -180,7 +180,7 @@ class MySessionTableViewCell: ExtendedTableCell {
             if Locale.current.languageCode == "en"{
                 dateFormatter.dateFormat = "h:mm"
             }else{
-                dateFormatter.dateFormat = "H:mm"
+                dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
             }
             
             dateFormatter.timeZone = TimeZone.current
@@ -196,7 +196,7 @@ class MySessionTableViewCell: ExtendedTableCell {
                     dateFormatter.amSymbol = "AM"
                     dateFormatter.pmSymbol = "PM"
                 }else{
-                    dateFormatter.dateFormat = "H:mm"
+                    dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
                 }
                 dateFormatter.timeZone = TimeZone.current
                

@@ -67,7 +67,7 @@ class SessionDetailRootView: ExtendedView {
             timeFortmate = "h:mm"
         }else{
             dateFormate = "dd/MM/yyyy"
-            timeFortmate = "H:mm"
+            timeFortmate = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
         }
     }
     func underLineCancelButton(){
@@ -160,11 +160,15 @@ class SessionDetailRootView: ExtendedView {
             if let date = info.endDate {
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "h:mm a"
+                if Locale.current.languageCode == "en"{
+                    dateFormatter.dateFormat = "h:mm a"
+                    dateFormatter.amSymbol = "AM"
+                    dateFormatter.pmSymbol = "PM"
+                }else{
+                    dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
+                }
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
                 self.timeLbl?.text = "\(requireOne) - \(dateFormatter.string(from: date)) \(TimeZone.current.abbreviation() ?? "")"
                 Log.echo(key: "yud", text: "Locale abbrevation is")
             }

@@ -41,7 +41,7 @@ class DatePicker:XibTemplate{
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .short
             dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-            dateFormatter.dateFormat = "h:mm:ss a"
+            dateFormatter.dateFormat = Locale.current.languageCode == "en" ? "h:mm:ss a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
             if let cd  = timePicker?.date{
                 return dateFormatter.string(from: cd)
             }

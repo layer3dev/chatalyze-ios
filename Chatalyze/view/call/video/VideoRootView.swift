@@ -35,6 +35,7 @@ class VideoRootView: ExtendedView {
     }
     
     var isLogoRemeovedForOrganizationHost :Bool?
+    var isInternational : Bool?
     
     private var hangupListener : (()->())?
     private var loadListener : (()->())?
@@ -102,7 +103,7 @@ class VideoRootView: ExtendedView {
                 
                 if let info = response{
                     let defaulImage = info["user"]["defaultImage"]["url"].stringValue
-                     
+                    self.isInternational = info["user"]["organization"]["selfieDateFormat"].boolValue
                     let isOrhanizationHost = info["user"]["organization"]["removeLogo"].boolValue
                     self.isLogoRemeovedForOrganizationHost = isOrhanizationHost
                     Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(self.isLogoRemeovedForOrganizationHost)")
@@ -318,6 +319,9 @@ class VideoRootView: ExtendedView {
     
        testView.screenShotPic?.image = finalImage
         testView.selfieFrameImg = frameImg
+        if let isInternational = self.isInternational {
+            testView.memoryStickerView?.isInternational = isInternational
+        }
        testView.memoryStickerView?.renderImage(image: eventLogo)
       testView.isLogoRemeovedForOrganizationHost = isLogoRemeovedForOrganizationHost
     Log.echo(key: "isLogoRemeovedForOrganizationHost", text: "\(isLogoRemeovedForOrganizationHost)")

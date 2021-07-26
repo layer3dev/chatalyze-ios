@@ -45,7 +45,7 @@ class SessionDetailTableCell: ExtendedTableCell {
             if Locale.current.languageCode == "en"{
                 dateFormatter.dateFormat = "h:mm:ss"
             }else{
-                dateFormatter.dateFormat = "H:mm"
+                dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
             }
 
             dateFormatter.timeZone = TimeZone.current
@@ -60,7 +60,7 @@ class SessionDetailTableCell: ExtendedTableCell {
                     dateFormatter.amSymbol = "AM"
                     dateFormatter.pmSymbol = "PM"
                 }else{
-                    dateFormatter.dateFormat = "H:mm"
+                    dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
                 }
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current

@@ -50,6 +50,7 @@ class MemoryFrame:XibTemplate{
     var isLogoRemoved:Bool?
     var isLogoRemeovedForOrganizationHost : Bool?
     var selfieFrameImg : UIImage?
+    var isInternational = false
     
     override func layoutSubviews() {
         super.layoutSubviews()
