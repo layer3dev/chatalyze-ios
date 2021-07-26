@@ -58,7 +58,7 @@ class ClaimTicketCell: ExtendedTableCell {
             timeFortmate = "h:mm a"
         }else{
             dateFormate = "dd/MM/yyyy"
-            timeFortmate = "H:mm"
+            timeFortmate = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
         }
         
     }

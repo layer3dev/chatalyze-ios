@@ -42,7 +42,11 @@ class EmptySlotsCells:ExtendedCollectionCell {
         if let date = self.info?.startDate {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm:ss"
+            if Locale.current.languageCode == "en"{
+                dateFormatter.dateFormat = "h:mm:ss"
+            }else{
+                dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
+            }
             dateFormatter.timeZone = TimeZone.current
             dateFormatter.locale = Locale.current
             let requireOne = dateFormatter.string(from: date)
@@ -50,11 +54,15 @@ class EmptySlotsCells:ExtendedCollectionCell {
             if let date = self.info?.endDate {
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "h:mm:ss a"
+                if Locale.current.languageCode == "en"{
+                    dateFormatter.dateFormat = "h:mm:ss a"
+                    dateFormatter.amSymbol = "AM"
+                    dateFormatter.pmSymbol = "PM"
+                }else{
+                    dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
+                }
                 dateFormatter.timeZone = TimeZone.current
                 dateFormatter.locale = Locale.current
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
                 self.startTimeLabel?.text = "\(requireOne) - \(dateFormatter.string(from: date))"
             }
         }
