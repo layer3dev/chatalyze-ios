@@ -15,13 +15,14 @@ class FetchReferralUrl{
         
         if let url = URL(string: AppConnectionConfig.webServiceURL + "/registerlink/referral"){
             
-            var request = URLRequest(url: url)
+            var request = requestWithCookies(with: url)
             request.setValue("text/html", forHTTPHeaderField: "Content-Type")
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             
             request.setValue(ServerProcessor().getAuthorizationToken(), forHTTPHeaderField: "Authorization")
             
             request.httpMethod = "POST"
+            
             let parameters: [String: Any] = [String: Any]()
             //request.httpBody = parameters.data(using: .utf8)
             

@@ -15,7 +15,8 @@ class EventSlotListener{
     
     var eventId : String?
     private var listener : (()->())?
-    
+    private var listenerChatMoved : ((Int)->())?
+
     private var isReleased = false
     
     func releaseListener(){
@@ -32,6 +33,10 @@ class EventSlotListener{
         self.listener = listener
     }
     
+    func setChatNumberListener(listener : ((Int)->())?){
+        self.listenerChatMoved = listener
+    }
+
     func initializeListener(){
         
         UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
@@ -42,8 +47,8 @@ class EventSlotListener{
                 return
             }
             guard let info = data.first as? [String : Any]
-                else{
-                    return
+            else{
+                return
             }
             
             self?.processNotificationForNewSlot(info: info)
@@ -53,56 +58,57 @@ class EventSlotListener{
     
     private func processNotificationForNewSlot(info : [String : Any]){
         let rawInfosString = info.JSONDescription()
-       
-       
+        
+        
         guard let data = rawInfosString.data(using: .utf8)
-            else{
-                return
+        else{
+            return
         }
         
         guard let rawInfo = try? JSON(data : data)
-            else{
-                return
+        else{
+            return
         }
         
         let info = NotificationInfo(info: rawInfo)
         
         guard let metaInfo = info.metaInfo
-            else{
-                return
+        else{
+            return
         }
         
         guard let activityType = info.metaInfo?.type
-            else{
-                return
-        }
-        
-        
-        if(activityType != .slotBooked){
+        else{
             return
         }
         
-        Log.echo(key: TAG, text: "notification -> \(rawInfosString)")
         
-        guard let eventId = self.eventId
+        if(activityType == .slotBooked || activityType == .chatNumberMoved){
+            Log.echo(key: TAG, text: "notification -> \(rawInfosString)")
+            
+            guard let eventId = self.eventId
             else{
                 return
-        }
-        
-        guard let receivedEventId = metaInfo.callScheduleId
+            }
+            
+            guard let receivedEventId = metaInfo.callScheduleId
             else{
                 return
+            }
+            
+            let receivedEventIdString = String(receivedEventId)
+            
+            if(receivedEventIdString != eventId){
+                return
+            }
+            
+            if(!isReleased){
+                if activityType == .slotBooked {
+                    listener?()
+                } else if activityType == .chatNumberMoved {
+                    listenerChatMoved?(receivedEventId)
+                }
+            }
         }
-        
-        let receivedEventIdString = String(receivedEventId)
-        
-        if(receivedEventIdString != eventId){
-            return
-        }
-        
-        if(!isReleased){
-            listener?()
-        }
-        
     }
 }
