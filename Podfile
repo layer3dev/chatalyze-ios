@@ -38,6 +38,7 @@ def pod_file
   pod 'TwilioVideo'
   pod 'ZendeskChatSDK'
   pod 'PubNubSwift'
+  
   platform :ios, '12.0'
 end
 

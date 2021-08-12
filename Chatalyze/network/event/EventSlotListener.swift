@@ -16,8 +16,7 @@ class EventSlotListener{
     
     var eventId : String?
     private var listener : (()->())?
-    private var listenerChatMoved : ((Int)->())?
-
+    
     private var isReleased = false
     
     func releaseListener(){
@@ -42,10 +41,6 @@ class EventSlotListener{
         self.listener = listener
     }
     
-    func setChatNumberListener(listener : ((Int)->())?){
-        self.listenerChatMoved = listener
-    }
-
     func initializeListener(){
         guard let userInfo = SignedUserInfo.sharedInstance else {
             Log.echo(key: "user_socket", text:"oh my God I am going back")
@@ -57,23 +52,23 @@ class EventSlotListener{
 
         // Add listener event callbacks
         listener.didReceiveSubscription = { event in
-          switch event {
-          case let .messageReceived(message):
-            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
-            guard let info = message.payload.rawValue as? [String : Any]
-            else{
-                return
+            switch event {
+            case let .messageReceived(message):
+                print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+                guard let info = message.payload.rawValue as? [String : Any]
+                else{
+                    return
+                }
+                self.processNotificationForNewSlot(info: info)
+            case let .connectionStatusChanged(status):
+                print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+                print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+                print("Subscription Error \(error)")
+            default:
+                break
             }
-            self.processNotificationForNewSlot(info: info)
-          case let .connectionStatusChanged(status):
-            print("Status Received: \(status)")
-          case let .presenceChanged(presence):
-            print("Presence Received: \(presence)")
-          case let .subscribeError(error):
-            print("Subscription Error \(error)")
-          default:
-            break
-          }
         }
 
         // Start receiving subscription events
@@ -82,57 +77,56 @@ class EventSlotListener{
     
     private func processNotificationForNewSlot(info : [String : Any]){
         let rawInfosString = info.JSONDescription()
-        
-        
+       
+       
         guard let data = rawInfosString.data(using: .utf8)
-        else{
-            return
+            else{
+                return
         }
         
         guard let rawInfo = try? JSON(data : data)
-        else{
-            return
+            else{
+                return
         }
         
         let info = NotificationInfo(info: rawInfo)
         
         guard let metaInfo = info.metaInfo
-        else{
-            return
+            else{
+                return
         }
         
         guard let activityType = info.metaInfo?.type
-        else{
+            else{
+                return
+        }
+        
+        
+        if(activityType != .slotBooked){
             return
         }
         
+        Log.echo(key: TAG, text: "notification -> \(rawInfosString)")
         
-        if(activityType == .slotBooked || activityType == .chatNumberMoved){
-            Log.echo(key: TAG, text: "notification -> \(rawInfosString)")
-            
-            guard let eventId = self.eventId
+        guard let eventId = self.eventId
             else{
                 return
-            }
-            
-            guard let receivedEventId = metaInfo.callScheduleId
-            else{
-                return
-            }
-            
-            let receivedEventIdString = String(receivedEventId)
-            
-            if(receivedEventIdString != eventId){
-                return
-            }
-            
-            if(!isReleased){
-                if activityType == .slotBooked {
-                    listener?()
-                } else if activityType == .chatNumberMoved {
-                    listenerChatMoved?(receivedEventId)
-                }
-            }
         }
+        
+        guard let receivedEventId = metaInfo.callScheduleId
+            else{
+                return
+        }
+        
+        let receivedEventIdString = String(receivedEventId)
+        
+        if(receivedEventIdString != eventId){
+            return
+        }
+        
+        if(!isReleased){
+            listener?()
+        }
+        
     }
 }

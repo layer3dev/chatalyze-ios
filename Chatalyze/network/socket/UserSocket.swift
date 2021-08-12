@@ -10,7 +10,6 @@ import UIKit
 import SocketIO
 import PubNub
 
-
 class UserSocket {
     
     fileprivate static var _sharedInstance : UserSocket?
@@ -30,6 +29,7 @@ class UserSocket {
     }
     
     fileprivate func initialization(){
+        
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -66,6 +66,7 @@ class UserSocket {
         notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
+    
     @objc func appMovedToBackground() {
         Log.echo(key: "user_socket", text:"called appMovedToBackground")
         
@@ -84,7 +85,7 @@ class UserSocket {
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socketManager?.connect()
-        socket?.connect()
+//        socket?.connect()
         
     }
     
