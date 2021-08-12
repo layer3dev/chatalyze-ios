@@ -15,7 +15,7 @@ class FetchReferralUrl{
         
         if let url = URL(string: AppConnectionConfig.webServiceURL + "/registerlink/referral"){
             
-            var request = requestWithCookies(with: url)
+            var request = URLRequest(url: url)
             request.setValue("text/html", forHTTPHeaderField: "Content-Type")
             request.setValue("application/json", forHTTPHeaderField: "Accept")
             
