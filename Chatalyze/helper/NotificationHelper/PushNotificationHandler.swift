@@ -20,7 +20,6 @@ import UIKit
         case privateEventTicket = 4
         case eventScheduledAgainForAnalyst = 5
         case remindForEvent = 6
-        case chatNumberMoved = 12
         case none = 8
         
     }
@@ -70,12 +69,6 @@ import UIKit
             //user:- Session
             //same
             return notificationType.eventScheduledAgainForAnalyst
-        }
-        if notificationTypeString == "chat_number_moved"{
-            
-            //user:- Session
-            //same
-            return notificationType.chatNumberMoved
         }
         if notificationTypeString == "event_start_in_24_hours" || notificationTypeString == "event_start_in_30_mins" || notificationTypeString == "event_start_in_15_min"{
          
@@ -190,10 +183,6 @@ import UIKit
             if type == .remindForEvent{
                 
                 RootControllerManager().setMyTicketsScreenForNavigation()
-            }
-            if type == .chatNumberMoved{
-                
-                RootControllerManager().selectAccountTabWithScheduledSessionScreen()
             }
             return
         }

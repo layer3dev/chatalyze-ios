@@ -161,9 +161,6 @@ class VideoCallController : InterfaceExtendedController {
         captureController?.stopCapture()
         self.localMediaPackage?.mediaTrack?.stop()
         eventSlotListener.setListener(listener: nil)
-        if roomType == .user {
-            eventSlotListener.setChatNumberListener(listener: nil)
-        }
         timer.pauseTimer()
         socketClient?.disconnect()
         trackWebSocketDisconnected()
@@ -612,14 +609,6 @@ class VideoCallController : InterfaceExtendedController {
         eventSlotListener.setListener {[weak self] in
             
             self?.refreshScheduleInfo()
-        }
-        
-        if roomType == .user {
-            eventSlotListener.setChatNumberListener {[weak self] slotId in
-                self?.alert(withTitle: "SLOT CHANGED", message: "Slot time is updated.", successTitle: "Ok", rejectTitle: "", showCancel: false, completion: { success in
-                    
-                })
-            }
         }
         
         eventDeleteListener.setListener { [weak self] (deletedEventID) in
