@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import PubNub
 
 class EventSlotListener{
     
@@ -29,6 +30,14 @@ class EventSlotListener{
         initializeListener()
     }
     
+    deinit {
+        guard let userInfo = SignedUserInfo.sharedInstance else {
+            Log.echo(key: "user_socket", text:"oh my God I am going back")
+            return
+        }
+        UserSocket.sharedInstance?.pubnub.unsubscribe(from: ["notification"+(userInfo.id ?? "")])
+    }
+    
     func setListener(listener : (()->())?){
         self.listener = listener
     }
@@ -38,22 +47,37 @@ class EventSlotListener{
     }
 
     func initializeListener(){
-        
-        UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
-            
-            Log.echo(key : "test", text : data)
-            
-            if(data.count <= 0){
-                return
-            }
-            guard let info = data.first as? [String : Any]
+        guard let userInfo = SignedUserInfo.sharedInstance else {
+            Log.echo(key: "user_socket", text:"oh my God I am going back")
+            return
+        }
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["notification"+(userInfo.id ?? "")])
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+          switch event {
+          case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let info = message.payload.rawValue as? [String : Any]
             else{
                 return
             }
-            
-            self?.processNotificationForNewSlot(info: info)
-        })
-        
+            self.processNotificationForNewSlot(info: info)
+          case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+          case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+          case let .subscribeError(error):
+            print("Subscription Error \(error)")
+          default:
+            break
+          }
+        }
+
+        // Start receiving subscription events
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
     private func processNotificationForNewSlot(info : [String : Any]){

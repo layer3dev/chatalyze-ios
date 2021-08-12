@@ -25,6 +25,10 @@ class UserSocket {
         initialization()
     }
     
+    deinit {
+        pubnub.unsubscribeAll()
+    }
+    
     fileprivate func initialization(){
         initializeVariable()
         registerForAppState()
@@ -130,19 +134,23 @@ extension UserSocket{
         socket?.on(clientEvent: .reconnectAttempt, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket reconnect => \(data)")
         })
-        
-        
-        socket?.on("login") {[weak self] data, ack  in
-            Log.echo(key: "user_socket", text:"socket login data => \(data)")
-            self?.isRegisteredToServer = true
-            
-            //
-            let dele = UIApplication.shared.delegate as? AppDelegate
-            
-            dele?.earlyCallProcessor?.fetchInfo()
-            self?.registrationTimeout.cancelTimeout()
-            //Changing the color of online offline view
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+                return
         }
+        pubnub.subscribe(to: ["login"+(userInfo.id ?? "")])
+//        socket?.on("login") {[weak self] data, ack  in
+//            Log.echo(key: "user_socket", text:"socket login data => \(data)")
+//            self?.isRegisteredToServer = true
+//
+//            //
+//            let dele = UIApplication.shared.delegate as? AppDelegate
+//
+//            dele?.earlyCallProcessor?.fetchInfo()
+//            self?.registrationTimeout.cancelTimeout()
+//            //Changing the color of online offline view
+//        }
         
         // Create a new listener instance
         let listener = SubscriptionListener()
@@ -152,6 +160,10 @@ extension UserSocket{
           switch event {
           case let .messageReceived(message):
             print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            self.isRegisteredToServer = true
+            let dele = UIApplication.shared.delegate as? AppDelegate
+            dele?.earlyCallProcessor?.fetchInfo()
+            self.registrationTimeout.cancelTimeout()
           case let .connectionStatusChanged(status):
             print("Status Received: \(status)")
           case let .presenceChanged(presence):
@@ -199,7 +211,6 @@ extension UserSocket{
             print("Handle response error: \(error.localizedDescription)")
           }
         }
-        pubnub.subscribe(to: ["login"+(userInfo.id ?? "")])
         registrationTimeout.registerForTimeout(seconds: 10.0) {[weak self] in
             
             guard let weakSelf = self

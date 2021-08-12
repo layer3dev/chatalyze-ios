@@ -16,6 +16,7 @@ import TwilioVideo
 import Analytics
 import ChatSDK
 import MessagingSDK
+import PubNub
 
 class GreenRoomCallController: VideoCallController {
     
@@ -652,41 +653,67 @@ class GreenRoomCallController: VideoCallController {
     
     
     private func registerForSignRequest(){
+        guard let userInfo = SignedUserInfo.sharedInstance else {
+            Log.echo(key: "user_socket", text:"oh my God I am going back")
+            return
+        }
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["notification"+(userInfo.id ?? "")])
+        // Create a new listener instance
+        let listener = SubscriptionListener()
 
-            UserSocket.sharedInstance?.socket?.on("notification") {data, ack in
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+          switch event {
+          case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let data = message.payload.rawValue as? [String : Any]
+            else{
+                return
+            }
+            let rawInfosString = data.JSONDescription()
+            guard let data = rawInfosString.data(using: .utf8)
+                else{
+                    return
+            }
+            Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
+            var rawInfos:[JSON]?
+            do{
 
-                let rawInfosString = data.JSONDescription()
-                guard let data = rawInfosString.data(using: .utf8)
-                    else{
-                        return
-                }
-                Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
-                var rawInfos:[JSON]?
-                do{
+                rawInfos = try JSON(data : data).arrayValue
+            }catch{
 
-                    rawInfos = try JSON(data : data).arrayValue
-                }catch{
+            }
+            if((rawInfos?.count  ?? 0) <= 0){
+                return
+            }
+            let rawInfo = rawInfos?[0]
+            let info = NotificationInfo(info: rawInfo)
 
-                }
-                if((rawInfos?.count  ?? 0) <= 0){
+            if (info.metaInfo?.type == .signRequest){
+                //@abhishek : This will return & won't execute if Host already got the selfie timer.
+                if self.isMutalPointReceived{
+                    self.stopLoader()
+                    Log.echo(key: "vijayIsMutalPointReceived", text: "\(self.isMutalPointReceived)")
                     return
                 }
-                let rawInfo = rawInfos?[0]
-                let info = NotificationInfo(info: rawInfo)
+                let activityid = info.metaInfo?.activityId
+                self.fetchAutographInfo(screenShotId: activityid)
 
-                if (info.metaInfo?.type == .signRequest){
-                    //@abhishek : This will return & won't execute if Host already got the selfie timer.
-                    if self.isMutalPointReceived{
-                        self.stopLoader()
-                        Log.echo(key: "vijayIsMutalPointReceived", text: "\(self.isMutalPointReceived)")
-                        return
-                    }
-                    let activityid = info.metaInfo?.activityId
-                    self.fetchAutographInfo(screenShotId: activityid)
-
-                }
             }
+          case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+          case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+          case let .subscribeError(error):
+            print("Subscription Error \(error)")
+          default:
+            break
+          }
         }
+
+        // Start receiving subscription events
+        UserSocket.sharedInstance?.pubnub.add(listener)
+    }
 
     
     private func processAutographSelfie(){
