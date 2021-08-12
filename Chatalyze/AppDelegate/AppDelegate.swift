@@ -17,7 +17,6 @@ import Analytics
 import GoogleSignIn
 import ChatSDK
 import ChatProvidersSDK
-import PubNub
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
-        initializePubnub()
         bugSnagInitialization()
         initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
@@ -81,19 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
-    fileprivate func initializePubnub(){
-        guard let userInfo = SignedUserInfo.sharedInstance else {
-            Log.echo(key: "user_socket", text:"oh my God I am going back")
-            return
-        }
-        let config = PubNubConfiguration(
-            publishKey: "pub-c-ad117bdb-a1e1-4052-9c77-e3d8e8857971",
-            subscribeKey: "sub-c-41f33fa6-d1d1-11ea-bdca-26a7cd4b6ab5",
-            uuid: userInfo.id ?? ""
-        )
-        UserSocket.sharedInstance?.pubnub = PubNub(configuration: config)
-    }
-
     fileprivate func initialization(){
         
         _ = NavigationBarCustomizer()
