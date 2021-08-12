@@ -8,6 +8,7 @@
 
 import UIKit
 import SocketIO
+import PubNub
 
 
 class UserSocket {
@@ -15,6 +16,7 @@ class UserSocket {
     fileprivate static var _sharedInstance : UserSocket?
     var socketManager : SocketManager?
     var socket : SocketIOClient?
+    var pubnub = PubNub(configuration: PubNubConfiguration())
     var isRegisteredToServer = false
     private var notificationLogger = LogNotification()
     private var registrationTimeout = UserSocketRegistrationTimeout()
@@ -24,7 +26,6 @@ class UserSocket {
     }
     
     fileprivate func initialization(){
-        
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
@@ -61,7 +62,6 @@ class UserSocket {
         notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    
     @objc func appMovedToBackground() {
         Log.echo(key: "user_socket", text:"called appMovedToBackground")
         
@@ -80,7 +80,7 @@ class UserSocket {
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socketManager?.connect()
-//        socket?.connect()
+        socket?.connect()
         
     }
     
@@ -144,8 +144,27 @@ extension UserSocket{
             //Changing the color of online offline view
         }
         
-    
-        
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+          switch event {
+          case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+          case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+          case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+          case let .subscribeError(error):
+            print("Subscription Error \(error)")
+          default:
+            break
+          }
+        }
+
+        // Start receiving subscription events
+        pubnub.add(listener)
         
         socket?.onAny({ (data) in
             
@@ -171,8 +190,16 @@ extension UserSocket{
         let info = param.JSONDescription()
         Log.echo(key: "user_socket", text: "info => " + info)
         Log.echo(key: "user_socket", text: "param => \(param)")
-        socket?.emit("login", param)
-        
+        let jsonString = param.JSONDescription()
+        pubnub.publish(channel: "login", message: jsonString) { result in
+          switch result {
+          case let .success(timetoken):
+            print("The message was successfully published at: \(timetoken)")
+          case let .failure(error):
+            print("Handle response error: \(error.localizedDescription)")
+          }
+        }
+        pubnub.subscribe(to: ["login"+(userInfo.id ?? "")])
         registrationTimeout.registerForTimeout(seconds: 10.0) {[weak self] in
             
             guard let weakSelf = self

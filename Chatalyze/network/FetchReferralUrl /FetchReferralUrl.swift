@@ -22,6 +22,7 @@ class FetchReferralUrl{
             request.setValue(ServerProcessor().getAuthorizationToken(), forHTTPHeaderField: "Authorization")
             
             request.httpMethod = "POST"
+            
             let parameters: [String: Any] = [String: Any]()
             //request.httpBody = parameters.data(using: .utf8)
             
