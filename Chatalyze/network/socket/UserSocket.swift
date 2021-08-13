@@ -85,7 +85,7 @@ class UserSocket {
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socketManager?.connect()
-//        socket?.connect()
+        socket?.connect()
         
     }
     
