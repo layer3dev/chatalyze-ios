@@ -65,7 +65,7 @@ class VideoCallController : InterfaceExtendedController {
     private var localTrack : LocalVideoTrack?
     
     private let eventSlotListener = EventSlotListener()
-    private let scheduleUpdateListener = ScheduleUpdateListener()
+    private var scheduleUpdateListener = ScheduleUpdateListener(roomId: "")
 
     //Implementing the eventDeleteListener
     
@@ -458,7 +458,7 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.connectToRoom(info: info)
             self?.eventInfo = info
-            
+            self?.scheduleUpdateListener = ScheduleUpdateListener(roomId: info.roomId)
             self?.processEventInfo()
             self?.startLocalStreaming()
             self?.registerForAppState()

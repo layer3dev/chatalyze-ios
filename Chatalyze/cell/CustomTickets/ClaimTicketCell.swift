@@ -23,7 +23,7 @@ class ClaimTicketCell: ExtendedTableCell {
     var counter = 0
     var timer : Timer?
     var controller : MyTicketsVerticalRootView?
-    private let scheduleUpdateListener = ScheduleUpdateListener()
+    private let scheduleUpdateListener = ScheduleUpdateListener(roomId: "")
     
     override func viewDidLayout() {
         super.viewDidLayout()

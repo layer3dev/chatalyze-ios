@@ -21,12 +21,11 @@ class EarlyCallAlertController: InterfaceExtendedController {
     @IBOutlet var name:UILabel?
     @IBOutlet var topArrowConstraint:NSLayoutConstraint?
     let eventDeletedListener = EventDeletedListener()
-    let scheduleUpdateListener = ScheduleUpdateListener()
+    var scheduleUpdateListener = ScheduleUpdateListener(roomId: "")
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         self.startTimer()
         self.fillInfo()
         self.startAnimation()
@@ -116,6 +115,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
     func fillInfo(){
         
         self.name?.text = info?.title
+        self.scheduleUpdateListener = ScheduleUpdateListener(roomId: self.info?.roomId ?? "")
     }
     
     @IBAction func dismissAction(sender:UIButton?){
