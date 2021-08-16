@@ -85,7 +85,7 @@ class UserSocket {
         }
         Log.echo(key: "user_socket", text:"connect request in appMovedToForeground")
         socketManager?.connect()
-        socket?.connect()
+//        socket?.connect()
         
     }
     
@@ -110,15 +110,15 @@ class UserSocket {
 extension UserSocket{
     fileprivate func initializeSocketConnection(){
         
-        socket?.on(clientEvent: .connect, callback: { (data, ack) in
+//        socket?.on(clientEvent: .connect, callback: { (data, ack) in
           
             self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
-            Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
+//            Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
                 self.registerSocket()
             }
-        })
+//        })
         
         socket?.on(clientEvent: .disconnect, callback: { (data, ack) in
             
@@ -161,11 +161,14 @@ extension UserSocket{
           switch event {
           case let .messageReceived(message):
             print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
-            self.isRegisteredToServer = true
-            let dele = UIApplication.shared.delegate as? AppDelegate
-            dele?.earlyCallProcessor?.fetchInfo()
-            self.registrationTimeout.cancelTimeout()
           case let .connectionStatusChanged(status):
+            if status == .connected {
+                self.notificationLogger.notify(text : "connected :)")
+                self.isRegisteredToServer = false
+                DispatchQueue.main.async {
+                    self.registerSocket()
+                }
+            }
             print("Status Received: \(status)")
           case let .presenceChanged(presence):
             print("Presence Received: \(presence)")
@@ -198,16 +201,16 @@ extension UserSocket{
                 Log.echo(key: "user_socket", text:"oh my God I am going back")
                 return
         }
-        var param = [String : Any]()
-        param["uid"] = Int(userInfo.id ?? "")
-        let info = param.JSONDescription()
-        Log.echo(key: "user_socket", text: "info => " + info)
-        Log.echo(key: "user_socket", text: "param => \(param)")
-        let jsonString = param.JSONDescription()
-        pubnub.publish(channel: "login", message: jsonString) { result in
+        var param = [String : String]()
+        param["uid"] = userInfo.id ?? ""
+        pubnub.publish(channel: "login", message: param) { result in
           switch result {
           case let .success(timetoken):
             print("The message was successfully published at: \(timetoken)")
+            self.isRegisteredToServer = true
+            let dele = UIApplication.shared.delegate as? AppDelegate
+            dele?.earlyCallProcessor?.fetchInfo()
+            self.registrationTimeout.cancelTimeout()
           case let .failure(error):
             print("Handle response error: \(error.localizedDescription)")
           }

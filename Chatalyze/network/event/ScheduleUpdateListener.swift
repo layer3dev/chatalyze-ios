@@ -36,7 +36,7 @@ class ScheduleUpdateListener{
        }
     
     func initializeListener(roomId: String?){
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["scheduled_call_updated"+(roomId ?? "")])
+        UserSocket.sharedInstance?.pubnub.subscribe(to: [("scheduled_call_updated"+(roomId ?? "")), "scheduled_call_updated"])
         // Create a new listener instance
         let listener = SubscriptionListener()
         
