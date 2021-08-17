@@ -458,7 +458,7 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.connectToRoom(info: info)
             self?.eventInfo = info
-            self?.scheduleUpdateListener = ScheduleUpdateListener(roomId: info.roomId)
+            self?.scheduleUpdateListener = ScheduleUpdateListener(roomId: info.room_id)
             self?.processEventInfo()
             self?.startLocalStreaming()
             self?.registerForAppState()

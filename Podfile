@@ -38,6 +38,8 @@ def pod_file
   pod 'TwilioVideo'
   pod 'ZendeskChatSDK'
   pod 'PubNubSwift'
+  pod 'SendBirdSDK'
+  pod 'SendBirdUIKit'
   
   platform :ios, '12.0'
 end

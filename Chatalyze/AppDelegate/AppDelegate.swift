@@ -18,6 +18,8 @@ import GoogleSignIn
 import ChatSDK
 import ChatProvidersSDK
 import PubNub
+import SendBirdSDK
+import SendBirdUIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var timer : SyncTimer?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        // Initialize SBDMain instance to use APIs in your app.
+        SBUMain.initialize(applicationId: "1C711088-5C2E-4894-9A76-7190B6188835")
+        SBDMain.initWithApplicationId("1C711088-5C2E-4894-9A76-7190B6188835")
         Chat.initialize(accountKey: "iJA9Igazg7Gg3w1y9MoBZK5YWpNoBOVK")
         GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)

@@ -115,7 +115,7 @@ class EarlyCallAlertController: InterfaceExtendedController {
     func fillInfo(){
         
         self.name?.text = info?.title
-        self.scheduleUpdateListener = ScheduleUpdateListener(roomId: self.info?.roomId ?? "")
+        self.scheduleUpdateListener = ScheduleUpdateListener(roomId: self.info?.room_id ?? "")
     }
     
     @IBAction func dismissAction(sender:UIButton?){

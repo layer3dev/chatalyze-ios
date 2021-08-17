@@ -28,7 +28,7 @@ class UserEventQueueController: EventQueueController {
     }
     
     func analystJoinedNotification(){
-        analystJoinedListener = ScheduleUpdateListener(roomId: eventInfo?.roomId ?? "")
+        analystJoinedListener = ScheduleUpdateListener(roomId: eventInfo?.room_id ?? "")
         analystJoinedListener.setListener {
             
             self.hideAlertMessage()
