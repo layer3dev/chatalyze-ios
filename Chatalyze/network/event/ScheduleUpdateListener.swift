@@ -23,8 +23,8 @@ class ScheduleUpdateListener{
         isReleased = true
     }
     
-    init(roomId: String?){
-        initializeListener(roomId: roomId)
+    init(){
+        initializeListener()
     }
     
     func setListener(listener : (()->())?){
@@ -35,7 +35,7 @@ class ScheduleUpdateListener{
            self.newEventInfo = newEventInfo
        }
     
-    func initializeListener(roomId: String?){
+    func initializeListener(){
         let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
         let arrStr = [("scheduled_call_updated"+room), "scheduled_call_updated"]
         print(arrStr)

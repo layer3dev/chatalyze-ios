@@ -12,6 +12,8 @@ import SDWebImage
 import Analytics
 import ChatSDK
 import MessagingSDK
+import SendBirdSDK
+import SendBirdUIKit
 
 class UserCallController: VideoCallController {
     
@@ -411,11 +413,12 @@ class UserCallController: VideoCallController {
         }
     
     @IBAction func openChatController(_ sender: Any) {
+//        createSendbirdChatChannel()
         Log.echo(key: TAG, text: "Chat view Controller tapped")
         Log.echo(key: self.TAG, text: "chatControllerShown called")
         do {
             let chatEngine = try ChatEngine.engine()
-    
+
             let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
            self.presentModally(viewController)
 //            self.navigationController?.present(viewController, animated: true, completion: nil)
@@ -2227,5 +2230,28 @@ extension UserCallController{
             
             listener(info)
         }
+    }
+}
+
+extension UserCallController {
+    func createUserId(id: String) -> String {
+        return AppConnectionConfig.webServiceURL
+    }
+    func createSendbirdChatChannel() {
+        guard let eventInfo = self.eventInfo
+            else{
+                return
+        }
+        print(createUserId(id: ""))
+        SBDGroupChannel.createChannel(withUserIds: [], isDistinct: true, completionHandler: { (groupChannel, error) in
+            guard error == nil else {
+                return
+            }
+            // A group channel of the specified users is successfully created.
+            // Through the "groupChannel" parameter of the callback method,
+            // you can get the group channel's data from the result object that Sendbird server has passed to the callback method.
+            let channelUrl = groupChannel?.channelUrl
+            print(channelUrl)
+        })
     }
 }

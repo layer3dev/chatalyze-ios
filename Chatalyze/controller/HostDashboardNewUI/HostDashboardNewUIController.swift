@@ -13,7 +13,7 @@ class HostDashboardNewUIController: InterfaceExtendedController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UserSocket.sharedInstance?.initialization()
         paintUI()
       rootView?.paintInterface()
         self.checkForShowingHostWelcomeAnimation()

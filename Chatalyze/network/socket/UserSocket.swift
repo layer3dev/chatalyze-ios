@@ -21,6 +21,11 @@ class UserSocket {
     private var registrationTimeout = UserSocketRegistrationTimeout()
     
     init(){
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+                return
+        }
         initialization()
     }
     
@@ -28,11 +33,19 @@ class UserSocket {
         pubnub.unsubscribeAll()
     }
     
-    fileprivate func initialization(){
-        
+    func initialization(){
+        initializePubnub()
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
+    }
+    
+    func initializePubnub(){
+        let config = PubNubConfiguration(
+            publishKey: "pub-c-279d2570-4aae-4b4e-8741-f8b22dee9d30",
+            subscribeKey: "sub-c-b131e120-fb6e-11eb-b684-a2ddbe22cd06"
+        )
+        pubnub = PubNub(configuration: config)
     }
     
     fileprivate func initializeVariable(){
@@ -108,7 +121,7 @@ class UserSocket {
 
 //SOCKET CONNECTION
 extension UserSocket{
-    fileprivate func initializeSocketConnection(){
+    func initializeSocketConnection(){
         
 //        socket?.on(clientEvent: .connect, callback: { (data, ack) in
           
@@ -121,17 +134,17 @@ extension UserSocket{
 //        })
         
         socket?.on(clientEvent: .disconnect, callback: { (data, ack) in
-            
+
             self.notificationLogger.notify(text : "disconnected :(")
-            self.isRegisteredToServer = false
+//            self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket  (disconnect) => \(data)")
         })
         
         socket?.on(clientEvent: .error, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket error data (error) => \(data)")
         })
-        
-        
+
+
         socket?.on(clientEvent: .reconnectAttempt, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket reconnect => \(data)")
         })

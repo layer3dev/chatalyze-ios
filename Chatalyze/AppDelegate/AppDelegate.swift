@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
-        initializePubnub()
         initialization()
         bugSnagInitialization()
         initializeSegmentIO()
@@ -55,14 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    fileprivate func initializePubnub(){
-        let config = PubNubConfiguration(
-            publishKey: "pub-c-279d2570-4aae-4b4e-8741-f8b22dee9d30",
-            subscribeKey: "sub-c-b131e120-fb6e-11eb-b684-a2ddbe22cd06"
-        )
-        UserSocket.sharedInstance?.pubnub = PubNub(configuration: config)
-    }
-
     fileprivate func bugSnagInitialization(){
         
         Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
