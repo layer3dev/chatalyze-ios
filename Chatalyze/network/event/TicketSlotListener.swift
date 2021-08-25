@@ -25,7 +25,8 @@ class TicketSlotListener{
             Log.echo(key: "user_socket", text:"oh my God I am going back")
             return
         }
-        UserSocket.sharedInstance?.pubnub.unsubscribe(from: ["notification"+(userInfo.id ?? "")])
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        UserSocket.sharedInstance?.pubnub.unsubscribe(from: [("notification"+(userInfo.id ?? "")), "schedule_updated\(room)", "call_booked_success\(room)", "schedule_cancelled\(room)", "delayed\(room)", "NewChatalyzeEvent", "DeletedChatalyzeEvent"])
     }
 
     func setListener(listener : (()->())?){
@@ -37,7 +38,8 @@ class TicketSlotListener{
             Log.echo(key: "user_socket", text:"oh my God I am going back")
             return
         }
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["notification"+(userInfo.id ?? "")])
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: [("notification"+(userInfo.id ?? "")), "schedule_updated\(room)", "call_booked_success\(room)", "schedule_cancelled\(room)", "delayed\(room)", "NewChatalyzeEvent", "DeletedChatalyzeEvent"])
         // Create a new listener instance
         let listener = SubscriptionListener()
 
@@ -94,23 +96,23 @@ class TicketSlotListener{
         }
         
         
-        guard let toId = info.toId else{
-            return
-        }
-        
-        guard let id = userId else{
-            return
-        }
-        
-        
-        if toId != id{
-            return
-        }
-        
-        
-        if(activityType != .slotBooked){
-            return
-        }
+//        guard let toId = info.id else{
+//            return
+//        }
+//
+//        guard let id = userId else{
+//            return
+//        }
+//
+//
+//        if toId != id{
+//            return
+//        }
+//
+//
+//        if(activityType != .slotBooked){
+//            return
+//        }
         
         Log.echo(key: TAG, text: "notification -> \(rawInfo)")
         

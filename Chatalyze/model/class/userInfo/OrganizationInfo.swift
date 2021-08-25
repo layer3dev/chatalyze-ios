@@ -26,6 +26,7 @@ class OrganizationInfo :NSObject{
     
     
     var removeLogo : Bool?
+    var adminId : Int?
     
     
     override init(){
@@ -46,7 +47,7 @@ class OrganizationInfo :NSObject{
         }
         
         self.removeLogo = info["removeLogo"]?.boolValue
-        
+        self.adminId = info["adminId"]?.int
     }
     
 }

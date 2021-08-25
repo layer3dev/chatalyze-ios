@@ -17,6 +17,8 @@ class SlotInfo: SlotTimeInfo {
     var slotNo : Int?
     var callscheduleId : Int?
     var userId : Int?
+    var room_id : String?
+    var hostId : Int?
     var isPublic: Bool?
     var bordercolor : String?
     var backgroundcolor : String?
@@ -89,6 +91,8 @@ class SlotInfo: SlotTimeInfo {
             self.price = String(format: "%.2f", callScheduleInfo["price"]?.stringValue ?? "0.0")
             self.started = callScheduleInfo["started"]?.stringValue
             self.notified = callScheduleInfo["notified"]?.stringValue
+            self.room_id = callScheduleInfo["room_id"]?.string
+            self.hostId = callScheduleInfo["userId"]?.int
         }
     }
     

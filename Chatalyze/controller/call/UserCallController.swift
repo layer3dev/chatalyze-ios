@@ -27,7 +27,7 @@ class UserCallController: VideoCallController {
     var defaultSignatureTimer = DefaultTimerForSignature()
     var defaultSignatureInitiated = false
     var localSlotIdToManageDefaultScreenshot:Int? = nil
-    
+    var messageDelegate : SBDChannelDelegate?
     var localSlotIdToManageAutograph:Int? = nil
     var localScreenShotAssociatedCallBookingId:Int? = nil
     
@@ -142,8 +142,7 @@ class UserCallController: VideoCallController {
         }
     }
     var screenInfoDict:[String:Any] = ["id":"","isScreenShotSaved":false,"isScreenShotInitaited":false]
-    
-    
+        
     override func processEventInfo(){
         super.processEventInfo()
         
@@ -151,9 +150,9 @@ class UserCallController: VideoCallController {
             else{
                 return
         }
+        initiateSendbird()
         loadDefaultImage(eventInfo: eventInfo)
         loadYoutubeVideo(eventInfo: eventInfo)
-        loadbackgrndImg(eveninfo: eventInfo)
     }
     
     private func loadbackgrndImg(eveninfo: EventScheduleInfo){
@@ -413,18 +412,23 @@ class UserCallController: VideoCallController {
         }
     
     @IBAction func openChatController(_ sender: Any) {
-//        createSendbirdChatChannel()
-        Log.echo(key: TAG, text: "Chat view Controller tapped")
-        Log.echo(key: self.TAG, text: "chatControllerShown called")
-        do {
-            let chatEngine = try ChatEngine.engine()
-
-            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
-           self.presentModally(viewController)
-//            self.navigationController?.present(viewController, animated: true, completion: nil)
-        } catch {
-            // handle error
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
         }
+        let channelUrl = "chatalyze_\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
+        goToChannel(groupURL: channelUrl)
+//        createSendbirdChatChannel()
+//        Log.echo(key: TAG, text: "Chat view Controller tapped")
+//        Log.echo(key: self.TAG, text: "chatControllerShown called")
+//        do {
+//            let chatEngine = try ChatEngine.engine()
+//
+//            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+//           self.presentModally(viewController)
+////            self.navigationController?.present(viewController, animated: true, completion: nil)
+//        } catch {
+//            // handle error
+//        }
     }
     
     private func initiateTwilioConnection(slotInfo : SlotInfo){
@@ -487,9 +491,6 @@ class UserCallController: VideoCallController {
         connection.accessToken = accessToken
         connection.connectToRoom()
     }
-    
-    
-    
     
     func processDefaultSignature(){
         
@@ -753,7 +754,13 @@ class UserCallController: VideoCallController {
     }
     
     private func initializeVariable(){
-        
+        let userId = createUserId(room_id: room_Id ?? "", id: SignedUserInfo.sharedInstance?.id ?? "")
+//        SBDMain.connect(withUserId: userId) { user, err in
+//            guard err == nil else {
+//                return
+//            }
+            SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+//        }
         initializeGetCommondForTakeScreenShot()
         registerForHostManualTriggeredTimeStamp()
         registerOnScreenShotGotSaved()
@@ -1665,6 +1672,12 @@ extension UserCallController{
         }
     }
     
+    var adminId : String?{
+        get{
+            return "\(self.eventInfo?.user?.organization?.adminId ?? 0)"
+        }
+    }
+
     var hostHashId : String?{
         get{
             return self.eventInfo?.user?.hashedId
@@ -2055,8 +2068,8 @@ extension UserCallController {
     func downloadDefaultImage(with url : String){
         RequestDefaultImage().fetchInfo(id: url) { (success, response) in
             if success{
-                
                 if let info = response{
+                    self.eventInfo = EventScheduleInfo(info: info)
                     let defaulImage = info["user"]["defaultImage"]["url"].stringValue
                     SDWebImageDownloader().downloadImage(with: URL(string: defaulImage), options: SDWebImageDownloaderOptions.highPriority, progress: nil) { (image, imageData, error, result) in
                         guard let img = image else {
@@ -2234,24 +2247,71 @@ extension UserCallController{
 }
 
 extension UserCallController {
-    func createUserId(id: String) -> String {
-        return AppConnectionConfig.webServiceURL
-    }
-    func createSendbirdChatChannel() {
-        guard let eventInfo = self.eventInfo
-            else{
-                return
-        }
-        print(createUserId(id: ""))
-        SBDGroupChannel.createChannel(withUserIds: [], isDistinct: true, completionHandler: { (groupChannel, error) in
+    
+    func initiateChannel(groupURL: SBDGroupChannel) {
+        groupURL.join(completionHandler: { (error) in
             guard error == nil else {
                 return
             }
-            // A group channel of the specified users is successfully created.
-            // Through the "groupChannel" parameter of the callback method,
-            // you can get the group channel's data from the result object that Sendbird server has passed to the callback method.
-            let channelUrl = groupChannel?.channelUrl
-            print(channelUrl)
+            let channelVC = SBUChannelViewController(channelUrl: groupURL.channelUrl)
+            channelVC.loadChannel(channelUrl: groupURL.channelUrl)
         })
+    }
+    
+    func goToChannel(groupURL: String) {
+        let channelVC = SBUChannelViewController(channelUrl: groupURL)
+        let naviVC = UINavigationController(rootViewController: channelVC)
+        self.present(naviVC, animated: true)
+    }
+    
+    func initiateSendbird() {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        let userId = createUserId(room_id: room_Id ?? "", id: user.id ?? "")
+        let host = createUserId(room_id: room_Id ?? "", id: hostId ?? "")
+        let admin = createUserId(room_id: room_Id ?? "", id: adminId ?? "")
+        let channelUrl = "chatalyze_\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
+        let channelName = "\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
+        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
+        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        SBDMain.connect(withUserId: userId) { user, err in
+            guard err == nil else {
+                return
+            }
+            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
+                if error == nil {
+                    self.initiateChannel(groupURL: groupChannel!)
+                } else {
+                    var users: [String] = []
+                    users.append(admin)
+                    users.append(host)
+                    users.append(userId)
+                    let params = SBDGroupChannelParams()
+                    params.isPublic = true
+                    params.isDistinct = false
+                    params.addUserIds(users)
+                    params.operatorUserIds = [userId]
+                    params.name = channelName
+                    params.channelUrl = channelUrl
+                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
+                        guard error == nil else {
+                            return
+                        }
+                        self.initiateChannel(groupURL: groupChannel!)
+                    })
+                }
+            }
+        }
+    }
+}
+
+extension UserCallController: SBDChannelDelegate, SBDConnectionDelegate {
+    func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
+        if let room = self.room_Id {
+            if message.channelUrl.contains(room) {
+                self.goToChannel(groupURL: message.channelUrl)
+            }
+        }
     }
 }

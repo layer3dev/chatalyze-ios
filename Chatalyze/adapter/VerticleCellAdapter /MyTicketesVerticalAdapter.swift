@@ -9,6 +9,8 @@
 
 import UIKit
 import SwiftyJSON
+import SendBirdSDK
+import SendBirdUIKit
 
 class MyTicketesVerticalAdapter: ExtendedView {
     
@@ -18,7 +20,7 @@ class MyTicketesVerticalAdapter: ExtendedView {
     var customTicketsListingArray = [CustomTicketsInfo]()
     var root:MyTicketsVerticalRootView?
     var spinner = UIActivityIndicatorView(style: .gray)
-
+    var strUUID = UUID().uuidString
     
     override func viewDidLayout() {
         super.viewDidLayout()
@@ -135,8 +137,12 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
             cell.delegate = self
             if self.root?.controller?.currentEventShowing == .past{
                 cell.isJoinDisabel = true
+                cell.btnChat.isHidden = false
+                cell.btnChat.tag = indexPath.row
+                cell.btnChat.addTarget(self, action: #selector(goToChat(_:)), for: .touchUpInside)
             }else{
                 cell.isJoinDisabel = false
+                cell.btnChat.isHidden = true
             }
             cell.fillInfo(info: ticketsListingArray[indexPath.row])
             return cell
@@ -169,6 +175,45 @@ extension MyTicketesVerticalAdapter:UITableViewDataSource{
             }
         }
         
+    }
+    
+    func createUserId(room_id: String, id: String) -> String {
+        return AppConnectionConfig.webServiceURL.contains("dev") ? "dev_\(room_id)_\(id)" : "live_\(room_id)_\(id)"
+    }
+    
+    @objc func goToChat(_ sender: UIButton) {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        let ticket = ticketsListingArray[sender.tag]
+        let userId = createUserId(room_id: ticket.room_id ?? "", id: user.id ?? "")
+        let channelURL = "chatalyze_\(ticket.room_id ?? "")_\(ticket.hostId ?? 0)_\(user.id ?? "")"
+        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
+        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        SBDMain.connect(withUserId: userId) { user, err in
+            guard err == nil else {
+                return
+            }
+            SBDGroupChannel.getWithUrl(channelURL) { groupChannel, error in
+                guard error == nil else {
+                    return
+                }
+                groupChannel?.join(completionHandler: { (error) in
+                    guard error == nil else {
+                        return
+                    }
+                    let channelVC = SBUChannelViewController(channelUrl: groupChannel?.channelUrl ?? "")
+                    let naviVC = UINavigationController(rootViewController: channelVC)
+                    self.root?.controller?.present(naviVC, animated: true)
+                })
+            }
+        }
+    }
+}
+
+extension MyTicketesVerticalAdapter:SBDChannelDelegate{
+    func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
+        print(message.message)
     }
 }
 

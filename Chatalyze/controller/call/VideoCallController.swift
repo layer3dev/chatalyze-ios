@@ -5,7 +5,7 @@ import SwiftyJSON
 import Toast_Swift
 import CRToast
 import TwilioVideo
-
+import SendBirdUIKit
 
 //todo:
 //refresh procedure is being written redundantly
@@ -120,13 +120,16 @@ class VideoCallController : InterfaceExtendedController {
         return nil
     }
     
+    func createUserId(room_id: String, id: String) -> String {
+        return AppConnectionConfig.webServiceURL.contains("dev") ? "dev_\(room_id)_\(id)" : "live_\(room_id)_\(id)"
+    }
+    
     var localVideoRenderer:VideoFrameRenderer?{
         return nil
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             self.fontSizeBig = 24
@@ -772,7 +775,6 @@ class VideoCallController : InterfaceExtendedController {
     
     
     var room_Id : String?{
-        
         get{
             Log.echo(key: "vijayDedaults", text: "\(String(describing: (eventInfo?.room_id)))")
             return self.eventInfo?.room_id

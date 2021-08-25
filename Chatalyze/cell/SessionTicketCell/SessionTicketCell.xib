@@ -43,35 +43,43 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000596046448" translatesAutoresizingMaskIntoConstraints="NO" id="3ne-aw-AtC">
-                                        <rect key="frame" x="10" y="235" width="247" height="24.666666666666686"/>
+                                        <rect key="frame" x="10" y="235" width="202" height="35"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yen-sz-eF8">
+                                        <rect key="frame" x="222" y="235" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Yen-sz-eF8" secondAttribute="height" id="Day-ZD-y7B"/>
+                                            <constraint firstAttribute="height" constant="35" id="Lh8-fa-khM"/>
+                                        </constraints>
+                                        <state key="normal" image="textMessageDashboard"/>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVN-Sc-pcl">
-                                        <rect key="frame" x="10" y="269.66666666666669" width="252" height="38.333333333333314"/>
+                                        <rect key="frame" x="10" y="280" width="252" height="38.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="28"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCP-RX-C8V">
-                                        <rect key="frame" x="10" y="318" width="247" height="24.666666666666686"/>
+                                        <rect key="frame" x="10" y="328.33333333333331" width="247" height="24.666666666666686"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="254" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkd-lq-hd1">
-                                        <rect key="frame" x="10" y="347.66666666666669" width="247" height="22"/>
+                                        <rect key="frame" x="10" y="358" width="247" height="22"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Please join at least 5 minutes early." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oay-a5-HfE" customClass="LocalizedLabel" customModule="Chatalyze" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="374.66666666666669" width="242" height="104.33333333333331"/>
+                                        <rect key="frame" x="10" y="385" width="242" height="94"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                         <nil key="textColor"/>
@@ -85,7 +93,6 @@
                                 <constraints>
                                     <constraint firstItem="FVN-Sc-pcl" firstAttribute="top" secondItem="3ne-aw-AtC" secondAttribute="bottom" constant="10" id="27G-Tk-rFy"/>
                                     <constraint firstItem="acf-S1-0O9" firstAttribute="centerX" secondItem="z2H-hz-QnI" secondAttribute="centerX" id="2Ic-zJ-BvJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="3ne-aw-AtC" secondAttribute="trailing" constant="10" id="7Rd-wn-D7L"/>
                                     <constraint firstItem="acf-S1-0O9" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="25" id="7Um-04-zfl">
                                         <variation key="heightClass=regular-widthClass=regular" constant="8"/>
                                     </constraint>
@@ -93,14 +100,18 @@
                                     <constraint firstItem="BCP-RX-C8V" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="10" id="DFG-QH-ZG3"/>
                                     <constraint firstItem="Oay-a5-HfE" firstAttribute="top" secondItem="Tkd-lq-hd1" secondAttribute="bottom" constant="5" id="DvS-jI-4mU"/>
                                     <constraint firstItem="Oay-a5-HfE" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="10" id="Ewv-bg-kM2"/>
+                                    <constraint firstItem="Yen-sz-eF8" firstAttribute="top" secondItem="acf-S1-0O9" secondAttribute="bottom" constant="10" id="GKv-NO-mVr"/>
                                     <constraint firstItem="Tkd-lq-hd1" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="10" id="H1w-PV-f1z"/>
                                     <constraint firstAttribute="trailing" secondItem="FVN-Sc-pcl" secondAttribute="trailing" constant="5" id="IMZ-Xt-weM"/>
+                                    <constraint firstItem="FVN-Sc-pcl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Yen-sz-eF8" secondAttribute="bottom" constant="10" id="OGR-qf-g1Y"/>
                                     <constraint firstAttribute="bottom" secondItem="Oay-a5-HfE" secondAttribute="bottom" constant="5" id="QJe-Ne-ccP"/>
+                                    <constraint firstItem="Yen-sz-eF8" firstAttribute="leading" secondItem="3ne-aw-AtC" secondAttribute="trailing" constant="10" id="QVT-Gp-64E"/>
                                     <constraint firstAttribute="trailing" secondItem="Tkd-lq-hd1" secondAttribute="trailing" constant="10" id="TaK-h2-8NJ"/>
                                     <constraint firstItem="Tkd-lq-hd1" firstAttribute="top" secondItem="BCP-RX-C8V" secondAttribute="bottom" constant="5" id="TbG-by-2sR"/>
                                     <constraint firstItem="FVN-Sc-pcl" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="10" id="aIJ-xo-69h"/>
                                     <constraint firstAttribute="trailing" secondItem="Oay-a5-HfE" secondAttribute="trailing" constant="15" id="cjT-yY-REF"/>
                                     <constraint firstItem="3ne-aw-AtC" firstAttribute="leading" secondItem="z2H-hz-QnI" secondAttribute="leading" constant="10" id="ggM-OF-TXm"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yen-sz-eF8" secondAttribute="trailing" constant="10" id="m18-Ry-PeV"/>
                                     <constraint firstAttribute="trailing" secondItem="BCP-RX-C8V" secondAttribute="trailing" constant="10" id="pLg-Qc-kyw"/>
                                     <constraint firstItem="3ne-aw-AtC" firstAttribute="top" secondItem="acf-S1-0O9" secondAttribute="bottom" constant="10" id="rU0-bU-dOL"/>
                                     <constraint firstItem="BCP-RX-C8V" firstAttribute="top" secondItem="FVN-Sc-pcl" secondAttribute="bottom" constant="10" id="syD-k0-Dbd"/>
@@ -196,6 +207,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aYb-Ra-KTo"/>
             <connections>
+                <outlet property="btnChat" destination="Yen-sz-eF8" id="CDK-Pp-iIC"/>
                 <outlet property="buttonInsideLayer" destination="kcL-JG-FEl" id="lft-hY-Avd"/>
                 <outlet property="hostName" destination="FVN-Sc-pcl" id="CiI-Qa-I5u"/>
                 <outlet property="joinButtonContainer" destination="hBY-ZI-h4A" id="bf2-Pw-9vc"/>
@@ -217,6 +229,7 @@
     </designables>
     <resources>
         <image name="dummyBack" width="335" height="599"/>
+        <image name="textMessageDashboard" width="100" height="100"/>
         <image name="ticket_strip" width="360" height="16"/>
         <image name="user_placeholder" width="200" height="200"/>
         <systemColor name="systemBackgroundColor">

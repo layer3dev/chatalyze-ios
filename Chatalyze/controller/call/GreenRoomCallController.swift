@@ -657,7 +657,8 @@ class GreenRoomCallController: VideoCallController {
             Log.echo(key: "user_socket", text:"oh my God I am going back")
             return
         }
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["notification"+(userInfo.id ?? "")])
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: [("notification"+(userInfo.id ?? "")), "schedule_updated\(room)", "call_booked_success\(room)", "schedule_cancelled\(room)", "delayed\(room)", "NewChatalyzeEvent", "DeletedChatalyzeEvent"])
         // Create a new listener instance
         let listener = SubscriptionListener()
 
