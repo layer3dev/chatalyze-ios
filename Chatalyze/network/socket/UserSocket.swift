@@ -42,8 +42,8 @@ class UserSocket {
     
     func initializePubnub(){
         let config = PubNubConfiguration(
-            publishKey: "pub-c-279d2570-4aae-4b4e-8741-f8b22dee9d30",
-            subscribeKey: "sub-c-b131e120-fb6e-11eb-b684-a2ddbe22cd06"
+            publishKey: AppConnectionConfig.pubnubPublishKey,
+            subscribeKey: AppConnectionConfig.pubnubSubscribeKey
         )
         pubnub = PubNub(configuration: config)
     }
