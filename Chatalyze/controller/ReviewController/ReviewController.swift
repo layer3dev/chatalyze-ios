@@ -9,6 +9,8 @@
 import UIKit
 import ChatSDK
 import MessagingSDK
+import SendBirdSDK
+import SendBirdUIKit
 
 class ReviewController: InterfaceExtendedController{
    
@@ -30,7 +32,7 @@ class ReviewController: InterfaceExtendedController{
     }
     
     func initializeVariable(){
-        
+        initiateSendbird()
         scrollView?.bottomContentOffset = scrollContentBottomOffset
         text?.delegate = self
         hieghtofTextView?.constant = text?.contentSize.height ?? 36.0
@@ -94,16 +96,17 @@ class ReviewController: InterfaceExtendedController{
     }
     
     @IBAction func showChatController(){
-        Log.echo(key: self.TAG, text: "chatControllerShown called")
-        do {
-            let chatEngine = try ChatEngine.engine()
-    
-            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
-            self.presentModally(viewController)
-//            self.navigationController?.present(viewController, animated: true, completion: nil)
-        } catch {
-            // handle error
-        }
+        createSendbirdChatChannel()
+//        Log.echo(key: self.TAG, text: "chatControllerShown called")
+//        do {
+//            let chatEngine = try ChatEngine.engine()
+//
+//            let viewController = try Messaging.instance.buildUI(engines: [chatEngine], configs: [])
+//            self.presentModally(viewController)
+////            self.navigationController?.present(viewController, animated: true, completion: nil)
+//        } catch {
+//            // handle error
+//        }
     }
     
     
@@ -173,5 +176,148 @@ extension ReviewController:UITextViewDelegate{
           }
     @objc private func dismissViewController() {
       dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ReviewController {
+    func createUserId(room_id: String, id: String) -> String {
+        return AppConnectionConfig.webServiceURL.contains("dev") ? "dev_\(room_id)_\(id)" : "live_\(room_id)_\(id)"
+    }
+
+    func initiateChannel(groupURL: SBDGroupChannel) {
+        groupURL.join(completionHandler: { (error) in
+            guard error == nil else {
+                return
+            }
+            let channelVC = SBUChannelViewController(channelUrl: groupURL.channelUrl)
+            channelVC.messageInputView.addButton?.removeFromSuperview()
+            channelVC.useRightBarButtonItem = false
+            channelVC.channelName = "Live Support"
+            channelVC.loadChannel(channelUrl: groupURL.channelUrl)
+        })
+    }
+    
+    func goToChannel(groupURL: SBDGroupChannel) {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        SBDMain.updateCurrentUserInfo(withNickname: user.firstName, profileUrl: user.profileImage) { error in
+            guard error == nil else {
+                return
+            }
+            groupURL.join(completionHandler: { (error) in
+                guard error == nil else {
+                    self.stopLoader()
+                    return
+                }
+                let channelVC = SBUChannelViewController(channelUrl: groupURL.channelUrl)
+                channelVC.messageInputView.addButton?.removeFromSuperview()
+                channelVC.useRightBarButtonItem = false
+                channelVC.channelName = "Live Support"
+                let naviVC = UINavigationController(rootViewController: channelVC)
+                self.present(naviVC, animated: true)
+            })
+        }
+    }
+
+    func initiateSendbird() {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        let userId = createUserId(room_id: eventInfo?.room_id ?? "", id: user.id ?? "")
+        let host = createUserId(room_id: eventInfo?.room_id ?? "", id: self.eventInfo?.user?.id ?? "")
+        let admin = createUserId(room_id: eventInfo?.room_id ?? "", id: "\(self.eventInfo?.user?.organization?.adminId ?? 0)")
+        let channelUrl = "chatalyze_\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
+        let channelName = "\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
+        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
+        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        SBDMain.connect(withUserId: userId) { user, err in
+            guard err == nil else {
+                return
+            }
+            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
+                if error == nil {
+                    self.initiateChannel(groupURL: groupChannel!)
+                } else {
+                    var users: [String] = []
+                    users.append(admin)
+                    users.append(host)
+                    users.append(userId)
+                    let params = SBDGroupChannelParams()
+                    params.isPublic = true
+                    params.isDistinct = false
+                    params.addUserIds(users)
+                    params.operatorUserIds = [userId]
+                    params.name = channelName
+                    params.channelUrl = channelUrl
+                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
+                        guard error == nil else {
+                            return
+                        }
+                        let channelUrl = groupChannel?.channelUrl
+                        print(channelUrl)
+                        self.initiateChannel(groupURL: groupChannel!)
+                    })
+                }
+            }
+        }
+    }
+    
+    func createSendbirdChatChannel() {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        let userId = createUserId(room_id: eventInfo?.room_id ?? "", id: user.id ?? "")
+        let host = createUserId(room_id: eventInfo?.room_id ?? "", id: self.eventInfo?.user?.id ?? "")
+        let admin = createUserId(room_id: eventInfo?.room_id ?? "", id: "\(self.eventInfo?.user?.organization?.adminId ?? 0)")
+        let channelUrl = "chatalyze_\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
+        let channelName = "\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
+        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
+        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        SBDMain.connect(withUserId: userId) { user, err in
+            guard err == nil else {
+                self.stopLoader()
+                return
+            }
+            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
+                if error == nil {
+                    self.goToChannel(groupURL: groupChannel!)
+                } else {
+                    var users: [String] = []
+                    users.append(admin)
+                    users.append(host)
+                    users.append(userId)
+                    let params = SBDGroupChannelParams()
+                    params.isPublic = true
+                    params.isDistinct = false
+                    params.addUserIds(users)
+                    params.operatorUserIds = [userId]
+                    params.name = channelName
+                    params.channelUrl = channelUrl
+                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
+                        guard error == nil else {
+                            self.stopLoader()
+                            return
+                        }
+                        self.goToChannel(groupURL: groupChannel!)
+                    })
+                }
+            }
+        }
+    }
+}
+
+extension ReviewController: SBDChannelDelegate, SBDConnectionDelegate {
+    func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
+        if let room = self.eventInfo?.room_id {
+            if message.channelUrl.contains(room) {
+                SBDGroupChannel.getWithUrl(message.channelUrl) { groupChannel, error in
+                    guard error == nil else {
+                        return
+                    }
+                    self.goToChannel(groupURL: groupChannel!)
+                }
+            }
+        }
     }
 }

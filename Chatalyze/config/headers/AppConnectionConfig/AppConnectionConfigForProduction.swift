@@ -16,6 +16,11 @@ class AppConnectionConfig {
     static let basicUrl = "https://chatalyze.com"
     static let userSocketURL = "https://chatalyze.com/"
     
+    static let pubnubSubscribeKey = "sub-c-b20b6318-061e-11ec-b49f-62dfa3a98328"
+    static let pubnubPublishKey = "pub-c-5162163a-e06a-4ceb-a668-1054cf49afd5"
+    
+    static let sendbirdAppId = "333A50D7-A7D9-413D-8DA8-2CDEB2F7231E"
+
     static let speedTestURL = "https://chatalyze.s3-us-west-2.amazonaws.com/reactions/logo_gmail_lockup_default_1x.png"
  
     static let segmentIOKey = "IAY6kYifbTsfVhtqeRr4nPmC7jL3XGM2"

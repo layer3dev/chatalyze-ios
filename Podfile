@@ -37,6 +37,10 @@ def pod_file
   pod 'YoutubePlayer-in-WKWebView', '~> 0.3'
   pod 'TwilioVideo'
   pod 'ZendeskChatSDK'
+  pod 'PubNubSwift'
+  pod 'SendBirdSDK'
+  pod 'SendBirdUIKit'
+  
   platform :ios, '12.0'
 end
 

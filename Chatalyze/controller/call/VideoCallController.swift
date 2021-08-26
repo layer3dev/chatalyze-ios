@@ -5,7 +5,7 @@ import SwiftyJSON
 import Toast_Swift
 import CRToast
 import TwilioVideo
-
+import SendBirdUIKit
 
 //todo:
 //refresh procedure is being written redundantly
@@ -65,7 +65,7 @@ class VideoCallController : InterfaceExtendedController {
     private var localTrack : LocalVideoTrack?
     
     private let eventSlotListener = EventSlotListener()
-    private let scheduleUpdateListener = ScheduleUpdateListener()
+    private var scheduleUpdateListener = ScheduleUpdateListener()
 
     //Implementing the eventDeleteListener
     
@@ -120,13 +120,16 @@ class VideoCallController : InterfaceExtendedController {
         return nil
     }
     
+    func createUserId(room_id: String, id: String) -> String {
+        return AppConnectionConfig.webServiceURL.contains("dev") ? "dev_\(room_id)_\(id)" : "live_\(room_id)_\(id)"
+    }
+    
     var localVideoRenderer:VideoFrameRenderer?{
         return nil
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if UIDevice.current.userInterfaceIdiom == .pad{
             
             self.fontSizeBig = 24
@@ -161,6 +164,9 @@ class VideoCallController : InterfaceExtendedController {
         captureController?.stopCapture()
         self.localMediaPackage?.mediaTrack?.stop()
         eventSlotListener.setListener(listener: nil)
+        if roomType == .user {
+            eventSlotListener.setChatNumberListener(listener: nil)
+        }
         timer.pauseTimer()
         socketClient?.disconnect()
         trackWebSocketDisconnected()
@@ -455,7 +461,6 @@ class VideoCallController : InterfaceExtendedController {
             
             self?.connectToRoom(info: info)
             self?.eventInfo = info
-            
             self?.processEventInfo()
             self?.startLocalStreaming()
             self?.registerForAppState()
@@ -611,6 +616,14 @@ class VideoCallController : InterfaceExtendedController {
             self?.refreshScheduleInfo()
         }
         
+        if roomType == .user {
+            eventSlotListener.setChatNumberListener {[weak self] slotId in
+                self?.alert(withTitle: "SLOT CHANGED", message: "Slot time is updated.", successTitle: "Ok", rejectTitle: "", showCancel: false, completion: { success in
+
+                })
+            }
+        }
+        
         eventDeleteListener.setListener { [weak self] (deletedEventID) in
             
             if self?.eventId == deletedEventID {
@@ -762,7 +775,6 @@ class VideoCallController : InterfaceExtendedController {
     
     
     var room_Id : String?{
-        
         get{
             Log.echo(key: "vijayDedaults", text: "\(String(describing: (eventInfo?.room_id)))")
             return self.eventInfo?.room_id

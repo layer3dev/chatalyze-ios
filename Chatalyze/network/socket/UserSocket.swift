@@ -8,26 +8,44 @@
 
 import UIKit
 import SocketIO
-
+import PubNub
 
 class UserSocket {
     
     fileprivate static var _sharedInstance : UserSocket?
     var socketManager : SocketManager?
     var socket : SocketIOClient?
+    var pubnub = PubNub(configuration: PubNubConfiguration())
     var isRegisteredToServer = false
     private var notificationLogger = LogNotification()
     private var registrationTimeout = UserSocketRegistrationTimeout()
     
     init(){
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+                return
+        }
         initialization()
     }
     
-    fileprivate func initialization(){
-        
+    deinit {
+        pubnub.unsubscribeAll()
+    }
+    
+    func initialization(){
+        initializePubnub()
         initializeVariable()
         registerForAppState()
         initializeSocketConnection()
+    }
+    
+    func initializePubnub(){
+        let config = PubNubConfiguration(
+            publishKey: AppConnectionConfig.pubnubPublishKey,
+            subscribeKey: AppConnectionConfig.pubnubSubscribeKey
+        )
+        pubnub = PubNub(configuration: config)
     }
     
     fileprivate func initializeVariable(){
@@ -103,49 +121,79 @@ class UserSocket {
 
 //SOCKET CONNECTION
 extension UserSocket{
-    fileprivate func initializeSocketConnection(){
+    func initializeSocketConnection(){
         
-        socket?.on(clientEvent: .connect, callback: { (data, ack) in
+//        socket?.on(clientEvent: .connect, callback: { (data, ack) in
           
             self.notificationLogger.notify(text : "connected :)")
             self.isRegisteredToServer = false
-            Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
+//            Log.echo(key: "user_socket", text:"socket connected , the data is connect ==>\(data) and the acknowledgment is \(ack.expected)")
             DispatchQueue.main.async {
                 self.registerSocket()
             }
-        })
+//        })
         
         socket?.on(clientEvent: .disconnect, callback: { (data, ack) in
-            
+
             self.notificationLogger.notify(text : "disconnected :(")
-            self.isRegisteredToServer = false
+//            self.isRegisteredToServer = false
             Log.echo(key: "user_socket", text:"socket  (disconnect) => \(data)")
         })
         
         socket?.on(clientEvent: .error, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket error data (error) => \(data)")
         })
-        
-        
+
+
         socket?.on(clientEvent: .reconnectAttempt, callback: { (data, ack) in
             Log.echo(key: "user_socket", text:"socket reconnect => \(data)")
         })
-        
-        
-        socket?.on("login") {[weak self] data, ack  in
-            Log.echo(key: "user_socket", text:"socket login data => \(data)")
-            self?.isRegisteredToServer = true
-            
-            //
-            let dele = UIApplication.shared.delegate as? AppDelegate
-            
-            dele?.earlyCallProcessor?.fetchInfo()
-            self?.registrationTimeout.cancelTimeout()
-            //Changing the color of online offline view
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+                return
         }
+        pubnub.subscribe(to: ["login"+(userInfo.id ?? "")])
+//        socket?.on("login") {[weak self] data, ack  in
+//            Log.echo(key: "user_socket", text:"socket login data => \(data)")
+//            self?.isRegisteredToServer = true
+//
+//            //
+//            let dele = UIApplication.shared.delegate as? AppDelegate
+//
+//            dele?.earlyCallProcessor?.fetchInfo()
+//            self?.registrationTimeout.cancelTimeout()
+//            //Changing the color of online offline view
+//        }
         
-    
-        
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+          switch event {
+          case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+          case let .connectionStatusChanged(status):
+            if status == .connected {
+                self.notificationLogger.notify(text : "connected :)")
+                self.isRegisteredToServer = false
+                DispatchQueue.main.async {
+                    self.registerSocket()
+                }
+            }
+            print("Status Received: \(status)")
+          case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+          case let .subscribeError(error):
+            print("Subscription Error \(error)")
+          default:
+            break
+          }
+        }
+
+        // Start receiving subscription events
+        pubnub.add(listener)
         
         socket?.onAny({ (data) in
             
@@ -166,13 +214,20 @@ extension UserSocket{
                 Log.echo(key: "user_socket", text:"oh my God I am going back")
                 return
         }
-        var param = [String : Any]()
-        param["uid"] = Int(userInfo.id ?? "")
-        let info = param.JSONDescription()
-        Log.echo(key: "user_socket", text: "info => " + info)
-        Log.echo(key: "user_socket", text: "param => \(param)")
-        socket?.emit("login", param)
-        
+        var param = [String : String]()
+        param["uid"] = userInfo.id ?? ""
+        pubnub.publish(channel: "login", message: param) { result in
+          switch result {
+          case let .success(timetoken):
+            print("The message was successfully published at: \(timetoken)")
+            self.isRegisteredToServer = true
+            let dele = UIApplication.shared.delegate as? AppDelegate
+            dele?.earlyCallProcessor?.fetchInfo()
+            self.registrationTimeout.cancelTimeout()
+          case let .failure(error):
+            print("Handle response error: \(error.localizedDescription)")
+          }
+        }
         registrationTimeout.registerForTimeout(seconds: 10.0) {[weak self] in
             
             guard let weakSelf = self

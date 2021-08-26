@@ -14,7 +14,7 @@ class UserEventQueueController: EventQueueController {
     @IBOutlet var scrollView:UIScrollView?
     let updatedEventScheduleListner = UpdateEventListener()
     let eventDelayListener = EventDelayListener()
-    let analystJoinedListener  = ScheduleUpdateListener()
+    var analystJoinedListener  = ScheduleUpdateListener()
     
     @IBOutlet var eventQueueView:UIView?
     
@@ -28,7 +28,6 @@ class UserEventQueueController: EventQueueController {
     }
     
     func analystJoinedNotification(){
-        
         analystJoinedListener.setListener {
             
             self.hideAlertMessage()

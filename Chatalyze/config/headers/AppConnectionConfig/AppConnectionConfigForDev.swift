@@ -28,7 +28,10 @@ class AppConnectionConfig {
 
     static let bugsnagKey = "ad58414db7ea062a861a66c71474e6fb"
     
-    
+    static let pubnubSubscribeKey = "sub-c-b131e120-fb6e-11eb-b684-a2ddbe22cd06"
+    static let pubnubPublishKey = "pub-c-279d2570-4aae-4b4e-8741-f8b22dee9d30"
+
+    static let sendbirdAppId = "1C711088-5C2E-4894-9A76-7190B6188835"
     
     static let speedTestURL = "https://lh3.googleusercontent.com/a-/AOh14Gg8URUcWA_VdH66xIiAMZsgZX1b8eTr08l5HLaNtw=s350-c-k-no"
 

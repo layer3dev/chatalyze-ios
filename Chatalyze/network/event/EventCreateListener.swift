@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import PubNub
 
 class EventCreateListener{
     
@@ -19,27 +20,54 @@ class EventCreateListener{
         initializeListener()
     }
     
+    deinit {
+        guard let userInfo = SignedUserInfo.sharedInstance else {
+            Log.echo(key: "user_socket", text:"oh my God I am going back")
+            return
+        }
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        UserSocket.sharedInstance?.pubnub.unsubscribe(from: [("notification"+(userInfo.id ?? "")), "schedule_updated\(room)", "call_booked_success\(room)", "schedule_cancelled\(room)", "delayed\(room)", "NewChatalyzeEvent", "DeletedChatalyzeEvent"])
+    }
+    
     func setListener(listener : (()->())?){
         self.listener = listener
     }
     
     func initializeListener(){
-        
-        UserSocket.sharedInstance?.socket?.on("notification", callback: {[weak self] (data, emitter) in
-            
-            Log.echo(key: "yud", text: "Notification data on userSocket is \(data)")
-            
-            if(data.count <= 0){
+        guard let userInfo = SignedUserInfo.sharedInstance else {
+            Log.echo(key: "user_socket", text:"oh my God I am going back")
+            return
+        }
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: [("notification"+(userInfo.id ?? "")), "schedule_updated\(room)", "call_booked_success\(room)", "schedule_cancelled\(room)", "delayed\(room)", "NewChatalyzeEvent", "DeletedChatalyzeEvent"])
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+          switch event {
+          case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let info = message.payload.rawValue as? [String : Any]
+            else{
                 return
             }
-            guard let info = data.first as? [String : Any]
-                else{
-                    return
-            }
-            self?.processNotificationForNewSlot(info: info)
-        })
+            self.processNotificationForNewSlot(info: info)
+          case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+          case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+          case let .subscribeError(error):
+            print("Subscription Error \(error)")
+          default:
+            break
+          }
+        }
+
+        // Start receiving subscription events
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
-    
+
     private func processNotificationForNewSlot(info : [String : Any]){
         
         

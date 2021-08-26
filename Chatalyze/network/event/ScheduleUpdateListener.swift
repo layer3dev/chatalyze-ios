@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import PubNub
 
 class ScheduleUpdateListener{
     
@@ -16,7 +17,7 @@ class ScheduleUpdateListener{
     private var newEventInfo : (([EventInfo])->())?
     
     private var isReleased = false
-    
+        
     func releaseListener(){
         listener = nil
         isReleased = true
@@ -35,40 +36,98 @@ class ScheduleUpdateListener{
        }
     
     func initializeListener(){
-        UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
-            
-            guard let weakSelf = self
+        let room = UserDefaults.standard.string(forKey: "room_id") ?? ""
+        let arrStr = [("scheduled_call_updated"+room), "scheduled_call_updated"]
+        print(arrStr)
+        UserSocket.sharedInstance?.pubnub.subscribe(to: arrStr)
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+        
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+                print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+                guard let info = message.payload.rawValue as? [String : Any]
                 else{
                     return
+                }
+                
+                if(self.isReleased){
+                    return
+                }
+                self.listener?()
+                let rawInfosString = info.JSONDescription()
+                
+                
+                guard let rawData = rawInfosString.data(using: .utf8)
+                else{
+                    return
+                }
+                
+                
+                guard let jsonResponse = try? JSON(data : rawData)
+                else{
+                    return
+                }
+                
+                let rawInfo = jsonResponse.arrayValue
+                
+                var eventArray:[EventInfo] = [EventInfo]()
+                for info in rawInfo{
+                    let obj = EventInfo(info: info)
+                    eventArray.append(obj)
+                    self.newEventInfo?(eventArray)
+                }
+            case let .connectionStatusChanged(status):
+                print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+                print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+                print("Subscription Error \(error)")
+            default:
+                break
             }
-            
-            if(weakSelf.isReleased){
-                return
-            }
-            weakSelf.listener?()
-            let rawInfosString = data.JSONDescription()
+        }
 
+        // Start receiving subscription events
+        UserSocket.sharedInstance?.pubnub.add(listener)
 
-                       guard let rawData = rawInfosString.data(using: .utf8)
-                           else{
-                               return
-                       }
-
-
-                       guard let jsonResponse = try? JSON(data : rawData)
-                           else{
-                               return
-                       }
-
-                      let rawInfo = jsonResponse.arrayValue
-
-                       var eventArray:[EventInfo] = [EventInfo]()
-                       for info in rawInfo{
-                           let obj = EventInfo(info: info)
-                           eventArray.append(obj)
-                           weakSelf.newEventInfo?(eventArray)
-                       }
-        })
+        
+//        UserSocket.sharedInstance?.socket?.on("scheduled_call_updated", callback: {[weak self] (data, emitter) in
+//
+//            guard let weakSelf = self
+//                else{
+//                    return
+//            }
+//
+//            if(weakSelf.isReleased){
+//                return
+//            }
+//            weakSelf.listener?()
+//            let rawInfosString = data.JSONDescription()
+//
+//
+//                       guard let rawData = rawInfosString.data(using: .utf8)
+//                           else{
+//                               return
+//                       }
+//
+//
+//                       guard let jsonResponse = try? JSON(data : rawData)
+//                           else{
+//                               return
+//                       }
+//
+//                      let rawInfo = jsonResponse.arrayValue
+//
+//                       var eventArray:[EventInfo] = [EventInfo]()
+//                       for info in rawInfo{
+//                           let obj = EventInfo(info: info)
+//                           eventArray.append(obj)
+//                           weakSelf.newEventInfo?(eventArray)
+//                       }
+//        })
         
 
         //we don't need this

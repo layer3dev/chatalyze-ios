@@ -21,6 +21,8 @@ class SessionTicketCell : ExtendedTableCell {
     @IBOutlet var timeLbl:UILabel?
     @IBOutlet var startDateLbl:UILabel?
     @IBOutlet var title:UILabel?
+    @IBOutlet weak var btnChat: UIButton!
+    
     var delegate:MyTicketCellDelegate?
     var info:EventSlotInfo?
     let controller =  CameraTestController()
