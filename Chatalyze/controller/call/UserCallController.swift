@@ -151,6 +151,7 @@ class UserCallController: VideoCallController {
                 return
         }
         initiateSendbird()
+        loadbackgrndImg(eveninfo: eventInfo)
         loadDefaultImage(eventInfo: eventInfo)
         loadYoutubeVideo(eventInfo: eventInfo)
     }
@@ -412,12 +413,7 @@ class UserCallController: VideoCallController {
         }
     
     @IBAction func openChatController(_ sender: Any) {
-        guard let user = SignedUserInfo.sharedInstance else {
-            return
-        }
-        let channelUrl = "chatalyze_\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
-        goToChannel(groupURL: channelUrl)
-//        createSendbirdChatChannel()
+        createSendbirdChatChannel()
 //        Log.echo(key: TAG, text: "Chat view Controller tapped")
 //        Log.echo(key: self.TAG, text: "chatControllerShown called")
 //        do {
@@ -2254,14 +2250,34 @@ extension UserCallController {
                 return
             }
             let channelVC = SBUChannelViewController(channelUrl: groupURL.channelUrl)
+            channelVC.messageInputView.addButton?.removeFromSuperview()
+            channelVC.useRightBarButtonItem = false
+            channelVC.channelName = "Live Support"
             channelVC.loadChannel(channelUrl: groupURL.channelUrl)
         })
     }
     
-    func goToChannel(groupURL: String) {
-        let channelVC = SBUChannelViewController(channelUrl: groupURL)
-        let naviVC = UINavigationController(rootViewController: channelVC)
-        self.present(naviVC, animated: true)
+    func goToChannel(groupURL: SBDGroupChannel) {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        SBDMain.updateCurrentUserInfo(withNickname: user.firstName, profileUrl: user.profileImage) { error in
+            guard error == nil else {
+                return
+            }
+            groupURL.join(completionHandler: { (error) in
+                guard error == nil else {
+                    self.stopLoader()
+                    return
+                }
+                let channelVC = SBUChannelViewController(channelUrl: groupURL.channelUrl)
+                channelVC.messageInputView.addButton?.removeFromSuperview()
+                channelVC.useRightBarButtonItem = false
+                channelVC.channelName = "Live Support"
+                let naviVC = UINavigationController(rootViewController: channelVC)
+                self.present(naviVC, animated: true)
+            })
+        }
     }
     
     func initiateSendbird() {
@@ -2304,13 +2320,59 @@ extension UserCallController {
             }
         }
     }
+    
+    func createSendbirdChatChannel() {
+        guard let user = SignedUserInfo.sharedInstance else {
+            return
+        }
+        let userId = createUserId(room_id: room_Id ?? "", id: user.id ?? "")
+        let host = createUserId(room_id: room_Id ?? "", id: hostId ?? "")
+        let admin = createUserId(room_id: room_Id ?? "", id: adminId ?? "")
+        let channelUrl = "chatalyze_\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
+        let channelName = "\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
+        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
+        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        SBDMain.connect(withUserId: userId) { user, err in
+            guard err == nil else {
+                return
+            }
+            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
+                if error == nil {
+                    self.goToChannel(groupURL: groupChannel!)
+                } else {
+                    var users: [String] = []
+                    users.append(admin)
+                    users.append(host)
+                    users.append(userId)
+                    let params = SBDGroupChannelParams()
+                    params.isPublic = true
+                    params.isDistinct = false
+                    params.addUserIds(users)
+                    params.operatorUserIds = [userId]
+                    params.name = channelName
+                    params.channelUrl = channelUrl
+                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
+                        guard error == nil else {
+                            return
+                        }
+                        self.goToChannel(groupURL: groupChannel!)
+                    })
+                }
+            }
+        }
+    }
 }
 
 extension UserCallController: SBDChannelDelegate, SBDConnectionDelegate {
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         if let room = self.room_Id {
             if message.channelUrl.contains(room) {
-                self.goToChannel(groupURL: message.channelUrl)
+                SBDGroupChannel.getWithUrl(message.channelUrl) { groupChannel, error in
+                    guard error == nil else {
+                        return
+                    }
+                    self.goToChannel(groupURL: groupChannel!)
+                }
             }
         }
     }
