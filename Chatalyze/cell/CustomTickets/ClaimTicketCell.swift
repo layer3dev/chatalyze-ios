@@ -168,7 +168,7 @@ class ClaimTicketCell: ExtendedTableCell {
         
         if let date = DateParser.UTCStringToDate(info?.start ?? "") {
             
-            if date.timeIntervalSince(Date()) > 7200.0{
+            if date.timeIntervalSince(Date()) > 3600.0{
                 disableClaimBtn()
               
                 return self.slotInfoBeforeCheckIn(withStartTime: startTime ?? "", endTime: endTime ?? "")
