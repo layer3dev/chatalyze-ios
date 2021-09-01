@@ -168,7 +168,7 @@ class ClaimTicketCell: ExtendedTableCell {
         
         if let date = DateParser.UTCStringToDate(info?.start ?? "") {
             
-            if date.timeIntervalSince(Date()) > 7200.0{
+            if date.timeIntervalSince(Date()) > 3600.0{
                 disableClaimBtn()
               
                 return self.slotInfoBeforeCheckIn(withStartTime: startTime ?? "", endTime: endTime ?? "")
@@ -192,7 +192,7 @@ class ClaimTicketCell: ExtendedTableCell {
 
         let eventStartTimeinfo = "\(formattedStartTime ?? "" )" + (" and".localized() ?? "") + " \(formattedEndTime ?? "")" + " \(timezone ?? "")"
         
-        let text3 = " Upon check in, you will receive a specific time between ".localized() ?? "" + "\(eventStartTimeinfo)" + (" for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time.".localized() ?? "")
+        let text3 = (" Upon check in, you will receive a specific time between ".localized() ?? "") + "\(eventStartTimeinfo)" + (" for your meet and greet. \n\n To check in, visit this page during your check-in time and follow the prompt that will become visible only during this time.".localized() ?? "")
         
         var part2 = NSAttributedString(string: text)
          part2 =  text.toAttributedString(font: AppThemeConfig.boldFont, size: 14, color: .black, isUnderLine: false)
@@ -238,7 +238,7 @@ class ClaimTicketCell: ExtendedTableCell {
             return
         }
         let calender = Calendar.current
-        let newDate = calender.date(byAdding: .minute, value: -120, to: checkInDate)
+        let newDate = calender.date(byAdding: .minute, value: -60, to: checkInDate)
         
         guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: timeFortmate ?? "") else{
             return

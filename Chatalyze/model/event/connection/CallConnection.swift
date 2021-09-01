@@ -341,6 +341,7 @@ extension CallConnection{
             
             builder.audioTracks = [audioTrack]
             builder.videoTracks = [videoTrack]
+            builder.region = "sg1"
             
 //            // Use the preferred audio codec
 //            if let preferredAudioCodec = Settings.shared.audioCodec {
