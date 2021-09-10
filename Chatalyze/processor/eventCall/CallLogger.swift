@@ -40,13 +40,13 @@ class CallLogger : NSObject {
         meta["type"] = "system_info"
         
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = "system_info"
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
     
         emit(info: info)
     }
@@ -83,13 +83,13 @@ class CallLogger : NSObject {
         meta["callbookingId"] = slotId
         meta["stats"] = statsInfo
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = targetUserId
         info["log_type"] = "ice_logs"
-        info["connection_state"] = state
-        info["meta"] = meta
+        info["connection_state"] = "\(state)"
+        info["meta"] = "\(meta)"
         
         emit(info: info)
     }
@@ -106,13 +106,13 @@ class CallLogger : NSObject {
         meta["type"] = type
         meta["peer_infos"] = rawInfo.arrayObject
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = type
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         
         emit(info: info)
     }
@@ -125,13 +125,13 @@ class CallLogger : NSObject {
         speedInfo["minSpeed"] = speed
         speedInfo["avgSpeed"] = speed
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "speed_logs"
-        info["speed"] = speed
-        info["meta"] = speedInfo
+        info["speed"] = "\(speed ?? 0)"
+        info["meta"] = "\(speedInfo)"
         
         emit(info: info)
     }
@@ -142,12 +142,12 @@ class CallLogger : NSObject {
         speedInfo["minSpeed"] = speed
         speedInfo["avgSpeed"] = speed
         
-        var info = [String : Any]()
+        var info = [String : String]()
        
         info["userId"] = userId
         info["log_type"] = "speed_logs_echo"
-        info["speed"] = speed
-        info["meta"] = speedInfo
+        info["speed"] = "\(speed ?? 0)"
+        info["meta"] = "\(speedInfo)"
         
         emit(info: info)
     }
@@ -160,13 +160,13 @@ class CallLogger : NSObject {
         meta["callbookingId"] = sessionId
         
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = type
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         
         emit(info: info)
     }
@@ -180,13 +180,13 @@ class CallLogger : NSObject {
         meta["callbookingId"] = sessionId
         
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = type
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         
         emit(info: info)
     }
@@ -221,13 +221,13 @@ class CallLogger : NSObject {
         
         
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = type
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         
         emit(info: info)
     }
@@ -239,13 +239,13 @@ class CallLogger : NSObject {
         meta["type"] = type
         meta["user_connection_state"] = "connected"
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = userId
         info["log_type"] = "call_logs"
         info["type"] = type
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         
         emit(info: info)
         
@@ -262,12 +262,12 @@ class CallLogger : NSObject {
        
         Log.echo(key : TAG, text : "logVideoResolution")
         
-        var params = [String : Any]()
-        params["chatId"] = slotId
+        var params = [String : String]()
+        params["chatId"] = "\(slotId)"
         params["sessionId"] = sessionId
         
-        params["width"] = size.width
-        params["height"] = size.height
+        params["width"] = "\(size.width)"
+        params["height"] = "\(size.height)"
         params["log_type"] = "videoResolution"
         
         
@@ -278,11 +278,11 @@ class CallLogger : NSObject {
        
         Log.echo(key : TAG, text : "logVideoResolution")
         
-        var params = [String : Any]()
-        params["sessionId"] = sessionId
+        var params = [String : String]()
+        params["sessionId"] = "\(sessionId)"
         
-        params["width"] = size.width
-        params["height"] = size.height
+        params["width"] = "\(size.width)"
+        params["height"] = "\(size.height)"
         params["log_type"] = "videoResolution"
         
         
@@ -296,13 +296,13 @@ class CallLogger : NSObject {
         meta["date"] = "\(Date())"
         meta["timerStartsAt"] = timerStartsAt
         
-        var info = [String : Any]()
+        var info = [String : String]()
         info["callbookingId"] = sessionId
         info["userId"] = userId
         info["targetUserId"] = targetUserId
         info["log_type"] = "call_logs"
         info["type"] = "action_info"
-        info["meta"] = meta
+        info["meta"] = "\(meta)"
         Log.echo(key: "VijaySelfieTimerAck", text: "\(info)")
         emit(info: info)
     }
@@ -324,9 +324,12 @@ class CallLogger : NSObject {
         }
     }
     
-    private func emit(info : [String : Any]){
+    private func emit(info : [String : String]){
         Log.echo(key: "json dict", text: info.JSONDescription())
-        userSocket?.socket?.emit("log", info)
+//        userSocket?.socket?.emit("log", info)
+        userSocket?.pubnub.publish(channel: "log", message: info, completion: { result in
+            print(result)
+        })
     }
 }
 
@@ -363,7 +366,7 @@ extension CallLogger{
     
     func trackLogs(action:String,metaInfo:[String:Any]){
         
-        var mainInfo = [String:Any]()
+        var mainInfo = [String:String]()
         var metaData = [String:Any]()
         metaData["date"] = "\(Date())"
         metaData["action"] = action
@@ -379,7 +382,7 @@ extension CallLogger{
         mainInfo["targetUserId"] = targetUserId
         mainInfo["log_type"] = "call_logs"
         mainInfo["type"] = "action_info"
-        mainInfo["meta"] = metaData
+        mainInfo["meta"] = "\(metaData)"
         
         print("Complete data in trackLogs is \(mainInfo)")
         emit(info: mainInfo)

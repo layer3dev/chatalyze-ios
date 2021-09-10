@@ -221,45 +221,16 @@ extension ReviewController {
     }
 
     func initiateSendbird() {
-        guard let user = SignedUserInfo.sharedInstance else {
+        guard let users = SignedUserInfo.sharedInstance else {
             return
         }
-        let userId = createUserId(room_id: eventInfo?.room_id ?? "", id: user.id ?? "")
-        let host = createUserId(room_id: eventInfo?.room_id ?? "", id: self.eventInfo?.user?.id ?? "")
-        let admin = createUserId(room_id: eventInfo?.room_id ?? "", id: "\(self.eventInfo?.user?.organization?.adminId ?? 0)")
-        let channelUrl = "chatalyze_\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
-        let channelName = "\(self.eventInfo?.room_id ?? "")_\(self.eventInfo?.user?.id ?? "")_\(user.id ?? "")"
-        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
-        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        let userId = self.createUserId(room_id: self.eventInfo?.room_id ?? "", id: users.id ?? "")
         SBDMain.connect(withUserId: userId) { user, err in
             guard err == nil else {
                 return
             }
-            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
-                if error == nil {
-                    self.initiateChannel(groupURL: groupChannel!)
-                } else {
-                    var users: [String] = []
-                    users.append(admin)
-                    users.append(host)
-                    users.append(userId)
-                    let params = SBDGroupChannelParams()
-                    params.isPublic = true
-                    params.isDistinct = false
-                    params.addUserIds(users)
-                    params.operatorUserIds = [userId]
-                    params.name = channelName
-                    params.channelUrl = channelUrl
-                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
-                        guard error == nil else {
-                            return
-                        }
-                        let channelUrl = groupChannel?.channelUrl
-                        print(channelUrl)
-                        self.initiateChannel(groupURL: groupChannel!)
-                    })
-                }
-            }
+            SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:users.firstName ?? "", profileUrl:users.profileImage ?? "")
+            SBDMain.add(self as SBDChannelDelegate, identifier: userId)
         }
     }
     
