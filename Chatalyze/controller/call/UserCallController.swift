@@ -2281,43 +2281,16 @@ extension UserCallController {
     }
     
     func initiateSendbird() {
-        guard let user = SignedUserInfo.sharedInstance else {
+        guard let users = SignedUserInfo.sharedInstance else {
             return
         }
-        let userId = createUserId(room_id: room_Id ?? "", id: user.id ?? "")
-        let host = createUserId(room_id: room_Id ?? "", id: hostId ?? "")
-        let admin = createUserId(room_id: room_Id ?? "", id: adminId ?? "")
-        let channelUrl = "chatalyze_\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
-        let channelName = "\(self.room_Id ?? "")_\(hostId ?? "")_\(user.id ?? "")"
-        SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:user.firstName ?? "", profileUrl:user.profileImage ?? "")
-        SBDMain.add(self as SBDChannelDelegate, identifier: userId)
+        let userId = createUserId(room_id: room_Id ?? "", id: users.id ?? "")
         SBDMain.connect(withUserId: userId) { user, err in
             guard err == nil else {
                 return
             }
-            SBDGroupChannel.getWithUrl(channelUrl) { groupChannel, error in
-                if error == nil {
-                    self.initiateChannel(groupURL: groupChannel!)
-                } else {
-                    var users: [String] = []
-                    users.append(admin)
-                    users.append(host)
-                    users.append(userId)
-                    let params = SBDGroupChannelParams()
-                    params.isPublic = true
-                    params.isDistinct = false
-                    params.addUserIds(users)
-                    params.operatorUserIds = [userId]
-                    params.name = channelName
-                    params.channelUrl = channelUrl
-                    SBDGroupChannel.createChannel(with: params, completionHandler: { (groupChannel, error) in
-                        guard error == nil else {
-                            return
-                        }
-                        self.initiateChannel(groupURL: groupChannel!)
-                    })
-                }
-            }
+            SBUGlobals.CurrentUser = SBUUser(userId: userId, nickname:users.firstName ?? "", profileUrl:users.profileImage ?? "")
+            SBDMain.add(self as SBDChannelDelegate, identifier: userId)
         }
     }
     
