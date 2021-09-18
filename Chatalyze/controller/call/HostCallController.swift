@@ -667,14 +667,14 @@ class HostCallController: VideoCallController {
                 return
             }
             let rawInfosString = data.JSONDescription()
-            guard let data = rawInfosString.data(using: .utf8)
-                else{
-                    return
-            }
+            
             Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
             var rawInfos:[JSON]?
             do{
-
+                guard let data = rawInfosString.data(using: .utf8)
+                    else{
+                        return
+                }
                 rawInfos = try JSON(data : data).arrayValue
             }catch{
 
@@ -925,9 +925,9 @@ class HostCallController: VideoCallController {
         }
         
         if(!isSocketConnected){
-            setStatusMessage(type: .socketDisconnected)
-            photoBothView?.hidePhotoboothcanvas()
-            return
+//            setStatusMessage(type: .socketDisconnected)
+//            photoBothView?.hidePhotoboothcanvas()
+//            return
         }
         
         guard let activeUser = activeSlot.user

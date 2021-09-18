@@ -7,6 +7,7 @@ import CRToast
 import TwilioVideo
 import SendBirdUIKit
 
+import PubNub
 //todo:
 //refresh procedure is being written redundantly
 class VideoCallController : InterfaceExtendedController {
@@ -539,10 +540,56 @@ class VideoCallController : InterfaceExtendedController {
     
     
     private func connectToRoom(info : EventScheduleInfo){
+        //<##>
+        //socketClient?.connect(roomId: (callType == "green" ? info.greenRoomId : info.roomId))
+//        socketClient?.socketDisconnect = {
+//            self.trackWebSocketDisconnected()
+//        }
         
-        socketClient?.connect(roomId: (callType == "green" ? info.greenRoomId : info.roomId))
-        socketClient?.socketDisconnect = {
-            self.trackWebSocketDisconnected()
+       self.registerForConnectRoom(roomId: info.room_id ?? "")
+        
+//
+        
+    }
+    
+    func registerForConnectRoom(roomId: String) {
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:callroom:" + roomId], withPresence: true)
+       let listener = SubscriptionListener()
+        
+       listener.didReceiveSubscription = { event in
+        self.hereNow(roomId: roomId)
+         switch event {
+         case let .messageReceived(message):
+           print("heuuu \(message)")
+         
+           case let .connectionStatusChanged(status):
+             print("Status Received: \(status)")
+           case let .presenceChanged(presence):
+             print("Presence Received: \(presence)")
+           case let .subscribeError(error):
+             print("Subscription Error \(error)")
+           default:
+             break
+            }
+       }
+        
+        UserSocket.sharedInstance?.pubnub.add(listener)
+    }
+    
+    func hereNow(roomId: String) {
+        UserSocket.sharedInstance?.pubnub.hereNow(on: ["ch:callroom:" + roomId], includeState: true) { result in
+            
+          switch result {
+          case let .success(presenceByChannel):
+            print("Total channels \(presenceByChannel.totalChannels)")
+            print("Total occupancy across all channels \(presenceByChannel.totalOccupancy)")
+            if let myChannelPresence = presenceByChannel["ch:callroom:" + roomId] {
+              print("The occupancy for `my_channel` is \(myChannelPresence.occupancy)")
+              print("The list of occupants for `my_channel` are \(myChannelPresence.occupants)")
+            }
+          case let .failure(error):
+            print("Failed hereNow Response: \(error.localizedDescription)")
+          }
         }
     }
     
@@ -676,7 +723,9 @@ class VideoCallController : InterfaceExtendedController {
         return true
     }
     
+    
     //This method tells us, if target user is online and present in call room or not
+    // currently not using
     func isOnline(hashId : String)->Bool{
         for peerInfo in peerInfos {
             if(peerInfo.name == hashId && peerInfo.isBroadcasting){
@@ -685,6 +734,8 @@ class VideoCallController : InterfaceExtendedController {
         }
         return false
     }
+    
+    //<##>
     
     //same as isOnline but won't check for isBroadcasting
     func isAvailableInRoom(hashId : String)->Bool{
@@ -742,7 +793,8 @@ class VideoCallController : InterfaceExtendedController {
         
     
         if(!isReady){
-            return
+            Log.echo(key: TAG, text: "commenting return at 787")
+            //return
         }
         interval()
     }
