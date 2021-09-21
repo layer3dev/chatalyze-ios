@@ -35,16 +35,23 @@ class UserSocket {
     
     func initialization(){
         initializePubnub()
-        initializeVariable()
+        //initializeVariable()
         registerForAppState()
         initializeSocketConnection()
     }
     
     func initializePubnub(){
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else{
+                Log.echo(key: "user_socket", text:"oh my God I am going back")
+                return
+        }
         let config = PubNubConfiguration(
             publishKey: AppConnectionConfig.pubnubPublishKey,
-            subscribeKey: AppConnectionConfig.pubnubSubscribeKey
+            subscribeKey: AppConnectionConfig.pubnubSubscribeKey,
+            uuid: userInfo.id ?? ""
         )
+        print("pubnub configured \(AppConnectionConfig.pubnubPublishKey) \(AppConnectionConfig.pubnubSubscribeKey)")
         pubnub = PubNub(configuration: config)
     }
     
@@ -122,6 +129,8 @@ class UserSocket {
 //SOCKET CONNECTION
 extension UserSocket{
     func initializeSocketConnection(){
+        
+        // socket methods are no more needed needs to be removed as everything is handled by pubnub now
         
 //        socket?.on(clientEvent: .connect, callback: { (data, ack) in
           
@@ -202,7 +211,7 @@ extension UserSocket{
         
         Log.echo(key: "user_socket", text:"connect request in initializeSocketConnection")
         
-        socket?.connect()
+        //socket?.connect()
     }
 
     

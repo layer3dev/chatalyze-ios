@@ -16,6 +16,7 @@ class VideoCallController : InterfaceExtendedController {
     
     var callLogger : CallLogger?
     var callType = ""
+    var isUserOnlineFlag = false
     
     //added this flag to prevent issue with thread race caused because of thread lock done by Twilio Disconnect - causing timer thread to choke and execute even after the invalidate process because it was already triggered but choked in queue.
     var isProcessTerminated = false
@@ -546,46 +547,54 @@ class VideoCallController : InterfaceExtendedController {
 //            self.trackWebSocketDisconnected()
 //        }
         
-       self.registerForConnectRoom(roomId: info.room_id ?? "")
-        
-//
+       // joining room with pubnub
+       self.registerForJoinRoom(roomId: info.room_id ?? "")
         
     }
     
-    func registerForConnectRoom(roomId: String) {
+    
+    func registerForJoinRoom(roomId: String) {
         UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:callroom:" + roomId], withPresence: true)
-       let listener = SubscriptionListener()
+        let listener = SubscriptionListener()
+        listener.didReceiveSubscription = { event in
         
-       listener.didReceiveSubscription = { event in
-        self.hereNow(roomId: roomId)
+         
          switch event {
          case let .messageReceived(message):
-           print("heuuu \(message)")
-         
-           case let .connectionStatusChanged(status):
-             print("Status Received: \(status)")
-           case let .presenceChanged(presence):
-             print("Presence Received: \(presence)")
-           case let .subscribeError(error):
-             print("Subscription Error \(error)")
-           default:
-             break
-            }
+           print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+//           guard let info = message.payload.rawValue as? [String : Any]
+//           else{
+//               return
+//           }
+           
+         case let .connectionStatusChanged(status):
+           print("Status Received: \(status)")
+         case let .presenceChanged(presence):
+           print("Presence Received: \(presence)")
+         case let .subscribeError(error):
+           print("Subscription Error \(error)")
+         default:
+           break
+         }
        }
         
         UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
-    func hereNow(roomId: String) {
-        UserSocket.sharedInstance?.pubnub.hereNow(on: ["ch:callroom:" + roomId], includeState: true) { result in
+    
+    // listening for if any user joining or leaving the room
+    func hereNow(completion: @escaping (_ data: [String])->()) {
+        UserSocket.sharedInstance?.pubnub.hereNow(on: ["ch:callroom:" + (room_Id ?? "")]) {  result in
             
           switch result {
           case let .success(presenceByChannel):
             print("Total channels \(presenceByChannel.totalChannels)")
             print("Total occupancy across all channels \(presenceByChannel.totalOccupancy)")
-            if let myChannelPresence = presenceByChannel["ch:callroom:" + roomId] {
+            if let myChannelPresence = presenceByChannel["ch:callroom:" + (self.room_Id ?? "")] {
+                let users = myChannelPresence.occupants // array of joined users as ids
+                completion(users)
               print("The occupancy for `my_channel` is \(myChannelPresence.occupancy)")
-              print("The list of occupants for `my_channel` are \(myChannelPresence.occupants)")
+                print("The list of occupants for `my_channel` are \(myChannelPresence.occupants)")
             }
           case let .failure(error):
             print("Failed hereNow Response: \(error.localizedDescription)")
@@ -737,14 +746,30 @@ class VideoCallController : InterfaceExtendedController {
     
     //<##>
     
+    
     //same as isOnline but won't check for isBroadcasting
-    func isAvailableInRoom(hashId : String)->Bool{
-        for peerInfo in peerInfos {
-            if(peerInfo.name == hashId){
-                return true
+//    func isAvailableInRoom(hashId : String)->Bool{
+//        for peerInfo in peerInfos {
+//            if(peerInfo.name == hashId){
+//                return true
+//            }
+//        }
+//        return false
+//    }
+    
+    
+    func isAvailableInRoom(targetUserId : String)->Bool{
+        
+        hereNow(completion: { usersIds in
+            if usersIds.contains(String(targetUserId)) {
+                self.isUserOnlineFlag = true
+                print("user is online \(targetUserId)")
+            } else {
+                print("user is offline \(targetUserId)")
+                self.isUserOnlineFlag = false
             }
-        }
-        return false
+        })
+        return self.isUserOnlineFlag
     }
     
     //isolated from eventInfo

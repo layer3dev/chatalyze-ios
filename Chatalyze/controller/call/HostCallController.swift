@@ -885,6 +885,19 @@ class HostCallController: VideoCallController {
                 return
         }
         
+        guard let activeUser = activeSlot.user
+            else{
+                setStatusMessage(type: .ideal)
+                return
+        }
+        
+        if(!isAvailableInRoom(targetUserId: activeUser.id ?? "") && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
+            setStatusMessage(type : .userDidNotJoin)
+            photoBothView?.hidePhotoboothcanvas()
+            resetCanvas()
+            return;
+        }
+        
         
         if(activeSlot.isLIVE && (currentTwillioRoom?.isStreaming ?? false)){
             Log.echo(key: "vijay", text: "checkforRecordingStatus 564")
@@ -924,24 +937,13 @@ class HostCallController: VideoCallController {
             return
         }
         
-        if(!isSocketConnected){
+//        if(!isSocketConnected){
 //            setStatusMessage(type: .socketDisconnected)
 //            photoBothView?.hidePhotoboothcanvas()
 //            return
-        }
+//        }
         
-        guard let activeUser = activeSlot.user
-            else{
-                setStatusMessage(type: .ideal)
-                return
-        }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
-            setStatusMessage(type : .userDidNotJoin)
-            photoBothView?.hidePhotoboothcanvas()
-            resetCanvas()
-            return;
-        }
         
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type: .preConnectedSuccess)

@@ -672,14 +672,14 @@ class GreenRoomCallController: VideoCallController {
                 return
             }
             let rawInfosString = data.JSONDescription()
-            guard let data = rawInfosString.data(using: .utf8)
-                else{
-                    return
-            }
+            
             Log.echo(key: "vijayRegisterForSignRequest", text: "notification ==> \(rawInfosString)")
             var rawInfos:[JSON]?
             do{
-
+                guard let data = rawInfosString.data(using: .utf8)
+                    else{
+                        return
+                }
                 rawInfos = try JSON(data : data).arrayValue
             }catch{
 
@@ -942,7 +942,7 @@ class GreenRoomCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(hashId: activeUser.hashedId) && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
+        if(!isAvailableInRoom(targetUserId: activeUser.id ?? "") && isSlotRunning && !(eventInfo.isCurrentSlotIsBreak)){
             setStatusMessage(type : .userDidNotJoin)
             photoBothView?.hidePhotoboothcanvas()
             resetCanvas()

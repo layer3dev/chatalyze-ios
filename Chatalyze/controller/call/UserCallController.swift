@@ -595,17 +595,17 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        if(!isSocketConnected){
-            Log.echo(key: "dhi", text: "webSocket is disconnected")
-            self.isConnectionDroppedInBtw = true
-            setStatusMessage(type: .socketDisconnected)
-            return
-        }else{
-            if isConnectionDroppedInBtw {
-                isConnectionDroppedInBtw = false
-                self.refreshScheduleInfo()
-            }
-        }
+//        if(!isSocketConnected){
+//            Log.echo(key: "dhi", text: "webSocket is disconnected")
+//            self.isConnectionDroppedInBtw = true
+//            setStatusMessage(type: .socketDisconnected)
+//            return
+//        }else{
+//            if isConnectionDroppedInBtw {
+//                isConnectionDroppedInBtw = false
+//                self.refreshScheduleInfo()
+//            }
+//        }
         
         
         //        if(!eventInfo.isPreconnectEligible){
@@ -634,13 +634,13 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        guard let hostId = hostHashId
+        guard let hostId = hostId //hostHashId
             else{
                 setStatusMessage(type: .ideal)
                 return
         }
         
-        if(!isAvailableInRoom(hashId: hostId)){
+        if(!isAvailableInRoom(targetUserId: hostId)){
             setStatusMessage(type : .userDidNotJoin)
             return
         }
@@ -796,6 +796,15 @@ class UserCallController: VideoCallController {
     @IBAction private func hangupCallAction(){
         
         processExitAction(code: .userAction)
+        unsubscribeHangUp()
+    }
+    
+    func unsubscribeHangUp() {
+        guard let userInfo = SignedUserInfo.sharedInstance
+            else {
+                return
+        }
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:hangup:" + (userInfo.id ?? "")], withPresence: true)
     }
     
     
